@@ -54,8 +54,14 @@ Im Pack ist das IC2-Rezept entfernt (`ic2recipes.Massfabricator=false`); stattde
 Fabricator** (`MatterFabricationRate=16666666`). Phase 6 sieht den IC2-Massefabrikator vor → später klären
 (IC2-Rezept trotzdem, oder GT Matter Fabricator nachbauen).
 
-## 4. Offen (später besprechen)
+## 4. Entscheidungen und offene Punkte
 
-1. Herstellungsweg der Materialien: GT-Maschinen 1:1 nachbauen oder vereinfachte Wege (z. B. Platten im Compressor).
+1. **Entschieden (Phase 3):** Herstellungsweg = GT-Maschinen 1:1 nachbauen (Phase 6b). Ohne GT-Erze erreichbar:
+   Siliziumzelle aus 16 Sand, 8 Tonstaub oder 8 Feuersteinstaub (GT-Elektrolyseur, z. B. Sand: 1000 Ticks, 25 EU/t,
+   2 leere Zellen → Siliziumzelle + Luftzelle); Aluminiumstaub aus 8 Tonstaub (Elektrolyseur → u. a. 2 Aluminiumstaub,
+   2 Siliziumzellen); Hochofen: 2 Siliziumzellen → Siliziumplatte (1000 Ticks, 128 EU/t, 1500 K), Aluminiumstaub →
+   Aluminiumbarren (200 Ticks, 128 EU/t, 1700 K); Plattenbieger → Platte; Assembler: Generator + 4 Aluminiumplatten →
+   2 Wassermühlen, Generator + 4 Kohleplatten → Windmühle (je 6400 Ticks, 8 EU/t). GT-Maschinenrezepte brauchen u. a.
+   IC2-Elektrolyseur, Magnetisierer, Induktionsofen, fortg. Maschinenblock, Kupfernickel-Heizspulen, Förderband-Modul.
 2. GT-Erze (Bauxit, Sheldonit, Rubin, Iridium …) generieren?
 3. Massefabrikator vs. GT Matter Fabricator.

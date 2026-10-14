@@ -61,10 +61,11 @@ MJ und EU bleiben getrennte Systeme; Verbindung nur über Electrical Engine (EU�
 |---|---|---|
 | 1 | Dekompilieren, Spezifikation, Balancing-Vorschlag, CLAUDE.md | **erledigt – wartet auf OK** |
 | 2 | Mod-Grundgerüst, EU-System, Kabel, gemeinsames Multiblock-System | **erledigt** (abgenommen) |
-| 3 | IC2 Early Game: Generator, Geothermal, Solarpanel, Wassermühle, Windmühle, Batterien, BatBox, Macerator, Electric Furnace, Extractor, Compressor, Recycler | offen |
+| 3 | IC2 Early Game: Generator, Geothermal, Solarpanel, Wassermühle, Windmühle, Batterien (RE, SU, Energie-/Lapotronkristall), BatBox, Macerator, Electric Furnace, Extractor, Compressor, Recycler, Upgrades **+ alle Vorprodukte** (Materialien, Eisenofen, Gummibäume, Zinnerz, Baumzapfer, Schraubenschlüssel, Zellen …). Solar/Wasser/Wind ohne Rezept bis Phase 6b | **in Arbeit** |
 | 4 | BuildCraft: MJ-System, Engines, Landmarks, Quarry, Pumpe, Tank, Raffinerie, Mining Well | offen |
 | 5 | Energieumwandler: Electrical Engine (inkl. Thermionic Fabricator, Carpenter, Platinen, Röhren), Power Converters | offen |
 | 6 | IC2 Mid/Late Game: MFE, MFSU, Trafos, Mass Fabricator, Werkzeuge, Nano-/Quantenrüstung, Solar Arrays als Multiblocks | offen |
+| 6b | GregTech-Maschinen 1:1 (Elektrolyseur, Hochofen-Multiblock + Heizspulen, Plattenbieger, Assembler, ggf. weitere) und GT-Materialien; danach Rezepte für Solarpanel, Wasser-/Windmühle u. a. [GT⚠] | offen |
 | 7 | Reaktor | offen |
 | 8 | Neue Kraftwerke: Kohlekraftwerk mit Koksofen, Wasserturbine | offen |
 | 9 | Optional: BuildCraft-Rohre | offen |
@@ -76,8 +77,8 @@ Personal-Blöcke, Luminator, Sprengstoffe, Bauschaum, Kaffee/Fass.
 
 ## Offene Entscheidungen (Stand Phase 1)
 
-1. Herstellungsweg der GT-Materialien (GT-Maschinen wie Plattenbieger, Hochofen, Implosionskompressor, Assembler,
-   Canning Machine nachbauen oder einfachere Wege) und GT-Erze – siehe `docs/spec/12-gregtech-materialien.md`.
+1. GT-Erze (Bauxit, Sheldonit, Rubin …) – für Silizium/Aluminium nicht nötig (Elektrolyse von Sand/Tonstaub). Der
+   Herstellungsweg selbst ist entschieden (s. u.).
 2. Massefabrikator (im Pack entfernt, dort GT Matter Fabricator).
 3. Balancing-Vorschlag freigeben (`docs/balancing.md` §5).
 4. GT-Nicht-Rezept-Änderungen (Upgrade-Stack 4, Schrottbox-Drops) übernehmen?
@@ -92,3 +93,8 @@ den Umfang; Werte/Rezepte aus `reference/decompiled/gregtech/`.
 Entschieden: externe Quellen erlaubt (Compact Solars wird nachgeladen); Kupfer = Vanilla-Kupfer mit IC2-Häufigkeit,
 eigenes Zinnerz; BuildCraft Pumpe/Tank/Raffinerie und Forestry Thermionic Fabricator/Carpenter sind im Umfang
 (Phasenzuordnung: Pumpe/Tank/Raffinerie → Phase 4, Fabricator/Carpenter → Phase 5).
+
+Entschieden (Phase 3): GT-Materialien werden über **1:1 nachgebaute GT-Maschinen** hergestellt (eigene Phase 6b);
+bis dahin haben die betroffenen Blöcke (Solarpanel, Wasser-/Windmühle …) kein Rezept. Rohmetall (Eisen/Gold/Kupfer)
+→ Macerator → 2 Staub wie der Erzblock. Phase 3 enthält alle Vorprodukte ihrer Rezepte; Upgrades (Logik + Items)
+ebenfalls, Rezept des Transformer-Upgrades erst mit dem MV-Trafo (Phase 6).
