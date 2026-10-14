@@ -32,6 +32,11 @@ Status: *geplant* (aus Phase 1 abgeleitet, noch nicht umgesetzt), *entschieden* 
 | Electron Tubes / Platinen / Lötkolben | Thermionic Fabricator, Carpenter | Maschinen werden 1:1 übernommen, keine Abweichung | im Umfang | **entschieden** |
 | GregTech-Rezepte mit GT-Material | siehe `docs/spec/08-rezepte.md` §16 | wie im Pack (finale GT-Rezepte); GT-Materialien kommen in den Umfang, Herstellungsweg offen (`12-gregtech-materialien.md`) | Nutzerentscheidung „wie früher“ | **entschieden** (Herstellungsweg offen) |
 | Silberbarren | aus Fremdmods / GregTech | GT-Silberbarren kommt mit den GT-Materialien (Silberstaub → Ofen → Silberbarren wie IC2-Original) | GT-Materialien im Umfang | geplant (abhängig vom GT-Herstellungsweg) |
+| Kabel-Block | ein Block `blockCable`, Typ = Meta, Farbe/Schaum im Tile Entity | ein Block je Kabeltyp (13); Blockstate = 6 Verbindungen + Schaum (`none/wet/hard`); Farbe, Schaumfarbe, Detektor-/Splitter-Zustand im BlockEntity; Isolieren/Abisolieren = Blocktausch mit Übernahme von Farbe/Schaum | Metadaten gibt es nicht mehr | **umgesetzt** |
+| Kabel-Darstellung | `RenderBlockCable` (ISBRH) mit Texturindex `Typ·16 + Farbe` | dynamisches Modell (Geometry-Loader `craft:cable`), Texturen aus dem IC2-Spritesheet geschnitten; Endflächen der Arme werden immer gezeichnet (IC2: nur bei dünnerem Nachbarkabel) – nur optisch | ISBRH existiert nicht | **umgesetzt** |
+| Kabel-Kollisionsbox | eine AABB über Kern + verbundene Seiten | identisch übernommen (keine Vereinigung der Arme) | – | **umgesetzt** |
+| Splitter-Kabel „bekommt Redstone“ | `isBlockGettingPowered` | `Level#getDirectSignalTo(pos) > 0` (direkte/starke Signale) | API | **umgesetzt** |
+| Anmeldung am EU-Netz | `EnergyTileLoadEvent` im ersten Tile-Tick | Anmeldung in `BlockEntity#onLoad` (NeoForge ruft es in der BlockEntity-Tick-Schleife auf), Abmeldung in `setRemoved`/`onChunkUnloaded` | API | **umgesetzt** |
 | Compact Solars | Jar fehlt im Pack-Download | Quellcode v4.0 (GitHub, MC 1.4.7) als Referenz, Werte verifiziert | Quelle fehlte | **entschieden** |
 
 ## Bewusst (Energiebalancing)

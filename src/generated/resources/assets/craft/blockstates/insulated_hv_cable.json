@@ -1,0 +1,9 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "craft:block/cable/insulated_hv_cable"
+      }
+    }
+  ]
+}

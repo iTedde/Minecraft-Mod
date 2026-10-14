@@ -1,0 +1,9 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "craft:block/cable/glass_fibre_cable"
+      }
+    }
+  ]
+}

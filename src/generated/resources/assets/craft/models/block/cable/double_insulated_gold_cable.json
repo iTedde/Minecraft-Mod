@@ -1,0 +1,7 @@
+{
+  "cable": "double_insulated_gold_cable",
+  "loader": "craft:cable",
+  "textures": {
+    "particle": "craft:block/cable/double_insulated_gold_cable_0"
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "cable": "tin_cable",
+  "loader": "craft:cable",
+  "textures": {
+    "particle": "craft:block/cable/tin_cable_0"
+  }
+}

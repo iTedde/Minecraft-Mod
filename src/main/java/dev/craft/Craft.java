@@ -1,6 +1,8 @@
 package dev.craft;
 
 import com.mojang.logging.LogUtils;
+import dev.craft.core.CraftCreativeTabs;
+import dev.craft.ic2.Ic2;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
@@ -12,5 +14,7 @@ public final class Craft {
     public static final Logger LOGGER = LogUtils.getLogger();
 
     public Craft(IEventBus modBus, ModContainer container) {
+        Ic2.init(modBus);
+        CraftCreativeTabs.TABS.register(modBus);
     }
 }

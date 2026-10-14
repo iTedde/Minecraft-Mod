@@ -1,0 +1,7 @@
+{
+  "cable": "detector_cable",
+  "loader": "craft:cable",
+  "textures": {
+    "particle": "craft:block/cable/detector_cable_0"
+  }
+}

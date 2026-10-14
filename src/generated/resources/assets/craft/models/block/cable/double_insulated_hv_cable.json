@@ -1,0 +1,7 @@
+{
+  "cable": "double_insulated_hv_cable",
+  "loader": "craft:cable",
+  "textures": {
+    "particle": "craft:block/cable/double_insulated_hv_cable_0"
+  }
+}

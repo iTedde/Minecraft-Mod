@@ -76,7 +76,7 @@ Die Verteilung ist also **umgekehrt proportional zum Pfadverlust**: nähere Senk
 **pro Paket** abgezogen (abgerundet), nicht pro EU.
 
 Beispiel: Generator (10 EU/p) → 5 Blöcke Zinnkabel (5 × 0,025 = 0,125) → Maschine: loss = 0,125 → floor = 0 → 10 EU kommen an.
-10 Blöcke Kupfer (10 × 0,2 = 2,0) → 10 − 2 = 8 EU kommen an.
+10 Blöcke isoliertes Kupfer: Die Verluste werden als `double` aufsummiert (0,2 zehnmal = 1,9999999999999998) → floor = 1 → **9 EU** kommen an (Originalverhalten, so übernommen); erst ab 11 Blöcken (2,2) gehen 2 EU verloren.
 
 ### Nachbearbeitung je versorgtem Pfad (pro Paket)
 
@@ -123,7 +123,7 @@ Explosionsresistenz 6,0, abbaubar mit allem; Drop = Kabel-Item gleichen Typs. Ke
 
 ### Farben
 
-- Feld `color` (0 = keine Farbe, 1–16 = Farben über den Farbroller/Painter).
+- Feld `color` (0 = keine Farbe, 1–15 = Farben rot … weiß über den Farbroller/Painter, Farbwert = Farbstoff-Meta). **Originalfehler:** Der schwarze Farbroller hat Farbwert 0 und entfernt damit die Farbe (schwarz lackierte Kabel verbinden sich mit allen).
 - Zwei Kabel verbinden sich nur, wenn mindestens eines Farbe 0 hat oder beide dieselbe Farbe haben.
 - Nicht färbbar (Typen 1, 2, 5, 10, 11, 12) – außer im geschäumten Zustand, dann wird die Schaumfarbe gesetzt.
 

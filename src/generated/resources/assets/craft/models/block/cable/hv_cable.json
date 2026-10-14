@@ -1,0 +1,7 @@
+{
+  "cable": "hv_cable",
+  "loader": "craft:cable",
+  "textures": {
+    "particle": "craft:block/cable/hv_cable_0"
+  }
+}

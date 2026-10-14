@@ -1,0 +1,7 @@
+{
+  "cable": "insulated_copper_cable",
+  "loader": "craft:cable",
+  "textures": {
+    "particle": "craft:block/cable/insulated_copper_cable_0"
+  }
+}

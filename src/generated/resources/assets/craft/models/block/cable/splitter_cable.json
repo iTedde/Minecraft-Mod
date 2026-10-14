@@ -1,0 +1,7 @@
+{
+  "cable": "splitter_cable",
+  "loader": "craft:cable",
+  "textures": {
+    "particle": "craft:block/cable/splitter_cable_0"
+  }
+}

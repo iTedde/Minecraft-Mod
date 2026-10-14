@@ -1,0 +1,18 @@
+{
+  "block.craft.copper_cable": "Unisoliertes Kupferkabel",
+  "block.craft.detector_cable": "EU-Detektorkabel",
+  "block.craft.double_insulated_gold_cable": "2x isoliertes Goldkabel",
+  "block.craft.double_insulated_hv_cable": "2x isoliertes HV-Kabel",
+  "block.craft.glass_fibre_cable": "Glasfaserkabel",
+  "block.craft.gold_cable": "Goldkabel",
+  "block.craft.hv_cable": "HV-Kabel",
+  "block.craft.insulated_copper_cable": "Kupferkabel",
+  "block.craft.insulated_gold_cable": "Isoliertes Goldkabel",
+  "block.craft.insulated_hv_cable": "Isoliertes HV-Kabel",
+  "block.craft.quadruple_insulated_hv_cable": "4x isoliertes HV-Kabel",
+  "block.craft.splitter_cable": "EU-Splitterkabel",
+  "block.craft.tin_cable": "Ultra-Low-Current-Kabel",
+  "death.attack.craft.electricity": "%1$s erlitt einen Stromschlag",
+  "death.attack.craft.electricity.player": "%1$s erlitt im Kampf mit %2$s einen Stromschlag",
+  "itemGroup.craft.ic2": "IndustrialCraft 2"
+}

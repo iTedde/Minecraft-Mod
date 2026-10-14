@@ -1,0 +1,7 @@
+{
+  "cable": "glass_fibre_cable",
+  "loader": "craft:cable",
+  "textures": {
+    "particle": "craft:block/cable/glass_fibre_cable_0"
+  }
+}
