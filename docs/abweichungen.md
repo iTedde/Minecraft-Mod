@@ -23,7 +23,8 @@ Status: *geplant* (aus Phase 1 abgeleitet, noch nicht umgesetzt), *entschieden* 
 | Energie-Capabilities | eigenes EnergyNet (IC2), PowerProvider (BC) | eigenes EU-Netz und eigenes MJ-System bleiben; **keine** Anbindung an NeoForge-FE (FE kennt keine Spannung) | 1:1-Mechanik | geplant |
 | Chunkloading der Quarry | Forge-Ticket, max. 25 Chunks (Pack) | NeoForge-Ticket-Controller; Limit 25 Chunks beibehalten | API | geplant |
 | Tasten (Modus, Boost, Alt, Sprung) | IC2-Keybinds über Packets | NeoForge KeyMappings + Payloads; Belegung wie Original (Modus = M, Boost = Strg …) | API | geplant |
-| Explosionen | eigener `ExplosionIC2`-Algorithmus | 1:1 nachgebaut, aber über 1.21-Blockzerstörung/Drop-API (LootParams mit Explosion) | API | geplant |
+| Explosionen | eigener `ExplosionIC2`-Algorithmus | 1:1 nachgebaut (`core.explosion.Ic2Explosion`); Drops über `Block.getDrops` ohne Explosions-Verfall (wie `getBlockDropped`), Höhengrenzen = Bauhöhe der Dimension; Whitelist als Block-Tag `craft:explosion_whitelist` (Grundgestein); Drop-Stapel zusätzlich ≤ max. Stapelgröße | API | **umgesetzt** |
+| Von IC2 geänderte Vanilla-Resistenzen | global per `setResistance` (Obsidian/Zaubertisch/Endertruhe/Amboss 36, Wasser/stille Lava 18) | gelten nur in IC2-Explosionen; Vanilla-TNT/Creeper unverändert (konnten Obsidian auch mit 36 nicht sprengen, Wasser-Unterschied bei Vanilla-Explosionen entfällt) | Vanilla-Blockwerte nicht ohne Mixin änderbar | **umgesetzt** |
 | Vanilla-Brennwerte | 1.4.7-Tabelle | 1.21-Tabelle für Items, die es 1.4.7 nicht gab; für vorhandene Items 1.21-Werte (identisch bis auf Details, z. B. Holzwerkzeuge) | neue Brennstoffe | geplant |
 | Rüstungssystem | Forge `ISpecialArmor` (Absorptionsanteil, ×25-Einheiten) | Schadens-Event (`LivingIncomingDamageEvent`) bildet Absorption und EU-Kosten nach | `ISpecialArmor` gibt es nicht mehr | geplant |
 | Trank „Radioaktivität“ | Potion-ID 24 | registrierter MobEffect | Registry | geplant |

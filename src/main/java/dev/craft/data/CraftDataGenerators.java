@@ -39,6 +39,7 @@ public final class CraftDataGenerators {
         generator.addProvider(event.includeServer(), new LootTableProvider(output, Set.of(),
                 List.of(new LootTableProvider.SubProviderEntry(CraftBlockLoot::new, LootContextParamSets.BLOCK)),
                 lookup));
+        generator.addProvider(event.includeServer(), new CraftBlockTagsProvider(output, lookup, files));
 
         generator.addProvider(event.includeClient(), new CraftBlockStateProvider(output, files));
         generator.addProvider(event.includeClient(), new CraftItemModelProvider(output, files));

@@ -194,8 +194,18 @@ Parameter: `power`, `dropRate`, `entityDamage` (unbenutzt außer Speicherung), D
    gesammelt, in 2×2-Säulen (x/2, z/2) gebündelt und als Stacks ≤ 64 auf der höchsten Y der Säule +0,5 gespawnt
    (Pickup-Delay 10). Alle markierten Blöcke werden entfernt und `onBlockDestroyedByExplosion` aufgerufen.
 
-Von IC2 erhöhte Vanilla-Explosionsresistenzen: Obsidian, Zaubertisch, Endertruhe, Amboss = 60;
-Wasser (fließend/still), Lava (still) = 30.
+Von IC2 **gesenkte** Vanilla-Explosionsresistenzen: `setResistance(60)` auf Obsidian, Zaubertisch, Endertruhe,
+Amboss und `setResistance(30)` auf Wasser (fließend/still) und stille Lava. `setResistance(x)` speichert `3x`, die
+Explosion nutzt `/5` → wirksam **36** bzw. **18** (vorher Obsidian 1200, Wasser/Lava 100). Fließende Lava hatte 0.
+Umsetzung: Die Werte gelten nur innerhalb von IC2-Explosionen (siehe `abweichungen.md`).
+
+Originaleigenheiten, die übernommen werden:
+- Blockkoordinaten der Strahlen werden mit `(int)` abgeschnitten statt abgerundet; bei negativen Koordinaten ist
+  die Explosion dadurch um einen Block verschoben. Ebenso die Drop-Gruppierung `x/2`, `z/2`.
+- Entity-Schritt: Die Schleife über die Kandidaten benutzt immer den per Binärsuche gefundenen Eintrag `index`
+  statt der Laufvariable – dieselbe Entity wird mehrfach getroffen (Schaden durch Unverwundbarkeitsticks begrenzt,
+  Rückstoß summiert sich). Stirbt sie, wird Eintrag `i` entfernt.
+- Drop-Stapel werden zu je ≤ 64 gebündelt (1.21: zusätzlich ≤ maximale Stapelgröße, da größere Stapel ungültig sind).
 
 ## 5. Elektrische Items (Ladung)
 
