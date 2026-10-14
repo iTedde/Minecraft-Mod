@@ -71,3 +71,11 @@ Phase 2 gestartet (2026-10-14) – Zwischenstand siehe unten.
   die Kabel-API dafür steht.
 - Kabel-Texturen sind aus dem Original-IC2-Jar geschnitten (privates Projekt) – endgültige Texturen in Phase 10.
 - Elektrische Items (Ladung, §5 der EU-Spec) kommen mit Phase 3 (Batterien).
+
+## Entscheidungen nach Phase 2 (2026-10-14)
+- Phase 2 abgenommen.
+- Explosions-Versatz bei negativen Koordinaten (IC2 `(int)`-Abschneiden) bleibt wie im Original.
+- Original-IC2-Texturen dürfen im (privaten) Repo liegen.
+
+# Stand Phase 3 (gestartet 2026-10-14)
+- Werte 1:1 wie im Pack (Balancing noch nicht freigegeben – Wassermühle/Windmühle nach Original).
