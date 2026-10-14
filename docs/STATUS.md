@@ -47,16 +47,27 @@ Phase 2 gestartet (2026-10-14) – Zwischenstand siehe unten.
   `.gitignore` schließt `reference/`, `tools/`, `ftb ultimate/` aus (Fremdcode/Binärdateien). Ein lokaler Commit,
   **noch nicht gepusht** (Push erst nach Rückfrage). Kein globaler git-User: Commits mit `-c user.name/-c user.email`.
 
-## Nächste Schritte (Entwurf festgelegt, noch kein Code)
-- `dev.craft.core.energy`: Schnittstellen `EnergyTile` (getBlockPos/isRemoved), `EnergyEmitter`, `EnergyAcceptor`,
-  `EnergySource`, `EnergySink`, `EnergyConductor` (Vanilla-`Direction`, Semantik wie IC2); Algorithmus `EnergyNet`
-  1:1 nach `spec/01-eu-system.md` (discover/emit/Cache-Invalidierung/Stromschlag/Schmelzen) gegen eine Abstraktion
-  `EnergyWorld` (Nachbarsuche, Entities), damit per JUnit testbar. Nachbar-Reihenfolge wie IC2: W, O, unten, oben, N, S.
-  Glue: Netz pro ServerLevel, Anmeldung über Warteschlange am Level-Tick-Anfang (IC2 meldete im ersten Tick an),
-  Abmeldung in `setRemoved`/`onChunkUnloaded`, Nachbarn nur aus geladenen Chunks; Stromschlag am Tick-Anfang
-  (`(akku+63)/64`, Damage-Type `craft:electricity`, nicht rüstungsdurchdringend).
-- Kabel (`dev.craft.ic2`): ein Block je Kabeltyp (13), Blockstate = 6 Verbindungen + Schaum (none/wet/hard);
-  Farbe/Schaumfarbe im BlockEntity, Darstellung per Tint. Isolieren/Abisolieren = Blocktausch mit Übernahme der Farbe.
-  Kabel emittieren an alles / akzeptieren von allem, außer andersfarbigen Kabeln. Detektor (alle 20 t
-  totalEnergyEmitted-Vergleich, Redstone), Splitter (alle 20 t: Redstone → vom Netz ab). Werte s. Spec §3.
-- Danach: `ExplosionIC2`-Algorithmus in `core`, gemeinsames Multiblock-System, `build` + `runClient`, Zusammenfassung.
+## Erledigt (Fortsetzung, 2026-10-14)
+- **EU-Netz** `dev.craft.core.energy`: Schnittstellen `EnergyTile/Emitter/Acceptor/Source/Sink/Conductor`,
+  `EnergyNet` 1:1 nach IC2 1.115 (Pfadsuche, Cache-Invalidierung, Paketverteilung, Stromschlag, Kabelschmelze,
+  `getTotalEnergyEmitted/Sunken`), `EnergyNets` (ein Netz je ServerLevel, Anmeldung in `onLoad`, Abmeldung in
+  `setRemoved`/`onChunkUnloaded`, Stromschlagschaden am Tick-Anfang, Damage-Type `craft:electricity`).
+- **Kabel** `dev.craft.ic2.cable`: 13 Blöcke (`CableType`), BlockEntity mit Farbe/Schaumfarbe/Aktiv-Zustand,
+  Verbindungen + Schaum im Blockstate, IC2-Kollisionsbox, Färben (`changeColor`), Isolieren/Abisolieren
+  (`CableBlock.changeType`), Bauschaum (nass/hart, Aushärten, Sand), Detektor- und Splitterkabel, Schmelzen mit
+  Zisch-Sound/Rauch. Dynamisches Modell `craft:cable`, Texturen aus dem IC2-Spritesheet.
+- **Explosion** `dev.craft.core.explosion.Ic2Explosion` 1:1 (inkl. Originaleigenheiten), `explodeMachineAt`.
+- **Multiblock-System** `dev.craft.core.multiblock`: `MultiblockPattern` (Zeichen-Layout, Y-Rotation, Matcher),
+  `BlockMatcher`, `MultiblockController` (Validierung im Intervall/auf Anforderung, Listener).
+- Datagen: Blockstates, Modelle, Item-Modelle, Lang (en_us aus `IC2.lang`, de_de), Loot, Damage-Type, Block-Tag.
+- Tests: JUnit (`gradlew test`, 15 Tests: EU-Netz, Multiblock-Muster) und GameTests
+  (`gradlew runGameTestServer`, 10 Tests: Kabel, Energiefluss, Schmelzen, Detektor, Explosion).
+- Spec-Korrekturen: Kupferkabel-Beispiel (10 Blöcke → 9 EU wegen `double`-Summe), Kabelfarben 0–15 (schwarzer
+  Farbroller = 0), effektive IC2-Explosionsresistenzen (36/18).
+- `gradlew build` und `runClient` (Hauptmenü, keine Fehler) erfolgreich.
+
+## Offen / Hinweise
+- Werkzeuge für Kabel (Isolierungsschneider, Farbroller, Bauschaum-Sprüher) kommen mit den Items (später);
+  die Kabel-API dafür steht.
+- Kabel-Texturen sind aus dem Original-IC2-Jar geschnitten (privates Projekt) – endgültige Texturen in Phase 10.
+- Elektrische Items (Ladung, §5 der EU-Spec) kommen mit Phase 3 (Batterien).
