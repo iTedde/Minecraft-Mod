@@ -6,9 +6,9 @@ ein überarbeitetes Energiebalancing und neue Kraftwerke. Wird nicht veröffentl
 
 ## Zielplattform
 
-- Minecraft **1.21.1**, NeoForge **21.1.x** (konkrete Version im Grundgerüst festlegen und hier eintragen), Java **21**.
+- Minecraft **1.21.1**, NeoForge **21.1.259** (ModDevGradle 2.0.148, Gradle 9.2.1), Java **21**.
 - Build: Gradle mit NeoForge ModDevGradle. Lokales JDK 21: `tools/jdk-21.0.12.1+1/` (System hat nur Java 8).
-- Mod-ID vorläufig `craft` (im Grundgerüst bestätigen).
+- Mod-ID `craft`, Basispaket `dev.craft`. Repo: https://github.com/iTedde/Minecraft-Mod (lokal, noch nicht gepusht).
 
 ## Grundregeln
 
@@ -60,7 +60,7 @@ MJ und EU bleiben getrennte Systeme; Verbindung nur über Electrical Engine (EU�
 | Phase | Inhalt | Status |
 |---|---|---|
 | 1 | Dekompilieren, Spezifikation, Balancing-Vorschlag, CLAUDE.md | **erledigt – wartet auf OK** |
-| 2 | Mod-Grundgerüst, EU-System, Kabel, gemeinsames Multiblock-System | offen |
+| 2 | Mod-Grundgerüst, EU-System, Kabel, gemeinsames Multiblock-System | **in Arbeit** (Grundgerüst baut) |
 | 3 | IC2 Early Game: Generator, Geothermal, Solarpanel, Wassermühle, Windmühle, Batterien, BatBox, Macerator, Electric Furnace, Extractor, Compressor, Recycler | offen |
 | 4 | BuildCraft: MJ-System, Engines, Landmarks, Quarry, Pumpe, Tank, Raffinerie, Mining Well | offen |
 | 5 | Energieumwandler: Electrical Engine (inkl. Thermionic Fabricator, Carpenter, Platinen, Röhren), Power Converters | offen |

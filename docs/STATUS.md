@@ -34,4 +34,29 @@
 ## Phase 1 – Abschluss
 - Durchsicht erledigt: veraltete „entfällt/nicht im Umfang“-Stellen korrigiert, neue Markierung [GT+M] in `08-rezepte.md`.
 
-Phase 2 gestartet (2026-10-14).
+Phase 2 gestartet (2026-10-14) – Zwischenstand siehe unten.
+
+# Stand Phase 2 (2026-10-14, Zwischenstand)
+
+## Erledigt
+- Gradle-Projekt aus offiziellem MDK (`NeoForgeMDKs/MDK-1.21.1-ModDevGradle`): NeoForge **21.1.259**,
+  ModDevGradle 2.0.148, Gradle 9.2.1, Parchment 1.21.1/2024.11.17. `gradle.properties` setzt
+  `org.gradle.java.home` auf `tools/jdk-21.0.12.1+1`. Mod-ID `craft`, Basispaket `dev.craft`, Version 0.2.0.
+- Minimale Hauptklasse `src/main/java/dev/craft/Craft.java`; `gradlew build` erfolgreich (erster Lauf ca. 3,5 min).
+- git initialisiert (Branch `main`), Remote `origin` = https://github.com/iTedde/Minecraft-Mod.git (privat, leer).
+  `.gitignore` schließt `reference/`, `tools/`, `ftb ultimate/` aus (Fremdcode/Binärdateien). Ein lokaler Commit,
+  **noch nicht gepusht** (Push erst nach Rückfrage). Kein globaler git-User: Commits mit `-c user.name/-c user.email`.
+
+## Nächste Schritte (Entwurf festgelegt, noch kein Code)
+- `dev.craft.core.energy`: Schnittstellen `EnergyTile` (getBlockPos/isRemoved), `EnergyEmitter`, `EnergyAcceptor`,
+  `EnergySource`, `EnergySink`, `EnergyConductor` (Vanilla-`Direction`, Semantik wie IC2); Algorithmus `EnergyNet`
+  1:1 nach `spec/01-eu-system.md` (discover/emit/Cache-Invalidierung/Stromschlag/Schmelzen) gegen eine Abstraktion
+  `EnergyWorld` (Nachbarsuche, Entities), damit per JUnit testbar. Nachbar-Reihenfolge wie IC2: W, O, unten, oben, N, S.
+  Glue: Netz pro ServerLevel, Anmeldung über Warteschlange am Level-Tick-Anfang (IC2 meldete im ersten Tick an),
+  Abmeldung in `setRemoved`/`onChunkUnloaded`, Nachbarn nur aus geladenen Chunks; Stromschlag am Tick-Anfang
+  (`(akku+63)/64`, Damage-Type `craft:electricity`, nicht rüstungsdurchdringend).
+- Kabel (`dev.craft.ic2`): ein Block je Kabeltyp (13), Blockstate = 6 Verbindungen + Schaum (none/wet/hard);
+  Farbe/Schaumfarbe im BlockEntity, Darstellung per Tint. Isolieren/Abisolieren = Blocktausch mit Übernahme der Farbe.
+  Kabel emittieren an alles / akzeptieren von allem, außer andersfarbigen Kabeln. Detektor (alle 20 t
+  totalEnergyEmitted-Vergleich, Redstone), Splitter (alle 20 t: Redstone → vom Netz ab). Werte s. Spec §3.
+- Danach: `ExplosionIC2`-Algorithmus in `core`, gemeinsames Multiblock-System, `build` + `runClient`, Zusammenfassung.
