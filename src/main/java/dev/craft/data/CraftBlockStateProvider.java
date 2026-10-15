@@ -54,6 +54,19 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
                 mcLoc("block/leaves")).texture("all", modLoc("block/rubber_leaves")).renderType("cutout_mipped"));
         simpleBlock(Ic2Blocks.RUBBER_SAPLING.get(), models().cross("rubber_sapling", modLoc("block/rubber_sapling"))
                 .renderType("cutout"));
+        resinSheet();
+    }
+
+    /** IC2 {@code BlockResin}: a 2 px high layer with the resin texture on every face. */
+    private void resinSheet() {
+        ResourceLocation texture = modLoc("block/resin_sheet");
+        BlockModelBuilder model = models().withExistingParent("resin_sheet", mcLoc("block/block"))
+                .texture("particle", texture).texture("texture", texture).renderType("cutout")
+                .element().from(0, 0, 0).to(16, 2, 16)
+                .allFaces((direction, face) -> face.texture("#texture")
+                        .cullface(direction == Direction.UP ? null : direction))
+                .end();
+        simpleBlock(Ic2Blocks.RESIN_SHEET.get(), model);
     }
 
     /** One model per facing and active state, with IC2's face-to-sprite mapping (no rotations). */

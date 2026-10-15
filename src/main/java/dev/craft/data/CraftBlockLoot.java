@@ -16,6 +16,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.storage.loot.LootPool;
+import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCondition;
@@ -45,6 +46,7 @@ public final class CraftBlockLoot extends BlockLootSubProvider {
         dropSelf(Ic2Blocks.TIN_BLOCK.get());
         dropSelf(Ic2Blocks.BRONZE_BLOCK.get());
         dropSelf(Ic2Blocks.RUBBER_SAPLING.get());
+        resinSheet();
         rubberWood();
         rubberLeaves();
     }
@@ -59,6 +61,15 @@ public final class CraftBlockLoot extends BlockLootSubProvider {
                         .setProperties(StatePropertiesPredicate.Builder.properties()
                                 .hasProperty(RubberWoodBlock.RESIN, RubberWoodBlock.Resin.NONE)).invert())
                 .when(LootItemRandomChanceCondition.randomChance(1.0F / 6.0F)))));
+    }
+
+    /** IC2 {@code BlockResin}: drops sticky resin with 4/5 chance. */
+    private void resinSheet() {
+        Block block = Ic2Blocks.RESIN_SHEET.get();
+        add(block, LootTable.lootTable().withPool(applyExplosionCondition(block, LootPool.lootPool()
+                .setRolls(ConstantValue.exactly(1.0F))
+                .add(LootItem.lootTableItem(Ic2Items.RESIN.get()))
+                .when(LootItemRandomChanceCondition.randomChance(0.8F)))));
     }
 
     /** IC2 {@code BlockRubLeaves}: shears/silk touch drop the leaves, otherwise 1/35 sapling and nothing else. */

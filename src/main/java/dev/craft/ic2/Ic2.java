@@ -1,9 +1,11 @@
 package dev.craft.ic2;
 
 import dev.craft.ic2.generator.GeothermalGeneratorBlockEntity;
+import dev.craft.ic2.item.ScrapBoxItem;
 import dev.craft.ic2.machine.MachineBlockEntity;
 import dev.craft.ic2.world.Ic2Features;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 
@@ -23,6 +25,11 @@ public final class Ic2 {
         Ic2Sounds.SOUNDS.register(modBus);
         Ic2Features.FEATURES.register(modBus);
         modBus.addListener(Ic2::registerCapabilities);
+        modBus.addListener(Ic2::commonSetup);
+    }
+
+    private static void commonSetup(FMLCommonSetupEvent event) {
+        event.enqueueWork(() -> ScrapBoxItem.registerDispenserBehavior(Ic2Items.SCRAP_BOX.get()));
     }
 
     private static void registerCapabilities(RegisterCapabilitiesEvent event) {

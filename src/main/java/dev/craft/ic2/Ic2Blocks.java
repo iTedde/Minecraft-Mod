@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.function.BiFunction;
 
 import dev.craft.Craft;
+import dev.craft.ic2.block.ResinSheetBlock;
 import dev.craft.ic2.block.RubberLeavesBlock;
 import dev.craft.ic2.block.RubberSaplingBlock;
 import dev.craft.ic2.block.RubberWoodBlock;
@@ -86,6 +87,10 @@ public final class Ic2Blocks {
     public static final DeferredBlock<RubberSaplingBlock> RUBBER_SAPLING = BLOCKS.register("rubber_sapling",
             () -> new RubberSaplingBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission()
                     .randomTicks().instabreak().sound(SoundType.GRASS).pushReaction(PushReaction.DESTROY)));
+    /** IC2 {@code BlockResin}: hardness 1.6, {@code setResistance(0.5)} = 0.3 effective, sand sound, no collision. */
+    public static final DeferredBlock<ResinSheetBlock> RESIN_SHEET = BLOCKS.register("resin_sheet",
+            () -> new ResinSheetBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_YELLOW).noCollission()
+                    .noOcclusion().strength(1.6F, 0.3F).sound(SoundType.SAND).pushReaction(PushReaction.DESTROY)));
 
     private Ic2Blocks() {
     }

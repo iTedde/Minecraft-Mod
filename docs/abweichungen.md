@@ -53,6 +53,8 @@ Status: *geplant* (aus Phase 1 abgeleitet, noch nicht umgesetzt), *entschieden* 
 | Eisenofen-GUI | 1.4.7-Ofentextur | 1.21-Ofentextur und -Sprites (Flamme, Pfeil), Werte wie IC2 | Textur-Layout geändert | **umgesetzt** |
 | Maschinengeräusche | IC2-AudioManager (Paul's SoundSystem) | Minecraft-Soundsystem, Original-OGGs; Start/Stopp per Block-Event, Generator-Loops solange aktiv | API | **umgesetzt** |
 | GT-Recycling Vanilla-Eisenteile | Eisentür → 6 Eisenstaub bzw. 6 Eisenbarren (1.4.7: 6 Barren → 1 Tür) | Eisentür → **2** (1.21: 6 Barren → 3 Türen, sonst Vermehrung); übrige Teile (Kompass, Uhr, Schere, Lore, Eimer, Amboss 31/20/10, Steinknopf, Steindruckplatte, Hebel) wie GT; nur Hauptausgabe (Nebenprodukte gab es im IC2-Macerator nicht); GT-Material-Ausgaben (Holzstaub, kleiner Eisenstaub) erst mit den GT-Materialien | 1.21-Rezeptmenge | **umgesetzt** |
+| Schrottbox-Drops | gewichtete Liste `ItemScrapbox.dropList` (Float-Chancen, kumuliert) | Loot-Tabelle `craft:gameplay/scrap_box`, Gewicht = Chance × 100 (gleiche Verteilung); „Schild“ → Eichenschild | Datapack-/JEI-tauglich; 1.21 hat Holzsorten | **umgesetzt** |
+| Harzschicht als Item | implizites ItemBlock (nicht im Kreativ-Tab) | kein Block-Item; Pick-Block liefert Harz | Block wird nur mit Harz gesetzt | **umgesetzt** |
 
 ## Bewusst (Energiebalancing)
 

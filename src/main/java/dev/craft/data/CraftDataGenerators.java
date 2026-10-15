@@ -43,7 +43,8 @@ public final class CraftDataGenerators {
         CompletableFuture<HolderLookup.Provider> fullLookup = datapackEntries.getRegistryProvider();
         generator.addProvider(event.includeServer(), new LootTableProvider(output, Set.of(), List.of(
                 new LootTableProvider.SubProviderEntry(CraftBlockLoot::new, LootContextParamSets.BLOCK),
-                new LootTableProvider.SubProviderEntry(CraftBlockLoot.Vanilla::new, LootContextParamSets.BLOCK)),
+                new LootTableProvider.SubProviderEntry(CraftBlockLoot.Vanilla::new, LootContextParamSets.BLOCK),
+                new LootTableProvider.SubProviderEntry(CraftScrapBoxLoot::new, LootContextParamSets.EMPTY)),
                 lookup));
         CraftBlockTagsProvider blockTags = generator.addProvider(event.includeServer(),
                 new CraftBlockTagsProvider(output, lookup, files));

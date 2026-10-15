@@ -10,6 +10,8 @@ import dev.craft.Craft;
 import dev.craft.ic2.cable.CableType;
 import dev.craft.ic2.item.BatteryItem;
 import dev.craft.ic2.item.EmptyCellItem;
+import dev.craft.ic2.item.ResinItem;
+import dev.craft.ic2.item.ScrapBoxItem;
 import dev.craft.ic2.item.SingleUseBatteryItem;
 import dev.craft.ic2.item.TreetapItem;
 import dev.craft.ic2.item.UpgradeModuleItem;
@@ -50,7 +52,7 @@ public final class Ic2Items {
             ITEMS.registerSimpleBlockItem(Ic2Blocks.RUBBER_SAPLING);
 
     // --- materials ---
-    public static final DeferredItem<Item> RESIN = simple("resin");
+    public static final DeferredItem<ResinItem> RESIN = simple(ITEMS.registerItem("resin", ResinItem::new));
     public static final DeferredItem<Item> RUBBER = simple("rubber");
     public static final DeferredItem<Item> BRONZE_DUST = simple("bronze_dust");
     public static final DeferredItem<Item> CLAY_DUST = simple("clay_dust");
@@ -72,7 +74,7 @@ public final class Ic2Items {
     public static final DeferredItem<Item> COAL_CHUNK = simple("coal_chunk");
     public static final DeferredItem<Item> INDUSTRIAL_DIAMOND = simple("industrial_diamond");
     public static final DeferredItem<Item> SCRAP = simple("scrap");
-    public static final DeferredItem<Item> SCRAP_BOX = simple("scrap_box");
+    public static final DeferredItem<ScrapBoxItem> SCRAP_BOX = simple(ITEMS.registerItem("scrap_box", ScrapBoxItem::new));
     public static final DeferredItem<Item> HYDRATED_COAL_CLUMP = simple("hydrated_coal_clump");
     public static final DeferredItem<Item> PLANT_BALL = simple("plant_ball");
     public static final DeferredItem<Item> COMPRESSED_PLANT_BALL = simple("compressed_plant_ball");

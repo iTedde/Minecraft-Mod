@@ -10,6 +10,7 @@ import dev.craft.ic2.cable.CableType;
 import dev.craft.ic2.generator.GeneratorBlockEntity;
 import dev.craft.ic2.generator.GeothermalGeneratorBlockEntity;
 import dev.craft.ic2.item.ElectricItems;
+import dev.craft.ic2.item.ScrapBoxItem;
 import dev.craft.ic2.item.TreetapItem;
 import dev.craft.ic2.machine.ElectricMachineBlockEntity;
 import dev.craft.ic2.machine.IronFurnaceBlockEntity;
@@ -21,16 +22,26 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.DispenserBlock;
+import net.minecraft.world.level.block.entity.DispenserBlockEntity;
+import net.minecraft.world.level.block.piston.PistonBaseBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.gametest.GameTestHolder;
 import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
 
@@ -267,5 +278,71 @@ public final class Ic2GameTests {
                 helper.getLevel()).map(r -> r.value().assemble(mirrored, helper.getLevel().registryAccess())
                 .is(Ic2Items.TREETAP.get())).orElse(false), "mirrored treetap recipe");
         helper.succeed();
+    }
+
+    private static InteractionResult useResin(GameTestHelper helper, BlockPos pos, Direction side) {
+        Player player = helper.makeMockPlayer(GameType.SURVIVAL);
+        player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Ic2Items.RESIN.get(), 2));
+        BlockPos absolute = helper.absolutePos(pos);
+        InteractionResult result = player.getMainHandItem().useOn(new UseOnContext(player, InteractionHand.MAIN_HAND,
+                new BlockHitResult(Vec3.atCenterOf(absolute), side, absolute, false)));
+        helper.assertValueEqual(player.getMainHandItem().getCount(), result.consumesAction() ? 1 : 2, "resin used");
+        return result;
+    }
+
+    @GameTest(template = EMPTY)
+    public static void resinMakesPistonSticky(GameTestHelper helper) {
+        BlockPos pos = new BlockPos(2, 1, 2);
+        helper.setBlock(pos, Blocks.PISTON.defaultBlockState().setValue(PistonBaseBlock.FACING, Direction.NORTH));
+        helper.assertFalse(useResin(helper, pos, Direction.SOUTH).consumesAction(), "back of the piston");
+        helper.assertTrue(useResin(helper, pos, Direction.NORTH).consumesAction(), "front of the piston");
+        helper.assertBlockPresent(Blocks.STICKY_PISTON, pos);
+        helper.assertBlockProperty(pos, PistonBaseBlock.FACING, Direction.NORTH);
+        helper.succeed();
+    }
+
+    @GameTest(template = EMPTY)
+    public static void resinSheetNeedsOpaqueBlockBelow(GameTestHelper helper) {
+        BlockPos stone = new BlockPos(2, 1, 2);
+        BlockPos glass = new BlockPos(4, 1, 2);
+        helper.setBlock(stone, Blocks.STONE);
+        helper.setBlock(glass, Blocks.GLASS);
+        helper.assertFalse(useResin(helper, stone, Direction.EAST).consumesAction(), "only the top side");
+        helper.assertFalse(useResin(helper, glass, Direction.UP).consumesAction(), "glass is not opaque");
+        helper.assertTrue(useResin(helper, stone, Direction.UP).consumesAction(), "placed on stone");
+        helper.assertBlockPresent(Ic2Blocks.RESIN_SHEET.get(), stone.above());
+        helper.setBlock(stone, Blocks.AIR);
+        helper.assertBlockNotPresent(Ic2Blocks.RESIN_SHEET.get(), stone.above());
+        helper.succeed();
+    }
+
+    @GameTest(template = EMPTY)
+    public static void scrapBoxDropsMostlyScrap(GameTestHelper helper) {
+        // Pack weights: scrap 20000 of 28000 for the items that exist so far (≈ 71 %).
+        int scrap = 0;
+        for (int i = 0; i < 1000; i++) {
+            List<ItemStack> drop = ScrapBoxItem.getDrop(helper.getLevel());
+            helper.assertValueEqual(drop.size(), 1, "one drop");
+            helper.assertValueEqual(drop.getFirst().getCount(), 1, "single item");
+            if (drop.getFirst().is(Ic2Items.SCRAP.get())) {
+                scrap++;
+            }
+        }
+        helper.assertTrue(scrap > 650 && scrap < 780, "scrap share " + scrap + "/1000");
+        helper.succeed();
+    }
+
+    @GameTest(template = EMPTY, timeoutTicks = 40)
+    public static void dispenserOpensScrapBox(GameTestHelper helper) {
+        BlockPos pos = new BlockPos(2, 1, 2);
+        helper.setBlock(pos, Blocks.DISPENSER.defaultBlockState().setValue(DispenserBlock.FACING, Direction.UP));
+        DispenserBlockEntity dispenser = helper.getBlockEntity(pos);
+        dispenser.setItem(0, new ItemStack(Ic2Items.SCRAP_BOX.get(), 2));
+        helper.setBlock(pos.east(), Blocks.REDSTONE_BLOCK);
+        helper.succeedWhen(() -> {
+            helper.assertValueEqual(dispenser.getItem(0).getCount(), 1, "one box opened");
+            helper.assertFalse(helper.getLevel().getEntitiesOfClass(ItemEntity.class,
+                    new AABB(helper.absolutePos(pos)).inflate(4.0)).isEmpty(), "drop dispensed");
+        });
     }
 }

@@ -427,14 +427,14 @@ IC2-Maschinenrezept für dieselbe Eingabe und fügen das neue ein.
 - Recycler-Blacklist: IC2-Standard + Config; GT ergänzt Einträge (u. a. Mob-Grinder-Drops) – **keine Rezeptänderung**,
   siehe §11.
 - Massefabrikator-Verstärker: Schrott 5000, Schrottbox 45 000 [IC2].
-- Schrottbox-Drops: IC2-Liste (`05-items.md`); GT fügt 81 weitere Drops hinzu (viele GT-Items) – §11.
+- Schrottbox-Drops: GT **ersetzt** die IC2-Liste (Schrott 200 + GT-Liste), siehe `05-items.md` §1.1.
 
 ## 11. GregTech-Änderungen, die keine Rezepte sind (nicht automatisch übernommen)
 
 | Änderung | Pack-Wert | Vorschlag |
 |---|---|---|
 | Upgrade-Module max. Stack | 4 (`UpgradeStacksize`) | offen |
-| Schrottbox-Drops erweitert | +81 Einträge | offen (nur Vanilla/IC2-Einträge übernehmbar) |
+| Schrottbox-Drops ersetzt | Schrott 200 + GT-Liste | **übernommen** (2026-10-15), GT-Items ab Phase 6b |
 | Recycler-Blacklist erweitert | GT-Liste | offen |
 | Stackgrößen diverser Vanilla-Blöcke | 64 | nicht übernehmen (Vanilla) |
 | Miner: Lava als „wertvoll“ (`MinerListLavaAddition`) | an | offen |

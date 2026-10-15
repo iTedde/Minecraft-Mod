@@ -1,0 +1,222 @@
+{
+  "type": "minecraft:empty",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "craft:scrap",
+          "weight": 20000
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:wooden_hoe",
+          "weight": 950
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:wooden_axe",
+          "weight": 200
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:wooden_sword",
+          "weight": 200
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:wooden_shovel",
+          "weight": 200
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:wooden_pickaxe",
+          "weight": 200
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:oak_sign",
+          "weight": 200
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:stick",
+          "weight": 950
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:dirt",
+          "weight": 500
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:grass_block",
+          "weight": 300
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:gravel",
+          "weight": 300
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:pumpkin",
+          "weight": 50
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:soul_sand",
+          "weight": 100
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:netherrack",
+          "weight": 200
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:bone",
+          "weight": 100
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:rotten_flesh",
+          "weight": 900
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:cooked_porkchop",
+          "weight": 40
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:cooked_beef",
+          "weight": 40
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:cooked_chicken",
+          "weight": 40
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:apple",
+          "weight": 50
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:bread",
+          "weight": 50
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:cake",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "name": "craft:water_cell",
+          "weight": 100
+        },
+        {
+          "type": "minecraft:item",
+          "name": "craft:empty_cell",
+          "weight": 200
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:paper",
+          "weight": 500
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:leather",
+          "weight": 100
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:feather",
+          "weight": 100
+        },
+        {
+          "type": "minecraft:item",
+          "name": "craft:plant_ball",
+          "weight": 70
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:slime_ball",
+          "weight": 60
+        },
+        {
+          "type": "minecraft:item",
+          "name": "craft:rubber",
+          "weight": 80
+        },
+        {
+          "type": "minecraft:item",
+          "name": "craft:su_battery",
+          "weight": 270
+        },
+        {
+          "type": "minecraft:item",
+          "name": "craft:insulated_copper_cable",
+          "weight": 200
+        },
+        {
+          "type": "minecraft:item",
+          "name": "craft:double_insulated_gold_cable",
+          "weight": 40
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:redstone",
+          "weight": 90
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:glowstone_dust",
+          "weight": 80
+        },
+        {
+          "type": "minecraft:item",
+          "name": "craft:coal_dust",
+          "weight": 80
+        },
+        {
+          "type": "minecraft:item",
+          "name": "craft:iron_dust",
+          "weight": 100
+        },
+        {
+          "type": "minecraft:item",
+          "name": "craft:gold_dust",
+          "weight": 100
+        },
+        {
+          "type": "minecraft:item",
+          "name": "craft:tin_dust",
+          "weight": 120
+        },
+        {
+          "type": "minecraft:item",
+          "name": "craft:copper_dust",
+          "weight": 120
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:emerald",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:diamond",
+          "weight": 5
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "craft:gameplay/scrap_box"
+}

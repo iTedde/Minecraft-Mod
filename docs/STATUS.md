@@ -108,23 +108,27 @@ Phase 2 gestartet (2026-10-14) – Zwischenstand siehe unten.
 - Texturen aus den IC2-Spritesheets geschnitten (Maschinen 12 je Maschine, Items, Gummibaum, Erze, Blöcke),
   Sounds kopiert. Abweichungen in `docs/abweichungen.md` eingetragen.
 
+## Erledigt (2026-10-15, Teilpaket „Phase 3: Abschluss“)
+- Harz (`ResinItem`): Rechtsklick auf die Vorderseite eines eingefahrenen Kolbens → Klebekolben; Rechtsklick auf die
+  Oberseite eines undurchsichtigen Blocks → Harzschicht (`ResinSheetBlock`: 2 px, keine Kollision, bremst Entities,
+  80 % Harz-Drop, bricht ohne Unterlage).
+- Schrottbox (`ScrapBoxItem`) per Rechtsklick und Werfer; Drops als Loot-Tabelle `craft:gameplay/scrap_box`
+  (`CraftScrapBoxLoot`).
+- **Korrektur/Entscheidung:** GT ersetzt die IC2-Schrottbox-Liste (leert sie, Schrott 200 + GT-Liste). Nutzer hat
+  „wie im Pack“ gewählt. Liste vollständig in `05-items.md` §1.1; GT-Einträge kommen mit Phase 6b.
+- `gradlew build`, 30 GameTests grün, `runClient` bis Hauptmenü ohne Mod-Fehler.
+
 ## Nächste Schritte
 Arbeitsweise: eine Sitzung pro Teilpaket, Übergabe über diese Datei.
 
-Nächstes Teilpaket: **„Phase 3: Abschluss“** – Harz-Rechtsklick (Harzschicht `blockHarz` laut `05-items.md` §10,
-Klebekolben per Rechtsklick), Schrottbox öffnen (IC2-Drop-Liste aus `ItemScrapbox`/`IC2.java` + GT-Erweiterung
-aus `GT_Mod.java`, nur vorhandene Items).
-
-1. Manuelle Prüfung im Client (Nutzer): GUIs, Sounds, Texturen/Facing, Weltgen (Gummibäume, Erze), Rezepte.
-2. Noch fehlend in Phase 3: Harz-Rechtsklick (Harzschicht `blockHarz`, Klebekolben), Schrottbox-Nutzung.
-   Wasser-/Windmühle/Solar bleiben ohne Rezept (Phase 6b).
-   Entschieden 2026-10-15: Bronze-Werkzeuge/-Rüstung entfallen ganz; GT-Recycling der Vanilla-Eisenteile umgesetzt
-   (Eisentür → 2 statt 6).
-3. Danach Phase-3-Abnahme.
+Phase 3 ist inhaltlich vollständig. Wasser-/Windmühle/Solar bleiben ohne Rezept (Phase 6b).
+1. Manuelle Prüfung im Client (Nutzer): GUIs, Sounds, Texturen/Facing, Weltgen (Gummibäume, Erze), Rezepte,
+   Harz/Harzschicht/Klebekolben, Schrottbox.
+2. Danach Phase-3-Abnahme; nächstes Teilpaket dann „Phase 4: MJ-System + Engines“.
 
 ## Offen / später
 - Alt-Taste beim Schraubenschlüssel (zyklisches Drehen) kommt mit dem Tastensystem (Modus/Boost/Alt).
-- Compressor+Pumpe. Schrottbox-Drops: IC2-Liste + GT-Erweiterung (entschieden 2026-10-15); GT-Items der Liste kommen mit Phase 6b dazu.
+- Compressor+Pumpe. Schrottbox: GT-Items der Liste (`05-items.md` §1.1) mit Phase 6b, Zinndosen mit der Canning Machine.
 - Upgrade-Stapelgröße 64 (IC2) – GT-Wert 4 ist offene Entscheidung 4.
 - Spec-Korrektur `01-eu-system.md` §4: bei `explodeMachineAt` wird das Inventar **gedroppt** (breakBlock), nicht
   vernichtet.

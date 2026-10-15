@@ -31,6 +31,52 @@ Haltbarkeit = `maxDamage`. Elektrische Items: `charge` im NBT, siehe `01-eu-syst
 | Gefüllte/leere Zinndose, (leerer/gefüllter) Brennstoffkanister | §6 |
 | Crop-Items: Crop-Stäbe (`blockCrop`-Item), Saatbeutel, Cropnalyzer, Dünger, Hydrierzelle, Weed-EX, Terra-Warze, Kaffee (Bohnen, Pulver, Tasse leer/gefüllt), Hopfen, Fass, Bier-/Rum-Tasse | §9 |
 
+
+### 1.1 Schrottbox öffnen (`ItemScrapbox`, im Pack von GregTech ersetzt)
+
+Rechtsklick: −1 Schrottbox (nicht im Kreativmodus), ein zufälliger Drop wird wie ein vom Spieler geworfenes Item
+fallen gelassen. Werfer (`BehaviorScrapboxDispense`): öffnet eine Box und schießt den Drop mit Geschwindigkeit 6
+heraus. Auswahl gewichtet: `rand · Summe` gegen die kumulierten Chancen.
+
+**Pack-Liste:** IC2 füllt die Liste in PreInit (`ItemScrapbox.init`), GregTech **leert sie** in seiner PreInit
+(`GT_Mod.java:431`), trägt Schrott (Chance 200) ein und fügt in PostInit seine Liste hinzu (`GT_Mod.java:2231–2311`,
+alle Einträge in `RecipesAdvancedConfig.cfg` aktiv). Die IC2-Liste (inkl. „suddenlyHoes“) ist damit wirkungslos.
+Summe aller Pack-Chancen 320,78; Schrott ≈ 62 %. Die Sonderregeln in `GT_ModHandler.getRandomScrapboxDrop`
+(Minecart und Goldhelm neu würfeln) gelten nur für den GT-Scrapboxinator, nicht für den Rechtsklick.
+
+| Chance | Drops |
+|---:|---|
+| 200 | Schrott |
+| 9,5 | Holzhacke, Stock |
+| 9 | Verrottetes Fleisch |
+| 5 | Erde, Papier |
+| 4 | GT-Netherrack-Staub, GT-Feuersteinstaub |
+| 3,8 | Holzschliff (`dustWood`) |
+| 3 | Grasblock, Kies |
+| 2,7 | Single-Use-Batterie |
+| 2,5 | Holzkohlestaub |
+| 2 | Holzaxt/-schwert/-schaufel/-spitzhacke, Schild (→ Eichenschild), Netherrack, verdorbene Zinndose (Meta 1), leere Zelle, isoliertes Kupferkabel, Salpeterstaub, GT-Staub Lazurit/Pyrit/Calcit/Sodalith |
+| 1,8 | GT Basic Circuit Board |
+| 1,5 | Obsidian-, Schwefelstaub |
+| 1,2 | GT Advanced Circuit Parts, Zinn-, Kupferstaub |
+| 1 | Seelensand, Knochen, gefüllte Zinndose, Wasserzelle, Leder, Feder, Eisen-, Goldstaub |
+| 0,9 | Redstone |
+| 0,8 | GT Machine Parts, Gummi, Glowstone-Staub, Kohlestaub |
+| 0,7 | Pflanzenball |
+| 0,6 | Schleimball |
+| 0,5 | Kürbis, Apfel, Brot, Staub Silber/Elektrum/Bauxit/Aluminium/Blei/Nickel/Zink/Messing/Stahl, Roter/Gelber Granat |
+| 0,4 | gebratenes Schwein/Rind/Huhn, doppelt isoliertes Goldkabel, GT Advanced Circuit Board |
+| 0,2 | Siliziumzelle (GT-Zelle 7), GT Elite Circuit Board |
+| 0,1 | Kuchen |
+| 0,05 | Olivin, Rubin, Saphir, Grüner Saphir, Smaragd, Diamant |
+| 0,03 | GT-Staub Platin/Wolfram/Chrom/Titan/Magnesium/Endstein |
+
+Umsetzung: Loot-Tabelle `craft:gameplay/scrap_box`, Gewicht = Chance × 100. Einträge erscheinen, sobald es das Item
+gibt (GT-Items mit Phase 6b, Zinndosen mit der Canning Machine); bis dahin Summe 280 (Schrott ≈ 71 %).
+
+Harzschicht (`blockHarz`): siehe §10; Platzieren mit Harz (Rechtsklick auf die Oberseite eines undurchsichtigen
+Blocks, Luft darüber), Harz auf die Vorderseite eines eingefahrenen Kolbens → Klebekolben (gleiche Ausrichtung).
+
 ## 2. Batterien und Energiespeicher-Items
 
 | Item | Kapazität (EU) | Transfer/t | Tier | Batterie für Maschinen | Bemerkung |

@@ -79,6 +79,7 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             block(Ic2Blocks.RUBBER_WOOD, "Rubber Wood");
             block(Ic2Blocks.RUBBER_LEAVES, "Rubber Leaves");
             block(Ic2Blocks.RUBBER_SAPLING, "Rubber Tree Sapling");
+            block(Ic2Blocks.RESIN_SHEET, "Resin Sheet");
             item(Ic2Items.RESIN, "Sticky Resin");
             item(Ic2Items.RUBBER, "Rubber");
             item(Ic2Items.BRONZE_DUST, "Bronze Dust");
@@ -166,6 +167,7 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             block(Ic2Blocks.RUBBER_WOOD, "Gummiholz");
             block(Ic2Blocks.RUBBER_LEAVES, "Gummibaumblätter");
             block(Ic2Blocks.RUBBER_SAPLING, "Gummibaumsetzling");
+            block(Ic2Blocks.RESIN_SHEET, "Harzschicht");
             item(Ic2Items.RESIN, "Harz");
             item(Ic2Items.RUBBER, "Gummi");
             item(Ic2Items.BRONZE_DUST, "Bronzestaub");

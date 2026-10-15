@@ -81,7 +81,7 @@ Personal-Blöcke, Luminator, Sprengstoffe, Bauschaum, Kaffee/Fass.
    Herstellungsweg selbst ist entschieden (s. u.).
 2. Massefabrikator (im Pack entfernt, dort GT Matter Fabricator).
 3. Balancing-Vorschlag freigeben (`docs/balancing.md` §5).
-4. GT-Nicht-Rezept-Änderungen: Upgrade-Stack 4 und Recycler-Blacklist noch offen. **Entschieden:** Schrottbox-Drops = IC2-Liste + GT-Erweiterung (GT-Items daraus erst, wenn es sie gibt).
+4. GT-Nicht-Rezept-Änderungen: Upgrade-Stack 4 und Recycler-Blacklist noch offen. **Entschieden:** Schrottbox-Drops wie im Pack – GT ersetzt die IC2-Liste (Schrott 200 + GT-Liste; GT-Items erst, wenn es sie gibt).
 5. Iridiumerz-Generierung (GT).
 
 Aktueller Stand/ToDo: `docs/STATUS.md`.
