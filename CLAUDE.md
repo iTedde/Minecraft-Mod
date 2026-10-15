@@ -8,7 +8,7 @@ ein überarbeitetes Energiebalancing und neue Kraftwerke. Wird nicht veröffentl
 
 - Minecraft **1.21.1**, NeoForge **21.1.259** (ModDevGradle 2.0.148, Gradle 9.2.1), Java **21**.
 - Build: Gradle mit NeoForge ModDevGradle. Lokales JDK 21: `tools/jdk-21.0.12.1+1/` (System hat nur Java 8).
-- Mod-ID `craft`, Basispaket `dev.craft`. Repo: https://github.com/iTedde/Minecraft-Mod (lokal, noch nicht gepusht).
+- Mod-ID `craft`, Basispaket `dev.craft`. Repo: https://github.com/iTedde/Minecraft-Mod (`main` und `phase3-wip` gepusht).
 
 ## Grundregeln
 
