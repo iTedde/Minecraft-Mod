@@ -58,6 +58,7 @@ ergänzen. Basispaket `dev.craft`, Einstieg `Craft` → `Ic2.init`, `BuildCraft.
 | `core/explosion/Ic2Explosion` | IC2-Explosion (`explodeMachineAt`) |
 | `gregtech/machine/GtMachineBlockEntity` | GT-`BaseMetaTileEntity` (Spec 13 §1.1–1.6): Startverzögerung, EU-Netz, Upgrades als Zähler (Flags `is*Upgradable`), Entladen (`dechargerSlot`), Explosionen; Unterklasse implementiert `onPostTick` und die Wert-Hooks (`maxEUInput` …). Nicht-Basismaschinen (`GtMachine.isBasicMachine() = false`, z. B. Elektrolyseur): kein Facing, Texturen unten 32/oben 29/Seiten eigene |
 | `gregtech/machine/GtBasicMachineBlockEntity`, `GtMachineBlock` | GT-BasicMachine (Spec 13 §1): EU-Senke/-Quelle, Upgrades als Zähler (Rechtsklick), Energie-Explosionen, Slots 1–2 Eingabe, 3–4 Ausgabe, 5 Batterie; Unterklasse implementiert `checkRecipe()` (Muster: `BenderBlockEntity`). Menü `GtBasicMachineMenu` + `GtBasicMachineScreen` für alle Basismaschinen (GUI-Textur aus `GtMachine`) |
+| `gregtech/machine/BlastFurnaceBlockEntity`, `gregtech/block/GtCasingBlock`, `MachineBlockUpdates` | GT-Multiblock-Muster: Struktur über `MultiblockPattern` (statisches `PATTERN`), geprüft nur nach `onMachineBlockUpdate` (Zähler `mUpdate`); Gehäuse lösen beim Setzen/Abbauen `MachineBlockUpdates.cause` aus. Layout je Maschine über `GtMachine.Layout` (BASIC/SIDES/FRONT); weitere GT-Hooks: `onRightclick` (Item ohne Upgrade), `saveItemData` (Item-NBT beim Schraubenschlüssel) |
 
 ## Tasten und Netzwerk
 

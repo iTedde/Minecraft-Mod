@@ -168,6 +168,9 @@ Status: *geplant* (aus Phase 1 abgeleitet, noch nicht umgesetzt), *entschieden* 
 | Eisenzaun | `BlockPoleFence`, eigener Render-Typ, Meta = Magnetisierung | Unterklasse des Vanilla-`FenceBlock` (Formen identisch: Pfosten 4 px, Kollision 1,5), verbindet nur mit Eisenzäunen, zusätzlich wassergeflutet möglich; Magnetisierung als Blockstate `magnetization` 0–15; Metallstiefel über Item-Tag `craft:metal_boots` | Blockstates, Vanilla-Zaunmodell | **umgesetzt** |
 | Eisenzaun: GT-Macerator | 2 Zäune → 3 kleine Eisenstaubhaufen (GT) | fehlt | GT-Kleinstaub nicht im Umfang | offen |
 | IC2-Elektrolyseur: Speicher | greift direkt auf `TileEntityElectricBlock.energy` zu | `ElectricStorageBlockEntity.setEnergy` (ohne Netz, ohne Kappung wie im Original) | – | **umgesetzt** |
+| GT-Heizspulen (Kupfernickel, Kanthal, Nichrom) | Railcraft-Walzmaschine (`MMIngotOnlyRollingMachine=true`) | Werkbank, gleiches Muster (GTs eigener Fallback ohne Railcraft) | Railcraft nicht im Umfang; Nutzerentscheidung | **umgesetzt** |
+| GT-Maschinengehäuse: Texturen | verbundene Texturen je Nachbarn (`blocks.png` ab 96/112/224, 12 Varianten je Seite) | eine Textur je Gehäusetyp (`blocks.png` 13/14/15) | Nutzerentscheidung: verbundene Texturen in Phase 10 | **vorläufig** |
+| GT-Fortgeschrittenes Maschinengehäuse: ID | Metadaten 15 von `BlockMetaID_Block` | Registry-Name `gt_advanced_machine_casing` | Name `advanced_machine_casing` ist der IC2-Maschinenblock | **umgesetzt** |
 
 ## Bewusst (Energiebalancing)
 
