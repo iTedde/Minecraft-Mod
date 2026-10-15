@@ -14,6 +14,8 @@ import dev.craft.forestry.circuit.Circuit;
 import dev.craft.forestry.circuit.CircuitBoardType;
 import dev.craft.forestry.circuit.CircuitLayout;
 import dev.craft.forestry.circuit.ElectronTube;
+import dev.craft.compactsolars.CsBlocks;
+import dev.craft.compactsolars.SolarArrayType;
 import dev.craft.powerconverters.ConverterType;
 import dev.craft.powerconverters.PcBlocks;
 import dev.craft.powerconverters.PowerSystem;
@@ -85,6 +87,14 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
                 add(circuit.getDescriptionKeys().get(line), descriptions[circuit.ordinal()][line]);
             }
         }
+    }
+
+    /** Compact Solars names ({@code CompactSolarType.friendlyName}, English only). */
+    protected void compactSolars() {
+        add("itemGroup.craft.compact_solars", "Compact Solars");
+        block(CsBlocks.array(SolarArrayType.LV), "Low Voltage Solar Array");
+        block(CsBlocks.array(SolarArrayType.MV), "Medium Voltage Solar Array");
+        block(CsBlocks.array(SolarArrayType.HV), "High Voltage Solar Array");
     }
 
     /** Power Converters names ({@code LanguageRegistry.addName}, English only). */
@@ -297,6 +307,7 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
                             "Intricate Circuit Board"},
                     new String[]{"Electric Choke", "Electric Boost I", "Electric Boost II", "Electric Efficiency"});
             powerConverters();
+            compactSolars();
         }
     }
 
@@ -496,6 +507,7 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
                     new String[]{"Elektrische Drossel", "Boost I", "Boost II", "Effizienz"});
             // Power Converters only registers English names (LanguageRegistry.addName), also in the German pack.
             powerConverters();
+            compactSolars();
         }
     }
 }

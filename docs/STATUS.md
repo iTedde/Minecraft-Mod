@@ -434,3 +434,25 @@ Multiblock (vorher offene Entscheidungen 2 und 3 klären).
 1. Teilpaket 6.4b: Solar-Arrays als Multiblock (LV/MV/HV-Controller) nach `11-compact-solars.md` §4.
 2. Manuelle Client-Tests zusätzlich: Massefabrikator (GUI-Texte, Fortschritt, Verstärker-Anzeige, Sounds Loop/
    Schrott, Redstone-Stopp, Abbau → fortg. Maschinenblock), UU-Rezepte in der Werkbank (nur an der richtigen Stelle).
+
+## Erledigt (Teilpaket „Phase 6.4b: Solar-Arrays als Multiblock“, 2026-10-15)
+- Paket `dev.craft.compactsolars`: `CompactSolars` (Init, Item-Capability), `CsBlocks`, `CsItems`,
+  `CsBlockEntityTypes`, `CsMenus`, `SolarArrayType` (LV/MV/HV: 8/64/512, Tier 1–3), `SolarArrayPatterns`
+  (rekursive Layouts 3×3/9×9/27×27), `SolarArrayBlock`, `SolarArrayBlockEntity`, `SolarArrayMenu`;
+  Client `SolarArrayScreen` (IC2-Solarpanel-GUI, Sonnensymbol solange geliefert wird), Creative-Tab „Compact Solars“.
+- Core: `MultiblockController.Listener.onChecked` (nach jeder Prüfung), `MultiblockLease`. Solarpanel trägt einen
+  Array-Lease und erzeugt verbaut nichts.
+- Leistung = min(Deckel, Panels mit Sonne), gezählt alle 20 Ticks; erst Lade-Slot, Rest ein Paket, kein Puffer;
+  verbaute Controller liefern nichts; Prüfung nur bei geladenem Bereich.
+- Texturen aus `block_textures.png` (Compact Solars v4.0, GitHub), Datagen: Blockstates/Modelle (Seite/oben/unten),
+  Loot (droppt sich selbst), Spitzhacken-Tag, Lang (englische Namen), Rezepte Trafo → Controller (formlos).
+- JUnit `SolarArrayPatternsTest` (Layouts), 5 neue GameTests (`CompactSolarsGameTests`, insgesamt 100 grün),
+  `gradlew build` und `runClient` (Hauptmenü, keine Mod-Fehler) erfolgreich. Doku: `abweichungen.md`, Spec 11 §4.
+- **Damit ist Phase 6 inhaltlich vollständig** – wartet auf Abnahme durch den Nutzer.
+
+## Nächste Schritte
+1. Abnahme Phase 6 durch den Nutzer.
+2. Manuelle Client-Tests zusätzlich: LV-Array (8 Panels + Controller) aufbauen → GUI-Sonnensymbol am Tag, BatBox
+   daneben lädt mit 8 EU/t; Panel abdecken → weniger; MV-Aufbau 9×9 (verbaute LV-Controller liefern nichts, 64 EU/t),
+   HV 27×27; Lade-Slot; Abbau droppt den Controller; Texturen.
+3. Danach Phase 6b (GT-Maschinen und -Materialien) – erstes Teilpaket festlegen.

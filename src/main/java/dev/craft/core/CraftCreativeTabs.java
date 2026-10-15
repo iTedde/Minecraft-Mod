@@ -4,6 +4,8 @@ import java.util.function.Supplier;
 
 import dev.craft.Craft;
 import dev.craft.buildcraft.BcItems;
+import dev.craft.compactsolars.CsItems;
+import dev.craft.compactsolars.SolarArrayType;
 import dev.craft.buildcraft.engine.EngineType;
 import dev.craft.forestry.FrItems;
 import dev.craft.forestry.circuit.CircuitBoardType;
@@ -120,6 +122,18 @@ public final class CraftCreativeTabs {
                         output.accept(PcItems.UNIVERSAL_CHARGER);
                         for (ConverterType type : ConverterType.values()) {
                             output.accept(PcItems.converter(type));
+                        }
+                    })
+                    .build());
+
+    public static final Supplier<CreativeModeTab> COMPACT_SOLARS = TABS.register("compact_solars", () ->
+            CreativeModeTab.builder()
+                    .title(Component.translatable("itemGroup.craft.compact_solars"))
+                    .icon(() -> CsItems.array(SolarArrayType.LV).toStack())
+                    .withTabsBefore(ResourceLocation.fromNamespaceAndPath(Craft.MODID, "power_converters"))
+                    .displayItems((parameters, output) -> {
+                        for (SolarArrayType type : SolarArrayType.values()) {
+                            output.accept(CsItems.array(type));
                         }
                     })
                     .build());

@@ -22,6 +22,8 @@ import dev.craft.ic2.cable.CableType;
 import dev.craft.ic2.recipe.Ic2ShapedRecipe;
 import dev.craft.ic2.recipe.Ic2ShapelessRecipe;
 import dev.craft.ic2.recipe.MachineRecipe;
+import dev.craft.compactsolars.CsItems;
+import dev.craft.compactsolars.SolarArrayType;
 import dev.craft.powerconverters.ConverterType;
 import dev.craft.powerconverters.PcItems;
 import net.minecraft.core.HolderLookup;
@@ -79,6 +81,15 @@ public final class CraftRecipeProvider extends RecipeProvider {
         buildcraft();
         forestry();
         powerConverters();
+        compactSolars();
+    }
+
+    // --- Compact Solars (multiblock variant, spec 11 §4): shapeless transformer → controller ---
+
+    private void compactSolars() {
+        for (SolarArrayType type : SolarArrayType.values()) {
+            shapeless(CsItems.array(type), 1, type.getName(), Ingredient.of(machine(type.getTransformer())));
+        }
     }
 
     // --- §14 Power Converters (vanilla recipes) ---

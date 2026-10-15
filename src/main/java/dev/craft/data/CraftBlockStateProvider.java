@@ -13,6 +13,8 @@ import dev.craft.ic2.block.RubberWoodBlock;
 import dev.craft.ic2.cable.CableType;
 import dev.craft.ic2.client.CableModel;
 import dev.craft.ic2.machine.MachineBlock;
+import dev.craft.compactsolars.CsBlocks;
+import dev.craft.compactsolars.SolarArrayType;
 import dev.craft.powerconverters.ConverterType;
 import dev.craft.powerconverters.PcBlocks;
 import dev.craft.powerconverters.block.PowerConverterBlock;
@@ -80,6 +82,7 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
         miningPipe();
         forestryMachines();
         powerConverters();
+        compactSolars();
     }
 
     /** BuildCraft {@code RenderingMarkers}: a torch-like stick, turned so that it points away from its support. */
@@ -293,6 +296,15 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
      * Power Converters: all sides share one texture; a side shows the "connected" texture (index + 1) while its side
      * property is set, so the state is a multipart of one single-face model per side.
      */
+    /** Compact Solars: sheet row = tier, columns side / top / bottom ({@code BlockCompactSolar}). */
+    private void compactSolars() {
+        for (SolarArrayType type : SolarArrayType.values()) {
+            String texture = "block/compact_solars/" + type.getName() + "_";
+            simpleBlockWithItem(CsBlocks.array(type).get(), models().cubeBottomTop(type.getName(),
+                    modLoc(texture + "side"), modLoc(texture + "bottom"), modLoc(texture + "top")));
+        }
+    }
+
     private void powerConverters() {
         simpleBlockWithItem(PcBlocks.ENERGY_BRIDGE.get(),
                 models().cubeAll("energy_bridge", modLoc("block/power_converter/energy_bridge")));

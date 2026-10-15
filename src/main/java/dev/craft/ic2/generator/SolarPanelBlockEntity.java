@@ -1,5 +1,6 @@
 package dev.craft.ic2.generator;
 
+import dev.craft.core.multiblock.MultiblockLease;
 import dev.craft.ic2.Ic2BlockEntityTypes;
 import dev.craft.ic2.Ic2Machine;
 import dev.craft.ic2.menu.GeneratorMenu;
@@ -20,6 +21,7 @@ public class SolarPanelBlockEntity extends BaseGeneratorBlockEntity {
 
     private int ticker;
     private boolean sunIsVisible;
+    private final MultiblockLease arrayLease = new MultiblockLease();
 
     public SolarPanelBlockEntity(BlockPos pos, BlockState state) {
         super(Ic2BlockEntityTypes.get(Ic2Machine.SOLAR_PANEL), pos, state, 1, 1, 1);
@@ -38,10 +40,19 @@ public class SolarPanelBlockEntity extends BaseGeneratorBlockEntity {
         }
     }
 
+    /** Membership in a Compact Solars array; a panel in a formed array produces nothing itself. */
+    public MultiblockLease getArrayLease() {
+        return arrayLease;
+    }
+
     @Override
     public boolean gainEnergy() {
         if (ticker++ % TICK_RATE == 0) {
             updateSunVisibility();
+        }
+        if (arrayLease.isHeld(level.getGameTime())) {
+            storage = 0;
+            return sunIsVisible;
         }
         if (!sunIsVisible) {
             return false;

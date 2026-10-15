@@ -157,3 +157,10 @@ Status: *geplant* (aus Phase 1 abgeleitet, noch nicht umgesetzt), *entschieden* 
 ## Bewusst (Energiebalancing)
 
 Siehe `docs/balancing.md`. Wird hier eingetragen, sobald freigegeben.
+
+| Thema | Original | Umsetzung | Grund | Status |
+|---|---|---|---|---|
+| Compact Solar Arrays | Ein Block je Stufe (8/64/512 EU/t), Rezept aus Panels/Arrays + Trafo | Flache Multiblocks 3×3/9×9/27×27 mit LV-/MV-/HV-Controller (formlos aus dem Trafo), Leistung = min(Deckel, Panels mit Sonne), Details `spec/11-compact-solars.md` §4 | Balancing §3.1 „Fläche der Panels“ | **umgesetzt** |
+| Solar Arrays: Lease | – | Zugehörigkeit als Lease (`core/multiblock/MultiblockLease`, alle 20 Ticks erneuert, verfällt nach 40, nicht gespeichert); verbaute Panels verwerfen ihren 1-EU-Puffer; überlappende Arrays: ein Panel zählt nur für den Controller, der es zuerst hält | Doppelzählung vermeiden | **umgesetzt** |
+| Solar Arrays: Texturen/Namen | `block_textures.png` (Zeile = Stufe, Spalten Seite/oben/unten), Namen nur englisch | wie im Original (Sheet aus GitHub v4.0 geschnitten), Namen englisch auch in de_de; eigener Creative-Tab „Compact Solars“ | – | **umgesetzt** |
+| Solar-Hüte | LV/MV/HV Solar Hat | nicht umgesetzt | mit dem Controller als Zutat zu billig; Entscheidung später | **offen** |

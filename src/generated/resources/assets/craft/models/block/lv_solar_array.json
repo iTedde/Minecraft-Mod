@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "bottom": "craft:block/compact_solars/lv_solar_array_bottom",
+    "side": "craft:block/compact_solars/lv_solar_array_side",
+    "top": "craft:block/compact_solars/lv_solar_array_top"
+  }
+}

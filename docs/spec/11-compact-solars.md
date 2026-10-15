@@ -83,4 +83,12 @@ abbaubar, Wrench-Drop-Rate 1,0, droppt sich selbst). Rezept **formlos**: LV-/MV-
 - Aufbau-Prüfung nur, wenn der ganze Bereich geladen ist; sonst ruht der Controller.
 - GUI wie IC2-Solarpanel (`GUISolarGenerator`): ein Lade-Slot, Sonnensymbol, solange das Array Energie liefert.
 
+- Umsetzungsdetails (6.4b): Prüfung über `MultiblockController` mit fester Ausrichtung (Muster symmetrisch).
+  Reihenfolge beim Prüfen: erst die unteren Controller (höchste Stufe zuerst), dann die Panels; ein Teil darf
+  übernommen werden, wenn sein Lease frei/abgelaufen ist oder einem Controller gehört, den dieser Controller gerade
+  selbst hält. Teile eines fremden Arrays werden übersprungen (zählen nicht). Ein verbautes Panel setzt seinen
+  Puffer auf 0 und prüft weiter selbst die Sonne (aktive Textur bleibt).
+- Texturen: `block_textures.png` aus Compact Solars v4.0, Zeile = Stufe (LV 0, MV 1, HV 2), Spalte 0 Seite, 1 oben,
+  2 unten. Namen „Low/Medium/High Voltage Solar Array“ (nur englisch registriert).
+
 **Solar-Hüte:** vorerst nicht umgesetzt (Entscheidung später; mit dem Controller als Zutat wären sie zu billig).

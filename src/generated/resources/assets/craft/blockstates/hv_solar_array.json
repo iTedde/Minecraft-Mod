@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "craft:block/hv_solar_array"
+    }
+  }
+}

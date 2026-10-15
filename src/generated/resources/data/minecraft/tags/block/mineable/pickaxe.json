@@ -32,6 +32,9 @@
     "craft:refinery",
     "craft:thermionic_fabricator",
     "craft:carpenter",
-    "craft:electrical_engine"
+    "craft:electrical_engine",
+    "craft:lv_solar_array",
+    "craft:mv_solar_array",
+    "craft:hv_solar_array"
   ]
 }

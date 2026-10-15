@@ -6,6 +6,7 @@ import java.util.function.Supplier;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Formation state of one multiblock, owned by the controller block entity. The structure is re-validated every
@@ -74,11 +75,16 @@ public final class MultiblockController {
         if (match != null && !match.equals(old)) {
             listener.onFormed(match);
         }
+        listener.onChecked(match);
     }
 
     public interface Listener {
         void onFormed(MultiblockPattern.Match match);
 
         void onBroken(MultiblockPattern.Match match);
+
+        /** Called after every validation with the current structure, or {@code null} if it is not formed. */
+        default void onChecked(@Nullable MultiblockPattern.Match match) {
+        }
     }
 }

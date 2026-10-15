@@ -1,7 +1,7 @@
 # Architektur – Kurzüberblick für neue Sitzungen
 
 Zweck: Bausteine wiederverwenden, ohne vorhandenen Code als Muster lesen zu müssen. Bei neuen Basisklassen hier
-ergänzen. Basispaket `dev.craft`, Einstieg `Craft` → `Ic2.init`, `BuildCraft.init`, `Forestry.init`, `PowerConverters.init`.
+ergänzen. Basispaket `dev.craft`, Einstieg `Craft` → `Ic2.init`, `BuildCraft.init`, `Forestry.init`, `PowerConverters.init`, `CompactSolars.init`.
 
 ## Registrierung (je Ursprungs-Mod ein Satz Klassen)
 
@@ -11,6 +11,7 @@ ergänzen. Basispaket `dev.craft`, Einstieg `Craft` → `Ic2.init`, `BuildCraft.
 | BuildCraft | `BcBlocks`, `BcItems`, `BcBlockEntityTypes`, `BcMenus`, `fluid/BcFluids`, `world/BcFeatures`, `power/BcCapabilities` |
 | Forestry | `FrBlocks`, `FrItems`, `FrBlockEntityTypes`, `FrMenus`, `FrFluids`, `FrRecipes`, `FrDataComponents` |
 | Power Converters | `PcBlocks`, `PcItems`, `PcBlockEntityTypes`, `PcMenus`, `PowerSystem` (PCU je Einheit), `ConverterType` |
+| Compact Solars | `CsBlocks`, `CsItems`, `CsBlockEntityTypes`, `CsMenus`, `SolarArrayType` |
 
 - Capabilities werden in der jeweiligen Init-Klasse (`registerCapabilities`) registriert.
 - Creative-Tabs: `core/CraftCreativeTabs` (ein Tab je Mod).
@@ -51,7 +52,8 @@ ergänzen. Basispaket `dev.craft`, Einstieg `Craft` → `Ic2.init`, `BuildCraft.
 | `forestry/machine/ForestryMachineBlockEntity`, `ForestryMachineBlock` | Forestry-`TileMachine`: MJ, Arbeitsschritt alle 5 Ticks, Ausrichtung zum Spieler, Drops |
 | `forestry/engine/ElectricalEngineBlockEntity` | Forestry-Engine (EU-Senke + MJ-Kolben, Hitze, Platinen-Sockel); eigenständig, nicht von der BC-Engine abgeleitet (int-Werte, anderes `extractEnergy`) |
 | `powerconverters/power/BridgeComponentBlockEntity` | Konverter-Bauteil: Nachbar-Cache, „verbunden“-Seiten als Blockstate (`PowerConverterBlock.property(side)`); Consumer/Producer-Basisklassen, `EnergyBridgeBlockEntity` |
-| `core/multiblock/MultiblockPattern`, `MultiblockController` | gemeinsames Multiblock-System |
+| `core/multiblock/MultiblockPattern`, `MultiblockController` | gemeinsames Multiblock-System; `Listener.onChecked` nach jeder Prüfung; `MultiblockLease` = Zugehörigkeit eines Teils (nicht gespeichert) |
+| `compactsolars/SolarArrayBlockEntity`, `SolarArrayPatterns` | Solar-Array-Controller (erbt `MachineBlockEntity`, ohne Facing/`Ic2Machine`), rekursive Layouts |
 | `core/explosion/Ic2Explosion` | IC2-Explosion (`explodeMachineAt`) |
 
 ## Tasten und Netzwerk
