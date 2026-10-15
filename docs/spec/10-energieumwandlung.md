@@ -322,8 +322,9 @@ Umfang: Energy Bridge, Universal Charger, BC Consumer/Producer, IC2 Consumer/Pro
 
 - IC2-Senke von allen Seiten. `demandsEnergy = Σ(freier Bridge-Puffer) / 1800`.
 - `injectEnergy(amount)`: `amount · 1800` PCU in die Bridges; nicht gespeicherte PCU / 1800 werden zurückgegeben.
-- **Max. sichere Spannung**: LV 32, MV 128, HV 512, EV unbegrenzt → Überspannung = Explosion (`explodeMachineAt`,
-  IC2-Standard).
+- **Max. sichere Spannung** (`getMaxSafeInput`): LV 32, MV 128, HV 512, EV `Integer.MAX_VALUE`. **Korrektur (5c):**
+  Es gibt **keine** Überspannungsexplosion – IC2 1.115 prüft `getMaxSafeInput` nicht im Energienetz (nur die
+  IC2-Maschinen selbst in `injectEnergy`), und der Consumer prüft nicht. Jede Stufe nimmt jede Spannung an.
 - Rezepte: `G G`/` T `/`G G` mit G = Goldbarren, T = LV-Trafo (LV), MV-Trafo (MV), HV-Trafo (HV), **MFSU** (EV).
   Consumer ↔ Producer gleicher Stufe formlos umwandelbar.
 
@@ -360,3 +361,81 @@ Umfang: Energy Bridge, Universal Charger, BC Consumer/Producer, IC2 Consumer/Pro
 ### B.7 Rezept Energy Bridge
 
 `GRG`/`LDL`/`GRG`: G = Gold, R = Redstone, L = Glas, D = Diamant.
+
+### B.8 Details aus dem Original (nachgetragen für Phase 5c)
+
+Quelle: `PowerConverterCore`, `PowerSystem`, `TileEntityBridgeComponent`, `TileEntityEnergyConsumer/Producer`,
+`TileEntityEnergyBridge`, `TileEntityCharger`, `ChargeHandlerIndustrialCraft`, `TileEntityIndustrialCraft*`,
+`TileEntityBuildCraft*`, `BlockPowerConverter*`, `ContainerEnergyBridge`, `GuiEnergyBridge`.
+
+**Leistungssysteme** (`PowerSystem`, ID = Registrierungsreihenfolge): BC = 0 (Abk. „BC“, Einheit „MJ/t“, keine
+Spannungen), IC2 = 1 („IC2“, „EU/t“, Spannungen LV/MV/HV/EV = 32/128/512/2048).
+
+**Blöcke** (alle: Material Ton, Härte 1,0, kein Werkzeug nötig, Stein-Klang, droppen sich selbst, kein
+Schraubenschlüssel, keine Ausrichtung):
+
+| Block (Meta) | Name | Textur (`terrain_0.png`, 16 × 16 Felder) |
+|---|---|---|
+| Common 0 | Energy Bridge | 5 (nie „verbunden“) |
+| Common 2 | Universal Charger | 38 / 39 |
+| BC 0 / 1 | BC Consumer / BC Producer | 0/1, 2/3 |
+| IC2 0…7 | IC2 LV/MV/HV/EV Consumer/Producer (gerade Meta = Consumer) | 6/7, 8/9, 10/11, 12/13, 14/15, 16/17, 18/19, 20/21 |
+
+Alle Seiten haben dieselbe Textur; eine Seite zeigt Index + 1 („verbunden“), wenn dort ein passender Nachbar sitzt
+(Client prüft die Klasse des Nachbar-TEs): IC2 Consumer → `IEnergyEmitter`, IC2 Producer → `IEnergyAcceptor`,
+BC Consumer/Producer → `IPowerReceptor`, Charger → `IInventory` **oder** (nur Oberseite) ein Spieler steht darauf.
+Meta 1 des Common-Blocks (Index 4) ist unbenutzt.
+
+**Bauteil (`TileEntityBridgeComponent`)**: beim ersten Tick und bei jeder Nachbaränderung werden je Richtung
+angrenzende Bridges und passende Nachbar-TEs (s. o.) zwischengespeichert. `isConnected` = mindestens ein passender
+Nachbar. NBT: `voltageIndex`. Rechtsklick auf ein Bauteil öffnet die GUI der **ersten** angrenzenden Bridge (keine
+Bridge → nichts), Rechtsklick auf die Bridge deren GUI. Der Klick gilt immer als verarbeitet.
+
+**Consumer** `storeEnergy(pcu)`: nacheinander in jede angrenzende Bridge (`stored += min(pcu, max − stored)`), Rest
+zurück. `getTotalEnergyDemand` = Σ (max − stored).
+
+**IC2 Consumer**: Anmeldung im EU-Netz im ersten Tick. Senke von allen Seiten. `injectEnergy`: s. §B.2; Anzeige-Rate
+`euLastTick` = Summe der im selben Tick angenommenen EU; liegt die letzte Einspeisung > 20 Ticks zurück → 0.
+
+**IC2 Producer**: Anmeldung im ersten Tick; nicht angemeldet → gibt alles zurück. Quelle in alle Richtungen.
+
+**BC Consumer**: Provider ohne Verlust; `update` tut nichts (kein `doWork`). Pro Tick: `mj = floor(stored)`; > 0 →
+`used = useEnergy(1, mj, true)` (= `mj`, Nachkommaanteil bleibt im Provider), Rate = `floor(used)`,
+`storeEnergy((int)(used · 4375))`; sonst Rate 0. Läuft auch ohne Bridge (die MJ gehen dann verloren).
+
+**BC Producer**: ist selbst `IPowerReceptor` mit Provider `configure(0, 0, 0, 0, 0)` (Engines übertragen 0 MJ).
+`produceEnergy(pcu)`: `mj = pcu / 4375` (ganzzahlig, einmal vor der Schleife); je passendem Nachbarn (Richtungsfolge)
+mit `minEnergyReceived ≤ mj`: `used = min(maxRecv, mj, maxStored − floor(stored))`, `receiveEnergy(used, d)` – **d ist
+die Richtung vom Producer zum Empfänger** (Originalfehler, nicht die Gegenrichtung) – `pcu −= used · 4375`; `pcu ≤ 0`
+→ Rückgabe 0. `mj` wird **nicht** verringert: mehrere Empfänger zusammen können mehr MJ erhalten, als PCU da waren.
+
+**Energy Bridge** (`updateEntity`, Server): Producer-Liste bei Nachbaränderung/erstem Tick. Pro Tick
+`rest = min(stored, max)`; je Producer: `rest > 0` → `notProduced = produce(rest)`, auf `≤ rest` gedeckelt,
+Seitenrate = `(rest − notProduced) / energyPerOutput`, `rest = notProduced`; sonst `produce(0)`, Rate 0. Danach
+`stored = max(0, rest)`. **Input limited** = `stored ≤ storedLast` und nicht (`stored == storedLast` und
+`stored == max`); `storedLast = stored`. Anzeige `energyScaled = 120 · stored / max`. NBT: `energyStored`.
+Seitendaten je Richtung: Bauteil-TE dort → Consumer (Rate = `getInputRate`) bzw. Producer (Rate der Bridge), System,
+`isConnected`, Spannungsindex. Reihenfolge der Producer im Original `HashMap` (zufällig) – hier Richtungsfolge.
+
+**GUI Energy Bridge** (`gui/energybridge.png`, 176 × 195, nur Spielerinventar: Reihen y 113/131/149, Hotbar 171,
+x 8; Shift-Klick tut nichts; keine Abstandsprüfung):
+- Titel „Energy Bridge“ (8, 6, 0x404040); rechts weiß „INPUT LIMITED“ (98, 6) bzw. „OUTPUT LIMITED“ (90, 6).
+- Je Richtung i = 0…5 (DOWN, UP, NORTH, SOUTH, WEST, EAST) Zeile y = 6 + 12 · (i + 1), weiß: Richtungsname (x 10);
+  Bauteil vorhanden → „<Abk>[ <Spannung>]“ (x 49), „IN“/„OUT“ (x 92), Rate (x 119): nicht verbunden „NO LINK“,
+  > 1000 → „%.1f k<Einheit>“, sonst „<Rate> <Einheit>“; kein Bauteil → „<NONE>“ (x 49).
+- Zeilenhintergrund (x 7, y 15 + 12 i, 162 × 12) aus der Textur: kein Bauteil v 221, nicht verbunden v 208,
+  Rate 0 v 234, aktiv v 195.
+- „% CHG“ (10, 90); Ladebalken als Rechteck von (46, 89) bis (46 + energyScaled, 97), Farbe 0xFF00A5FF.
+- „Inventory“ (8, 101, 0x404040).
+
+**Universal Charger**: Producer mit System IC2 (Spannung LV; nach erfolgreichem Laden wird das System des
+Ladehandlers gesetzt – nur IC2). Kollisionsbox oben um 0,125 abgesenkt; Entity-Kollision mit einem Spieler →
+Spieler merken (Client und Server). Jeden Tick: Abstand Spieler ↔ Blockecke (x, y, z) > 2 → vergessen.
+`produceEnergy(pcu)`: `pcu == 0` → 0. Erst Spielerinventar (alle Slots), hat das etwas verbraucht → Rest zurück.
+Sonst je angrenzendes Inventar (sided: nur die Slots der zugewandten Seite) – sobald eines etwas verbraucht, Rest
+zurück. Je Slot: elektrisches IC2-Item → `eu = pcu / 1800`, `eu −= charge(stack, eu, item.tier, false, false)`,
+Rückgabe `eu · 1800`. **Eigenheit:** Ist `pcu` kein Vielfaches von 1800, „verbraucht“ schon das erste elektrische Item
+den Bruchteil, auch wenn es voll ist → Laden endet dort, der Bruchteil ist verloren.
+
+**Rezepte**: wie §B.2/B.4/B.6/B.7 (G = Goldbarren, R = Redstone, L = Glas, D = Diamant, I = Eisenbarren, C = Truhe);
+alle vanilla (spiegelbar). Formlos Consumer ↔ Producer je Stufe.

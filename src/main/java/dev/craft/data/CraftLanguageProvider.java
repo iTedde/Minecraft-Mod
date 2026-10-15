@@ -14,6 +14,9 @@ import dev.craft.forestry.circuit.Circuit;
 import dev.craft.forestry.circuit.CircuitBoardType;
 import dev.craft.forestry.circuit.CircuitLayout;
 import dev.craft.forestry.circuit.ElectronTube;
+import dev.craft.powerconverters.ConverterType;
+import dev.craft.powerconverters.PcBlocks;
+import dev.craft.powerconverters.PowerSystem;
 import dev.craft.ic2.Ic2Blocks;
 import dev.craft.ic2.Ic2Items;
 import dev.craft.ic2.Ic2Machine;
@@ -78,6 +81,21 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
         for (Circuit circuit : Circuit.values()) {
             for (int line = 0; line < descriptions[circuit.ordinal()].length; line++) {
                 add(circuit.getDescriptionKeys().get(line), descriptions[circuit.ordinal()][line]);
+            }
+        }
+    }
+
+    /** Power Converters names ({@code LanguageRegistry.addName}, English only). */
+    protected void powerConverters() {
+        add("itemGroup.craft.power_converters", "Power Converters");
+        block(PcBlocks.ENERGY_BRIDGE, "Energy Bridge");
+        block(PcBlocks.UNIVERSAL_CHARGER, "Universal Charger");
+        block(PcBlocks.converter(ConverterType.BC_CONSUMER), "BC Consumer");
+        block(PcBlocks.converter(ConverterType.BC_PRODUCER), "BC Producer");
+        for (ConverterType type : ConverterType.values()) {
+            if (type.getSystem() == PowerSystem.INDUSTRIALCRAFT) {
+                block(PcBlocks.converter(type), "IC2 " + type.getSystem().getVoltageNames()[type.getVoltageIndex()]
+                        + (type.isConsumer() ? " Consumer" : " Producer"));
             }
         }
     }
@@ -206,6 +224,7 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
                     new String[]{"Basic Circuit Board", "Enhanced Circuit Board", "Refined Circuit Board",
                             "Intricate Circuit Board"},
                     new String[]{"Electric Choke", "Electric Boost I", "Electric Boost II", "Electric Efficiency"});
+            powerConverters();
         }
     }
 
@@ -333,6 +352,8 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
                     new String[]{"Kleine Leiterplatte", "Mittlere Leiterplatte", "Große Leiterplatte",
                             "Intricate Circuit Board"},
                     new String[]{"Elektrische Drossel", "Boost I", "Boost II", "Effizienz"});
+            // Power Converters only registers English names (LanguageRegistry.addName), also in the German pack.
+            powerConverters();
         }
     }
 }

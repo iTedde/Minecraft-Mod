@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_engine": {
+      "conditions": {
+        "items": [
+          {
+            "items": "craft:stirling_engine"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "craft:bc_consumer"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_engine"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "craft:bc_consumer"
+    ]
+  }
+}

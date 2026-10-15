@@ -1,0 +1,100 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "craft:block/ic2_hv_consumer_down"
+      },
+      "when": {
+        "down": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "craft:block/ic2_hv_consumer_down_connected"
+      },
+      "when": {
+        "down": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "craft:block/ic2_hv_consumer_up"
+      },
+      "when": {
+        "up": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "craft:block/ic2_hv_consumer_up_connected"
+      },
+      "when": {
+        "up": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "craft:block/ic2_hv_consumer_north"
+      },
+      "when": {
+        "north": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "craft:block/ic2_hv_consumer_north_connected"
+      },
+      "when": {
+        "north": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "craft:block/ic2_hv_consumer_south"
+      },
+      "when": {
+        "south": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "craft:block/ic2_hv_consumer_south_connected"
+      },
+      "when": {
+        "south": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "craft:block/ic2_hv_consumer_west"
+      },
+      "when": {
+        "west": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "craft:block/ic2_hv_consumer_west_connected"
+      },
+      "when": {
+        "west": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "craft:block/ic2_hv_consumer_east"
+      },
+      "when": {
+        "east": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "craft:block/ic2_hv_consumer_east_connected"
+      },
+      "when": {
+        "east": "true"
+      }
+    }
+  ]
+}

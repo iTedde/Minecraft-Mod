@@ -13,6 +13,8 @@ import dev.craft.ic2.Ic2Machine;
 import dev.craft.ic2.cable.CableType;
 import dev.craft.ic2.item.BatteryItem;
 import dev.craft.ic2.item.ElectricItems;
+import dev.craft.powerconverters.ConverterType;
+import dev.craft.powerconverters.PcItems;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -97,6 +99,20 @@ public final class CraftCreativeTabs {
                 }
             })
             .build());
+
+    public static final Supplier<CreativeModeTab> POWER_CONVERTERS = TABS.register("power_converters", () ->
+            CreativeModeTab.builder()
+                    .title(Component.translatable("itemGroup.craft.power_converters"))
+                    .icon(() -> PcItems.ENERGY_BRIDGE.toStack())
+                    .withTabsBefore(ResourceLocation.fromNamespaceAndPath(Craft.MODID, "forestry"))
+                    .displayItems((parameters, output) -> {
+                        output.accept(PcItems.ENERGY_BRIDGE);
+                        output.accept(PcItems.UNIVERSAL_CHARGER);
+                        for (ConverterType type : ConverterType.values()) {
+                            output.accept(PcItems.converter(type));
+                        }
+                    })
+                    .build());
 
     private CraftCreativeTabs() {
     }

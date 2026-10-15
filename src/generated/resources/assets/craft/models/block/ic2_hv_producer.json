@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "craft:block/power_converter/ic2_hv_producer"
+  }
+}

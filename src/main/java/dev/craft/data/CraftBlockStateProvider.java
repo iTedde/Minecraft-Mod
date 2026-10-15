@@ -13,9 +13,13 @@ import dev.craft.ic2.block.RubberWoodBlock;
 import dev.craft.ic2.cable.CableType;
 import dev.craft.ic2.client.CableModel;
 import dev.craft.ic2.machine.MachineBlock;
+import dev.craft.powerconverters.ConverterType;
+import dev.craft.powerconverters.PcBlocks;
+import dev.craft.powerconverters.block.PowerConverterBlock;
 import net.minecraft.core.Direction;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.PipeBlock;
 import net.neoforged.neoforge.client.model.generators.BlockModelBuilder;
 import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
@@ -74,6 +78,7 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
         miningWell();
         miningPipe();
         forestryMachines();
+        powerConverters();
     }
 
     /** BuildCraft {@code RenderingMarkers}: a torch-like stick, turned so that it points away from its support. */
@@ -281,5 +286,36 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
             json.addProperty("cable", type.getName());
             return json;
         }
+    }
+
+    /**
+     * Power Converters: all sides share one texture; a side shows the "connected" texture (index + 1) while its side
+     * property is set, so the state is a multipart of one single-face model per side.
+     */
+    private void powerConverters() {
+        simpleBlockWithItem(PcBlocks.ENERGY_BRIDGE.get(),
+                models().cubeAll("energy_bridge", modLoc("block/power_converter/energy_bridge")));
+        for (Direction side : Direction.values()) {
+            models().getBuilder("power_converter_" + side.getName()).texture("particle", "#face")
+                    .element().from(0, 0, 0).to(16, 16, 16).face(side).texture("#face").cullface(side).end().end();
+        }
+        powerConverter(PcBlocks.UNIVERSAL_CHARGER.get(), "universal_charger");
+        for (ConverterType type : ConverterType.values()) {
+            powerConverter(PcBlocks.converter(type).get(), type.getName());
+        }
+    }
+
+    private void powerConverter(Block block, String name) {
+        ResourceLocation texture = modLoc("block/power_converter/" + name);
+        ResourceLocation connected = modLoc("block/power_converter/" + name + "_connected");
+        MultiPartBlockStateBuilder builder = getMultipartBuilder(block);
+        for (Direction side : Direction.values()) {
+            for (boolean on : new boolean[]{false, true}) {
+                ModelFile face = models().withExistingParent(name + "_" + side.getName() + (on ? "_connected" : ""),
+                        modLoc("block/power_converter_" + side.getName())).texture("face", on ? connected : texture);
+                builder.part().modelFile(face).addModel().condition(PowerConverterBlock.property(side), on).end();
+            }
+        }
+        simpleBlockItem(block, models().cubeAll(name, texture));
     }
 }

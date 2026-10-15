@@ -1,7 +1,7 @@
 # Architektur – Kurzüberblick für neue Sitzungen
 
 Zweck: Bausteine wiederverwenden, ohne vorhandenen Code als Muster lesen zu müssen. Bei neuen Basisklassen hier
-ergänzen. Basispaket `dev.craft`, Einstieg `Craft` → `Ic2.init`, `BuildCraft.init`, `Forestry.init`.
+ergänzen. Basispaket `dev.craft`, Einstieg `Craft` → `Ic2.init`, `BuildCraft.init`, `Forestry.init`, `PowerConverters.init`.
 
 ## Registrierung (je Ursprungs-Mod ein Satz Klassen)
 
@@ -10,10 +10,11 @@ ergänzen. Basispaket `dev.craft`, Einstieg `Craft` → `Ic2.init`, `BuildCraft.
 | IC2 | `Ic2Blocks`, `Ic2Items`, `Ic2BlockEntityTypes`, `Ic2Menus`, `Ic2Recipes`, `Ic2DataComponents`, `Ic2Sounds`, `Ic2Machine` (Enum aller Maschinen) |
 | BuildCraft | `BcBlocks`, `BcItems`, `BcBlockEntityTypes`, `BcMenus`, `fluid/BcFluids`, `world/BcFeatures`, `power/BcCapabilities` |
 | Forestry | `FrBlocks`, `FrItems`, `FrBlockEntityTypes`, `FrMenus`, `FrFluids`, `FrRecipes`, `FrDataComponents` |
+| Power Converters | `PcBlocks`, `PcItems`, `PcBlockEntityTypes`, `PcMenus`, `PowerSystem` (PCU je Einheit), `ConverterType` |
 
 - Capabilities werden in der jeweiligen Init-Klasse (`registerCapabilities`) registriert.
 - Creative-Tabs: `core/CraftCreativeTabs` (ein Tab je Mod).
-- Client: je Mod eine `@EventBusSubscriber`-Klasse (`Ic2Client`, `BuildCraftClient`, `ForestryClient`) für Screens,
+- Client: je Mod eine `@EventBusSubscriber`-Klasse (`Ic2Client`, `BuildCraftClient`, `ForestryClient`, `PowerConvertersClient`) für Screens,
   BER-Layer, Item-Farben, Item-Renderer (BEWLR) und Fluid-Extensions.
 
 ## Energie
@@ -37,6 +38,7 @@ ergänzen. Basispaket `dev.craft`, Einstieg `Craft` → `Ic2.init`, `BuildCraft.
 | `buildcraft/engine/EngineBlockEntity` | BC-Engines (Kolben, Übertragung, Hitze) |
 | `forestry/machine/ForestryMachineBlockEntity`, `ForestryMachineBlock` | Forestry-`TileMachine`: MJ, Arbeitsschritt alle 5 Ticks, Ausrichtung zum Spieler, Drops |
 | `forestry/engine/ElectricalEngineBlockEntity` | Forestry-Engine (EU-Senke + MJ-Kolben, Hitze, Platinen-Sockel); eigenständig, nicht von der BC-Engine abgeleitet (int-Werte, anderes `extractEnergy`) |
+| `powerconverters/power/BridgeComponentBlockEntity` | Konverter-Bauteil: Nachbar-Cache, „verbunden“-Seiten als Blockstate (`PowerConverterBlock.property(side)`); Consumer/Producer-Basisklassen, `EnergyBridgeBlockEntity` |
 | `core/multiblock/MultiblockPattern`, `MultiblockController` | gemeinsames Multiblock-System |
 | `core/explosion/Ic2Explosion` | IC2-Explosion (`explodeMachineAt`) |
 

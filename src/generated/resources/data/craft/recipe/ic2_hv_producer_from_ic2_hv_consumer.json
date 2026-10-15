@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "craft:ic2_hv_consumer"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:ic2_hv_producer"
+  }
+}

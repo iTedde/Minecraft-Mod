@@ -101,6 +101,16 @@ Status: *geplant* (aus Phase 1 abgeleitet, noch nicht umgesetzt), *entschieden* 
 | Electrical Engine: Lötkolben ins Inventar | `stowInInventory` über alle 40 Spieler-Slots (inkl. Rüstung) | `Inventory.add` (Haupt-/Hotbar-Slots) | Platine gehört nicht in Rüstungsslots | **umgesetzt** |
 | Electrical Engine: `euConfig` | Schaltungen ändern die Werte schrittweise (`changeEnergyConfig`) | Werte werden bei jeder Sockeländerung aus der Platine neu berechnet | gleiches Ergebnis | **umgesetzt** |
 | Biodust-Partikel | `EntityBiodustFX` (Reddust, RGB 0/1/0) | `DustParticleOptions` grün, Größe 1 | API | **umgesetzt** |
+| Power Converters: Blöcke | 3 Blöcke mit Metadaten (Common/BC/IC2) | 12 einzelne Blöcke (`energy_bridge`, `universal_charger`, `bc_consumer` … `ic2_ev_producer`) | keine Metadaten in 1.21 | **umgesetzt** |
+| Power Converters: „verbundene“ Seiten | Client prüft beim Rendern die Klasse des Nachbar-TEs | Blockstate-Eigenschaften je Seite (Multipart), vom Server bei Nachbaränderung/erstem Tick gesetzt; Charger-Oberseite bei Spieler | kein TE-Zugriff im Blockmodell | **umgesetzt** |
+| Power Converters: passende Nachbarn | Klassenprüfung (`IEnergyEmitter`, `IEnergyAcceptor`, `IPowerReceptor`, `IInventory`) | EU: `instanceof EnergyEmitter/EnergyAcceptor`; MJ: Capability `craft:power_receptor`; Inventar: Item-Handler-Capability der zugewandten Seite | Capabilities | **umgesetzt** |
+| Power Converters: Reihenfolge | `HashMap` (zufällige Richtungsfolge) für Bridges/Producer/Nachbarn | Richtungsfolge DOWN, UP, NORTH, SOUTH, WEST, EAST | deterministisch | **umgesetzt** |
+| Power Converters: EU-Netz-Anmeldung | im ersten Tick | `onLoad` (wie alle EU-Tiles) | API | **umgesetzt** |
+| Power Converters: `voltageIndex` | im NBT gespeichert | aus dem Block abgeleitet | ein Block je Spannung | **umgesetzt** |
+| Universal Charger: Spieler | Spieler wird auch auf dem Client gemerkt (nur für die Textur) | nur Server; zusätzlich vergessen, wenn der Spieler entfernt wurde (Ausloggen) | Textur über Blockstate | **umgesetzt** |
+| Universal Charger: Spielerinventar | `InventoryPlayer` (36 + 4 Rüstung) | `PlayerInvWrapper` (zusätzlich Nebenhand) | 1.21-Inventar | **umgesetzt** |
+| Energy Bridge GUI: Sync | einzelne Container-Werte (16 Bit); System-ID nur gesendet, wenn vorhanden | `SyncedInts` (volle ints), System −1 = keins | gleiches Bild | **umgesetzt** |
+| IC2 Consumer: Rezepte | LV-/MV-/HV-Trafo, MFSU | erst mit Phase 6 (Trafos/MFSU); formlose Umwandlung Consumer ↔ Producer schon jetzt | Zutaten fehlen noch | **offen (Phase 6)** |
 
 ## Bewusst (Energiebalancing)
 

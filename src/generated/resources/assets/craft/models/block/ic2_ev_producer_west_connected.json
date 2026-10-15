@@ -1,0 +1,6 @@
+{
+  "parent": "craft:block/power_converter_west",
+  "textures": {
+    "face": "craft:block/power_converter/ic2_ev_producer_connected"
+  }
+}

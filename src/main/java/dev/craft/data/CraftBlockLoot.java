@@ -7,6 +7,7 @@ import java.util.stream.Stream;
 import dev.craft.buildcraft.BcBlocks;
 import dev.craft.buildcraft.engine.EngineType;
 import dev.craft.forestry.FrBlocks;
+import dev.craft.powerconverters.PcBlocks;
 import dev.craft.ic2.Ic2Blocks;
 import dev.craft.ic2.Ic2Items;
 import dev.craft.ic2.Ic2Machine;
@@ -62,6 +63,9 @@ public final class CraftBlockLoot extends BlockLootSubProvider {
         dropSelf(FrBlocks.THERMIONIC_FABRICATOR.get());
         dropSelf(FrBlocks.CARPENTER.get());
         dropSelf(FrBlocks.ELECTRICAL_ENGINE.get());
+        for (var block : PcBlocks.BLOCKS.getEntries()) {
+            dropSelf(block.get());
+        }
         resinSheet();
         rubberWood();
         rubberLeaves();
@@ -98,7 +102,8 @@ public final class CraftBlockLoot extends BlockLootSubProvider {
 
     @Override
     protected Iterable<Block> getKnownBlocks() {
-        return Stream.of(Ic2Blocks.BLOCKS, BcBlocks.BLOCKS, FrBlocks.BLOCKS).flatMap(blocks -> blocks.getEntries().stream())
+        return Stream.of(Ic2Blocks.BLOCKS, BcBlocks.BLOCKS, FrBlocks.BLOCKS, PcBlocks.BLOCKS)
+                .flatMap(blocks -> blocks.getEntries().stream())
                 .map(holder -> (Block) holder.get()).toList();
     }
 

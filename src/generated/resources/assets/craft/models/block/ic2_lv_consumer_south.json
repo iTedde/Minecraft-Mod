@@ -1,0 +1,6 @@
+{
+  "parent": "craft:block/power_converter_south",
+  "textures": {
+    "face": "craft:block/power_converter/ic2_lv_consumer"
+  }
+}

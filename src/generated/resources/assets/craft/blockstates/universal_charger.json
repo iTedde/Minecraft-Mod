@@ -1,0 +1,100 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "craft:block/universal_charger_down"
+      },
+      "when": {
+        "down": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "craft:block/universal_charger_down_connected"
+      },
+      "when": {
+        "down": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "craft:block/universal_charger_up"
+      },
+      "when": {
+        "up": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "craft:block/universal_charger_up_connected"
+      },
+      "when": {
+        "up": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "craft:block/universal_charger_north"
+      },
+      "when": {
+        "north": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "craft:block/universal_charger_north_connected"
+      },
+      "when": {
+        "north": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "craft:block/universal_charger_south"
+      },
+      "when": {
+        "south": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "craft:block/universal_charger_south_connected"
+      },
+      "when": {
+        "south": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "craft:block/universal_charger_west"
+      },
+      "when": {
+        "west": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "craft:block/universal_charger_west_connected"
+      },
+      "when": {
+        "west": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "craft:block/universal_charger_east"
+      },
+      "when": {
+        "east": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "craft:block/universal_charger_east_connected"
+      },
+      "when": {
+        "east": "true"
+      }
+    }
+  ]
+}

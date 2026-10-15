@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_converter": {
+      "conditions": {
+        "items": [
+          {
+            "items": "craft:ic2_ev_producer"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "craft:ic2_ev_consumer_from_ic2_ev_producer"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_converter"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "craft:ic2_ev_consumer_from_ic2_ev_producer"
+    ]
+  }
+}

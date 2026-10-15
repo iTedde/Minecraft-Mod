@@ -70,7 +70,7 @@ MJ und EU bleiben getrennte Systeme; Verbindung nur über Electrical Engine (EU�
 | 2 | Mod-Grundgerüst, EU-System, Kabel, gemeinsames Multiblock-System | **erledigt** (abgenommen) |
 | 3 | IC2 Early Game: Generator, Geothermal, Solarpanel, Wassermühle, Windmühle, Batterien (RE, SU, Energie-/Lapotronkristall), BatBox, Macerator, Electric Furnace, Extractor, Compressor, Recycler, Upgrades **+ alle Vorprodukte** (Materialien, Eisenofen, Gummibäume, Zinnerz, Baumzapfer, Schraubenschlüssel, Zellen …). Solar/Wasser/Wind ohne Rezept bis Phase 6b | **erledigt** (abgenommen) |
 | 4 | BuildCraft: MJ-System, Engines, Landmarks, Quarry, Pumpe, Tank, Raffinerie, Mining Well | **erledigt** (abgenommen) |
-| 5 | Energieumwandler: Electrical Engine (inkl. Thermionic Fabricator, Carpenter, Platinen, Röhren), Power Converters | **in Arbeit** (5a, 5b erledigt) |
+| 5 | Energieumwandler: Electrical Engine (inkl. Thermionic Fabricator, Carpenter, Platinen, Röhren), Power Converters | **erledigt – wartet auf Abnahme** (5a, 5b, 5c) |
 | 6 | IC2 Mid/Late Game: MFE, MFSU, Trafos, Mass Fabricator, Werkzeuge, Nano-/Quantenrüstung, Solar Arrays als Multiblocks | offen |
 | 6b | GregTech-Maschinen 1:1 (Elektrolyseur, Hochofen-Multiblock + Heizspulen, Plattenbieger, Assembler, ggf. weitere) und GT-Materialien; danach Rezepte für Solarpanel, Wasser-/Windmühle u. a. [GT⚠] | offen |
 | 7 | Reaktor | offen |

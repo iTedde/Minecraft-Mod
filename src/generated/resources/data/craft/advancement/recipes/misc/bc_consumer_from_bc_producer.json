@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_converter": {
+      "conditions": {
+        "items": [
+          {
+            "items": "craft:bc_producer"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "craft:bc_consumer_from_bc_producer"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_converter"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "craft:bc_consumer_from_bc_producer"
+    ]
+  }
+}

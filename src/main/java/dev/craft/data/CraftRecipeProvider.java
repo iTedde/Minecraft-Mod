@@ -22,6 +22,8 @@ import dev.craft.ic2.cable.CableType;
 import dev.craft.ic2.recipe.Ic2ShapedRecipe;
 import dev.craft.ic2.recipe.Ic2ShapelessRecipe;
 import dev.craft.ic2.recipe.MachineRecipe;
+import dev.craft.powerconverters.ConverterType;
+import dev.craft.powerconverters.PcItems;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.component.DataComponents;
@@ -31,6 +33,7 @@ import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
+import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
@@ -73,6 +76,27 @@ public final class CraftRecipeProvider extends RecipeProvider {
         extractor();
         buildcraft();
         forestry();
+        powerConverters();
+    }
+
+    // --- §14 Power Converters (vanilla recipes; the IC2 consumers need transformers/MFSU and follow in phase 6) ---
+
+    private void powerConverters() {
+        bcShaped(PcItems.ENERGY_BRIDGE).pattern("GRG").pattern("LDL").pattern("GRG").define('G', Items.GOLD_INGOT)
+                .define('R', Items.REDSTONE).define('L', Items.GLASS).define('D', Items.DIAMOND)
+                .unlockedBy("has_diamond", has(Items.DIAMOND)).save(output, id("energy_bridge"));
+        bcShaped(PcItems.UNIVERSAL_CHARGER).pattern("GRG").pattern("ICI").pattern("GRG").define('G', Items.GOLD_INGOT)
+                .define('R', Items.REDSTONE).define('I', Items.IRON_INGOT).define('C', Items.CHEST)
+                .unlockedBy("has_gold", has(Items.GOLD_INGOT)).save(output, id("universal_charger"));
+        bcShaped(PcItems.converter(ConverterType.BC_CONSUMER)).pattern("G G").pattern(" E ").pattern("G G")
+                .define('G', Items.GOLD_INGOT).define('E', BcItems.engine(EngineType.STIRLING))
+                .unlockedBy("has_engine", has(BcItems.engine(EngineType.STIRLING))).save(output, id("bc_consumer"));
+        for (ConverterType type : ConverterType.values()) {
+            ItemLike from = PcItems.converter(type);
+            ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, PcItems.converter(type.counterpart()))
+                    .requires(from).unlockedBy("has_converter", has(from))
+                    .save(output, id(type.counterpart().getName() + "_from_" + type.getName()));
+        }
     }
 
     // --- §12 BuildCraft (vanilla shaped recipes, mirroring allowed as in 1.4.7) ---

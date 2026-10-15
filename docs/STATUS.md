@@ -290,3 +290,32 @@ Phase 4 am 2026-10-15 vom Nutzer abgenommen (manuelle Tests gesammelt am Ende). 
 2. Manuelle Client-Tests zusätzlich: Electrical Engine (Platzieren neben Carpenter/Fabricator → Ausrichtung,
    Redstone + Kabel/BatBox → Kolben, Partikel, Stammfarbe nach Hitze, Zwangsabkühlung; GUI: EU-Anzeige,
    Batterie-Slot, Platine per Klick einsetzen/mit Lötkolben entnehmen, Tooltip leerer Sockel; Item-Darstellung).
+
+## Erledigt (Teilpaket „Phase 5c: Power Converters“, 2026-10-15)
+- Lücken aus dem Original einmalig in `10-energieumwandlung.md` §B.8 nachgetragen (Blöcke/Texturindizes,
+  Bauteil-Cache, Consumer/Producer-Abläufe inkl. Eigenheiten, Bridge-Tick und „Input limited“, GUI-Maße,
+  Charger-Ablauf). **Spec-Korrektur §B.2:** der IC2 Consumer explodiert **nicht** bei Überspannung (IC2 prüft
+  `getMaxSafeInput` nicht im Netz).
+- Paket `dev.craft.powerconverters`: `PowerConverters` (Init, MJ-Capability), `PcBlocks`, `PcItems`,
+  `PcBlockEntityTypes`, `PcMenus`, `PowerSystem` (BC 4375 / IC2 1800 PCU, Spannungen), `ConverterType`,
+  Creative-Tab „Power Converters“.
+- `power/`: `BridgeComponentBlockEntity` (Nachbar-Cache, Seiten-Blockstate), `EnergyConsumer/ProducerBlockEntity`,
+  `EnergyBridgeBlockEntity` (16 000 000 PCU), `Ic2Consumer/ProducerBlockEntity` (LV–EV, nur volle Pakete),
+  `BcConsumer/ProducerBlockEntity`, `ChargerBlockEntity` (Spieler darauf bzw. angrenzende Inventare).
+- `block/`: `PowerConverterBlock` (6 Seiten-Eigenschaften, GUI der ersten Bridge), `ChargerBlock`
+  (Kollision 14 px), `EnergyBridgeBlock`; `menu/EnergyBridgeMenu`, `client/EnergyBridgeScreen`.
+- Texturen aus `terrain_0.png` geschnitten (`textures/block/power_converter/`), GUI `energy_bridge.png`.
+- Datagen: Multipart-Blockstates (Einzelflächen-Modelle je Seite), Item-Modelle, Loot, Lang en/de (nur englische
+  Namen wie im Pack), Rezepte Energy Bridge, Charger, BC Consumer, formlose Umwandlungen.
+  **IC2-Consumer-Rezepte erst mit Trafos/MFSU (Phase 6).**
+- 6 neue GameTests (`PowerConvertersGameTests`, insgesamt 69 grün), `gradlew build` und `runClient` (Hauptmenü,
+  keine Mod-Fehler) erfolgreich. Abweichungen in `abweichungen.md`.
+- **Damit ist Phase 5 inhaltlich vollständig** – wartet auf Abnahme durch den Nutzer.
+
+## Nächste Schritte
+1. Abnahme Phase 5 durch den Nutzer.
+2. Manuelle Client-Tests zusätzlich: Power Converters (Bridge + IC2 Consumer an Kabel/Generator → GUI zeigt
+   „IN“ und EU/t, Ladebalken; IC2 Producer an Maschine/BatBox → nur volle Pakete; BC Consumer mit Engine,
+   BC Producer an Quarry/Pumpe; verbundene Seiten-Texturen; Charger: draufstellen lädt Batterien im Inventar,
+   Truhe daneben; Rechtsklick auf Bauteil öffnet Bridge-GUI; formlose Umwandlungsrezepte).
+3. Danach Phase 6 (IC2 Mid/Late Game) – erstes Teilpaket festlegen; IC2-Consumer-Rezepte dort nachziehen.
