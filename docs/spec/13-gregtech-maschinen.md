@@ -529,3 +529,71 @@ Umfang).
 Umsetzung der Nahrungsrezepte: Datagen über alle Items mit `DataComponents.FOOD` (Vanilla und Mod) mit
 `ceil(nutrition / 2)`; die 1.4.7-Werte stimmen für alle Vanilla-Nahrungsmittel von damals mit den 1.21-Werten überein
 (Ergebnis `n`). Behälter-Item = `FoodProperties.usingConvertsTo` (Schüssel, Glasflasche), siehe `abweichungen.md`.
+
+## 8. Implosionskompressor (`GT_MetaTileEntity_ImplosionCompressor`, ID 31, „Implosion Compressor“) – Teilpaket 6b.5b
+
+Eigene MetaTileEntity wie der Hochofen (§5), Basis §1.1/§1.2/§1.5/§1.6. Unterschiede zum Hochofen:
+
+| Wert | |
+|---|---|
+| `maxEUInput` | **32** (sichere Eingabe 32 · 4^Trafos), Energie von **allen** Seiten |
+| `maxEUStore` | 10 000 (+ Upgrades §1.4), MJ-Kapazität 10 000 (nur mit MJ-Konverter) |
+| Facing | nur **unten** (`isFacingValid = aFacing == 0`) – Ausrichtung fest, Schraubenschlüssel dreht nicht |
+| Upgrades | Transformer, Energiespeicher/Lithium, MJ-Konverter – **kein Overclocker** (`isOverclockerUpgradable = false`) |
+| Texturen (`terrain.png`, absolute Seiten) | oben 68 (aktiv 69), unten 71, Ost/West 73, Nord/Süd 74 |
+| Beschreibung | „Over 9000 Gibbl!“; Tooltip „Max EU/p IN: 32“ |
+| Rechtsklick | öffnet immer die GUI (keine Spulen) |
+
+**Slots:** 0 = Eingabe 1, 1 = Eingabe 2, 2/3 = Ausgabe 1/2 (alle droppen). Seiten (absolut): oben → Slot 0,
+unten/Nord/Süd → Slot 1, Ost/West → Slots 2–3.
+
+**Struktur** (`checkMachine`, unabhängig vom Facing): Würfel 3 × 3 × 3 **unter** dem Controller, Mittelpunkt =
+Controller − 2 nach unten (der Controller sitzt mittig auf der Oberseite). Mitte (y − 2) muss **Luft** sein (nur
+Block-ID 0, keine Flüssigkeit); die **8 Ecken** (alle drei Koordinaten ≠ 0) **Standard**-Maschinengehäuse (Meta 13),
+die übrigen **18** Positionen **verstärktes** Gehäuse (Meta 14). Andere Gehäuse (auch fortgeschritten) → unvollständig.
+Prüfzeitpunkt wie §5 (`mUpdate`, `onMachineBlockUpdate`, `causeMachineUpdate`); ohne Heizspulen.
+
+**Tick (`onPostTick`, Server):**
+1. Wenn `mUpdate-- == 0`: `mMachine = checkMachine()`.
+2. Aktiv = `mMachine`.
+3. Wenn **nicht** `mMachine` oder kein Rezept läuft (`mMaxProgresstime ≤ 0`): bei gespeicherter Energie > 100
+   `checkRecipe` (nur mit `mMachine`; Rezept zu (Slot 0, Slot 1) **nicht shapeless**, Platz für beide Ausgaben,
+   Eingaben beim Start abziehen). Bricht die Struktur während eines Rezepts, steht es (kein Fortschritt, keine Energie).
+4. Sonst: wenn `decreaseStoredEnergy(mEUt)` gelingt (kein Overclock, **kein** `constant_need_of_energy`-Rückfall,
+   kein Fehlercode): `++mProgresstime > mMaxProgresstime` → Ausgaben wie §5 in Slot 2/3, Fortschritt 0. Danach, wenn
+   `mProgresstime == mMaxProgresstime / 2`: **Explosionssound** („random.explode“, Lautstärke 4, Tonhöhe
+   `(1 + (r1 − r2) · 0,2) · 0,7`) an der Maschine. Fehlt Energie, passiert in diesem Tick nichts.
+   Ein Rezept dauert also `mDuration + 1` Ticks mit Energie. Die Sound-Bedingung gilt auch direkt nach dem Abschluss
+   (`0 == 0 / 2`) – der Knall ertönt je Rezept zweimal.
+
+**GUI** (`gui/Implosion.png`, `GT_Container_ImplosionCompressor`): Titel „Implosion Compressor“ (8, 4); Zeile (8, 63)
+„Incomplete Machine Casing!“ nur bei unvollständiger Struktur; „Inventory“ (8, 72). Slots 0 (34, 16), 1 (34, 34),
+Ausgaben 2 (86, 25), 3 (104, 25). Fortschrittspfeil (58, 28) ← (176, 0), Breite wie §5, Höhe 11. Shift-Klick aus dem
+Spielerinventar nur in Slot 0/1. Info-Anzeige (GT-Scanner): „Progress:“, „n secs“, „/m secs“.
+
+**Rezept des Kompressors:** `ABA/DCD/ABA`, A = fortg. Legierung, B = fortg. Maschinenblock
+(`craftingRawMachineTier02`), D = el. Schaltkreis (`craftingCircuitTier02`), C = IC2-Compressor.
+
+**Implosionsrezepte** (`addImplosionRecipe`, immer 20 Ticks, 32 EU/t): Eingabe 2 ist **Industrie-TNT** (bei fehlendem
+IC2 TNT), Anzahl aus `RecipesAdvancedConfig.cfg` Abschnitt `implosion` (im Pack = Code-Werte):
+
+| Eingabe 1 | ITNT | Ausgabe 1 | Ausgabe 2 | Umfang |
+|---|---:|---|---|---|
+| Iridium-Legierungsbarren | 8 | IC2-Iridiumplatte | 4 dunkle Asche | 6b.5b |
+| 4 Diamantstaub | 32 | 3 Industriediamanten | 16 dunkle Asche | 6b.5b |
+| 4 Smaragdstaub | 24 | 3 Smaragde | 12 dunkle Asche | 6b.5b |
+| 4 Rubin-/Saphir-/grüner Saphir-/Olivinstaub | 24 | 3 Edelsteine | 12 dunkle Asche | mit GT-Erzen |
+| 4 roter/gelber Granatstaub | 16 | 3 Granat | 8 dunkle Asche | mit GT-Erzen |
+
+### 8.1 Iridium-Kette und Edelsteinstaub (6b.5b)
+
+| Item | GT | Tooltip | Rezept / Herkunft |
+|---|---|---|---|
+| Iridiumbarren („Iridium Ingot“) | Material 16 | Ir | Compressor: IC2-Iridiumerz → 1 Iridiumbarren. Kein Macerator-/Ofen-Rückweg |
+| Iridium-Legierungsbarren („Iridium Alloy Ingot“) | Material 4 | – | → 1: `IAI/ADA/IAI`, I = Iridiumbarren, A = fortg. Legierung, D = Diamantstaub (`DifficultIridiumPlate=true`) – im Pack Walzmaschinen-Rezept, ohne Railcraft **Werkbank** (wie die Heizspulen) |
+| Diamantstaub („Diamond Dust“) | Dust 36 | C128 | Macerator: Diamant **und** Industriediamant (`gemDiamond`) → 1 Staub. Massefabrikator-Verstärker **125 000** |
+| Smaragdstaub („Emerald Dust“) | Dust 35 | Be3Al2Si6O18 | Macerator: Smaragd → 1 Staub. Massefabrikator-Verstärker **50 000** |
+
+Die IC2-Rezepte der Iridiumplatte (`IAI/ADA/IAI` mit Iridiumerz und Diamant bzw. Industriediamant) entfernt GT.
+Später (Zutaten fehlen): Smaragdstaub im Assembler (8 + fortg. Schaltkreis) und Elektrolyseur (Berylliumzellen),
+GT-Rückgewinnung von Werkzeugen/Rüstung im Macerator (`applyUsagesForMaterials`, für alle Materialien offen).

@@ -1,0 +1,29 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "C": {
+      "item": "craft:advanced_circuit"
+    },
+    "G": {
+      "item": "craft:reinforced_glass"
+    },
+    "I": {
+      "item": "craft:iridium_plate"
+    },
+    "L": {
+      "item": "craft:lapotron_crystal"
+    },
+    "n": {
+      "item": "craft:nano_helmet"
+    }
+  },
+  "pattern": [
+    " n ",
+    "ILI",
+    "CGC"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:quantum_helmet"
+  }
+}

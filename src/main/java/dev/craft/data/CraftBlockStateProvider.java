@@ -234,6 +234,11 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
                         .cullface(direction == Direction.UP ? null : direction))
                 .end();
         simpleBlock(Ic2Blocks.RESIN_SHEET.get(), model);
+        simpleBlockWithItem(Ic2Blocks.REINFORCED_GLASS.get(), models().cubeAll("reinforced_glass",
+                modLoc("block/reinforced_glass")).renderType("cutout"));
+        simpleBlockWithItem(Ic2Blocks.INDUSTRIAL_TNT.get(), models().cubeBottomTop("industrial_tnt",
+                modLoc("block/industrial_tnt_side"), modLoc("block/industrial_tnt_bottom"),
+                modLoc("block/industrial_tnt_top")));
         fenceBlock(Ic2Blocks.IRON_FENCE.get(), modLoc("block/iron_fence"));
         simpleBlockItem(Ic2Blocks.IRON_FENCE.get(), models().fenceInventory("iron_fence_inventory",
                 modLoc("block/iron_fence")));
@@ -350,6 +355,14 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
         if (machine.getLayout() == GtMachine.Layout.FRONT) {
             return side == facing ? machine.getFrontTexture(active) : side == facing.getOpposite()
                     ? GtMachine.FRONT_LAYOUT_BACK : GtMachine.FRONT_LAYOUT_SIDE;
+        }
+        if (machine.getLayout() == GtMachine.Layout.TOP) {
+            return switch (side) {
+                case UP -> machine.getFrontTexture(active);
+                case DOWN -> GtMachine.TOP_LAYOUT_BOTTOM;
+                case EAST, WEST -> GtMachine.TOP_LAYOUT_EAST_WEST;
+                default -> GtMachine.TOP_LAYOUT_NORTH_SOUTH;
+            };
         }
         if (front == null ? side == facing : side == front) {
             return machine.getFrontTexture(active);

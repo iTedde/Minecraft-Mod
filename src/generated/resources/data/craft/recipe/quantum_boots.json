@@ -1,0 +1,25 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "I": {
+      "item": "craft:iridium_plate"
+    },
+    "L": {
+      "item": "craft:lapotron_crystal"
+    },
+    "R": {
+      "item": "craft:rubber_boots"
+    },
+    "n": {
+      "item": "craft:nano_boots"
+    }
+  },
+  "pattern": [
+    "InI",
+    "RLR"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:quantum_boots"
+  }
+}

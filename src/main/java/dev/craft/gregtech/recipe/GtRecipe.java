@@ -166,7 +166,8 @@ public class GtRecipe implements Recipe<GtRecipe.Input> {
         ELECTROLYZER("electrolyzer", false),
         BLAST_FURNACE("blast_furnace", true),
         ASSEMBLER("assembler", true),
-        CANNER("canner", true);
+        CANNER("canner", true),
+        IMPLOSION("implosion", false);
 
         private final String name;
         private final boolean shapeless;

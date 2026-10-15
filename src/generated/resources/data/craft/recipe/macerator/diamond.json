@@ -1,0 +1,15 @@
+{
+  "type": "craft:macerator",
+  "ingredient": [
+    {
+      "item": "minecraft:diamond"
+    },
+    {
+      "item": "craft:industrial_diamond"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:diamond_dust"
+  }
+}

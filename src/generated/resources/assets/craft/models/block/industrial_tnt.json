@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "bottom": "craft:block/industrial_tnt_bottom",
+    "side": "craft:block/industrial_tnt_side",
+    "top": "craft:block/industrial_tnt_top"
+  }
+}

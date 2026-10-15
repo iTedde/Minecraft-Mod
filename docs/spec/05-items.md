@@ -433,12 +433,31 @@ Ergänzung 6b.5a (`ItemTinCan`, `ItemFuelCanFilled`, `IC2.java`):
 
 | Block/Item | Zünder | Explosion |
 |---|---|---|
-| Industrie-TNT (ITNT) | Redstone, Feuerzeug, Explosion (verkürzt), Zündschnur 60 Ticks | `ExplosionIC2(5,5, drop 0,9, dmg 0,3)` |
+| Industrie-TNT (ITNT) | Redstone, Feuerzeug, Abbauen, Explosion (verkürzt), Zündschnur 60 Ticks | `ExplosionIC2(5,5, drop 0,9, dmg 0,3)` |
 | Atombombe (Nuke, uncommon) | wie TNT, Zündschnur 300 Ticks; mit Wrench entschärfbar (Entity) | `ExplosionIC2(35 = explosionPowerNuke, drop 0,05, dmg 1,5, DamageSource nuke)` + Strahlung/Hunger im Umkreis 100; Platzieren/Zünden wird geloggt |
 | Dynamit / Klebedynamit (Item, werfbar) | Wurf, Zündschnur 100 Ticks; Klebedynamit haftet an Blöcken; im Wasser erlischt es (+2000 Ticks) | `PointExplosion` 3×3×3: zerstört Blöcke mit Resistenz ≤ 10, Drop 100 %, Entity-Schaden ähnlich Vanilla (Stärke 1 → 2) |
 | Dynamit-Block (gelegt) / mit Fernzünder | Redstone, Fernzünder | Zündschnur 40 Ticks (durch Explosion 5) |
 
 Gezündete IC2-Sprengstoffe springen wie TNT (motionY 0,2).
+
+**Industrie-TNT im Detail** (`BlockITNT`/`BlockIC2Explosive`/`EntityItnt`/`EntityIC2Explosive`, Teilpaket 6b.5b):
+- Block (`blockITNT`): Material TNT, Härte 0, Klang Gras, Seltenheit normal, Creative-Tab IC2. Textur `block_0.png`
+  58 (unten), 59 (oben), 60 (Seiten). Droppt **nie** etwas (`quantityDropped = 0`).
+- Zünden (`removeBlockByPlayer` → Block weg, Entity am Blockmittelpunkt, Sound „random.fuse“):
+  - **Abbauen durch den Spieler** (auch Creative; `canExplodeByHand = true` für ITNT) – ITNT lässt sich nicht
+    aufheben.
+  - Rechtsklick mit **Feuerzeug** (wird dabei **nicht** abgenutzt; Feuerkugel/brennende Pfeile zünden nicht).
+  - Redstone: beim Platzieren, wenn bestromt; bei Nachbaränderung, wenn der Nachbarblock Redstone liefern kann und
+    der Block bestromt ist.
+  - Von einer Explosion zerstört (`onBlockDestroyedByExplosion`): Entity ohne Sound, Zündschnur
+    `rand(fuse/4) + fuse/8` = 7–21 Ticks.
+- Entity (`EntityIC2Explosive`): 0,98 × 0,98, anklickbar, Startbewegung wie Vanilla-TNT (zufällige Richtung 0,02,
+  aufwärts 0,2), je Tick Schwerkraft 0,04, Dämpfung 0,98, am Boden horizontal ×0,7 und vertikal ×−0,5; Rauchpartikel
+  je Tick; NBT `Fuse` (Byte). Bei `fuse-- ≤ 0`: entfernen und `ExplosionIC2(5,5, 0,9, 0,3, DamageSource explosion)`
+  am Entity-Mittelpunkt. Darstellung wie Vanilla-TNT (Block-Modell, in den letzten 10 Ticks aufblähen, Weißblitz bei
+  `fuse/5 % 2 == 0`).
+- Rezepte: 4 ITNT aus `FFF/TTT/FFF` und `FTF/FTF/FTF` (F = Feuerstein, T = TNT); GT-Variante mit Feuersteinstaub
+  (→ 5) folgt mit dem Staub.
 
 ## 8. Strahlung, Schadensquellen
 
@@ -519,7 +538,7 @@ Rum; Fass mit Baumzapfer anzapfen) – Details `ItemMugCoffee`, `ItemBooze`, `Ti
 | Gummimatte (`blockRubber`, Trampolin) | 0,8 | 2 | federt |
 | Eisenzaun (`blockFenceIron`) | 1,5 | 5 | magnetisierbar, Details unten |
 | Verstärkter Stein (`blockAlloy`) | 80 | 150 | Pickaxe 2 |
-| Verstärktes Glas | 5 | 150 | |
+| Verstärktes Glas (`blockAlloyGlass`) | 5 | 150 (wirksam 90) | Glas-Material (ohne Werkzeug abbaubar, droppt sich selbst), Klang Glas, durchsichtig wie Glas (Flächen zu gleichen Nachbarn ausgeblendet), Textur `block_0.png` 13; 7 Stück aus `GAG/GGG/GAG` oder `GGG/AGA/GGG` (A = fortg. Legierung) |
 | Verstärkte Tür | 50 | 150 | Pickaxe 2 |
 | Bauschaum (`blockFoam`) / Bauschaumwand (`blockWall`) | 0,01 / 3,0 | 10 / 30 | Schaum härtet zu Wand (Licht abhängig), Wand färbbar |
 | Holzgerüst / Eisengerüst | 0,5 / 0,8 | 0,2 / 10 | kletterbar, stapelbar |

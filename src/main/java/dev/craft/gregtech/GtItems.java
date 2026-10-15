@@ -51,6 +51,9 @@ public final class GtItems {
     public static final DeferredItem<GtMaterialItem> STEEL_INGOT = material("steel_ingot", "Fe");
     public static final DeferredItem<GtMaterialItem> NICKEL_INGOT = material("nickel_ingot", "Ni");
     public static final DeferredItem<GtMaterialItem> SILICON_PLATE = material("silicon_plate", "Si2");
+    public static final DeferredItem<GtMaterialItem> IRIDIUM_INGOT = material("iridium_ingot", "Ir");
+    /** Material 4: no formula line. */
+    public static final DeferredItem<GtMaterialItem> IRIDIUM_ALLOY_INGOT = material("iridium_alloy_ingot", "");
 
     // --- cells (GT_MetaItem_Cell) ---
     public static final DeferredItem<GtMaterialItem> HYDROGEN_CELL = material("hydrogen_cell", "H");
@@ -66,6 +69,8 @@ public final class GtItems {
     public static final DeferredItem<GtMaterialItem> DARK_ASH = material("dark_ash", "C");
     public static final DeferredItem<GtMaterialItem> STEEL_DUST = material("steel_dust", "Fe");
     public static final DeferredItem<GtMaterialItem> NICKEL_DUST = material("nickel_dust", "Ni");
+    public static final DeferredItem<GtMaterialItem> EMERALD_DUST = material("emerald_dust", "Be3Al2Si6O18");
+    public static final DeferredItem<GtMaterialItem> DIAMOND_DUST = material("diamond_dust", "C128");
 
     // --- components (GT_MetaItem_Component) ---
     public static final DeferredItem<GtMaterialItem> CONVEYOR_MODULE = component("conveyor_module");

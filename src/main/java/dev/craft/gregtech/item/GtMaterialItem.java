@@ -29,6 +29,8 @@ public class GtMaterialItem extends Item {
 
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> lines, TooltipFlag flag) {
-        lines.add(tooltip.copy().withStyle(ChatFormatting.GRAY));
+        if (!tooltip.getString().isEmpty()) {
+            lines.add(tooltip.copy().withStyle(ChatFormatting.GRAY));
+        }
     }
 }

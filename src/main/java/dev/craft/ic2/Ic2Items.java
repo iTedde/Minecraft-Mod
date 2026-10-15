@@ -77,6 +77,9 @@ public final class Ic2Items {
     public static final DeferredItem<BlockItem> RUBBER_SAPLING =
             ITEMS.registerSimpleBlockItem(Ic2Blocks.RUBBER_SAPLING);
     public static final DeferredItem<BlockItem> IRON_FENCE = ITEMS.registerSimpleBlockItem(Ic2Blocks.IRON_FENCE);
+    public static final DeferredItem<BlockItem> REINFORCED_GLASS =
+            ITEMS.registerSimpleBlockItem(Ic2Blocks.REINFORCED_GLASS);
+    public static final DeferredItem<BlockItem> INDUSTRIAL_TNT = ITEMS.registerSimpleBlockItem(Ic2Blocks.INDUSTRIAL_TNT);
 
     // --- materials ---
     public static final DeferredItem<ResinItem> RESIN = simple(ITEMS.registerItem("resin", ResinItem::new));
@@ -105,6 +108,8 @@ public final class Ic2Items {
     public static final DeferredItem<ScrapBoxItem> SCRAP_BOX = simple(ITEMS.registerItem("scrap_box", ScrapBoxItem::new));
     public static final DeferredItem<Item> UU_MATTER = simple("uu_matter", new Item.Properties().rarity(Rarity.RARE));
     public static final DeferredItem<Item> IRIDIUM_ORE = simple("iridium_ore", new Item.Properties().rarity(Rarity.RARE));
+    public static final DeferredItem<Item> IRIDIUM_PLATE =
+            simple("iridium_plate", new Item.Properties().rarity(Rarity.RARE));
     public static final DeferredItem<Item> HYDRATED_COAL_CLUMP = simple("hydrated_coal_clump");
     public static final DeferredItem<Item> PLANT_BALL = simple("plant_ball");
     public static final DeferredItem<Item> COMPRESSED_PLANT_BALL = simple("compressed_plant_ball");

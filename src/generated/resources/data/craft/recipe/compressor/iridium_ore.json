@@ -1,0 +1,10 @@
+{
+  "type": "craft:compressor",
+  "ingredient": {
+    "item": "craft:iridium_ore"
+  },
+  "result": {
+    "count": 1,
+    "id": "craft:iridium_ingot"
+  }
+}

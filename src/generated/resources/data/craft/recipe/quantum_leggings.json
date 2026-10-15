@@ -1,0 +1,29 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "G": {
+      "item": "minecraft:glowstone_dust"
+    },
+    "I": {
+      "item": "craft:iridium_plate"
+    },
+    "L": {
+      "item": "craft:lapotron_crystal"
+    },
+    "M": {
+      "item": "craft:machine_casing"
+    },
+    "n": {
+      "item": "craft:nano_leggings"
+    }
+  },
+  "pattern": [
+    "MLM",
+    "InI",
+    "G G"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:quantum_leggings"
+  }
+}

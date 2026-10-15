@@ -1,6 +1,7 @@
 package dev.craft.ic2;
 
 import dev.craft.Craft;
+import dev.craft.ic2.block.IndustrialTntEntity;
 import dev.craft.ic2.item.tool.MiningLaserEntity;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.entity.EntityType;
@@ -21,6 +22,15 @@ public final class Ic2EntityTypes {
                     .clientTrackingRange(10)
                     .updateInterval(5)
                     .build("mining_laser"));
+
+    /** IC2 {@code EntityItnt}: tracked like the mining laser (160 blocks, every 5 ticks). */
+    public static final DeferredHolder<EntityType<?>, EntityType<IndustrialTntEntity>> INDUSTRIAL_TNT =
+            ENTITY_TYPES.register("industrial_tnt", () -> EntityType.Builder
+                    .<IndustrialTntEntity>of(IndustrialTntEntity::new, MobCategory.MISC)
+                    .sized(0.98F, 0.98F)
+                    .clientTrackingRange(10)
+                    .updateInterval(5)
+                    .build("industrial_tnt"));
 
     private Ic2EntityTypes() {
     }

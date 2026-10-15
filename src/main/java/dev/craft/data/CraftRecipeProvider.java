@@ -140,6 +140,40 @@ public final class CraftRecipeProvider extends RecipeProvider {
         blastFurnace();
         assembler();
         canner();
+        implosionCompressor();
+    }
+
+    /**
+     * Implosion compressor (spec 13 §8): the machine, the iridium chain up to the iridium plate and the gem dust
+     * recipes whose inputs exist.
+     */
+    private void implosionCompressor() {
+        shaped(GtItems.machine(GtMachine.IMPLOSION_COMPRESSOR), 1, "implosion_compressor")
+                .pattern("ABA", "DCD", "ABA").define('A', Ic2Items.ADVANCED_ALLOY)
+                .define('B', CraftItemTagsProvider.RAW_MACHINE_TIER_02).define('D', Ic2Items.ELECTRONIC_CIRCUIT)
+                .define('C', machine(Ic2Machine.COMPRESSOR)).save();
+        machine(MachineRecipe.Kind.COMPRESSOR, "iridium_ore", Ingredient.of(Ic2Items.IRIDIUM_ORE), 1,
+                GtItems.IRIDIUM_INGOT, 1);
+        // Rolling machine recipe in the pack (Railcraft is out of scope): crafting table, GT's own fallback.
+        shaped(GtItems.IRIDIUM_ALLOY_INGOT, 1, "iridium_alloy_ingot").pattern("IAI", "ADA", "IAI")
+                .define('I', GtItems.IRIDIUM_INGOT).define('A', Ic2Items.ADVANCED_ALLOY)
+                .define('D', GtItems.DIAMOND_DUST).save();
+        machine(MachineRecipe.Kind.MACERATOR, "diamond", diamond(), 1, GtItems.DIAMOND_DUST, 1);
+        machine(MachineRecipe.Kind.MACERATOR, "emerald", Ingredient.of(Items.EMERALD), 1, GtItems.EMERALD_DUST, 1);
+
+        implosion("iridium_plate", GtItems.IRIDIUM_ALLOY_INGOT, 1, 8, new ItemStack(Ic2Items.IRIDIUM_PLATE.get()),
+                new ItemStack(GtItems.DARK_ASH.get(), 4));
+        implosion("industrial_diamond", GtItems.DIAMOND_DUST, 4, 32,
+                new ItemStack(Ic2Items.INDUSTRIAL_DIAMOND.get(), 3), new ItemStack(GtItems.DARK_ASH.get(), 16));
+        implosion("emerald", GtItems.EMERALD_DUST, 4, 24, new ItemStack(Items.EMERALD, 3),
+                new ItemStack(GtItems.DARK_ASH.get(), 12));
+    }
+
+    /** {@code GT_Mod.addImplosionRecipe}: input 2 is always industrial TNT; 20 ticks at 32 EU/t. */
+    private void implosion(String name, ItemLike input, int count, int tnt, ItemStack... outputs) {
+        output.accept(id("gt_implosion/" + name), new GtRecipe(GtRecipe.Kind.IMPLOSION,
+                List.of(SizedIngredient.of(input, count), SizedIngredient.of(Ic2Items.INDUSTRIAL_TNT.get(), tnt)),
+                List.of(outputs), 20, 32, 0), null);
     }
 
     /** Automatic canning machine (spec 13 §7): crafting recipe and the canner recipes whose items exist. */
@@ -889,10 +923,7 @@ public final class CraftRecipeProvider extends RecipeProvider {
 
     // --- §7 tools ---
 
-    /**
-     * §11 armor and its parts. Quantum suit (iridium plate, reinforced glass) and CF pack (foam sprayer) follow with
-     * their ingredients.
-     */
+    /** §11 armor and its parts. The CF pack follows with the foam sprayer. */
     private void armor() {
         shaped(Ic2Items.CARBON_FIBER, 1, "carbon_fiber").pattern("CC").pattern("CC")
                 .define('C', CraftItemTagsProvider.DUSTS_COAL).save();
@@ -911,6 +942,21 @@ public final class CraftRecipeProvider extends RecipeProvider {
                 .define('C', Ic2Items.CARBON_PLATE).define('c', Ic2Items.ENERGY_CRYSTAL).save();
         shaped(Ic2Items.NANO_BOOTS, 1, "nano_boots").pattern("C C").pattern("CcC")
                 .define('C', Ic2Items.CARBON_PLATE).define('c', Ic2Items.ENERGY_CRYSTAL).save();
+
+        shaped(Ic2Items.QUANTUM_HELMET, 1, "quantum_helmet").pattern(" n ", "ILI", "CGC")
+                .define('n', Ic2Items.NANO_HELMET).define('I', Ic2Items.IRIDIUM_PLATE)
+                .define('L', Ic2Items.LAPOTRON_CRYSTAL).define('G', Ic2Items.REINFORCED_GLASS)
+                .define('C', Ic2Items.ADVANCED_CIRCUIT).save();
+        shaped(Ic2Items.QUANTUM_CHESTPLATE, 1, "quantum_chestplate").pattern("AnA", "ILI", "IAI")
+                .define('n', Ic2Items.NANO_CHESTPLATE).define('I', Ic2Items.IRIDIUM_PLATE)
+                .define('L', Ic2Items.LAPOTRON_CRYSTAL).define('A', Ic2Items.ADVANCED_ALLOY).save();
+        shaped(Ic2Items.QUANTUM_LEGGINGS, 1, "quantum_leggings").pattern("MLM", "InI", "G G")
+                .define('n', Ic2Items.NANO_LEGGINGS).define('I', Ic2Items.IRIDIUM_PLATE)
+                .define('L', Ic2Items.LAPOTRON_CRYSTAL).define('G', Items.GLOWSTONE_DUST)
+                .define('M', Ic2Items.MACHINE_CASING).save();
+        shaped(Ic2Items.QUANTUM_BOOTS, 1, "quantum_boots").pattern("InI", "RLR")
+                .define('n', Ic2Items.NANO_BOOTS).define('I', Ic2Items.IRIDIUM_PLATE)
+                .define('L', Ic2Items.LAPOTRON_CRYSTAL).define('R', Ic2Items.RUBBER_BOOTS).save();
 
         shaped(Ic2Items.HAZMAT_HELMET, 1, "hazmat_helmet").pattern(" O ").pattern("RGR").pattern("R#R")
                 .define('R', Ic2Items.RUBBER).define('G', Items.GLASS).define('#', Items.IRON_BARS)
@@ -1016,6 +1062,14 @@ public final class CraftRecipeProvider extends RecipeProvider {
         shaped(Items.PISTON, 1, "piston_from_refined_iron").pattern("WWW").pattern("CBC").pattern("CRC")
                 .define('W', ItemTags.PLANKS).define('C', Items.COBBLESTONE)
                 .define('B', CraftItemTagsProvider.INGOTS_REFINED_IRON).define('R', Items.REDSTONE).save();
+        shaped(Ic2Items.REINFORCED_GLASS, 7, "reinforced_glass").pattern("GAG", "GGG", "GAG")
+                .define('G', Items.GLASS).define('A', Ic2Items.ADVANCED_ALLOY).save();
+        shaped(Ic2Items.REINFORCED_GLASS, 7, "reinforced_glass_rotated").pattern("GGG", "AGA", "GGG")
+                .define('G', Items.GLASS).define('A', Ic2Items.ADVANCED_ALLOY).save();
+        shaped(Ic2Items.INDUSTRIAL_TNT, 4, "industrial_tnt").pattern("FFF", "TTT", "FFF")
+                .define('F', Items.FLINT).define('T', Items.TNT).save();
+        shaped(Ic2Items.INDUSTRIAL_TNT, 4, "industrial_tnt_columns").pattern("FTF", "FTF", "FTF")
+                .define('F', Items.FLINT).define('T', Items.TNT).save();
     }
 
     // --- §10.1 furnace ---

@@ -1,0 +1,23 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "A": {
+      "item": "craft:advanced_alloy"
+    },
+    "D": {
+      "item": "craft:diamond_dust"
+    },
+    "I": {
+      "item": "craft:iridium_ingot"
+    }
+  },
+  "pattern": [
+    "IAI",
+    "ADA",
+    "IAI"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:iridium_alloy_ingot"
+  }
+}

@@ -146,7 +146,7 @@ Status: *geplant* (aus Phase 1 abgeleitet, noch nicht umgesetzt), *entschieden* 
 | Jetpack: Sound | IC2-AudioManager „Rucksack“-Position | mitlaufender Loop am lokalen Spieler | API | **umgesetzt** |
 | Jetpack: Betankung | Canning Machine | Canning Machine Modus 2 wie im Original (neues Jetpack mit `damage − fuelQuality`, Schwebemodus/Timer gehen dabei verloren wie das Original-NBT) | – | **umgesetzt** (6b.5a) |
 | CF-Pack | Pellet-Vorrat für den Bauschaumsprüher | kommt mit dem Bauschaumsprüher (Rezept braucht ihn), ebenso Modus 3 der Canning Machine (Pack mit Pellets füllen) | Item fehlt noch | **offen** |
-| Quantum-Rezepte | Iridiumplatte, verst. Glas, fortg. Schaltkreis … | Quantum ohne Rezept (Creative) bis Phase 6b | Zutaten (GT) fehlen | **offen bis Phase 6b** |
+| Quantum-Rezepte | Iridiumplatte, verst. Glas, fortg. Schaltkreis … | IC2-Rezepte, seit 6b.5b (Iridiumplatte aus dem Implosionskompressor, verstärktes Glas) | – | **umgesetzt** (6b.5b) |
 | Static Boots: Position | NBT `x`/`z` | Data Component `craft:last_position` | Data Components | **umgesetzt** |
 | Jetpack: Modus/Timer | NBT `hoverMode`/`toggleTimer` | Data Components `craft:hover_mode`/`craft:toggle_timer` | Data Components | **umgesetzt** |
 | UU-Materie-Rezepte: feste Position | `AdvRecipe` mit Leerzeilen/-spalten passt nur an genau dieser Stelle der Werkbank | `Ic2ShapedRecipe` mit `FixedPosition`; die Lage im Raster liefert ein Mixin auf `CraftingInput.ofPositioned` (`GridPosition`), Vanilla schneidet sie sonst ab. Eingaben ohne bekannte Lage (z. B. Autocrafter anderer Mods) werden akzeptiert | 1.21 kennt keine positionsgebundenen Rezepte | **umgesetzt** |

@@ -641,3 +641,34 @@ entscheiden**.
    vorne = Batterie, unten = Behälter, oben = Eingabe), gefüllte Dose essen (leere Dose zurück, Effekte), Quantenhelm
    isst bei Hunger; GT-Canner: Apfel + Dosen in vertauschten Slots, Wassereimer + Zelle, Brennstoffkanister im
    Generator/Eisenofen.
+
+## Erledigt (Teilpaket „Phase 6b.5b: Implosionskompressor“, 2026-10-16)
+- Nutzerentscheidungen: **Industrie-TNT voll als Block** (Zünden, Entity, IC2-Explosion); Implosionsrezepte **nur
+  erreichbare** (Iridiumplatte, Diamantstaub → Industriediamanten, Smaragdstaub → Smaragde).
+- Spec: `13-gregtech-maschinen.md` §8 (Struktur, Tick inkl. doppeltem Knall, GUI, Rezepte), §8.1 (Iridium-Kette,
+  Edelsteinstaub); `05-items.md` §7 (ITNT im Detail) und Blocktabelle (verstärktes Glas); `12-gregtech-materialien.md`
+  (Industrie-TNT statt TNT, Verstärker).
+- **Implosionskompressor** (`ImplosionCompressorBlockEntity`, `GtMachine.IMPLOSION_COMPRESSOR`, neues
+  `GtMachine.Layout.TOP`): 3 × 3 × 3-Würfel unter dem Controller (Ecken Standard-, sonst verstärktes Gehäuse, Mitte
+  Luft), 32 EU/t, kein Overclocker, Rezeptsuche nicht shapeless (`GtRecipe.Kind.IMPLOSION`), GUI
+  `GtImplosionCompressorMenu`/`Screen`. Rezept `ABA/DCD/ABA` (fortg. Legierung, Tier-02-Maschinenblock, el.
+  Schaltkreis, Compressor).
+- **Industrie-TNT** (`IndustrialTntBlock`, `Ic2ExplosiveEntity`/`IndustrialTntEntity`, `Ic2ExplosiveRenderer`):
+  Zünden durch Abbauen, Feuerzeug (ohne Abnutzung), Redstone, Explosion (7–21 Ticks); droppt nie. Rezepte 4 ITNT
+  `FFF/TTT/FFF` und `FTF/FTF/FTF`.
+- Items: Iridiumbarren (Compressor aus Iridiumerz), Iridium-Legierungsbarren (Werkbank `IAI/ADA/IAI`),
+  Diamant-/Smaragdstaub (Macerator; Massefabrikator-Verstärker 125 000/50 000), **Iridiumplatte**; Block
+  **verstärktes Glas** (7 aus Glas + fortg. Legierung). Damit **Quantum-Rüstung** mit IC2-Rezepten.
+- Texturen aus `IC2.jar` (`block_0.png` 13/58–60, `item_0.png` 93) und `GregTech.zip` (`terrain.png` 73/74,
+  `materials.png` 4/16, `dusts.png` 35/36, GUI `Implosion.png`).
+- 9 neue GameTests (`ImplosionCompressorGameTests`, insgesamt 148 grün), `build` und `runClient` erfolgreich.
+
+## Nächste Schritte
+1. Teilpaket 6b.5c: Zentrifuge (nur erreichbare Rezepte; Spec-Lücken vorher prüfen).
+2. Manuelle Client-Tests 6b.5b: Würfel bauen (Ecken Standard-, Rest verstärktes Gehäuse, Mitte frei), Controller
+   mittig oben drauf → Oberseite mit grünem Bildschirm (aktiv), GUI ohne „Incomplete Machine Casing!“; Legierungsbarren
+   + 8 ITNT → Iridiumplatte + 4 dunkle Asche (zwei Knalle); Seiten: oben Eingabe 1, Ost/West Ausgaben, sonst
+   Eingabe 2. ITNT: abbauen/Feuerzeug/Redstone zündet, Kettenreaktion, Blitz-/Aufbläh-Animation, Sprengkraft;
+   verstärktes Glas (durchsichtig, explosionsfest); Quantum-Rüstung craften (Ladung übernommen).
+3. Später: GT-Rückgewinnung von Werkzeugen/Rüstung im Macerator (`applyUsagesForMaterials`, alle Materialien),
+   Smaragdstaub im Assembler/Elektrolyseur, ITNT-Variante mit Feuersteinstaub, Dynamit aus ITNT.

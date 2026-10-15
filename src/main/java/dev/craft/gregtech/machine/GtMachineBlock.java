@@ -78,6 +78,9 @@ public class GtMachineBlock extends BaseEntityBlock {
             return defaultBlockState().setValue(FACING, player == null ? Direction.NORTH
                     : player.getDirection().getOpposite());
         }
+        if (machine.getLayout() == GtMachine.Layout.TOP) {
+            return defaultBlockState().setValue(FACING, Direction.DOWN);
+        }
         if (!machine.isBasicMachine()) {
             return defaultBlockState();
         }

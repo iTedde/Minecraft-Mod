@@ -72,7 +72,7 @@ MJ und EU bleiben getrennte Systeme; Verbindung nur über Electrical Engine (EU�
 | 4 | BuildCraft: MJ-System, Engines, Landmarks, Quarry, Pumpe, Tank, Raffinerie, Mining Well | **erledigt** (abgenommen) |
 | 5 | Energieumwandler: Electrical Engine (inkl. Thermionic Fabricator, Carpenter, Platinen, Röhren), Power Converters | **erledigt** (abgenommen) |
 | 6 | IC2 Mid/Late Game: 6.1 MFE, MFSU, Trafos · 6.2 Elektrowerkzeuge + Tastensystem · 6.3 Nano-/Quanten-/Utility-Rüstung · 6.4 Mass Fabricator, Solar Arrays als Multiblocks | **erledigt** (abgenommen) |
-| 6b | GregTech-Maschinen 1:1 (Elektrolyseur, Hochofen-Multiblock + Heizspulen, Plattenbieger, Assembler, ggf. weitere) und GT-Materialien; danach Rezepte für Solarpanel, Wasser-/Windmühle u. a. [GT⚠]. Teilpakete: 6b.1 Plattenbieger (erledigt) · 6b.2 Elektrolyseur (erledigt) · 6b.3 Hochofen (erledigt) · 6b.4 Assembler (erledigt) · 6b.5a Canning Machine IC2 + GT (erledigt) · 6b.5b Implosionskompressor · 6b.5c Zentrifuge (nur erreichbare Rezepte) | **in Arbeit** |
+| 6b | GregTech-Maschinen 1:1 (Elektrolyseur, Hochofen-Multiblock + Heizspulen, Plattenbieger, Assembler, ggf. weitere) und GT-Materialien; danach Rezepte für Solarpanel, Wasser-/Windmühle u. a. [GT⚠]. Teilpakete: 6b.1 Plattenbieger (erledigt) · 6b.2 Elektrolyseur (erledigt) · 6b.3 Hochofen (erledigt) · 6b.4 Assembler (erledigt) · 6b.5a Canning Machine IC2 + GT (erledigt) · 6b.5b Implosionskompressor (erledigt) · 6b.5c Zentrifuge (nur erreichbare Rezepte) | **in Arbeit** |
 | 7 | Reaktor | offen |
 | 8 | Neue Kraftwerke: Kohlekraftwerk mit Koksofen, Wasserturbine | offen |
 | 9 | BuildCraft-Rohre (fest im Umfang) | offen |
@@ -80,7 +80,7 @@ MJ und EU bleiben getrennte Systeme; Verbindung nur über Electrical Engine (EU�
 
 Nicht explizit in einer Phase, aber Teil von „IC2 komplett“ (Zuordnung klären): Eisenofen,
 Miner, Pumpe, Terraformer, Teleporter, Tesla-Spule, Crops/Crop-Matron,
-Personal-Blöcke, Luminator, Sprengstoffe, Bauschaum, Kaffee/Fass.
+Personal-Blöcke, Luminator, Sprengstoffe (Industrie-TNT erledigt in 6b.5b), Bauschaum, Kaffee/Fass.
 
 ## Offene Entscheidungen (Stand Phase 1)
 

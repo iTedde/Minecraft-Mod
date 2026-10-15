@@ -1,0 +1,26 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "A": {
+      "item": "craft:advanced_alloy"
+    },
+    "I": {
+      "item": "craft:iridium_plate"
+    },
+    "L": {
+      "item": "craft:lapotron_crystal"
+    },
+    "n": {
+      "item": "craft:nano_chestplate"
+    }
+  },
+  "pattern": [
+    "AnA",
+    "ILI",
+    "IAI"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:quantum_chestplate"
+  }
+}

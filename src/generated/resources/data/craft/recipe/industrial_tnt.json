@@ -1,0 +1,20 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "F": {
+      "item": "minecraft:flint"
+    },
+    "T": {
+      "item": "minecraft:tnt"
+    }
+  },
+  "pattern": [
+    "FFF",
+    "TTT",
+    "FFF"
+  ],
+  "result": {
+    "count": 4,
+    "id": "craft:industrial_tnt"
+  }
+}

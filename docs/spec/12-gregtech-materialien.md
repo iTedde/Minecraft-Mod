@@ -14,7 +14,7 @@ Quelle: `reference/decompiled/gregtech/` (`GT_Mod.java`, `common/GT_OreDictHandl
 |---|---|---|
 | Mischmetallbarren | Platten: raff. Eisen (oder Nickel/Invar/Stahl/Titan/Wolfram/Wolframstahl) + Bronze (oder Messing) + Zinn (oder Zink/Aluminium) | Werkbank senkrecht `X/Y/Z` → 1–6 Barren je nach Metallen |
 | Dichte Kupferplatte | 8 Kupferplatten | Compressor |
-| Iridiumplatte | Iridium-Legierungsbarren ← (Iridiumbarren + Diamantstaub + fortg. Legierung) | Werkbank/Walzmaschine `IAI/ADA/IAI` → Implosionskompressor (8 TNT) → Iridiumplatte + 4 dunkle Asche |
+| Iridiumplatte | Iridium-Legierungsbarren ← (Iridiumbarren + Diamantstaub + fortg. Legierung) | Werkbank/Walzmaschine `IAI/ADA/IAI` → Implosionskompressor (8 Industrie-TNT) → Iridiumplatte + 4 dunkle Asche (`13-gregtech-maschinen.md` §8) |
 | Solarpanel | Siliziumplatte | `GGG/SPS/CHC` |
 | Windmühle | – (Kohleplatten = IC2) | Assembler: Generator + 4 Kohleplatten |
 | Wassermühle (×2) | 4 Aluminiumplatten | Assembler: Generator + 4 Aluminiumplatten |
@@ -37,9 +37,9 @@ Quelle: `reference/decompiled/gregtech/` (`GT_Mod.java`, `common/GT_OreDictHandl
 | Siliziumplatte | Material 36 | Hochofen: 2 Siliziumzellen → 1 Siliziumplatte + 2 leere Zellen, 1000 Ticks, 128 EU/t, 1500 K; Silizium aus Sand/Feuerstein (Elektrolyseur/Zentrifuge) |
 | Platinbarren | Material 27 | aus Sheldonit/Cooperit (GT-Erz, Industrial Grinder) bzw. UU-Materie (Platinstaub) |
 | Iridiumbarren | Material 16 | Compressor: IC2-Iridiumerz → Iridiumbarren |
-| Diamantstaub | Dust 36 | Macerator: Diamant / Diamanterz |
+| Diamantstaub | Dust 36 | Macerator: Diamant / Industriediamant |
 | Iridium-Legierungsbarren | Material 4 | `IAI/ADA/IAI` (I = Iridiumbarren, A = fortg. Legierung, D = Diamantstaub) |
-| Iridiumplatte (IC2) | – | **Implosionskompressor** (Multiblock): Legierungsbarren + 8 TNT/ITNT |
+| Iridiumplatte (IC2) | – | **Implosionskompressor** (Multiblock): Legierungsbarren + 8 Industrie-TNT |
 | Berylliumzelle | Cell 10 | Elektrolyseur/Zentrifuge (Smaragdstaub, Enderperlenstaub) |
 | Heliumzelle / Helium-Kühlzelle | Cell 3 / GT-Item 34/36 | Zentrifuge (u. a. Lava, Glowstone); Kühlzelle aus Heliumzellen + Zinn |
 | Rubin | Material 32 | GT-Erz (Wüsten), UU-Materie |
@@ -53,7 +53,8 @@ Assembler, Canning Machine, Elektrolyseur, Zentrifuge, Industrial Grinder sowie 
 Im Pack ist das IC2-Rezept entfernt (`ic2recipes.Massfabricator=false`); stattdessen gab es GregTechs **Matter
 Fabricator** (`MatterFabricationRate=16666666`). **Entschieden (2026-10-15):** IC2-Massefabrikator 1:1
 (`04-maschinen.md`) mit dem IC2-Originalrezept (`08-rezepte.md`); der GT Matter Fabricator wird nicht nachgebaut.
-Die von GT registrierten Verstärker gelten trotzdem (Redstone 5000, Glowstonestaub 25 000, Nikolit-/Manganstaub 5000).
+Die von GT registrierten Verstärker gelten trotzdem (Redstone 5000, Glowstonestaub 25 000, Nikolit-/Manganstaub 5000,
+Diamantstaub 125 000, Smaragdstaub 50 000 – die beiden Staube seit 6b.5b).
 
 ## 4. Entscheidungen und offene Punkte
 

@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.function.BiFunction;
 
 import dev.craft.Craft;
+import dev.craft.ic2.block.IndustrialTntBlock;
 import dev.craft.ic2.block.IronFenceBlock;
 import dev.craft.ic2.block.ResinSheetBlock;
 import dev.craft.ic2.block.RubberLeavesBlock;
@@ -34,6 +35,7 @@ import dev.craft.ic2.storage.TransformerBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.TransparentBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
@@ -99,6 +101,20 @@ public final class Ic2Blocks {
     public static final DeferredBlock<ResinSheetBlock> RESIN_SHEET = BLOCKS.register("resin_sheet",
             () -> new ResinSheetBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_YELLOW).noCollission()
                     .noOcclusion().strength(1.6F, 0.3F).sound(SoundType.SAND).pushReaction(PushReaction.DESTROY)));
+
+    /**
+     * IC2 {@code BlockTexGlass} ({@code blockAlloyGlass}): glass material, hardness 5, {@code setResistance(150)} = 90
+     * effective, drops itself.
+     */
+    public static final DeferredBlock<TransparentBlock> REINFORCED_GLASS = BLOCKS.register("reinforced_glass",
+            () -> new TransparentBlock(BlockBehaviour.Properties.of().instrument(NoteBlockInstrument.HAT)
+                    .strength(5.0F, 90.0F).sound(SoundType.GLASS).noOcclusion().isValidSpawn((s, l, p, t) -> false)
+                    .isRedstoneConductor((s, l, p) -> false).isSuffocating((s, l, p) -> false)
+                    .isViewBlocking((s, l, p) -> false)));
+    /** IC2 {@code BlockITNT} ({@code blockITNT}): TNT material, hardness 0, grass sound, never drops. */
+    public static final DeferredBlock<IndustrialTntBlock> INDUSTRIAL_TNT = BLOCKS.register("industrial_tnt",
+            () -> new IndustrialTntBlock(BlockBehaviour.Properties.of().mapColor(MapColor.FIRE).instabreak()
+                    .sound(SoundType.GRASS).isRedstoneConductor((s, l, p) -> false)));
 
     private Ic2Blocks() {
     }

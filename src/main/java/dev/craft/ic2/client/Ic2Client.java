@@ -54,6 +54,7 @@ public final class Ic2Client {
     @SubscribeEvent
     public static void registerEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerEntityRenderer(Ic2EntityTypes.MINING_LASER.get(), MiningLaserRenderer::new);
+        event.registerEntityRenderer(Ic2EntityTypes.INDUSTRIAL_TNT.get(), Ic2ExplosiveRenderer::new);
     }
 
     @SubscribeEvent

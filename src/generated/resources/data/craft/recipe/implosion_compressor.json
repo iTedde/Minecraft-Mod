@@ -1,0 +1,26 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "A": {
+      "item": "craft:advanced_alloy"
+    },
+    "B": {
+      "tag": "craft:raw_machine_tier_02"
+    },
+    "C": {
+      "item": "craft:compressor"
+    },
+    "D": {
+      "item": "craft:electronic_circuit"
+    }
+  },
+  "pattern": [
+    "ABA",
+    "DCD",
+    "ABA"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:implosion_compressor"
+  }
+}

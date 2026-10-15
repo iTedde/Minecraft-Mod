@@ -8,6 +8,7 @@ import dev.craft.gregtech.machine.BlastFurnaceBlockEntity;
 import dev.craft.gregtech.machine.CannerBlockEntity;
 import dev.craft.gregtech.machine.ElectrolyzerBlockEntity;
 import dev.craft.gregtech.machine.GtMachineBlockEntity;
+import dev.craft.gregtech.machine.ImplosionCompressorBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -27,11 +28,17 @@ public enum GtMachine {
         }
     },
     AUTOMATIC_CANNING_MACHINE("automatic_canning_machine", "canner", Layout.BASIC, 32, 254, 255,
-            "Unmobile Food Canning Machine GTA4", CannerBlockEntity::new);
+            "Unmobile Food Canning Machine GTA4", CannerBlockEntity::new),
+    IMPLOSION_COMPRESSOR("implosion_compressor", "implosion", Layout.TOP, 32, 68, 69, "Over 9000 Gibbl!",
+            ImplosionCompressorBlockEntity::new);
 
     /** {@link Layout#FRONT}: back and remaining sides of the blast furnace ({@code terrain.png}). */
     public static final int FRONT_LAYOUT_BACK = 71;
     public static final int FRONT_LAYOUT_SIDE = 72;
+    /** {@link Layout#TOP}: bottom, east/west and north/south textures of the implosion compressor. */
+    public static final int TOP_LAYOUT_BOTTOM = 71;
+    public static final int TOP_LAYOUT_EAST_WEST = 73;
+    public static final int TOP_LAYOUT_NORTH_SOUTH = 74;
 
     private final String name;
     private final String gui;
@@ -103,6 +110,8 @@ public enum GtMachine {
         /** No facing: bottom 32, top 29, own texture on the four sides. */
         SIDES,
         /** Horizontal facing only: front texture, back 71, everything else 72. */
-        FRONT
+        FRONT,
+        /** Facing fixed down, textures on absolute sides: front texture on top, bottom 71, east/west 73, north/south 74. */
+        TOP
     }
 }

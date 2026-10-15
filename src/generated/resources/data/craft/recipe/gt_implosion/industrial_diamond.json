@@ -1,0 +1,25 @@
+{
+  "type": "craft:gt_implosion",
+  "duration": 20,
+  "eu_per_tick": 32,
+  "inputs": [
+    {
+      "count": 4,
+      "item": "craft:diamond_dust"
+    },
+    {
+      "count": 32,
+      "item": "craft:industrial_tnt"
+    }
+  ],
+  "outputs": [
+    {
+      "count": 3,
+      "id": "craft:industrial_diamond"
+    },
+    {
+      "count": 16,
+      "id": "craft:dark_ash"
+    }
+  ]
+}

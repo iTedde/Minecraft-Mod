@@ -163,6 +163,11 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
         item(GtItems.STEEL_INGOT, "Steel Ingot");
         item(GtItems.NICKEL_INGOT, "Nickel Ingot");
         item(GtItems.SILICON_PLATE, "Silicon Plate");
+        item(GtItems.IRIDIUM_INGOT, "Iridium Ingot");
+        item(GtItems.IRIDIUM_ALLOY_INGOT, "Iridium Alloy Ingot");
+        item(GtItems.DIAMOND_DUST, "Diamond Dust");
+        item(GtItems.EMERALD_DUST, "Emerald Dust");
+        block(GtBlocks.machine(GtMachine.IMPLOSION_COMPRESSOR), "Implosion Compressor");
         item(GtItems.STEEL_DUST, "Steel Dust");
         item(GtItems.NICKEL_DUST, "Nickel Dust");
         add("tooltip.craft.gt.max_input", "Max EU/p IN: %s");
@@ -250,6 +255,9 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             block(Ic2Blocks.TIN_BLOCK, "Tin Block");
             block(Ic2Blocks.BRONZE_BLOCK, "Bronze Block");
             block(Ic2Blocks.IRON_FENCE, "Iron Fence");
+            block(Ic2Blocks.REINFORCED_GLASS, "Reinforced Glass");
+            block(Ic2Blocks.INDUSTRIAL_TNT, "Industrial TNT");
+            add(Ic2EntityTypes.INDUSTRIAL_TNT.get(), "Industrial TNT");
             block(Ic2Blocks.RUBBER_WOOD, "Rubber Wood");
             block(Ic2Blocks.RUBBER_LEAVES, "Rubber Leaves");
             block(Ic2Blocks.RUBBER_SAPLING, "Rubber Tree Sapling");
@@ -278,6 +286,7 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             item(Ic2Items.SCRAP_BOX, "Scrap Box");
             item(Ic2Items.UU_MATTER, "UU-Matter");
             item(Ic2Items.IRIDIUM_ORE, "Iridium Ore");
+            item(Ic2Items.IRIDIUM_PLATE, "Iridium Plate");
             item(Ic2Items.SILVER_DUST, "Silver Dust");
             item(Ic2Items.HYDRATED_COAL_CLUMP, "H. Coal");
             item(Ic2Items.PLANT_BALL, "Plantball");
@@ -467,6 +476,9 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             block(Ic2Blocks.TIN_BLOCK, "Zinnblock");
             block(Ic2Blocks.BRONZE_BLOCK, "Bronzeblock");
             block(Ic2Blocks.IRON_FENCE, "Eisenzaun");
+            block(Ic2Blocks.REINFORCED_GLASS, "Verstärktes Glas");
+            block(Ic2Blocks.INDUSTRIAL_TNT, "Industrie-TNT");
+            add(Ic2EntityTypes.INDUSTRIAL_TNT.get(), "Industrie-TNT");
             block(Ic2Blocks.RUBBER_WOOD, "Gummiholz");
             block(Ic2Blocks.RUBBER_LEAVES, "Gummibaumblätter");
             block(Ic2Blocks.RUBBER_SAPLING, "Gummibaumsetzling");
@@ -495,6 +507,7 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             item(Ic2Items.SCRAP_BOX, "Schrottbox");
             item(Ic2Items.UU_MATTER, "UU-Materie");
             item(Ic2Items.IRIDIUM_ORE, "Iridiumerz");
+            item(Ic2Items.IRIDIUM_PLATE, "Iridiumplatte");
             item(Ic2Items.SILVER_DUST, "Silberstaub");
             item(Ic2Items.HYDRATED_COAL_CLUMP, "Hydrierte Kohle");
             item(Ic2Items.PLANT_BALL, "Pflanzenball");

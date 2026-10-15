@@ -32,6 +32,7 @@ public final class GregTechClient {
         event.register(GtMenus.BASIC_MACHINE.get(), GtBasicMachineScreen::new);
         event.register(GtMenus.ELECTROLYZER.get(), GtElectrolyzerScreen::new);
         event.register(GtMenus.BLAST_FURNACE.get(), GtBlastFurnaceScreen::new);
+        event.register(GtMenus.IMPLOSION_COMPRESSOR.get(), GtImplosionCompressorScreen::new);
     }
 
     @SubscribeEvent

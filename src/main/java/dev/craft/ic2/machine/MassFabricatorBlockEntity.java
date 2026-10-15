@@ -6,6 +6,7 @@ import dev.craft.core.energy.EnergyNets;
 import dev.craft.core.energy.EnergySink;
 import dev.craft.core.energy.EnergyTile;
 import dev.craft.core.explosion.Ic2Explosion;
+import dev.craft.gregtech.GtItems;
 import dev.craft.ic2.Ic2BlockEntityTypes;
 import dev.craft.ic2.Ic2Items;
 import dev.craft.ic2.Ic2Machine;
@@ -48,7 +49,7 @@ public class MassFabricatorBlockEntity extends MachineBlockEntity implements Ene
         super(Ic2BlockEntityTypes.get(Ic2Machine.MASS_FABRICATOR), pos, state, 2);
     }
 
-    /** Amplifier value of {@code stack}, or 0: IC2 scrap/scrap box plus GT's redstone and glowstone dust. */
+    /** Amplifier value of {@code stack}, or 0: IC2 scrap/scrap box plus GT's redstone, glowstone and gem dusts. */
     public static int getAmplifierValue(ItemStack stack) {
         Integer value = amplifiers().get(stack.getItem());
         return value == null ? 0 : value;
@@ -59,7 +60,9 @@ public class MassFabricatorBlockEntity extends MachineBlockEntity implements Ene
                 Ic2Items.SCRAP.get(), 5000,
                 Ic2Items.SCRAP_BOX.get(), 45000,
                 Items.REDSTONE, 5000,
-                Items.GLOWSTONE_DUST, 25000);
+                Items.GLOWSTONE_DUST, 25000,
+                GtItems.DIAMOND_DUST.get(), 125000,
+                GtItems.EMERALD_DUST.get(), 50000);
     }
 
     public int getEnergy() {
