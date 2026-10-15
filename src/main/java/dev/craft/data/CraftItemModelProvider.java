@@ -3,6 +3,9 @@ package dev.craft.data;
 import dev.craft.Craft;
 import dev.craft.buildcraft.BcItems;
 import dev.craft.buildcraft.engine.EngineType;
+import dev.craft.forestry.FrItems;
+import dev.craft.forestry.circuit.CircuitBoardType;
+import dev.craft.forestry.circuit.ElectronTube;
 import dev.craft.ic2.Ic2Items;
 import dev.craft.ic2.cable.CableType;
 import dev.craft.ic2.client.Ic2Client;
@@ -43,6 +46,18 @@ public final class CraftItemModelProvider extends ItemModelProvider {
         }
         // RenderRefinery.inventoryRender, drawn by RefineryItemRenderer with the same block transforms.
         engine(BcItems.REFINERY);
+        // RenderMachine/RenderBlock.inventoryRender, drawn by ForestryMachineItemRenderer.
+        engine(FrItems.CARPENTER);
+        engine(FrItems.THERMIONIC_FABRICATOR);
+        basicItem(FrItems.STURDY_CASING.get());
+        // isFull3D: held like a tool.
+        handheldItem(FrItems.SOLDERING_IRON.get());
+        for (ElectronTube tube : ElectronTube.values()) {
+            twoLayers(FrItems.tube(tube), "electron_tube");
+        }
+        for (CircuitBoardType type : CircuitBoardType.values()) {
+            twoLayers(FrItems.circuitBoard(type), "circuit_board");
+        }
     }
 
     /** Engine (and refinery) item drawn by its item renderer, with the transforms of a vanilla block model. */
@@ -57,6 +72,13 @@ public final class CraftItemModelProvider extends ItemModelProvider {
                 .transform(ItemDisplayContext.FIRST_PERSON_RIGHT_HAND).rotation(0, 45, 0).scale(0.4F).end()
                 .transform(ItemDisplayContext.FIRST_PERSON_LEFT_HAND).rotation(0, 225, 0).scale(0.4F).end()
                 .end();
+    }
+
+    /** Forestry two-pass item: tinted base (layer 0) and tinted overlay (layer 1). */
+    private void twoLayers(DeferredItem<? extends Item> item, String texture) {
+        withExistingParent(item.getId().getPath(), mcLoc("item/generated"))
+                .texture("layer0", modLoc("item/" + texture + "_base"))
+                .texture("layer1", modLoc("item/" + texture + "_overlay"));
     }
 
     /** Battery icon with five charge steps (IC2 {@code ItemBattery.getIconFromDamage}). */

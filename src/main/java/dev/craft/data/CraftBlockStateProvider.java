@@ -6,6 +6,7 @@ import dev.craft.buildcraft.BcBlocks;
 import dev.craft.buildcraft.builders.MarkerBlock;
 import dev.craft.buildcraft.engine.EngineType;
 import dev.craft.buildcraft.factory.TankBlock;
+import dev.craft.forestry.FrBlocks;
 import dev.craft.ic2.Ic2Blocks;
 import dev.craft.ic2.Ic2Machine;
 import dev.craft.ic2.block.RubberWoodBlock;
@@ -72,6 +73,7 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
         refinery();
         miningWell();
         miningPipe();
+        forestryMachines();
     }
 
     /** BuildCraft {@code RenderingMarkers}: a torch-like stick, turned so that it points away from its support. */
@@ -130,6 +132,14 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
     private void refinery() {
         horizontalBlock(BcBlocks.REFINERY.get(), models().getBuilder("refinery")
                 .texture("particle", modLoc("block/refinery_particle")));
+    }
+
+    /** Forestry machines are drawn by their block entity renderer; the top face of the box texture gives particles. */
+    private void forestryMachines() {
+        horizontalBlock(FrBlocks.THERMIONIC_FABRICATOR.get(), models().getBuilder("thermionic_fabricator")
+                .texture("particle", modLoc("block/thermionic_fabricator_particle")));
+        horizontalBlock(FrBlocks.CARPENTER.get(), models().getBuilder("carpenter")
+                .texture("particle", modLoc("block/carpenter_particle")));
     }
 
     /** BuildCraft {@code BlockMiningWell}: front 35, top 36, bottom and back 38, other sides 37. */

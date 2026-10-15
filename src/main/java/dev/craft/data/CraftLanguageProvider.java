@@ -7,6 +7,13 @@ import dev.craft.buildcraft.BcBlocks;
 import dev.craft.buildcraft.BcItems;
 import dev.craft.buildcraft.fluid.BcFluids;
 import dev.craft.buildcraft.engine.EngineType;
+import dev.craft.forestry.FrBlocks;
+import dev.craft.forestry.FrFluids;
+import dev.craft.forestry.FrItems;
+import dev.craft.forestry.circuit.Circuit;
+import dev.craft.forestry.circuit.CircuitBoardType;
+import dev.craft.forestry.circuit.CircuitLayout;
+import dev.craft.forestry.circuit.ElectronTube;
 import dev.craft.ic2.Ic2Blocks;
 import dev.craft.ic2.Ic2Items;
 import dev.craft.ic2.Ic2Machine;
@@ -35,6 +42,41 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
 
     protected void item(Supplier<? extends Item> item, String name) {
         addItem(item, name);
+    }
+
+    /**
+     * Forestry names: {@code general} = tab, fabricator, carpenter, sturdy casing, soldering iron, liquid glass,
+     * "No effect", layout name, layout usage; tubes, boards and circuits in enum order. The circuit descriptions are
+     * literal English strings in Forestry.
+     */
+    protected void forestry(String[] general, String[] tubes, String[] boards, String[] circuits) {
+        add("itemGroup.craft.forestry", general[0]);
+        block(FrBlocks.THERMIONIC_FABRICATOR, general[1]);
+        block(FrBlocks.CARPENTER, general[2]);
+        item(FrItems.STURDY_CASING, general[3]);
+        item(FrItems.SOLDERING_IRON, general[4]);
+        add(FrFluids.LIQUID_GLASS_TYPE.get().getDescriptionId(), general[5]);
+        add("gui.craft.forestry.no_effect", general[6]);
+        add(CircuitLayout.ENGINE_TIN.getNameKey(), general[7]);
+        add(CircuitLayout.ENGINE_TIN.getUsageKey(), general[8]);
+        for (ElectronTube tube : ElectronTube.values()) {
+            item(FrItems.tube(tube), tubes[tube.ordinal()]);
+        }
+        for (CircuitBoardType type : CircuitBoardType.values()) {
+            item(FrItems.circuitBoard(type), boards[type.ordinal()]);
+        }
+        for (Circuit circuit : Circuit.values()) {
+            add(circuit.getNameKey(), circuits[circuit.ordinal()]);
+        }
+        String[][] descriptions = {{"Reduces ouput by 1 MJ/t", "Reduces intake by 2 EU/t"},
+                {"Increases output by 2 MJ/t", "Increases intake by 7 EU/t"},
+                {"Increases output by 4 MJ/t", "Increases intake by 15 EU/t"},
+                {"Reduces intake by 1 EU/t"}};
+        for (Circuit circuit : Circuit.values()) {
+            for (int line = 0; line < descriptions[circuit.ordinal()].length; line++) {
+                add(circuit.getDescriptionKeys().get(line), descriptions[circuit.ordinal()][line]);
+            }
+        }
     }
 
     /** English names as in the pack's {@code IC2.lang}. */
@@ -153,6 +195,13 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             add("message.craft.quarry.chunks", "[BUILDCRAFT] The quarry at %d %d %d will keep %d chunks loaded");
             add(BcFluids.OIL_TYPE.get().getDescriptionId(), "Oil");
             add(BcFluids.FUEL_TYPE.get().getDescriptionId(), "Fuel");
+            forestry(new String[]{"Forestry", "Thermionic Fabricator", "Carpenter", "Sturdy Casing", "Soldering Iron",
+                    "Liquid Glass", "No effect", "Electric Engine", "In Electrical Engines"},
+                    new String[]{"Copper Electron Tube", "Tin Electron Tube", "Bronze Electron Tube",
+                            "Iron Electron Tube"},
+                    new String[]{"Basic Circuit Board", "Enhanced Circuit Board", "Refined Circuit Board",
+                            "Intricate Circuit Board"},
+                    new String[]{"Electric Choke", "Electric Boost I", "Electric Boost II", "Electric Efficiency"});
         }
     }
 
@@ -271,6 +320,14 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             add("message.craft.quarry.chunks", "[BUILDCRAFT] Der Steinbruch bei %d %d %d hält %d Chunks geladen");
             add(BcFluids.OIL_TYPE.get().getDescriptionId(), "Öl");
             add(BcFluids.FUEL_TYPE.get().getDescriptionId(), "Treibstoff");
+            // Forestry de_DE; missing entries (intricate board, layout, circuit descriptions) stay English as in the pack.
+            forestry(new String[]{"Forestry", "Glühelektrische Maschine", "Schreinerei", "Robustes Gehäuse",
+                    "Lötkolben", "Flüßiges Glass", "Kein Effekt", "Electric Engine", "In Electrical Engines"},
+                    new String[]{"Elektronenröhre (Kupfer)", "Elektronenröhre (Zinn)", "Elektronenröhre (Bronze)",
+                            "Elektronenröhre (Eisen)"},
+                    new String[]{"Kleine Leiterplatte", "Mittlere Leiterplatte", "Große Leiterplatte",
+                            "Intricate Circuit Board"},
+                    new String[]{"Elektrische Drossel", "Boost I", "Boost II", "Effizienz"});
         }
     }
 }

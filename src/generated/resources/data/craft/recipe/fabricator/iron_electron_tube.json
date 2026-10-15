@@ -1,0 +1,24 @@
+{
+  "type": "craft:fabricator",
+  "key": {
+    "#": {
+      "item": "minecraft:redstone"
+    },
+    "X": {
+      "item": "minecraft:iron_ingot"
+    }
+  },
+  "molten": {
+    "amount": 500,
+    "id": "craft:liquid_glass"
+  },
+  "pattern": [
+    " X ",
+    "#X#",
+    "XXX"
+  ],
+  "result": {
+    "count": 4,
+    "id": "craft:iron_electron_tube"
+  }
+}

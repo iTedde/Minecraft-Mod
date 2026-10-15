@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "craft:item/electron_tube_base",
+    "layer1": "craft:item/electron_tube_overlay"
+  }
+}

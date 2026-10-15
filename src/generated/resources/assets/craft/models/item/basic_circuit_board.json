@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "craft:item/circuit_board_base",
+    "layer1": "craft:item/circuit_board_overlay"
+  }
+}

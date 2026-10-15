@@ -1,0 +1,24 @@
+{
+  "type": "craft:fabricator",
+  "key": {
+    "#": {
+      "item": "minecraft:redstone"
+    },
+    "X": {
+      "tag": "c:ingots/bronze"
+    }
+  },
+  "molten": {
+    "amount": 500,
+    "id": "craft:liquid_glass"
+  },
+  "pattern": [
+    " X ",
+    "#X#",
+    "XXX"
+  ],
+  "result": {
+    "count": 4,
+    "id": "craft:bronze_electron_tube"
+  }
+}

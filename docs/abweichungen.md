@@ -85,6 +85,16 @@ Status: *geplant* (aus Phase 1 abgeleitet, noch nicht umgesetzt), *entschieden* 
 | Raffinerie/Pumpe/Mining Well: `powerRequest`, `getTank(Seite)`, Rohr-Ausgabe | für Rohre und Gates | noch nicht umgesetzt | erst mit den Rohren (Phase 9) relevant | **offen bis Phase 9** |
 | Mining Well: Tiefe | bis y 0 | bis zur Weltuntergrenze | 1.18-Weltgeometrie | **umgesetzt** |
 | Minenrohr | Block mit Item (nicht im Creative-Tab) | Block ohne Item | wird nie gedroppt oder gesetzt | **umgesetzt** |
+| Forestry-Zeitbasis (Arbeitstakt alle 5 Ticks, Carpenter 20/40 Ticks) | `getWorldTime()` | `getGameTime()` | wie BC-Zeitbasis | **umgesetzt** |
+| Forestry-Items mit Metadaten | `thermionicTubes` (Meta 0–3), `chipsets` (Meta 0–3) | je ein Item pro Röhre/Platine; Schaltungen als Data Component `craft:circuit_board` | keine Metadaten in 1.21 | **umgesetzt** |
+| Röhren-Umfang | 12 Röhren (Kupfer … Lapis) | nur Kupfer, Zinn, Bronze, Eisen | andere nur für Bienen/Farmen | **umgesetzt** |
+| Fabricator/Carpenter-Rezepte | Code-Registrierung (`RecipeManagers`) | Datapack-Rezepttypen `craft:fabricator`/`craft:carpenter` (Datagen); Schmelztabelle (Glas, Glasscheibe, Sand) im Code | idiomatisch | **umgesetzt** |
+| Ore-Dictionary-Gleichheit beim Vorrat | `isItemOreEqual` (nur Kupferbarren-Sonderfall) | gleiches Item + Komponenten | nur Vanilla-Kupfer im Spiel | **umgesetzt** |
+| Forestry-Darstellung | TESR mit `ModelRenderer` | BER mit `ModelPart`, gleiche Geometrie/Drehwinkel; Item über BEWLR | wie BC-Engines | **umgesetzt** |
+| Forestry-Ledger (Energie, Hinweise, Fehlerstatus) und Zugriffsrechte | vorhanden | fehlen | Feinschliff (Phase 10) | **offen** |
+| Fabricator-Ergebnisslot | virtueller Slot direkt auf der Maschine | Anzeige-Slot, vom Server bei jedem Zugriff neu berechnet | Client hat keine Maschine im Menü | **umgesetzt** |
+| Carpenter: Rezeptsuche nach Laden | sofort in `readFromNBT` | im ersten Tick | Level beim Laden noch nicht verfügbar | **umgesetzt** |
+| Tank-Tooltip in Forestry-GUIs | Name (+ Menge laut Config) | Name und Menge in mB | – | **umgesetzt** |
 
 ## Bewusst (Energiebalancing)
 

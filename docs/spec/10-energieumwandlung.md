@@ -137,6 +137,97 @@ Weitere Carpenter-Rezepte von Forestry (Bienen, Post …) sind nicht im Umfang.
 Sockel der Platine) und Ergebnis; das Layout (hier „forestry.engine.tin“) wird in der GUI gewählt. Pro Röhre wird
 die Schaltung eingetragen, sofern ihr Limit pro Platine nicht überschritten ist.
 
+### A.7 Details aus dem Original (nachgetragen für Phase 5a)
+
+Quelle: `MachineFabricator`, `MachineCarpenter`, `ContainerFabricator/Carpenter`, `GuiFabricator/Carpenter`,
+`TileMachine`, `BlockMachine`, `RenderMachine`, `RenderBlock`, `ItemSolderingIron`, `ContainerSolderingIron`,
+`GuiSolderingIron`, `CircuitBoard`, `ItemCircuitBoard`, `EnumCircuitBoardType`, `PluginForestryCore/Energy/Factory`.
+
+**Arbeitstakt (`TileMachine.doWork`)**: wird vom PowerProvider jeden Tick gerufen, solange ≥ Aktivierungsenergie
+gespeichert ist; nur wenn `Weltzeit % 5 == 0` → `machine.doWork()`; bei `true` werden genau 25 MJ abgezogen.
+`updateServerSide()` läuft unabhängig davon jeden Tick. Leistungsverlust 1 MJ / 100 Ticks.
+
+**Block (`BlockMachine`)**: Material.rock (Spitzhacke nötig), Härte 1,5 (Explosionswiderstand 1,5). Ausrichtung beim
+Platzieren zum Spieler (Blickrichtung 0/1/2/3 → N/O/S/W), nur horizontal; kein Drehen per Schraubenschlüssel.
+Schleichen + Rechtsklick öffnet nichts. Abbau droppt das Inventar (`IInventory`): Carpenter Slots 9–29 (nicht das
+Muster), Fabricator alle 30 Slots. Tankinhalte gehen verloren.
+
+**Darstellung (TESR)**:
+- Carpenter (`RenderMachine`, Textur `carpenter_`): Bodenplatte `addBox(-8,-8,-8, 16,4,16)`, Deckplatte
+  `(-8,4,-8, 16,4,16)` (beide `base.png`), Ressourcentank `(-6,-8,-6, 12,16,6)` mit `tank_resource_<stufe>.png`,
+  Produkttank `(-6,-8,0, 12,16,6)` immer `tank_product_empty.png`; Rotationspunkt (8,8,8). Stufe nach
+  `Füllstand·100/10000`: < 5 leer, < 30 low, < 60 medium, < 90 high, sonst maximum.
+  Drehwinkel: EAST (Y π, Z −π/2), WEST (Z π/2), UP keine, DOWN (Z π), SOUTH (X π/2, Z π/2), NORTH (X −π/2, Z π/2).
+  Inventar: UP, leer.
+- Fabricator (`RenderBlock`, `fabricator_block.png`): Würfel `(-8,-8,-8, 16,16,16)`, gleiche Drehwinkel;
+  Inventar: EAST.
+
+**Thermionic Fabricator** (Slots/Ablauf):
+- Pro Tick: (1) ist der Tank nicht leer und Hitze < Schmelzpunkt der Tankflüssigkeit → −5 mB; (2) gibt es eine
+  ausstehende Schmelze, wird sie in den Tank gefüllt (Rest bleibt ausstehend); sonst, wenn der Tank nicht voll ist
+  und Slot 0 schmelzbar mit Schmelzpunkt ≤ Hitze → 1 Item verbrauchen, Menge wird ausstehend; (3) Hitze −2 (> 2500)
+  bzw. −1 (> 0). `doWork()` = Hitze +25, `false` bei Hitze ≥ 5000 (dann kein MJ-Verbrauch).
+- Rezeptsuche: Plan (`null` im Rezept passt immer), Raster (Slots 3–11, geformt, gespiegelt erlaubt, Ore-Dictionary),
+  Tank: gleiche Flüssigkeit und Menge ≥ Rezeptmenge.
+- Ergebnis-Slot ist virtuell (zeigt das Rezeptergebnis). Herausnehmen (GUI): zuerst je ein Satz der Rasterzutaten
+  aus dem Vorrat (12–29); reicht der Vorrat nicht, wird aus jedem belegten Rasterslot 1 Item entfernt; Flüssigglas
+  wird abgezogen. Automatische Entnahme (`extractItem`) nur, wenn der Vorrat reicht.
+- Automatisches Einfügen (`addItem`): von oben schmelzbare Items in Slot 0, alles andere in den Vorrat.
+- Kein Flüssigkeitsanschluss (Tank nur über Schmelzen).
+- GUI `fabricator.png` 176×211: Vorrat (8+18k, 84+18i), Schmelzslot (26,21), Plan (139,17), Ergebnis (139,53),
+  Raster (67+18k, 17+18l), Spielerinventar ab y 129 / Hotbar y 187. Tankanzeige (26,48) 16×16 (Füllung
+  `Menge·16/2000`). Hitzebalken bei (55, 17+52−h) aus Textur (192, 52−h), 4×h mit `h = Hitze·52/5000`;
+  Schmelzpunkt-Marke bei (52, 15+52−m) aus (196,0) 10×5, `m = Schmelzpunkt·52/5000` (Schmelzpunkt der
+  Tankflüssigkeit, sonst des Items in Slot 0). Titel zentriert y 6, Farbe 0x404040.
+
+**Carpenter** (Slots/Ablauf):
+- Innere Slots: 0–8 Muster (Phantom-Slots: Linksklick mit Item legt 1 Kopie ab, Rechtsklick leert, leere Hand +
+  Linksklick tut nichts), 9 Kiste, 10 Produkt, 11 Behälter, 12–29 Vorrat.
+- Alle 20 Ticks (Weltzeit): Behälter in Slot 11 mit einer Rezeptflüssigkeit (hier nur Wasser) einfüllen, wenn der
+  ganze Inhalt passt (Eimer → leerer Eimer, Zelle wird verbraucht). Alle 40 Ticks: aktuelles Rezept suchen, falls
+  keines gesetzt ist. Das Rezept wird außerdem bei jeder Änderung von Muster/Kistenslot in der GUI neu bestimmt.
+- Rezept passt: Flüssigkeit gleich (Menge egal), Kiste falls gefordert, Muster (geformt, gespiegelt erlaubt,
+  Ore-Dictionary). Ressourcen reichen: Tankmenge ≥ Rezeptmenge, Kiste vorhanden falls gefordert, und der Vorrat
+  enthält mindestens einen Satz der Musterzutaten (gleiche Items, Anzahl je Item summiert).
+- `doWork()`: Läuft ein Auftrag (`packageTime > 0`): −1; passt das Rezept nicht mehr oder fehlen Ressourcen →
+  Abbruch (`false`); bei 0 → Ressourcen abziehen (Flüssigkeit, ggf. Kiste, ein Satz aus dem Vorrat), Produkt wird
+  „ausstehend“ und in Slot 10 gelegt (falls belegt/voll: bleibt ausstehend, `false`). Sonst ausstehendes Produkt
+  ablegen; sonst bei passendem Rezept + Ressourcen neuen Auftrag mit `packageTime = Schritte` starten (`true`).
+- Automatisches Einfügen: Rezeptflüssigkeits-Behälter → Slot 11; Zutat des aktuellen Rezepts → Vorrat; sonst in
+  den Kistenslot (Originaleigenheit: jedes Rezept ohne Kiste „akzeptiert“ jede Kiste). Entnahme: 1 Item aus Slot 10.
+- Flüssigkeit: `fill` nimmt **jede** Flüssigkeit in den 10 000-mB-Tank (keine Prüfung), keine Entnahme.
+- GUI `carpenter.png` 176×215: Vorrat (8+18k, 90+18i), Behälter (120,20), Kiste (83,20), Produkt (120,56),
+  Ergebnisanzeige (80,51, gesperrt), Muster (10+18k, 20+18l), Spielerinventar ab y 136 / Hotbar y 194.
+  Tankanzeige (150,17) 16×58 mit Skala-Overlay aus (176,0) 16×60. Fortschritt bei (98, 51+16−p) aus
+  (176, 76−p), 4×p mit `p = 16 − packageTime·16/totalTime`, nur wenn die Maschine arbeitet.
+
+**Platinen (`chipsets`)**: Typ = Meta 0–3 (Basic/Enhanced/Refined/Intricate, Sockel 1–4). NBT: Layout-UID und
+Schaltungen je Sockel; frisch hergestellte Platinen haben keine Daten. Farben (Pass 0 Icon 23 / Pass 1 Icon 22):
+primär 0x191919, sekundär Basic 0x6DCFF6, Enhanced 0xCB7C32, Refined 0xC9C9C9, Intricate 0xE2CB6B. Tooltip:
+„§6<Verwendung des Layouts>:“, dann je Schaltung „ - <Beschreibung>“.
+
+**Schaltungen** (Layout `forestry.engine.tin`, einziges Layout im Umfang):
+
+| Röhre | UID | Name (en) | Beschreibung |
+|---|---|---|---|
+| Kupfer | `forestry.energyChoke1` | Electric Choke | „Reduces ouput by 1 MJ/t“, „Reduces intake by 2 EU/t“ |
+| Zinn | `forestry.energyBoost1` | Electric Boost I | „Increases output by 2 MJ/t“, „Increases intake by 7 EU/t“ |
+| Bronze | `forestry.energyBoost2` | Electric Boost II | „Increases output by 4 MJ/t“, „Increases intake by 15 EU/t“ |
+| Eisen | `forestry.energyEfficiency1` | Electric Efficiency | „Reduces intake by 1 EU/t“ |
+
+**Röhren (`thermionicTubes`)**: Pass 0 Icon 41 (Farbe 0xFFFFFF), Pass 1 Icon 42 mit Kupfer 0xE3B78E, Zinn 0xE1EEF4,
+Bronze 0xDDC276, Eisen 0xD8D8D8 (`items.png`). Robustes Gehäuse Icon 9, Lötkolben Icon 11. Flüssigglas: Icon 49 in
+`fluids.png`, animiert mit `TextureLiquidsFX` (r/g/b 210–238, Alpha 146 + 50·v²).
+
+**Lötkolben** (`ItemSolderingIron`, Stack 1, Haltbarkeit 5 – wird **nie** verbraucht): GUI `solder.png` 176×205,
+Slots: Platine (152,12), Ergebnis (152,92), Röhren (12,32/52/72/92); Spielerinventar ab y 123 / Hotbar y 181, der
+Slot mit dem Lötkolben ist gesperrt. Knöpfe „<“ (12,10) und „>“ (130,10), je 12×18, wechseln das Layout. Layoutname
+zentriert in 138 px ab x 8, y 16; je Röhrenslot Text bei (32, 36+20·i): „<Schaltung> (<Limit>)“ oder „(No effect)“,
+Farbe weiß. Bei jeder Inventaränderung `trySolder`: genau 1 Platine im Platinenslot, Ergebnisslot leer, mindestens
+eine gültige Röhre in den ersten *Sockel* Röhrenslots (Limit je Schaltung) → nur wenn die Anzahl gültiger Röhren
+gleich der Sockelzahl ist: je 1 Röhre verbrauchen, Platine (gleicher Typ, Layout, Schaltungen) in den Ergebnisslot.
+Das Inventar wird nicht gespeichert: beim Schließen fallen alle Items vor den Spieler.
+
 ## B. Power Converters (MJ ↔ EU)
 
 Quelle: Power Converters (PowerCrystals, Pack-Jar) + PowerCrystalsCore (`PowerProviderAdvanced`).

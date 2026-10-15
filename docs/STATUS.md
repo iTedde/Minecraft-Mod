@@ -209,7 +209,7 @@ Wasser-/Windmühle/Solar bleiben ohne Rezept (Phase 6b).
   Mod-Fehler) erfolgreich. Abweichungen in `abweichungen.md` eingetragen.
 - **Damit ist Phase 4 inhaltlich vollständig** – wartet auf Abnahme durch den Nutzer.
 
-## Nächste Schritte
+## Nächste Schritte (Stand Ende Phase 4 – überholt, siehe Phase 5)
 Arbeitsweise: eine Sitzung pro Teilpaket, Übergabe über diese Datei; am Ende jedes Teilpakets committen und pushen.
 1. Manuelle Client-Tests macht der Nutzer gesammelt, wenn alles fertig ist (Engines: Animation/Farben, Drehen per
    BC-Schraubenschlüssel, GUIs + Ledger, Explosion, Kette Engine → Engine; **Öl:** Ölquellen in neuer Welt finden
@@ -225,3 +225,43 @@ Arbeitsweise: eine Sitzung pro Teilpaket, Übergabe über diese Datei; am Ende j
 2. Abnahme Phase 4 durch den Nutzer.
 3. Danach Phase 5 (Electrical Engine inkl. Thermionic Fabricator, Carpenter, Platinen, Röhren, Power Converters) –
    erstes Teilpaket festlegen.
+
+## Abnahme Phase 4
+Phase 4 am 2026-10-15 vom Nutzer abgenommen (manuelle Tests gesammelt am Ende). Aufteilung Phase 5 festgelegt:
+5a Fabricator/Carpenter/Röhren/Platinen/Lötkolben, 5b Electrical Engine inkl. Upgrades, 5c Power Converters.
+
+# Stand Phase 5 (2026-10-15)
+
+## Erledigt (Teilpaket „Phase 5a: Forestry-Werkstatt“)
+- Fehlende Details aus dem Original einmalig in `10-energieumwandlung.md` §A.7 nachgetragen (Arbeitstakt, Block,
+  TESR-Geometrie, Slots/GUIs, Fabricator-/Carpenter-Ablauf, Platinen, Schaltungen, Röhren, Lötkolben).
+- Paket `dev.craft.forestry`: `Forestry` (Init, Capabilities), `FrBlocks`, `FrItems`, `FrBlockEntityTypes`,
+  `FrMenus`, `FrFluids` (Flüssigglas, ohne Block/Eimer), `FrDataComponents` (`craft:circuit_board`), `FrRecipes`,
+  Creative-Tab „Forestry“.
+- `circuit/`: `CircuitBoardType` (Sockel, Farben), `Circuit` (Choke/Boost I/Boost II/Efficiency mit EU-/MJ-Änderung
+  und Limit – **für 5b**: Engine liest `CircuitBoard` aus dem Platinen-Item), `CircuitLayout` (`engine_tin`),
+  `CircuitBoard` (Record), `ElectronTube` (Röhre → Schaltung).
+- `machine/`: `ForestryMachineBlockEntity` (TileMachine: PowerProvider, Arbeitsschritt alle 5 Ticks = 25 MJ),
+  `ForestryMachineBlock` (Ausrichtung zum Spieler, Drops), `FabricatorBlockEntity` (Hitze, Schmelzen, Erstarren,
+  Herstellen aus Vorrat/Raster, Automatisierung), `CarpenterBlockEntity` (Behälter alle 20 Ticks, Rezeptsuche 40,
+  Auftrag/ausstehendes Produkt, Tank nimmt jede Flüssigkeit, Automatisierung inkl. Kisten-Eigenheit), `ItemSets`.
+- `recipe/`: `FabricatorRecipe`, `CarpenterRecipe` (Datapack-Rezepttypen, Spiegeln erlaubt), `FabricatorSmelting`.
+- `menu/`: `ForestryMenu` (Phantom-Klicks, Shift-Klick), `PhantomSlot`, `FabricatorMenu` (Ergebnis-Slot),
+  `CarpenterMenu` (Rezeptanzeige), `SolderingIronMenu` (Löten, Layoutwahl, Drop beim Schließen).
+- Items: Robustes Gehäuse, Lötkolben, 4 Röhren, 4 Platinen (zweifarbig über Item-Tints).
+- Client: `ForestryMachineRenderer` (+ Item-Renderer), Screens für Fabricator/Carpenter/Lötkolben, Flüssigglas-Textur
+  (FX gerendert, `tools/scripts/ForestryTextures.java`), Texturen/GUIs aus dem Forestry-Jar.
+- Datagen: Blockstates, Item-Modelle, Loot, Spitzhacken-Tag, Lang en/de (Forestry-de_DE, fehlende Einträge englisch),
+  Rezepte (Gehäuse, Fabricator, Carpenter; 4 Röhren im Fabricator; 4 Platinen + Lötkolben im Carpenter).
+- 5 neue GameTests (`ForestryGameTests`, insgesamt 56 grün), `gradlew build` und `runClient` (Hauptmenü, keine
+  Mod-Fehler) erfolgreich. Abweichungen in `abweichungen.md` eingetragen.
+
+## Nächste Schritte
+1. Teilpaket 5b: Electrical Engine (`EngineTin`, §A.1–A.4): EU-Senke im EU-Netz, Kolben/Übertragung wie BC-Engine,
+   Hitze/Zwangsabkühlung, Batterie-Slot, Platinen-Sockel mit Schaltungen (Data Component), Zinn-Zahnrad + Rezept,
+   GUI `electricalengine.png`, Darstellung `engine_tin_*`.
+2. Danach 5c: Power Converters.
+3. Manuelle Client-Tests (gesammelt am Ende) zusätzlich: Fabricator (Glas/Sand schmelzen mit Engine, Hitzebalken,
+   Röhren herstellen per Klick/Shift-Klick, Erstarren ohne Energie), Carpenter (Wassereimer, Muster per Phantom-Klick,
+   Fortschrittsbalken, Tankstufen-Textur), Lötkolben (Röhren auf Platine löten, Layout-Knöpfe, Drop beim Schließen),
+   Darstellung/Ausrichtung beider Maschinen in Welt und Inventar.

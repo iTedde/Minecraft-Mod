@@ -6,6 +6,7 @@ import dev.craft.Craft;
 import dev.craft.buildcraft.BcBlocks;
 import dev.craft.buildcraft.engine.EngineType;
 import dev.craft.core.explosion.Ic2Explosion;
+import dev.craft.forestry.FrBlocks;
 import dev.craft.ic2.Ic2Blocks;
 import dev.craft.ic2.Ic2Machine;
 import net.minecraft.core.HolderLookup;
@@ -47,6 +48,7 @@ public final class CraftBlockTagsProvider extends BlockTagsProvider {
             tag(BlockTags.MINEABLE_WITH_PICKAXE).add(BcBlocks.engine(type).get());
         }
         tag(BlockTags.MINEABLE_WITH_PICKAXE).add(BcBlocks.QUARRY.get(), BcBlocks.PUMP.get(), BcBlocks.REFINERY.get());
+        tag(BlockTags.MINEABLE_WITH_PICKAXE).add(FrBlocks.THERMIONIC_FABRICATOR.get(), FrBlocks.CARPENTER.get());
         // Material.ground: the shovel is the effective tool.
         tag(BlockTags.MINEABLE_WITH_SHOVEL).add(BcBlocks.MINING_WELL.get());
         tag(BlockTags.MINEABLE_WITH_AXE).add(Ic2Blocks.RUBBER_WOOD.get());

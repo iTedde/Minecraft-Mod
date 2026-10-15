@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "minecraft:glass"
+    },
+    "X": {
+      "item": "minecraft:gold_ingot"
+    },
+    "Y": {
+      "item": "craft:sturdy_casing"
+    },
+    "Z": {
+      "item": "minecraft:chest"
+    }
+  },
+  "pattern": [
+    "X#X",
+    "#Y#",
+    "XZX"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:thermionic_fabricator"
+  }
+}

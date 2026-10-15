@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "minecraft:glass"
+    },
+    "X": {
+      "tag": "c:ingots/bronze"
+    },
+    "Y": {
+      "item": "craft:sturdy_casing"
+    }
+  },
+  "pattern": [
+    "X#X",
+    "XYX",
+    "X#X"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:carpenter"
+  }
+}

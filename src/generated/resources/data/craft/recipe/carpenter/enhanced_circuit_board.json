@@ -1,0 +1,25 @@
+{
+  "type": "craft:carpenter",
+  "key": {
+    "#": {
+      "tag": "c:ingots/bronze"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    }
+  },
+  "liquid": {
+    "amount": 1000,
+    "id": "minecraft:water"
+  },
+  "packaging_time": 40,
+  "pattern": [
+    "R#R",
+    "R#R",
+    "R#R"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:enhanced_circuit_board"
+  }
+}

@@ -3,6 +3,7 @@ package dev.craft;
 import com.mojang.logging.LogUtils;
 import dev.craft.buildcraft.BuildCraft;
 import dev.craft.core.CraftCreativeTabs;
+import dev.craft.forestry.Forestry;
 import dev.craft.ic2.Ic2;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
@@ -17,6 +18,7 @@ public final class Craft {
     public Craft(IEventBus modBus, ModContainer container) {
         Ic2.init(modBus);
         BuildCraft.init(modBus);
+        Forestry.init(modBus);
         CraftCreativeTabs.TABS.register(modBus);
     }
 }

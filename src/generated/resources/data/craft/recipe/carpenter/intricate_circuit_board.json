@@ -1,0 +1,25 @@
+{
+  "type": "craft:carpenter",
+  "key": {
+    "#": {
+      "item": "minecraft:gold_ingot"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    }
+  },
+  "liquid": {
+    "amount": 1000,
+    "id": "minecraft:water"
+  },
+  "packaging_time": 80,
+  "pattern": [
+    "R#R",
+    "R#R",
+    "R#R"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:intricate_circuit_board"
+  }
+}

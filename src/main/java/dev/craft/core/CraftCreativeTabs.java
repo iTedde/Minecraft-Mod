@@ -5,6 +5,9 @@ import java.util.function.Supplier;
 import dev.craft.Craft;
 import dev.craft.buildcraft.BcItems;
 import dev.craft.buildcraft.engine.EngineType;
+import dev.craft.forestry.FrItems;
+import dev.craft.forestry.circuit.CircuitBoardType;
+import dev.craft.forestry.circuit.ElectronTube;
 import dev.craft.ic2.Ic2Items;
 import dev.craft.ic2.Ic2Machine;
 import dev.craft.ic2.cable.CableType;
@@ -70,6 +73,25 @@ public final class CraftCreativeTabs {
                 output.accept(BcItems.REFINERY);
                 for (DeferredHolder<Item, ? extends Item> item : BcItems.simpleItems()) {
                     output.accept(item.get());
+                }
+            })
+            .build());
+
+    public static final Supplier<CreativeModeTab> FORESTRY = TABS.register("forestry", () -> CreativeModeTab
+            .builder()
+            .title(Component.translatable("itemGroup.craft.forestry"))
+            .icon(() -> FrItems.STURDY_CASING.toStack())
+            .withTabsBefore(ResourceLocation.fromNamespaceAndPath(Craft.MODID, "buildcraft"))
+            .displayItems((parameters, output) -> {
+                output.accept(FrItems.THERMIONIC_FABRICATOR);
+                output.accept(FrItems.CARPENTER);
+                output.accept(FrItems.STURDY_CASING);
+                output.accept(FrItems.SOLDERING_IRON);
+                for (ElectronTube tube : ElectronTube.values()) {
+                    output.accept(FrItems.tube(tube));
+                }
+                for (CircuitBoardType type : CircuitBoardType.values()) {
+                    output.accept(FrItems.circuitBoard(type));
                 }
             })
             .build());

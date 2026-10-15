@@ -4,11 +4,18 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 import dev.craft.Craft;
 import dev.craft.buildcraft.BcItems;
 import dev.craft.buildcraft.engine.EngineType;
+import dev.craft.forestry.FrFluids;
+import dev.craft.forestry.FrItems;
+import dev.craft.forestry.circuit.CircuitBoardType;
+import dev.craft.forestry.circuit.ElectronTube;
+import dev.craft.forestry.recipe.CarpenterRecipe;
+import dev.craft.forestry.recipe.FabricatorRecipe;
 import dev.craft.ic2.Ic2Items;
 import dev.craft.ic2.Ic2Machine;
 import dev.craft.ic2.cable.CableType;
@@ -35,8 +42,10 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.ShapedRecipePattern;
 import net.minecraft.world.item.crafting.SmeltingRecipe;
 import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.material.Fluids;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.crafting.DataComponentIngredient;
+import net.neoforged.neoforge.fluids.FluidStack;
 
 /**
  * Phase 3 recipes, final pack state ({@code docs/spec/08-rezepte.md} §1–5, 7, 9, 10). Crafting recipes use the IC2
@@ -63,6 +72,7 @@ public final class CraftRecipeProvider extends RecipeProvider {
         compressor();
         extractor();
         buildcraft();
+        forestry();
     }
 
     // --- §12 BuildCraft (vanilla shaped recipes, mirroring allowed as in 1.4.7) ---
@@ -115,6 +125,57 @@ public final class CraftRecipeProvider extends RecipeProvider {
         bcShaped(BcItems.engine(type)).pattern("www").pattern(" g ").pattern("GpG").define('w', material)
                 .define('g', Items.GLASS).define('G', gear).define('p', Items.PISTON)
                 .unlockedBy("has_gear", has(gear)).save(output, id(type.getName()));
+    }
+
+    // --- §13 Forestry (vanilla shaped recipes with mirroring; machine recipes in the Fabricator and Carpenter) ---
+
+    private void forestry() {
+        bcShaped(FrItems.STURDY_CASING).pattern("###").pattern("# #").pattern("###")
+                .define('#', CraftItemTagsProvider.INGOTS_BRONZE).unlockedBy("has_bronze",
+                        has(CraftItemTagsProvider.INGOTS_BRONZE)).save(output, id("sturdy_casing"));
+        bcShaped(FrItems.THERMIONIC_FABRICATOR).pattern("X#X").pattern("#Y#").pattern("XZX")
+                .define('X', Items.GOLD_INGOT).define('#', Items.GLASS).define('Y', FrItems.STURDY_CASING)
+                .define('Z', Items.CHEST).unlockedBy("has_casing", has(FrItems.STURDY_CASING))
+                .save(output, id("thermionic_fabricator"));
+        bcShaped(FrItems.CARPENTER).pattern("X#X").pattern("XYX").pattern("X#X")
+                .define('X', CraftItemTagsProvider.INGOTS_BRONZE).define('#', Items.GLASS)
+                .define('Y', FrItems.STURDY_CASING).unlockedBy("has_casing", has(FrItems.STURDY_CASING))
+                .save(output, id("carpenter"));
+        tube(ElectronTube.COPPER, Ingredient.of(ingotsCopper()));
+        tube(ElectronTube.TIN, Ingredient.of(CraftItemTagsProvider.INGOTS_TIN));
+        tube(ElectronTube.BRONZE, Ingredient.of(CraftItemTagsProvider.INGOTS_BRONZE));
+        tube(ElectronTube.IRON, Ingredient.of(Items.IRON_INGOT));
+        carpenter("basic_circuit_board", 20, FrItems.circuitBoard(CircuitBoardType.BASIC),
+                Map.of('#', Ingredient.of(CraftItemTagsProvider.INGOTS_TIN), 'R', Ingredient.of(Items.REDSTONE)),
+                "R R", "R#R", "R R");
+        carpenter("enhanced_circuit_board", 40, FrItems.circuitBoard(CircuitBoardType.ENHANCED),
+                Map.of('#', Ingredient.of(CraftItemTagsProvider.INGOTS_BRONZE), 'R', Ingredient.of(Items.REDSTONE)),
+                "R#R", "R#R", "R#R");
+        carpenter("refined_circuit_board", 80, FrItems.circuitBoard(CircuitBoardType.REFINED),
+                Map.of('#', Ingredient.of(Items.IRON_INGOT), 'R', Ingredient.of(Items.REDSTONE)),
+                "R#R", "R#R", "R#R");
+        carpenter("intricate_circuit_board", 80, FrItems.circuitBoard(CircuitBoardType.INTRICATE),
+                Map.of('#', Ingredient.of(Items.GOLD_INGOT), 'R', Ingredient.of(Items.REDSTONE)),
+                "R#R", "R#R", "R#R");
+        carpenter("soldering_iron", 40, FrItems.SOLDERING_IRON,
+                Map.of('#', Ingredient.of(Items.IRON_INGOT), 'B', Ingredient.of(CraftItemTagsProvider.INGOTS_BRONZE)),
+                " # ", "# #", "  B");
+    }
+
+    /** {@code fabricatorManager.addRecipe(null, 500 mB liquid glass, 4 tubes, " X /#X#/XXX")}, # = redstone. */
+    private void tube(ElectronTube tube, Ingredient metal) {
+        output.accept(id("fabricator/" + tube.getName() + "_electron_tube"), new FabricatorRecipe(Optional.empty(),
+                new FluidStack(FrFluids.LIQUID_GLASS.get(), 500),
+                ShapedRecipePattern.of(Map.of('#', Ingredient.of(Items.REDSTONE), 'X', metal), " X ", "#X#", "XXX"),
+                new ItemStack(FrItems.tube(tube).get(), 4)), null);
+    }
+
+    /** {@code carpenterManager.addRecipe(steps, 1000 mB water, no box, result, pattern)}. */
+    private void carpenter(String name, int packagingTime, ItemLike result, Map<Character, Ingredient> key,
+                           String... pattern) {
+        output.accept(id("carpenter/" + name), new CarpenterRecipe(packagingTime,
+                new FluidStack(Fluids.WATER, 1000), Optional.empty(), ShapedRecipePattern.of(key, pattern),
+                new ItemStack(result)), null);
     }
 
     // --- §1 materials and components ---

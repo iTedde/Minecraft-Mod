@@ -1,0 +1,25 @@
+{
+  "type": "craft:carpenter",
+  "key": {
+    "#": {
+      "item": "minecraft:iron_ingot"
+    },
+    "B": {
+      "tag": "c:ingots/bronze"
+    }
+  },
+  "liquid": {
+    "amount": 1000,
+    "id": "minecraft:water"
+  },
+  "packaging_time": 40,
+  "pattern": [
+    " # ",
+    "# #",
+    "  B"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:soldering_iron"
+  }
+}
