@@ -60,7 +60,7 @@ MJ und EU bleiben getrennte Systeme; Verbindung nur über Electrical Engine (EU�
 
 ## Spezifikation
 
-`docs/spec/README.md` (Index), `docs/balancing.md`, `docs/abweichungen.md`.
+`docs/spec/README.md` (Index), `docs/balancing.md`, `docs/abweichungen.md`. Code-Überblick: `docs/architektur.md` (statt Code als Muster lesen).
 
 ## Phasenplan
 
