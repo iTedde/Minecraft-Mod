@@ -5,6 +5,10 @@ wurde der offizielle Quellcode (GitHub `cpw/compactsolars`, Tag `v4.0`, 2013-02-
 `reference/source/compactsolars/v4.0/`. Version 4.0 passt zu MC 1.4.7 und zur Pack-Config (`CompactSolars.cfg`:
 Block-ID 650, `scaleFactor = 1`, Hut-IDs ab 19551).
 
+**Maßgebliche Originalwerte (vom Nutzer bestätigt, 2026-10-15):** LV Solar Array 8 EU/t (8 Solarpanels um einen
+LV-Transformer), MV 64 EU/t (8 LV-Arrays um einen MV-Transformer), HV 512 EU/t (8 MV-Arrays um einen
+HV-Transformer). Es gibt keine Compact-Solars-Jar; nicht danach suchen.
+
 > Hinweis: Laut Auftrag werden die Arrays später als Multiblocks umgebaut (`docs/balancing.md`). Diese Datei
 > beschreibt das Original.
 

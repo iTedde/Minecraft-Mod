@@ -24,6 +24,13 @@ ein überarbeitetes Energiebalancing und neue Kraftwerke. Wird nicht veröffentl
 5. Nach **jeder Phase** muss der Mod bauen (`gradlew build`) und im Client starten (`gradlew runClient`).
 6. Offene Entscheidungen nicht eigenmächtig treffen – nachfragen (Liste unten).
 7. Dokumentation auf Deutsch; Code, Bezeichner und Commit-Messages auf Englisch.
+8. `reference/decompiled/` ist vollständig dekompiliert. **Nicht erneut dekompilieren.**
+9. **Niemals ganze Ordner oder große Klassen komplett lesen.** Gezielt mit Grep nach Klassen-, Methoden- oder
+   Feldnamen suchen und nur die relevanten Stellen lesen.
+10. Ab Phase 2 ist **`docs/spec/` die Quelle der Wahrheit**. `reference/` nur öffnen, wenn in der Spezifikation etwas
+    fehlt oder unklar ist, und die Lücke dann in `docs/spec/` nachtragen.
+11. Compact Solars liegt nicht als Jar vor – nicht danach suchen. Werte: LV 8 / MV 64 / HV 512 EU/t
+    (`docs/spec/11-compact-solars.md`), Umbau als Multiblock laut `docs/balancing.md`.
 
 ## Paketstruktur (ein Mod, getrennte Pakete je Ursprungs-Mod)
 

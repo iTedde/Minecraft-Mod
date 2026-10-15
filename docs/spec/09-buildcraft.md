@@ -117,6 +117,26 @@ Treibstoff entsteht nur in der **Raffinerie** (Öl → Treibstoff, 12 MJ, 1:1), 
 - Wird die Box von einer Maschine (Quarry/Filler/Builder) übernommen (`removeFromWorld`), werden alle beteiligten
   Landmarks entfernt und als Item gedroppt.
 
+### 3.1 Details (`BlockMarker`, `TileMarker`)
+
+- Block: Material `circuits`, Härte 0, Lichtwert 0,5 (= 7), keine Kollision, droppt sich selbst. Auswahlbox je
+  Ausrichtung 0,3 × 0,3 breit, 0,65 lang ab der Haltefläche.
+- Halt nur an Nachbarn mit `renderAsNormalBlock` (volle undurchsichtige Würfel). **Eigenheit:** `onBlockAdded`
+  überschreibt die beim Platzieren gewählte Seite mit dem ersten tragfähigen Nachbarn in der Reihenfolge −X, +X, −Z,
+  +Z, −Y (Boden), +Y (Decke). Fällt der Halt weg, droppt der Landmark.
+- Nachbaränderung → `updateSignals`: `showSignals = isBlockIndirectlyGettingPowered`.
+- Gruppe: alle verknüpften Landmarks teilen ein `Origin`-Objekt (`vectO` = Ursprungs-Landmark, `vect[0..2]` = Partner
+  auf X/Y/Z). `setVect(n)`: für j = 1..63 erst `+j`, dann `−j` prüfen; erster Landmark, mit dem `linkTo` gelingt,
+  gewinnt. `linkTo` scheitert nur, wenn beide schon eine Gruppe haben; hat nur der Partner eine, tritt dieser
+  Landmark dessen Gruppe bei und **überschreibt** dort `vect[n]` (Originalverhalten).
+- Box: auf jeder verknüpften Achse von Ursprung bis Partner, sonst nur die Ursprungskoordinate. Ohne Gruppe ist der
+  `IAreaProvider` der Block selbst (1×1×1).
+- Signallaser (blau): je nicht verknüpfter Achse zwei Laser von Blockmitte −63 bis +63. Laser liegen in
+  Blockmitte, 0,1 dick, und reichen von Mitte zu Mitte.
+- Abbau eines Landmarks löst die ganze Gruppe auf (alle bekommen ein neues, leeres `Origin`).
+- Speichern: nur der Ursprungs-Landmark speichert `vectO`/`vect0..2`; beim ersten Tick nach dem Laden verknüpft er
+  die Partner neu.
+
 ## 4. Quarry
 
 Block `quarry` (Material Eisen, Härte 1,5). Platzierung: Front zeigt zum Spieler (2D), Meta = Gegenrichtung.
@@ -177,6 +197,47 @@ Viel gespeicherte Energie → schnellerer, aber teurerer Kopf. Empfang max. 500 
 Mindestempfang 25 (Bau) bzw. 30 MJ (Abbau) pro Übertragung → Stirling/Combustion nötig.
 
 Schraubenschlüssel (BC) auf Quarry: `reinitalize()` – Rahmen wird neu geprüft/gebaut.
+
+### 4.4 Details (`TileQuarry`, `BlockQuarry`, `BlockFrame`, `EntityRobot`, `BptBuilderBlueprint`)
+
+- Quarry-Block: Härte 1,5, Explosionsresistenz wie Stein, Material Eisen (Spitzhacke nötig), Stein-Sound, droppt sich
+  selbst. Front = Blockstate-Richtung (zum Spieler; Spielerposition gegen die Blockecke, nicht die Mitte). Textur:
+  Front 39, oben 40, sonst 41 (`blocks.png`). Rechtsklick mit BC-Schraubenschlüssel (nicht schleichend) →
+  `reinitalize`: `builderDone = false`, Blueprint neu, `isDigging = true`.
+- **Ablauf je Tick (Server):** zuerst `PowerProvider.update`. Ist die Quarry nicht `isAlive` (kein Chunkloading),
+  passiert sonst nichts. Bewegt sich der Kopf (`inProcess`) → Bewegung (§4.3) und jeden Tick Sync an Clients. Steht
+  er und `isDigging`: `createUtilsIfNeeded` (Box/Blueprint anlegen; Rahmen fertig → Arm erzeugen, Kopf ggf. auf
+  `(xMin+1, y+2, zMin+1)` setzen; sonst Streifenlaser zeigen), dann `builderDone = blueprint.done`; nicht fertig →
+  `buildFrame`, sonst warten bis der Roboter leer ist (dann Roboter + Laser weg) und `dig`.
+- **Blueprint:** Größe der Box, aber Basis-y = **y der Quarry** (nicht `box.yMin`; Eigenheit bei Landmarks auf
+  anderer Höhe – die Streifenlaser liegen dann an der Landmark-Höhe). Rahmen an den 12 Kanten, Rest Luft.
+  - *Räumliste* (alle Positionen, Ebenen von oben nach unten, je Ebene x dann z): Position ungültig (Block/Meta ≠
+    Soll) und kein weicher Block → Auftrag „entfernen, wenn ungültig“.
+  - *Bauliste* (Ebenen von unten nach oben): Position ungültig → Auftrag „bauen“ (Rahmen setzen bzw. Luft setzen –
+    auch weiche Blöcke wie Wasser/Pflanzen werden so entfernt). Der Rahmen ist nicht undurchsichtig → alles in der
+    Sekundärliste.
+  - `getNextBlock` nimmt aus der ersten nicht leeren Liste den ersten ungültigen Eintrag (gültige werden verworfen);
+    sind alle Listen leer → `done`. Jeder Aufruf kostet 25 MJ, auch wenn nichts mehr zu tun ist.
+- **Roboter** (`EntityRobot`): Warteschlange max. 20. Pro Tick: `wait` = 0 → `wait = 20 − Anzahl + 2`, sonst
+  `wait − 1`; bei `wait ≤ 0` und `canChangeBlock(Ziel)` wird der erste Auftrag ausgeführt und entfernt.
+  **Eigenheit:** Ist das Ziel nicht änderbar (Lava, Öl, Bedrock im Rahmenbereich), bleibt der Auftrag ewig stehen –
+  der Rahmen wird nie fertig. Darstellung: 8×8×8-px-Würfel (`robot.png`), startet in der Boxmitte, wählt zufällig
+  ein weiches Feld im ±1-Würfel um sein Ziel innerhalb der um +1 **verschobenen** Box (`Box.expand` verschiebt),
+  Geschwindigkeit `(Ziel − Pos) / 75 · (Leistungsmittel / 2 + 1)`; Leistungsmittel = Mittel über 100 Ticks von
+  `Anzahl/20 · 4`. Energielaser (`laser_1..4.png` nach Mittel ≤1/≤2/≤3/>3) vom Roboter zur Mitte des Zielblocks.
+- **Rahmen:** Material Glas, Härte 0,5, kein Drop, Random-Tick: Meta 1 → mit `nextInt(10) > 5` (4/10) entfernen.
+  Form wie altes Rohr: Kern 0,25–0,75, Arme zu benachbarten Rahmen (Kollision und Auswahl ebenso). Beim Abbau der
+  Quarry werden die Rahmen an den 12 Kanten von `box` (y aus der Box!) auf Meta 1 gesetzt.
+- **Arm:** Wurzel `(xMin + 0,75, y + sizeY − 1 + 0,25, zMin + 0,75)`, X-Balken Länge `sizeX − 2 + 0,5`, Z-Balken
+  `sizeZ − 2 + 0,5`, Querschnitt 0,5; senkrechter Balken vom Kopf + 1 bis zur Wurzel; Kopf 0,2 × 1 × 0,2 bei
+  `(kx + 0,4, ky, kz + 0,4)`. Kopfposition auf 1/32 gerastert. Texturen 33 (Balken) und 42 (Kopf).
+- **Ausgabe** `addToRandomInventory`: alle 6 Nachbarn mit Inventar außer Engines, die mindestens 1 Item aufnehmen;
+  zufällig einer davon bekommt den Stack. Rest → Rohr (Phase 9), Rest → Item-Entity.
+- **Gespeichert:** Energie, Box, Ziel, Kopfposition. **Nicht** gespeichert: `builderDone`, `inProcess`, `isDigging`,
+  Roboter – nach dem Laden wird der Rahmen geprüft (25 MJ) und das Graben neu begonnen.
+- Chunkloading: Forge-Ticket (`maximumChunksPerTicket = 25`, max. 200 Tickets je Mod laut `forgeChunkLoading.cfg`).
+  Chatmeldungen nur an den Spieler, der die Quarry gesetzt hat (nur in derselben Sitzung bekannt).
+- Rezept: Pack-Rezept braucht den IC2-Diamantbohrer (Titanplatten, Phase 6/6b) → Quarry-Rezept erst mit dem Bohrer.
 
 ## 5. Weitere Items
 
