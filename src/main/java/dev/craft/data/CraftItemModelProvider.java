@@ -33,6 +33,8 @@ public final class CraftItemModelProvider extends ItemModelProvider {
         battery(Ic2Items.RE_BATTERY);
         battery(Ic2Items.ENERGY_CRYSTAL);
         battery(Ic2Items.LAPOTRON_CRYSTAL);
+        withExistingParent(BcItems.LANDMARK.getId().getPath(), mcLoc("item/generated"))
+                .texture("layer0", modLoc("block/landmark"));
         for (DeferredItem<? extends Item> item : BcItems.simpleItems()) {
             basicItem(item.get());
         }

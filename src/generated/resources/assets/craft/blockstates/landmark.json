@@ -1,0 +1,30 @@
+{
+  "variants": {
+    "facing=down": {
+      "model": "craft:block/landmark",
+      "x": 180
+    },
+    "facing=east": {
+      "model": "craft:block/landmark",
+      "x": 90,
+      "y": 90
+    },
+    "facing=north": {
+      "model": "craft:block/landmark",
+      "x": 90
+    },
+    "facing=south": {
+      "model": "craft:block/landmark",
+      "x": 90,
+      "y": 180
+    },
+    "facing=up": {
+      "model": "craft:block/landmark"
+    },
+    "facing=west": {
+      "model": "craft:block/landmark",
+      "x": 90,
+      "y": 270
+    }
+  }
+}

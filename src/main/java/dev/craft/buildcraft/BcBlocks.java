@@ -4,7 +4,10 @@ import java.util.EnumMap;
 import java.util.Map;
 
 import dev.craft.Craft;
+import dev.craft.buildcraft.builders.MarkerBlock;
 import dev.craft.buildcraft.engine.EngineBlock;
+import dev.craft.buildcraft.factory.FrameBlock;
+import dev.craft.buildcraft.factory.QuarryBlock;
 import dev.craft.buildcraft.engine.EngineType;
 import dev.craft.buildcraft.fluid.BcFluids;
 import net.minecraft.world.level.block.LiquidBlock;
@@ -33,6 +36,19 @@ public final class BcBlocks {
     public static final DeferredBlock<LiquidBlock> OIL = BLOCKS.register("oil", () -> new LiquidBlock(BcFluids.OIL.get(),
             BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLACK).replaceable().noCollission().strength(100.0F)
                     .pushReaction(PushReaction.DESTROY).noLootTable().liquid().sound(SoundType.EMPTY)));
+
+    /** BuildCraft {@code BlockMarker}: Material.circuits, hardness 0, light 0.5. */
+    public static final DeferredBlock<MarkerBlock> MARKER = BLOCKS.register("landmark", () -> new MarkerBlock(
+            BlockBehaviour.Properties.of().noCollission().instabreak().lightLevel(state -> 7).sound(SoundType.STONE)
+                    .pushReaction(PushReaction.DESTROY)));
+    /** BuildCraft {@code BlockQuarry}: Material.iron, hardness 1.5, resistance like stone. */
+    public static final DeferredBlock<QuarryBlock> QUARRY = BLOCKS.register("quarry", () -> new QuarryBlock(
+            BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(1.5F, 6.0F)
+                    .requiresCorrectToolForDrops().sound(SoundType.STONE)));
+    /** BuildCraft {@code BlockFrame}: Material.glass, hardness 0.5, no drops. */
+    public static final DeferredBlock<FrameBlock> FRAME = BLOCKS.register("frame", () -> new FrameBlock(
+            BlockBehaviour.Properties.of().strength(0.5F).sound(SoundType.STONE).noOcclusion().noLootTable()
+                    .isViewBlocking((s, l, p) -> false).isSuffocating((s, l, p) -> false)));
 
     private BcBlocks() {
     }

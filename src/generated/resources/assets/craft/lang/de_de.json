@@ -10,6 +10,7 @@
   "block.craft.double_insulated_hv_cable": "2x isoliertes HV-Kabel",
   "block.craft.electric_furnace": "Elektroofen",
   "block.craft.extractor": "Extraktor",
+  "block.craft.frame": "Rahmen",
   "block.craft.generator": "Generator",
   "block.craft.geothermal_generator": "Geothermiegenerator",
   "block.craft.glass_fibre_cable": "Glasfaserkabel",
@@ -19,10 +20,12 @@
   "block.craft.insulated_gold_cable": "Isoliertes Goldkabel",
   "block.craft.insulated_hv_cable": "Isoliertes HV-Kabel",
   "block.craft.iron_furnace": "Eisenofen",
+  "block.craft.landmark": "Landmarke",
   "block.craft.macerator": "Macerator",
   "block.craft.machine_casing": "Maschinenblock",
   "block.craft.oil": "Öl",
   "block.craft.quadruple_insulated_hv_cable": "4x isoliertes HV-Kabel",
+  "block.craft.quarry": "Steinbruch",
   "block.craft.recycler": "Recycler",
   "block.craft.redstone_engine": "Redstone-Motor",
   "block.craft.resin_sheet": "Harzschicht",
@@ -96,5 +99,7 @@
   "item.craft.wooden_gear": "Holzzahnrad",
   "item.craft.wrench": "Schraubenschlüssel",
   "itemGroup.craft.buildcraft": "BuildCraft",
-  "itemGroup.craft.ic2": "IndustrialCraft 2"
+  "itemGroup.craft.ic2": "IndustrialCraft 2",
+  "message.craft.quarry.chunks": "[BUILDCRAFT] Der Steinbruch bei %d %d %d hält %d Chunks geladen",
+  "message.craft.quarry.size": "Steinbruch-Bereich liegt außerhalb der Chunkloading-Grenzen oder ist zu klein: %d %d (%d)"
 }

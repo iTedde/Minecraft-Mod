@@ -65,6 +65,15 @@ Status: *geplant* (aus Phase 1 abgeleitet, noch nicht umgesetzt), *entschieden* 
 | Öl als „Wasser“ | Material.water: Schwimmen, Ertrinken, Löschen, kein Fallschaden, Lava erstarrt daneben, Ackerland, Zuckerrohr, Schwamm, Angeln, Wassermob-Spawns, Dispenser-Eimer → Wassereimer | FluidType mit Wasser-Eigenschaften (Schwimmen, Ertrinken, Löschen, kein Fallschaden, Boote, Ackerland) und Wasser-Nebelfarbe; Lava erstarrt neben Öl wie im Original (Quelle → Obsidian, Stufe ≤ 4 → Bruchstein); Öl ist **nicht** im Tag `#minecraft:water` (Zuckerrohr, Schwamm, Angeln, Spawns, Dispenser-Kuriosum entfallen); Mischen Öl/Wasser/Lava beim Fließen nach 1.21-Regeln | Material-System gibt es nicht mehr; Wasser-Tag hätte unüberschaubare Nebenwirkungen | **umgesetzt** |
 | Öl-/Treibstoff-Texturen | prozedurale TextureFX (jede Tick neu berechnet) | mit denselben Algorithmen vorab gerenderte Animationsstreifen (64 Frames, `tools/scripts/BcLiquidTextures.java`) | kein TextureFX in 1.21 | **umgesetzt** |
 | Treibstoff | Flüssigkeit über das Item `fuel`; `bucketFuel` ist ein normales Item | Flüssigkeit `craft:fuel` ohne Block; Treibstoffeimer kann nicht ausgeleert werden (nur in Tanks), kein Item `fuel` | Fluid-Registry | **umgesetzt** |
+| Laser, Bau-Roboter, Bohrarm | Entities (`EntityBlock`, `EntityRobot`, `EntityEnergyLaser`, `EntityMechanicalArm`) | Block-Entity-Renderer der Landmark/Quarry mit Original-Geometrie/-Texturen; die Bau-Warteschlange des Roboters liegt in der Quarry, sein Flug wird nur im Client simuliert | keine Hilfs-Entities nötig; idiomatisch | **umgesetzt** |
+| Quarry: Chunkloading | Forge-Ticket je Quarry, max. 200 Tickets je Mod; ohne Ticket Meldung „no more chunkloaders“ | NeoForge-`TicketController` (`craft:quarry`); kein Ticket-Limit, daher keine „no more chunkloaders“-Meldung; Größenprüfung weiterhin mit 25 (`maximumChunksPerTicket`) | API | **umgesetzt** |
+| Quarry: Tiefe | Ebenen bis y = 0 | bis zur Weltuntergrenze (y −64); Serpentinen-Parität mit `floorMod` für negative y | 1.18-Weltgeometrie | **umgesetzt** |
+| Quarry: Ausgabe in Inventare | `Transactor` mit Seite UNKNOWN | Item-Handler-Capability der Seite, die zur Quarry zeigt; erst stapeln, dann leere Slots | API | **umgesetzt** |
+| Weiche Blöcke | `BlockFluid`, `IPlantable`, Schnee, Ranken | Flüssigkeitsblöcke, `BushBlock` (Blumen, Setzlinge, Feldfrüchte, Gras, Pilze, Stängel, Netherwarze …), Zuckerrohr, Kaktus, Schneeschicht, Ranken | kein `IPlantable` in 1.21 | **umgesetzt** |
+| Quarry: Helligkeit | `BlockMachineRoot`: +0,5 Helligkeit, wenn eine aktive Maschine daneben steht | entfällt | rein optisch, kein Gegenstück | **umgesetzt** |
+| Landmark-Modell | flache Fackel-Ebenen (`RenderingMarkers`) | 2×10-px-Stab wie das Vanilla-Fackelmodell, je Richtung gedreht | Blockmodell-JSON | **umgesetzt** |
+| Rahmen-Zerfall | Random-Tick-Rate von 1.4.7 | Random-Tick-Rate von 1.21 (`randomTickSpeed`); Chance je Tick unverändert 4/10 | Engine | **umgesetzt** |
+| Quarry: Rezept | Pack-Rezept mit IC2-Diamantbohrer | kommt mit dem Diamantbohrer (Phase 6/6b); bis dahin nur Creative | Zutat fehlt noch | **offen bis Phase 6** |
 
 ## Bewusst (Energiebalancing)
 

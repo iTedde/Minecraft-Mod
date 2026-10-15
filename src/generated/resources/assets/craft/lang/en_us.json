@@ -10,6 +10,7 @@
   "block.craft.double_insulated_hv_cable": "2xIns. HV Cable",
   "block.craft.electric_furnace": "Electric Furnace",
   "block.craft.extractor": "Extractor",
+  "block.craft.frame": "Frame",
   "block.craft.generator": "Generator",
   "block.craft.geothermal_generator": "Geothermal Generator",
   "block.craft.glass_fibre_cable": "Glass Fibre Cable",
@@ -19,10 +20,12 @@
   "block.craft.insulated_gold_cable": "Insulated Gold Cable",
   "block.craft.insulated_hv_cable": "Insulated HV Cable",
   "block.craft.iron_furnace": "Iron Furnace",
+  "block.craft.landmark": "Land Mark",
   "block.craft.macerator": "Macerator",
   "block.craft.machine_casing": "Machine Block",
   "block.craft.oil": "Oil",
   "block.craft.quadruple_insulated_hv_cable": "4xIns. HV Cable",
+  "block.craft.quarry": "Quarry",
   "block.craft.recycler": "Recycler",
   "block.craft.redstone_engine": "Redstone Engine",
   "block.craft.resin_sheet": "Resin Sheet",
@@ -96,5 +99,7 @@
   "item.craft.wooden_gear": "Wood Gear",
   "item.craft.wrench": "Wrench",
   "itemGroup.craft.buildcraft": "BuildCraft",
-  "itemGroup.craft.ic2": "IndustrialCraft 2"
+  "itemGroup.craft.ic2": "IndustrialCraft 2",
+  "message.craft.quarry.chunks": "[BUILDCRAFT] The quarry at %d %d %d will keep %d chunks loaded",
+  "message.craft.quarry.size": "Quarry size is outside of chunkloading bounds or too small %d %d (%d)"
 }

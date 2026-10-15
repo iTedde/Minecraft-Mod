@@ -62,6 +62,8 @@ public final class CraftCreativeTabs {
                 for (EngineType type : EngineType.values()) {
                     output.accept(BcItems.engine(type));
                 }
+                output.accept(BcItems.LANDMARK);
+                output.accept(BcItems.QUARRY);
                 for (DeferredHolder<Item, ? extends Item> item : BcItems.simpleItems()) {
                     output.accept(item.get());
                 }

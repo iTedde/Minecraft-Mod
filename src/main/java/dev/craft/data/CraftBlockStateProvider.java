@@ -3,6 +3,7 @@ package dev.craft.data;
 import com.google.gson.JsonObject;
 import dev.craft.Craft;
 import dev.craft.buildcraft.BcBlocks;
+import dev.craft.buildcraft.builders.MarkerBlock;
 import dev.craft.buildcraft.engine.EngineType;
 import dev.craft.ic2.Ic2Blocks;
 import dev.craft.ic2.Ic2Machine;
@@ -13,12 +14,15 @@ import dev.craft.ic2.machine.MachineBlock;
 import net.minecraft.core.Direction;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.PipeBlock;
 import net.neoforged.neoforge.client.model.generators.BlockModelBuilder;
 import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
 import net.neoforged.neoforge.client.model.generators.ConfiguredModel;
 import net.neoforged.neoforge.client.model.generators.CustomLoaderBuilder;
 import net.neoforged.neoforge.client.model.generators.ModelFile;
+import net.neoforged.neoforge.client.model.generators.MultiPartBlockStateBuilder;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import org.joml.Vector3f;
 
 public final class CraftBlockStateProvider extends BlockStateProvider {
     /**
@@ -59,6 +63,65 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
         resinSheet();
         engines();
         simpleBlock(BcBlocks.OIL.get(), models().getBuilder("oil").texture("particle", modLoc("block/oil_still")));
+        landmark();
+        quarry();
+        frame();
+    }
+
+    /** BuildCraft {@code RenderingMarkers}: a torch-like stick, turned so that it points away from its support. */
+    private void landmark() {
+        ResourceLocation texture = modLoc("block/landmark");
+        BlockModelBuilder model = models().withExistingParent("landmark", mcLoc("block/block"))
+                .texture("particle", texture).texture("torch", texture).renderType("cutout").ao(false)
+                .element().from(7, 0, 7).to(9, 10, 9)
+                .face(Direction.DOWN).uvs(7, 13, 9, 15).texture("#torch").end()
+                .face(Direction.UP).uvs(7, 6, 9, 8).texture("#torch").end()
+                .face(Direction.NORTH).uvs(7, 6, 9, 16).texture("#torch").end()
+                .face(Direction.SOUTH).uvs(7, 6, 9, 16).texture("#torch").end()
+                .face(Direction.WEST).uvs(7, 6, 9, 16).texture("#torch").end()
+                .face(Direction.EAST).uvs(7, 6, 9, 16).texture("#torch").end()
+                .end();
+        getVariantBuilder(BcBlocks.MARKER.get()).forAllStates(state -> {
+            Direction facing = state.getValue(MarkerBlock.FACING);
+            int x = facing == Direction.DOWN ? 180 : facing.getAxis().isHorizontal() ? 90 : 0;
+            int y = facing.getAxis().isHorizontal() ? ((int) facing.toYRot() + 180) % 360 : 0;
+            return ConfiguredModel.builder().modelFile(model).rotationX(x).rotationY(y).build();
+        });
+    }
+
+    /** BuildCraft {@code BlockQuarry}: front 39 on the facing side, top 40, every other side (incl. bottom) 41. */
+    private void quarry() {
+        ModelFile model = models().orientableWithBottom("quarry", modLoc("block/quarry_side"),
+                modLoc("block/quarry_front"), modLoc("block/quarry_side"), modLoc("block/quarry_top"));
+        horizontalBlock(BcBlocks.QUARRY.get(), model);
+        simpleBlockItem(BcBlocks.QUARRY.get(), model);
+    }
+
+    /** BuildCraft {@code BlockFrame}: legacy pipe shape, core plus an arm to every neighbouring frame. */
+    private void frame() {
+        ResourceLocation texture = modLoc("block/frame");
+        ModelFile core = models().withExistingParent("frame_core", mcLoc("block/block"))
+                .texture("particle", texture).texture("frame", texture).renderType("cutout")
+                .element().from(4, 4, 4).to(12, 12, 12).allFaces((d, f) -> f.texture("#frame")).end();
+        MultiPartBlockStateBuilder builder = getMultipartBuilder(BcBlocks.FRAME.get()).part().modelFile(core)
+                .addModel().end();
+        for (Direction side : Direction.values()) {
+            Vector3f from = new Vector3f(4, 4, 4);
+            Vector3f to = new Vector3f(12, 12, 12);
+            switch (side) {
+                case DOWN -> { from.y = 0; to.y = 4; }
+                case UP -> { from.y = 12; to.y = 16; }
+                case NORTH -> { from.z = 0; to.z = 4; }
+                case SOUTH -> { from.z = 12; to.z = 16; }
+                case WEST -> { from.x = 0; to.x = 4; }
+                case EAST -> { from.x = 12; to.x = 16; }
+            }
+            ModelFile arm = models().withExistingParent("frame_" + side.getName(), mcLoc("block/block"))
+                    .texture("particle", texture).texture("frame", texture).renderType("cutout")
+                    .element().from(from.x, from.y, from.z).to(to.x, to.y, to.z)
+                    .allFaces((d, f) -> f.texture("#frame").cullface(d == side ? side : null)).end();
+            builder.part().modelFile(arm).addModel().condition(PipeBlock.PROPERTY_BY_DIRECTION.get(side), true).end();
+        }
     }
 
     /** Engines are drawn by their block entity renderer; the block model only provides the break particles. */

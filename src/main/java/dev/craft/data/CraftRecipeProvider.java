@@ -78,6 +78,11 @@ public final class CraftRecipeProvider extends RecipeProvider {
         engine(EngineType.REDSTONE, Ingredient.of(ItemTags.PLANKS), BcItems.WOODEN_GEAR);
         engine(EngineType.STIRLING, Ingredient.of(Items.COBBLESTONE), BcItems.STONE_GEAR);
         engine(EngineType.COMBUSTION, Ingredient.of(Items.IRON_INGOT), BcItems.IRON_GEAR);
+        // "l /r " – the empty second column of the original makes no difference.
+        bcShaped(BcItems.LANDMARK).pattern("l").pattern("r").define('l', Items.LAPIS_LAZULI)
+                .define('r', Items.REDSTONE_TORCH).unlockedBy("has_lapis", has(Items.LAPIS_LAZULI))
+                .save(output, id("landmark"));
+        // Quarry: the pack recipe needs the IC2 diamond drill (titanium plates) – added together with the drill.
     }
 
     private static ShapedRecipeBuilder bcShaped(ItemLike result) {

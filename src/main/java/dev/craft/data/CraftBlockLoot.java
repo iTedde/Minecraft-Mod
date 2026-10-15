@@ -52,6 +52,8 @@ public final class CraftBlockLoot extends BlockLootSubProvider {
         for (EngineType type : EngineType.values()) {
             dropSelf(BcBlocks.engine(type).get());
         }
+        dropSelf(BcBlocks.MARKER.get());
+        dropSelf(BcBlocks.QUARRY.get());
         resinSheet();
         rubberWood();
         rubberLeaves();

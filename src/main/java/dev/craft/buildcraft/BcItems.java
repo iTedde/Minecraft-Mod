@@ -31,6 +31,9 @@ public final class BcItems {
         }
     }
 
+    public static final DeferredItem<BlockItem> LANDMARK = ITEMS.registerSimpleBlockItem(BcBlocks.MARKER);
+    public static final DeferredItem<BlockItem> QUARRY = ITEMS.registerSimpleBlockItem(BcBlocks.QUARRY);
+
     public static final DeferredItem<Item> WOODEN_GEAR = simple("wooden_gear");
     public static final DeferredItem<Item> STONE_GEAR = simple("stone_gear");
     public static final DeferredItem<Item> IRON_GEAR = simple("iron_gear");

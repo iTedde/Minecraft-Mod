@@ -38,6 +38,8 @@ public final class BuildCraftClient {
         for (EngineType type : EngineType.values()) {
             event.registerBlockEntityRenderer(BcBlockEntityTypes.engine(type), EngineRenderer::new);
         }
+        event.registerBlockEntityRenderer(BcBlockEntityTypes.MARKER.get(), MarkerRenderer::new);
+        event.registerBlockEntityRenderer(BcBlockEntityTypes.QUARRY.get(), QuarryRenderer::new);
     }
 
     @SubscribeEvent

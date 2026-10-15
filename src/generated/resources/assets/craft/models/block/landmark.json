@@ -1,0 +1,55 @@
+{
+  "parent": "minecraft:block/block",
+  "ambientocclusion": false,
+  "elements": [
+    {
+      "faces": {
+        "down": {
+          "texture": "#torch",
+          "uv": [
+            7.0,
+            13.0,
+            9.0,
+            15.0
+          ]
+        },
+        "east": {
+          "texture": "#torch"
+        },
+        "north": {
+          "texture": "#torch"
+        },
+        "south": {
+          "texture": "#torch"
+        },
+        "up": {
+          "texture": "#torch",
+          "uv": [
+            7.0,
+            6.0,
+            9.0,
+            8.0
+          ]
+        },
+        "west": {
+          "texture": "#torch"
+        }
+      },
+      "from": [
+        7,
+        0,
+        7
+      ],
+      "to": [
+        9,
+        10,
+        9
+      ]
+    }
+  ],
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "particle": "craft:block/landmark",
+    "torch": "craft:block/landmark"
+  }
+}

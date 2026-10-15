@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "craft:block/quarry",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "craft:block/quarry"
+    },
+    "facing=south": {
+      "model": "craft:block/quarry",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "craft:block/quarry",
+      "y": 270
+    }
+  }
+}

@@ -2,6 +2,7 @@ package dev.craft.buildcraft;
 
 import dev.craft.buildcraft.engine.CombustionEngineBlockEntity;
 import dev.craft.buildcraft.engine.EngineType;
+import dev.craft.buildcraft.factory.QuarryChunkLoading;
 import dev.craft.buildcraft.fluid.BcFluids;
 import dev.craft.buildcraft.power.BcCapabilities;
 import dev.craft.buildcraft.world.BcFeatures;
@@ -26,6 +27,7 @@ public final class BuildCraft {
         BcFeatures.FEATURES.register(modBus);
         modBus.addListener(BuildCraft::registerCapabilities);
         modBus.addListener(BuildCraft::commonSetup);
+        modBus.addListener(QuarryChunkLoading::register);
     }
 
     private static void commonSetup(FMLCommonSetupEvent event) {
@@ -41,6 +43,7 @@ public final class BuildCraft {
                         (be, side) -> be.getItemHandler());
             }
         }
+        event.registerBlockEntity(BcCapabilities.POWER_RECEPTOR, BcBlockEntityTypes.QUARRY.get(), (be, side) -> be);
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, BcBlockEntityTypes.engine(EngineType.COMBUSTION),
                 (be, side) -> ((CombustionEngineBlockEntity) be).getFluidHandler());
         // NeoForge only wraps items of the exact class BucketItem; the oil bucket is one, the fuel bucket is not.

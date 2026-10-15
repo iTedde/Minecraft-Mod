@@ -141,6 +141,11 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             block(BcBlocks.OIL, "Oil");
             item(BcItems.OIL_BUCKET, "Oil Bucket");
             item(BcItems.FUEL_BUCKET, "Fuel Bucket");
+            block(BcBlocks.MARKER, "Land Mark");
+            block(BcBlocks.QUARRY, "Quarry");
+            block(BcBlocks.FRAME, "Frame");
+            add("message.craft.quarry.size", "Quarry size is outside of chunkloading bounds or too small %d %d (%d)");
+            add("message.craft.quarry.chunks", "[BUILDCRAFT] The quarry at %d %d %d will keep %d chunks loaded");
             add(BcFluids.OIL_TYPE.get().getDescriptionId(), "Oil");
             add(BcFluids.FUEL_TYPE.get().getDescriptionId(), "Fuel");
         }
@@ -249,6 +254,11 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             block(BcBlocks.OIL, "Öl");
             item(BcItems.OIL_BUCKET, "Öleimer");
             item(BcItems.FUEL_BUCKET, "Treibstoffeimer");
+            block(BcBlocks.MARKER, "Landmarke");
+            block(BcBlocks.QUARRY, "Steinbruch");
+            block(BcBlocks.FRAME, "Rahmen");
+            add("message.craft.quarry.size", "Steinbruch-Bereich liegt außerhalb der Chunkloading-Grenzen oder ist zu klein: %d %d (%d)");
+            add("message.craft.quarry.chunks", "[BUILDCRAFT] Der Steinbruch bei %d %d %d hält %d Chunks geladen");
             add(BcFluids.OIL_TYPE.get().getDescriptionId(), "Öl");
             add(BcFluids.FUEL_TYPE.get().getDescriptionId(), "Treibstoff");
         }

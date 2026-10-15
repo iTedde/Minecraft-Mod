@@ -19,6 +19,7 @@
     "craft:bronze_block",
     "craft:redstone_engine",
     "craft:stirling_engine",
-    "craft:combustion_engine"
+    "craft:combustion_engine",
+    "craft:quarry"
   ]
 }
