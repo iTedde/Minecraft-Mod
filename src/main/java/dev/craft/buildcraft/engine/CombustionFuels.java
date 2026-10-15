@@ -3,6 +3,7 @@ package dev.craft.buildcraft.engine;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import dev.craft.buildcraft.fluid.BcFluids;
 import dev.craft.ic2.Ic2Items;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.material.Fluid;
@@ -13,8 +14,7 @@ import org.jetbrains.annotations.Nullable;
 
 /**
  * Fuels and coolants of the combustion engine (BuildCraft {@code IronEngineFuel}, {@code IronEngineCoolant}) and
- * the filled containers it accepts (Forge {@code LiquidContainerRegistry}). Oil and fuel are added with the oil
- * fluids.
+ * the filled containers it accepts (Forge {@code LiquidContainerRegistry}).
  */
 public final class CombustionFuels {
     /** MJ per tick and burn time in ticks per 1000 mB. */
@@ -26,6 +26,8 @@ public final class CombustionFuels {
 
     static {
         registerFuel(Fluids.LAVA, 1.0F, 20000);
+        registerFuel(BcFluids.OIL.get(), 3.0F, 20000);
+        registerFuel(BcFluids.FUEL.get(), 6.0F, 100000);
         registerCoolant(Fluids.WATER, 1.0F);
     }
 

@@ -2,12 +2,16 @@ package dev.craft.buildcraft;
 
 import dev.craft.buildcraft.engine.CombustionEngineBlockEntity;
 import dev.craft.buildcraft.engine.EngineType;
+import dev.craft.buildcraft.fluid.BcFluids;
 import dev.craft.buildcraft.power.BcCapabilities;
+import dev.craft.buildcraft.world.BcFeatures;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
+import net.neoforged.neoforge.fluids.capability.wrappers.FluidBucketWrapper;
 
-/** Entry point of the BuildCraft part (MJ system and engines). */
+/** Entry point of the BuildCraft part (MJ system, engines, oil). */
 public final class BuildCraft {
     private BuildCraft() {
     }
@@ -15,9 +19,17 @@ public final class BuildCraft {
     public static void init(IEventBus modBus) {
         BcBlocks.BLOCKS.register(modBus);
         BcItems.ITEMS.register(modBus);
+        BcFluids.FLUID_TYPES.register(modBus);
+        BcFluids.FLUIDS.register(modBus);
         BcBlockEntityTypes.BLOCK_ENTITY_TYPES.register(modBus);
         BcMenus.MENUS.register(modBus);
+        BcFeatures.FEATURES.register(modBus);
         modBus.addListener(BuildCraft::registerCapabilities);
+        modBus.addListener(BuildCraft::commonSetup);
+    }
+
+    private static void commonSetup(FMLCommonSetupEvent event) {
+        event.enqueueWork(BcFluids::registerInteractions);
     }
 
     private static void registerCapabilities(RegisterCapabilitiesEvent event) {
@@ -31,5 +43,8 @@ public final class BuildCraft {
         }
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, BcBlockEntityTypes.engine(EngineType.COMBUSTION),
                 (be, side) -> ((CombustionEngineBlockEntity) be).getFluidHandler());
+        // NeoForge only wraps items of the exact class BucketItem; the oil bucket is one, the fuel bucket is not.
+        event.registerItem(Capabilities.FluidHandler.ITEM, (stack, context) -> new FluidBucketWrapper(stack),
+                BcItems.FUEL_BUCKET.get());
     }
 }

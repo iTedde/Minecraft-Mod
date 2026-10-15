@@ -58,6 +58,7 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
                 .renderType("cutout"));
         resinSheet();
         engines();
+        simpleBlock(BcBlocks.OIL.get(), models().getBuilder("oil").texture("particle", modLoc("block/oil_still")));
     }
 
     /** Engines are drawn by their block entity renderer; the block model only provides the break particles. */

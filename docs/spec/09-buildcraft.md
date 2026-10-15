@@ -100,6 +100,10 @@ Treibstoff entsteht nur in der **Raffinerie** (Öl → Treibstoff, 12 MJ, 1:1), 
 
 - Flüssigkeit „Oil“ (Blöcke `oilStill`/`oilMoving`, Material Wasser), Öleimer (`bucketOil`), Treibstoff „Fuel“ und
   Treibstoffeimer (`bucketFuel`, Stack 1).
+- Fließen wie Wasser in 1.4.7 (alle 5 Ticks, 7 Blöcke weit, Gefälle-Suche 4), aber **ohne** neue Quellen (`BlockOilFlowing`
+  zählt benachbarte Quellen nicht). Öleimer Stack 1, mit leerem Eimer nur Quellblöcke aufnehmbar (`OilBucketHandler`).
+  Treibstoff hat keinen Block; `bucketFuel` lässt sich nicht ausleeren.
+- Lava neben Öl erstarrt (Material.water): Quelle → Obsidian, Stufe 1–4 → Bruchstein.
 - Weltgenerierung: siehe `07-weltgenerierung.md` §5.
 
 ## 3. Landmarks (`markerBlock`)

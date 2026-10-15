@@ -8,9 +8,13 @@ import java.util.Map;
 
 import dev.craft.Craft;
 import dev.craft.buildcraft.engine.EngineType;
+import dev.craft.buildcraft.fluid.BcFluids;
 import dev.craft.buildcraft.item.BcWrenchItem;
+import dev.craft.buildcraft.item.FuelBucketItem;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -34,6 +38,12 @@ public final class BcItems {
     public static final DeferredItem<Item> DIAMOND_GEAR = simple("diamond_gear");
     public static final DeferredItem<BcWrenchItem> WRENCH = register(ITEMS.registerItem("bc_wrench",
             BcWrenchItem::new));
+    /** {@code ItemBucketOil}: places oil, stack size 1 like every 1.4.7 bucket. */
+    public static final DeferredItem<BucketItem> OIL_BUCKET = register(ITEMS.registerItem("oil_bucket",
+            properties -> new BucketItem(BcFluids.OIL.get(), properties.craftRemainder(Items.BUCKET).stacksTo(1))));
+    public static final DeferredItem<FuelBucketItem> FUEL_BUCKET = register(ITEMS.registerItem("fuel_bucket",
+            properties -> new FuelBucketItem(BcFluids.FUEL.get(),
+                    properties.craftRemainder(Items.BUCKET).stacksTo(1))));
 
     private BcItems() {
     }

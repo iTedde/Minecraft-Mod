@@ -89,9 +89,8 @@ Biom an (x+16, z+16).
    `(r − w + 4)/(r + 4)`; gesetzt wird nur, wenn 2 Blöcke darunter nicht Luft und benachbart bereits Öl liegt; setzt Öl
    eine Ebene tiefer und ersetzt den Block selbst durch Luft (bzw. Öl, falls dort Wasser/Öl war). Danach Lücken füllen.
 
-Abweichung 1.21: Weltgen über `BiomeModifier`/`PlacedFeature`; Welthöhe −64..320 – die Original-Y-Werte (20..30 für
-Kugeln, 128 als Obergrenze) beziehen sich auf 1.4.7-Welten (0..255, Meeresspiegel 63). Vorschlag: Werte relativ zum
-Meeresspiegel übernehmen (siehe Abweichungen).
+Umsetzung 1.21 (entschieden): Feature `craft:oil` (`buildcraft.world.OilFeature`); Kugel y 20–29 absolut, Suchen ab
+Geländeoberkante statt y 128, Blöcke außerhalb der 3×3 Nachbarchunks werden übersprungen (siehe Abweichungen).
 
 ## 6. GregTech-Weltgenerierung (Umfang offen)
 

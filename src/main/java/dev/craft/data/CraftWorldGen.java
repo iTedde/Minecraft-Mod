@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Set;
 
 import dev.craft.Craft;
+import dev.craft.buildcraft.world.BcFeatures;
 import dev.craft.ic2.Ic2Blocks;
 import dev.craft.ic2.world.Ic2Features;
 import dev.craft.ic2.world.RubberTreeFeature;
@@ -39,19 +40,22 @@ import net.neoforged.neoforge.common.world.BiomeModifiers;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 
 /**
- * IC2 world generation ({@code IC2.generate}) as data: tin ore, copper ore with IC2 frequency instead of the vanilla
- * copper veins, and rubber trees.
+ * World generation as data: IC2 ({@code IC2.generate}) tin ore, copper ore with IC2 frequency instead of the vanilla
+ * copper veins, rubber trees; BuildCraft oil.
  */
 public final class CraftWorldGen {
     public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_TIN_CONFIGURED = configuredKey("ore_tin");
     public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_COPPER_CONFIGURED = configuredKey("ore_copper");
     public static final ResourceKey<ConfiguredFeature<?, ?>> RUBBER_TREE_CONFIGURED = configuredKey("rubber_tree");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> OIL_CONFIGURED = configuredKey("oil");
     public static final ResourceKey<PlacedFeature> ORE_TIN = placedKey("ore_tin");
     public static final ResourceKey<PlacedFeature> ORE_COPPER = placedKey("ore_copper");
     public static final ResourceKey<PlacedFeature> RUBBER_TREE = placedKey("rubber_tree");
+    public static final ResourceKey<PlacedFeature> OIL = placedKey("oil");
     public static final ResourceKey<BiomeModifier> ADD_ORES = modifierKey("add_ores");
     public static final ResourceKey<BiomeModifier> REMOVE_VANILLA_COPPER = modifierKey("remove_vanilla_copper");
     public static final ResourceKey<BiomeModifier> ADD_RUBBER_TREES = modifierKey("add_rubber_trees");
+    public static final ResourceKey<BiomeModifier> ADD_OIL = modifierKey("add_oil");
 
     /** IC2 vein counts per chunk: {@code X * baseScale / 64} with baseScale 65 (sea level 63 + 1, density 1.0). */
     private static final int COPPER_BASE_COUNT = 15 * 65 / 64;
@@ -83,6 +87,7 @@ public final class CraftWorldGen {
                 OreConfiguration.target(stone, Blocks.COPPER_ORE.defaultBlockState()),
                 OreConfiguration.target(deepslate, Blocks.DEEPSLATE_COPPER_ORE.defaultBlockState())), 10));
         register(context, RUBBER_TREE_CONFIGURED, Ic2Features.RUBBER_TREE.get(), NoneFeatureConfiguration.INSTANCE);
+        register(context, OIL_CONFIGURED, BcFeatures.OIL.get(), NoneFeatureConfiguration.INSTANCE);
     }
 
     private static <C extends FeatureConfiguration, F extends Feature<C>> void register(
@@ -102,6 +107,7 @@ public final class CraftWorldGen {
                 orePlacement(COPPER_BASE_COUNT, HeightRangePlacement.of(TrapezoidHeight.of(VerticalAnchor.absolute(10),
                         VerticalAnchor.absolute(68), 20)))));
         context.register(RUBBER_TREE, new PlacedFeature(configured.getOrThrow(RUBBER_TREE_CONFIGURED), List.of()));
+        context.register(OIL, new PlacedFeature(configured.getOrThrow(OIL_CONFIGURED), List.of()));
     }
 
     /**
@@ -128,5 +134,8 @@ public final class CraftWorldGen {
         context.register(ADD_RUBBER_TREES, new BiomeModifiers.AddFeaturesBiomeModifier(
                 biomes.getOrThrow(RubberTreeFeature.HAS_RUBBER_TREES), HolderSet.direct(placed.getOrThrow(RUBBER_TREE)),
                 GenerationStep.Decoration.VEGETAL_DECORATION));
+        // BuildCraft populates after the whole chunk decoration (PopulateChunkEvent.Post); not in the Nether/End.
+        context.register(ADD_OIL, new BiomeModifiers.AddFeaturesBiomeModifier(overworld,
+                HolderSet.direct(placed.getOrThrow(OIL)), GenerationStep.Decoration.TOP_LAYER_MODIFICATION));
     }
 }

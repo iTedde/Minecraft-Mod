@@ -5,6 +5,7 @@ import java.util.function.Supplier;
 import dev.craft.Craft;
 import dev.craft.buildcraft.BcBlocks;
 import dev.craft.buildcraft.BcItems;
+import dev.craft.buildcraft.fluid.BcFluids;
 import dev.craft.buildcraft.engine.EngineType;
 import dev.craft.ic2.Ic2Blocks;
 import dev.craft.ic2.Ic2Items;
@@ -137,6 +138,11 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             item(BcItems.GOLD_GEAR, "Gold Gear");
             item(BcItems.DIAMOND_GEAR, "Diamond Gear");
             item(BcItems.WRENCH, "Wrench");
+            block(BcBlocks.OIL, "Oil");
+            item(BcItems.OIL_BUCKET, "Oil Bucket");
+            item(BcItems.FUEL_BUCKET, "Fuel Bucket");
+            add(BcFluids.OIL_TYPE.get().getDescriptionId(), "Oil");
+            add(BcFluids.FUEL_TYPE.get().getDescriptionId(), "Fuel");
         }
     }
 
@@ -240,6 +246,11 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             item(BcItems.GOLD_GEAR, "Goldzahnrad");
             item(BcItems.DIAMOND_GEAR, "Diamantzahnrad");
             item(BcItems.WRENCH, "Schraubenschlüssel");
+            block(BcBlocks.OIL, "Öl");
+            item(BcItems.OIL_BUCKET, "Öleimer");
+            item(BcItems.FUEL_BUCKET, "Treibstoffeimer");
+            add(BcFluids.OIL_TYPE.get().getDescriptionId(), "Öl");
+            add(BcFluids.FUEL_TYPE.get().getDescriptionId(), "Treibstoff");
         }
     }
 }

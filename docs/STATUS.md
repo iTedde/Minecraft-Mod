@@ -150,10 +150,28 @@ Wasser-/Windmühle/Solar bleiben ohne Rezept (Phase 6b).
 - 7 neue GameTests (insgesamt 37 grün), `gradlew build` und `runClient` (Hauptmenü, keine Mod-Fehler) erfolgreich.
 - Doku: Eigenheiten in `09-buildcraft.md` §1.2, Abweichungen (Zeitbasis `getGameTime`, Capability, Darstellung).
 
+## Erledigt (Teilpaket „Phase 4: Öl + Flüssigkeiten“, 2026-10-15)
+- `buildcraft/fluid/BcFluids`: FluidTypes + Fluids `craft:oil`/`flowing_oil` (fließt wie 1.4.7-Wasser: 5 Ticks,
+  7 Blöcke, Gefälle 4, **keine** neuen Quellen; Wasser-Eigenschaften für Entities) und `craft:fuel`/`flowing_fuel`
+  (ohne Block). Lava neben Öl erstarrt (Quelle → Obsidian, Stufe ≤ 4 → Bruchstein) über `FluidInteractionRegistry`.
+- Block `craft:oil` (LiquidBlock, Härte 100), Öleimer (BucketItem, Stack 1), Treibstoffeimer (`FuelBucketItem`,
+  nicht ausleerbar, FluidBucketWrapper-Capability). Combustion Engine: Öl 3 MJ/t × 20 000, Treibstoff 6 MJ/t × 100 000.
+- Weltgen `buildcraft/world/OilFeature` 1:1 nach `OilPopulate` (Wüstenpfützen, mittlere/große Vorkommen, Steigrohr,
+  Oberflächenseen, Fontänen). **Entscheidungen:** Kugel y 20–29 absolut, Suche ab Geländeoberkante statt y 128;
+  Blöcke außerhalb der 3×3 Nachbarchunks werden übersprungen. Biome-Modifier `craft:add_oil`, Schritt
+  `top_layer_modification`.
+- Texturen: Öl/Treibstoff mit den Original-FX-Algorithmen als Animationsstreifen gerendert
+  (`tools/scripts/BcLiquidTextures.java`), Eimer-Icons aus `items.png` (1, 3). Client: Fluid-Extensions, Wassernebel
+  unter Öl. Lang en/de.
+- 6 neue GameTests (`OilGameTests`, insgesamt 43 grün), `gradlew build` und `runClient` (Hauptmenü, keine
+  Mod-Fehler) erfolgreich. Doku: `abweichungen.md` (Öl-Weltgen, Öl als „Wasser“, Texturen, Treibstoff), Spec 07 §5,
+  09 §2.
+
 ## Nächste Schritte
 Arbeitsweise: eine Sitzung pro Teilpaket, Übergabe über diese Datei.
 1. Manuelle Client-Tests macht der Nutzer gesammelt, wenn alles fertig ist (Engines: Animation/Farben, Drehen per
-   BC-Schraubenschlüssel, GUIs + Ledger, Explosion, Kette Engine → Engine).
-2. Nächstes Teilpaket: **„Phase 4: Öl + Flüssigkeiten“** (Öl/Treibstoff als Fluids, Eimer, Ölquellen-Weltgen
-   `07-weltgenerierung.md` §5, Öl/Treibstoff in `CombustionFuels`), danach Landmarks + Quarry, dann
-   Tank/Pumpe/Raffinerie/Mining Well.
+   BC-Schraubenschlüssel, GUIs + Ledger, Explosion, Kette Engine → Engine; **Öl:** Ölquellen in neuer Welt finden
+   (Wüste/Fontänen, keine Fehler „far chunk“ im Log), Öl fließen lassen/aufnehmen, Schwimmen/Nebel im Öl,
+   Öl-/Treibstoffeimer in der Combustion Engine).
+2. Nächstes Teilpaket: **„Phase 4: Landmarks + Quarry“**, danach Tank/Pumpe/Raffinerie/Mining Well (Raffinerie
+   erzeugt Treibstoff).
