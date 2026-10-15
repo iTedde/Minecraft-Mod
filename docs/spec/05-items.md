@@ -310,6 +310,97 @@ Nano- und Quantum-Teile sind `IMetalArmor`. Nano-Helm hat **keine** Nachtsicht i
 
 `chargeFromArmor` gilt nur für Rüstungsteile mit „liefert Energie“, also **BatPack und LapPack**. Nano und Quantum liefern keine Energie an Werkzeuge.
 
+### 5.4 Details aus dem Original (nachgetragen für Phase 6.3)
+
+**Forge-Rüstungsrechnung** (`ISpecialArmor.ArmorProperties.ApplyArmor`, Forge 6.6.2.534) – gilt für Spieler; alle
+vier Rüstungsslots (Reihenfolge Stiefel, Hose, Brust, Helm = Slot 0–3) liefern je ein `ArmorProperties(Priorität,
+Ratio, AbsorbMax)`:
+- `ISpecialArmor`-Teile: `getProperties(spieler, stack, quelle, schaden, slot)` (auch bei `isUnblockable`-Schaden).
+- Normale Rüstung nur bei blockbarem Schaden: `(0, rüstungspunkte/25, maxHaltbarkeit + 1 − damage)`.
+- Rechnung in ×25-Einheiten: `d = schaden·25`. Liste absteigend nach Priorität sortieren, bei gleicher Priorität nach
+  `AbsorbMax·100/Ratio` aufsteigend (Ratio 0 → 0; Vergleich `(int)(links − rechts)`). `StandardizeList` (s. u.)
+  normiert die Ratios. Dann je Eintrag: Prioritätswechsel → `d −= d·summe`, `summe = 0`; `summe += ratio`;
+  `absorb = d·ratio`; bei `absorb > 0` wird das Teil mit `max(1, (int)(absorb/25))` beschädigt
+  (`ISpecialArmor.damageArmor` bzw. normaler Itemschaden; Stapel 0 → Slot leer). Am Ende `d −= d·summe`;
+  Ergebnis `(int)((d + übertrag)/25)`, neuer Übertrag `(int)d % 25` (Feld des Entity).
+- `StandardizeList(liste, d)`: je Prioritätsgruppe (`start`, `pStart`, `total`): Summe > 1 → jede Ratio durch
+  `total` teilen; überschreitet `neueRatio·d` das `AbsorbMax`, wird die Ratio `AbsorbMax/d`, `total` neu ab `pStart`
+  bis zu diesem Eintrag summiert, `start` dahinter gesetzt und die Gruppe ab dort erneut durchlaufen. Summe ≤ 1 → nur
+  jede Ratio auf `AbsorbMax/d` begrenzen. Nach jeder Gruppe `d −= d·total`; ist `d ≤ 0`, bekommen alle folgenden
+  Einträge Ratio 0. (Wortgetreu: Code in Forge `ISpecialArmor`.)
+- Danach Vanilla: Trank-/Verzauberungsrechnung, Erschöpfung, Lebenspunkte.
+
+**Elektrische Rüstung** (`ItemArmorElectric`): Haltbarkeit 27 (Ladeanzeige), Stapel 1, nicht verzauberbar, nicht
+reparierbar; Creative-Tab geladen + leer. `getProperties`: unblockbar → `(0, 0, 0)`, sonst
+`(0, basis·faktor, 25·ladung/EU_pro_Schaden)` (EU_pro_Schaden 0 → AbsorbMax 0). `damageArmor`: entlädt
+`schaden·EU_pro_Schaden` (ohne Transferlimit). Rüstungsanzeige `round(20·basis·faktor)`, wenn Ladung ≥ EU_pro_Schaden,
+sonst 0. BatPack/LapPack: Faktor 0, EU_pro_Schaden 0, liefern Energie. Raritäten: Nano und LapPack „uncommon“,
+Quantum „rare“.
+
+**Fallschaden** (nur das Stiefelteil): `LivingFallEvent` mit `fall = (int)distanz − 3`. Nano: `fall ≥ 8` → nichts;
+sonst wenn `800·fall ≤ ladung`: entladen, Event abbrechen. Quantum: ohne Obergrenze, `900·fall`. Gelingt das nicht,
+gilt `getProperties` für Fallschaden: Priorität 10, Ratio Nano `schaden < 8 ? 1,0 : 0,875`, Quantum 1,0, AbsorbMax
+wie oben. Gummistiefel siehe Hazmat.
+
+**Quantum-Tick** (jedes Teil, beide Seiten): Helm: Luft < 100 und ≥ 1000 EU → Luft +200, 1000 EU (sonst bei Luft ≤ 0
+Erfolg „starveWithQHelmet“). Hunger (`needFood`) und ≥ 1000 EU → erste gefüllte Zinndose im Inventar essen (Nahrung
++ `onEaten`, Stapel −1), 1000 EU. Tränke: Gift 10 000, Strahlung 10 000, Wither 25 000, je `× (Stufe+1)`, nur wenn
+die Energie reicht. Brust: `extinguish`. Hose: ≥ 1000 EU und (am Boden mit `|motionX| + |motionZ| > 0,1` oder im
+Wasser) und Sprint (Config `enableQuantumSpeedOnSprint=true` im Pack) → Zähler je Spieler, alle 10 Ticks 1000 EU;
+`moveFlying(0, 1, 0,22)`, im Wasser 0,1 und beim Springen `motionY += 0,1`. Stiefel: Sprungladung je Spieler
+(Start 1,0): am Boden mit Ladung < 1 und ≥ 1000 EU → 1,0 für 1000 EU. Bei `motionY ≥ 0`, Ladung > 0, nicht im Wasser:
+Sprung + Boost → bei Ladung 1,0 `motionX/Z ×3,5`; `motionY += ladung·0,3`; `ladung ×= 0,75`; sonst Ladung < 1 → 0.
+
+**Nanosäbel gegen Rüstung**: trifft der aktive Säbel einen Spieler, wird jedes Rüstungsteil, das `ItemArmorNanoSuit`
+ist, um 4800 EU entladen (Säbel-Tier 2, ohne Transferlimit); kann es danach keine 1 EU mehr liefern, wird das Teil
+**gelöscht**; je Teil Säbel −2 Einheiten. **Originalfehler:** Quantum erbt nicht von `ItemArmorNanoSuit` – Quantum
+wird nie entladen (der 30 000-Zweig ist toter Code).
+
+**Utility-Rüstung** (`ItemArmorUtility`): `getProperties` `(0, 0, 0)`, Anzeige 0, `damageArmor` nichts, nicht
+reparierbar (außer Hazmat/CF-Pack), nicht verzauberbar.
+
+**Hazmat** (Haltbarkeit 64, Anzeige 1 je Teil, reparierbar): absorbiert Feuer (`inFire`), Brennen (`onFire`), Lava,
+Ersticken (`inWall`), Elektrizität, Strahlung. `getProperties`: **Helm** bei absorbierter Quelle und vollständigem
+Set (alle vier Teile `ItemArmorHazmat`, Gummistiefel zählen) → `(10, 1,0, MAX)`, bei Feuer/Lava zusätzlich
+Feuerresistenz 60 Ticks Stufe 1. **Stiefel** bei Fallschaden `(10, schaden < 8 ? 1,0 : 0,875, (rest+1)·2·25)`.
+Sonst `(0, 1,0, (rest+1)/2·25)` (Ganzzahldivision, `rest = maxDamage − damage`) – auch für Teile ohne vollständiges
+Set und für jeden anderen Schaden. `damageArmor`: nichts bei absorbierter Quelle und vollem Set, sonst `2·schaden`,
+Stiefel bei Fall `(schaden+1)/2`. Fall-Event (Stiefel): `fall < 8` und `0 ≤ (fall+1)/2 ≤ rest` → Stiefel beschädigen,
+Event abbrechen. Helm-Tick: brennt der Spieler mit vollem Set → in Lava (Block an Fußhöhe +0,02 ist Lava und unter
+deren Oberfläche) Feuerresistenz 20 Ticks (ambient), dann löschen. Luft ≤ 100 und Luftzelle im Inventar → eine
+Luftzelle weg, leere Zelle ins Inventar (geht verloren, wenn voll), Luft +150.
+
+**Jetpack** (Treibstoff, Brust): Haltbarkeit 18 002, Creative-Item Damage 1. `ladung = max(0, maxDamage − 2 −
+damage − 1)`, `maxLadung = maxDamage − 2`. `use(n)`: `neu = max(0, ladung − n)`, `damage = 1 + maxDamage − neu`
+(**Originalfehler:** dadurch sinkt die Ladung je Aufruf um `n + 4`). Elektrisches Jetpack: Ladung = EU, `use` =
+Entladen ohne Transferlimit. Tick: NBT `hoverMode`, `toggleTimer`. Sprung + Modus bei Timer 0 → Timer 10, Modus
+umschalten (Server speichert und meldet „Hover Mode enabled./disabled.“). Sprung oder (Schweben und `motionY < −0,35`)
+→ `useJetpack`. Timer −1 je Tick (Server). `useJetpack`: Ladung 0 → nichts. Leistung 1,0/Abfall 0,2 (elektrisch
+0,7/0,05); `ladung/max ≤ abfall` → `leistung ×= ladung/(max·abfall)`. Vorwärts: Schub 0,15 (Schweben 0,5, elektrisch
++0,15), `moveFlying(0, 0,4·leistung·schub·2, 0,02)`. Max. Höhe Welthöhe (elektrisch `(int)(Welthöhe/1,28)`); `y >
+max − 25` → `leistung ×= (max − min(y, max))/25`. `motionY = min(motionY + leistung·0,2, 0,6)`; Schweben: Grenze −0,1
+(elektrisch mit Sprung 0,1), `motionY` über der Grenze → Grenze, außer der vorige Wert war größer. Verbrauch 9
+(Schweben 6), elektrisch −2. Fallhöhe 0, Flug-Kick-Zähler zurücksetzen. Sound `Tools/Jetpack/JetpackLoop.ogg`
+(Loop, nur eigener Spieler) solange benutzt.
+
+**Nachtsichtbrille**: nur Server; `chargeFromArmor`, dann bei ≥ 1 EU (Entladen 1, Transferlimit 1): Tag → Himmelslicht
+am Block des Spielers > 12 → Nachtsicht entfernen, Blindheit `100 + (licht − 13)·50` (ambient); Nacht → Blindheit
+entfernen, Nachtsicht 250 (ambient). **Solarhelm**: Brust-Item elektrisch und Sonne sichtbar bei `((int)x, (int)y + 1,
+(int)z)` → Brust-Item +1 EU (Tier beliebig, ohne Transferlimit); Haltbarkeit 0. **Static Boots**: Brust-Item
+elektrisch → NBT `x`/`z` (`(int)`-Koordinaten) beim Reiten/im Wasser oder fehlend neu setzen; Luftlinie ≥ 5 → neu
+setzen, Brust +`min(3, (int)strecke/5)` EU.
+
+**Texturen**: Item-Icons aus `item_0.png` – Hazmat 228/229/230, Gummistiefel 67, Nano 104–107, Quantum 108–111,
+Jetpack 68, el. Jetpack 69, BatPack 73, LapPack 150, CF-Pack 46, Solarhelm 164, Static Boots 67, Nachtsichtbrille 232;
+Kohlefaser 74, Kohlenetz 75, Kohleplatte 76, leerer Kanister 51. Rüstungsmodelle `armor/ic2/<name>_1|2.png`: nano,
+quantum, hazmat (auch Gummistiefel), jetpack (beide), batpack (auch CF-Pack), lappack, solar, rubber (Static Boots),
+nightvision.
+
+**Rezepte** (Ergänzung zu `08-rezepte.md` §11): Solarhelm `III/ISI/CCC` I = Eisenbarren, C = isol. Kupferkabel;
+` H / S /CCC` H = Eisenhelm. Static Boots ebenso mit Wolle, H = Eisenstiefel. Jetpack: I = raffiniertes Eisen,
+C = el. Schaltkreis, R = Redstone. El. Jetpack: I = raffiniertes Eisen, G = Glowstonestaub. BatPack: T = Zinnbarren,
+C = el. Schaltkreis, B = RE-Batterie (geladen oder leer). Hazmat: R = Gummi.
+
 ## 6. Zellen, Dosen, Kanister
 
 - **Leere Zelle** (`itemCellEmpty`): Rechtsklick auf Wasser-/Lava-Quellblock (Reichweite 5) → Wasser-/Lavazelle ins
@@ -336,7 +427,8 @@ Gezündete IC2-Sprengstoffe springen wie TNT (motionY 0,2).
 ## 8. Strahlung, Schadensquellen
 
 - Trank-Effekt **Radioaktivität** (`potion.radiation`, ID 24, schlecht, Farbe 0x4E9331): Schaden `stufe+1` alle
-  `25 >> stufe` Ticks (DamageSource `radiation`, ignoriert Rüstung).
+  `25 >> stufe` Ticks (bei Rate 0 jeden Tick; DamageSource `radiation`, ignoriert Rüstung). Icon wie Vanilla-Gift
+  (Index 6,0).
 - DamageSources: `electricity`, `nuke`, `radiation` (bypass armor). Todesnachrichten siehe Localization.
 - Kein Strahlungsschaden durch Uran im Inventar (in 1.115 nicht vorhanden).
 
