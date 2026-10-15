@@ -1,0 +1,21 @@
+{
+  "type": "craft:gt_assembler",
+  "duration": 800,
+  "eu_per_tick": 1,
+  "inputs": [
+    {
+      "count": 1,
+      "item": "craft:iron_gear"
+    },
+    {
+      "count": 4,
+      "tag": "c:ingots/gold"
+    }
+  ],
+  "outputs": [
+    {
+      "count": 1,
+      "id": "craft:gold_gear"
+    }
+  ]
+}

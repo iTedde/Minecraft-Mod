@@ -1,0 +1,21 @@
+{
+  "type": "craft:gt_assembler",
+  "duration": 400,
+  "eu_per_tick": 4,
+  "inputs": [
+    {
+      "count": 4,
+      "tag": "c:ingots/gold"
+    },
+    {
+      "count": 1,
+      "tag": "c:dusts/redstone"
+    }
+  ],
+  "outputs": [
+    {
+      "count": 1,
+      "id": "minecraft:clock"
+    }
+  ]
+}

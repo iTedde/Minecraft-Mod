@@ -357,7 +357,7 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
         if (front != null && side == facing.getOpposite()) {
             return side == Direction.DOWN ? 38 : side == Direction.UP ? 79 : 36;
         }
-        return side == Direction.DOWN ? 32 : side == Direction.UP ? 29 : 40;
+        return side == Direction.DOWN ? 32 : side == Direction.UP ? machine.getTopTexture(active) : 40;
     }
 
     private ResourceLocation gtLoc(int index) {

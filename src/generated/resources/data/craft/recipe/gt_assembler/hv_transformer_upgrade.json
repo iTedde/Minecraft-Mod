@@ -1,0 +1,21 @@
+{
+  "type": "craft:gt_assembler",
+  "duration": 3200,
+  "eu_per_tick": 4,
+  "inputs": [
+    {
+      "count": 1,
+      "item": "craft:hv_transformer"
+    },
+    {
+      "count": 1,
+      "item": "craft:transformer_upgrade"
+    }
+  ],
+  "outputs": [
+    {
+      "count": 1,
+      "id": "craft:hv_transformer_upgrade"
+    }
+  ]
+}

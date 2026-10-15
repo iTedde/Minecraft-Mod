@@ -1,0 +1,29 @@
+{
+  "type": "craft:gt_assembler",
+  "duration": 1600,
+  "eu_per_tick": 2,
+  "inputs": [
+    {
+      "count": 1,
+      "item": "craft:gold_gear"
+    },
+    {
+      "type": "neoforge:compound",
+      "children": [
+        {
+          "item": "minecraft:diamond"
+        },
+        {
+          "item": "craft:industrial_diamond"
+        }
+      ],
+      "count": 4
+    }
+  ],
+  "outputs": [
+    {
+      "count": 1,
+      "id": "craft:diamond_gear"
+    }
+  ]
+}

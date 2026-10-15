@@ -383,3 +383,116 @@ Platten-Rezepten). Ofen-Rezept Staub → Barren nur für Nickel.
 (`GGG/SPS/CHC`, Siliziumplatte + Kohleplatte), Stahlwerkzeuge (Bergbaubohrer, Kettensäge, el. Hacke, el. Baumzapfer,
 el. Schraubenschlüssel), Elektrolyseur-Variante mit Aluminiumplatten, Förderband-Modul mit Aluminium, Mischmetall-
 Varianten mit Nickel/Stahl/Aluminium, Generator-Varianten mit Aluminium.
+
+## 6. Assembler (`GT_MetaTileEntity_Assembler`, ID 60, „Assembling Machine“) – Teilpaket 6b.4
+
+- BasicMachine (§1), GUI `gui/Assembler.png` (Layout wie §1.8, keine Besonderheiten), Beschreibung
+  „Avengers, Assemble!“. Vorderseite inaktiv/aktiv = `terrain.png` **224/225**, **Oberseite 237** (aktiv und inaktiv;
+  ersetzt die Standard-Oberseite 29, auch solange `mMainFacing < 2`). `hasTwoSeperateInputs() = true` → getrennte
+  Eingänge standardmäßig **an** (oben/unten nur Slot 2, sonst nur Slot 1; Knopf schaltet um, §1.7).
+- `checkRecipe`: Slot 3 → Slot 4 zusammenschieben (kein Zusammenschieben der Eingänge). Wenn Slot 1 oder 2 belegt:
+  Rezept suchen (**shapeless**, §6.1), nur starten, wenn Slot 3 die Ausgabe aufnehmen kann (sonst
+  `bOutputBlocked`); Eingaben werden beim Start abgezogen, Ausgabe am Ende eingetragen.
+- **Rezept:** `CPC/RQR/CRC`, C = el. Schaltkreis (`craftingCircuitTier02`), P = Kolben, R = raff. Eisenplatte **oder**
+  Aluminiumplatte, Q = Förderband-Modul.
+
+### 6.1 Rezeptsuche (`GT_Recipe.findEqualRecipeIndex`, shapeless)
+
+Erst mit vertauschten Slots (Slot 2 als Eingabe 1), dann normal. Je Reihenfolge: Hash-Treffer (Eingabe 1 + Eingabe 2,
+sonst Eingabe 1 allein) bevorzugt, sonst erstes passendes Rezept der Liste. Ein Rezept passt, wenn Eingabe 1 (Item,
+Meta oder Wildcard, Menge ≥) passt und – falls das Rezept eine zweite Eingabe hat – Eingabe 2 ebenso; hat das Rezept
+keine zweite Eingabe, ist der andere Slot egal und wird nicht verbraucht. Im aktuellen Rezeptbestand gibt es keine
+Mehrdeutigkeit, daher genügt die Suche über die Liste (`GtRecipe.find`).
+
+### 6.2 Rezepte (im Umfang 6b.4)
+
+Dauer aus `RecipesAdvancedConfig.cfg` (Abschnitt `assembling`, Schlüssel = **Ausgabe**; alle Rezepte mit gleicher
+Ausgabe teilen den Wert – im Pack gleich den Code-Standardwerten, außer wo unten vermerkt).
+
+| Eingabe 1 | Eingabe 2 | Ausgabe | Ticks | EU/t | Quelle |
+|---|---|---|---|---|---|
+| Generator | 4 Aluminiumplatten | **2 Wassermühlen** | 6400 | 8 | `plateAluminium` |
+| Generator | 4 Kohleplatten (IC2) | **Windmühle** | 6400 | 8 | `GT_Mod` |
+| 2 Wassermühlen | – | Generator | 6400 | 8 | `GT_Mod` |
+| BC-Eisenzahnrad | Generator | MJ-Konverter („Pneumatic Generator Upgrade“, Komp. 25) | 3200 | 4 | `GT_Mod` |
+| HV-Trafo | Transformer-Upgrade | HV-Transformer-Upgrade (Komp. 27) | 3200 | 4 | `GT_Mod` |
+| Lithium-Batterie (jede Ladung) | 4 Aluminiumplatten | Lithium-Batterie-Upgrade (Komp. 26) | 3200 | 4 | `craftingLiBattery`/`plateAluminium` |
+| 8 raff. Eisenbarren | – | Maschinenblock | 400 | 8 | `ingotRefinedIron` |
+| 2 raff. Eisenplatten | el. Schaltkreis | 4 Maschinenteile | 800 | 16 | `plateRefinedIron` |
+| 2 Aluminiumplatten | el. Schaltkreis | 3 Maschinenteile | 800 | 16 | `plateAluminium` |
+| 8 Aluminiumplatten | Maschinenteile | Aluminium-Maschinenhülle (Komp. 32) | 400 | 8 | `plateAluminium` |
+| 8 Bronzeplatten | Maschinenteile | Bronze-Maschinenhülle (Komp. 33) | 400 | 8 | `plateBronze` |
+| 8 Stahlplatten | Maschinenteile | Stahl-Maschinenhülle (Komp. 35) | 400 | 8 | `plateSteel` |
+| BatPack (jede Ladung) | – | 6 RE-Batterien (leer) | 1600 | 2 | `GT_Mod` |
+| Lithium-BatPack (jede Ladung) | – | 6 Lithium-Batterien (leer) | 3200 | 4 | `GT_Mod` |
+| Kupferkabel | Gummi | isol. Kupferkabel | 100 | 2 | `itemRubber` |
+| Goldkabel | 2 Gummi | 2fach isol. Goldkabel | 200 | 2 | `itemRubber` |
+| isol. Goldkabel | Gummi | 2fach isol. Goldkabel | **200** (Config; Code 100) | 2 | `itemRubber` |
+| HV-Kabel | 3 Gummi | 4fach isol. HV-Kabel | 300 | 2 | `itemRubber` |
+| isol. HV-Kabel | 2 Gummi | 4fach isol. HV-Kabel | **300** (Config; Code 200) | 2 | `itemRubber` |
+| 2fach isol. HV-Kabel | Gummi | 4fach isol. HV-Kabel | **300** (Config; Code 100) | 2 | `itemRubber` |
+| BC-Steinzahnrad | 4 Eisenbarren | BC-Eisenzahnrad | 1600 | 2 | `ingot*` (Werkbank-Muster mit Steinzahnrad) |
+| BC-Steinzahnrad | 4 Zinnbarren | Forestry-Zinnzahnrad | 1600 | 2 | `ingot*` |
+| BC-Eisenzahnrad | 4 Goldbarren | BC-Goldzahnrad | 800 | 1 | `ingotGold` |
+| BC-Goldzahnrad | 4 Diamanten | BC-Diamantzahnrad | 1600 | 2 | `itemDiamond` |
+| Stock | Bruchstein | Hebel | 400 | 1 | `stickWood` |
+| Stock | Kohle/Holzkohle | 4 Fackeln | 400 | 1 | `stickWood` |
+| Stock | Harz | 4 Fackeln | 400 | 1 | `stickWood` |
+| Stock | Redstone | Redstone-Fackel | 400 | 1 | `stickWood` |
+| 4 Eisenbarren | Redstone | Kompass | 400 | 4 | `ingotIron` |
+| 4 Goldbarren | Redstone | Uhr | 400 | 4 | `ingotGold` |
+
+**Später** (Zutaten fehlen): Schaltkreise/Platinen (Elektrum, Platin, Lazurit, Olivin/Smaragd → Datenspeicher …),
+Daten-Orb, Sonictron, Scanner (Cropnalyzer), Sensor-Kit, Messing-/Titan-Hülle, RS-Energiezellen-Upgrade (Thermal
+Expansion), Railcraft-Teile (nicht im Umfang), Zahnräder aus Bronze/Kupfer/Invar.
+
+### 6.3 GT-Upgrades (Items, Komponenten 25–27)
+
+| Item | Tooltip | Wirkung (§1.5) |
+|---|---|---|
+| „Pneumatic Generator Upgrade“ (MJ-Konverter) | „Lets Machines accept MJ“ | einmalig, nur wenn MJ-Kapazität > 0 |
+| „Lithium Battery Upgrade“ | „Adds 100000 EU to the Energy Capacity“ | +100 000 EU, wenn `isBatteryUpgradable` |
+| „HV-Transformer Upgrade“ | „Higher Tier of Transformer Upgrade“ | Trafo-Zähler +1, nur wenn `isTransformerUpgradable`, (sichere Eingabe ≥ 512 **oder** Ausgabe ≥ 128) und Eingabe < 8192 und Ausgabe < 2048 – vorher wird nur das IC2-Trafo-Upgrade angenommen |
+
+Einbaureihenfolge beim Rechtsklick (je ein Upgrade, max. 16): MJ-Konverter → Overclocker → Trafo/HV-Trafo →
+Energiespeicher → Lithium → RS-Zelle. Passt das gehaltene Item nirgends, öffnet sich die GUI.
+
+**MJ-Empfang** (`BaseMetaTileEntityMJ.updateStatus`, jeden Tick nach dem Entladen des Batterie-Slots, vor
+`onPostTick`): nur mit MJ-Konverter. Im ersten Tick danach wird der `PowerProvider` angelegt
+(`configure(latency 100, min 1, max 100, activation 1, maxStored 10 000)`), ab dem nächsten Tick
+`useEnergy(1, MJ-Kapazität − MJ, true)` in den MJ-Speicher, solange MJ < MJ-Kapazität. Ohne Provider ist die Maschine
+kein MJ-Empfänger (`getPowerProvider() == null`). GT ruft `PowerProvider.update` nie auf (kein `doWork`, kein
+Verlust); der Provider-Puffer wird nicht gespeichert. Verbrauch: MJ zuerst (§1.3 `decreaseStoredEnergy`).
+
+### 6.4 Lithium-Batterie und Lithium-BatPack (GT-Items 56–58)
+
+| | Lithium-Batterie („Lithium-Battery“) | Lithium-BatPack („Lithium-Batpack“) |
+|---|---|---|
+| Kapazität / Transfer / Tier | 100 000 / 128 / 1 | 600 000 / 128 / 1 |
+| Energiequelle (`canProvideEnergy`) | ja | ja |
+| Stapel | leer 16 (eigenes Item 56), geladen 1 (Item 57) | 1, Brustplatte, kein Schutz, keine Funktion außer Speicher (Specials 0) |
+| Icon | `items.png` 56 (leer) / 57 (geladen) | `items.png` 58, Rüstungstextur `armor/lithiumbatpack_1.png` |
+| Tooltip | „Tier: 1“ | „Tier: 1“ |
+| Rezept | ` C /ALA/ALA`, C = 2fach isol. Goldkabel, L = Lithiumzelle, A = Aluminiumplatte | `LCL/LAL/L L`, L = Lithium-Batterie, C = fortg. Schaltkreis, A = Aluminiumplatte |
+
+Beide Rezepte sind IC2-`AdvRecipe` (Ladung der Zutaten geht auf das Ergebnis über). Ore-Namen: Lithium-Batterie =
+`craftingLiBattery`, `crafting100kEUStore` (zusammen mit dem Energiekristall); Lithium-BatPack = `crafting600kEUPack`.
+Das BatPack ist Metallrüstung (`IMetalArmor`) und lädt – anders als das IC2-BatPack – nichts aktiv; elektrische
+Werkzeuge ziehen aber wie bei allen energieliefernden Rüstungsteilen daraus (`ElectricItems.use`). Rechtsklick mit der
+Lithium-Batterie bewirkt nichts (kein Entladen in die Hotbar wie bei der RE-Batterie).
+
+### 6.5 Maschinenhüllen (Komponenten 32, 33, 35)
+
+| Item | Tooltip | Ore-Name |
+|---|---|---|
+| „Aluminium Machine Hull“ | „Machine Block“ | `craftingRawMachineTier01` |
+| „Bronze Machine Hull“ | „Machine Block“ | `craftingRawMachineTier01` |
+| „Steel Machine Hull“ | „Advanced Machine Block“ | `craftingRawMachineTier02` |
+
+`craftingRawMachineTier01` = IC2-Maschinenblock + Aluminium-/Bronze-Hülle; `craftingRawMachineTier02` = fortg.
+Maschinenblock + Stahl-Hülle (später Titan-Hülle). Umsetzung als Tags `craft:raw_machine_tier_01/02`, verwendet in den
+GT-Rezepten, die im Pack den Ore-Namen nutzen: Standard-Gehäuse (Tier 01), verstärktes Gehäuse (Tier 02), Generator
+`B/M/F`, MFE `GCG/CMC/GCG`, Macerator `FDF/DMD/FAF` (alle Tier 01). Ebenso Tag `craft:crafting_100k_eu_store`
+(Energiekristall + Lithium-Batterie) im MFE-Rezept.
+
+**Damit herstellbar:** Wassermühle, Windmühle, GT-Upgrades MJ-Konverter/HV-Trafo/Lithium, Lithium-Batterie und -BatPack.

@@ -10,6 +10,8 @@ import dev.craft.Craft;
 import dev.craft.gregtech.block.GtCasingBlock;
 import dev.craft.gregtech.item.GtMachineItem;
 import dev.craft.gregtech.item.GtMaterialItem;
+import dev.craft.gregtech.item.LithiumBatpackItem;
+import dev.craft.gregtech.item.LithiumBatteryItem;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.neoforged.neoforge.registries.DeferredItem;
@@ -71,6 +73,19 @@ public final class GtItems {
     public static final DeferredItem<GtMaterialItem> KANTHAL_HEATING_COIL = component("kanthal_heating_coil");
     public static final DeferredItem<GtMaterialItem> NICHROME_HEATING_COIL = component("nichrome_heating_coil");
     public static final DeferredItem<GtMaterialItem> CUPRONICKEL_HEATING_COIL = component("cupronickel_heating_coil");
+    public static final DeferredItem<GtMaterialItem> PNEUMATIC_GENERATOR_UPGRADE =
+            component("pneumatic_generator_upgrade");
+    public static final DeferredItem<GtMaterialItem> LITHIUM_BATTERY_UPGRADE = component("lithium_battery_upgrade");
+    public static final DeferredItem<GtMaterialItem> HV_TRANSFORMER_UPGRADE = component("hv_transformer_upgrade");
+    public static final DeferredItem<GtMaterialItem> ALUMINIUM_MACHINE_HULL = component("aluminium_machine_hull");
+    public static final DeferredItem<GtMaterialItem> BRONZE_MACHINE_HULL = component("bronze_machine_hull");
+    public static final DeferredItem<GtMaterialItem> STEEL_MACHINE_HULL = component("steel_machine_hull");
+
+    // --- electric items (GT items 56–58) ---
+    public static final DeferredItem<LithiumBatteryItem> LITHIUM_BATTERY =
+            ITEMS.registerItem("lithium_battery", LithiumBatteryItem::new);
+    public static final DeferredItem<LithiumBatpackItem> LITHIUM_BATPACK =
+            ITEMS.registerItem("lithium_batpack", LithiumBatpackItem::new);
 
     /**
      * The water block item the electrolyzer tank produces in its holo slot (1.4.7 {@code new ItemStack(Block.waterStill)});

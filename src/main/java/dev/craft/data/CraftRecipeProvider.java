@@ -131,6 +131,7 @@ public final class CraftRecipeProvider extends RecipeProvider {
                 .define('M', Ic2Items.MACHINE_CASING).save();
         electrolyzer();
         blastFurnace();
+        assembler();
     }
 
     /**
@@ -146,7 +147,7 @@ public final class CraftRecipeProvider extends RecipeProvider {
         standardCasing("standard_machine_casing_from_aluminium", CraftItemTagsProvider.PLATES_ALUMINIUM);
         shaped(GtItems.casing(GtCasingBlock.Type.REINFORCED), 4, "reinforced_machine_casing")
                 .pattern("SSS", "CMC", "SSS").define('S', CraftItemTagsProvider.PLATES_STEEL)
-                .define('C', Ic2Items.ADVANCED_CIRCUIT).define('M', Ic2Items.ADVANCED_MACHINE_CASING).save();
+                .define('C', Ic2Items.ADVANCED_CIRCUIT).define('M', CraftItemTagsProvider.RAW_MACHINE_TIER_02).save();
         // Rolling machine recipes in the pack (Railcraft is out of scope): crafting table, GT's own fallback.
         shaped(GtItems.CUPRONICKEL_HEATING_COIL, 3, "cupronickel_heating_coil").pattern("BAB", "A A", "BAB")
                 .define('A', ingotsCopper()).define('B', CraftItemTagsProvider.INGOTS_NICKEL).save();
@@ -216,7 +217,8 @@ public final class CraftRecipeProvider extends RecipeProvider {
 
     private void standardCasing(String name, TagKey<Item> plates) {
         shaped(GtItems.casing(GtCasingBlock.Type.STANDARD), 4, name).pattern("AAA", "CMC", "AAA")
-                .define('A', plates).define('C', Ic2Items.ELECTRONIC_CIRCUIT).define('M', Ic2Items.MACHINE_CASING)
+                .define('A', plates).define('C', Ic2Items.ELECTRONIC_CIRCUIT)
+                .define('M', CraftItemTagsProvider.RAW_MACHINE_TIER_01)
                 .save();
     }
 
@@ -231,6 +233,106 @@ public final class CraftRecipeProvider extends RecipeProvider {
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, Ic2Items.MIXED_METAL_INGOT, count).pattern("X").pattern("Y")
                 .pattern("Z").define('X', top).define('Y', CraftItemTagsProvider.PLATES_BRONZE).define('Z', bottom)
                 .unlockedBy("has_plate", has(bottom)).save(output, id("mixed_metal_ingot_" + name));
+    }
+
+    /** Assembling machine (spec 13 §6): crafting recipe, lithium items and the assembler recipes of §6.2. */
+    private void assembler() {
+        for (var metal : List.of(CraftItemTagsProvider.PLATES_REFINED_IRON, CraftItemTagsProvider.PLATES_ALUMINIUM)) {
+            shaped(GtItems.machine(GtMachine.ASSEMBLING_MACHINE), 1,
+                    metal == CraftItemTagsProvider.PLATES_ALUMINIUM ? "assembling_machine_from_aluminium"
+                            : "assembling_machine")
+                    .pattern("CPC", "RQR", "CRC").define('C', Ic2Items.ELECTRONIC_CIRCUIT).define('P', Items.PISTON)
+                    .define('R', metal).define('Q', GtItems.CONVEYOR_MODULE).save();
+        }
+        shaped(GtItems.LITHIUM_BATTERY, 1, "lithium_battery").pattern(" C ", "ALA", "ALA")
+                .define('C', Ic2Items.cable(CableType.DOUBLE_INSULATED_GOLD)).define('L', GtItems.LITHIUM_CELL)
+                .define('A', CraftItemTagsProvider.PLATES_ALUMINIUM).save();
+        shaped(GtItems.LITHIUM_BATPACK, 1, "lithium_batpack").pattern("LCL", "LAL", "L L")
+                .define('L', GtItems.LITHIUM_BATTERY).define('C', Ic2Items.ADVANCED_CIRCUIT)
+                .define('A', CraftItemTagsProvider.PLATES_ALUMINIUM).save();
+
+        ItemLike generator = machine(Ic2Machine.GENERATOR);
+        ItemLike waterMill = machine(Ic2Machine.WATER_MILL);
+        assemble("water_mill", SizedIngredient.of(generator, 1),
+                SizedIngredient.of(CraftItemTagsProvider.PLATES_ALUMINIUM, 4), new ItemStack(waterMill, 2), 6400, 8);
+        assemble("wind_mill", SizedIngredient.of(generator, 1), SizedIngredient.of(Ic2Items.CARBON_PLATE, 4),
+                new ItemStack(machine(Ic2Machine.WIND_MILL)), 6400, 8);
+        assemble("generator_from_water_mills", SizedIngredient.of(waterMill, 2), null, new ItemStack(generator),
+                6400, 8);
+        assemble("pneumatic_generator_upgrade", SizedIngredient.of(BcItems.IRON_GEAR, 1),
+                SizedIngredient.of(generator, 1), new ItemStack(GtItems.PNEUMATIC_GENERATOR_UPGRADE.get()), 3200, 4);
+        assemble("hv_transformer_upgrade", SizedIngredient.of(machine(Ic2Machine.HV_TRANSFORMER), 1),
+                SizedIngredient.of(Ic2Items.TRANSFORMER_UPGRADE, 1),
+                new ItemStack(GtItems.HV_TRANSFORMER_UPGRADE.get()), 3200, 4);
+        assemble("lithium_battery_upgrade", SizedIngredient.of(GtItems.LITHIUM_BATTERY, 1),
+                SizedIngredient.of(CraftItemTagsProvider.PLATES_ALUMINIUM, 4),
+                new ItemStack(GtItems.LITHIUM_BATTERY_UPGRADE.get()), 3200, 4);
+        assemble("machine_casing", SizedIngredient.of(CraftItemTagsProvider.INGOTS_REFINED_IRON, 8), null,
+                new ItemStack(Ic2Items.MACHINE_CASING.get()), 400, 8);
+        assemble("machine_parts", SizedIngredient.of(CraftItemTagsProvider.PLATES_REFINED_IRON, 2),
+                SizedIngredient.of(Ic2Items.ELECTRONIC_CIRCUIT, 1), new ItemStack(GtItems.MACHINE_PARTS.get(), 4),
+                800, 16);
+        assemble("machine_parts_from_aluminium", SizedIngredient.of(CraftItemTagsProvider.PLATES_ALUMINIUM, 2),
+                SizedIngredient.of(Ic2Items.ELECTRONIC_CIRCUIT, 1), new ItemStack(GtItems.MACHINE_PARTS.get(), 3),
+                800, 16);
+        machineHull("aluminium_machine_hull", CraftItemTagsProvider.PLATES_ALUMINIUM, GtItems.ALUMINIUM_MACHINE_HULL);
+        machineHull("bronze_machine_hull", CraftItemTagsProvider.PLATES_BRONZE, GtItems.BRONZE_MACHINE_HULL);
+        machineHull("steel_machine_hull", CraftItemTagsProvider.PLATES_STEEL, GtItems.STEEL_MACHINE_HULL);
+        assemble("re_batteries_from_batpack", SizedIngredient.of(Ic2Items.BATPACK, 1), null,
+                new ItemStack(Ic2Items.RE_BATTERY.get(), 6), 1600, 2);
+        assemble("lithium_batteries_from_lithium_batpack", SizedIngredient.of(GtItems.LITHIUM_BATPACK, 1), null,
+                new ItemStack(GtItems.LITHIUM_BATTERY.get(), 6), 3200, 4);
+        // itemRubber; the duration is configured per output, so all recipes of one cable share it.
+        insulate("insulated_copper_cable", CableType.COPPER, 1, CableType.INSULATED_COPPER, 100);
+        insulate("double_insulated_gold_cable", CableType.GOLD, 2, CableType.DOUBLE_INSULATED_GOLD, 200);
+        insulate("double_insulated_gold_cable_from_insulated", CableType.INSULATED_GOLD, 1,
+                CableType.DOUBLE_INSULATED_GOLD, 200);
+        insulate("quadruple_insulated_hv_cable", CableType.HV, 3, CableType.QUADRUPLE_INSULATED_HV, 300);
+        insulate("quadruple_insulated_hv_cable_from_insulated", CableType.INSULATED_HV, 2,
+                CableType.QUADRUPLE_INSULATED_HV, 300);
+        insulate("quadruple_insulated_hv_cable_from_double_insulated", CableType.DOUBLE_INSULATED_HV, 1,
+                CableType.QUADRUPLE_INSULATED_HV, 300);
+        // Gears: GT adds an assembler recipe for every ingot that crafts into a gear around a stone gear.
+        assemble("iron_gear", SizedIngredient.of(BcItems.STONE_GEAR, 1), SizedIngredient.of(Tags.Items.INGOTS_IRON, 4),
+                new ItemStack(BcItems.IRON_GEAR.get()), 1600, 2);
+        assemble("tin_gear", SizedIngredient.of(BcItems.STONE_GEAR, 1),
+                SizedIngredient.of(CraftItemTagsProvider.INGOTS_TIN, 4), new ItemStack(FrItems.TIN_GEAR.get()), 1600, 2);
+        assemble("gold_gear", SizedIngredient.of(BcItems.IRON_GEAR, 1), SizedIngredient.of(Tags.Items.INGOTS_GOLD, 4),
+                new ItemStack(BcItems.GOLD_GEAR.get()), 800, 1);
+        assemble("diamond_gear", SizedIngredient.of(BcItems.GOLD_GEAR, 1), new SizedIngredient(diamond(), 4),
+                new ItemStack(BcItems.DIAMOND_GEAR.get()), 1600, 2);
+        // stickWood, ingotIron, ingotGold
+        assemble("lever", SizedIngredient.of(Tags.Items.RODS_WOODEN, 1), SizedIngredient.of(Items.COBBLESTONE, 1),
+                new ItemStack(Items.LEVER), 400, 1);
+        assemble("torch_from_coal", SizedIngredient.of(Tags.Items.RODS_WOODEN, 1),
+                new SizedIngredient(Ingredient.of(Items.COAL, Items.CHARCOAL), 1), new ItemStack(Items.TORCH, 4), 400,
+                1);
+        assemble("torch_from_resin", SizedIngredient.of(Tags.Items.RODS_WOODEN, 1), SizedIngredient.of(Ic2Items.RESIN, 1),
+                new ItemStack(Items.TORCH, 4), 400, 1);
+        assemble("redstone_torch", SizedIngredient.of(Tags.Items.RODS_WOODEN, 1),
+                SizedIngredient.of(Tags.Items.DUSTS_REDSTONE, 1), new ItemStack(Items.REDSTONE_TORCH), 400, 1);
+        assemble("compass", SizedIngredient.of(Tags.Items.INGOTS_IRON, 4),
+                SizedIngredient.of(Tags.Items.DUSTS_REDSTONE, 1), new ItemStack(Items.COMPASS), 400, 4);
+        assemble("clock", SizedIngredient.of(Tags.Items.INGOTS_GOLD, 4), SizedIngredient.of(Tags.Items.DUSTS_REDSTONE, 1),
+                new ItemStack(Items.CLOCK), 400, 4);
+    }
+
+    private void machineHull(String name, TagKey<Item> plates, ItemLike hull) {
+        assemble(name, SizedIngredient.of(plates, 8), SizedIngredient.of(GtItems.MACHINE_PARTS, 1), new ItemStack(hull),
+                400, 8);
+    }
+
+    private void insulate(String name, CableType cable, int rubber, CableType result, int duration) {
+        assemble(name, SizedIngredient.of(Ic2Items.cable(cable), 1), SizedIngredient.of(Ic2Items.RUBBER, rubber),
+                new ItemStack(Ic2Items.cable(result).get()), duration, 2);
+    }
+
+    /** {@code GT_Mod.addAssemblerRecipe}: one or two inputs, one output. */
+    private void assemble(String name, SizedIngredient input1, @Nullable SizedIngredient input2, ItemStack result,
+                          int duration, int euPerTick) {
+        List<SizedIngredient> inputs = input2 == null ? List.of(input1) : List.of(input1, input2);
+        output.accept(id("gt_assembler/" + name), new GtRecipe(GtRecipe.Kind.ASSEMBLER, inputs, List.of(result),
+                duration, euPerTick, 0), null);
     }
 
     /** {@code GT_Mod.addBlastRecipe}: 128 EU/t, {@code heat} = minimum heat capacity in K. */
@@ -574,7 +676,7 @@ public final class CraftRecipeProvider extends RecipeProvider {
                 .define('F', machine(Ic2Machine.IRON_FURNACE)).save();
         // GregTech: diamonds and an advanced circuit instead of flint/cobblestone and an electronic circuit.
         shaped(machine(Ic2Machine.MACERATOR), 1, "macerator").pattern("FDF").pattern("DMD").pattern("FAF")
-                .define('F', Items.FLINT).define('D', diamond()).define('M', Ic2Items.MACHINE_CASING)
+                .define('F', Items.FLINT).define('D', diamond()).define('M', CraftItemTagsProvider.RAW_MACHINE_TIER_01)
                 .define('A', Ic2Items.ADVANCED_CIRCUIT).save();
         shaped(machine(Ic2Machine.EXTRACTOR), 1, "extractor").pattern("TMT", "TCT")
                 .define('T', Ic2Items.TREETAP).define('M', Ic2Items.MACHINE_CASING)
@@ -600,7 +702,8 @@ public final class CraftRecipeProvider extends RecipeProvider {
                 .define('B', Ic2Items.RE_BATTERY).define('I', CraftItemTagsProvider.INGOTS_REFINED_IRON)
                 .define('F', machine(Ic2Machine.IRON_FURNACE)).save();
         shaped(machine(Ic2Machine.GENERATOR), 1, "generator_from_machine_casing").pattern("B", "M", "F")
-                .define('B', Ic2Items.RE_BATTERY).define('M', Ic2Items.MACHINE_CASING).define('F', Items.FURNACE)
+                .define('B', Ic2Items.RE_BATTERY).define('M', CraftItemTagsProvider.RAW_MACHINE_TIER_01)
+                .define('F', Items.FURNACE)
                 .save();
         shaped(machine(Ic2Machine.GEOTHERMAL_GENERATOR), 1, "geothermal_generator").pattern("gCg").pattern("gCg").pattern("IGI")
                 .define('g', Items.GLASS).define('C', Ic2Items.EMPTY_CELL)
@@ -609,8 +712,9 @@ public final class CraftRecipeProvider extends RecipeProvider {
         shaped(machine(Ic2Machine.BATBOX), 1, "batbox").pattern("PCP").pattern("BBB").pattern("PPP").define('P', ItemTags.PLANKS)
                 .define('C', Ic2Items.cable(CableType.INSULATED_COPPER)).define('B', Ic2Items.RE_BATTERY).save();
         shaped(machine(Ic2Machine.MFE), 1, "mfe").pattern("cCc").pattern("CMC").pattern("cCc")
-                .define('c', Ic2Items.cable(CableType.DOUBLE_INSULATED_GOLD)).define('C', Ic2Items.ENERGY_CRYSTAL)
-                .define('M', Ic2Items.MACHINE_CASING).save();
+                .define('c', Ic2Items.cable(CableType.DOUBLE_INSULATED_GOLD))
+                .define('C', CraftItemTagsProvider.CRAFTING_100K_EU_STORE)
+                .define('M', CraftItemTagsProvider.RAW_MACHINE_TIER_01).save();
         shaped(machine(Ic2Machine.MFSU), 1, "mfsu").pattern("LCL").pattern("LML").pattern("LAL")
                 .define('L', Ic2Items.LAPOTRON_CRYSTAL).define('C', Ic2Items.ADVANCED_CIRCUIT)
                 .define('M', machine(Ic2Machine.MFE)).define('A', Ic2Items.ADVANCED_MACHINE_CASING).save();

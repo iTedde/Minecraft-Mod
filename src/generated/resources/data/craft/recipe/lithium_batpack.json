@@ -1,0 +1,23 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "A": {
+      "tag": "c:plates/aluminium"
+    },
+    "C": {
+      "item": "craft:advanced_circuit"
+    },
+    "L": {
+      "item": "craft:lithium_battery"
+    }
+  },
+  "pattern": [
+    "LCL",
+    "LAL",
+    "L L"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:lithium_batpack"
+  }
+}

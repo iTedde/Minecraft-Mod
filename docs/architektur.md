@@ -59,6 +59,7 @@ ergänzen. Basispaket `dev.craft`, Einstieg `Craft` → `Ic2.init`, `BuildCraft.
 | `gregtech/machine/GtMachineBlockEntity` | GT-`BaseMetaTileEntity` (Spec 13 §1.1–1.6): Startverzögerung, EU-Netz, Upgrades als Zähler (Flags `is*Upgradable`), Entladen (`dechargerSlot`), Explosionen; Unterklasse implementiert `onPostTick` und die Wert-Hooks (`maxEUInput` …). Nicht-Basismaschinen (`GtMachine.isBasicMachine() = false`, z. B. Elektrolyseur): kein Facing, Texturen unten 32/oben 29/Seiten eigene |
 | `gregtech/machine/GtBasicMachineBlockEntity`, `GtMachineBlock` | GT-BasicMachine (Spec 13 §1): EU-Senke/-Quelle, Upgrades als Zähler (Rechtsklick), Energie-Explosionen, Slots 1–2 Eingabe, 3–4 Ausgabe, 5 Batterie; Unterklasse implementiert `checkRecipe()` (Muster: `BenderBlockEntity`). Menü `GtBasicMachineMenu` + `GtBasicMachineScreen` für alle Basismaschinen (GUI-Textur aus `GtMachine`) |
 | `gregtech/machine/BlastFurnaceBlockEntity`, `gregtech/block/GtCasingBlock`, `MachineBlockUpdates` | GT-Multiblock-Muster: Struktur über `MultiblockPattern` (statisches `PATTERN`), geprüft nur nach `onMachineBlockUpdate` (Zähler `mUpdate`); Gehäuse lösen beim Setzen/Abbauen `MachineBlockUpdates.cause` aus. Layout je Maschine über `GtMachine.Layout` (BASIC/SIDES/FRONT); weitere GT-Hooks: `onRightclick` (Item ohne Upgrade), `saveItemData` (Item-NBT beim Schraubenschlüssel) |
+| `gregtech/machine/AssemblerBlockEntity`, GT-Upgrades | Assembler = Muster für shapeless Zwei-Eingaben-Maschinen. GT-Basis ist `PowerReceptor`; MJ-Capability liefert nur mit MJ-Konverter einen Empfänger (`getPowerProvider() != null`) |
 
 ## Tasten und Netzwerk
 
@@ -109,7 +110,7 @@ ergänzen. Basispaket `dev.craft`, Einstieg `Craft` → `Ic2.init`, `BuildCraft.
 - Befehle (Bash, `export JAVA_HOME="/c/Program Files/Java/jdk-21"`): `./gradlew compileJava -q`, `runData -q`,
   `runGameTestServer -q | grep "tests passed\|failed"`, `build -q`, `runClient` im Hintergrund (Log auf
   „Sound engine started“ prüfen, danach Prozess beenden).
-- Texturen aus Original-Jars schneiden (`ftb ultimate/mods/*.jar|zip`): `tools/` fehlt seit dem Umzug – kleines Java-Skript mit ImageIO (Index = Zeile · 16 + Spalte); früher `SliceSprites.java`, `BcLiquidTextures.java`,
+- Texturen aus Original-Jars schneiden (`ftb ultimate/mods/*.jar|zip`): `tools/` fehlt seit dem Umzug – Python 3.12 + Pillow (`%LOCALAPPDATA%/Programs/Python/Python312/python.exe`, nicht im PATH) oder kleines Java-Skript mit ImageIO (Index = Zeile · 16 + Spalte); früher `SliceSprites.java`, `BcLiquidTextures.java`,
   `ForestryTextures.java` (mit `tools/jdk…/bin/java <Skript>.java` ausführen).
   GT-Sprites: `ftb ultimate/mods/GregTech.zip` (`terrain.png` für Maschinen, `metaitems/*.png` für Items; Index = Zeile · 16 + Spalte).
 

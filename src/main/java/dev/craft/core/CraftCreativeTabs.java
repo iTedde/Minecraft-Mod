@@ -155,6 +155,10 @@ public final class CraftCreativeTabs {
                             output.accept(GtItems.casing(type));
                         }
                         GtItems.simpleItems().forEach(output::accept);
+                        output.accept(GtItems.LITHIUM_BATTERY);
+                        output.accept(ElectricItems.charged(GtItems.LITHIUM_BATTERY.toStack()));
+                        output.accept(ElectricItems.charged(GtItems.LITHIUM_BATPACK.toStack()));
+                        output.accept(GtItems.LITHIUM_BATPACK);
                     })
                     .build());
 

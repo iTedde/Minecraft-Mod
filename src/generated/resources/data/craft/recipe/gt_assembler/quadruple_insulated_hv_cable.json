@@ -1,0 +1,21 @@
+{
+  "type": "craft:gt_assembler",
+  "duration": 300,
+  "eu_per_tick": 2,
+  "inputs": [
+    {
+      "count": 1,
+      "item": "craft:hv_cable"
+    },
+    {
+      "count": 3,
+      "item": "craft:rubber"
+    }
+  ],
+  "outputs": [
+    {
+      "count": 1,
+      "id": "craft:quadruple_insulated_hv_cable"
+    }
+  ]
+}

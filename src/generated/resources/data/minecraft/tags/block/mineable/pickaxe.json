@@ -43,6 +43,7 @@
     "craft:plate_bending_machine",
     "craft:industrial_electrolyzer",
     "craft:industrial_blast_furnace",
+    "craft:assembling_machine",
     "craft:standard_machine_casing",
     "craft:reinforced_machine_casing",
     "craft:gt_advanced_machine_casing"

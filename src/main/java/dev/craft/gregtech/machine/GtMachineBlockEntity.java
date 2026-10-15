@@ -1,9 +1,12 @@
 package dev.craft.gregtech.machine;
 
+import dev.craft.buildcraft.power.PowerProvider;
+import dev.craft.buildcraft.power.PowerReceptor;
 import dev.craft.core.energy.EnergyNets;
 import dev.craft.core.energy.EnergySink;
 import dev.craft.core.energy.EnergySource;
 import dev.craft.core.energy.EnergyTile;
+import dev.craft.gregtech.GtItems;
 import dev.craft.gregtech.GtMachine;
 import dev.craft.ic2.item.ElectricItem;
 import dev.craft.ic2.item.ElectricItems;
@@ -30,7 +33,8 @@ import org.jetbrains.annotations.Nullable;
  * counter-based upgrades, battery discharging and energy explosions. Subclasses are the meta tile entities and
  * implement {@link #onPostTick()} plus the value hooks ({@link #maxEUInput()} …).
  */
-public abstract class GtMachineBlockEntity extends MachineBlockEntity implements EnergySink, EnergySource {
+public abstract class GtMachineBlockEntity extends MachineBlockEntity implements EnergySink, EnergySource,
+        PowerReceptor {
     public static final int MAX_UPGRADES = 16;
 
     private int storedEnergy;
@@ -41,6 +45,9 @@ public abstract class GtMachineBlockEntity extends MachineBlockEntity implements
     private int liBatteries;
     private int rsEnergyCells;
     private boolean mjConverter;
+    /** Not saved, as in GT. */
+    @Nullable
+    private PowerProvider powerProvider;
     protected long tickTimer;
     private boolean addedToNet;
     private boolean releaseEnergy;
@@ -162,6 +169,7 @@ public abstract class GtMachineBlockEntity extends MachineBlockEntity implements
                 }
             }
         }
+        updateStatus();
         onPostTick();
     }
 
@@ -245,32 +253,26 @@ public abstract class GtMachineBlockEntity extends MachineBlockEntity implements
      * @return whether an upgrade was installed
      */
     public boolean installUpgrade(Player player, ItemStack stack) {
-        if (getUpgradeCount() >= MAX_UPGRADES || !(stack.getItem() instanceof UpgradeModuleItem upgrade)) {
+        if (getUpgradeCount() >= MAX_UPGRADES || stack.isEmpty()) {
             return false;
         }
-        boolean installed = switch (upgrade.getType()) {
-            case OVERCLOCKER -> {
-                if (isOverclockerUpgradable() && overclockers < 4) {
-                    overclockers++;
-                    yield true;
-                }
-                yield false;
-            }
-            case TRANSFORMER -> {
-                if (isTransformerUpgradable() && getMaxSafeInput() < 512 && getOutput() < 128) {
-                    transformers++;
-                    yield true;
-                }
-                yield false;
-            }
-            case ENERGY_STORAGE -> {
-                if (isBatteryUpgradable()) {
-                    batteries++;
-                    yield true;
-                }
-                yield false;
-            }
-        };
+        boolean installed = true;
+        if (!mjConverter && getMJCapacity() > 0 && stack.is(GtItems.PNEUMATIC_GENERATOR_UPGRADE.get())) {
+            mjConverter = true;
+        } else if (isOverclockerUpgradable() && overclockers < 4
+                && isUpgrade(stack, UpgradeModuleItem.Type.OVERCLOCKER)) {
+            overclockers++;
+        } else if (isTransformerUpgradable() && (getMaxSafeInput() < 512 && getOutput() < 128
+                ? isUpgrade(stack, UpgradeModuleItem.Type.TRANSFORMER)
+                : getMaxSafeInput() < 8192 && getOutput() < 2048 && stack.is(GtItems.HV_TRANSFORMER_UPGRADE.get()))) {
+            transformers++;
+        } else if (isBatteryUpgradable() && isUpgrade(stack, UpgradeModuleItem.Type.ENERGY_STORAGE)) {
+            batteries++;
+        } else if (isBatteryUpgradable() && stack.is(GtItems.LITHIUM_BATTERY_UPGRADE.get())) {
+            liBatteries++;
+        } else {
+            installed = false;
+        }
         if (installed) {
             if (!player.getAbilities().instabuild) {
                 stack.shrink(1);
@@ -278,6 +280,38 @@ public abstract class GtMachineBlockEntity extends MachineBlockEntity implements
             setChanged();
         }
         return installed;
+    }
+
+    private static boolean isUpgrade(ItemStack stack, UpgradeModuleItem.Type type) {
+        return stack.getItem() instanceof UpgradeModuleItem upgrade && upgrade.getType() == type;
+    }
+
+    // --- MJ (BaseMetaTileEntityMJ) ---
+
+    /** MJ receiver only once the MJ converter is installed and its provider exists. */
+    @Nullable
+    @Override
+    public PowerProvider getPowerProvider() {
+        return powerProvider;
+    }
+
+    /** GT never calls {@link PowerProvider#update}, so this never runs. */
+    @Override
+    public void doWork() {
+    }
+
+    /** {@code updateStatus}: create the provider, then move its MJ into the MJ storage every tick. */
+    private void updateStatus() {
+        if (!mjConverter) {
+            return;
+        }
+        if (powerProvider == null) {
+            powerProvider = new PowerProvider();
+            powerProvider.configure(1, 100, 1, 10000);
+        } else if (getMJCapacity() > 0 && getStoredMJ() < getMJCapacity()) {
+            storedMJ += (int) powerProvider.useEnergy(1.0F, getMJCapacity() - getStoredMJ(), true);
+            setChanged();
+        }
     }
 
     /**
@@ -527,6 +561,10 @@ public abstract class GtMachineBlockEntity extends MachineBlockEntity implements
         tag.putByte("mRSEnergyCells", (byte) rsEnergyCells);
         tag.putByte("mBatteries", (byte) batteries);
         tag.putBoolean("mMJConverter", mjConverter);
+    }
+
+    public boolean hasMJConverter() {
+        return mjConverter;
     }
 
     /** Test hook: stored EU. */

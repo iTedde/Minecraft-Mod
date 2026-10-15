@@ -34,6 +34,8 @@ public final class Ic2ArmorMaterials {
     /** Static boots. */
     public static final Holder<ArmorMaterial> RUBBER = register("rubber", 0);
     public static final Holder<ArmorMaterial> NIGHTVISION = register("nightvision", 0);
+    /** GregTech lithium batpack (texture from {@code armor/lithiumbatpack_1.png}). */
+    public static final Holder<ArmorMaterial> LITHIUM_BATPACK = register("lithium_batpack", 0);
 
     private Ic2ArmorMaterials() {
     }

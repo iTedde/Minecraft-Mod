@@ -2,10 +2,10 @@
   "type": "craft:ic2_shaped",
   "key": {
     "C": {
-      "item": "craft:energy_crystal"
+      "tag": "craft:crafting_100k_eu_store"
     },
     "M": {
-      "item": "craft:machine_casing"
+      "tag": "craft:raw_machine_tier_01"
     },
     "c": {
       "item": "craft:double_insulated_gold_cable"

@@ -1,0 +1,21 @@
+{
+  "type": "craft:gt_assembler",
+  "duration": 1600,
+  "eu_per_tick": 2,
+  "inputs": [
+    {
+      "count": 1,
+      "item": "craft:stone_gear"
+    },
+    {
+      "count": 4,
+      "tag": "c:ingots/tin"
+    }
+  ],
+  "outputs": [
+    {
+      "count": 1,
+      "id": "craft:tin_gear"
+    }
+  ]
+}

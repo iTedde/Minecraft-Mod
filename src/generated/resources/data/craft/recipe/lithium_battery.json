@@ -1,0 +1,23 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "A": {
+      "tag": "c:plates/aluminium"
+    },
+    "C": {
+      "item": "craft:double_insulated_gold_cable"
+    },
+    "L": {
+      "item": "craft:lithium_cell"
+    }
+  },
+  "pattern": [
+    " C ",
+    "ALA",
+    "ALA"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:lithium_battery"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "type": "craft:gt_assembler",
+  "duration": 400,
+  "eu_per_tick": 8,
+  "inputs": [
+    {
+      "count": 8,
+      "tag": "c:plates/steel"
+    },
+    {
+      "count": 1,
+      "item": "craft:machine_parts"
+    }
+  ],
+  "outputs": [
+    {
+      "count": 1,
+      "id": "craft:steel_machine_hull"
+    }
+  ]
+}

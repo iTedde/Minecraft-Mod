@@ -1,0 +1,17 @@
+{
+  "type": "craft:gt_assembler",
+  "duration": 3200,
+  "eu_per_tick": 4,
+  "inputs": [
+    {
+      "count": 1,
+      "item": "craft:lithium_batpack"
+    }
+  ],
+  "outputs": [
+    {
+      "count": 6,
+      "id": "craft:lithium_battery"
+    }
+  ]
+}

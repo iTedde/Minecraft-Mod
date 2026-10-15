@@ -1,0 +1,21 @@
+{
+  "type": "craft:gt_assembler",
+  "duration": 3200,
+  "eu_per_tick": 4,
+  "inputs": [
+    {
+      "count": 1,
+      "item": "craft:iron_gear"
+    },
+    {
+      "count": 1,
+      "item": "craft:generator"
+    }
+  ],
+  "outputs": [
+    {
+      "count": 1,
+      "id": "craft:pneumatic_generator_upgrade"
+    }
+  ]
+}

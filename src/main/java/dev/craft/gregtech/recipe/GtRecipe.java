@@ -164,7 +164,8 @@ public class GtRecipe implements Recipe<GtRecipe.Input> {
     public enum Kind {
         BENDER("bender", false),
         ELECTROLYZER("electrolyzer", false),
-        BLAST_FURNACE("blast_furnace", true);
+        BLAST_FURNACE("blast_furnace", true),
+        ASSEMBLER("assembler", true);
 
         private final String name;
         private final boolean shapeless;

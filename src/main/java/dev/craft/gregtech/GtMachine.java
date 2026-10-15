@@ -2,6 +2,7 @@ package dev.craft.gregtech;
 
 import java.util.function.BiFunction;
 
+import dev.craft.gregtech.machine.AssemblerBlockEntity;
 import dev.craft.gregtech.machine.BenderBlockEntity;
 import dev.craft.gregtech.machine.BlastFurnaceBlockEntity;
 import dev.craft.gregtech.machine.ElectrolyzerBlockEntity;
@@ -16,7 +17,14 @@ public enum GtMachine {
     INDUSTRIAL_ELECTROLYZER("industrial_electrolyzer", "electrolyzer", Layout.SIDES, 128, 64, 65,
             "Give your Water a shocking Experience with this Device", ElectrolyzerBlockEntity::new),
     INDUSTRIAL_BLAST_FURNACE("industrial_blast_furnace", "blast_furnace", Layout.FRONT, 128, 68, 69,
-            "You'll have a Blast!", BlastFurnaceBlockEntity::new);
+            "You'll have a Blast!", BlastFurnaceBlockEntity::new),
+    ASSEMBLING_MACHINE("assembling_machine", "assembler", Layout.BASIC, 32, 224, 225,
+            "Avengers, Assemble!", AssemblerBlockEntity::new) {
+        @Override
+        public int getTopTexture(boolean active) {
+            return 237;
+        }
+    };
 
     /** {@link Layout#FRONT}: back and remaining sides of the blast furnace ({@code terrain.png}). */
     public static final int FRONT_LAYOUT_BACK = 71;
@@ -69,6 +77,11 @@ public enum GtMachine {
     /** Front (basic machine, front layout) or side texture index on GregTech's {@code terrain.png}. */
     public int getFrontTexture(boolean active) {
         return active ? frontActive : frontInactive;
+    }
+
+    /** Top texture of a basic machine ({@code getTopFacingActive/Inactive}), 29 unless overridden. */
+    public int getTopTexture(boolean active) {
+        return 29;
     }
 
     /** GT tooltip description ({@code getDescription}). */

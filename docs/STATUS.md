@@ -583,3 +583,32 @@ entscheiden**.
    Rückseite zum Gehäuse), GUI „Heat Capacity“ bzw. „Incomplete Machine Casing!“, Lava im Kern (+500 K, danach ein
    Gehäuse neu setzen, damit geprüft wird), Kanthal-Spulen per Rechtsklick, Stahl/Siliziumplatte/Aluminium, Drehen
    per Schraubenschlüssel, Texturen; Induktionsofen (siehe 6b.3a).
+
+## Erledigt (Teilpaket „Phase 6b.4: Assembler“, 2026-10-16)
+- Nutzerentscheidung Umfang: „Basis + Lithium“ – alle Assembler-Rezepte, deren Zutaten es gibt, plus Lithium-Batterie,
+  Lithium-BatPack und Lithium-Batterie-Upgrade.
+- Spec `13-gregtech-maschinen.md` §6 (Assembler, Rezeptsuche, Rezeptliste mit Config-Dauern je Ausgabe, GT-Upgrades
+  inkl. MJ-Empfang, Lithium-Items, Maschinenhüllen und Ore-Namen-Tags).
+- **Assembler** (`AssemblerBlockEntity`, `GtMachine.ASSEMBLING_MACHINE`): BasicMachine mit getrennten Eingängen
+  (Standard an), shapeless Rezepte (`GtRecipe.Kind.ASSEMBLER`), eigene Oberseite 237 (`GtMachine.getTopTexture`).
+  Rezept `CPC/RQR/CRC` mit raff. Eisen- oder Aluminiumplatten.
+- 30 Assembler-Rezepte: **Wassermühle** (Generator + 4 Aluminiumplatten → 2), **Windmühle** (Generator + 4
+  Kohleplatten), 2 Wassermühlen → Generator, MJ-Konverter, HV-Trafo-Upgrade, Lithium-Batterie-Upgrade, Maschinenblock,
+  Maschinenteile, Aluminium-/Bronze-/Stahl-Maschinenhülle, BatPack/Lithium-BatPack → Batterien, Kabelisolierung,
+  Zahnräder (Eisen, Zinn, Gold, Diamant), Hebel, Fackeln, Redstone-Fackel, Kompass, Uhr.
+- **GT-Upgrades** in `GtMachineBlockEntity.installUpgrade` in GT-Reihenfolge (MJ-Konverter → Overclocker →
+  Trafo/HV-Trafo → Energiespeicher → Lithium); **MJ-Empfang** (`updateStatus`, `PowerReceptor`, Capability nur mit
+  Konverter, Provider nicht gespeichert).
+- **Lithium-Batterie** (`LithiumBatteryItem`, leer stapelbar bis 16, Icon leer/geladen) und **Lithium-BatPack**
+  (`LithiumBatpackItem`, 600 000 EU, Brustplatte ohne Schutz); Tags `craft:raw_machine_tier_01/02` und
+  `craft:crafting_100k_eu_store` in Gehäuse-, Generator-, MFE- und Macerator-Rezepten.
+- Texturen aus `GregTech.zip` (`terrain.png` 224/225/237, `items.png` 56–58, `components.png` 25–27/32/33/35,
+  GUI `Assembler.png`, Rüstung `lithiumbatpack_1.png`) – zugeschnitten mit Python/Pillow (neu installiert).
+- 6 neue GameTests (`AssemblerGameTests`, insgesamt 132 grün), `build` und `runClient` erfolgreich.
+
+## Nächste Schritte
+1. Teilpaket 6b.5: Implosionskompressor/Zentrifuge/Canning Machine (Umfang und Spec-Lücken vorher klären).
+2. Manuelle Client-Tests 6b.4: Assembler-GUI (Knopf „getrennte Eingänge“ an, Pfeil), Wassermühle aus Generator +
+   Aluminiumplatten, MJ-Konverter per Rechtsklick und Engine daneben (MJ-Speicher füllt sich, Maschine läuft ohne EU),
+   HV-Trafo-Upgrade erst nach zwei IC2-Trafos, Lithium-Batterie laden/entladen (Icon wechselt), Lithium-BatPack
+   tragen (Bergbaubohrer zieht daraus), MFE mit Lithium-Batterien, Standard-Gehäuse mit Aluminiumhülle.

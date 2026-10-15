@@ -1,5 +1,6 @@
 package dev.craft.gregtech;
 
+import dev.craft.buildcraft.power.BcCapabilities;
 import dev.craft.gregtech.machine.ElectrolyzerBlockEntity;
 import dev.craft.gregtech.machine.GtMachineBlockEntity;
 import net.neoforged.bus.api.IEventBus;
@@ -25,6 +26,9 @@ public final class GregTech {
         for (GtMachine machine : GtMachine.values()) {
             event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, GtBlockEntityTypes.get(machine),
                     GtMachineBlockEntity::getItemHandler);
+            // MJ receiver only with an installed MJ converter (spec 13 §6.3).
+            event.registerBlockEntity(BcCapabilities.POWER_RECEPTOR, GtBlockEntityTypes.get(machine),
+                    (be, side) -> be.getPowerProvider() != null ? be : null);
         }
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK,
                 GtBlockEntityTypes.get(GtMachine.INDUSTRIAL_ELECTROLYZER),

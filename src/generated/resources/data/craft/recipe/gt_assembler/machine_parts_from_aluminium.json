@@ -1,0 +1,21 @@
+{
+  "type": "craft:gt_assembler",
+  "duration": 800,
+  "eu_per_tick": 16,
+  "inputs": [
+    {
+      "count": 2,
+      "tag": "c:plates/aluminium"
+    },
+    {
+      "count": 1,
+      "item": "craft:electronic_circuit"
+    }
+  ],
+  "outputs": [
+    {
+      "count": 3,
+      "id": "craft:machine_parts"
+    }
+  ]
+}

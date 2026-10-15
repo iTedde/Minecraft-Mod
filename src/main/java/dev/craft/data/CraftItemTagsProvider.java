@@ -49,10 +49,20 @@ public final class CraftItemTagsProvider extends ItemTagsProvider {
     public static final TagKey<Item> DUSTS_NICKEL = commonTag("dusts/nickel");
     public static final TagKey<Item> DUSTS_ALUMINIUM = commonTag("dusts/aluminium");
     public static final TagKey<Item> DUSTS_STEEL = commonTag("dusts/steel");
+    /** GT {@code craftingRawMachineTier01}: IC2 machine casing, aluminium and bronze machine hull. */
+    public static final TagKey<Item> RAW_MACHINE_TIER_01 = craftTag("raw_machine_tier_01");
+    /** GT {@code craftingRawMachineTier02}: IC2 advanced machine casing, steel machine hull. */
+    public static final TagKey<Item> RAW_MACHINE_TIER_02 = craftTag("raw_machine_tier_02");
+    /** GT {@code crafting100kEUStore}: energy crystal, lithium battery. */
+    public static final TagKey<Item> CRAFTING_100K_EU_STORE = craftTag("crafting_100k_eu_store");
 
     public CraftItemTagsProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookup,
                                  CompletableFuture<TagLookup<Block>> blockTags, ExistingFileHelper files) {
         super(output, lookup, blockTags, Craft.MODID, files);
+    }
+
+    private static TagKey<Item> craftTag(String path) {
+        return TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(Craft.MODID, path));
     }
 
     private static TagKey<Item> commonTag(String path) {
@@ -92,6 +102,10 @@ public final class CraftItemTagsProvider extends ItemTagsProvider {
         tag(DUSTS_NICKEL).add(GtItems.NICKEL_DUST.get());
         tag(DUSTS_ALUMINIUM).add(GtItems.ALUMINIUM_DUST.get());
         tag(DUSTS_STEEL).add(GtItems.STEEL_DUST.get());
+        tag(RAW_MACHINE_TIER_01).add(Ic2Items.MACHINE_CASING.get(), GtItems.ALUMINIUM_MACHINE_HULL.get(),
+                GtItems.BRONZE_MACHINE_HULL.get());
+        tag(RAW_MACHINE_TIER_02).add(Ic2Items.ADVANCED_MACHINE_CASING.get(), GtItems.STEEL_MACHINE_HULL.get());
+        tag(CRAFTING_100K_EU_STORE).add(Ic2Items.ENERGY_CRYSTAL.get(), GtItems.LITHIUM_BATTERY.get());
         tag(Tags.Items.INGOTS).addTag(INGOTS_TIN).addTag(INGOTS_BRONZE).addTag(INGOTS_REFINED_IRON)
                 .addTag(INGOTS_NICKEL).addTag(INGOTS_ALUMINIUM).addTag(INGOTS_STEEL);
         tag(DUSTS_BRONZE).add(Ic2Items.BRONZE_DUST.get());

@@ -1,0 +1,29 @@
+{
+  "type": "craft:gt_assembler",
+  "duration": 400,
+  "eu_per_tick": 1,
+  "inputs": [
+    {
+      "count": 1,
+      "tag": "c:rods/wooden"
+    },
+    {
+      "type": "neoforge:compound",
+      "children": [
+        {
+          "item": "minecraft:coal"
+        },
+        {
+          "item": "minecraft:charcoal"
+        }
+      ],
+      "count": 1
+    }
+  ],
+  "outputs": [
+    {
+      "count": 4,
+      "id": "minecraft:torch"
+    }
+  ]
+}

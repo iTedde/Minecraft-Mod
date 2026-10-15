@@ -8,7 +8,7 @@
       "item": "craft:electronic_circuit"
     },
     "M": {
-      "item": "craft:machine_casing"
+      "tag": "craft:raw_machine_tier_01"
     }
   },
   "pattern": [

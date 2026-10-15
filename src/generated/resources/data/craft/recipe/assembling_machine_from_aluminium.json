@@ -1,0 +1,26 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "C": {
+      "item": "craft:electronic_circuit"
+    },
+    "P": {
+      "item": "minecraft:piston"
+    },
+    "Q": {
+      "item": "craft:conveyor_module"
+    },
+    "R": {
+      "tag": "c:plates/aluminium"
+    }
+  },
+  "pattern": [
+    "CPC",
+    "RQR",
+    "CRC"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:assembling_machine"
+  }
+}

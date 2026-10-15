@@ -3,9 +3,12 @@ package dev.craft.gregtech.client;
 import dev.craft.Craft;
 import dev.craft.gregtech.GtItems;
 import dev.craft.gregtech.GtMenus;
+import dev.craft.ic2.client.Ic2Client;
+import net.minecraft.client.renderer.item.ItemProperties;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 
@@ -15,6 +18,13 @@ public final class GregTechClient {
     private static final int WATER_COLOR = 0xFF3F76E4;
 
     private GregTechClient() {
+    }
+
+    @SubscribeEvent
+    public static void clientSetup(FMLClientSetupEvent event) {
+        // Two icons: empty (item 56) and charged (item 57).
+        event.enqueueWork(() -> ItemProperties.register(GtItems.LITHIUM_BATTERY.get(), Ic2Client.CHARGE_PROPERTY,
+                (stack, level, entity, seed) -> GtItems.LITHIUM_BATTERY.get().isEmptyState(stack) ? 0.0F : 1.0F));
     }
 
     @SubscribeEvent

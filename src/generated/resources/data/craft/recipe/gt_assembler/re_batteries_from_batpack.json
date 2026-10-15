@@ -1,0 +1,17 @@
+{
+  "type": "craft:gt_assembler",
+  "duration": 1600,
+  "eu_per_tick": 2,
+  "inputs": [
+    {
+      "count": 1,
+      "item": "craft:batpack"
+    }
+  ],
+  "outputs": [
+    {
+      "count": 6,
+      "id": "craft:re_battery"
+    }
+  ]
+}

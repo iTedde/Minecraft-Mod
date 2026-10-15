@@ -7,7 +7,7 @@ ein überarbeitetes Energiebalancing und neue Kraftwerke. Wird nicht veröffentl
 ## Zielplattform
 
 - Minecraft **1.21.1**, NeoForge **21.1.259** (ModDevGradle 2.0.148, Gradle 9.2.1), Java **21**.
-- Build: Gradle mit NeoForge ModDevGradle. JDK 21: `C:/Program Files/Java/jdk-21` (in `gradle.properties`; Projekt liegt seit 2026-10-15 unter `X:/Craft`, `tools/` ist dabei verloren gegangen).
+- Build: Gradle mit NeoForge ModDevGradle. JDK 21: `C:/Program Files/Java/jdk-21` (in `gradle.properties`; Projekt liegt seit 2026-10-15 unter `X:/Craft`, `tools/` ist dabei verloren gegangen; Python 3.12 + Pillow für Texturen: `%LOCALAPPDATA%/Programs/Python/Python312/python.exe`).
 - Mod-ID `craft`, Basispaket `dev.craft`. Repo: https://github.com/iTedde/Minecraft-Mod (`main` und `phase3-wip` gepusht).
 
 ## Grundregeln
@@ -72,7 +72,7 @@ MJ und EU bleiben getrennte Systeme; Verbindung nur über Electrical Engine (EU�
 | 4 | BuildCraft: MJ-System, Engines, Landmarks, Quarry, Pumpe, Tank, Raffinerie, Mining Well | **erledigt** (abgenommen) |
 | 5 | Energieumwandler: Electrical Engine (inkl. Thermionic Fabricator, Carpenter, Platinen, Röhren), Power Converters | **erledigt** (abgenommen) |
 | 6 | IC2 Mid/Late Game: 6.1 MFE, MFSU, Trafos · 6.2 Elektrowerkzeuge + Tastensystem · 6.3 Nano-/Quanten-/Utility-Rüstung · 6.4 Mass Fabricator, Solar Arrays als Multiblocks | **erledigt** (abgenommen) |
-| 6b | GregTech-Maschinen 1:1 (Elektrolyseur, Hochofen-Multiblock + Heizspulen, Plattenbieger, Assembler, ggf. weitere) und GT-Materialien; danach Rezepte für Solarpanel, Wasser-/Windmühle u. a. [GT⚠]. Teilpakete: 6b.1 Plattenbieger (erledigt) · 6b.2 Elektrolyseur (erledigt) · 6b.3 Hochofen (erledigt) · 6b.4 Assembler · 6b.5 Implosionskompressor/Zentrifuge/Canning Machine | **in Arbeit** |
+| 6b | GregTech-Maschinen 1:1 (Elektrolyseur, Hochofen-Multiblock + Heizspulen, Plattenbieger, Assembler, ggf. weitere) und GT-Materialien; danach Rezepte für Solarpanel, Wasser-/Windmühle u. a. [GT⚠]. Teilpakete: 6b.1 Plattenbieger (erledigt) · 6b.2 Elektrolyseur (erledigt) · 6b.3 Hochofen (erledigt) · 6b.4 Assembler (erledigt) · 6b.5 Implosionskompressor/Zentrifuge/Canning Machine | **in Arbeit** |
 | 7 | Reaktor | offen |
 | 8 | Neue Kraftwerke: Kohlekraftwerk mit Koksofen, Wasserturbine | offen |
 | 9 | BuildCraft-Rohre (fest im Umfang) | offen |

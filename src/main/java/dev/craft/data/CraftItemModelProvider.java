@@ -57,6 +57,13 @@ public final class CraftItemModelProvider extends ItemModelProvider {
                 .texture("layer0", modLoc("block/landmark"));
         withExistingParent(GtItems.WATER.getId().getPath(), mcLoc("item/generated"))
                 .texture("layer0", mcLoc("block/water_still"));
+        ItemModelBuilder lithiumCharged = withExistingParent("lithium_battery_charged", mcLoc("item/generated"))
+                .texture("layer0", modLoc("item/gt/lithium_battery"));
+        withExistingParent(GtItems.LITHIUM_BATTERY.getId().getPath(), mcLoc("item/generated"))
+                .texture("layer0", modLoc("item/gt/lithium_battery_empty")).override()
+                .predicate(Ic2Client.CHARGE_PROPERTY, 1.0F).model(lithiumCharged).end();
+        withExistingParent(GtItems.LITHIUM_BATPACK.getId().getPath(), mcLoc("item/generated"))
+                .texture("layer0", modLoc("item/gt/lithium_batpack"));
         for (DeferredItem<? extends Item> item : GtItems.simpleItems()) {
             withExistingParent(item.getId().getPath(), mcLoc("item/generated"))
                     .texture("layer0", modLoc("item/gt/" + item.getId().getPath()));

@@ -1,0 +1,21 @@
+{
+  "type": "craft:gt_assembler",
+  "duration": 100,
+  "eu_per_tick": 2,
+  "inputs": [
+    {
+      "count": 1,
+      "item": "craft:copper_cable"
+    },
+    {
+      "count": 1,
+      "item": "craft:rubber"
+    }
+  ],
+  "outputs": [
+    {
+      "count": 1,
+      "id": "craft:insulated_copper_cable"
+    }
+  ]
+}
