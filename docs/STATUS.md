@@ -118,7 +118,7 @@ Phase 2 gestartet (2026-10-14) – Zwischenstand siehe unten.
 
 ## Offen / später
 - Alt-Taste beim Schraubenschlüssel (zyklisches Drehen) kommt mit dem Tastensystem (Modus/Boost/Alt).
-- Compressor+Pumpe, Schrottbox-Nutzung (IC2-Liste; GT-Erweiterung offene Entscheidung 4).
+- Compressor+Pumpe. Schrottbox-Drops: IC2-Liste + GT-Erweiterung (entschieden 2026-10-15); GT-Items der Liste kommen mit Phase 6b dazu.
 - Upgrade-Stapelgröße 64 (IC2) – GT-Wert 4 ist offene Entscheidung 4.
 - Spec-Korrektur `01-eu-system.md` §4: bei `explodeMachineAt` wird das Inventar **gedroppt** (breakBlock), nicht
   vernichtet.
