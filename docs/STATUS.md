@@ -672,3 +672,28 @@ entscheiden**.
    verstärktes Glas (durchsichtig, explosionsfest); Quantum-Rüstung craften (Ladung übernommen).
 3. Später: GT-Rückgewinnung von Werkzeugen/Rüstung im Macerator (`applyUsagesForMaterials`, alle Materialien),
    Smaragdstaub im Assembler/Elektrolyseur, ITNT-Variante mit Feuersteinstaub, Dynamit aus ITNT.
+
+## Zwischenstand Teilpaket „Phase 6b.5c: Zentrifuge“ (2026-10-16, nur Recherche, noch kein Code)
+- Quelle: `GT_MetaTileEntity_Centrifuge` (ID-Name „Industrial Centrifuge“, GUI-ID 146, `gui/Centrifuge.png`,
+  `GT_Container_Centrifuge`). Aufbau **fast identisch zum Elektrolyseur** (§4 in `13-gregtech-maschinen.md`) – Umsetzung
+  kann dessen Code-Muster nutzen. Unterschiede:
+  - `maxEUInput` **32** (statt 128), `maxEUStore`/MJ 10 000, Upgrades O T B (+ MJ), nicht drehbar, Energie von allen Seiten.
+  - **Lavatank** statt Wasser: nur Lava, 10 000 mB, `getTankPressure −100`; je Tick ≥ 1000 mB → +1 Lava in Holo-Slot 6
+    (max. 64). `checkRecipe`: erst (Slot 0, Slot 1), dann (Slot 6 = Lava, Slot 1).
+  - Rezepte über `addCentrifugeRecipe(in1, nZellen, out1..4, Dauer)`: **immer 5 EU/t** (`GT_Recipe`-Konstruktor),
+    Eingabe 2 = n leere Zellen (negativ = n leere Brennstoffkanister), Dauer per `RecipesAdvancedConfig.cfg` „centrifuge“.
+  - Texturen `terrain.png`: unten 32, oben 41 aktiv / 43 inaktiv, Seiten 25 aktiv / 27 inaktiv.
+  - Beschreibung „And round and round and round it goes“; Info „Progress:“ / „x secs“ / „/y secs“.
+  - Seiten: oben → Slot 0, unten → Slot 1, Seiten → Slots 2–5. Tick/Energiemangel (−10) wie Elektrolyseur.
+- Rezeptfundstellen: `GT_Mod.java` 1372/1384 (Lava-Dose, nur mit anderen Mods), 1731–1732 (Eiszelle → Eis + Zelle;
+  Magmacreme → Lohenstaub + Schleimball), 1903–2001 (Uranzellen, Gras/Myzel/Seelensand → Pflanzenbälle/Sand,
+  Methan aus Nahrung/Gold-Äpfeln, Harz → 14 Gummi, Seelensand?/Ölzelle, **Lavazelle ×16 / Lava ×16 → Elektrum,
+  4 Kupfer, kl. Wolframstaub, Zinn**), 4819/4857 (Saatöl – im Pack mit Forestry → Squeezer, **nicht** Zentrifuge);
+  `GT_OreDictHandler.java` 1500–3623 (Stäube: Redstone, Glowstone, Lapis, Bronze, Kupfer, Gold, Nickel, Eisen, Zinn,
+  Netherrack, Endstein, Enderperle, Asche, Uran, Molekül-Zellen, Ölsand …; Auslöser je Zeile = letzter
+  `equals("dust…")` davor).
+- Namen geklärt: Zellen 3 Helium, 6 Helium-3, 7 Silizium, 9 Methan, 16 Quecksilber, 17 Öl, 23 Eis, 24 Saatöl;
+  Kleinstaub 3/4/5 Pyrit/Calcit/Sodalith, 22 Wolfram, 24 Zink, 28 Nickel, 241–244 Eisen/Gold/Kupfer/Zinn.
+- Offen: Zuordnung der Vanilla-Feldnamen (`up.*`/`amq.*`, MC 1.4.7) für die Methan-/Nahrungsrezepte – keine
+  Mapping-Datei mehr vorhanden (`tools/` verloren); dann Liste „erreichbar / neue Ausgabe-Items nötig“ erstellen und
+  dem Nutzer zur Entscheidung vorlegen (Entscheidung: nur erreichbare Rezepte, neue Ausgabe-Items nur bei Bedarf).
