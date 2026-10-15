@@ -76,7 +76,7 @@ MJ und EU bleiben getrennte Systeme; Verbindung nur über Electrical Engine (EU�
 | 7 | Reaktor | offen |
 | 8 | Neue Kraftwerke: Kohlekraftwerk mit Koksofen, Wasserturbine | offen |
 | 9 | BuildCraft-Rohre (fest im Umfang) | offen |
-| 10 | Feinschliff: Texturen, Rezeptanzeige (Wunsch: „Not Enough Items“ – NEI gibt es für 1.21 nicht, nächstliegend JEI/EMI), Minimap-Mod, Tests | offen |
+| 10 | Feinschliff: Texturen, EMI-Integration (Rezeptanzeige), Xaero's Minimap mitinstallieren, Tests | offen |
 
 Nicht explizit in einer Phase, aber Teil von „IC2 komplett“ (Zuordnung klären): Eisenofen, Canning Machine,
 Miner, Pumpe, Terraformer, Teleporter, Tesla-Spule, Crops/Crop-Matron,
@@ -90,7 +90,7 @@ Personal-Blöcke, Luminator, Sprengstoffe, Bauschaum, Kaffee/Fass.
 3. Balancing-Vorschlag freigeben (`docs/balancing.md` §5) – **Solar freigegeben** (Fläche der Panels), Rest offen.
 4. GT-Nicht-Rezept-Änderungen: Upgrade-Stack 4 und Recycler-Blacklist noch offen. **Entschieden:** Schrottbox-Drops wie im Pack – GT ersetzt die IC2-Liste (Schrott 200 + GT-Liste; GT-Items erst, wenn es sie gibt).
 5. Iridiumerz-Generierung (GT).
-6. Rezeptanzeige und Minimap (Nutzerwunsch 2026-10-15): **Entschieden:** Rezeptanzeige mit eigener Integration (Rezeptkategorien für IC2-/GT-/BC-/Forestry-Maschinen, Phase 10). Offen: welcher Mod (JEI oder EMI statt NEI) und welche Minimap (z. B. JourneyMap oder Xaero's; nur mitinstalliert, keine eigene Integration nötig).
+6. Rezeptanzeige und Minimap (Nutzerwunsch 2026-10-15): **Entschieden:** **EMI** (statt NEI, das es für 1.21 nicht gibt) mit eigener Integration (Rezeptkategorien für IC2-/GT-/BC-/Forestry-Maschinen, Phase 10); Minimap **Xaero's Minimap**, nur mitinstalliert (keine eigene Integration).
 
 Aktueller Stand/ToDo: `docs/STATUS.md`.
 
