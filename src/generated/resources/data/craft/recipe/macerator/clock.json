@@ -1,0 +1,10 @@
+{
+  "type": "craft:macerator",
+  "ingredient": {
+    "item": "minecraft:clock"
+  },
+  "result": {
+    "count": 4,
+    "id": "craft:gold_dust"
+  }
+}

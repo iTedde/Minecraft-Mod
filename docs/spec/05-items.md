@@ -93,7 +93,7 @@ Scanner pro Ebene einen Layer-Scan (OD: 50 EU, Radius 2; OV: 250 EU, Radius 4).
 
 | Werkzeug | Haltbarkeit | Details |
 |---|---:|---|
-| Bronze-Spitzhacke/-Axt/-Schaufel/-Schwert/-Hacke | wie Eisen (250) | **Effektiv Eisen-Werkzeugmaterial** (`EnumToolMaterial.IRON`: Harvest 2, Effizienz 6,0, Schaden wie Eisen, Schwert 6), Verzauberbarkeit 13 (Spitzhacke/Axt/Schaufel/Schwert), Reparatur mit Bronzebarren. Das registrierte Material `IC2_BRONZE (2, 350, 6.0, 2, 13)` wird nicht genutzt (Feld wird nur verdeckt). |
+| Bronze-Spitzhacke/-Axt/-Schaufel/-Schwert/-Hacke | wie Eisen (250) | **Effektiv Eisen-Werkzeugmaterial** (`EnumToolMaterial.IRON`: Harvest 2, Effizienz 6,0, Schaden wie Eisen, Schwert 6), Verzauberbarkeit 13 (Spitzhacke/Axt/Schaufel/Schwert), Reparatur mit Bronzebarren. Das registrierte Material `IC2_BRONZE (2, 350, 6.0, 2, 13)` wird nicht genutzt (Feld wird nur verdeckt). | **Entfällt (Nutzerentscheidung 2026-10-15).**
 | Baumzapfer (`itemTreetap`) | 16 | Rechtsklick auf Gummiholz mit nasser Harzstelle (Meta 2–5, passende Seite): 1–3 Harz, Stelle wird trocken (Meta +6). Trockene Stelle: 20 % Chance → wird zu Meta 1 (verbraucht), 20 % Chance → Harz (Originalfehler: es werden **2** Harz ausgeworfen). Fass: zapft Fass an. −1 Haltbarkeit pro Nutzung auf Gummiholz |
 | Schraubenschlüssel (`itemToolWrench`) | 160 | Drehen: −1; Abbau: −10. Rechtsklick dreht Facing auf die geklickte Seite (Schleichen: Gegenseite; Alt: zyklisch). Abbau mit Wrench-Drop-Rate (siehe Maschinen). Terraformer: Blaupause auswerfen. Nuke-Entity: entschärfen (−1). Server-Log beim Abbau |
 | Isolierungsschneider (`itemToolCutter`) | 512 | siehe `01-eu-system.md` §3 |
@@ -112,7 +112,7 @@ Scanner pro Ebene einen Layer-Scan (OD: 50 EU, Radius 2; OV: 250 EU, Radius 4).
 
 | Set | Material | Schutz (Helm/Brust/Hose/Stiefel) | Haltbarkeitsfaktor | Verzauberbarkeit | Reparatur |
 |---|---|---|---:|---:|---|
-| Bronze | `IC2_BRONZE` | 3 / 8 / 6 / 3 | 15 (wie Eisen: 165/240/225/195) | 9 | Bronzebarren |
+| Bronze | `IC2_BRONZE` | 3 / 8 / 6 / 3 | 15 (wie Eisen: 165/240/225/195) | 9 | Bronzebarren – **entfällt (Nutzerentscheidung 2026-10-15)** |
 | Kompositweste (nur Brust) | `IC2_ALLOY` | 4 / 9 / 7 / 4 → Brust 9 | 50 (Brust 800) | 12 | Fortg. Legierung |
 
 Beide sind `IMetalArmor` (Magnetzaun).

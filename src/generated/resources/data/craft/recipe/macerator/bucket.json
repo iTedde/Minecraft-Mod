@@ -1,0 +1,10 @@
+{
+  "type": "craft:macerator",
+  "ingredient": {
+    "item": "minecraft:bucket"
+  },
+  "result": {
+    "count": 3,
+    "id": "craft:iron_dust"
+  }
+}

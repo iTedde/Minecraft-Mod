@@ -30,7 +30,7 @@ Status: *geplant* (aus Phase 1 abgeleitet, noch nicht umgesetzt), *entschieden* 
 | Rüstungssystem | Forge `ISpecialArmor` (Absorptionsanteil, ×25-Einheiten) | Schadens-Event (`LivingIncomingDamageEvent`) bildet Absorption und EU-Kosten nach | `ISpecialArmor` gibt es nicht mehr | geplant |
 | Trank „Radioaktivität“ | Potion-ID 24 | registrierter MobEffect | Registry | geplant |
 | Schadenswerte | int halbe Herzen | float Lebenspunkte, Werte 1:1 | Typ | geplant |
-| Bronze-Werkzeuge | intern Eisen-Material + eigene Verzauberbarkeit 13 | Tier wie Eisen, Reparatur Bronze, Enchantability 13 | API | geplant |
+| Bronze-Werkzeuge und -Rüstung | IC2-Items | werden nicht umgesetzt | Nutzerentscheidung 2026-10-15 | **entschieden** |
 | Electron Tubes / Platinen / Lötkolben | Thermionic Fabricator, Carpenter | Maschinen werden 1:1 übernommen, keine Abweichung | im Umfang | **entschieden** |
 | GregTech-Rezepte mit GT-Material | siehe `docs/spec/08-rezepte.md` §16 | wie im Pack (finale GT-Rezepte); GT-Materialien kommen in den Umfang, Herstellungsweg offen (`12-gregtech-materialien.md`) | Nutzerentscheidung „wie früher“ | **entschieden** (Herstellungsweg offen) |
 | Silberbarren | aus Fremdmods / GregTech | GT-Silberbarren kommt mit den GT-Materialien (Silberstaub → Ofen → Silberbarren wie IC2-Original) | GT-Materialien im Umfang | geplant (abhängig vom GT-Herstellungsweg) |
@@ -52,7 +52,7 @@ Status: *geplant* (aus Phase 1 abgeleitet, noch nicht umgesetzt), *entschieden* 
 | GUI-Synchronisation | Fortschrittsbalken-Updates mit 16 Bit, teils nur clientseitig berechnete Anzeigen (Generator-Brennzeit, Windmühle) | alle Anzeigewerte werden serverseitig berechnet und als volle Ints synchronisiert | Anzeige korrekt | **umgesetzt** |
 | Eisenofen-GUI | 1.4.7-Ofentextur | 1.21-Ofentextur und -Sprites (Flamme, Pfeil), Werte wie IC2 | Textur-Layout geändert | **umgesetzt** |
 | Maschinengeräusche | IC2-AudioManager (Paul's SoundSystem) | Minecraft-Soundsystem, Original-OGGs; Start/Stopp per Block-Event, Generator-Loops solange aktiv | API | **umgesetzt** |
-| GT-Macerator-/Ofenrezepte für Vanilla-Eisenteile | Kompass, Uhr, Schere, Lore, Eimer, Eisentür, Amboss, Knopf/Druckplatte/Hebel → Staub/Barren/Sand | **noch nicht** umgesetzt (1.21-Eisentür ergibt 3 Türen aus 6 Barren → Dupe) | offen | geplant |
+| GT-Recycling Vanilla-Eisenteile | Eisentür → 6 Eisenstaub bzw. 6 Eisenbarren (1.4.7: 6 Barren → 1 Tür) | Eisentür → **2** (1.21: 6 Barren → 3 Türen, sonst Vermehrung); übrige Teile (Kompass, Uhr, Schere, Lore, Eimer, Amboss 31/20/10, Steinknopf, Steindruckplatte, Hebel) wie GT; nur Hauptausgabe (Nebenprodukte gab es im IC2-Macerator nicht); GT-Material-Ausgaben (Holzstaub, kleiner Eisenstaub) erst mit den GT-Materialien | 1.21-Rezeptmenge | **umgesetzt** |
 
 ## Bewusst (Energiebalancing)
 

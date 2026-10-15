@@ -1,0 +1,10 @@
+{
+  "type": "craft:macerator",
+  "ingredient": {
+    "item": "minecraft:compass"
+  },
+  "result": {
+    "count": 4,
+    "id": "craft:iron_dust"
+  }
+}

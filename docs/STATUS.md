@@ -110,9 +110,10 @@ Phase 2 gestartet (2026-10-14) – Zwischenstand siehe unten.
 
 ## Nächste Schritte
 1. Manuelle Prüfung im Client (Nutzer): GUIs, Sounds, Texturen/Facing, Weltgen (Gummibäume, Erze), Rezepte.
-2. Noch fehlend in Phase 3: Harz-Rechtsklick (Harzschicht `blockHarz`, Klebekolben), Schrottbox-Nutzung,
-   Bronze-Werkzeuge/-Rüstung (laut Phasenplan nicht explizit Phase 3 – klären), GT-Vanilla-Eisenteil-Rezepte
-   (Dupe-Problem, s. Abweichungen), Wasser-/Windmühle/Solar ohne Rezept (Phase 6b).
+2. Noch fehlend in Phase 3: Harz-Rechtsklick (Harzschicht `blockHarz`, Klebekolben), Schrottbox-Nutzung.
+   Wasser-/Windmühle/Solar bleiben ohne Rezept (Phase 6b).
+   Entschieden 2026-10-15: Bronze-Werkzeuge/-Rüstung entfallen ganz; GT-Recycling der Vanilla-Eisenteile umgesetzt
+   (Eisentür → 2 statt 6).
 3. Danach Phase-3-Abnahme.
 
 ## Offen / später

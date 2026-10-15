@@ -310,6 +310,17 @@ public final class CraftRecipeProvider extends RecipeProvider {
         smelt("bronze_ingots_from_block", Ingredient.of(Ic2Items.BRONZE_BLOCK), Ic2Items.BRONZE_INGOT, 9, 0.0F);
         smelt("resin_from_slime_ball", Ingredient.of(Items.SLIME_BALL), Ic2Items.RESIN, 1, 0.0F);
         smelt("bronze_ingots_from_wrench", Ingredient.of(Ic2Items.WRENCH), Ic2Items.BRONZE_INGOT, 6, 0.0F);
+        // GregTech recycling of vanilla items. The 1.21 iron door recipe makes 3 doors from 6 ingots, so a door gives 2
+        // instead of GregTech's 6 (see docs/abweichungen.md).
+        smelt("gold_ingots_from_clock", Ingredient.of(Items.CLOCK), Items.GOLD_INGOT, 4, 0.0F);
+        smelt("iron_ingots_from_compass", Ingredient.of(Items.COMPASS), Items.IRON_INGOT, 4, 0.0F);
+        smelt("iron_ingots_from_shears", Ingredient.of(Items.SHEARS), Items.IRON_INGOT, 2, 0.0F);
+        smelt("iron_ingots_from_minecart", Ingredient.of(Items.MINECART), Items.IRON_INGOT, 5, 0.0F);
+        smelt("iron_ingots_from_bucket", Ingredient.of(Items.BUCKET), Items.IRON_INGOT, 3, 0.0F);
+        smelt("iron_ingots_from_iron_door", Ingredient.of(Items.IRON_DOOR), Items.IRON_INGOT, 2, 0.0F);
+        smelt("iron_ingots_from_anvil", Ingredient.of(Items.ANVIL), Items.IRON_INGOT, 31, 0.0F);
+        smelt("iron_ingots_from_chipped_anvil", Ingredient.of(Items.CHIPPED_ANVIL), Items.IRON_INGOT, 20, 0.0F);
+        smelt("iron_ingots_from_damaged_anvil", Ingredient.of(Items.DAMAGED_ANVIL), Items.IRON_INGOT, 10, 0.0F);
     }
 
     private void smelt(String name, Ingredient input, ItemLike result, int count, float experience) {
@@ -373,6 +384,17 @@ public final class CraftRecipeProvider extends RecipeProvider {
         machine(MachineRecipe.Kind.MACERATOR, "melon_slice", Ingredient.of(Items.MELON_SLICE), 1,
                 Items.MELON_SEEDS, 1);
         machine(MachineRecipe.Kind.MACERATOR, "wrench", Ingredient.of(Ic2Items.WRENCH), 1, Ic2Items.BRONZE_DUST, 6);
+        // GregTech recycling of vanilla items (only the main output; door adjusted to the 1.21 recipe, see above).
+        machine(MachineRecipe.Kind.MACERATOR, "clock", Ingredient.of(Items.CLOCK), 1, Ic2Items.GOLD_DUST, 4);
+        machine(MachineRecipe.Kind.MACERATOR, "compass", Ingredient.of(Items.COMPASS), 1, Ic2Items.IRON_DUST, 4);
+        machine(MachineRecipe.Kind.MACERATOR, "shears", Ingredient.of(Items.SHEARS), 1, Ic2Items.IRON_DUST, 2);
+        machine(MachineRecipe.Kind.MACERATOR, "minecart", Ingredient.of(Items.MINECART), 1, Ic2Items.IRON_DUST, 5);
+        machine(MachineRecipe.Kind.MACERATOR, "bucket", Ingredient.of(Items.BUCKET), 1, Ic2Items.IRON_DUST, 3);
+        machine(MachineRecipe.Kind.MACERATOR, "iron_door", Ingredient.of(Items.IRON_DOOR), 1, Ic2Items.IRON_DUST, 2);
+        machine(MachineRecipe.Kind.MACERATOR, "stone_button", Ingredient.of(Items.STONE_BUTTON), 1, Items.SAND, 1);
+        machine(MachineRecipe.Kind.MACERATOR, "stone_pressure_plate", Ingredient.of(Items.STONE_PRESSURE_PLATE), 1,
+                Items.SAND, 2);
+        machine(MachineRecipe.Kind.MACERATOR, "lever", Ingredient.of(Items.LEVER), 1, Items.SAND, 1);
     }
 
     // --- §10.3 compressor ---

@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 0.0,
+  "ingredient": {
+    "item": "minecraft:chipped_anvil"
+  },
+  "result": {
+    "count": 20,
+    "id": "minecraft:iron_ingot"
+  }
+}

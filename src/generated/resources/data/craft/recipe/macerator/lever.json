@@ -1,0 +1,10 @@
+{
+  "type": "craft:macerator",
+  "ingredient": {
+    "item": "minecraft:lever"
+  },
+  "result": {
+    "count": 1,
+    "id": "minecraft:sand"
+  }
+}

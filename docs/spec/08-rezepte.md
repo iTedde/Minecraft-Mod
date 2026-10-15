@@ -181,7 +181,7 @@ IC2-Maschinenrezept für dieselbe Eingabe und fügen das neue ein.
 | Ergebnis | Muster | Status |
 |---|---|---|
 | Baumzapfer | ` P /PPP/P  ` | [IC2] |
-| Bronze-Spitzhacke/Axt/Hacke/Schwert/Schaufel | `BBB/ S / S `, `BB/SB/S `, `BB/S /S `, `B/B/S`, ` B / S / S ` | [IC2] |
+| Bronze-Spitzhacke/Axt/Hacke/Schwert/Schaufel | `BBB/ S / S `, `BB/SB/S `, `BB/S /S `, `B/B/S`, ` B / S / S ` | [IC2] – **entfällt** (Nutzerentscheidung) |
 | Schraubenschlüssel | `B B/BBB/ B ` | [IC2] |
 | Isolierungsschneider | `A A/ A /I I`, A = raff. Eisen, I = Eisen | [IC2] |
 | Werkzeugkasten | `ICI/III`, C = Truhe | [IC2] |
@@ -208,7 +208,7 @@ IC2-Maschinenrezept für dieselbe Eingabe und fügen das neue ein.
 
 | Ergebnis | Muster | Status |
 |---|---|---|
-| Bronze-Rüstung | Vanilla-Muster mit Bronzebarren | [IC2] |
+| Bronze-Rüstung | Vanilla-Muster mit Bronzebarren | [IC2] – **entfällt** (Nutzerentscheidung) |
 | Kompositweste | `A A/ALA/AIA` und `A A/AIA/ALA`, L = Lederrüstung (Brust), I = Eisenbrustplatte, A = fortg. Legierung | [IC2] |
 | Nano-Helm/-Brust/-Hose/-Stiefel | `CcC/CGC`, `C C/CcC/CCC`, `CcC/C C/C C`, `C C/CcC`; C = Kohleplatte, c = Energiekristall, G = Glas | [IC2] |
 | Quantum-Helm | ` n /ILI/CGC`, n = Nano-Helm, I = Iridiumplatte, L = Lapotron, G = verst. Glas, C = fortg. Schaltkreis | [IC2] (`QSuithelmet=true`) |
