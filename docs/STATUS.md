@@ -456,3 +456,17 @@ Multiblock (vorher offene Entscheidungen 2 und 3 klären).
    daneben lädt mit 8 EU/t; Panel abdecken → weniger; MV-Aufbau 9×9 (verbaute LV-Controller liefern nichts, 64 EU/t),
    HV 27×27; Lade-Slot; Abbau droppt den Controller; Texturen.
 3. Danach Phase 6b (GT-Maschinen und -Materialien) – erstes Teilpaket festlegen.
+
+## Abnahme Phase 6
+Phase 6 am 2026-10-15 vom Nutzer abgenommen (manuelle Tests gesammelt am Ende). Aufteilung Phase 6b festgelegt:
+6b.1 Plattenbieger + Platten/Stäube → Mischmetall, fortg. Maschinenblock (MFSU, Massefabrikator) · 6b.2 Elektrolyseur
++ Zellen → Silizium, Aluminiumstaub · 6b.3 Hochofen-Multiblock + Heizspulen → Stahl, Aluminium, Siliziumplatte
+(Solarpanel, Stahlwerkzeuge) · 6b.4 Assembler → Wasser-/Windmühle · 6b.5 Implosionskompressor, Zentrifuge, Canning
+Machine (Iridiumplatte, Helium, Beryllium, Zellen). GT-Erze (offene Entscheidung 2 in Spec 12 §4): **zum Ende von 6b
+entscheiden**.
+
+# Stand Phase 6b (2026-10-15)
+
+## Nächste Schritte
+1. Teilpaket 6b.1: Plattenbieger – vorher Spec-Lücken prüfen (GT-Maschinenbasis, Bender-Rezepte, Mischmetall,
+   fortg. Maschinenblock) und einmalig in `docs/spec/` nachtragen.
