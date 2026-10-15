@@ -1,0 +1,10 @@
+{
+  "type": "craft:macerator",
+  "ingredient": {
+    "item": "craft:tin_plate"
+  },
+  "result": {
+    "count": 1,
+    "id": "craft:tin_dust"
+  }
+}

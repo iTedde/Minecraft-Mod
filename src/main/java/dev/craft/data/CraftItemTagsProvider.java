@@ -3,6 +3,7 @@ package dev.craft.data;
 import java.util.concurrent.CompletableFuture;
 
 import dev.craft.Craft;
+import dev.craft.gregtech.GtItems;
 import dev.craft.ic2.Ic2Items;
 import dev.craft.ic2.machine.RecyclerBlockEntity;
 import net.minecraft.core.HolderLookup;
@@ -31,6 +32,12 @@ public final class CraftItemTagsProvider extends ItemTagsProvider {
     public static final TagKey<Item> DUSTS_IRON = commonTag("dusts/iron");
     public static final TagKey<Item> DUSTS_TIN = commonTag("dusts/tin");
     public static final TagKey<Item> DUSTS_SILVER = commonTag("dusts/silver");
+    public static final TagKey<Item> PLATES_IRON = commonTag("plates/iron");
+    public static final TagKey<Item> PLATES_GOLD = commonTag("plates/gold");
+    public static final TagKey<Item> PLATES_REFINED_IRON = commonTag("plates/refined_iron");
+    public static final TagKey<Item> PLATES_TIN = commonTag("plates/tin");
+    public static final TagKey<Item> PLATES_COPPER = commonTag("plates/copper");
+    public static final TagKey<Item> PLATES_BRONZE = commonTag("plates/bronze");
 
     public CraftItemTagsProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookup,
                                  CompletableFuture<TagLookup<Block>> blockTags, ExistingFileHelper files) {
@@ -58,6 +65,12 @@ public final class CraftItemTagsProvider extends ItemTagsProvider {
         tag(INGOTS_TIN).add(Ic2Items.TIN_INGOT.get());
         tag(INGOTS_BRONZE).add(Ic2Items.BRONZE_INGOT.get());
         tag(INGOTS_REFINED_IRON).add(Ic2Items.REFINED_IRON_INGOT.get());
+        tag(PLATES_IRON).add(GtItems.IRON_PLATE.get());
+        tag(PLATES_GOLD).add(GtItems.GOLD_PLATE.get());
+        tag(PLATES_REFINED_IRON).add(GtItems.REFINED_IRON_PLATE.get());
+        tag(PLATES_TIN).add(GtItems.TIN_PLATE.get());
+        tag(PLATES_COPPER).add(GtItems.COPPER_PLATE.get());
+        tag(PLATES_BRONZE).add(GtItems.BRONZE_PLATE.get());
         tag(Tags.Items.INGOTS).addTag(INGOTS_TIN).addTag(INGOTS_BRONZE).addTag(INGOTS_REFINED_IRON);
         tag(DUSTS_BRONZE).add(Ic2Items.BRONZE_DUST.get());
         tag(DUSTS_CLAY).add(Ic2Items.CLAY_DUST.get());

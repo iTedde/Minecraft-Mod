@@ -8,6 +8,9 @@ import dev.craft.buildcraft.BcBlocks;
 import dev.craft.buildcraft.engine.EngineType;
 import dev.craft.forestry.FrBlocks;
 import dev.craft.compactsolars.CsBlocks;
+import dev.craft.gregtech.GtBlocks;
+import dev.craft.gregtech.GtItems;
+import dev.craft.gregtech.GtMachine;
 import dev.craft.powerconverters.PcBlocks;
 import dev.craft.ic2.Ic2Blocks;
 import dev.craft.ic2.Ic2Items;
@@ -43,6 +46,10 @@ public final class CraftBlockLoot extends BlockLootSubProvider {
                 case MACHINE_CASING -> dropOther(block, Ic2Blocks.MACHINE_CASING.get());
                 case ADVANCED_MACHINE_CASING -> dropOther(block, Ic2Blocks.ADVANCED_MACHINE_CASING.get());
             }
+        }
+        // GT_BlockMetaID_Machine.getBlockDropped: always machine parts (the wrench drops the machine itself).
+        for (GtMachine machine : GtMachine.values()) {
+            dropOther(GtBlocks.machine(machine).get(), GtItems.MACHINE_PARTS.get());
         }
         for (CableType type : CableType.values()) {
             dropSelf(Ic2Blocks.cable(type).get());
@@ -109,7 +116,7 @@ public final class CraftBlockLoot extends BlockLootSubProvider {
     @Override
     protected Iterable<Block> getKnownBlocks() {
         return Stream.of(Ic2Blocks.BLOCKS, BcBlocks.BLOCKS, FrBlocks.BLOCKS, PcBlocks.BLOCKS,
-                        CsBlocks.BLOCKS)
+                        CsBlocks.BLOCKS, GtBlocks.BLOCKS)
                 .flatMap(blocks -> blocks.getEntries().stream())
                 .map(holder -> (Block) holder.get()).toList();
     }

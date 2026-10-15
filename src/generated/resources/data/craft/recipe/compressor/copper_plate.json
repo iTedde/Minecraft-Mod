@@ -1,0 +1,11 @@
+{
+  "type": "craft:compressor",
+  "count": 8,
+  "ingredient": {
+    "tag": "c:plates/copper"
+  },
+  "result": {
+    "count": 1,
+    "id": "craft:dense_copper_plate"
+  }
+}

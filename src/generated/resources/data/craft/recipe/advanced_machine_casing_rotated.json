@@ -1,0 +1,23 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "A": {
+      "item": "craft:advanced_alloy"
+    },
+    "C": {
+      "item": "craft:carbon_plate"
+    },
+    "M": {
+      "item": "craft:machine_casing"
+    }
+  },
+  "pattern": [
+    " C ",
+    "AMA",
+    " C "
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:advanced_machine_casing"
+  }
+}

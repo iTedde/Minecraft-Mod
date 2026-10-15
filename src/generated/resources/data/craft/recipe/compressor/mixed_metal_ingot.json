@@ -1,0 +1,10 @@
+{
+  "type": "craft:compressor",
+  "ingredient": {
+    "item": "craft:mixed_metal_ingot"
+  },
+  "result": {
+    "count": 1,
+    "id": "craft:advanced_alloy"
+  }
+}

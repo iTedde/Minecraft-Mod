@@ -16,6 +16,9 @@ import dev.craft.forestry.circuit.CircuitBoardType;
 import dev.craft.forestry.circuit.ElectronTube;
 import dev.craft.forestry.recipe.CarpenterRecipe;
 import dev.craft.forestry.recipe.FabricatorRecipe;
+import dev.craft.gregtech.GtItems;
+import dev.craft.gregtech.GtMachine;
+import dev.craft.gregtech.recipe.GtRecipe;
 import dev.craft.ic2.Ic2Items;
 import dev.craft.ic2.Ic2Machine;
 import dev.craft.ic2.cable.CableType;
@@ -50,7 +53,9 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.material.Fluids;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.crafting.DataComponentIngredient;
+import net.neoforged.neoforge.common.crafting.SizedIngredient;
 import net.neoforged.neoforge.fluids.FluidStack;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Phase 3 recipes, final pack state ({@code docs/spec/08-rezepte.md} §1–5, 7, 9, 10). Crafting recipes use the IC2
@@ -82,6 +87,66 @@ public final class CraftRecipeProvider extends RecipeProvider {
         forestry();
         powerConverters();
         compactSolars();
+        gregTech();
+    }
+
+    // --- GregTech (spec 13): plate bender, plates and what they unlock ---
+
+    private void gregTech() {
+        shaped(GtItems.machine(GtMachine.PLATE_BENDING_MACHINE), 1, "plate_bending_machine").pattern("PCP", "RQR", "PCP")
+                .define('P', Items.PISTON).define('C', Ic2Items.ELECTRONIC_CIRCUIT)
+                .define('R', machine(Ic2Machine.COMPRESSOR)).define('Q', GtItems.CONVEYOR_MODULE).save();
+        // Refined iron ingots or plates (aluminium ingots/plates follow with aluminium).
+        conveyorModule("conveyor_module", CraftItemTagsProvider.INGOTS_REFINED_IRON);
+        conveyorModule("conveyor_module_from_plates", CraftItemTagsProvider.PLATES_REFINED_IRON);
+        plate("iron", Tags.Items.INGOTS_IRON, GtItems.IRON_PLATE, Ic2Items.IRON_DUST, Items.IRON_INGOT);
+        plate("gold", Tags.Items.INGOTS_GOLD, GtItems.GOLD_PLATE, Ic2Items.GOLD_DUST, Items.GOLD_INGOT);
+        plate("refined_iron", CraftItemTagsProvider.INGOTS_REFINED_IRON, GtItems.REFINED_IRON_PLATE, null,
+                Ic2Items.REFINED_IRON_INGOT);
+        plate("tin", CraftItemTagsProvider.INGOTS_TIN, GtItems.TIN_PLATE, Ic2Items.TIN_DUST, Ic2Items.TIN_INGOT);
+        plate("copper", ingotsCopper(), GtItems.COPPER_PLATE, Ic2Items.COPPER_DUST, Items.COPPER_INGOT);
+        plate("bronze", CraftItemTagsProvider.INGOTS_BRONZE, GtItems.BRONZE_PLATE, Ic2Items.BRONZE_DUST,
+                Ic2Items.BRONZE_INGOT);
+        // GT replaces "8 copper ingots" with 8 copper plates; recycling of the dense plate is GT as well.
+        machine(MachineRecipe.Kind.COMPRESSOR, "copper_plate", Ingredient.of(CraftItemTagsProvider.PLATES_COPPER), 8,
+                Ic2Items.DENSE_COPPER_PLATE, 1);
+        smelt("copper_ingot_from_dense_copper_plate", Ingredient.of(Ic2Items.DENSE_COPPER_PLATE), Items.COPPER_INGOT, 8,
+                0.0F);
+        machine(MachineRecipe.Kind.MACERATOR, "dense_copper_plate", Ingredient.of(Ic2Items.DENSE_COPPER_PLATE), 1,
+                Ic2Items.COPPER_DUST, 8);
+        // GT mixed metal ingot (IC2 recipe removed), vertical in any column; other metals follow with their plates.
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, Ic2Items.MIXED_METAL_INGOT, 1).pattern("X").pattern("Y")
+                .pattern("Z").define('X', CraftItemTagsProvider.PLATES_REFINED_IRON)
+                .define('Y', CraftItemTagsProvider.PLATES_BRONZE).define('Z', CraftItemTagsProvider.PLATES_TIN)
+                .unlockedBy("has_plate", has(CraftItemTagsProvider.PLATES_TIN))
+                .save(output, id("mixed_metal_ingot_refined_iron_bronze_tin"));
+        machine(MachineRecipe.Kind.COMPRESSOR, "mixed_metal_ingot", Ingredient.of(Ic2Items.MIXED_METAL_INGOT), 1,
+                Ic2Items.ADVANCED_ALLOY, 1);
+        shaped(Ic2Items.ADVANCED_MACHINE_CASING, 1, "advanced_machine_casing").pattern(" A ", "CMC", " A ")
+                .define('A', Ic2Items.ADVANCED_ALLOY).define('C', Ic2Items.CARBON_PLATE)
+                .define('M', Ic2Items.MACHINE_CASING).save();
+        shaped(Ic2Items.ADVANCED_MACHINE_CASING, 1, "advanced_machine_casing_rotated").pattern(" C ", "AMA", " C ")
+                .define('A', Ic2Items.ADVANCED_ALLOY).define('C', Ic2Items.CARBON_PLATE)
+                .define('M', Ic2Items.MACHINE_CASING).save();
+    }
+
+    private void conveyorModule(String name, TagKey<Item> metal) {
+        shaped(GtItems.CONVEYOR_MODULE, 1, name).pattern("GGG", "RRR", "CBC").define('G', Items.GLASS)
+                .define('R', metal).define('C', Ic2Items.ELECTRONIC_CIRCUIT).define('B', Ic2Items.RE_BATTERY)
+                .save();
+    }
+
+    /**
+     * GT {@code ingot*} and {@code plate*} handling: bender ingot → plate (50 ticks, 20 EU/t), furnace plate → ingot,
+     * macerator plate → dust (if the dust exists).
+     */
+    private void plate(String name, TagKey<Item> ingots, ItemLike plate, @Nullable ItemLike dust, ItemLike ingot) {
+        output.accept(id("gt_bender/" + name), new GtRecipe(GtRecipe.Kind.BENDER,
+                List.of(new SizedIngredient(Ingredient.of(ingots), 1)), List.of(new ItemStack(plate)), 50, 20, 0), null);
+        smelt(name + "_ingot_from_plate", Ingredient.of(plate), ingot, 1, 0.0F);
+        if (dust != null) {
+            machine(MachineRecipe.Kind.MACERATOR, name + "_plate", Ingredient.of(plate), 1, dust, 1);
+        }
     }
 
     // --- Compact Solars (multiblock variant, spec 11 §4): shapeless transformer → controller ---
@@ -384,7 +449,6 @@ public final class CraftRecipeProvider extends RecipeProvider {
         shaped(machine(Ic2Machine.MFE), 1, "mfe").pattern("cCc").pattern("CMC").pattern("cCc")
                 .define('c', Ic2Items.cable(CableType.DOUBLE_INSULATED_GOLD)).define('C', Ic2Items.ENERGY_CRYSTAL)
                 .define('M', Ic2Items.MACHINE_CASING).save();
-        // MFSU and mass fabricator: the advanced machine block gets its recipe with the GT materials (phase 6b).
         shaped(machine(Ic2Machine.MFSU), 1, "mfsu").pattern("LCL").pattern("LML").pattern("LAL")
                 .define('L', Ic2Items.LAPOTRON_CRYSTAL).define('C', Ic2Items.ADVANCED_CIRCUIT)
                 .define('M', machine(Ic2Machine.MFE)).define('A', Ic2Items.ADVANCED_MACHINE_CASING).save();

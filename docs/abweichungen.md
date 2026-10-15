@@ -111,7 +111,7 @@ Status: *geplant* (aus Phase 1 abgeleitet, noch nicht umgesetzt), *entschieden* 
 | Universal Charger: Spielerinventar | `InventoryPlayer` (36 + 4 Rüstung) | `PlayerInvWrapper` (zusätzlich Nebenhand) | 1.21-Inventar | **umgesetzt** |
 | Energy Bridge GUI: Sync | einzelne Container-Werte (16 Bit); System-ID nur gesendet, wenn vorhanden | `SyncedInts` (volle ints), System −1 = keins | gleiches Bild | **umgesetzt** |
 | IC2 Consumer: Rezepte | LV-/MV-/HV-Trafo, MFSU | LV/MV/HV mit Phase 6.1; EV-Rezept vorhanden, MFSU selbst aber erst ab Phase 6b herstellbar | Zutaten fehlten | **umgesetzt** |
-| MFSU: Rezept | `LCL/LML/LAL` mit fortg. Maschinenblock | Block vorhanden (Creative), Rezept erst mit Phase 6b: der fortg. Maschinenblock braucht fortg. Legierung, deren Mischmetallbarren im Pack nur aus GT-Platten entsteht | Zutat fehlt noch | **offen bis Phase 6b** |
+| MFSU: Rezept | `LCL/LML/LAL` mit fortg. Maschinenblock | wie im Original; seit 6b.1 herstellbar (Plattenbieger → Platten → Mischmetall → fortg. Legierung → fortg. Maschinenblock) | – | **umgesetzt** |
 | IC2-Tasten | eigene `KeyBinding`s (L-Alt, L-Strg, M, C), Zustand in einer Map je Spielerobjekt | NeoForge-`KeyMapping`s (Kategorie „IndustrialCraft 2“, gleiche Standardtasten; L-Strg teilt sich die Taste mit Vanilla-Sprinten, beide wirken), Zustand als nicht gespeichertes Spieler-Attachment, Payload `craft:key_state`; der Client sendet zusätzlich neu, wenn sich das Spielerobjekt ändert (Weltwechsel/Respawn) | 1.21-API | **umgesetzt** |
 | Elektrowerkzeuge: abbaubare Blöcke | Forge-Werkzeugklasse + Material (Stein/Eisen bzw. Holz) + Blockliste | ein Block-Tag je Werkzeug: `craft:mineable/mining_drill` (= `#mineable/pickaxe` + Erde/Sand/Kies/Schnee/Ton/Ackerboden/Seelensand …), `…/chainsaw` (= `#mineable/axe` + Blätter + Spinnennetz), `…/electric_hoe`; neue 1.21-Varianten (grobe Erde, Podsol, Wurzelerde, roter Sand, Seelenerde) wie der Basisblock | keine Materialien in 1.21 | **umgesetzt** |
 | Elektrowerkzeuge: `onBlockStartBreak` | Item-Hook vor dem Abbau | `BlockEvent.BreakEvent` (Haupthand des Spielers) | Hook existiert nicht mehr | **umgesetzt** |
@@ -153,6 +153,15 @@ Status: *geplant* (aus Phase 1 abgeleitet, noch nicht umgesetzt), *entschieden* 
 | UU-Materie → Wasser/Lava | je 1 Block (Wasser `   / M / M `, Lava ` M / M / M`) | entfallen | Flüssigkeitsblöcke haben in 1.21 keine Item-Form | **umgesetzt** |
 | Massefabrikator: GT-Verstärker | Nikolit-/Manganstaub je 5000 | fehlen vorerst | GT-Items gibt es noch nicht (Phase 6b) | offen |
 | Strahlungseffekt | Potion-ID 24, Icon Vanilla-Gift | `craft:radiation` (MobEffect), Icon = Vanilla-Gift-Textur; Damage-Type `craft:radiation` im Tag `bypasses_armor`; Todesnachricht neu (1.4.7 ohne Übersetzung) | Registry | **umgesetzt** |
+| GT-Maschinen: Blöcke | ein Block `GT_BlockMetaID_Machine`, Maschine = Meta-ID der TileEntity | ein Block + BlockEntity-Typ je Maschine (`GtMachine`), gemeinsame Basis `GtBasicMachineBlockEntity`; `mFacing`/`mMainFacing`/aktiv als Blockstate (`facing`, `front`, `active`) | keine Meta-IDs in 1.21 | **umgesetzt** |
+| GT-Maschinen: Vorderseite | `mMainFacing` wird im ersten Tick nach dem Laden (Tick 21) gesetzt | schon beim Platzieren (Blockstate `front`); ohne Spieler weiterhin im ersten Tick | Blockstate; Unterschied nur in der ersten Sekunde (Vorderseite dann schon ohne Item-Zugriff) | **umgesetzt** |
+| GT-Maschinen: Feuer | Feuerblock (`Block.fire`) neben der Maschine | Block-Tag `minecraft:fire` (auch Seelenfeuer) | neuer Block in 1.21 | **umgesetzt** |
+| GT-Maschinen: Explosionstreffer | `dropBlockAsItemWithChance` mit Chance 1/Größe < 1 → Energie-Explosion statt Drop | `onExplosionHit`: Radius > 1 → Energie-Explosion, kein Maschinenteile-Drop (Inventar fällt), sonst normaler Drop | 1.21-Explosionslogik | **umgesetzt** |
+| GT-Maschinen: Knöpfe in der GUI | Holo-Slots (Klick schaltet um) | Klickflächen an gleicher Stelle, Umschalten über das Vanilla-Button-Paket | keine Slots ohne Inhalt nötig | **umgesetzt** |
+| GT-Maschinen: Auto-Ausgabe | `ISidedInventory` des Nachbarn (Seite = Facing) | Item-Capability des Nachbarn für dieselbe Seite, Stapel in den ersten passenden Slot | Capabilities | **umgesetzt** |
+| GT-Rezepte | Liste je Maschine mit OreDict-Einträgen (eine Zeile je registriertem Item) | Datapack-Rezepttyp `craft:gt_<liste>` (`GtRecipe`, bis 2 Eingaben/4 Ausgaben) mit Tags (`c:ingots/*`, `c:plates/*`) | Datapack-Rezepte | **umgesetzt** |
+| GT-Upgrades: MJ-Konverter, Lithium-Batterie, HV-Transformer, RS-Energiezelle | GT-Komponenten 25–28 | Logik vorbereitet (Zähler, Kapazität), Items und MJ-Empfang fehlen noch | Rezepte brauchen Assembler u. a. (6b.4) | **offen** |
+| GT-Namen | GT 2.90 registriert nur englische Namen | englisch auch in de_de, eigener Creative-Tab „GregTech“ | wie im Pack | **umgesetzt** |
 
 ## Bewusst (Energiebalancing)
 

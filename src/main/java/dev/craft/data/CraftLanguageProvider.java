@@ -14,6 +14,9 @@ import dev.craft.forestry.circuit.Circuit;
 import dev.craft.forestry.circuit.CircuitBoardType;
 import dev.craft.forestry.circuit.CircuitLayout;
 import dev.craft.forestry.circuit.ElectronTube;
+import dev.craft.gregtech.GtBlocks;
+import dev.craft.gregtech.GtItems;
+import dev.craft.gregtech.GtMachine;
 import dev.craft.compactsolars.CsBlocks;
 import dev.craft.compactsolars.SolarArrayType;
 import dev.craft.powerconverters.ConverterType;
@@ -95,6 +98,30 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
         block(CsBlocks.array(SolarArrayType.LV), "Low Voltage Solar Array");
         block(CsBlocks.array(SolarArrayType.MV), "Medium Voltage Solar Array");
         block(CsBlocks.array(SolarArrayType.HV), "High Voltage Solar Array");
+    }
+
+    /** GregTech names and tooltips (GT 2.90 registers English only, also in the German pack). */
+    protected void gregTech() {
+        add("itemGroup.craft.gregtech", "GregTech");
+        block(GtBlocks.machine(GtMachine.PLATE_BENDING_MACHINE), "Plate Bending Machine");
+        item(GtItems.IRON_PLATE, "Iron Plate");
+        item(GtItems.GOLD_PLATE, "Gold Plate");
+        item(GtItems.REFINED_IRON_PLATE, "Refined Iron Plate");
+        item(GtItems.TIN_PLATE, "Tin Plate");
+        item(GtItems.COPPER_PLATE, "Copper Plate");
+        item(GtItems.BRONZE_PLATE, "Bronze Plate");
+        item(GtItems.CONVEYOR_MODULE, "Conveyor Module");
+        add("tooltip.craft.conveyor_module", "Moves Items around");
+        item(GtItems.MACHINE_PARTS, "Machine Parts");
+        add("tooltip.craft.machine_parts", "Random Machine Parts");
+        add("tooltip.craft.gt.max_input", "Max EU/p IN: %s");
+        add("tooltip.craft.gt.possible_upgrades", "Possible Upgrades: %s");
+        add("tooltip.craft.gt.mj_converter", "has MJ-Converter");
+        add("tooltip.craft.gt.overclockers", "%s Overclocker Upgrades");
+        add("tooltip.craft.gt.transformers", "%s Transformer Upgrades");
+        add("tooltip.craft.gt.batteries", "%s Battery Upgrades");
+        add("tooltip.craft.gt.li_batteries", "%s Lithium Battery Upgrades");
+        add("tooltip.craft.gt.energy_cells", "%s Energy Cell Upgrades");
     }
 
     /** Power Converters names ({@code LanguageRegistry.addName}, English only). */
@@ -225,6 +252,9 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             item(Ic2Items.CARBON_FIBER, "Raw Carbon Fibre");
             item(Ic2Items.CARBON_MESH, "Raw Carbon Mesh");
             item(Ic2Items.CARBON_PLATE, "Carbon Plate");
+            item(Ic2Items.MIXED_METAL_INGOT, "Mixed Metal Ingot");
+            item(Ic2Items.ADVANCED_ALLOY, "Advanced Alloy");
+            item(Ic2Items.DENSE_COPPER_PLATE, "Dense Copper Plate");
             item(Ic2Items.EMPTY_FUEL_CAN, "(Empty) Fuel Can");
             item(Ic2Items.HAZMAT_HELMET, "Scuba Helmet");
             item(Ic2Items.HAZMAT_CHESTPLATE, "Hazmat Suit");
@@ -308,6 +338,7 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
                     new String[]{"Electric Choke", "Electric Boost I", "Electric Boost II", "Electric Efficiency"});
             powerConverters();
             compactSolars();
+            gregTech();
         }
     }
 
@@ -423,6 +454,9 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             item(Ic2Items.CARBON_FIBER, "Rohe Kohlefaser");
             item(Ic2Items.CARBON_MESH, "Rohes Kohlenetz");
             item(Ic2Items.CARBON_PLATE, "Kohleplatte");
+            item(Ic2Items.MIXED_METAL_INGOT, "Mischmetallbarren");
+            item(Ic2Items.ADVANCED_ALLOY, "Fortgeschrittene Legierung");
+            item(Ic2Items.DENSE_COPPER_PLATE, "Dichte Kupferplatte");
             item(Ic2Items.EMPTY_FUEL_CAN, "(Leerer) Brennstoffkanister");
             item(Ic2Items.HAZMAT_HELMET, "Taucherhelm");
             item(Ic2Items.HAZMAT_CHESTPLATE, "Schutzanzug");
@@ -508,6 +542,7 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             // Power Converters only registers English names (LanguageRegistry.addName), also in the German pack.
             powerConverters();
             compactSolars();
+            gregTech();
         }
     }
 }

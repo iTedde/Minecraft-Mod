@@ -108,6 +108,9 @@ public final class Ic2Items {
     public static final DeferredItem<Item> CARBON_FIBER = simple("carbon_fiber");
     public static final DeferredItem<Item> CARBON_MESH = simple("carbon_mesh");
     public static final DeferredItem<Item> CARBON_PLATE = simple("carbon_plate");
+    public static final DeferredItem<Item> MIXED_METAL_INGOT = simple("mixed_metal_ingot");
+    public static final DeferredItem<Item> ADVANCED_ALLOY = simple("advanced_alloy");
+    public static final DeferredItem<Item> DENSE_COPPER_PLATE = simple("dense_copper_plate");
     /** Empty fuel can; filling (and the filled can) follows with the canning machine. */
     public static final DeferredItem<Item> EMPTY_FUEL_CAN = simple("empty_fuel_can");
 

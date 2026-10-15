@@ -1,0 +1,26 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "C": {
+      "item": "craft:electronic_circuit"
+    },
+    "P": {
+      "item": "minecraft:piston"
+    },
+    "Q": {
+      "item": "craft:conveyor_module"
+    },
+    "R": {
+      "item": "craft:compressor"
+    }
+  },
+  "pattern": [
+    "PCP",
+    "RQR",
+    "PCP"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:plate_bending_machine"
+  }
+}

@@ -1,7 +1,7 @@
 # Architektur – Kurzüberblick für neue Sitzungen
 
 Zweck: Bausteine wiederverwenden, ohne vorhandenen Code als Muster lesen zu müssen. Bei neuen Basisklassen hier
-ergänzen. Basispaket `dev.craft`, Einstieg `Craft` → `Ic2.init`, `BuildCraft.init`, `Forestry.init`, `PowerConverters.init`, `CompactSolars.init`.
+ergänzen. Basispaket `dev.craft`, Einstieg `Craft` → `Ic2.init`, `BuildCraft.init`, `Forestry.init`, `PowerConverters.init`, `CompactSolars.init`, `GregTech.init`.
 
 ## Registrierung (je Ursprungs-Mod ein Satz Klassen)
 
@@ -12,6 +12,7 @@ ergänzen. Basispaket `dev.craft`, Einstieg `Craft` → `Ic2.init`, `BuildCraft.
 | Forestry | `FrBlocks`, `FrItems`, `FrBlockEntityTypes`, `FrMenus`, `FrFluids`, `FrRecipes`, `FrDataComponents` |
 | Power Converters | `PcBlocks`, `PcItems`, `PcBlockEntityTypes`, `PcMenus`, `PowerSystem` (PCU je Einheit), `ConverterType` |
 | Compact Solars | `CsBlocks`, `CsItems`, `CsBlockEntityTypes`, `CsMenus`, `SolarArrayType` |
+| GregTech | `GtBlocks`, `GtItems` (`simpleItems` = Platten/Komponenten mit Textur unter `item/gt/`), `GtBlockEntityTypes`, `GtMenus`, `GtRecipes`, `GtMachine` (Enum aller GT-Maschinen: Name, GUI, Vorderseiten-Textur, Beschreibung, Fabrik) |
 
 - Capabilities werden in der jeweiligen Init-Klasse (`registerCapabilities`) registriert.
 - Creative-Tabs: `core/CraftCreativeTabs` (ein Tab je Mod).
@@ -55,6 +56,7 @@ ergänzen. Basispaket `dev.craft`, Einstieg `Craft` → `Ic2.init`, `BuildCraft.
 | `core/multiblock/MultiblockPattern`, `MultiblockController` | gemeinsames Multiblock-System; `Listener.onChecked` nach jeder Prüfung; `MultiblockLease` = Zugehörigkeit eines Teils (nicht gespeichert) |
 | `compactsolars/SolarArrayBlockEntity`, `SolarArrayPatterns` | Solar-Array-Controller (erbt `MachineBlockEntity`, ohne Facing/`Ic2Machine`), rekursive Layouts |
 | `core/explosion/Ic2Explosion` | IC2-Explosion (`explodeMachineAt`) |
+| `gregtech/machine/GtBasicMachineBlockEntity`, `GtMachineBlock` | GT-BasicMachine (Spec 13 §1): EU-Senke/-Quelle, Upgrades als Zähler (Rechtsklick), Energie-Explosionen, Slots 1–2 Eingabe, 3–4 Ausgabe, 5 Batterie; Unterklasse implementiert `checkRecipe()` (Muster: `BenderBlockEntity`). Menü `GtBasicMachineMenu` + `GtBasicMachineScreen` für alle Basismaschinen (GUI-Textur aus `GtMachine`) |
 
 ## Tasten und Netzwerk
 
@@ -84,6 +86,7 @@ ergänzen. Basispaket `dev.craft`, Einstieg `Craft` → `Ic2.init`, `BuildCraft.
 - Maschinenrezepte als Datapack-Rezepttypen: `ic2/recipe/MachineRecipe` (Macerator/Extractor/Compressor),
   `forestry/recipe/FabricatorRecipe`, `CarpenterRecipe`. Code-Tabellen nur für Kleinkram (`RefineryRecipe`,
   `FabricatorSmelting`).
+- GT-Maschinenrezepte: `gregtech/recipe/GtRecipe` (1–2 `SizedIngredient`, 1–4 Ausgaben, Dauer, EU/t, `special`), eine Liste je `GtRecipe.Kind` (Typ `craft:gt_<name>`), Suche mit `GtRecipe.find`; Datagen-Helfer `plate(...)` in `CraftRecipeProvider`.
 
 ## Datagen (`dev.craft.data`) – wo was ergänzt wird
 
@@ -106,6 +109,7 @@ ergänzen. Basispaket `dev.craft`, Einstieg `Craft` → `Ic2.init`, `BuildCraft.
   „Sound engine started“ prüfen, danach Prozess beenden).
 - Texturen aus Original-Jars schneiden: `tools/scripts/SliceSprites.java`, Flüssigkeits-FX: `BcLiquidTextures.java`,
   `ForestryTextures.java` (mit `tools/jdk…/bin/java <Skript>.java` ausführen).
+  GT-Sprites: `ftb ultimate/mods/GregTech.zip` (`terrain.png` für Maschinen, `metaitems/*.png` für Items; Index = Zeile · 16 + Spalte).
 
 ## Tokensparend arbeiten
 

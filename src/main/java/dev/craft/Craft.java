@@ -3,6 +3,7 @@ package dev.craft;
 import com.mojang.logging.LogUtils;
 import dev.craft.buildcraft.BuildCraft;
 import dev.craft.compactsolars.CompactSolars;
+import dev.craft.gregtech.GregTech;
 import dev.craft.core.CraftCreativeTabs;
 import dev.craft.forestry.Forestry;
 import dev.craft.powerconverters.PowerConverters;
@@ -23,6 +24,7 @@ public final class Craft {
         Forestry.init(modBus);
         PowerConverters.init(modBus);
         CompactSolars.init(modBus);
+        GregTech.init(modBus);
         CraftCreativeTabs.TABS.register(modBus);
     }
 }

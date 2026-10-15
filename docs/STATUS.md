@@ -467,6 +467,44 @@ entscheiden**.
 
 # Stand Phase 6b (2026-10-15)
 
+## Erledigt (Teilpaket „Phase 6b.1: Plattenbieger“)
+- Neue Spec `docs/spec/13-gregtech-maschinen.md`: GT-Basis (`BaseMetaTileEntity` + `BasicMachine`: Tick, Energie,
+  Upgrades, Explosionen, Seiten, GUI, Texturen, Tooltip), Plattenbieger, Platten, Förderband-Modul, Mischmetall-Tabelle.
+  Pack-Config: alle `machines`-Schalter an.
+- Paket `dev.craft.gregtech`: `GregTech` (Init, Item-Capability), `GtBlocks`, `GtItems`, `GtBlockEntityTypes`,
+  `GtMenus`, `GtRecipes`, `GtMachine`; Creative-Tab „GregTech“.
+- `machine/GtMachineBlock` (Blockstate `facing`/`front`/`active`, Upgrade per Rechtsklick sonst GUI, Abbau ohne
+  Schraubenschlüssel → Maschinenteile + Energie-Explosion, Explosionstreffer, brennbar), `GtBasicMachineBlockEntity`
+  (EU-Senke und -Quelle mit `bOutput`, Entladen Slot 5, Overclocker/Transformer/Energiespeicher als Zähler,
+  `doEnergyExplosion`/`doExplosion` mit Kabelbrand, Feuer-Explosion, Auto-Ausgabe nach hinten, Wrench-Drop mit
+  Upgrades), `BenderBlockEntity`.
+- `recipe/GtRecipe` (generischer GT-Rezepttyp, Liste `craft:gt_bender`), `menu/GtBasicMachineMenu`,
+  `client/GtBasicMachineScreen` (drei Schalter, Fortschrittspfeil), `item/GtMachineItem` (GT-Tooltip, Upgrades aus
+  den Block-Entity-Daten), `item/GtMaterialItem` (Formel bzw. Beschreibung).
+- Items: Platten Eisen/Gold/raff. Eisen/Zinn/Kupfer/Bronze (Tags `c:plates/*`), Förderband-Modul, Maschinenteile;
+  IC2: Mischmetallbarren, fortg. Legierung, dichte Kupferplatte.
+- Rezepte: Plattenbieger, Förderband-Modul (Barren oder Platten), Bender Barren → Platte (50 Ticks, 20 EU/t), Ofen
+  Platte → Barren, Macerator Platte → Staub, Compressor 8 Kupferplatten → dichte Kupferplatte (+ Recycling),
+  Mischmetall `X/Y/Z` (raff. Eisen/Bronze/Zinn → 1), Compressor Mischmetall → fortg. Legierung, **fortg.
+  Maschinenblock** (beide IC2-Rezepte) → damit sind **MFSU und Massefabrikator** herstellbar.
+- Texturen aus `GregTech.zip` (`terrain.png` 29/32/36/38/40/79/238/239, `materials.png`, `components.png`, GUI
+  `Bender.png`) und `IC2.jar` (`item_0.png` 11/100/226). Lang en/de (GT nur englisch).
+- 6 neue GameTests (`GregTechGameTests`, insgesamt 106 grün), `gradlew build` und `runClient` (Hauptmenü, keine
+  Mod-Fehler) erfolgreich. Abweichungen in `abweichungen.md`.
+
+## Offen / später
+- GT-Upgrades MJ-Konverter, Lithium-Batterie, HV-Transformer, RS-Energiezelle: Logik vorbereitet, Items + MJ-Empfang
+  mit dem Assembler (6b.4) bzw. wenn ihre Zutaten existieren.
+- Weitere Mischmetall-Varianten und Bender-Rezepte, sobald Aluminium/Stahl/Titan … existieren (6b.3).
+- **Klassische Rüstung fehlt:** Bronzerüstung und Kompositweste (`05-items.md` §5.1) sind noch nicht umgesetzt; die
+  Kompositweste wäre jetzt herstellbar (fortg. Legierung). Zuordnung klären.
+
 ## Nächste Schritte
-1. Teilpaket 6b.1: Plattenbieger – vorher Spec-Lücken prüfen (GT-Maschinenbasis, Bender-Rezepte, Mischmetall,
-   fortg. Maschinenblock) und einmalig in `docs/spec/` nachtragen.
+1. Teilpaket 6b.2: Elektrolyseur (+ Zellen) → Silizium, Aluminiumstaub – vorher Spec-Lücken prüfen und in
+   `13-gregtech-maschinen.md` nachtragen.
+2. Manuelle Client-Tests zusätzlich: Plattenbieger (Platzieren → Vorderseite zum Spieler, GUI mit Titel links,
+   Schalter Energieausgabe/Auto-Ausgabe/getrennte Eingänge, Fortschrittspfeil, Batterie-Slot entlädt), Barren →
+   Platte mit Generator/BatBox, Auto-Ausgabe in Truhe hinten, Drehen per Schraubenschlüssel (Ausgangsseite-Textur),
+   Upgrades per Rechtsklick + Tooltip nach Wrench-Abbau, Abbau ohne Schraubenschlüssel → Maschinenteile (mit Energie:
+   Explosion), Überspannung (MV-Trafo) explodiert, Feuer daneben; Rezepte Förderband-Modul, Mischmetall, fortg.
+   Maschinenblock, MFSU, Massefabrikator.

@@ -1,0 +1,26 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "B": {
+      "item": "craft:re_battery"
+    },
+    "C": {
+      "item": "craft:electronic_circuit"
+    },
+    "G": {
+      "item": "minecraft:glass"
+    },
+    "R": {
+      "tag": "c:ingots/refined_iron"
+    }
+  },
+  "pattern": [
+    "GGG",
+    "RRR",
+    "CBC"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:conveyor_module"
+  }
+}

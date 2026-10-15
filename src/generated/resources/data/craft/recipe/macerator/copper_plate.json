@@ -1,0 +1,10 @@
+{
+  "type": "craft:macerator",
+  "ingredient": {
+    "item": "craft:copper_plate"
+  },
+  "result": {
+    "count": 1,
+    "id": "craft:copper_dust"
+  }
+}

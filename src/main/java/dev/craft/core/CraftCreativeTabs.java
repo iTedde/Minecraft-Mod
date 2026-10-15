@@ -10,6 +10,8 @@ import dev.craft.buildcraft.engine.EngineType;
 import dev.craft.forestry.FrItems;
 import dev.craft.forestry.circuit.CircuitBoardType;
 import dev.craft.forestry.circuit.ElectronTube;
+import dev.craft.gregtech.GtItems;
+import dev.craft.gregtech.GtMachine;
 import dev.craft.ic2.Ic2Items;
 import dev.craft.ic2.Ic2Machine;
 import dev.craft.ic2.cable.CableType;
@@ -135,6 +137,19 @@ public final class CraftCreativeTabs {
                         for (SolarArrayType type : SolarArrayType.values()) {
                             output.accept(CsItems.array(type));
                         }
+                    })
+                    .build());
+
+    public static final Supplier<CreativeModeTab> GREGTECH = TABS.register("gregtech", () ->
+            CreativeModeTab.builder()
+                    .title(Component.translatable("itemGroup.craft.gregtech"))
+                    .icon(() -> GtItems.machine(GtMachine.PLATE_BENDING_MACHINE).toStack())
+                    .withTabsBefore(ResourceLocation.fromNamespaceAndPath(Craft.MODID, "compact_solars"))
+                    .displayItems((parameters, output) -> {
+                        for (GtMachine machine : GtMachine.values()) {
+                            output.accept(GtItems.machine(machine));
+                        }
+                        GtItems.simpleItems().forEach(output::accept);
                     })
                     .build());
 

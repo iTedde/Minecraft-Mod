@@ -1,5 +1,10 @@
 package dev.craft.data;
 
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 import com.google.gson.JsonObject;
 import dev.craft.Craft;
 import dev.craft.buildcraft.BcBlocks;
@@ -7,6 +12,9 @@ import dev.craft.buildcraft.builders.MarkerBlock;
 import dev.craft.buildcraft.engine.EngineType;
 import dev.craft.buildcraft.factory.TankBlock;
 import dev.craft.forestry.FrBlocks;
+import dev.craft.gregtech.GtBlocks;
+import dev.craft.gregtech.GtMachine;
+import dev.craft.gregtech.machine.GtMachineBlock;
 import dev.craft.ic2.Ic2Blocks;
 import dev.craft.ic2.Ic2Machine;
 import dev.craft.ic2.block.RubberWoodBlock;
@@ -30,6 +38,7 @@ import net.neoforged.neoforge.client.model.generators.CustomLoaderBuilder;
 import net.neoforged.neoforge.client.model.generators.ModelFile;
 import net.neoforged.neoforge.client.model.generators.MultiPartBlockStateBuilder;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
 
 public final class CraftBlockStateProvider extends BlockStateProvider {
@@ -83,6 +92,7 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
         forestryMachines();
         powerConverters();
         compactSolars();
+        gregTech();
     }
 
     /** BuildCraft {@code RenderingMarkers}: a torch-like stick, turned so that it points away from its support. */
@@ -297,6 +307,48 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
      * property is set, so the state is a multipart of one single-face model per side.
      */
     /** Compact Solars: sheet row = tier, columns side / top / bottom ({@code BlockCompactSolar}). */
+    // --- GregTech machines: texture per side from facing, main facing and active state (spec 13 §1.9) ---
+
+    private void gregTech() {
+        for (GtMachine machine : GtMachine.values()) {
+            GtMachineBlock block = GtBlocks.machine(machine).get();
+            Map<String, ModelFile> models = new HashMap<>();
+            getVariantBuilder(block).forAllStates(state -> ConfiguredModel.builder().modelFile(gtModel(machine, models,
+                    state.getValue(GtMachineBlock.FACING), state.getValue(GtMachineBlock.FRONT).getDirection(),
+                    state.getValue(GtMachineBlock.ACTIVE))).build());
+            simpleBlockItem(block, gtModel(machine, models, Direction.NORTH, Direction.NORTH, false));
+        }
+    }
+
+    private ModelFile gtModel(GtMachine machine, Map<String, ModelFile> models, Direction facing,
+                              @Nullable Direction front, boolean active) {
+        int[] textures = new int[6];
+        for (Direction side : Direction.values()) {
+            textures[side.get3DDataValue()] = gtTexture(machine, side, facing, front, active);
+        }
+        String key = Arrays.stream(textures).mapToObj(String::valueOf).collect(Collectors.joining("_"));
+        return models.computeIfAbsent(key, k -> models().cube("block/gt/" + machine.getName() + "_" + k,
+                        gtLoc(textures[0]), gtLoc(textures[1]), gtLoc(textures[2]), gtLoc(textures[3]),
+                        gtLoc(textures[5]), gtLoc(textures[4]))
+                .texture("particle", gtLoc(machine.getFrontTexture(false))));
+    }
+
+    /** {@code GT_MetaTileEntity_BasicMachine.getTextureIndex}. */
+    private static int gtTexture(GtMachine machine, Direction side, Direction facing, @Nullable Direction front,
+                                 boolean active) {
+        if (front == null ? side == facing : side == front) {
+            return machine.getFrontTexture(active);
+        }
+        if (front != null && side == facing.getOpposite()) {
+            return side == Direction.DOWN ? 38 : side == Direction.UP ? 79 : 36;
+        }
+        return side == Direction.DOWN ? 32 : side == Direction.UP ? 29 : 40;
+    }
+
+    private ResourceLocation gtLoc(int index) {
+        return modLoc("block/gt/terrain_" + index);
+    }
+
     private void compactSolars() {
         for (SolarArrayType type : SolarArrayType.values()) {
             String texture = "block/compact_solars/" + type.getName() + "_";
