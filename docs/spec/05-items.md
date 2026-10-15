@@ -123,8 +123,8 @@ Laserprojektil: Geschwindigkeit 1 Block/Tick; pro Block `kraft −= (Explosionsr
 Drop-Chance 0,9; 10 % Feuer bei brennbarem Material; nicht abbaubar: Ziegel, Obsidian, Lava, Wasser, Bedrock, Glas;
 stirbt in Wasser. Treffer auf Entity: Schaden `(int)kraft`, Feuer `kraft` (Super-Heat: doppelt) Sekunden.
 
-**Nanosäbel**: Rechtsklick schaltet an (benötigt ≥ 16 EU, Sound) / aus. Aktiv: Schaden 20, Abbaugeschwindigkeit 4,
-nur Spinnennetz abbaubar. Verbrauch (`drain` = n·8 EU): pro Treffer 5×8 = 40 EU (zusätzlich gegen Spieler mit
+**Nanosäbel**: Rechtsklick schaltet an (benötigt ≥ 16 EU, Sound) / aus. Aktiv: Schaden 20, nur Spinnennetz
+abbaubar (Abbaugeschwindigkeit siehe §3.1). Verbrauch (`drain` = n·8 EU): pro Treffer 5×8 = 40 EU (zusätzlich gegen Spieler mit
 Nano-/Quantenrüstung: je Teil 2×8, und das Rüstungsteil verliert 4800 EU (Nano) bzw. 30 000 EU (Quantum); leere
 Rüstungsteile werden zerstört). Abbau: 80 EU. Leerlauf (aktiv): alle 16 Ticks 64×8 = 512 EU in der Hotbar, außerhalb
 der Hotbar alle 64 Ticks 16×8 = 128 EU. Bei Energiemangel geht er aus. Inaktiv Schaden 4.
@@ -134,6 +134,110 @@ Original-Eigenheit: Der Verbrauch beim Treffen gilt nur, wenn der Angreifer kein
 `1000 · Treffer / gescannteBlöcke` („Ore density“ = Anzahl wertvoller Blöcke; „Ore value“ = Summe der Erzwerte).
 Erzwerte: Tabelle in `07-weltgenerierung.md` §4. Im Miner liefert der
 Scanner pro Ebene einen Layer-Scan (OD: 50 EU, Radius 2; OV: 250 EU, Radius 4).
+
+### 3.1 Details aus dem Original (nachgetragen für Phase 6.2)
+
+**Gemeinsam (`ItemElectricTool`)**: Stack 1, Haltbarkeitsbalken 27 Stufen, Creative-Tab zeigt geladen + leer.
+Werkzeugmaterial Eisen (Bohrer, Kettensäge, Hacke, Baumzapfer, Laser, Säbel), Diamantbohrer Diamant.
+- Abbaugeschwindigkeit (Forge ruft die Variante mit Metadaten): `canUse(Aktionskosten)` falsch → 1,0; sonst
+  Effizienz, wenn das Werkzeug laut Forge-Werkzeugklasse effektiv ist **oder** der Block in der Abbauliste steht,
+  sonst 1,0. Werkzeugklassen: Bohrer `pickaxe` 2, Diamantbohrer `pickaxe` 3, Kettensäge `axe` 2.
+- `onBlockDestroyed`: Blockhärte ≠ 0 → `use(Aktionskosten)` (Nicht-Spieler: `discharge` ohne Transferlimit).
+- `hitEntity` ohne Kosten; Nahkampfschaden 1; nicht verzauberbar/reparierbar, nicht im Amboss kombinierbar.
+- Abbaubar (`canHarvestBlock`) = Abbauliste (+ Materialregeln unten).
+
+**Bergbaubohrer** Abbauliste: Bruchstein, Stein-(Doppel-)Stufe, Bruchsteintreppe, Stein, Sandstein(-treppe), bemooster
+Bruchstein, Eisenerz/-block, Kohleerz, Golderz/-block, Diamanterz/-block, Eis, Netherrack, Lapiserz/-block,
+Redstone-Erz (beide), Ziegel(-treppe), Glowstone, Gras, Erde, Myzel, Sand, Kies, Schneedecke, Schneeblock, Ton,
+Ackerboden, Steinziegel(-treppe), Netherziegel(-treppe), Seelensand, Amboss; zusätzlich **jedes** Material Stein oder
+Eisen. Diamantbohrer: + Obsidian. Sound beim Abbauen (Client, jede 4. Geschwindigkeitsabfrage): `drill`/`drillOne`/
+`drillTwo`/`drillThree` – **diese Sounds existieren im Pack nicht** (nicht im IC2-Jar) → effektiv lautlos.
+
+**Kettensäge** Abbauliste: Bretter, Bücherregal, Holz, Truhe, Blätter, Spinnennetz, Crop, Gummiblätter + jedes
+Material Holz. Schlag (Angreifer Spieler): `use(100)` erfolgreich → zusätzlich `attackEntityFrom(Spieler, 9)` direkt
+nach dem normalen Treffer (wegen Unverwundbarkeitsfenster effektiv Gesamtschaden 9). `onBlockStartBreak` (Server):
+Block ist `IShearable` und schergbar und `use(100)` → Scher-Drops (Glück aus Verzauberung) als Items mit
+Aufhebe-Verzögerung 10, Statistik „Block abgebaut“; danach normaler Abbau (der dann nochmals 100 EU kostet, wenn
+Härte ≠ 0; Blätter haben Härte 0,2). Entity-Interaktion (Rechtsklick, Server): `IShearable`-Entity (Schaf, Mooshroom)
+→ `use(100)` **vor** der Schergbarkeitsprüfung (Originalfehler: kostet auch bei geschorenem Schaf), Drops mit
+Zufallsimpuls. Client-Sound: beim Ausrüsten Loop `Tools/Chainsaw/ChainsawIdle.ogg`, beim Weglegen
+`ChainsawStop.ogg` (Hit-Sounds `ChainsawUseOne/Two` über `IHitSoundOverride` – im Pack ohne Aufrufer, also stumm).
+
+**Elektrische Hacke**: Abbauliste Erde, Gras, Myzel (Effizienz 16). `onBlockStartBreak` kostet bei **jedem** Block
+50 EU (`use`, Ergebnis ignoriert), dazu `onBlockDestroyed` 50 EU bei Härte ≠ 0. Rechtsklick auf Block: Spieler darf
+den Block bearbeiten → `use(50)` (**vor** der Prüfung, ob pflügbar – kostet auch auf Stein) → `UseHoeEvent` →
+Gras (nur wenn Seite ≠ unten und Luft darüber) oder Erde (immer) wird Ackerboden mit Ackerboden-Schrittsound.
+
+**Elektrischer Baumzapfer**: nur auf Gummiholz: `use(50)`, dann `ItemTreetap.attemptExtract` wie der Baumzapfer
+(ohne Haltbarkeit; Kosten auch, wenn nichts gezapft wird).
+
+**Elektrischer Schraubenschlüssel** (erbt alle Schraubenschlüssel-Funktionen): Haltbarkeit ↔ EU: `canTakeDamage(n)`
+= `discharge(50·n, ohne Limit, simuliert) == 50·n`; `damage(n)` = `use(50·n)`. Drehen 50 EU, Abbau 500 EU.
+Lossless (NBT `losslessMode`): wenn die Wrench-Drop-Rate < 1,0 ist, wird nach der 500-EU-Prüfung zusätzlich
+`canTakeDamage(200)` geprüft – fehlt die Energie: Meldung „Not enough energy for lossless wrench operation“, kein
+Abbau; sonst 10 000 EU und immer der Original-Drop. Modus-Taste + Rechtsklick (auch auf einen Block, dann ohne
+Drehen/Abbau) schaltet um: „Lossless wrench mode enabled/disabled“. Kapazität 12 000, Transfer 250, Tier 1.
+Schraubenschlüssel allgemein, Alt-Taste: Seite = `(facing + 1) % 6`, mit Schleichen `(facing + 5) % 6`
+(ohne Alt, Schleichen: Gegenseite der geklickten Seite).
+
+**Bergbaulaser** (Rarität uncommon, NBT `laserSetting`): Rechtsklick (Server): Modus-Taste → Modus `(m+1) % 7` +
+Meldung; sonst `use(Kosten[m])` mit Kosten `1250/100/5000/0/2500/10000/5000`, Erfolg → Projektil(e) + Sound-Event
+(alle Clients, an der Hand): Mining/Horizontal/Super-Heat `MiningLaser.ogg`, Low-Focus `MiningLaserLowFocus.ogg`,
+Long-Range `MiningLaserLongRange.ogg`, Scatter `MiningLaserScatter.ogg`, Explosive `MiningLaserExplosive.ogg`.
+Modus Horizontal im Rechtsklick: Kosten 0, kein Schuss. Rechtsklick auf Block (`onItemUseFirst`, vor dem normalen
+Rechtsklick, der danach trotzdem ausgeführt wird): nur Modus Horizontal und ohne Modus-Taste:
+`|Augenhöhe − 0,1 − (y + 0,5)| < 1,5` → `use(3000)` → Projektil mit Pitch 0 auf Höhe `y + 0,5`, Kraft 5; sonst
+Meldung „Mining laser aiming angle too steep“.
+Scatter: 25 Projektile mit Yaw `yaw + 20·x`, Pitch `pitch + 20·y` (x, y ∈ −2…2).
+
+**Laserprojektil** (`EntityMiningLaser`, Größe 0,8, keine Schwerkraft, nicht gespeichert, Tracking 160 / alle 5 Ticks):
+- Start: `x = Spieler.x − cos(yaw)·0,16`, `z = Spieler.z − sin(yaw)·0,16`, `y = Augenhöhe − 0,1`; Richtung aus
+  Yaw/Pitch, Geschwindigkeit 1.
+- Pro Tick (Server), solange `range ≥ 1`, `power > 0`, `blockBreaks > 0` (sonst: explosiv → Explosion; entfernen):
+  Raytrace alter → neuer Position (Flüssigkeiten ignoriert, Blöcke ohne Kollisionsbox ignoriert); Entities im
+  erweiterten Bereich (Box um 0,3 vergrößert, kollidierbar, Besitzer erst ab 5 Ticks) – nächster Treffer gewinnt.
+  - Treffer + explosiv: `ExplosionIC2(Position, 5, Drop 0,85, Schaden 0,55)`, entfernen.
+  - Entity: `d = (int)power`; `d > 0` → Feuer `d` (Super-Heat `2·d`) Sekunden, Schaden `d` Typ „arrow“ (Projektil,
+    Besitzer); Projektil entfernen.
+  - Block nicht abbaubar (Ziegel, Obsidian, Lava, Wasser, Bedrock, Glas) → entfernen. Sonst
+    `power −= (Explosionsresistenz + 0,3) / 10`; wenn danach `power ≥ 0`:
+    Material TNT → `onBlockDestroyedByPlayer(meta 1)` (zündet) und weiter wie normal (Block wird entfernt und kann
+    gedroppt werden). Super-Heat: Material Holz → entfernen ohne Drop; sonst je Drop das Ofenergebnis: erstes
+    Ergebnis, das ein (anderer) Block ist → Block an der Stelle setzen (Metadaten = Item-Schaden), kein Drop; andere
+    Ergebnisse als Item-Entity (Aufhebe-Verzögerung 10); jedes Ofenergebnis setzt `power = 0` (der Strahl endet nach
+    diesem Block). Ohne Ofenergebnis normaler Drop.
+    Entfernen: Drop mit Chance 0,9 (Glück 0), Block → Luft, 10 % Feuer, wenn Material brennbar.
+    `blockBreaks −= 1`.
+  - Kein Treffer: `power −= 0,5`.
+  - Bewegen um die Geschwindigkeit, `range −= 1`; im Wasser → entfernen (ohne Explosion).
+- Darstellung: Pfeil-Geometrie (`RenderArrow`) mit Textur `sprites/laser.png`.
+
+**Nanosäbel**: zwei Item-IDs (aus `itemNanoSaberOff`, an `itemNanoSaber`, nur „aus“ im Creative-Tab), Rarität
+uncommon, `isFull3D`, Aktionskosten 10. Abbaugeschwindigkeit: Forge nutzt die Metadaten-Variante des Basiswerkzeugs
+(die 4,0-Überschreibung ist wirkungslos) → mit ≥ 10 EU Spinnennetz 6,0 (Eisen-Effizienz), sonst 1,0 – an und aus.
+Abbau: `onBlockStartBreak` (aktiv) 80 EU, plus 10 EU bei Härte ≠ 0. `drain(n)` = `use(8·n)`, misslingt → Säbel aus.
+Leerlauf: globaler Zähler (+1 je Welt-Tick, effektiv alle 16 Ticks) – Hotbar `drain(64)`, sonst alle 64 `drain(16)`.
+Einschalten: `canUse(16)` → an + Sound `nanosabrePower`. Treffer-/Abbau-Sounds `nanosabreSwing*`, `nanosabrePower` –
+**im Pack nicht vorhanden** → lautlos (die Dateien `Tools/Nanosabre/*.ogg` werden nicht verwendet). Aktiv:
+Textur flackert zufällig zwischen zwei Icons.
+
+**Scanner** (`ItemScanner` = elektrisches Item, kein Werkzeug): Rechtsklick (Client und Server) → `use(50)` (OD) bzw.
+`use(250)` (OV), Erfolg → Sound `Tools/ODScanner.ogg` an der Hand, Scan ab der Blockposition des Spielers
+(abgerundet) abwärts bis y = 1 (`y > 0`), Meldung „SCAN RESULT: Ore density in this area is n“ bzw. „SCAN RESULT: Ore
+value in this area is n“. Layer-Scan für den Miner: `use(50|250, ohne Spieler)` → Radius 2|4, sonst 0.
+
+**Texturindizes** (`item_0.png`): Bohrer 48, Diamantbohrer 49, Kettensäge 50, Laser 70, OD-Scanner 59, OV-Scanner 60,
+Säbel aus 77 / an 78 (+79 flackernd), el. Schraubenschlüssel 94, el. Hacke 154, el. Baumzapfer 165.
+
+## 3a. Tastensystem (`ic2.core.util.Keyboard`)
+
+Client-Tasten (Standard): **ALT Key** = linke Alt-Taste, **Boost Key** = linke Strg-Taste, **Mode Switch Key** = M,
+**Side Inventory Key** = C. Jeden Client-Tick wird der Zustand als Bitmaske gebildet – Bit 0 Alt, 1 Boost, 2 Vorwärts
+(Vanilla-Taste), 3 Modus, 4 Springen (Vanilla-Taste), 5 Seiteninventar – und bei Änderung an den Server gesendet
+(und lokal übernommen). Der Server speichert den Zustand je Spieler (unbekannt = alles „nicht gedrückt“) und
+vergisst ihn beim Ausloggen. Schleichen = Vanilla-Schleichzustand. Nutzer: Schraubenschlüssel (Alt), el.
+Schraubenschlüssel, Bergbaulaser, Farbroller (Modus), Jetpack (Vorwärts/Springen/Modus), Quantenrüstung
+(Boost/Springen), Gerüst (Vorwärts).
 
 ## 4. Nicht-elektrische Werkzeuge
 
