@@ -1,0 +1,20 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "I": {
+      "tag": "c:ingots/refined_iron"
+    },
+    "R": {
+      "item": "craft:rubber"
+    }
+  },
+  "pattern": [
+    " R ",
+    "RIR",
+    " R "
+  ],
+  "result": {
+    "count": 4,
+    "id": "craft:insulated_hv_cable"
+  }
+}

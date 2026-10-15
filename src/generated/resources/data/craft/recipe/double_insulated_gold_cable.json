@@ -1,0 +1,20 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "G": {
+      "item": "minecraft:gold_ingot"
+    },
+    "R": {
+      "item": "craft:rubber"
+    }
+  },
+  "pattern": [
+    "RRR",
+    "RGR",
+    "RRR"
+  ],
+  "result": {
+    "count": 4,
+    "id": "craft:double_insulated_gold_cable"
+  }
+}

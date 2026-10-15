@@ -1,0 +1,15 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "T": {
+      "tag": "c:ingots/tin"
+    }
+  },
+  "pattern": [
+    "TTT"
+  ],
+  "result": {
+    "count": 9,
+    "id": "craft:tin_cable"
+  }
+}

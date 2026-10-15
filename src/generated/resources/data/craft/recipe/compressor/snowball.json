@@ -1,0 +1,10 @@
+{
+  "type": "craft:compressor",
+  "ingredient": {
+    "item": "minecraft:snowball"
+  },
+  "result": {
+    "count": 1,
+    "id": "minecraft:ice"
+  }
+}

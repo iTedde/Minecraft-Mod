@@ -1,0 +1,22 @@
+{
+  "values": {
+    "craft:lava_cell": {
+      "burn_time": 20000
+    },
+    "craft:rubber_sapling": {
+      "burn_time": 80
+    },
+    "craft:scrap": {
+      "burn_time": 350
+    },
+    "craft:scrap_box": {
+      "burn_time": 3150
+    },
+    "minecraft:cactus": {
+      "burn_time": 50
+    },
+    "minecraft:sugar_cane": {
+      "burn_time": 50
+    }
+  }
+}

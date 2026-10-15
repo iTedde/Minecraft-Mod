@@ -1,0 +1,20 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "F": {
+      "item": "minecraft:furnace"
+    },
+    "I": {
+      "item": "minecraft:iron_ingot"
+    }
+  },
+  "pattern": [
+    " I ",
+    "I I",
+    "IFI"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:iron_furnace"
+  }
+}

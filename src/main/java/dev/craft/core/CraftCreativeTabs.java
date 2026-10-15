@@ -4,10 +4,16 @@ import java.util.function.Supplier;
 
 import dev.craft.Craft;
 import dev.craft.ic2.Ic2Items;
+import dev.craft.ic2.Ic2Machine;
 import dev.craft.ic2.cable.CableType;
+import dev.craft.ic2.item.BatteryItem;
+import dev.craft.ic2.item.ElectricItems;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 public final class CraftCreativeTabs {
@@ -18,8 +24,28 @@ public final class CraftCreativeTabs {
             .title(Component.translatable("itemGroup.craft.ic2"))
             .icon(() -> Ic2Items.cable(CableType.INSULATED_COPPER).toStack())
             .displayItems((parameters, output) -> {
+                for (Ic2Machine machine : Ic2Machine.values()) {
+                    output.accept(Ic2Items.machine(machine));
+                }
+                output.accept(Ic2Items.MACHINE_CASING);
                 for (CableType type : CableType.values()) {
                     output.accept(Ic2Items.cable(type));
+                }
+                output.accept(Ic2Items.TIN_ORE);
+                output.accept(Ic2Items.DEEPSLATE_TIN_ORE);
+                output.accept(Ic2Items.TIN_BLOCK);
+                output.accept(Ic2Items.BRONZE_BLOCK);
+                output.accept(Ic2Items.RUBBER_WOOD);
+                output.accept(Ic2Items.RUBBER_LEAVES);
+                output.accept(Ic2Items.RUBBER_SAPLING);
+                for (DeferredHolder<Item, ? extends Item> item : Ic2Items.ITEMS.getEntries()) {
+                    Item value = item.get();
+                    if (Ic2Items.simpleItems().contains(item) && value != Ic2Items.INDUSTRIAL_DIAMOND.get()) {
+                        output.accept(value);
+                    } else if (value instanceof BatteryItem) {
+                        output.accept(new ItemStack(value));
+                        output.accept(ElectricItems.charged(new ItemStack(value)));
+                    }
                 }
             })
             .build());

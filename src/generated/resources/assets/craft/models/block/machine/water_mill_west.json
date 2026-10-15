@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "craft:block/machine/water_mill_bottom",
+    "east": "craft:block/machine/water_mill_back",
+    "north": "craft:block/machine/water_mill_right",
+    "particle": "craft:block/machine/water_mill_front",
+    "south": "craft:block/machine/water_mill_left",
+    "up": "craft:block/machine/water_mill_top",
+    "west": "craft:block/machine/water_mill_front"
+  }
+}

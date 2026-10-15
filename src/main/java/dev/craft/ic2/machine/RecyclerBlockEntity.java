@@ -4,8 +4,10 @@ import dev.craft.Craft;
 import dev.craft.ic2.Ic2BlockEntityTypes;
 import dev.craft.ic2.Ic2Items;
 import dev.craft.ic2.Ic2Machine;
+import dev.craft.ic2.Ic2Sounds;
 import dev.craft.ic2.menu.ElectricMachineMenu;
 import net.minecraft.core.BlockPos;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
@@ -65,13 +67,13 @@ public class RecyclerBlockEntity extends ElectricMachineBlockEntity {
     }
 
     @Override
-    public String getStartSound() {
-        return "machines/recycler_op";
+    public SoundEvent getStartSound() {
+        return Ic2Sounds.RECYCLER_OP.get();
     }
 
     @Override
-    public String getInterruptSound() {
-        return "machines/interrupt_one";
+    public SoundEvent getInterruptSound() {
+        return Ic2Sounds.INTERRUPT_ONE.get();
     }
 
     @Override

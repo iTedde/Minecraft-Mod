@@ -1,0 +1,25 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "T": {
+      "tag": "c:ingots/tin"
+    },
+    "W": [
+      {
+        "item": "minecraft:water_bucket"
+      },
+      {
+        "item": "craft:water_cell"
+      }
+    ]
+  },
+  "pattern": [
+    " T ",
+    "TWT",
+    " T "
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:coolant_cell_10k"
+  }
+}

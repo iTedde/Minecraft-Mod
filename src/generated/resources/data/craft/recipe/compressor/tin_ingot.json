@@ -1,0 +1,11 @@
+{
+  "type": "craft:compressor",
+  "count": 9,
+  "ingredient": {
+    "item": "craft:tin_ingot"
+  },
+  "result": {
+    "count": 1,
+    "id": "craft:tin_block"
+  }
+}

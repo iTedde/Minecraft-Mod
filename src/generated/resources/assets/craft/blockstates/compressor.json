@@ -1,0 +1,40 @@
+{
+  "variants": {
+    "active=false,facing=down": {
+      "model": "craft:block/machine/compressor_down"
+    },
+    "active=false,facing=east": {
+      "model": "craft:block/machine/compressor_east"
+    },
+    "active=false,facing=north": {
+      "model": "craft:block/machine/compressor_north"
+    },
+    "active=false,facing=south": {
+      "model": "craft:block/machine/compressor_south"
+    },
+    "active=false,facing=up": {
+      "model": "craft:block/machine/compressor_up"
+    },
+    "active=false,facing=west": {
+      "model": "craft:block/machine/compressor_west"
+    },
+    "active=true,facing=down": {
+      "model": "craft:block/machine/compressor_down_active"
+    },
+    "active=true,facing=east": {
+      "model": "craft:block/machine/compressor_east_active"
+    },
+    "active=true,facing=north": {
+      "model": "craft:block/machine/compressor_north_active"
+    },
+    "active=true,facing=south": {
+      "model": "craft:block/machine/compressor_south_active"
+    },
+    "active=true,facing=up": {
+      "model": "craft:block/machine/compressor_up_active"
+    },
+    "active=true,facing=west": {
+      "model": "craft:block/machine/compressor_west_active"
+    }
+  }
+}

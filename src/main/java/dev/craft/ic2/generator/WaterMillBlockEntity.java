@@ -3,8 +3,10 @@ package dev.craft.ic2.generator;
 import dev.craft.ic2.Ic2BlockEntityTypes;
 import dev.craft.ic2.Ic2Items;
 import dev.craft.ic2.Ic2Machine;
-import dev.craft.ic2.menu.WaterMillMenu;
+import dev.craft.ic2.Ic2Sounds;
+import dev.craft.ic2.menu.GeneratorMenu;
 import net.minecraft.core.BlockPos;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -121,7 +123,12 @@ public class WaterMillBlockEntity extends BaseGeneratorBlockEntity {
     }
 
     @Override
+    public SoundEvent getOperationSound() {
+        return Ic2Sounds.WATERMILL_LOOP.get();
+    }
+
+    @Override
     public AbstractContainerMenu createMenu(int id, Inventory playerInventory, Player player) {
-        return new WaterMillMenu(id, playerInventory, this);
+        return new GeneratorMenu(id, playerInventory, this);
     }
 }

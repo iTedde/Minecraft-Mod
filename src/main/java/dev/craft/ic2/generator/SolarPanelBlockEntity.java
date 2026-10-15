@@ -2,7 +2,7 @@ package dev.craft.ic2.generator;
 
 import dev.craft.ic2.Ic2BlockEntityTypes;
 import dev.craft.ic2.Ic2Machine;
-import dev.craft.ic2.menu.SolarPanelMenu;
+import dev.craft.ic2.menu.GeneratorMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.player.Inventory;
@@ -87,6 +87,6 @@ public class SolarPanelBlockEntity extends BaseGeneratorBlockEntity {
 
     @Override
     public AbstractContainerMenu createMenu(int id, Inventory playerInventory, Player player) {
-        return new SolarPanelMenu(id, playerInventory, this);
+        return new GeneratorMenu(id, playerInventory, this);
     }
 }

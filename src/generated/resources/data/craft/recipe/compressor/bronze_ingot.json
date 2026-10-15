@@ -1,0 +1,11 @@
+{
+  "type": "craft:compressor",
+  "count": 9,
+  "ingredient": {
+    "item": "craft:bronze_ingot"
+  },
+  "result": {
+    "count": 1,
+    "id": "craft:bronze_block"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "type": "craft:extractor",
+  "ingredient": {
+    "item": "minecraft:poppy"
+  },
+  "result": {
+    "count": 3,
+    "id": "minecraft:red_dye"
+  }
+}

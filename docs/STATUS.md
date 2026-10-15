@@ -77,7 +77,7 @@ Phase 2 gestartet (2026-10-14) – Zwischenstand siehe unten.
 - Explosions-Versatz bei negativen Koordinaten (IC2 `(int)`-Abschneiden) bleibt wie im Original.
 - Original-IC2-Texturen dürfen im (privaten) Repo liegen.
 
-# Stand Phase 3 (2026-10-14, Zwischenstand – **baut noch nicht**)
+# Stand Phase 3 (2026-10-15, Zwischenstand – baut, Tests grün)
 
 ## Entscheidungen (Phase 3)
 - GT-Materialien über **1:1 nachgebaute GT-Maschinen** (neue Phase 6b). Solarpanel, Wasser- und Windmühle bis dahin
@@ -88,50 +88,36 @@ Phase 2 gestartet (2026-10-14) – Zwischenstand siehe unten.
   Schraubenschlüssel, Zellen, Energie-/Lapotronkristall, Upgrades inkl. 10k-Kühlzelle als Item).
   Transformer-Upgrade-Rezept erst mit MV-Trafo (Phase 6).
 
-## Geschrieben (unkompiliert, ungetestet)
-- `ic2/Ic2DataComponents` (`craft:charge`), `ic2/Ic2Machine` (Enum: Sheet/Spalte, Härte, Facing-Modus,
-  Wrench-Rate, Drop), `ic2/Ic2Recipes` (Typen/Serializer macerator/extractor/compressor, `ic2_shaped`,
-  `ic2_shapeless`).
-- `ic2/item/`: `ElectricItem`, `ElectricItems` (charge/discharge/use/chargeFromArmor), `BatteryItem` (RE-Batterie
-  = **ein** Item, leer stapelbar 16 über `MAX_STACK_SIZE`-Component – noch in abweichungen.md eintragen),
-  `SingleUseBatteryItem`, `UpgradeModuleItem`, `EmptyCellItem`, `WrenchItem`, `TreetapItem`.
-- `ic2/machine/`: `MachineBlock` (FACING 6 Richtungen + ACTIVE im Blockstate), `MachineBlockEntity`,
-  `MachineInventory`, `Wrenchable`, `FacingMode`, `ElectricMachineBlockEntity` (Standardmaschine inkl. Upgrades,
-  Block-Events 0/1/2 für Sounds), `RecipeMachineBlockEntity` (Macerator/Extractor/Compressor),
-  `ElectricFurnaceBlockEntity`, `RecyclerBlockEntity` (Blacklist-Tag `craft:recycler_blacklist`),
-  `IronFurnaceBlockEntity`, `MachineSoundHooks`.
-- `ic2/generator/`: `BaseGeneratorBlockEntity`, `Generator-`, `GeothermalGenerator-` (Lava-FluidHandler),
-  `SolarPanel-`, `WaterMill-`, `WindMillBlockEntity`, `Wind` (globale Windstärke), `FuelValues`.
-- `ic2/storage/`: `ElectricStorageBlockEntity` (BatBox/MFE/MFSU-Logik), `ElectricStorageBlock` (Redstone-Signal).
-- `ic2/menu/`: `MachineMenu` (IC2-Shift-Klick), `SyncedInts` (int über 2×16 Bit), `FilteredSlot`, `SlotFilters`.
-- `ic2/recipe/`: `MachineRecipe` (+Kind-Enum), `Ic2ShapedRecipe` (nicht spiegelbar), `Ic2ShapelessRecipe`,
-  `ChargeTransfer`.
-- Werkzeug `tools/scripts/SliceSprites.java` (16×16-Kacheln aus IC2-Spritesheets; Sheets/Sounds entpackt nach
-  Scratchpad, ggf. neu aus `reference/jars/IC2.jar` holen: `ic2/sprites/*`, `ic2/sounds/*`).
+## Erledigt (2026-10-15)
+- Code aus dem 14.10. vervollständigt; `gradlew build`, `runGameTestServer` (26 Tests grün) und `runClient`
+  (Hauptmenü, keine Mod-Fehler) erfolgreich.
+- Registrierung: `Ic2Blocks` (12 Maschinen inkl. BatBox, Maschinenblock, Zinnerz + Tiefenschiefer-Zinnerz, Zinn-/
+  Bronzeblock, Gummiholz/-blätter/-setzling), `Ic2Items` (Materialien, Zellen, 10k-Kühlzelle, Upgrades, Batterien,
+  Baumzapfer, Schraubenschlüssel), `Ic2BlockEntityTypes.get(machine)`, `Ic2Menus` (Menütyp je Maschine), `Ic2Sounds`,
+  `Ic2Features` (Gummibaum), Capabilities (ItemHandler je Seite, FluidHandler Geothermie), Creative-Tab.
+- `block/`: `RubberWoodBlock` (RESIN none/natural/wet/dry + FACING), `RubberLeavesBlock`, `RubberSaplingBlock`,
+  `RubberTree` (`WorldGenRubTree.grow` 1:1); `world/RubberTreeFeature`.
+- Menüs `GeneratorMenu` (alle 5 Generatoren), `ElectricMachineMenu`, `IronFurnaceMenu`, `ElectricStorageMenu`
+  (Redstone-Knopf über Vanilla-Button-Paket), Slots `MachineSlot`/`FilteredSlot`/`OutputSlot` (Ofen-XP wie 1.4.7).
+- Client: Screens mit IC2-GUI-PNGs und Koordinaten aus `Gui*.java`, `MachineSoundHandler` (Block-Events, Loops),
+  Birkenfarbe der Blätter, Batterie-Ladestufen-Property `craft:charge`.
+- Datagen: Blockstates/Modelle (je Facing/Aktiv eigenes Modell nach `sideAndFacingToSpriteOffset`), Item-Modelle,
+  Lang en/de, Loot (Generator-/Maschinenblock-Drops, Gummiholz 1/6 Harz, Blätter 1/35 Setzling, Vanilla-Kupfererz
+  1 Rohkupfer), Block-/Item-/Biom-Tags, Rezepte (§1–5, 7, 9, 10 soweit Items vorhanden), Brennwerte (Data Map),
+  Sound-Definitionen, Weltgen (Zinn, Kupfer mit IC2-Häufigkeit, Gummibäume).
+- Texturen aus den IC2-Spritesheets geschnitten (Maschinen 12 je Maschine, Items, Gummibaum, Erze, Blöcke),
+  Sounds kopiert. Abweichungen in `docs/abweichungen.md` eingetragen.
 
 ## Nächste Schritte
-1. Fehlende Klassen, auf die schon verwiesen wird: `Ic2Items` (alle Items, u. a. `SU_BATTERY`, `LAVA_CELL`,
-   `WATER_CELL`, `SCRAP`, `RESIN`), `Ic2Blocks.machine(Ic2Machine)`, `Ic2BlockEntityTypes.get(Ic2Machine)`,
-   `Ic2Sounds` (`WRENCH`, `TREETAP`, Maschinen-/Generator-Sounds), `block/RubberWoodBlock` (Property `RESIN`
-   NONE/NATURAL/WET/DRY mit `hasHole()`, `FACING`, `TICK_RATE = 100`, Regeneration 1/200), Gummiblätter
-   (1/35 Setzling, Birkenfarbe), Gummisetzling (Licht ≥ 9, 1/30; Knochenmehl immer), Menüs `GeneratorMenu`,
-   `GeothermalGeneratorMenu`, `SolarPanelMenu`, `WaterMillMenu`, `WindMillMenu`, `ElectricMachineMenu`,
-   `IronFurnaceMenu`, `ElectricStorageMenu` (+ Redstone-Modus-Knopf per Payload), Menütypen, Screens
-   (IC2-GUI-PNGs, Koordinaten aus `Gui*.java`), Client-Sounds (`MachineSoundHooks` setzen).
-2. Registrierung in `Ic2.init`: Data Components, Rezepte, Menüs, Sounds, Capabilities (ItemHandler je Seite,
-   FluidHandler Geothermie), Creative-Tab.
-3. Datagen: Blockstates/Modelle (Spritesheet-Zeilen 0 unten, 1 oben, 2 hinten, 3 vorne, 4/5 Seiten, +6 aktiv),
-   Item-Modelle (Batterie-Ladestufen per Predicate), Lang, Loot (Drop Generator/Maschinenblock, Kupfererz 1 Rohkupfer),
-   Tags (Recycler-Blacklist, Logs, Erze, `c:`-Tags), Brennwerte-Datamap (Gummisetzling 80, Zuckerrohr/Kaktus 50,
-   Schrott 350, Schrottbox 3150, Lavazelle 20000), alle Rezepte aus `08-rezepte.md` (§1–5, 7, 9, 10).
-4. Weltgen: Zinnerz (25/Chunk Gauss, Größe 6, y 0–39), Kupfer ersetzen (15/Chunk, Größe 10, y 10–68), Gummibäume
-   (`WorldGenRubTree` 1:1, Biom-Tags taiga/forest/jungle/swamp).
-5. Texturen schneiden (Indizes: Items `item_0.png` z. B. Batterien 16/21/26/31, Upgrades 176+; Blöcke
-   `block_0.png` Gummiholz 44–47, Blätter 52, Setzling 38, Zinnerz 33, Metallblöcke 93/94/78).
-6. GameTests (Generator, Maschinen, BatBox, Upgrades, Überspannung), `gradlew build`, `runClient`, Doku.
+1. Manuelle Prüfung im Client (Nutzer): GUIs, Sounds, Texturen/Facing, Weltgen (Gummibäume, Erze), Rezepte.
+2. Noch fehlend in Phase 3: Harz-Rechtsklick (Harzschicht `blockHarz`, Klebekolben), Schrottbox-Nutzung,
+   Bronze-Werkzeuge/-Rüstung (laut Phasenplan nicht explizit Phase 3 – klären), GT-Vanilla-Eisenteil-Rezepte
+   (Dupe-Problem, s. Abweichungen), Wasser-/Windmühle/Solar ohne Rezept (Phase 6b).
+3. Danach Phase-3-Abnahme.
 
 ## Offen / später
 - Alt-Taste beim Schraubenschlüssel (zyklisches Drehen) kommt mit dem Tastensystem (Modus/Boost/Alt).
 - Compressor+Pumpe, Schrottbox-Nutzung (IC2-Liste; GT-Erweiterung offene Entscheidung 4).
+- Upgrade-Stapelgröße 64 (IC2) – GT-Wert 4 ist offene Entscheidung 4.
 - Spec-Korrektur `01-eu-system.md` §4: bei `explodeMachineAt` wird das Inventar **gedroppt** (breakBlock), nicht
   vernichtet.

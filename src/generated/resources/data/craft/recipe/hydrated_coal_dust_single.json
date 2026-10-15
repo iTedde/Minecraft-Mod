@@ -1,0 +1,20 @@
+{
+  "type": "craft:ic2_shapeless",
+  "ingredients": [
+    {
+      "tag": "c:dusts/coal"
+    },
+    [
+      {
+        "item": "minecraft:water_bucket"
+      },
+      {
+        "item": "craft:water_cell"
+      }
+    ]
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:hydrated_coal_dust"
+  }
+}

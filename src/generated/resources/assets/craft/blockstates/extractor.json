@@ -1,0 +1,40 @@
+{
+  "variants": {
+    "active=false,facing=down": {
+      "model": "craft:block/machine/extractor_down"
+    },
+    "active=false,facing=east": {
+      "model": "craft:block/machine/extractor_east"
+    },
+    "active=false,facing=north": {
+      "model": "craft:block/machine/extractor_north"
+    },
+    "active=false,facing=south": {
+      "model": "craft:block/machine/extractor_south"
+    },
+    "active=false,facing=up": {
+      "model": "craft:block/machine/extractor_up"
+    },
+    "active=false,facing=west": {
+      "model": "craft:block/machine/extractor_west"
+    },
+    "active=true,facing=down": {
+      "model": "craft:block/machine/extractor_down_active"
+    },
+    "active=true,facing=east": {
+      "model": "craft:block/machine/extractor_east_active"
+    },
+    "active=true,facing=north": {
+      "model": "craft:block/machine/extractor_north_active"
+    },
+    "active=true,facing=south": {
+      "model": "craft:block/machine/extractor_south_active"
+    },
+    "active=true,facing=up": {
+      "model": "craft:block/machine/extractor_up_active"
+    },
+    "active=true,facing=west": {
+      "model": "craft:block/machine/extractor_west_active"
+    }
+  }
+}

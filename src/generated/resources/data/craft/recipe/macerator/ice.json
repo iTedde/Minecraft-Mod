@@ -1,0 +1,10 @@
+{
+  "type": "craft:macerator",
+  "ingredient": {
+    "item": "minecraft:ice"
+  },
+  "result": {
+    "count": 1,
+    "id": "minecraft:snowball"
+  }
+}

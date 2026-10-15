@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "craft:block/machine/batbox_bottom_active",
+    "east": "craft:block/machine/batbox_back_active",
+    "north": "craft:block/machine/batbox_right_active",
+    "particle": "craft:block/machine/batbox_front_active",
+    "south": "craft:block/machine/batbox_left_active",
+    "up": "craft:block/machine/batbox_top_active",
+    "west": "craft:block/machine/batbox_front_active"
+  }
+}

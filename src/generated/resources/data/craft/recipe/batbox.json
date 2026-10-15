@@ -1,0 +1,23 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "B": {
+      "item": "craft:re_battery"
+    },
+    "C": {
+      "item": "craft:insulated_copper_cable"
+    },
+    "P": {
+      "tag": "minecraft:planks"
+    }
+  },
+  "pattern": [
+    "PCP",
+    "BBB",
+    "PPP"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:batbox"
+  }
+}

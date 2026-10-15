@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "craft:block/machine/generator_bottom",
+    "east": "craft:block/machine/generator_front",
+    "north": "craft:block/machine/generator_left",
+    "particle": "craft:block/machine/generator_front",
+    "south": "craft:block/machine/generator_right",
+    "up": "craft:block/machine/generator_top",
+    "west": "craft:block/machine/generator_back"
+  }
+}

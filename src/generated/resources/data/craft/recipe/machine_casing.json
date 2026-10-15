@@ -1,0 +1,17 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "I": {
+      "tag": "c:ingots/refined_iron"
+    }
+  },
+  "pattern": [
+    "III",
+    "I I",
+    "III"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:machine_casing"
+  }
+}

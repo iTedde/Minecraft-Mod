@@ -2,30 +2,45 @@ package dev.craft.ic2.menu;
 
 import dev.craft.ic2.machine.MachineBlockEntity;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
+import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.Nullable;
 
 /**
  * Container of an IC2 machine (IC2 {@code ContainerIC2}). Machine slots come first, then the player inventory.
  * Shift-click logic follows IC2: machine to player; player to the input slot first, then to slots that already
- * hold items, then to empty valid slots.
+ * hold items, then to empty valid slots. Server values reach the client through {@link SyncedInts}.
  */
 public abstract class MachineMenu<T extends MachineBlockEntity> extends AbstractContainerMenu {
-    /** Server: the machine; client: the client-side block entity (without server state) or {@code null}. */
+    /** Server: the machine; client: {@code null}. */
     @Nullable
     protected final T machine;
     protected final BlockPos pos;
+    protected final SyncedInts data;
     private int machineSlotCount;
 
-    protected MachineMenu(@Nullable MenuType<?> type, int id, @Nullable T machine, BlockPos pos) {
+    protected MachineMenu(@Nullable MenuType<?> type, int id, @Nullable T machine, BlockPos pos, SyncedInts data) {
         super(type, id);
         this.machine = machine;
         this.pos = pos;
+        this.data = data;
+        addDataSlots(data);
+    }
+
+    /** Item storage the slots use: the machine's inventory, or a dummy of the same size on the client. */
+    protected static IItemHandler items(@Nullable MachineBlockEntity machine, int size) {
+        return machine != null ? machine.getInventory() : new ItemStackHandler(size);
+    }
+
+    protected static BlockPos readPos(RegistryFriendlyByteBuf buf) {
+        return buf.readBlockPos();
     }
 
     @Nullable
@@ -71,9 +86,10 @@ public abstract class MachineMenu<T extends MachineBlockEntity> extends Abstract
             return ItemStack.EMPTY;
         }
         ItemStack stack = source.getItem();
-        int oldCount = stack.getCount();
+        ItemStack original = stack.copy();
         if (index < machineSlotCount) {
             moveItemStackTo(stack, machineSlotCount, slots.size(), false);
+            source.onQuickCraft(stack, original);
         } else {
             for (int run = 0; run < 3 && !stack.isEmpty(); run++) {
                 if (run == 0) {
@@ -94,12 +110,15 @@ public abstract class MachineMenu<T extends MachineBlockEntity> extends Abstract
                 }
             }
         }
+        if (stack.getCount() == original.getCount()) {
+            return ItemStack.EMPTY;
+        }
         if (stack.isEmpty()) {
             source.setByPlayer(ItemStack.EMPTY);
-        } else if (stack.getCount() != oldCount) {
-            source.onTake(player, stack);
+        } else {
             source.setChanged();
         }
+        source.onTake(player, stack);
         // IC2 returns null, which stops vanilla from repeating the shift click.
         return ItemStack.EMPTY;
     }

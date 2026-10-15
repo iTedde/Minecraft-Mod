@@ -1,0 +1,28 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "D": [
+      {
+        "item": "minecraft:diamond"
+      },
+      {
+        "item": "craft:industrial_diamond"
+      }
+    ],
+    "G": {
+      "item": "minecraft:glass"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    }
+  },
+  "pattern": [
+    "GGG",
+    "RDR",
+    "GGG"
+  ],
+  "result": {
+    "count": 4,
+    "id": "craft:glass_fibre_cable"
+  }
+}

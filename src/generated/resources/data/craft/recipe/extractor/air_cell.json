@@ -1,0 +1,10 @@
+{
+  "type": "craft:extractor",
+  "ingredient": {
+    "item": "craft:air_cell"
+  },
+  "result": {
+    "count": 1,
+    "id": "craft:empty_cell"
+  }
+}

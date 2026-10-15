@@ -1,0 +1,17 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "T": {
+      "tag": "c:ingots/tin"
+    }
+  },
+  "pattern": [
+    " T ",
+    "T T",
+    " T "
+  ],
+  "result": {
+    "count": 4,
+    "id": "craft:empty_cell"
+  }
+}

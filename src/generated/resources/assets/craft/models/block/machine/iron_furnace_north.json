@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "craft:block/machine/iron_furnace_bottom",
+    "east": "craft:block/machine/iron_furnace_right",
+    "north": "craft:block/machine/iron_furnace_front",
+    "particle": "craft:block/machine/iron_furnace_front",
+    "south": "craft:block/machine/iron_furnace_back",
+    "up": "craft:block/machine/iron_furnace_top",
+    "west": "craft:block/machine/iron_furnace_left"
+  }
+}

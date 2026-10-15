@@ -1,0 +1,23 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "C": {
+      "item": "craft:insulated_copper_cable"
+    },
+    "D": {
+      "tag": "c:dusts/coal"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    }
+  },
+  "pattern": [
+    "C",
+    "R",
+    "D"
+  ],
+  "result": {
+    "count": 5,
+    "id": "craft:su_battery"
+  }
+}

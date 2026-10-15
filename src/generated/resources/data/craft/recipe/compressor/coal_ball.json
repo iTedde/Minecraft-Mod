@@ -1,0 +1,10 @@
+{
+  "type": "craft:compressor",
+  "ingredient": {
+    "item": "craft:coal_ball"
+  },
+  "result": {
+    "count": 1,
+    "id": "craft:compressed_coal_ball"
+  }
+}

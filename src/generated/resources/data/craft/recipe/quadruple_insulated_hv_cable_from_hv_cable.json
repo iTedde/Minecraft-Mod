@@ -1,0 +1,21 @@
+{
+  "type": "craft:ic2_shapeless",
+  "ingredients": [
+    {
+      "item": "craft:rubber"
+    },
+    {
+      "item": "craft:rubber"
+    },
+    {
+      "item": "craft:rubber"
+    },
+    {
+      "item": "craft:hv_cable"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:quadruple_insulated_hv_cable"
+  }
+}

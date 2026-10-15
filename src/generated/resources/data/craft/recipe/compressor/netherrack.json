@@ -1,0 +1,11 @@
+{
+  "type": "craft:compressor",
+  "count": 3,
+  "ingredient": {
+    "item": "minecraft:netherrack"
+  },
+  "result": {
+    "count": 1,
+    "id": "minecraft:nether_brick"
+  }
+}

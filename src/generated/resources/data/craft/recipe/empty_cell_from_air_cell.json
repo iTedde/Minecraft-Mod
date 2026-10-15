@@ -1,0 +1,12 @@
+{
+  "type": "craft:ic2_shapeless",
+  "ingredients": [
+    {
+      "item": "craft:air_cell"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:empty_cell"
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "variants": {
+    "active=false,facing=down": {
+      "model": "craft:block/machine/water_mill_down"
+    },
+    "active=false,facing=east": {
+      "model": "craft:block/machine/water_mill_east"
+    },
+    "active=false,facing=north": {
+      "model": "craft:block/machine/water_mill_north"
+    },
+    "active=false,facing=south": {
+      "model": "craft:block/machine/water_mill_south"
+    },
+    "active=false,facing=up": {
+      "model": "craft:block/machine/water_mill_up"
+    },
+    "active=false,facing=west": {
+      "model": "craft:block/machine/water_mill_west"
+    },
+    "active=true,facing=down": {
+      "model": "craft:block/machine/water_mill_down_active"
+    },
+    "active=true,facing=east": {
+      "model": "craft:block/machine/water_mill_east_active"
+    },
+    "active=true,facing=north": {
+      "model": "craft:block/machine/water_mill_north_active"
+    },
+    "active=true,facing=south": {
+      "model": "craft:block/machine/water_mill_south_active"
+    },
+    "active=true,facing=up": {
+      "model": "craft:block/machine/water_mill_up_active"
+    },
+    "active=true,facing=west": {
+      "model": "craft:block/machine/water_mill_west_active"
+    }
+  }
+}

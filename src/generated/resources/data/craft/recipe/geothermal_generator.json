@@ -1,0 +1,26 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "C": {
+      "item": "craft:empty_cell"
+    },
+    "G": {
+      "item": "craft:generator"
+    },
+    "I": {
+      "tag": "c:ingots/refined_iron"
+    },
+    "g": {
+      "item": "minecraft:glass"
+    }
+  },
+  "pattern": [
+    "gCg",
+    "gCg",
+    "IGI"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:geothermal_generator"
+  }
+}

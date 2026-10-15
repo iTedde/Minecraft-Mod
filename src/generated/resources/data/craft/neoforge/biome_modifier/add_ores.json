@@ -1,0 +1,9 @@
+{
+  "type": "neoforge:add_features",
+  "biomes": "#minecraft:is_overworld",
+  "features": [
+    "craft:ore_copper",
+    "craft:ore_tin"
+  ],
+  "step": "underground_ores"
+}

@@ -1,0 +1,10 @@
+{
+  "type": "craft:compressor",
+  "ingredient": {
+    "item": "craft:water_cell"
+  },
+  "result": {
+    "count": 1,
+    "id": "minecraft:snowball"
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "variants": {
+    "facing=east,resin=dry": {
+      "model": "craft:block/rubber_wood_dry_east"
+    },
+    "facing=east,resin=natural": {
+      "model": "craft:block/rubber_wood"
+    },
+    "facing=east,resin=none": {
+      "model": "craft:block/rubber_wood"
+    },
+    "facing=east,resin=wet": {
+      "model": "craft:block/rubber_wood_wet_east"
+    },
+    "facing=north,resin=dry": {
+      "model": "craft:block/rubber_wood_dry_north"
+    },
+    "facing=north,resin=natural": {
+      "model": "craft:block/rubber_wood"
+    },
+    "facing=north,resin=none": {
+      "model": "craft:block/rubber_wood"
+    },
+    "facing=north,resin=wet": {
+      "model": "craft:block/rubber_wood_wet_north"
+    },
+    "facing=south,resin=dry": {
+      "model": "craft:block/rubber_wood_dry_south"
+    },
+    "facing=south,resin=natural": {
+      "model": "craft:block/rubber_wood"
+    },
+    "facing=south,resin=none": {
+      "model": "craft:block/rubber_wood"
+    },
+    "facing=south,resin=wet": {
+      "model": "craft:block/rubber_wood_wet_south"
+    },
+    "facing=west,resin=dry": {
+      "model": "craft:block/rubber_wood_dry_west"
+    },
+    "facing=west,resin=natural": {
+      "model": "craft:block/rubber_wood"
+    },
+    "facing=west,resin=none": {
+      "model": "craft:block/rubber_wood"
+    },
+    "facing=west,resin=wet": {
+      "model": "craft:block/rubber_wood_wet_west"
+    }
+  }
+}

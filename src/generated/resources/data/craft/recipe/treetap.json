@@ -1,0 +1,17 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "P": {
+      "tag": "minecraft:planks"
+    }
+  },
+  "pattern": [
+    " P ",
+    "PPP",
+    "P  "
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:treetap"
+  }
+}

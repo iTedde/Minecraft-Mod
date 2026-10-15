@@ -1,0 +1,15 @@
+{
+  "type": "craft:macerator",
+  "ingredient": [
+    {
+      "item": "minecraft:lapis_ore"
+    },
+    {
+      "item": "minecraft:deepslate_lapis_ore"
+    }
+  ],
+  "result": {
+    "count": 12,
+    "id": "minecraft:lapis_lazuli"
+  }
+}

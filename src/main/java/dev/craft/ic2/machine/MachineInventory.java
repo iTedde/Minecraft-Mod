@@ -17,6 +17,11 @@ public class MachineInventory extends ItemStackHandler {
         onChanged.run();
     }
 
+    /** Reports an in-place change of the stack in {@code slot}. */
+    public void notifyChanged(int slot) {
+        onContentsChanged(slot);
+    }
+
     /** Direct slot write without validity checks, as IC2's inventory arrays allow. */
     public void set(int slot, ItemStack stack) {
         setStackInSlot(slot, stack);

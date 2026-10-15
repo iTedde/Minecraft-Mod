@@ -1,0 +1,23 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "B": {
+      "item": "craft:re_battery"
+    },
+    "F": {
+      "item": "craft:iron_furnace"
+    },
+    "I": {
+      "tag": "c:ingots/refined_iron"
+    }
+  },
+  "pattern": [
+    " B ",
+    "III",
+    " F "
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:generator"
+  }
+}

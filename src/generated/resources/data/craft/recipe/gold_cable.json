@@ -1,0 +1,15 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "G": {
+      "item": "minecraft:gold_ingot"
+    }
+  },
+  "pattern": [
+    "GGG"
+  ],
+  "result": {
+    "count": 12,
+    "id": "craft:gold_cable"
+  }
+}

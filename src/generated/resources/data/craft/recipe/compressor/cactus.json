@@ -1,0 +1,11 @@
+{
+  "type": "craft:compressor",
+  "count": 8,
+  "ingredient": {
+    "item": "minecraft:cactus"
+  },
+  "result": {
+    "count": 1,
+    "id": "craft:compressed_plant_ball"
+  }
+}

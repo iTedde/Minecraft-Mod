@@ -1,0 +1,62 @@
+{
+  "generators/generator_loop": {
+    "sounds": [
+      "craft:generators/generator_loop"
+    ]
+  },
+  "generators/geothermal_loop": {
+    "sounds": [
+      "craft:generators/geothermal_loop"
+    ]
+  },
+  "generators/watermill_loop": {
+    "sounds": [
+      "craft:generators/watermill_loop"
+    ]
+  },
+  "generators/windgen_loop": {
+    "sounds": [
+      "craft:generators/windgen_loop"
+    ]
+  },
+  "machines/compressor_op": {
+    "sounds": [
+      "craft:machines/compressor_op"
+    ]
+  },
+  "machines/electro_furnace_loop": {
+    "sounds": [
+      "craft:machines/electro_furnace_loop"
+    ]
+  },
+  "machines/extractor_op": {
+    "sounds": [
+      "craft:machines/extractor_op"
+    ]
+  },
+  "machines/interrupt_one": {
+    "sounds": [
+      "craft:machines/interrupt_one"
+    ]
+  },
+  "machines/macerator_op": {
+    "sounds": [
+      "craft:machines/macerator_op"
+    ]
+  },
+  "machines/recycler_op": {
+    "sounds": [
+      "craft:machines/recycler_op"
+    ]
+  },
+  "tools/treetap": {
+    "sounds": [
+      "craft:tools/treetap"
+    ]
+  },
+  "tools/wrench": {
+    "sounds": [
+      "craft:tools/wrench"
+    ]
+  }
+}

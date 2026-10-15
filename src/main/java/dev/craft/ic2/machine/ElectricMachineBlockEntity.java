@@ -12,6 +12,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -322,13 +323,13 @@ public abstract class ElectricMachineBlockEntity extends MachineBlockEntity impl
 
     /** Sound played when an operation starts, or {@code null}. */
     @Nullable
-    public String getStartSound() {
+    public SoundEvent getStartSound() {
         return null;
     }
 
     /** Sound played when an operation is interrupted, or {@code null}. */
     @Nullable
-    public String getInterruptSound() {
+    public SoundEvent getInterruptSound() {
         return null;
     }
 

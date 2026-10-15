@@ -1,0 +1,22 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "C": {
+      "item": "craft:electronic_circuit"
+    },
+    "M": {
+      "item": "craft:machine_casing"
+    },
+    "T": {
+      "item": "craft:treetap"
+    }
+  },
+  "pattern": [
+    "TMT",
+    "TCT"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:extractor"
+  }
+}

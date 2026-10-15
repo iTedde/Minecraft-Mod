@@ -1,0 +1,31 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "A": {
+      "item": "craft:advanced_circuit"
+    },
+    "D": [
+      {
+        "item": "minecraft:diamond"
+      },
+      {
+        "item": "craft:industrial_diamond"
+      }
+    ],
+    "F": {
+      "item": "minecraft:flint"
+    },
+    "M": {
+      "item": "craft:machine_casing"
+    }
+  },
+  "pattern": [
+    "FDF",
+    "DMD",
+    "FAF"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:macerator"
+  }
+}

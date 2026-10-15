@@ -1,0 +1,17 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "P": {
+      "tag": "minecraft:saplings"
+    }
+  },
+  "pattern": [
+    "PPP",
+    "P P",
+    "PPP"
+  ],
+  "result": {
+    "count": 2,
+    "id": "craft:plant_ball"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "B": {
+      "item": "craft:re_battery"
+    },
+    "E": {
+      "item": "craft:electronic_circuit"
+    },
+    "W": {
+      "item": "craft:insulated_copper_cable"
+    },
+    "w": {
+      "tag": "minecraft:planks"
+    }
+  },
+  "pattern": [
+    "www",
+    "WBW",
+    "wEw"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:energy_storage_upgrade"
+  }
+}

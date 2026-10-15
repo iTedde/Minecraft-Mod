@@ -1,0 +1,16 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "T": {
+      "tag": "c:ingots/tin"
+    }
+  },
+  "pattern": [
+    "T T",
+    " T "
+  ],
+  "result": {
+    "count": 1,
+    "id": "minecraft:bucket"
+  }
+}

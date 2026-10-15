@@ -1,0 +1,20 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "C": {
+      "tag": "c:ingots/copper"
+    },
+    "R": {
+      "item": "craft:rubber"
+    }
+  },
+  "pattern": [
+    "RCR",
+    "RCR",
+    "RCR"
+  ],
+  "result": {
+    "count": 6,
+    "id": "craft:insulated_copper_cable"
+  }
+}

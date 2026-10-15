@@ -8,14 +8,17 @@ import dev.craft.core.energy.EnergyTile;
 import dev.craft.ic2.Ic2Items;
 import dev.craft.ic2.item.ElectricItems;
 import dev.craft.ic2.machine.MachineBlockEntity;
+import dev.craft.ic2.machine.MachineSoundHooks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Common generator logic, 1:1 with IC2 {@code TileEntityBaseGenerator}: fuel → internal storage → charge slot and
@@ -120,6 +123,20 @@ public abstract class BaseGeneratorBlockEntity extends MachineBlockEntity implem
     }
 
     public abstract boolean gainFuel();
+
+    /** Loop sound while the generator is active (IC2 {@code getOperationSoundFile}), or {@code null}. */
+    @Nullable
+    public SoundEvent getOperationSound() {
+        return null;
+    }
+
+    @Override
+    public void clientTick() {
+        SoundEvent sound = getOperationSound();
+        if (sound != null) {
+            MachineSoundHooks.updateLoop(this, sound, isActive());
+        }
+    }
 
     /** Solar panel, water mill and wind mill only switch their active texture every 256 ticks. */
     public boolean delayActiveUpdate() {

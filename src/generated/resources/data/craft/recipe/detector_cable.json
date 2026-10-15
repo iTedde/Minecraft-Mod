@@ -1,0 +1,23 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "C": {
+      "item": "craft:electronic_circuit"
+    },
+    "I": {
+      "item": "craft:quadruple_insulated_hv_cable"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    }
+  },
+  "pattern": [
+    " C ",
+    "RIR",
+    " R "
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:detector_cable"
+  }
+}

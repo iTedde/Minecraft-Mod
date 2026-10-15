@@ -1,0 +1,10 @@
+{
+  "type": "craft:macerator",
+  "ingredient": {
+    "item": "minecraft:melon"
+  },
+  "result": {
+    "count": 8,
+    "id": "minecraft:melon_slice"
+  }
+}

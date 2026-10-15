@@ -4,8 +4,10 @@ import java.util.Optional;
 
 import dev.craft.ic2.Ic2BlockEntityTypes;
 import dev.craft.ic2.Ic2Machine;
+import dev.craft.ic2.Ic2Sounds;
 import dev.craft.ic2.menu.ElectricMachineMenu;
 import net.minecraft.core.BlockPos;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -50,8 +52,8 @@ public class ElectricFurnaceBlockEntity extends ElectricMachineBlockEntity {
     }
 
     @Override
-    public String getStartSound() {
-        return "machines/electro_furnace_loop";
+    public SoundEvent getStartSound() {
+        return Ic2Sounds.ELECTRO_FURNACE_LOOP.get();
     }
 
     @Override

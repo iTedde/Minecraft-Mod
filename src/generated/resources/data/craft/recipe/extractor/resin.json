@@ -1,0 +1,10 @@
+{
+  "type": "craft:extractor",
+  "ingredient": {
+    "item": "craft:resin"
+  },
+  "result": {
+    "count": 3,
+    "id": "craft:rubber"
+  }
+}

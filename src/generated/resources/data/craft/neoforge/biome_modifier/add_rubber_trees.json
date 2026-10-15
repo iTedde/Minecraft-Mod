@@ -1,0 +1,6 @@
+{
+  "type": "neoforge:add_features",
+  "biomes": "#craft:has_rubber_trees",
+  "features": "craft:rubber_tree",
+  "step": "vegetal_decoration"
+}

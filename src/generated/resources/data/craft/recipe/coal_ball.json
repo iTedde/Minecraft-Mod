@@ -1,0 +1,20 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "C": {
+      "tag": "c:dusts/coal"
+    },
+    "F": {
+      "item": "minecraft:flint"
+    }
+  },
+  "pattern": [
+    "CCC",
+    "CFC",
+    "CCC"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:coal_ball"
+  }
+}

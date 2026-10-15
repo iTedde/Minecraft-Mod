@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "craft:block/machine/extractor_bottom",
+    "east": "craft:block/machine/extractor_right",
+    "north": "craft:block/machine/extractor_front",
+    "particle": "craft:block/machine/extractor_front",
+    "south": "craft:block/machine/extractor_back",
+    "up": "craft:block/machine/extractor_top",
+    "west": "craft:block/machine/extractor_left"
+  }
+}

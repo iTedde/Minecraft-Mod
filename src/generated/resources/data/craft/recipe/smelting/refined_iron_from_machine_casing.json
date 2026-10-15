@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 0.0,
+  "ingredient": {
+    "item": "craft:machine_casing"
+  },
+  "result": {
+    "count": 8,
+    "id": "craft:refined_iron_ingot"
+  }
+}

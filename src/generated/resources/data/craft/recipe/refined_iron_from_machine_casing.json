@@ -1,0 +1,15 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "M": {
+      "item": "craft:machine_casing"
+    }
+  },
+  "pattern": [
+    "M"
+  ],
+  "result": {
+    "count": 8,
+    "id": "craft:refined_iron_ingot"
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "craft:rubber_wood"
+        }
+      ],
+      "rolls": 1.0
+    },
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:inverted",
+          "term": {
+            "block": "craft:rubber_wood",
+            "condition": "minecraft:block_state_property",
+            "properties": {
+              "resin": "none"
+            }
+          }
+        },
+        {
+          "chance": 0.16666667,
+          "condition": "minecraft:random_chance"
+        },
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "craft:resin"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "craft:blocks/rubber_wood"
+}

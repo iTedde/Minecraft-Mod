@@ -3,9 +3,11 @@ package dev.craft.ic2.generator;
 import dev.craft.ic2.Ic2Blocks;
 import dev.craft.ic2.Ic2BlockEntityTypes;
 import dev.craft.ic2.Ic2Machine;
+import dev.craft.ic2.Ic2Sounds;
 import dev.craft.ic2.machine.MachineBlock;
-import dev.craft.ic2.menu.WindMillMenu;
+import dev.craft.ic2.menu.GeneratorMenu;
 import net.minecraft.core.BlockPos;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.core.Direction;
 import net.minecraft.world.Containers;
 import net.minecraft.world.entity.player.Inventory;
@@ -152,7 +154,12 @@ public class WindMillBlockEntity extends BaseGeneratorBlockEntity {
     }
 
     @Override
+    public SoundEvent getOperationSound() {
+        return Ic2Sounds.WINDGEN_LOOP.get();
+    }
+
+    @Override
     public AbstractContainerMenu createMenu(int id, Inventory playerInventory, Player player) {
-        return new WindMillMenu(id, playerInventory, this);
+        return new GeneratorMenu(id, playerInventory, this);
     }
 }

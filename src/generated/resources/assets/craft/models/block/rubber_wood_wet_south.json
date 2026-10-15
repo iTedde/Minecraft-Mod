@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "craft:block/rubber_wood_top",
+    "east": "craft:block/rubber_wood",
+    "north": "craft:block/rubber_wood",
+    "particle": "craft:block/rubber_wood",
+    "south": "craft:block/rubber_wood_wet",
+    "up": "craft:block/rubber_wood_top",
+    "west": "craft:block/rubber_wood"
+  }
+}

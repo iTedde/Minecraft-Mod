@@ -1,0 +1,20 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "C": {
+      "tag": "c:dusts/copper"
+    },
+    "T": {
+      "tag": "c:dusts/tin"
+    }
+  },
+  "pattern": [
+    "TCT",
+    "CTC",
+    "TCT"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:small_iron_dust"
+  }
+}

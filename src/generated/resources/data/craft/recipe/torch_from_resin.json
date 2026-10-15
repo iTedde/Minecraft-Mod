@@ -1,0 +1,19 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "I": {
+      "item": "minecraft:stick"
+    },
+    "R": {
+      "item": "craft:resin"
+    }
+  },
+  "pattern": [
+    "R",
+    "I"
+  ],
+  "result": {
+    "count": 4,
+    "id": "minecraft:torch"
+  }
+}

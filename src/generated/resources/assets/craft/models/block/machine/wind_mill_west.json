@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "craft:block/machine/wind_mill_bottom",
+    "east": "craft:block/machine/wind_mill_back",
+    "north": "craft:block/machine/wind_mill_right",
+    "particle": "craft:block/machine/wind_mill_front",
+    "south": "craft:block/machine/wind_mill_left",
+    "up": "craft:block/machine/wind_mill_top",
+    "west": "craft:block/machine/wind_mill_front"
+  }
+}

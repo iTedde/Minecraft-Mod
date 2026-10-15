@@ -1,0 +1,10 @@
+{
+  "type": "craft:compressor",
+  "ingredient": {
+    "item": "craft:hydrated_coal_dust"
+  },
+  "result": {
+    "count": 1,
+    "id": "craft:hydrated_coal_clump"
+  }
+}

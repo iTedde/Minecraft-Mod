@@ -1,0 +1,34 @@
+{
+  "feature": "craft:ore_copper",
+  "placement": [
+    {
+      "type": "minecraft:count",
+      "count": {
+        "type": "minecraft:clamped_normal",
+        "deviation": 3.8729835,
+        "max_inclusive": 60,
+        "mean": 15.5,
+        "min_inclusive": 0
+      }
+    },
+    {
+      "type": "minecraft:in_square"
+    },
+    {
+      "type": "minecraft:height_range",
+      "height": {
+        "type": "minecraft:trapezoid",
+        "max_inclusive": {
+          "absolute": 68
+        },
+        "min_inclusive": {
+          "absolute": 10
+        },
+        "plateau": 20
+      }
+    },
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

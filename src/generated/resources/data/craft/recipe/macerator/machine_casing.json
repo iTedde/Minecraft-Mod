@@ -1,0 +1,10 @@
+{
+  "type": "craft:macerator",
+  "ingredient": {
+    "item": "craft:machine_casing"
+  },
+  "result": {
+    "count": 8,
+    "id": "craft:iron_dust"
+  }
+}

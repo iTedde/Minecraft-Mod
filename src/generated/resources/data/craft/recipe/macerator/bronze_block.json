@@ -1,0 +1,10 @@
+{
+  "type": "craft:macerator",
+  "ingredient": {
+    "item": "craft:bronze_block"
+  },
+  "result": {
+    "count": 9,
+    "id": "craft:bronze_dust"
+  }
+}

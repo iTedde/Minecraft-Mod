@@ -1,0 +1,17 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "B": {
+      "tag": "c:ingots/bronze"
+    }
+  },
+  "pattern": [
+    "B B",
+    "BBB",
+    " B "
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:wrench"
+  }
+}

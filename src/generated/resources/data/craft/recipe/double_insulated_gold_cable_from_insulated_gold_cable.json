@@ -1,0 +1,15 @@
+{
+  "type": "craft:ic2_shapeless",
+  "ingredients": [
+    {
+      "item": "craft:rubber"
+    },
+    {
+      "item": "craft:insulated_gold_cable"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:double_insulated_gold_cable"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "C": {
+      "tag": "c:dusts/coal"
+    },
+    "W": [
+      {
+        "item": "minecraft:water_bucket"
+      },
+      {
+        "item": "craft:water_cell"
+      }
+    ]
+  },
+  "pattern": [
+    "CCC",
+    "CWC",
+    "CCC"
+  ],
+  "result": {
+    "count": 8,
+    "id": "craft:hydrated_coal_dust"
+  }
+}

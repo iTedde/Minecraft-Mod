@@ -1,0 +1,21 @@
+{
+  "type": "craft:ic2_shapeless",
+  "ingredients": [
+    {
+      "item": "craft:water_cell"
+    },
+    {
+      "item": "craft:water_cell"
+    },
+    {
+      "item": "craft:lava_cell"
+    },
+    {
+      "item": "craft:lava_cell"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "minecraft:obsidian"
+  }
+}

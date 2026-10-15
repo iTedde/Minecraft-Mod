@@ -2,9 +2,11 @@ package dev.craft.ic2.machine;
 
 import dev.craft.ic2.Ic2BlockEntityTypes;
 import dev.craft.ic2.Ic2Machine;
+import dev.craft.ic2.Ic2Sounds;
 import dev.craft.ic2.menu.ElectricMachineMenu;
 import dev.craft.ic2.recipe.MachineRecipe;
 import net.minecraft.core.BlockPos;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -49,17 +51,17 @@ public class RecipeMachineBlockEntity extends ElectricMachineBlockEntity {
     }
 
     @Override
-    public String getStartSound() {
+    public SoundEvent getStartSound() {
         return switch (kind) {
-            case MACERATOR -> "machines/macerator_op";
-            case EXTRACTOR -> "machines/extractor_op";
-            case COMPRESSOR -> "machines/compressor_op";
+            case MACERATOR -> Ic2Sounds.MACERATOR_OP.get();
+            case EXTRACTOR -> Ic2Sounds.EXTRACTOR_OP.get();
+            case COMPRESSOR -> Ic2Sounds.COMPRESSOR_OP.get();
         };
     }
 
     @Override
-    public String getInterruptSound() {
-        return "machines/interrupt_one";
+    public SoundEvent getInterruptSound() {
+        return Ic2Sounds.INTERRUPT_ONE.get();
     }
 
     @Override

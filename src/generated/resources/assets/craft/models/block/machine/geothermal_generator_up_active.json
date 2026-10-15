@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "craft:block/machine/geothermal_generator_back_active",
+    "east": "craft:block/machine/geothermal_generator_left_active",
+    "north": "craft:block/machine/geothermal_generator_top_active",
+    "particle": "craft:block/machine/geothermal_generator_front_active",
+    "south": "craft:block/machine/geothermal_generator_bottom_active",
+    "up": "craft:block/machine/geothermal_generator_front_active",
+    "west": "craft:block/machine/geothermal_generator_right_active"
+  }
+}

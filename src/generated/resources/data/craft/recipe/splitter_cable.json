@@ -1,0 +1,23 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "I": {
+      "item": "craft:quadruple_insulated_hv_cable"
+    },
+    "L": {
+      "item": "minecraft:lever"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    }
+  },
+  "pattern": [
+    " R ",
+    "ILI",
+    " R "
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:splitter_cable"
+  }
+}

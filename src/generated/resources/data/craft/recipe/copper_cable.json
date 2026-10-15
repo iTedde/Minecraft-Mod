@@ -1,0 +1,15 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "C": {
+      "tag": "c:ingots/copper"
+    }
+  },
+  "pattern": [
+    "CCC"
+  ],
+  "result": {
+    "count": 6,
+    "id": "craft:copper_cable"
+  }
+}

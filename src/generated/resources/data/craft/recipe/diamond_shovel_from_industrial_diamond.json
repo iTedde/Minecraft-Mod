@@ -1,0 +1,20 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "D": {
+      "item": "craft:industrial_diamond"
+    },
+    "S": {
+      "item": "minecraft:stick"
+    }
+  },
+  "pattern": [
+    "D",
+    "S",
+    "S"
+  ],
+  "result": {
+    "count": 1,
+    "id": "minecraft:diamond_shovel"
+  }
+}
