@@ -10,6 +10,8 @@ import net.minecraft.world.damagesource.DamageType;
 public final class CraftDamageTypes {
     /** Electric shock from energy paths; not armor piercing (IC2 {@code electricity}). */
     public static final ResourceKey<DamageType> ELECTRICITY = key("electricity");
+    /** Radioactivity effect; bypasses armor (IC2 {@code radiation}). */
+    public static final ResourceKey<DamageType> RADIATION = key("radiation");
 
     private CraftDamageTypes() {
     }
@@ -20,5 +22,6 @@ public final class CraftDamageTypes {
 
     public static void bootstrap(BootstrapContext<DamageType> context) {
         context.register(ELECTRICITY, new DamageType("craft.electricity", 0.1F));
+        context.register(RADIATION, new DamageType("craft.radiation", 0.1F));
     }
 }

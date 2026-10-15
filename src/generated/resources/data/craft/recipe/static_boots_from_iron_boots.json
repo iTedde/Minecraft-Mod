@@ -1,0 +1,23 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "C": {
+      "item": "craft:insulated_copper_cable"
+    },
+    "H": {
+      "item": "minecraft:iron_boots"
+    },
+    "S": {
+      "tag": "minecraft:wool"
+    }
+  },
+  "pattern": [
+    " H ",
+    " S ",
+    "CCC"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:static_boots"
+  }
+}

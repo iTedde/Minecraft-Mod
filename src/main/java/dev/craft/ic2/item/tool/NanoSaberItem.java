@@ -2,11 +2,14 @@ package dev.craft.ic2.item.tool;
 
 import dev.craft.ic2.Ic2DataComponents;
 import dev.craft.ic2.item.ElectricItems;
+import dev.craft.ic2.item.armor.ArmorProperties;
+import dev.craft.ic2.item.armor.NanoArmorItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
@@ -83,7 +86,19 @@ public class NanoSaberItem extends ElectricToolItem {
         // IC2: only when the attacker is no player or PvP is off.
         if (!(attacker instanceof Player) || attacker.getServer() == null || !attacker.getServer().isPvpAllowed()) {
             Player player = attacker instanceof Player p ? p : null;
-            // Draining nano/quantum armor of player targets follows with the armor (phase 6.3).
+            if (target instanceof Player enemy) {
+                // IC2 tests for the nano suit class only, which the quantum suit does not extend.
+                for (EquipmentSlot slot : ArmorProperties.SLOTS) {
+                    ItemStack armor = enemy.getItemBySlot(slot);
+                    if (armor.getItem() instanceof NanoArmorItem) {
+                        ElectricItems.discharge(armor, 4800, getTier(), true, false);
+                        if (!ElectricItems.canUse(armor, 1)) {
+                            enemy.setItemSlot(slot, ItemStack.EMPTY);
+                        }
+                        drain(stack, 2, player);
+                    }
+                }
+            }
             drain(stack, 5, player);
         }
         return true;

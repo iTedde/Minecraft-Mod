@@ -1,0 +1,26 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "#": {
+      "item": "minecraft:iron_bars"
+    },
+    "G": {
+      "item": "minecraft:glass"
+    },
+    "O": {
+      "item": "minecraft:orange_dye"
+    },
+    "R": {
+      "item": "craft:rubber"
+    }
+  },
+  "pattern": [
+    " O ",
+    "RGR",
+    "R#R"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:hazmat_helmet"
+  }
+}

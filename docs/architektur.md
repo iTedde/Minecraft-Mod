@@ -28,6 +28,15 @@ ergänzen. Basispaket `dev.craft`, Einstieg `Craft` → `Ic2.init`, `BuildCraft.
   registriert die Capability `BcCapabilities.POWER_RECEPTOR`. Engines suchen Empfänger über diese Capability.
 - Zeitbasis überall `level.getGameTime()` (siehe `abweichungen.md`).
 
+## Rüstung
+
+- `ic2/item/armor/Ic2ArmorItem` (Basis, implementiert Forge-`SpecialArmor`; `onArmorTick` nur getragen,
+  `onFall` für Stiefel), elektrisch `ElectricArmorItem` (Rüstungsbalken dynamisch nach Ladung). Material je
+  Rüstungstextur in `Ic2ArmorMaterials`. Schaden läuft für Spieler mit IC2-Rüstung über
+  `ArmorProperties.applyArmor` (Hooks in `ArmorEvents`).
+- Mob-Effekte: `ic2/Ic2MobEffects`; Damage-Types `core/CraftDamageTypes` (+ Tags in `CraftDamageTypeTagsProvider`).
+- Access Transformer: `src/main/resources/META-INF/accesstransformer.cfg`.
+
 ## Maschinen-Basisklassen
 
 | Klasse | Zweck |

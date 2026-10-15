@@ -1,0 +1,15 @@
+{
+  "type": "craft:ic2_shapeless",
+  "ingredients": [
+    {
+      "item": "craft:carbon_fiber"
+    },
+    {
+      "item": "craft:carbon_fiber"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:carbon_mesh"
+  }
+}

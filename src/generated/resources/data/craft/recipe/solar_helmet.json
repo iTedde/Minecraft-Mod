@@ -1,0 +1,23 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "C": {
+      "item": "craft:insulated_copper_cable"
+    },
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "S": {
+      "item": "craft:solar_panel"
+    }
+  },
+  "pattern": [
+    "III",
+    "ISI",
+    "CCC"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:solar_helmet"
+  }
+}

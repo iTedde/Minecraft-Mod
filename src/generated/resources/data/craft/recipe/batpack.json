@@ -1,0 +1,23 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "B": {
+      "item": "craft:re_battery"
+    },
+    "C": {
+      "item": "craft:electronic_circuit"
+    },
+    "T": {
+      "tag": "c:ingots/tin"
+    }
+  },
+  "pattern": [
+    "BCB",
+    "BTB",
+    "B B"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:batpack"
+  }
+}

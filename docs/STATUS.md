@@ -375,7 +375,7 @@ Multiblock (vorher offene Entscheidungen 2 und 3 klären).
 - 8 neue GameTests (`ToolGameTests`, insgesamt 82 grün), `gradlew build` und `runClient` (Hauptmenü, keine
   Mod-Fehler) erfolgreich. Abweichungen in `abweichungen.md`.
 
-## Nächste Schritte
+## Nächste Schritte (überholt, siehe 6.3)
 1. Teilpaket 6.3: Nano-, Quanten- und Utility-Rüstung (`05-items.md` §5.2/5.3) inkl. Nanosäbel-Rüstungsentzug,
    Jetpack (Vorwärts/Springen/Modus), Quantenrüstung (Boost/Springen) über `Ic2Keyboard`. Vorher Spec-Lücken prüfen.
 2. Manuelle Client-Tests zusätzlich: Tasten im Steuerungsmenü (Kategorie IndustrialCraft 2); Bohrer/Diamantbohrer
@@ -384,3 +384,35 @@ Multiblock (vorher offene Entscheidungen 2 und 3 klären).
    Lossless-Meldung, Abbau einer Maschine), Schraubenschlüssel mit Alt; Bergbaulaser (alle 7 Modi, M wechselt,
    Horizontal nur auf Block, Super-Heat: Sand → Glas, Explosiv, Scatter; Projektil-Darstellung, Sounds), Nanosäbel
    (an/aus, Flackern, Schaden, Leerlaufverbrauch), OD-/OV-Scanner (Meldung, Sound).
+
+## Erledigt (Teilpaket „Phase 6.3: Rüstung“, 2026-10-15)
+- Spec-Lücken aus dem Original einmalig in `05-items.md` §5.4 nachgetragen (Forge-`ApplyArmor`/`StandardizeList`
+  wortgetreu aus dem Forge-Jar des Packs, Elektro-/Utility-Rüstung, Hazmat, Jetpack, Quantum-Tick, Nanosäbel-Entzug,
+  Texturindizes, Rezeptzutaten). **Originalfehler:** Jetpack-Treibstoff sinkt je Aufruf um `n + 4`; el. Jetpack-
+  Leistungsabfall erst unter 1,25 EU; Nanosäbel entlädt nur Nano, nie Quantum.
+- Paket `ic2/item/armor/`: `ArmorProperties` (Forge-Rechnung 1:1), `SpecialArmor`, `Ic2ArmorItem` (Basis, Tick
+  über `inventoryTick`, Fall-Hook), `ElectricArmorItem`, `NanoArmorItem`, `QuantumArmorItem` (Luft, Tränke, Löschen,
+  Sprint, Supersprung), `EnergyPackItem` (BatPack/LapPack), `HazmatArmorItem` (Hazmat + Gummistiefel),
+  `JetpackItem`/`ElectricJetpackItem` (Schwebemodus, Flug-Kick-Reset per Access Transformer), `SolarHelmetItem`,
+  `StaticBootsItem`, `NightvisionGogglesItem`, `Ic2ArmorMaterials`, `ArmorEvents` (DamageContainer-Modifikator,
+  `ArmorHurtEvent`, `LivingFallEvent`).
+- Strahlungseffekt `craft:radiation` (`Ic2MobEffects`) + Damage-Type (Tag `bypasses_armor`, neuer
+  `CraftDamageTypeTagsProvider`). Data Components `hover_mode`, `toggle_timer`, `last_position`.
+- Items Kohlefaser/-netz/-platte (+ Compressor), leerer Kanister (+ GT-Recycling Ofen/Macerator). Rezepte: Nano,
+  Hazmat, Gummistiefel, Jetpack (leer), el. Jetpack, BatPack, LapPack, Solarhelm, Static Boots.
+  **Ohne Rezept:** Quantum (Phase 6b), CF-Pack (kommt mit dem Bauschaumsprüher, Item noch nicht angelegt),
+  Nachtsichtbrille (kein Rezept im Original).
+- Nanosäbel: Rüstungsentzug umgesetzt. Client: `JetpackSoundHandler` (Loop). Texturen aus `item_0.png` und
+  `armor/ic2/*`, Sprache en/de.
+- 9 neue GameTests (`ArmorGameTests`, insgesamt 91 grün), `gradlew build` und `runClient` (Hauptmenü, keine
+  Mod-Fehler) erfolgreich. Abweichungen in `abweichungen.md`.
+- **Offen:** Quantumhelm isst Zinndosen (mit Canning Machine), Jetpack betanken (Canning Machine), CF-Pack.
+
+## Nächste Schritte
+1. Teilpaket 6.4: Massefabrikator + Solar-Arrays als Multiblock – vorher offene Entscheidungen 2 (Massefabrikator)
+   und 3 (Balancing-Freigabe) mit dem Nutzer klären.
+2. Manuelle Client-Tests zusätzlich: Rüstung anlegen (Modelle/Texturen aller Teile, Rüstungsbalken je Ladung),
+   Nano/Quantum gegen Mobs und Fallschaden, Quantum-Sprint (Strg) und Supersprung (Strg+Leertaste), Luft unter
+   Wasser, Hazmat in Lava/Feuer, Gummistiefel-Fall, Jetpack (Leertaste, M+Leertaste Schwebemodus, Vorwärts-Schub,
+   Loop-Sound, kein Flug-Kick), BatPack lädt gehaltenes Werkzeug, Solarhelm/Static Boots laden das Brust-Item,
+   Nachtsichtbrille Tag/Nacht, Nanosäbel gegen Spieler mit Nanorüstung.

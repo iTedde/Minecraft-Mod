@@ -2,6 +2,8 @@ package dev.craft.ic2;
 
 import dev.craft.ic2.generator.GeothermalGeneratorBlockEntity;
 import dev.craft.ic2.item.ScrapBoxItem;
+import dev.craft.ic2.item.armor.ArmorEvents;
+import dev.craft.ic2.item.armor.Ic2ArmorMaterials;
 import dev.craft.ic2.item.tool.ElectricToolItem;
 import dev.craft.ic2.keyboard.Ic2Keyboard;
 import dev.craft.ic2.machine.MachineBlockEntity;
@@ -29,6 +31,9 @@ public final class Ic2 {
         Ic2Features.FEATURES.register(modBus);
         Ic2EntityTypes.ENTITY_TYPES.register(modBus);
         Ic2Keyboard.ATTACHMENT_TYPES.register(modBus);
+        Ic2ArmorMaterials.MATERIALS.register(modBus);
+        Ic2MobEffects.EFFECTS.register(modBus);
+        ArmorEvents.register(NeoForge.EVENT_BUS);
         modBus.addListener(Ic2Keyboard::registerPayloads);
         NeoForge.EVENT_BUS.addListener(ElectricToolItem::onBlockBreak);
         modBus.addListener(Ic2::registerCapabilities);

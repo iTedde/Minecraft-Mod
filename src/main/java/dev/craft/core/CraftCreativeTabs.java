@@ -14,6 +14,8 @@ import dev.craft.ic2.cable.CableType;
 import dev.craft.ic2.item.BatteryItem;
 import dev.craft.ic2.item.ElectricItem;
 import dev.craft.ic2.item.ElectricItems;
+import dev.craft.ic2.item.armor.Ic2ArmorItem;
+import dev.craft.ic2.item.armor.JetpackItem;
 import dev.craft.powerconverters.ConverterType;
 import dev.craft.powerconverters.PcItems;
 import net.minecraft.core.registries.Registries;
@@ -57,6 +59,10 @@ public final class CraftCreativeTabs {
                     } else if (value instanceof ElectricItem) {
                         output.accept(ElectricItems.charged(new ItemStack(value)));
                         output.accept(new ItemStack(value));
+                    } else if (value instanceof JetpackItem jetpack) {
+                        output.accept(jetpack.createFull());
+                    } else if (value instanceof Ic2ArmorItem) {
+                        output.accept(value);
                     }
                 }
             })

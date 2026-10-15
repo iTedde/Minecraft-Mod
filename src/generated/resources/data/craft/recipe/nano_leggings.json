@@ -1,0 +1,20 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "C": {
+      "item": "craft:carbon_plate"
+    },
+    "c": {
+      "item": "craft:energy_crystal"
+    }
+  },
+  "pattern": [
+    "CcC",
+    "C C",
+    "C C"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:nano_leggings"
+  }
+}

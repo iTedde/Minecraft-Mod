@@ -69,6 +69,7 @@ public final class CraftRecipeProvider extends RecipeProvider {
         machines();
         batteries();
         tools();
+        armor();
         misc();
         smelting();
         macerator();
@@ -410,6 +411,64 @@ public final class CraftRecipeProvider extends RecipeProvider {
 
     // --- §7 tools ---
 
+    /**
+     * §11 armor and its parts. Quantum suit (iridium plate, reinforced glass) and CF pack (foam sprayer) follow with
+     * their ingredients.
+     */
+    private void armor() {
+        shaped(Ic2Items.CARBON_FIBER, 1, "carbon_fiber").pattern("CC").pattern("CC")
+                .define('C', CraftItemTagsProvider.DUSTS_COAL).save();
+        shapeless(Ic2Items.CARBON_MESH, 1, "carbon_mesh", Ingredient.of(Ic2Items.CARBON_FIBER),
+                Ingredient.of(Ic2Items.CARBON_FIBER));
+        shaped(Ic2Items.EMPTY_FUEL_CAN, 1, "empty_fuel_can").pattern(" TT").pattern("T T").pattern("TTT")
+                .define('T', CraftItemTagsProvider.INGOTS_TIN).save();
+
+        shaped(Ic2Items.NANO_HELMET, 1, "nano_helmet").pattern("CcC").pattern("CGC")
+                .define('C', Ic2Items.CARBON_PLATE).define('c', Ic2Items.ENERGY_CRYSTAL).define('G', Items.GLASS).save();
+        shaped(Ic2Items.NANO_CHESTPLATE, 1, "nano_chestplate").pattern("C C").pattern("CcC").pattern("CCC")
+                .define('C', Ic2Items.CARBON_PLATE).define('c', Ic2Items.ENERGY_CRYSTAL).save();
+        shaped(Ic2Items.NANO_LEGGINGS, 1, "nano_leggings").pattern("CcC").pattern("C C").pattern("C C")
+                .define('C', Ic2Items.CARBON_PLATE).define('c', Ic2Items.ENERGY_CRYSTAL).save();
+        shaped(Ic2Items.NANO_BOOTS, 1, "nano_boots").pattern("C C").pattern("CcC")
+                .define('C', Ic2Items.CARBON_PLATE).define('c', Ic2Items.ENERGY_CRYSTAL).save();
+
+        shaped(Ic2Items.HAZMAT_HELMET, 1, "hazmat_helmet").pattern(" O ").pattern("RGR").pattern("R#R")
+                .define('R', Ic2Items.RUBBER).define('G', Items.GLASS).define('#', Items.IRON_BARS)
+                .define('O', Items.ORANGE_DYE).save();
+        shaped(Ic2Items.HAZMAT_CHESTPLATE, 1, "hazmat_chestplate").pattern("R R").pattern("ROR").pattern("ROR")
+                .define('R', Ic2Items.RUBBER).define('O', Items.ORANGE_DYE).save();
+        shaped(Ic2Items.HAZMAT_LEGGINGS, 1, "hazmat_leggings").pattern("ROR").pattern("R R").pattern("R R")
+                .define('R', Ic2Items.RUBBER).define('O', Items.ORANGE_DYE).save();
+        shaped(Ic2Items.RUBBER_BOOTS, 1, "rubber_boots").pattern("R R").pattern("R R").pattern("RWR")
+                .define('R', Ic2Items.RUBBER).define('W', ItemTags.WOOL).save();
+
+        shaped(Ic2Items.JETPACK, 1, "jetpack").pattern("ICI").pattern("IFI").pattern("R R")
+                .define('I', CraftItemTagsProvider.INGOTS_REFINED_IRON).define('C', Ic2Items.ELECTRONIC_CIRCUIT)
+                .define('F', Ic2Items.EMPTY_FUEL_CAN).define('R', Items.REDSTONE).damage(18001).save();
+        shaped(Ic2Items.ELECTRIC_JETPACK, 1, "electric_jetpack").pattern("ICI").pattern("IBI").pattern("G G")
+                .define('I', CraftItemTagsProvider.INGOTS_REFINED_IRON).define('C', Ic2Items.ADVANCED_CIRCUIT)
+                .define('B', Ic2Items.machine(Ic2Machine.BATBOX)).define('G', Items.GLOWSTONE_DUST).save();
+        // IC2 has one recipe each for a charged and an empty RE battery; the ingredient accepts both.
+        shaped(Ic2Items.BATPACK, 1, "batpack").pattern("BCB").pattern("BTB").pattern("B B")
+                .define('T', CraftItemTagsProvider.INGOTS_TIN).define('C', Ic2Items.ELECTRONIC_CIRCUIT)
+                .define('B', Ic2Items.RE_BATTERY).save();
+        shaped(Ic2Items.LAPPACK, 1, "lappack").pattern("LAL").pattern("LBL").pattern("L L")
+                .define('L', Items.LAPIS_BLOCK).define('A', Ic2Items.ADVANCED_CIRCUIT).define('B', Ic2Items.BATPACK)
+                .save();
+        shaped(Ic2Items.SOLAR_HELMET, 1, "solar_helmet").pattern("III").pattern("ISI").pattern("CCC")
+                .define('I', Items.IRON_INGOT).define('S', Ic2Items.machine(Ic2Machine.SOLAR_PANEL))
+                .define('C', Ic2Items.cable(CableType.INSULATED_COPPER)).save();
+        shaped(Ic2Items.SOLAR_HELMET, 1, "solar_helmet_from_iron_helmet").pattern(" H ").pattern(" S ")
+                .pattern("CCC").define('H', Items.IRON_HELMET).define('S', Ic2Items.machine(Ic2Machine.SOLAR_PANEL))
+                .define('C', Ic2Items.cable(CableType.INSULATED_COPPER)).save();
+        shaped(Ic2Items.STATIC_BOOTS, 1, "static_boots").pattern("I I").pattern("ISI").pattern("CCC")
+                .define('I', Items.IRON_INGOT).define('S', ItemTags.WOOL)
+                .define('C', Ic2Items.cable(CableType.INSULATED_COPPER)).save();
+        shaped(Ic2Items.STATIC_BOOTS, 1, "static_boots_from_iron_boots").pattern(" H ").pattern(" S ")
+                .pattern("CCC").define('H', Items.IRON_BOOTS).define('S', ItemTags.WOOL)
+                .define('C', Ic2Items.cable(CableType.INSULATED_COPPER)).save();
+    }
+
     private void tools() {
         shaped(Ic2Items.TREETAP, 1, "treetap").pattern(" P ").pattern("PPP").pattern("P  ").define('P', ItemTags.PLANKS).save();
         shaped(Ic2Items.WRENCH, 1, "wrench").pattern("B B").pattern("BBB").pattern(" B ")
@@ -499,6 +558,7 @@ public final class CraftRecipeProvider extends RecipeProvider {
         smelt("bronze_ingots_from_block", Ingredient.of(Ic2Items.BRONZE_BLOCK), Ic2Items.BRONZE_INGOT, 9, 0.0F);
         smelt("resin_from_slime_ball", Ingredient.of(Items.SLIME_BALL), Ic2Items.RESIN, 1, 0.0F);
         smelt("bronze_ingots_from_wrench", Ingredient.of(Ic2Items.WRENCH), Ic2Items.BRONZE_INGOT, 6, 0.0F);
+        smelt("tin_ingots_from_empty_fuel_can", Ingredient.of(Ic2Items.EMPTY_FUEL_CAN), Ic2Items.TIN_INGOT, 7, 0.0F);
         // GregTech recycling of vanilla items. The 1.21 iron door recipe makes 3 doors from 6 ingots, so a door gives 2
         // instead of GregTech's 6 (see docs/abweichungen.md).
         smelt("gold_ingots_from_clock", Ingredient.of(Items.CLOCK), Items.GOLD_INGOT, 4, 0.0F);
@@ -573,6 +633,8 @@ public final class CraftRecipeProvider extends RecipeProvider {
         machine(MachineRecipe.Kind.MACERATOR, "melon_slice", Ingredient.of(Items.MELON_SLICE), 1,
                 Items.MELON_SEEDS, 1);
         machine(MachineRecipe.Kind.MACERATOR, "wrench", Ingredient.of(Ic2Items.WRENCH), 1, Ic2Items.BRONZE_DUST, 6);
+        machine(MachineRecipe.Kind.MACERATOR, "empty_fuel_can", Ingredient.of(Ic2Items.EMPTY_FUEL_CAN), 1,
+                Ic2Items.TIN_DUST, 7);
         // GregTech recycling of vanilla items (only the main output; door adjusted to the 1.21 recipe, see above).
         machine(MachineRecipe.Kind.MACERATOR, "clock", Ingredient.of(Items.CLOCK), 1, Ic2Items.GOLD_DUST, 4);
         machine(MachineRecipe.Kind.MACERATOR, "compass", Ingredient.of(Items.COMPASS), 1, Ic2Items.IRON_DUST, 4);
@@ -601,6 +663,8 @@ public final class CraftRecipeProvider extends RecipeProvider {
                 Items.NETHER_BRICK, 1);
         machine(MachineRecipe.Kind.COMPRESSOR, "sand", Ingredient.of(Items.SAND), 4, Items.SANDSTONE, 1);
         machine(MachineRecipe.Kind.COMPRESSOR, "snowball", Ingredient.of(Items.SNOWBALL), 1, Items.ICE, 1);
+        machine(MachineRecipe.Kind.COMPRESSOR, "carbon_mesh", Ingredient.of(Ic2Items.CARBON_MESH), 1,
+                Ic2Items.CARBON_PLATE, 1);
         machine(MachineRecipe.Kind.COMPRESSOR, "water_cell", Ingredient.of(Ic2Items.WATER_CELL), 1,
                 Items.SNOWBALL, 1);
         machine(MachineRecipe.Kind.COMPRESSOR, "coal_ball", Ingredient.of(Ic2Items.COAL_BALL), 1,
@@ -675,6 +739,7 @@ public final class CraftRecipeProvider extends RecipeProvider {
         private final String name;
         private final List<String> rows = new ArrayList<>();
         private final Map<Character, Ingredient> key = new LinkedHashMap<>();
+        private int damage;
 
         ShapedBuilder(ItemLike result, int count, String name) {
             this.result = result;
@@ -700,9 +765,18 @@ public final class CraftRecipeProvider extends RecipeProvider {
             return define(symbol, Ingredient.of(item));
         }
 
+        /** Item damage of the result (IC2 metadata). */
+        ShapedBuilder damage(int damage) {
+            this.damage = damage;
+            return this;
+        }
+
         void save() {
-            output.accept(id(name), new Ic2ShapedRecipe(ShapedRecipePattern.of(key, rows),
-                    new ItemStack(result, count)), null);
+            ItemStack stack = new ItemStack(result, count);
+            if (damage > 0) {
+                stack.setDamageValue(damage);
+            }
+            output.accept(id(name), new Ic2ShapedRecipe(ShapedRecipePattern.of(key, rows), stack), null);
         }
     }
 }

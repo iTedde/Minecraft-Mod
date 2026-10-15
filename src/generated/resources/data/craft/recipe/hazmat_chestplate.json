@@ -1,0 +1,20 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "O": {
+      "item": "minecraft:orange_dye"
+    },
+    "R": {
+      "item": "craft:rubber"
+    }
+  },
+  "pattern": [
+    "R R",
+    "ROR",
+    "ROR"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:hazmat_chestplate"
+  }
+}

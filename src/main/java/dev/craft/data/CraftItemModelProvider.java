@@ -33,6 +33,9 @@ public final class CraftItemModelProvider extends ItemModelProvider {
         for (DeferredItem<? extends Item> item : Ic2Items.simpleItems()) {
             basicItem(item.get());
         }
+        for (DeferredItem<? extends Item> item : Ic2Items.armorItems()) {
+            basicItem(item.get());
+        }
         withExistingParent(Ic2Items.RUBBER_SAPLING.getId().getPath(), mcLoc("item/generated"))
                 .texture("layer0", modLoc("block/rubber_sapling"));
         battery(Ic2Items.RE_BATTERY);

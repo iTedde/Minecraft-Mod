@@ -1,0 +1,29 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "C": {
+      "item": "craft:electronic_circuit"
+    },
+    "F": {
+      "item": "craft:empty_fuel_can"
+    },
+    "I": {
+      "tag": "c:ingots/refined_iron"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    }
+  },
+  "pattern": [
+    "ICI",
+    "IFI",
+    "R R"
+  ],
+  "result": {
+    "components": {
+      "minecraft:damage": 18001
+    },
+    "count": 1,
+    "id": "craft:jetpack"
+  }
+}

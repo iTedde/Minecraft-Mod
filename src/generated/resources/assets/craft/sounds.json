@@ -59,6 +59,11 @@
       "craft:tools/chainsaw_stop"
     ]
   },
+  "tools/jetpack_loop": {
+    "sounds": [
+      "craft:tools/jetpack_loop"
+    ]
+  },
   "tools/mining_laser": {
     "sounds": [
       "craft:tools/mining_laser"

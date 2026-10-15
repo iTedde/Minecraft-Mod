@@ -42,6 +42,7 @@ public final class Ic2Sounds {
     public static final DeferredHolder<SoundEvent, SoundEvent> MINING_LASER_EXPLOSIVE =
             register("tools/mining_laser_explosive");
     public static final DeferredHolder<SoundEvent, SoundEvent> OD_SCANNER = register("tools/od_scanner");
+    public static final DeferredHolder<SoundEvent, SoundEvent> JETPACK_LOOP = register("tools/jetpack_loop");
 
     private Ic2Sounds() {
     }

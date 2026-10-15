@@ -1,0 +1,23 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "A": {
+      "item": "craft:advanced_circuit"
+    },
+    "B": {
+      "item": "craft:batpack"
+    },
+    "L": {
+      "item": "minecraft:lapis_block"
+    }
+  },
+  "pattern": [
+    "LAL",
+    "LBL",
+    "L L"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:lappack"
+  }
+}

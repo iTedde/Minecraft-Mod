@@ -51,6 +51,7 @@ public final class CraftDataGenerators {
         generator.addProvider(event.includeServer(),
                 new CraftItemTagsProvider(output, lookup, blockTags.contentsGetter(), files));
         generator.addProvider(event.includeServer(), new CraftBiomeTagsProvider(output, fullLookup, files));
+        generator.addProvider(event.includeServer(), new CraftDamageTypeTagsProvider(output, fullLookup, files));
         generator.addProvider(event.includeServer(), new CraftRecipeProvider(output, lookup));
         generator.addProvider(event.includeServer(), new CraftDataMapProvider(output, lookup));
 

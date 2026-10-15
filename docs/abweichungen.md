@@ -27,8 +27,8 @@ Status: *geplant* (aus Phase 1 abgeleitet, noch nicht umgesetzt), *entschieden* 
 | Explosionen | eigener `ExplosionIC2`-Algorithmus | 1:1 nachgebaut (`core.explosion.Ic2Explosion`); Drops über `Block.getDrops` ohne Explosions-Verfall (wie `getBlockDropped`), Höhengrenzen = Bauhöhe der Dimension; Whitelist als Block-Tag `craft:explosion_whitelist` (Grundgestein); Drop-Stapel zusätzlich ≤ max. Stapelgröße | API | **umgesetzt** |
 | Von IC2 geänderte Vanilla-Resistenzen | global per `setResistance` (Obsidian/Zaubertisch/Endertruhe/Amboss 36, Wasser/stille Lava 18) | gelten nur in IC2-Explosionen; Vanilla-TNT/Creeper unverändert (konnten Obsidian auch mit 36 nicht sprengen, Wasser-Unterschied bei Vanilla-Explosionen entfällt) | Vanilla-Blockwerte nicht ohne Mixin änderbar | **umgesetzt** |
 | Vanilla-Brennwerte | 1.4.7-Tabelle | 1.21-Tabelle für Items, die es 1.4.7 nicht gab; für vorhandene Items 1.21-Werte (identisch bis auf Details, z. B. Holzwerkzeuge) | neue Brennstoffe | geplant |
-| Rüstungssystem | Forge `ISpecialArmor` (Absorptionsanteil, ×25-Einheiten) | Schadens-Event (`LivingIncomingDamageEvent`) bildet Absorption und EU-Kosten nach | `ISpecialArmor` gibt es nicht mehr | geplant |
-| Trank „Radioaktivität“ | Potion-ID 24 | registrierter MobEffect | Registry | geplant |
+| Rüstungssystem | Forge `ISpecialArmor` (Absorptionsanteil, ×25-Einheiten) | Schadens-Event (`LivingIncomingDamageEvent`) bildet Absorption und EU-Kosten nach (Details unten „Rüstungsrechnung“) | `ISpecialArmor` gibt es nicht mehr | **umgesetzt** |
+| Trank „Radioaktivität“ | Potion-ID 24 | registrierter MobEffect `craft:radiation` | Registry | **umgesetzt** |
 | Schadenswerte | int halbe Herzen | float Lebenspunkte, Werte 1:1 | Typ | geplant |
 | Bronze-Werkzeuge und -Rüstung | IC2-Items | werden nicht umgesetzt | Nutzerentscheidung 2026-10-15 | **entschieden** |
 | Electron Tubes / Platinen / Lötkolben | Thermionic Fabricator, Carpenter | Maschinen werden 1:1 übernommen, keine Abweichung | im Umfang | **entschieden** |
@@ -121,7 +121,7 @@ Status: *geplant* (aus Phase 1 abgeleitet, noch nicht umgesetzt), *entschieden* 
 | Nanosäbel: zwei Items | `itemNanoSaberOff`/`itemNanoSaber` | ein Item mit Data Component `craft:active`; Modell-Override mit animierter Flacker-Textur (feste Pseudozufallsfolge statt Zufall je Frame) | Data Components | **umgesetzt** |
 | Nanosäbel: Schaden | `getDamageVsEntity` 20/4 | Attribut-Modifikator +19/+3 auf die Basis 1; Angriffs-Abklingzeit (1.9+) mit Standardgeschwindigkeit | Kampfsystem 1.9+ | **umgesetzt** |
 | Nanosäbel: Leerlaufzähler | globaler Zähler, +1 je Welt-Tick (effektiv alle 16 Ticks) | `getGameTime() % 16`; Nebenhand zählt als „außerhalb der Hotbar“ | deterministisch, gleiche Rate | **umgesetzt** |
-| Nanosäbel: Rüstungsentzug | Treffer gegen Spieler mit Nano-/Quantenrüstung | kommt mit der Rüstung (Phase 6.3) | Rüstung fehlt noch | **offen bis 6.3** |
+| Nanosäbel: Rüstungsentzug | Treffer gegen Spieler: jedes Nano-Teil −4800 EU, leer → gelöscht; Quantum nie (Originalfehler) | 1:1 (`hurtEnemy`) | – | **umgesetzt** |
 | Bergbaulaser: Materialregeln | Material Holz (Super-Heat ohne Drop), `getCanBurn` (Feuer), Material TNT (`onBlockDestroyedByPlayer`) | `#mineable/axe`, `ignitedByLava()`, `TntBlock` über `onCaughtFire` | keine Materialien in 1.21 | **umgesetzt** |
 | Bergbaulaser: nicht abbaubar | Ziegel, Obsidian, Wasser, Lava, Bedrock, Glas | genau diese Vanilla-Blöcke (nicht gefärbtes/getöntes Glas, weinender Obsidian …) | 1:1 | **umgesetzt** |
 | Bergbaulaser: Explosionsresistenz | `getExplosionResistance(Laser, …)` | `getExplosionResistance(level, pos, Explosion mit dem Laser als Quelle)` | API | **umgesetzt** |
@@ -131,6 +131,25 @@ Status: *geplant* (aus Phase 1 abgeleitet, noch nicht umgesetzt), *entschieden* 
 | OV-Scanner: zweites Rezept | geladene RE-Batterie statt OD-Scanner (Originalfehler) | RE-Batterie beliebiger Ladung (ein Item für leer/geladen) | RE-Batterie ist ein Item | **umgesetzt** |
 | Elektrowerkzeuge: Rezepte | GT-Rezepte mit Stahl-/Titanplatten u. a. | Werkzeuge ohne Rezept (Creative) bis Phase 6b; OD-/OV-Scanner haben ihr IC2-Rezept; Quarry-Rezept (GT) mit Diamantbohrer jetzt vorhanden | Zutaten fehlen noch | **offen bis Phase 6b** |
 | Errungenschaften der Werkzeuge | „Meet the Dentist“, „Laser Time“ … | entfallen (wie alle IC2-Errungenschaften bisher) | – | **entfällt** |
+| Rüstungsrechnung | Forge `ISpecialArmor.ApplyArmor` in `EntityPlayer.damageEntity` (int-Schaden, Übertrag `carryoverDamage`) | trägt ein Spieler mindestens ein IC2-Rüstungsteil, ersetzt ein `DamageContainer`-Modifikator (`Reduction.ARMOR`) die Vanilla-Rüstungsformel durch `ApplyArmor` 1:1 (Vanilla-Rüstungsteile mit Punkte/25, Härte zählt dann nicht); Vanilla-Rüstungsschaden wird über `ArmorHurtEvent` unterdrückt. Ergebnis als float ohne Übertrag. Ohne IC2-Rüstung bleibt die 1.21-Formel | kein `ISpecialArmor`, float-Lebenspunkte | **umgesetzt** |
+| Rüstungsanzeige | `getArmorDisplay` | Rüstungsattribut: elektrisch dynamisch (`getDefaultAttributeModifiers` je nach Ladung), Hazmat 1 über das Material | Anzeige = Attribut | **umgesetzt** |
+| Rüstungs-Tick | Forge `onArmorTickUpdate` | `inventoryTick`, wenn der Stapel im passenden Rüstungsslot steckt (beide Seiten wie im Original; Server-only, wo nur Serverzustand betroffen ist: Quantenhelm/-brust, Hazmat-Helm, Nachtsicht, Solarhelm, Static Boots) | Hook entfällt | **umgesetzt** |
+| Rüstungstexturen/-material | `addArmor("ic2/<name>")`, Diamant-Rendermaterial | je Textur ein `ArmorMaterial` (`craft:<name>`, `_layer_1/_2`), Verteidigung 0 (Hazmat 1), nicht verzauberbar, keine Reparatur mit Material; Anlegegeräusch generisch (1.4.7 ohne) | Registry | **umgesetzt** |
+| Quantum: Sprint/Sprung | Config `enableQuantumSpeedOnSprint` (Client → Server), `isJumping` | fest `true` (Pack-Wert); Springen über die IC2-Sprungtaste (`Ic2Keyboard`) statt `isJumping` | Feld geschützt, gleiche Bedeutung | **umgesetzt** |
+| Quantum: Zustände je Spieler | statische Maps, `removePlayerReferences` beim Ausloggen | `WeakHashMap` je Spielerobjekt | gleiches Verhalten | **umgesetzt** |
+| Quantumhelm: Zinndosen essen | gefüllte Zinndose aus dem Inventar | kommt mit der Zinndose (Canning Machine) | Item fehlt noch | **offen** |
+| Errungenschaft „starveWithQHelmet“ | Quantumhelm | entfällt (wie alle IC2-Errungenschaften) | – | **entfällt** |
+| Hazmat: Feuerquellen | `inFire`, `onFire`, `lava` | zusätzlich `campfire` (Lagerfeuer gab es 1.4.7 nicht; Feuerblock-Schaden) | neuer Block | **umgesetzt** |
+| Hazmat: `isInLava` | Material Lava/Feuer am Fußblock, Höhe über `BlockFluid` | Lava-Fluid mit Level-Eigenschaft, gleiche Höhenformel | Materialien entfallen | **umgesetzt** |
+| Jetpack: Flug-Kick | `resetPlayerInAirTime` (`ticksForFloatKick`) | `aboveGroundTickCount = 0` (Access Transformer) | privates Feld | **umgesetzt** |
+| Jetpack: Welthöhe | `getHeight()` = 256 | `getMaxBuildHeight()` (Oberwelt 320) | Welthöhe | **umgesetzt** |
+| Jetpack: Sound | IC2-AudioManager „Rucksack“-Position | mitlaufender Loop am lokalen Spieler | API | **umgesetzt** |
+| Jetpack: Betankung | Canning Machine | Jetpack wird leer hergestellt (Damage 18 001), Betanken mit der Canning Machine | Maschine fehlt noch | **offen** |
+| CF-Pack | Pellet-Vorrat für den Bauschaumsprüher | kommt mit dem Bauschaumsprüher (Rezept braucht ihn) | Item fehlt noch | **offen** |
+| Quantum-Rezepte | Iridiumplatte, verst. Glas, fortg. Schaltkreis … | Quantum ohne Rezept (Creative) bis Phase 6b | Zutaten (GT) fehlen | **offen bis Phase 6b** |
+| Static Boots: Position | NBT `x`/`z` | Data Component `craft:last_position` | Data Components | **umgesetzt** |
+| Jetpack: Modus/Timer | NBT `hoverMode`/`toggleTimer` | Data Components `craft:hover_mode`/`craft:toggle_timer` | Data Components | **umgesetzt** |
+| Strahlungseffekt | Potion-ID 24, Icon Vanilla-Gift | `craft:radiation` (MobEffect), Icon = Vanilla-Gift-Textur; Damage-Type `craft:radiation` im Tag `bypasses_armor`; Todesnachricht neu (1.4.7 ohne Übersetzung) | Registry | **umgesetzt** |
 
 ## Bewusst (Energiebalancing)
 

@@ -1,0 +1,10 @@
+{
+  "type": "craft:compressor",
+  "ingredient": {
+    "item": "craft:carbon_mesh"
+  },
+  "result": {
+    "count": 1,
+    "id": "craft:carbon_plate"
+  }
+}

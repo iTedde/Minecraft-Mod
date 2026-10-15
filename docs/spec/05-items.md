@@ -376,7 +376,9 @@ damage − 1)`, `maxLadung = maxDamage − 2`. `use(n)`: `neu = max(0, ladung �
 Entladen ohne Transferlimit. Tick: NBT `hoverMode`, `toggleTimer`. Sprung + Modus bei Timer 0 → Timer 10, Modus
 umschalten (Server speichert und meldet „Hover Mode enabled./disabled.“). Sprung oder (Schweben und `motionY < −0,35`)
 → `useJetpack`. Timer −1 je Tick (Server). `useJetpack`: Ladung 0 → nichts. Leistung 1,0/Abfall 0,2 (elektrisch
-0,7/0,05); `ladung/max ≤ abfall` → `leistung ×= ladung/(max·abfall)`. Vorwärts: Schub 0,15 (Schweben 0,5, elektrisch
+0,7/0,05); `ladung/max ≤ abfall` → `leistung ×= ladung/(max·abfall)`. **Originalfehler:** das elektrische Jetpack
+überschreibt nur `getCharge`, nicht `getMaxCharge(stack)` – `max` bleibt `maxDamage − 2 = 25` (Ladeanzeige 27), der
+Abfall greift also erst unter 1,25 EU. Vorwärts: Schub 0,15 (Schweben 0,5, elektrisch
 +0,15), `moveFlying(0, 0,4·leistung·schub·2, 0,02)`. Max. Höhe Welthöhe (elektrisch `(int)(Welthöhe/1,28)`); `y >
 max − 25` → `leistung ×= (max − min(y, max))/25`. `motionY = min(motionY + leistung·0,2, 0,6)`; Schweben: Grenze −0,1
 (elektrisch mit Sprung 0,1), `motionY` über der Grenze → Grenze, außer der vorige Wert war größer. Verbrauch 9
