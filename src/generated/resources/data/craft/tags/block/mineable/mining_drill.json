@@ -1,0 +1,19 @@
+{
+  "values": [
+    "#minecraft:mineable/pickaxe",
+    "#minecraft:sand",
+    "minecraft:grass_block",
+    "minecraft:dirt",
+    "minecraft:coarse_dirt",
+    "minecraft:podzol",
+    "minecraft:rooted_dirt",
+    "minecraft:mycelium",
+    "minecraft:farmland",
+    "minecraft:gravel",
+    "minecraft:snow",
+    "minecraft:snow_block",
+    "minecraft:clay",
+    "minecraft:soul_sand",
+    "minecraft:soul_soil"
+  ]
+}

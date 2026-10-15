@@ -9,6 +9,7 @@ import java.util.Map;
 import dev.craft.Craft;
 import dev.craft.ic2.cable.CableType;
 import dev.craft.ic2.item.BatteryItem;
+import dev.craft.ic2.item.ElectricWrenchItem;
 import dev.craft.ic2.item.EmptyCellItem;
 import dev.craft.ic2.item.ResinItem;
 import dev.craft.ic2.item.ScrapBoxItem;
@@ -16,6 +17,13 @@ import dev.craft.ic2.item.SingleUseBatteryItem;
 import dev.craft.ic2.item.TreetapItem;
 import dev.craft.ic2.item.UpgradeModuleItem;
 import dev.craft.ic2.item.WrenchItem;
+import dev.craft.ic2.item.tool.ChainsawItem;
+import dev.craft.ic2.item.tool.DrillItem;
+import dev.craft.ic2.item.tool.ElectricHoeItem;
+import dev.craft.ic2.item.tool.ElectricTreetapItem;
+import dev.craft.ic2.item.tool.MiningLaserItem;
+import dev.craft.ic2.item.tool.NanoSaberItem;
+import dev.craft.ic2.item.tool.ScannerItem;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
@@ -111,6 +119,27 @@ public final class Ic2Items {
     // --- tools ---
     public static final DeferredItem<TreetapItem> TREETAP = simple(ITEMS.registerItem("treetap", TreetapItem::new));
     public static final DeferredItem<WrenchItem> WRENCH = simple(ITEMS.registerItem("wrench", WrenchItem::new));
+
+    // --- electric tools (shown in the creative tab charged and empty) ---
+    public static final DeferredItem<DrillItem> MINING_DRILL = ITEMS.registerItem("mining_drill",
+            properties -> new DrillItem(properties, 50, 8.0F));
+    public static final DeferredItem<DrillItem> DIAMOND_DRILL = ITEMS.registerItem("diamond_drill",
+            properties -> new DrillItem(properties, 80, 16.0F));
+    public static final DeferredItem<ChainsawItem> CHAINSAW = ITEMS.registerItem("chainsaw", ChainsawItem::new);
+    public static final DeferredItem<ElectricHoeItem> ELECTRIC_HOE =
+            ITEMS.registerItem("electric_hoe", ElectricHoeItem::new);
+    public static final DeferredItem<ElectricTreetapItem> ELECTRIC_TREETAP =
+            ITEMS.registerItem("electric_treetap", ElectricTreetapItem::new);
+    public static final DeferredItem<ElectricWrenchItem> ELECTRIC_WRENCH =
+            ITEMS.registerItem("electric_wrench", ElectricWrenchItem::new);
+    public static final DeferredItem<MiningLaserItem> MINING_LASER = ITEMS.registerItem("mining_laser",
+            properties -> new MiningLaserItem(properties.rarity(Rarity.UNCOMMON)));
+    public static final DeferredItem<NanoSaberItem> NANO_SABER = ITEMS.registerItem("nano_saber",
+            properties -> new NanoSaberItem(properties.rarity(Rarity.UNCOMMON)));
+    public static final DeferredItem<ScannerItem> OD_SCANNER = ITEMS.registerItem("od_scanner",
+            properties -> new ScannerItem(properties, false));
+    public static final DeferredItem<ScannerItem> OV_SCANNER = ITEMS.registerItem("ov_scanner",
+            properties -> new ScannerItem(properties, true));
 
     private Ic2Items() {
     }

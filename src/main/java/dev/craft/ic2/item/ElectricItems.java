@@ -1,9 +1,11 @@
 package dev.craft.ic2.item;
 
 import dev.craft.ic2.Ic2DataComponents;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.Nullable;
 
 /** Charge handling of electric items, 1:1 with IC2 {@code ElectricItem}. */
 public final class ElectricItems {
@@ -84,9 +86,12 @@ public final class ElectricItems {
         return isElectric(stack) && getCharge(stack) >= amount;
     }
 
-    /** Uses {@code amount} EU if fully available, recharging from armor before and after. */
-    public static boolean use(ItemStack stack, int amount, Player player) {
-        if (player.level().isClientSide() || !isElectric(stack)) {
+    /**
+     * Uses {@code amount} EU if fully available, recharging from armor before and after. Without a player (IC2
+     * passes {@code null}, e.g. for the miner) nothing is recharged.
+     */
+    public static boolean use(ItemStack stack, int amount, @Nullable Player player) {
+        if (player != null && player.level().isClientSide() || !isElectric(stack)) {
             return false;
         }
         chargeFromArmor(stack, player);
@@ -99,7 +104,7 @@ public final class ElectricItems {
     }
 
     /** Tops up {@code stack} from worn armor that provides energy and has at least the item's tier. */
-    public static void chargeFromArmor(ItemStack stack, Player player) {
+    public static void chargeFromArmor(ItemStack stack, @Nullable Player player) {
         if (player == null || player.level().isClientSide() || !(stack.getItem() instanceof ElectricItem item)) {
             return;
         }
@@ -119,6 +124,16 @@ public final class ElectricItems {
         if (changed) {
             player.containerMenu.broadcastChanges();
         }
+    }
+
+    /** Charge bar width as IC2 shows it through the item damage. */
+    public static int barWidth(ElectricItem item, ItemStack stack) {
+        return Math.round(13.0F - item.getChargeDamage(stack) * 13.0F / DISPLAY_MAX_DAMAGE);
+    }
+
+    public static int barColor(ElectricItem item, ItemStack stack) {
+        float fraction = 1.0F - (float) item.getChargeDamage(stack) / DISPLAY_MAX_DAMAGE;
+        return Mth.hsvToRgb(Math.max(0.0F, fraction) / 3.0F, 1.0F, 1.0F);
     }
 
     /** A fully charged copy of {@code stack}, e.g. for creative tabs. */

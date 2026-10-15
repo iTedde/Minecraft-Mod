@@ -1,0 +1,26 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "B": {
+      "item": "craft:re_battery"
+    },
+    "C": {
+      "item": "craft:electronic_circuit"
+    },
+    "G": {
+      "item": "minecraft:glowstone_dust"
+    },
+    "c": {
+      "item": "craft:insulated_copper_cable"
+    }
+  },
+  "pattern": [
+    " G ",
+    "CBC",
+    "ccc"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:od_scanner"
+  }
+}

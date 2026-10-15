@@ -128,7 +128,11 @@ public final class CraftRecipeProvider extends RecipeProvider {
         bcShaped(BcItems.LANDMARK).pattern("l").pattern("r").define('l', Items.LAPIS_LAZULI)
                 .define('r', Items.REDSTONE_TORCH).unlockedBy("has_lapis", has(Items.LAPIS_LAZULI))
                 .save(output, id("landmark"));
-        // Quarry: the pack recipe needs the IC2 diamond drill (titanium plates) – added together with the drill.
+        // GregTech ExpensiveBCQuarryRecipe; the diamond drill (any charge) itself needs titanium plates (phase 6b).
+        bcShaped(BcItems.QUARRY).pattern("ICI").pattern("GIG").pattern("DPD").define('I', BcItems.IRON_GEAR)
+                .define('C', Ic2Items.ADVANCED_CIRCUIT).define('G', BcItems.GOLD_GEAR).define('D', BcItems.DIAMOND_GEAR)
+                .define('P', Ic2Items.DIAMOND_DRILL).unlockedBy("has_drill", has(Ic2Items.DIAMOND_DRILL))
+                .save(output, id("quarry"));
         bcShaped(BcItems.TANK).pattern("ggg").pattern("g g").pattern("ggg").define('g', Items.GLASS)
                 .unlockedBy("has_glass", has(Items.GLASS)).save(output, id("tank"));
         // Item.pickaxeSteel becomes an ItemStack with damage 0: only an undamaged pickaxe fits, as in 1.4.7.
@@ -410,6 +414,15 @@ public final class CraftRecipeProvider extends RecipeProvider {
         shaped(Ic2Items.TREETAP, 1, "treetap").pattern(" P ").pattern("PPP").pattern("P  ").define('P', ItemTags.PLANKS).save();
         shaped(Ic2Items.WRENCH, 1, "wrench").pattern("B B").pattern("BBB").pattern(" B ")
                 .define('B', CraftItemTagsProvider.INGOTS_BRONZE).save();
+        // Electric tools: all but the scanners need GT plates in the pack (phase 6b).
+        shaped(Ic2Items.OD_SCANNER, 1, "od_scanner").pattern(" G ").pattern("CBC").pattern("ccc")
+                .define('G', Items.GLOWSTONE_DUST).define('C', Ic2Items.ELECTRONIC_CIRCUIT).define('B', Ic2Items.RE_BATTERY)
+                .define('c', Ic2Items.cable(CableType.INSULATED_COPPER)).save();
+        // IC2 bug kept: the second recipe takes a (charged) RE battery instead of the OD scanner.
+        shaped(Ic2Items.OV_SCANNER, 1, "ov_scanner").pattern(" G ").pattern("GCG").pattern("cSc")
+                .define('G', Items.GLOWSTONE_DUST).define('C', Ic2Items.ADVANCED_CIRCUIT)
+                .define('S', Ingredient.of(Ic2Items.OD_SCANNER, Ic2Items.RE_BATTERY))
+                .define('c', Ic2Items.cable(CableType.DOUBLE_INSULATED_GOLD)).save();
         shaped(Items.DIAMOND_PICKAXE, 1, "diamond_pickaxe_from_industrial_diamond").pattern("DDD").pattern(" S ").pattern(" S ")
                 .define('D', Ic2Items.INDUSTRIAL_DIAMOND).define('S', Items.STICK).save();
         shaped(Items.DIAMOND_HOE, 1, "diamond_hoe_from_industrial_diamond").pattern("DD ").pattern(" S ").pattern(" S ")

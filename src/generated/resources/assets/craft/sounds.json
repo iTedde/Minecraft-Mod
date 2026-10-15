@@ -49,6 +49,46 @@
       "craft:machines/recycler_op"
     ]
   },
+  "tools/chainsaw_idle": {
+    "sounds": [
+      "craft:tools/chainsaw_idle"
+    ]
+  },
+  "tools/chainsaw_stop": {
+    "sounds": [
+      "craft:tools/chainsaw_stop"
+    ]
+  },
+  "tools/mining_laser": {
+    "sounds": [
+      "craft:tools/mining_laser"
+    ]
+  },
+  "tools/mining_laser_explosive": {
+    "sounds": [
+      "craft:tools/mining_laser_explosive"
+    ]
+  },
+  "tools/mining_laser_long_range": {
+    "sounds": [
+      "craft:tools/mining_laser_long_range"
+    ]
+  },
+  "tools/mining_laser_low_focus": {
+    "sounds": [
+      "craft:tools/mining_laser_low_focus"
+    ]
+  },
+  "tools/mining_laser_scatter": {
+    "sounds": [
+      "craft:tools/mining_laser_scatter"
+    ]
+  },
+  "tools/od_scanner": {
+    "sounds": [
+      "craft:tools/od_scanner"
+    ]
+  },
   "tools/treetap": {
     "sounds": [
       "craft:tools/treetap"

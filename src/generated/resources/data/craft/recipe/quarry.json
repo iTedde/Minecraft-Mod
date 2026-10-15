@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "craft:advanced_circuit"
+    },
+    "D": {
+      "item": "craft:diamond_gear"
+    },
+    "G": {
+      "item": "craft:gold_gear"
+    },
+    "I": {
+      "item": "craft:iron_gear"
+    },
+    "P": {
+      "item": "craft:diamond_drill"
+    }
+  },
+  "pattern": [
+    "ICI",
+    "GIG",
+    "DPD"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:quarry"
+  }
+}

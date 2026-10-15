@@ -112,6 +112,25 @@ Status: *geplant* (aus Phase 1 abgeleitet, noch nicht umgesetzt), *entschieden* 
 | Energy Bridge GUI: Sync | einzelne Container-Werte (16 Bit); System-ID nur gesendet, wenn vorhanden | `SyncedInts` (volle ints), System −1 = keins | gleiches Bild | **umgesetzt** |
 | IC2 Consumer: Rezepte | LV-/MV-/HV-Trafo, MFSU | LV/MV/HV mit Phase 6.1; EV-Rezept vorhanden, MFSU selbst aber erst ab Phase 6b herstellbar | Zutaten fehlten | **umgesetzt** |
 | MFSU: Rezept | `LCL/LML/LAL` mit fortg. Maschinenblock | Block vorhanden (Creative), Rezept erst mit Phase 6b: der fortg. Maschinenblock braucht fortg. Legierung, deren Mischmetallbarren im Pack nur aus GT-Platten entsteht | Zutat fehlt noch | **offen bis Phase 6b** |
+| IC2-Tasten | eigene `KeyBinding`s (L-Alt, L-Strg, M, C), Zustand in einer Map je Spielerobjekt | NeoForge-`KeyMapping`s (Kategorie „IndustrialCraft 2“, gleiche Standardtasten; L-Strg teilt sich die Taste mit Vanilla-Sprinten, beide wirken), Zustand als nicht gespeichertes Spieler-Attachment, Payload `craft:key_state`; der Client sendet zusätzlich neu, wenn sich das Spielerobjekt ändert (Weltwechsel/Respawn) | 1.21-API | **umgesetzt** |
+| Elektrowerkzeuge: abbaubare Blöcke | Forge-Werkzeugklasse + Material (Stein/Eisen bzw. Holz) + Blockliste | ein Block-Tag je Werkzeug: `craft:mineable/mining_drill` (= `#mineable/pickaxe` + Erde/Sand/Kies/Schnee/Ton/Ackerboden/Seelensand …), `…/chainsaw` (= `#mineable/axe` + Blätter + Spinnennetz), `…/electric_hoe`; neue 1.21-Varianten (grobe Erde, Podsol, Wurzelerde, roter Sand, Seelenerde) wie der Basisblock | keine Materialien in 1.21 | **umgesetzt** |
+| Elektrowerkzeuge: `onBlockStartBreak` | Item-Hook vor dem Abbau | `BlockEvent.BreakEvent` (Haupthand des Spielers) | Hook existiert nicht mehr | **umgesetzt** |
+| Kettensäge: Blöcke scheren | Forge-`IShearable`-Blöcke (Blätter, Gras, Ranken, toter Busch) | Tag `craft:chainsaw_shearable`, Drop = der Block selbst | Blöcke sind in 1.21 nicht `IShearable` | **umgesetzt** |
+| Kettensäge: Sound | Leerlauf-Loop/Stopp über IC2-AudioManager | Client-Tick prüft die Haupthand des lokalen Spielers, mitlaufender Loop | API | **umgesetzt** |
+| Elektrische Hacke | `UseHoeEvent` vor dem Pflügen | kein Event; nur Erde und Gras werden Ackerboden (wie im Original, keine 1.21-Erdvarianten) | Event entfällt in 1.21 | **umgesetzt** |
+| Nanosäbel: zwei Items | `itemNanoSaberOff`/`itemNanoSaber` | ein Item mit Data Component `craft:active`; Modell-Override mit animierter Flacker-Textur (feste Pseudozufallsfolge statt Zufall je Frame) | Data Components | **umgesetzt** |
+| Nanosäbel: Schaden | `getDamageVsEntity` 20/4 | Attribut-Modifikator +19/+3 auf die Basis 1; Angriffs-Abklingzeit (1.9+) mit Standardgeschwindigkeit | Kampfsystem 1.9+ | **umgesetzt** |
+| Nanosäbel: Leerlaufzähler | globaler Zähler, +1 je Welt-Tick (effektiv alle 16 Ticks) | `getGameTime() % 16`; Nebenhand zählt als „außerhalb der Hotbar“ | deterministisch, gleiche Rate | **umgesetzt** |
+| Nanosäbel: Rüstungsentzug | Treffer gegen Spieler mit Nano-/Quantenrüstung | kommt mit der Rüstung (Phase 6.3) | Rüstung fehlt noch | **offen bis 6.3** |
+| Bergbaulaser: Materialregeln | Material Holz (Super-Heat ohne Drop), `getCanBurn` (Feuer), Material TNT (`onBlockDestroyedByPlayer`) | `#mineable/axe`, `ignitedByLava()`, `TntBlock` über `onCaughtFire` | keine Materialien in 1.21 | **umgesetzt** |
+| Bergbaulaser: nicht abbaubar | Ziegel, Obsidian, Wasser, Lava, Bedrock, Glas | genau diese Vanilla-Blöcke (nicht gefärbtes/getöntes Glas, weinender Obsidian …) | 1:1 | **umgesetzt** |
+| Bergbaulaser: Explosionsresistenz | `getExplosionResistance(Laser, …)` | `getExplosionResistance(level, pos, Explosion mit dem Laser als Quelle)` | API | **umgesetzt** |
+| Scanner: Scantiefe | bis y = 1 (`y > 0`) | bis eine Ebene über der Weltuntergrenze (`y > minBuildHeight`) | Welthöhe −64 | **umgesetzt** |
+| Scanner: kein Block gescannt | `null` als `int` → Absturz | Ergebnis 0 | kein Absturz | **umgesetzt** |
+| Scanner: Erzwerte | `valuableOres` (Block-ID/Meta, Ore Dictionary) | Konventions-Tags `c:ores/*` (Tiefenschiefer-/Nethervarianten wie Basiserz), sonstige `c:ores` = 1 | Tags | **umgesetzt** |
+| OV-Scanner: zweites Rezept | geladene RE-Batterie statt OD-Scanner (Originalfehler) | RE-Batterie beliebiger Ladung (ein Item für leer/geladen) | RE-Batterie ist ein Item | **umgesetzt** |
+| Elektrowerkzeuge: Rezepte | GT-Rezepte mit Stahl-/Titanplatten u. a. | Werkzeuge ohne Rezept (Creative) bis Phase 6b; OD-/OV-Scanner haben ihr IC2-Rezept; Quarry-Rezept (GT) mit Diamantbohrer jetzt vorhanden | Zutaten fehlen noch | **offen bis Phase 6b** |
+| Errungenschaften der Werkzeuge | „Meet the Dentist“, „Laser Time“ … | entfallen (wie alle IC2-Errungenschaften bisher) | – | **entfällt** |
 
 ## Bewusst (Energiebalancing)
 

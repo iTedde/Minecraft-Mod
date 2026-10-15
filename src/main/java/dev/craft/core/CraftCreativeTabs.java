@@ -12,6 +12,7 @@ import dev.craft.ic2.Ic2Items;
 import dev.craft.ic2.Ic2Machine;
 import dev.craft.ic2.cable.CableType;
 import dev.craft.ic2.item.BatteryItem;
+import dev.craft.ic2.item.ElectricItem;
 import dev.craft.ic2.item.ElectricItems;
 import dev.craft.powerconverters.ConverterType;
 import dev.craft.powerconverters.PcItems;
@@ -53,6 +54,9 @@ public final class CraftCreativeTabs {
                     } else if (value instanceof BatteryItem) {
                         output.accept(new ItemStack(value));
                         output.accept(ElectricItems.charged(new ItemStack(value)));
+                    } else if (value instanceof ElectricItem) {
+                        output.accept(ElectricItems.charged(new ItemStack(value)));
+                        output.accept(new ItemStack(value));
                     }
                 }
             })

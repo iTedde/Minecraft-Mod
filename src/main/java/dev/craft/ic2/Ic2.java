@@ -2,12 +2,15 @@ package dev.craft.ic2;
 
 import dev.craft.ic2.generator.GeothermalGeneratorBlockEntity;
 import dev.craft.ic2.item.ScrapBoxItem;
+import dev.craft.ic2.item.tool.ElectricToolItem;
+import dev.craft.ic2.keyboard.Ic2Keyboard;
 import dev.craft.ic2.machine.MachineBlockEntity;
 import dev.craft.ic2.world.Ic2Features;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
+import net.neoforged.neoforge.common.NeoForge;
 
 /** Entry point of the IndustrialCraft 2 part. */
 public final class Ic2 {
@@ -24,6 +27,10 @@ public final class Ic2 {
         Ic2Menus.MENUS.register(modBus);
         Ic2Sounds.SOUNDS.register(modBus);
         Ic2Features.FEATURES.register(modBus);
+        Ic2EntityTypes.ENTITY_TYPES.register(modBus);
+        Ic2Keyboard.ATTACHMENT_TYPES.register(modBus);
+        modBus.addListener(Ic2Keyboard::registerPayloads);
+        NeoForge.EVENT_BUS.addListener(ElectricToolItem::onBlockBreak);
         modBus.addListener(Ic2::registerCapabilities);
         modBus.addListener(Ic2::commonSetup);
     }

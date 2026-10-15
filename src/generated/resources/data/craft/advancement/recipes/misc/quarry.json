@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_drill": {
+      "conditions": {
+        "items": [
+          {
+            "items": "craft:diamond_drill"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "craft:quarry"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_drill"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "craft:quarry"
+    ]
+  }
+}

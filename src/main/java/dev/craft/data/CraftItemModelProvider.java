@@ -1,5 +1,7 @@
 package dev.craft.data;
 
+import java.util.List;
+
 import dev.craft.Craft;
 import dev.craft.buildcraft.BcItems;
 import dev.craft.buildcraft.engine.EngineType;
@@ -36,6 +38,17 @@ public final class CraftItemModelProvider extends ItemModelProvider {
         battery(Ic2Items.RE_BATTERY);
         battery(Ic2Items.ENERGY_CRYSTAL);
         battery(Ic2Items.LAPOTRON_CRYSTAL);
+        for (DeferredItem<? extends Item> tool : List.of(Ic2Items.MINING_DRILL, Ic2Items.DIAMOND_DRILL,
+                Ic2Items.CHAINSAW, Ic2Items.ELECTRIC_HOE, Ic2Items.ELECTRIC_TREETAP, Ic2Items.MINING_LASER)) {
+            handheldItem(tool.get());
+        }
+        basicItem(Ic2Items.ELECTRIC_WRENCH.get());
+        basicItem(Ic2Items.OD_SCANNER.get());
+        basicItem(Ic2Items.OV_SCANNER.get());
+        ItemModelBuilder saberActive = withExistingParent("nano_saber_active", mcLoc("item/handheld"))
+                .texture("layer0", modLoc("item/nano_saber_active"));
+        handheldItem(Ic2Items.NANO_SABER.get()).override().predicate(Ic2Client.ACTIVE_PROPERTY, 1.0F)
+                .model(saberActive).end();
         withExistingParent(BcItems.LANDMARK.getId().getPath(), mcLoc("item/generated"))
                 .texture("layer0", modLoc("block/landmark"));
         for (DeferredItem<? extends Item> item : BcItems.simpleItems()) {

@@ -1,7 +1,6 @@
 package dev.craft.ic2.item;
 
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Inventory;
@@ -89,13 +88,12 @@ public class BatteryItem extends Item implements ElectricItem {
 
     @Override
     public int getBarWidth(ItemStack stack) {
-        return Math.round(13.0F - getChargeDamage(stack) * 13.0F / ElectricItems.DISPLAY_MAX_DAMAGE);
+        return ElectricItems.barWidth(this, stack);
     }
 
     @Override
     public int getBarColor(ItemStack stack) {
-        float fraction = 1.0F - (float) getChargeDamage(stack) / ElectricItems.DISPLAY_MAX_DAMAGE;
-        return Mth.hsvToRgb(Math.max(0.0F, fraction) / 3.0F, 1.0F, 1.0F);
+        return ElectricItems.barColor(this, stack);
     }
 
     /** Charged RE battery: discharges into electric non-battery items of the hotbar. */

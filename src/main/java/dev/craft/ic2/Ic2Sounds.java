@@ -30,6 +30,18 @@ public final class Ic2Sounds {
     public static final DeferredHolder<SoundEvent, SoundEvent> INTERRUPT_ONE = register("machines/interrupt_one");
     public static final DeferredHolder<SoundEvent, SoundEvent> TREETAP = register("tools/treetap");
     public static final DeferredHolder<SoundEvent, SoundEvent> WRENCH = register("tools/wrench");
+    public static final DeferredHolder<SoundEvent, SoundEvent> CHAINSAW_IDLE = register("tools/chainsaw_idle");
+    public static final DeferredHolder<SoundEvent, SoundEvent> CHAINSAW_STOP = register("tools/chainsaw_stop");
+    public static final DeferredHolder<SoundEvent, SoundEvent> MINING_LASER = register("tools/mining_laser");
+    public static final DeferredHolder<SoundEvent, SoundEvent> MINING_LASER_LOW_FOCUS =
+            register("tools/mining_laser_low_focus");
+    public static final DeferredHolder<SoundEvent, SoundEvent> MINING_LASER_LONG_RANGE =
+            register("tools/mining_laser_long_range");
+    public static final DeferredHolder<SoundEvent, SoundEvent> MINING_LASER_SCATTER =
+            register("tools/mining_laser_scatter");
+    public static final DeferredHolder<SoundEvent, SoundEvent> MINING_LASER_EXPLOSIVE =
+            register("tools/mining_laser_explosive");
+    public static final DeferredHolder<SoundEvent, SoundEvent> OD_SCANNER = register("tools/od_scanner");
 
     private Ic2Sounds() {
     }

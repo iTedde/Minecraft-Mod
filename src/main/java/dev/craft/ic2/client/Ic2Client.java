@@ -2,10 +2,12 @@ package dev.craft.ic2.client;
 
 import dev.craft.Craft;
 import dev.craft.ic2.Ic2Blocks;
+import dev.craft.ic2.Ic2EntityTypes;
 import dev.craft.ic2.Ic2Items;
 import dev.craft.ic2.Ic2Machine;
 import dev.craft.ic2.Ic2Menus;
 import dev.craft.ic2.item.BatteryItem;
+import dev.craft.ic2.item.tool.NanoSaberItem;
 import dev.craft.ic2.machine.MachineSoundHooks;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
@@ -14,14 +16,18 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.ModelEvent;
 import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
+import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 
 @EventBusSubscriber(modid = Craft.MODID, value = Dist.CLIENT, bus = EventBusSubscriber.Bus.MOD)
 public final class Ic2Client {
     /** Item property for the battery icons: charge step 0–4 divided by 4. */
     public static final ResourceLocation CHARGE_PROPERTY = ResourceLocation.fromNamespaceAndPath(Craft.MODID, "charge");
+    /** Item property of the nano saber: 1 when switched on. */
+    public static final ResourceLocation ACTIVE_PROPERTY = ResourceLocation.fromNamespaceAndPath(Craft.MODID, "active");
 
     private Ic2Client() {
     }
@@ -35,7 +41,19 @@ public final class Ic2Client {
                 ItemProperties.register(battery, CHARGE_PROPERTY,
                         (stack, level, entity, seed) -> battery.getIconLevel(stack) / 4.0F);
             }
+            ItemProperties.register(Ic2Items.NANO_SABER.get(), ACTIVE_PROPERTY,
+                    (stack, level, entity, seed) -> NanoSaberItem.isActive(stack) ? 1.0F : 0.0F);
         });
+    }
+
+    @SubscribeEvent
+    public static void registerKeyMappings(RegisterKeyMappingsEvent event) {
+        Ic2KeyMappings.register(event);
+    }
+
+    @SubscribeEvent
+    public static void registerEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
+        event.registerEntityRenderer(Ic2EntityTypes.MINING_LASER.get(), MiningLaserRenderer::new);
     }
 
     @SubscribeEvent

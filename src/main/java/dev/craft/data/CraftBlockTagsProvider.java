@@ -9,6 +9,9 @@ import dev.craft.core.explosion.Ic2Explosion;
 import dev.craft.forestry.FrBlocks;
 import dev.craft.ic2.Ic2Blocks;
 import dev.craft.ic2.Ic2Machine;
+import dev.craft.ic2.item.tool.ChainsawItem;
+import dev.craft.ic2.item.tool.DrillItem;
+import dev.craft.ic2.item.tool.ElectricHoeItem;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
@@ -64,5 +67,22 @@ public final class CraftBlockTagsProvider extends BlockTagsProvider {
         tag(STORAGE_BLOCKS_TIN).add(Ic2Blocks.TIN_BLOCK.get());
         tag(STORAGE_BLOCKS_BRONZE).add(Ic2Blocks.BRONZE_BLOCK.get());
         tag(Tags.Blocks.STORAGE_BLOCKS).addTag(STORAGE_BLOCKS_TIN).addTag(STORAGE_BLOCKS_BRONZE);
+        addElectricToolTags();
+    }
+
+    /**
+     * IC2 electric tools: Forge tool class, material rules and block lists as one tag per tool. Blocks split up
+     * since 1.4.7 (coarse dirt, podzol, red sand, soul soil …) count like their base block.
+     */
+    private void addElectricToolTags() {
+        tag(DrillItem.MINEABLE).addTag(BlockTags.MINEABLE_WITH_PICKAXE).addTag(BlockTags.SAND).add(
+                Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.COARSE_DIRT, Blocks.PODZOL, Blocks.ROOTED_DIRT,
+                Blocks.MYCELIUM, Blocks.FARMLAND, Blocks.GRAVEL, Blocks.SNOW, Blocks.SNOW_BLOCK, Blocks.CLAY,
+                Blocks.SOUL_SAND, Blocks.SOUL_SOIL);
+        tag(ChainsawItem.MINEABLE).addTag(BlockTags.MINEABLE_WITH_AXE).addTag(BlockTags.LEAVES).add(Blocks.COBWEB);
+        tag(ChainsawItem.SHEARABLE).addTag(BlockTags.LEAVES).add(Blocks.SHORT_GRASS, Blocks.FERN, Blocks.VINE,
+                Blocks.DEAD_BUSH);
+        tag(ElectricHoeItem.MINEABLE).add(Blocks.DIRT, Blocks.COARSE_DIRT, Blocks.PODZOL, Blocks.ROOTED_DIRT,
+                Blocks.GRASS_BLOCK, Blocks.MYCELIUM);
     }
 }

@@ -21,6 +21,8 @@ ergänzen. Basispaket `dev.craft`, Einstieg `Craft` → `Ic2.init`, `BuildCraft.
 
 - **EU** (`core/energy`): `EnergySource`/`EnergySink`/`EnergyConductor` implementieren; Anmeldung im Netz über
   `EnergyNets` (in `onLoad`, Abmeldung in `setRemoved`/`onChunkUnloaded`). Elektrische Items: `ic2/item/ElectricItems`.
+  Elektrische Items/Werkzeuge: `ElectricItem` implementieren, Ladebalken über `ElectricItems.barWidth/barColor`;
+  Werkzeuge erben von `ic2/item/tool/ElectricToolItem` (abbaubare Blöcke als Block-Tag, `onBlockStartBreak`).
 - **MJ** (`buildcraft/power`): Empfänger implementiert `PowerReceptor`, hält einen `PowerProvider`
   (`configure(minRecv, maxRecv, activation, maxStored)`), ruft jeden Server-Tick `provider.update(this, level)` und
   registriert die Capability `BcCapabilities.POWER_RECEPTOR`. Engines suchen Empfänger über diese Capability.
@@ -42,6 +44,12 @@ ergänzen. Basispaket `dev.craft`, Einstieg `Craft` → `Ic2.init`, `BuildCraft.
 | `powerconverters/power/BridgeComponentBlockEntity` | Konverter-Bauteil: Nachbar-Cache, „verbunden“-Seiten als Blockstate (`PowerConverterBlock.property(side)`); Consumer/Producer-Basisklassen, `EnergyBridgeBlockEntity` |
 | `core/multiblock/MultiblockPattern`, `MultiblockController` | gemeinsames Multiblock-System |
 | `core/explosion/Ic2Explosion` | IC2-Explosion (`explodeMachineAt`) |
+
+## Tasten und Netzwerk
+
+- IC2-Tasten (Alt/Boost/Modus/Seiteninventar + Vorwärts/Springen): serverseitig `ic2/keyboard/Ic2Keyboard.isModeSwitchKeyDown(player)` usw.
+- Eigene Payloads: in `Ic2Keyboard.registerPayloads` (Registrar Version „1“) ergänzen bzw. analog registrieren.
+- Entities: `Ic2EntityTypes`; Renderer in `Ic2Client.registerEntityRenderers`.
 
 ## Menüs und GUIs
 

@@ -350,3 +350,37 @@ Multiblock (vorher offene Entscheidungen 2 und 3 klären).
    Schraubenschlüssel inkl. oben/unten), Trafos (Abwärts: HV-Trafo zwischen MFSU-Ausgang und MFE; Aufwärts mit
    Hebel → aktive Textur, Ausgabe vorne; Überspannung mit falsch gedrehtem LV-Trafo explodiert; Drops ohne
    Schraubenschlüssel).
+
+## Erledigt (Teilpaket „Phase 6.2: Elektrowerkzeuge + Tastensystem“, 2026-10-15)
+- Spec-Lücken aus dem Original einmalig in `05-items.md` §3.1 (Details aller Elektrowerkzeuge, Laserprojektil,
+  Texturindizes) und §3a (Tastensystem) nachgetragen. **Spec-Korrektur:** Nanosäbel-Abbaugeschwindigkeit ist
+  wirkungslos überschrieben (Spinnennetz 6,0 mit ≥ 10 EU, an und aus); Bohrer-/Säbel-Sounds existieren im Pack nicht
+  → lautlos.
+- **Tastensystem** `ic2/keyboard/`: `Ic2Keyboard` (Bitmaske Alt/Boost/Vorwärts/Modus/Springen/Seiteninventar als
+  Spieler-Attachment, Abfragen `isAltKeyDown` …), `KeyStatePayload`; Client `Ic2KeyMappings` (L-Alt, L-Strg, M, C,
+  Senden bei Änderung). Schraubenschlüssel: Alt-Taste dreht zyklisch (Schleichen rückwärts), `canTakeDamage` vor
+  Drehen/Abbau.
+- **Werkzeuge** `ic2/item/tool/`: `ElectricToolItem` (Basis: Abbaugeschwindigkeit/-recht per Block-Tag, Kosten je
+  Block, Ladebalken, `onBlockStartBreak` über `BlockEvent.BreakEvent`), `DrillItem` (Bergbau-/Diamantbohrer),
+  `ChainsawItem` (Extraschaden 9, Scheren von Blöcken/Entities), `ElectricHoeItem`, `ElectricTreetapItem`,
+  `MiningLaserItem` (7 Modi) + `MiningLaserEntity` (Projektil 1:1, nicht gespeichert), `NanoSaberItem`
+  (Data Component `craft:active`), `ScannerItem` (OD/OV) + `OreValues`; `ic2/item/ElectricWrenchItem` (Lossless).
+- Client: `MiningLaserRenderer` (Pfeil-Geometrie, `laser.png`), `ChainsawSoundHandler` (Leerlauf-Loop/Stopp),
+  Item-Property `craft:active` (Säbel flackert animiert).
+- Texturen aus `item_0.png` geschnitten, Laser-Textur und Sounds (Kettensäge, Laser ×5, OD-Scanner) aus `IC2.jar`
+  (`ftb ultimate/mods/IC2.jar`). Data Components `craft:laser_mode`, `craft:lossless`, `craft:active`.
+- Datagen: Item-Modelle (Werkzeuge handheld), Block-Tags `craft:mineable/{mining_drill,chainsaw,electric_hoe}`,
+  `craft:chainsaw_shearable`, Lang en/de (Namen, Tasten, Meldungen), Sounds, Rezepte OD-/OV-Scanner (IC2) und
+  **Quarry** (GT-Rezept mit Diamantbohrer). Übrige Werkzeug-Rezepte brauchen GT-Platten → Phase 6b.
+- 8 neue GameTests (`ToolGameTests`, insgesamt 82 grün), `gradlew build` und `runClient` (Hauptmenü, keine
+  Mod-Fehler) erfolgreich. Abweichungen in `abweichungen.md`.
+
+## Nächste Schritte
+1. Teilpaket 6.3: Nano-, Quanten- und Utility-Rüstung (`05-items.md` §5.2/5.3) inkl. Nanosäbel-Rüstungsentzug,
+   Jetpack (Vorwärts/Springen/Modus), Quantenrüstung (Boost/Springen) über `Ic2Keyboard`. Vorher Spec-Lücken prüfen.
+2. Manuelle Client-Tests zusätzlich: Tasten im Steuerungsmenü (Kategorie IndustrialCraft 2); Bohrer/Diamantbohrer
+   (Geschwindigkeit, leer = langsam, Ladebalken), Kettensäge (Holz, Blätter scheren, Schaf scheren, Extraschaden,
+   Leerlauf-/Stopp-Sound), el. Hacke (Erde → Ackerboden), el. Baumzapfer, el. Schraubenschlüssel (M + Rechtsklick →
+   Lossless-Meldung, Abbau einer Maschine), Schraubenschlüssel mit Alt; Bergbaulaser (alle 7 Modi, M wechselt,
+   Horizontal nur auf Block, Super-Heat: Sand → Glas, Explosiv, Scatter; Projektil-Darstellung, Sounds), Nanosäbel
+   (an/aus, Flackern, Schaden, Leerlaufverbrauch), OD-/OV-Scanner (Meldung, Sound).

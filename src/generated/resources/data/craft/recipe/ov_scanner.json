@@ -1,0 +1,31 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "C": {
+      "item": "craft:advanced_circuit"
+    },
+    "G": {
+      "item": "minecraft:glowstone_dust"
+    },
+    "S": [
+      {
+        "item": "craft:od_scanner"
+      },
+      {
+        "item": "craft:re_battery"
+      }
+    ],
+    "c": {
+      "item": "craft:double_insulated_gold_cable"
+    }
+  },
+  "pattern": [
+    " G ",
+    "GCG",
+    "cSc"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:ov_scanner"
+  }
+}
