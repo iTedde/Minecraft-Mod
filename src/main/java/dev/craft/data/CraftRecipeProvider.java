@@ -71,6 +71,7 @@ public final class CraftRecipeProvider extends RecipeProvider {
         tools();
         armor();
         misc();
+        uuMatter();
         smelting();
         macerator();
         compressor();
@@ -372,7 +373,14 @@ public final class CraftRecipeProvider extends RecipeProvider {
         shaped(machine(Ic2Machine.MFE), 1, "mfe").pattern("cCc").pattern("CMC").pattern("cCc")
                 .define('c', Ic2Items.cable(CableType.DOUBLE_INSULATED_GOLD)).define('C', Ic2Items.ENERGY_CRYSTAL)
                 .define('M', Ic2Items.MACHINE_CASING).save();
-        // MFSU: needs the advanced machine block (advanced alloy from GT plates) and follows in phase 6b.
+        // MFSU and mass fabricator: the advanced machine block gets its recipe with the GT materials (phase 6b).
+        shaped(machine(Ic2Machine.MFSU), 1, "mfsu").pattern("LCL").pattern("LML").pattern("LAL")
+                .define('L', Ic2Items.LAPOTRON_CRYSTAL).define('C', Ic2Items.ADVANCED_CIRCUIT)
+                .define('M', machine(Ic2Machine.MFE)).define('A', Ic2Items.ADVANCED_MACHINE_CASING).save();
+        // Removed in the pack (ic2recipes.Massfabricator=false); kept on purpose (user decision).
+        shaped(machine(Ic2Machine.MASS_FABRICATOR), 1, "mass_fabricator").pattern("GCG").pattern("ALA").pattern("GCG")
+                .define('G', Items.GLOWSTONE_DUST).define('C', Ic2Items.ADVANCED_CIRCUIT)
+                .define('A', Ic2Items.ADVANCED_MACHINE_CASING).define('L', Ic2Items.LAPOTRON_CRYSTAL).save();
         shaped(machine(Ic2Machine.LV_TRANSFORMER), 1, "lv_transformer").pattern("PCP").pattern("ccc").pattern("PCP")
                 .define('P', ItemTags.PLANKS).define('C', Ic2Items.cable(CableType.INSULATED_COPPER))
                 .define('c', ingotsCopper()).save();
@@ -382,6 +390,63 @@ public final class CraftRecipeProvider extends RecipeProvider {
         shaped(machine(Ic2Machine.HV_TRANSFORMER), 1, "hv_transformer").pattern(" c ").pattern("CED").pattern(" c ")
                 .define('c', Ic2Items.cable(CableType.QUADRUPLE_INSULATED_HV)).define('C', Ic2Items.ELECTRONIC_CIRCUIT)
                 .define('E', machine(Ic2Machine.MV_TRANSFORMER)).define('D', Ic2Items.ENERGY_CRYSTAL).save();
+    }
+
+    // --- §4 UU matter (hidden IC2 recipes, fixed 3×3 layout) ---
+
+    private void uuMatter() {
+        uu(Items.STONE, 16, "stone", "   ", " M ", "   ");
+        uu(Items.GLASS, 32, "glass", " M ", "M M", " M ");
+        uu(Items.GRASS_BLOCK, 16, "grass_block", "   ", "M  ", "M  ");
+        uu(Items.MOSSY_COBBLESTONE, 16, "mossy_cobblestone", "   ", " M ", "M M");
+        uu(Items.SANDSTONE, 16, "sandstone", "   ", "  M", " M ");
+        // GregTech: 16 instead of 4 snow blocks.
+        uu(Items.SNOW_BLOCK, 16, "snow_block", "M M", "   ", "   ");
+        // Water and lava (1 block each) have no item form in 1.21 – see abweichungen.md.
+        // GregTech: dusts instead of iron/gold ore.
+        uu(Ic2Items.IRON_DUST, 4, "iron_dust", "M M", " M ", "M M");
+        uu(Ic2Items.GOLD_DUST, 2, "gold_dust", " M ", "MMM", " M ");
+        uu(Items.OBSIDIAN, 12, "obsidian", "M M", "M M", "   ");
+        uu(Items.NETHERRACK, 16, "netherrack", "  M", " M ", "M  ");
+        // GregTech: 32 glowstone dust instead of 8 glowstone blocks.
+        uu(Items.GLOWSTONE_DUST, 32, "glowstone_dust", " M ", "M M", "MMM");
+        uu(Items.OAK_LOG, 8, "oak_log", " M ", "   ", "   ");
+        uu(Items.SPRUCE_LOG, 8, "spruce_log", "M  ", "   ", "   ");
+        uu(Items.BIRCH_LOG, 8, "birch_log", "  M", "   ", "   ");
+        uu(Items.JUNGLE_LOG, 8, "jungle_log", "   ", "M  ", "   ");
+        uu(Items.CACTUS, 48, "cactus", " M ", "MMM", "M M");
+        uu(Items.VINE, 24, "vine", "M  ", "M  ", "M  ");
+        // GregTech: 32 string instead of 12 wool, 8 instead of 20 coal; the snowball recipe is removed.
+        uu(Items.STRING, 32, "string", "M M", "   ", " M ");
+        uu(Items.COAL, 8, "coal", "  M", "M  ", "  M");
+        uu(Items.DIAMOND, 1, "diamond", "MMM", "MMM", "MMM");
+        uu(Items.REDSTONE, 24, "redstone", "   ", " M ", "MMM");
+        uu(Items.LAPIS_LAZULI, 9, "lapis_lazuli", " M ", " M ", " MM");
+        uu(Items.FEATHER, 32, "feather", " M ", " M ", "M M");
+        uu(Items.GUNPOWDER, 15, "gunpowder", "MMM", "M  ", "MMM");
+        uu(Items.CLAY_BALL, 48, "clay_ball", "MM ", "M  ", "MM ");
+        uu(Items.COCOA_BEANS, 32, "cocoa_beans", "MM ", "  M", "MM ");
+        uu(Items.INK_SAC, 48, "ink_sac", " MM", " MM", " M ");
+        uu(Items.SUGAR_CANE, 48, "sugar_cane", "M M", "M M", "M M");
+        uu(Items.FLINT, 32, "flint", " M ", "MM ", "MM ");
+        uu(Items.BONE, 32, "bone", "M  ", "MM ", "M  ");
+        uu(Ic2Items.RESIN, 21, "resin", "M M", "   ", "M M");
+        uu(Ic2Items.IRIDIUM_ORE, 1, "iridium_ore", "MMM", " M ", "MMM");
+        uu(Items.MYCELIUM, 24, "mycelium", "   ", "M M", "MMM");
+        uu(Items.CHISELED_STONE_BRICKS, 48, "chiseled_stone_bricks", "MM ", "MM ", "M  ");
+        uu(Ic2Items.COPPER_DUST, 10, "copper_dust", "  M", "M M", "   ");
+        uu(Ic2Items.TIN_DUST, 10, "tin_dust", "   ", "M M", "  M");
+        // GregTech additions.
+        uu(Items.EMERALD, 2, "emerald", "MMM", "MMM", " M ");
+        uu(Items.ENDER_PEARL, 1, "ender_pearl", "MMM", "M M", "MMM");
+        uu(Items.BLAZE_ROD, 4, "blaze_rod", "M M", "MM ", "M M");
+        uu(Items.LILY_PAD, 32, "lily_pad", "M M", "MMM", " M ");
+        uu(Items.LEATHER, 32, "leather", "M M", " M ", "MMM");
+        uu(Ic2Items.SILVER_DUST, 14, "silver_dust", " M ", "MMM", "MMM");
+    }
+
+    private void uu(ItemLike result, int count, String name, String... rows) {
+        shaped(result, count, "uu_matter/" + name).pattern(rows).define('M', Ic2Items.UU_MATTER).fixed().save();
     }
 
     // --- §5 batteries ---
@@ -740,6 +805,7 @@ public final class CraftRecipeProvider extends RecipeProvider {
         private final List<String> rows = new ArrayList<>();
         private final Map<Character, Ingredient> key = new LinkedHashMap<>();
         private int damage;
+        private boolean fixed;
 
         ShapedBuilder(ItemLike result, int count, String name) {
             this.result = result;
@@ -765,6 +831,12 @@ public final class CraftRecipeProvider extends RecipeProvider {
             return define(symbol, Ingredient.of(item));
         }
 
+        /** The rows form a full 3×3 grid that only matches at exactly this place (IC2 rows with blanks). */
+        ShapedBuilder fixed() {
+            this.fixed = true;
+            return this;
+        }
+
         /** Item damage of the result (IC2 metadata). */
         ShapedBuilder damage(int damage) {
             this.damage = damage;
@@ -776,7 +848,23 @@ public final class CraftRecipeProvider extends RecipeProvider {
             if (damage > 0) {
                 stack.setDamageValue(damage);
             }
-            output.accept(id(name), new Ic2ShapedRecipe(ShapedRecipePattern.of(key, rows), stack), null);
+            Optional<Ic2ShapedRecipe.FixedPosition> position = Optional.empty();
+            if (fixed) {
+                int top = 0;
+                while (rows.get(top).isBlank()) {
+                    top++;
+                }
+                int left = 0;
+                while (columnBlank(left)) {
+                    left++;
+                }
+                position = Optional.of(new Ic2ShapedRecipe.FixedPosition(left, top));
+            }
+            output.accept(id(name), new Ic2ShapedRecipe(ShapedRecipePattern.of(key, rows), stack, position), null);
+        }
+
+        private boolean columnBlank(int column) {
+            return rows.stream().allMatch(row -> row.charAt(column) == ' ');
         }
     }
 }

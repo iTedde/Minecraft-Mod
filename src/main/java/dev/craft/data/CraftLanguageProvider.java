@@ -117,6 +117,8 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             add("death.attack.craft.radiation.player", "%1$s died from radiation whilst fighting %2$s");
             add("container.craft.electric_block.level", "Power Level:");
             add("container.craft.electric_block.output", "Out: %1$s EU/t");
+            add("container.craft.mass_fabricator.progress", "Progress:");
+            add("container.craft.mass_fabricator.amplifier", "Amplifier:");
             cable(CableType.INSULATED_COPPER, "Copper Cable");
             cable(CableType.COPPER, "Uninsulated Copper Cable");
             cable(CableType.GOLD, "Gold Cable");
@@ -141,6 +143,7 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             machine(Ic2Machine.EXTRACTOR, "Extractor");
             machine(Ic2Machine.COMPRESSOR, "Compressor");
             machine(Ic2Machine.RECYCLER, "Recycler");
+            machine(Ic2Machine.MASS_FABRICATOR, "Mass Fabricator");
             machine(Ic2Machine.BATBOX, "BatBox");
             machine(Ic2Machine.MFE, "MFE");
             machine(Ic2Machine.MFSU, "MFSU");
@@ -148,6 +151,7 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             machine(Ic2Machine.MV_TRANSFORMER, "MV-Transformer");
             machine(Ic2Machine.HV_TRANSFORMER, "HV-Transformer");
             block(Ic2Blocks.MACHINE_CASING, "Machine Block");
+            block(Ic2Blocks.ADVANCED_MACHINE_CASING, "Advanced Machine Block");
             block(Ic2Blocks.TIN_ORE, "Tin Ore");
             block(Ic2Blocks.DEEPSLATE_TIN_ORE, "Deepslate Tin Ore");
             block(Ic2Blocks.TIN_BLOCK, "Tin Block");
@@ -178,6 +182,9 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             item(Ic2Items.INDUSTRIAL_DIAMOND, "Industrial Diamond");
             item(Ic2Items.SCRAP, "Scrap");
             item(Ic2Items.SCRAP_BOX, "Scrap Box");
+            item(Ic2Items.UU_MATTER, "UU-Matter");
+            item(Ic2Items.IRIDIUM_ORE, "Iridium Ore");
+            item(Ic2Items.SILVER_DUST, "Silver Dust");
             item(Ic2Items.HYDRATED_COAL_CLUMP, "H. Coal");
             item(Ic2Items.PLANT_BALL, "Plantball");
             item(Ic2Items.COMPRESSED_PLANT_BALL, "Compressed Plants");
@@ -307,6 +314,8 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             add("death.attack.craft.radiation.player", "%1$s starb im Kampf mit %2$s an Strahlung");
             add("container.craft.electric_block.level", "Ladung:");
             add("container.craft.electric_block.output", "Ausgang: %1$s EU/t");
+            add("container.craft.mass_fabricator.progress", "Fortschritt:");
+            add("container.craft.mass_fabricator.amplifier", "Verstärker:");
             cable(CableType.INSULATED_COPPER, "Kupferkabel");
             cable(CableType.COPPER, "Unisoliertes Kupferkabel");
             cable(CableType.GOLD, "Goldkabel");
@@ -331,6 +340,7 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             machine(Ic2Machine.EXTRACTOR, "Extraktor");
             machine(Ic2Machine.COMPRESSOR, "Kompressor");
             machine(Ic2Machine.RECYCLER, "Recycler");
+            machine(Ic2Machine.MASS_FABRICATOR, "Massefabrikator");
             machine(Ic2Machine.BATBOX, "BatBox");
             machine(Ic2Machine.MFE, "MFE");
             machine(Ic2Machine.MFSU, "MFSU");
@@ -338,6 +348,7 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             machine(Ic2Machine.MV_TRANSFORMER, "MV-Transformator");
             machine(Ic2Machine.HV_TRANSFORMER, "HV-Transformator");
             block(Ic2Blocks.MACHINE_CASING, "Maschinenblock");
+            block(Ic2Blocks.ADVANCED_MACHINE_CASING, "Fortgeschrittener Maschinenblock");
             block(Ic2Blocks.TIN_ORE, "Zinnerz");
             block(Ic2Blocks.DEEPSLATE_TIN_ORE, "Tiefenschiefer-Zinnerz");
             block(Ic2Blocks.TIN_BLOCK, "Zinnblock");
@@ -368,6 +379,9 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             item(Ic2Items.INDUSTRIAL_DIAMOND, "Industriediamant");
             item(Ic2Items.SCRAP, "Schrott");
             item(Ic2Items.SCRAP_BOX, "Schrottbox");
+            item(Ic2Items.UU_MATTER, "UU-Materie");
+            item(Ic2Items.IRIDIUM_ORE, "Iridiumerz");
+            item(Ic2Items.SILVER_DUST, "Silberstaub");
             item(Ic2Items.HYDRATED_COAL_CLUMP, "Hydrierte Kohle");
             item(Ic2Items.PLANT_BALL, "Pflanzenball");
             item(Ic2Items.COMPRESSED_PLANT_BALL, "Komprimierte Pflanzen");

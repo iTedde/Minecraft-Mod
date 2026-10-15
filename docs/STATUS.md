@@ -416,3 +416,21 @@ Multiblock (vorher offene Entscheidungen 2 und 3 klären).
    Wasser, Hazmat in Lava/Feuer, Gummistiefel-Fall, Jetpack (Leertaste, M+Leertaste Schwebemodus, Vorwärts-Schub,
    Loop-Sound, kein Flug-Kick), BatPack lädt gehaltenes Werkzeug, Solarhelm/Static Boots laden das Brust-Item,
    Nachtsichtbrille Tag/Nacht, Nanosäbel gegen Spieler mit Nanorüstung.
+
+## Erledigt (Teilpaket „Phase 6.4a: Massefabrikator“, 2026-10-15)
+- Entscheidungen: Massefabrikator 1:1 mit IC2-Rezept (kein GT Matter Fabricator); Solar-Variante „Fläche der
+  Panels“ freigegeben (Spec in `11-compact-solars.md` §4). Spec-Details zu `TileEntityMatter` in `04-maschinen.md`.
+- `MassFabricatorBlock`/`-BlockEntity` (1 000 000 EU je UU-Materie, Puffer 1 100 000, max. 512 EU/t, Überspannung
+  → Explosion 15; Verstärker Schrott 5000, Schrottbox 45 000, GT: Redstone 5000, Glowstonestaub 25 000; ×6 Energie
+  bis aufgebraucht; Redstone stoppt), Menü/GUI (Fortschritt, Verstärker), Loop- und Schrott-Sound, Blockzustand
+  `scrap`. Fortg. Maschinenblock (Block, Drop des Fabrikators, Rezept Phase 6b).
+- Items UU-Materie, Iridiumerz, Silberstaub (Tag `c:dusts/silver`). Rezepte: Massefabrikator, MFSU (beide warten auf
+  den fortg. Maschinenblock), **alle UU-Rezepte** in Pack-Fassung (GT-Mengen/-Ersetzungen) mit fester Rasterposition
+  (`FixedPosition` + Mixin `CraftingInputMixin`/`GridPosition`). Wasser/Lava aus UU entfallen.
+- 4 neue GameTests (`MassFabricatorGameTests`, Überspannungstest in eigenem Batch; insgesamt 95 grün),
+  `gradlew build` und `runClient` (Hauptmenü, keine Mod-Fehler) erfolgreich. Abweichungen in `abweichungen.md`.
+
+## Nächste Schritte
+1. Teilpaket 6.4b: Solar-Arrays als Multiblock (LV/MV/HV-Controller) nach `11-compact-solars.md` §4.
+2. Manuelle Client-Tests zusätzlich: Massefabrikator (GUI-Texte, Fortschritt, Verstärker-Anzeige, Sounds Loop/
+   Schrott, Redstone-Stopp, Abbau → fortg. Maschinenblock), UU-Rezepte in der Werkbank (nur an der richtigen Stelle).

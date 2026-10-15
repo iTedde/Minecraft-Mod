@@ -40,12 +40,14 @@ public final class CraftBlockLoot extends BlockLootSubProvider {
                 case SELF -> dropSelf(block);
                 case GENERATOR -> dropOther(block, Ic2Blocks.machine(Ic2Machine.GENERATOR).get());
                 case MACHINE_CASING -> dropOther(block, Ic2Blocks.MACHINE_CASING.get());
+                case ADVANCED_MACHINE_CASING -> dropOther(block, Ic2Blocks.ADVANCED_MACHINE_CASING.get());
             }
         }
         for (CableType type : CableType.values()) {
             dropSelf(Ic2Blocks.cable(type).get());
         }
         dropSelf(Ic2Blocks.MACHINE_CASING.get());
+        dropSelf(Ic2Blocks.ADVANCED_MACHINE_CASING.get());
         dropSelf(Ic2Blocks.TIN_ORE.get());
         dropSelf(Ic2Blocks.DEEPSLATE_TIN_ORE.get());
         dropSelf(Ic2Blocks.TIN_BLOCK.get());

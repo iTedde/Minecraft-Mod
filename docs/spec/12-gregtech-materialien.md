@@ -51,8 +51,9 @@ Assembler, Canning Machine, Elektrolyseur, Zentrifuge, Industrial Grinder sowie 
 ## 3. Sonderfall Massefabrikator
 
 Im Pack ist das IC2-Rezept entfernt (`ic2recipes.Massfabricator=false`); stattdessen gab es GregTechs **Matter
-Fabricator** (`MatterFabricationRate=16666666`). Phase 6 sieht den IC2-Massefabrikator vor → später klären
-(IC2-Rezept trotzdem, oder GT Matter Fabricator nachbauen).
+Fabricator** (`MatterFabricationRate=16666666`). **Entschieden (2026-10-15):** IC2-Massefabrikator 1:1
+(`04-maschinen.md`) mit dem IC2-Originalrezept (`08-rezepte.md`); der GT Matter Fabricator wird nicht nachgebaut.
+Die von GT registrierten Verstärker gelten trotzdem (Redstone 5000, Glowstonestaub 25 000, Nikolit-/Manganstaub 5000).
 
 ## 4. Entscheidungen und offene Punkte
 
@@ -64,4 +65,4 @@ Fabricator** (`MatterFabricationRate=16666666`). Phase 6 sieht den IC2-Massefabr
    2 Wassermühlen, Generator + 4 Kohleplatten → Windmühle (je 6400 Ticks, 8 EU/t). GT-Maschinenrezepte brauchen u. a.
    IC2-Elektrolyseur, Magnetisierer, Induktionsofen, fortg. Maschinenblock, Kupfernickel-Heizspulen, Förderband-Modul.
 2. GT-Erze (Bauxit, Sheldonit, Rubin, Iridium …) generieren?
-3. Massefabrikator vs. GT Matter Fabricator.
+3. ~~Massefabrikator vs. GT Matter Fabricator~~ – entschieden, siehe §3.

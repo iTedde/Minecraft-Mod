@@ -63,6 +63,8 @@ public final class Ic2Items {
 
     // --- block items ---
     public static final DeferredItem<BlockItem> MACHINE_CASING = ITEMS.registerSimpleBlockItem(Ic2Blocks.MACHINE_CASING);
+    public static final DeferredItem<BlockItem> ADVANCED_MACHINE_CASING = ITEMS.registerSimpleBlockItem(
+            Ic2Blocks.ADVANCED_MACHINE_CASING, new Item.Properties().rarity(Rarity.UNCOMMON));
     public static final DeferredItem<BlockItem> TIN_ORE = ITEMS.registerSimpleBlockItem(Ic2Blocks.TIN_ORE);
     public static final DeferredItem<BlockItem> DEEPSLATE_TIN_ORE =
             ITEMS.registerSimpleBlockItem(Ic2Blocks.DEEPSLATE_TIN_ORE);
@@ -84,6 +86,7 @@ public final class Ic2Items {
     public static final DeferredItem<Item> IRON_DUST = simple("iron_dust");
     public static final DeferredItem<Item> SMALL_IRON_DUST = simple("small_iron_dust");
     public static final DeferredItem<Item> TIN_DUST = simple("tin_dust");
+    public static final DeferredItem<Item> SILVER_DUST = simple("silver_dust");
     public static final DeferredItem<Item> HYDRATED_COAL_DUST = simple("hydrated_coal_dust");
     public static final DeferredItem<Item> REFINED_IRON_INGOT = simple("refined_iron_ingot");
     public static final DeferredItem<Item> TIN_INGOT = simple("tin_ingot");
@@ -97,6 +100,8 @@ public final class Ic2Items {
     public static final DeferredItem<Item> INDUSTRIAL_DIAMOND = simple("industrial_diamond");
     public static final DeferredItem<Item> SCRAP = simple("scrap");
     public static final DeferredItem<ScrapBoxItem> SCRAP_BOX = simple(ITEMS.registerItem("scrap_box", ScrapBoxItem::new));
+    public static final DeferredItem<Item> UU_MATTER = simple("uu_matter", new Item.Properties().rarity(Rarity.RARE));
+    public static final DeferredItem<Item> IRIDIUM_ORE = simple("iridium_ore", new Item.Properties().rarity(Rarity.RARE));
     public static final DeferredItem<Item> HYDRATED_COAL_CLUMP = simple("hydrated_coal_clump");
     public static final DeferredItem<Item> PLANT_BALL = simple("plant_ball");
     public static final DeferredItem<Item> COMPRESSED_PLANT_BALL = simple("compressed_plant_ball");

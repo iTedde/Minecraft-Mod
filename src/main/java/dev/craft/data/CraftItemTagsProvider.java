@@ -30,6 +30,7 @@ public final class CraftItemTagsProvider extends ItemTagsProvider {
     public static final TagKey<Item> DUSTS_GOLD = commonTag("dusts/gold");
     public static final TagKey<Item> DUSTS_IRON = commonTag("dusts/iron");
     public static final TagKey<Item> DUSTS_TIN = commonTag("dusts/tin");
+    public static final TagKey<Item> DUSTS_SILVER = commonTag("dusts/silver");
 
     public CraftItemTagsProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookup,
                                  CompletableFuture<TagLookup<Block>> blockTags, ExistingFileHelper files) {
@@ -65,8 +66,9 @@ public final class CraftItemTagsProvider extends ItemTagsProvider {
         tag(DUSTS_GOLD).add(Ic2Items.GOLD_DUST.get());
         tag(DUSTS_IRON).add(Ic2Items.IRON_DUST.get());
         tag(DUSTS_TIN).add(Ic2Items.TIN_DUST.get());
+        tag(DUSTS_SILVER).add(Ic2Items.SILVER_DUST.get());
         tag(Tags.Items.DUSTS).addTag(DUSTS_BRONZE).addTag(DUSTS_CLAY).addTag(DUSTS_COAL).addTag(DUSTS_COPPER)
-                .addTag(DUSTS_GOLD).addTag(DUSTS_IRON).addTag(DUSTS_TIN);
+                .addTag(DUSTS_GOLD).addTag(DUSTS_IRON).addTag(DUSTS_TIN).addTag(DUSTS_SILVER);
 
         // IC2 default blacklist (glass pane, stick, snowball) + pack config "102, 280, 332, 4081"; scaffold later.
         tag(RecyclerBlockEntity.BLACKLIST).add(Items.GLASS_PANE, Items.STICK, Items.SNOWBALL);

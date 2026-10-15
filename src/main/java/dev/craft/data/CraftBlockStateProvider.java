@@ -57,6 +57,7 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
             machine(machine);
         }
         simpleBlockWithItem(Ic2Blocks.MACHINE_CASING.get(), cubeAll(Ic2Blocks.MACHINE_CASING.get()));
+        simpleBlockWithItem(Ic2Blocks.ADVANCED_MACHINE_CASING.get(), cubeAll(Ic2Blocks.ADVANCED_MACHINE_CASING.get()));
         simpleBlockWithItem(Ic2Blocks.TIN_ORE.get(), cubeAll(Ic2Blocks.TIN_ORE.get()));
         simpleBlockWithItem(Ic2Blocks.DEEPSLATE_TIN_ORE.get(), cubeAll(Ic2Blocks.DEEPSLATE_TIN_ORE.get()));
         simpleBlockWithItem(Ic2Blocks.TIN_BLOCK.get(), cubeAll(Ic2Blocks.TIN_BLOCK.get()));

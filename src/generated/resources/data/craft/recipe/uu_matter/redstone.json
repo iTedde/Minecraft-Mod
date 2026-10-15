@@ -1,0 +1,21 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "M": {
+      "item": "craft:uu_matter"
+    }
+  },
+  "pattern": [
+    "   ",
+    " M ",
+    "MMM"
+  ],
+  "position": {
+    "left": 0,
+    "top": 1
+  },
+  "result": {
+    "count": 24,
+    "id": "minecraft:redstone"
+  }
+}

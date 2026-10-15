@@ -19,6 +19,8 @@ public enum Ic2Machine {
     EXTRACTOR("extractor", Sheet.MACHINE, 4, 2.0F, FacingMode.HORIZONTAL, 0.85F, Drop.MACHINE_CASING),
     COMPRESSOR("compressor", Sheet.MACHINE, 5, 2.0F, FacingMode.HORIZONTAL, 0.85F, Drop.MACHINE_CASING),
     RECYCLER("recycler", Sheet.MACHINE, 11, 2.0F, FacingMode.HORIZONTAL, 0.85F, Drop.MACHINE_CASING),
+    MASS_FABRICATOR("mass_fabricator", Sheet.MACHINE, 14, 2.0F, FacingMode.HORIZONTAL, 0.7F,
+            Drop.ADVANCED_MACHINE_CASING, Rarity.RARE, true),
     BATBOX("batbox", Sheet.ELECTRIC, 0, 1.5F, FacingMode.ALL, 1.0F, Drop.SELF),
     MFE("mfe", Sheet.ELECTRIC, 1, 1.5F, FacingMode.ALL, 1.0F, Drop.MACHINE_CASING),
     MFSU("mfsu", Sheet.ELECTRIC, 2, 1.5F, FacingMode.ALL, 1.0F, Drop.MACHINE_CASING, Rarity.UNCOMMON, true),
@@ -115,6 +117,7 @@ public enum Ic2Machine {
     public enum Drop {
         SELF,
         GENERATOR,
-        MACHINE_CASING
+        MACHINE_CASING,
+        ADVANCED_MACHINE_CASING
     }
 }

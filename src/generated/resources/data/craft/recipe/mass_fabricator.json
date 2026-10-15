@@ -1,0 +1,26 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "A": {
+      "item": "craft:advanced_machine_casing"
+    },
+    "C": {
+      "item": "craft:advanced_circuit"
+    },
+    "G": {
+      "item": "minecraft:glowstone_dust"
+    },
+    "L": {
+      "item": "craft:lapotron_crystal"
+    }
+  },
+  "pattern": [
+    "GCG",
+    "ALA",
+    "GCG"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:mass_fabricator"
+  }
+}

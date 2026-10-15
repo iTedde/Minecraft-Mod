@@ -20,6 +20,7 @@ import dev.craft.ic2.machine.ElectricFurnaceBlockEntity;
 import dev.craft.ic2.machine.IronFurnaceBlockEntity;
 import dev.craft.ic2.machine.MachineBlock;
 import dev.craft.ic2.machine.MachineBlockEntity;
+import dev.craft.ic2.machine.MassFabricatorBlock;
 import dev.craft.ic2.machine.RecipeMachineBlockEntity;
 import dev.craft.ic2.machine.RecyclerBlockEntity;
 import dev.craft.ic2.storage.ElectricStorageBlock;
@@ -60,6 +61,9 @@ public final class Ic2Blocks {
 
     public static final DeferredBlock<Block> MACHINE_CASING = BLOCKS.registerSimpleBlock("machine_casing",
             metal().strength(2.0F));
+    /** Advanced machine block (IC2 {@code blockMachine} meta 12); recipe follows with the GT materials (phase 6b). */
+    public static final DeferredBlock<Block> ADVANCED_MACHINE_CASING = BLOCKS.registerSimpleBlock(
+            "advanced_machine_casing", metal().strength(2.0F));
     public static final DeferredBlock<Block> TIN_ORE = BLOCKS.registerSimpleBlock("tin_ore",
             BlockBehaviour.Properties.of().mapColor(MapColor.STONE).instrument(NoteBlockInstrument.BASEDRUM)
                     .requiresCorrectToolForDrops().strength(3.0F, 3.0F));
@@ -102,6 +106,7 @@ public final class Ic2Blocks {
             case BATBOX, MFE, MFSU -> new ElectricStorageBlock(properties, machine,
                     (pos, state) -> new ElectricStorageBlockEntity(Ic2BlockEntityTypes.get(machine), pos, state,
                             ElectricStorageBlockEntity.Spec.of(machine)));
+            case MASS_FABRICATOR -> new MassFabricatorBlock(properties);
             case LV_TRANSFORMER, MV_TRANSFORMER, HV_TRANSFORMER -> new MachineBlock(properties, machine,
                     (pos, state) -> new TransformerBlockEntity(Ic2BlockEntityTypes.get(machine), pos, state,
                             TransformerBlockEntity.Spec.of(machine)));
@@ -122,7 +127,7 @@ public final class Ic2Blocks {
             case EXTRACTOR -> RecipeMachineBlockEntity::extractor;
             case COMPRESSOR -> RecipeMachineBlockEntity::compressor;
             case RECYCLER -> RecyclerBlockEntity::new;
-            case BATBOX, MFE, MFSU, LV_TRANSFORMER, MV_TRANSFORMER, HV_TRANSFORMER ->
+            case BATBOX, MFE, MFSU, LV_TRANSFORMER, MV_TRANSFORMER, HV_TRANSFORMER, MASS_FABRICATOR ->
                     throw new IllegalArgumentException(machine + " has its own block class");
         };
     }

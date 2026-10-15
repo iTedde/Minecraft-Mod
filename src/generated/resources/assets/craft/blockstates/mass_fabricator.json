@@ -1,0 +1,76 @@
+{
+  "variants": {
+    "active=false,facing=down,scrap=false": {
+      "model": "craft:block/machine/mass_fabricator_down"
+    },
+    "active=false,facing=down,scrap=true": {
+      "model": "craft:block/machine/mass_fabricator_down"
+    },
+    "active=false,facing=east,scrap=false": {
+      "model": "craft:block/machine/mass_fabricator_east"
+    },
+    "active=false,facing=east,scrap=true": {
+      "model": "craft:block/machine/mass_fabricator_east"
+    },
+    "active=false,facing=north,scrap=false": {
+      "model": "craft:block/machine/mass_fabricator_north"
+    },
+    "active=false,facing=north,scrap=true": {
+      "model": "craft:block/machine/mass_fabricator_north"
+    },
+    "active=false,facing=south,scrap=false": {
+      "model": "craft:block/machine/mass_fabricator_south"
+    },
+    "active=false,facing=south,scrap=true": {
+      "model": "craft:block/machine/mass_fabricator_south"
+    },
+    "active=false,facing=up,scrap=false": {
+      "model": "craft:block/machine/mass_fabricator_up"
+    },
+    "active=false,facing=up,scrap=true": {
+      "model": "craft:block/machine/mass_fabricator_up"
+    },
+    "active=false,facing=west,scrap=false": {
+      "model": "craft:block/machine/mass_fabricator_west"
+    },
+    "active=false,facing=west,scrap=true": {
+      "model": "craft:block/machine/mass_fabricator_west"
+    },
+    "active=true,facing=down,scrap=false": {
+      "model": "craft:block/machine/mass_fabricator_down_active"
+    },
+    "active=true,facing=down,scrap=true": {
+      "model": "craft:block/machine/mass_fabricator_down_active"
+    },
+    "active=true,facing=east,scrap=false": {
+      "model": "craft:block/machine/mass_fabricator_east_active"
+    },
+    "active=true,facing=east,scrap=true": {
+      "model": "craft:block/machine/mass_fabricator_east_active"
+    },
+    "active=true,facing=north,scrap=false": {
+      "model": "craft:block/machine/mass_fabricator_north_active"
+    },
+    "active=true,facing=north,scrap=true": {
+      "model": "craft:block/machine/mass_fabricator_north_active"
+    },
+    "active=true,facing=south,scrap=false": {
+      "model": "craft:block/machine/mass_fabricator_south_active"
+    },
+    "active=true,facing=south,scrap=true": {
+      "model": "craft:block/machine/mass_fabricator_south_active"
+    },
+    "active=true,facing=up,scrap=false": {
+      "model": "craft:block/machine/mass_fabricator_up_active"
+    },
+    "active=true,facing=up,scrap=true": {
+      "model": "craft:block/machine/mass_fabricator_up_active"
+    },
+    "active=true,facing=west,scrap=false": {
+      "model": "craft:block/machine/mass_fabricator_west_active"
+    },
+    "active=true,facing=west,scrap=true": {
+      "model": "craft:block/machine/mass_fabricator_west_active"
+    }
+  }
+}

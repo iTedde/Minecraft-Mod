@@ -312,6 +312,19 @@ Bergbaurohr/-spitze: Härte 6,0, Resistenz 10.
 - Überspannung (> 512): Block entfernt, `ExplosionIC2(power 15, dropRate 0,01, damage 1,5)`.
 - GUI: Fortschritt `energy / 10 000` %. Sounds: `Generators/MassFabricator/MassFabLoop.ogg`, mit Schrott zusätzlich
   `MassFabScrapSolo.ogg`. Wrench-Drop-Rate 0,7. Sided: unten → 0, sonst → 1.
+- Details (aus `TileEntityMatter`/`GuiMatter`/`ContainerMatter`):
+  - Ablauf je Tick: Redstone **oder** `energy == 0` → Zustand „Leerlauf“, inaktiv. Sonst Zustand „läuft“ (bzw.
+    „läuft mit Schrott“, wenn `scrap > 0`), aktiv; erst dann Verstärker nachlegen (nur ein Item pro Tick, Container-
+    Items geben ihren Behälter zurück), danach ggf. 1 UU-Materie erzeugen. Der Verstärker wird also erst gezogen,
+    wenn schon Energie im Puffer ist.
+  - Sounds je Zustand: Leerlauf → beide aus; „läuft“ → Loop an, Schrott-Loop aus; „läuft mit Schrott“ → beide an.
+  - `injectEnergy` prüft Überspannung zuerst (Block → Luft, dann Explosion), gibt Überschuss über `maxEnergy` zurück.
+    Schrott-Bonus wirkt auch, wenn das Paket den Puffer überfüllt (Überschuss geht ans Netz zurück).
+  - NBT: `scrap` (int), Energie wie Elektromaschine. Kein Upgrade-Slot, kein Batterie-Slot.
+  - Slots: Verstärker (114, 54) – nur registrierte Verstärker; Ausgabe (114, 18). Spielerinventar ab y 84.
+  - GUI `GUIMatter.png`: Titel zentriert y 6, „Fortschritt:“ (16, 20), Prozent (16, 28); bei `scrap > 0`
+    „Verstärker:“ (16, 44) und Schrottwert (16, 56). Keine Balken.
+  - Rezept siehe `08-rezepte.md` (IC2-Rezept, im Pack entfernt, hier trotzdem umgesetzt).
 
 ---
 

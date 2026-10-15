@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "craft:block/machine/mass_fabricator_back_active",
+    "east": "craft:block/machine/mass_fabricator_left_active",
+    "north": "craft:block/machine/mass_fabricator_top_active",
+    "particle": "craft:block/machine/mass_fabricator_front_active",
+    "south": "craft:block/machine/mass_fabricator_bottom_active",
+    "up": "craft:block/machine/mass_fabricator_front_active",
+    "west": "craft:block/machine/mass_fabricator_right_active"
+  }
+}

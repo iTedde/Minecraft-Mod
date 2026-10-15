@@ -1,0 +1,21 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "M": {
+      "item": "craft:uu_matter"
+    }
+  },
+  "pattern": [
+    " M ",
+    " M ",
+    " MM"
+  ],
+  "position": {
+    "left": 1,
+    "top": 0
+  },
+  "result": {
+    "count": 9,
+    "id": "minecraft:lapis_lazuli"
+  }
+}

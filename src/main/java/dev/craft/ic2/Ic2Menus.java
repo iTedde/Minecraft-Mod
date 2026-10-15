@@ -9,6 +9,7 @@ import dev.craft.ic2.menu.ElectricMachineMenu;
 import dev.craft.ic2.menu.ElectricStorageMenu;
 import dev.craft.ic2.menu.GeneratorMenu;
 import dev.craft.ic2.menu.IronFurnaceMenu;
+import dev.craft.ic2.menu.MassFabricatorMenu;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
@@ -42,6 +43,8 @@ public final class Ic2Menus {
                     (id, inventory, buf) -> new ElectricMachineMenu(machine, id, inventory, buf.readBlockPos()));
             case BATBOX, MFE, MFSU -> IMenuTypeExtension.create(
                     (id, inventory, buf) -> new ElectricStorageMenu(machine, id, inventory, buf.readBlockPos()));
+            case MASS_FABRICATOR -> IMenuTypeExtension.create(
+                    (id, inventory, buf) -> new MassFabricatorMenu(id, inventory, buf.readBlockPos()));
             case LV_TRANSFORMER, MV_TRANSFORMER, HV_TRANSFORMER ->
                     throw new IllegalArgumentException(machine + " has no menu");
         };

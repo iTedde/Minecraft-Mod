@@ -1,0 +1,21 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "M": {
+      "item": "craft:uu_matter"
+    }
+  },
+  "pattern": [
+    "MM ",
+    "MM ",
+    "M  "
+  ],
+  "position": {
+    "left": 0,
+    "top": 0
+  },
+  "result": {
+    "count": 48,
+    "id": "minecraft:chiseled_stone_bricks"
+  }
+}

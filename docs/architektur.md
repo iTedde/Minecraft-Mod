@@ -77,7 +77,8 @@ ergänzen. Basispaket `dev.craft`, Einstieg `Craft` → `Ic2.init`, `BuildCraft.
 ## Rezepte
 
 - Werkbank IC2: `Ic2ShapedRecipe`/`Ic2ShapelessRecipe` (kein Spiegeln, Ladungsübertragung); BC/Forestry: Vanilla
-  `ShapedRecipeBuilder` (Spiegeln erlaubt).
+  `ShapedRecipeBuilder` (Spiegeln erlaubt). Positionsgebundene IC2-Rezepte (UU-Materie): `.fixed()` im
+  `ShapedBuilder` → `FixedPosition`; Rasterlage über `core/crafting/GridPosition` + `mixin/CraftingInputMixin`.
 - Maschinenrezepte als Datapack-Rezepttypen: `ic2/recipe/MachineRecipe` (Macerator/Extractor/Compressor),
   `forestry/recipe/FabricatorRecipe`, `CarpenterRecipe`. Code-Tabellen nur für Kleinkram (`RefineryRecipe`,
   `FabricatorSmelting`).

@@ -14,7 +14,7 @@ Quellen: `ic2.core.IC2.registerCraftingRecipes` und Maschinen-`init()`, `IC2.reg
 | **[GT~]** | IC2-Rezept von GregTech ersetzt; der Ersatz nutzt nur übernommene Items → **finale Version, wird so umgesetzt** |
 | **[GT+]** | Von GregTech zusätzlich hinzugefügt, nur übernommene Items → wird umgesetzt |
 | **[GT+M]** | Von GregTech zusätzlich hinzugefügt und nutzt GT-Material → im Pack vorhanden, wird mit den GT-Materialien umgesetzt (`12-gregtech-materialien.md`) |
-| **[GT−]** | Von GregTech entfernt → im Pack nicht vorhanden, wird ebenfalls nicht umgesetzt (Ausnahme Massefabrikator: offen) |
+| **[GT−]** | Von GregTech entfernt → im Pack nicht vorhanden, wird ebenfalls nicht umgesetzt (Ausnahme Massefabrikator: IC2-Rezept wird umgesetzt) |
 | **[GT⚠]** | GregTech ersetzt/entfernt das IC2-Rezept, der Ersatz benötigt **GT-Material oder GT-Maschinen** → wird **wie im Pack** umgesetzt (Nutzerentscheidung); Material siehe `12-gregtech-materialien.md` |
 | *(versteckt)* | IC2 „hidden“-Rezept (im Original nicht in NEI angezeigt) |
 
@@ -106,7 +106,7 @@ IC2-Maschinenrezept für dieselbe Eingabe und fügen das neue ein.
 | Recycler | ` G /DMD/IDI`, G = Glowstonestaub, D = Erde, M = Compressor, I = raff. Eisen | [IC2] |
 | Canning Machine | `TCT/TMT/TTT`, T = Zinnbarren | [IC2] |
 | Induktionsofen | `CCC/CFC/CMC`, C = Kupferbarren, F = Elektroofen, M = fortg. Maschinenblock | [IC2] |
-| Massefabrikator | `GCG/ALA/GCG`, G = Glowstonestaub, C = fortg. Schaltkreis, A = fortg. Maschinenblock, L = Lapotronkristall | **[GT−]** (`ic2recipes.Massfabricator=false` → Rezept entfernt; GT wollte seinen eigenen Matter Fabricator) → §10 |
+| Massefabrikator | `GCG/ALA/GCG`, G = Glowstonestaub, C = fortg. Schaltkreis, A = fortg. Maschinenblock, L = Lapotronkristall | [GT−] im Pack (`ic2recipes.Massfabricator=false`); **entschieden: IC2-Rezept wird trotzdem umgesetzt** → §10 |
 | Terraformer | `GTG/DMD/GDG`, T = TFBP leer, G = Glowstonestaub, D = Erde, M = fortg. Maschinenblock | [IC2] |
 | Teleporter | `GFG/CMC/GDG`, F = Frequenzsender, C = Glasfaserkabel, G = fortg. Schaltkreis, D = Industriediamant oder Diamant, M = fortg. Maschinenblock | [IC2] |
 | Tesla-Spule | `RRR/RMR/ICI`, M = MV-Trafo | [IC2] |
@@ -426,7 +426,8 @@ IC2-Maschinenrezept für dieselbe Eingabe und fügen das neue ein.
 
 - Recycler-Blacklist: IC2-Standard + Config; GT ergänzt Einträge (u. a. Mob-Grinder-Drops) – **keine Rezeptänderung**,
   siehe §11.
-- Massefabrikator-Verstärker: Schrott 5000, Schrottbox 45 000 [IC2].
+- Massefabrikator-Verstärker: Schrott 5000, Schrottbox 45 000 [IC2]; **[GT+]** Redstone 5000, Glowstonestaub 25 000
+  (`GT_OreDictHandler` → `addIC2MatterAmplifier`); **[GT+M]** Nikolit- und Manganstaub je 5000.
 - Schrottbox-Drops: GT **ersetzt** die IC2-Liste (Schrott 200 + GT-Liste), siehe `05-items.md` §1.1.
 
 ## 11. GregTech-Änderungen, die keine Rezepte sind (nicht automatisch übernommen)
@@ -486,4 +487,5 @@ dicker Neutronenreflektor, Uranzelle (aus Barren), Bio-/Kohle-/Wasser-/Lavazelle
 IC2-Original als Ersatz. Die benötigten GT-Materialien und ihr Herstellungsweg im Pack stehen in
 `12-gregtech-materialien.md`; ob dafür GT-Maschinen nachgebaut werden, wird später besprochen.
 
-Noch offen: Massefabrikator (im Pack entfernt, stattdessen GT Matter Fabricator) – siehe `12-gregtech-materialien.md` §3.
+Massefabrikator: **entschieden (2026-10-15)** – IC2-Rezept wird trotzdem umgesetzt (siehe
+`12-gregtech-materialien.md` §3); verfügbar, sobald der fortg. Maschinenblock ein Rezept hat (Phase 6b).

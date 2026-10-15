@@ -1,5 +1,6 @@
 package dev.craft.ic2.client;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.WeakHashMap;
 
@@ -19,7 +20,8 @@ import net.minecraft.sounds.SoundSource;
  */
 public final class MachineSoundHandler implements MachineSoundHooks.Handler {
     private final Map<MachineBlockEntity, MachineSound> operationSounds = new WeakHashMap<>();
-    private final Map<MachineBlockEntity, MachineSound> loopSounds = new WeakHashMap<>();
+    /** Several loops per machine are possible (mass fabricator: run loop + scrap loop). */
+    private final Map<MachineBlockEntity, Map<SoundEvent, MachineSound>> loopSounds = new WeakHashMap<>();
 
     @Override
     public void machineEvent(ElectricMachineBlockEntity machine, int event) {
@@ -51,16 +53,17 @@ public final class MachineSoundHandler implements MachineSoundHooks.Handler {
 
     @Override
     public void updateLoop(MachineBlockEntity machine, SoundEvent sound, boolean active) {
-        MachineSound current = loopSounds.get(machine);
+        Map<SoundEvent, MachineSound> loops = loopSounds.computeIfAbsent(machine, key -> new HashMap<>());
+        MachineSound current = loops.get(sound);
         if (active) {
             if (current == null || current.isStopped()) {
                 MachineSound loop = new MachineSound(sound, machine, true);
-                loopSounds.put(machine, loop);
+                loops.put(sound, loop);
                 Minecraft.getInstance().getSoundManager().play(loop);
             }
         } else if (current != null) {
             current.finish();
-            loopSounds.remove(machine);
+            loops.remove(sound);
         }
     }
 

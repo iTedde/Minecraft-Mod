@@ -9,6 +9,16 @@
       "craft:generators/geothermal_loop"
     ]
   },
+  "generators/mass_fab_loop": {
+    "sounds": [
+      "craft:generators/mass_fab_loop"
+    ]
+  },
+  "generators/mass_fab_scrap_solo": {
+    "sounds": [
+      "craft:generators/mass_fab_scrap_solo"
+    ]
+  },
   "generators/watermill_loop": {
     "sounds": [
       "craft:generators/watermill_loop"

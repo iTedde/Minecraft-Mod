@@ -9,8 +9,8 @@ Block-ID 650, `scaleFactor = 1`, Hut-IDs ab 19551).
 LV-Transformer), MV 64 EU/t (8 LV-Arrays um einen MV-Transformer), HV 512 EU/t (8 MV-Arrays um einen
 HV-Transformer). Es gibt keine Compact-Solars-Jar; nicht danach suchen.
 
-> Hinweis: Laut Auftrag werden die Arrays später als Multiblocks umgebaut (`docs/balancing.md`). Diese Datei
-> beschreibt das Original.
+> Hinweis: Laut Auftrag werden die Arrays als Multiblocks umgebaut (`docs/balancing.md`). §1–3 beschreiben das
+> Original, §4 die umgesetzte Multiblock-Variante.
 
 ## 1. Blöcke
 
@@ -50,3 +50,37 @@ Kosten kumuliert: LV = 8 Panels + LV-Trafo; MV = 64 Panels + 8 LV- + 1 MV-Trafo;
 - „Strahlung“: Kann die Energie nicht vollständig abgegeben werden (`available ≤ 0`), steigt ein Zähler um `2^typ`
   pro Tick, sonst sinkt er um die vergangenen Ticks. Überschreitet er `5 · 10^typ` (5 / 50 / 500), bekommt der
   Spieler Übelkeit für `dose/4` Ticks und der Zähler sinkt um `dose`.
+
+## 4. Umsetzung als Multiblock (Balancing, entschieden 2026-10-15)
+
+Variante „Fläche der Panels“ aus `balancing.md` §3.1. Leitregel: ein Array bündelt, verdichtet aber nicht.
+
+**Blöcke:** LV-, MV-, HV-Solar-Array-Controller (Material Eisen, Härte 3,0, Metall-Sound, mit Schraubenschlüssel
+abbaubar, Wrench-Drop-Rate 1,0, droppt sich selbst). Rezept **formlos**: LV-/MV-/HV-Trafo → Controller gleicher Stufe
+(die Kosten der Panels werden beim Aufstellen bezahlt; Gesamtkosten = Originalrezept, s. u.).
+
+**Aufbau** (eine Ebene, flach, jede Drehung gleich – das Muster ist symmetrisch):
+
+| Stufe | Fläche | Aufbau | Panels | Deckel |
+|---|---|---|---:|---:|
+| LV | 3×3 | 8 IC2-Solarpanels um den LV-Controller | 8 | 8 EU/t |
+| MV | 9×9 | 3×3-Raster aus 3×3-Feldern: 8 LV-Arrays, das mittlere Feld = 8 Panels um den MV-Controller | 72 | 64 EU/t |
+| HV | 27×27 | 3×3-Raster aus 9×9-Feldern: 8 MV-Arrays, das mittlere Feld = MV-Aufbau, dessen Mitte der HV-Controller ist | 648 | 512 EU/t |
+
+- Rekursiv: das mittlere Teilfeld einer Stufe ist ein vollständiges Feld der Stufe darunter, dessen Controller durch
+  den höheren ersetzt ist. Mehrkosten gegenüber dem Original: MV +8 Panels, HV +136 Panels und +8 LV-Controller; dafür
+  puffern die überzähligen Panels Abdeckung.
+- **Leistung je Tick** = `min(Deckel, Anzahl Panels mit Sonne)`; Sonne je Panel wie IC2-Solarpanel (eigene Prüfung
+  alle 128 Ticks, Himmelssicht über dem Panel, Tag, kein Regen außer in Wüsten). Gezählt wird beim Prüfen des Aufbaus
+  (alle 20 Ticks).
+- Abgabe wie im Original (`TileEntityCompactSolar`): erst Lade-Slot (Tier 1/2/3 für LV/MV/HV), Rest als **ein**
+  Paket in alle Richtungen ins Netz, nicht abgenommene Energie geht verloren, kein Puffer. Spannung (maxOutput)
+  8 / 64 / 512.
+- Panels in einem geformten Array erzeugen selbst nichts (auch nicht für ihren eigenen Lade-Slot). Controller, die in
+  einem höheren Array verbaut sind, geben nichts ab; nur der oberste geformte Controller liefert. Die Zugehörigkeit
+  wird als Lease gehalten (alle 20 Ticks erneuert, verfällt nach 40 Ticks) und nicht gespeichert.
+- Nicht geformter Controller: liefert nichts. Teilweise abgedeckte Arrays liefern entsprechend weniger.
+- Aufbau-Prüfung nur, wenn der ganze Bereich geladen ist; sonst ruht der Controller.
+- GUI wie IC2-Solarpanel (`GUISolarGenerator`): ein Lade-Slot, Sonnensymbol, solange das Array Energie liefert.
+
+**Solar-Hüte:** vorerst nicht umgesetzt (Entscheidung später; mit dem Controller als Zutat wären sie zu billig).

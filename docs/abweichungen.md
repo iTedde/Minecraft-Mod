@@ -149,6 +149,9 @@ Status: *geplant* (aus Phase 1 abgeleitet, noch nicht umgesetzt), *entschieden* 
 | Quantum-Rezepte | Iridiumplatte, verst. Glas, fortg. Schaltkreis … | Quantum ohne Rezept (Creative) bis Phase 6b | Zutaten (GT) fehlen | **offen bis Phase 6b** |
 | Static Boots: Position | NBT `x`/`z` | Data Component `craft:last_position` | Data Components | **umgesetzt** |
 | Jetpack: Modus/Timer | NBT `hoverMode`/`toggleTimer` | Data Components `craft:hover_mode`/`craft:toggle_timer` | Data Components | **umgesetzt** |
+| UU-Materie-Rezepte: feste Position | `AdvRecipe` mit Leerzeilen/-spalten passt nur an genau dieser Stelle der Werkbank | `Ic2ShapedRecipe` mit `FixedPosition`; die Lage im Raster liefert ein Mixin auf `CraftingInput.ofPositioned` (`GridPosition`), Vanilla schneidet sie sonst ab. Eingaben ohne bekannte Lage (z. B. Autocrafter anderer Mods) werden akzeptiert | 1.21 kennt keine positionsgebundenen Rezepte | **umgesetzt** |
+| UU-Materie → Wasser/Lava | je 1 Block (Wasser `   / M / M `, Lava ` M / M / M`) | entfallen | Flüssigkeitsblöcke haben in 1.21 keine Item-Form | **umgesetzt** |
+| Massefabrikator: GT-Verstärker | Nikolit-/Manganstaub je 5000 | fehlen vorerst | GT-Items gibt es noch nicht (Phase 6b) | offen |
 | Strahlungseffekt | Potion-ID 24, Icon Vanilla-Gift | `craft:radiation` (MobEffect), Icon = Vanilla-Gift-Textur; Damage-Type `craft:radiation` im Tag `bypasses_armor`; Todesnachricht neu (1.4.7 ohne Übersetzung) | Registry | **umgesetzt** |
 
 ## Bewusst (Energiebalancing)

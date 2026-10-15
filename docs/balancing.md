@@ -154,7 +154,8 @@ Gewitterspitzen, Kohle hat einen sinnvollen Ausbaupfad, Öl ist die lagerbare Ho
 
 ## 5. Zu bestätigen
 
-1. Solar-Variante („Fläche der Panels“: 3×3 / 9×9 / 27×27) oder kompakte Alternative.
+1. ~~Solar-Variante~~ **Freigegeben (2026-10-15):** „Fläche der Panels“ (3×3 / 9×9 / 27×27), Mitte rekursiv mit
+   Deckel, Controller-Rezept = Trafo 1:1 – Details `spec/11-compact-solars.md` §4.
 2. Wassermühlen-/Turbinen-Werte.
 3. Wind-Faktoren.
 4. Kohlekraftwerk-Werte (16 000 EU/Kohle, 20 mB/t Dampf = 20 EU/t pro Kessel, Koks 32 000 EU oder neutral,
