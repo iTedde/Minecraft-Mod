@@ -118,10 +118,9 @@ Phase 2 gestartet (2026-10-14) – Zwischenstand siehe unten.
   „wie im Pack“ gewählt. Liste vollständig in `05-items.md` §1.1; GT-Einträge kommen mit Phase 6b.
 - `gradlew build`, 30 GameTests grün, `runClient` bis Hauptmenü ohne Mod-Fehler.
 
-## Offen aus Phase 3
-Phase 3 ist inhaltlich vollständig, die **manuelle Prüfung im Client und die Abnahme durch den Nutzer stehen noch aus**
-(GUIs, Sounds, Texturen/Facing, Weltgen, Rezepte, Harz/Klebekolben, Schrottbox). Wasser-/Windmühle/Solar bleiben ohne
-Rezept (Phase 6b).
+## Abnahme Phase 3
+Phase 3 am 2026-10-15 vom Nutzer abgenommen (manuelle Tests im Client macht der Nutzer gesammelt am Ende).
+Wasser-/Windmühle/Solar bleiben ohne Rezept (Phase 6b).
 
 ## Offen / später
 - Alt-Taste beim Schraubenschlüssel (zyklisches Drehen) kommt mit dem Tastensystem (Modus/Boost/Alt).
@@ -153,8 +152,8 @@ Rezept (Phase 6b).
 
 ## Nächste Schritte
 Arbeitsweise: eine Sitzung pro Teilpaket, Übergabe über diese Datei.
-1. Nutzer: Engines im Client prüfen (Kolbenanimation/Farben, Ausrichtung per BC-Schraubenschlüssel, GUIs + Ledger,
-   Explosion der Stirling-Engine, Kette Engine → Engine).
+1. Manuelle Client-Tests macht der Nutzer gesammelt, wenn alles fertig ist (Engines: Animation/Farben, Drehen per
+   BC-Schraubenschlüssel, GUIs + Ledger, Explosion, Kette Engine → Engine).
 2. Nächstes Teilpaket: **„Phase 4: Öl + Flüssigkeiten“** (Öl/Treibstoff als Fluids, Eimer, Ölquellen-Weltgen
    `07-weltgenerierung.md` §5, Öl/Treibstoff in `CombustionFuels`), danach Landmarks + Quarry, dann
    Tank/Pumpe/Raffinerie/Mining Well.
