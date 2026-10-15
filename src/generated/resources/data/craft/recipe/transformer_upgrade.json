@@ -1,0 +1,26 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "E": {
+      "item": "craft:electronic_circuit"
+    },
+    "G": {
+      "item": "minecraft:glass"
+    },
+    "T": {
+      "item": "craft:mv_transformer"
+    },
+    "W": {
+      "item": "craft:double_insulated_gold_cable"
+    }
+  },
+  "pattern": [
+    "GGG",
+    "WTW",
+    "GEG"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:transformer_upgrade"
+  }
+}

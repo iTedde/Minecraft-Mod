@@ -35,7 +35,8 @@ public final class Ic2Items {
             CABLES.put(type, ITEMS.registerSimpleBlockItem(Ic2Blocks.cable(type)));
         }
         for (Ic2Machine machine : Ic2Machine.values()) {
-            MACHINES.put(machine, ITEMS.registerSimpleBlockItem(Ic2Blocks.machine(machine)));
+            MACHINES.put(machine, ITEMS.registerSimpleBlockItem(Ic2Blocks.machine(machine),
+                    new Item.Properties().rarity(machine.getRarity())));
         }
     }
 

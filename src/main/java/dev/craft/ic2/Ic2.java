@@ -34,6 +34,9 @@ public final class Ic2 {
 
     private static void registerCapabilities(RegisterCapabilitiesEvent event) {
         for (Ic2Machine machine : Ic2Machine.values()) {
+            if (!machine.hasMenu()) {
+                continue;
+            }
             event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, Ic2BlockEntityTypes.get(machine),
                     MachineBlockEntity::getItemHandler);
         }

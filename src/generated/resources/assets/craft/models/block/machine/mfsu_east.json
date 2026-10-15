@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "craft:block/machine/mfsu_bottom",
+    "east": "craft:block/machine/mfsu_front",
+    "north": "craft:block/machine/mfsu_left",
+    "particle": "craft:block/machine/mfsu_front",
+    "south": "craft:block/machine/mfsu_right",
+    "up": "craft:block/machine/mfsu_top",
+    "west": "craft:block/machine/mfsu_back"
+  }
+}

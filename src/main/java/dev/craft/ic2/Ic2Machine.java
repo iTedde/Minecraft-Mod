@@ -1,6 +1,7 @@
 package dev.craft.ic2;
 
 import dev.craft.ic2.machine.FacingMode;
+import net.minecraft.world.item.Rarity;
 
 /**
  * IC2 blocks with a block entity, their sprite sheet column and block-level values ({@code BlockGenerator},
@@ -18,7 +19,14 @@ public enum Ic2Machine {
     EXTRACTOR("extractor", Sheet.MACHINE, 4, 2.0F, FacingMode.HORIZONTAL, 0.85F, Drop.MACHINE_CASING),
     COMPRESSOR("compressor", Sheet.MACHINE, 5, 2.0F, FacingMode.HORIZONTAL, 0.85F, Drop.MACHINE_CASING),
     RECYCLER("recycler", Sheet.MACHINE, 11, 2.0F, FacingMode.HORIZONTAL, 0.85F, Drop.MACHINE_CASING),
-    BATBOX("batbox", Sheet.ELECTRIC, 0, 1.5F, FacingMode.ALL, 1.0F, Drop.SELF);
+    BATBOX("batbox", Sheet.ELECTRIC, 0, 1.5F, FacingMode.ALL, 1.0F, Drop.SELF),
+    MFE("mfe", Sheet.ELECTRIC, 1, 1.5F, FacingMode.ALL, 1.0F, Drop.MACHINE_CASING),
+    MFSU("mfsu", Sheet.ELECTRIC, 2, 1.5F, FacingMode.ALL, 1.0F, Drop.MACHINE_CASING, Rarity.UNCOMMON, true),
+    LV_TRANSFORMER("lv_transformer", Sheet.ELECTRIC, 3, 1.5F, FacingMode.ALL, 1.0F, Drop.SELF, Rarity.COMMON, false),
+    MV_TRANSFORMER("mv_transformer", Sheet.ELECTRIC, 4, 1.5F, FacingMode.ALL, 1.0F, Drop.MACHINE_CASING,
+            Rarity.COMMON, false),
+    HV_TRANSFORMER("hv_transformer", Sheet.ELECTRIC, 5, 1.5F, FacingMode.ALL, 1.0F, Drop.MACHINE_CASING,
+            Rarity.UNCOMMON, false);
 
     private final String name;
     private final Sheet sheet;
@@ -27,9 +35,16 @@ public enum Ic2Machine {
     private final FacingMode facingMode;
     private final float wrenchDropRate;
     private final Drop drop;
+    private final Rarity rarity;
+    private final boolean hasMenu;
 
     Ic2Machine(String name, Sheet sheet, int column, float hardness, FacingMode facingMode, float wrenchDropRate,
                Drop drop) {
+        this(name, sheet, column, hardness, facingMode, wrenchDropRate, drop, Rarity.COMMON, true);
+    }
+
+    Ic2Machine(String name, Sheet sheet, int column, float hardness, FacingMode facingMode, float wrenchDropRate,
+               Drop drop, Rarity rarity, boolean hasMenu) {
         this.name = name;
         this.sheet = sheet;
         this.column = column;
@@ -37,6 +52,17 @@ public enum Ic2Machine {
         this.facingMode = facingMode;
         this.wrenchDropRate = wrenchDropRate;
         this.drop = drop;
+        this.rarity = rarity;
+        this.hasMenu = hasMenu;
+    }
+
+    public Rarity getRarity() {
+        return rarity;
+    }
+
+    /** Transformers have neither an inventory nor a GUI. */
+    public boolean hasMenu() {
+        return hasMenu;
     }
 
     public String getName() {

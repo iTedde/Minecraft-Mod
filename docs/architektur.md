@@ -33,7 +33,8 @@ ergänzen. Basispaket `dev.craft`, Einstieg `Craft` → `Ic2.init`, `BuildCraft.
 | `ic2/machine/MachineBlockEntity`, `MachineBlock` | IC2-Maschinen: Facing, Schraubenschlüssel (`Wrenchable`), Menü, Drops (`dropContents`) |
 | `ic2/machine/ElectricMachineBlockEntity` | EU-Verbraucher mit Upgrades; `RecipeMachineBlockEntity` für Macerator/Extractor/Compressor |
 | `ic2/generator/BaseGeneratorBlockEntity` | EU-Erzeuger |
-| `ic2/storage/ElectricStorageBlockEntity` | BatBox usw. |
+| `ic2/storage/ElectricStorageBlockEntity` | BatBox, MFE, MFSU (Werte in `Spec`) |
+| `ic2/storage/TransformerBlockEntity` | LV-/MV-/HV-Trafo (Werte in `Spec`); `Ic2Machine.hasMenu() = false` → kein Menü, keine Item-Capability |
 | `ic2/machine/MachineInventory` | `ItemStackHandler` mit Änderungs-Callback; auch von Forestry genutzt |
 | `buildcraft/engine/EngineBlockEntity` | BC-Engines (Kolben, Übertragung, Hitze) |
 | `forestry/machine/ForestryMachineBlockEntity`, `ForestryMachineBlock` | Forestry-`TileMachine`: MJ, Arbeitsschritt alle 5 Ticks, Ausrichtung zum Spieler, Drops |

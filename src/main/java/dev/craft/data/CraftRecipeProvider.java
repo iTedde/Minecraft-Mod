@@ -79,7 +79,7 @@ public final class CraftRecipeProvider extends RecipeProvider {
         powerConverters();
     }
 
-    // --- §14 Power Converters (vanilla recipes; the IC2 consumers need transformers/MFSU and follow in phase 6) ---
+    // --- §14 Power Converters (vanilla recipes) ---
 
     private void powerConverters() {
         bcShaped(PcItems.ENERGY_BRIDGE).pattern("GRG").pattern("LDL").pattern("GRG").define('G', Items.GOLD_INGOT)
@@ -91,12 +91,22 @@ public final class CraftRecipeProvider extends RecipeProvider {
         bcShaped(PcItems.converter(ConverterType.BC_CONSUMER)).pattern("G G").pattern(" E ").pattern("G G")
                 .define('G', Items.GOLD_INGOT).define('E', BcItems.engine(EngineType.STIRLING))
                 .unlockedBy("has_engine", has(BcItems.engine(EngineType.STIRLING))).save(output, id("bc_consumer"));
+        ic2Consumer(ConverterType.IC2_LV_CONSUMER, Ic2Machine.LV_TRANSFORMER);
+        ic2Consumer(ConverterType.IC2_MV_CONSUMER, Ic2Machine.MV_TRANSFORMER);
+        ic2Consumer(ConverterType.IC2_HV_CONSUMER, Ic2Machine.HV_TRANSFORMER);
+        ic2Consumer(ConverterType.IC2_EV_CONSUMER, Ic2Machine.MFSU);
         for (ConverterType type : ConverterType.values()) {
             ItemLike from = PcItems.converter(type);
             ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, PcItems.converter(type.counterpart()))
                     .requires(from).unlockedBy("has_converter", has(from))
                     .save(output, id(type.counterpart().getName() + "_from_" + type.getName()));
         }
+    }
+
+    private void ic2Consumer(ConverterType type, Ic2Machine core) {
+        bcShaped(PcItems.converter(type)).pattern("G G").pattern(" T ").pattern("G G").define('G', Items.GOLD_INGOT)
+                .define('T', machine(core)).unlockedBy("has_core", has(machine(core)))
+                .save(output, id(type.getName()));
     }
 
     // --- §12 BuildCraft (vanilla shaped recipes, mirroring allowed as in 1.4.7) ---
@@ -354,6 +364,19 @@ public final class CraftRecipeProvider extends RecipeProvider {
                 .save();
         shaped(machine(Ic2Machine.BATBOX), 1, "batbox").pattern("PCP").pattern("BBB").pattern("PPP").define('P', ItemTags.PLANKS)
                 .define('C', Ic2Items.cable(CableType.INSULATED_COPPER)).define('B', Ic2Items.RE_BATTERY).save();
+        shaped(machine(Ic2Machine.MFE), 1, "mfe").pattern("cCc").pattern("CMC").pattern("cCc")
+                .define('c', Ic2Items.cable(CableType.DOUBLE_INSULATED_GOLD)).define('C', Ic2Items.ENERGY_CRYSTAL)
+                .define('M', Ic2Items.MACHINE_CASING).save();
+        // MFSU: needs the advanced machine block (advanced alloy from GT plates) and follows in phase 6b.
+        shaped(machine(Ic2Machine.LV_TRANSFORMER), 1, "lv_transformer").pattern("PCP").pattern("ccc").pattern("PCP")
+                .define('P', ItemTags.PLANKS).define('C', Ic2Items.cable(CableType.INSULATED_COPPER))
+                .define('c', ingotsCopper()).save();
+        shaped(machine(Ic2Machine.MV_TRANSFORMER), 1, "mv_transformer").pattern(" C ").pattern(" M ").pattern(" C ")
+                .define('C', Ic2Items.cable(CableType.DOUBLE_INSULATED_GOLD)).define('M', Ic2Items.MACHINE_CASING)
+                .save();
+        shaped(machine(Ic2Machine.HV_TRANSFORMER), 1, "hv_transformer").pattern(" c ").pattern("CED").pattern(" c ")
+                .define('c', Ic2Items.cable(CableType.QUADRUPLE_INSULATED_HV)).define('C', Ic2Items.ELECTRONIC_CIRCUIT)
+                .define('E', machine(Ic2Machine.MV_TRANSFORMER)).define('D', Ic2Items.ENERGY_CRYSTAL).save();
     }
 
     // --- §5 batteries ---
@@ -417,6 +440,9 @@ public final class CraftRecipeProvider extends RecipeProvider {
         shaped(Ic2Items.OVERCLOCKER_UPGRADE, 1, "overclocker_upgrade").pattern("CCC", "WEW")
                 .define('C', Ic2Items.COOLANT_CELL_10K).define('W', Ic2Items.cable(CableType.INSULATED_COPPER))
                 .define('E', Ic2Items.ELECTRONIC_CIRCUIT).save();
+        shaped(Ic2Items.TRANSFORMER_UPGRADE, 1, "transformer_upgrade").pattern("GGG").pattern("WTW").pattern("GEG")
+                .define('G', Items.GLASS).define('W', Ic2Items.cable(CableType.DOUBLE_INSULATED_GOLD))
+                .define('T', machine(Ic2Machine.MV_TRANSFORMER)).define('E', Ic2Items.ELECTRONIC_CIRCUIT).save();
         shaped(Ic2Items.ENERGY_STORAGE_UPGRADE, 1, "energy_storage_upgrade").pattern("www").pattern("WBW").pattern("wEw")
                 .define('w', ItemTags.PLANKS).define('W', Ic2Items.cable(CableType.INSULATED_COPPER))
                 .define('B', Ic2Items.RE_BATTERY).define('E', Ic2Items.ELECTRONIC_CIRCUIT).save();

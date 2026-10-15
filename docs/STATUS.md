@@ -319,3 +319,34 @@ Phase 4 am 2026-10-15 vom Nutzer abgenommen (manuelle Tests gesammelt am Ende). 
    BC Producer an Quarry/Pumpe; verbundene Seiten-Texturen; Charger: draufstellen lädt Batterien im Inventar,
    Truhe daneben; Rechtsklick auf Bauteil öffnet Bridge-GUI; formlose Umwandlungsrezepte).
 3. Danach Phase 6 (IC2 Mid/Late Game) – erstes Teilpaket festlegen; IC2-Consumer-Rezepte dort nachziehen.
+
+## Abnahme Phase 5
+Phase 5 am 2026-10-15 vom Nutzer abgenommen (manuelle Tests gesammelt am Ende). Aufteilung Phase 6 festgelegt:
+6.1 MFE, MFSU, LV-/MV-/HV-Trafo (+ Rezepte Transformer-Upgrade und IC2 Consumer) · 6.2 Elektrowerkzeuge +
+Tastensystem (Modus/Boost/Alt) · 6.3 Nano-, Quanten- und Utility-Rüstung · 6.4 Massefabrikator + Solar-Arrays als
+Multiblock (vorher offene Entscheidungen 2 und 3 klären).
+
+# Stand Phase 6 (2026-10-15)
+
+## Erledigt (Teilpaket „Phase 6.1: Speicher und Trafos“)
+- `Ic2Machine`: MFE, MFSU, LV-/MV-/HV-Trafo (Härte 1,5, Facing auch oben/unten, Wrench-Rate 1,0; Drops: LV-Trafo
+  sich selbst, sonst Maschinenblock; Rarity „uncommon“ für MFSU/HV-Trafo). Neu: `getRarity()`, `hasMenu()`
+  (Trafos ohne Menü, Inventar und Item-Capability).
+- `ElectricStorageBlockEntity.Spec` (BatBox 1/32/40 000, MFE 2/128/600 000, MFSU 3/512/10 000 000) ersetzt die
+  BatBox-Konstanten; Menü/Screen der BatBox gelten für alle drei.
+- `TransformerBlockEntity` 1:1 nach `TileEntityTransformer`: abwärts (Front rein, bis 4 Pakete `lowOutput`),
+  aufwärts mit Redstone (`hasNeighborSignal`, 1 Paket `highOutput` aus der Front), Umschalten meldet im Netz ab/an,
+  Überspannung explodiert (HV-Trafo abwärts unbegrenzt), Puffer bis `maxStorage + highOutput − 1`.
+- Texturen aus `block_electric.png` (Spalten 1–5) geschnitten; Lang en/de.
+- Rezepte: MFE, LV-/MV-/HV-Trafo, Transformer-Upgrade, IC2 Consumer LV/MV/HV/EV. **MFSU ohne Rezept bis Phase 6b**
+  (fortg. Maschinenblock → fortg. Legierung → Mischmetall aus GT-Platten).
+- Spec: LV-Trafo-Rezept vervollständigt (`08-rezepte.md`), Trafo-Redstone nicht gespeichert (`03-speicher-trafos.md`).
+- 5 neue GameTests (`StorageGameTests`, insgesamt 74 grün), `gradlew build` und `runClient` erfolgreich.
+
+## Nächste Schritte
+1. Teilpaket 6.2: Elektrowerkzeuge (`05-items.md` §3) + Tastensystem (Modus/Boost/Alt, auch Alt beim
+   Schraubenschlüssel); Diamantbohrer → Quarry-Rezept nachziehen. Vorher Spec-Lücken prüfen.
+2. Manuelle Client-Tests zusätzlich: MFE/MFSU (GUI, Laden/Entladen, Redstone-Modi, Ausgabe vorne, Drehen per
+   Schraubenschlüssel inkl. oben/unten), Trafos (Abwärts: HV-Trafo zwischen MFSU-Ausgang und MFE; Aufwärts mit
+   Hebel → aktive Textur, Ausgabe vorne; Überspannung mit falsch gedrehtem LV-Trafo explodiert; Drops ohne
+   Schraubenschlüssel).

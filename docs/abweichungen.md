@@ -110,7 +110,8 @@ Status: *geplant* (aus Phase 1 abgeleitet, noch nicht umgesetzt), *entschieden* 
 | Universal Charger: Spieler | Spieler wird auch auf dem Client gemerkt (nur für die Textur) | nur Server; zusätzlich vergessen, wenn der Spieler entfernt wurde (Ausloggen) | Textur über Blockstate | **umgesetzt** |
 | Universal Charger: Spielerinventar | `InventoryPlayer` (36 + 4 Rüstung) | `PlayerInvWrapper` (zusätzlich Nebenhand) | 1.21-Inventar | **umgesetzt** |
 | Energy Bridge GUI: Sync | einzelne Container-Werte (16 Bit); System-ID nur gesendet, wenn vorhanden | `SyncedInts` (volle ints), System −1 = keins | gleiches Bild | **umgesetzt** |
-| IC2 Consumer: Rezepte | LV-/MV-/HV-Trafo, MFSU | erst mit Phase 6 (Trafos/MFSU); formlose Umwandlung Consumer ↔ Producer schon jetzt | Zutaten fehlen noch | **offen (Phase 6)** |
+| IC2 Consumer: Rezepte | LV-/MV-/HV-Trafo, MFSU | LV/MV/HV mit Phase 6.1; EV-Rezept vorhanden, MFSU selbst aber erst ab Phase 6b herstellbar | Zutaten fehlten | **umgesetzt** |
+| MFSU: Rezept | `LCL/LML/LAL` mit fortg. Maschinenblock | Block vorhanden (Creative), Rezept erst mit Phase 6b: der fortg. Maschinenblock braucht fortg. Legierung, deren Mischmetallbarren im Pack nur aus GT-Platten entsteht | Zutat fehlt noch | **offen bis Phase 6b** |
 
 ## Bewusst (Energiebalancing)
 

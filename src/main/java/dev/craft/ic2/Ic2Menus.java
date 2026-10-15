@@ -23,7 +23,9 @@ public final class Ic2Menus {
 
     static {
         for (Ic2Machine machine : Ic2Machine.values()) {
-            TYPES.put(machine, MENUS.register(machine.getName(), () -> create(machine)));
+            if (machine.hasMenu()) {
+                TYPES.put(machine, MENUS.register(machine.getName(), () -> create(machine)));
+            }
         }
     }
 
@@ -38,8 +40,10 @@ public final class Ic2Menus {
                     (id, inventory, buf) -> new IronFurnaceMenu(id, inventory, buf.readBlockPos()));
             case ELECTRIC_FURNACE, MACERATOR, EXTRACTOR, COMPRESSOR, RECYCLER -> IMenuTypeExtension.create(
                     (id, inventory, buf) -> new ElectricMachineMenu(machine, id, inventory, buf.readBlockPos()));
-            case BATBOX -> IMenuTypeExtension.create(
+            case BATBOX, MFE, MFSU -> IMenuTypeExtension.create(
                     (id, inventory, buf) -> new ElectricStorageMenu(machine, id, inventory, buf.readBlockPos()));
+            case LV_TRANSFORMER, MV_TRANSFORMER, HV_TRANSFORMER ->
+                    throw new IllegalArgumentException(machine + " has no menu");
         };
     }
 

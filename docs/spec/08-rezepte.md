@@ -131,7 +131,7 @@ IC2-Maschinenrezept für dieselbe Eingabe und fügen das neue ein.
 | BatBox | `PCP/BBB/PPP`, P = Bretter, C = isol. Kupferkabel, B = RE-Batterie | [IC2] |
 | MFE | `cCc/CMC/cCc`, c = 2× isol. Goldkabel, C = Energiekristall, M = Maschinenblock | **[GT~]** gleichwertig (C = jeder Energiekristall unabhängig von Ladung) |
 | MFSU | `LCL/LML/LAL`, L = Lapotronkristall, C = fortg. Schaltkreis, M = MFE, A = fortg. Maschinenblock | [IC2] |
-| LV-Trafo | `PCP/ccc/PCP`, c = Kupferbarren | [IC2] |
+| LV-Trafo | `PCP/ccc/PCP`, P = Bretter, C = isol. Kupferkabel, c = Kupferbarren | [IC2] |
 | MV-Trafo | ` C / M / C `, C = 2× isol. Goldkabel | [IC2] |
 | HV-Trafo | ` c /CED/ c `, c = 4× isol. HV-Kabel, C = el. Schaltkreis, E = MV-Trafo, D = Energiekristall | [IC2] |
 

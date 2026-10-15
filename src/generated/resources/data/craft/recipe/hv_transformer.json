@@ -1,0 +1,26 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "C": {
+      "item": "craft:electronic_circuit"
+    },
+    "D": {
+      "item": "craft:energy_crystal"
+    },
+    "E": {
+      "item": "craft:mv_transformer"
+    },
+    "c": {
+      "item": "craft:quadruple_insulated_hv_cable"
+    }
+  },
+  "pattern": [
+    " c ",
+    "CED",
+    " c "
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:hv_transformer"
+  }
+}

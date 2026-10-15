@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "G": {
+      "item": "minecraft:gold_ingot"
+    },
+    "T": {
+      "item": "craft:hv_transformer"
+    }
+  },
+  "pattern": [
+    "G G",
+    " T ",
+    "G G"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:ic2_hv_consumer"
+  }
+}

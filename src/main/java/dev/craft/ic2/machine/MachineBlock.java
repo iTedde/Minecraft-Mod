@@ -108,7 +108,7 @@ public class MachineBlock extends BaseEntityBlock {
     @Override
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player,
                                                BlockHitResult hit) {
-        if (player.isShiftKeyDown()) {
+        if (player.isShiftKeyDown() || !machine.hasMenu()) {
             return InteractionResult.PASS;
         }
         if (!level.isClientSide() && level.getBlockEntity(pos) instanceof MachineBlockEntity be

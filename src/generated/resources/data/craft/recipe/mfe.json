@@ -1,0 +1,23 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "C": {
+      "item": "craft:energy_crystal"
+    },
+    "M": {
+      "item": "craft:machine_casing"
+    },
+    "c": {
+      "item": "craft:double_insulated_gold_cable"
+    }
+  },
+  "pattern": [
+    "cCc",
+    "CMC",
+    "cCc"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:mfe"
+  }
+}

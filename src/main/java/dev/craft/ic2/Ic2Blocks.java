@@ -24,6 +24,7 @@ import dev.craft.ic2.machine.RecipeMachineBlockEntity;
 import dev.craft.ic2.machine.RecyclerBlockEntity;
 import dev.craft.ic2.storage.ElectricStorageBlock;
 import dev.craft.ic2.storage.ElectricStorageBlockEntity;
+import dev.craft.ic2.storage.TransformerBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
@@ -40,11 +41,6 @@ public final class Ic2Blocks {
 
     private static final Map<CableType, DeferredBlock<CableBlock>> CABLES = new EnumMap<>(CableType.class);
     private static final Map<Ic2Machine, DeferredBlock<MachineBlock>> MACHINES = new EnumMap<>(Ic2Machine.class);
-
-    /** BatBox values (IC2 {@code TileEntityElectricBatBox}): tier 1, 32 EU/t, 40 000 EU. */
-    public static final int BATBOX_TIER = 1;
-    public static final int BATBOX_OUTPUT = 32;
-    public static final int BATBOX_STORAGE = 40000;
 
     static {
         for (CableType type : CableType.values()) {
@@ -102,11 +98,15 @@ public final class Ic2Blocks {
 
     private static MachineBlock createMachineBlock(Ic2Machine machine) {
         BlockBehaviour.Properties properties = metal().strength(machine.getHardness());
-        if (machine == Ic2Machine.BATBOX) {
-            return new ElectricStorageBlock(properties, machine, (pos, state) -> new ElectricStorageBlockEntity(
-                    Ic2BlockEntityTypes.get(machine), pos, state, BATBOX_TIER, BATBOX_OUTPUT, BATBOX_STORAGE));
-        }
-        return new MachineBlock(properties, machine, factory(machine));
+        return switch (machine) {
+            case BATBOX, MFE, MFSU -> new ElectricStorageBlock(properties, machine,
+                    (pos, state) -> new ElectricStorageBlockEntity(Ic2BlockEntityTypes.get(machine), pos, state,
+                            ElectricStorageBlockEntity.Spec.of(machine)));
+            case LV_TRANSFORMER, MV_TRANSFORMER, HV_TRANSFORMER -> new MachineBlock(properties, machine,
+                    (pos, state) -> new TransformerBlockEntity(Ic2BlockEntityTypes.get(machine), pos, state,
+                            TransformerBlockEntity.Spec.of(machine)));
+            default -> new MachineBlock(properties, machine, factory(machine));
+        };
     }
 
     private static BiFunction<BlockPos, BlockState, ? extends MachineBlockEntity> factory(Ic2Machine machine) {
@@ -122,7 +122,8 @@ public final class Ic2Blocks {
             case EXTRACTOR -> RecipeMachineBlockEntity::extractor;
             case COMPRESSOR -> RecipeMachineBlockEntity::compressor;
             case RECYCLER -> RecyclerBlockEntity::new;
-            case BATBOX -> throw new IllegalArgumentException("BatBox uses ElectricStorageBlock");
+            case BATBOX, MFE, MFSU, LV_TRANSFORMER, MV_TRANSFORMER, HV_TRANSFORMER ->
+                    throw new IllegalArgumentException(machine + " has its own block class");
         };
     }
 

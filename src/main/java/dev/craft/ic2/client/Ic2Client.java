@@ -52,7 +52,9 @@ public final class Ic2Client {
                 case IRON_FURNACE -> event.register(Ic2Menus.get(machine), IronFurnaceScreen::new);
                 case ELECTRIC_FURNACE, MACERATOR, EXTRACTOR, COMPRESSOR, RECYCLER ->
                         event.register(Ic2Menus.get(machine), ElectricMachineScreen::new);
-                case BATBOX -> event.register(Ic2Menus.get(machine), ElectricStorageScreen::new);
+                case BATBOX, MFE, MFSU -> event.register(Ic2Menus.get(machine), ElectricStorageScreen::new);
+                case LV_TRANSFORMER, MV_TRANSFORMER, HV_TRANSFORMER -> {
+                }
             }
         }
     }

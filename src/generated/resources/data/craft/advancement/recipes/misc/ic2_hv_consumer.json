@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_core": {
+      "conditions": {
+        "items": [
+          {
+            "items": "craft:hv_transformer"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "craft:ic2_hv_consumer"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_core"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "craft:ic2_hv_consumer"
+    ]
+  }
+}

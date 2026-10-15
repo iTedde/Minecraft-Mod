@@ -1,6 +1,5 @@
 package dev.craft.ic2.menu;
 
-import dev.craft.ic2.Ic2Blocks;
 import dev.craft.ic2.Ic2Machine;
 import dev.craft.ic2.Ic2Menus;
 import dev.craft.ic2.storage.ElectricStorageBlockEntity;
@@ -28,7 +27,7 @@ public class ElectricStorageMenu extends MachineMenu<ElectricStorageBlockEntity>
     }
 
     public ElectricStorageMenu(Ic2Machine kind, int id, Inventory inventory, BlockPos pos) {
-        this(kind, id, inventory, null, pos, tierOf(kind), new SyncedInts(3));
+        this(kind, id, inventory, null, pos, ElectricStorageBlockEntity.Spec.of(kind).tier(), new SyncedInts(3));
     }
 
     private ElectricStorageMenu(Ic2Machine kind, int id, Inventory inventory,
@@ -39,10 +38,6 @@ public class ElectricStorageMenu extends MachineMenu<ElectricStorageBlockEntity>
         addMachineSlot(new FilteredSlot(items, 0, 56, 17, SlotFilters.charge(tier)));
         addMachineSlot(new FilteredSlot(items, 1, 56, 53, SlotFilters.discharge(tier)));
         addPlayerInventory(inventory);
-    }
-
-    private static int tierOf(Ic2Machine kind) {
-        return kind == Ic2Machine.BATBOX ? Ic2Blocks.BATBOX_TIER : 1;
     }
 
     public Ic2Machine getKind() {

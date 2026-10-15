@@ -6,6 +6,7 @@ import dev.craft.core.energy.EnergySource;
 import dev.craft.core.energy.EnergyTile;
 import dev.craft.core.explosion.Ic2Explosion;
 import dev.craft.ic2.Ic2Items;
+import dev.craft.ic2.Ic2Machine;
 import dev.craft.ic2.item.ElectricItem;
 import dev.craft.ic2.item.ElectricItems;
 import dev.craft.ic2.machine.MachineBlockEntity;
@@ -47,12 +48,11 @@ public class ElectricStorageBlockEntity extends MachineBlockEntity implements En
     private boolean isEmittingRedstone;
     private int redstoneUpdateInhibit = 5;
 
-    public ElectricStorageBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state, int tier, int output,
-                                      int maxStorage) {
+    public ElectricStorageBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state, Spec spec) {
         super(type, pos, state, 2);
-        this.tier = tier;
-        this.output = output;
-        this.maxStorage = maxStorage;
+        this.tier = spec.tier();
+        this.output = spec.output();
+        this.maxStorage = spec.maxStorage();
     }
 
     public int getTier() {
@@ -240,6 +240,22 @@ public class ElectricStorageBlockEntity extends MachineBlockEntity implements En
     @Override
     public AbstractContainerMenu createMenu(int id, Inventory playerInventory, Player player) {
         return new ElectricStorageMenu(id, playerInventory, this);
+    }
+
+    /** Values of {@code TileEntityElectric{BatBox,MFE,MFSU}}; output is also the maximum safe input. */
+    public record Spec(int tier, int output, int maxStorage) {
+        public static final Spec BATBOX = new Spec(1, 32, 40000);
+        public static final Spec MFE = new Spec(2, 128, 600000);
+        public static final Spec MFSU = new Spec(3, 512, 10000000);
+
+        public static Spec of(Ic2Machine machine) {
+            return switch (machine) {
+                case BATBOX -> BATBOX;
+                case MFE -> MFE;
+                case MFSU -> MFSU;
+                default -> throw new IllegalArgumentException(machine + " is no storage block");
+            };
+        }
     }
 
     @Override

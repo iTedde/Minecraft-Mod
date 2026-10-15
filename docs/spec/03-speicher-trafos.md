@@ -89,6 +89,8 @@ Allgemein:
 - `demandsEnergy = maxStorage − energy`.
 - Redstone-Wechsel meldet den Trafo im Netz ab und wieder an (Pfad-Caches werden neu berechnet), Pufferinhalt bleibt.
 - Nicht verteilte Energie bleibt im Puffer.
-- NBT: `energy`.
+- NBT: `energy`. Der Redstone-Zustand wird **nicht** gespeichert: nach dem Laden ist er `false`, der erste Tick liest
+  ihn neu (`updateRedstone` zu Beginn jedes Ticks) und meldet den Trafo bei Bedarf um.
+- Kein Inventar, keine GUI (Rechtsklick ohne Wirkung).
 
 Rezepte: siehe `08-rezepte.md`.

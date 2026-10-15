@@ -138,6 +138,11 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             machine(Ic2Machine.COMPRESSOR, "Compressor");
             machine(Ic2Machine.RECYCLER, "Recycler");
             machine(Ic2Machine.BATBOX, "BatBox");
+            machine(Ic2Machine.MFE, "MFE");
+            machine(Ic2Machine.MFSU, "MFSU");
+            machine(Ic2Machine.LV_TRANSFORMER, "LV-Transformer");
+            machine(Ic2Machine.MV_TRANSFORMER, "MV-Transformer");
+            machine(Ic2Machine.HV_TRANSFORMER, "HV-Transformer");
             block(Ic2Blocks.MACHINE_CASING, "Machine Block");
             block(Ic2Blocks.TIN_ORE, "Tin Ore");
             block(Ic2Blocks.DEEPSLATE_TIN_ORE, "Deepslate Tin Ore");
@@ -265,6 +270,11 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             machine(Ic2Machine.COMPRESSOR, "Kompressor");
             machine(Ic2Machine.RECYCLER, "Recycler");
             machine(Ic2Machine.BATBOX, "BatBox");
+            machine(Ic2Machine.MFE, "MFE");
+            machine(Ic2Machine.MFSU, "MFSU");
+            machine(Ic2Machine.LV_TRANSFORMER, "LV-Transformator");
+            machine(Ic2Machine.MV_TRANSFORMER, "MV-Transformator");
+            machine(Ic2Machine.HV_TRANSFORMER, "HV-Transformator");
             block(Ic2Blocks.MACHINE_CASING, "Maschinenblock");
             block(Ic2Blocks.TIN_ORE, "Zinnerz");
             block(Ic2Blocks.DEEPSLATE_TIN_ORE, "Tiefenschiefer-Zinnerz");
