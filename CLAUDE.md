@@ -31,7 +31,7 @@ ein überarbeitetes Energiebalancing und neue Kraftwerke. Wird nicht veröffentl
 |---|---|
 | `…core` | gemeinsame Infrastruktur: Registrierungshilfen, Netzwerk, **gemeinsames Multiblock-System**, Explosions-Algorithmus, Tick-Callbacks |
 | `…ic2` | IndustrialCraft 2 komplett (EU-Netz, Kabel, Generatoren, Speicher, Maschinen, Items, Rüstung, Reaktor, Crops, Weltgen) |
-| `…buildcraft` | MJ-System, Engines, Landmarks, Quarry, Öl, Pumpe, Tank, Raffinerie (optional Rohre) |
+| `…buildcraft` | MJ-System, Engines, Landmarks, Quarry, Öl, Pumpe, Tank, Raffinerie Rohre |
 | `…forestry` | Electrical Engine, Electron Tubes, Platinen, Lötkolben, Thermionic Fabricator, Carpenter |
 | `…powerconverters` | Energy Bridge, Charger, BC-/IC2-Konverter |
 | `…compactsolars` | Solar Arrays (als Multiblocks laut Balancing) |
@@ -68,7 +68,7 @@ MJ und EU bleiben getrennte Systeme; Verbindung nur über Electrical Engine (EU�
 | 6b | GregTech-Maschinen 1:1 (Elektrolyseur, Hochofen-Multiblock + Heizspulen, Plattenbieger, Assembler, ggf. weitere) und GT-Materialien; danach Rezepte für Solarpanel, Wasser-/Windmühle u. a. [GT⚠] | offen |
 | 7 | Reaktor | offen |
 | 8 | Neue Kraftwerke: Kohlekraftwerk mit Koksofen, Wasserturbine | offen |
-| 9 | Optional: BuildCraft-Rohre | offen |
+| 9 | BuildCraft-Rohre (fest im Umfang) | offen |
 | 10 | Feinschliff: Texturen, JEI-Integration, Tests | offen |
 
 Nicht explizit in einer Phase, aber Teil von „IC2 komplett“ (Zuordnung klären): Eisenofen, Canning Machine,
