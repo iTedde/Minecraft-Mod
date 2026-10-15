@@ -7,7 +7,7 @@ import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 
 /**
  * Entry point of the Forestry part: Thermionic Fabricator, Carpenter, electron tubes, circuit boards and the
- * soldering iron (the Electrical Engine follows).
+ * soldering iron, and the Electrical Engine (EU → MJ).
  */
 public final class Forestry {
     private Forestry() {
@@ -29,6 +29,8 @@ public final class Forestry {
     private static void registerCapabilities(RegisterCapabilitiesEvent event) {
         event.registerBlockEntity(BcCapabilities.POWER_RECEPTOR, FrBlockEntityTypes.FABRICATOR.get(), (be, side) -> be);
         event.registerBlockEntity(BcCapabilities.POWER_RECEPTOR, FrBlockEntityTypes.CARPENTER.get(), (be, side) -> be);
+        event.registerBlockEntity(BcCapabilities.POWER_RECEPTOR, FrBlockEntityTypes.ELECTRICAL_ENGINE.get(),
+                (be, side) -> be);
         event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, FrBlockEntityTypes.FABRICATOR.get(),
                 (be, side) -> be.getItemHandler(side));
         event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, FrBlockEntityTypes.CARPENTER.get(),

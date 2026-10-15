@@ -49,6 +49,8 @@ public final class CraftItemModelProvider extends ItemModelProvider {
         // RenderMachine/RenderBlock.inventoryRender, drawn by ForestryMachineItemRenderer.
         engine(FrItems.CARPENTER);
         engine(FrItems.THERMIONIC_FABRICATOR);
+        engine(FrItems.ELECTRICAL_ENGINE);
+        basicItem(FrItems.TIN_GEAR.get());
         basicItem(FrItems.STURDY_CASING.get());
         // isFull3D: held like a tool.
         handheldItem(FrItems.SOLDERING_IRON.get());

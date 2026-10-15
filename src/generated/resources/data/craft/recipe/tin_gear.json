@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "G": {
+      "item": "craft:stone_gear"
+    },
+    "I": {
+      "tag": "c:ingots/tin"
+    }
+  },
+  "pattern": [
+    " I ",
+    "IGI",
+    " I "
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:tin_gear"
+  }
+}

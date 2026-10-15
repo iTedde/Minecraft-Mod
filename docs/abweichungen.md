@@ -95,6 +95,12 @@ Status: *geplant* (aus Phase 1 abgeleitet, noch nicht umgesetzt), *entschieden* 
 | Fabricator-Ergebnisslot | virtueller Slot direkt auf der Maschine | Anzeige-Slot, vom Server bei jedem Zugriff neu berechnet | Client hat keine Maschine im Menü | **umgesetzt** |
 | Carpenter: Rezeptsuche nach Laden | sofort in `readFromNBT` | im ersten Tick | Level beim Laden noch nicht verfügbar | **umgesetzt** |
 | Tank-Tooltip in Forestry-GUIs | Name (+ Menge laut Config) | Name und Menge in mB | – | **umgesetzt** |
+| Electrical Engine: Drehung beim Setzen | `onBlockAdded` → `rotateEngine` sofort | im ersten Server-Tick des neu gesetzten Blocks (nicht nach dem Laden) | in 1.21 existiert die BlockEntity während `onPlace` noch nicht | **umgesetzt** |
+| Electrical Engine: Anmeldung im EU-Netz | im ersten `updateServerSide` | `onLoad` (wie alle EU-Tiles) | API | **umgesetzt** |
+| Electrical Engine: Platinen-Sockel | `GfxSlot` mit eigenen Paketen (70/71/72) | Menü-Slot, der keine Vanilla-Klicks annimmt; Klick wird im Menü ausgewertet, Inhalt per Slot-Sync | idiomatisch, gleiches Verhalten | **umgesetzt** |
+| Electrical Engine: Lötkolben ins Inventar | `stowInInventory` über alle 40 Spieler-Slots (inkl. Rüstung) | `Inventory.add` (Haupt-/Hotbar-Slots) | Platine gehört nicht in Rüstungsslots | **umgesetzt** |
+| Electrical Engine: `euConfig` | Schaltungen ändern die Werte schrittweise (`changeEnergyConfig`) | Werte werden bei jeder Sockeländerung aus der Platine neu berechnet | gleiches Ergebnis | **umgesetzt** |
+| Biodust-Partikel | `EntityBiodustFX` (Reddust, RGB 0/1/0) | `DustParticleOptions` grün, Größe 1 | API | **umgesetzt** |
 
 ## Bewusst (Energiebalancing)
 

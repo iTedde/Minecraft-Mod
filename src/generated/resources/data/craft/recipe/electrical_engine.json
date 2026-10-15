@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "tag": "c:ingots/tin"
+    },
+    "V": {
+      "item": "minecraft:piston"
+    },
+    "X": {
+      "item": "minecraft:glass"
+    },
+    "Y": {
+      "item": "craft:tin_gear"
+    }
+  },
+  "pattern": [
+    "###",
+    " X ",
+    "YVY"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:electrical_engine"
+  }
+}

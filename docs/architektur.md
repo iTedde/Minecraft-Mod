@@ -36,6 +36,7 @@ ergänzen. Basispaket `dev.craft`, Einstieg `Craft` → `Ic2.init`, `BuildCraft.
 | `ic2/machine/MachineInventory` | `ItemStackHandler` mit Änderungs-Callback; auch von Forestry genutzt |
 | `buildcraft/engine/EngineBlockEntity` | BC-Engines (Kolben, Übertragung, Hitze) |
 | `forestry/machine/ForestryMachineBlockEntity`, `ForestryMachineBlock` | Forestry-`TileMachine`: MJ, Arbeitsschritt alle 5 Ticks, Ausrichtung zum Spieler, Drops |
+| `forestry/engine/ElectricalEngineBlockEntity` | Forestry-Engine (EU-Senke + MJ-Kolben, Hitze, Platinen-Sockel); eigenständig, nicht von der BC-Engine abgeleitet (int-Werte, anderes `extractEnergy`) |
 | `core/multiblock/MultiblockPattern`, `MultiblockController` | gemeinsames Multiblock-System |
 | `core/explosion/Ic2Explosion` | IC2-Explosion (`explodeMachineAt`) |
 

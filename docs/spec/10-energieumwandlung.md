@@ -228,6 +228,75 @@ eine gültige Röhre in den ersten *Sockel* Röhrenslots (Limit je Schaltung) �
 gleich der Sockelzahl ist: je 1 Röhre verbrauchen, Platine (gleicher Typ, Layout, Schaltungen) in den Ergebnisslot.
 Das Inventar wird nicht gespeichert: beim Schließen fallen alle Items vor den Spieler.
 
+### A.8 Details aus dem Original (nachgetragen für Phase 5b: Electrical Engine)
+
+Quelle: `Engine`, `TileEngine`, `TileForestry`, `EngineTin`, `BlockEngine`, `RenderEngine`, `GuiEngineTin`,
+`GuiEngine`, `ContainerEngineTin`, `ContainerSocketed`, `SocketSlot`, `CircuitElectricChange`, `CircuitBoard`,
+`EntityBiodustFX`, `PluginForestryCore`.
+
+**Werte sind ganzzahlig**: `storedEnergy` (MJ), `heat`, `euStored` sind `int` (anders als BC-Engines mit `float`).
+
+**`extractEnergy(min, max, doExtract)`** (Forestry-eigen, anders als BC): `storedEnergy < min` → 0; sonst
+`ceiling = min(max, 400)`, Entnahme `min(storedEnergy, ceiling)`. Es gibt **keine** Prüfung `ceiling < min`.
+
+**Ablauf je Tick (`TileEngine.updateEntity`, Server)** – präzisiert gegenüber §A.2:
+1. `PowerProvider.update` (die Engine ist selbst MJ-Empfänger, s. u.).
+2. `updateServerSide`: beim ersten Mal im EU-Netz anmelden; Zwangsabkühlung setzen (`MELTING` und heat > 0) bzw.
+   aufheben (heat ≤ 0). **Nur ohne Zwangsabkühlung**: Batterie-Slot nicht leer → `replenishFromBattery`
+   (nur wenn `euStored < euStorage` und Redstone; Item mit `canProvideEnergy`; Menge `min(euStorage − euStored,
+   3 · euForCycle)`, `discharge(…, tier ∞, Transferlimit ignoriert)`).
+3. Kolbengeschwindigkeit neu berechnen; bei Änderung Netzwerk-Update.
+4. Kolben: läuft ein Hub (`stagePiston ≠ 0`): `progress += speed`; ist `progress > 0,5` und `stagePiston == 1` →
+   `stagePiston = 2`, Übertragung an den MJ-Empfänger in Ausgaberichtung (`extractEnergy(min, max, true)` mit dessen
+   Empfangsgrenzen, > 0 → `receiveEnergy`). **Sonst** (else-Zweig, also nicht im selben Tick): `progress ≥ 1` →
+   `progress = 0`, `stagePiston = 0`. Kein Hub: Redstone **und** Empfänger vorhanden → wenn
+   `extractEnergy(min, max, false) > 0` neuer Hub (`stagePiston = 1`) und aktiv, sonst inaktiv; sonst inaktiv.
+5. `dissipateHeat`, `generateHeat` (§A.2), dann `burn()` bzw. bei Zwangsabkühlung `extractEnergy(0, 2, true)`.
+
+`isBurning = !Zwangsabkühlung && euStored ≥ euForCycle`. `burn`: `currentOutput = 0`; mit Redstone und
+`euStored ≥ euForCycle` → `currentOutput = mjPerCycle`, `addEnergy(mjPerCycle)` (Deckel 10 000),
+`euStored −= euForCycle`. Kolbengeschwindigkeit nach Temperaturzustand (§A.2), `MELTING` 0,08.
+
+**MJ-Eingang (Ketten)**: Provider `configure(latency 0, min 10, max 200, Aktivierung 10, Speicher 100 000)`;
+`doWork` → `addEnergy((int)(useEnergy(1, 200) · 0,95))`. Provider wird gespeichert.
+
+**Platinen-Sockel** (1 Sockel, kein echter Slot; `SocketSlot` bei 30/40 im GUI):
+- Linksklick mit Platine am Mauszeiger: `setSocket(Stapel)` – der **ganze** gehaltene Stapel kommt in den Sockel,
+  der Mauszeiger wird geleert. Eine bereits eingesetzte Platine wird dabei ersetzt und geht **verloren**
+  (Originalverhalten). Schaltungen: alte entfernen (`onRemoval`), neue einsetzen (`onInsertion`).
+- Klick mit Lötkolben: Sockelinhalt ins Spielerinventar; nur wenn alles hineinpasst → Sockel leer, Lötkolben
+  −1 Haltbarkeit (geht kaputt, wenn leer).
+- Andere Items: nichts. Tooltip: Platinenname + Schaltungsliste bzw. „Empty socket“.
+- Jede Schaltung (`CircuitElectricChange`): `euForCycle += eu`, `mjPerCycle += mj`, `euStorage += 2 · eu`; Layout
+  wird nicht geprüft. `euConfig` wird nicht gespeichert, sondern beim Laden aus der Platine neu aufgebaut.
+- Beim Abbau droppt nur der Batterie-Slot; die **Platine im Sockel geht verloren** (Sockel gehört nicht zum Inventar).
+
+**Block (`BlockEngine`)**: Material wie `BlockMachine` (Stein, Spitzhacke nötig), Härte 3,5, nicht opak, Modell per
+TESR, droppt sich selbst. Fest nur auf der Seite gegenüber der Ausgabe (`isBlockSolidOnSide`). Ausrichtung: Start
+WEST; beim Setzen (`onBlockAdded`) und mit BC-Schraubenschlüssel (`IToolWrench`, Rechtsklick) → erste Seite nach der
+aktuellen (Reihenfolge unten, oben, Nord, Süd, West, Ost, zyklisch), an der ein MJ-Empfänger sitzt. Schleichen →
+nichts; sonst GUI. Partikel bei Redstone-Signal: grüner Staub (`EntityBiodustFX` = Reddust mit RGB 0/1/0) an den vier
+Seiten wie BC (`y + rand·6/16`, Abstand 0,52, Streuung ±0,3).
+
+**Darstellung (`RenderEngine`)**, Texturen 64×32, alle Teile UV 0/0, Drehpunkt Blockmitte:
+Basis `(-8,-8,-8, 16×6×16)` mit `engine_tin_base`, Kolben `(-6,-2,-6, 12×4×12)` mit `engine_tin_piston`, um
+`step/16` in Ausgaberichtung verschoben, Kammer `(-5,-3,-5, 10×2×10)` mit `engine_tin_extension` für
+`i = 0; i ≤ step + 2; i += 2` jeweils um 0,125 weiter, Stamm `(-4,-4,-4, 8×12×8)`.
+`step = progress ≤ 0,5 ? progress · 2 · 5,99 : 5,99 − (progress − 0,5) · 2 · 5,99`. Drehung wie BC-Engine.
+Stamm-Textur nach Temperatur: COOL `engine_trunk_low`, WARMED_UP `…_medium`, OPERATING_TEMPERATURE `…_high`,
+RUNNING_HOT `…_higher`, OVERHEATING `…_highest`, **MELTING `…_low`** (Default-Zweig, Originaleigenheit).
+Item: COOL, progress 0,25, Ausgabe oben. Client-Kolben wie BC (`progress > 1` → Ende). Netzwerk-Update bei Änderung
+von Kolbengeschwindigkeit oder Aktiv-Zustand (enthält heat, storedEnergy).
+
+**GUI (`electricalengine.png`, 176×166)**: Titel „Electrical Engine“ zentriert y 6; Batterie-Slot (84,53), Sockel
+(30,40), Spielerinventar ab (8,84), Hotbar y 142. EU-Anzeige bei (74,25), 4×46 px, Höhe
+`euStored · 46 / (euStorage + 511)`, Quelle u = 176 + 4·Stufe (Stufe nach `euStored · 100 / (euStorage + 511)`:
+< 5 leer, < 30 niedrig, < 60 mittel, < 90 hoch, sonst max.), v = 46 − Höhe. Shift-Klick wie `ContainerForestry`
+(1 Maschinen-Slot). Ledger (MJ/t, gespeichert, Hitze/10 „C“) wie andere Forestry-Ledger → Phase 10.
+
+**Zinn-Zahnrad (`gearTin`)**: Icon 38 in `items.png`; Rezepte ` # /#Y#/ # ` (# Zinnbarren, Y = BC-Stein-Zahnrad);
+die Variante mit Kupferbarren gilt nur ohne BuildCraft (im Pack nicht aktiv).
+
 ## B. Power Converters (MJ ↔ EU)
 
 Quelle: Power Converters (PowerCrystals, Pack-Jar) + PowerCrystalsCore (`PowerProviderAdvanced`).

@@ -24,6 +24,7 @@
     "craft:pump",
     "craft:refinery",
     "craft:thermionic_fabricator",
-    "craft:carpenter"
+    "craft:carpenter",
+    "craft:electrical_engine"
   ]
 }

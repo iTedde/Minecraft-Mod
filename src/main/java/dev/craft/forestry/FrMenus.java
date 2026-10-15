@@ -4,6 +4,7 @@ import java.util.function.Supplier;
 
 import dev.craft.Craft;
 import dev.craft.forestry.menu.CarpenterMenu;
+import dev.craft.forestry.menu.ElectricalEngineMenu;
 import dev.craft.forestry.menu.FabricatorMenu;
 import dev.craft.forestry.menu.SolderingIronMenu;
 import net.minecraft.core.registries.Registries;
@@ -22,6 +23,9 @@ public final class FrMenus {
     public static final Supplier<MenuType<CarpenterMenu>> CARPENTER = MENUS.register("carpenter",
             () -> IMenuTypeExtension.create((id, inventory, buf) -> new CarpenterMenu(id, inventory,
                     buf.readBlockPos())));
+    public static final Supplier<MenuType<ElectricalEngineMenu>> ELECTRICAL_ENGINE = MENUS.register(
+            "electrical_engine", () -> IMenuTypeExtension.create((id, inventory, buf) -> new ElectricalEngineMenu(id,
+                    inventory, buf.readBlockPos())));
     public static final Supplier<MenuType<SolderingIronMenu>> SOLDERING_IRON = MENUS.register("soldering_iron",
             () -> new MenuType<>(SolderingIronMenu::new, FeatureFlags.DEFAULT_FLAGS));
 

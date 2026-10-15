@@ -20,6 +20,11 @@ public final class FrItems {
     public static final DeferredItem<BlockItem> THERMIONIC_FABRICATOR =
             ITEMS.registerSimpleBlockItem(FrBlocks.THERMIONIC_FABRICATOR);
     public static final DeferredItem<BlockItem> CARPENTER = ITEMS.registerSimpleBlockItem(FrBlocks.CARPENTER);
+    public static final DeferredItem<BlockItem> ELECTRICAL_ENGINE =
+            ITEMS.registerSimpleBlockItem(FrBlocks.ELECTRICAL_ENGINE);
+
+    /** {@code gearTin}. */
+    public static final DeferredItem<Item> TIN_GEAR = ITEMS.registerSimpleItem("tin_gear");
 
     /** {@code sturdyMachine}. */
     public static final DeferredItem<Item> STURDY_CASING = ITEMS.registerSimpleItem("sturdy_casing");

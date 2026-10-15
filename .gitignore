@@ -41,6 +41,6 @@ repo/
 
 ### Projekt ###
 # Fremdcode (dekompiliert/Original-Jars), Werkzeuge und Pack-Installation nicht ins Repo
-reference/
-tools/
-ftb ultimate/
+/reference/
+/tools/
+/ftb ultimate/

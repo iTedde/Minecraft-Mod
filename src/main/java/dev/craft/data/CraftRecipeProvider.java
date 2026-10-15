@@ -141,6 +141,12 @@ public final class CraftRecipeProvider extends RecipeProvider {
                 .define('X', CraftItemTagsProvider.INGOTS_BRONZE).define('#', Items.GLASS)
                 .define('Y', FrItems.STURDY_CASING).unlockedBy("has_casing", has(FrItems.STURDY_CASING))
                 .save(output, id("carpenter"));
+        // gearTin: the BuildCraft variant (stone gear); the copper ingot variant only exists without BuildCraft.
+        gear(FrItems.TIN_GEAR, Ingredient.of(CraftItemTagsProvider.INGOTS_TIN), BcItems.STONE_GEAR);
+        bcShaped(FrItems.ELECTRICAL_ENGINE).pattern("###").pattern(" X ").pattern("YVY")
+                .define('#', CraftItemTagsProvider.INGOTS_TIN).define('X', Items.GLASS).define('Y', FrItems.TIN_GEAR)
+                .define('V', Items.PISTON).unlockedBy("has_gear", has(FrItems.TIN_GEAR))
+                .save(output, id("electrical_engine"));
         tube(ElectronTube.COPPER, Ingredient.of(ingotsCopper()));
         tube(ElectronTube.TIN, Ingredient.of(CraftItemTagsProvider.INGOTS_TIN));
         tube(ElectronTube.BRONZE, Ingredient.of(CraftItemTagsProvider.INGOTS_BRONZE));

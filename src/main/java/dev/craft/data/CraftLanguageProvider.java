@@ -46,8 +46,8 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
 
     /**
      * Forestry names: {@code general} = tab, fabricator, carpenter, sturdy casing, soldering iron, liquid glass,
-     * "No effect", layout name, layout usage; tubes, boards and circuits in enum order. The circuit descriptions are
-     * literal English strings in Forestry.
+     * "No effect", layout name, layout usage, electrical engine, tin gear, "Empty Socket"; tubes, boards and circuits
+     * in enum order. The circuit descriptions are literal English strings in Forestry.
      */
     protected void forestry(String[] general, String[] tubes, String[] boards, String[] circuits) {
         add("itemGroup.craft.forestry", general[0]);
@@ -59,6 +59,9 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
         add("gui.craft.forestry.no_effect", general[6]);
         add(CircuitLayout.ENGINE_TIN.getNameKey(), general[7]);
         add(CircuitLayout.ENGINE_TIN.getUsageKey(), general[8]);
+        block(FrBlocks.ELECTRICAL_ENGINE, general[9]);
+        item(FrItems.TIN_GEAR, general[10]);
+        add("gui.craft.forestry.empty_socket", general[11]);
         for (ElectronTube tube : ElectronTube.values()) {
             item(FrItems.tube(tube), tubes[tube.ordinal()]);
         }
@@ -196,7 +199,8 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             add(BcFluids.OIL_TYPE.get().getDescriptionId(), "Oil");
             add(BcFluids.FUEL_TYPE.get().getDescriptionId(), "Fuel");
             forestry(new String[]{"Forestry", "Thermionic Fabricator", "Carpenter", "Sturdy Casing", "Soldering Iron",
-                    "Liquid Glass", "No effect", "Electric Engine", "In Electrical Engines"},
+                    "Liquid Glass", "No effect", "Electric Engine", "In Electrical Engines", "Electrical Engine", "Tin Gear",
+                    "Empty Socket"},
                     new String[]{"Copper Electron Tube", "Tin Electron Tube", "Bronze Electron Tube",
                             "Iron Electron Tube"},
                     new String[]{"Basic Circuit Board", "Enhanced Circuit Board", "Refined Circuit Board",
@@ -322,7 +326,8 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             add(BcFluids.FUEL_TYPE.get().getDescriptionId(), "Treibstoff");
             // Forestry de_DE; missing entries (intricate board, layout, circuit descriptions) stay English as in the pack.
             forestry(new String[]{"Forestry", "Glühelektrische Maschine", "Schreinerei", "Robustes Gehäuse",
-                    "Lötkolben", "Flüßiges Glass", "Kein Effekt", "Electric Engine", "In Electrical Engines"},
+                    "Lötkolben", "Flüßiges Glass", "Kein Effekt", "Electric Engine", "In Electrical Engines",
+                    "Elektrischer Motor", "Zinn Zahnrad", "Leerer Steckplatz"},
                     new String[]{"Elektronenröhre (Kupfer)", "Elektronenröhre (Zinn)", "Elektronenröhre (Bronze)",
                             "Elektronenröhre (Eisen)"},
                     new String[]{"Kleine Leiterplatte", "Mittlere Leiterplatte", "Große Leiterplatte",

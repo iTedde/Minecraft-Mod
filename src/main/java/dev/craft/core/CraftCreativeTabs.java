@@ -85,7 +85,9 @@ public final class CraftCreativeTabs {
             .displayItems((parameters, output) -> {
                 output.accept(FrItems.THERMIONIC_FABRICATOR);
                 output.accept(FrItems.CARPENTER);
+                output.accept(FrItems.ELECTRICAL_ENGINE);
                 output.accept(FrItems.STURDY_CASING);
+                output.accept(FrItems.TIN_GEAR);
                 output.accept(FrItems.SOLDERING_IRON);
                 for (ElectronTube tube : ElectronTube.values()) {
                     output.accept(FrItems.tube(tube));

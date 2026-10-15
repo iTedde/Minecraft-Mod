@@ -61,6 +61,7 @@ public final class CraftBlockLoot extends BlockLootSubProvider {
         dropSelf(BcBlocks.MINING_WELL.get());
         dropSelf(FrBlocks.THERMIONIC_FABRICATOR.get());
         dropSelf(FrBlocks.CARPENTER.get());
+        dropSelf(FrBlocks.ELECTRICAL_ENGINE.get());
         resinSheet();
         rubberWood();
         rubberLeaves();

@@ -265,3 +265,28 @@ Phase 4 am 2026-10-15 vom Nutzer abgenommen (manuelle Tests gesammelt am Ende). 
    Röhren herstellen per Klick/Shift-Klick, Erstarren ohne Energie), Carpenter (Wassereimer, Muster per Phantom-Klick,
    Fortschrittsbalken, Tankstufen-Textur), Lötkolben (Röhren auf Platine löten, Layout-Knöpfe, Drop beim Schließen),
    Darstellung/Ausrichtung beider Maschinen in Welt und Inventar.
+
+## Erledigt (Teilpaket „Phase 5b: Electrical Engine“, 2026-10-15)
+- Lücken aus dem Original einmalig in `10-energieumwandlung.md` §A.8 nachgetragen (eigenes `extractEnergy` ohne
+  `ceiling < min`, genaue Tick-Reihenfolge, MJ-Eingang 10/200/100 000, Sockel-Klicks inkl. Platinenverlust beim
+  Ersetzen/Abbau, Block 3,5, Ausrichtung, Biodust, Renderer-Geometrie/Texturen, GUI-Maße).
+- Paket `dev.craft.forestry.engine`: `ElectricalEngineBlockEntity` (EU-Senke ohne Überspannung, MJ-Empfänger mit
+  95 %-Ketten, Kolben/Übertragung, Hitze und Zwangsabkühlung, Batterie, Platinen-Sockel), `ElectricalEngineBlock`
+  (Schraubenschlüssel dreht, Partikel), `TemperatureState`; Menü `ElectricalEngineMenu` (Batterie-Slot, Sockel),
+  `ElectricalEngineScreen` (EU-Anzeige mit Füllstufen), `ElectricalEngineRenderer` (+ Item im BEWLR).
+- Zinn-Zahnrad (`tin_gear`) + Rezept, Engine-Rezept, Texturen/GUI aus dem Forestry-Jar, Lang en/de
+  (Forestry-de_DE), Loot, Spitzhacken-Tag, Creative-Tab.
+- 7 neue GameTests (`ElectricalEngineGameTests`, insgesamt 63 grün), `gradlew build` und `runClient` (Hauptmenü,
+  keine Mod-Fehler/-Warnungen) erfolgreich. Abweichungen in `abweichungen.md`.
+- Repo-Fix: `.gitignore` schloss mit `tools/` auch `assets/craft/sounds/tools/` aus (Baumzapfer-/Schraubenschlüssel-
+  Sound fehlten im Klon, Datagen schlug fehl) → Regeln auf Repo-Wurzel verankert (`/tools/`, `/reference/`,
+  `/ftb ultimate/`), Sounds aus `IC2.jar` wiederhergestellt.
+- Umzug auf neuen Rechner (`X:/Craft/Minecraft-Mod`): JDK-Pfad in `gradle.properties` zeigt noch auf
+  `C:/bitbucket/...`; lokal überschrieben in `~/.gradle/gradle.properties` (System-JDK 21). `reference/decompiled`
+  vom Nutzer ohne MCP-Remap neu erzeugt (Vanilla-Namen verschleiert); `reference/jars|config`, `tools/` fehlen.
+
+## Nächste Schritte
+1. Teilpaket 5c: Power Converters (§B).
+2. Manuelle Client-Tests zusätzlich: Electrical Engine (Platzieren neben Carpenter/Fabricator → Ausrichtung,
+   Redstone + Kabel/BatBox → Kolben, Partikel, Stammfarbe nach Hitze, Zwangsabkühlung; GUI: EU-Anzeige,
+   Batterie-Slot, Platine per Klick einsetzen/mit Lötkolben entnehmen, Tooltip leerer Sockel; Item-Darstellung).

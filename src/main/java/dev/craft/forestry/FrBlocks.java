@@ -1,6 +1,7 @@
 package dev.craft.forestry;
 
 import dev.craft.Craft;
+import dev.craft.forestry.engine.ElectricalEngineBlock;
 import dev.craft.forestry.machine.CarpenterBlock;
 import dev.craft.forestry.machine.FabricatorBlock;
 import net.minecraft.world.level.block.SoundType;
@@ -17,6 +18,10 @@ public final class FrBlocks {
             () -> new FabricatorBlock(machineProperties()));
     public static final DeferredBlock<CarpenterBlock> CARPENTER = BLOCKS.register("carpenter",
             () -> new CarpenterBlock(machineProperties()));
+    /** Forestry {@code BlockEngine}: material like {@code BlockMachine}, hardness 3.5. */
+    public static final DeferredBlock<ElectricalEngineBlock> ELECTRICAL_ENGINE = BLOCKS.register("electrical_engine",
+            () -> new ElectricalEngineBlock(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).strength(3.5F)
+                    .requiresCorrectToolForDrops().sound(SoundType.STONE).noOcclusion()));
 
     private FrBlocks() {
     }

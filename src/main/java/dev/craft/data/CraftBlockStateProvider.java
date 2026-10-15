@@ -140,6 +140,9 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
                 .texture("particle", modLoc("block/thermionic_fabricator_particle")));
         horizontalBlock(FrBlocks.CARPENTER.get(), models().getBuilder("carpenter")
                 .texture("particle", modLoc("block/carpenter_particle")));
+        // BlockEngine: drawn by its renderer like the BuildCraft engines; particles from the base texture.
+        simpleBlock(FrBlocks.ELECTRICAL_ENGINE.get(), models().getBuilder("electrical_engine")
+                .texture("particle", modLoc("block/electrical_engine_particle")));
     }
 
     /** BuildCraft {@code BlockMiningWell}: front 35, top 36, bottom and back 38, other sides 37. */

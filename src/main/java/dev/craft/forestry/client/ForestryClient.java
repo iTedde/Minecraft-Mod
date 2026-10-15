@@ -30,6 +30,7 @@ public final class ForestryClient {
                 ForestryMachineRenderer::createCarpenterLayer);
         event.registerLayerDefinition(ForestryMachineRenderer.FABRICATOR_LAYER,
                 ForestryMachineRenderer::createFabricatorLayer);
+        event.registerLayerDefinition(ElectricalEngineRenderer.LAYER, ElectricalEngineRenderer::createLayer);
     }
 
     @SubscribeEvent
@@ -38,12 +39,14 @@ public final class ForestryClient {
                 context -> new ForestryMachineRenderer<>(context, ForestryMachineRenderer.Kind.CARPENTER));
         event.registerBlockEntityRenderer(FrBlockEntityTypes.FABRICATOR.get(),
                 context -> new ForestryMachineRenderer<>(context, ForestryMachineRenderer.Kind.FABRICATOR));
+        event.registerBlockEntityRenderer(FrBlockEntityTypes.ELECTRICAL_ENGINE.get(), ElectricalEngineRenderer::new);
     }
 
     @SubscribeEvent
     public static void registerScreens(RegisterMenuScreensEvent event) {
         event.register(FrMenus.FABRICATOR.get(), FabricatorScreen::new);
         event.register(FrMenus.CARPENTER.get(), CarpenterScreen::new);
+        event.register(FrMenus.ELECTRICAL_ENGINE.get(), ElectricalEngineScreen::new);
         event.register(FrMenus.SOLDERING_IRON.get(), SolderingIronScreen::new);
     }
 
@@ -72,7 +75,7 @@ public final class ForestryClient {
                 }
                 return renderer;
             }
-        }, FrItems.CARPENTER.get(), FrItems.THERMIONIC_FABRICATOR.get());
+        }, FrItems.CARPENTER.get(), FrItems.THERMIONIC_FABRICATOR.get(), FrItems.ELECTRICAL_ENGINE.get());
         ResourceLocation glass = ResourceLocation.fromNamespaceAndPath(Craft.MODID, "block/liquid_glass_still");
         event.registerFluidType(new IClientFluidTypeExtensions() {
             @Override
