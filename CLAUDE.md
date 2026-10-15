@@ -90,7 +90,7 @@ Personal-Blöcke, Luminator, Sprengstoffe, Bauschaum, Kaffee/Fass.
 3. Balancing-Vorschlag freigeben (`docs/balancing.md` §5) – **Solar freigegeben** (Fläche der Panels), Rest offen.
 4. GT-Nicht-Rezept-Änderungen: Upgrade-Stack 4 und Recycler-Blacklist noch offen. **Entschieden:** Schrottbox-Drops wie im Pack – GT ersetzt die IC2-Liste (Schrott 200 + GT-Liste; GT-Items erst, wenn es sie gibt).
 5. Iridiumerz-Generierung (GT).
-6. Rezeptanzeige und Minimap (Nutzerwunsch 2026-10-15): welcher Mod (JEI oder EMI statt NEI; Minimap z. B. JourneyMap oder Xaero's) und ob nur als Abhängigkeit im Dev-/Spiel-Setup oder mit eigener Integration (Rezeptkategorien für IC2-/GT-/BC-Maschinen).
+6. Rezeptanzeige und Minimap (Nutzerwunsch 2026-10-15): **Entschieden:** Rezeptanzeige mit eigener Integration (Rezeptkategorien für IC2-/GT-/BC-/Forestry-Maschinen, Phase 10). Offen: welcher Mod (JEI oder EMI statt NEI) und welche Minimap (z. B. JourneyMap oder Xaero's; nur mitinstalliert, keine eigene Integration nötig).
 
 Aktueller Stand/ToDo: `docs/STATUS.md`.
 
