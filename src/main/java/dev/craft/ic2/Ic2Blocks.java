@@ -19,6 +19,7 @@ import dev.craft.ic2.generator.WaterMillBlockEntity;
 import dev.craft.ic2.generator.WindMillBlockEntity;
 import dev.craft.ic2.machine.ElectricFurnaceBlockEntity;
 import dev.craft.ic2.machine.ElectrolyzerBlockEntity;
+import dev.craft.ic2.machine.InductionFurnaceBlockEntity;
 import dev.craft.ic2.machine.IronFurnaceBlockEntity;
 import dev.craft.ic2.machine.MachineBlock;
 import dev.craft.ic2.machine.MachineBlockEntity;
@@ -135,6 +136,7 @@ public final class Ic2Blocks {
             case RECYCLER -> RecyclerBlockEntity::new;
             case MAGNETIZER -> MagnetizerBlockEntity::new;
             case ELECTROLYZER -> ElectrolyzerBlockEntity::new;
+            case INDUCTION_FURNACE -> InductionFurnaceBlockEntity::new;
             case BATBOX, MFE, MFSU, LV_TRANSFORMER, MV_TRANSFORMER, HV_TRANSFORMER, MASS_FABRICATOR ->
                     throw new IllegalArgumentException(machine + " has its own block class");
         };

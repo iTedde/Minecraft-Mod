@@ -194,6 +194,8 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             machine(Ic2Machine.RECYCLER, "Recycler");
             machine(Ic2Machine.MAGNETIZER, "Magnetizer");
             machine(Ic2Machine.ELECTROLYZER, "Electrolyzer");
+            machine(Ic2Machine.INDUCTION_FURNACE, "Induction Furnace");
+            add("gui.craft.induction_furnace.heat", "Heat:");
             machine(Ic2Machine.MASS_FABRICATOR, "Mass Fabricator");
             machine(Ic2Machine.BATBOX, "BatBox");
             machine(Ic2Machine.MFE, "MFE");
@@ -400,6 +402,8 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             machine(Ic2Machine.RECYCLER, "Recycler");
             machine(Ic2Machine.MAGNETIZER, "Magnetisierer");
             machine(Ic2Machine.ELECTROLYZER, "Elektrolyseur");
+            machine(Ic2Machine.INDUCTION_FURNACE, "Induktionsofen");
+            add("gui.craft.induction_furnace.heat", "Hitze:");
             machine(Ic2Machine.MASS_FABRICATOR, "Massefabrikator");
             machine(Ic2Machine.BATBOX, "BatBox");
             machine(Ic2Machine.MFE, "MFE");

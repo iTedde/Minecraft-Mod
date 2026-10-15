@@ -540,3 +540,19 @@ entscheiden**.
    (≥ 70 % lädt, ≤ 30 % gibt zurück, Balken); GT-Elektrolyseur: GUI (Slots, Holo-Wasser, Balken wächst nach oben,
    Fehlertext ohne Energie), Wasser per BC-Pumpe/Tank, Sand → Siliziumzelle, Tonstaub → Aluminiumstaub, Upgrades
    per Rechtsklick (nur ein IC2-Trafo), keine Drehung per Schraubenschlüssel.
+
+## Erledigt (Teilpaket „Phase 6b.3a: Induktionsofen“, 2026-10-15)
+- Vorprodukt des GT-Hochofens (Rezept `ACA/CMC/FCF` mit F = Induktionsofen). Spec `04-maschinen.md` ergänzt (GUI,
+  Slots, Energiekappung, Shift-Klick).
+- **Induktionsofen** (`InductionFurnaceBlockEntity`, `InductionFurnaceMenu`, `InductionFurnaceScreen`): 10 000 EU,
+  128 EU/t Eingang, Hitze 0–10 000 (steigt bei Arbeit oder Redstone-Signal, sinkt sonst um 4/Tick), Fortschritt
+  `heat/30` je Tick bis 4000 → beide Slotpaare schmelzen; Redstone im Batterie-Slot +10 000 EU (Originalverhalten).
+  Fortg. Maschinenblock als Drop, Wrench-Rate 0,8. Rezept `CCC/CFC/CMC` (Kupfer, Elektroofen, fortg. Maschinenblock).
+- Texturen aus `IC2.jar` (`block_machine.png` Spalte 13, `GUIInduction.png`).
+- 4 neue GameTests (`InductionFurnaceGameTests`, insgesamt 119 grün).
+
+## Nächste Schritte
+1. Teilpaket 6b.3b: GT-Hochofen (Multiblock 3 × 3 × 4 aus GT-Maschinengehäusen, Heizspulen per Rechtsklick,
+   Hitzekapazität), Gehäuse Standard/Verstärkt, Kupfernickel-Heizspule (+ Nickel), Stahl, Aluminium, Siliziumplatte.
+2. Manuelle Client-Tests 6b.3a: Induktionsofen GUI (Hitze-%, Energie-/Fortschrittsbalken), zwei Stapel parallel,
+   Redstone-Signal heizt vor, Seitenzugriff per Trichter (oben Eingaben, unten Batterie, Seiten Ausgaben).

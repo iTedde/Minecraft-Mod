@@ -21,6 +21,8 @@ public enum Ic2Machine {
     RECYCLER("recycler", Sheet.MACHINE, 11, 2.0F, FacingMode.HORIZONTAL, 0.85F, Drop.MACHINE_CASING),
     MAGNETIZER("magnetizer", Sheet.MACHINE, 9, 2.0F, FacingMode.HORIZONTAL, 1.0F, Drop.SELF, Rarity.COMMON, false),
     ELECTROLYZER("electrolyzer", Sheet.MACHINE, 10, 2.0F, FacingMode.HORIZONTAL, 1.0F, Drop.MACHINE_CASING),
+    INDUCTION_FURNACE("induction_furnace", Sheet.MACHINE, 13, 2.0F, FacingMode.HORIZONTAL, 0.8F,
+            Drop.ADVANCED_MACHINE_CASING, Rarity.UNCOMMON, true),
     MASS_FABRICATOR("mass_fabricator", Sheet.MACHINE, 14, 2.0F, FacingMode.HORIZONTAL, 0.7F,
             Drop.ADVANCED_MACHINE_CASING, Rarity.RARE, true),
     BATBOX("batbox", Sheet.ELECTRIC, 0, 1.5F, FacingMode.ALL, 1.0F, Drop.SELF),

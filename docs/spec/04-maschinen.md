@@ -163,6 +163,13 @@ Pro Tick:
 → Bei voller Hitze: +333 Fortschritt/Tick → ein Doppelvorgang alle 12 Ticks bei 16 EU/t. Kalter Start dauert lang.
 Hitze-Anzeige in %: `heat·100/10000`. Wrench-Drop-Rate 0,8.
 Sided: oben → 0 (2 Slots: 0,1), unten → 2 (1 Slot), Seiten → 3 (2 Slots: 3,4).
+Ergänzt (6b.3a): Energiepakete > 128 → Explosion; Energieannahme kappt bei 10 000 (Rest zurück).
+Beim Start ist `heat == 0` → inaktiv. Keine Upgrades, keine Sounds. Redstone-Signal = `isBlockIndirectlyGettingPowered`.
+GUI (`GUIInduction.png`, 176 × 166): Titel zentriert y 6, „Heat:“ bei (10, 36), Wert „n%“ bei (10, 44), Inventar y 72.
+Slots: Eingaben (47, 17), (63, 17), Batterie (56, 53, `SlotDischarge` Tier 2), Ausgaben (113, 35), (131, 35) mit
+Ofen-XP. Energiebalken bei (56, 36 + 14 − h) ← (176, 14 − h), h = 14 · energy / 10 000 (ungekappt); Fortschritt bei
+(79, 34) ← (176, 14), Breite `24 · progress / 4000 + 1`, Höhe 16. Shift-Klick bevorzugt Slot 0, wenn Slot 0 leer ist,
+sonst Slot 1 (IC2 `getInput`). Textur `block_machine.png` Spalte 13.
 
 ---
 

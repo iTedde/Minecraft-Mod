@@ -481,6 +481,9 @@ public final class CraftRecipeProvider extends RecipeProvider {
         shaped(machine(Ic2Machine.ELECTROLYZER), 1, "electrolyzer").pattern("c c").pattern("cCc").pattern("EME")
                 .define('c', Ic2Items.cable(CableType.INSULATED_COPPER)).define('C', Ic2Items.ELECTRONIC_CIRCUIT)
                 .define('E', Ic2Items.EMPTY_CELL).define('M', Ic2Items.MACHINE_CASING).save();
+        shaped(machine(Ic2Machine.INDUCTION_FURNACE), 1, "induction_furnace").pattern("CCC").pattern("CFC")
+                .pattern("CMC").define('C', ingotsCopper()).define('F', machine(Ic2Machine.ELECTRIC_FURNACE))
+                .define('M', Ic2Items.ADVANCED_MACHINE_CASING).save();
         shaped(Ic2Items.IRON_FENCE, 12, "iron_fence").pattern("III").pattern("III")
                 .define('I', CraftItemTagsProvider.INGOTS_REFINED_IRON).save();
         shaped(machine(Ic2Machine.GENERATOR), 1, "generator").pattern(" B ").pattern("III").pattern(" F ")

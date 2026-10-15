@@ -13,6 +13,7 @@
     "craft:recycler",
     "craft:magnetizer",
     "craft:electrolyzer",
+    "craft:induction_furnace",
     "craft:mass_fabricator",
     "craft:batbox",
     "craft:mfe",

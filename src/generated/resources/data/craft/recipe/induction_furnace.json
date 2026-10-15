@@ -1,0 +1,23 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "C": {
+      "tag": "c:ingots/copper"
+    },
+    "F": {
+      "item": "craft:electric_furnace"
+    },
+    "M": {
+      "item": "craft:advanced_machine_casing"
+    }
+  },
+  "pattern": [
+    "CCC",
+    "CFC",
+    "CMC"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:induction_furnace"
+  }
+}
