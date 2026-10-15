@@ -1,0 +1,16 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "I": {
+      "tag": "c:ingots/refined_iron"
+    }
+  },
+  "pattern": [
+    "III",
+    "III"
+  ],
+  "result": {
+    "count": 12,
+    "id": "craft:iron_fence"
+  }
+}

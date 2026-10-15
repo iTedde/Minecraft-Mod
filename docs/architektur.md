@@ -104,10 +104,10 @@ ergänzen. Basispaket `dev.craft`, Einstieg `Craft` → `Ic2.init`, `BuildCraft.
 
 - GameTests: `@GameTestHolder(Craft.MODID)` + `@PrefixGameTestTemplate(false)`, Strukturen `empty_8x4x8`,
   `empty_16x8x16`. MJ in Tests: `getPowerProvider().setEnergyStored(...)` per `helper.onEachTick`.
-- Befehle (Bash, `export JAVA_HOME="$PWD/tools/jdk-21.0.12.1+1"`): `./gradlew compileJava -q`, `runData -q`,
+- Befehle (Bash, `export JAVA_HOME="/c/Program Files/Java/jdk-21"`): `./gradlew compileJava -q`, `runData -q`,
   `runGameTestServer -q | grep "tests passed\|failed"`, `build -q`, `runClient` im Hintergrund (Log auf
   „Sound engine started“ prüfen, danach Prozess beenden).
-- Texturen aus Original-Jars schneiden: `tools/scripts/SliceSprites.java`, Flüssigkeits-FX: `BcLiquidTextures.java`,
+- Texturen aus Original-Jars schneiden (`ftb ultimate/mods/*.jar|zip`): `tools/` fehlt seit dem Umzug – kleines Java-Skript mit ImageIO (Index = Zeile · 16 + Spalte); früher `SliceSprites.java`, `BcLiquidTextures.java`,
   `ForestryTextures.java` (mit `tools/jdk…/bin/java <Skript>.java` ausführen).
   GT-Sprites: `ftb ultimate/mods/GregTech.zip` (`terrain.png` für Maschinen, `metaitems/*.png` für Items; Index = Zeile · 16 + Spalte).
 

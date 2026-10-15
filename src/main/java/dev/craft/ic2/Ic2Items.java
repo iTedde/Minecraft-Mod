@@ -74,6 +74,7 @@ public final class Ic2Items {
     public static final DeferredItem<BlockItem> RUBBER_LEAVES = ITEMS.registerSimpleBlockItem(Ic2Blocks.RUBBER_LEAVES);
     public static final DeferredItem<BlockItem> RUBBER_SAPLING =
             ITEMS.registerSimpleBlockItem(Ic2Blocks.RUBBER_SAPLING);
+    public static final DeferredItem<BlockItem> IRON_FENCE = ITEMS.registerSimpleBlockItem(Ic2Blocks.IRON_FENCE);
 
     // --- materials ---
     public static final DeferredItem<ResinItem> RESIN = simple(ITEMS.registerItem("resin", ResinItem::new));
@@ -120,6 +121,7 @@ public final class Ic2Items {
     public static final DeferredItem<Item> LAVA_CELL = simple("lava_cell");
     public static final DeferredItem<Item> WATER_CELL = simple("water_cell");
     public static final DeferredItem<Item> AIR_CELL = simple("air_cell");
+    public static final DeferredItem<Item> ELECTROLYZED_WATER_CELL = simple("electrolyzed_water_cell");
     /** 10k coolant cell; only an ingredient until the reactor (phase 7) gives it its heat logic. */
     public static final DeferredItem<Item> COOLANT_CELL_10K =
             simple("coolant_cell_10k", new Item.Properties().stacksTo(1));

@@ -508,3 +508,22 @@ entscheiden**.
    Upgrades per Rechtsklick + Tooltip nach Wrench-Abbau, Abbau ohne Schraubenschlüssel → Maschinenteile (mit Energie:
    Explosion), Überspannung (MV-Trafo) explodiert, Feuer daneben; Rezepte Förderband-Modul, Mischmetall, fortg.
    Maschinenblock, MFSU, Massefabrikator.
+
+## Erledigt (Teilpaket „Phase 6b.2a: IC2-Vorprodukte des Elektrolyseurs“, 2026-10-15)
+- Projekt liegt jetzt unter `X:/Craft`; `tools/` (JDK, Skripte) fehlt → `gradle.properties` auf
+  `C:/Program Files/Java/jdk-21` umgestellt.
+- Spec ergänzt: `04-maschinen.md` (Magnetisierer-Ticker, Elektrolyseur-GUI), `05-items.md` (Eisenzaun),
+  `13-gregtech-maschinen.md` §4 (GT-Elektrolyseur komplett inkl. Rezeptliste und Umfang).
+- **Eisenzaun** (`ic2/block/IronFenceBlock`, Blockstate `magnetization`, Item-Tag `craft:metal_boots`, Rezept 12 aus
+  raff. Eisen), **Magnetisierer** (`MagnetizerBlockEntity`, inkl. Gratis-Aufladungs-Originalfehler, kein GUI),
+  **IC2-Elektrolyseur** (`ElectrolyzerBlockEntity`, `ElectrolyzerMenu`/`ElectrolyzerScreen`, arbeitet mit
+  angrenzender BatBox/MFE/MFSU), **elektrolysierte Wasserzelle**; Rezepte Magnetisierer/Elektrolyseur.
+- Texturen aus `IC2.jar` (`block_machine.png` Spalten 9/10, `block_0.png` 1, `item_0.png` 43, `GUIElectrolyzer.png`).
+- 5 neue GameTests (`ElectrolysisGameTests`, insgesamt 111 grün), `build` und `runClient` erfolgreich.
+
+## Nächste Schritte
+1. Teilpaket 6b.2b: GT-Elektrolyseur (`13-gregtech-maschinen.md` §4) – GT-Basis in `GtMachineBlockEntity`
+   (BaseMetaTileEntity) und `GtBasicMachineBlockEntity` aufteilen; Zellen H/Li/Si/C/Ca/Na, Stäube Al/S/dunkle Asche,
+   interner „Wasser“-Gegenstand für den Tank.
+2. Manuelle Client-Tests 6b.2a: Eisenzaun-Verbindungen und Pfahl mit Eisenstiefeln am Magnetisierer (Aufstieg,
+   Schleichen bremst), Elektrolyseur über/neben BatBox (≥ 70 % lädt Zellen, ≤ 30 % gibt Energie zurück, Balken).

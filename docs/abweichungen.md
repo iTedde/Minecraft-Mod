@@ -162,6 +162,9 @@ Status: *geplant* (aus Phase 1 abgeleitet, noch nicht umgesetzt), *entschieden* 
 | GT-Rezepte | Liste je Maschine mit OreDict-Einträgen (eine Zeile je registriertem Item) | Datapack-Rezepttyp `craft:gt_<liste>` (`GtRecipe`, bis 2 Eingaben/4 Ausgaben) mit Tags (`c:ingots/*`, `c:plates/*`) | Datapack-Rezepte | **umgesetzt** |
 | GT-Upgrades: MJ-Konverter, Lithium-Batterie, HV-Transformer, RS-Energiezelle | GT-Komponenten 25–28 | Logik vorbereitet (Zähler, Kapazität), Items und MJ-Empfang fehlen noch | Rezepte brauchen Assembler u. a. (6b.4) | **offen** |
 | GT-Namen | GT 2.90 registriert nur englische Namen | englisch auch in de_de, eigener Creative-Tab „GregTech“ | wie im Pack | **umgesetzt** |
+| Eisenzaun | `BlockPoleFence`, eigener Render-Typ, Meta = Magnetisierung | Unterklasse des Vanilla-`FenceBlock` (Formen identisch: Pfosten 4 px, Kollision 1,5), verbindet nur mit Eisenzäunen, zusätzlich wassergeflutet möglich; Magnetisierung als Blockstate `magnetization` 0–15; Metallstiefel über Item-Tag `craft:metal_boots` | Blockstates, Vanilla-Zaunmodell | **umgesetzt** |
+| Eisenzaun: GT-Macerator | 2 Zäune → 3 kleine Eisenstaubhaufen (GT) | fehlt | GT-Kleinstaub nicht im Umfang | offen |
+| IC2-Elektrolyseur: Speicher | greift direkt auf `TileEntityElectricBlock.energy` zu | `ElectricStorageBlockEntity.setEnergy` (ohne Netz, ohne Kappung wie im Original) | – | **umgesetzt** |
 
 ## Bewusst (Energiebalancing)
 

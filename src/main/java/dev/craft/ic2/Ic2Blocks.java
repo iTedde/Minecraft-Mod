@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.function.BiFunction;
 
 import dev.craft.Craft;
+import dev.craft.ic2.block.IronFenceBlock;
 import dev.craft.ic2.block.ResinSheetBlock;
 import dev.craft.ic2.block.RubberLeavesBlock;
 import dev.craft.ic2.block.RubberSaplingBlock;
@@ -17,9 +18,11 @@ import dev.craft.ic2.generator.SolarPanelBlockEntity;
 import dev.craft.ic2.generator.WaterMillBlockEntity;
 import dev.craft.ic2.generator.WindMillBlockEntity;
 import dev.craft.ic2.machine.ElectricFurnaceBlockEntity;
+import dev.craft.ic2.machine.ElectrolyzerBlockEntity;
 import dev.craft.ic2.machine.IronFurnaceBlockEntity;
 import dev.craft.ic2.machine.MachineBlock;
 import dev.craft.ic2.machine.MachineBlockEntity;
+import dev.craft.ic2.machine.MagnetizerBlockEntity;
 import dev.craft.ic2.machine.MassFabricatorBlock;
 import dev.craft.ic2.machine.RecipeMachineBlockEntity;
 import dev.craft.ic2.machine.RecyclerBlockEntity;
@@ -87,6 +90,9 @@ public final class Ic2Blocks {
     public static final DeferredBlock<RubberSaplingBlock> RUBBER_SAPLING = BLOCKS.register("rubber_sapling",
             () -> new RubberSaplingBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission()
                     .randomTicks().instabreak().sound(SoundType.GRASS).pushReaction(PushReaction.DESTROY)));
+    /** IC2 {@code BlockPoleFence}: Material.iron, hardness 1.5, {@code setResistance(5)} = 3 effective. */
+    public static final DeferredBlock<IronFenceBlock> IRON_FENCE = BLOCKS.register("iron_fence",
+            () -> new IronFenceBlock(metal().strength(1.5F, 3.0F).forceSolidOn()));
     /** IC2 {@code BlockResin}: hardness 1.6, {@code setResistance(0.5)} = 0.3 effective, sand sound, no collision. */
     public static final DeferredBlock<ResinSheetBlock> RESIN_SHEET = BLOCKS.register("resin_sheet",
             () -> new ResinSheetBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_YELLOW).noCollission()
@@ -127,6 +133,8 @@ public final class Ic2Blocks {
             case EXTRACTOR -> RecipeMachineBlockEntity::extractor;
             case COMPRESSOR -> RecipeMachineBlockEntity::compressor;
             case RECYCLER -> RecyclerBlockEntity::new;
+            case MAGNETIZER -> MagnetizerBlockEntity::new;
+            case ELECTROLYZER -> ElectrolyzerBlockEntity::new;
             case BATBOX, MFE, MFSU, LV_TRANSFORMER, MV_TRANSFORMER, HV_TRANSFORMER, MASS_FABRICATOR ->
                     throw new IllegalArgumentException(machine + " has its own block class");
         };

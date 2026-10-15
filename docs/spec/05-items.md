@@ -503,7 +503,7 @@ Rum; Fass mit Baumzapfer anzapfen) – Details `ItemMugCoffee`, `ItemBooze`, `Ti
 | Gummisetzling | 0 | – | Wachstum bei Licht ≥ 9 mit 1/30 pro Random-Tick; Knochenmehl sofort |
 | Harzschicht | 1,6 | 0,5 | 80 % Drop Harz, bremst Entities (Fallhöhe ×0,75, Bewegung ×0,6/0,85) |
 | Gummimatte (`blockRubber`, Trampolin) | 0,8 | 2 | federt |
-| Eisenzaun (`blockFenceIron`) | 1,5 | 5 | magnetisierbar |
+| Eisenzaun (`blockFenceIron`) | 1,5 | 5 | magnetisierbar, Details unten |
 | Verstärkter Stein (`blockAlloy`) | 80 | 150 | Pickaxe 2 |
 | Verstärktes Glas | 5 | 150 | |
 | Verstärkte Tür | 50 | 150 | Pickaxe 2 |
@@ -517,3 +517,13 @@ Rum; Fass mit Baumzapfer anzapfen) – Details `ItemMugCoffee`, `ItemBooze`, `Ti
 | Personal-Blöcke | – | 6 000 000 | |
 | ITNT/Nuke/Dynamit | 0 | – | |
 | Crop | – | – | siehe §9 |
+
+**Eisenzaun** (`BlockPoleFence`, Sprite `block_0.png` 1, Material Eisen, kein Vollblock): verbindet sich **nur mit
+anderen Eisenzäunen** (Nord/Süd/West/Ost). Pfosten 0,25 × 0,25 (Mitte), Kollision 1,5 hoch, Auswahl 1 hoch; je
+verbundener Seite verlängert sich die Box bis zum Blockrand; Strahltreffer: Pfosten + je Seite zwei Latten
+(Höhe 0,375–0,5625 und 0,75–0,9375, Breite 0,125). Meta 0–15 = Magnetisierung (Magnetisierer, `04-maschinen.md`).
+Wirkung nur auf **Spieler** an einem **freistehenden Pfahl** (kein Nachbar-Eisenzaun) und nur bei Meta > 0 *und*
+Metallstiefeln (Vanilla Eisen/Gold/Kette, IC2 Bronze/Nano/Quantum/Static Boots): Meta −1 je Tick, `motionY += 0,075`,
+bei `motionY > 0` → `×1,03` und `fallDistance = 0`; Obergrenze 1,5 (schleichend 0,3). Sonst schleichend: `motionY <
+−0,25` → `×0,9`, sonst `fallDistance = 0`. Rezept: 12 aus `III/III` (raff. Eisen). GT: Macerator 2 Zäune → 3 kleine
+Eisenstaubhaufen *(GT-Kleinstaub nicht im Umfang)*.

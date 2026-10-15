@@ -71,6 +71,12 @@ public class ElectricStorageBlockEntity extends MachineBlockEntity implements En
         return energy;
     }
 
+    /** Direct access to the stored EU, used by the electrolyzer (IC2 writes {@code mfe.energy}). */
+    public void setEnergy(int energy) {
+        this.energy = energy;
+        setChanged();
+    }
+
     public int getRedstoneMode() {
         return redstoneMode;
     }

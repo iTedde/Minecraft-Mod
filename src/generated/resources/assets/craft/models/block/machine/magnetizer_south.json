@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "craft:block/machine/magnetizer_bottom",
+    "east": "craft:block/machine/magnetizer_left",
+    "north": "craft:block/machine/magnetizer_back",
+    "particle": "craft:block/machine/magnetizer_front",
+    "south": "craft:block/machine/magnetizer_front",
+    "up": "craft:block/machine/magnetizer_top",
+    "west": "craft:block/machine/magnetizer_right"
+  }
+}

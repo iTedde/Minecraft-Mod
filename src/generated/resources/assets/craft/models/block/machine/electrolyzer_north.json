@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "craft:block/machine/electrolyzer_bottom",
+    "east": "craft:block/machine/electrolyzer_right",
+    "north": "craft:block/machine/electrolyzer_front",
+    "particle": "craft:block/machine/electrolyzer_front",
+    "south": "craft:block/machine/electrolyzer_back",
+    "up": "craft:block/machine/electrolyzer_top",
+    "west": "craft:block/machine/electrolyzer_left"
+  }
+}

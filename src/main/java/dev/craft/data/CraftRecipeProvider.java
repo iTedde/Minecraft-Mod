@@ -434,6 +434,14 @@ public final class CraftRecipeProvider extends RecipeProvider {
         shaped(machine(Ic2Machine.RECYCLER), 1, "recycler").pattern(" G ").pattern("DMD").pattern("IDI")
                 .define('G', Items.GLOWSTONE_DUST).define('D', Items.DIRT).define('M', machine(Ic2Machine.COMPRESSOR))
                 .define('I', CraftItemTagsProvider.INGOTS_REFINED_IRON).save();
+        shaped(machine(Ic2Machine.MAGNETIZER), 1, "magnetizer").pattern("RFR").pattern("RMR").pattern("RFR")
+                .define('R', Items.REDSTONE).define('F', Ic2Items.IRON_FENCE).define('M', Ic2Items.MACHINE_CASING)
+                .save();
+        shaped(machine(Ic2Machine.ELECTROLYZER), 1, "electrolyzer").pattern("c c").pattern("cCc").pattern("EME")
+                .define('c', Ic2Items.cable(CableType.INSULATED_COPPER)).define('C', Ic2Items.ELECTRONIC_CIRCUIT)
+                .define('E', Ic2Items.EMPTY_CELL).define('M', Ic2Items.MACHINE_CASING).save();
+        shaped(Ic2Items.IRON_FENCE, 12, "iron_fence").pattern("III").pattern("III")
+                .define('I', CraftItemTagsProvider.INGOTS_REFINED_IRON).save();
         shaped(machine(Ic2Machine.GENERATOR), 1, "generator").pattern(" B ").pattern("III").pattern(" F ")
                 .define('B', Ic2Items.RE_BATTERY).define('I', CraftItemTagsProvider.INGOTS_REFINED_IRON)
                 .define('F', machine(Ic2Machine.IRON_FURNACE)).save();

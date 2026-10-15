@@ -5,6 +5,7 @@ import java.util.concurrent.CompletableFuture;
 import dev.craft.Craft;
 import dev.craft.gregtech.GtItems;
 import dev.craft.ic2.Ic2Items;
+import dev.craft.ic2.block.IronFenceBlock;
 import dev.craft.ic2.machine.RecyclerBlockEntity;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
@@ -84,6 +85,8 @@ public final class CraftItemTagsProvider extends ItemTagsProvider {
                 .addTag(DUSTS_GOLD).addTag(DUSTS_IRON).addTag(DUSTS_TIN).addTag(DUSTS_SILVER);
 
         // IC2 default blacklist (glass pane, stick, snowball) + pack config "102, 280, 332, 4081"; scaffold later.
+        tag(IronFenceBlock.METAL_BOOTS).add(Items.IRON_BOOTS, Items.GOLDEN_BOOTS, Items.CHAINMAIL_BOOTS,
+                Ic2Items.NANO_BOOTS.get(), Ic2Items.QUANTUM_BOOTS.get(), Ic2Items.STATIC_BOOTS.get());
         tag(RecyclerBlockEntity.BLACKLIST).add(Items.GLASS_PANE, Items.STICK, Items.SNOWBALL);
     }
 }

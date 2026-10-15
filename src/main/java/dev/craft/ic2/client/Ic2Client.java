@@ -72,7 +72,8 @@ public final class Ic2Client {
                         event.register(Ic2Menus.get(machine), ElectricMachineScreen::new);
                 case BATBOX, MFE, MFSU -> event.register(Ic2Menus.get(machine), ElectricStorageScreen::new);
                 case MASS_FABRICATOR -> event.register(Ic2Menus.get(machine), MassFabricatorScreen::new);
-                case LV_TRANSFORMER, MV_TRANSFORMER, HV_TRANSFORMER -> {
+                case ELECTROLYZER -> event.register(Ic2Menus.get(machine), ElectrolyzerScreen::new);
+                case LV_TRANSFORMER, MV_TRANSFORMER, HV_TRANSFORMER, MAGNETIZER -> {
                 }
             }
         }

@@ -1,0 +1,23 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "F": {
+      "item": "craft:iron_fence"
+    },
+    "M": {
+      "item": "craft:machine_casing"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    }
+  },
+  "pattern": [
+    "RFR",
+    "RMR",
+    "RFR"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:magnetizer"
+  }
+}

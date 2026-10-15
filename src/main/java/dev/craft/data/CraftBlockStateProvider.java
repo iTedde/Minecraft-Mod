@@ -233,6 +233,9 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
                         .cullface(direction == Direction.UP ? null : direction))
                 .end();
         simpleBlock(Ic2Blocks.RESIN_SHEET.get(), model);
+        fenceBlock(Ic2Blocks.IRON_FENCE.get(), modLoc("block/iron_fence"));
+        simpleBlockItem(Ic2Blocks.IRON_FENCE.get(), models().fenceInventory("iron_fence_inventory",
+                modLoc("block/iron_fence")));
     }
 
     /** One model per facing and active state, with IC2's face-to-sprite mapping (no rotations). */

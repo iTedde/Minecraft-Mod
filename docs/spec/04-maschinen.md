@@ -275,6 +275,10 @@ Bergbaurohr/-spitze: Härte 6,0, Resistenz 10.
   alle `IMetalArmor`) an einem magnetisierten Zaunpfahl: Meta −1 pro Tick,
   `motionY += 0,075`, bei Aufwärtsbewegung `×1,03` und `fallDistance = 0`; Max. 1,5 (schleichend 0,3).
   Ohne Magnetisierung: Schleichen bremst Fall (`×0,9` bei < −0,25, sonst `fallDistance = 0`).
+- Ticker startet bei 0: erster Durchlauf sofort; nach einem Durchlauf mit Änderung läuft der nächste im folgenden Tick,
+  ohne Änderung erst nach 11 Ticks (`ticker = 10`, Prüfung `ticker-- <= 0`). Säule nach unten bis y > 0 (1.21: über
+  Weltuntergrenze), Abbruch auch bei `energy = 0`. Facing horizontal zum Spieler, Texturen Spalte 9 von
+  `block_machine.png` (alle Seiten schlicht). Kein GUI. Überspannung: `explodeMachineAt`. Drop/Wrench: sich selbst, 1,0.
 
 ---
 
@@ -290,6 +294,12 @@ Bergbaurohr/-spitze: Härte 6,0, Resistenz 10.
   Slot 1 hat eine elektrolysierte Zelle (und Slot 0 Platz) → Puffer `+= 12 000 + 2000 · tier` und die Zelle wird
   zur Wasserzelle (BatBox 14 000, MFE 16 000, MFSU 18 000 EU zurück).
 - Sided: unten → 1, sonst → 0.
+- Texturen Spalte 10, aktiv (Laden oder Entladen) Zeilen 6–11. Tick nur serverseitig; `ticker` startet zufällig 0–15.
+  Laden und Entladen schließen sich aus (≥ 70 % / ≤ 30 %); der Speicher wird direkt verändert (kein Netz, keine
+  Kappung). Zustandswechsel → aktiv/inaktiv.
+- GUI (`GUIElectrolyzer.png`): Titel mittig y 6, Slot 0 (53, 35) nur Wasserzelle, Slot 1 (112, 35) nur elektrolysierte
+  Wasserzelle; Energiebalken bei (79, 34) ← (176, 14), Breite `energy · 24 / 20000` (max. 24) + 1, Höhe 16, nur bei
+  `energy > 0`.
 
 ---
 

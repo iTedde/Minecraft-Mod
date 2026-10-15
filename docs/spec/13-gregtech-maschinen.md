@@ -195,3 +195,72 @@ Varianten, sobald die Platten existieren (Aluminium 6b.3, Stahl 6b.3, Titan …)
 
 Danach IC2: Compressor Mischmetall → fortg. Legierung; fortg. Maschinenblock (`08-rezepte.md` §1) → MFSU,
 Massefabrikator, Kompositweste.
+
+## 4. Industrieller Elektrolyseur (`GT_MetaTileEntity_Electrolyzer`, ID 25, „Industrial Electrolyzer“)
+
+Eigene MetaTileEntity (**keine** BasicMachine), nutzt aber die Basis aus §1.1/§1.2/§1.5/§1.6.
+
+| Wert | |
+|---|---|
+| `maxEUInput` | **128** → sichere Eingabe 128 · 4^Trafos (ein IC2-Trafo-Upgrade → 512, dann nur HV-Upgrade) |
+| `maxEUStore` | 10 000 (+ Upgrades wie §1.4), MJ-Kapazität 10 000 (nur mit MJ-Konverter) |
+| Ausgabe | keine (`maxEUOutput = 0`), `getMinimumStoredEU = 0` |
+| Energieannahme | **alle** Seiten (`isInputFacing` immer wahr) |
+| Facing | `isFacingValid` immer falsch → nicht drehbar, keine Vorderseite |
+| Upgrades | Overclocker, Transformer, Energiespeicher/Lithium, MJ-Konverter („Possible Upgrades: O T B M“) |
+| Batterie-Slot | keiner (kein Entladen) |
+| Texturen | unten 32, oben 29, Seiten 64 (aktiv 65) |
+| Beschreibung | „Give your Water a shocking Experience with this Device“; Tooltip „Max EU/p IN: 128“ |
+
+**Slots:** 0 = Eingabe (Stoff), 1 = Eingabe (Zellen), 2–5 = Ausgabe 1–4, 6 = interner Wasser-Holo-Slot (nicht
+greifbar, nicht gedroppt; `isValidSlot` < 6 → Drop beim Abbau: Slots 0–5). Seiten: oben → Slot 0, unten → Slot 1,
+Seiten → Slots 2–5 (je ein Bereich, `ISidedInventory`).
+
+**Wassertank:** Flüssigkeitseingang von allen Seiten, nur Wasser, Kapazität 10 000 mB (`mStoredWater`), kein
+Ablassen. Jeden Tick: `mStoredWater ≥ 1000` und Slot 6 < 64 → 1000 mB → +1 „Wasser“ in Slot 6.
+
+**Tick (`onPostTick`, Server):**
+1. Wasser umwandeln (s. o.).
+2. Läuft ein Rezept (`mMaxProgresstime > 0`): aktiv; wenn `mProgresstime ≥ 0` und `decreaseStoredEnergy(mEUt · 4^OC)`
+   scheitert → inaktiv und (`constant_need_of_energy` = an) **`mProgresstime = −10`**, Fehlercode 1 („Insufficient
+   Energy Line!“ statt „Inventory“ in der GUI). Sonst `mProgresstime += 2^OC`; bei ≥ Max → Ausgaben 1–4 in Slot 2–5
+   (auf Stapelgröße gekappt), alles auf 0, Fehlercode 0. Bei `mProgresstime < 0` läuft der Fortschritt **ohne**
+   Energie weiter (−10 → … → 0 → dann wieder Verbrauch).
+3. Sonst inaktiv; wenn gespeicherte Energie **> 100**: `checkRecipe`.
+
+**`checkRecipe`:** erst Rezept für (Slot 0, Slot 1), sonst (Slot 6 = Wasser, Slot 1); Reihenfolge fest (nicht
+shapeless). Start nur, wenn alle vier Ausgaben passen (`spaceForOutput`, kein `bOutputBlocked`); Eingaben werden beim
+Start abgezogen, Ausgaben erst am Ende eingetragen. Rezeptsuche wie §2: Eingabe 1 Item + Menge ≥ Rezept, Eingabe 2
+(leere Zellen) nur wenn das Rezept eine hat.
+
+**GUI** (`gui/Electrolyzer.png`, `GT_Container_Electrolyzer`): Titel „Industrial Electrolyzer“ (8, 4); Slots 0 (80, 46),
+1 (50, 46), Ausgaben 2–5 (50/70/90/110, 16), Holo-Slot 6 (110, 46, nur Anzeige). Fortschrittsbalken: Höhe
+`min(10, (p > 0 ? 1 : 0) + p · 10 / max(1, max))`, gezeichnet bei (73, 44 − h) ← (183, 44 − h), Breite 30, wächst nach
+oben. Inventar-Beschriftung (8, 72) bzw. Fehlertext. Shift-Klick aus dem Spielerinventar nur in Slot 0/1.
+
+**Rezept des Elektrolyseurs:** `RDR/CEC/RMR`, E = IC2-Elektrolyseur, M = IC2-Magnetisierer, D = Extractor,
+C = fortg. Schaltkreis (`craftingCircuitTier04`), R = raff. Eisenplatte **oder** Aluminiumplatte (zwei Rezepte).
+
+**Rezepte** (`addElectrolyzerRecipe`, Eingabe 2 = n leere Zellen; Dauer laut `RecipesAdvancedConfig.cfg` unverändert):
+
+| Eingabe 1 | Zellen | Ausgaben | Ticks | EU/t | Umfang |
+|---|---:|---|---:|---:|---|
+| 6 Wasser (Tank) | 5 | 4 Wasserstoffzellen, 1 Luftzelle | 775 | 120 | 6b.2 |
+| 6 elektrol. Wasserzellen | – | 4 Wasserstoffzellen, 1 Luftzelle, –, 1 leere Zelle | 100 | 30 | 6b.2 |
+| 1 Wasserzelle | – | 1 elektrol. Wasserzelle | 128 | 128 | 6b.2 |
+| 1 Wassereimer | 1 | 1 elektrol. Wasserzelle, 1 Eimer | 128 | 128 | 6b.2 |
+| 3 Knochenmehl | 1 | 1 Calciumzelle | 24 | 106 | 6b.2 |
+| 32 Zucker | 7 | 2 Kohlenstoffzellen, 5 Wasserzellen | 210 | 32 | 6b.2 |
+| 4 Lohenstaub | – | 1 dunkle Asche, 1 Schwefelstaub | 300 | 25 | 6b.2 |
+| 16 Sand | 2 | 1 Siliziumzelle, 1 Luftzelle | 1000 | 25 | 6b.2 |
+| 8 Tonstaub | 5 | 1 Lithiumzelle, 2 Siliziumzellen, 2 Aluminiumstaub, 2 Natriumzellen | 200 | 50 | 6b.2 |
+| 1 Kohlestaub | 2 | 2 Kohlenstoffzellen | 40 | 50 | 6b.2 |
+| 8 Feuersteinstaub | 2 | 1 Siliziumzelle, 1 Luftzelle | 1000 | 5 | später (GT-Staub) |
+| 1 Holzkohlestaub / 2 Asche | 1 | 1 Kohlenstoffzelle | 20 / 25 | 50 | später (GT-Staub) |
+| 4 Obsidianstaub | 3 | 2 kl. Magnesium-, 2 kl. Eisenstaub, 1 Siliziumzelle, 2 Luftzellen | 500 | 5 | später (Kleinstaub) |
+| 10 Salpeterstaub | 7 | 2 Kalium-, 2 Stickstoffzellen, –, 3 Luftzellen | 50 | 110 | später |
+| Erze/Edelsteine (Bauxit, Rubin, Saphir, Granate, Smaragd, Enderperle, Lazurit, Pyrit, Calcit, Sodalith, Galena, Sphalerit, Zinnober …), Schwefelsäure-, Methan-, Holzgaszellen | | siehe `GT_OreDictHandler` | | | mit den GT-Erzen/-Stäuben |
+
+Zellen (`GT_MetaItem_Cell`, Tooltip = Formel): 0 Wasserstoff H, 5 Lithium Li, 7 Silizium Si, 8 Kohlenstoff C,
+11 Calcium Ca, 12 Natrium Na. Stäube (`GT_MetaItem_Dust`): 8 Schwefel S, 18 Aluminium Al, 63 dunkle Asche C.
+Aluminiumstaub → Ofen nicht möglich (GT: nur Hochofen, 6b.3).

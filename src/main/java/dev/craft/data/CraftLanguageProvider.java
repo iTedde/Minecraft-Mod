@@ -180,6 +180,8 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             machine(Ic2Machine.EXTRACTOR, "Extractor");
             machine(Ic2Machine.COMPRESSOR, "Compressor");
             machine(Ic2Machine.RECYCLER, "Recycler");
+            machine(Ic2Machine.MAGNETIZER, "Magnetizer");
+            machine(Ic2Machine.ELECTROLYZER, "Electrolyzer");
             machine(Ic2Machine.MASS_FABRICATOR, "Mass Fabricator");
             machine(Ic2Machine.BATBOX, "BatBox");
             machine(Ic2Machine.MFE, "MFE");
@@ -193,6 +195,7 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             block(Ic2Blocks.DEEPSLATE_TIN_ORE, "Deepslate Tin Ore");
             block(Ic2Blocks.TIN_BLOCK, "Tin Block");
             block(Ic2Blocks.BRONZE_BLOCK, "Bronze Block");
+            block(Ic2Blocks.IRON_FENCE, "Iron Fence");
             block(Ic2Blocks.RUBBER_WOOD, "Rubber Wood");
             block(Ic2Blocks.RUBBER_LEAVES, "Rubber Leaves");
             block(Ic2Blocks.RUBBER_SAPLING, "Rubber Tree Sapling");
@@ -229,6 +232,7 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             item(Ic2Items.LAVA_CELL, "Lava Cell");
             item(Ic2Items.WATER_CELL, "Water Cell");
             item(Ic2Items.AIR_CELL, "Compressed Air Cell");
+            item(Ic2Items.ELECTROLYZED_WATER_CELL, "Electrolyzed Water Cell");
             item(Ic2Items.COOLANT_CELL_10K, "10k Coolant Cell");
             item(Ic2Items.OVERCLOCKER_UPGRADE, "Overclocker Upgrade");
             item(Ic2Items.TRANSFORMER_UPGRADE, "Transformer Upgrade");
@@ -382,6 +386,8 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             machine(Ic2Machine.EXTRACTOR, "Extraktor");
             machine(Ic2Machine.COMPRESSOR, "Kompressor");
             machine(Ic2Machine.RECYCLER, "Recycler");
+            machine(Ic2Machine.MAGNETIZER, "Magnetisierer");
+            machine(Ic2Machine.ELECTROLYZER, "Elektrolyseur");
             machine(Ic2Machine.MASS_FABRICATOR, "Massefabrikator");
             machine(Ic2Machine.BATBOX, "BatBox");
             machine(Ic2Machine.MFE, "MFE");
@@ -395,6 +401,7 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             block(Ic2Blocks.DEEPSLATE_TIN_ORE, "Tiefenschiefer-Zinnerz");
             block(Ic2Blocks.TIN_BLOCK, "Zinnblock");
             block(Ic2Blocks.BRONZE_BLOCK, "Bronzeblock");
+            block(Ic2Blocks.IRON_FENCE, "Eisenzaun");
             block(Ic2Blocks.RUBBER_WOOD, "Gummiholz");
             block(Ic2Blocks.RUBBER_LEAVES, "Gummibaumblätter");
             block(Ic2Blocks.RUBBER_SAPLING, "Gummibaumsetzling");
@@ -431,6 +438,7 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             item(Ic2Items.LAVA_CELL, "Lavazelle");
             item(Ic2Items.WATER_CELL, "Wasserzelle");
             item(Ic2Items.AIR_CELL, "Druckluftzelle");
+            item(Ic2Items.ELECTROLYZED_WATER_CELL, "Elektrolysierte Wasserzelle");
             item(Ic2Items.COOLANT_CELL_10K, "10k-Kühlzelle");
             item(Ic2Items.OVERCLOCKER_UPGRADE, "Übertakter-Upgrade");
             item(Ic2Items.TRANSFORMER_UPGRADE, "Transformator-Upgrade");
