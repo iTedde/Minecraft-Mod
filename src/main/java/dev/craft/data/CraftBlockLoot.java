@@ -2,7 +2,10 @@ package dev.craft.data;
 
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Stream;
 
+import dev.craft.buildcraft.BcBlocks;
+import dev.craft.buildcraft.engine.EngineType;
 import dev.craft.ic2.Ic2Blocks;
 import dev.craft.ic2.Ic2Items;
 import dev.craft.ic2.Ic2Machine;
@@ -46,6 +49,9 @@ public final class CraftBlockLoot extends BlockLootSubProvider {
         dropSelf(Ic2Blocks.TIN_BLOCK.get());
         dropSelf(Ic2Blocks.BRONZE_BLOCK.get());
         dropSelf(Ic2Blocks.RUBBER_SAPLING.get());
+        for (EngineType type : EngineType.values()) {
+            dropSelf(BcBlocks.engine(type).get());
+        }
         resinSheet();
         rubberWood();
         rubberLeaves();
@@ -82,7 +88,8 @@ public final class CraftBlockLoot extends BlockLootSubProvider {
 
     @Override
     protected Iterable<Block> getKnownBlocks() {
-        return Ic2Blocks.BLOCKS.getEntries().stream().map(holder -> (Block) holder.get()).toList();
+        return Stream.concat(Ic2Blocks.BLOCKS.getEntries().stream(), BcBlocks.BLOCKS.getEntries().stream())
+                .map(holder -> (Block) holder.get()).toList();
     }
 
     /**

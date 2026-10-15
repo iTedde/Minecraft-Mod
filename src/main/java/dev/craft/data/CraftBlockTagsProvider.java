@@ -3,6 +3,8 @@ package dev.craft.data;
 import java.util.concurrent.CompletableFuture;
 
 import dev.craft.Craft;
+import dev.craft.buildcraft.BcBlocks;
+import dev.craft.buildcraft.engine.EngineType;
 import dev.craft.core.explosion.Ic2Explosion;
 import dev.craft.ic2.Ic2Blocks;
 import dev.craft.ic2.Ic2Machine;
@@ -41,6 +43,9 @@ public final class CraftBlockTagsProvider extends BlockTagsProvider {
         tag(BlockTags.MINEABLE_WITH_PICKAXE).add(Ic2Blocks.MACHINE_CASING.get(), Ic2Blocks.TIN_ORE.get(),
                 Ic2Blocks.DEEPSLATE_TIN_ORE.get(), Ic2Blocks.TIN_BLOCK.get(), Ic2Blocks.BRONZE_BLOCK.get());
         tag(BlockTags.NEEDS_STONE_TOOL).add(Ic2Blocks.TIN_ORE.get(), Ic2Blocks.DEEPSLATE_TIN_ORE.get());
+        for (EngineType type : EngineType.values()) {
+            tag(BlockTags.MINEABLE_WITH_PICKAXE).add(BcBlocks.engine(type).get());
+        }
         tag(BlockTags.MINEABLE_WITH_AXE).add(Ic2Blocks.RUBBER_WOOD.get());
         tag(BlockTags.MINEABLE_WITH_HOE).add(Ic2Blocks.RUBBER_LEAVES.get());
         tag(BlockTags.LOGS_THAT_BURN).add(Ic2Blocks.RUBBER_WOOD.get());

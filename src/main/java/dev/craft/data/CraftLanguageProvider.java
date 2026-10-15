@@ -3,6 +3,9 @@ package dev.craft.data;
 import java.util.function.Supplier;
 
 import dev.craft.Craft;
+import dev.craft.buildcraft.BcBlocks;
+import dev.craft.buildcraft.BcItems;
+import dev.craft.buildcraft.engine.EngineType;
 import dev.craft.ic2.Ic2Blocks;
 import dev.craft.ic2.Ic2Items;
 import dev.craft.ic2.Ic2Machine;
@@ -119,6 +122,21 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             item(Ic2Items.SU_BATTERY, "Single-Use Battery");
             item(Ic2Items.TREETAP, "Treetap");
             item(Ic2Items.WRENCH, "Wrench");
+            add("itemGroup.craft.buildcraft", "BuildCraft");
+            add("gui.craft.inventory", "Inventory");
+            add("gui.craft.buildcraft.energy", "Energy");
+            add("gui.craft.buildcraft.current_output", "Current Output");
+            add("gui.craft.buildcraft.stored", "Stored");
+            add("gui.craft.buildcraft.heat", "Heat");
+            block(BcBlocks.engine(EngineType.REDSTONE), "Redstone Engine");
+            block(BcBlocks.engine(EngineType.STIRLING), "Stirling Engine");
+            block(BcBlocks.engine(EngineType.COMBUSTION), "Combustion Engine");
+            item(BcItems.WOODEN_GEAR, "Wood Gear");
+            item(BcItems.STONE_GEAR, "Stone Gear");
+            item(BcItems.IRON_GEAR, "Iron Gear");
+            item(BcItems.GOLD_GEAR, "Gold Gear");
+            item(BcItems.DIAMOND_GEAR, "Diamond Gear");
+            item(BcItems.WRENCH, "Wrench");
         }
     }
 
@@ -207,6 +225,21 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             item(Ic2Items.SU_BATTERY, "Einwegbatterie");
             item(Ic2Items.TREETAP, "Baumzapfer");
             item(Ic2Items.WRENCH, "Schraubenschlüssel");
+            add("itemGroup.craft.buildcraft", "BuildCraft");
+            add("gui.craft.inventory", "Inventar");
+            add("gui.craft.buildcraft.energy", "Energie");
+            add("gui.craft.buildcraft.current_output", "Aktuelle Leistung");
+            add("gui.craft.buildcraft.stored", "Gespeichert");
+            add("gui.craft.buildcraft.heat", "Hitze");
+            block(BcBlocks.engine(EngineType.REDSTONE), "Redstone-Motor");
+            block(BcBlocks.engine(EngineType.STIRLING), "Stirlingmotor");
+            block(BcBlocks.engine(EngineType.COMBUSTION), "Verbrennungsmotor");
+            item(BcItems.WOODEN_GEAR, "Holzzahnrad");
+            item(BcItems.STONE_GEAR, "Steinzahnrad");
+            item(BcItems.IRON_GEAR, "Eisenzahnrad");
+            item(BcItems.GOLD_GEAR, "Goldzahnrad");
+            item(BcItems.DIAMOND_GEAR, "Diamantzahnrad");
+            item(BcItems.WRENCH, "Schraubenschlüssel");
         }
     }
 }

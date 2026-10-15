@@ -118,13 +118,10 @@ Phase 2 gestartet (2026-10-14) – Zwischenstand siehe unten.
   „wie im Pack“ gewählt. Liste vollständig in `05-items.md` §1.1; GT-Einträge kommen mit Phase 6b.
 - `gradlew build`, 30 GameTests grün, `runClient` bis Hauptmenü ohne Mod-Fehler.
 
-## Nächste Schritte
-Arbeitsweise: eine Sitzung pro Teilpaket, Übergabe über diese Datei.
-
-Phase 3 ist inhaltlich vollständig. Wasser-/Windmühle/Solar bleiben ohne Rezept (Phase 6b).
-1. Manuelle Prüfung im Client (Nutzer): GUIs, Sounds, Texturen/Facing, Weltgen (Gummibäume, Erze), Rezepte,
-   Harz/Harzschicht/Klebekolben, Schrottbox.
-2. Danach Phase-3-Abnahme; nächstes Teilpaket dann „Phase 4: MJ-System + Engines“.
+## Offen aus Phase 3
+Phase 3 ist inhaltlich vollständig, die **manuelle Prüfung im Client und die Abnahme durch den Nutzer stehen noch aus**
+(GUIs, Sounds, Texturen/Facing, Weltgen, Rezepte, Harz/Klebekolben, Schrottbox). Wasser-/Windmühle/Solar bleiben ohne
+Rezept (Phase 6b).
 
 ## Offen / später
 - Alt-Taste beim Schraubenschlüssel (zyklisches Drehen) kommt mit dem Tastensystem (Modus/Boost/Alt).
@@ -132,3 +129,32 @@ Phase 3 ist inhaltlich vollständig. Wasser-/Windmühle/Solar bleiben ohne Rezep
 - Upgrade-Stapelgröße 64 (IC2) – GT-Wert 4 ist offene Entscheidung 4.
 - Spec-Korrektur `01-eu-system.md` §4: bei `explodeMachineAt` wird das Inventar **gedroppt** (breakBlock), nicht
   vernichtet.
+
+# Stand Phase 4 (2026-10-15)
+
+## Erledigt (Teilpaket „Phase 4: MJ-System + Engines“)
+- Paket `dev.craft.buildcraft`: `BuildCraft` (Init), `BcBlocks`, `BcItems`, `BcBlockEntityTypes`, `BcMenus`,
+  Creative-Tab „BuildCraft“.
+- **MJ-System** `power/`: `PowerProvider` 1:1 (Pneumatic-Framework → Latenz 0, −1 MJ alle 100 Ticks,
+  `useEnergy`/`receiveEnergy`/Stromquellen-Marker), `PowerReceptor`, `SafeTimeTracker`, Block-Capability
+  `BcCapabilities.POWER_RECEPTOR` (`craft:power_receptor`). Spätere Empfänger (Quarry, Pumpe …) registrieren diese
+  Capability und rufen `provider.update(this, level)` jeden Tick.
+- **Engines** `engine/`: `EngineBlockEntity` (TileEngine/Engine 1:1: Kolbenhub, Übergabe bei 0,5, Energiestufen,
+  Explosion mit Feuer, Verlust ohne Redstone, Ketten mit 95 %), `RedstoneEngineBlockEntity`,
+  `StirlingEngineBlockEntity` (Ofen-Brennwerte), `CombustionEngineBlockEntity` (Tanks 10 000 mB, Hitze, Kühlung,
+  Abkühlstrafe 600, Eis), `CombustionFuels` (Lava 1 MJ/t × 20 000; Wasser als Kühlmittel; **Öl/Treibstoff kommen mit
+  den Flüssigkeiten**), `EngineBlock` (Ausrichtung als `FACING`, BC-Schraubenschlüssel dreht, Redstone-Partikel).
+- Items: Holz-/Stein-/Eisen-/Gold-/Diamant-Zahnrad, BC-Schraubenschlüssel (`craft:bc_wrench`); Rezepte §12
+  (Vanilla-Shaped, spiegelbar). Capabilities: Item-Slot (Stirling/Combustion), Fluid (Combustion, nur füllen).
+- Client: `EngineRenderer` (BER) + `EngineItemRenderer` mit Original-Geometrie/-Texturen, `EngineScreen`
+  (Stirling-/Combustion-GUI inkl. Flüssigkeitsanzeige und aufklappbarem Engine-Ledger).
+- 7 neue GameTests (insgesamt 37 grün), `gradlew build` und `runClient` (Hauptmenü, keine Mod-Fehler) erfolgreich.
+- Doku: Eigenheiten in `09-buildcraft.md` §1.2, Abweichungen (Zeitbasis `getGameTime`, Capability, Darstellung).
+
+## Nächste Schritte
+Arbeitsweise: eine Sitzung pro Teilpaket, Übergabe über diese Datei.
+1. Nutzer: Engines im Client prüfen (Kolbenanimation/Farben, Ausrichtung per BC-Schraubenschlüssel, GUIs + Ledger,
+   Explosion der Stirling-Engine, Kette Engine → Engine).
+2. Nächstes Teilpaket: **„Phase 4: Öl + Flüssigkeiten“** (Öl/Treibstoff als Fluids, Eimer, Ölquellen-Weltgen
+   `07-weltgenerierung.md` §5, Öl/Treibstoff in `CombustionFuels`), danach Landmarks + Quarry, dann
+   Tank/Pumpe/Raffinerie/Mining Well.

@@ -3,6 +3,8 @@ package dev.craft.core;
 import java.util.function.Supplier;
 
 import dev.craft.Craft;
+import dev.craft.buildcraft.BcItems;
+import dev.craft.buildcraft.engine.EngineType;
 import dev.craft.ic2.Ic2Items;
 import dev.craft.ic2.Ic2Machine;
 import dev.craft.ic2.cable.CableType;
@@ -10,6 +12,7 @@ import dev.craft.ic2.item.BatteryItem;
 import dev.craft.ic2.item.ElectricItems;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -46,6 +49,21 @@ public final class CraftCreativeTabs {
                         output.accept(new ItemStack(value));
                         output.accept(ElectricItems.charged(new ItemStack(value)));
                     }
+                }
+            })
+            .build());
+
+    public static final Supplier<CreativeModeTab> BUILDCRAFT = TABS.register("buildcraft", () -> CreativeModeTab
+            .builder()
+            .title(Component.translatable("itemGroup.craft.buildcraft"))
+            .icon(() -> BcItems.engine(EngineType.REDSTONE).toStack())
+            .withTabsBefore(ResourceLocation.fromNamespaceAndPath(Craft.MODID, "ic2"))
+            .displayItems((parameters, output) -> {
+                for (EngineType type : EngineType.values()) {
+                    output.accept(BcItems.engine(type));
+                }
+                for (DeferredHolder<Item, ? extends Item> item : BcItems.simpleItems()) {
+                    output.accept(item.get());
                 }
             })
             .build());

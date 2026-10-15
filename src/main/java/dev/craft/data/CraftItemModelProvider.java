@@ -1,11 +1,15 @@
 package dev.craft.data;
 
 import dev.craft.Craft;
+import dev.craft.buildcraft.BcItems;
+import dev.craft.buildcraft.engine.EngineType;
 import dev.craft.ic2.Ic2Items;
 import dev.craft.ic2.cable.CableType;
 import dev.craft.ic2.client.Ic2Client;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemDisplayContext;
+import net.neoforged.neoforge.client.model.generators.ModelFile;
 import net.neoforged.neoforge.client.model.generators.ItemModelBuilder;
 import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
@@ -29,6 +33,26 @@ public final class CraftItemModelProvider extends ItemModelProvider {
         battery(Ic2Items.RE_BATTERY);
         battery(Ic2Items.ENERGY_CRYSTAL);
         battery(Ic2Items.LAPOTRON_CRYSTAL);
+        for (DeferredItem<? extends Item> item : BcItems.simpleItems()) {
+            basicItem(item.get());
+        }
+        for (EngineType type : EngineType.values()) {
+            engine(BcItems.engine(type));
+        }
+    }
+
+    /** Engine item drawn by {@code EngineItemRenderer}, with the transforms of a vanilla block model. */
+    private void engine(DeferredItem<? extends Item> item) {
+        getBuilder(item.getId().getPath()).parent(new ModelFile.UncheckedModelFile("builtin/entity"))
+                .transforms()
+                .transform(ItemDisplayContext.GUI).rotation(30, 225, 0).scale(0.625F).end()
+                .transform(ItemDisplayContext.GROUND).translation(0, 3, 0).scale(0.25F).end()
+                .transform(ItemDisplayContext.FIXED).scale(0.5F).end()
+                .transform(ItemDisplayContext.THIRD_PERSON_RIGHT_HAND).rotation(75, 45, 0).translation(0, 2.5F, 0)
+                .scale(0.375F).end()
+                .transform(ItemDisplayContext.FIRST_PERSON_RIGHT_HAND).rotation(0, 45, 0).scale(0.4F).end()
+                .transform(ItemDisplayContext.FIRST_PERSON_LEFT_HAND).rotation(0, 225, 0).scale(0.4F).end()
+                .end();
     }
 
     /** Battery icon with five charge steps (IC2 {@code ItemBattery.getIconFromDamage}). */

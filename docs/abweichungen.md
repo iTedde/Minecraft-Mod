@@ -55,6 +55,10 @@ Status: *geplant* (aus Phase 1 abgeleitet, noch nicht umgesetzt), *entschieden* 
 | GT-Recycling Vanilla-Eisenteile | Eisentür → 6 Eisenstaub bzw. 6 Eisenbarren (1.4.7: 6 Barren → 1 Tür) | Eisentür → **2** (1.21: 6 Barren → 3 Türen, sonst Vermehrung); übrige Teile (Kompass, Uhr, Schere, Lore, Eimer, Amboss 31/20/10, Steinknopf, Steindruckplatte, Hebel) wie GT; nur Hauptausgabe (Nebenprodukte gab es im IC2-Macerator nicht); GT-Material-Ausgaben (Holzstaub, kleiner Eisenstaub) erst mit den GT-Materialien | 1.21-Rezeptmenge | **umgesetzt** |
 | Schrottbox-Drops | gewichtete Liste `ItemScrapbox.dropList` (Float-Chancen, kumuliert) | Loot-Tabelle `craft:gameplay/scrap_box`, Gewicht = Chance × 100 (gleiche Verteilung); „Schild“ → Eichenschild | Datapack-/JEI-tauglich; 1.21 hat Holzsorten | **umgesetzt** |
 | Harzschicht als Item | implizites ItemBlock (nicht im Kreativ-Tab) | kein Block-Item; Pick-Block liefert Harz | Block wird nur mit Harz gesetzt | **umgesetzt** |
+| BC-Zeitbasis (MJ-Verlust, Redstone-Engine) | `world.getWorldTime()` (Tageszeit, in 1.4.7 ohne Daylight-Gamerule immer laufend) | `getGameTime()` (Gesamt-Weltzeit) | Tageszeit steht in 1.21 bei `doDaylightCycle=false` still | **umgesetzt** |
+| MJ-Empfänger | `instanceof IPowerReceptor` + Provider-Klassenprüfung | Block-Capability `craft:power_receptor` (seitenbezogen); Provider immer mit Latenz 0 wie das Pneumatic-Framework des Packs | Capabilities statt Interfaces | **umgesetzt** |
+| Engine-Darstellung | TESR mit GL-Licht aus; Bruchpartikel aus Index 0 des Terrain-Sheets (Gras) | BlockEntityRenderer + Item-Renderer (BEWLR) mit Original-Geometrie und -Texturen, normale Entity-Beleuchtung; Bruchpartikel: Eichenbretter/Bruchstein/Eisenblock | API; Originalpartikel waren ein Versehen | **umgesetzt** |
+| Engine: feste Seite | `isBlockSolidOnSide` nur gegenüber der Ausgabe | Block-Support-Shape (4-px-Platte auf der Rückseite) | API | **umgesetzt** |
 
 ## Bewusst (Energiebalancing)
 

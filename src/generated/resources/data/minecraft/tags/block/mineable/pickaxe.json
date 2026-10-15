@@ -16,6 +16,9 @@
     "craft:tin_ore",
     "craft:deepslate_tin_ore",
     "craft:tin_block",
-    "craft:bronze_block"
+    "craft:bronze_block",
+    "craft:redstone_engine",
+    "craft:stirling_engine",
+    "craft:combustion_engine"
   ]
 }

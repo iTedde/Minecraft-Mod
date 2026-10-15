@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "G": {
+      "item": "craft:stone_gear"
+    },
+    "g": {
+      "item": "minecraft:glass"
+    },
+    "p": {
+      "item": "minecraft:piston"
+    },
+    "w": {
+      "item": "minecraft:cobblestone"
+    }
+  },
+  "pattern": [
+    "www",
+    " g ",
+    "GpG"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:stirling_engine"
+  }
+}

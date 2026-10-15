@@ -2,6 +2,8 @@ package dev.craft.data;
 
 import com.google.gson.JsonObject;
 import dev.craft.Craft;
+import dev.craft.buildcraft.BcBlocks;
+import dev.craft.buildcraft.engine.EngineType;
 import dev.craft.ic2.Ic2Blocks;
 import dev.craft.ic2.Ic2Machine;
 import dev.craft.ic2.block.RubberWoodBlock;
@@ -55,6 +57,20 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
         simpleBlock(Ic2Blocks.RUBBER_SAPLING.get(), models().cross("rubber_sapling", modLoc("block/rubber_sapling"))
                 .renderType("cutout"));
         resinSheet();
+        engines();
+    }
+
+    /** Engines are drawn by their block entity renderer; the block model only provides the break particles. */
+    private void engines() {
+        for (EngineType type : EngineType.values()) {
+            String particle = switch (type) {
+                case REDSTONE -> "block/oak_planks";
+                case STIRLING -> "block/cobblestone";
+                case COMBUSTION -> "block/iron_block";
+            };
+            simpleBlock(BcBlocks.engine(type).get(), models().getBuilder(type.getName())
+                    .texture("particle", mcLoc(particle)));
+        }
     }
 
     /** IC2 {@code BlockResin}: a 2 px high layer with the resin texture on every face. */

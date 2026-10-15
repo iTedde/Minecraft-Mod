@@ -1,0 +1,420 @@
+package dev.craft.buildcraft.engine;
+
+import dev.craft.buildcraft.BcBlockEntityTypes;
+import dev.craft.buildcraft.power.BcCapabilities;
+import dev.craft.buildcraft.power.PowerProvider;
+import dev.craft.buildcraft.power.PowerReceptor;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.Connection;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.world.Containers;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.items.ItemStackHandler;
+import org.jetbrains.annotations.Nullable;
+
+/**
+ * Engine, 1:1 with BuildCraft {@code TileEngine} and {@code Engine}. The output side is the block state's
+ * {@link EngineBlock#FACING}. Each piston stroke hands energy to the MJ receiver in front of it when the piston
+ * passes the middle. Engines are MJ receivers themselves and keep 95 % of what they receive.
+ */
+public abstract class EngineBlockEntity extends BlockEntity implements PowerReceptor {
+    private final EngineType type;
+    protected final int maxEnergy;
+    protected final int maxEnergyExtracted;
+    protected final ItemStackHandler inventory;
+    private final PowerProvider provider = new PowerProvider();
+
+    protected float energy;
+    protected float currentOutput;
+    private float progress;
+    private int progressPart;
+    private float serverPistonSpeed;
+    private boolean active;
+    private boolean redstonePowered;
+    private boolean initialized;
+    /** Server: last computed stage; client: stage received from the server. */
+    private EnergyStage energyStage = EnergyStage.BLUE;
+    /** Client: whether the engine burns (red dust particles). */
+    private boolean clientBurning;
+
+    protected EngineBlockEntity(EngineType type, BlockPos pos, BlockState state, int maxEnergy,
+                                int maxEnergyExtracted, int slots) {
+        super(BcBlockEntityTypes.engine(type), pos, state);
+        this.type = type;
+        this.maxEnergy = maxEnergy;
+        this.maxEnergyExtracted = maxEnergyExtracted;
+        this.inventory = new ItemStackHandler(slots) {
+            @Override
+            protected void onContentsChanged(int slot) {
+                setChanged();
+            }
+        };
+    }
+
+    public EngineType getEngineType() {
+        return type;
+    }
+
+    public IItemHandler getItemHandler() {
+        return inventory;
+    }
+
+    public ItemStackHandler getInventory() {
+        return inventory;
+    }
+
+    // --- engine properties ---
+
+    public abstract int explosionRange();
+
+    public int minEnergyReceived() {
+        return 2;
+    }
+
+    public abstract int maxEnergyReceived();
+
+    /** Piston speed per stage (blue, green, yellow, red). */
+    protected abstract float[] pistonSpeeds();
+
+    public abstract boolean isBurning();
+
+    /** BuildCraft {@code Engine.burn}: fuel logic, runs at the end of every server tick. */
+    protected abstract void burn();
+
+    /** BuildCraft {@code Engine.isActive}: whether a new stroke may start. */
+    protected boolean isEngineActive() {
+        return true;
+    }
+
+    public int getHeat() {
+        return 0;
+    }
+
+    public float getEnergyStored() {
+        return energy;
+    }
+
+    public float getCurrentOutput() {
+        return currentOutput;
+    }
+
+    public int getMaxEnergy() {
+        return maxEnergy;
+    }
+
+    public boolean isRedstonePowered() {
+        return redstonePowered;
+    }
+
+    public float getProgress() {
+        return progress;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public Direction getOrientation() {
+        return getBlockState().getValue(EngineBlock.FACING);
+    }
+
+    protected EnergyStage computeEnergyStage() {
+        return EnergyStage.forPercent((double) energy / maxEnergy * 100.0);
+    }
+
+    public final EnergyStage getEnergyStage() {
+        if (level != null && !level.isClientSide()) {
+            energyStage = computeEnergyStage();
+        }
+        return energyStage;
+    }
+
+    public float getPistonSpeed() {
+        EnergyStage stage = getEnergyStage();
+        return stage == EnergyStage.EXPLOSION ? 0.0F : pistonSpeeds()[stage.ordinal()];
+    }
+
+    /** BuildCraft {@code Engine.update}: without a redstone signal the engine loses 1 MJ per tick. */
+    protected void update() {
+        if (!redstonePowered) {
+            if (energy >= 1.0F) {
+                energy--;
+            } else {
+                energy = 0.0F;
+            }
+        }
+    }
+
+    /** Adds energy; explodes (vanilla explosion with fire) if the engine reaches the explosion stage. */
+    public void addEnergy(float addition) {
+        energy += addition;
+        if (getEnergyStage() == EnergyStage.EXPLOSION) {
+            level.explode(null, worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(), explosionRange(),
+                    true, Level.ExplosionInteraction.BLOCK);
+        }
+        if (energy > maxEnergy) {
+            energy = maxEnergy;
+        }
+    }
+
+    public float extractEnergy(int min, int max, boolean doExtract) {
+        if (energy < min) {
+            return 0.0F;
+        }
+        int actualMax = Math.min(max, maxEnergyExtracted);
+        if (actualMax < min) {
+            return 0.0F;
+        }
+        float extracted;
+        if (energy >= actualMax) {
+            extracted = actualMax;
+            if (doExtract) {
+                energy -= actualMax;
+            }
+        } else {
+            extracted = energy;
+            if (doExtract) {
+                energy = 0.0F;
+            }
+        }
+        return extracted;
+    }
+
+    // --- MJ receiver ---
+
+    @Override
+    public PowerProvider getPowerProvider() {
+        return provider;
+    }
+
+    @Override
+    public void doWork() {
+        addEnergy(provider.useEnergy(1.0F, maxEnergyReceived(), true) * 0.95F);
+    }
+
+    // --- ticking ---
+
+    private void initialize() {
+        provider.configure(minEnergyReceived(), maxEnergyReceived(), 1, maxEnergy);
+        checkRedstonePower();
+    }
+
+    public void serverTick() {
+        if (!initialized) {
+            initialize();
+            initialized = true;
+        }
+        provider.update(this, level);
+        if (isRemoved()) {
+            return;
+        }
+        update();
+        float newPistonSpeed = getPistonSpeed();
+        if (newPistonSpeed != serverPistonSpeed) {
+            serverPistonSpeed = newPistonSpeed;
+            sendNetworkUpdate();
+        }
+        if (progressPart != 0) {
+            progress += getPistonSpeed();
+            if (progress > 0.5 && progressPart == 1) {
+                progressPart = 2;
+                PowerReceptor receptor = getTarget();
+                if (receptor != null) {
+                    PowerProvider target = receptor.getPowerProvider();
+                    float extracted = extractEnergy(target.getMinEnergyReceived(), target.getMaxEnergyReceived(),
+                            true);
+                    if (extracted > 0.0F) {
+                        target.receiveEnergy(extracted, getOrientation().getOpposite());
+                    }
+                }
+            } else if (progress >= 1.0F) {
+                progress = 0.0F;
+                progressPart = 0;
+            }
+        } else if (redstonePowered && isEngineActive()) {
+            PowerReceptor receptor = getTarget();
+            if (receptor != null) {
+                PowerProvider target = receptor.getPowerProvider();
+                if (extractEnergy(target.getMinEnergyReceived(), target.getMaxEnergyReceived(), false) > 0.0F) {
+                    progressPart = 1;
+                    setActive(true);
+                } else {
+                    setActive(false);
+                }
+            } else {
+                setActive(false);
+            }
+        } else {
+            setActive(false);
+        }
+        boolean wasBurning = isBurning();
+        burn();
+        if (isRemoved()) {
+            return;
+        }
+        if (wasBurning != isBurning()) {
+            sendNetworkUpdate();
+        }
+        setChanged();
+    }
+
+    public void clientTick() {
+        if (progressPart != 0) {
+            progress += serverPistonSpeed;
+            if (progress > 1.0F) {
+                progressPart = 0;
+                progress = 0.0F;
+            }
+        } else if (active) {
+            progressPart = 1;
+        }
+    }
+
+    public boolean isClientBurning() {
+        return clientBurning;
+    }
+
+    private void setActive(boolean active) {
+        if (this.active != active) {
+            this.active = active;
+            sendNetworkUpdate();
+        }
+    }
+
+    @Nullable
+    private PowerReceptor getTarget() {
+        return getReceptor(level, worldPosition, getOrientation());
+    }
+
+    @Nullable
+    static PowerReceptor getReceptor(Level level, BlockPos pos, Direction side) {
+        return level.getCapability(BcCapabilities.POWER_RECEPTOR, pos.relative(side), side.getOpposite());
+    }
+
+    /**
+     * BuildCraft {@code switchOrientation}: turns the output to the next side (in direction order, starting after
+     * the current one) that has an MJ receiver.
+     */
+    public void switchOrientation() {
+        int current = getOrientation().get3DDataValue();
+        for (int i = current + 1; i <= current + 6; i++) {
+            Direction side = Direction.from3DDataValue(i % 6);
+            if (getReceptor(level, worldPosition, side) != null) {
+                level.setBlockAndUpdate(worldPosition, getBlockState().setValue(EngineBlock.FACING, side));
+                break;
+            }
+        }
+    }
+
+    public void checkRedstonePower() {
+        redstonePowered = level.hasNeighborSignal(worldPosition);
+    }
+
+    /** Called when the block is removed; BuildCraft {@code Engine.delete}. */
+    public void onBlockBreak() {
+    }
+
+    protected void dropSlot(int slot) {
+        ItemStack stack = inventory.getStackInSlot(slot);
+        if (!stack.isEmpty()) {
+            Containers.dropItemStack(level, worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(), stack);
+            inventory.setStackInSlot(slot, ItemStack.EMPTY);
+        }
+    }
+
+    public boolean stillValid(Player player) {
+        return level.getBlockEntity(worldPosition) == this;
+    }
+
+    // --- sync ---
+
+    private void sendNetworkUpdate() {
+        if (level != null && !level.isClientSide()) {
+            serverPistonSpeed = getPistonSpeed();
+            level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), 2);
+        }
+    }
+
+    private CompoundTag writeSync() {
+        CompoundTag tag = new CompoundTag();
+        tag.putFloat("progress", progress);
+        tag.putInt("progressPart", progressPart);
+        tag.putFloat("pistonSpeed", serverPistonSpeed);
+        tag.putBoolean("active", active);
+        tag.putInt("stage", getEnergyStage().ordinal());
+        tag.putBoolean("burning", isBurning());
+        return tag;
+    }
+
+    private void readSync(CompoundTag tag) {
+        progress = tag.getFloat("progress");
+        progressPart = tag.getInt("progressPart");
+        serverPistonSpeed = tag.getFloat("pistonSpeed");
+        active = tag.getBoolean("active");
+        energyStage = EnergyStage.byId(tag.getInt("stage"));
+        clientBurning = tag.getBoolean("burning");
+    }
+
+    @Override
+    public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
+        return writeSync();
+    }
+
+    @Override
+    public void handleUpdateTag(CompoundTag tag, HolderLookup.Provider registries) {
+        readSync(tag);
+    }
+
+    @Override
+    public Packet<ClientGamePacketListener> getUpdatePacket() {
+        return ClientboundBlockEntityDataPacket.create(this);
+    }
+
+    @Override
+    public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket packet,
+                             HolderLookup.Provider registries) {
+        readSync(packet.getTag());
+    }
+
+    // --- persistence (BuildCraft does not save the engine's own power provider) ---
+
+    @Override
+    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+        super.saveAdditional(tag, registries);
+        tag.putFloat("progress", progress);
+        tag.putFloat("energyF", energy);
+        if (inventory.getSlots() > 0) {
+            tag.put("inventory", inventory.serializeNBT(registries));
+        }
+    }
+
+    @Override
+    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+        super.loadAdditional(tag, registries);
+        progress = tag.getFloat("progress");
+        energy = tag.getFloat("energyF");
+        if (inventory.getSlots() > 0 && tag.contains("inventory")) {
+            inventory.deserializeNBT(registries, tag.getCompound("inventory"));
+        }
+    }
+
+    /** BuildCraft {@code Utils.consumeItem}: one item less, a single item becomes its container. */
+    protected static ItemStack consumeItem(ItemStack stack) {
+        if (stack.getCount() == 1) {
+            return stack.hasCraftingRemainingItem() ? stack.getCraftingRemainingItem() : ItemStack.EMPTY;
+        }
+        ItemStack result = stack.copy();
+        result.shrink(1);
+        return result;
+    }
+}

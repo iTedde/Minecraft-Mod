@@ -7,6 +7,8 @@ import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 import dev.craft.Craft;
+import dev.craft.buildcraft.BcItems;
+import dev.craft.buildcraft.engine.EngineType;
 import dev.craft.ic2.Ic2Items;
 import dev.craft.ic2.Ic2Machine;
 import dev.craft.ic2.cable.CableType;
@@ -17,8 +19,10 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
+import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
+import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
@@ -56,6 +60,40 @@ public final class CraftRecipeProvider extends RecipeProvider {
         macerator();
         compressor();
         extractor();
+        buildcraft();
+    }
+
+    // --- §12 BuildCraft (vanilla shaped recipes, mirroring allowed as in 1.4.7) ---
+
+    private void buildcraft() {
+        bcShaped(BcItems.WOODEN_GEAR).pattern(" S ").pattern("S S").pattern(" S ").define('S', Items.STICK)
+                .unlockedBy("has_stick", has(Items.STICK)).save(output, id("wooden_gear"));
+        gear(BcItems.STONE_GEAR, Ingredient.of(Items.COBBLESTONE), BcItems.WOODEN_GEAR);
+        gear(BcItems.IRON_GEAR, Ingredient.of(Items.IRON_INGOT), BcItems.STONE_GEAR);
+        gear(BcItems.GOLD_GEAR, Ingredient.of(Items.GOLD_INGOT), BcItems.IRON_GEAR);
+        gear(BcItems.DIAMOND_GEAR, Ingredient.of(Items.DIAMOND), BcItems.GOLD_GEAR);
+        bcShaped(BcItems.WRENCH).pattern("I I").pattern(" G ").pattern(" I ").define('I', Items.IRON_INGOT)
+                .define('G', BcItems.STONE_GEAR).unlockedBy("has_gear", has(BcItems.STONE_GEAR))
+                .save(output, id("bc_wrench"));
+        engine(EngineType.REDSTONE, Ingredient.of(ItemTags.PLANKS), BcItems.WOODEN_GEAR);
+        engine(EngineType.STIRLING, Ingredient.of(Items.COBBLESTONE), BcItems.STONE_GEAR);
+        engine(EngineType.COMBUSTION, Ingredient.of(Items.IRON_INGOT), BcItems.IRON_GEAR);
+    }
+
+    private static ShapedRecipeBuilder bcShaped(ItemLike result) {
+        return ShapedRecipeBuilder.shaped(RecipeCategory.MISC, result);
+    }
+
+    private void gear(ItemLike result, Ingredient material, ItemLike previous) {
+        bcShaped(result).pattern(" I ").pattern("IGI").pattern(" I ").define('I', material).define('G', previous)
+                .unlockedBy("has_gear", has(previous))
+                .save(output, id(BuiltInRegistries.ITEM.getKey(result.asItem()).getPath()));
+    }
+
+    private void engine(EngineType type, Ingredient material, ItemLike gear) {
+        bcShaped(BcItems.engine(type)).pattern("www").pattern(" g ").pattern("GpG").define('w', material)
+                .define('g', Items.GLASS).define('G', gear).define('p', Items.PISTON)
+                .unlockedBy("has_gear", has(gear)).save(output, id(type.getName()));
     }
 
     // --- §1 materials and components ---
@@ -63,31 +101,31 @@ public final class CraftRecipeProvider extends RecipeProvider {
     private void materials() {
         shaped(Ic2Items.REFINED_IRON_INGOT, 8, "refined_iron_from_machine_casing").pattern("M")
                 .define('M', Ic2Items.MACHINE_CASING).save();
-        shaped(Ic2Items.MACHINE_CASING, 1, "machine_casing").pattern("III", "I I", "III")
+        shaped(Ic2Items.MACHINE_CASING, 1, "machine_casing").pattern("III").pattern("I I").pattern("III")
                 .define('I', CraftItemTagsProvider.INGOTS_REFINED_IRON).save();
-        shaped(Ic2Items.ELECTRONIC_CIRCUIT, 1, "electronic_circuit").pattern("CCC", "RIR", "CCC")
+        shaped(Ic2Items.ELECTRONIC_CIRCUIT, 1, "electronic_circuit").pattern("CCC").pattern("RIR").pattern("CCC")
                 .define('C', Ic2Items.cable(CableType.INSULATED_COPPER)).define('R', Items.REDSTONE)
                 .define('I', CraftItemTagsProvider.INGOTS_REFINED_IRON).save();
-        shaped(Ic2Items.ELECTRONIC_CIRCUIT, 1, "electronic_circuit_vertical").pattern("CRC", "CIC", "CRC")
+        shaped(Ic2Items.ELECTRONIC_CIRCUIT, 1, "electronic_circuit_vertical").pattern("CRC").pattern("CIC").pattern("CRC")
                 .define('C', Ic2Items.cable(CableType.INSULATED_COPPER)).define('R', Items.REDSTONE)
                 .define('I', CraftItemTagsProvider.INGOTS_REFINED_IRON).save();
-        shaped(Ic2Items.ADVANCED_CIRCUIT, 1, "advanced_circuit").pattern("RGR", "LCL", "RGR")
+        shaped(Ic2Items.ADVANCED_CIRCUIT, 1, "advanced_circuit").pattern("RGR").pattern("LCL").pattern("RGR")
                 .define('R', Items.REDSTONE).define('G', Items.GLOWSTONE_DUST).define('L', Items.LAPIS_LAZULI)
                 .define('C', Ic2Items.ELECTRONIC_CIRCUIT).save();
-        shaped(Ic2Items.ADVANCED_CIRCUIT, 1, "advanced_circuit_vertical").pattern("RLR", "GCG", "RLR")
+        shaped(Ic2Items.ADVANCED_CIRCUIT, 1, "advanced_circuit_vertical").pattern("RLR").pattern("GCG").pattern("RLR")
                 .define('R', Items.REDSTONE).define('G', Items.GLOWSTONE_DUST).define('L', Items.LAPIS_LAZULI)
                 .define('C', Ic2Items.ELECTRONIC_CIRCUIT).save();
-        shaped(Ic2Items.COAL_BALL, 1, "coal_ball").pattern("CCC", "CFC", "CCC")
+        shaped(Ic2Items.COAL_BALL, 1, "coal_ball").pattern("CCC").pattern("CFC").pattern("CCC")
                 .define('C', CraftItemTagsProvider.DUSTS_COAL).define('F', Items.FLINT).save();
-        shaped(Ic2Items.COAL_CHUNK, 1, "coal_chunk").pattern("###", "#O#", "###")
+        shaped(Ic2Items.COAL_CHUNK, 1, "coal_chunk").pattern("###").pattern("#O#").pattern("###")
                 .define('#', Ic2Items.COMPRESSED_COAL_BALL).define('O', Items.OBSIDIAN).save();
-        shaped(Ic2Items.COAL_CHUNK, 1, "coal_chunk_from_iron_block").pattern("###", "#O#", "###")
+        shaped(Ic2Items.COAL_CHUNK, 1, "coal_chunk_from_iron_block").pattern("###").pattern("#O#").pattern("###")
                 .define('#', Ic2Items.COMPRESSED_COAL_BALL).define('O', Items.IRON_BLOCK).save();
-        shaped(Ic2Items.COAL_CHUNK, 1, "coal_chunk_from_bricks").pattern("###", "#O#", "###")
+        shaped(Ic2Items.COAL_CHUNK, 1, "coal_chunk_from_bricks").pattern("###").pattern("#O#").pattern("###")
                 .define('#', Ic2Items.COMPRESSED_COAL_BALL).define('O', Items.BRICKS).save();
-        shaped(Ic2Items.SMALL_IRON_DUST, 1, "small_iron_dust").pattern("CTC", "TCT", "CTC")
+        shaped(Ic2Items.SMALL_IRON_DUST, 1, "small_iron_dust").pattern("CTC").pattern("TCT").pattern("CTC")
                 .define('C', CraftItemTagsProvider.DUSTS_COPPER).define('T', CraftItemTagsProvider.DUSTS_TIN).save();
-        shaped(Ic2Items.SMALL_IRON_DUST, 1, "small_iron_dust_inverted").pattern("TCT", "CTC", "TCT")
+        shaped(Ic2Items.SMALL_IRON_DUST, 1, "small_iron_dust_inverted").pattern("TCT").pattern("CTC").pattern("TCT")
                 .define('C', CraftItemTagsProvider.DUSTS_COPPER).define('T', CraftItemTagsProvider.DUSTS_TIN).save();
         shapeless(Ic2Items.IRON_DUST, 1, "iron_dust_from_small", Ingredient.of(Ic2Items.SMALL_IRON_DUST),
                 Ingredient.of(Ic2Items.SMALL_IRON_DUST));
@@ -98,7 +136,7 @@ public final class CraftRecipeProvider extends RecipeProvider {
         shapeless(Ic2Items.BRONZE_INGOT, 1, "bronze_ingot", Ingredient.of(ingotsCopper()),
                 Ingredient.of(ingotsCopper()), Ingredient.of(ingotsCopper()),
                 Ingredient.of(CraftItemTagsProvider.INGOTS_TIN));
-        shaped(Ic2Items.HYDRATED_COAL_DUST, 8, "hydrated_coal_dust").pattern("CCC", "CWC", "CCC")
+        shaped(Ic2Items.HYDRATED_COAL_DUST, 8, "hydrated_coal_dust").pattern("CCC").pattern("CWC").pattern("CCC")
                 .define('C', CraftItemTagsProvider.DUSTS_COAL).define('W', water()).save();
         shapeless(Ic2Items.HYDRATED_COAL_DUST, 1, "hydrated_coal_dust_single",
                 Ingredient.of(CraftItemTagsProvider.DUSTS_COAL), water());
@@ -111,39 +149,39 @@ public final class CraftRecipeProvider extends RecipeProvider {
         // IC2 registers the rubber sapling twice (1 and 2 plant balls); the first registration wins.
         plantBall("rubber_sapling", Ingredient.of(Ic2Items.RUBBER_SAPLING), 1);
         plantBall("short_grass", Ingredient.of(Items.SHORT_GRASS), 1);
-        shaped(Ic2Items.SCRAP_BOX, 1, "scrap_box").pattern("SSS", "SSS", "SSS").define('S', Ic2Items.SCRAP).save();
+        shaped(Ic2Items.SCRAP_BOX, 1, "scrap_box").pattern("SSS").pattern("SSS").pattern("SSS").define('S', Ic2Items.SCRAP).save();
     }
 
     private void plantBall(String name, Ingredient ingredient, int count) {
-        shaped(Ic2Items.PLANT_BALL, count, "plant_ball_from_" + name).pattern("PPP", "P P", "PPP")
+        shaped(Ic2Items.PLANT_BALL, count, "plant_ball_from_" + name).pattern("PPP").pattern("P P").pattern("PPP")
                 .define('P', ingredient).save();
     }
 
     // --- §2 cables ---
 
     private void cables() {
-        shaped(Ic2Items.cable(CableType.INSULATED_COPPER), 6, "insulated_copper_cable").pattern("RRR", "CCC", "RRR")
+        shaped(Ic2Items.cable(CableType.INSULATED_COPPER), 6, "insulated_copper_cable").pattern("RRR").pattern("CCC").pattern("RRR")
                 .define('R', Ic2Items.RUBBER).define('C', ingotsCopper()).save();
         shaped(Ic2Items.cable(CableType.INSULATED_COPPER), 6, "insulated_copper_cable_vertical")
-                .pattern("RCR", "RCR", "RCR").define('R', Ic2Items.RUBBER).define('C', ingotsCopper()).save();
+                .pattern("RCR").pattern("RCR").pattern("RCR").define('R', Ic2Items.RUBBER).define('C', ingotsCopper()).save();
         shaped(Ic2Items.cable(CableType.COPPER), 6, "copper_cable").pattern("CCC").define('C', ingotsCopper()).save();
         shaped(Ic2Items.cable(CableType.GOLD), 12, "gold_cable").pattern("GGG").define('G', Items.GOLD_INGOT).save();
-        shaped(Ic2Items.cable(CableType.INSULATED_GOLD), 4, "insulated_gold_cable").pattern(" R ", "RGR", " R ")
+        shaped(Ic2Items.cable(CableType.INSULATED_GOLD), 4, "insulated_gold_cable").pattern(" R ").pattern("RGR").pattern(" R ")
                 .define('R', Ic2Items.RUBBER).define('G', Items.GOLD_INGOT).save();
         shaped(Ic2Items.cable(CableType.DOUBLE_INSULATED_GOLD), 4, "double_insulated_gold_cable")
-                .pattern("RRR", "RGR", "RRR").define('R', Ic2Items.RUBBER).define('G', Items.GOLD_INGOT).save();
+                .pattern("RRR").pattern("RGR").pattern("RRR").define('R', Ic2Items.RUBBER).define('G', Items.GOLD_INGOT).save();
         shaped(Ic2Items.cable(CableType.HV), 12, "hv_cable").pattern("III")
                 .define('I', CraftItemTagsProvider.INGOTS_REFINED_IRON).save();
-        shaped(Ic2Items.cable(CableType.INSULATED_HV), 4, "insulated_hv_cable").pattern(" R ", "RIR", " R ")
+        shaped(Ic2Items.cable(CableType.INSULATED_HV), 4, "insulated_hv_cable").pattern(" R ").pattern("RIR").pattern(" R ")
                 .define('R', Ic2Items.RUBBER).define('I', CraftItemTagsProvider.INGOTS_REFINED_IRON).save();
         shaped(Ic2Items.cable(CableType.TIN), 9, "tin_cable").pattern("TTT")
                 .define('T', CraftItemTagsProvider.INGOTS_TIN).save();
-        shaped(Ic2Items.cable(CableType.GLASS_FIBRE), 4, "glass_fibre_cable").pattern("GGG", "RDR", "GGG")
+        shaped(Ic2Items.cable(CableType.GLASS_FIBRE), 4, "glass_fibre_cable").pattern("GGG").pattern("RDR").pattern("GGG")
                 .define('G', Items.GLASS).define('R', Items.REDSTONE).define('D', diamond()).save();
-        shaped(Ic2Items.cable(CableType.DETECTOR), 1, "detector_cable").pattern(" C ", "RIR", " R ")
+        shaped(Ic2Items.cable(CableType.DETECTOR), 1, "detector_cable").pattern(" C ").pattern("RIR").pattern(" R ")
                 .define('C', Ic2Items.ELECTRONIC_CIRCUIT).define('R', Items.REDSTONE)
                 .define('I', Ic2Items.cable(CableType.QUADRUPLE_INSULATED_HV)).save();
-        shaped(Ic2Items.cable(CableType.SPLITTER), 1, "splitter_cable").pattern(" R ", "ILI", " R ")
+        shaped(Ic2Items.cable(CableType.SPLITTER), 1, "splitter_cable").pattern(" R ").pattern("ILI").pattern(" R ")
                 .define('R', Items.REDSTONE).define('L', Items.LEVER)
                 .define('I', Ic2Items.cable(CableType.QUADRUPLE_INSULATED_HV)).save();
         insulation(CableType.INSULATED_COPPER, 1, CableType.COPPER);
@@ -172,44 +210,44 @@ public final class CraftRecipeProvider extends RecipeProvider {
     // --- §3/§4 machines, generators, storage ---
 
     private void machines() {
-        shaped(machine(Ic2Machine.IRON_FURNACE), 1, "iron_furnace").pattern("III", "I I", "III")
+        shaped(machine(Ic2Machine.IRON_FURNACE), 1, "iron_furnace").pattern("III").pattern("I I").pattern("III")
                 .define('I', Items.IRON_INGOT).save();
-        shaped(machine(Ic2Machine.IRON_FURNACE), 1, "iron_furnace_from_furnace").pattern(" I ", "I I", "IFI")
+        shaped(machine(Ic2Machine.IRON_FURNACE), 1, "iron_furnace_from_furnace").pattern(" I ").pattern("I I").pattern("IFI")
                 .define('I', Items.IRON_INGOT).define('F', Items.FURNACE).save();
         shaped(machine(Ic2Machine.ELECTRIC_FURNACE), 1, "electric_furnace").pattern(" C ", "RFR")
                 .define('C', Ic2Items.ELECTRONIC_CIRCUIT).define('R', Items.REDSTONE)
                 .define('F', machine(Ic2Machine.IRON_FURNACE)).save();
         // GregTech: diamonds and an advanced circuit instead of flint/cobblestone and an electronic circuit.
-        shaped(machine(Ic2Machine.MACERATOR), 1, "macerator").pattern("FDF", "DMD", "FAF")
+        shaped(machine(Ic2Machine.MACERATOR), 1, "macerator").pattern("FDF").pattern("DMD").pattern("FAF")
                 .define('F', Items.FLINT).define('D', diamond()).define('M', Ic2Items.MACHINE_CASING)
                 .define('A', Ic2Items.ADVANCED_CIRCUIT).save();
         shaped(machine(Ic2Machine.EXTRACTOR), 1, "extractor").pattern("TMT", "TCT")
                 .define('T', Ic2Items.TREETAP).define('M', Ic2Items.MACHINE_CASING)
                 .define('C', Ic2Items.ELECTRONIC_CIRCUIT).save();
-        shaped(machine(Ic2Machine.COMPRESSOR), 1, "compressor").pattern("S S", "SMS", "SCS")
+        shaped(machine(Ic2Machine.COMPRESSOR), 1, "compressor").pattern("S S").pattern("SMS").pattern("SCS")
                 .define('S', Items.STONE).define('M', Ic2Items.MACHINE_CASING)
                 .define('C', Ic2Items.ELECTRONIC_CIRCUIT).save();
-        shaped(machine(Ic2Machine.RECYCLER), 1, "recycler").pattern(" G ", "DMD", "IDI")
+        shaped(machine(Ic2Machine.RECYCLER), 1, "recycler").pattern(" G ").pattern("DMD").pattern("IDI")
                 .define('G', Items.GLOWSTONE_DUST).define('D', Items.DIRT).define('M', machine(Ic2Machine.COMPRESSOR))
                 .define('I', CraftItemTagsProvider.INGOTS_REFINED_IRON).save();
-        shaped(machine(Ic2Machine.GENERATOR), 1, "generator").pattern(" B ", "III", " F ")
+        shaped(machine(Ic2Machine.GENERATOR), 1, "generator").pattern(" B ").pattern("III").pattern(" F ")
                 .define('B', Ic2Items.RE_BATTERY).define('I', CraftItemTagsProvider.INGOTS_REFINED_IRON)
                 .define('F', machine(Ic2Machine.IRON_FURNACE)).save();
         shaped(machine(Ic2Machine.GENERATOR), 1, "generator_from_machine_casing").pattern("B", "M", "F")
                 .define('B', Ic2Items.RE_BATTERY).define('M', Ic2Items.MACHINE_CASING).define('F', Items.FURNACE)
                 .save();
-        shaped(machine(Ic2Machine.GEOTHERMAL_GENERATOR), 1, "geothermal_generator").pattern("gCg", "gCg", "IGI")
+        shaped(machine(Ic2Machine.GEOTHERMAL_GENERATOR), 1, "geothermal_generator").pattern("gCg").pattern("gCg").pattern("IGI")
                 .define('g', Items.GLASS).define('C', Ic2Items.EMPTY_CELL)
                 .define('I', CraftItemTagsProvider.INGOTS_REFINED_IRON).define('G', machine(Ic2Machine.GENERATOR))
                 .save();
-        shaped(machine(Ic2Machine.BATBOX), 1, "batbox").pattern("PCP", "BBB", "PPP").define('P', ItemTags.PLANKS)
+        shaped(machine(Ic2Machine.BATBOX), 1, "batbox").pattern("PCP").pattern("BBB").pattern("PPP").define('P', ItemTags.PLANKS)
                 .define('C', Ic2Items.cable(CableType.INSULATED_COPPER)).define('B', Ic2Items.RE_BATTERY).save();
     }
 
     // --- §5 batteries ---
 
     private void batteries() {
-        shaped(Ic2Items.RE_BATTERY, 1, "re_battery").pattern(" C ", "TRT", "TRT")
+        shaped(Ic2Items.RE_BATTERY, 1, "re_battery").pattern(" C ").pattern("TRT").pattern("TRT")
                 .define('C', Ic2Items.cable(CableType.INSULATED_COPPER)).define('T', CraftItemTagsProvider.INGOTS_TIN)
                 .define('R', Items.REDSTONE).save();
         shaped(Ic2Items.SU_BATTERY, 5, "su_battery").pattern("C", "R", "D")
@@ -224,9 +262,9 @@ public final class CraftRecipeProvider extends RecipeProvider {
         shaped(Ic2Items.SU_BATTERY, 8, "su_battery_hydrated_inverted").pattern("c", "R", "C")
                 .define('c', Ic2Items.cable(CableType.INSULATED_COPPER)).define('C', Ic2Items.HYDRATED_COAL_DUST)
                 .define('R', Items.REDSTONE).save();
-        shaped(Ic2Items.ENERGY_CRYSTAL, 1, "energy_crystal").pattern("RRR", "RDR", "RRR")
+        shaped(Ic2Items.ENERGY_CRYSTAL, 1, "energy_crystal").pattern("RRR").pattern("RDR").pattern("RRR")
                 .define('R', Items.REDSTONE).define('D', diamond()).save();
-        shaped(Ic2Items.LAPOTRON_CRYSTAL, 1, "lapotron_crystal").pattern("LCL", "LDL", "LCL")
+        shaped(Ic2Items.LAPOTRON_CRYSTAL, 1, "lapotron_crystal").pattern("LCL").pattern("LDL").pattern("LCL")
                 .define('L', Items.LAPIS_LAZULI).define('C', Ic2Items.ELECTRONIC_CIRCUIT)
                 .define('D', Ic2Items.ENERGY_CRYSTAL).save();
     }
@@ -234,16 +272,16 @@ public final class CraftRecipeProvider extends RecipeProvider {
     // --- §7 tools ---
 
     private void tools() {
-        shaped(Ic2Items.TREETAP, 1, "treetap").pattern(" P ", "PPP", "P  ").define('P', ItemTags.PLANKS).save();
-        shaped(Ic2Items.WRENCH, 1, "wrench").pattern("B B", "BBB", " B ")
+        shaped(Ic2Items.TREETAP, 1, "treetap").pattern(" P ").pattern("PPP").pattern("P  ").define('P', ItemTags.PLANKS).save();
+        shaped(Ic2Items.WRENCH, 1, "wrench").pattern("B B").pattern("BBB").pattern(" B ")
                 .define('B', CraftItemTagsProvider.INGOTS_BRONZE).save();
-        shaped(Items.DIAMOND_PICKAXE, 1, "diamond_pickaxe_from_industrial_diamond").pattern("DDD", " S ", " S ")
+        shaped(Items.DIAMOND_PICKAXE, 1, "diamond_pickaxe_from_industrial_diamond").pattern("DDD").pattern(" S ").pattern(" S ")
                 .define('D', Ic2Items.INDUSTRIAL_DIAMOND).define('S', Items.STICK).save();
-        shaped(Items.DIAMOND_HOE, 1, "diamond_hoe_from_industrial_diamond").pattern("DD ", " S ", " S ")
+        shaped(Items.DIAMOND_HOE, 1, "diamond_hoe_from_industrial_diamond").pattern("DD ").pattern(" S ").pattern(" S ")
                 .define('D', Ic2Items.INDUSTRIAL_DIAMOND).define('S', Items.STICK).save();
         shaped(Items.DIAMOND_SHOVEL, 1, "diamond_shovel_from_industrial_diamond").pattern("D", "S", "S")
                 .define('D', Ic2Items.INDUSTRIAL_DIAMOND).define('S', Items.STICK).save();
-        shaped(Items.DIAMOND_AXE, 1, "diamond_axe_from_industrial_diamond").pattern("DD ", "DS ", " S ")
+        shaped(Items.DIAMOND_AXE, 1, "diamond_axe_from_industrial_diamond").pattern("DD ").pattern("DS ").pattern(" S ")
                 .define('D', Ic2Items.INDUSTRIAL_DIAMOND).define('S', Items.STICK).save();
         shaped(Items.DIAMOND_SWORD, 1, "diamond_sword_from_industrial_diamond").pattern("D", "D", "S")
                 .define('D', Ic2Items.INDUSTRIAL_DIAMOND).define('S', Items.STICK).save();
@@ -257,35 +295,35 @@ public final class CraftRecipeProvider extends RecipeProvider {
         shaped(Items.JUNGLE_PLANKS, 3, "jungle_planks_from_rubber_wood").pattern("W")
                 .define('W', Ic2Items.RUBBER_WOOD).save();
         // GregTech (TincellsPer4Tin): 4 instead of 16 cells.
-        shaped(Ic2Items.EMPTY_CELL, 4, "empty_cell").pattern(" T ", "T T", " T ")
+        shaped(Ic2Items.EMPTY_CELL, 4, "empty_cell").pattern(" T ").pattern("T T").pattern(" T ")
                 .define('T', CraftItemTagsProvider.INGOTS_TIN).save();
         shapeless(Ic2Items.EMPTY_CELL, 1, "empty_cell_from_air_cell", Ingredient.of(Ic2Items.AIR_CELL));
         shapeless(Items.OBSIDIAN, 1, "obsidian_from_cells", Ingredient.of(Ic2Items.WATER_CELL),
                 Ingredient.of(Ic2Items.WATER_CELL), Ingredient.of(Ic2Items.LAVA_CELL), Ingredient.of(Ic2Items.LAVA_CELL));
-        shaped(Ic2Items.COOLANT_CELL_10K, 1, "coolant_cell_10k").pattern(" T ", "TWT", " T ")
+        shaped(Ic2Items.COOLANT_CELL_10K, 1, "coolant_cell_10k").pattern(" T ").pattern("TWT").pattern(" T ")
                 .define('T', CraftItemTagsProvider.INGOTS_TIN).define('W', water()).save();
         shaped(Ic2Items.OVERCLOCKER_UPGRADE, 1, "overclocker_upgrade").pattern("CCC", "WEW")
                 .define('C', Ic2Items.COOLANT_CELL_10K).define('W', Ic2Items.cable(CableType.INSULATED_COPPER))
                 .define('E', Ic2Items.ELECTRONIC_CIRCUIT).save();
-        shaped(Ic2Items.ENERGY_STORAGE_UPGRADE, 1, "energy_storage_upgrade").pattern("www", "WBW", "wEw")
+        shaped(Ic2Items.ENERGY_STORAGE_UPGRADE, 1, "energy_storage_upgrade").pattern("www").pattern("WBW").pattern("wEw")
                 .define('w', ItemTags.PLANKS).define('W', Ic2Items.cable(CableType.INSULATED_COPPER))
                 .define('B', Ic2Items.RE_BATTERY).define('E', Ic2Items.ELECTRONIC_CIRCUIT).save();
         // Hidden IC2 recipes.
-        shaped(Items.GLOWSTONE_DUST, 1, "glowstone_dust_from_gold_dust").pattern("RGR", "GRG", "RGR")
+        shaped(Items.GLOWSTONE_DUST, 1, "glowstone_dust_from_gold_dust").pattern("RGR").pattern("GRG").pattern("RGR")
                 .define('R', Items.REDSTONE).define('G', CraftItemTagsProvider.DUSTS_GOLD).save();
-        shaped(Items.GUNPOWDER, 3, "gunpowder_from_coal_dust").pattern("RCR", "CRC", "RCR")
+        shaped(Items.GUNPOWDER, 3, "gunpowder_from_coal_dust").pattern("RCR").pattern("CRC").pattern("RCR")
                 .define('R', Items.REDSTONE).define('C', CraftItemTagsProvider.DUSTS_COAL).save();
         shaped(Items.BUCKET, 1, "bucket_from_tin").pattern("T T", " T ")
                 .define('T', CraftItemTagsProvider.INGOTS_TIN).save();
-        shaped(Items.RAIL, 8, "rail_from_bronze").pattern("B B", "BsB", "B B")
+        shaped(Items.RAIL, 8, "rail_from_bronze").pattern("B B").pattern("BsB").pattern("B B")
                 .define('B', CraftItemTagsProvider.INGOTS_BRONZE).define('s', Items.STICK).save();
         shapeless(Items.STICKY_PISTON, 1, "sticky_piston_from_resin", Ingredient.of(Items.PISTON),
                 Ingredient.of(Ic2Items.RESIN));
         // GregTech replaces IC2's bronze piston with the vanilla pattern using bronze or refined iron.
-        shaped(Items.PISTON, 1, "piston_from_bronze").pattern("WWW", "CBC", "CRC").define('W', ItemTags.PLANKS)
+        shaped(Items.PISTON, 1, "piston_from_bronze").pattern("WWW").pattern("CBC").pattern("CRC").define('W', ItemTags.PLANKS)
                 .define('C', Items.COBBLESTONE).define('B', CraftItemTagsProvider.INGOTS_BRONZE)
                 .define('R', Items.REDSTONE).save();
-        shaped(Items.PISTON, 1, "piston_from_refined_iron").pattern("WWW", "CBC", "CRC")
+        shaped(Items.PISTON, 1, "piston_from_refined_iron").pattern("WWW").pattern("CBC").pattern("CRC")
                 .define('W', ItemTags.PLANKS).define('C', Items.COBBLESTONE)
                 .define('B', CraftItemTagsProvider.INGOTS_REFINED_IRON).define('R', Items.REDSTONE).save();
     }

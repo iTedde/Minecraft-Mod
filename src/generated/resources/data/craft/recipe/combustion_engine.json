@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "G": {
+      "item": "craft:iron_gear"
+    },
+    "g": {
+      "item": "minecraft:glass"
+    },
+    "p": {
+      "item": "minecraft:piston"
+    },
+    "w": {
+      "item": "minecraft:iron_ingot"
+    }
+  },
+  "pattern": [
+    "www",
+    " g ",
+    "GpG"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:combustion_engine"
+  }
+}

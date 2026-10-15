@@ -1,0 +1,36 @@
+package dev.craft.buildcraft;
+
+import java.util.EnumMap;
+import java.util.Map;
+import java.util.function.Supplier;
+
+import dev.craft.Craft;
+import dev.craft.buildcraft.engine.EngineType;
+import dev.craft.buildcraft.menu.EngineMenu;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.world.inventory.MenuType;
+import net.neoforged.neoforge.common.extensions.IMenuTypeExtension;
+import net.neoforged.neoforge.registries.DeferredRegister;
+
+/** Menu types of the stirling and combustion engines; the client reads the block position from the open packet. */
+public final class BcMenus {
+    public static final DeferredRegister<MenuType<?>> MENUS = DeferredRegister.create(Registries.MENU, Craft.MODID);
+
+    private static final Map<EngineType, Supplier<MenuType<EngineMenu>>> ENGINES = new EnumMap<>(EngineType.class);
+
+    static {
+        for (EngineType type : EngineType.values()) {
+            if (type.hasMenu()) {
+                ENGINES.put(type, MENUS.register(type.getName(), () -> IMenuTypeExtension.create(
+                        (id, inventory, buf) -> new EngineMenu(type, id, inventory, buf.readBlockPos()))));
+            }
+        }
+    }
+
+    private BcMenus() {
+    }
+
+    public static MenuType<EngineMenu> get(EngineType type) {
+        return ENGINES.get(type).get();
+    }
+}

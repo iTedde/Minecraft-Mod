@@ -68,6 +68,7 @@ ein MJ-Empfänger sitzt (zyklisch ab aktueller Seite).
 
 **Redstone-Engine**: erzeugt nur bei Redstone-Signal, `energy++` direkt (keine Explosion möglich). Da
 `maxEnergyExtracted = 1`, kann sie keine Empfänger mit `minEnergyReceived > 1` versorgen (z. B. Quarry: 25/30).
+Eigenheit: Die Redstone-Engine erhöht `energy` ungekappt. Läuft sie ohne Empfänger lange mit Signal, steigt die Energie über 1000 → Stufe „Explosion“ → Kolbengeschwindigkeit 0; ein später begonnener Hub bleibt dann hängen (keine Explosion). Bleibt 1:1.
 
 **Stirling-Engine**: 1 Slot Brennstoff. Brennt nur mit Redstone-Signal: neuer Brennstoff wird genommen, wenn
 `burnTime == 0` und Redstone an (Vanilla-Ofenbrennwert in Ticks, `Utils.consumeItem`). Pro Brenn-Tick `addEnergy(1)`.
@@ -90,7 +91,8 @@ eingefüllt, Eis wird ab Hitze > 49 000 wie Wassereimer behandelt).
 | Öl | 3 | 20 000 | 60 000 |
 | Treibstoff (Fuel) | 6 | 100 000 | 600 000 |
 
-Kühlmittel: Wasser (1,0 Hitze pro mB). (Andere Mods registrieren weitere – außer Umfang.)
+Kühlmittel: Wasser (1,0 Hitze pro mB). (Andere Mods registrieren weitere – außer Umfang.) Behälter im Slot: Eimer (→ leerer Eimer) und die IC2-Wasser-/Lavazelle (1000 mB, wird **ohne** leere Zelle verbraucht, da BC `consumeItem` nur Container-Items zurückgibt).
+Eigenheiten (1:1): Beim Abbau der Combustion-Engine gehen Slot-Inhalt und Tanks verloren (`EngineIron.delete` droppt nichts). Der gewählte Brennstoff (`currentFuel`) wird erst zurückgesetzt, wenn Tank und Brennzeit leer sind. Der Puffer (`PowerProvider`) der Engines wird nicht gespeichert.
 
 Treibstoff entsteht nur in der **Raffinerie** (Öl → Treibstoff, 12 MJ, 1:1), siehe §7.3.
 
