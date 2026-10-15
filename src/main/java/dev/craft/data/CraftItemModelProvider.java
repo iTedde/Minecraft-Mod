@@ -41,9 +41,11 @@ public final class CraftItemModelProvider extends ItemModelProvider {
         for (EngineType type : EngineType.values()) {
             engine(BcItems.engine(type));
         }
+        // RenderRefinery.inventoryRender, drawn by RefineryItemRenderer with the same block transforms.
+        engine(BcItems.REFINERY);
     }
 
-    /** Engine item drawn by {@code EngineItemRenderer}, with the transforms of a vanilla block model. */
+    /** Engine (and refinery) item drawn by its item renderer, with the transforms of a vanilla block model. */
     private void engine(DeferredItem<? extends Item> item) {
         getBuilder(item.getId().getPath()).parent(new ModelFile.UncheckedModelFile("builtin/entity"))
                 .transforms()

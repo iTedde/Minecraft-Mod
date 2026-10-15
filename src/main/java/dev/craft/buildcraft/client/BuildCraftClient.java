@@ -31,6 +31,7 @@ public final class BuildCraftClient {
     @SubscribeEvent
     public static void registerLayers(EntityRenderersEvent.RegisterLayerDefinitions event) {
         event.registerLayerDefinition(EngineModel.LAYER, EngineModel::createLayer);
+        event.registerLayerDefinition(RefineryRenderer.LAYER, RefineryRenderer::createLayer);
     }
 
     @SubscribeEvent
@@ -40,6 +41,9 @@ public final class BuildCraftClient {
         }
         event.registerBlockEntityRenderer(BcBlockEntityTypes.MARKER.get(), MarkerRenderer::new);
         event.registerBlockEntityRenderer(BcBlockEntityTypes.QUARRY.get(), QuarryRenderer::new);
+        event.registerBlockEntityRenderer(BcBlockEntityTypes.TANK.get(), TankRenderer::new);
+        event.registerBlockEntityRenderer(BcBlockEntityTypes.PUMP.get(), PumpRenderer::new);
+        event.registerBlockEntityRenderer(BcBlockEntityTypes.REFINERY.get(), RefineryRenderer::new);
     }
 
     @SubscribeEvent
@@ -49,6 +53,7 @@ public final class BuildCraftClient {
                 event.register(BcMenus.get(type), EngineScreen::new);
             }
         }
+        event.register(BcMenus.REFINERY.get(), RefineryScreen::new);
     }
 
     @SubscribeEvent
@@ -67,6 +72,17 @@ public final class BuildCraftClient {
         for (EngineType type : EngineType.values()) {
             event.registerItem(engineItem, BcItems.engine(type).get());
         }
+        event.registerItem(new IClientItemExtensions() {
+            private BlockEntityWithoutLevelRenderer renderer;
+
+            @Override
+            public BlockEntityWithoutLevelRenderer getCustomRenderer() {
+                if (renderer == null) {
+                    renderer = new RefineryItemRenderer();
+                }
+                return renderer;
+            }
+        }, BcItems.REFINERY.get());
         event.registerFluidType(new LiquidExtensions("oil_still", "oil_flow") {
             // Oil is Material.water in 1.4.7: under it the water fog applies (colour 0.02, 0.02, 0.2).
             @Override

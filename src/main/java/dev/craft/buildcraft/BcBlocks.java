@@ -7,6 +7,11 @@ import dev.craft.Craft;
 import dev.craft.buildcraft.builders.MarkerBlock;
 import dev.craft.buildcraft.engine.EngineBlock;
 import dev.craft.buildcraft.factory.FrameBlock;
+import dev.craft.buildcraft.factory.MiningPipeBlock;
+import dev.craft.buildcraft.factory.MiningWellBlock;
+import dev.craft.buildcraft.factory.PumpBlock;
+import dev.craft.buildcraft.factory.RefineryBlock;
+import dev.craft.buildcraft.factory.TankBlock;
 import dev.craft.buildcraft.factory.QuarryBlock;
 import dev.craft.buildcraft.engine.EngineType;
 import dev.craft.buildcraft.fluid.BcFluids;
@@ -49,6 +54,28 @@ public final class BcBlocks {
     public static final DeferredBlock<FrameBlock> FRAME = BLOCKS.register("frame", () -> new FrameBlock(
             BlockBehaviour.Properties.of().strength(0.5F).sound(SoundType.STONE).noOcclusion().noLootTable()
                     .isViewBlocking((s, l, p) -> false).isSuffocating((s, l, p) -> false)));
+    /** BuildCraft {@code BlockTank}: Material.glass, hardness 0.5. */
+    public static final DeferredBlock<TankBlock> TANK = BLOCKS.register("tank", () -> new TankBlock(
+            BlockBehaviour.Properties.of().strength(0.5F).sound(SoundType.GLASS).noOcclusion()
+                    .isRedstoneConductor((s, l, p) -> false).isViewBlocking((s, l, p) -> false)
+                    .isSuffocating((s, l, p) -> false)));
+    /** BuildCraft {@code BlockPump}: Material.iron, hardness 5. */
+    public static final DeferredBlock<PumpBlock> PUMP = BLOCKS.register("pump", () -> new PumpBlock(
+            BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(5.0F).requiresCorrectToolForDrops()
+                    .sound(SoundType.STONE)));
+    /** BuildCraft {@code BlockRefinery}: Material.iron, hardness 0.5, drawn by its renderer. */
+    public static final DeferredBlock<RefineryBlock> REFINERY = BLOCKS.register("refinery", () -> new RefineryBlock(
+            BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(0.5F).requiresCorrectToolForDrops()
+                    .sound(SoundType.STONE).noOcclusion()));
+    /** BuildCraft {@code BlockMiningWell}: Material.ground, hardness 1.5, resistance 10 (= 6 in 1.21 units). */
+    public static final DeferredBlock<MiningWellBlock> MINING_WELL = BLOCKS.register("mining_well",
+            () -> new MiningWellBlock(BlockBehaviour.Properties.of().mapColor(MapColor.DIRT).strength(1.5F, 6.0F)
+                    .sound(SoundType.STONE)));
+    /** BuildCraft {@code BlockPlainPipe}: Material.glass, hardness 0, no drops, no item. */
+    public static final DeferredBlock<MiningPipeBlock> MINING_PIPE = BLOCKS.register("mining_pipe",
+            () -> new MiningPipeBlock(BlockBehaviour.Properties.of().instabreak().sound(SoundType.STONE)
+                    .noOcclusion().noLootTable().isViewBlocking((s, l, p) -> false)
+                    .isSuffocating((s, l, p) -> false)));
 
     private BcBlocks() {
     }

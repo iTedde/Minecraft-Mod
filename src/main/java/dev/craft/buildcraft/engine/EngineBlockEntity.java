@@ -1,6 +1,7 @@
 package dev.craft.buildcraft.engine;
 
 import dev.craft.buildcraft.BcBlockEntityTypes;
+import dev.craft.buildcraft.fluid.LiquidContainers;
 import dev.craft.buildcraft.power.BcCapabilities;
 import dev.craft.buildcraft.power.PowerProvider;
 import dev.craft.buildcraft.power.PowerReceptor;
@@ -410,11 +411,6 @@ public abstract class EngineBlockEntity extends BlockEntity implements PowerRece
 
     /** BuildCraft {@code Utils.consumeItem}: one item less, a single item becomes its container. */
     protected static ItemStack consumeItem(ItemStack stack) {
-        if (stack.getCount() == 1) {
-            return stack.hasCraftingRemainingItem() ? stack.getCraftingRemainingItem() : ItemStack.EMPTY;
-        }
-        ItemStack result = stack.copy();
-        result.shrink(1);
-        return result;
+        return LiquidContainers.consumeItem(stack);
     }
 }

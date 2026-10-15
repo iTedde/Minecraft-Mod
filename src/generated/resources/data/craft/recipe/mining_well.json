@@ -1,0 +1,31 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "P": {
+      "type": "neoforge:components",
+      "components": {
+        "minecraft:damage": 0
+      },
+      "items": "minecraft:iron_pickaxe"
+    },
+    "g": {
+      "item": "craft:iron_gear"
+    },
+    "i": {
+      "item": "minecraft:iron_ingot"
+    },
+    "p": {
+      "item": "minecraft:redstone"
+    }
+  },
+  "pattern": [
+    "ipi",
+    "igi",
+    "iPi"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:mining_well"
+  }
+}

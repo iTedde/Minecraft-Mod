@@ -297,3 +297,79 @@ Pack-Config: `mining.enabled = true`, `consumeWaterSources = true` (Standard).
   Quarry (Inventar → Rohr → auswerfen).
 - Rezept: `ipi/igi/iPi`, i = Eisenbarren, p = Redstone, g = Eisen-Zahnrad, P = Eisenspitzhacke.
 - Wird hauptsächlich als Zutat der Pumpe benötigt, ist aber eine eigenständige Maschine.
+
+### 7.5 Details (`TileTank`, `BlockTank`, `TilePump`, `BlockPump`, `TileRefinery`, `BlockRefinery`, `GuiRefinery`, `TileMiningWell`, `BlockMiningWell`, `BlockPlainPipe`, `TileMachine`)
+
+**Tank**
+- Block: Material Glas, Härte 0,5, Box `0.125–0.875` horizontal, volle Höhe, nicht opak. Texturen (`blocks.png`):
+  oben/unten 98, Seiten 96; Seiten 97, wenn darunter ebenfalls ein Tank steht.
+- Tick (Server): hat der Tank Inhalt → `moveLiquidBelow`: Tank darunter `fill(gesamter Inhalt)`, dieser Betrag wird
+  hier abgezogen (bis zu 16 000 mB pro Tick, nicht gedrosselt). Netzwerkupdate höchstens alle 2 Ticks.
+- `fill` (jede Seite): geht an den untersten Tank des Stapels; ist dieser nicht leer und enthält eine andere
+  Flüssigkeit → 0. Sonst von unten nach oben auffüllen, bis die Menge verbraucht ist (Tanks weiter oben werden nicht
+  auf ihre Sorte geprüft – Originaleigenheit).
+- `drain` (jede Seite): immer aus dem untersten Tank (höchstens dessen Inhalt).
+- Anzeige/`getTanks`: Verbund = Inhalt des untersten + aller darüber mit gleicher Sorte (leere übersprungen, Abbruch
+  bei anderer Sorte), Kapazität = 16 000 × Anzahl der Tanks bis zum Abbruch.
+- Rechtsklick mit gefülltem Behälter (Eimer, Zelle …): `fill` mit dessen Inhalt; ist etwas angekommen (auch nur
+  teilweise) und nicht Creative → Behälter verbraucht (leerer Behälter zurück). Immer „benutzt“.
+  Rechtsklick mit leerem Behälter: Behälter mit dem Verbundinhalt füllen; Stack > 1 → gefüllter Behälter ins Inventar
+  (passt nicht → nichts passiert), sonst ersetzt; dann `drain(Behältermenge)` am untersten Tank. Creative: Behälter
+  unverändert, Flüssigkeit wird trotzdem bewegt.
+- Inhalt bleibt beim Abbau nicht erhalten (Block droppt sich selbst).
+
+**Pumpe**
+- Block: Material Eisen, Härte 5, Vollblock. Texturen: unten 100, oben 101, Seiten 99. Rohr (Entity in 1.4.7)
+  Textur 102, Querschnitt 0,5 × 0,5 (x+0.25, z+0.25), reicht von `tubeY` bis zur Pumpenunterseite.
+- Initialisierung: `tubeY` = Pumpenhöhe, `aimY` = Pumpenhöhe (wenn 0).
+- Tick (Server):
+  1. Rohr senkt sich, solange `tubeY − aimY > 0,01`: `tubeY −= 0,01`, sonst nichts in diesem Tick (auch keine Abgabe).
+  2. Tank leer: nächster Block = **letzter** Eintrag der obersten nicht leeren Schicht. Ist er eine Quelle und passen
+     1000 mB in den Tank und liefert `useEnergy(10, 10)` genau 10 → **vordersten** Eintrag entnehmen und diesen Block
+     entfernen (Wasser nur bei `consumeWaterSources`), Tank mit der geprüften Flüssigkeit füllen (Originaleigenheit:
+     geprüfter und entfernter Block können verschieden sein).
+     Kein pumpbarer Block und `worldTime % 100 == 0` → Flood-Fill ab `(x, aimY, z)`; ist danach nichts zu pumpen, von
+     `y−1` abwärts suchen: erste Flüssigkeit → `aimY = y`; erster Nicht-Luft-Block → Abbruch.
+  3. Abgabe: Tankinhalt nacheinander an die 6 Nachbarn mit Flüssigkeitsbehälter (`fill` von der Gegenseite).
+- Flood-Fill: Startblock muss Flüssigkeit sein; gleiche Flüssigkeit (Quelle und fließend), 4 horizontale Nachbarn in
+  derselben Schicht und der Block darüber (Schicht `y+1`), `dx²+dz² > 4096` → überspringen. Quellen werden vorne in die
+  Schichtliste eingefügt, alle Flüssigkeitsblöcke weiter durchsucht. Bestehende Listen werden ergänzt (Markierungen
+  gelten nur innerhalb eines Durchlaufs, Doppeleinträge möglich).
+- `fill` immer 0; `drain` aus dem internen Tank (jede Seite).
+- MJ-Bedarf (`TileMachine.powerRequest`): nur wenn aktiv (oberste Schicht liefert eine Quelle), dann
+  `ceil(min(maxReceived, maxStored − stored))`, sonst 0.
+- Abbau: Rohr verschwindet, Liste verfällt; Block droppt sich selbst. NBT: `tank`, `aimY`, `tubeY` (float), Power.
+
+**Raffinerie**
+- Block: Material Eisen, Härte 0,5, nicht opak, Modell-Darstellung. Ausrichtung beim Setzen: zum Spieler (4
+  Richtungen). BC-Schraubenschlüssel dreht: W→S, E→N, N→W, S→E. Schleichen → keine Aktion.
+- Rechtsklick mit gefülltem Behälter: `fill`; ist etwas angekommen und nicht Creative → Behälter verbraucht. Sonst GUI.
+- `fill`: ohne Filter erst Zutat 1, Rest in Zutat 2; ist mind. ein Filter gesetzt, nur in die Tanks, deren Filter zur
+  Flüssigkeit passt (Zutat 1 zuerst). Die Seite spielt keine Rolle. `drain` nur aus dem Ergebnis.
+- Tick (Server): Rezept = erstes passendes für (Zutat 1, Zutat 2). Kein Rezept, Ergebnis mit anderer Sorte oder ohne
+  Platz, oder Zutaten fehlen → Animation verlangsamen, inaktiv. Sonst aktiv; Animation beschleunigen, wenn
+  `stored ≥ Rezeptenergie`, sonst verlangsamen; sind `delay` Ticks seit dem letzten Versuch vergangen: `useEnergy(E, E)`
+  ≠ 0 → Zutaten abziehen, Ergebnis einfüllen.
+- Animation: `speed` (Start 1), `stage` (0). Beschleunigen: `speed < 2 → 2`, sonst bis 5 in +0,1-Schritten;
+  `stage += speed` (int), `> 300 → 100`. Verlangsamen: `speed ≥ 1 → speed −= 0,1, stage += speed`, sonst `stage −1`
+  bis 0. Client: `speed > 1 → stage += speed`, sonst `stage −1`. `speed` wird synchronisiert.
+- Rezepte im Pack: Öl 1 → Treibstoff 1, 12 MJ, Verzögerung 1 (BuildCraft); Forestry Biomasse 4 → Biotreibstoff 1,
+  10 MJ (entfällt, Forestry-Flüssigkeiten nicht im Umfang).
+- GUI `refinery_filter.png` 175 × 207: Filterfelder 38/54 (Zutat 1) und 126/54 (Zutat 2), Ergebnisanzeige 82/54;
+  Texte: Titel zentriert y 6, „->“ 63/59, „<-“ 106/59, „Inventar“ 8/(ySize−94); Spielerinventar ab 8/123, Hotbar y 181.
+  Filter setzen: mit gefülltem Behälter am Mauszeiger auf ein Filterfeld klicken (Filter lassen sich nicht löschen).
+  Ergebnisfeld zeigt das Rezeptergebnis der Filter.
+- NBT: `ingredient1`, `ingredient2`, `result`, `animationStage`, `animationSpeed`, Filter, Power.
+
+**Mining Well**
+- Block: Material Erde, Härte 1,5, Explosionswiderstand 10, Steinsound. Front zum Spieler (4 Richtungen). Texturen:
+  Front 35, oben 36, unten und Rückseite 38, sonst 37; Item: Front Süd.
+- `doWork` (Power-Provider-Takt): `useEnergy(25, 25) < 25` → nichts. Sonst unter den Rohrstrang gehen; Weltboden
+  nicht unterschritten und `canChangeBlock` → Drops holen, Block durch Rohr ersetzen (auch Luft), Drops wie Quarry
+  (zufälliges Nachbarinventar → Rohr → Item mit Aufwärtsimpuls 1,0, Lebensdauer 1200, Aufheben nach 10 Ticks);
+  sonst `isDigging = false` (bis zum Neuladen). Die Energie ist in jedem Fall verbraucht.
+- Abbau: Rohrstrang darunter wird bis zum ersten Nicht-Rohr entfernt. MJ-Bedarf wie Pumpe, nur solange `isDigging`.
+
+**Rohr (`plainPipe`)**
+- Material Glas, Box `0.25–0.75` horizontal, volle Höhe, nicht opak, kein Drop, Textur 32, Härte 0. Nicht im
+  Creative-Tab.

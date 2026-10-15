@@ -3,6 +3,7 @@ package dev.craft.buildcraft;
 import dev.craft.buildcraft.engine.CombustionEngineBlockEntity;
 import dev.craft.buildcraft.engine.EngineType;
 import dev.craft.buildcraft.factory.QuarryChunkLoading;
+import dev.craft.buildcraft.factory.RefineryRecipe;
 import dev.craft.buildcraft.fluid.BcFluids;
 import dev.craft.buildcraft.power.BcCapabilities;
 import dev.craft.buildcraft.world.BcFeatures;
@@ -12,7 +13,7 @@ import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.fluids.capability.wrappers.FluidBucketWrapper;
 
-/** Entry point of the BuildCraft part (MJ system, engines, oil). */
+/** Entry point of the BuildCraft part (MJ system, engines, oil, quarry, pump, tank, refinery). */
 public final class BuildCraft {
     private BuildCraft() {
     }
@@ -31,7 +32,10 @@ public final class BuildCraft {
     }
 
     private static void commonSetup(FMLCommonSetupEvent event) {
-        event.enqueueWork(BcFluids::registerInteractions);
+        event.enqueueWork(() -> {
+            BcFluids.registerInteractions();
+            RefineryRecipe.registerDefaults();
+        });
     }
 
     private static void registerCapabilities(RegisterCapabilitiesEvent event) {
@@ -44,6 +48,16 @@ public final class BuildCraft {
             }
         }
         event.registerBlockEntity(BcCapabilities.POWER_RECEPTOR, BcBlockEntityTypes.QUARRY.get(), (be, side) -> be);
+        event.registerBlockEntity(BcCapabilities.POWER_RECEPTOR, BcBlockEntityTypes.PUMP.get(), (be, side) -> be);
+        event.registerBlockEntity(BcCapabilities.POWER_RECEPTOR, BcBlockEntityTypes.REFINERY.get(), (be, side) -> be);
+        event.registerBlockEntity(BcCapabilities.POWER_RECEPTOR, BcBlockEntityTypes.MINING_WELL.get(),
+                (be, side) -> be);
+        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, BcBlockEntityTypes.TANK.get(),
+                (be, side) -> be.getFluidHandler());
+        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, BcBlockEntityTypes.PUMP.get(),
+                (be, side) -> be.getFluidHandler());
+        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, BcBlockEntityTypes.REFINERY.get(),
+                (be, side) -> be.getFluidHandler());
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, BcBlockEntityTypes.engine(EngineType.COMBUSTION),
                 (be, side) -> ((CombustionEngineBlockEntity) be).getFluidHandler());
         // NeoForge only wraps items of the exact class BucketItem; the oil bucket is one, the fuel bucket is not.

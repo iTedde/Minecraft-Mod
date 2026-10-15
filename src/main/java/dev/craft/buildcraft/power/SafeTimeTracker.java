@@ -21,4 +21,8 @@ public final class SafeTimeTracker {
         }
         return false;
     }
+
+    public void markTime(Level level) {
+        lastMark = level.getGameTime();
+    }
 }

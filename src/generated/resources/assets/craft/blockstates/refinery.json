@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "craft:block/refinery",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "craft:block/refinery"
+    },
+    "facing=south": {
+      "model": "craft:block/refinery",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "craft:block/refinery",
+      "y": 270
+    }
+  }
+}

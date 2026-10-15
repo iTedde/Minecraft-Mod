@@ -12,7 +12,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
 
 /**
- * Draws BuildCraft {@code EntityBlock}s (lasers, arm beams) the way {@code RenderEntityBlock} does: the box is cut
+ * Draws BuildCraft {@code EntityBlock}s (lasers, arm beams, the pump tube) the way {@code RenderEntityBlock} does: the box is cut
  * into unit cells, each cell shows the matching part of a 16×16 sprite. Coordinates are relative to {@code origin}.
  */
 final class BlockBoxRenderer {
@@ -21,6 +21,8 @@ final class BlockBoxRenderer {
     static final ResourceLocation LASER_STRIPES = texture("laser_stripes");
     static final ResourceLocation DRILL = texture("drill");
     static final ResourceLocation DRILL_HEAD = texture("drill_head");
+    static final ResourceLocation PUMP_TUBE =
+            ResourceLocation.fromNamespaceAndPath(Craft.MODID, "textures/entity/pump_tube.png");
 
     private BlockBoxRenderer() {
     }

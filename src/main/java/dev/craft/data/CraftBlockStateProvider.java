@@ -5,6 +5,7 @@ import dev.craft.Craft;
 import dev.craft.buildcraft.BcBlocks;
 import dev.craft.buildcraft.builders.MarkerBlock;
 import dev.craft.buildcraft.engine.EngineType;
+import dev.craft.buildcraft.factory.TankBlock;
 import dev.craft.ic2.Ic2Blocks;
 import dev.craft.ic2.Ic2Machine;
 import dev.craft.ic2.block.RubberWoodBlock;
@@ -66,6 +67,11 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
         landmark();
         quarry();
         frame();
+        tank();
+        pump();
+        refinery();
+        miningWell();
+        miningPipe();
     }
 
     /** BuildCraft {@code RenderingMarkers}: a torch-like stick, turned so that it points away from its support. */
@@ -95,6 +101,54 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
                 modLoc("block/quarry_front"), modLoc("block/quarry_side"), modLoc("block/quarry_top"));
         horizontalBlock(BcBlocks.QUARRY.get(), model);
         simpleBlockItem(BcBlocks.QUARRY.get(), model);
+    }
+
+    /** BuildCraft {@code BlockTank}: 2–14 px glass box; top/bottom 98, sides 96 or 97 with a tank below. */
+    private void tank() {
+        ModelFile single = tankModel("tank", modLoc("block/tank_side"));
+        ModelFile joined = tankModel("tank_joined", modLoc("block/tank_side_joined"));
+        getVariantBuilder(BcBlocks.TANK.get()).forAllStates(state -> ConfiguredModel.builder()
+                .modelFile(state.getValue(TankBlock.JOINED) ? joined : single).build());
+        simpleBlockItem(BcBlocks.TANK.get(), single);
+    }
+
+    private ModelFile tankModel(String name, ResourceLocation side) {
+        ResourceLocation top = modLoc("block/tank_top");
+        return models().withExistingParent(name, mcLoc("block/block")).texture("particle", side)
+                .texture("side", side).texture("top", top).renderType("cutout")
+                .element().from(2, 0, 2).to(14, 16, 14)
+                .allFaces((d, f) -> f.texture(d.getAxis() == Direction.Axis.Y ? "#top" : "#side")).end();
+    }
+
+    /** BuildCraft {@code BlockPump}: bottom 100, top 101, sides 99. */
+    private void pump() {
+        simpleBlockWithItem(BcBlocks.PUMP.get(), models().cubeBottomTop("pump", modLoc("block/pump_side"),
+                modLoc("block/pump_bottom"), modLoc("block/pump_top")));
+    }
+
+    /** The refinery is drawn by its block entity renderer; texture 0 of the sheet gives the (empty) particles. */
+    private void refinery() {
+        horizontalBlock(BcBlocks.REFINERY.get(), models().getBuilder("refinery")
+                .texture("particle", modLoc("block/refinery_particle")));
+    }
+
+    /** BuildCraft {@code BlockMiningWell}: front 35, top 36, bottom and back 38, other sides 37. */
+    private void miningWell() {
+        ModelFile model = models().cube("mining_well", modLoc("block/mining_well_back"),
+                        modLoc("block/mining_well_top"), modLoc("block/mining_well_front"),
+                        modLoc("block/mining_well_back"), modLoc("block/mining_well_side"),
+                        modLoc("block/mining_well_side"))
+                .texture("particle", modLoc("block/mining_well_side"));
+        horizontalBlock(BcBlocks.MINING_WELL.get(), model);
+        simpleBlockItem(BcBlocks.MINING_WELL.get(), model);
+    }
+
+    /** BuildCraft {@code BlockPlainPipe}: 4–12 px column with texture 32. */
+    private void miningPipe() {
+        ResourceLocation texture = modLoc("block/mining_pipe");
+        simpleBlock(BcBlocks.MINING_PIPE.get(), models().withExistingParent("mining_pipe", mcLoc("block/block"))
+                .texture("particle", texture).texture("pipe", texture).renderType("cutout")
+                .element().from(4, 0, 4).to(12, 16, 12).allFaces((d, f) -> f.texture("#pipe")).end());
     }
 
     /** BuildCraft {@code BlockFrame}: legacy pipe shape, core plus an arm to every neighbouring frame. */

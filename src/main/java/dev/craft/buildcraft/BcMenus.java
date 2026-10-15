@@ -7,12 +7,13 @@ import java.util.function.Supplier;
 import dev.craft.Craft;
 import dev.craft.buildcraft.engine.EngineType;
 import dev.craft.buildcraft.menu.EngineMenu;
+import dev.craft.buildcraft.menu.RefineryMenu;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.inventory.MenuType;
 import net.neoforged.neoforge.common.extensions.IMenuTypeExtension;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
-/** Menu types of the stirling and combustion engines; the client reads the block position from the open packet. */
+/** Menu types of the engines and the refinery; the client reads the block position from the open packet. */
 public final class BcMenus {
     public static final DeferredRegister<MenuType<?>> MENUS = DeferredRegister.create(Registries.MENU, Craft.MODID);
 
@@ -26,6 +27,9 @@ public final class BcMenus {
             }
         }
     }
+
+    public static final Supplier<MenuType<RefineryMenu>> REFINERY = MENUS.register("refinery",
+            () -> IMenuTypeExtension.create((id, inventory, buf) -> new RefineryMenu(id, inventory, buf.readBlockPos())));
 
     private BcMenus() {
     }

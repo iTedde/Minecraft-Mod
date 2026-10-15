@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_mining_well": {
+      "conditions": {
+        "items": [
+          {
+            "items": "craft:mining_well"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "craft:pump"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_mining_well"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "craft:pump"
+    ]
+  }
+}

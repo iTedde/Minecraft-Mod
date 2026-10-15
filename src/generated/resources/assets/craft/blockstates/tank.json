@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "joined=false": {
+      "model": "craft:block/tank"
+    },
+    "joined=true": {
+      "model": "craft:block/tank_joined"
+    }
+  }
+}

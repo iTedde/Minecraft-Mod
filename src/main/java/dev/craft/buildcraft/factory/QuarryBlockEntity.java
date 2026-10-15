@@ -12,12 +12,11 @@ import dev.craft.buildcraft.BcBlockEntityTypes;
 import dev.craft.buildcraft.BcBlocks;
 import dev.craft.buildcraft.area.AreaProvider;
 import dev.craft.buildcraft.area.Box;
-import dev.craft.buildcraft.engine.EngineBlockEntity;
 import dev.craft.buildcraft.power.PowerProvider;
 import dev.craft.buildcraft.power.PowerReceptor;
 import dev.craft.buildcraft.util.BlockUtil;
+import dev.craft.buildcraft.util.ItemOutput;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
@@ -38,9 +37,6 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
-import net.neoforged.neoforge.capabilities.Capabilities;
-import net.neoforged.neoforge.items.IItemHandler;
-import net.neoforged.neoforge.items.ItemHandlerHelper;
 import org.jetbrains.annotations.Nullable;
 
 /**
@@ -52,8 +48,6 @@ public class QuarryBlockEntity extends BlockEntity implements PowerReceptor {
     public static final int MAX_ENERGY = 15000;
     /** {@code forgeChunkLoading.cfg}: {@code maximumChunksPerTicket} of the pack. */
     public static final int MAX_CHUNK_LIST_DEPTH = 25;
-    /** BuildCraft {@code itemLifespan} (pack config). */
-    private static final int ITEM_LIFESPAN = 1200;
 
     private final PowerProvider provider = new PowerProvider();
     private final Box box = new Box();
@@ -370,42 +364,8 @@ public class QuarryBlockEntity extends BlockEntity implements PowerReceptor {
         return BlockUtil.canChangeBlock(level, pos) && !BlockUtil.isSoftBlock(level, pos);
     }
 
-    /** Random adjacent inventory first (pipes come later), then the rest flies out above the quarry. */
     private void mineStack(ItemStack stack) {
-        ItemStack rest = addToRandomInventory(stack);
-        if (!rest.isEmpty()) {
-            float f = level.random.nextFloat() * 0.8F + 0.1F;
-            float f1 = level.random.nextFloat() * 0.8F + 0.1F;
-            float f2 = level.random.nextFloat() * 0.8F + 0.1F;
-            ItemEntity entity = new ItemEntity(level, worldPosition.getX() + f, worldPosition.getY() + f1 + 0.5F,
-                    worldPosition.getZ() + f2, rest);
-            entity.lifespan = ITEM_LIFESPAN;
-            entity.setPickUpDelay(10);
-            float f3 = 0.05F;
-            entity.setDeltaMovement((float) level.random.nextGaussian() * f3,
-                    (float) level.random.nextGaussian() * f3 + 1.0F, (float) level.random.nextGaussian() * f3);
-            level.addFreshEntity(entity);
-        }
-    }
-
-    /** BuildCraft {@code Utils.addToRandomInventory}: one random neighbour (no engine) that takes something. */
-    private ItemStack addToRandomInventory(ItemStack stack) {
-        List<IItemHandler> possible = new ArrayList<>();
-        for (Direction side : Direction.values()) {
-            BlockPos adjacent = worldPosition.relative(side);
-            if (level.getBlockEntity(adjacent) instanceof EngineBlockEntity) {
-                continue;
-            }
-            IItemHandler handler = level.getCapability(Capabilities.ItemHandler.BLOCK, adjacent, side.getOpposite());
-            if (handler != null
-                    && ItemHandlerHelper.insertItemStacked(handler, stack.copy(), true).getCount() < stack.getCount()) {
-                possible.add(handler);
-            }
-        }
-        if (possible.isEmpty()) {
-            return stack;
-        }
-        return ItemHandlerHelper.insertItemStacked(possible.get(level.random.nextInt(possible.size())), stack, false);
+        ItemOutput.output(level, worldPosition, stack);
     }
 
     private void setHead(double x, double y, double z) {

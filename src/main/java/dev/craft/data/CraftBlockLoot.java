@@ -54,6 +54,10 @@ public final class CraftBlockLoot extends BlockLootSubProvider {
         }
         dropSelf(BcBlocks.MARKER.get());
         dropSelf(BcBlocks.QUARRY.get());
+        dropSelf(BcBlocks.TANK.get());
+        dropSelf(BcBlocks.PUMP.get());
+        dropSelf(BcBlocks.REFINERY.get());
+        dropSelf(BcBlocks.MINING_WELL.get());
         resinSheet();
         rubberWood();
         rubberLeaves();

@@ -64,6 +64,10 @@ public final class CraftCreativeTabs {
                 }
                 output.accept(BcItems.LANDMARK);
                 output.accept(BcItems.QUARRY);
+                output.accept(BcItems.MINING_WELL);
+                output.accept(BcItems.PUMP);
+                output.accept(BcItems.TANK);
+                output.accept(BcItems.REFINERY);
                 for (DeferredHolder<Item, ? extends Item> item : BcItems.simpleItems()) {
                     output.accept(item.get());
                 }

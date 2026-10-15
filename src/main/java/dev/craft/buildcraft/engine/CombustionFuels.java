@@ -4,12 +4,11 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import dev.craft.buildcraft.fluid.BcFluids;
-import dev.craft.ic2.Ic2Items;
+import dev.craft.buildcraft.fluid.LiquidContainers;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
 import net.neoforged.neoforge.fluids.FluidStack;
-import net.neoforged.neoforge.fluids.FluidUtil;
 import org.jetbrains.annotations.Nullable;
 
 /**
@@ -53,17 +52,8 @@ public final class CombustionFuels {
         return stack.isEmpty() ? null : COOLANTS.get(stack.getFluid());
     }
 
-    /**
-     * Fluid in a filled container: buckets and other fluid containers, plus the IC2 water and lava cells (registered
-     * as 1000 mB containers by IC2).
-     */
+    /** Fluid in a filled container (Forge {@code LiquidContainerRegistry}). */
     public static FluidStack getFluidForFilledItem(ItemStack stack) {
-        if (stack.is(Ic2Items.WATER_CELL.get())) {
-            return new FluidStack(Fluids.WATER, 1000);
-        }
-        if (stack.is(Ic2Items.LAVA_CELL.get())) {
-            return new FluidStack(Fluids.LAVA, 1000);
-        }
-        return FluidUtil.getFluidContained(stack).orElse(FluidStack.EMPTY);
+        return LiquidContainers.getLiquidForFilledItem(stack);
     }
 }

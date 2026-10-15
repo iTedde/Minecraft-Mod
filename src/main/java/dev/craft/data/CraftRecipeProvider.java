@@ -17,6 +17,7 @@ import dev.craft.ic2.recipe.Ic2ShapelessRecipe;
 import dev.craft.ic2.recipe.MachineRecipe;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.RecipeCategory;
@@ -35,6 +36,7 @@ import net.minecraft.world.item.crafting.ShapedRecipePattern;
 import net.minecraft.world.item.crafting.SmeltingRecipe;
 import net.minecraft.world.level.ItemLike;
 import net.neoforged.neoforge.common.Tags;
+import net.neoforged.neoforge.common.crafting.DataComponentIngredient;
 
 /**
  * Phase 3 recipes, final pack state ({@code docs/spec/08-rezepte.md} §1–5, 7, 9, 10). Crafting recipes use the IC2
@@ -83,6 +85,20 @@ public final class CraftRecipeProvider extends RecipeProvider {
                 .define('r', Items.REDSTONE_TORCH).unlockedBy("has_lapis", has(Items.LAPIS_LAZULI))
                 .save(output, id("landmark"));
         // Quarry: the pack recipe needs the IC2 diamond drill (titanium plates) – added together with the drill.
+        bcShaped(BcItems.TANK).pattern("ggg").pattern("g g").pattern("ggg").define('g', Items.GLASS)
+                .unlockedBy("has_glass", has(Items.GLASS)).save(output, id("tank"));
+        // Item.pickaxeSteel becomes an ItemStack with damage 0: only an undamaged pickaxe fits, as in 1.4.7.
+        bcShaped(BcItems.MINING_WELL).pattern("ipi").pattern("igi").pattern("iPi").define('i', Items.IRON_INGOT)
+                .define('p', Items.REDSTONE).define('g', BcItems.IRON_GEAR)
+                .define('P', DataComponentIngredient.of(false, DataComponents.DAMAGE, 0, Items.IRON_PICKAXE))
+                .unlockedBy("has_gear", has(BcItems.IRON_GEAR)).save(output, id("mining_well"));
+        // "T /W " (mining.enabled = true) – the empty second column makes no difference.
+        bcShaped(BcItems.PUMP).pattern("T").pattern("W").define('T', BcItems.TANK).define('W', BcItems.MINING_WELL)
+                .unlockedBy("has_mining_well", has(BcItems.MINING_WELL)).save(output, id("pump"));
+        // "   /RTR/TGT": 1.21 drops the empty top row, so the recipe also fits into the upper two rows.
+        bcShaped(BcItems.REFINERY).pattern("RTR").pattern("TGT").define('R', Items.REDSTONE_TORCH)
+                .define('T', BcItems.TANK).define('G', BcItems.DIAMOND_GEAR)
+                .unlockedBy("has_tank", has(BcItems.TANK)).save(output, id("refinery"));
     }
 
     private static ShapedRecipeBuilder bcShaped(ItemLike result) {

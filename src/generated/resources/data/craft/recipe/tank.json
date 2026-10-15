@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "g": {
+      "item": "minecraft:glass"
+    }
+  },
+  "pattern": [
+    "ggg",
+    "g g",
+    "ggg"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:tank"
+  }
+}

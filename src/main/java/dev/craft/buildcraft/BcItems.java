@@ -33,6 +33,10 @@ public final class BcItems {
 
     public static final DeferredItem<BlockItem> LANDMARK = ITEMS.registerSimpleBlockItem(BcBlocks.MARKER);
     public static final DeferredItem<BlockItem> QUARRY = ITEMS.registerSimpleBlockItem(BcBlocks.QUARRY);
+    public static final DeferredItem<BlockItem> TANK = ITEMS.registerSimpleBlockItem(BcBlocks.TANK);
+    public static final DeferredItem<BlockItem> PUMP = ITEMS.registerSimpleBlockItem(BcBlocks.PUMP);
+    public static final DeferredItem<BlockItem> REFINERY = ITEMS.registerSimpleBlockItem(BcBlocks.REFINERY);
+    public static final DeferredItem<BlockItem> MINING_WELL = ITEMS.registerSimpleBlockItem(BcBlocks.MINING_WELL);
 
     public static final DeferredItem<Item> WOODEN_GEAR = simple("wooden_gear");
     public static final DeferredItem<Item> STONE_GEAR = simple("stone_gear");

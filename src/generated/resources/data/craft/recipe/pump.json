@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "T": {
+      "item": "craft:tank"
+    },
+    "W": {
+      "item": "craft:mining_well"
+    }
+  },
+  "pattern": [
+    "T",
+    "W"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:pump"
+  }
+}

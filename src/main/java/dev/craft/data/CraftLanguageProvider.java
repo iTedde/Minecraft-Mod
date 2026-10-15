@@ -144,6 +144,11 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             block(BcBlocks.MARKER, "Land Mark");
             block(BcBlocks.QUARRY, "Quarry");
             block(BcBlocks.FRAME, "Frame");
+            block(BcBlocks.TANK, "Tank");
+            block(BcBlocks.PUMP, "Pump");
+            block(BcBlocks.REFINERY, "Refinery");
+            block(BcBlocks.MINING_WELL, "Mining Well");
+            block(BcBlocks.MINING_PIPE, "Mining Pipe");
             add("message.craft.quarry.size", "Quarry size is outside of chunkloading bounds or too small %d %d (%d)");
             add("message.craft.quarry.chunks", "[BUILDCRAFT] The quarry at %d %d %d will keep %d chunks loaded");
             add(BcFluids.OIL_TYPE.get().getDescriptionId(), "Oil");
@@ -257,6 +262,11 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             block(BcBlocks.MARKER, "Landmarke");
             block(BcBlocks.QUARRY, "Steinbruch");
             block(BcBlocks.FRAME, "Rahmen");
+            block(BcBlocks.TANK, "Tank");
+            block(BcBlocks.PUMP, "Pumpe");
+            block(BcBlocks.REFINERY, "Raffinerie");
+            block(BcBlocks.MINING_WELL, "Minenbohrer");
+            block(BcBlocks.MINING_PIPE, "Minenrohr");
             add("message.craft.quarry.size", "Steinbruch-Bereich liegt außerhalb der Chunkloading-Grenzen oder ist zu klein: %d %d (%d)");
             add("message.craft.quarry.chunks", "[BUILDCRAFT] Der Steinbruch bei %d %d %d hält %d Chunks geladen");
             add(BcFluids.OIL_TYPE.get().getDescriptionId(), "Öl");

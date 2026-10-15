@@ -46,7 +46,9 @@ public final class CraftBlockTagsProvider extends BlockTagsProvider {
         for (EngineType type : EngineType.values()) {
             tag(BlockTags.MINEABLE_WITH_PICKAXE).add(BcBlocks.engine(type).get());
         }
-        tag(BlockTags.MINEABLE_WITH_PICKAXE).add(BcBlocks.QUARRY.get());
+        tag(BlockTags.MINEABLE_WITH_PICKAXE).add(BcBlocks.QUARRY.get(), BcBlocks.PUMP.get(), BcBlocks.REFINERY.get());
+        // Material.ground: the shovel is the effective tool.
+        tag(BlockTags.MINEABLE_WITH_SHOVEL).add(BcBlocks.MINING_WELL.get());
         tag(BlockTags.MINEABLE_WITH_AXE).add(Ic2Blocks.RUBBER_WOOD.get());
         tag(BlockTags.MINEABLE_WITH_HOE).add(Ic2Blocks.RUBBER_LEAVES.get());
         tag(BlockTags.LOGS_THAT_BURN).add(Ic2Blocks.RUBBER_WOOD.get());

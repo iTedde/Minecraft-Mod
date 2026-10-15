@@ -74,6 +74,17 @@ Status: *geplant* (aus Phase 1 abgeleitet, noch nicht umgesetzt), *entschieden* 
 | Landmark-Modell | flache Fackel-Ebenen (`RenderingMarkers`) | 2×10-px-Stab wie das Vanilla-Fackelmodell, je Richtung gedreht | Blockmodell-JSON | **umgesetzt** |
 | Rahmen-Zerfall | Random-Tick-Rate von 1.4.7 | Random-Tick-Rate von 1.21 (`randomTickSpeed`); Chance je Tick unverändert 4/10 | Engine | **umgesetzt** |
 | Quarry: Rezept | Pack-Rezept mit IC2-Diamantbohrer | kommt mit dem Diamantbohrer (Phase 6/6b); bis dahin nur Creative | Zutat fehlt noch | **offen bis Phase 6** |
+| Flüssigkeitsbehälter (Tank, Raffinerie, Combustion Engine) | Forge `LiquidContainerRegistry` | feste Tabelle `LiquidContainers` mit den Pack-Einträgen (Wasser-/Lava-/Öl-/Treibstoffeimer, IC2-Wasser-/Lavazelle), sonst Item-Fluid-Capability; `Utils.consumeItem` 1:1 (bei Stapel > 1 geht der leere Behälter verloren) | Registry gibt es nicht mehr | **umgesetzt** |
+| Pumpe: Flood-Fill | gleiche **Block-ID** (stehendes 9 und fließendes 8 Wasser getrennt); jeder `ILiquid`-Block | gleiche Flüssigkeit (Quelle + fließend gemeinsam); nur Flüssigkeitsblöcke (`LiquidBlock`), keine wassergeloggten Blöcke | 1.21 hat einen Block je Flüssigkeit; Wasserloggen würde Blöcke zerstören | **umgesetzt** |
+| Pumpe: Höhen | Schichten ab y > 0, Suche abwärts bis y 1 | jede Schicht zählt (auch y ≤ 0), Suche bis zur Weltuntergrenze | negative Welthöhen seit 1.18 | **umgesetzt** |
+| Pumpenrohr | `EntityBlock` | Block-Entity-Renderer mit Textur 102 | keine Hilfs-Entities | **umgesetzt** |
+| Flüssigkeitsdarstellung (Tank, Raffinerie) | Block-/Item-Icon der Flüssigkeit, GL-Licht aus | Still-Textur der Flüssigkeit mit Tönung (Wasser blau getönt), durchscheinend, gleiche Maße und 100 Höhenstufen | Fluid-Rendering von 1.21 | **umgesetzt** |
+| Raffinerie: Filter | Flüssigkeits-ID + Meta, Setzen per eigenem Paket (`PacketUpdate` 50) | Flüssigkeit (Registry), Setzen über das Vanilla-Menü-Button-Paket (Server liest den Behälter am Mauszeiger); Filterfelder zeigen die Flüssigkeitstextur statt des Block-Icons | idiomatisch, kein eigenes Paket nötig | **umgesetzt** |
+| Raffinerie: Rezept | `"   ", "RTR", "TGT"` – nur in den unteren zwei Reihen | 1.21 entfernt die leere Reihe: passt auch in die oberen zwei Reihen | Rezeptformat | **umgesetzt** |
+| Raffinerie: Forestry-Rezept | Biomasse → Biotreibstoff (Forestry) | entfällt | Forestry-Flüssigkeiten nicht im Umfang | **umgesetzt** |
+| Raffinerie/Pumpe/Mining Well: `powerRequest`, `getTank(Seite)`, Rohr-Ausgabe | für Rohre und Gates | noch nicht umgesetzt | erst mit den Rohren (Phase 9) relevant | **offen bis Phase 9** |
+| Mining Well: Tiefe | bis y 0 | bis zur Weltuntergrenze | 1.18-Weltgeometrie | **umgesetzt** |
+| Minenrohr | Block mit Item (nicht im Creative-Tab) | Block ohne Item | wird nie gedroppt oder gesetzt | **umgesetzt** |
 
 ## Bewusst (Energiebalancing)
 
