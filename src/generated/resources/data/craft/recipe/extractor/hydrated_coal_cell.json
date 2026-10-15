@@ -1,0 +1,10 @@
+{
+  "type": "craft:extractor",
+  "ingredient": {
+    "item": "craft:hydrated_coal_cell"
+  },
+  "result": {
+    "count": 1,
+    "id": "craft:coalfuel_cell"
+  }
+}

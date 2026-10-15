@@ -13,6 +13,7 @@ import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.ModifyDefaultComponentsEvent;
 
 /** Entry point of the IndustrialCraft 2 part. */
 public final class Ic2 {
@@ -38,6 +39,11 @@ public final class Ic2 {
         NeoForge.EVENT_BUS.addListener(ElectricToolItem::onBlockBreak);
         modBus.addListener(Ic2::registerCapabilities);
         modBus.addListener(Ic2::commonSetup);
+        modBus.addListener(Ic2::modifyDefaultComponents);
+    }
+
+    private static void modifyDefaultComponents(ModifyDefaultComponentsEvent event) {
+        event.modify(Ic2Items.FILLED_TIN_CAN.get(), builder -> builder.set(Ic2DataComponents.CAN_META.get(), 0));
     }
 
     private static void commonSetup(FMLCommonSetupEvent event) {

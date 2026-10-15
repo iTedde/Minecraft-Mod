@@ -1,15 +1,19 @@
 package dev.craft.data;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
 import dev.craft.Craft;
 import dev.craft.buildcraft.BcItems;
 import dev.craft.buildcraft.engine.EngineType;
+import dev.craft.compactsolars.CsItems;
+import dev.craft.compactsolars.SolarArrayType;
 import dev.craft.forestry.FrFluids;
 import dev.craft.forestry.FrItems;
 import dev.craft.forestry.circuit.CircuitBoardType;
@@ -20,14 +24,16 @@ import dev.craft.gregtech.GtItems;
 import dev.craft.gregtech.GtMachine;
 import dev.craft.gregtech.block.GtCasingBlock;
 import dev.craft.gregtech.recipe.GtRecipe;
+import dev.craft.ic2.Ic2DataComponents;
 import dev.craft.ic2.Ic2Items;
 import dev.craft.ic2.Ic2Machine;
 import dev.craft.ic2.cable.CableType;
+import dev.craft.ic2.item.FilledFuelCanItem;
+import dev.craft.ic2.item.FilledTinCanItem;
+import dev.craft.ic2.machine.CanningMachineBlockEntity;
 import dev.craft.ic2.recipe.Ic2ShapedRecipe;
 import dev.craft.ic2.recipe.Ic2ShapelessRecipe;
 import dev.craft.ic2.recipe.MachineRecipe;
-import dev.craft.compactsolars.CsItems;
-import dev.craft.compactsolars.SolarArrayType;
 import dev.craft.powerconverters.ConverterType;
 import dev.craft.powerconverters.PcItems;
 import net.minecraft.core.HolderLookup;
@@ -43,6 +49,7 @@ import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -132,6 +139,66 @@ public final class CraftRecipeProvider extends RecipeProvider {
         electrolyzer();
         blastFurnace();
         assembler();
+        canner();
+    }
+
+    /** Automatic canning machine (spec 13 §7): crafting recipe and the canner recipes whose items exist. */
+    private void canner() {
+        shapeless(GtItems.machine(GtMachine.AUTOMATIC_CANNING_MACHINE), 1, "automatic_canning_machine",
+                Ingredient.of(GtItems.CONVEYOR_MODULE), Ingredient.of(machine(Ic2Machine.CANNING_MACHINE)));
+        // GT_Mod: the specific food recipes come first, so the generic loop below skips their inputs.
+        can("rotten_flesh", SizedIngredient.of(Items.ROTTEN_FLESH, 1), SizedIngredient.of(Ic2Items.TIN_CAN, 2), 200,
+                FilledTinCanItem.create(1, 2));
+        can("spider_eye", SizedIngredient.of(Items.SPIDER_EYE, 1), SizedIngredient.of(Ic2Items.TIN_CAN, 1), 100,
+                FilledTinCanItem.create(1, 1));
+        can("poisonous_potato", SizedIngredient.of(Items.POISONOUS_POTATO, 1), SizedIngredient.of(Ic2Items.TIN_CAN, 1),
+                100, FilledTinCanItem.create(1, 1));
+        can("cake", SizedIngredient.of(Items.CAKE, 1), SizedIngredient.of(Ic2Items.TIN_CAN, 6), 600,
+                FilledTinCanItem.create(0, 6));
+        can("mushroom_stew", SizedIngredient.of(Items.MUSHROOM_STEW, 1), SizedIngredient.of(Ic2Items.TIN_CAN, 3), 300,
+                FilledTinCanItem.create(0, 3), new ItemStack(Items.BOWL));
+        Set<Item> specific = Set.of(Items.ROTTEN_FLESH, Items.SPIDER_EYE, Items.POISONOUS_POTATO, Items.MUSHROOM_STEW,
+                Ic2Items.FILLED_TIN_CAN.get());
+        BuiltInRegistries.ITEM.entrySet().stream().sorted(Comparator.comparing(entry -> entry.getKey().location()))
+                .forEach(entry -> {
+                    Item item = entry.getValue();
+                    FoodProperties food = item.components().get(DataComponents.FOOD);
+                    int cans = food == null ? 0 : (int) Math.ceil(food.nutrition() / 2.0);
+                    if (cans <= 0 || specific.contains(item)) {
+                        return;
+                    }
+                    ResourceLocation id = entry.getKey().location();
+                    String name = (id.getNamespace().equals("minecraft") ? "" : id.getNamespace() + "_") + id.getPath();
+                    ItemStack remainder = CanningMachineBlockEntity.getFoodRemainder(new ItemStack(item));
+                    can(name, SizedIngredient.of(item, 1), SizedIngredient.of(Ic2Items.TIN_CAN, cans), 100 * cans,
+                            FilledTinCanItem.create(0, cans), remainder);
+                });
+        can("bio_cell", SizedIngredient.of(Ic2Items.COMPRESSED_PLANT_BALL, 1), SizedIngredient.of(Ic2Items.EMPTY_CELL, 1),
+                100, new ItemStack(Ic2Items.BIO_CELL.get()));
+        can("hydrated_coal_cell", SizedIngredient.of(Ic2Items.HYDRATED_COAL_CLUMP, 1),
+                SizedIngredient.of(Ic2Items.EMPTY_CELL, 1), 100, new ItemStack(Ic2Items.HYDRATED_COAL_CELL.get()));
+        can("lava_cell", SizedIngredient.of(Items.LAVA_BUCKET, 1), SizedIngredient.of(Ic2Items.EMPTY_CELL, 1), 100,
+                new ItemStack(Ic2Items.LAVA_CELL.get()), new ItemStack(Items.BUCKET));
+        can("water_cell", SizedIngredient.of(Items.WATER_BUCKET, 1), SizedIngredient.of(Ic2Items.EMPTY_CELL, 1), 100,
+                new ItemStack(Ic2Items.WATER_CELL.get()), new ItemStack(Items.BUCKET));
+        can("biofuel_can", SizedIngredient.of(Ic2Items.BIOFUEL_CELL, 6), SizedIngredient.of(Ic2Items.EMPTY_FUEL_CAN, 1),
+                600, FilledFuelCanItem.create(6 * CanningMachineBlockEntity.BIOFUEL_VALUE),
+                new ItemStack(Ic2Items.EMPTY_CELL.get(), 6));
+        can("coalfuel_can", SizedIngredient.of(Ic2Items.COALFUEL_CELL, 6), SizedIngredient.of(Ic2Items.EMPTY_FUEL_CAN, 1),
+                600, FilledFuelCanItem.create(6 * CanningMachineBlockEntity.COALFUEL_VALUE),
+                new ItemStack(Ic2Items.EMPTY_CELL.get(), 6));
+    }
+
+    /** {@code GT_Mod.addCannerRecipe}: two inputs, one or two outputs, 1 EU/t. */
+    private void can(String name, SizedIngredient input1, SizedIngredient input2, int duration, ItemStack... outputs) {
+        List<ItemStack> results = new ArrayList<>();
+        for (ItemStack stack : outputs) {
+            if (!stack.isEmpty()) {
+                results.add(stack);
+            }
+        }
+        output.accept(id("gt_canner/" + name), new GtRecipe(GtRecipe.Kind.CANNER, List.of(input1, input2), results,
+                duration, 1, 0), null);
     }
 
     /**
@@ -693,6 +760,9 @@ public final class CraftRecipeProvider extends RecipeProvider {
         shaped(machine(Ic2Machine.ELECTROLYZER), 1, "electrolyzer").pattern("c c").pattern("cCc").pattern("EME")
                 .define('c', Ic2Items.cable(CableType.INSULATED_COPPER)).define('C', Ic2Items.ELECTRONIC_CIRCUIT)
                 .define('E', Ic2Items.EMPTY_CELL).define('M', Ic2Items.MACHINE_CASING).save();
+        shaped(machine(Ic2Machine.CANNING_MACHINE), 1, "canning_machine").pattern("TCT").pattern("TMT").pattern("TTT")
+                .define('T', CraftItemTagsProvider.INGOTS_TIN).define('C', Ic2Items.ELECTRONIC_CIRCUIT)
+                .define('M', Ic2Items.MACHINE_CASING).save();
         shaped(machine(Ic2Machine.INDUCTION_FURNACE), 1, "induction_furnace").pattern("CCC").pattern("CFC")
                 .pattern("CMC").define('C', ingotsCopper()).define('F', machine(Ic2Machine.ELECTRIC_FURNACE))
                 .define('M', Ic2Items.ADVANCED_MACHINE_CASING).save();
@@ -829,6 +899,8 @@ public final class CraftRecipeProvider extends RecipeProvider {
         shapeless(Ic2Items.CARBON_MESH, 1, "carbon_mesh", Ingredient.of(Ic2Items.CARBON_FIBER),
                 Ingredient.of(Ic2Items.CARBON_FIBER));
         shaped(Ic2Items.EMPTY_FUEL_CAN, 1, "empty_fuel_can").pattern(" TT").pattern("T T").pattern("TTT")
+                .define('T', CraftItemTagsProvider.INGOTS_TIN).save();
+        shaped(Ic2Items.TIN_CAN, 4, "tin_can").pattern("T T").pattern("TTT")
                 .define('T', CraftItemTagsProvider.INGOTS_TIN).save();
 
         shaped(Ic2Items.NANO_HELMET, 1, "nano_helmet").pattern("CcC").pattern("CGC")
@@ -967,6 +1039,7 @@ public final class CraftRecipeProvider extends RecipeProvider {
         smelt("resin_from_slime_ball", Ingredient.of(Items.SLIME_BALL), Ic2Items.RESIN, 1, 0.0F);
         smelt("bronze_ingots_from_wrench", Ingredient.of(Ic2Items.WRENCH), Ic2Items.BRONZE_INGOT, 6, 0.0F);
         smelt("tin_ingots_from_empty_fuel_can", Ingredient.of(Ic2Items.EMPTY_FUEL_CAN), Ic2Items.TIN_INGOT, 7, 0.0F);
+        smelt("tin_ingot_from_tin_can", Ingredient.of(Ic2Items.TIN_CAN), Ic2Items.TIN_INGOT, 1, 0.0F);
         // GregTech recycling of vanilla items. The 1.21 iron door recipe makes 3 doors from 6 ingots, so a door gives 2
         // instead of GregTech's 6 (see docs/abweichungen.md).
         smelt("gold_ingots_from_clock", Ingredient.of(Items.CLOCK), Items.GOLD_INGOT, 4, 0.0F);
@@ -1097,7 +1170,15 @@ public final class CraftRecipeProvider extends RecipeProvider {
         machine(MachineRecipe.Kind.EXTRACTOR, "resin", Ingredient.of(Ic2Items.RESIN), 1, Ic2Items.RUBBER, 3);
         machine(MachineRecipe.Kind.EXTRACTOR, "rubber_wood", Ingredient.of(Ic2Items.RUBBER_WOOD), 1, Ic2Items.RUBBER, 1);
         machine(MachineRecipe.Kind.EXTRACTOR, "slime_ball", Ingredient.of(Items.SLIME_BALL), 1, Ic2Items.RUBBER, 2);
+        machine(MachineRecipe.Kind.EXTRACTOR, "bio_cell", Ingredient.of(Ic2Items.BIO_CELL), 1, Ic2Items.BIOFUEL_CELL, 1);
+        machine(MachineRecipe.Kind.EXTRACTOR, "hydrated_coal_cell", Ingredient.of(Ic2Items.HYDRATED_COAL_CELL), 1,
+                Ic2Items.COALFUEL_CELL, 1);
         machine(MachineRecipe.Kind.EXTRACTOR, "air_cell", Ingredient.of(Ic2Items.AIR_CELL), 1, Ic2Items.EMPTY_CELL, 1);
+        // GregTech: only the plain and the spoiled (meta 1) filled tin can.
+        for (int meta = 0; meta <= 1; meta++) {
+            machine(MachineRecipe.Kind.EXTRACTOR, "filled_tin_can_" + meta, DataComponentIngredient.of(false,
+                    Ic2DataComponents.CAN_META.get(), meta, Ic2Items.FILLED_TIN_CAN), 1, Ic2Items.TIN_CAN, 1);
+        }
         machine(MachineRecipe.Kind.EXTRACTOR, "wool", Ingredient.of(ItemTags.WOOL), 1, Items.WHITE_WOOL, 1);
         machine(MachineRecipe.Kind.EXTRACTOR, "poppy", Ingredient.of(Items.POPPY), 1, Items.RED_DYE, 3);
         machine(MachineRecipe.Kind.EXTRACTOR, "dandelion", Ingredient.of(Items.DANDELION), 1, Items.YELLOW_DYE, 3);

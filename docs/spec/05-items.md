@@ -415,6 +415,20 @@ C = el. Schaltkreis, B = RE-Batterie (geladen oder leer). Hazmat: R = Gummi.
   4 = Regeneration, 5 = Regeneration IV + Resistenz + Feuerresistenz; Dauern wie im Code `600/(heal/2)` usw.).
 - **Brennstoffkanister**: leer / gefüllt (NBT `value`), Ofen-Brennwert `min(32767, value·2)`.
 
+Ergänzung 6b.5a (`ItemTinCan`, `ItemFuelCanFilled`, `IC2.java`):
+- Gefüllte Zinndose: `ItemFood(2, 0.95F)`, immer essbar, Essdauer 20 Ticks, Stapel 64. Nach dem Essen `heal(2)` und
+  leere Zinndose ins Inventar (sonst fallen lassen). Effekte (`onFoodEaten`, Dauern aus dem Nährwert des
+  Vorbilds, Werte in 1.4.7 und 1.21 gleich): 1 = 80 % Hunger 300 Ticks; 2 = Gift 100 Ticks; 3 = 30 % Hunger
+  600 Ticks; 4 = Regeneration 50 Ticks; 5 = Regeneration IV 300 Ticks + Resistenz 3000 + Feuerresistenz 3000.
+  Tooltip bei Meta 1–3: „This looks bad...“. Icon `item_0.png` 58, leere Dose 57 (beide Meta gleiche Textur).
+- Gefüllter Brennstoffkanister: Stapel 1, Behälter-Item = leerer Kanister, Icon 52. Brennwert über Forge-Fuel-Handler
+  (gilt für Ofen, Eisenofen und Generator).
+- Biozelle (35), hydr. Kohlezelle (34), Bio-Brennstoffzelle (35), Kohle-Brennstoffzelle (34): einfache Items, Stapel
+  64 (Icons doppelt belegt wie im Original). Extractor: Biozelle → Bio-Brennstoffzelle, hydr. Kohlezelle →
+  Kohle-Brennstoffzelle.
+- Quantenhelm: bei Hunger und ≥ 1000 EU erste gefüllte Dose im Inventar: Nahrung (2/0,95) + Effekte + `heal(2)` +
+  leere Dose, Stapel −1, 1000 EU.
+
 ## 7. Sprengstoffe
 
 | Block/Item | Zünder | Explosion |

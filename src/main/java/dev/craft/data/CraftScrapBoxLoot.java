@@ -4,6 +4,7 @@ import java.util.function.BiConsumer;
 
 import dev.craft.gregtech.GtItems;
 import dev.craft.ic2.Ic2Blocks;
+import dev.craft.ic2.Ic2DataComponents;
 import dev.craft.ic2.Ic2Items;
 import dev.craft.ic2.cable.CableType;
 import dev.craft.ic2.item.ScrapBoxItem;
@@ -16,6 +17,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.functions.SetComponentsFunction;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 
 /**
@@ -50,7 +52,9 @@ public record CraftScrapBoxLoot(HolderLookup.Provider registries) implements Loo
         add(pool, Items.APPLE, 50);
         add(pool, Items.BREAD, 50);
         add(pool, Items.CAKE, 10);
-        // filled tin can 100, spoiled tin can 200: not yet available
+        add(pool, Ic2Items.FILLED_TIN_CAN.get(), 100);
+        pool.add(LootItem.lootTableItem(Ic2Items.FILLED_TIN_CAN.get()).setWeight(200)
+                .apply(SetComponentsFunction.setComponent(Ic2DataComponents.CAN_META.get(), 1)));
         add(pool, GtItems.SILICON_CELL.get(), 20);
         add(pool, Ic2Items.WATER_CELL.get(), 100);
         add(pool, Ic2Items.EMPTY_CELL.get(), 200);

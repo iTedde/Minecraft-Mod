@@ -116,6 +116,24 @@
         },
         {
           "type": "minecraft:item",
+          "name": "craft:filled_tin_can",
+          "weight": 100
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "components": {
+                "craft:can_meta": 1
+              },
+              "function": "minecraft:set_components"
+            }
+          ],
+          "name": "craft:filled_tin_can",
+          "weight": 200
+        },
+        {
+          "type": "minecraft:item",
           "name": "craft:silicon_cell",
           "weight": 20
         },

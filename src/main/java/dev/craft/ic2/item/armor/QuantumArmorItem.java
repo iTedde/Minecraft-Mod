@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.WeakHashMap;
 
+import dev.craft.ic2.Ic2Items;
 import dev.craft.ic2.Ic2MobEffects;
 import dev.craft.ic2.item.ElectricItems;
+import dev.craft.ic2.item.FilledTinCanItem;
 import dev.craft.ic2.keyboard.Ic2Keyboard;
 import net.minecraft.core.Holder;
 import net.minecraft.world.damagesource.DamageSource;
@@ -97,7 +99,9 @@ public class QuantumArmorItem extends ElectricArmorItem {
             player.setAirSupply(air + 200);
             ElectricItems.use(stack, 1000, null);
         }
-        // Eating filled tin cans when hungry follows with the tin can (canning machine).
+        if (ElectricItems.canUse(stack, 1000) && player.getFoodData().needsFood()) {
+            eatTinCan(player, stack);
+        }
         for (MobEffectInstance effect : new ArrayList<>(player.getActiveEffects())) {
             int cost = getPotionRemovalCost(effect.getEffect());
             if (cost > 0) {
@@ -106,6 +110,20 @@ public class QuantumArmorItem extends ElectricArmorItem {
                     ElectricItems.use(stack, cost, null);
                     player.removeEffect(effect.getEffect());
                 }
+            }
+        }
+    }
+
+    /** Eats the first filled tin can of the main inventory: food, variant effects, heal and empty can, 1000 EU. */
+    private static void eatTinCan(Player player, ItemStack helmet) {
+        for (ItemStack can : player.getInventory().items) {
+            if (can.is(Ic2Items.FILLED_TIN_CAN.get())) {
+                player.getFoodData().eat(FilledTinCanItem.FOOD);
+                FilledTinCanItem.applyEffects(player, FilledTinCanItem.getMeta(can));
+                FilledTinCanItem.onEaten(player);
+                can.shrink(1);
+                ElectricItems.use(helmet, 1000, null);
+                return;
             }
         }
     }

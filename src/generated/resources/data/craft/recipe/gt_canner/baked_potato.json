@@ -1,0 +1,21 @@
+{
+  "type": "craft:gt_canner",
+  "duration": 300,
+  "eu_per_tick": 1,
+  "inputs": [
+    {
+      "count": 1,
+      "item": "minecraft:baked_potato"
+    },
+    {
+      "count": 3,
+      "item": "craft:tin_can"
+    }
+  ],
+  "outputs": [
+    {
+      "count": 3,
+      "id": "craft:filled_tin_can"
+    }
+  ]
+}

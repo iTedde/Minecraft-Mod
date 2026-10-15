@@ -612,3 +612,32 @@ entscheiden**.
    Aluminiumplatten, MJ-Konverter per Rechtsklick und Engine daneben (MJ-Speicher füllt sich, Maschine läuft ohne EU),
    HV-Trafo-Upgrade erst nach zwei IC2-Trafos, Lithium-Batterie laden/entladen (Icon wechselt), Lithium-BatPack
    tragen (Bergbaubohrer zieht daraus), MFE mit Lithium-Batterien, Standard-Gehäuse mit Aluminiumhülle.
+
+## Erledigt (Teilpaket „Phase 6b.5a: Canning“, 2026-10-16)
+- Nutzerentscheidung Reihenfolge/Umfang 6b.5: **6b.5a Canning** (IC2 Canning Machine + GT Automatic Canning Machine) →
+  6b.5b Implosionskompressor (Iridiumplatte) → 6b.5c Zentrifuge (**nur erreichbare Rezepte**, neue Ausgabe-Items nur
+  bei Bedarf).
+- Spec: `04-maschinen.md` Canning Machine (Tick, GUI, Seiten, Texturen), `05-items.md` §6 (gefüllte Zinndose,
+  Kanister, Zellen, Quantenhelm), `13-gregtech-maschinen.md` §7 (GT-Canner, Rezeptliste).
+- **IC2 Canning Machine** (`CanningMachineBlockEntity`, `CanningMachineMenu`/`Screen`): Modus 1 Lebensmittel in
+  Dosen (Meta je Nahrung), Modus 2 Brennstoffkanister/Jetpack mit Kohle-/Bio-Brennstoffzellen + Redstone/Glowstone/
+  Schwarzpulver-Booster. Modus 3 (CF-Pack) folgt mit dem Bauschaum.
+- **GT Automatic Canning Machine** (`CannerBlockEntity`, `GtRecipe.Kind.CANNER`): 48 Rezepte – Nahrung (Datagen über
+  alle Nahrungs-Items), Bio-/hydr. Kohlezelle, Wasser-/Lavazelle aus Eimern, Brennstoffkanister aus 6 Zellen.
+- Items: Zinndose, gefüllte Zinndose (`craft:can_meta`, Effekte, „This looks bad...“), gefüllter Brennstoffkanister
+  (`craft:fuel_value`, Brennwert `min(32767, 2·Wert)`, leerer Kanister bleibt), Bio-/hydr. Kohle-/Bio-Brennstoff-/
+  Kohle-Brennstoffzelle. Rezepte: 4 Zinndosen, Canning Machine `TCT/TMT/TTT`, GT-Canner formlos, Extractor
+  (Zellen → Brennstoffzellen, gefüllte Dose Meta 0/1 → leere Dose), Ofen Zinndose → Zinnbarren.
+- **Quantenhelm** isst bei Hunger gefüllte Zinndosen (1000 EU). Schrottbox: gefüllte (100) und verdorbene Dose (200).
+- Texturen aus `IC2.jar` (`item_0.png` 34/35/52/57/58, `block_machine.png` Spalte 6, `GUICanner.png`) und
+  `GregTech.zip` (`terrain.png` 254/255, GUI `Canner.png`).
+- 7 neue GameTests (`CanningGameTests`, insgesamt 139 grün), `build` und `runClient` erfolgreich.
+
+## Nächste Schritte
+1. Teilpaket 6b.5b: Implosionskompressor (Multiblock) → Iridium-Legierungsbarren, Iridiumplatte (Spec-Lücken vorher
+   prüfen: Struktur, TNT/ITNT, GT-Iridiumbarren, Diamant-/Smaragdstaub).
+2. Manuelle Client-Tests 6b.5a: Canning Machine GUI (Flamme, Pfeil je Modus), Kuchen → 6 Dosen, Pilzsuppe lässt
+   Schüssel, Kanister mit 6 Kohle-Brennstoffzellen + Redstone als Booster, Jetpack betanken, Seitenzugriff (links von
+   vorne = Batterie, unten = Behälter, oben = Eingabe), gefüllte Dose essen (leere Dose zurück, Effekte), Quantenhelm
+   isst bei Hunger; GT-Canner: Apfel + Dosen in vertauschten Slots, Wassereimer + Zelle, Brennstoffkanister im
+   Generator/Eisenofen.

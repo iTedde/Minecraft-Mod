@@ -1,0 +1,16 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "T": {
+      "tag": "c:ingots/tin"
+    }
+  },
+  "pattern": [
+    "T T",
+    "TTT"
+  ],
+  "result": {
+    "count": 4,
+    "id": "craft:tin_can"
+  }
+}

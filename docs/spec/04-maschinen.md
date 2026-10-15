@@ -205,6 +205,26 @@ Modus nach Slot 3: Zinndose → 1, leerer Brennstoffkanister oder Jetpack → 2,
 
 Wrench-Drop-Rate 0,85. Sided: links (relativ zur Front) → Slot 1, unten → 3, oben → 0, sonst → 2.
 
+**Tick (`TileEntityElecMachine` ohne Upgrades, Ergänzung 6b.5a):** `canOperate` = Slot 0 belegt und je Modus: (1)
+`food > 0`, `food ≤` Dosen in Slot 3, Ausgabe leer oder gefüllte Dose gleicher Meta mit Platz für `food`; (2)
+Brennstoffwert des Eingabe-Items > 0 und Ausgabe leer; (3) Pack-Damage > 2, Eingabe = Schaumpellet, Ausgabe leer.
+Ablauf je Tick: Energie ≤ 600 und `canOperate` → Batterie-Slot entladen (`provideEnergy`: elektrische Items Tier 1,
+Redstone +631 ohne Deckel, Single-Use-Batterie +1000). Fertig-Bedingung (Modus 1: `progress ≥ food·50`; Modus 2:
+`progress > 0 && progress % 100 == 0`; Modus 3: `progress ≥ 50`) → `operate` (Modus 2 unter 600: inkrementell, sonst
+abschließend + `fuelQuality = 0`, `progress = 0`, inaktiv). Danach: aktiv mit Fortschritt, aber nicht mehr
+`canOperate` oder Energie < 1 → inaktiv (ohne `canOperate` und nicht Modus 2: Fortschritt/Qualität = 0); sonst bei
+`canOperate` und Energie ≥ 1 aktiv; ohne `canOperate` und nicht Modus 2 Reset. Aktiv → `progress++`, Energie −1.
+Brennstoffwert im Modus 2: Kohle-/Bio-Brennstoffzelle 2548/868; Redstone/Glowstone-Staub/Schwarzpulver
+`(int)(fuelQuality · 0,2/0,3/0,4)`, nur wenn `fuelQuality > 0`. Modus 1 Pilzsuppe: letzte Suppe → Schüssel bleibt in
+Slot 0. NBT `fuelQuality`. Keine Sounds. Energiespeicher 631, Eingang 32 (darüber Explosion), Tier 1.
+
+**GUI** (`GUICanner.png`, 176 × 166): Slots Eingabe 0 (69, 17), Batterie 1 (30, 45), Ausgabe 2 (119, 35), Behälter 3
+(69, 53). Titel zentriert y 6. Energie-Flamme bei (31, 27) ← (176, 0), 14 × 14 von unten, Höhe
+`min(14, energy·14/600)` (nur bei Energie > 0). Fortschritt bei (74, 36) ← (176, 15), Breite `progress·34/l`, Höhe 13;
+`l` = 50·food (Modus 1, Eingabe belegt, food > 0), 50 (Modus 3), sonst 600. Sync: Fortschritt, Energie.
+Shift-Klick: bevorzugt der erste leere Slot von 0–2 (`firstEmptyFrom(0, 2)`, Ende inklusive; die Ausgabe nimmt nichts an), sonst IC2-Standard.
+Textur: `block_machine.png` Spalte 6 (Zeilen 0–5 unten/oben/hinten/vorne/links/rechts, +6 aktiv).
+
 ---
 
 ## Miner

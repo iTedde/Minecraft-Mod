@@ -8,6 +8,7 @@ import dev.craft.Craft;
 import dev.craft.ic2.menu.ElectricMachineMenu;
 import dev.craft.ic2.menu.ElectricStorageMenu;
 import dev.craft.ic2.menu.ElectrolyzerMenu;
+import dev.craft.ic2.menu.CanningMachineMenu;
 import dev.craft.ic2.menu.InductionFurnaceMenu;
 import dev.craft.ic2.menu.GeneratorMenu;
 import dev.craft.ic2.menu.IronFurnaceMenu;
@@ -51,6 +52,8 @@ public final class Ic2Menus {
                     (id, inventory, buf) -> new ElectrolyzerMenu(id, inventory, buf.readBlockPos()));
             case INDUCTION_FURNACE -> IMenuTypeExtension.create(
                     (id, inventory, buf) -> new InductionFurnaceMenu(id, inventory, buf.readBlockPos()));
+            case CANNING_MACHINE -> IMenuTypeExtension.create(
+                    (id, inventory, buf) -> new CanningMachineMenu(id, inventory, buf.readBlockPos()));
             case LV_TRANSFORMER, MV_TRANSFORMER, HV_TRANSFORMER, MAGNETIZER ->
                     throw new IllegalArgumentException(machine + " has no menu");
         };

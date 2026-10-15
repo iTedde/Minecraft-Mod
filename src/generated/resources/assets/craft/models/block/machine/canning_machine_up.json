@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "craft:block/machine/canning_machine_back",
+    "east": "craft:block/machine/canning_machine_left",
+    "north": "craft:block/machine/canning_machine_top",
+    "particle": "craft:block/machine/canning_machine_front",
+    "south": "craft:block/machine/canning_machine_bottom",
+    "up": "craft:block/machine/canning_machine_front",
+    "west": "craft:block/machine/canning_machine_right"
+  }
+}

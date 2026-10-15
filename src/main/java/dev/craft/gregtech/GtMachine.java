@@ -5,6 +5,7 @@ import java.util.function.BiFunction;
 import dev.craft.gregtech.machine.AssemblerBlockEntity;
 import dev.craft.gregtech.machine.BenderBlockEntity;
 import dev.craft.gregtech.machine.BlastFurnaceBlockEntity;
+import dev.craft.gregtech.machine.CannerBlockEntity;
 import dev.craft.gregtech.machine.ElectrolyzerBlockEntity;
 import dev.craft.gregtech.machine.GtMachineBlockEntity;
 import net.minecraft.core.BlockPos;
@@ -24,7 +25,9 @@ public enum GtMachine {
         public int getTopTexture(boolean active) {
             return 237;
         }
-    };
+    },
+    AUTOMATIC_CANNING_MACHINE("automatic_canning_machine", "canner", Layout.BASIC, 32, 254, 255,
+            "Unmobile Food Canning Machine GTA4", CannerBlockEntity::new);
 
     /** {@link Layout#FRONT}: back and remaining sides of the blast furnace ({@code terrain.png}). */
     public static final int FRONT_LAYOUT_BACK = 71;

@@ -12,6 +12,8 @@ import dev.craft.ic2.cable.CableType;
 import dev.craft.ic2.item.BatteryItem;
 import dev.craft.ic2.item.ElectricWrenchItem;
 import dev.craft.ic2.item.EmptyCellItem;
+import dev.craft.ic2.item.FilledFuelCanItem;
+import dev.craft.ic2.item.FilledTinCanItem;
 import dev.craft.ic2.item.ResinItem;
 import dev.craft.ic2.item.ScrapBoxItem;
 import dev.craft.ic2.item.SingleUseBatteryItem;
@@ -112,8 +114,12 @@ public final class Ic2Items {
     public static final DeferredItem<Item> MIXED_METAL_INGOT = simple("mixed_metal_ingot");
     public static final DeferredItem<Item> ADVANCED_ALLOY = simple("advanced_alloy");
     public static final DeferredItem<Item> DENSE_COPPER_PLATE = simple("dense_copper_plate");
-    /** Empty fuel can; filling (and the filled can) follows with the canning machine. */
     public static final DeferredItem<Item> EMPTY_FUEL_CAN = simple("empty_fuel_can");
+    public static final DeferredItem<FilledFuelCanItem> FILLED_FUEL_CAN = simple(ITEMS.register("filled_fuel_can",
+            () -> new FilledFuelCanItem(new Item.Properties().stacksTo(1).craftRemainder(EMPTY_FUEL_CAN.get()))));
+    public static final DeferredItem<Item> TIN_CAN = simple("tin_can");
+    public static final DeferredItem<FilledTinCanItem> FILLED_TIN_CAN =
+            simple(ITEMS.registerItem("filled_tin_can", FilledTinCanItem::new));
 
     // --- cells ---
     public static final DeferredItem<EmptyCellItem> EMPTY_CELL =
@@ -122,6 +128,10 @@ public final class Ic2Items {
     public static final DeferredItem<Item> WATER_CELL = simple("water_cell");
     public static final DeferredItem<Item> AIR_CELL = simple("air_cell");
     public static final DeferredItem<Item> ELECTROLYZED_WATER_CELL = simple("electrolyzed_water_cell");
+    public static final DeferredItem<Item> BIO_CELL = simple("bio_cell");
+    public static final DeferredItem<Item> HYDRATED_COAL_CELL = simple("hydrated_coal_cell");
+    public static final DeferredItem<Item> BIOFUEL_CELL = simple("biofuel_cell");
+    public static final DeferredItem<Item> COALFUEL_CELL = simple("coalfuel_cell");
     /** 10k coolant cell; only an ingredient until the reactor (phase 7) gives it its heat logic. */
     public static final DeferredItem<Item> COOLANT_CELL_10K =
             simple("coolant_cell_10k", new Item.Properties().stacksTo(1));

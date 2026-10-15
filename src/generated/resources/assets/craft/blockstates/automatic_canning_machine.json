@@ -1,0 +1,184 @@
+{
+  "variants": {
+    "active=false,facing=down,front=east": {
+      "model": "craft:block/gt/automatic_canning_machine_32_79_40_40_40_254"
+    },
+    "active=false,facing=down,front=none": {
+      "model": "craft:block/gt/automatic_canning_machine_254_29_40_40_40_40"
+    },
+    "active=false,facing=down,front=north": {
+      "model": "craft:block/gt/automatic_canning_machine_32_79_254_40_40_40"
+    },
+    "active=false,facing=down,front=south": {
+      "model": "craft:block/gt/automatic_canning_machine_32_79_40_254_40_40"
+    },
+    "active=false,facing=down,front=west": {
+      "model": "craft:block/gt/automatic_canning_machine_32_79_40_40_254_40"
+    },
+    "active=false,facing=east,front=east": {
+      "model": "craft:block/gt/automatic_canning_machine_32_29_40_40_36_254"
+    },
+    "active=false,facing=east,front=none": {
+      "model": "craft:block/gt/automatic_canning_machine_32_29_40_40_40_254"
+    },
+    "active=false,facing=east,front=north": {
+      "model": "craft:block/gt/automatic_canning_machine_32_29_254_40_36_40"
+    },
+    "active=false,facing=east,front=south": {
+      "model": "craft:block/gt/automatic_canning_machine_32_29_40_254_36_40"
+    },
+    "active=false,facing=east,front=west": {
+      "model": "craft:block/gt/automatic_canning_machine_32_29_40_40_254_40"
+    },
+    "active=false,facing=north,front=east": {
+      "model": "craft:block/gt/automatic_canning_machine_32_29_40_36_40_254"
+    },
+    "active=false,facing=north,front=none": {
+      "model": "craft:block/gt/automatic_canning_machine_32_29_254_40_40_40"
+    },
+    "active=false,facing=north,front=north": {
+      "model": "craft:block/gt/automatic_canning_machine_32_29_254_36_40_40"
+    },
+    "active=false,facing=north,front=south": {
+      "model": "craft:block/gt/automatic_canning_machine_32_29_40_254_40_40"
+    },
+    "active=false,facing=north,front=west": {
+      "model": "craft:block/gt/automatic_canning_machine_32_29_40_36_254_40"
+    },
+    "active=false,facing=south,front=east": {
+      "model": "craft:block/gt/automatic_canning_machine_32_29_36_40_40_254"
+    },
+    "active=false,facing=south,front=none": {
+      "model": "craft:block/gt/automatic_canning_machine_32_29_40_254_40_40"
+    },
+    "active=false,facing=south,front=north": {
+      "model": "craft:block/gt/automatic_canning_machine_32_29_254_40_40_40"
+    },
+    "active=false,facing=south,front=south": {
+      "model": "craft:block/gt/automatic_canning_machine_32_29_36_254_40_40"
+    },
+    "active=false,facing=south,front=west": {
+      "model": "craft:block/gt/automatic_canning_machine_32_29_36_40_254_40"
+    },
+    "active=false,facing=up,front=east": {
+      "model": "craft:block/gt/automatic_canning_machine_38_29_40_40_40_254"
+    },
+    "active=false,facing=up,front=none": {
+      "model": "craft:block/gt/automatic_canning_machine_32_254_40_40_40_40"
+    },
+    "active=false,facing=up,front=north": {
+      "model": "craft:block/gt/automatic_canning_machine_38_29_254_40_40_40"
+    },
+    "active=false,facing=up,front=south": {
+      "model": "craft:block/gt/automatic_canning_machine_38_29_40_254_40_40"
+    },
+    "active=false,facing=up,front=west": {
+      "model": "craft:block/gt/automatic_canning_machine_38_29_40_40_254_40"
+    },
+    "active=false,facing=west,front=east": {
+      "model": "craft:block/gt/automatic_canning_machine_32_29_40_40_40_254"
+    },
+    "active=false,facing=west,front=none": {
+      "model": "craft:block/gt/automatic_canning_machine_32_29_40_40_254_40"
+    },
+    "active=false,facing=west,front=north": {
+      "model": "craft:block/gt/automatic_canning_machine_32_29_254_40_40_36"
+    },
+    "active=false,facing=west,front=south": {
+      "model": "craft:block/gt/automatic_canning_machine_32_29_40_254_40_36"
+    },
+    "active=false,facing=west,front=west": {
+      "model": "craft:block/gt/automatic_canning_machine_32_29_40_40_254_36"
+    },
+    "active=true,facing=down,front=east": {
+      "model": "craft:block/gt/automatic_canning_machine_32_79_40_40_40_255"
+    },
+    "active=true,facing=down,front=none": {
+      "model": "craft:block/gt/automatic_canning_machine_255_29_40_40_40_40"
+    },
+    "active=true,facing=down,front=north": {
+      "model": "craft:block/gt/automatic_canning_machine_32_79_255_40_40_40"
+    },
+    "active=true,facing=down,front=south": {
+      "model": "craft:block/gt/automatic_canning_machine_32_79_40_255_40_40"
+    },
+    "active=true,facing=down,front=west": {
+      "model": "craft:block/gt/automatic_canning_machine_32_79_40_40_255_40"
+    },
+    "active=true,facing=east,front=east": {
+      "model": "craft:block/gt/automatic_canning_machine_32_29_40_40_36_255"
+    },
+    "active=true,facing=east,front=none": {
+      "model": "craft:block/gt/automatic_canning_machine_32_29_40_40_40_255"
+    },
+    "active=true,facing=east,front=north": {
+      "model": "craft:block/gt/automatic_canning_machine_32_29_255_40_36_40"
+    },
+    "active=true,facing=east,front=south": {
+      "model": "craft:block/gt/automatic_canning_machine_32_29_40_255_36_40"
+    },
+    "active=true,facing=east,front=west": {
+      "model": "craft:block/gt/automatic_canning_machine_32_29_40_40_255_40"
+    },
+    "active=true,facing=north,front=east": {
+      "model": "craft:block/gt/automatic_canning_machine_32_29_40_36_40_255"
+    },
+    "active=true,facing=north,front=none": {
+      "model": "craft:block/gt/automatic_canning_machine_32_29_255_40_40_40"
+    },
+    "active=true,facing=north,front=north": {
+      "model": "craft:block/gt/automatic_canning_machine_32_29_255_36_40_40"
+    },
+    "active=true,facing=north,front=south": {
+      "model": "craft:block/gt/automatic_canning_machine_32_29_40_255_40_40"
+    },
+    "active=true,facing=north,front=west": {
+      "model": "craft:block/gt/automatic_canning_machine_32_29_40_36_255_40"
+    },
+    "active=true,facing=south,front=east": {
+      "model": "craft:block/gt/automatic_canning_machine_32_29_36_40_40_255"
+    },
+    "active=true,facing=south,front=none": {
+      "model": "craft:block/gt/automatic_canning_machine_32_29_40_255_40_40"
+    },
+    "active=true,facing=south,front=north": {
+      "model": "craft:block/gt/automatic_canning_machine_32_29_255_40_40_40"
+    },
+    "active=true,facing=south,front=south": {
+      "model": "craft:block/gt/automatic_canning_machine_32_29_36_255_40_40"
+    },
+    "active=true,facing=south,front=west": {
+      "model": "craft:block/gt/automatic_canning_machine_32_29_36_40_255_40"
+    },
+    "active=true,facing=up,front=east": {
+      "model": "craft:block/gt/automatic_canning_machine_38_29_40_40_40_255"
+    },
+    "active=true,facing=up,front=none": {
+      "model": "craft:block/gt/automatic_canning_machine_32_255_40_40_40_40"
+    },
+    "active=true,facing=up,front=north": {
+      "model": "craft:block/gt/automatic_canning_machine_38_29_255_40_40_40"
+    },
+    "active=true,facing=up,front=south": {
+      "model": "craft:block/gt/automatic_canning_machine_38_29_40_255_40_40"
+    },
+    "active=true,facing=up,front=west": {
+      "model": "craft:block/gt/automatic_canning_machine_38_29_40_40_255_40"
+    },
+    "active=true,facing=west,front=east": {
+      "model": "craft:block/gt/automatic_canning_machine_32_29_40_40_40_255"
+    },
+    "active=true,facing=west,front=none": {
+      "model": "craft:block/gt/automatic_canning_machine_32_29_40_40_255_40"
+    },
+    "active=true,facing=west,front=north": {
+      "model": "craft:block/gt/automatic_canning_machine_32_29_255_40_40_36"
+    },
+    "active=true,facing=west,front=south": {
+      "model": "craft:block/gt/automatic_canning_machine_32_29_40_255_40_36"
+    },
+    "active=true,facing=west,front=west": {
+      "model": "craft:block/gt/automatic_canning_machine_32_29_40_40_255_36"
+    }
+  }
+}

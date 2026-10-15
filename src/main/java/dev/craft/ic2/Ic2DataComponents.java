@@ -50,6 +50,21 @@ public final class Ic2DataComponents {
                     .persistent(ExtraCodecs.NON_NEGATIVE_INT)
                     .networkSynchronized(ByteBufCodecs.VAR_INT));
 
+    /**
+     * Filled tin can variant (IC2 metadata 0–5, effects in {@code ItemTinCan}); default 0, set in
+     * {@code Ic2.modifyDefaultComponents} so recipe ingredients can tell meta 0 from meta 1.
+     */
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> CAN_META =
+            COMPONENTS.registerComponentType("can_meta", builder -> builder
+                    .persistent(ExtraCodecs.NON_NEGATIVE_INT)
+                    .networkSynchronized(ByteBufCodecs.VAR_INT));
+
+    /** Fuel quality of a filled fuel can (IC2 NBT {@code value}). */
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> FUEL_VALUE =
+            COMPONENTS.registerComponentType("fuel_value", builder -> builder
+                    .persistent(ExtraCodecs.NON_NEGATIVE_INT)
+                    .networkSynchronized(ByteBufCodecs.VAR_INT));
+
     /** Last block position of the static boots (IC2 NBT {@code x}/{@code z}). */
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Position>> LAST_POSITION =
             COMPONENTS.registerComponentType("last_position", builder -> builder

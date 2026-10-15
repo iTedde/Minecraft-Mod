@@ -1,0 +1,23 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "C": {
+      "item": "craft:electronic_circuit"
+    },
+    "M": {
+      "item": "craft:machine_casing"
+    },
+    "T": {
+      "tag": "c:ingots/tin"
+    }
+  },
+  "pattern": [
+    "TCT",
+    "TMT",
+    "TTT"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:canning_machine"
+  }
+}

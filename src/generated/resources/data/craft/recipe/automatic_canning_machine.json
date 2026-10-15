@@ -1,0 +1,15 @@
+{
+  "type": "craft:ic2_shapeless",
+  "ingredients": [
+    {
+      "item": "craft:conveyor_module"
+    },
+    {
+      "item": "craft:canning_machine"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:automatic_canning_machine"
+  }
+}

@@ -496,3 +496,36 @@ GT-Rezepten, die im Pack den Ore-Namen nutzen: Standard-Gehäuse (Tier 01), vers
 (Energiekristall + Lithium-Batterie) im MFE-Rezept.
 
 **Damit herstellbar:** Wassermühle, Windmühle, GT-Upgrades MJ-Konverter/HV-Trafo/Lithium, Lithium-Batterie und -BatPack.
+
+## 7. Automatische Canning Machine (`GT_MetaTileEntity_Canner`, ID 57, „Automatic Canning Machine“) – Teilpaket 6b.5a
+
+- BasicMachine (§1), GUI `gui/Canner.png` (Layout wie §1.8), Beschreibung „Unmobile Food Canning Machine GTA4“.
+  Vorderseite inaktiv/aktiv = `terrain.png` **254/255**, übrige Seiten Standard (§1.9). `hasTwoSeperateInputs() = true`.
+- `checkRecipe` wie der Assembler (§6), aber **zwei Ausgaben** (Slot 3/4, `spaceForOutput(out1, out2)`), Liste
+  `sCannerRecipes`, Suche **shapeless** (§6.1).
+- **Rezept:** formlos Förderband-Modul (`craftingConveyor`) + IC2 Canning Machine.
+- Dauer aus `RecipesAdvancedConfig.cfg`, Abschnitt `canning`, Schlüssel = **Eingabe 1** – im Pack überall gleich den
+  Code-Standardwerten. Doppelte Rezepte (gleiche Eingaben) werden von GT nicht aufgenommen; das erste gewinnt.
+
+| Eingabe 1 | Eingabe 2 | Ausgabe 1 | Ausgabe 2 | Ticks | EU/t |
+|---|---|---|---|---|---|
+| Verrottetes Fleisch | 2 Zinndosen | 2 gefüllte Zinndosen (Meta 1) | – | 200 | 1 |
+| Spinnenauge | 1 Zinndose | 1 gefüllte Zinndose (Meta 1) | – | 100 | 1 |
+| Giftige Kartoffel | 1 Zinndose | 1 gefüllte Zinndose (Meta 1) | – | 100 | 1 |
+| Kuchen (Item und Block) | 6 Zinndosen | 6 gefüllte Zinndosen | – | 600 | 1 |
+| Pilzsuppe | 3 Zinndosen | 3 gefüllte Zinndosen | Schüssel | 300 | 1 |
+| jedes andere Nahrungsmittel (außer gefüllter Zinndose), `n = ceil(heal/2)` > 0 | n Zinndosen | n gefüllte Zinndosen (Meta 0) | Behälter-Item, falls vorhanden | 100 · n | 1 |
+| Komprimierter Pflanzenball | leere Zelle | Biozelle | – | 100 | 1 |
+| Hydr. Kohleklumpen | leere Zelle | hydr. Kohlezelle | – | 100 | 1 |
+| Lavaeimer | leere Zelle | Lavazelle | Eimer | 100 | 1 |
+| Wassereimer | leere Zelle | Wasserzelle | Eimer | 100 | 1 |
+| 6 Bio-Brennstoffzellen | leerer Brennstoffkanister | gefüllter Kanister (`value` 5208) | 6 leere Zellen | 600 | 1 |
+| 6 Kohle-Brennstoffzellen | leerer Brennstoffkanister | gefüllter Kanister (`value` 15288) | 6 leere Zellen | 600 | 1 |
+
+Spätere Rezepte (Zutaten fehlen noch): Uranbarren + Zelle → Uranzelle (100 Ticks, 2 EU/t, Phase 7), Plutonium-,
+Thorium-, Schwefel-, Calcit-, Wolfram-, Quecksilberzellen (GT-Zellen, je 100/1), Railcraft-Schwellen (Kreosot, nicht im
+Umfang).
+
+Umsetzung der Nahrungsrezepte: Datagen über alle Items mit `DataComponents.FOOD` (Vanilla und Mod) mit
+`ceil(nutrition / 2)`; die 1.4.7-Werte stimmen für alle Vanilla-Nahrungsmittel von damals mit den 1.21-Werten überein
+(Ergebnis `n`). Behälter-Item = `FoodProperties.usingConvertsTo` (Schüssel, Glasflasche), siehe `abweichungen.md`.

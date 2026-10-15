@@ -137,15 +137,15 @@ Status: *geplant* (aus Phase 1 abgeleitet, noch nicht umgesetzt), *entschieden* 
 | Rüstungstexturen/-material | `addArmor("ic2/<name>")`, Diamant-Rendermaterial | je Textur ein `ArmorMaterial` (`craft:<name>`, `_layer_1/_2`), Verteidigung 0 (Hazmat 1), nicht verzauberbar, keine Reparatur mit Material; Anlegegeräusch generisch (1.4.7 ohne) | Registry | **umgesetzt** |
 | Quantum: Sprint/Sprung | Config `enableQuantumSpeedOnSprint` (Client → Server), `isJumping` | fest `true` (Pack-Wert); Springen über die IC2-Sprungtaste (`Ic2Keyboard`) statt `isJumping` | Feld geschützt, gleiche Bedeutung | **umgesetzt** |
 | Quantum: Zustände je Spieler | statische Maps, `removePlayerReferences` beim Ausloggen | `WeakHashMap` je Spielerobjekt | gleiches Verhalten | **umgesetzt** |
-| Quantumhelm: Zinndosen essen | gefüllte Zinndose aus dem Inventar | kommt mit der Zinndose (Canning Machine) | Item fehlt noch | **offen** |
+| Quantumhelm: Zinndosen essen | gefüllte Zinndose aus dem Inventar | erste gefüllte Dose im Hauptinventar (ohne Offhand/Rüstung, wie `mainInventory`) | – | **umgesetzt** (6b.5a) |
 | Errungenschaft „starveWithQHelmet“ | Quantumhelm | entfällt (wie alle IC2-Errungenschaften) | – | **entfällt** |
 | Hazmat: Feuerquellen | `inFire`, `onFire`, `lava` | zusätzlich `campfire` (Lagerfeuer gab es 1.4.7 nicht; Feuerblock-Schaden) | neuer Block | **umgesetzt** |
 | Hazmat: `isInLava` | Material Lava/Feuer am Fußblock, Höhe über `BlockFluid` | Lava-Fluid mit Level-Eigenschaft, gleiche Höhenformel | Materialien entfallen | **umgesetzt** |
 | Jetpack: Flug-Kick | `resetPlayerInAirTime` (`ticksForFloatKick`) | `aboveGroundTickCount = 0` (Access Transformer) | privates Feld | **umgesetzt** |
 | Jetpack: Welthöhe | `getHeight()` = 256 | `getMaxBuildHeight()` (Oberwelt 320) | Welthöhe | **umgesetzt** |
 | Jetpack: Sound | IC2-AudioManager „Rucksack“-Position | mitlaufender Loop am lokalen Spieler | API | **umgesetzt** |
-| Jetpack: Betankung | Canning Machine | Jetpack wird leer hergestellt (Damage 18 001), Betanken mit der Canning Machine | Maschine fehlt noch | **offen** |
-| CF-Pack | Pellet-Vorrat für den Bauschaumsprüher | kommt mit dem Bauschaumsprüher (Rezept braucht ihn) | Item fehlt noch | **offen** |
+| Jetpack: Betankung | Canning Machine | Canning Machine Modus 2 wie im Original (neues Jetpack mit `damage − fuelQuality`, Schwebemodus/Timer gehen dabei verloren wie das Original-NBT) | – | **umgesetzt** (6b.5a) |
+| CF-Pack | Pellet-Vorrat für den Bauschaumsprüher | kommt mit dem Bauschaumsprüher (Rezept braucht ihn), ebenso Modus 3 der Canning Machine (Pack mit Pellets füllen) | Item fehlt noch | **offen** |
 | Quantum-Rezepte | Iridiumplatte, verst. Glas, fortg. Schaltkreis … | Quantum ohne Rezept (Creative) bis Phase 6b | Zutaten (GT) fehlen | **offen bis Phase 6b** |
 | Static Boots: Position | NBT `x`/`z` | Data Component `craft:last_position` | Data Components | **umgesetzt** |
 | Jetpack: Modus/Timer | NBT `hoverMode`/`toggleTimer` | Data Components `craft:hover_mode`/`craft:toggle_timer` | Data Components | **umgesetzt** |
@@ -172,6 +172,12 @@ Status: *geplant* (aus Phase 1 abgeleitet, noch nicht umgesetzt), *entschieden* 
 | GT-Heizspulen (Kupfernickel, Kanthal, Nichrom) | Railcraft-Walzmaschine (`MMIngotOnlyRollingMachine=true`) | Werkbank, gleiches Muster (GTs eigener Fallback ohne Railcraft) | Railcraft nicht im Umfang; Nutzerentscheidung | **umgesetzt** |
 | GT-Maschinengehäuse: Texturen | verbundene Texturen je Nachbarn (`blocks.png` ab 96/112/224, 12 Varianten je Seite) | eine Textur je Gehäusetyp (`blocks.png` 13/14/15) | Nutzerentscheidung: verbundene Texturen in Phase 10 | **vorläufig** |
 | GT-Fortgeschrittenes Maschinengehäuse: ID | Metadaten 15 von `BlockMetaID_Block` | Registry-Name `gt_advanced_machine_casing` | Name `advanced_machine_casing` ist der IC2-Maschinenblock | **umgesetzt** |
+| Gefüllte Zinndose: Meta | Metadaten 0–5 | Data Component `craft:can_meta` (Standard 0 über `ModifyDefaultComponentsEvent`, damit Rezepte Meta 0 und 1 unterscheiden; Extractor/Schrottbox nutzen ihn) | keine Metadaten | **umgesetzt** |
+| Gefüllter Brennstoffkanister: Wert | NBT `value` (alte Kanister: Damage = Wert) | Data Component `craft:fuel_value`; Damage-Altfall entfällt | Data Components | **umgesetzt** |
+| Konservieren: Nahrungswert | `ItemFood.getHealAmount` | `FoodProperties.nutrition` – für alle Nahrungsmittel aus 1.4.7 ergibt `ceil(n/2)` dieselbe Dosenzahl; neue 1.21-Nahrung (Beeren, Hammel, Lachs, Kelp, Honig, Ominöse Flasche …) folgt der Formel, auch im GT-Canner (Datagen über alle Items mit Nahrung) | neue Items | **umgesetzt** |
+| Konservieren: Behälter | IC2: nur Pilzsuppe → Schüssel; GT: Pilzsuppe → Schüssel, sonst `getContainerItem` | beide Maschinen: Crafting-Rest (Honig → Glasflasche), sonst `usingConvertsTo` (Schüssel der 1.21-Suppen) | Suppen haben in 1.21 keinen Crafting-Rest | **umgesetzt** |
+| GT-Canner: Zellen-Rezepte | Uran, Plutonium, Thorium, Schwefel, Calcit, Wolfram, Quecksilber, Railcraft-Schwellen | Uranzelle mit Phase 7, GT-Zellen sobald es sie gibt; Railcraft nicht im Umfang | Items fehlen | **offen** |
+| Konservierungsmaschine: deutscher Name | – (IC2 nur englisch) | „Konservierungsmaschine“ | Doku auf Deutsch | **umgesetzt** |
 
 ## Bewusst (Energiebalancing)
 

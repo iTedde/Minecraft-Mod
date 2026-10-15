@@ -1,0 +1,25 @@
+{
+  "type": "craft:gt_canner",
+  "duration": 500,
+  "eu_per_tick": 1,
+  "inputs": [
+    {
+      "count": 1,
+      "item": "minecraft:rabbit_stew"
+    },
+    {
+      "count": 5,
+      "item": "craft:tin_can"
+    }
+  ],
+  "outputs": [
+    {
+      "count": 5,
+      "id": "craft:filled_tin_can"
+    },
+    {
+      "count": 1,
+      "id": "minecraft:bowl"
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "type": "craft:extractor",
+  "ingredient": {
+    "type": "neoforge:components",
+    "components": {
+      "craft:can_meta": 0
+    },
+    "items": "craft:filled_tin_can"
+  },
+  "result": {
+    "count": 1,
+    "id": "craft:tin_can"
+  }
+}
