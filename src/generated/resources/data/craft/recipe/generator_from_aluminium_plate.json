@@ -1,0 +1,23 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "B": {
+      "item": "craft:re_battery"
+    },
+    "F": {
+      "item": "craft:iron_furnace"
+    },
+    "R": {
+      "tag": "c:plates/aluminium"
+    }
+  },
+  "pattern": [
+    " B ",
+    "RRR",
+    " F "
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:generator"
+  }
+}

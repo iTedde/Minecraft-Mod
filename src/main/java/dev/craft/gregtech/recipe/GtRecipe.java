@@ -163,7 +163,8 @@ public class GtRecipe implements Recipe<GtRecipe.Input> {
     /** GT recipe lists ({@code GT_Recipe.s*Recipes}). */
     public enum Kind {
         BENDER("bender", false),
-        ELECTROLYZER("electrolyzer", false);
+        ELECTROLYZER("electrolyzer", false),
+        BLAST_FURNACE("blast_furnace", true);
 
         private final String name;
         private final boolean shapeless;

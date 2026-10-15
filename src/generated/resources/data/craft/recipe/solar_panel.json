@@ -1,0 +1,29 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "C": {
+      "item": "craft:electronic_circuit"
+    },
+    "G": {
+      "item": "minecraft:glass_pane"
+    },
+    "H": {
+      "item": "craft:generator"
+    },
+    "P": {
+      "item": "craft:carbon_plate"
+    },
+    "S": {
+      "tag": "c:plates/silicon"
+    }
+  },
+  "pattern": [
+    "GGG",
+    "SPS",
+    "CHC"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:solar_panel"
+  }
+}

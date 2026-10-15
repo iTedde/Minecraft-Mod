@@ -12,6 +12,7 @@ import dev.craft.forestry.circuit.CircuitBoardType;
 import dev.craft.forestry.circuit.ElectronTube;
 import dev.craft.gregtech.GtItems;
 import dev.craft.gregtech.GtMachine;
+import dev.craft.gregtech.block.GtCasingBlock;
 import dev.craft.ic2.Ic2Items;
 import dev.craft.ic2.Ic2Machine;
 import dev.craft.ic2.cable.CableType;
@@ -149,6 +150,9 @@ public final class CraftCreativeTabs {
                     .displayItems((parameters, output) -> {
                         for (GtMachine machine : GtMachine.values()) {
                             output.accept(GtItems.machine(machine));
+                        }
+                        for (GtCasingBlock.Type type : GtCasingBlock.Type.values()) {
+                            output.accept(GtItems.casing(type));
                         }
                         GtItems.simpleItems().forEach(output::accept);
                     })

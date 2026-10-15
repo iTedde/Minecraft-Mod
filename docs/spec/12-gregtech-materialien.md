@@ -31,7 +31,7 @@ Quelle: `reference/decompiled/gregtech/` (`GT_Mod.java`, `common/GT_OreDictHandl
 | Material | GT-Item | Weg im Pack |
 |---|---|---|
 | Platten (Eisen, raff. Eisen, Kupfer, Zinn, Bronze, Gold, Aluminium, Stahl, Titan, Platin …) | `GT_MetaItem_Material` 64–84 | **Plattenbieger** (Bender): 1 Barren → 1 Platte, 50 Ticks, 20 EU/t |
-| Stahlbarren | Material 26 | **Hochofen** (Multiblock, Heizspulen): Eisenstaub/-barren + 2 Kohlestaub → Stahl + 2 dunkle Asche, 500 Ticks, 128 EU/t, 1000 K |
+| Stahlbarren | Material 26 | **Hochofen** (Multiblock, Heizspulen): raff. Eisenbarren + 2 Kohlestaub → Stahl + 2 dunkle Asche (oder Stahlstaub, 100 Ticks), 500 Ticks, 128 EU/t, 1000 K |
 | Titanbarren | Material 19 | Hochofen: Titanstaub → Titanbarren, 1000 Ticks, 128 EU/t, 1500 K; Titanstaub aus Bauxit (Elektrolyseur/Zentrifuge), Erz nur GT-Weltgen |
 | Aluminiumbarren | Material 18 | Hochofen: Aluminiumstaub, 200 Ticks, 128 EU/t, 1700 K; Staub aus Bauxit |
 | Siliziumplatte | Material 36 | Hochofen: 2 Siliziumzellen → 1 Siliziumplatte + 2 leere Zellen, 1000 Ticks, 128 EU/t, 1500 K; Silizium aus Sand/Feuerstein (Elektrolyseur/Zentrifuge) |

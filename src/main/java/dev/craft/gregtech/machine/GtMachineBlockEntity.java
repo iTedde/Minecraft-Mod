@@ -280,6 +280,19 @@ public abstract class GtMachineBlockEntity extends MachineBlockEntity implements
         return installed;
     }
 
+    /**
+     * {@code MetaTileEntity.onRightclick} with a held item that is no upgrade.
+     *
+     * @return whether the click was used up (no GUI opens)
+     */
+    public boolean onRightclick(Player player, ItemStack stack) {
+        return false;
+    }
+
+    /** {@code IMachineBlockUpdateable.onMachineBlockUpdate}: a casing or GT machine nearby changed. */
+    public void onMachineBlockUpdate() {
+    }
+
     public int getOverclockers() {
         return overclockers;
     }
@@ -467,6 +480,10 @@ public abstract class GtMachineBlockEntity extends MachineBlockEntity implements
 
     // --- persistence (GT field names) ---
 
+    /** {@code setItemNBT}: extra values the wrenched machine item keeps (restored by {@link #loadAdditional}). */
+    protected void saveItemData(CompoundTag tag) {
+    }
+
     private void saveUpgrades(CompoundTag tag) {
         if (mjConverter) {
             tag.putBoolean("mMJConverter", true);
@@ -476,6 +493,7 @@ public abstract class GtMachineBlockEntity extends MachineBlockEntity implements
         putIfPositive(tag, "mLiBatteries", liBatteries);
         putIfPositive(tag, "mRSEnergyCells", rsEnergyCells);
         putIfPositive(tag, "mBatteries", batteries);
+        saveItemData(tag);
     }
 
     private static void putIfPositive(CompoundTag tag, String key, int value) {

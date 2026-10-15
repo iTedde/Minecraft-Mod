@@ -14,6 +14,7 @@ import dev.craft.buildcraft.factory.TankBlock;
 import dev.craft.forestry.FrBlocks;
 import dev.craft.gregtech.GtBlocks;
 import dev.craft.gregtech.GtMachine;
+import dev.craft.gregtech.block.GtCasingBlock;
 import dev.craft.gregtech.machine.GtMachineBlock;
 import dev.craft.ic2.Ic2Blocks;
 import dev.craft.ic2.Ic2Machine;
@@ -321,6 +322,10 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
                     state.getValue(GtMachineBlock.ACTIVE))).build());
             simpleBlockItem(block, gtModel(machine, models, Direction.NORTH, Direction.NORTH, false));
         }
+        for (GtCasingBlock.Type type : GtCasingBlock.Type.values()) {
+            simpleBlockWithItem(GtBlocks.casing(type).get(), models().cubeAll(type.getName(),
+                    modLoc("block/gt/blocks_" + type.getTexture())));
+        }
     }
 
     private ModelFile gtModel(GtMachine machine, Map<String, ModelFile> models, Direction facing,
@@ -336,11 +341,15 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
                 .texture("particle", gtLoc(machine.getFrontTexture(false))));
     }
 
-    /** {@code getTextureIndex} of the basic machine; other machines: bottom 32, top 29, sides = their own texture. */
+    /** {@code getTextureIndex}: basic machine (spec 13 §1.9), side layout (bottom 32, top 29, own sides) or front layout. */
     private static int gtTexture(GtMachine machine, Direction side, Direction facing, @Nullable Direction front,
                                  boolean active) {
-        if (!machine.isBasicMachine()) {
+        if (machine.getLayout() == GtMachine.Layout.SIDES) {
             return side == Direction.DOWN ? 32 : side == Direction.UP ? 29 : machine.getFrontTexture(active);
+        }
+        if (machine.getLayout() == GtMachine.Layout.FRONT) {
+            return side == facing ? machine.getFrontTexture(active) : side == facing.getOpposite()
+                    ? GtMachine.FRONT_LAYOUT_BACK : GtMachine.FRONT_LAYOUT_SIDE;
         }
         if (front == null ? side == facing : side == front) {
             return machine.getFrontTexture(active);

@@ -11,6 +11,7 @@ import dev.craft.compactsolars.CsBlocks;
 import dev.craft.gregtech.GtBlocks;
 import dev.craft.gregtech.GtItems;
 import dev.craft.gregtech.GtMachine;
+import dev.craft.gregtech.block.GtCasingBlock;
 import dev.craft.powerconverters.PcBlocks;
 import dev.craft.ic2.Ic2Blocks;
 import dev.craft.ic2.Ic2Items;
@@ -50,6 +51,9 @@ public final class CraftBlockLoot extends BlockLootSubProvider {
         // GT_BlockMetaID_Machine.getBlockDropped: always machine parts (the wrench drops the machine itself).
         for (GtMachine machine : GtMachine.values()) {
             dropOther(GtBlocks.machine(machine).get(), GtItems.MACHINE_PARTS.get());
+        }
+        for (GtCasingBlock.Type type : GtCasingBlock.Type.values()) {
+            dropSelf(GtBlocks.casing(type).get());
         }
         for (CableType type : CableType.values()) {
             dropSelf(Ic2Blocks.cable(type).get());

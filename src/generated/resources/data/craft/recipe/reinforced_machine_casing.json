@@ -1,0 +1,23 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "C": {
+      "item": "craft:advanced_circuit"
+    },
+    "M": {
+      "item": "craft:advanced_machine_casing"
+    },
+    "S": {
+      "tag": "c:plates/steel"
+    }
+  },
+  "pattern": [
+    "SSS",
+    "CMC",
+    "SSS"
+  ],
+  "result": {
+    "count": 4,
+    "id": "craft:reinforced_machine_casing"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "type": "craft:macerator",
+  "ingredient": {
+    "tag": "c:ingots/aluminium"
+  },
+  "result": {
+    "count": 1,
+    "id": "craft:aluminium_dust"
+  }
+}

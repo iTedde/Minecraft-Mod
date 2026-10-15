@@ -1,0 +1,10 @@
+{
+  "type": "craft:macerator",
+  "ingredient": {
+    "tag": "c:ingots/nickel"
+  },
+  "result": {
+    "count": 1,
+    "id": "craft:nickel_dust"
+  }
+}

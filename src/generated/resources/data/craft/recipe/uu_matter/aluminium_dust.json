@@ -1,0 +1,21 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "M": {
+      "item": "craft:uu_matter"
+    }
+  },
+  "pattern": [
+    " M ",
+    " M ",
+    "MMM"
+  ],
+  "position": {
+    "left": 0,
+    "top": 0
+  },
+  "result": {
+    "count": 16,
+    "id": "craft:aluminium_dust"
+  }
+}

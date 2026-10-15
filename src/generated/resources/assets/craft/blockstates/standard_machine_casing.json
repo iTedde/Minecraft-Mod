@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "craft:block/standard_machine_casing"
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "A": {
+      "tag": "c:plates/refined_iron"
+    },
+    "C": {
+      "item": "craft:electronic_circuit"
+    },
+    "M": {
+      "item": "craft:machine_casing"
+    }
+  },
+  "pattern": [
+    "AAA",
+    "CMC",
+    "AAA"
+  ],
+  "result": {
+    "count": 4,
+    "id": "craft:standard_machine_casing"
+  }
+}

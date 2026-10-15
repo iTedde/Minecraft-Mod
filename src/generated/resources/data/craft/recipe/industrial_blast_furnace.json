@@ -1,0 +1,26 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "A": {
+      "item": "craft:electronic_circuit"
+    },
+    "C": {
+      "item": "craft:cupronickel_heating_coil"
+    },
+    "F": {
+      "item": "craft:induction_furnace"
+    },
+    "M": {
+      "item": "craft:advanced_machine_casing"
+    }
+  },
+  "pattern": [
+    "ACA",
+    "CMC",
+    "FCF"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:industrial_blast_furnace"
+  }
+}

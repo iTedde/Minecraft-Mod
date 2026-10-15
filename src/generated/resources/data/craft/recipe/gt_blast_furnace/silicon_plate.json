@@ -1,0 +1,22 @@
+{
+  "type": "craft:gt_blast_furnace",
+  "duration": 1000,
+  "eu_per_tick": 128,
+  "inputs": [
+    {
+      "count": 2,
+      "item": "craft:silicon_cell"
+    }
+  ],
+  "outputs": [
+    {
+      "count": 1,
+      "id": "craft:silicon_plate"
+    },
+    {
+      "count": 2,
+      "id": "craft:empty_cell"
+    }
+  ],
+  "special": 1500
+}

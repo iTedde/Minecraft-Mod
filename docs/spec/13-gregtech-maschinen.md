@@ -264,3 +264,122 @@ C = fortg. Schaltkreis (`craftingCircuitTier04`), R = raff. Eisenplatte **oder**
 Zellen (`GT_MetaItem_Cell`, Tooltip = Formel): 0 Wasserstoff H, 5 Lithium Li, 7 Silizium Si, 8 Kohlenstoff C,
 11 Calcium Ca, 12 Natrium Na. Stäube (`GT_MetaItem_Dust`): 8 Schwefel S, 18 Aluminium Al, 63 dunkle Asche C.
 Aluminiumstaub → Ofen nicht möglich (GT: nur Hochofen, 6b.3).
+
+## 5. Industrieller Hochofen (`GT_MetaTileEntity_BlastFurnace`, ID 29, „Industrial Blast Furnace“) – Teilpaket 6b.3b
+
+Eigene MetaTileEntity (keine BasicMachine), Basis §1.1/§1.2/§1.5/§1.6.
+
+| Wert | |
+|---|---|
+| `maxEUInput` | 128 (sichere Eingabe 128 · 4^Trafos), Energie von **allen** Seiten |
+| `maxEUStore` | 10 000 (+ Upgrades §1.4), MJ-Kapazität 10 000 (nur mit MJ-Konverter) |
+| Ausgabe | keine; kein Batterie-Slot |
+| Facing | nur horizontal (`isFacingValid = aFacing > 1`); Platzieren: zum Spieler; Schraubenschlüssel dreht horizontal |
+| Upgrades | Overclocker, Transformer, Energiespeicher/Lithium, MJ-Konverter („O T B M“) |
+| Texturen (`terrain.png`) | Vorderseite 68 (aktiv 69), Rückseite 71, alle übrigen Seiten (auch oben/unten) 72 |
+| Beschreibung | „You'll have a Blast!“; Tooltip „Max EU/p IN: 128“ |
+
+**Slots:** 0 = Eingabe 1, 1 = Eingabe 2, 2/3 = Ausgabe 1/2 (alle droppen). Seiten: oben → Slot 0, unten → Slot 1,
+Seiten → Slots 2–3.
+
+**Struktur** (`checkMachine`): Mittelpunkt = Controller − 2 · Facing-Richtung (also hinter dem Controller). Geprüft
+wird der Quader 3 × 3 (horizontal um den Mittelpunkt) × 4 hoch, **y = Controller-Höhe bis +3**; der Controller selbst
+liegt außerhalb, direkt vor der Mitte der unteren Lage. Die beiden Mittelblöcke der Lagen 2 und 3 (y + 1, y + 2)
+müssen **Luft oder Lava** (fließend oder still) sein, alle übrigen 34 Positionen GT-Maschinengehäuse:
+
+| Block | Hitze je Block |
+|---|---:|
+| Standard-Maschinengehäuse (`BlockMetaID_Block` 13) | 30 K |
+| Verstärktes Maschinengehäuse (14) | 50 K |
+| Fortgeschrittenes Maschinengehäuse (15) | 70 K |
+| Lava in der Mitte | 250 K |
+
+`mHeatCapacity` = 500 · Heizspulen-Stufe + Summe. Unvollständig → `mMachine = false`, Hitze 0. Beispiele: 34 Standard
+= 1020 K (Stahl), + 2 Lava = 1520 K (Siliziumplatte), 34 verstärkt = 1700 K (Aluminium).
+
+**Prüfzeitpunkt:** Zähler `mUpdate` startet bei 5 (neu und nach dem Laden) und wird jeden Tick (ab Tick 21, §1.2)
+heruntergezählt; geprüft wird nur beim Übergang 0 → −1. `onMachineBlockUpdate` setzt `mUpdate = 5`, ebenso der
+Einbau einer Heizspule. Auslöser (`GT_Mod.causeMachineUpdate`): Platzieren/Abbauen eines Maschinengehäuses
+(Meta 13–15 sind als „Machine Block“ registriert) und Abbauen einer GT-Maschine. Ausbreitung (`stepToUpdateMachine`,
+Tiefensuche in Reihenfolge +X, −X, +Y, −Y, +Z, −Z, besuchte Positionen gemerkt): jede besuchte Position mit
+`IMachineBlockUpdateable` (alle GT-Maschinen) bekommt `onMachineBlockUpdate`; weitergegangen wird, solange weniger als
+5 Positionen besucht sind **oder** die Position eine GT-Maschine oder ein Maschinengehäuse ist. Lava/Luft-Änderungen
+in der Mitte lösen **keine** Prüfung aus (Originalverhalten).
+
+**Heizspulen** (Rechtsklick, nach der Upgrade-Prüfung §1.5): mit ≥ 4 Spulen (Creative: beliebig, nichts verbraucht)
+– Stufe 0 + `craftingHeatingCoilTier01` (Kanthal) → 1; Stufe 1 + `…Tier02` (Nichrom) → 2; Stufe 2 + `…Tier03` → 3
+(gibt es in GT 2.90 nicht). Je Einbau −4 Spulen, `mUpdate = 5`. Mit weniger als 4 passenden Spulen passiert nichts
+(auch keine GUI). Kupfernickel ist `…Tier00` und **nicht** einbaubar. Stufe bleibt beim Schraubenschlüssel-Abbau im
+Item-NBT (`mHeatingCoilTier`, nur > 0).
+
+**Tick (`onPostTick`, Server):**
+1. Wenn `mUpdate-- == 0`: `mMachine = checkMachine()`, sonst Hitze 0.
+2. Aktiv = `mMachine` (also auch ohne Rezept aktiv, sobald die Struktur steht).
+3. Wenn `mMachine` und Rezept läuft: wie Elektrolyseur §4 (Energie `mEUt · 4^OC`, sonst `mProgresstime = −10` und
+   Fehlercode 1; Fortschritt `+2^OC`; fertig → Ausgaben in Slot 2/3, auf Stapelgröße gekappt, nur bei gleichem Item;
+   Fehlercode 0).
+4. Sonst, wenn gespeicherte Energie > 100: `checkRecipe` – nur mit `mMachine`; Rezept zu (Slot 0, Slot 1) suchen,
+   **Hitze ≥ Rezept-Hitze** (`mStartEU`), Platz für beide Ausgaben, Eingaben beim Start abziehen.
+   Läuft ein Rezept und die Struktur bricht, ruft Schritt 4 `checkRecipe` auf, das ohne `mMachine` nichts tut – das
+   Rezept bleibt stehen (kein Fortschritt, keine Energie).
+
+**GUI** (`gui/Blast.png`, `GT_Container_BlastFurnace`): Titel „Industrial Blast Furnace“ (8, 4); Zeile (8, 63):
+„Heat Capacity: n K“ bzw. „Incomplete Machine Casing!“; Zeile (8, 72): „Insufficient Energy Line!“ bzw. „Inventory“.
+Slots 0 (34, 16), 1 (34, 34), Ausgaben 2 (86, 25), 3 (104, 25). Fortschrittspfeil bei (58, 28) ← (176, 0), Breite
+`max(0, min(20, (p > 0 ? 1 : 0) + p · 20 / max(1, max)))`, Höhe 11. Shift-Klick aus dem Spielerinventar nur in Slot 0/1.
+
+**Rezept des Hochofens:** `ACA/CMC/FCF`, M = fortg. Maschinenblock (`craftingRawMachineTier02`), A = el. Schaltkreis
+(`craftingCircuitTier02`), C = **Kupfernickel-Heizspule** (`craftingHeatingCoilTier00`), F = IC2-Induktionsofen.
+
+**Hochofen-Rezepte** (`addBlastRecipe`, Dauern laut `RecipesAdvancedConfig.cfg` unverändert, alle 128 EU/t):
+
+| Eingabe 1 | Eingabe 2 | Ausgabe 1 | Ausgabe 2 | Ticks | Hitze | Umfang |
+|---|---|---|---|---:|---:|---|
+| raff. Eisenbarren | 2 Kohlestaub | Stahlbarren | 2 dunkle Asche | 500 | 1000 | 6b.3b |
+| Stahlstaub | – | Stahlbarren | – | 100 | 1000 | 6b.3b |
+| Aluminiumstaub | – | Aluminiumbarren | – | 200 | 1700 | 6b.3b |
+| 2 Siliziumzellen | – | Siliziumplatte | 2 leere Zellen | 1000 | 1500 | 6b.3b |
+| Titanstaub | – | Titanbarren | – | 1000 | 1500 | später |
+| Chromstaub | – | Chrombarren | – | 800 | 1700 | später |
+| Wolframstaub | – | Wolframbarren | – | 2000 | 2500 | später |
+| Wolframbarren + Stahlbarren | | 2 Wolframstahlbarren | 4 dunkle Asche | 2000 | 3000 | später |
+| 2 Galenastaub | – | Silberbarren | Bleibarren | 20 | 1500 | später |
+| Eisen-/Pyriterz (+ Calciumcarbonatzelle) | | raff. Eisen | leere Zelle | 100 | 1000/1500 | mit GT-Erzen |
+
+Pack-Config `basicmetalblastfurnacerequirement`: alles `true` → Aluminium-, Stahl-, Titan-, Chrom-, Wolframstaub
+lassen sich **nicht** im Ofen schmelzen. Rezeptsuche wie §2 (Eingabe 1 Item + Menge ≥ Rezept, Eingabe 2 nur wenn das
+Rezept eine hat). **Shapeless:** zuerst wird die vertauschte Belegung (Slot 1, Slot 0) geprüft.
+
+### 5.1 GT-Maschinengehäuse (`GT_BlockMetaID_Block` 13–15)
+
+| | Standard („Standard Machine Casing“) | Verstärkt („Reinforced …“) | Fortgeschritten („Advanced …“) |
+|---|---|---|---|
+| Härte | 3,0 | 3,0 | 3,0 |
+| Explosionsresistenz (wirksam) | 30 | 60 | 30 |
+| Rezept (→ 4 Stück) | `AAA/CMC/AAA`, A = raff. Eisen- **oder** Aluminiumplatte, C = el. Schaltkreis, M = Maschinenblock | `SSS/CMC/SSS`, S = Stahlplatte, C = fortg. Schaltkreis, M = fortg. Maschinenblock | `TTT/CMC/TTT`, T = Chromplatte, C = `craftingCircuitTier06`, M = `craftingRawMachineTier04` – **später** |
+
+Material Eisen, Spitzhacke Stufe 2 (Eisen), droppt sich selbst, keine Mob-Spawns, kein Beacon-Sockel. Platzieren und
+Abbauen lösen `causeMachineUpdate` aus. Textur: `blocks.png` Index 13/14/15 (alle Seiten gleich); im Original
+verbundene Texturen (Startindex 96/112/224, 12 Varianten je Seite) – **Abweichung: erst Phase 10** (Nutzerentscheidung).
+
+### 5.2 Heizspulen und Materialien (6b.3b)
+
+| Item | GT | Tooltip | Rezept / Herkunft |
+|---|---|---|---|
+| Kupfernickel-Heizspule („Cupronickel Heating Coil“) | Komponente 21 | „Cheap and simple Heating Coil“ | → 3: `BAB/A A/BAB`, A = Kupferbarren, B = Nickelbarren |
+| Kanthal-Heizspule („Kanthal Heating Coil“) | Komponente 19 | „Standard Heating Coil“ | → 3: `AAA/BCC/BBC`, A = raff. Eisen, B = Chrom-, C = Aluminiumbarren – **ohne Rezept bis Chrom** |
+| Nichrom-Heizspule („Nichrome Heating Coil“) | Komponente 20 | „Advanced Heating Coil“ | → 1: ` B /BAB/ B `, A = Chrom-, B = Nickelbarren – **ohne Rezept bis Chrom** |
+| Nickelstaub / -barren / -platte | Dust 28 / Material 28 / 72 | Ni | Staub: Schrottbox 0,5, UU-Materie `U  /U U` (3 UU) → 10; Ofen Staub → Barren; Macerator Barren/Platte → Staub; Bender |
+| Stahlstaub / -barren / -platte | Dust 26 / Material 26 / 78 | Fe | Hochofen; Macerator Barren/Platte → Staub; Bender; Schrottbox 0,5 (Staub) |
+| Aluminiumbarren / -platte | Material 18 / 75 | Al | Hochofen; Macerator Barren/Platte → Staub; Bender; Schrottbox 0,5 (Staub) |
+| Siliziumplatte | Material 36 | Si2 | Hochofen |
+
+Die Spulen-Rezepte sind im Pack **Walzmaschinen-Rezepte** (Railcraft, `MMIngotOnlyRollingMachine=true`); Railcraft
+ist nicht im Umfang → Werkbank (GTs eigener Fallback ohne Railcraft; Nutzerentscheidung, `abweichungen.md`).
+Platten → Ofen → Barren gilt auch für Aluminium/Stahl (GT entfernt nur die Barren-Ofenrezepte anderer Mods vor den
+Platten-Rezepten). Ofen-Rezept Staub → Barren nur für Nickel.
+
+**Damit herstellbar (Rezepte laut `08-rezepte.md`/§3):** Standard- und verstärktes Gehäuse, Hochofen, Solarpanel
+(`GGG/SPS/CHC`, Siliziumplatte + Kohleplatte), Stahlwerkzeuge (Bergbaubohrer, Kettensäge, el. Hacke, el. Baumzapfer,
+el. Schraubenschlüssel), Elektrolyseur-Variante mit Aluminiumplatten, Förderband-Modul mit Aluminium, Mischmetall-
+Varianten mit Nickel/Stahl/Aluminium, Generator-Varianten mit Aluminium.

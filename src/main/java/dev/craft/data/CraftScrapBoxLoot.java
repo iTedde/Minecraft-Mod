@@ -2,6 +2,7 @@ package dev.craft.data;
 
 import java.util.function.BiConsumer;
 
+import dev.craft.gregtech.GtItems;
 import dev.craft.ic2.Ic2Blocks;
 import dev.craft.ic2.Ic2Items;
 import dev.craft.ic2.cable.CableType;
@@ -49,7 +50,8 @@ public record CraftScrapBoxLoot(HolderLookup.Provider registries) implements Loo
         add(pool, Items.APPLE, 50);
         add(pool, Items.BREAD, 50);
         add(pool, Items.CAKE, 10);
-        // filled tin can 100, spoiled tin can 200, silicon cell 20: not yet available
+        // filled tin can 100, spoiled tin can 200: not yet available
+        add(pool, GtItems.SILICON_CELL.get(), 20);
         add(pool, Ic2Items.WATER_CELL.get(), 100);
         add(pool, Ic2Items.EMPTY_CELL.get(), 200);
         add(pool, Items.PAPER, 500);
@@ -60,7 +62,8 @@ public record CraftScrapBoxLoot(HolderLookup.Provider registries) implements Loo
         add(pool, Items.SLIME_BALL, 60);
         add(pool, Ic2Items.RUBBER.get(), 80);
         add(pool, Ic2Items.SU_BATTERY.get(), 270);
-        // GT machine parts 80, advanced circuit parts 120, circuit boards 180/40/20: not yet available
+        add(pool, GtItems.MACHINE_PARTS.get(), 80);
+        // advanced circuit parts 120, circuit boards 180/40/20: not yet available
         add(pool, Ic2Blocks.cable(CableType.INSULATED_COPPER).get(), 200);
         add(pool, Ic2Blocks.cable(CableType.DOUBLE_INSULATED_GOLD).get(), 40);
         add(pool, Items.REDSTONE, 90);
@@ -72,7 +75,10 @@ public record CraftScrapBoxLoot(HolderLookup.Provider registries) implements Loo
         // silver and electrum dust 50 each: not yet available
         add(pool, Ic2Items.TIN_DUST.get(), 120);
         add(pool, Ic2Items.COPPER_DUST.get(), 120);
-        // GT dusts and gems (bauxite … yellow garnet, olivine, ruby, sapphires): not yet available
+        add(pool, GtItems.ALUMINIUM_DUST.get(), 50);
+        add(pool, GtItems.NICKEL_DUST.get(), 50);
+        add(pool, GtItems.STEEL_DUST.get(), 50);
+        // other GT dusts and gems (bauxite, lead, zinc, brass … ruby, sapphires): not yet available
         add(pool, Items.EMERALD, 5);
         add(pool, Items.DIAMOND, 5);
         output.accept(ScrapBoxItem.DROPS, LootTable.lootTable().withPool(pool));

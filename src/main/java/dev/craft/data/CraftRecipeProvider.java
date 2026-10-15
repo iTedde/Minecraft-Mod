@@ -18,6 +18,7 @@ import dev.craft.forestry.recipe.CarpenterRecipe;
 import dev.craft.forestry.recipe.FabricatorRecipe;
 import dev.craft.gregtech.GtItems;
 import dev.craft.gregtech.GtMachine;
+import dev.craft.gregtech.block.GtCasingBlock;
 import dev.craft.gregtech.recipe.GtRecipe;
 import dev.craft.ic2.Ic2Items;
 import dev.craft.ic2.Ic2Machine;
@@ -129,6 +130,115 @@ public final class CraftRecipeProvider extends RecipeProvider {
                 .define('A', Ic2Items.ADVANCED_ALLOY).define('C', Ic2Items.CARBON_PLATE)
                 .define('M', Ic2Items.MACHINE_CASING).save();
         electrolyzer();
+        blastFurnace();
+    }
+
+    /**
+     * Industrial blast furnace (spec 13 §5): casings, coils, the furnace itself, its recipes and the materials it
+     * unlocks (nickel, aluminium, steel, silicon plate).
+     */
+    private void blastFurnace() {
+        shaped(GtItems.machine(GtMachine.INDUSTRIAL_BLAST_FURNACE), 1, "industrial_blast_furnace")
+                .pattern("ACA", "CMC", "FCF").define('M', Ic2Items.ADVANCED_MACHINE_CASING)
+                .define('A', Ic2Items.ELECTRONIC_CIRCUIT).define('C', GtItems.CUPRONICKEL_HEATING_COIL)
+                .define('F', machine(Ic2Machine.INDUCTION_FURNACE)).save();
+        standardCasing("standard_machine_casing", CraftItemTagsProvider.PLATES_REFINED_IRON);
+        standardCasing("standard_machine_casing_from_aluminium", CraftItemTagsProvider.PLATES_ALUMINIUM);
+        shaped(GtItems.casing(GtCasingBlock.Type.REINFORCED), 4, "reinforced_machine_casing")
+                .pattern("SSS", "CMC", "SSS").define('S', CraftItemTagsProvider.PLATES_STEEL)
+                .define('C', Ic2Items.ADVANCED_CIRCUIT).define('M', Ic2Items.ADVANCED_MACHINE_CASING).save();
+        // Rolling machine recipes in the pack (Railcraft is out of scope): crafting table, GT's own fallback.
+        shaped(GtItems.CUPRONICKEL_HEATING_COIL, 3, "cupronickel_heating_coil").pattern("BAB", "A A", "BAB")
+                .define('A', ingotsCopper()).define('B', CraftItemTagsProvider.INGOTS_NICKEL).save();
+
+        blast("steel_ingot", new SizedIngredient(Ingredient.of(CraftItemTagsProvider.INGOTS_REFINED_IRON), 1),
+                new SizedIngredient(Ingredient.of(CraftItemTagsProvider.DUSTS_COAL), 2), 500, 1000,
+                new ItemStack(GtItems.STEEL_INGOT.get()), new ItemStack(GtItems.DARK_ASH.get(), 2));
+        blast("steel_ingot_from_dust", new SizedIngredient(Ingredient.of(GtItems.STEEL_DUST), 1), null, 100, 1000,
+                new ItemStack(GtItems.STEEL_INGOT.get()));
+        blast("aluminium_ingot", new SizedIngredient(Ingredient.of(GtItems.ALUMINIUM_DUST), 1), null, 200, 1700,
+                new ItemStack(GtItems.ALUMINIUM_INGOT.get()));
+        blast("silicon_plate", new SizedIngredient(Ingredient.of(GtItems.SILICON_CELL), 2), null, 1000, 1500,
+                new ItemStack(GtItems.SILICON_PLATE.get()), new ItemStack(Ic2Items.EMPTY_CELL.get(), 2));
+
+        plate("nickel", CraftItemTagsProvider.INGOTS_NICKEL, GtItems.NICKEL_PLATE, GtItems.NICKEL_DUST,
+                GtItems.NICKEL_INGOT);
+        plate("aluminium", CraftItemTagsProvider.INGOTS_ALUMINIUM, GtItems.ALUMINIUM_PLATE, GtItems.ALUMINIUM_DUST,
+                GtItems.ALUMINIUM_INGOT);
+        plate("steel", CraftItemTagsProvider.INGOTS_STEEL, GtItems.STEEL_PLATE, GtItems.STEEL_DUST,
+                GtItems.STEEL_INGOT);
+        machine(MachineRecipe.Kind.MACERATOR, "nickel_ingot", Ingredient.of(CraftItemTagsProvider.INGOTS_NICKEL), 1,
+                GtItems.NICKEL_DUST, 1);
+        machine(MachineRecipe.Kind.MACERATOR, "aluminium_ingot",
+                Ingredient.of(CraftItemTagsProvider.INGOTS_ALUMINIUM), 1, GtItems.ALUMINIUM_DUST, 1);
+        machine(MachineRecipe.Kind.MACERATOR, "steel_ingot", Ingredient.of(CraftItemTagsProvider.INGOTS_STEEL), 1,
+                GtItems.STEEL_DUST, 1);
+        // Only nickel dust smelts; aluminium and steel need the blast furnace (basicmetalblastfurnacerequirement).
+        smelt("nickel_ingot_from_dust", Ingredient.of(CraftItemTagsProvider.DUSTS_NICKEL), GtItems.NICKEL_INGOT, 1,
+                0.0F);
+
+        conveyorModule("conveyor_module_from_aluminium", CraftItemTagsProvider.INGOTS_ALUMINIUM);
+        conveyorModule("conveyor_module_from_aluminium_plates", CraftItemTagsProvider.PLATES_ALUMINIUM);
+        mixedMetal("refined_iron_bronze_aluminium", CraftItemTagsProvider.PLATES_REFINED_IRON,
+                CraftItemTagsProvider.PLATES_ALUMINIUM, 1);
+        mixedMetal("nickel_bronze_tin", CraftItemTagsProvider.PLATES_NICKEL, CraftItemTagsProvider.PLATES_TIN, 1);
+        mixedMetal("nickel_bronze_aluminium", CraftItemTagsProvider.PLATES_NICKEL,
+                CraftItemTagsProvider.PLATES_ALUMINIUM, 1);
+        mixedMetal("steel_bronze_tin", CraftItemTagsProvider.PLATES_STEEL, CraftItemTagsProvider.PLATES_TIN, 2);
+        mixedMetal("steel_bronze_aluminium", CraftItemTagsProvider.PLATES_STEEL,
+                CraftItemTagsProvider.PLATES_ALUMINIUM, 3);
+        shaped(GtItems.machine(GtMachine.INDUSTRIAL_ELECTROLYZER), 1, "industrial_electrolyzer_from_aluminium")
+                .pattern("RDR", "CEC", "RMR").define('R', CraftItemTagsProvider.PLATES_ALUMINIUM)
+                .define('D', machine(Ic2Machine.EXTRACTOR)).define('C', Ic2Items.ADVANCED_CIRCUIT)
+                .define('E', machine(Ic2Machine.ELECTROLYZER)).define('M', machine(Ic2Machine.MAGNETIZER)).save();
+        for (String variant : new String[]{"aluminium_ingot", "refined_iron_plate", "aluminium_plate"}) {
+            TagKey<Item> metal = switch (variant) {
+                case "aluminium_ingot" -> CraftItemTagsProvider.INGOTS_ALUMINIUM;
+                case "refined_iron_plate" -> CraftItemTagsProvider.PLATES_REFINED_IRON;
+                default -> CraftItemTagsProvider.PLATES_ALUMINIUM;
+            };
+            shaped(machine(Ic2Machine.GENERATOR), 1, "generator_from_" + variant).pattern(" B ", "RRR", " F ")
+                    .define('B', Ic2Items.RE_BATTERY).define('R', metal)
+                    .define('F', machine(Ic2Machine.IRON_FURNACE)).save();
+        }
+
+        // GT replacements of IC2 recipes that need the new materials (08-rezepte.md).
+        shaped(machine(Ic2Machine.SOLAR_PANEL), 1, "solar_panel").pattern("GGG", "SPS", "CHC")
+                .define('G', Items.GLASS_PANE).define('S', CraftItemTagsProvider.PLATES_SILICON)
+                .define('P', Ic2Items.CARBON_PLATE).define('C', Ic2Items.ELECTRONIC_CIRCUIT)
+                .define('H', machine(Ic2Machine.GENERATOR)).save();
+        steelTool(Ic2Items.MINING_DRILL, "mining_drill", " S ", "SCS", "SBS");
+        steelTool(Ic2Items.CHAINSAW, "chainsaw", " SS", "SCS", "BS ");
+        steelTool(Ic2Items.ELECTRIC_HOE, "electric_hoe", "SS ", " C ", " B ");
+        steelTool(Ic2Items.ELECTRIC_TREETAP, "electric_treetap", " B ", "SCS", "S  ");
+        steelTool(Ic2Items.ELECTRIC_WRENCH, "electric_wrench", "S S", "SCS", " B ");
+    }
+
+    private void standardCasing(String name, TagKey<Item> plates) {
+        shaped(GtItems.casing(GtCasingBlock.Type.STANDARD), 4, name).pattern("AAA", "CMC", "AAA")
+                .define('A', plates).define('C', Ic2Items.ELECTRONIC_CIRCUIT).define('M', Ic2Items.MACHINE_CASING)
+                .save();
+    }
+
+    /** GT {@code ElectricSteelTools=true}: steel plates, electronic circuit, RE battery. */
+    private void steelTool(ItemLike result, String name, String... rows) {
+        shaped(result, 1, name).pattern(rows).define('S', CraftItemTagsProvider.PLATES_STEEL)
+                .define('C', Ic2Items.ELECTRONIC_CIRCUIT).define('B', Ic2Items.RE_BATTERY).save();
+    }
+
+    /** Mixed metal ingot {@code X/Y/Z} with a bronze plate in the middle (spec 13 §3). */
+    private void mixedMetal(String name, TagKey<Item> top, TagKey<Item> bottom, int count) {
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, Ic2Items.MIXED_METAL_INGOT, count).pattern("X").pattern("Y")
+                .pattern("Z").define('X', top).define('Y', CraftItemTagsProvider.PLATES_BRONZE).define('Z', bottom)
+                .unlockedBy("has_plate", has(bottom)).save(output, id("mixed_metal_ingot_" + name));
+    }
+
+    /** {@code GT_Mod.addBlastRecipe}: 128 EU/t, {@code heat} = minimum heat capacity in K. */
+    private void blast(String name, SizedIngredient input1, @Nullable SizedIngredient input2, int duration, int heat,
+                       ItemStack... outputs) {
+        List<SizedIngredient> inputs = input2 == null ? List.of(input1) : List.of(input1, input2);
+        output.accept(id("gt_blast_furnace/" + name), new GtRecipe(GtRecipe.Kind.BLAST_FURNACE, inputs,
+                List.of(outputs), duration, 128, heat), null);
     }
 
     /** Industrial electrolyzer (spec 13 §4): crafting recipe (aluminium plate variant follows with 6b.3) and recipes. */
@@ -570,6 +680,8 @@ public final class CraftRecipeProvider extends RecipeProvider {
         uu(Items.LILY_PAD, 32, "lily_pad", "M M", "MMM", " M ");
         uu(Items.LEATHER, 32, "leather", "M M", " M ", "MMM");
         uu(Ic2Items.SILVER_DUST, 14, "silver_dust", " M ", "MMM", "MMM");
+        uu(GtItems.NICKEL_DUST, 10, "nickel_dust", "M  ", "M M", "   ");
+        uu(GtItems.ALUMINIUM_DUST, 16, "aluminium_dust", " M ", " M ", "MMM");
     }
 
     private void uu(ItemLike result, int count, String name, String... rows) {

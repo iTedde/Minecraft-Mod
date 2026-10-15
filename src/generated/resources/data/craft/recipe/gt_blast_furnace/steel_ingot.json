@@ -1,0 +1,26 @@
+{
+  "type": "craft:gt_blast_furnace",
+  "duration": 500,
+  "eu_per_tick": 128,
+  "inputs": [
+    {
+      "count": 1,
+      "tag": "c:ingots/refined_iron"
+    },
+    {
+      "count": 2,
+      "tag": "c:dusts/coal"
+    }
+  ],
+  "outputs": [
+    {
+      "count": 1,
+      "id": "craft:steel_ingot"
+    },
+    {
+      "count": 2,
+      "id": "craft:dark_ash"
+    }
+  ],
+  "special": 1000
+}

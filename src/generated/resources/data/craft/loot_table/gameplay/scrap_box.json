@@ -116,6 +116,11 @@
         },
         {
           "type": "minecraft:item",
+          "name": "craft:silicon_cell",
+          "weight": 20
+        },
+        {
+          "type": "minecraft:item",
           "name": "craft:water_cell",
           "weight": 100
         },
@@ -161,6 +166,11 @@
         },
         {
           "type": "minecraft:item",
+          "name": "craft:machine_parts",
+          "weight": 80
+        },
+        {
+          "type": "minecraft:item",
           "name": "craft:insulated_copper_cable",
           "weight": 200
         },
@@ -203,6 +213,21 @@
           "type": "minecraft:item",
           "name": "craft:copper_dust",
           "weight": 120
+        },
+        {
+          "type": "minecraft:item",
+          "name": "craft:aluminium_dust",
+          "weight": 50
+        },
+        {
+          "type": "minecraft:item",
+          "name": "craft:nickel_dust",
+          "weight": 50
+        },
+        {
+          "type": "minecraft:item",
+          "name": "craft:steel_dust",
+          "weight": 50
         },
         {
           "type": "minecraft:item",

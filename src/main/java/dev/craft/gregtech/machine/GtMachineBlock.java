@@ -73,10 +73,14 @@ public class GtMachineBlock extends BaseEntityBlock {
      */
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
+        Player player = context.getPlayer();
+        if (machine.getLayout() == GtMachine.Layout.FRONT) {
+            return defaultBlockState().setValue(FACING, player == null ? Direction.NORTH
+                    : player.getDirection().getOpposite());
+        }
         if (!machine.isBasicMachine()) {
             return defaultBlockState();
         }
-        Player player = context.getPlayer();
         Direction facing = player == null ? Direction.DOWN : player.getDirection().getOpposite();
         return defaultBlockState().setValue(FACING, facing).setValue(FRONT, Front.of(facing));
     }
@@ -114,7 +118,8 @@ public class GtMachineBlock extends BaseEntityBlock {
             return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
         }
         if (!level.isClientSide() && level.getBlockEntity(pos) instanceof GtMachineBlockEntity be
-                && be.isAccessAllowed(player) && be.installUpgrade(player, stack)) {
+                && be.isAccessAllowed(player)
+                && (be.installUpgrade(player, stack) || be.onRightclick(player, stack))) {
             return ItemInteractionResult.SUCCESS;
         }
         return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
@@ -174,6 +179,9 @@ public class GtMachineBlock extends BaseEntityBlock {
             be.dropContents();
         }
         super.onRemove(state, level, pos, newState, movedByPiston);
+        if (!state.is(newState.getBlock())) {
+            MachineBlockUpdates.cause(level, pos);
+        }
     }
 
     @Override

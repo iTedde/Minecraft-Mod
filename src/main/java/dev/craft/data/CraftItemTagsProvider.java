@@ -25,6 +25,9 @@ public final class CraftItemTagsProvider extends ItemTagsProvider {
     public static final TagKey<Item> INGOTS_TIN = commonTag("ingots/tin");
     public static final TagKey<Item> INGOTS_BRONZE = commonTag("ingots/bronze");
     public static final TagKey<Item> INGOTS_REFINED_IRON = commonTag("ingots/refined_iron");
+    public static final TagKey<Item> INGOTS_NICKEL = commonTag("ingots/nickel");
+    public static final TagKey<Item> INGOTS_ALUMINIUM = commonTag("ingots/aluminium");
+    public static final TagKey<Item> INGOTS_STEEL = commonTag("ingots/steel");
     public static final TagKey<Item> DUSTS_BRONZE = commonTag("dusts/bronze");
     public static final TagKey<Item> DUSTS_CLAY = commonTag("dusts/clay");
     public static final TagKey<Item> DUSTS_COAL = commonTag("dusts/coal");
@@ -39,6 +42,13 @@ public final class CraftItemTagsProvider extends ItemTagsProvider {
     public static final TagKey<Item> PLATES_TIN = commonTag("plates/tin");
     public static final TagKey<Item> PLATES_COPPER = commonTag("plates/copper");
     public static final TagKey<Item> PLATES_BRONZE = commonTag("plates/bronze");
+    public static final TagKey<Item> PLATES_NICKEL = commonTag("plates/nickel");
+    public static final TagKey<Item> PLATES_ALUMINIUM = commonTag("plates/aluminium");
+    public static final TagKey<Item> PLATES_STEEL = commonTag("plates/steel");
+    public static final TagKey<Item> PLATES_SILICON = commonTag("plates/silicon");
+    public static final TagKey<Item> DUSTS_NICKEL = commonTag("dusts/nickel");
+    public static final TagKey<Item> DUSTS_ALUMINIUM = commonTag("dusts/aluminium");
+    public static final TagKey<Item> DUSTS_STEEL = commonTag("dusts/steel");
 
     public CraftItemTagsProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookup,
                                  CompletableFuture<TagLookup<Block>> blockTags, ExistingFileHelper files) {
@@ -72,7 +82,18 @@ public final class CraftItemTagsProvider extends ItemTagsProvider {
         tag(PLATES_TIN).add(GtItems.TIN_PLATE.get());
         tag(PLATES_COPPER).add(GtItems.COPPER_PLATE.get());
         tag(PLATES_BRONZE).add(GtItems.BRONZE_PLATE.get());
-        tag(Tags.Items.INGOTS).addTag(INGOTS_TIN).addTag(INGOTS_BRONZE).addTag(INGOTS_REFINED_IRON);
+        tag(PLATES_NICKEL).add(GtItems.NICKEL_PLATE.get());
+        tag(PLATES_ALUMINIUM).add(GtItems.ALUMINIUM_PLATE.get());
+        tag(PLATES_STEEL).add(GtItems.STEEL_PLATE.get());
+        tag(PLATES_SILICON).add(GtItems.SILICON_PLATE.get());
+        tag(INGOTS_NICKEL).add(GtItems.NICKEL_INGOT.get());
+        tag(INGOTS_ALUMINIUM).add(GtItems.ALUMINIUM_INGOT.get());
+        tag(INGOTS_STEEL).add(GtItems.STEEL_INGOT.get());
+        tag(DUSTS_NICKEL).add(GtItems.NICKEL_DUST.get());
+        tag(DUSTS_ALUMINIUM).add(GtItems.ALUMINIUM_DUST.get());
+        tag(DUSTS_STEEL).add(GtItems.STEEL_DUST.get());
+        tag(Tags.Items.INGOTS).addTag(INGOTS_TIN).addTag(INGOTS_BRONZE).addTag(INGOTS_REFINED_IRON)
+                .addTag(INGOTS_NICKEL).addTag(INGOTS_ALUMINIUM).addTag(INGOTS_STEEL);
         tag(DUSTS_BRONZE).add(Ic2Items.BRONZE_DUST.get());
         tag(DUSTS_CLAY).add(Ic2Items.CLAY_DUST.get());
         tag(DUSTS_COAL).add(Ic2Items.COAL_DUST.get());
@@ -82,7 +103,8 @@ public final class CraftItemTagsProvider extends ItemTagsProvider {
         tag(DUSTS_TIN).add(Ic2Items.TIN_DUST.get());
         tag(DUSTS_SILVER).add(Ic2Items.SILVER_DUST.get());
         tag(Tags.Items.DUSTS).addTag(DUSTS_BRONZE).addTag(DUSTS_CLAY).addTag(DUSTS_COAL).addTag(DUSTS_COPPER)
-                .addTag(DUSTS_GOLD).addTag(DUSTS_IRON).addTag(DUSTS_TIN).addTag(DUSTS_SILVER);
+                .addTag(DUSTS_GOLD).addTag(DUSTS_IRON).addTag(DUSTS_TIN).addTag(DUSTS_SILVER)
+                .addTag(DUSTS_NICKEL).addTag(DUSTS_ALUMINIUM).addTag(DUSTS_STEEL);
 
         // IC2 default blacklist (glass pane, stick, snowball) + pack config "102, 280, 332, 4081"; scaffold later.
         tag(IronFenceBlock.METAL_BOOTS).add(Items.IRON_BOOTS, Items.GOLDEN_BOOTS, Items.CHAINMAIL_BOOTS,

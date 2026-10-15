@@ -11,6 +11,7 @@ import dev.craft.core.explosion.Ic2Explosion;
 import dev.craft.forestry.FrBlocks;
 import dev.craft.gregtech.GtBlocks;
 import dev.craft.gregtech.GtMachine;
+import dev.craft.gregtech.block.GtCasingBlock;
 import dev.craft.ic2.Ic2Blocks;
 import dev.craft.ic2.Ic2Machine;
 import dev.craft.ic2.item.tool.ChainsawItem;
@@ -63,6 +64,10 @@ public final class CraftBlockTagsProvider extends BlockTagsProvider {
         }
         for (GtMachine machine : GtMachine.values()) {
             tag(BlockTags.MINEABLE_WITH_PICKAXE).add(GtBlocks.machine(machine).get());
+        }
+        for (GtCasingBlock.Type type : GtCasingBlock.Type.values()) {
+            tag(BlockTags.MINEABLE_WITH_PICKAXE).add(GtBlocks.casing(type).get());
+            tag(BlockTags.NEEDS_IRON_TOOL).add(GtBlocks.casing(type).get());
         }
         // Material.ground: the shovel is the effective tool.
         tag(BlockTags.MINEABLE_WITH_SHOVEL).add(BcBlocks.MINING_WELL.get());

@@ -556,3 +556,28 @@ entscheiden**.
    Hitzekapazität), Gehäuse Standard/Verstärkt, Kupfernickel-Heizspule (+ Nickel), Stahl, Aluminium, Siliziumplatte.
 2. Manuelle Client-Tests 6b.3a: Induktionsofen GUI (Hitze-%, Energie-/Fortschrittsbalken), zwei Stapel parallel,
    Redstone-Signal heizt vor, Seitenzugriff per Trichter (oben Eingaben, unten Batterie, Seiten Ausgaben).
+
+## In Arbeit (Teilpaket „Phase 6b.3b: Industrieller Hochofen“, Stand 2026-10-15, Zwischenstand)
+Nutzerentscheidungen: Heizspulen an der **Werkbank** (statt Railcraft-Walzmaschine); verbundene Gehäusetexturen
+erst in **Phase 10**.
+
+Fertig (kompiliert, Datagen läuft, **noch ungetestet**):
+- Spec `13-gregtech-maschinen.md` §5 (Hochofen, Struktur, Hitze, Heizspulen, GUI, Rezepte), §5.1 Gehäuse, §5.2
+  Spulen/Materialien; `12-gregtech-materialien.md` Stahl-Weg korrigiert.
+- `GtMachine.Layout` (BASIC/SIDES/FRONT), `BlastFurnaceBlockEntity` (Struktur über `MultiblockPattern`, `mUpdate`-Zähler,
+  Heizspulen per Rechtsklick, Hitze-Prüfung, shapeless Rezepte), `GtBlastFurnaceMenu`/`GtBlastFurnaceScreen`,
+  `MachineBlockUpdates` (`causeMachineUpdate`), `GtCasingBlock` (Standard/Verstärkt/Fortgeschritten; Registry-Name
+  des fortgeschrittenen: `gt_advanced_machine_casing` wegen IC2-Namenskonflikt), GT-Hooks `onRightclick`,
+  `saveItemData`, `onMachineBlockUpdate`.
+- Items: Nickel-/Stahl-/Aluminiumbarren, -platten, Nickel-/Stahlstaub, Siliziumplatte, Kupfernickel-/Kanthal-/
+  Nichrom-Heizspule (Kanthal/Nichrom ohne Rezept bis Chrom). Texturen aus `GregTech.zip`.
+- Rezepte: Hochofen, Gehäuse, Kupfernickel-Spule, 4 Hochofen-Rezepte, Bender/Macerator/Ofen für die neuen Metalle,
+  Mischmetall-Varianten, Förderband/Elektrolyseur/Generator-Varianten mit Aluminium, Solarpanel, Stahlwerkzeuge,
+  UU-Materie Nickel-/Aluminiumstaub; Schrottbox: Siliziumzelle, Maschinenteile, Aluminium-/Nickel-/Stahlstaub.
+
+Offen (hier weitermachen):
+1. GameTests `BlastFurnaceGameTests` (Struktur 34 Standard = 1020 K, + Lava = 1520 K, Stahlstaub → Stahl, zu wenig
+   Hitze für Aluminium, Gehäuse abbauen → unvollständig, 4 Kanthal-Spulen → +500 K); Template `empty_16x8x16`.
+2. `abweichungen.md` (Werkbank statt Walzmaschine, Gehäusetexturen, Registry-Name), `architektur.md` (Layout,
+   Gehäuse, `MachineBlockUpdates`).
+3. `gradlew build`, `runClient`, dann Abschluss-Eintrag hier und Commit.
