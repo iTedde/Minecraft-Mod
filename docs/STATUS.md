@@ -109,6 +109,12 @@ Phase 2 gestartet (2026-10-14) – Zwischenstand siehe unten.
   Sounds kopiert. Abweichungen in `docs/abweichungen.md` eingetragen.
 
 ## Nächste Schritte
+Arbeitsweise: eine Sitzung pro Teilpaket, Übergabe über diese Datei.
+
+Nächstes Teilpaket: **„Phase 3: Abschluss“** – Harz-Rechtsklick (Harzschicht `blockHarz` laut `05-items.md` §10,
+Klebekolben per Rechtsklick), Schrottbox öffnen (IC2-Drop-Liste aus `ItemScrapbox`/`IC2.java` + GT-Erweiterung
+aus `GT_Mod.java`, nur vorhandene Items).
+
 1. Manuelle Prüfung im Client (Nutzer): GUIs, Sounds, Texturen/Facing, Weltgen (Gummibäume, Erze), Rezepte.
 2. Noch fehlend in Phase 3: Harz-Rechtsklick (Harzschicht `blockHarz`, Klebekolben), Schrottbox-Nutzung.
    Wasser-/Windmühle/Solar bleiben ohne Rezept (Phase 6b).
