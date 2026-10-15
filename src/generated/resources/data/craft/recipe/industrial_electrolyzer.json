@@ -1,0 +1,29 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "C": {
+      "item": "craft:advanced_circuit"
+    },
+    "D": {
+      "item": "craft:extractor"
+    },
+    "E": {
+      "item": "craft:electrolyzer"
+    },
+    "M": {
+      "item": "craft:magnetizer"
+    },
+    "R": {
+      "tag": "c:plates/refined_iron"
+    }
+  },
+  "pattern": [
+    "RDR",
+    "CEC",
+    "RMR"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:industrial_electrolyzer"
+  }
+}

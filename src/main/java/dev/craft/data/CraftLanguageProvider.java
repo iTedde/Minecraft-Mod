@@ -114,6 +114,18 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
         add("tooltip.craft.conveyor_module", "Moves Items around");
         item(GtItems.MACHINE_PARTS, "Machine Parts");
         add("tooltip.craft.machine_parts", "Random Machine Parts");
+        block(GtBlocks.machine(GtMachine.INDUSTRIAL_ELECTROLYZER), "Industrial Electrolyzer");
+        add("container.craft.gt.insufficient_energy", "Insufficient Energy Line!");
+        item(GtItems.HYDROGEN_CELL, "Hydrogen Cell");
+        item(GtItems.LITHIUM_CELL, "Lithium Cell");
+        item(GtItems.SILICON_CELL, "Silicon Cell");
+        item(GtItems.CARBON_CELL, "Carbon Cell");
+        item(GtItems.CALCIUM_CELL, "Calcium Cell");
+        item(GtItems.SODIUM_CELL, "Sodium Cell");
+        item(GtItems.SULFUR_DUST, "Sulfur Dust");
+        item(GtItems.ALUMINIUM_DUST, "Aluminium Dust");
+        item(GtItems.DARK_ASH, "Dark Ashes");
+        item(GtItems.WATER, "Water");
         add("tooltip.craft.gt.max_input", "Max EU/p IN: %s");
         add("tooltip.craft.gt.possible_upgrades", "Possible Upgrades: %s");
         add("tooltip.craft.gt.mj_converter", "has MJ-Converter");

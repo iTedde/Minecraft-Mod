@@ -1,0 +1,25 @@
+{
+  "type": "craft:gt_electrolyzer",
+  "duration": 775,
+  "eu_per_tick": 120,
+  "inputs": [
+    {
+      "count": 6,
+      "item": "craft:water"
+    },
+    {
+      "count": 5,
+      "item": "craft:empty_cell"
+    }
+  ],
+  "outputs": [
+    {
+      "count": 4,
+      "id": "craft:hydrogen_cell"
+    },
+    {
+      "count": 1,
+      "id": "craft:air_cell"
+    }
+  ]
+}

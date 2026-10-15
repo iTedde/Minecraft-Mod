@@ -24,7 +24,8 @@ import org.jetbrains.annotations.Nullable;
 
 /**
  * {@code GT_Recipe}: one or two sized inputs, up to four outputs, duration, EU/t and a machine specific value
- * (blast furnace heat, start EU …). One recipe type per GT recipe list ({@link Kind}).
+ * (blast furnace heat, start EU …). One recipe type per GT recipe list ({@link Kind}). Outputs may be empty
+ * placeholders (an unused electrolyzer output slot).
  */
 public class GtRecipe implements Recipe<GtRecipe.Input> {
     private final Kind kind;
@@ -161,7 +162,8 @@ public class GtRecipe implements Recipe<GtRecipe.Input> {
 
     /** GT recipe lists ({@code GT_Recipe.s*Recipes}). */
     public enum Kind {
-        BENDER("bender", false);
+        BENDER("bender", false),
+        ELECTROLYZER("electrolyzer", false);
 
         private final String name;
         private final boolean shapeless;
@@ -199,7 +201,7 @@ public class GtRecipe implements Recipe<GtRecipe.Input> {
         public Serializer(Kind kind) {
             this.codec = RecordCodecBuilder.mapCodec(instance -> instance.group(
                     SizedIngredient.FLAT_CODEC.listOf(1, 2).fieldOf("inputs").forGetter(GtRecipe::getInputs),
-                    ItemStack.STRICT_CODEC.listOf(1, 4).fieldOf("outputs").forGetter(GtRecipe::getOutputs),
+                    ItemStack.OPTIONAL_CODEC.listOf(1, 4).fieldOf("outputs").forGetter(GtRecipe::getOutputs),
                     Codec.intRange(1, Integer.MAX_VALUE).fieldOf("duration").forGetter(GtRecipe::getDuration),
                     Codec.INT.fieldOf("eu_per_tick").forGetter(GtRecipe::getEuPerTick),
                     Codec.INT.optionalFieldOf("special", 0).forGetter(GtRecipe::getSpecial)
@@ -207,7 +209,7 @@ public class GtRecipe implements Recipe<GtRecipe.Input> {
                     new GtRecipe(kind, inputs, outputs, duration, eut, special)));
             this.streamCodec = StreamCodec.composite(
                     SizedIngredient.STREAM_CODEC.apply(ByteBufCodecs.list()), GtRecipe::getInputs,
-                    ItemStack.STREAM_CODEC.apply(ByteBufCodecs.list()), GtRecipe::getOutputs,
+                    ItemStack.OPTIONAL_STREAM_CODEC.apply(ByteBufCodecs.list()), GtRecipe::getOutputs,
                     ByteBufCodecs.VAR_INT, GtRecipe::getDuration,
                     ByteBufCodecs.VAR_INT, GtRecipe::getEuPerTick,
                     ByteBufCodecs.VAR_INT, GtRecipe::getSpecial,

@@ -1,0 +1,21 @@
+{
+  "type": "craft:gt_electrolyzer",
+  "duration": 300,
+  "eu_per_tick": 25,
+  "inputs": [
+    {
+      "count": 4,
+      "item": "minecraft:blaze_powder"
+    }
+  ],
+  "outputs": [
+    {
+      "count": 1,
+      "id": "craft:dark_ash"
+    },
+    {
+      "count": 1,
+      "id": "craft:sulfur_dust"
+    }
+  ]
+}

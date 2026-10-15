@@ -28,7 +28,7 @@ public class GtMachineItem extends BlockItem {
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> lines, TooltipFlag flag) {
         lines.add(Component.literal(machine.getDescription()).withStyle(ChatFormatting.GRAY));
-        lines.add(Component.translatable("tooltip.craft.gt.max_input", 32).withStyle(ChatFormatting.GRAY));
+        lines.add(Component.translatable("tooltip.craft.gt.max_input", machine.getMaxInput()).withStyle(ChatFormatting.GRAY));
         lines.add(Component.translatable("tooltip.craft.gt.possible_upgrades", "O T B M")
                 .withStyle(ChatFormatting.GRAY));
         CustomData data = stack.get(DataComponents.BLOCK_ENTITY_DATA);

@@ -336,9 +336,12 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
                 .texture("particle", gtLoc(machine.getFrontTexture(false))));
     }
 
-    /** {@code GT_MetaTileEntity_BasicMachine.getTextureIndex}. */
+    /** {@code getTextureIndex} of the basic machine; other machines: bottom 32, top 29, sides = their own texture. */
     private static int gtTexture(GtMachine machine, Direction side, Direction facing, @Nullable Direction front,
                                  boolean active) {
+        if (!machine.isBasicMachine()) {
+            return side == Direction.DOWN ? 32 : side == Direction.UP ? 29 : machine.getFrontTexture(active);
+        }
         if (front == null ? side == facing : side == front) {
             return machine.getFrontTexture(active);
         }

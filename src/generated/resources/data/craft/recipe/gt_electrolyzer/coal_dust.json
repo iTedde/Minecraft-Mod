@@ -1,0 +1,21 @@
+{
+  "type": "craft:gt_electrolyzer",
+  "duration": 40,
+  "eu_per_tick": 50,
+  "inputs": [
+    {
+      "count": 1,
+      "tag": "c:dusts/coal"
+    },
+    {
+      "count": 2,
+      "item": "craft:empty_cell"
+    }
+  ],
+  "outputs": [
+    {
+      "count": 2,
+      "id": "craft:carbon_cell"
+    }
+  ]
+}

@@ -128,6 +128,47 @@ public final class CraftRecipeProvider extends RecipeProvider {
         shaped(Ic2Items.ADVANCED_MACHINE_CASING, 1, "advanced_machine_casing_rotated").pattern(" C ", "AMA", " C ")
                 .define('A', Ic2Items.ADVANCED_ALLOY).define('C', Ic2Items.CARBON_PLATE)
                 .define('M', Ic2Items.MACHINE_CASING).save();
+        electrolyzer();
+    }
+
+    /** Industrial electrolyzer (spec 13 §4): crafting recipe (aluminium plate variant follows with 6b.3) and recipes. */
+    private void electrolyzer() {
+        shaped(GtItems.machine(GtMachine.INDUSTRIAL_ELECTROLYZER), 1, "industrial_electrolyzer")
+                .pattern("RDR", "CEC", "RMR").define('R', CraftItemTagsProvider.PLATES_REFINED_IRON)
+                .define('D', machine(Ic2Machine.EXTRACTOR)).define('C', Ic2Items.ADVANCED_CIRCUIT)
+                .define('E', machine(Ic2Machine.ELECTROLYZER)).define('M', machine(Ic2Machine.MAGNETIZER)).save();
+        electrolysis("water", Ingredient.of(GtItems.WATER), 6, 5, 775, 120, new ItemStack(GtItems.HYDROGEN_CELL.get(), 4),
+                new ItemStack(Ic2Items.AIR_CELL.get()));
+        electrolysis("electrolyzed_water_cell", Ingredient.of(Ic2Items.ELECTROLYZED_WATER_CELL), 6, 0, 100, 30,
+                new ItemStack(GtItems.HYDROGEN_CELL.get(), 4), new ItemStack(Ic2Items.AIR_CELL.get()), ItemStack.EMPTY,
+                new ItemStack(Ic2Items.EMPTY_CELL.get()));
+        electrolysis("water_cell", Ingredient.of(Ic2Items.WATER_CELL), 1, 0, 128, 128,
+                new ItemStack(Ic2Items.ELECTROLYZED_WATER_CELL.get()));
+        electrolysis("water_bucket", Ingredient.of(Items.WATER_BUCKET), 1, 1, 128, 128,
+                new ItemStack(Ic2Items.ELECTROLYZED_WATER_CELL.get()), new ItemStack(Items.BUCKET));
+        electrolysis("bone_meal", Ingredient.of(Items.BONE_MEAL), 3, 1, 24, 106,
+                new ItemStack(GtItems.CALCIUM_CELL.get()));
+        electrolysis("sugar", Ingredient.of(Items.SUGAR), 32, 7, 210, 32, new ItemStack(GtItems.CARBON_CELL.get(), 2),
+                new ItemStack(Ic2Items.WATER_CELL.get(), 5));
+        electrolysis("blaze_powder", Ingredient.of(Items.BLAZE_POWDER), 4, 0, 300, 25,
+                new ItemStack(GtItems.DARK_ASH.get()), new ItemStack(GtItems.SULFUR_DUST.get()));
+        electrolysis("sand", Ingredient.of(Items.SAND), 16, 2, 1000, 25, new ItemStack(GtItems.SILICON_CELL.get()),
+                new ItemStack(Ic2Items.AIR_CELL.get()));
+        electrolysis("clay_dust", Ingredient.of(CraftItemTagsProvider.DUSTS_CLAY), 8, 5, 200, 50,
+                new ItemStack(GtItems.LITHIUM_CELL.get()), new ItemStack(GtItems.SILICON_CELL.get(), 2),
+                new ItemStack(GtItems.ALUMINIUM_DUST.get(), 2), new ItemStack(GtItems.SODIUM_CELL.get(), 2));
+        electrolysis("coal_dust", Ingredient.of(CraftItemTagsProvider.DUSTS_COAL), 1, 2, 40, 50,
+                new ItemStack(GtItems.CARBON_CELL.get(), 2));
+    }
+
+    /** {@code GT_Mod.addElectrolyzerRecipe}: input 2 is {@code cells} empty cells (none if 0). */
+    private void electrolysis(String name, Ingredient input, int amount, int cells, int duration, int euPerTick,
+                              ItemStack... outputs) {
+        List<SizedIngredient> inputs = cells > 0
+                ? List.of(new SizedIngredient(input, amount), new SizedIngredient(Ingredient.of(Ic2Items.EMPTY_CELL), cells))
+                : List.of(new SizedIngredient(input, amount));
+        output.accept(id("gt_electrolyzer/" + name), new GtRecipe(GtRecipe.Kind.ELECTROLYZER, inputs,
+                List.of(outputs), duration, euPerTick, 0), null);
     }
 
     private void conveyorModule(String name, TagKey<Item> metal) {

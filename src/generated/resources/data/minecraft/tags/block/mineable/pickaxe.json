@@ -39,6 +39,7 @@
     "craft:lv_solar_array",
     "craft:mv_solar_array",
     "craft:hv_solar_array",
-    "craft:plate_bending_machine"
+    "craft:plate_bending_machine",
+    "craft:industrial_electrolyzer"
   ]
 }

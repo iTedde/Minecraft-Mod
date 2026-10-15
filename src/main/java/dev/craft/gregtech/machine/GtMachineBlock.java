@@ -68,10 +68,14 @@ public class GtMachineBlock extends BaseEntityBlock {
 
     /**
      * {@code onBlockPlacedBy}: up/down by pitch only if the facing is valid, which a fresh basic machine (no main
-     * facing yet) never allows – so it always faces the placer horizontally; that side becomes the front.
+     * facing yet) never allows – so it always faces the placer horizontally; that side becomes the front. Other
+     * machines have no valid facing at all.
      */
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
+        if (!machine.isBasicMachine()) {
+            return defaultBlockState();
+        }
         Player player = context.getPlayer();
         Direction facing = player == null ? Direction.DOWN : player.getDirection().getOpposite();
         return defaultBlockState().setValue(FACING, facing).setValue(FRONT, Front.of(facing));
@@ -96,7 +100,7 @@ public class GtMachineBlock extends BaseEntityBlock {
             return null;
         }
         return (tickLevel, pos, tickState, be) -> {
-            if (be instanceof GtBasicMachineBlockEntity machineEntity) {
+            if (be instanceof GtMachineBlockEntity machineEntity) {
                 machineEntity.serverTick();
             }
         };
@@ -109,7 +113,7 @@ public class GtMachineBlock extends BaseEntityBlock {
         if (player.isShiftKeyDown()) {
             return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
         }
-        if (!level.isClientSide() && level.getBlockEntity(pos) instanceof GtBasicMachineBlockEntity be
+        if (!level.isClientSide() && level.getBlockEntity(pos) instanceof GtMachineBlockEntity be
                 && be.isAccessAllowed(player) && be.installUpgrade(player, stack)) {
             return ItemInteractionResult.SUCCESS;
         }
@@ -125,7 +129,7 @@ public class GtMachineBlock extends BaseEntityBlock {
         if (level.isClientSide()) {
             return InteractionResult.SUCCESS;
         }
-        if (level.getBlockEntity(pos) instanceof GtBasicMachineBlockEntity be && be.isAccessAllowed(player)
+        if (level.getBlockEntity(pos) instanceof GtMachineBlockEntity be && be.isAccessAllowed(player)
                 && player instanceof ServerPlayer serverPlayer) {
             serverPlayer.openMenu(be, pos);
             return InteractionResult.CONSUME;
@@ -138,7 +142,7 @@ public class GtMachineBlock extends BaseEntityBlock {
     public boolean onDestroyedByPlayer(BlockState state, Level level, BlockPos pos, Player player, boolean willHarvest,
                                        FluidState fluid) {
         if (!level.isClientSide() && !player.getAbilities().instabuild
-                && level.getBlockEntity(pos) instanceof GtBasicMachineBlockEntity be && be.doEnergyExplosion()) {
+                && level.getBlockEntity(pos) instanceof GtMachineBlockEntity be && be.doEnergyExplosion()) {
             return false;
         }
         return super.onDestroyedByPlayer(state, level, pos, player, willHarvest, fluid);
@@ -156,7 +160,7 @@ public class GtMachineBlock extends BaseEntityBlock {
             super.onExplosionHit(state, level, pos, explosion, dropConsumer);
             return;
         }
-        if (level.getBlockEntity(pos) instanceof GtBasicMachineBlockEntity be) {
+        if (level.getBlockEntity(pos) instanceof GtMachineBlockEntity be) {
             be.doEnergyExplosion();
         }
         if (level.getBlockState(pos).is(this)) {
@@ -166,7 +170,7 @@ public class GtMachineBlock extends BaseEntityBlock {
 
     @Override
     protected void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
-        if (!state.is(newState.getBlock()) && level.getBlockEntity(pos) instanceof GtBasicMachineBlockEntity be) {
+        if (!state.is(newState.getBlock()) && level.getBlockEntity(pos) instanceof GtMachineBlockEntity be) {
             be.dropContents();
         }
         super.onRemove(state, level, pos, newState, movedByPiston);

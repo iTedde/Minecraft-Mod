@@ -17,6 +17,10 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
+import net.minecraft.world.level.material.Fluids;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import net.neoforged.neoforge.gametest.GameTestHolder;
 import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
 
@@ -131,6 +135,86 @@ public final class GregTechGameTests {
         helper.assertValueEqual(bender.injectEnergy(Direction.EAST, 32), 0, "32 EU accepted");
         helper.assertValueEqual(bender.injectEnergy(Direction.EAST, 33), 0, "overvoltage");
         helper.assertBlockNotPresent(GtBlocks.machine(GtMachine.PLATE_BENDING_MACHINE).get(), pos);
+        helper.succeed();
+    }
+
+    // --- industrial electrolyzer (phase 6b.2b) ---
+
+    private static ElectrolyzerBlockEntity electrolyzer(GameTestHelper helper, BlockPos pos) {
+        helper.setBlock(pos, GtBlocks.machine(GtMachine.INDUSTRIAL_ELECTROLYZER).get());
+        return helper.getBlockEntity(pos);
+    }
+
+    @GameTest(template = EMPTY, timeoutTicks = 100)
+    public static void electrolyzerSplitsCoalDust(GameTestHelper helper) {
+        ElectrolyzerBlockEntity electrolyzer = electrolyzer(helper, new BlockPos(2, 1, 2));
+        electrolyzer.getInventory().set(ElectrolyzerBlockEntity.SLOT_INPUT, new ItemStack(Ic2Items.COAL_DUST.get()));
+        electrolyzer.getInventory().set(ElectrolyzerBlockEntity.SLOT_CELLS, new ItemStack(Ic2Items.EMPTY_CELL.get(), 3));
+        electrolyzer.setStoredEnergyForTest(3000);
+        // 1 coal dust + 2 cells → 2 carbon cells, 40 ticks at 50 EU/t.
+        helper.succeedWhen(() -> {
+            ItemStack cells = electrolyzer.getInventory().get(ElectrolyzerBlockEntity.SLOT_OUTPUT_1);
+            helper.assertTrue(cells.is(GtItems.CARBON_CELL.get()) && cells.getCount() == 2, "two carbon cells");
+            helper.assertValueEqual(electrolyzer.getStoredEU(), 1000, "energy left");
+            helper.assertValueEqual(electrolyzer.getInventory().get(ElectrolyzerBlockEntity.SLOT_CELLS).getCount(), 1,
+                    "one empty cell left");
+            helper.assertBlockProperty(new BlockPos(2, 1, 2), GtMachineBlock.ACTIVE, false);
+        });
+    }
+
+    @GameTest(template = EMPTY, timeoutTicks = 60)
+    public static void electrolyzerUsesTankWater(GameTestHelper helper) {
+        BlockPos pos = new BlockPos(2, 1, 2);
+        ElectrolyzerBlockEntity electrolyzer = electrolyzer(helper, pos);
+        IFluidHandler tank = helper.getLevel().getCapability(Capabilities.FluidHandler.BLOCK, helper.absolutePos(pos),
+                Direction.UP);
+        helper.assertValueEqual(tank.fill(new FluidStack(Fluids.WATER, 6500), IFluidHandler.FluidAction.EXECUTE),
+                6500, "filled");
+        helper.assertValueEqual(tank.fill(new FluidStack(Fluids.LAVA, 1000), IFluidHandler.FluidAction.EXECUTE), 0,
+                "water only");
+        electrolyzer.getInventory().set(ElectrolyzerBlockEntity.SLOT_CELLS, new ItemStack(Ic2Items.EMPTY_CELL.get(), 5));
+        electrolyzer.setStoredEnergyForTest(10000);
+        // One water per tick from tick 21; with six the water recipe (5 cells) starts.
+        helper.succeedWhen(() -> {
+            helper.assertTrue(electrolyzer.getInventory().get(ElectrolyzerBlockEntity.SLOT_WATER).isEmpty(),
+                    "water used");
+            helper.assertTrue(electrolyzer.getInventory().get(ElectrolyzerBlockEntity.SLOT_CELLS).isEmpty(),
+                    "cells used");
+            helper.assertValueEqual(electrolyzer.getStoredWater(), 500, "rest in the tank");
+            helper.assertBlockProperty(pos, GtMachineBlock.ACTIVE, true);
+        });
+    }
+
+    @GameTest(template = EMPTY, timeoutTicks = 60)
+    public static void electrolyzerFallsBackWithoutEnergy(GameTestHelper helper) {
+        BlockPos pos = new BlockPos(2, 1, 2);
+        ElectrolyzerBlockEntity electrolyzer = electrolyzer(helper, pos);
+        electrolyzer.getInventory().set(ElectrolyzerBlockEntity.SLOT_INPUT, new ItemStack(Ic2Items.COAL_DUST.get()));
+        electrolyzer.getInventory().set(ElectrolyzerBlockEntity.SLOT_CELLS, new ItemStack(Ic2Items.EMPTY_CELL.get(), 2));
+        electrolyzer.setStoredEnergyForTest(150);
+        // Three ticks at 50 EU/t, then constant_need_of_energy resets the progress to -10.
+        helper.succeedWhen(() -> {
+            helper.assertValueEqual(electrolyzer.getDisplayErrorCode(), 1, "insufficient energy");
+            helper.assertValueEqual(electrolyzer.getStoredEU(), 0, "energy used");
+            helper.assertValueEqual(electrolyzer.getProgressScale(), 0, "progress lost");
+        });
+    }
+
+    @GameTest(template = EMPTY, batch = "gt_overvoltage")
+    public static void electrolyzerEnergyValues(GameTestHelper helper) {
+        BlockPos pos = new BlockPos(2, 1, 2);
+        ElectrolyzerBlockEntity electrolyzer = electrolyzer(helper, pos);
+        Player player = helper.makeMockPlayer(GameType.CREATIVE);
+        helper.assertValueEqual(electrolyzer.getMaxSafeInput(), 128, "input");
+        helper.assertValueEqual(electrolyzer.getCapacity(), 10000, "capacity");
+        helper.assertTrue(electrolyzer.acceptsEnergyFrom(electrolyzer, Direction.NORTH), "input on every side");
+        helper.assertFalse(electrolyzer.wrenchCanSetFacing(player, Direction.EAST), "no facing");
+        ItemStack transformer = new ItemStack(Ic2Items.TRANSFORMER_UPGRADE.get());
+        helper.assertTrue(electrolyzer.installUpgrade(player, transformer), "first transformer");
+        helper.assertValueEqual(electrolyzer.getMaxSafeInput(), 512, "input with transformer");
+        helper.assertFalse(electrolyzer.installUpgrade(player, transformer), "second IC2 transformer refused");
+        helper.assertValueEqual(electrolyzer.injectEnergy(Direction.EAST, 513), 0, "overvoltage");
+        helper.assertBlockNotPresent(GtBlocks.machine(GtMachine.INDUSTRIAL_ELECTROLYZER).get(), pos);
         helper.succeed();
     }
 }

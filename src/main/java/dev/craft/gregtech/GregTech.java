@@ -1,6 +1,7 @@
 package dev.craft.gregtech;
 
-import dev.craft.gregtech.machine.GtBasicMachineBlockEntity;
+import dev.craft.gregtech.machine.ElectrolyzerBlockEntity;
+import dev.craft.gregtech.machine.GtMachineBlockEntity;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
@@ -23,7 +24,10 @@ public final class GregTech {
     private static void registerCapabilities(RegisterCapabilitiesEvent event) {
         for (GtMachine machine : GtMachine.values()) {
             event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, GtBlockEntityTypes.get(machine),
-                    GtBasicMachineBlockEntity::getItemHandler);
+                    GtMachineBlockEntity::getItemHandler);
         }
+        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK,
+                GtBlockEntityTypes.get(GtMachine.INDUSTRIAL_ELECTROLYZER),
+                (be, side) -> ((ElectrolyzerBlockEntity) be).getFluidHandler(side));
     }
 }

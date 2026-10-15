@@ -1,0 +1,184 @@
+{
+  "variants": {
+    "active=false,facing=down,front=east": {
+      "model": "craft:block/gt/industrial_electrolyzer_32_29_64_64_64_64"
+    },
+    "active=false,facing=down,front=none": {
+      "model": "craft:block/gt/industrial_electrolyzer_32_29_64_64_64_64"
+    },
+    "active=false,facing=down,front=north": {
+      "model": "craft:block/gt/industrial_electrolyzer_32_29_64_64_64_64"
+    },
+    "active=false,facing=down,front=south": {
+      "model": "craft:block/gt/industrial_electrolyzer_32_29_64_64_64_64"
+    },
+    "active=false,facing=down,front=west": {
+      "model": "craft:block/gt/industrial_electrolyzer_32_29_64_64_64_64"
+    },
+    "active=false,facing=east,front=east": {
+      "model": "craft:block/gt/industrial_electrolyzer_32_29_64_64_64_64"
+    },
+    "active=false,facing=east,front=none": {
+      "model": "craft:block/gt/industrial_electrolyzer_32_29_64_64_64_64"
+    },
+    "active=false,facing=east,front=north": {
+      "model": "craft:block/gt/industrial_electrolyzer_32_29_64_64_64_64"
+    },
+    "active=false,facing=east,front=south": {
+      "model": "craft:block/gt/industrial_electrolyzer_32_29_64_64_64_64"
+    },
+    "active=false,facing=east,front=west": {
+      "model": "craft:block/gt/industrial_electrolyzer_32_29_64_64_64_64"
+    },
+    "active=false,facing=north,front=east": {
+      "model": "craft:block/gt/industrial_electrolyzer_32_29_64_64_64_64"
+    },
+    "active=false,facing=north,front=none": {
+      "model": "craft:block/gt/industrial_electrolyzer_32_29_64_64_64_64"
+    },
+    "active=false,facing=north,front=north": {
+      "model": "craft:block/gt/industrial_electrolyzer_32_29_64_64_64_64"
+    },
+    "active=false,facing=north,front=south": {
+      "model": "craft:block/gt/industrial_electrolyzer_32_29_64_64_64_64"
+    },
+    "active=false,facing=north,front=west": {
+      "model": "craft:block/gt/industrial_electrolyzer_32_29_64_64_64_64"
+    },
+    "active=false,facing=south,front=east": {
+      "model": "craft:block/gt/industrial_electrolyzer_32_29_64_64_64_64"
+    },
+    "active=false,facing=south,front=none": {
+      "model": "craft:block/gt/industrial_electrolyzer_32_29_64_64_64_64"
+    },
+    "active=false,facing=south,front=north": {
+      "model": "craft:block/gt/industrial_electrolyzer_32_29_64_64_64_64"
+    },
+    "active=false,facing=south,front=south": {
+      "model": "craft:block/gt/industrial_electrolyzer_32_29_64_64_64_64"
+    },
+    "active=false,facing=south,front=west": {
+      "model": "craft:block/gt/industrial_electrolyzer_32_29_64_64_64_64"
+    },
+    "active=false,facing=up,front=east": {
+      "model": "craft:block/gt/industrial_electrolyzer_32_29_64_64_64_64"
+    },
+    "active=false,facing=up,front=none": {
+      "model": "craft:block/gt/industrial_electrolyzer_32_29_64_64_64_64"
+    },
+    "active=false,facing=up,front=north": {
+      "model": "craft:block/gt/industrial_electrolyzer_32_29_64_64_64_64"
+    },
+    "active=false,facing=up,front=south": {
+      "model": "craft:block/gt/industrial_electrolyzer_32_29_64_64_64_64"
+    },
+    "active=false,facing=up,front=west": {
+      "model": "craft:block/gt/industrial_electrolyzer_32_29_64_64_64_64"
+    },
+    "active=false,facing=west,front=east": {
+      "model": "craft:block/gt/industrial_electrolyzer_32_29_64_64_64_64"
+    },
+    "active=false,facing=west,front=none": {
+      "model": "craft:block/gt/industrial_electrolyzer_32_29_64_64_64_64"
+    },
+    "active=false,facing=west,front=north": {
+      "model": "craft:block/gt/industrial_electrolyzer_32_29_64_64_64_64"
+    },
+    "active=false,facing=west,front=south": {
+      "model": "craft:block/gt/industrial_electrolyzer_32_29_64_64_64_64"
+    },
+    "active=false,facing=west,front=west": {
+      "model": "craft:block/gt/industrial_electrolyzer_32_29_64_64_64_64"
+    },
+    "active=true,facing=down,front=east": {
+      "model": "craft:block/gt/industrial_electrolyzer_32_29_65_65_65_65"
+    },
+    "active=true,facing=down,front=none": {
+      "model": "craft:block/gt/industrial_electrolyzer_32_29_65_65_65_65"
+    },
+    "active=true,facing=down,front=north": {
+      "model": "craft:block/gt/industrial_electrolyzer_32_29_65_65_65_65"
+    },
+    "active=true,facing=down,front=south": {
+      "model": "craft:block/gt/industrial_electrolyzer_32_29_65_65_65_65"
+    },
+    "active=true,facing=down,front=west": {
+      "model": "craft:block/gt/industrial_electrolyzer_32_29_65_65_65_65"
+    },
+    "active=true,facing=east,front=east": {
+      "model": "craft:block/gt/industrial_electrolyzer_32_29_65_65_65_65"
+    },
+    "active=true,facing=east,front=none": {
+      "model": "craft:block/gt/industrial_electrolyzer_32_29_65_65_65_65"
+    },
+    "active=true,facing=east,front=north": {
+      "model": "craft:block/gt/industrial_electrolyzer_32_29_65_65_65_65"
+    },
+    "active=true,facing=east,front=south": {
+      "model": "craft:block/gt/industrial_electrolyzer_32_29_65_65_65_65"
+    },
+    "active=true,facing=east,front=west": {
+      "model": "craft:block/gt/industrial_electrolyzer_32_29_65_65_65_65"
+    },
+    "active=true,facing=north,front=east": {
+      "model": "craft:block/gt/industrial_electrolyzer_32_29_65_65_65_65"
+    },
+    "active=true,facing=north,front=none": {
+      "model": "craft:block/gt/industrial_electrolyzer_32_29_65_65_65_65"
+    },
+    "active=true,facing=north,front=north": {
+      "model": "craft:block/gt/industrial_electrolyzer_32_29_65_65_65_65"
+    },
+    "active=true,facing=north,front=south": {
+      "model": "craft:block/gt/industrial_electrolyzer_32_29_65_65_65_65"
+    },
+    "active=true,facing=north,front=west": {
+      "model": "craft:block/gt/industrial_electrolyzer_32_29_65_65_65_65"
+    },
+    "active=true,facing=south,front=east": {
+      "model": "craft:block/gt/industrial_electrolyzer_32_29_65_65_65_65"
+    },
+    "active=true,facing=south,front=none": {
+      "model": "craft:block/gt/industrial_electrolyzer_32_29_65_65_65_65"
+    },
+    "active=true,facing=south,front=north": {
+      "model": "craft:block/gt/industrial_electrolyzer_32_29_65_65_65_65"
+    },
+    "active=true,facing=south,front=south": {
+      "model": "craft:block/gt/industrial_electrolyzer_32_29_65_65_65_65"
+    },
+    "active=true,facing=south,front=west": {
+      "model": "craft:block/gt/industrial_electrolyzer_32_29_65_65_65_65"
+    },
+    "active=true,facing=up,front=east": {
+      "model": "craft:block/gt/industrial_electrolyzer_32_29_65_65_65_65"
+    },
+    "active=true,facing=up,front=none": {
+      "model": "craft:block/gt/industrial_electrolyzer_32_29_65_65_65_65"
+    },
+    "active=true,facing=up,front=north": {
+      "model": "craft:block/gt/industrial_electrolyzer_32_29_65_65_65_65"
+    },
+    "active=true,facing=up,front=south": {
+      "model": "craft:block/gt/industrial_electrolyzer_32_29_65_65_65_65"
+    },
+    "active=true,facing=up,front=west": {
+      "model": "craft:block/gt/industrial_electrolyzer_32_29_65_65_65_65"
+    },
+    "active=true,facing=west,front=east": {
+      "model": "craft:block/gt/industrial_electrolyzer_32_29_65_65_65_65"
+    },
+    "active=true,facing=west,front=none": {
+      "model": "craft:block/gt/industrial_electrolyzer_32_29_65_65_65_65"
+    },
+    "active=true,facing=west,front=north": {
+      "model": "craft:block/gt/industrial_electrolyzer_32_29_65_65_65_65"
+    },
+    "active=true,facing=west,front=south": {
+      "model": "craft:block/gt/industrial_electrolyzer_32_29_65_65_65_65"
+    },
+    "active=true,facing=west,front=west": {
+      "model": "craft:block/gt/industrial_electrolyzer_32_29_65_65_65_65"
+    }
+  }
+}

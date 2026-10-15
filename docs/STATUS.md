@@ -521,9 +521,22 @@ entscheiden**.
 - Texturen aus `IC2.jar` (`block_machine.png` Spalten 9/10, `block_0.png` 1, `item_0.png` 43, `GUIElectrolyzer.png`).
 - 5 neue GameTests (`ElectrolysisGameTests`, insgesamt 111 grün), `build` und `runClient` erfolgreich.
 
+## Erledigt (Teilpaket „Phase 6b.2b: Industrieller Elektrolyseur“, 2026-10-15)
+- GT-Basis aufgeteilt: `GtMachineBlockEntity` (BaseMetaTileEntity) und `GtBasicMachineBlockEntity` (BasicMachine);
+  `GtMachine` kennt Basismaschine ja/nein und die Eingangsspannung (Tooltip).
+- `ElectrolyzerBlockEntity` (Spec 13 §4): 128 EU/t Eingang, 10 000 EU, Energie von allen Seiten, kein Facing,
+  Wassertank 10 000 mB → Holo-Slot, `constant_need_of_energy` (Fortschritt −10, „Insufficient Energy Line!“),
+  4 Ausgänge; Menü `GtElectrolyzerMenu`, Screen `GtElectrolyzerScreen`.
+- Items: Wasserstoff-, Lithium-, Silizium-, Kohlenstoff-, Calcium-, Natriumzelle; Schwefel-, Aluminiumstaub, dunkle
+  Asche; internes Item `craft:water`. Rezepte: Maschine (raff. Eisenplatten) + 10 Elektrolyse-Rezepte
+  (Wasser, el. Wasserzellen, Wasserzelle, Wassereimer, Knochenmehl, Zucker, Lohenstaub, Sand, Tonstaub, Kohlestaub)
+  → **Siliziumzellen und Aluminiumstaub** sind herstellbar. `GtRecipe` erlaubt leere Ausgaben.
+- Texturen aus `GregTech.zip` (`terrain.png` 64/65, `cells.png`, `dusts.png`, GUI `Electrolyzer.png`).
+- 4 neue GameTests (insgesamt 115 grün), `build` und `runClient` erfolgreich.
+
 ## Nächste Schritte
-1. Teilpaket 6b.2b: GT-Elektrolyseur (`13-gregtech-maschinen.md` §4) – GT-Basis in `GtMachineBlockEntity`
-   (BaseMetaTileEntity) und `GtBasicMachineBlockEntity` aufteilen; Zellen H/Li/Si/C/Ca/Na, Stäube Al/S/dunkle Asche,
-   interner „Wasser“-Gegenstand für den Tank.
-2. Manuelle Client-Tests 6b.2a: Eisenzaun-Verbindungen und Pfahl mit Eisenstiefeln am Magnetisierer (Aufstieg,
-   Schleichen bremst), Elektrolyseur über/neben BatBox (≥ 70 % lädt Zellen, ≤ 30 % gibt Energie zurück, Balken).
+1. Teilpaket 6b.3: Hochofen-Multiblock + Heizspulen → Stahl, Aluminium, Siliziumplatte (Spec-Lücken vorher prüfen).
+2. Manuelle Client-Tests 6b.2: Eisenzaun-Pfahl mit Eisenstiefeln am Magnetisierer, IC2-Elektrolyseur an BatBox
+   (≥ 70 % lädt, ≤ 30 % gibt zurück, Balken); GT-Elektrolyseur: GUI (Slots, Holo-Wasser, Balken wächst nach oben,
+   Fehlertext ohne Energie), Wasser per BC-Pumpe/Tank, Sand → Siliziumzelle, Tonstaub → Aluminiumstaub, Upgrades
+   per Rechtsklick (nur ein IC2-Trafo), keine Drehung per Schraubenschlüssel.

@@ -56,6 +56,7 @@ ergänzen. Basispaket `dev.craft`, Einstieg `Craft` → `Ic2.init`, `BuildCraft.
 | `core/multiblock/MultiblockPattern`, `MultiblockController` | gemeinsames Multiblock-System; `Listener.onChecked` nach jeder Prüfung; `MultiblockLease` = Zugehörigkeit eines Teils (nicht gespeichert) |
 | `compactsolars/SolarArrayBlockEntity`, `SolarArrayPatterns` | Solar-Array-Controller (erbt `MachineBlockEntity`, ohne Facing/`Ic2Machine`), rekursive Layouts |
 | `core/explosion/Ic2Explosion` | IC2-Explosion (`explodeMachineAt`) |
+| `gregtech/machine/GtMachineBlockEntity` | GT-`BaseMetaTileEntity` (Spec 13 §1.1–1.6): Startverzögerung, EU-Netz, Upgrades als Zähler (Flags `is*Upgradable`), Entladen (`dechargerSlot`), Explosionen; Unterklasse implementiert `onPostTick` und die Wert-Hooks (`maxEUInput` …). Nicht-Basismaschinen (`GtMachine.isBasicMachine() = false`, z. B. Elektrolyseur): kein Facing, Texturen unten 32/oben 29/Seiten eigene |
 | `gregtech/machine/GtBasicMachineBlockEntity`, `GtMachineBlock` | GT-BasicMachine (Spec 13 §1): EU-Senke/-Quelle, Upgrades als Zähler (Rechtsklick), Energie-Explosionen, Slots 1–2 Eingabe, 3–4 Ausgabe, 5 Batterie; Unterklasse implementiert `checkRecipe()` (Muster: `BenderBlockEntity`). Menü `GtBasicMachineMenu` + `GtBasicMachineScreen` für alle Basismaschinen (GUI-Textur aus `GtMachine`) |
 
 ## Tasten und Netzwerk

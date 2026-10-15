@@ -55,6 +55,8 @@ public final class CraftItemModelProvider extends ItemModelProvider {
                 .model(saberActive).end();
         withExistingParent(BcItems.LANDMARK.getId().getPath(), mcLoc("item/generated"))
                 .texture("layer0", modLoc("block/landmark"));
+        withExistingParent(GtItems.WATER.getId().getPath(), mcLoc("item/generated"))
+                .texture("layer0", mcLoc("block/water_still"));
         for (DeferredItem<? extends Item> item : GtItems.simpleItems()) {
             withExistingParent(item.getId().getPath(), mcLoc("item/generated"))
                     .texture("layer0", modLoc("item/gt/" + item.getId().getPath()));

@@ -1,0 +1,21 @@
+{
+  "type": "craft:gt_electrolyzer",
+  "duration": 24,
+  "eu_per_tick": 106,
+  "inputs": [
+    {
+      "count": 3,
+      "item": "minecraft:bone_meal"
+    },
+    {
+      "count": 1,
+      "item": "craft:empty_cell"
+    }
+  ],
+  "outputs": [
+    {
+      "count": 1,
+      "id": "craft:calcium_cell"
+    }
+  ]
+}

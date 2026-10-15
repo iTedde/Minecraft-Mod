@@ -4,6 +4,7 @@ import java.util.function.Supplier;
 
 import dev.craft.Craft;
 import dev.craft.gregtech.menu.GtBasicMachineMenu;
+import dev.craft.gregtech.menu.GtElectrolyzerMenu;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.inventory.MenuType;
 import net.neoforged.neoforge.common.extensions.IMenuTypeExtension;
@@ -15,6 +16,11 @@ public final class GtMenus {
     /** {@code GT_Container_BasicMachine}, shared by all basic machines (the GUI texture comes with the machine). */
     public static final Supplier<MenuType<GtBasicMachineMenu>> BASIC_MACHINE = MENUS.register("gt_basic_machine",
             () -> IMenuTypeExtension.create((id, inventory, buf) -> new GtBasicMachineMenu(id, inventory,
+                    buf.readBlockPos())));
+
+    /** {@code GT_Container_Electrolyzer}. */
+    public static final Supplier<MenuType<GtElectrolyzerMenu>> ELECTROLYZER = MENUS.register("gt_electrolyzer",
+            () -> IMenuTypeExtension.create((id, inventory, buf) -> new GtElectrolyzerMenu(id, inventory,
                     buf.readBlockPos())));
 
     private GtMenus() {
