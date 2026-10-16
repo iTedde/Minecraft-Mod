@@ -3,10 +3,13 @@ package dev.craft.powerplants.boiler;
 import dev.craft.Craft;
 import dev.craft.buildcraft.BcBlocks;
 import dev.craft.gregtech.GtItems;
+import dev.craft.ic2.Ic2Blocks;
+import dev.craft.ic2.Ic2Machine;
 import dev.craft.ic2.machine.MachineBlock;
 import dev.craft.powerplants.PpBlocks;
 import dev.craft.powerplants.PpFluids;
 import dev.craft.powerplants.PpItems;
+import dev.craft.powerplants.turbine.SteamTurbineBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.gametest.framework.GameTest;
@@ -157,6 +160,34 @@ public final class BoilerGameTests {
                     IFluidHandler.FluidAction.SIMULATE), 0, "no steam in");
             helper.assertTrue(casing.drain(100, IFluidHandler.FluidAction.SIMULATE).isEmpty(), "nothing to drain");
             helper.setBlock(new BlockPos(5, 2, 2), Blocks.AIR);
+            helper.succeed();
+        });
+    }
+
+    /** Coal power plant: a boiler at 1000 °C next to a steam turbine delivers 20 mB steam = 20 EU per tick. */
+    @GameTest(template = "empty_16x8x16", timeoutTicks = 80)
+    public static void boilerDrivesSteamTurbine(GameTestHelper helper) {
+        BoilerBlockEntity boiler = build(helper);
+        BlockPos controller = new BlockPos(6, 2, 1);
+        for (BlockPos pos : BlockPos.betweenClosed(new BlockPos(5, 1, 1), new BlockPos(7, 3, 5))) {
+            boolean axis = pos.getX() == 6 && pos.getY() == 2;
+            if (axis && pos.getZ() >= 2 && pos.getZ() <= 4) {
+                helper.setBlock(pos, PpBlocks.TURBINE_ROTOR.get());
+            } else if (!pos.equals(controller)) {
+                helper.setBlock(pos, PpBlocks.TURBINE_CASING.get());
+            }
+        }
+        helper.setBlock(controller, PpBlocks.STEAM_TURBINE.get().defaultBlockState()
+                .setValue(MachineBlock.FACING, Direction.NORTH));
+        helper.setBlock(new BlockPos(6, 2, 0), Ic2Blocks.machine(Ic2Machine.MFE).get());
+        SteamTurbineBlockEntity turbine = helper.getBlockEntity(controller);
+        boiler.setWater(BoilerBlockEntity.TANK_CAPACITY);
+        boiler.setTemperature(BoilerBlockEntity.MAX_TEMPERATURE);
+        boiler.getInventory().set(BoilerBlockEntity.SLOT_FUEL, new ItemStack(Items.COAL));
+        helper.runAtTickTime(60, () -> {
+            helper.assertTrue(turbine.isFormed(), "turbine formed");
+            helper.assertValueEqual(turbine.getProduction(), BoilerBlockEntity.MAX_STEAM_RATE, "EU/t from one boiler");
+            helper.setBlock(new BlockPos(6, 2, 0), Blocks.AIR);
             helper.succeed();
         });
     }

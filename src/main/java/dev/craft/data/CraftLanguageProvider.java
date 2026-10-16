@@ -109,6 +109,9 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
         block(PpBlocks.BOILER_CASING, german ? "Kesselgehäuse" : "Boiler Casing");
         block(PpBlocks.BOILER_FIREBOX, german ? "Kesselfeuerung" : "Boiler Firebox");
         add(PpFluids.STEAM_TYPE.get().getDescriptionId(), german ? "Dampf" : "Steam");
+        block(PpBlocks.TURBINE_CASING, german ? "Turbinengehäuse" : "Turbine Casing");
+        block(PpBlocks.TURBINE_ROTOR, german ? "Turbinenrotor" : "Turbine Rotor");
+        block(PpBlocks.STEAM_TURBINE, german ? "Dampfturbine" : "Steam Turbine");
     }
 
     /** Compact Solars names ({@code CompactSolarType.friendlyName}, English only). */

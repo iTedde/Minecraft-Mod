@@ -437,6 +437,11 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
         ResourceLocation boiler = modLoc("block/powerplants/boiler_casing");
         simpleBlockWithItem(PpBlocks.BOILER_CASING.get(), models().cubeAll("boiler_casing", boiler));
         plantController(PpBlocks.BOILER_FIREBOX.get(), "boiler_firebox", boiler, boiler);
+        ResourceLocation turbine = modLoc("block/powerplants/turbine_casing");
+        simpleBlockWithItem(PpBlocks.TURBINE_CASING.get(), models().cubeAll("turbine_casing", turbine));
+        simpleBlockWithItem(PpBlocks.TURBINE_ROTOR.get(), models().cubeAll("turbine_rotor",
+                modLoc("block/powerplants/turbine_rotor")));
+        plantController(PpBlocks.STEAM_TURBINE.get(), "steam_turbine", turbine, turbine);
     }
 
     /** Power plant controller: front texture {@code <name>_front(_active)}, rotated by the horizontal facing. */

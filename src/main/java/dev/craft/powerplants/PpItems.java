@@ -17,6 +17,10 @@ public final class PpItems {
     public static final DeferredItem<BlockItem> BOILER_CASING = ITEMS.registerSimpleBlockItem(PpBlocks.BOILER_CASING);
     public static final DeferredItem<BlockItem> BOILER_FIREBOX =
             ITEMS.registerSimpleBlockItem(PpBlocks.BOILER_FIREBOX);
+    public static final DeferredItem<BlockItem> TURBINE_CASING =
+            ITEMS.registerSimpleBlockItem(PpBlocks.TURBINE_CASING);
+    public static final DeferredItem<BlockItem> TURBINE_ROTOR = ITEMS.registerSimpleBlockItem(PpBlocks.TURBINE_ROTOR);
+    public static final DeferredItem<BlockItem> STEAM_TURBINE = ITEMS.registerSimpleBlockItem(PpBlocks.STEAM_TURBINE);
 
     private PpItems() {
     }

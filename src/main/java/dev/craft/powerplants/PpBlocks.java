@@ -6,6 +6,7 @@ import dev.craft.powerplants.block.PlantControllerBlock;
 import dev.craft.powerplants.block.PlantPartBlock;
 import dev.craft.powerplants.boiler.BoilerBlockEntity;
 import dev.craft.powerplants.cokeoven.CokeOvenBlockEntity;
+import dev.craft.powerplants.turbine.SteamTurbineBlockEntity;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -25,6 +26,12 @@ public final class PpBlocks {
             () -> new PlantPartBlock(bricks()));
     public static final DeferredBlock<PlantControllerBlock> BOILER_FIREBOX = BLOCKS.register("boiler_firebox",
             () -> new PlantControllerBlock(bricks().lightLevel(PpBlocks::activeLight), BoilerBlockEntity::new));
+    public static final DeferredBlock<PlantPartBlock> TURBINE_CASING = BLOCKS.register("turbine_casing",
+            () -> new PlantPartBlock(metal()));
+    public static final DeferredBlock<PlantPartBlock> TURBINE_ROTOR = BLOCKS.register("turbine_rotor",
+            () -> new PlantPartBlock(metal()));
+    public static final DeferredBlock<PlantControllerBlock> STEAM_TURBINE = BLOCKS.register("steam_turbine",
+            () -> new PlantControllerBlock(metal(), SteamTurbineBlockEntity::new));
     public static final DeferredBlock<Block> COKE_BLOCK = BLOCKS.registerSimpleBlock("coke_block",
             BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLACK).strength(5.0F, 6.0F)
                     .requiresCorrectToolForDrops());
@@ -40,5 +47,11 @@ public final class PpBlocks {
     private static BlockBehaviour.Properties bricks() {
         return BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BROWN).strength(2.0F, 10.0F)
                 .sound(SoundType.STONE).requiresCorrectToolForDrops();
+    }
+
+    /** Steam turbine blocks: hardness 5.0, resistance 10, pickaxe, metal (spec 14 §4). */
+    private static BlockBehaviour.Properties metal() {
+        return BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(5.0F, 10.0F)
+                .sound(SoundType.METAL).requiresCorrectToolForDrops();
     }
 }

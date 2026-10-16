@@ -1068,11 +1068,23 @@ NaK-Kühlzellen, kein Vakuumgefrierer) **und die IC2-Nuke**. Teilpakete: 7a IC2-
 - 6 neue GameTests (`BoilerGameTests`, Explosion in eigener Batch; insgesamt 228 grün), `build` und `runClient`
   (Hauptmenü, keine Mod-Fehler) erfolgreich.
 
+## Erledigt (Teilpaket „Phase 9.3b: Dampfturbine“, 2026-10-16)
+- Dampfturbine (`SteamTurbineBlockEntity`, Menü/Screen, GUI `steam_turbine.png` im Railcraft-`gui_engine_steam.png`-Stil):
+  3×3×5 Turbinengehäuse um eine Achse aus 3 Turbinenrotoren, Controller in der Mitte einer Stirnseite. Dampftank
+  16 000 mB (Annahme über alle Turbinenblöcke, nur Dampf, kein Abzapfen), bis 64 mB/t → 1 mB = 1 EU in den Puffer
+  (128 EU), EU-Quelle am Controller mit Paketen bis 64 EU (MV); voller Puffer → kein Dampfverbrauch.
+- Rezepte Turbinengehäuse ×4 (`PPP/PMP/PPP`), Turbinenrotor (`PSP/SIS/PSP`), Dampfturbine (`CRC/GMG/CRC`); eigene
+  Texturen für Gehäuse, Rotor und Front (aktiv/inaktiv).
+- 4 neue GameTests (`SteamTurbineGameTests` + Kessel→Turbine in `BoilerGameTests`; insgesamt 232 grün), `build` und
+  `runClient` (Hauptmenü, keine Mod-Fehler) erfolgreich.
+
 ## Nächste Schritte
-1. 9.3b Dampfturbine · 9.4 Wasserturbine.
-2. Manuelle Client-Tests 9.3a: Kessel bauen, Wasser per Eimer/IC2-Pumpe, Kohle/Koks nachlegen, Temperaturbalken und
+1. 9.4 Wasserturbine.
+2. Manuelle Client-Tests 9.3b: Kraftwerk aus Kessel + Dampfturbine bauen, MFE/Kabel am Controller, GUI (Dampftank,
+   EU/t, Puffer); bis zu 3 Kessel an einer Turbine.
+3. Manuelle Client-Tests 9.3a: Kessel bauen, Wasser per Eimer/IC2-Pumpe, Kohle/Koks nachlegen, Temperaturbalken und
    Tanks in der GUI; Dampf in einen BC-Tank daneben; Explosion (Wasser auf trockenen heißen Kessel) aus sicherer
    Entfernung.
-3. Manuelle Client-Tests 9.2: Koksofen bauen, Kohle per Trichter/Ziegel einspeisen, Koks unten abziehen.
-4. Manuelle Client-Tests 9.1: Wassermühle an fließendem Wasser / im Fluss, zwei Mühlen nebeneinander; Windmühle in
+4. Manuelle Client-Tests 9.2: Koksofen bauen, Kohle per Trichter/Ziegel einspeisen, Koks unten abziehen.
+5. Manuelle Client-Tests 9.1: Wassermühle an fließendem Wasser / im Fluss, zwei Mühlen nebeneinander; Windmühle in
    großer Höhe bei Gewitter.

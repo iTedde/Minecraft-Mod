@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/orientable",
+  "textures": {
+    "front": "craft:block/powerplants/steam_turbine_front_active",
+    "side": "craft:block/powerplants/turbine_casing",
+    "top": "craft:block/powerplants/turbine_casing"
+  }
+}

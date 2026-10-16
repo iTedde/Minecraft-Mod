@@ -1,0 +1,26 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "C": {
+      "item": "craft:turbine_casing"
+    },
+    "G": {
+      "item": "craft:generator"
+    },
+    "M": {
+      "item": "craft:mv_transformer"
+    },
+    "R": {
+      "item": "craft:turbine_rotor"
+    }
+  },
+  "pattern": [
+    "CRC",
+    "GMG",
+    "CRC"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:steam_turbine"
+  }
+}

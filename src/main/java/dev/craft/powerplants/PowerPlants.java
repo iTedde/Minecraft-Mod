@@ -3,6 +3,7 @@ package dev.craft.powerplants;
 import dev.craft.powerplants.block.PlantPartBlockEntity;
 import dev.craft.powerplants.boiler.BoilerBlockEntity;
 import dev.craft.powerplants.cokeoven.CokeOvenBlockEntity;
+import dev.craft.powerplants.turbine.SteamTurbineBlockEntity;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
@@ -33,5 +34,7 @@ public final class PowerPlants {
                 BoilerBlockEntity::getItemHandler);
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, PpBlockEntityTypes.BOILER.get(),
                 BoilerBlockEntity::getPartFluidHandler);
+        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, PpBlockEntityTypes.STEAM_TURBINE.get(),
+                SteamTurbineBlockEntity::getPartFluidHandler);
     }
 }

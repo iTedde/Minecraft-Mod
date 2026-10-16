@@ -1,0 +1,20 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "M": {
+      "item": "craft:machine_casing"
+    },
+    "P": {
+      "tag": "c:plates/steel"
+    }
+  },
+  "pattern": [
+    "PPP",
+    "PMP",
+    "PPP"
+  ],
+  "result": {
+    "count": 4,
+    "id": "craft:turbine_casing"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "I": {
+      "item": "minecraft:iron_block"
+    },
+    "P": {
+      "tag": "c:plates/steel"
+    },
+    "S": {
+      "tag": "c:ingots/steel"
+    }
+  },
+  "pattern": [
+    "PSP",
+    "SIS",
+    "PSP"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:turbine_rotor"
+  }
+}

@@ -20,6 +20,7 @@ public final class PowerPlantsClient {
     public static void registerScreens(RegisterMenuScreensEvent event) {
         event.register(PpMenus.COKE_OVEN.get(), CokeOvenScreen::new);
         event.register(PpMenus.BOILER.get(), BoilerScreen::new);
+        event.register(PpMenus.STEAM_TURBINE.get(), SteamTurbineScreen::new);
     }
 
     @SubscribeEvent
