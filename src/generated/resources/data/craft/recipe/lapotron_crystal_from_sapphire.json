@@ -1,0 +1,23 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "C": {
+      "item": "craft:electronic_circuit"
+    },
+    "L": {
+      "tag": "craft:item_lazurite"
+    },
+    "S": {
+      "tag": "c:gems/sapphire"
+    }
+  },
+  "pattern": [
+    "LCL",
+    "LSL",
+    "LCL"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:lapotron_crystal"
+  }
+}

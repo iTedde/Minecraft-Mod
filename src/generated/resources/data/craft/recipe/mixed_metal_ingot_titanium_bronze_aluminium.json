@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "X": {
+      "tag": "c:plates/titanium"
+    },
+    "Y": {
+      "tag": "c:plates/bronze"
+    },
+    "Z": {
+      "tag": "c:plates/aluminium"
+    }
+  },
+  "pattern": [
+    "X",
+    "Y",
+    "Z"
+  ],
+  "result": {
+    "count": 4,
+    "id": "craft:mixed_metal_ingot"
+  }
+}

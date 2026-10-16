@@ -1,0 +1,20 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "A": {
+      "tag": "c:ingots/chrome"
+    },
+    "B": {
+      "tag": "c:ingots/nickel"
+    }
+  },
+  "pattern": [
+    " B ",
+    "BAB",
+    " B "
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:nichrome_heating_coil"
+  }
+}

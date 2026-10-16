@@ -966,8 +966,25 @@ NaK-Kühlzellen, kein Vakuumgefrierer) **und die IC2-Nuke**. Teilpakete: 7a IC2-
 - 4 neue GameTests (`GtUnlockGameTests`, insgesamt 201 grün), `build` und `runClient` (Hauptmenü, keine Mod-Fehler)
   erfolgreich.
 
+## Erledigt (Teilpaket „Phase 8e.2: freigeschaltete Rezepte“, 2026-10-16)
+- Rezepte (`CraftRecipeProvider.gregTechUnlockedRecipes`): Diamantbohrer mit Titanplatten (damit ist die Quarry
+  herstellbar), Bergbaulaser (Rubin, 60k-Helium-Kühlzelle, `crafting100kEUStore`, Titanplatten), Kanthal- (3) und
+  Nichrom-Heizspule an der Werkbank (Walzmaschine), Mischmetall mit Titanplatte (3/3/4) und Zinkplatte (raff. Eisen 1,
+  Nickel 1, Stahl 2), Kolben aus Aluminium-/Stahl-/Titanbarren, Energiekristall aus Rubin, Lapotronkristall aus
+  Saphir, 6 Glasfaserkabel mit Silberbarren, Windmühle im Assembler aus Generator + 2 Magnaliumplatten (6400 / 8).
+- Neuer Tag `craft:item_lazurite` (GT `itemLazurite` = Lapis + Lazuritstaub); jetzt in beiden Lapotron-Rezepten und
+  im fortgeschrittenen Schaltkreis (vorher nur Lapis).
+- Test `scrapBoxDropsMostlyScrap`: Erwartung an die seit 8d.2/8e.1 nachgetragenen Schrottbox-Drops angepasst
+  (Schrott 20000 von 30435 ≈ 66 %, vorher 71 %; der Test war in 8e.1 nur knapp grün).
+- 4 neue GameTests (`GtUnlockedRecipeGameTests`, insgesamt 205 grün), `build` und `runClient` (Hauptmenü, keine
+  Mod-Fehler) erfolgreich.
+
 ## Nächste Schritte
-1. Teilpaket 8e.2: freigeschaltete Rezepte (`12-gregtech-materialien.md` §5.3 ohne Gehäuse).
+1. Teilpaket 8e.3: Schaltungen und Gehäuse (Datenspeicher-/Datenkontroll-/Energiefluss-Schaltung, Elite-Platine,
+   Titan-Maschinenhülle, Hochentwickelter Maschinenblock, fortg. GT-Maschinengehäuse, Nanosäbel, Schrottbox
+   Elite-Platine 0,2).
 2. Manuelle Client-Tests 8e.1: Bauxitstaub (12 + 8 Zellen) im Elektrolyseur → kl. Titanstaub → Titanstaub →
    Hochofen (≥ 1500 K) → Titanbarren → Plattenbieger; Rubinstaub → Chromstaub → Hochofen (≥ 1700 K); Granatstaub in der
    Zentrifuge; Galenastaub im Hochofen; UU-Materie-Rezepte an fester Position.
+3. Manuelle Client-Tests 8e.2: Diamantbohrer → Quarry; Bergbaulaser (Ladung des Energiekristalls geht über);
+   Kanthal-Spulen im Hochofen (+ Hitze); Magnalium-Windmühle im Assembler.

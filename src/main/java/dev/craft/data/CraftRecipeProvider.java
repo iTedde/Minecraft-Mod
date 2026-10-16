@@ -94,6 +94,7 @@ public final class CraftRecipeProvider extends RecipeProvider {
         gregTechOres();
         grinder();
         gregTechUnlocks();
+        gregTechUnlockedRecipes();
         uuMatter();
         smelting();
         macerator();
@@ -819,10 +820,10 @@ public final class CraftRecipeProvider extends RecipeProvider {
                 .define('C', Ic2Items.cable(CableType.INSULATED_COPPER)).define('R', Items.REDSTONE)
                 .define('I', CraftItemTagsProvider.INGOTS_REFINED_IRON).save();
         shaped(Ic2Items.ADVANCED_CIRCUIT, 1, "advanced_circuit").pattern("RGR").pattern("LCL").pattern("RGR")
-                .define('R', Items.REDSTONE).define('G', Items.GLOWSTONE_DUST).define('L', Items.LAPIS_LAZULI)
+                .define('R', Items.REDSTONE).define('G', Items.GLOWSTONE_DUST).define('L', CraftItemTagsProvider.ITEM_LAZURITE)
                 .define('C', Ic2Items.ELECTRONIC_CIRCUIT).save();
         shaped(Ic2Items.ADVANCED_CIRCUIT, 1, "advanced_circuit_vertical").pattern("RLR").pattern("GCG").pattern("RLR")
-                .define('R', Items.REDSTONE).define('G', Items.GLOWSTONE_DUST).define('L', Items.LAPIS_LAZULI)
+                .define('R', Items.REDSTONE).define('G', Items.GLOWSTONE_DUST).define('L', CraftItemTagsProvider.ITEM_LAZURITE)
                 .define('C', Ic2Items.ELECTRONIC_CIRCUIT).save();
         shaped(Ic2Items.COAL_BALL, 1, "coal_ball").pattern("CCC").pattern("CFC").pattern("CCC")
                 .define('C', CraftItemTagsProvider.DUSTS_COAL).define('F', Items.FLINT).save();
@@ -1083,7 +1084,7 @@ public final class CraftRecipeProvider extends RecipeProvider {
         shaped(Ic2Items.ENERGY_CRYSTAL, 1, "energy_crystal").pattern("RRR").pattern("RDR").pattern("RRR")
                 .define('R', Items.REDSTONE).define('D', diamond()).save();
         shaped(Ic2Items.LAPOTRON_CRYSTAL, 1, "lapotron_crystal").pattern("LCL").pattern("LDL").pattern("LCL")
-                .define('L', Items.LAPIS_LAZULI).define('C', Ic2Items.ELECTRONIC_CIRCUIT)
+                .define('L', CraftItemTagsProvider.ITEM_LAZURITE).define('C', Ic2Items.ELECTRONIC_CIRCUIT)
                 .define('D', Ic2Items.ENERGY_CRYSTAL).save();
     }
 
@@ -1553,6 +1554,59 @@ public final class CraftRecipeProvider extends RecipeProvider {
         shaped(GtItems.MAGNALIUM_PLATE, 3, "magnalium_plate").pattern("AAA", "MMM", "AAA")
                 .define('A', CraftItemTagsProvider.PLATES_ALUMINIUM).define('M', CraftItemTagsProvider.DUSTS_MAGNESIUM)
                 .save();
+    }
+
+    /** Recipes of existing items unlocked by the GT ore materials (spec 12 §5.3, phase 8e.2). */
+    private void gregTechUnlockedRecipes() {
+        // TitaniumDiamondDrill=true: the diamond drill (and with it the quarry) needs titanium plates.
+        shaped(Ic2Items.DIAMOND_DRILL, 1, "diamond_drill").pattern(" D ", "DMD", "TAT").define('D', diamond())
+                .define('M', Ic2Items.MINING_DRILL).define('T', CraftItemTagsProvider.PLATES_TITANIUM)
+                .define('A', Ic2Items.ADVANCED_CIRCUIT).save();
+        // ExpensiveLaser=true with Helium2Coolantcell=true.
+        shaped(Ic2Items.MINING_LASER, 1, "mining_laser").pattern("RHE", "TTC", " AA")
+                .define('R', CraftItemTagsProvider.GEMS_RUBY).define('H', GtItems.HELIUM_COOLANT_CELL_60K)
+                .define('E', CraftItemTagsProvider.CRAFTING_100K_EU_STORE)
+                .define('T', CraftItemTagsProvider.PLATES_TITANIUM).define('C', Ic2Items.ADVANCED_CIRCUIT)
+                .define('A', Ic2Items.ADVANCED_ALLOY).save();
+
+        // Heating coils: rolling machine recipes, crafting table without Railcraft.
+        shaped(GtItems.KANTHAL_HEATING_COIL, 3, "kanthal_heating_coil").pattern("AAA", "BCC", "BBC")
+                .define('A', CraftItemTagsProvider.INGOTS_REFINED_IRON).define('B', CraftItemTagsProvider.INGOTS_CHROME)
+                .define('C', CraftItemTagsProvider.INGOTS_ALUMINIUM).save();
+        shaped(GtItems.NICHROME_HEATING_COIL, 1, "nichrome_heating_coil").pattern(" B ", "BAB", " B ")
+                .define('A', CraftItemTagsProvider.INGOTS_CHROME).define('B', CraftItemTagsProvider.INGOTS_NICKEL)
+                .save();
+
+        mixedMetal("titanium_bronze_tin", CraftItemTagsProvider.PLATES_TITANIUM, CraftItemTagsProvider.PLATES_TIN, 3);
+        mixedMetal("titanium_bronze_zinc", CraftItemTagsProvider.PLATES_TITANIUM, CraftItemTagsProvider.PLATES_ZINC, 3);
+        mixedMetal("titanium_bronze_aluminium", CraftItemTagsProvider.PLATES_TITANIUM,
+                CraftItemTagsProvider.PLATES_ALUMINIUM, 4);
+        mixedMetal("refined_iron_bronze_zinc", CraftItemTagsProvider.PLATES_REFINED_IRON,
+                CraftItemTagsProvider.PLATES_ZINC, 1);
+        mixedMetal("nickel_bronze_zinc", CraftItemTagsProvider.PLATES_NICKEL, CraftItemTagsProvider.PLATES_ZINC, 1);
+        mixedMetal("steel_bronze_zinc", CraftItemTagsProvider.PLATES_STEEL, CraftItemTagsProvider.PLATES_ZINC, 2);
+
+        for (String metal : new String[]{"aluminium", "steel", "titanium"}) {
+            TagKey<Item> ingots = switch (metal) {
+                case "aluminium" -> CraftItemTagsProvider.INGOTS_ALUMINIUM;
+                case "steel" -> CraftItemTagsProvider.INGOTS_STEEL;
+                default -> CraftItemTagsProvider.INGOTS_TITANIUM;
+            };
+            shaped(Items.PISTON, 1, "piston_from_" + metal).pattern("WWW", "CBC", "CRC").define('W', ItemTags.PLANKS)
+                    .define('C', Items.COBBLESTONE).define('B', ingots).define('R', Items.REDSTONE).save();
+        }
+
+        // Ruby2Energycrystal, Sapphire2Lapotron.
+        shaped(Ic2Items.ENERGY_CRYSTAL, 1, "energy_crystal_from_ruby").pattern("DDD", "DRD", "DDD")
+                .define('D', Items.REDSTONE).define('R', CraftItemTagsProvider.GEMS_RUBY).save();
+        shaped(Ic2Items.LAPOTRON_CRYSTAL, 1, "lapotron_crystal_from_sapphire").pattern("LCL", "LSL", "LCL")
+                .define('L', CraftItemTagsProvider.ITEM_LAZURITE).define('C', Ic2Items.ELECTRONIC_CIRCUIT)
+                .define('S', CraftItemTagsProvider.GEMS_SAPPHIRE).save();
+        shaped(Ic2Items.cable(CableType.GLASS_FIBRE), 6, "glass_fibre_cable_from_silver").pattern("GGG", "XDX", "GGG")
+                .define('G', Items.GLASS).define('X', CraftItemTagsProvider.INGOTS_SILVER).define('D', diamond()).save();
+        assemble("wind_mill_from_magnalium", SizedIngredient.of(machine(Ic2Machine.GENERATOR), 1),
+                SizedIngredient.of(CraftItemTagsProvider.PLATES_MAGNALIUM, 2),
+                new ItemStack(machine(Ic2Machine.WIND_MILL)), 6400, 8);
     }
 
     /**

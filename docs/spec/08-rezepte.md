@@ -52,7 +52,7 @@ IC2-Maschinenrezept für dieselbe Eingabe und fügen das neue ein.
 | Maschinenblock | `III/I I/III`, I = raffiniertes Eisen | [IC2] |
 | Fortg. Maschinenblock | ` A /CMC/ A ` und ` C /AMA/ C `, A = fortg. Legierung, C = Kohleplatte, M = Maschinenblock | [IC2] |
 | Elektronischer Schaltkreis | `CCC/RIR/CCC` und `CRC/CIC/CRC`, C = isol. Kupferkabel, R = Redstone, I = raff. Eisen | **[GT~]** (identisch, OreDict `copperWire` = isol. Kupferkabel) |
-| Fortgeschrittener Schaltkreis | `RGR/LCL/RGR` und `RLR/GCG/RLR`, R = Redstone, G = Glowstonestaub, L = Lapis, C = el. Schaltkreis | **[GT~]** (identisch, `itemLazurite` = Lapis) |
+| Fortgeschrittener Schaltkreis | `RGR/LCL/RGR` und `RLR/GCG/RLR`, R = Redstone, G = Glowstonestaub, L = Lapis, C = el. Schaltkreis | **[GT~]** (identisch, `itemLazurite` = Lapis oder Lazuritstaub, Tag `craft:item_lazurite`) |
 | 2 Mischmetallbarren | `III/BBB/TTT`, I = raff. Eisen, B = Bronze, T = Zinn | **[GT⚠]** entfernt; GT-Ersatz senkrecht `X/Y/Z` aus **Platten** (raff. Eisen/Bronze/Zinn → 1; Stahl/Invar/Titan/Wolfram … mehr) |
 | Kohlefaser | `CC/CC`, C = Kohlestaub | [IC2] + **[GT+M]** formlos 9 GT-Kohlenstoffzellen → 1 Kohlefaser |
 | Kohlenetz | formlos 2 Kohlefaser | [IC2] |

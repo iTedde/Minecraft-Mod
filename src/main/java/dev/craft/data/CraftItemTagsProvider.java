@@ -84,6 +84,8 @@ public final class CraftItemTagsProvider extends ItemTagsProvider {
     public static final TagKey<Item> RAW_MACHINE_TIER_02 = craftTag("raw_machine_tier_02");
     /** GT {@code crafting100kEUStore}: energy crystal, lithium battery. */
     public static final TagKey<Item> CRAFTING_100K_EU_STORE = craftTag("crafting_100k_eu_store");
+    /** GT {@code itemLazurite}: lapis lazuli ({@code dustLapis}) and lazurite dust. */
+    public static final TagKey<Item> ITEM_LAZURITE = craftTag("item_lazurite");
 
     public CraftItemTagsProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookup,
                                  CompletableFuture<TagLookup<Block>> blockTags, ExistingFileHelper files) {
@@ -172,6 +174,7 @@ public final class CraftItemTagsProvider extends ItemTagsProvider {
                 GtItems.BRONZE_MACHINE_HULL.get());
         tag(RAW_MACHINE_TIER_02).add(Ic2Items.ADVANCED_MACHINE_CASING.get(), GtItems.STEEL_MACHINE_HULL.get());
         tag(CRAFTING_100K_EU_STORE).add(Ic2Items.ENERGY_CRYSTAL.get(), GtItems.LITHIUM_BATTERY.get());
+        tag(ITEM_LAZURITE).add(Items.LAPIS_LAZULI, GtItems.LAZURITE_DUST.get());
         tag(Tags.Items.INGOTS).addTag(INGOTS_TIN).addTag(INGOTS_URANIUM).addTag(INGOTS_BRONZE).addTag(INGOTS_REFINED_IRON)
                 .addTag(INGOTS_NICKEL).addTag(INGOTS_ALUMINIUM).addTag(INGOTS_STEEL).addTag(INGOTS_LEAD)
                 .addTag(INGOTS_PLATINUM).addTag(INGOTS_SILVER).addTag(INGOTS_ZINC).addTag(INGOTS_TITANIUM)

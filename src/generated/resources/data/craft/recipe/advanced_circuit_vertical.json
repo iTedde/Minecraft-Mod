@@ -8,7 +8,7 @@
       "item": "minecraft:glowstone_dust"
     },
     "L": {
-      "item": "minecraft:lapis_lazuli"
+      "tag": "craft:item_lazurite"
     },
     "R": {
       "item": "minecraft:redstone"

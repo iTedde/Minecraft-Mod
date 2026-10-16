@@ -1,0 +1,23 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "A": {
+      "tag": "c:ingots/refined_iron"
+    },
+    "B": {
+      "tag": "c:ingots/chrome"
+    },
+    "C": {
+      "tag": "c:ingots/aluminium"
+    }
+  },
+  "pattern": [
+    "AAA",
+    "BCC",
+    "BBC"
+  ],
+  "result": {
+    "count": 3,
+    "id": "craft:kanthal_heating_coil"
+  }
+}

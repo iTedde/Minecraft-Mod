@@ -8,7 +8,7 @@
       "item": "craft:energy_crystal"
     },
     "L": {
-      "item": "minecraft:lapis_lazuli"
+      "tag": "craft:item_lazurite"
     }
   },
   "pattern": [

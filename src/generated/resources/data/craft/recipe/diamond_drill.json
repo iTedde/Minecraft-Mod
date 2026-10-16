@@ -1,0 +1,31 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "A": {
+      "item": "craft:advanced_circuit"
+    },
+    "D": [
+      {
+        "item": "minecraft:diamond"
+      },
+      {
+        "item": "craft:industrial_diamond"
+      }
+    ],
+    "M": {
+      "item": "craft:mining_drill"
+    },
+    "T": {
+      "tag": "c:plates/titanium"
+    }
+  },
+  "pattern": [
+    " D ",
+    "DMD",
+    "TAT"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:diamond_drill"
+  }
+}

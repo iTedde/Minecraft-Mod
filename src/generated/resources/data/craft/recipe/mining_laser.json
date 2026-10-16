@@ -1,0 +1,32 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "A": {
+      "item": "craft:advanced_alloy"
+    },
+    "C": {
+      "item": "craft:advanced_circuit"
+    },
+    "E": {
+      "tag": "craft:crafting_100k_eu_store"
+    },
+    "H": {
+      "item": "craft:helium_coolant_cell_60k"
+    },
+    "R": {
+      "tag": "c:gems/ruby"
+    },
+    "T": {
+      "tag": "c:plates/titanium"
+    }
+  },
+  "pattern": [
+    "RHE",
+    "TTC",
+    " AA"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:mining_laser"
+  }
+}
