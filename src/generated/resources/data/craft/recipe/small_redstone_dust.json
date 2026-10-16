@@ -1,0 +1,12 @@
+{
+  "type": "craft:ic2_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:redstone"
+    }
+  ],
+  "result": {
+    "count": 4,
+    "id": "craft:small_redstone_dust"
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "type": "craft:gt_grinder",
+  "duration": 100,
+  "eu_per_tick": 128,
+  "inputs": [
+    {
+      "count": 1,
+      "item": "craft:olivine_ore"
+    },
+    {
+      "count": 1,
+      "item": "minecraft:water_bucket"
+    }
+  ],
+  "outputs": [
+    {
+      "count": 1,
+      "id": "craft:olivine"
+    },
+    {
+      "count": 6,
+      "id": "craft:small_olivine_dust"
+    },
+    {
+      "count": 2,
+      "id": "craft:small_emerald_dust"
+    },
+    {
+      "count": 1,
+      "id": "minecraft:bucket"
+    }
+  ]
+}

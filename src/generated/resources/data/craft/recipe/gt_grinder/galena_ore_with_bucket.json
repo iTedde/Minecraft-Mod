@@ -1,0 +1,38 @@
+{
+  "type": "craft:gt_grinder",
+  "duration": 100,
+  "eu_per_tick": 128,
+  "inputs": [
+    {
+      "type": "neoforge:compound",
+      "children": [
+        {
+          "item": "craft:galena_ore"
+        },
+        {
+          "item": "craft:deepslate_galena_ore"
+        }
+      ],
+      "count": 1
+    },
+    {
+      "count": 1,
+      "item": "minecraft:water_bucket"
+    }
+  ],
+  "outputs": [
+    {
+      "count": 2,
+      "id": "craft:galena_dust"
+    },
+    {
+      "count": 1,
+      "id": "craft:sulfur_dust"
+    },
+    {},
+    {
+      "count": 1,
+      "id": "minecraft:bucket"
+    }
+  ]
+}

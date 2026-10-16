@@ -92,6 +92,7 @@ public final class CraftRecipeProvider extends RecipeProvider {
         reactorGregTech();
         gregTechFollowUps();
         gregTechOres();
+        grinder();
         uuMatter();
         smelting();
         macerator();
@@ -1462,6 +1463,141 @@ public final class CraftRecipeProvider extends RecipeProvider {
                 stack(GtItems.DARK_ASH, 8));
         implosion("yellow_garnet", GtItems.YELLOW_GARNET_DUST, 4, 16, stack(GtItems.YELLOW_GARNET, 3),
                 stack(GtItems.DARK_ASH, 8));
+    }
+
+    /**
+     * Industrial grinder (spec 13 §10): the machine, its grinding head, all reachable grinder recipes and what they
+     * unlock (small dusts, iridium nuggets).
+     */
+    private void grinder() {
+        shaped(GtItems.machine(GtMachine.INDUSTRIAL_GRINDER), 1, "industrial_grinder")
+                .pattern("EAP", "GGG", "ABA").define('E', GtItems.machine(GtMachine.INDUSTRIAL_ELECTROLYZER))
+                .define('A', Ic2Items.ADVANCED_CIRCUIT).define('P', machine(Ic2Machine.PUMP))
+                .define('G', GtItems.DIAMOND_GRINDER).define('B', CraftItemTagsProvider.RAW_MACHINE_TIER_02).save();
+        shaped(GtItems.DIAMOND_GRINDER, 2, "diamond_grinder").pattern("DSD", "SGS", "DSD")
+                .define('D', GtItems.DIAMOND_DUST).define('S', CraftItemTagsProvider.PLATES_STEEL)
+                .define('G', Ic2Items.INDUSTRIAL_DIAMOND).save();
+
+        // GT_Mod: netherrack.
+        grind("netherrack", Ingredient.of(Items.NETHERRACK), 16, stack(Items.GOLD_NUGGET, 1),
+                stack(GtItems.NETHERRACK_DUST, 16));
+        grindMercury("netherrack", Ingredient.of(Items.NETHERRACK), 8, stack(Items.GOLD_NUGGET, 1),
+                stack(GtItems.NETHERRACK_DUST, 8));
+        // GT_OreDictHandler: vanilla and IC2 ores.
+        Ingredient lapis = Ingredient.of(Items.LAPIS_ORE, Items.DEEPSLATE_LAPIS_ORE);
+        grind("lapis_ore", lapis, 1, stack(Items.LAPIS_LAZULI, 12), stack(GtItems.LAZURITE_DUST, 3));
+        Ingredient redstone = Ingredient.of(Items.REDSTONE_ORE, Items.DEEPSLATE_REDSTONE_ORE);
+        grind("redstone_ore", redstone, 1, stack(Items.REDSTONE, 10), stack(GtItems.SMALL_GLOWSTONE_DUST, 2));
+        Ingredient iron = Ingredient.of(Items.IRON_ORE, Items.DEEPSLATE_IRON_ORE);
+        grind("iron_ore", iron, 1, stack(Ic2Items.IRON_DUST, 2), stack(GtItems.SMALL_TIN_DUST, 1),
+                stack(GtItems.SMALL_NICKEL_DUST, 1));
+        Ingredient gold = Ingredient.of(Items.GOLD_ORE, Items.DEEPSLATE_GOLD_ORE);
+        grind("gold_ore", gold, 1, stack(Ic2Items.GOLD_DUST, 2), stack(GtItems.SMALL_COPPER_DUST, 1),
+                stack(GtItems.SMALL_NICKEL_DUST, 1));
+        grindMercury("gold_ore", gold, 1, stack(Ic2Items.GOLD_DUST, 3), stack(GtItems.SMALL_COPPER_DUST, 1),
+                stack(GtItems.SMALL_NICKEL_DUST, 1));
+        Ingredient copper = Ingredient.of(Items.COPPER_ORE, Items.DEEPSLATE_COPPER_ORE);
+        grind("copper_ore", copper, 1, stack(Ic2Items.COPPER_DUST, 2), stack(GtItems.SMALL_GOLD_DUST, 1),
+                stack(GtItems.SMALL_NICKEL_DUST, 1));
+        grindMercury("copper_ore", copper, 1, stack(Ic2Items.COPPER_DUST, 2), stack(Ic2Items.GOLD_DUST, 1));
+        grind("tin_ore", Ingredient.of(Ic2Items.TIN_ORE, Ic2Items.DEEPSLATE_TIN_ORE), 1, stack(Ic2Items.TIN_DUST, 2),
+                stack(Ic2Items.SMALL_IRON_DUST, 1), stack(GtItems.SMALL_ZINC_DUST, 1));
+        grind("diamond_ore", Ingredient.of(Items.DIAMOND_ORE, Items.DEEPSLATE_DIAMOND_ORE), 1,
+                stack(Items.DIAMOND, 1), stack(GtItems.SMALL_DIAMOND_DUST, 6), stack(Ic2Items.HYDRATED_COAL_DUST, 1));
+        grind("emerald_ore", Ingredient.of(Items.EMERALD_ORE, Items.DEEPSLATE_EMERALD_ORE), 1,
+                stack(Items.EMERALD, 1), stack(GtItems.SMALL_EMERALD_DUST, 6), stack(GtItems.SMALL_OLIVINE_DUST, 2));
+        grind("coal_ore", Ingredient.of(Items.COAL_ORE, Items.DEEPSLATE_COAL_ORE), 1, stack(Items.COAL, 1),
+                stack(Ic2Items.COAL_DUST, 1), stack(GtItems.SMALL_THORIUM_DUST, 1));
+        grind("uranium_ore", Ingredient.of(Ic2Items.URANIUM_ORE, Ic2Items.DEEPSLATE_URANIUM_ORE), 1,
+                stack(GtItems.URANIUM_DUST, 2), stack(GtItems.SMALL_PLUTONIUM_DUST, 2));
+        // GT ores (07-weltgenerierung §6.4, details spec 13 §10).
+        grind("galena_ore", gtOre(GtOre.GALENA), 1, stack(GtItems.GALENA_DUST, 2), stack(GtItems.SULFUR_DUST, 1));
+        grindMercury("galena_ore", gtOre(GtOre.GALENA), 1, stack(GtItems.GALENA_DUST, 2),
+                stack(GtItems.SULFUR_DUST, 1), stack(Ic2Items.SILVER_DUST, 1));
+        grind("iridium_ore", gtOre(GtOre.IRIDIUM), 1, stack(Ic2Items.IRIDIUM_ORE, 2),
+                stack(GtItems.SMALL_PLATINUM_DUST, 2));
+        grindMercury("iridium_ore", gtOre(GtOre.IRIDIUM), 1, stack(Ic2Items.IRIDIUM_ORE, 2),
+                stack(GtItems.PLATINUM_DUST, 1));
+        grind("ruby_ore", gtOre(GtOre.RUBY), 1, stack(GtItems.RUBY, 1), stack(GtItems.SMALL_RUBY_DUST, 6),
+                stack(GtItems.SMALL_RED_GARNET_DUST, 2));
+        grind("sapphire_ore", gtOre(GtOre.SAPPHIRE), 1, stack(GtItems.SAPPHIRE, 1),
+                stack(GtItems.SMALL_SAPPHIRE_DUST, 6), stack(GtItems.SMALL_GREEN_SAPPHIRE_DUST, 2));
+        grind("olivine_ore", gtOre(GtOre.OLIVINE), 1, stack(GtItems.OLIVINE, 1), stack(GtItems.SMALL_OLIVINE_DUST, 6),
+                stack(GtItems.SMALL_EMERALD_DUST, 2));
+        grind("bauxite_ore", gtOre(GtOre.BAUXITE), 1, stack(GtItems.BAUXITE_DUST, 4),
+                stack(GtItems.ALUMINIUM_DUST, 1));
+        grind("pyrite_ore", gtOre(GtOre.PYRITE), 1, stack(GtItems.PYRITE_DUST, 5), stack(GtItems.SULFUR_DUST, 2));
+        grind("cinnabar_ore", gtOre(GtOre.CINNABAR), 1, stack(GtItems.CINNABAR_DUST, 5),
+                stack(GtItems.SMALL_REDSTONE_DUST, 2), stack(GtItems.SMALL_GLOWSTONE_DUST, 1));
+        grind("sphalerite_ore", gtOre(GtOre.SPHALERITE), 1, stack(GtItems.SPHALERITE_DUST, 5),
+                stack(GtItems.ZINC_DUST, 1), stack(GtItems.SMALL_YELLOW_GARNET_DUST, 1));
+        grind("tungstate_ore", gtOre(GtOre.TUNGSTATE), 1, stack(GtItems.TUNGSTEN_DUST, 2),
+                stack(Ic2Items.SMALL_IRON_DUST, 3), stack(GtItems.SMALL_MANGANESE_DUST, 3));
+        grind("sheldonite_ore", gtOre(GtOre.SHELDONITE), 1, stack(GtItems.PLATINUM_DUST, 2),
+                stack(GtItems.NICKEL_DUST, 1), stack(GtItems.IRIDIUM_NUGGET, 2));
+        grindMercury("sheldonite_ore", gtOre(GtOre.SHELDONITE), 1, stack(GtItems.PLATINUM_DUST, 3),
+                stack(GtItems.NICKEL_DUST, 1), stack(GtItems.IRIDIUM_NUGGET, 2));
+        grind("sodalite_ore", gtOre(GtOre.SODALITE), 1, stack(GtItems.SODALITE_DUST, 12),
+                stack(GtItems.ALUMINIUM_DUST, 3));
+
+        // Small dusts of the outputs (where the dust exists), iridium nuggets, platinum dust centrifuge.
+        smallDust("glowstone", GtItems.SMALL_GLOWSTONE_DUST, Ingredient.of(Items.GLOWSTONE_DUST),
+                Items.GLOWSTONE_DUST);
+        smallDust("redstone", GtItems.SMALL_REDSTONE_DUST, Ingredient.of(Items.REDSTONE), Items.REDSTONE);
+        smallDust("diamond", GtItems.SMALL_DIAMOND_DUST, Ingredient.of(GtItems.DIAMOND_DUST), GtItems.DIAMOND_DUST);
+        smallDust("emerald", GtItems.SMALL_EMERALD_DUST, Ingredient.of(GtItems.EMERALD_DUST), GtItems.EMERALD_DUST);
+        smallDust("olivine", GtItems.SMALL_OLIVINE_DUST, Ingredient.of(GtItems.OLIVINE_DUST), GtItems.OLIVINE_DUST);
+        smallDust("ruby", GtItems.SMALL_RUBY_DUST, Ingredient.of(GtItems.RUBY_DUST), GtItems.RUBY_DUST);
+        smallDust("sapphire", GtItems.SMALL_SAPPHIRE_DUST, Ingredient.of(GtItems.SAPPHIRE_DUST),
+                GtItems.SAPPHIRE_DUST);
+        smallDust("green_sapphire", GtItems.SMALL_GREEN_SAPPHIRE_DUST, Ingredient.of(GtItems.GREEN_SAPPHIRE_DUST),
+                GtItems.GREEN_SAPPHIRE_DUST);
+        smallDust("red_garnet", GtItems.SMALL_RED_GARNET_DUST, Ingredient.of(GtItems.RED_GARNET_DUST),
+                GtItems.RED_GARNET_DUST);
+        smallDust("yellow_garnet", GtItems.SMALL_YELLOW_GARNET_DUST, Ingredient.of(GtItems.YELLOW_GARNET_DUST),
+                GtItems.YELLOW_GARNET_DUST);
+        smallDust("thorium", GtItems.SMALL_THORIUM_DUST, Ingredient.of(GtItems.THORIUM_DUST), GtItems.THORIUM_DUST);
+        smallDust("platinum", GtItems.SMALL_PLATINUM_DUST, Ingredient.of(CraftItemTagsProvider.DUSTS_PLATINUM),
+                GtItems.PLATINUM_DUST);
+        Ingredient nugget = Ingredient.of(GtItems.IRIDIUM_NUGGET);
+        shapeless(GtItems.IRIDIUM_INGOT, 1, "iridium_ingot_from_nuggets", nugget, nugget, nugget, nugget, nugget,
+                nugget, nugget, nugget, nugget);
+        shapeless(GtItems.IRIDIUM_NUGGET, 9, "iridium_nugget", Ingredient.of(GtItems.IRIDIUM_INGOT));
+        machine(MachineRecipe.Kind.COMPRESSOR, "iridium_nugget", nugget, 9, GtItems.IRIDIUM_INGOT, 1);
+        centrifuge("platinum_dust", Ingredient.of(CraftItemTagsProvider.DUSTS_PLATINUM), 1, 0, 3000,
+                stack(GtItems.IRIDIUM_NUGGET, 1), stack(GtItems.SMALL_NICKEL_DUST, 1));
+    }
+
+    /**
+     * {@code GT_Mod.addGrinderRecipe(ore, -1, …)}: ore + 1 water cell, and the automatic water bucket variant whose
+     * empty cell output becomes an empty bucket. 100 ticks per ore at 128 EU/t.
+     */
+    private void grind(String name, Ingredient ore, int count, ItemStack... outputs) {
+        grinderRecipe(name, ore, count, SizedIngredient.of(Ic2Items.WATER_CELL.get(), 1),
+                grinderOutputs(outputs, Ic2Items.EMPTY_CELL));
+        grinderRecipe(name + "_with_bucket", ore, count, SizedIngredient.of(Items.WATER_BUCKET, 1),
+                grinderOutputs(outputs, Items.BUCKET));
+    }
+
+    /** Grinder recipe with a mercury cell instead of water. */
+    private void grindMercury(String name, Ingredient ore, int count, ItemStack... outputs) {
+        grinderRecipe(name + "_with_mercury", ore, count, SizedIngredient.of(GtItems.MERCURY_CELL.get(), 1),
+                grinderOutputs(outputs, Ic2Items.EMPTY_CELL));
+    }
+
+    private void grinderRecipe(String name, Ingredient ore, int count, SizedIngredient fluid, List<ItemStack> outputs) {
+        output.accept(id("gt_grinder/" + name), new GtRecipe(GtRecipe.Kind.GRINDER,
+                List.of(new SizedIngredient(ore, count), fluid), outputs, 100 * count, 128, 0), null);
+    }
+
+    /** Outputs 1–3 (missing ones empty) and the returned container as output 4. */
+    private static List<ItemStack> grinderOutputs(ItemStack[] outputs, ItemLike container) {
+        List<ItemStack> list = new ArrayList<>(List.of(outputs));
+        while (list.size() < 3) {
+            list.add(ItemStack.EMPTY);
+        }
+        list.add(stack(container, 1));
+        return list;
     }
 
     /** A GT ore and its deepslate variant. */

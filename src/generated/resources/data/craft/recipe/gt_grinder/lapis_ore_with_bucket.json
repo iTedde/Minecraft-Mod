@@ -1,0 +1,38 @@
+{
+  "type": "craft:gt_grinder",
+  "duration": 100,
+  "eu_per_tick": 128,
+  "inputs": [
+    {
+      "type": "neoforge:compound",
+      "children": [
+        {
+          "item": "minecraft:lapis_ore"
+        },
+        {
+          "item": "minecraft:deepslate_lapis_ore"
+        }
+      ],
+      "count": 1
+    },
+    {
+      "count": 1,
+      "item": "minecraft:water_bucket"
+    }
+  ],
+  "outputs": [
+    {
+      "count": 12,
+      "id": "minecraft:lapis_lazuli"
+    },
+    {
+      "count": 3,
+      "id": "craft:lazurite_dust"
+    },
+    {},
+    {
+      "count": 1,
+      "id": "minecraft:bucket"
+    }
+  ]
+}

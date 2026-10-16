@@ -906,8 +906,36 @@ NaK-Kühlzellen, kein Vakuumgefrierer) **und die IC2-Nuke**. Teilpakete: 7a IC2-
   erfolgreich. Abweichungen in `abweichungen.md`.
 
 ## Nächste Schritte
-1. Teilpaket 8d.2: Industrial Grinder (`13-gregtech-maschinen.md` §10).
+1. ~~Teilpaket 8d.2~~ → erledigt, siehe unten.
 2. Manuelle Client-Tests 8d.1: Pumpe über Wasser/Lava mit Generator/BatBox → GUI (Energie, Ladebalken), leere Zellen
    in Slot 0 → Wasserzellen in Truhe daneben, Truhe mit leeren Eimern, Geothermie-Generator daneben mit Lava,
    Öl-Quelle + Eimer per Trichter, Loop-Sound beim Laden; Compressor neben der Pumpe → Schneebälle; Bergbaurohr
    platzieren/abbauen.
+
+## Erledigt (Teilpaket „Phase 8d.2: Industrial Grinder“, 2026-10-16)
+- `GtMachine.INDUSTRIAL_GRINDER` (`craft:industrial_grinder`, Layout FRONT, Seiten Textur 70 über neues
+  `GtMachine.getSideTexture()`), `GrinderBlockEntity` 1:1 nach `GT_MetaTileEntity_Grinder`: 3 × 3 × 3-Würfel hinter dem
+  Controller (Mitte Wasser, mittlere Ebene verstärkte, oben/unten Standard-Gehäuse), 128 EU/t, Upgrades wie Hochofen,
+  Wassertank 10 000 mB (nur füllen, Fluid-Capability von allen Seiten), Rezept aus Slot 0/1, sonst mit Wasserzellen aus
+  dem Tank (leere Zelle entfällt, ihr Platz wird trotzdem geprüft).
+- `GtGrinderMenu`/`GtGrinderScreen` (`gui/Grinder.png`, Wasserstand hinter Slot 1, Gehäuse-/Energie-Meldung).
+- Rezepttyp `craft:gt_grinder` mit allen erreichbaren Rezepten: Netherrack, Lapis-, Redstone-, Eisen-, Gold-, Kupfer-,
+  Zinn-, Diamant-, Smaragd-, Kohle-, Uranerz und alle GT-Erze; Wasserzelle, automatische Wassereimer-Variante
+  (→ leerer Eimer), Quecksilberzelle (Netherrack, Gold, Kupfer, Galena, Iridium, Sheldonit).
+- Neue Items: Netherrackstaub, kl. Stäube Glowstone/Redstone/Diamant/Smaragd/Olivin/Rubin/Saphir/grüner Saphir/
+  roter + gelber Granat/Thorium/Mangan/Platin (4 ↔ 1, außer Mangan), Iridiumnugget (9 ↔ Iridiumbarren, Compressor
+  9 → Barren), Diamant-Schleifkopf (`DSD/SGS/DSD` → 2). Grinder-Rezept `EAP/GGG/ABA`.
+- Freigeschaltet: Platinstaub-Zentrifuge → Iridiumnugget + kl. Nickelstaub.
+- 7 neue GameTests (`GrinderGameTests`, insgesamt 197 grün), `build` und `runClient` (Hauptmenü, keine Mod-Fehler)
+  erfolgreich.
+- Nicht umgesetzt: Natriumpersulfat-Rezepte (Zelle nicht herstellbar), Wolfram-Schleifkopf (Wolframplatte fehlt).
+
+## Abnahme Phase 8
+- Wartet auf Abnahme durch den Nutzer.
+
+## Nächste Schritte
+1. Manuelle Client-Tests 8d.2: Grinder bauen (Würfel hinter dem Controller, Wasser in der Mitte) → GUI ohne
+   „Incomplete Machine Casing!“; Erz + Wasserzelle/Wassereimer/Quecksilberzelle; Tank per IC2-Pumpe oder BC-Rohr
+   füllen (Wasserbalken) und Erz ohne Zelle mahlen; Overclocker; Struktur zerstören → inaktiv.
+2. Danach Freischaltungen aus `07-weltgenerierung.md` §6.6 „später“ (Titan, Chrom, Magnesium …) bzw. Phase 9 –
+   Umfang mit dem Nutzer klären.

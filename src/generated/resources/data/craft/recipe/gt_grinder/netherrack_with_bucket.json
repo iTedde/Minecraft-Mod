@@ -1,0 +1,30 @@
+{
+  "type": "craft:gt_grinder",
+  "duration": 1600,
+  "eu_per_tick": 128,
+  "inputs": [
+    {
+      "count": 16,
+      "item": "minecraft:netherrack"
+    },
+    {
+      "count": 1,
+      "item": "minecraft:water_bucket"
+    }
+  ],
+  "outputs": [
+    {
+      "count": 1,
+      "id": "minecraft:gold_nugget"
+    },
+    {
+      "count": 16,
+      "id": "craft:netherrack_dust"
+    },
+    {},
+    {
+      "count": 1,
+      "id": "minecraft:bucket"
+    }
+  ]
+}

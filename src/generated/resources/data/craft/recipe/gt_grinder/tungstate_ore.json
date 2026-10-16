@@ -1,0 +1,33 @@
+{
+  "type": "craft:gt_grinder",
+  "duration": 100,
+  "eu_per_tick": 128,
+  "inputs": [
+    {
+      "count": 1,
+      "item": "craft:tungstate_ore"
+    },
+    {
+      "count": 1,
+      "item": "craft:water_cell"
+    }
+  ],
+  "outputs": [
+    {
+      "count": 2,
+      "id": "craft:tungsten_dust"
+    },
+    {
+      "count": 3,
+      "id": "craft:small_iron_dust"
+    },
+    {
+      "count": 3,
+      "id": "craft:small_manganese_dust"
+    },
+    {
+      "count": 1,
+      "id": "craft:empty_cell"
+    }
+  ]
+}

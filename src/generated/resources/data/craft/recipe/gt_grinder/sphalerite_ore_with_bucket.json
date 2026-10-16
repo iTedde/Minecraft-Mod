@@ -1,0 +1,33 @@
+{
+  "type": "craft:gt_grinder",
+  "duration": 100,
+  "eu_per_tick": 128,
+  "inputs": [
+    {
+      "count": 1,
+      "item": "craft:sphalerite_ore"
+    },
+    {
+      "count": 1,
+      "item": "minecraft:water_bucket"
+    }
+  ],
+  "outputs": [
+    {
+      "count": 5,
+      "id": "craft:sphalerite_dust"
+    },
+    {
+      "count": 1,
+      "id": "craft:zinc_dust"
+    },
+    {
+      "count": 1,
+      "id": "craft:small_yellow_garnet_dust"
+    },
+    {
+      "count": 1,
+      "id": "minecraft:bucket"
+    }
+  ]
+}

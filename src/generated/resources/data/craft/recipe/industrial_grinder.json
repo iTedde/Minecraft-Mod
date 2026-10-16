@@ -1,0 +1,29 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "A": {
+      "item": "craft:advanced_circuit"
+    },
+    "B": {
+      "tag": "craft:raw_machine_tier_02"
+    },
+    "E": {
+      "item": "craft:industrial_electrolyzer"
+    },
+    "G": {
+      "item": "craft:diamond_grinder"
+    },
+    "P": {
+      "item": "craft:ic2_pump"
+    }
+  },
+  "pattern": [
+    "EAP",
+    "GGG",
+    "ABA"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:industrial_grinder"
+  }
+}

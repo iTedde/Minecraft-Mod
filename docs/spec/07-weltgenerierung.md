@@ -272,7 +272,7 @@ Zellen als Eingabe 2. Umfang: **8c** umgesetzt, sonst fehlt das genannte Item no
 | 9 Rubinstaub, 3 Zellen | Elektrolyseur | 2 Aluminium-, 1 Chromstaub, 3 Luftzellen | 500 / 50 | später (Chrom) |
 | 9 Olivinstaub, 3 Zellen | Elektrolyseur | 2 Magnesium-, 2 Eisenstaub, Siliziumzelle, 2 Luftzellen | 600 / 60 | später (Magnesium) |
 | 12 Bauxitstaub, 8 Zellen | Elektrolyseur | 8 Aluminiumstaub, 2 kl. Titanstaub, 5 Wasserstoff-, 3 Luftzellen | 2000 / 128 | später (Titan) |
-| Platinstaub | Zentrifuge | Iridiumnugget, kl. Nickelstaub | 3000 | später (Iridiumnugget) |
+| Platinstaub | Zentrifuge | Iridiumnugget, kl. Nickelstaub | 3000 | 8d.2 |
 | 16 roter / gelber Granatstaub | Zentrifuge | Pyrop/Almandin/Spessartin bzw. Andradit/Grossular/Uwarowit | 3000 / 3500 | später |
 | 8 Olivin(staub) + fortg. Schaltkreis | Assembler | 4 Datenspeicherchips (Component 3) | 6400 / 8 | später |
 | 4 Edelsteinstaub + ITNT | Implosionskompressor | siehe `13-gregtech-maschinen.md` §8 | 20 / 32 | 8c |

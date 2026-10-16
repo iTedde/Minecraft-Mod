@@ -1,0 +1,41 @@
+{
+  "type": "craft:gt_grinder",
+  "duration": 100,
+  "eu_per_tick": 128,
+  "inputs": [
+    {
+      "type": "neoforge:compound",
+      "children": [
+        {
+          "item": "craft:ruby_ore"
+        },
+        {
+          "item": "craft:deepslate_ruby_ore"
+        }
+      ],
+      "count": 1
+    },
+    {
+      "count": 1,
+      "item": "minecraft:water_bucket"
+    }
+  ],
+  "outputs": [
+    {
+      "count": 1,
+      "id": "craft:ruby"
+    },
+    {
+      "count": 6,
+      "id": "craft:small_ruby_dust"
+    },
+    {
+      "count": 2,
+      "id": "craft:small_red_garnet_dust"
+    },
+    {
+      "count": 1,
+      "id": "minecraft:bucket"
+    }
+  ]
+}

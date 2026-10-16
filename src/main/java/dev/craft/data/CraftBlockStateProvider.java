@@ -399,7 +399,7 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
         }
         if (machine.getLayout() == GtMachine.Layout.FRONT) {
             return side == facing ? machine.getFrontTexture(active) : side == facing.getOpposite()
-                    ? GtMachine.FRONT_LAYOUT_BACK : GtMachine.FRONT_LAYOUT_SIDE;
+                    ? GtMachine.FRONT_LAYOUT_BACK : machine.getSideTexture();
         }
         if (machine.getLayout() == GtMachine.Layout.TOP) {
             return switch (side) {

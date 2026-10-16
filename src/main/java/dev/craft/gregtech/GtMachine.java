@@ -8,6 +8,7 @@ import dev.craft.gregtech.machine.BlastFurnaceBlockEntity;
 import dev.craft.gregtech.machine.CannerBlockEntity;
 import dev.craft.gregtech.machine.CentrifugeBlockEntity;
 import dev.craft.gregtech.machine.ElectrolyzerBlockEntity;
+import dev.craft.gregtech.machine.GrinderBlockEntity;
 import dev.craft.gregtech.machine.GtMachineBlockEntity;
 import dev.craft.gregtech.machine.ImplosionCompressorBlockEntity;
 import net.minecraft.core.BlockPos;
@@ -37,6 +38,13 @@ public enum GtMachine {
         @Override
         public int getTopTexture(boolean active) {
             return active ? 41 : 43;
+        }
+    },
+    INDUSTRIAL_GRINDER("industrial_grinder", "grinder", Layout.FRONT, 128, 68, 69, "Ultimaceratron 42a",
+            GrinderBlockEntity::new) {
+        @Override
+        public int getSideTexture() {
+            return 70;
         }
     };
 
@@ -100,6 +108,11 @@ public enum GtMachine {
     /** Top texture of a basic or side-layout machine ({@code getTopFacingActive/Inactive}), 29 unless overridden. */
     public int getTopTexture(boolean active) {
         return 29;
+    }
+
+    /** {@link Layout#FRONT}: texture of the sides that are neither front nor back (72 unless overridden). */
+    public int getSideTexture() {
+        return FRONT_LAYOUT_SIDE;
     }
 
     /** GT tooltip description ({@code getDescription}). */

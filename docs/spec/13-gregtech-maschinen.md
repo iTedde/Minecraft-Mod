@@ -624,7 +624,7 @@ kleine Stäube („Tiny Pile of …“, gleicher Index) Pyrit, Calcit, Sodalith,
 Zinn; Elektrumbarren (Material 21, AgAu). GT `dustSmall*`: 4 kleine → 1 Staub und 1 Staub → 4 kleine, umgesetzt für
 Pyrit, Nickel, Gold, Kupfer, Zinn (die anderen Stäube gibt es nicht).
 
-## 10. Industrial Grinder (`GT_MetaTileEntity_Grinder`, ID 28, „Industrial Grinder“) – Teilpaket 8d
+## 10. Industrial Grinder (`GT_MetaTileEntity_Grinder`, ID 28, „Industrial Grinder“) – Teilpaket 8d (umgesetzt in 8d.2)
 
 Eigene MetaTileEntity wie der Hochofen (§5), Basis §1.1/§1.2/§1.5/§1.6. Werte:
 

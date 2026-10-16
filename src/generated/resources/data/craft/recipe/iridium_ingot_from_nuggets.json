@@ -1,0 +1,36 @@
+{
+  "type": "craft:ic2_shapeless",
+  "ingredients": [
+    {
+      "item": "craft:iridium_nugget"
+    },
+    {
+      "item": "craft:iridium_nugget"
+    },
+    {
+      "item": "craft:iridium_nugget"
+    },
+    {
+      "item": "craft:iridium_nugget"
+    },
+    {
+      "item": "craft:iridium_nugget"
+    },
+    {
+      "item": "craft:iridium_nugget"
+    },
+    {
+      "item": "craft:iridium_nugget"
+    },
+    {
+      "item": "craft:iridium_nugget"
+    },
+    {
+      "item": "craft:iridium_nugget"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:iridium_ingot"
+  }
+}

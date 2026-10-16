@@ -1,0 +1,41 @@
+{
+  "type": "craft:gt_grinder",
+  "duration": 100,
+  "eu_per_tick": 128,
+  "inputs": [
+    {
+      "type": "neoforge:compound",
+      "children": [
+        {
+          "item": "craft:sapphire_ore"
+        },
+        {
+          "item": "craft:deepslate_sapphire_ore"
+        }
+      ],
+      "count": 1
+    },
+    {
+      "count": 1,
+      "item": "craft:water_cell"
+    }
+  ],
+  "outputs": [
+    {
+      "count": 1,
+      "id": "craft:sapphire"
+    },
+    {
+      "count": 6,
+      "id": "craft:small_sapphire_dust"
+    },
+    {
+      "count": 2,
+      "id": "craft:small_green_sapphire_dust"
+    },
+    {
+      "count": 1,
+      "id": "craft:empty_cell"
+    }
+  ]
+}

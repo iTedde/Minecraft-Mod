@@ -1,0 +1,41 @@
+{
+  "type": "craft:gt_grinder",
+  "duration": 100,
+  "eu_per_tick": 128,
+  "inputs": [
+    {
+      "type": "neoforge:compound",
+      "children": [
+        {
+          "item": "minecraft:emerald_ore"
+        },
+        {
+          "item": "minecraft:deepslate_emerald_ore"
+        }
+      ],
+      "count": 1
+    },
+    {
+      "count": 1,
+      "item": "craft:water_cell"
+    }
+  ],
+  "outputs": [
+    {
+      "count": 1,
+      "id": "minecraft:emerald"
+    },
+    {
+      "count": 6,
+      "id": "craft:small_emerald_dust"
+    },
+    {
+      "count": 2,
+      "id": "craft:small_olivine_dust"
+    },
+    {
+      "count": 1,
+      "id": "craft:empty_cell"
+    }
+  ]
+}

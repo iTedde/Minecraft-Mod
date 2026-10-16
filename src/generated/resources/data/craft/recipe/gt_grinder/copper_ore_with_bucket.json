@@ -1,0 +1,41 @@
+{
+  "type": "craft:gt_grinder",
+  "duration": 100,
+  "eu_per_tick": 128,
+  "inputs": [
+    {
+      "type": "neoforge:compound",
+      "children": [
+        {
+          "item": "minecraft:copper_ore"
+        },
+        {
+          "item": "minecraft:deepslate_copper_ore"
+        }
+      ],
+      "count": 1
+    },
+    {
+      "count": 1,
+      "item": "minecraft:water_bucket"
+    }
+  ],
+  "outputs": [
+    {
+      "count": 2,
+      "id": "craft:copper_dust"
+    },
+    {
+      "count": 1,
+      "id": "craft:small_gold_dust"
+    },
+    {
+      "count": 1,
+      "id": "craft:small_nickel_dust"
+    },
+    {
+      "count": 1,
+      "id": "minecraft:bucket"
+    }
+  ]
+}

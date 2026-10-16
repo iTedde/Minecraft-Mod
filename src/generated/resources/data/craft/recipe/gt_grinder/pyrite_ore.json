@@ -1,0 +1,30 @@
+{
+  "type": "craft:gt_grinder",
+  "duration": 100,
+  "eu_per_tick": 128,
+  "inputs": [
+    {
+      "count": 1,
+      "item": "craft:pyrite_ore"
+    },
+    {
+      "count": 1,
+      "item": "craft:water_cell"
+    }
+  ],
+  "outputs": [
+    {
+      "count": 5,
+      "id": "craft:pyrite_dust"
+    },
+    {
+      "count": 2,
+      "id": "craft:sulfur_dust"
+    },
+    {},
+    {
+      "count": 1,
+      "id": "craft:empty_cell"
+    }
+  ]
+}

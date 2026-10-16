@@ -1,0 +1,38 @@
+{
+  "type": "craft:gt_grinder",
+  "duration": 100,
+  "eu_per_tick": 128,
+  "inputs": [
+    {
+      "type": "neoforge:compound",
+      "children": [
+        {
+          "item": "minecraft:redstone_ore"
+        },
+        {
+          "item": "minecraft:deepslate_redstone_ore"
+        }
+      ],
+      "count": 1
+    },
+    {
+      "count": 1,
+      "item": "craft:water_cell"
+    }
+  ],
+  "outputs": [
+    {
+      "count": 10,
+      "id": "minecraft:redstone"
+    },
+    {
+      "count": 2,
+      "id": "craft:small_glowstone_dust"
+    },
+    {},
+    {
+      "count": 1,
+      "id": "craft:empty_cell"
+    }
+  ]
+}

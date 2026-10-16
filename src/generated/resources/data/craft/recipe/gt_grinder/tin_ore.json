@@ -1,0 +1,41 @@
+{
+  "type": "craft:gt_grinder",
+  "duration": 100,
+  "eu_per_tick": 128,
+  "inputs": [
+    {
+      "type": "neoforge:compound",
+      "children": [
+        {
+          "item": "craft:tin_ore"
+        },
+        {
+          "item": "craft:deepslate_tin_ore"
+        }
+      ],
+      "count": 1
+    },
+    {
+      "count": 1,
+      "item": "craft:water_cell"
+    }
+  ],
+  "outputs": [
+    {
+      "count": 2,
+      "id": "craft:tin_dust"
+    },
+    {
+      "count": 1,
+      "id": "craft:small_iron_dust"
+    },
+    {
+      "count": 1,
+      "id": "craft:small_zinc_dust"
+    },
+    {
+      "count": 1,
+      "id": "craft:empty_cell"
+    }
+  ]
+}

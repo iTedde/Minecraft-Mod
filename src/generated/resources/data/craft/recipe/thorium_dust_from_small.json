@@ -1,0 +1,21 @@
+{
+  "type": "craft:ic2_shapeless",
+  "ingredients": [
+    {
+      "item": "craft:small_thorium_dust"
+    },
+    {
+      "item": "craft:small_thorium_dust"
+    },
+    {
+      "item": "craft:small_thorium_dust"
+    },
+    {
+      "item": "craft:small_thorium_dust"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:thorium_dust"
+  }
+}

@@ -1,6 +1,7 @@
 package dev.craft.gregtech;
 
 import dev.craft.buildcraft.power.BcCapabilities;
+import dev.craft.gregtech.machine.GrinderBlockEntity;
 import dev.craft.gregtech.machine.GtMachineBlockEntity;
 import dev.craft.gregtech.machine.GtTankMachineBlockEntity;
 import dev.craft.gregtech.world.GtWorldGen;
@@ -36,5 +37,7 @@ public final class GregTech {
             event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, GtBlockEntityTypes.get(machine),
                     (be, side) -> ((GtTankMachineBlockEntity) be).getFluidHandler(side));
         }
+        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, GtBlockEntityTypes.get(GtMachine.INDUSTRIAL_GRINDER),
+                (be, side) -> ((GrinderBlockEntity) be).getFluidHandler(side));
     }
 }

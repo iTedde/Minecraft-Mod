@@ -1,0 +1,12 @@
+{
+  "type": "craft:ic2_shapeless",
+  "ingredients": [
+    {
+      "item": "craft:iridium_ingot"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "id": "craft:iridium_nugget"
+  }
+}

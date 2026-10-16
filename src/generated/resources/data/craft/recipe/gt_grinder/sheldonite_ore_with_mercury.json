@@ -1,0 +1,33 @@
+{
+  "type": "craft:gt_grinder",
+  "duration": 100,
+  "eu_per_tick": 128,
+  "inputs": [
+    {
+      "count": 1,
+      "item": "craft:sheldonite_ore"
+    },
+    {
+      "count": 1,
+      "item": "craft:mercury_cell"
+    }
+  ],
+  "outputs": [
+    {
+      "count": 3,
+      "id": "craft:platinum_dust"
+    },
+    {
+      "count": 1,
+      "id": "craft:nickel_dust"
+    },
+    {
+      "count": 2,
+      "id": "craft:iridium_nugget"
+    },
+    {
+      "count": 1,
+      "id": "craft:empty_cell"
+    }
+  ]
+}

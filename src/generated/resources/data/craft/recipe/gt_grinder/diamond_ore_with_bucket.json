@@ -1,0 +1,41 @@
+{
+  "type": "craft:gt_grinder",
+  "duration": 100,
+  "eu_per_tick": 128,
+  "inputs": [
+    {
+      "type": "neoforge:compound",
+      "children": [
+        {
+          "item": "minecraft:diamond_ore"
+        },
+        {
+          "item": "minecraft:deepslate_diamond_ore"
+        }
+      ],
+      "count": 1
+    },
+    {
+      "count": 1,
+      "item": "minecraft:water_bucket"
+    }
+  ],
+  "outputs": [
+    {
+      "count": 1,
+      "id": "minecraft:diamond"
+    },
+    {
+      "count": 6,
+      "id": "craft:small_diamond_dust"
+    },
+    {
+      "count": 1,
+      "id": "craft:hydrated_coal_dust"
+    },
+    {
+      "count": 1,
+      "id": "minecraft:bucket"
+    }
+  ]
+}

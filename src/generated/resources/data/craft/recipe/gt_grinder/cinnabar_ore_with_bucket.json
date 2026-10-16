@@ -1,0 +1,33 @@
+{
+  "type": "craft:gt_grinder",
+  "duration": 100,
+  "eu_per_tick": 128,
+  "inputs": [
+    {
+      "count": 1,
+      "item": "craft:cinnabar_ore"
+    },
+    {
+      "count": 1,
+      "item": "minecraft:water_bucket"
+    }
+  ],
+  "outputs": [
+    {
+      "count": 5,
+      "id": "craft:cinnabar_dust"
+    },
+    {
+      "count": 2,
+      "id": "craft:small_redstone_dust"
+    },
+    {
+      "count": 1,
+      "id": "craft:small_glowstone_dust"
+    },
+    {
+      "count": 1,
+      "id": "minecraft:bucket"
+    }
+  ]
+}

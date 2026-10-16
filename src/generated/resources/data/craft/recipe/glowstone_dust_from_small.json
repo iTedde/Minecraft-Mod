@@ -1,0 +1,21 @@
+{
+  "type": "craft:ic2_shapeless",
+  "ingredients": [
+    {
+      "item": "craft:small_glowstone_dust"
+    },
+    {
+      "item": "craft:small_glowstone_dust"
+    },
+    {
+      "item": "craft:small_glowstone_dust"
+    },
+    {
+      "item": "craft:small_glowstone_dust"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "minecraft:glowstone_dust"
+  }
+}

@@ -5,6 +5,7 @@ import java.util.function.Supplier;
 import dev.craft.Craft;
 import dev.craft.gregtech.menu.GtBasicMachineMenu;
 import dev.craft.gregtech.menu.GtBlastFurnaceMenu;
+import dev.craft.gregtech.menu.GtGrinderMenu;
 import dev.craft.gregtech.menu.GtImplosionCompressorMenu;
 import dev.craft.gregtech.menu.GtTankMachineMenu;
 import net.minecraft.core.registries.Registries;
@@ -39,6 +40,11 @@ public final class GtMenus {
     public static final Supplier<MenuType<GtImplosionCompressorMenu>> IMPLOSION_COMPRESSOR =
             MENUS.register("gt_implosion_compressor", () -> IMenuTypeExtension.create((id, inventory, buf) ->
                     new GtImplosionCompressorMenu(id, inventory, buf.readBlockPos())));
+
+    /** {@code GT_Container_Grinder}. */
+    public static final Supplier<MenuType<GtGrinderMenu>> GRINDER = MENUS.register("gt_grinder",
+            () -> IMenuTypeExtension.create((id, inventory, buf) -> new GtGrinderMenu(id, inventory,
+                    buf.readBlockPos())));
 
     private GtMenus() {
     }

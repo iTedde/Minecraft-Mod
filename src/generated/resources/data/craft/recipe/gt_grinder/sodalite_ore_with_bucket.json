@@ -1,0 +1,30 @@
+{
+  "type": "craft:gt_grinder",
+  "duration": 100,
+  "eu_per_tick": 128,
+  "inputs": [
+    {
+      "count": 1,
+      "item": "craft:sodalite_ore"
+    },
+    {
+      "count": 1,
+      "item": "minecraft:water_bucket"
+    }
+  ],
+  "outputs": [
+    {
+      "count": 12,
+      "id": "craft:sodalite_dust"
+    },
+    {
+      "count": 3,
+      "id": "craft:aluminium_dust"
+    },
+    {},
+    {
+      "count": 1,
+      "id": "minecraft:bucket"
+    }
+  ]
+}
