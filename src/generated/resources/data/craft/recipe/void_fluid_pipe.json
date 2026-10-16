@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "craft:pipe_waterproof"
+    },
+    {
+      "item": "craft:void_transport_pipe"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:void_fluid_pipe"
+  }
+}

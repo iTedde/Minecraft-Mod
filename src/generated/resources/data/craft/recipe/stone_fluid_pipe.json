@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "craft:pipe_waterproof"
+    },
+    {
+      "item": "craft:stone_transport_pipe"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:stone_fluid_pipe"
+  }
+}

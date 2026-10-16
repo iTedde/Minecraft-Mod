@@ -34,6 +34,16 @@ public abstract class PipeBlockEntity extends BlockEntity implements PowerRecept
 
     @Nullable
     private static PowerProvider createPowerProvider(PipeType type) {
+        if (type.getTransport() == PipeType.Transport.FLUIDS) {
+            if (!type.getMaterial().isWood()) {
+                return null;
+            }
+            // PipeLiquidsWood (and PipeLiquidsEmerald).
+            PowerProvider provider = new PowerProvider();
+            provider.configure(1, 100, 1, 250);
+            provider.configurePowerPerdition(1, 1);
+            return provider;
+        }
         if (type.getTransport() != PipeType.Transport.ITEMS) {
             return null;
         }

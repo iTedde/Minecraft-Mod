@@ -48,7 +48,9 @@ public final class BcItems {
     public static final DeferredItem<Item> IRON_GEAR = simple("iron_gear");
     public static final DeferredItem<Item> GOLD_GEAR = simple("gold_gear");
     public static final DeferredItem<Item> DIAMOND_GEAR = simple("diamond_gear");
-    public static final DeferredItem<BcWrenchItem> WRENCH = register(ITEMS.registerItem("bc_wrench",
+    /** {@code pipeWaterproof}: turns a transport pipe into a waterproof (fluid) pipe. */
+    public static final DeferredItem<Item> PIPE_WATERPROOF = simple("pipe_waterproof");
+    public static final DeferredItem<BcWrenchItem> WRENCH =register(ITEMS.registerItem("bc_wrench",
             BcWrenchItem::new));
     /** {@code ItemBucketOil}: places oil, stack size 1 like every 1.4.7 bucket. */
     public static final DeferredItem<BucketItem> OIL_BUCKET = register(ITEMS.registerItem("oil_bucket",

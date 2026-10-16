@@ -15,6 +15,7 @@ import dev.craft.buildcraft.factory.PumpBlockEntity;
 import dev.craft.buildcraft.factory.QuarryBlockEntity;
 import dev.craft.buildcraft.factory.RefineryBlockEntity;
 import dev.craft.buildcraft.factory.TankBlockEntity;
+import dev.craft.buildcraft.transport.FluidPipeBlockEntity;
 import dev.craft.buildcraft.transport.ItemPipeBlockEntity;
 import dev.craft.buildcraft.transport.PipeType;
 import net.minecraft.core.registries.Registries;
@@ -56,6 +57,11 @@ public final class BcBlockEntityTypes {
     public static final Supplier<BlockEntityType<ItemPipeBlockEntity>> ITEM_PIPE = BLOCK_ENTITY_TYPES.register(
             "item_pipe", () -> BlockEntityType.Builder.of(ItemPipeBlockEntity::new, Arrays.stream(
                     PipeType.values()).filter(type -> type.getTransport() == PipeType.Transport.ITEMS)
+                    .map(type -> BcBlocks.pipe(type).get()).toArray(Block[]::new))
+                    .build(null));
+    public static final Supplier<BlockEntityType<FluidPipeBlockEntity>> FLUID_PIPE = BLOCK_ENTITY_TYPES.register(
+            "fluid_pipe", () -> BlockEntityType.Builder.of(FluidPipeBlockEntity::new, Arrays.stream(
+                    PipeType.values()).filter(type -> type.getTransport() == PipeType.Transport.FLUIDS)
                     .map(type -> BcBlocks.pipe(type).get()).toArray(Block[]::new))
                     .build(null));
 

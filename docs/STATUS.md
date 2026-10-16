@@ -1131,21 +1131,43 @@ NaK-Kühlzellen, kein Vakuumgefrierer) **und die IC2-Nuke**. Teilpakete: 7a IC2-
 - Abweichungen in `spec/15-rohre.md` §8.3 ergänzt (Filtervergleich, Abholanimation, Sound, Pfeile).
 - 4 neue GameTests (insgesamt 246 grün), `build` und `runClient` (keine Modellfehler) erfolgreich.
 
+## Erledigt (Teilpaket „Phase 10.3: Flüssigkeitsrohre + Rohrdichtmittel“, 2026-10-16)
+- `PipeType`: 8 wasserdichte Rohre (Holz, Bruchstein, Stein, Sandstein, Eisen, Gold, Smaragd, Leere) mit Texturen
+  aus §2; Rezepte formlos Dichtmittel + Transportrohr → 1; Rohrdichtmittel (`pipe_waterproof`, `items.png` 33) aus
+  Kaktusgrün (`green_dye`). Sprache, Multipart-Modelle, Loot per Datagen.
+- `FluidPipeBlockEntity` (`PipeTransportLiquids` 1:1): 7 Abschnitte à 250 mB mit `incoming`-Ring (12 Plätze),
+  `flowRate`/`travelDelay` 10/12 bzw. Gold/Smaragd 40/4, Zustände None/Input/Output mit TTL 60/80 und Abklingzeit
+  30, `moveFromPipe`/`moveFromCenter`/`moveToCenter` inkl. Eigenheiten (leerer Abschnitt mit noch nicht verfügbarem
+  Inhalt zählt beim Einströmen mit, Platz der Mitte = 250 − min(flowRate, verfügbar)), `incoming` wird nicht
+  gespeichert (Originalfehler). Fluid-Capability je Seite nur zum Füllen; Sandstein nur aus Rohren, Leere vernichtet.
+- Holz-/Smaragd-Flüssigkeitsrohr: MJ 1/100/1/250, Verlust 1 je Tick, 1 MJ = 1000 mB Budget, Entnahme bis
+  `flowRate` je Tick aus dem Quelltank, Quellseite nie Ausgang. Eisen: nur zur Ausgabeseite.
+- Client: `PipeFluidPayload` alle 10 Ticks mit geglätteten Mengen (Vollupdate alle 40), `PipeFluidRenderer` mit der
+  Original-Geometrie (40 Stufen, Arme waagerecht/senkrecht, Mitte Säule/Becken).
+- Nebenbei: Kern und Item des Eisen-Transportrohrs nutzen jetzt wie im Original die Ausgabe-Textur (`baseTexture`
+  18), die übrigen Arme die normale (19).
+- Abweichungen in `spec/15-rohre.md` §8.3 ergänzt (Sync-Paket, Seite `null`).
+- 4 neue GameTests (insgesamt 250 grün), `build` und `runClient` (keine Modellfehler) erfolgreich.
+
 ## Nächste Schritte
-1. 10.3: Flüssigkeitsrohre (alle 8) + Rohrdichtmittel.
-2. Manuelle Client-Tests 10.2: Diamantrohr-GUI (Filter setzen/löschen, Sortieren), Smaragdrohr an Truhe mit Motor
+1. 10.4: Leistungsrohre (3) + `powerRequest` aller Empfänger + Strukturrohr.
+2. Manuelle Client-Tests 10.3: BC-Tank mit Wasser → Holz-Flüssigkeitsrohr (Redstone-Motor) → Rohrstrecke → Tank;
+   Flüssigkeitsanzeige in waagerechten/senkrechten Rohren; Goldrohr-Tempo; Eisenrohr mit Schraubenschlüssel;
+   Sandsteinrohr nimmt nichts aus Tanks; Leere-Rohr; Pumpe/Raffinerie/Verbrennungsmotor am Rohr; Kessel-Dampf in ein
+   Rohr.
+3. Manuelle Client-Tests 10.2: Diamantrohr-GUI (Filter setzen/löschen, Sortieren), Smaragdrohr an Truhe mit Motor
    (nur gefilterte Items), Obsidianrohr mit einer Verbindung + Motor (Items in 4 Blöcken Umkreis, Pfeile, Truhenlore),
    Items auf das Obsidianrohr werfen.
-3. Manuelle Client-Tests 10.1: Truhe → Holzrohr (Redstone-Motor) → Rohrstrecke → Truhe; Eisenrohr mit
+4. Manuelle Client-Tests 10.1: Truhe → Holzrohr (Redstone-Motor) → Rohrstrecke → Truhe; Eisenrohr mit
    Schraubenschlüssel/Redstone umschalten; Goldrohr-Tempo; Leere-Rohr; Quarry mit Rohr daneben; Rohr mit Items
    abbauen (Drops).
-4. Manuelle Client-Tests 9.4: Wasserturbine in einen Fluss bauen (fließendes Wasser rundherum), Rechtsklick-Meldung,
+5. Manuelle Client-Tests 9.4: Wasserturbine in einen Fluss bauen (fließendes Wasser rundherum), Rechtsklick-Meldung,
    Kabel/BatBox am Controller.
-5. Manuelle Client-Tests 9.3b: Kraftwerk aus Kessel + Dampfturbine bauen, MFE/Kabel am Controller, GUI (Dampftank,
+6. Manuelle Client-Tests 9.3b: Kraftwerk aus Kessel + Dampfturbine bauen, MFE/Kabel am Controller, GUI (Dampftank,
    EU/t, Puffer); bis zu 3 Kessel an einer Turbine.
-6. Manuelle Client-Tests 9.3a: Kessel bauen, Wasser per Eimer/IC2-Pumpe, Kohle/Koks nachlegen, Temperaturbalken und
+7. Manuelle Client-Tests 9.3a: Kessel bauen, Wasser per Eimer/IC2-Pumpe, Kohle/Koks nachlegen, Temperaturbalken und
    Tanks in der GUI; Dampf in einen BC-Tank daneben; Explosion (Wasser auf trockenen heißen Kessel) aus sicherer
    Entfernung.
-7. Manuelle Client-Tests 9.2: Koksofen bauen, Kohle per Trichter/Ziegel einspeisen, Koks unten abziehen.
-8. Manuelle Client-Tests 9.1: Wassermühle an fließendem Wasser / im Fluss, zwei Mühlen nebeneinander; Windmühle in
+8. Manuelle Client-Tests 9.2: Koksofen bauen, Kohle per Trichter/Ziegel einspeisen, Koks unten abziehen.
+9. Manuelle Client-Tests 9.1: Wassermühle an fließendem Wasser / im Fluss, zwei Mühlen nebeneinander; Windmühle in
    großer Höhe bei Gewitter.

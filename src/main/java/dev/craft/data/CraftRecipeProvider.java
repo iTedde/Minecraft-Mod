@@ -776,6 +776,24 @@ public final class CraftRecipeProvider extends RecipeProvider {
         pipe(PipeType.OBSIDIAN_TRANSPORT, Ingredient.of(Items.OBSIDIAN), Ingredient.of(Items.OBSIDIAN));
         pipe(PipeType.EMERALD_TRANSPORT, Ingredient.of(Items.EMERALD), Ingredient.of(Items.EMERALD));
         pipe(PipeType.VOID_TRANSPORT, Ingredient.of(Items.INK_SAC), Ingredient.of(Items.REDSTONE));
+        // pipeWaterproof: cactus green (dye meta 2).
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BcItems.PIPE_WATERPROOF).requires(Items.GREEN_DYE)
+                .unlockedBy("has_green_dye", has(Items.GREEN_DYE)).save(output, id("pipe_waterproof"));
+        pipe(PipeType.WOODEN_FLUID, BcItems.PIPE_WATERPROOF, PipeType.WOODEN_TRANSPORT);
+        pipe(PipeType.COBBLESTONE_FLUID, BcItems.PIPE_WATERPROOF, PipeType.COBBLESTONE_TRANSPORT);
+        pipe(PipeType.STONE_FLUID, BcItems.PIPE_WATERPROOF, PipeType.STONE_TRANSPORT);
+        pipe(PipeType.SANDSTONE_FLUID, BcItems.PIPE_WATERPROOF, PipeType.SANDSTONE_TRANSPORT);
+        pipe(PipeType.IRON_FLUID, BcItems.PIPE_WATERPROOF, PipeType.IRON_TRANSPORT);
+        pipe(PipeType.GOLDEN_FLUID, BcItems.PIPE_WATERPROOF, PipeType.GOLDEN_TRANSPORT);
+        pipe(PipeType.EMERALD_FLUID, BcItems.PIPE_WATERPROOF, PipeType.EMERALD_TRANSPORT);
+        pipe(PipeType.VOID_FLUID, BcItems.PIPE_WATERPROOF, PipeType.VOID_TRANSPORT);
+    }
+
+    /** BuildCraft {@code createPipe} with two ingredients: shapeless, one pipe. */
+    private void pipe(PipeType type, ItemLike first, PipeType base) {
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BcItems.pipe(type)).requires(first)
+                .requires(BcItems.pipe(base)).unlockedBy("has_pipe", has(BcItems.pipe(base)))
+                .save(output, id(type.getName()));
     }
 
     /** BuildCraft {@code createPipe} with three ingredients: one row, eight pipes. */

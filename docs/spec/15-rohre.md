@@ -412,6 +412,9 @@ Fluid-Capability nur zum **Füllen** (wie `fill`, kein Entnehmen).
 | Rohr-Eingang | `IPipeEntry` (nur Rohre) | nur Item-Rohre (`ItemPipeBlockEntity.entityEntering`) | – |
 | Filtervergleich | Diamant: Item-ID, Schaden nur bei nicht beschädigbaren Items; Smaragd: `isItemEqual` (ID + Schaden) | Diamant: `ItemStack.isSameItem`; Smaragd: gleiches Item + gleicher Schaden | Meta-Varianten sind in 1.21 eigene Items |
 | Filter-Sync | Rohr-Daten per Paket an alle Clients | Filter nur über das Menü (einziger Client-Nutzer) | keine Wirkung im Spiel |
+| Flüssigkeits-Sync | `PacketLiquidUpdate` mit Delta-Bitmaske (ID/Meta/Menge je Abschnitt) an Spieler im Umkreis 24; nach dem Beschreibungspaket ein Vollpaket (`initClient`) | `PipeFluidPayload` mit allen 7 Anzeige-Stapeln an Spieler, die den Chunk verfolgen; beim Laden des Chunks die Anzeige im Update-Tag | gleiche Taktung (10/40) und Glättung, nur das Paketformat ist anders |
+| Füllen ohne Seite | `fill(UNKNOWN)` füllt die Mitte (Sandstein: Arrayfehler) | Capability mit Seite `null` füllt die Mitte, Sandstein nimmt dann nichts | Capability-Idiom |
+| Eisen-Transportrohr Kern/Item | `baseTexture` 18 (Ausgabe-Textur) | wie Original (in 10.1 zunächst 19, in 10.3 korrigiert) | – |
 | Obsidian-Abholanimation | `obsidianPipePickup` (`EntityPickupFX`, nur im Einzelspieler sichtbar) | entfällt; das Item erscheint im Rohr | Pickup-Partikel brauchen in 1.21 eine Ziel-Entity |
 | Obsidian-Sound | `random.pop` an der Entity | `ITEM_PICKUP`, Kategorie Blöcke, gleiche Lautstärke/Tonhöhe | 1.21-Soundsystem |
 | Obsidian-Teilaufnahme | ohne Energie für 1 Item entsteht ein Rohr-Item mit Menge 0 | kein Rohr-Item (Stapel bleibt liegen) | leere Stacks gibt es in 1.21 nicht als Item; praktisch unerreichbar |

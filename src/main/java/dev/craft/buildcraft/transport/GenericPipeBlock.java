@@ -146,7 +146,8 @@ public class GenericPipeBlock extends BaseEntityBlock {
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new ItemPipeBlockEntity(pos, state);
+        return type.getTransport() == PipeType.Transport.FLUIDS ? new FluidPipeBlockEntity(pos, state)
+                : new ItemPipeBlockEntity(pos, state);
     }
 
     @Nullable

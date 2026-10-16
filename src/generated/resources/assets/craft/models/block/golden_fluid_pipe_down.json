@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:block/block",
+  "elements": [
+    {
+      "faces": {
+        "down": {
+          "cullface": "down",
+          "texture": "#pipe"
+        },
+        "east": {
+          "texture": "#pipe"
+        },
+        "north": {
+          "texture": "#pipe"
+        },
+        "south": {
+          "texture": "#pipe"
+        },
+        "up": {
+          "texture": "#pipe"
+        },
+        "west": {
+          "texture": "#pipe"
+        }
+      },
+      "from": [
+        4,
+        0,
+        4
+      ],
+      "to": [
+        12,
+        4,
+        12
+      ]
+    }
+  ],
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "particle": "craft:block/pipe/golden_fluid",
+    "pipe": "craft:block/pipe/golden_fluid"
+  }
+}
