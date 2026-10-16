@@ -1,0 +1,26 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "A": {
+      "item": "craft:electronic_circuit"
+    },
+    "D": {
+      "tag": "craft:crafting_grinder"
+    },
+    "F": {
+      "item": "minecraft:flint"
+    },
+    "M": {
+      "tag": "craft:raw_machine_tier_01"
+    }
+  },
+  "pattern": [
+    "FDF",
+    "AMA",
+    "FAF"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:macerator"
+  }
+}

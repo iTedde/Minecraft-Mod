@@ -11,7 +11,7 @@
       "item": "craft:industrial_electrolyzer"
     },
     "G": {
-      "item": "craft:diamond_grinder"
+      "tag": "craft:crafting_grinder"
     },
     "P": {
       "item": "craft:ic2_pump"

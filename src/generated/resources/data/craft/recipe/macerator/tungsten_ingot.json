@@ -1,0 +1,10 @@
+{
+  "type": "craft:macerator",
+  "ingredient": {
+    "tag": "c:ingots/tungsten"
+  },
+  "result": {
+    "count": 1,
+    "id": "craft:tungsten_dust"
+  }
+}

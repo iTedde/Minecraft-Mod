@@ -1,0 +1,17 @@
+{
+  "type": "craft:gt_vacuum_freezer",
+  "duration": 39000,
+  "eu_per_tick": 128,
+  "inputs": [
+    {
+      "count": 1,
+      "item": "craft:helium_coolant_cell_360k"
+    }
+  ],
+  "outputs": [
+    {
+      "count": 1,
+      "id": "craft:helium_coolant_cell_360k"
+    }
+  ]
+}

@@ -169,7 +169,8 @@ public class GtRecipe implements Recipe<GtRecipe.Input> {
         CANNER("canner", true),
         IMPLOSION("implosion", false),
         CENTRIFUGE("centrifuge", false),
-        GRINDER("grinder", false);
+        GRINDER("grinder", false),
+        VACUUM_FREEZER("vacuum_freezer", false);
 
         private final String name;
         private final boolean shapeless;

@@ -38,6 +38,7 @@ public final class CraftBlockTagsProvider extends BlockTagsProvider {
     public static final TagKey<Block> STORAGE_BLOCKS_URANIUM = commonTag("storage_blocks/uranium");
     public static final TagKey<Block> STORAGE_BLOCKS_TIN = commonTag("storage_blocks/tin");
     public static final TagKey<Block> STORAGE_BLOCKS_BRONZE = commonTag("storage_blocks/bronze");
+    public static final TagKey<Block> STORAGE_BLOCKS_STEEL = commonTag("storage_blocks/steel");
 
     public CraftBlockTagsProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookup,
                                   ExistingFileHelper files) {
@@ -100,8 +101,9 @@ public final class CraftBlockTagsProvider extends BlockTagsProvider {
             tag(BlockTags.MINEABLE_WITH_PICKAXE).add(GtBlocks.casing(type).get());
             tag(BlockTags.NEEDS_IRON_TOOL).add(GtBlocks.casing(type).get());
         }
-        tag(BlockTags.MINEABLE_WITH_PICKAXE).add(GtBlocks.HIGHLY_ADVANCED_MACHINE_BLOCK.get());
-        tag(BlockTags.NEEDS_IRON_TOOL).add(GtBlocks.HIGHLY_ADVANCED_MACHINE_BLOCK.get());
+        tag(BlockTags.MINEABLE_WITH_PICKAXE).add(GtBlocks.HIGHLY_ADVANCED_MACHINE_BLOCK.get(),
+                GtBlocks.STEEL_BLOCK.get());
+        tag(BlockTags.NEEDS_IRON_TOOL).add(GtBlocks.HIGHLY_ADVANCED_MACHINE_BLOCK.get(), GtBlocks.STEEL_BLOCK.get());
         for (GtOre ore : GtOre.values()) {
             gtOre(ore, GtBlocks.ore(ore).get(), switch (ore.getGround()) {
                 case STONE -> Tags.Blocks.ORES_IN_GROUND_STONE;
@@ -131,7 +133,9 @@ public final class CraftBlockTagsProvider extends BlockTagsProvider {
         tag(STORAGE_BLOCKS_URANIUM).add(Ic2Blocks.URANIUM_BLOCK.get());
         tag(Tags.Blocks.STORAGE_BLOCKS).addTag(STORAGE_BLOCKS_URANIUM);
         tag(STORAGE_BLOCKS_BRONZE).add(Ic2Blocks.BRONZE_BLOCK.get());
-        tag(Tags.Blocks.STORAGE_BLOCKS).addTag(STORAGE_BLOCKS_TIN).addTag(STORAGE_BLOCKS_BRONZE);
+        tag(STORAGE_BLOCKS_STEEL).add(GtBlocks.STEEL_BLOCK.get());
+        tag(Tags.Blocks.STORAGE_BLOCKS).addTag(STORAGE_BLOCKS_TIN).addTag(STORAGE_BLOCKS_BRONZE)
+                .addTag(STORAGE_BLOCKS_STEEL);
         addElectricToolTags();
     }
 

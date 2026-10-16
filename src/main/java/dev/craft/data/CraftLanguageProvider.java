@@ -258,6 +258,7 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
         item(GtItems.CALCIUM_CARBONATE_CELL, "Calcium Carbonate Cell");
         item(GtItems.SMALL_SULFUR_DUST, "Tiny Pile of Sulfur Dust");
         block(GtBlocks.machine(GtMachine.INDUSTRIAL_GRINDER), "Industrial Grinder");
+        block(GtBlocks.machine(GtMachine.VACUUM_FREEZER), "Vacuum Freezer");
         item(GtItems.NETHERRACK_DUST, "Netherrack Dust");
         item(GtItems.SMALL_GLOWSTONE_DUST, "Tiny Pile of Glowstone Dust");
         item(GtItems.SMALL_REDSTONE_DUST, "Tiny Pile of Redstone Dust");
@@ -309,6 +310,15 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
         item(GtItems.ELITE_CIRCUIT_BOARD, "Elite Circuit Board");
         add("tooltip.craft.elite_circuit_board", "Highly advanced Circuit Plate");
         block(GtBlocks.HIGHLY_ADVANCED_MACHINE_BLOCK, "Highly Advanced Machineblock");
+        item(GtItems.TUNGSTEN_INGOT, "Tungsten Ingot");
+        item(GtItems.TUNGSTEN_PLATE, "Tungsten Plate");
+        item(GtItems.HOT_TUNGSTENSTEEL_INGOT, "Hot Tungstensteel Ingot");
+        item(GtItems.TUNGSTENSTEEL_INGOT, "Tungstensteel Ingot");
+        item(GtItems.TUNGSTENSTEEL_PLATE, "Tungstensteel Plate");
+        item(GtItems.WOLFRAMIUM_GRINDER, "Wolframium Grinder");
+        add("tooltip.craft.wolframium_grinder", "Regular Grinding Head");
+        item(GtItems.ICE_CELL, "Ice Cell");
+        block(GtBlocks.STEEL_BLOCK, "Block of Steel");
         add("tooltip.craft.gt.max_input", "Max EU/p IN: %s");
         add("tooltip.craft.gt.possible_upgrades", "Possible Upgrades: %s");
         add("tooltip.craft.gt.mj_converter", "has MJ-Converter");

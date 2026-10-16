@@ -68,6 +68,12 @@ public final class CraftItemTagsProvider extends ItemTagsProvider {
     public static final TagKey<Item> PLATES_CHROME = commonTag("plates/chrome");
     public static final TagKey<Item> PLATES_PLATINUM = commonTag("plates/platinum");
     public static final TagKey<Item> PLATES_MAGNALIUM = commonTag("plates/magnalium");
+    public static final TagKey<Item> INGOTS_TUNGSTEN = commonTag("ingots/tungsten");
+    public static final TagKey<Item> INGOTS_TUNGSTENSTEEL = commonTag("ingots/tungstensteel");
+    public static final TagKey<Item> PLATES_TUNGSTEN = commonTag("plates/tungsten");
+    public static final TagKey<Item> PLATES_TUNGSTENSTEEL = commonTag("plates/tungstensteel");
+    public static final TagKey<Item> DUSTS_TUNGSTEN = commonTag("dusts/tungsten");
+    public static final TagKey<Item> STORAGE_BLOCKS_STEEL = commonTag("storage_blocks/steel");
     public static final TagKey<Item> DUSTS_MAGNESIUM = commonTag("dusts/magnesium");
     public static final TagKey<Item> DUSTS_MANGANESE = commonTag("dusts/manganese");
     public static final TagKey<Item> DUSTS_TITANIUM = commonTag("dusts/titanium");
@@ -86,6 +92,8 @@ public final class CraftItemTagsProvider extends ItemTagsProvider {
     public static final TagKey<Item> CRAFTING_100K_EU_STORE = craftTag("crafting_100k_eu_store");
     /** GT {@code itemLazurite}: lapis lazuli ({@code dustLapis}) and lazurite dust. */
     public static final TagKey<Item> ITEM_LAZURITE = craftTag("item_lazurite");
+    /** GT {@code craftingGrinder}: diamond and wolframium grinding heads. */
+    public static final TagKey<Item> CRAFTING_GRINDER = craftTag("crafting_grinder");
 
     public CraftItemTagsProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookup,
                                  CompletableFuture<TagLookup<Block>> blockTags, ExistingFileHelper files) {
@@ -119,6 +127,7 @@ public final class CraftItemTagsProvider extends ItemTagsProvider {
         }
         copy(CraftBlockTagsProvider.STORAGE_BLOCKS_URANIUM, commonTag("storage_blocks/uranium"));
         copy(CraftBlockTagsProvider.STORAGE_BLOCKS_BRONZE, commonTag("storage_blocks/bronze"));
+        copy(CraftBlockTagsProvider.STORAGE_BLOCKS_STEEL, STORAGE_BLOCKS_STEEL);
         copy(Tags.Blocks.STORAGE_BLOCKS, Tags.Items.STORAGE_BLOCKS);
 
         tag(INGOTS_TIN).add(Ic2Items.TIN_INGOT.get());
@@ -158,6 +167,11 @@ public final class CraftItemTagsProvider extends ItemTagsProvider {
         tag(PLATES_CHROME).add(GtItems.CHROME_PLATE.get());
         tag(PLATES_PLATINUM).add(GtItems.PLATINUM_PLATE.get());
         tag(PLATES_MAGNALIUM).add(GtItems.MAGNALIUM_PLATE.get());
+        tag(INGOTS_TUNGSTEN).add(GtItems.TUNGSTEN_INGOT.get());
+        tag(INGOTS_TUNGSTENSTEEL).add(GtItems.TUNGSTENSTEEL_INGOT.get());
+        tag(PLATES_TUNGSTEN).add(GtItems.TUNGSTEN_PLATE.get());
+        tag(PLATES_TUNGSTENSTEEL).add(GtItems.TUNGSTENSTEEL_PLATE.get());
+        tag(DUSTS_TUNGSTEN).add(GtItems.TUNGSTEN_DUST.get());
         tag(DUSTS_MAGNESIUM).add(GtItems.MAGNESIUM_DUST.get());
         tag(DUSTS_MANGANESE).add(GtItems.MANGANESE_DUST.get());
         tag(DUSTS_TITANIUM).add(GtItems.TITANIUM_DUST.get());
@@ -175,10 +189,11 @@ public final class CraftItemTagsProvider extends ItemTagsProvider {
         tag(RAW_MACHINE_TIER_02).add(Ic2Items.ADVANCED_MACHINE_CASING.get(), GtItems.STEEL_MACHINE_HULL.get());
         tag(CRAFTING_100K_EU_STORE).add(Ic2Items.ENERGY_CRYSTAL.get(), GtItems.LITHIUM_BATTERY.get());
         tag(ITEM_LAZURITE).add(Items.LAPIS_LAZULI, GtItems.LAZURITE_DUST.get());
+        tag(CRAFTING_GRINDER).add(GtItems.DIAMOND_GRINDER.get(), GtItems.WOLFRAMIUM_GRINDER.get());
         tag(Tags.Items.INGOTS).addTag(INGOTS_TIN).addTag(INGOTS_URANIUM).addTag(INGOTS_BRONZE).addTag(INGOTS_REFINED_IRON)
                 .addTag(INGOTS_NICKEL).addTag(INGOTS_ALUMINIUM).addTag(INGOTS_STEEL).addTag(INGOTS_LEAD)
                 .addTag(INGOTS_PLATINUM).addTag(INGOTS_SILVER).addTag(INGOTS_ZINC).addTag(INGOTS_TITANIUM)
-                .addTag(INGOTS_CHROME);
+                .addTag(INGOTS_CHROME).addTag(INGOTS_TUNGSTEN).addTag(INGOTS_TUNGSTENSTEEL);
         tag(DUSTS_BRONZE).add(Ic2Items.BRONZE_DUST.get());
         tag(DUSTS_CLAY).add(Ic2Items.CLAY_DUST.get());
         tag(DUSTS_COAL).add(Ic2Items.COAL_DUST.get());
@@ -191,7 +206,7 @@ public final class CraftItemTagsProvider extends ItemTagsProvider {
                 .addTag(DUSTS_GOLD).addTag(DUSTS_IRON).addTag(DUSTS_TIN).addTag(DUSTS_SILVER)
                 .addTag(DUSTS_NICKEL).addTag(DUSTS_ALUMINIUM).addTag(DUSTS_STEEL).addTag(DUSTS_LEAD)
                 .addTag(DUSTS_PLATINUM).addTag(DUSTS_ZINC).addTag(DUSTS_CALCITE).addTag(DUSTS_MAGNESIUM)
-                .addTag(DUSTS_MANGANESE).addTag(DUSTS_TITANIUM).addTag(DUSTS_CHROME);
+                .addTag(DUSTS_MANGANESE).addTag(DUSTS_TITANIUM).addTag(DUSTS_CHROME).addTag(DUSTS_TUNGSTEN);
 
         // IC2 default blacklist (glass pane, stick, snowball) + pack config "102, 280, 332, 4081"; scaffold later.
         tag(IronFenceBlock.METAL_BOOTS).add(Items.IRON_BOOTS, Items.GOLDEN_BOOTS, Items.CHAINMAIL_BOOTS,

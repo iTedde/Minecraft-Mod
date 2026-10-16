@@ -353,6 +353,7 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
         // All six sides share index 10 on blocks.png.
         simpleBlockWithItem(GtBlocks.HIGHLY_ADVANCED_MACHINE_BLOCK.get(),
                 models().cubeAll("highly_advanced_machine_block", modLoc("block/gt/blocks_10")));
+        simpleBlockWithItem(GtBlocks.STEEL_BLOCK.get(), models().cubeAll("steel_block", modLoc("block/gt/blocks_11")));
         for (GtOre ore : GtOre.values()) {
             gtOre(GtBlocks.ore(ore).get(), ore.getBlockName(), ore.getMaterial());
             if (ore.hasDeepslateVariant()) {
@@ -408,8 +409,7 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
             return switch (side) {
                 case UP -> machine.getFrontTexture(active);
                 case DOWN -> GtMachine.TOP_LAYOUT_BOTTOM;
-                case EAST, WEST -> GtMachine.TOP_LAYOUT_EAST_WEST;
-                default -> GtMachine.TOP_LAYOUT_NORTH_SOUTH;
+                default -> machine.getTopLayoutSideTexture(side);
             };
         }
         if (front == null ? side == facing : side == front) {

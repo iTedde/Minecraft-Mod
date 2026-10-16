@@ -52,6 +52,11 @@ public final class GtBlocks {
             BLOCKS.registerBlock("highly_advanced_machine_block", Block::new, BlockBehaviour.Properties.of()
                     .mapColor(MapColor.METAL).strength(10.0F, 200.0F).sound(SoundType.METAL)
                     .requiresCorrectToolForDrops().isValidSpawn((state, level, pos, type) -> false));
+    /** {@code GT_BlockMetaID_Block} 11 "Block of Steel": hardness 3, explosion resistance 100; no machine casing. */
+    public static final DeferredBlock<Block> STEEL_BLOCK =
+            BLOCKS.registerBlock("steel_block", Block::new, BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.METAL).strength(3.0F, 100.0F).sound(SoundType.METAL)
+                    .requiresCorrectToolForDrops().isValidSpawn((state, level, pos, type) -> false));
 
     private GtBlocks() {
     }

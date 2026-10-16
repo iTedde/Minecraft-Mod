@@ -8,6 +8,7 @@ import dev.craft.gregtech.menu.GtBlastFurnaceMenu;
 import dev.craft.gregtech.menu.GtGrinderMenu;
 import dev.craft.gregtech.menu.GtImplosionCompressorMenu;
 import dev.craft.gregtech.menu.GtTankMachineMenu;
+import dev.craft.gregtech.menu.GtVacuumFreezerMenu;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.inventory.MenuType;
 import net.neoforged.neoforge.common.extensions.IMenuTypeExtension;
@@ -44,6 +45,11 @@ public final class GtMenus {
     /** {@code GT_Container_Grinder}. */
     public static final Supplier<MenuType<GtGrinderMenu>> GRINDER = MENUS.register("gt_grinder",
             () -> IMenuTypeExtension.create((id, inventory, buf) -> new GtGrinderMenu(id, inventory,
+                    buf.readBlockPos())));
+
+    /** {@code GT_Container_VacuumFreezer}. */
+    public static final Supplier<MenuType<GtVacuumFreezerMenu>> VACUUM_FREEZER = MENUS.register("gt_vacuum_freezer",
+            () -> IMenuTypeExtension.create((id, inventory, buf) -> new GtVacuumFreezerMenu(id, inventory,
                     buf.readBlockPos())));
 
     private GtMenus() {

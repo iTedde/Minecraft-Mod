@@ -1,0 +1,23 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "B": {
+      "tag": "c:storage_blocks/steel"
+    },
+    "S": {
+      "tag": "c:plates/steel"
+    },
+    "T": {
+      "tag": "c:plates/tungsten"
+    }
+  },
+  "pattern": [
+    "TST",
+    "SBS",
+    "TST"
+  ],
+  "result": {
+    "count": 2,
+    "id": "craft:wolframium_grinder"
+  }
+}

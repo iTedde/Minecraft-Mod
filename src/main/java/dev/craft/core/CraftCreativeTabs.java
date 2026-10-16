@@ -159,6 +159,7 @@ public final class CraftCreativeTabs {
                             output.accept(GtItems.casing(type));
                         }
                         output.accept(GtItems.HIGHLY_ADVANCED_MACHINE_BLOCK);
+                        output.accept(GtItems.STEEL_BLOCK);
                         for (GtOre ore : GtOre.values()) {
                             output.accept(GtItems.ore(ore));
                             if (ore.hasDeepslateVariant()) {

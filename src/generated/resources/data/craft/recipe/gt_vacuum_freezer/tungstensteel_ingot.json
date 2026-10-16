@@ -1,0 +1,17 @@
+{
+  "type": "craft:gt_vacuum_freezer",
+  "duration": 450,
+  "eu_per_tick": 128,
+  "inputs": [
+    {
+      "count": 1,
+      "item": "craft:hot_tungstensteel_ingot"
+    }
+  ],
+  "outputs": [
+    {
+      "count": 1,
+      "id": "craft:tungstensteel_ingot"
+    }
+  ]
+}

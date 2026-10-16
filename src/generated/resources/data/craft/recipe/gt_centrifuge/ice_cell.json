@@ -1,0 +1,23 @@
+{
+  "type": "craft:gt_centrifuge",
+  "duration": 40,
+  "eu_per_tick": 5,
+  "inputs": [
+    {
+      "count": 1,
+      "item": "craft:ice_cell"
+    }
+  ],
+  "outputs": [
+    {
+      "count": 1,
+      "id": "minecraft:ice"
+    },
+    {},
+    {},
+    {
+      "count": 1,
+      "id": "craft:empty_cell"
+    }
+  ]
+}

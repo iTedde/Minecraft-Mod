@@ -1,0 +1,10 @@
+{
+  "type": "craft:macerator",
+  "ingredient": {
+    "tag": "c:storage_blocks/steel"
+  },
+  "result": {
+    "count": 9,
+    "id": "craft:steel_dust"
+  }
+}

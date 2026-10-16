@@ -1,0 +1,11 @@
+{
+  "type": "craft:compressor",
+  "count": 9,
+  "ingredient": {
+    "tag": "c:ingots/steel"
+  },
+  "result": {
+    "count": 1,
+    "id": "craft:steel_block"
+  }
+}

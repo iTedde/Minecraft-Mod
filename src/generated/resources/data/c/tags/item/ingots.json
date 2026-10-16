@@ -12,6 +12,8 @@
     "#c:ingots/silver",
     "#c:ingots/zinc",
     "#c:ingots/titanium",
-    "#c:ingots/chrome"
+    "#c:ingots/chrome",
+    "#c:ingots/tungsten",
+    "#c:ingots/tungstensteel"
   ]
 }

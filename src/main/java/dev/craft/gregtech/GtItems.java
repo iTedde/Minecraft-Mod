@@ -283,6 +283,19 @@ public final class GtItems {
     public static final DeferredItem<BlockItem> HIGHLY_ADVANCED_MACHINE_BLOCK =
             ITEMS.registerSimpleBlockItem(GtBlocks.HIGHLY_ADVANCED_MACHINE_BLOCK);
 
+    // --- tungsten chain (phase 8e.4): Material 5/6/22/80/83, Component 23, Cell 23, Block 11 ---
+    public static final DeferredItem<GtMaterialItem> TUNGSTEN_INGOT = material("tungsten_ingot", "W");
+    public static final DeferredItem<GtMaterialItem> TUNGSTEN_PLATE = material("tungsten_plate", "W");
+    public static final DeferredItem<GtMaterialItem> HOT_TUNGSTENSTEEL_INGOT = material("hot_tungstensteel_ingot", "");
+    public static final DeferredItem<GtMaterialItem> TUNGSTENSTEEL_INGOT = material("tungstensteel_ingot",
+            "Vacuum Hardened");
+    public static final DeferredItem<GtMaterialItem> TUNGSTENSTEEL_PLATE = material("tungstensteel_plate",
+            "Vacuum Hardened");
+    public static final DeferredItem<GtMaterialItem> WOLFRAMIUM_GRINDER = component("wolframium_grinder");
+    public static final DeferredItem<GtMaterialItem> ICE_CELL = material("ice_cell", "H2O");
+    /** {@code GT_BlockMetaID_Block} 11. */
+    public static final DeferredItem<BlockItem> STEEL_BLOCK = ITEMS.registerSimpleBlockItem(GtBlocks.STEEL_BLOCK);
+
     public static DeferredItem<BlockItem> ore(GtOre ore) {
         return ORES.get(ore);
     }

@@ -11,7 +11,9 @@ import dev.craft.gregtech.machine.ElectrolyzerBlockEntity;
 import dev.craft.gregtech.machine.GrinderBlockEntity;
 import dev.craft.gregtech.machine.GtMachineBlockEntity;
 import dev.craft.gregtech.machine.ImplosionCompressorBlockEntity;
+import dev.craft.gregtech.machine.VacuumFreezerBlockEntity;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.state.BlockState;
 
 /** GregTech machines (meta tile entities of {@code GT_BlockMetaID_Machine}), spec 13. */
@@ -45,6 +47,13 @@ public enum GtMachine {
         @Override
         public int getSideTexture() {
             return 70;
+        }
+    },
+    VACUUM_FREEZER("vacuum_freezer", "vacuum_freezer", Layout.TOP, 128, 68, 69, "Cools down anything",
+            VacuumFreezerBlockEntity::new) {
+        @Override
+        public int getTopLayoutSideTexture(Direction side) {
+            return 77;
         }
     };
 
@@ -115,6 +124,11 @@ public enum GtMachine {
         return FRONT_LAYOUT_SIDE;
     }
 
+    /** {@link Layout#TOP}: texture of a horizontal side (implosion compressor: east/west 73, north/south 74). */
+    public int getTopLayoutSideTexture(Direction side) {
+        return side.getAxis() == Direction.Axis.X ? TOP_LAYOUT_EAST_WEST : TOP_LAYOUT_NORTH_SOUTH;
+    }
+
     /** GT tooltip description ({@code getDescription}). */
     public String getDescription() {
         return description;
@@ -132,7 +146,7 @@ public enum GtMachine {
         SIDES,
         /** Horizontal facing only: front texture, back 71, everything else 72. */
         FRONT,
-        /** Facing fixed down, textures on absolute sides: front texture on top, bottom 71, east/west 73, north/south 74. */
+        /** Facing fixed down, textures on absolute sides: front texture on top, bottom 71, {@link #getTopLayoutSideTexture}. */
         TOP
     }
 }

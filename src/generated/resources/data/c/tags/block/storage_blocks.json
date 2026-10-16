@@ -2,6 +2,7 @@
   "values": [
     "#c:storage_blocks/uranium",
     "#c:storage_blocks/tin",
-    "#c:storage_blocks/bronze"
+    "#c:storage_blocks/bronze",
+    "#c:storage_blocks/steel"
   ]
 }

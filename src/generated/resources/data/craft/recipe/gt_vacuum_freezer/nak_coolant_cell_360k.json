@@ -1,0 +1,17 @@
+{
+  "type": "craft:gt_vacuum_freezer",
+  "duration": 30000,
+  "eu_per_tick": 128,
+  "inputs": [
+    {
+      "count": 1,
+      "item": "craft:nak_coolant_cell_360k"
+    }
+  ],
+  "outputs": [
+    {
+      "count": 1,
+      "id": "craft:nak_coolant_cell_360k"
+    }
+  ]
+}

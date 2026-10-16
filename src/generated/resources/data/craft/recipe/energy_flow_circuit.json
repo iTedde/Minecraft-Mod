@@ -1,0 +1,26 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "A": {
+      "item": "craft:advanced_circuit"
+    },
+    "I": {
+      "item": "craft:iridium_plate"
+    },
+    "L": {
+      "item": "craft:lapotron_crystal"
+    },
+    "W": {
+      "tag": "c:plates/tungsten"
+    }
+  },
+  "pattern": [
+    "AWA",
+    "LIL",
+    "AWA"
+  ],
+  "result": {
+    "count": 4,
+    "id": "craft:energy_flow_circuit"
+  }
+}

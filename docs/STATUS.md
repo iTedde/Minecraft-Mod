@@ -993,9 +993,29 @@ NaK-Kühlzellen, kein Vakuumgefrierer) **und die IC2-Nuke**. Teilpakete: 7a IC2-
 - 4 neue GameTests (`GtCircuitGameTests`, insgesamt 209 grün), `build` und `runClient` (Hauptmenü, keine Mod-Fehler)
   erfolgreich.
 
+## Erledigt (Teilpaket „Phase 8e.4: Wolfram-Kette + Vakuumgefrierer“, 2026-10-16)
+- Spezifikation: `12-gregtech-materialien.md` §5.6 (Wolfram-Kette), `13-gregtech-maschinen.md` §11 (Vakuumgefrierer).
+  Nutzerentscheidungen: Stahlblock ergänzt (nur Compressor 9 Barren → Block, Ofen/Macerator zurück; Werkbank wie im
+  Pack aus), Supraleiter entfällt. Gefrierer-Dauern aus der Pack-Config (Kühlzellen 10× Code-Wert; Korrektur in
+  `06-reaktor.md`).
+- Maschine `GtMachine.VACUUM_FREEZER` (`VacuumFreezerBlockEntity`, Menü/Screen, GUI `vacuum_freezer.png`): Würfel unter
+  dem Controller (6 Flächenmitten fortg., 20 verstärkte Gehäuse, Luft in der Mitte), 128 EU/t, Overclocker,
+  Rezepte für alle Kühlzellen (beliebige Hitze → kalt), heißen Wolframstahlbarren, Wasserzelle → Eiszelle.
+- Items: Wolframbarren/-platte, heißer Wolframstahlbarren, Wolframstahlbarren/-platte, Wolfram-Schleifkopf, Eiszelle;
+  Block Stahlblock (Härte 3, Resistenz 100). Tags `c:ingots|plates/tungsten|tungstensteel`, `c:storage_blocks/steel`,
+  `craft:crafting_grinder`.
+- Rezepte (`CraftRecipeProvider.gregTechTungsten`): Hochofen Wolfram (2500 K) und Wolfram + Stahl (3000 K), Bender,
+  Macerator, Platten-Nebenrezepte, Eiszelle in der Zentrifuge, Schleifkopf, Energiefluss-Schaltung `AWA/LIL/AWA`,
+  sechs Mischmetall-Varianten; Industrial Grinder nimmt jeden Schleifkopf; nachgetragen Macerator-Variante
+  `FDF/AMA/FAF` mit Schleifkopf (fehlte seit 8d.2).
+- 6 neue GameTests (`VacuumFreezerGameTests`, insgesamt 215 grün), `build` und `runClient` (Hauptmenü, keine
+  Mod-Fehler) erfolgreich.
+
 ## Nächste Schritte
-1. Teilpaket 8e.4: Wolfram-Kette + Vakuumgefrierer – zuerst Spezifikation (`12-gregtech-materialien.md` §5.4).
-2. Manuelle Client-Tests 8e.3: Schaltungskette im Assembler (Olivin → Datenspeicher → Elite-Platine → Datenkontrolle/
+1. Abnahme Phase 8; danach Phase 9 (Kraftwerke) – Umfang mit dem Nutzer klären.
+2. Manuelle Client-Tests 8e.4: Gefrierer-Würfel bauen, heiße Helium-Zelle aus dem Reaktor zurückkühlen; Wolframstaub
+   im Hochofen mit Kanthal-/Nichrom-Spulen und fortg. Gehäusen (≥ 2500 K / 3000 K), heißen Barren einfrieren.
+3. Manuelle Client-Tests 8e.3: Schaltungskette im Assembler (Olivin → Datenspeicher → Elite-Platine → Datenkontrolle/
    Energiefluss), fortg. GT-Gehäuse im Hochofen (+70 K je Block), Nanosäbel herstellen und einschalten.
 3. Manuelle Client-Tests 8e.1: Bauxitstaub (12 + 8 Zellen) im Elektrolyseur → kl. Titanstaub → Titanstaub →
    Hochofen (≥ 1500 K) → Titanbarren → Plattenbieger; Rubinstaub → Chromstaub → Hochofen (≥ 1700 K); Granatstaub in der

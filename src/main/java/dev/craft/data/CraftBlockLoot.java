@@ -60,6 +60,7 @@ public final class CraftBlockLoot extends BlockLootSubProvider {
             dropSelf(GtBlocks.casing(type).get());
         }
         dropSelf(GtBlocks.HIGHLY_ADVANCED_MACHINE_BLOCK.get());
+        dropSelf(GtBlocks.STEEL_BLOCK.get());
         for (GtOre ore : GtOre.values()) {
             gtOre(ore, GtBlocks.ore(ore).get());
             if (ore.hasDeepslateVariant()) {

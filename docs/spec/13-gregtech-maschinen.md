@@ -712,3 +712,64 @@ erreichbar und werden nicht umgesetzt (Item entfällt).
 **Neue Items:** Netherrackstaub (Dust 6), kleine Stäube Glowstone, Diamant, Smaragd, Olivin, Rubin, Saphir, grüner
 Saphir, roter/gelber Granat, Thorium, Plutonium (vorhanden), Mangan, Platin, Redstone, Eisen (IC2, vorhanden);
 Iridiumnugget; Diamant-Schleifkopf. Kleine Stäube jeweils 4 ↔ 1 an der Werkbank, soweit der große Staub existiert.
+
+## 11. Vakuumgefrierer (`GT_MetaTileEntity_VacuumFreezer`, ID 38, „Vacuum Freezer“) – Teilpaket 8e.4
+
+Eigene MetaTileEntity wie Hochofen (§5) und Grinder (§10), Basis §1.1/§1.2/§1.5/§1.6. Werte:
+
+| Wert | |
+|---|---|
+| `maxEUInput` | **128** (sichere Eingabe 128 · 4^Trafos), Energie von **allen** Seiten |
+| `maxEUStore` | 10 000 (+ Upgrades §1.4), MJ-Kapazität 10 000 (nur mit MJ-Konverter) |
+| Facing | **nur unten** (`isFacingValid = aFacing == 0`): Facing ist immer 0, Schraubenschlüssel dreht nicht |
+| Upgrades | Transformer, **Overclocker**, Energiespeicher/Lithium, MJ-Konverter |
+| Texturen (`terrain.png`) | oben 68 (aktiv 69), unten 71, alle Seiten 77 |
+| Beschreibung | „Cools down anything“; Tooltip „Max EU/p IN: 128“ |
+| Rechtsklick | öffnet immer die GUI |
+
+**Rezept:** `RPR/CGC/RPR`, R = raff. Eisenplatte **oder** Aluminiumplatte (zwei Rezepte), P = IC2-Pumpe,
+C = fortg. Schaltkreis (`craftingCircuitTier04`), G = verstärktes Glas (`glassReinforced`).
+
+**Slots:** 0 = Eingabe, 1 = Ausgabe (beide droppen). Seiten: oben → Slot 0, alle anderen → Slot 1.
+
+**Struktur** (`checkMachine`): Würfel 3 × 3 × 3 **unter** dem Controller, Mittelpunkt = Controller − 2 in y (der
+Controller sitzt mittig auf der Würfeloberseite, außerhalb). Mitte muss **Luft** sein. Die sechs Flächenmitten
+(direkte Nachbarn der Mitte, auch der Block direkt unter dem Controller) **fortgeschrittenes** Gehäuse (Meta 15), die
+übrigen 20 Positionen (Kanten und Ecken) **verstärktes** Gehäuse (Meta 14). Prüfzeitpunkt wie §5 (`mUpdate` = 5,
+`onMachineBlockUpdate`).
+
+**Tick (`onPostTick`, Server):**
+1. Wenn `mUpdate-- == 0`: `mMachine = checkMachine()`. Aktiv = `mMachine`.
+2. Wenn `mMachine` und ein Rezept läuft (`mMaxProgresstime > 0`): ist `mProgresstime ≥ 0` und gelingt
+   `decreaseStoredEnergy(mEUt · 4^OC)` **nicht**, dann bei `constant_need_of_energy` (Pack: an) `mProgresstime = −10`
+   und Fehlercode 1. Sonst `mProgresstime += 2^OC`; erreicht es `mMaxProgresstime`: Ausgabe in Slot 1 (leer → Kopie,
+   gleiches Item → `min(maxStack, n + Ausgabe)`, anderes Item → Ausgabe verloren), Fortschritt/Dauer 0. Bei
+   `mProgresstime < 0` wird ohne Energieabzug weitergezählt (Originaleigenheit wie §10).
+3. Sonst bei gespeicherter Energie > 100: `checkRecipe` (nur mit `mMachine`): Rezept zu Slot 0 (Item; Eingaben mit
+   Meta −1 passen auf **jede** Hitze/Beschädigung), nur wenn Slot 1 leer ist oder das gleiche Item mit Platz für die
+   Ausgabe enthält; Eingabe abziehen, Ausgabe merken (NBT `mOutputItem1`), Dauer laut Rezept, **128 EU/t**.
+
+**Rezepte** (Dauer aus Pack-Config `vacuumfreezer`, weicht vom Code ab; alle 128 EU/t; Kühlzellen: Eingabe mit
+beliebiger gespeicherter Hitze – auch 0 –, Ausgabe dieselbe Zelle mit Hitze 0):
+
+| Eingabe | Ausgabe | Ticks (Config) | Code-Standard |
+|---|---|---:|---:|
+| 10k-Kühlzelle (IC2) | 10k-Kühlzelle | 1000 | 100 |
+| 30k-Kühlzelle | 30k-Kühlzelle | 3000 | 300 |
+| 60k-Kühlzelle | 60k-Kühlzelle | 6000 | 600 |
+| 60k-Helium-Kühlzelle | dieselbe, kalt | 7000 | 700 |
+| 180k-Helium-Kühlzelle | dieselbe, kalt | 20 000 | 2000 |
+| 360k-Helium-Kühlzelle | dieselbe, kalt | 39 000 | 3900 |
+| 60k-NaK-Kühlzelle | dieselbe, kalt | 5000 | 500 |
+| 180k-NaK-Kühlzelle | dieselbe, kalt | 15 000 | 1500 |
+| 360k-NaK-Kühlzelle | dieselbe, kalt | 30 000 | 3000 |
+| Heißer Wolframstahlbarren | Wolframstahlbarren | 450 | 450 |
+| Wasserzelle | Eiszelle (GT-Zelle 23) | 50 | 50 |
+
+(Config-Einträge `GT_Materials.5` und `itemCellWater` stehen mit Typ `B:`, Werte 450/50 werden trotzdem als Zahl
+gelesen. `GT_Cells.131` gehört zu einer Plasmazelle → nicht im Umfang.)
+
+**GUI** (`gui/VacuumFreezer.png`, `GT_Container_VacuumFreezer`): Titel „Vacuum Freezer“ (8, 4); „Incomplete Machine
+Casing!“ (8, 63) bei fehlender Struktur; (8, 72) „Insufficient Energy Line!“ bei Fehlercode 1, sonst „Inventory“.
+Slots 0 (34, 25), 1 = Ausgabe (86, 25). Fortschrittspfeil (58, 28) ← (176, 0), Breite
+`min(20, (p > 0 ? 1 : 0) + p · 20 / max)`, Höhe 11.

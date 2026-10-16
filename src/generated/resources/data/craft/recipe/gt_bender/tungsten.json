@@ -1,0 +1,17 @@
+{
+  "type": "craft:gt_bender",
+  "duration": 50,
+  "eu_per_tick": 20,
+  "inputs": [
+    {
+      "count": 1,
+      "tag": "c:ingots/tungsten"
+    }
+  ],
+  "outputs": [
+    {
+      "count": 1,
+      "id": "craft:tungsten_plate"
+    }
+  ]
+}

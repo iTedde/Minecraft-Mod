@@ -164,10 +164,8 @@ nachgetragen (fehlten seit 8c): 2 Rubine ` UU/UUU/UU `, 2 Saphire `UU /UUU/ UU`,
 
 ### 5.4 Nicht im Umfang 8e
 
-- **Wolfram-Kette – entschieden (Nutzer, 2026-10-16): Teilpaket 8e.4 zusammen mit dem Vakuumgefrierer.** Mit Kanthal-Spulen (+500 K) und fortgeschrittenen Gehäusen
-  (34 × 70 K) erreicht der Hochofen 2500 K → Wolframbarren (Wolframstaub, 2000 / 128 / 2500 K), Wolframplatte,
-  Wolframstahl (Wolfram + Stahl → 2 heiße Wolframstahlbarren + 4 dunkle Asche, 2000 / 128 / 3000 K; Vakuumgefrierer
-  kühlt), Wolfram-Schleifkopf, weitere Mischmetall-Varianten, Energiefluss-Schaltung per Werkbank (`AWA/LIL/AWA`).
+- **Wolfram-Kette – entschieden (Nutzer, 2026-10-16): Teilpaket 8e.4 zusammen mit dem Vakuumgefrierer**, spezifiziert
+  in §5.6 bzw. `13-gregtech-maschinen.md` §11.
 - **Platinen 48/49/24** (Basis-/fortg. Platine, fortg. Schaltkreisteile): brauchen Elektrumplatten; Elektrum gibt es
   nur über die Legierungsschmelze (nicht im Umfang) → entfallen, ebenso ihre Schrottbox-Drops.
 - GT-eigene Items (Jackhammer, Cloaking Device, Lapotronic Energy Orb, Datenkugel, Sonictron, Fusion,
@@ -181,3 +179,59 @@ nachgetragen (fehlten seit 8c): 2 Rubine ` UU/UUU/UU `, 2 Saphire `UU /UUU/ UU`,
   Energie-/Lapotronkristall, Glasfaser, Windmühle).
 - **8e.3 Schaltungen und Gehäuse:** Datenspeicher-/Datenkontroll-/Energiefluss-Schaltung, Elite-Platine,
   Titan-Maschinenhülle, Hochentwickelter Maschinenblock, fortg. Maschinengehäuse, Nanosäbel.
+- **8e.4 Wolfram-Kette + Vakuumgefrierer:** §5.6 und `13-gregtech-maschinen.md` §11.
+
+### 5.6 Phase 8e.4: Wolfram-Kette (Spezifikation 2026-10-16)
+
+Quelle: `GT_Mod.java` Z. 730–824 (Items), 1720–1730 (Gefrierer-Rezepte), 2338–2371 (Mischmetall), 2443 (Energiefluss),
+2579 (Schleifkopf), 4263–4292 (Macerator); `GT_OreDictHandler.java` Z. 2160–2180 (`dustTungsten`), 2357–2361
+(`ingot*`: Bender, Compressor → Block), 2635–2665 (`ingotTungsten`/`ingotSteel`), 3014–3087 (`block*`). Pack-Config
+`RecipesAdvancedConfig.cfg` (Abschnitte `blastfurnace`, `bender`, `vacuumfreezer`, `storageblock*`),
+`GregTech.cfg` `basicmetalblastfurnacerequirement` Tungsten = true.
+
+**Neue Items/Blöcke:**
+
+| Item | GT-Meta (Textur) | OreDict / Tag |
+|---|---|---|
+| Wolframbarren („Tungsten Ingot“, Tooltip „W“) | Material 22 (`materials.png`) | `ingotTungsten` |
+| Wolframplatte („Tungsten Plate“, „W“) | Material 80 | `plateTungsten` |
+| Heißer Wolframstahlbarren („Hot Tungstensteel Ingot“, ohne Tooltip) | Material 5 | – (kein OreDict) |
+| Wolframstahlbarren („Tungstensteel Ingot“, „Vacuum Hardened“) | Material 6 | `ingotTungstenSteel` |
+| Wolframstahlplatte („Tungstensteel Plate“, „Vacuum Hardened“) | Material 83 | `plateTungstenSteel` |
+| Wolfram-Schleifkopf („Wolframium Grinder“, „Regular Grinding Head“) | Komponente 23 (`components.png`) | `craftingGrinder` |
+| Eiszelle („Ice Cell“, „H2O“) | GT-Zelle 23 (`cells.png`) | – |
+| Stahlblock („Block of Steel“) – **Nutzerentscheidung 2026-10-16** (nur für den Schleifkopf) | `BlockMetaID_Block` 11: Härte 3, Explosionsresistenz 100, Textur `blocks.png` Index 11 (alle Seiten), Eisenspitzhacke, keine Mob-Spawns, **kein** Maschinengehäuse | `blockSteel` |
+
+Der heiße Barren ist ein gewöhnliches Item (in GT 2.90 kein Schaden, keine Abkühlung mit der Zeit).
+
+**Rezepte:**
+
+| Eingabe | Maschine | Ausgabe | Ticks / EU/t / Hitze |
+|---|---|---|---|
+| Wolframstaub | Hochofen | Wolframbarren | 2000 / 128 / 2500 K |
+| Wolframbarren + Stahlbarren (beliebige Reihenfolge, je 1) | Hochofen | 2 heiße Wolframstahlbarren, 4 dunkle Asche | 2000 / 128 / 3000 K |
+| Heißer Wolframstahlbarren | Vakuumgefrierer | Wolframstahlbarren | 450 / 128 |
+| Wolframbarren | Macerator | Wolframstaub | – |
+| Wolframbarren, Wolframstahlbarren | Plattenbieger | 1 Platte | 50 / 20 |
+| Wolframplatte | Macerator / Ofen | Wolframstaub / Wolframbarren | – (Platten-Nebenrezepte wie `13-…` §3) |
+| Wolframstahlplatte | Ofen | Wolframstahlbarren | – (kein Wolframstahlstaub) |
+| 9 Stahlbarren | Compressor | Stahlblock | – (`storageblockcompressing` true) |
+| Stahlblock | Ofen / Macerator | 9 Stahlbarren / 9 Stahlstaub | – (`furnace`/`storageblockmacerating` true; Werkbank-Ver- und -Entpacken im Pack **aus**) |
+| `TST/SBS/TST`, T = Wolframplatte, S = Stahlplatte, B = Stahlblock | Werkbank | 2 Wolfram-Schleifkopf | – |
+| `AWA/LIL/AWA`, A = fortg. Schaltkreis, W = Wolframplatte, L = Lapotronkristall (`crafting1kkEUStore`, beliebige Ladung), I = Iridiumplatte | Werkbank | 4 Energiefluss-Schaltungen | – |
+| Mischmetall senkrecht `X/Y/Z`: X = Wolframplatte, Y = Bronzeplatte, Z = Zinn-/Zink-/Aluminiumplatte | Werkbank | 3 / 3 / 4 Mischmetallbarren | – |
+| Mischmetall: X = Wolframstahlplatte, Y = Bronzeplatte, Z = Zinn-/Zink-/Aluminiumplatte | Werkbank | 5 / 5 / 6 Mischmetallbarren | – |
+| Wasserzelle | Vakuumgefrierer | Eiszelle | 50 / 128 |
+| Eiszelle | Zentrifuge | Eis + leere Zelle | 40 |
+
+Kein Ofenrezept für Wolframstaub/-erz → Barren (`basicmetalblastfurnacerequirement` Tungsten = true). Schleifkopf-
+Verwendungen: Industrial Grinder (`EAP/GGG/ABA`, G = **beliebiger** Schleifkopf, Tag `craft:crafting_grinder` =
+Diamant- + Wolfram-Schleifkopf) und – **nachgetragen**, fehlte seit 8d.2 – Macerator-Variante `FDF/AMA/FAF`
+(F = Feuerstein, D = Schleifkopf, A = el. Schaltkreis `craftingCircuitTier02`, M = Maschinenblock), zusätzlich zur
+Diamant-Variante (`08-rezepte.md`).
+
+**Entfällt:** Messing-Varianten des Mischmetalls (Messing nur über Legierungsschmelze/Induktionsofen, nicht im Umfang);
+Wolframiumzelle (GT-Zelle 4, Canner Wolframstaub + Zelle, nur für den Fusionsreaktor); **Supraleiter** (Komponente 2,
+`CCC/WIW/LLL`; alle Verwendungen – Fusion, Plasmagenerator, Lapotronic Orb … – nicht im Umfang; Nutzerentscheidung
+2026-10-16); Plasmagenerator (Wolframstahlplatten); Wolframstahl-Wände (`BlockMetaID_Block2` 8/9, brauchen IC2-Stahlbeton
+bzw. Iridium-verstärkten Stein, nicht vorhanden); Wolframblock/-nugget; Railcraft-Teile.

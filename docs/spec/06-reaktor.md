@@ -267,7 +267,7 @@ Texturen `items.png` (Index = Item-Nummer), Namen nur Englisch.
 
 **Helium-Kühlzelle:** Hitze wie die IC2-Kühlzelle (NBT `heat`, Zerstörung mit negativem Rest), Stack 1, nur **100**
 Damage-Stufen für den Balken, Tooltip „Stored Heat: n“, `influenceExplosion = 1 + Kapazität/30000` (wird addiert).
-Zurückkühlen nur im Vakuumgefrierer (nicht umgesetzt).
+Zurückkühlen nur im Vakuumgefrierer (`13-gregtech-maschinen.md` §11, Phase 8e.4).
 
 **Iridium-Neutronenreflektor:** stapelbar (64), wirkt nur als Einzelstück (`stackSize > 1` → Puls abgelehnt). Ein
 Puls wird an die pulsende Komponente zurückgegeben (`pulsing.acceptUraniumPulse(reactor, pulsing, reflektor, …)` →
@@ -305,7 +305,7 @@ bei der Uranzelle +1 Output); kein Verschleiß; Explosion −1.
 **Phase 8a – NaK-Kühlzellen und Bleiplatte** (`GT_Mod` Z. 3772–3818, 2587, 4598; `GT_OreDictHandler` Z. 1957–2224):
 - NaK (Config `NaKCoolantcell`): 60k `TNT/KCK/TNT` **und** `TKT/NCN/TKT` (N = Natriumzelle, K = Kaliumzelle, T = Zinnbarren,
   C = unbenutzte 10k-Kühlzelle), 180k `TTT/HHH/TTT`, 360k `THT/TCT/THT` (C = dichte Kupferplatte), 2 Overclocker ` H /WCW`
-  mit 60k-NaK-Zelle. Namen „60k/180k/360k NaK Coolantcell“ (so im Original). Vakuumgefrierer 500/1500/3000 (nicht umgesetzt).
+  mit 60k-NaK-Zelle. Namen „60k/180k/360k NaK Coolantcell“ (so im Original). Vakuumgefrierer laut Pack-Config 5000/15000/30000 Ticks (Code 500/1500/3000), Phase 8e.4.
 - Natrium: Lapis → Zentrifuge → kl. Sodalithstaub (4 → 1 Sodalithstaub, Staub 5) → Elektrolyseur 23 Sodalithstaub +
   8 Zellen → 4 Natrium-, 3 Aluminiumstaub, 3 Silizium-, 1 Chloritzelle (1350 Ticks, 90 EU/t).
 - Kalium: Enderperle → Macerator → Enderperlenstaub (Staub 0, „BeK4N5Cl6“, Verstärker 50 000) → Elektrolyseur

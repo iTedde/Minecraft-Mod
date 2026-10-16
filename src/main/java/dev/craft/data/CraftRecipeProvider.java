@@ -96,6 +96,7 @@ public final class CraftRecipeProvider extends RecipeProvider {
         gregTechUnlocks();
         gregTechUnlockedRecipes();
         gregTechCircuits();
+        gregTechTungsten();
         uuMatter();
         smelting();
         macerator();
@@ -193,7 +194,7 @@ public final class CraftRecipeProvider extends RecipeProvider {
                     .define('E', machine(Ic2Machine.EXTRACTOR)).save();
         }
         ItemStack none = ItemStack.EMPTY;
-        // GT_Mod: the ice cell needs the vacuum freezer; uranium/plutonium/thorium recipes are in reactorGregTech().
+        // GT_Mod: the ice cell recipe is in gregTechTungsten(); uranium/plutonium/thorium recipes are in reactorGregTech().
         centrifuge("magma_cream", Ingredient.of(Items.MAGMA_CREAM), 1, 0, 500, stack(Items.BLAZE_POWDER, 1),
                 stack(Items.SLIME_BALL, 1));
         centrifuge("dirt", Ingredient.of(Items.DIRT), 16, 0, 2500, stack(Ic2Items.COMPRESSED_PLANT_BALL, 1),
@@ -932,6 +933,10 @@ public final class CraftRecipeProvider extends RecipeProvider {
         shaped(machine(Ic2Machine.MACERATOR), 1, "macerator").pattern("FDF").pattern("DMD").pattern("FAF")
                 .define('F', Items.FLINT).define('D', diamond()).define('M', CraftItemTagsProvider.RAW_MACHINE_TIER_01)
                 .define('A', Ic2Items.ADVANCED_CIRCUIT).save();
+        // GT: second variant with a grinding head (craftingGrinder) and electronic circuits.
+        shaped(machine(Ic2Machine.MACERATOR), 1, "macerator_from_grinder").pattern("FDF", "AMA", "FAF")
+                .define('F', Items.FLINT).define('D', CraftItemTagsProvider.CRAFTING_GRINDER)
+                .define('M', CraftItemTagsProvider.RAW_MACHINE_TIER_01).define('A', Ic2Items.ELECTRONIC_CIRCUIT).save();
         shaped(machine(Ic2Machine.PUMP), 1, "ic2_pump").pattern("cCc", "cMc", "PTP")
                 .define('c', Ic2Items.EMPTY_CELL).define('C', Ic2Items.ELECTRONIC_CIRCUIT)
                 .define('M', Ic2Items.MACHINE_CASING).define('P', Ic2Items.MINING_PIPE)
@@ -1647,6 +1652,77 @@ public final class CraftRecipeProvider extends RecipeProvider {
                 .define('L', Ic2Items.LAPOTRON_CRYSTAL).define('C', GtItems.ENERGY_FLOW_CIRCUIT).save();
     }
 
+    /** Tungsten chain and vacuum freezer (spec 12 §5.6, spec 13 §11, phase 8e.4). */
+    private void gregTechTungsten() {
+        for (String variant : new String[]{"refined_iron", "aluminium"}) {
+            shaped(GtItems.machine(GtMachine.VACUUM_FREEZER), 1, "vacuum_freezer_from_" + variant)
+                    .pattern("RPR", "CGC", "RPR").define('R', variant.equals("aluminium")
+                            ? CraftItemTagsProvider.PLATES_ALUMINIUM : CraftItemTagsProvider.PLATES_REFINED_IRON)
+                    .define('P', machine(Ic2Machine.PUMP)).define('C', Ic2Items.ADVANCED_CIRCUIT)
+                    .define('G', Ic2Items.REINFORCED_GLASS).save();
+        }
+        // Pack config "vacuumfreezer"; coolant cells with any heat come out cold.
+        freeze("coolant_cell_10k", Ic2Items.COOLANT_CELL_10K, Ic2Items.COOLANT_CELL_10K, 1000);
+        freeze("coolant_cell_30k", Ic2Items.COOLANT_CELL_30K, Ic2Items.COOLANT_CELL_30K, 3000);
+        freeze("coolant_cell_60k", Ic2Items.COOLANT_CELL_60K, Ic2Items.COOLANT_CELL_60K, 6000);
+        freeze("helium_coolant_cell_60k", GtItems.HELIUM_COOLANT_CELL_60K, GtItems.HELIUM_COOLANT_CELL_60K, 7000);
+        freeze("helium_coolant_cell_180k", GtItems.HELIUM_COOLANT_CELL_180K, GtItems.HELIUM_COOLANT_CELL_180K, 20000);
+        freeze("helium_coolant_cell_360k", GtItems.HELIUM_COOLANT_CELL_360K, GtItems.HELIUM_COOLANT_CELL_360K, 39000);
+        freeze("nak_coolant_cell_60k", GtItems.NAK_COOLANT_CELL_60K, GtItems.NAK_COOLANT_CELL_60K, 5000);
+        freeze("nak_coolant_cell_180k", GtItems.NAK_COOLANT_CELL_180K, GtItems.NAK_COOLANT_CELL_180K, 15000);
+        freeze("nak_coolant_cell_360k", GtItems.NAK_COOLANT_CELL_360K, GtItems.NAK_COOLANT_CELL_360K, 30000);
+        freeze("tungstensteel_ingot", GtItems.HOT_TUNGSTENSTEEL_INGOT, GtItems.TUNGSTENSTEEL_INGOT, 450);
+        freeze("ice_cell", Ic2Items.WATER_CELL, GtItems.ICE_CELL, 50);
+        centrifuge("ice_cell", Ingredient.of(GtItems.ICE_CELL), 1, 0, 40, stack(Items.ICE, 1), ItemStack.EMPTY,
+                ItemStack.EMPTY, stack(Ic2Items.EMPTY_CELL, 1));
+
+        // basicmetalblastfurnacerequirement Tungsten=true: no furnace recipe for the dust.
+        blast("tungsten_ingot", SizedIngredient.of(GtItems.TUNGSTEN_DUST.get(), 1), null, 2000, 2500,
+                stack(GtItems.TUNGSTEN_INGOT, 1));
+        blast("hot_tungstensteel_ingot", SizedIngredient.of(CraftItemTagsProvider.INGOTS_TUNGSTEN, 1),
+                SizedIngredient.of(CraftItemTagsProvider.INGOTS_STEEL, 1), 2000, 3000,
+                stack(GtItems.HOT_TUNGSTENSTEEL_INGOT, 2), stack(GtItems.DARK_ASH, 4));
+        machine(MachineRecipe.Kind.MACERATOR, "tungsten_ingot", Ingredient.of(CraftItemTagsProvider.INGOTS_TUNGSTEN), 1,
+                GtItems.TUNGSTEN_DUST, 1);
+        plate("tungsten", CraftItemTagsProvider.INGOTS_TUNGSTEN, GtItems.TUNGSTEN_PLATE, GtItems.TUNGSTEN_DUST,
+                GtItems.TUNGSTEN_INGOT);
+        plate("tungstensteel", CraftItemTagsProvider.INGOTS_TUNGSTENSTEEL, GtItems.TUNGSTENSTEEL_PLATE, null,
+                GtItems.TUNGSTENSTEEL_INGOT);
+
+        // Steel block: compressor only (storage block crafting/decrafting is off in the pack), furnace and macerator back.
+        machine(MachineRecipe.Kind.COMPRESSOR, "steel_block", Ingredient.of(CraftItemTagsProvider.INGOTS_STEEL), 9,
+                GtItems.STEEL_BLOCK, 1);
+        smelt("steel_ingot_from_steel_block", Ingredient.of(CraftItemTagsProvider.STORAGE_BLOCKS_STEEL),
+                GtItems.STEEL_INGOT, 9, 0.0F);
+        machine(MachineRecipe.Kind.MACERATOR, "steel_block", Ingredient.of(CraftItemTagsProvider.STORAGE_BLOCKS_STEEL),
+                1, GtItems.STEEL_DUST, 9);
+
+        shaped(GtItems.WOLFRAMIUM_GRINDER, 2, "wolframium_grinder").pattern("TST", "SBS", "TST")
+                .define('T', CraftItemTagsProvider.PLATES_TUNGSTEN).define('S', CraftItemTagsProvider.PLATES_STEEL)
+                .define('B', CraftItemTagsProvider.STORAGE_BLOCKS_STEEL).save();
+        // Any charge: the lapotron crystal's energy is lost.
+        shaped(GtItems.ENERGY_FLOW_CIRCUIT, 4, "energy_flow_circuit").pattern("AWA", "LIL", "AWA")
+                .define('A', Ic2Items.ADVANCED_CIRCUIT).define('W', CraftItemTagsProvider.PLATES_TUNGSTEN)
+                .define('L', Ic2Items.LAPOTRON_CRYSTAL).define('I', Ic2Items.IRIDIUM_PLATE).save();
+        // Brass variants need the alloy smelter (out of scope).
+        mixedMetal("tungsten_bronze_tin", CraftItemTagsProvider.PLATES_TUNGSTEN, CraftItemTagsProvider.PLATES_TIN, 3);
+        mixedMetal("tungsten_bronze_zinc", CraftItemTagsProvider.PLATES_TUNGSTEN, CraftItemTagsProvider.PLATES_ZINC, 3);
+        mixedMetal("tungsten_bronze_aluminium", CraftItemTagsProvider.PLATES_TUNGSTEN,
+                CraftItemTagsProvider.PLATES_ALUMINIUM, 4);
+        mixedMetal("tungstensteel_bronze_tin", CraftItemTagsProvider.PLATES_TUNGSTENSTEEL,
+                CraftItemTagsProvider.PLATES_TIN, 5);
+        mixedMetal("tungstensteel_bronze_zinc", CraftItemTagsProvider.PLATES_TUNGSTENSTEEL,
+                CraftItemTagsProvider.PLATES_ZINC, 5);
+        mixedMetal("tungstensteel_bronze_aluminium", CraftItemTagsProvider.PLATES_TUNGSTENSTEEL,
+                CraftItemTagsProvider.PLATES_ALUMINIUM, 6);
+    }
+
+    /** Vacuum freezer recipe: one input (any components), 128 EU/t. */
+    private void freeze(String name, ItemLike input, ItemLike result, int duration) {
+        output.accept(id("gt_vacuum_freezer/" + name), new GtRecipe(GtRecipe.Kind.VACUUM_FREEZER,
+                List.of(SizedIngredient.of(input, 1)), List.of(new ItemStack(result)), duration, 128, 0), null);
+    }
+
     /**
      * Industrial grinder (spec 13 §10): the machine, its grinding head, all reachable grinder recipes and what they
      * unlock (small dusts, iridium nuggets).
@@ -1655,7 +1731,8 @@ public final class CraftRecipeProvider extends RecipeProvider {
         shaped(GtItems.machine(GtMachine.INDUSTRIAL_GRINDER), 1, "industrial_grinder")
                 .pattern("EAP", "GGG", "ABA").define('E', GtItems.machine(GtMachine.INDUSTRIAL_ELECTROLYZER))
                 .define('A', Ic2Items.ADVANCED_CIRCUIT).define('P', machine(Ic2Machine.PUMP))
-                .define('G', GtItems.DIAMOND_GRINDER).define('B', CraftItemTagsProvider.RAW_MACHINE_TIER_02).save();
+                .define('G', CraftItemTagsProvider.CRAFTING_GRINDER).define('B', CraftItemTagsProvider.RAW_MACHINE_TIER_02)
+                .save();
         shaped(GtItems.DIAMOND_GRINDER, 2, "diamond_grinder").pattern("DSD", "SGS", "DSD")
                 .define('D', GtItems.DIAMOND_DUST).define('S', CraftItemTagsProvider.PLATES_STEEL)
                 .define('G', Ic2Items.INDUSTRIAL_DIAMOND).save();

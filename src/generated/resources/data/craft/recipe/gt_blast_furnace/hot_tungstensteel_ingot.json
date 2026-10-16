@@ -1,0 +1,26 @@
+{
+  "type": "craft:gt_blast_furnace",
+  "duration": 2000,
+  "eu_per_tick": 128,
+  "inputs": [
+    {
+      "count": 1,
+      "tag": "c:ingots/tungsten"
+    },
+    {
+      "count": 1,
+      "tag": "c:ingots/steel"
+    }
+  ],
+  "outputs": [
+    {
+      "count": 2,
+      "id": "craft:hot_tungstensteel_ingot"
+    },
+    {
+      "count": 4,
+      "id": "craft:dark_ash"
+    }
+  ],
+  "special": 3000
+}
