@@ -1,26 +1,23 @@
 package dev.craft.gregtech.client;
 
+import java.util.List;
+
 import dev.craft.Craft;
+import dev.craft.core.client.RecipeArea;
+import dev.craft.core.client.RecipeCategories;
 import dev.craft.gregtech.menu.GtVacuumFreezerMenu;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
 /** {@code GT_GUIContainer_VacuumFreezer}: casing warning, energy warning and progress arrow. */
-public class GtVacuumFreezerScreen extends AbstractContainerScreen<GtVacuumFreezerMenu> {
+public class GtVacuumFreezerScreen extends GtMachineScreen<GtVacuumFreezerMenu> {
     private static final ResourceLocation TEXTURE =
             ResourceLocation.fromNamespaceAndPath(Craft.MODID, "textures/gui/gt/vacuum_freezer.png");
 
     public GtVacuumFreezerScreen(GtVacuumFreezerMenu menu, Inventory inventory, Component title) {
         super(menu, inventory, title);
-    }
-
-    @Override
-    public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
-        super.render(graphics, mouseX, mouseY, partialTick);
-        renderTooltip(graphics, mouseX, mouseY);
     }
 
     @Override
@@ -42,5 +39,10 @@ public class GtVacuumFreezerScreen extends AbstractContainerScreen<GtVacuumFreez
         if (scale > 0) {
             graphics.blit(TEXTURE, leftPos + 58, topPos + 28, 176, 0, scale, 11);
         }
+    }
+
+    @Override
+    protected List<RecipeArea> getRecipeAreas() {
+        return List.of(new RecipeArea(58, 28, 20, 11, RecipeCategories.GT_VACUUM_FREEZER));
     }
 }

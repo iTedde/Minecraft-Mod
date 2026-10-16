@@ -1,26 +1,23 @@
 package dev.craft.gregtech.client;
 
+import java.util.List;
+
 import dev.craft.Craft;
+import dev.craft.core.client.RecipeArea;
+import dev.craft.core.client.RecipeCategories;
 import dev.craft.gregtech.menu.GtImplosionCompressorMenu;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
 /** {@code GT_GUIContainer_ImplosionCompressor}: casing warning and progress arrow. */
-public class GtImplosionCompressorScreen extends AbstractContainerScreen<GtImplosionCompressorMenu> {
+public class GtImplosionCompressorScreen extends GtMachineScreen<GtImplosionCompressorMenu> {
     private static final ResourceLocation TEXTURE =
             ResourceLocation.fromNamespaceAndPath(Craft.MODID, "textures/gui/gt/implosion.png");
 
     public GtImplosionCompressorScreen(GtImplosionCompressorMenu menu, Inventory inventory, Component title) {
         super(menu, inventory, title);
-    }
-
-    @Override
-    public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
-        super.render(graphics, mouseX, mouseY, partialTick);
-        renderTooltip(graphics, mouseX, mouseY);
     }
 
     @Override
@@ -40,5 +37,10 @@ public class GtImplosionCompressorScreen extends AbstractContainerScreen<GtImplo
         if (scale > 0) {
             graphics.blit(TEXTURE, leftPos + 58, topPos + 28, 176, 0, scale, 11);
         }
+    }
+
+    @Override
+    protected List<RecipeArea> getRecipeAreas() {
+        return List.of(new RecipeArea(58, 28, 20, 11, RecipeCategories.GT_IMPLOSION));
     }
 }

@@ -1,36 +1,37 @@
 package dev.craft.gregtech.client;
 
+import java.util.List;
+
 import dev.craft.Craft;
+import dev.craft.core.client.RecipeArea;
+import dev.craft.core.client.RecipeCategories;
+import dev.craft.gregtech.GtMachine;
 import dev.craft.gregtech.machine.GtMachineBlock;
 import dev.craft.gregtech.menu.GtBasicMachineMenu;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
 /** {@code GT_GUIContainer_BasicMachine}: title top left, three toggle buttons and the progress arrow. */
-public class GtBasicMachineScreen extends AbstractContainerScreen<GtBasicMachineMenu> {
+public class GtBasicMachineScreen extends GtMachineScreen<GtBasicMachineMenu> {
     private static final int[] BUTTON_X = {8, 26, 44};
     private static final int BUTTON_Y = 63;
 
+    private final GtMachine machine;
     private final ResourceLocation texture;
 
     public GtBasicMachineScreen(GtBasicMachineMenu menu, Inventory inventory, Component title) {
         super(menu, inventory, title);
-        String gui = "bender";
+        GtMachine machine = GtMachine.PLATE_BENDING_MACHINE;
         if (Minecraft.getInstance().level != null
                 && Minecraft.getInstance().level.getBlockState(menu.getPos()).getBlock() instanceof GtMachineBlock block) {
-            gui = block.getMachine().getGui();
+            machine = block.getMachine();
         }
-        this.texture = ResourceLocation.fromNamespaceAndPath(Craft.MODID, "textures/gui/gt/" + gui + ".png");
-    }
-
-    @Override
-    public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
-        super.render(graphics, mouseX, mouseY, partialTick);
-        renderTooltip(graphics, mouseX, mouseY);
+        this.machine = machine;
+        this.texture = ResourceLocation.fromNamespaceAndPath(Craft.MODID,
+                "textures/gui/gt/" + machine.getGui() + ".png");
     }
 
     @Override
@@ -72,5 +73,14 @@ public class GtBasicMachineScreen extends AbstractContainerScreen<GtBasicMachine
             }
         }
         return super.mouseClicked(mouseX, mouseY, button);
+    }
+
+    @Override
+    protected List<RecipeArea> getRecipeAreas() {
+        return List.of(new RecipeArea(78, 24, 20, 18, switch (machine) {
+            case ASSEMBLING_MACHINE -> RecipeCategories.GT_ASSEMBLER;
+            case AUTOMATIC_CANNING_MACHINE -> RecipeCategories.GT_CANNER;
+            default -> RecipeCategories.GT_BENDER;
+        }));
     }
 }

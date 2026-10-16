@@ -1,10 +1,13 @@
 package dev.craft.gregtech.client;
 
+import java.util.List;
+
 import dev.craft.Craft;
+import dev.craft.core.client.RecipeArea;
+import dev.craft.core.client.RecipeCategories;
 import dev.craft.gregtech.GtMachine;
 import dev.craft.gregtech.menu.GtTankMachineMenu;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
@@ -14,7 +17,7 @@ import net.minecraft.world.entity.player.Inventory;
  * {@code GT_GUIContainer_Centrifuge} (four arrows growing outwards, two-line title top right); error text instead of
  * "Inventory".
  */
-public class GtTankMachineScreen extends AbstractContainerScreen<GtTankMachineMenu> {
+public class GtTankMachineScreen extends GtMachineScreen<GtTankMachineMenu> {
     private final GtMachine machine;
     private final ResourceLocation texture;
 
@@ -31,12 +34,6 @@ public class GtTankMachineScreen extends AbstractContainerScreen<GtTankMachineMe
 
     public static GtTankMachineScreen centrifuge(GtTankMachineMenu menu, Inventory inventory, Component title) {
         return new GtTankMachineScreen(menu, inventory, title, GtMachine.INDUSTRIAL_CENTRIFUGE);
-    }
-
-    @Override
-    public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
-        super.render(graphics, mouseX, mouseY, partialTick);
-        renderTooltip(graphics, mouseX, mouseY);
     }
 
     @Override
@@ -69,5 +66,17 @@ public class GtTankMachineScreen extends AbstractContainerScreen<GtTankMachineMe
         } else {
             graphics.blit(texture, leftPos + 73, topPos + 44 - scale, 183, 44 - scale, 30, scale);
         }
+    }
+
+    /** Electrolyzer: the upward bar; centrifuge: the four arrows around the input slot. */
+    @Override
+    protected List<RecipeArea> getRecipeAreas() {
+        if (machine == GtMachine.INDUSTRIAL_CENTRIFUGE) {
+            return List.of(new RecipeArea(83, 23, 10, 10, RecipeCategories.GT_CENTRIFUGE),
+                    new RecipeArea(68, 38, 10, 10, RecipeCategories.GT_CENTRIFUGE),
+                    new RecipeArea(83, 53, 10, 10, RecipeCategories.GT_CENTRIFUGE),
+                    new RecipeArea(98, 38, 10, 10, RecipeCategories.GT_CENTRIFUGE));
+        }
+        return List.of(new RecipeArea(73, 34, 30, 10, RecipeCategories.GT_ELECTROLYZER));
     }
 }

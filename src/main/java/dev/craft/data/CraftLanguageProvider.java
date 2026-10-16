@@ -112,7 +112,19 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
         add("emi.category.craft.electrolyzer", german ? "Elektrolyseur" : "Electrolyzer");
         add("emi.category.craft.generator", german ? "Generator-Brennstoffe" : "Generator Fuels");
         add("emi.category.craft.geothermal_generator", german ? "Geothermiegenerator" : "Geothermal Generator");
+        // GregTech machines have English names in both languages
+        add("emi.category.craft.plate_bending_machine", "Plate Bending Machine");
+        add("emi.category.craft.industrial_electrolyzer", "Industrial Electrolyzer");
+        add("emi.category.craft.industrial_blast_furnace", "Industrial Blast Furnace");
+        add("emi.category.craft.assembling_machine", "Assembling Machine");
+        add("emi.category.craft.automatic_canning_machine", "Automatic Canning Machine");
+        add("emi.category.craft.implosion_compressor", "Implosion Compressor");
+        add("emi.category.craft.industrial_centrifuge", "Industrial Centrifuge");
+        add("emi.category.craft.industrial_grinder", "Industrial Grinder");
+        add("emi.category.craft.vacuum_freezer", "Vacuum Freezer");
         add("emi.craft.energy", "%1$s EU/t · %2$s s · %3$s EU");
+        add("emi.craft.gt.heat", german ? "Benötigte Hitzekapazität: %1$s K" : "Required heat capacity: %1$s K");
+        add("emi.craft.gt.shapeless", german ? "Eingaben in beliebiger Reihenfolge" : "Inputs in any order");
         add("emi.craft.compressor.pump", german ? "Leerer Kompressor neben Pumpe über Wasser"
                 : "Empty compressor next to a pump over water");
         add("emi.craft.recycler.any", german ? "Beliebiges Item → 12,5 % Schrott" : "Any item → 12.5% scrap");

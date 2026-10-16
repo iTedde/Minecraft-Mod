@@ -1,26 +1,23 @@
 package dev.craft.gregtech.client;
 
+import java.util.List;
+
 import dev.craft.Craft;
+import dev.craft.core.client.RecipeArea;
+import dev.craft.core.client.RecipeCategories;
 import dev.craft.gregtech.menu.GtGrinderMenu;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
 /** {@code GT_GUIContainer_Grinder}: casing warning, progress arrow, water level, error text. */
-public class GtGrinderScreen extends AbstractContainerScreen<GtGrinderMenu> {
+public class GtGrinderScreen extends GtMachineScreen<GtGrinderMenu> {
     private static final ResourceLocation TEXTURE =
             ResourceLocation.fromNamespaceAndPath(Craft.MODID, "textures/gui/gt/grinder.png");
 
     public GtGrinderScreen(GtGrinderMenu menu, Inventory inventory, Component title) {
         super(menu, inventory, title);
-    }
-
-    @Override
-    public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
-        super.render(graphics, mouseX, mouseY, partialTick);
-        renderTooltip(graphics, mouseX, mouseY);
     }
 
     @Override
@@ -46,5 +43,10 @@ public class GtGrinderScreen extends AbstractContainerScreen<GtGrinderMenu> {
         if (water > 0) {
             graphics.blit(TEXTURE, leftPos + 33, topPos + 51 - water, 176, 51 - water, 18, water);
         }
+    }
+
+    @Override
+    protected List<RecipeArea> getRecipeAreas() {
+        return List.of(new RecipeArea(58, 28, 20, 11, RecipeCategories.GT_GRINDER));
     }
 }

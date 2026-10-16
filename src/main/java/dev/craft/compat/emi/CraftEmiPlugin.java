@@ -28,6 +28,7 @@ public class CraftEmiPlugin implements EmiPlugin {
         CATEGORIES.clear();
         CATEGORIES.put(RecipeCategories.SMELTING, VanillaEmiRecipeCategories.SMELTING);
         Ic2EmiRecipes.register(registry, CATEGORIES);
+        GtEmiRecipes.register(registry, CATEGORIES);
 
         // block items only shown in holo slots of the GT electrolyzer and centrifuge
         registry.removeEmiStacks(EmiStack.of(GtItems.WATER.get()));

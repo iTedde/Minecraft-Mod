@@ -1227,8 +1227,23 @@ NaK-Kühlzellen, kein Vakuumgefrierer) **und die IC2-Nuke**. Teilpakete: 7a IC2-
   Elektrolyseur/Konservierungsmaschine, Flamme von Generator/Geothermie, Fortschrittstext des Massefabrikators.
 - `gradlew build`, 255 GameTests grün, `runClient` startet mit EMI (Plugins laden erst in einer Welt – siehe unten).
 
+## Erledigt (Teilpaket „Phase 11.2: EMI GregTech + Klickbereiche“, 2026-10-16)
+- `compat/emi/GtEmiRecipes`: 9 Kategorien, eine je `GtRecipe.Kind` (IDs = Maschinenblock, z. B.
+  `craft:industrial_grinder`; Namen englisch wie die GT-Blöcke), Workstation = GT-Maschine. Anzeige: Eingaben mit
+  Menge, nicht leere Ausgaben, Pfeil über die Rezeptdauer, Zeile EU/t · s · Gesamt-EU; Hochofen zusätzlich
+  „Benötigte Hitzekapazität: x K“; Hochofen/Assembler/Canner mit zwei Eingaben „Eingaben in beliebiger Reihenfolge“.
+- Tankinhalte: Holo-Items `craft:water`/`craft:lava` werden als Flüssigkeit angezeigt (1000 mB je Item); beim
+  Industrial Grinder ist die Wasserzellen-Eingabe alternativ Wasser (1000 mB je Zelle) aus dem Tank.
+- Klickbereiche: neue Basisklasse `gregtech/client/GtMachineScreen` (Tooltip + Klick über `RecipeArea`), alle sechs
+  GT-Screens erben davon. Bereiche: Plattenbieger/Assembler/Canner Pfeil (78, 24, 20 × 18); Hochofen, Grinder,
+  Implosionskompressor, Vakuumgefrierer Pfeil (58, 28, 20 × 11); Elektrolyseur Balken (73, 34, 30 × 10); Zentrifuge
+  die vier Pfeile um den Eingabeslot (ohne Slot-Überlappung).
+- `gradlew build`, 255 GameTests grün, `runClient` startet mit EMI (Hauptmenü, keine Fehler).
+
 ## Nächste Schritte
-1. Manuell im Client (Welt betreten): EMI-Kategorien der IC2-Maschinen ansehen (Werte, Texte de/en),
-   Klick auf Fortschrittspfeile/Flammen öffnet die Kategorie, `craft:water`/`craft:lava` nicht im Index,
-   Log ohne EMI-Plugin-Fehler.
-2. Phase 11.2: EMI GregTech (9 Kategorien) + Klickbereiche.
+1. Manuell im Client (Welt betreten): EMI-Kategorien der IC2- und GT-Maschinen ansehen (Werte, Texte de/en,
+   Flüssigkeiten bei Elektrolyseur/Zentrifuge/Grinder, Hitze beim Hochofen), Klick auf Fortschrittspfeile/Flammen
+   öffnet die Kategorie (auch die vier Zentrifugenpfeile), `craft:water`/`craft:lava` nicht im Index, Log ohne
+   EMI-Plugin-Fehler.
+2. Phase 11.3: EMI BuildCraft/Forestry/Kraftwerke (Raffinerie, Verbrennungsmotor, Fabricator, Carpenter, Koksofen,
+   Kessel) + Multiblock-Infoseiten.
