@@ -1,0 +1,12 @@
+{
+  "type": "craft:ic2_shapeless",
+  "ingredients": [
+    {
+      "tag": "c:dusts/silver"
+    }
+  ],
+  "result": {
+    "count": 4,
+    "id": "craft:small_silver_dust"
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "type": "craft:gt_electrolyzer",
+  "duration": 1300,
+  "eu_per_tick": 50,
+  "inputs": [
+    {
+      "count": 16,
+      "item": "craft:ender_pearl_dust"
+    },
+    {
+      "count": 16,
+      "item": "craft:empty_cell"
+    }
+  ],
+  "outputs": [
+    {
+      "count": 5,
+      "id": "craft:nitrogen_cell"
+    },
+    {
+      "count": 1,
+      "id": "craft:beryllium_cell"
+    },
+    {
+      "count": 4,
+      "id": "craft:potassium_cell"
+    },
+    {
+      "count": 6,
+      "id": "craft:chlorite_cell"
+    }
+  ]
+}

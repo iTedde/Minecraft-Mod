@@ -224,6 +224,11 @@
         },
         {
           "type": "minecraft:item",
+          "name": "craft:silver_dust",
+          "weight": 50
+        },
+        {
+          "type": "minecraft:item",
           "name": "craft:tin_dust",
           "weight": 120
         },
@@ -239,6 +244,11 @@
         },
         {
           "type": "minecraft:item",
+          "name": "craft:lead_dust",
+          "weight": 50
+        },
+        {
+          "type": "minecraft:item",
           "name": "craft:nickel_dust",
           "weight": 50
         },
@@ -246,6 +256,36 @@
           "type": "minecraft:item",
           "name": "craft:steel_dust",
           "weight": 50
+        },
+        {
+          "type": "minecraft:item",
+          "name": "craft:sulfur_dust",
+          "weight": 150
+        },
+        {
+          "type": "minecraft:item",
+          "name": "craft:saltpeter_dust",
+          "weight": 200
+        },
+        {
+          "type": "minecraft:item",
+          "name": "craft:lazurite_dust",
+          "weight": 200
+        },
+        {
+          "type": "minecraft:item",
+          "name": "craft:pyrite_dust",
+          "weight": 200
+        },
+        {
+          "type": "minecraft:item",
+          "name": "craft:sodalite_dust",
+          "weight": 200
+        },
+        {
+          "type": "minecraft:item",
+          "name": "craft:tungsten_dust",
+          "weight": 3
         },
         {
           "type": "minecraft:item",

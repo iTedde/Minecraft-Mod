@@ -89,6 +89,7 @@ public final class CraftRecipeProvider extends RecipeProvider {
         misc();
         reactor();
         reactorGregTech();
+        gregTechFollowUps();
         uuMatter();
         smelting();
         macerator();
@@ -1033,6 +1034,7 @@ public final class CraftRecipeProvider extends RecipeProvider {
         uu(Items.BLAZE_ROD, 4, "blaze_rod", "M M", "MM ", "M M");
         uu(Items.LILY_PAD, 32, "lily_pad", "M M", "MMM", " M ");
         uu(Items.LEATHER, 32, "leather", "M M", " M ", "MMM");
+        uu(GtItems.LEAD_DUST, 14, "lead_dust", "MMM", "MMM", "M  ");
         uu(Ic2Items.SILVER_DUST, 14, "silver_dust", " M ", "MMM", "MMM");
         uu(GtItems.NICKEL_DUST, 10, "nickel_dust", "M  ", "M M", "   ");
         uu(GtItems.ALUMINIUM_DUST, 16, "aluminium_dust", " M ", " M ", "MMM");
@@ -1319,6 +1321,53 @@ public final class CraftRecipeProvider extends RecipeProvider {
         // GT heat vent variant with aluminium plates.
         shaped(Ic2Items.HEAT_VENT, 1, "heat_vent_from_aluminium").pattern("AIA", "I I", "AIA")
                 .define('A', CraftItemTagsProvider.PLATES_ALUMINIUM).define('I', Items.IRON_BARS).save();
+    }
+
+    /**
+     * Phase 8a: NaK coolant cells (sodium from sodalite, potassium from ender pearl dust) and the lead plate for the
+     * GT containment reactor plating (lead from silver dust or UU matter).
+     */
+    private void gregTechFollowUps() {
+        // Sodium: lapis → centrifuge → small sodalite dust → sodalite dust → electrolyzer.
+        smallDust("sodalite", GtItems.SMALL_SODALITE_DUST, Ingredient.of(GtItems.SODALITE_DUST), GtItems.SODALITE_DUST);
+        electrolysis("sodalite_dust", Ingredient.of(GtItems.SODALITE_DUST), 23, 8, 1350, 90,
+                stack(GtItems.SODIUM_CELL, 4), stack(GtItems.ALUMINIUM_DUST, 3), stack(GtItems.SILICON_CELL, 3),
+                stack(GtItems.CHLORITE_CELL, 1));
+        // Potassium: ender pearl → macerator → ender pearl dust → electrolyzer.
+        machine(MachineRecipe.Kind.MACERATOR, "ender_pearl", Ingredient.of(Items.ENDER_PEARL), 1,
+                GtItems.ENDER_PEARL_DUST, 1);
+        electrolysis("ender_pearl_dust", Ingredient.of(GtItems.ENDER_PEARL_DUST), 16, 16, 1300, 50,
+                stack(GtItems.NITROGEN_CELL, 5), stack(GtItems.BERYLLIUM_CELL, 1), stack(GtItems.POTASSIUM_CELL, 4),
+                stack(GtItems.CHLORITE_CELL, 6));
+        // NaK coolant cells (NaKCoolantcell) and the cheaper overclocker with them.
+        shaped(GtItems.NAK_COOLANT_CELL_60K, 1, "nak_coolant_cell_60k").pattern("TNT", "KCK", "TNT")
+                .define('N', GtItems.SODIUM_CELL).define('K', GtItems.POTASSIUM_CELL)
+                .define('T', CraftItemTagsProvider.INGOTS_TIN).define('C', fresh(Ic2Items.COOLANT_CELL_10K)).save();
+        shaped(GtItems.NAK_COOLANT_CELL_60K, 1, "nak_coolant_cell_60k_rotated").pattern("TKT", "NCN", "TKT")
+                .define('N', GtItems.SODIUM_CELL).define('K', GtItems.POTASSIUM_CELL)
+                .define('T', CraftItemTagsProvider.INGOTS_TIN).define('C', fresh(Ic2Items.COOLANT_CELL_10K)).save();
+        shaped(GtItems.NAK_COOLANT_CELL_180K, 1, "nak_coolant_cell_180k").pattern("TTT", "HHH", "TTT")
+                .define('H', fresh(GtItems.NAK_COOLANT_CELL_60K)).define('T', CraftItemTagsProvider.INGOTS_TIN)
+                .save();
+        shaped(GtItems.NAK_COOLANT_CELL_360K, 1, "nak_coolant_cell_360k").pattern("THT", "TCT", "THT")
+                .define('H', fresh(GtItems.NAK_COOLANT_CELL_180K)).define('T', CraftItemTagsProvider.INGOTS_TIN)
+                .define('C', Ic2Items.DENSE_COPPER_PLATE).save();
+        shaped(Ic2Items.OVERCLOCKER_UPGRADE, 2, "overclocker_upgrade_from_nak_coolant").pattern(" H ", "WCW")
+                .define('H', fresh(GtItems.NAK_COOLANT_CELL_60K))
+                .define('W', Ic2Items.cable(CableType.INSULATED_COPPER)).define('C', Ic2Items.ELECTRONIC_CIRCUIT)
+                .save();
+        // Lead: 2 silver dust → small lead dust (centrifuge, in centrifuge()) → lead dust → ingot → plate.
+        smallDust("lead", GtItems.SMALL_LEAD_DUST, Ingredient.of(CraftItemTagsProvider.DUSTS_LEAD), GtItems.LEAD_DUST);
+        smallDust("silver", GtItems.SMALL_SILVER_DUST, Ingredient.of(CraftItemTagsProvider.DUSTS_SILVER),
+                Ic2Items.SILVER_DUST);
+        centrifuge("lead_dust", Ingredient.of(CraftItemTagsProvider.DUSTS_LEAD), 2, 0, 2400,
+                stack(GtItems.SMALL_SILVER_DUST, 1));
+        smelt("lead_ingot_from_dust", Ingredient.of(CraftItemTagsProvider.DUSTS_LEAD), GtItems.LEAD_INGOT, 1, 0.0F);
+        machine(MachineRecipe.Kind.MACERATOR, "lead_ingot", Ingredient.of(CraftItemTagsProvider.INGOTS_LEAD), 1,
+                GtItems.LEAD_DUST, 1);
+        plate("lead", CraftItemTagsProvider.INGOTS_LEAD, GtItems.LEAD_PLATE, GtItems.LEAD_DUST, GtItems.LEAD_INGOT);
+        shapeless(Ic2Items.CONTAINMENT_REACTOR_PLATING, 1, "containment_reactor_plating_from_lead",
+                Ingredient.of(Ic2Items.REACTOR_PLATING), Ingredient.of(CraftItemTagsProvider.PLATES_LEAD));
     }
 
     /** Depleted isotope cell as crafted: damage 9999. */

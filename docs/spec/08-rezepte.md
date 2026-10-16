@@ -160,7 +160,7 @@ IC2-Maschinenrezept für dieselbe Eingabe und fügen das neue ein.
 | 60k-Kühlzelle | `TCT/TcT/TCT`, c = dichte Kupferplatte | [IC2] |
 | Reaktorplatte | formlos dichte Kupferplatte + fortg. Legierung | [IC2] |
 | Wärmekap. Platte | formlos Platte + 2 dichte Kupferplatten | [IC2] |
-| Containment-Platte | formlos Platte + 2 fortg. Legierung | [IC2] + **[GT+M]** formlos Platte + Bleiplatte |
+| Containment-Platte | formlos Platte + 2 fortg. Legierung | [IC2] + **[GT+M]** formlos Platte + Bleiplatte (Phase 8a) |
 | Wärmetauscher | ` c /TCT/ T `, c = el. Schaltkreis, C = dichte Kupferplatte | [IC2] |
 | Reaktor-Wärmetauscher | `C/S/C` | [IC2] |
 | Komponenten-Wärmetauscher | ` G /GSG/ G `, G = Gold | [IC2] |

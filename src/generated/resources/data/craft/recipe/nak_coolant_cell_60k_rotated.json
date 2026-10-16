@@ -1,0 +1,30 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "C": {
+      "type": "neoforge:components",
+      "components": {
+        "minecraft:damage": 0
+      },
+      "items": "craft:coolant_cell_10k"
+    },
+    "K": {
+      "item": "craft:potassium_cell"
+    },
+    "N": {
+      "item": "craft:sodium_cell"
+    },
+    "T": {
+      "tag": "c:ingots/tin"
+    }
+  },
+  "pattern": [
+    "TKT",
+    "NCN",
+    "TKT"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:nak_coolant_cell_60k"
+  }
+}

@@ -210,6 +210,18 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
         item(GtItems.DUAL_PLUTONIUM_CELL, "Double Plutonium Cell");
         item(GtItems.QUAD_PLUTONIUM_CELL, "Quad Plutonium Cell");
         add("tooltip.craft.time_left", "Time left: %s secs");
+        item(GtItems.ENDER_PEARL_DUST, "Ender Pearl Dust");
+        item(GtItems.SODALITE_DUST, "Sodalite Dust");
+        item(GtItems.LEAD_DUST, "Lead Dust");
+        item(GtItems.SMALL_SILVER_DUST, "Tiny Pile of Silver Dust");
+        item(GtItems.LEAD_INGOT, "Lead Ingot");
+        item(GtItems.LEAD_PLATE, "Lead Plate");
+        item(GtItems.CHLORITE_CELL, "Chlorite Cell");
+        item(GtItems.POTASSIUM_CELL, "Potassium Cell");
+        item(GtItems.NITROGEN_CELL, "Nitrogen Cell");
+        item(GtItems.NAK_COOLANT_CELL_60K, "60k NaK Coolantcell");
+        item(GtItems.NAK_COOLANT_CELL_180K, "180k NaK Coolantcell");
+        item(GtItems.NAK_COOLANT_CELL_360K, "360k NaK Coolantcell");
         item(GtItems.SMALL_LEAD_DUST, "Tiny Pile of Lead Dust");
         item(GtItems.SMALL_ZINC_DUST, "Tiny Pile of Zinc Dust");
         item(GtItems.SMALL_NICKEL_DUST, "Tiny Pile of Nickel Dust");

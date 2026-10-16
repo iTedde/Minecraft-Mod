@@ -171,6 +171,23 @@ public final class GtItems {
     public static final DeferredItem<GtRadioactiveCellItem> QUAD_PLUTONIUM_CELL = radioactive("quad_plutonium_cell",
             20000, 4, 2, true);
 
+    // --- GT follow-ups (phase 8a): Dust 0/5/23, SmallDust 246, Cell 13–15, Material 23/74, items 60–62 ---
+    public static final DeferredItem<GtMaterialItem> ENDER_PEARL_DUST = material("ender_pearl_dust", "BeK4N5Cl6");
+    public static final DeferredItem<GtMaterialItem> SODALITE_DUST = material("sodalite_dust", "Al3Si3Na4Cl");
+    public static final DeferredItem<GtMaterialItem> LEAD_DUST = material("lead_dust", "Pb");
+    public static final DeferredItem<GtMaterialItem> SMALL_SILVER_DUST = material("small_silver_dust", "Ag");
+    public static final DeferredItem<GtMaterialItem> LEAD_INGOT = material("lead_ingot", "Pb");
+    public static final DeferredItem<GtMaterialItem> LEAD_PLATE = material("lead_plate", "Pb");
+    public static final DeferredItem<GtMaterialItem> CHLORITE_CELL = material("chlorite_cell", "Cl");
+    public static final DeferredItem<GtMaterialItem> POTASSIUM_CELL = material("potassium_cell", "K");
+    public static final DeferredItem<GtMaterialItem> NITROGEN_CELL = material("nitrogen_cell", "N");
+    public static final DeferredItem<GtCoolantCellItem> NAK_COOLANT_CELL_60K = simple(ITEMS.registerItem(
+            "nak_coolant_cell_60k", properties -> new GtCoolantCellItem(properties, 60000)));
+    public static final DeferredItem<GtCoolantCellItem> NAK_COOLANT_CELL_180K = simple(ITEMS.registerItem(
+            "nak_coolant_cell_180k", properties -> new GtCoolantCellItem(properties, 180000)));
+    public static final DeferredItem<GtCoolantCellItem> NAK_COOLANT_CELL_360K = simple(ITEMS.registerItem(
+            "nak_coolant_cell_360k", properties -> new GtCoolantCellItem(properties, 360000)));
+
     /** Items with a generated flat item model. */
     public static List<DeferredItem<? extends Item>> simpleItems() {
         return Collections.unmodifiableList(SIMPLE);

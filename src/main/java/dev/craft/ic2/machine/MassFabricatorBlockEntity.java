@@ -56,16 +56,17 @@ public class MassFabricatorBlockEntity extends MachineBlockEntity implements Ene
     }
 
     private static Map<Item, Integer> amplifiers() {
-        return Map.of(
-                Ic2Items.SCRAP.get(), 5000,
-                Ic2Items.SCRAP_BOX.get(), 45000,
-                Items.REDSTONE, 5000,
-                Items.GLOWSTONE_DUST, 25000,
-                GtItems.DIAMOND_DUST.get(), 125000,
-                GtItems.EMERALD_DUST.get(), 50000,
-                GtItems.URANIUM_DUST.get(), 1000000,
-                GtItems.PLUTONIUM_DUST.get(), 2000000,
-                GtItems.THORIUM_DUST.get(), 500000);
+        return Map.ofEntries(
+                Map.entry(Ic2Items.SCRAP.get(), 5000),
+                Map.entry(Ic2Items.SCRAP_BOX.get(), 45000),
+                Map.entry(Items.REDSTONE, 5000),
+                Map.entry(Items.GLOWSTONE_DUST, 25000),
+                Map.entry(GtItems.DIAMOND_DUST.get(), 125000),
+                Map.entry(GtItems.EMERALD_DUST.get(), 50000),
+                Map.entry(GtItems.URANIUM_DUST.get(), 1000000),
+                Map.entry(GtItems.PLUTONIUM_DUST.get(), 2000000),
+                Map.entry(GtItems.THORIUM_DUST.get(), 500000),
+                Map.entry(GtItems.ENDER_PEARL_DUST.get(), 50000));
     }
 
     public int getEnergy() {

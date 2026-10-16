@@ -1,0 +1,12 @@
+{
+  "type": "craft:ic2_shapeless",
+  "ingredients": [
+    {
+      "tag": "c:dusts/lead"
+    }
+  ],
+  "result": {
+    "count": 4,
+    "id": "craft:small_lead_dust"
+  }
+}

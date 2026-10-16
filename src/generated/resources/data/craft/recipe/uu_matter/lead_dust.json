@@ -1,0 +1,21 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "M": {
+      "item": "craft:uu_matter"
+    }
+  },
+  "pattern": [
+    "MMM",
+    "MMM",
+    "M  "
+  ],
+  "position": {
+    "left": 0,
+    "top": 0
+  },
+  "result": {
+    "count": 14,
+    "id": "craft:lead_dust"
+  }
+}

@@ -263,7 +263,7 @@ Texturen `items.png` (Index = Item-Nummer), Namen nur Englisch.
 | Iridium Neutron Reflector | 40 | `GT_NeutronReflector_Item` | Haltbarkeit 0 = unendlich |
 | Thorium Cell / Double / Quad | 48/49/50 | `GT_RadioactiveCell_Item` | 25 000 Zyklen, Zellen 1/2/4, Pulsrate −5, kein Rest |
 | Plutonium Cell / Double / Quad | 51/52/53 | `GT_RadioactiveCell_Item` | 20 000 Zyklen, Zellen 1/2/4, Pulsrate 2, Rest 4 fast erschöpfte Uranzellen |
-| NaK Coolant Cell 60k/180k/360k | 60–62 | `GT_CoolantCell_Item` | nicht umgesetzt (Natrium/Kalium nicht erreichbar) |
+| 60k/180k/360k NaK Coolantcell | 60–62 | `GT_CoolantCell_Item` | wie Helium (Kapazität 60 000/180 000/360 000, Zellen 1/3/6), Phase 8a |
 
 **Helium-Kühlzelle:** Hitze wie die IC2-Kühlzelle (NBT `heat`, Zerstörung mit negativem Rest), Stack 1, nur **100**
 Damage-Stufen für den Balken, Tooltip „Stored Heat: n“, `influenceExplosion = 1 + Kapazität/30000` (wird addiert).
@@ -301,3 +301,18 @@ bei der Uranzelle +1 Output); kein Verschleiß; Explosion −1.
 - Berylliumzelle (Cell 10 „Berylium Cell“): Elektrolyseur 29 Smaragdstaub + 18 Zellen → 2 Aluminiumstaub,
   3 Berylliumzellen, 6 Siliziumzellen, 9 Luftzellen (600 Ticks, 50 EU/t).
 - Wärmeableiter GT-Variante `AIA/I I/AIA` (A = Aluminiumplatte, I = Eisengitter).
+
+**Phase 8a – NaK-Kühlzellen und Bleiplatte** (`GT_Mod` Z. 3772–3818, 2587, 4598; `GT_OreDictHandler` Z. 1957–2224):
+- NaK (Config `NaKCoolantcell`): 60k `TNT/KCK/TNT` **und** `TKT/NCN/TKT` (N = Natriumzelle, K = Kaliumzelle, T = Zinnbarren,
+  C = unbenutzte 10k-Kühlzelle), 180k `TTT/HHH/TTT`, 360k `THT/TCT/THT` (C = dichte Kupferplatte), 2 Overclocker ` H /WCW`
+  mit 60k-NaK-Zelle. Namen „60k/180k/360k NaK Coolantcell“ (so im Original). Vakuumgefrierer 500/1500/3000 (nicht umgesetzt).
+- Natrium: Lapis → Zentrifuge → kl. Sodalithstaub (4 → 1 Sodalithstaub, Staub 5) → Elektrolyseur 23 Sodalithstaub +
+  8 Zellen → 4 Natrium-, 3 Aluminiumstaub, 3 Silizium-, 1 Chloritzelle (1350 Ticks, 90 EU/t).
+- Kalium: Enderperle → Macerator → Enderperlenstaub (Staub 0, „BeK4N5Cl6“, Verstärker 50 000) → Elektrolyseur
+  16 Staub + 16 Zellen → 5 Stickstoff-, 1 Beryllium-, 4 Kalium-, 6 Chloritzellen (1300 Ticks, 50 EU/t).
+- Blei: 2 Silberstaub → Zentrifuge → kl. Bleistaub (2400) → 4 → Bleistaub (Staub 23); UU-Materie `UUU/UUU/U  ` →
+  14 Bleistaub; Bleistaub → Ofen → Bleibarren (Material 23) → Plattenbieger → Bleiplatte (Material 74); Macerator
+  Barren/Platte → Staub. Rückweg 2 Bleistaub → Zentrifuge → kl. Silberstaub (SmallDust 246, 4 ↔ 1 Silberstaub).
+- Containment-Reaktorplatte zusätzlich formlos aus Reaktorplatte + Bleiplatte (IC2-Rezept bleibt).
+- Zellen 13 Chlorit (Cl), 14 Kalium (K), 15 Stickstoff (N). Schrottbox: Silber/Blei 0,5, Schwefel 1,5, Salpeter/Lazurit/
+  Pyrit/Sodalith 2,0, Wolfram 0,03 (jetzt vorhanden).

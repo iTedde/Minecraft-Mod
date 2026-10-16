@@ -1,0 +1,10 @@
+{
+  "type": "craft:macerator",
+  "ingredient": {
+    "item": "craft:lead_plate"
+  },
+  "result": {
+    "count": 1,
+    "id": "craft:lead_dust"
+  }
+}

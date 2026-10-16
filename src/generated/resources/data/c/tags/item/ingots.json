@@ -6,6 +6,7 @@
     "#c:ingots/refined_iron",
     "#c:ingots/nickel",
     "#c:ingots/aluminium",
-    "#c:ingots/steel"
+    "#c:ingots/steel",
+    "#c:ingots/lead"
   ]
 }

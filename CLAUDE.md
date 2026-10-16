@@ -74,7 +74,7 @@ MJ und EU bleiben getrennte Systeme; Verbindung nur über Electrical Engine (EU�
 | 6 | IC2 Mid/Late Game: 6.1 MFE, MFSU, Trafos · 6.2 Elektrowerkzeuge + Tastensystem · 6.3 Nano-/Quanten-/Utility-Rüstung · 6.4 Mass Fabricator, Solar Arrays als Multiblocks | **erledigt** (abgenommen) |
 | 6b | GregTech-Maschinen 1:1 (Elektrolyseur, Hochofen-Multiblock + Heizspulen, Plattenbieger, Assembler, ggf. weitere) und GT-Materialien; danach Rezepte für Solarpanel, Wasser-/Windmühle u. a. [GT⚠]. Teilpakete: 6b.1 Plattenbieger (erledigt) · 6b.2 Elektrolyseur (erledigt) · 6b.3 Hochofen (erledigt) · 6b.4 Assembler (erledigt) · 6b.5a Canning Machine IC2 + GT (erledigt) · 6b.5b Implosionskompressor (erledigt) · 6b.5c Zentrifuge (erledigt, erreichbare Rezepte) | **erledigt** (abgenommen) |
 | 7 | Reaktor: 7a IC2-Reaktor (erledigt) · 7b erreichbare GT-Reaktorteile (erledigt) · 7c Nuke (erledigt) | **erledigt** – wartet auf Abnahme |
-| 8 | GT-Nachträge: NaK-Kühlzellen (Natrium aus Sodalith, Kalium aus Enderperlenstaub), Containment-Reaktorplatte mit Bleiplatte (Blei über UU-Materie/Silberstaub), **GT-Erze** (Weltgen) und was sie freischalten | offen |
+| 8 | GT-Nachträge: 8a NaK-Kühlzellen (Natrium aus Sodalith, Kalium aus Enderperlenstaub) + Containment-Reaktorplatte mit Bleiplatte (erledigt) · 8b Spezifikation GT-Weltgen · 8c **alle GT-Erze** (Weltgen) und was sie freischalten | **in Arbeit** (8a erledigt) |
 | 9 | Neue Kraftwerke: Kohlekraftwerk mit Koksofen, Wasserturbine | offen |
 | 10 | BuildCraft-Rohre (fest im Umfang) | offen |
 | 11 | Feinschliff: Texturen, EMI-Integration (Rezeptanzeige), Xaero's Minimap mitinstallieren, Tests | offen |
@@ -89,7 +89,7 @@ Personal-Blöcke, Luminator, Sprengstoffe (Industrie-TNT erledigt in 6b.5b, Nuke
 
 ## Offene Entscheidungen (Stand Phase 1)
 
-1. ~~GT-Erze~~ **Entschieden (2026-10-16):** GT-Erze werden in Phase 8 generiert (Umfang siehe `docs/STATUS.md`).
+1. ~~GT-Erze~~ **Entschieden (2026-10-16):** **alle** GT-Erze wie im Pack werden in Phase 8 generiert.
    Der Herstellungsweg selbst ist entschieden (s. u.).
 2. ~~Massefabrikator~~ **Entschieden:** IC2-Massefabrikator 1:1 mit IC2-Rezept (kein GT Matter Fabricator).
 3. Balancing-Vorschlag freigeben (`docs/balancing.md` §5) – **Solar freigegeben** (Fläche der Panels), Rest offen.

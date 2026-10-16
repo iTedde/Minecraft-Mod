@@ -819,3 +819,28 @@ NaK-Kühlzellen, kein Vakuumgefrierer) **und die IC2-Nuke**. Teilpakete: 7a IC2-
   Bleiplatte (Silberstaub per UU-Materie → Zentrifuge → Blei → Ofen → Barren → Plattenbieger) und **GT-Erze** samt
   dem, was sie freischalten (z. B. Titan, Platin, Rubin). Bisherige Phasen 8/9/10 → 9/10/11.
 - Vakuumgefrierer bleibt offen, bis die IC2-Pumpe existiert (IC2-Teile ohne Phase).
+- **Entschieden (Nutzer, 2026-10-16): alle GT-Erze wie im Pack** (komplette GT-2.90-Weltgen inkl. Nether/End).
+  Teilpakete: 8a NaK-Kühlzellen + Bleiplatte · 8b Spezifikation GT-Weltgen · 8c GT-Erze umsetzen · danach Freischaltungen.
+
+# Stand Phase 8 (2026-10-16)
+
+## Erledigt (Teilpaket „Phase 8a: NaK-Kühlzellen + Bleiplatte“, 2026-10-16)
+- Spec: `06-reaktor.md` §8 „Phase 8a“ (Rezepte, Mengen, Dauern).
+- Items (`GtItems`): Enderperlen-, Sodalith-, Bleistaub, kl. Silberstaub, Bleibarren, Bleiplatte, Chlorit-/Kalium-/
+  Stickstoffzelle, 60k/180k/360k-NaK-Kühlzelle (`GtCoolantCellItem` wie Helium). Tags `c:ingots|dusts|plates/lead`.
+- Rezepte: Sodalith 4 ↔ 1, Sodalith- und Enderperlenstaub-Elektrolyse, Enderperle → Macerator, NaK-Zellen (zwei
+  60k-Varianten), Overclocker mit NaK-Zelle, Blei-Kette (Silber-Zentrifuge, kl. Blei/Silber 4 ↔ 1, Ofen, Macerator,
+  Plattenbieger, UU-Materie 14 Bleistaub), Blei-Zentrifuge → kl. Silberstaub, Containment-Platte mit Bleiplatte.
+- Massefabrikator: Enderperlenstaub als Verstärker (50 000). Schrottbox: alle inzwischen vorhandenen GT-Stäube ergänzt
+  (Silber, Blei, Schwefel, Salpeter, Lazurit, Pyrit, Sodalith, Wolfram).
+- Texturen aus `GregTech.zip` (`items.png` 60–62, `metaitems/*`). 5 neue GameTests (`GtFollowUpGameTests`, insgesamt
+  180 grün), `build` und `runClient` erfolgreich.
+- Nicht umgesetzt: Vakuumgefrierer (Rückkühlen), GT-Batterie-Rezepte mit Bleistaub (Schwefelsäurezelle fehlt),
+  Bleierz/Galena (→ 8c).
+
+## Nächste Schritte
+1. Manuelle Client-Tests 8a: Lapis in der Zentrifuge → kl. Sodalith → Sodalithstaub → Elektrolyseur (Natrium);
+   Enderperle → Macerator → Elektrolyseur (Kalium); NaK-60k craften (nur mit unbenutzter 10k-Zelle), im Reaktor
+   (Tooltip „Stored Heat“); Silberstaub (UU) → Zentrifuge → kl. Blei → Bleistaub → Ofen → Plattenbieger →
+   Containment-Platte.
+2. Phase 8b: Spezifikation der GT-Weltgen (alle Erze wie im Pack).

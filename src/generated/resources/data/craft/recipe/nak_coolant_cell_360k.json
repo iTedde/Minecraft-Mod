@@ -1,0 +1,27 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "C": {
+      "item": "craft:dense_copper_plate"
+    },
+    "H": {
+      "type": "neoforge:components",
+      "components": {
+        "minecraft:damage": 0
+      },
+      "items": "craft:nak_coolant_cell_180k"
+    },
+    "T": {
+      "tag": "c:ingots/tin"
+    }
+  },
+  "pattern": [
+    "THT",
+    "TCT",
+    "THT"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:nak_coolant_cell_360k"
+  }
+}

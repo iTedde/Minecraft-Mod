@@ -29,6 +29,7 @@ public final class CraftItemTagsProvider extends ItemTagsProvider {
     public static final TagKey<Item> INGOTS_NICKEL = commonTag("ingots/nickel");
     public static final TagKey<Item> INGOTS_ALUMINIUM = commonTag("ingots/aluminium");
     public static final TagKey<Item> INGOTS_STEEL = commonTag("ingots/steel");
+    public static final TagKey<Item> INGOTS_LEAD = commonTag("ingots/lead");
     public static final TagKey<Item> DUSTS_BRONZE = commonTag("dusts/bronze");
     public static final TagKey<Item> DUSTS_CLAY = commonTag("dusts/clay");
     public static final TagKey<Item> DUSTS_COAL = commonTag("dusts/coal");
@@ -47,9 +48,11 @@ public final class CraftItemTagsProvider extends ItemTagsProvider {
     public static final TagKey<Item> PLATES_ALUMINIUM = commonTag("plates/aluminium");
     public static final TagKey<Item> PLATES_STEEL = commonTag("plates/steel");
     public static final TagKey<Item> PLATES_SILICON = commonTag("plates/silicon");
+    public static final TagKey<Item> PLATES_LEAD = commonTag("plates/lead");
     public static final TagKey<Item> DUSTS_NICKEL = commonTag("dusts/nickel");
     public static final TagKey<Item> DUSTS_ALUMINIUM = commonTag("dusts/aluminium");
     public static final TagKey<Item> DUSTS_STEEL = commonTag("dusts/steel");
+    public static final TagKey<Item> DUSTS_LEAD = commonTag("dusts/lead");
     /** GT {@code craftingRawMachineTier01}: IC2 machine casing, aluminium and bronze machine hull. */
     public static final TagKey<Item> RAW_MACHINE_TIER_01 = craftTag("raw_machine_tier_01");
     /** GT {@code craftingRawMachineTier02}: IC2 advanced machine casing, steel machine hull. */
@@ -100,18 +103,21 @@ public final class CraftItemTagsProvider extends ItemTagsProvider {
         tag(PLATES_ALUMINIUM).add(GtItems.ALUMINIUM_PLATE.get());
         tag(PLATES_STEEL).add(GtItems.STEEL_PLATE.get());
         tag(PLATES_SILICON).add(GtItems.SILICON_PLATE.get());
+        tag(PLATES_LEAD).add(GtItems.LEAD_PLATE.get());
         tag(INGOTS_NICKEL).add(GtItems.NICKEL_INGOT.get());
         tag(INGOTS_ALUMINIUM).add(GtItems.ALUMINIUM_INGOT.get());
         tag(INGOTS_STEEL).add(GtItems.STEEL_INGOT.get());
+        tag(INGOTS_LEAD).add(GtItems.LEAD_INGOT.get());
         tag(DUSTS_NICKEL).add(GtItems.NICKEL_DUST.get());
         tag(DUSTS_ALUMINIUM).add(GtItems.ALUMINIUM_DUST.get());
         tag(DUSTS_STEEL).add(GtItems.STEEL_DUST.get());
+        tag(DUSTS_LEAD).add(GtItems.LEAD_DUST.get());
         tag(RAW_MACHINE_TIER_01).add(Ic2Items.MACHINE_CASING.get(), GtItems.ALUMINIUM_MACHINE_HULL.get(),
                 GtItems.BRONZE_MACHINE_HULL.get());
         tag(RAW_MACHINE_TIER_02).add(Ic2Items.ADVANCED_MACHINE_CASING.get(), GtItems.STEEL_MACHINE_HULL.get());
         tag(CRAFTING_100K_EU_STORE).add(Ic2Items.ENERGY_CRYSTAL.get(), GtItems.LITHIUM_BATTERY.get());
         tag(Tags.Items.INGOTS).addTag(INGOTS_TIN).addTag(INGOTS_URANIUM).addTag(INGOTS_BRONZE).addTag(INGOTS_REFINED_IRON)
-                .addTag(INGOTS_NICKEL).addTag(INGOTS_ALUMINIUM).addTag(INGOTS_STEEL);
+                .addTag(INGOTS_NICKEL).addTag(INGOTS_ALUMINIUM).addTag(INGOTS_STEEL).addTag(INGOTS_LEAD);
         tag(DUSTS_BRONZE).add(Ic2Items.BRONZE_DUST.get());
         tag(DUSTS_CLAY).add(Ic2Items.CLAY_DUST.get());
         tag(DUSTS_COAL).add(Ic2Items.COAL_DUST.get());
@@ -122,7 +128,7 @@ public final class CraftItemTagsProvider extends ItemTagsProvider {
         tag(DUSTS_SILVER).add(Ic2Items.SILVER_DUST.get());
         tag(Tags.Items.DUSTS).addTag(DUSTS_BRONZE).addTag(DUSTS_CLAY).addTag(DUSTS_COAL).addTag(DUSTS_COPPER)
                 .addTag(DUSTS_GOLD).addTag(DUSTS_IRON).addTag(DUSTS_TIN).addTag(DUSTS_SILVER)
-                .addTag(DUSTS_NICKEL).addTag(DUSTS_ALUMINIUM).addTag(DUSTS_STEEL);
+                .addTag(DUSTS_NICKEL).addTag(DUSTS_ALUMINIUM).addTag(DUSTS_STEEL).addTag(DUSTS_LEAD);
 
         // IC2 default blacklist (glass pane, stick, snowball) + pack config "102, 280, 332, 4081"; scaffold later.
         tag(IronFenceBlock.METAL_BOOTS).add(Items.IRON_BOOTS, Items.GOLDEN_BOOTS, Items.CHAINMAIL_BOOTS,
