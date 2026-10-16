@@ -1,0 +1,12 @@
+{
+  "type": "craft:ic2_shapeless",
+  "ingredients": [
+    {
+      "item": "craft:plutonium_dust"
+    }
+  ],
+  "result": {
+    "count": 4,
+    "id": "craft:small_plutonium_dust"
+  }
+}

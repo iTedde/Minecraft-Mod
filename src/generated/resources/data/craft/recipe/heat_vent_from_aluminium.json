@@ -1,0 +1,20 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "A": {
+      "tag": "c:plates/aluminium"
+    },
+    "I": {
+      "item": "minecraft:iron_bars"
+    }
+  },
+  "pattern": [
+    "AIA",
+    "I I",
+    "AIA"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:heat_vent"
+  }
+}

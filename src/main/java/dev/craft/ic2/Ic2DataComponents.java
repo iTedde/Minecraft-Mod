@@ -80,6 +80,23 @@ public final class Ic2DataComponents {
                     .persistent(Codec.INT)
                     .networkSynchronized(ByteBufCodecs.VAR_INT));
 
+    /**
+     * GregTech thorium/plutonium cell (NBT {@code durability}, {@code pulse}, {@code output}): cycles used and the two
+     * pulse counters of the slow (negative pulse rate) cells.
+     */
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> NUCLEAR_DURABILITY =
+            COMPONENTS.registerComponentType("nuclear_durability", builder -> builder
+                    .persistent(Codec.INT)
+                    .networkSynchronized(ByteBufCodecs.VAR_INT));
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> PULSE_COUNT =
+            COMPONENTS.registerComponentType("pulse_count", builder -> builder
+                    .persistent(Codec.INT)
+                    .networkSynchronized(ByteBufCodecs.VAR_INT));
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> OUTPUT_COUNT =
+            COMPONENTS.registerComponentType("output_count", builder -> builder
+                    .persistent(Codec.INT)
+                    .networkSynchronized(ByteBufCodecs.VAR_INT));
+
     /** Last block position of the static boots (IC2 NBT {@code x}/{@code z}). */
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Position>> LAST_POSITION =
             COMPONENTS.registerComponentType("last_position", builder -> builder

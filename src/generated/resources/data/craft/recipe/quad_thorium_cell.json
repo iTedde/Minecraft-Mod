@@ -1,0 +1,24 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "C": {
+      "type": "neoforge:components",
+      "components": {
+        "minecraft:damage": 0
+      },
+      "items": "craft:dual_thorium_cell"
+    },
+    "P": {
+      "tag": "c:plates/copper"
+    }
+  },
+  "pattern": [
+    " C ",
+    "PPP",
+    " C "
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:quad_thorium_cell"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "type": "craft:ic2_shapeless",
+  "ingredients": [
+    {
+      "item": "craft:small_tungsten_dust"
+    },
+    {
+      "item": "craft:small_tungsten_dust"
+    },
+    {
+      "item": "craft:small_tungsten_dust"
+    },
+    {
+      "item": "craft:small_tungsten_dust"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:tungsten_dust"
+  }
+}

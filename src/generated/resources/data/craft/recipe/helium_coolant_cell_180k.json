@@ -1,0 +1,24 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "H": {
+      "type": "neoforge:components",
+      "components": {
+        "minecraft:damage": 0
+      },
+      "items": "craft:helium_coolant_cell_60k"
+    },
+    "T": {
+      "tag": "c:ingots/tin"
+    }
+  },
+  "pattern": [
+    "TTT",
+    "HHH",
+    "TTT"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:helium_coolant_cell_180k"
+  }
+}

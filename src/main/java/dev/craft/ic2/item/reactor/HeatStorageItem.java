@@ -10,7 +10,11 @@ public class HeatStorageItem extends GradualItem implements ReactorComponent {
     protected final int heatStorage;
 
     public HeatStorageItem(Properties properties, int heatStorage) {
-        super(properties);
+        this(properties, heatStorage, MAX_DAMAGE);
+    }
+
+    protected HeatStorageItem(Properties properties, int heatStorage, int maxDamage) {
+        super(properties, maxDamage);
         this.heatStorage = heatStorage;
     }
 

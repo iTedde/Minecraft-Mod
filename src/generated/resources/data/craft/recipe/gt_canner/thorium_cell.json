@@ -1,0 +1,21 @@
+{
+  "type": "craft:gt_canner",
+  "duration": 100,
+  "eu_per_tick": 2,
+  "inputs": [
+    {
+      "count": 1,
+      "item": "craft:thorium_ingot"
+    },
+    {
+      "count": 1,
+      "item": "craft:empty_cell"
+    }
+  ],
+  "outputs": [
+    {
+      "count": 1,
+      "id": "craft:thorium_cell"
+    }
+  ]
+}

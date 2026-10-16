@@ -251,3 +251,53 @@ Fluid-Handling gewünscht ist (siehe Abweichungen).
 - Zyklusreihenfolge (Zeilen außen, Spalten innen) und die Reihenfolge der Nachbarn sind für das Ergebnis relevant
   (ganzzahlige Divisionen, Zerstörung während des Zyklus) und müssen exakt übernommen werden.
 - Ein Reaktor-Planer/Simulator im Test-Code ist sinnvoll, um bekannte Designs aus dem Original zu vergleichen.
+
+## 8. GregTech-Reaktorteile (Phase 7b, `gregtechmod.common.items`)
+
+Pack-Config: `Helium2Coolantcell`, `NaKCoolantcell`, `IridiumNeutronReflector`, `BeryliumReflector` = true.
+Texturen `items.png` (Index = Item-Nummer), Namen nur Englisch.
+
+| Item | GT-Nr. | Klasse | Werte |
+|---|---:|---|---|
+| 60k/180k/360k Helium Coolant Cell | 34/35/36 | `GT_CoolantCell_Item` | Kapazität 60 000/180 000/360 000 |
+| Iridium Neutron Reflector | 40 | `GT_NeutronReflector_Item` | Haltbarkeit 0 = unendlich |
+| Thorium Cell / Double / Quad | 48/49/50 | `GT_RadioactiveCell_Item` | 25 000 Zyklen, Zellen 1/2/4, Pulsrate −5, kein Rest |
+| Plutonium Cell / Double / Quad | 51/52/53 | `GT_RadioactiveCell_Item` | 20 000 Zyklen, Zellen 1/2/4, Pulsrate 2, Rest 4 fast erschöpfte Uranzellen |
+| NaK Coolant Cell 60k/180k/360k | 60–62 | `GT_CoolantCell_Item` | nicht umgesetzt (Natrium/Kalium nicht erreichbar) |
+
+**Helium-Kühlzelle:** Hitze wie die IC2-Kühlzelle (NBT `heat`, Zerstörung mit negativem Rest), Stack 1, nur **100**
+Damage-Stufen für den Balken, Tooltip „Stored Heat: n“, `influenceExplosion = 1 + Kapazität/30000` (wird addiert).
+Zurückkühlen nur im Vakuumgefrierer (nicht umgesetzt).
+
+**Iridium-Neutronenreflektor:** stapelbar (64), wirkt nur als Einzelstück (`stackSize > 1` → Puls abgelehnt). Ein
+Puls wird an die pulsende Komponente zurückgegeben (`pulsing.acceptUraniumPulse(reactor, pulsing, reflektor, …)` →
+bei der Uranzelle +1 Output); kein Verschleiß; Explosion −1.
+
+**Thorium-/Plutoniumzelle** (`GT_RadioactiveCell_Item`, Stack 1, NBT `durability`, `pulse`, `output`):
+- Nur als Einzelstück und nur mit `produceEnergy()`. Je Zelle (`cellCount`-mal): `1 + cellCount/2` Eigenpulse; dann
+  wenn `pulserate ≠ 0` und `outputPulse` (Zähler `output` +1; wahr bei positiver Rate oder `output % 5 == 0`):
+  Schleife `i < pulserate || i == 0` – Nachbarn pulsen (Zahl der Pulse **summiert sich** über die Durchläufe),
+  Hitze `sumUp(pulse)·4` auf Nachbarn mit Wärmespeicher verteilen wie bei der Uranzelle, Rest in die Hülle.
+- `acceptUraniumPulse`: Rate > 0 → `rate`-mal +1 Output; Rate < 0 → Zähler `pulse` +1, Output nur bei
+  `pulse % 5 == 0`. Gibt `true` zurück (auch Thorium nimmt also Nachbarpulse an).
+- Danach `durability ≥ max − 1` → Feld leer; Plutonium: je Zelle mit 1/4 Wahrscheinlichkeit 4 fast erschöpfte
+  Uranzellen (stapelnd); sonst `durability + 1` (Balken = verbrauchter Anteil). Tooltip „Time left: n secs“.
+- Explosion: `stackSize · cellCount · max(rate, 1)` (wird addiert).
+
+**Material und Rezepte** (`GT_Mod`, `GT_OreDictHandler`):
+- Uranstaub (Dust 16, leuchtet): Macerator Uranerz → 2, Uranblock → 9, Barren → 1; Compressor → Uranbarren;
+  Massefabrikator-Verstärker 1 000 000. Thoriumstaub (80) / Plutoniumstaub (81) analog mit Thorium-/Plutoniumbarren
+  (Material 38/39), Verstärker 500 000 / 2 000 000. Kleiner Plutoniumstaub (4 ↔ 1), Wolframstaub (Dust 22, 4 kleine ↔ 1).
+- Zentrifuge (5 EU/t): fast erschöpfte Uranzelle → Thoriumstaub + leere Zelle (500); 8 angereicherte Uranzellen →
+  3 fast erschöpfte, Plutoniumstaub, 4 Thoriumstaub, 5 leere Zellen (20 000); 4 Uranstaub + 4 Zellen → 4 Uranzellen,
+  kleiner Plutoniumstaub, 2 Thoriumstaub, Wolframstaub (10 000).
+- GT-Canner (100 Ticks, 2 EU/t): Thorium-/Plutoniumbarren + leere Zelle → Thorium-/Plutoniumzelle.
+- Doppel-/Vierfachzelle: Thorium `CPC` / ` C /PPP/ C ` mit Kupferplatten, Plutonium dasselbe mit dichten Kupferplatten.
+- Helium: 60k ` T /THT/ T ` (H = Heliumzelle, T = Zinnbarren), 180k `TTT/HHH/TTT` (60k), 360k `THT/TCT/THT`
+  (180k, C = dichte Kupferplatte); 2 Overclocker ` H /WCW` (H = 60k-Heliumzelle, W = isol. Kupferkabel,
+  C = el. Schaltkreis).
+- Dicker Neutronenreflektor (ersetzt): ` N /NBN/ N ` (N = Neutronenreflektor, B = Berylliumzelle); Iridium-Reflektor
+  `NNN/NIN/NNN` (N = dicker Reflektor, I = Iridiumplatte).
+- Berylliumzelle (Cell 10 „Berylium Cell“): Elektrolyseur 29 Smaragdstaub + 18 Zellen → 2 Aluminiumstaub,
+  3 Berylliumzellen, 6 Siliziumzellen, 9 Luftzellen (600 Ticks, 50 EU/t).
+- Wärmeableiter GT-Variante `AIA/I I/AIA` (A = Aluminiumplatte, I = Eisengitter).

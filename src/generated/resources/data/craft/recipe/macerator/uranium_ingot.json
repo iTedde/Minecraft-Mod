@@ -1,0 +1,10 @@
+{
+  "type": "craft:macerator",
+  "ingredient": {
+    "tag": "c:ingots/uranium"
+  },
+  "result": {
+    "count": 1,
+    "id": "craft:uranium_dust"
+  }
+}

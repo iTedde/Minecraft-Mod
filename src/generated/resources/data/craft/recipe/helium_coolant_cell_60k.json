@@ -1,0 +1,20 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "H": {
+      "item": "craft:helium_cell"
+    },
+    "T": {
+      "tag": "c:ingots/tin"
+    }
+  },
+  "pattern": [
+    " T ",
+    "THT",
+    " T "
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:helium_coolant_cell_60k"
+  }
+}

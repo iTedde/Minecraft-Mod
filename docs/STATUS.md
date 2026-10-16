@@ -777,10 +777,24 @@ NaK-Kühlzellen, kein Vakuumgefrierer) **und die IC2-Nuke**. Teilpakete: 7a IC2-
 - Texturen und Klänge aus `IC2.jar`. 15 neue GameTests (`ReactorGameTests`, insgesamt 167 grün), `build` und
   `runClient` erfolgreich.
 
+## Erledigt (Teilpaket „Phase 7b: GT-Reaktorteile“, 2026-10-16)
+- Spec: `06-reaktor.md` §8 (Helium-Kühlzellen, Iridium-Reflektor, Thorium-/Plutoniumzellen inkl. Pulsraten, Material-
+  und Rezeptliste).
+- Items (`gregtech/item/GtCoolantCellItem`, `GtNeutronReflectorItem`, `GtRadioactiveCellItem`): 60k/180k/360k-
+  Heliumkühlzelle, Iridium-Neutronenreflektor, Thorium- und Plutoniumzelle (einfach/doppelt/vierfach), Thorium-/
+  Plutoniumbarren, Uran-/Thorium-/Plutoniumstaub (leuchtend), kleiner Plutoniumstaub, Wolframstaub, Berylliumzelle.
+- Rezepte: Macerator/Compressor (Uran-, Thorium-, Plutoniumstaub ↔ Barren), Zentrifuge (fast erschöpfte und
+  angereicherte Uranzellen, Uranstaub), GT-Canner (Thorium-/Plutoniumzelle), Doppel-/Vierfachzellen, Heliumkühlzellen,
+  Overclocker aus Heliumkühlzelle, dicker Neutronenreflektor mit Berylliumzelle, Iridium-Reflektor, Smaragdstaub im
+  Elektrolyseur (→ Beryllium), GT-Wärmeableiter mit Aluminiumplatten. Massefabrikator-Verstärker Uran/Plutonium/Thorium.
+- Nicht umgesetzt: NaK-Kühlzellen (Natrium/Kalium nicht erreichbar), Vakuumgefrierer (Zurückkühlen der
+  Heliumzellen), Containment-Platte mit Bleiplatte (kein Bleibarren).
+- 5 neue GameTests (`GtReactorGameTests`, insgesamt 172 grün), `build` und `runClient` erfolgreich.
+
 ## Nächste Schritte
-1. Teilpaket 7b: GT-Reaktorteile (Helium-Kühlzellen, Iridium-Reflektor, Thorium/Plutonium, Uranstaub, dicker
-   Neutronenreflektor mit Berylliumzelle – prüfen, ob Beryllium erreichbar ist).
-2. Teilpaket 7c: Nuke.
+1. Teilpaket 7c: Nuke.
+2. Manuelle Client-Tests 7b: Thoriumzelle (Output nur jeden 5. Zyklus), Plutoniumzelle, Iridium-Reflektor (Stapel
+   wirkt nicht), Heliumkühlzelle (Tooltip „Stored Heat“), Zentrifuge mit Uranstaub, Smaragdstaub-Elektrolyse.
 3. Manuelle Client-Tests 7a: Uranerz finden (y 0–64), Reaktor + Kammern bauen (GUI-Breite 3–9, Kammer nur an einem
    Reaktor), Redstone an → Loop/Geigerzähler, Energie in eine MFE, Kühlzellen-Balken, Kernschmelze in einer Testwelt
    (Rauch/Flammen, Feuer/Lava ringsum, Explosion), Kondensator mit Redstone reparieren.

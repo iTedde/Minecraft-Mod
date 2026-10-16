@@ -9,7 +9,10 @@ import java.util.Map;
 import dev.craft.Craft;
 import dev.craft.gregtech.block.GtCasingBlock;
 import dev.craft.gregtech.item.GtMachineItem;
+import dev.craft.gregtech.item.GtCoolantCellItem;
 import dev.craft.gregtech.item.GtMaterialItem;
+import dev.craft.gregtech.item.GtNeutronReflectorItem;
+import dev.craft.gregtech.item.GtRadioactiveCellItem;
 import dev.craft.gregtech.item.LithiumBatpackItem;
 import dev.craft.gregtech.item.LithiumBatteryItem;
 import net.minecraft.world.item.BlockItem;
@@ -138,6 +141,36 @@ public final class GtItems {
         return CASINGS.get(type);
     }
 
+    // --- nuclear (phase 7b): GT_MetaItem_Material 38/39, Dust 16/22/80/81, Cell 10, items 34–36, 40, 48–53 ---
+    public static final DeferredItem<GtMaterialItem> THORIUM_INGOT = glowing("thorium_ingot", "Th");
+    public static final DeferredItem<GtMaterialItem> PLUTONIUM_INGOT = glowing("plutonium_ingot", "Pu");
+    public static final DeferredItem<GtMaterialItem> URANIUM_DUST = glowing("uranium_dust", "U");
+    public static final DeferredItem<GtMaterialItem> THORIUM_DUST = glowing("thorium_dust", "Th");
+    public static final DeferredItem<GtMaterialItem> PLUTONIUM_DUST = glowing("plutonium_dust", "Pu");
+    public static final DeferredItem<GtMaterialItem> SMALL_PLUTONIUM_DUST = glowing("small_plutonium_dust", "Pu");
+    public static final DeferredItem<GtMaterialItem> TUNGSTEN_DUST = material("tungsten_dust", "W");
+    public static final DeferredItem<GtMaterialItem> BERYLLIUM_CELL = material("beryllium_cell", "Be");
+    public static final DeferredItem<GtCoolantCellItem> HELIUM_COOLANT_CELL_60K = simple(ITEMS.registerItem(
+            "helium_coolant_cell_60k", properties -> new GtCoolantCellItem(properties, 60000)));
+    public static final DeferredItem<GtCoolantCellItem> HELIUM_COOLANT_CELL_180K = simple(ITEMS.registerItem(
+            "helium_coolant_cell_180k", properties -> new GtCoolantCellItem(properties, 180000)));
+    public static final DeferredItem<GtCoolantCellItem> HELIUM_COOLANT_CELL_360K = simple(ITEMS.registerItem(
+            "helium_coolant_cell_360k", properties -> new GtCoolantCellItem(properties, 360000)));
+    public static final DeferredItem<GtNeutronReflectorItem> IRIDIUM_NEUTRON_REFLECTOR = simple(ITEMS.registerItem(
+            "iridium_neutron_reflector", GtNeutronReflectorItem::new));
+    public static final DeferredItem<GtRadioactiveCellItem> THORIUM_CELL = radioactive("thorium_cell", 25000, 1, -5,
+            false);
+    public static final DeferredItem<GtRadioactiveCellItem> DUAL_THORIUM_CELL = radioactive("dual_thorium_cell", 25000,
+            2, -5, false);
+    public static final DeferredItem<GtRadioactiveCellItem> QUAD_THORIUM_CELL = radioactive("quad_thorium_cell", 25000,
+            4, -5, false);
+    public static final DeferredItem<GtRadioactiveCellItem> PLUTONIUM_CELL = radioactive("plutonium_cell", 20000, 1, 2,
+            true);
+    public static final DeferredItem<GtRadioactiveCellItem> DUAL_PLUTONIUM_CELL = radioactive("dual_plutonium_cell",
+            20000, 2, 2, true);
+    public static final DeferredItem<GtRadioactiveCellItem> QUAD_PLUTONIUM_CELL = radioactive("quad_plutonium_cell",
+            20000, 4, 2, true);
+
     /** Items with a generated flat item model. */
     public static List<DeferredItem<? extends Item>> simpleItems() {
         return Collections.unmodifiableList(SIMPLE);
@@ -148,6 +181,24 @@ public final class GtItems {
                 properties -> GtMaterialItem.formula(properties, formula));
         SIMPLE.add(item);
         return item;
+    }
+
+    private static DeferredItem<GtMaterialItem> glowing(String name, String formula) {
+        DeferredItem<GtMaterialItem> item = ITEMS.registerItem(name,
+                properties -> GtMaterialItem.glowing(properties, formula));
+        SIMPLE.add(item);
+        return item;
+    }
+
+    private static <T extends Item> DeferredItem<T> simple(DeferredItem<T> item) {
+        SIMPLE.add(item);
+        return item;
+    }
+
+    private static DeferredItem<GtRadioactiveCellItem> radioactive(String name, int maxDelay, int cells, int pulseRate,
+                                                                   boolean leavesDepleted) {
+        return simple(ITEMS.registerItem(name,
+                properties -> new GtRadioactiveCellItem(properties, maxDelay, cells, pulseRate, leavesDepleted)));
     }
 
     private static DeferredItem<GtMaterialItem> component(String name) {

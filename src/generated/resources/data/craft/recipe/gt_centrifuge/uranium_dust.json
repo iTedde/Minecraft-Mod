@@ -1,0 +1,33 @@
+{
+  "type": "craft:gt_centrifuge",
+  "duration": 10000,
+  "eu_per_tick": 5,
+  "inputs": [
+    {
+      "count": 4,
+      "item": "craft:uranium_dust"
+    },
+    {
+      "count": 4,
+      "item": "craft:empty_cell"
+    }
+  ],
+  "outputs": [
+    {
+      "count": 4,
+      "id": "craft:uranium_cell"
+    },
+    {
+      "count": 1,
+      "id": "craft:small_plutonium_dust"
+    },
+    {
+      "count": 2,
+      "id": "craft:thorium_dust"
+    },
+    {
+      "count": 1,
+      "id": "craft:tungsten_dust"
+    }
+  ]
+}

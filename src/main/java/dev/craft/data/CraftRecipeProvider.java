@@ -88,6 +88,7 @@ public final class CraftRecipeProvider extends RecipeProvider {
         armor();
         misc();
         reactor();
+        reactorGregTech();
         uuMatter();
         smelting();
         macerator();
@@ -185,7 +186,7 @@ public final class CraftRecipeProvider extends RecipeProvider {
                     .define('E', machine(Ic2Machine.EXTRACTOR)).save();
         }
         ItemStack none = ItemStack.EMPTY;
-        // GT_Mod: ice cell (needs the vacuum freezer) and uranium cells (phase 7) are left out.
+        // GT_Mod: the ice cell needs the vacuum freezer; uranium/plutonium/thorium recipes are in reactorGregTech().
         centrifuge("magma_cream", Ingredient.of(Items.MAGMA_CREAM), 1, 0, 500, stack(Items.BLAZE_POWDER, 1),
                 stack(Items.SLIME_BALL, 1));
         centrifuge("dirt", Ingredient.of(Items.DIRT), 16, 0, 2500, stack(Ic2Items.COMPRESSED_PLANT_BALL, 1),
@@ -1247,6 +1248,77 @@ public final class CraftRecipeProvider extends RecipeProvider {
                 5000);
         gradualRepair("lzh_condensator_repair_lapis", Ic2Items.LZH_CONDENSATOR.get(), Ingredient.of(Items.LAPIS_LAZULI),
                 40000);
+    }
+
+    /** GregTech reactor parts reachable without GT ores (phase 7b). */
+    private void reactorGregTech() {
+        ItemStack none = ItemStack.EMPTY;
+        // Uranium, thorium and plutonium dusts and ingots.
+        machine(MachineRecipe.Kind.MACERATOR, "uranium_ore", Ingredient.of(Ic2Items.URANIUM_ORE,
+                Ic2Items.DEEPSLATE_URANIUM_ORE), 1, GtItems.URANIUM_DUST, 2);
+        machine(MachineRecipe.Kind.MACERATOR, "uranium_block", Ingredient.of(Ic2Items.URANIUM_BLOCK), 1,
+                GtItems.URANIUM_DUST, 9);
+        machine(MachineRecipe.Kind.MACERATOR, "uranium_ingot", Ingredient.of(CraftItemTagsProvider.INGOTS_URANIUM), 1,
+                GtItems.URANIUM_DUST, 1);
+        machine(MachineRecipe.Kind.MACERATOR, "thorium_ingot", Ingredient.of(GtItems.THORIUM_INGOT), 1,
+                GtItems.THORIUM_DUST, 1);
+        machine(MachineRecipe.Kind.MACERATOR, "plutonium_ingot", Ingredient.of(GtItems.PLUTONIUM_INGOT), 1,
+                GtItems.PLUTONIUM_DUST, 1);
+        machine(MachineRecipe.Kind.COMPRESSOR, "uranium_dust", Ingredient.of(GtItems.URANIUM_DUST), 1,
+                Ic2Items.URANIUM_INGOT, 1);
+        machine(MachineRecipe.Kind.COMPRESSOR, "thorium_dust", Ingredient.of(GtItems.THORIUM_DUST), 1,
+                GtItems.THORIUM_INGOT, 1);
+        machine(MachineRecipe.Kind.COMPRESSOR, "plutonium_dust", Ingredient.of(GtItems.PLUTONIUM_DUST), 1,
+                GtItems.PLUTONIUM_INGOT, 1);
+        smallDust("plutonium", GtItems.SMALL_PLUTONIUM_DUST, Ingredient.of(GtItems.PLUTONIUM_DUST),
+                GtItems.PLUTONIUM_DUST);
+        smallDust("tungsten", GtItems.SMALL_TUNGSTEN_DUST, Ingredient.of(GtItems.TUNGSTEN_DUST), GtItems.TUNGSTEN_DUST);
+        centrifuge("near_depleted_uranium_cell", Ingredient.of(Ic2Items.NEAR_DEPLETED_URANIUM_CELL), 1, 0, 500,
+                stack(GtItems.THORIUM_DUST, 1), none, none, stack(Ic2Items.EMPTY_CELL, 1));
+        centrifuge("re_enriched_uranium_cell", Ingredient.of(Ic2Items.RE_ENRICHED_URANIUM_CELL), 8, 0, 20000,
+                stack(Ic2Items.NEAR_DEPLETED_URANIUM_CELL, 3), stack(GtItems.PLUTONIUM_DUST, 1),
+                stack(GtItems.THORIUM_DUST, 4), stack(Ic2Items.EMPTY_CELL, 5));
+        centrifuge("uranium_dust", Ingredient.of(GtItems.URANIUM_DUST), 4, 4, 10000,
+                stack(Ic2Items.URANIUM_CELL, 4), stack(GtItems.SMALL_PLUTONIUM_DUST, 1),
+                stack(GtItems.THORIUM_DUST, 2), stack(GtItems.TUNGSTEN_DUST, 1));
+        // Thorium and plutonium cells: canned from ingots, combined like the uranium cells.
+        can("thorium_cell", SizedIngredient.of(GtItems.THORIUM_INGOT, 1), SizedIngredient.of(Ic2Items.EMPTY_CELL, 1),
+                100, 2, new ItemStack(GtItems.THORIUM_CELL.get()));
+        can("plutonium_cell", SizedIngredient.of(GtItems.PLUTONIUM_INGOT, 1),
+                SizedIngredient.of(Ic2Items.EMPTY_CELL, 1), 100, 2, new ItemStack(GtItems.PLUTONIUM_CELL.get()));
+        shaped(GtItems.DUAL_THORIUM_CELL, 1, "dual_thorium_cell").pattern("CPC")
+                .define('C', fresh(GtItems.THORIUM_CELL)).define('P', CraftItemTagsProvider.PLATES_COPPER).save();
+        shaped(GtItems.QUAD_THORIUM_CELL, 1, "quad_thorium_cell").pattern(" C ", "PPP", " C ")
+                .define('C', fresh(GtItems.DUAL_THORIUM_CELL)).define('P', CraftItemTagsProvider.PLATES_COPPER).save();
+        shaped(GtItems.DUAL_PLUTONIUM_CELL, 1, "dual_plutonium_cell").pattern("CPC")
+                .define('C', fresh(GtItems.PLUTONIUM_CELL)).define('P', Ic2Items.DENSE_COPPER_PLATE).save();
+        shaped(GtItems.QUAD_PLUTONIUM_CELL, 1, "quad_plutonium_cell").pattern(" C ", "PPP", " C ")
+                .define('C', fresh(GtItems.DUAL_PLUTONIUM_CELL)).define('P', Ic2Items.DENSE_COPPER_PLATE).save();
+        // Helium coolant cells (Helium2Coolantcell) and the cheaper overclocker with them.
+        shaped(GtItems.HELIUM_COOLANT_CELL_60K, 1, "helium_coolant_cell_60k").pattern(" T ", "THT", " T ")
+                .define('H', GtItems.HELIUM_CELL).define('T', CraftItemTagsProvider.INGOTS_TIN).save();
+        shaped(GtItems.HELIUM_COOLANT_CELL_180K, 1, "helium_coolant_cell_180k").pattern("TTT", "HHH", "TTT")
+                .define('H', fresh(GtItems.HELIUM_COOLANT_CELL_60K)).define('T', CraftItemTagsProvider.INGOTS_TIN)
+                .save();
+        shaped(GtItems.HELIUM_COOLANT_CELL_360K, 1, "helium_coolant_cell_360k").pattern("THT", "TCT", "THT")
+                .define('H', fresh(GtItems.HELIUM_COOLANT_CELL_180K)).define('T', CraftItemTagsProvider.INGOTS_TIN)
+                .define('C', Ic2Items.DENSE_COPPER_PLATE).save();
+        shaped(Ic2Items.OVERCLOCKER_UPGRADE, 2, "overclocker_upgrade_from_helium_coolant").pattern(" H ", "WCW")
+                .define('H', fresh(GtItems.HELIUM_COOLANT_CELL_60K))
+                .define('W', Ic2Items.cable(CableType.INSULATED_COPPER)).define('C', Ic2Items.ELECTRONIC_CIRCUIT)
+                .save();
+        // Reflectors: GT replaces the thick reflector recipe (BeryliumReflector), adds the iridium reflector.
+        shaped(Ic2Items.THICK_NEUTRON_REFLECTOR, 1, "thick_neutron_reflector").pattern(" N ", "NBN", " N ")
+                .define('N', fresh(Ic2Items.NEUTRON_REFLECTOR)).define('B', GtItems.BERYLLIUM_CELL).save();
+        shaped(GtItems.IRIDIUM_NEUTRON_REFLECTOR, 1, "iridium_neutron_reflector").pattern("NNN", "NIN", "NNN")
+                .define('N', fresh(Ic2Items.THICK_NEUTRON_REFLECTOR)).define('I', Ic2Items.IRIDIUM_PLATE).save();
+        // Beryllium from emerald dust (GT electrolyzer, 600 ticks at 50 EU/t).
+        electrolysis("emerald_dust", Ingredient.of(GtItems.EMERALD_DUST), 29, 18, 600, 50,
+                stack(GtItems.ALUMINIUM_DUST, 2), stack(GtItems.BERYLLIUM_CELL, 3), stack(GtItems.SILICON_CELL, 6),
+                stack(Ic2Items.AIR_CELL, 9));
+        // GT heat vent variant with aluminium plates.
+        shaped(Ic2Items.HEAT_VENT, 1, "heat_vent_from_aluminium").pattern("AIA", "I I", "AIA")
+                .define('A', CraftItemTagsProvider.PLATES_ALUMINIUM).define('I', Items.IRON_BARS).save();
     }
 
     /** Depleted isotope cell as crafted: damage 9999. */

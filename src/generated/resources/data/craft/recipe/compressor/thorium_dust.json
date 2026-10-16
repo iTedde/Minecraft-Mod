@@ -1,0 +1,10 @@
+{
+  "type": "craft:compressor",
+  "ingredient": {
+    "item": "craft:thorium_dust"
+  },
+  "result": {
+    "count": 1,
+    "id": "craft:thorium_ingot"
+  }
+}

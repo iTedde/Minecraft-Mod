@@ -62,7 +62,10 @@ public class MassFabricatorBlockEntity extends MachineBlockEntity implements Ene
                 Items.REDSTONE, 5000,
                 Items.GLOWSTONE_DUST, 25000,
                 GtItems.DIAMOND_DUST.get(), 125000,
-                GtItems.EMERALD_DUST.get(), 50000);
+                GtItems.EMERALD_DUST.get(), 50000,
+                GtItems.URANIUM_DUST.get(), 1000000,
+                GtItems.PLUTONIUM_DUST.get(), 2000000,
+                GtItems.THORIUM_DUST.get(), 500000);
     }
 
     public int getEnergy() {

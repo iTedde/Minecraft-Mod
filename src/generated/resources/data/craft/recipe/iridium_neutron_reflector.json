@@ -1,0 +1,24 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "I": {
+      "item": "craft:iridium_plate"
+    },
+    "N": {
+      "type": "neoforge:components",
+      "components": {
+        "minecraft:damage": 0
+      },
+      "items": "craft:thick_neutron_reflector"
+    }
+  },
+  "pattern": [
+    "NNN",
+    "NIN",
+    "NNN"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:iridium_neutron_reflector"
+  }
+}

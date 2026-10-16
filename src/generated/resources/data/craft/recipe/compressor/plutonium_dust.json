@@ -1,0 +1,10 @@
+{
+  "type": "craft:compressor",
+  "ingredient": {
+    "item": "craft:plutonium_dust"
+  },
+  "result": {
+    "count": 1,
+    "id": "craft:plutonium_ingot"
+  }
+}

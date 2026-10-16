@@ -12,7 +12,12 @@ public class GradualItem extends Item {
     public static final int MAX_DAMAGE = 10000;
 
     public GradualItem(Properties properties) {
-        super(properties.durability(MAX_DAMAGE).setNoRepair());
+        this(properties, MAX_DAMAGE);
+    }
+
+    /** GregTech coolant cells use only 100 damage steps for the bar. */
+    public GradualItem(Properties properties, int maxDamage) {
+        super(properties.durability(maxDamage).setNoRepair());
     }
 
     public void setDamageForStack(ItemStack stack, int damage) {

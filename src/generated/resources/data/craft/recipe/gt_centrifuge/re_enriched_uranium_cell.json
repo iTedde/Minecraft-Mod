@@ -1,0 +1,29 @@
+{
+  "type": "craft:gt_centrifuge",
+  "duration": 20000,
+  "eu_per_tick": 5,
+  "inputs": [
+    {
+      "count": 8,
+      "item": "craft:re_enriched_uranium_cell"
+    }
+  ],
+  "outputs": [
+    {
+      "count": 3,
+      "id": "craft:near_depleted_uranium_cell"
+    },
+    {
+      "count": 1,
+      "id": "craft:plutonium_dust"
+    },
+    {
+      "count": 4,
+      "id": "craft:thorium_dust"
+    },
+    {
+      "count": 5,
+      "id": "craft:empty_cell"
+    }
+  ]
+}

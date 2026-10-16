@@ -1,0 +1,10 @@
+{
+  "type": "craft:macerator",
+  "ingredient": {
+    "item": "craft:plutonium_ingot"
+  },
+  "result": {
+    "count": 1,
+    "id": "craft:plutonium_dust"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "B": {
+      "item": "craft:beryllium_cell"
+    },
+    "N": {
+      "type": "neoforge:components",
+      "components": {
+        "minecraft:damage": 0
+      },
+      "items": "craft:neutron_reflector"
+    }
+  },
+  "pattern": [
+    " N ",
+    "NBN",
+    " N "
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:thick_neutron_reflector"
+  }
+}
