@@ -46,6 +46,16 @@ public final class LiquidContainers {
         return FluidUtil.getFluidContained(stack).orElse(FluidStack.EMPTY);
     }
 
+    /** The empty container left over from a filled one (bucket, empty cell), or empty if unknown. */
+    public static ItemStack emptyContainer(ItemStack filled) {
+        for (Entry entry : entries()) {
+            if (filled.is(entry.filled())) {
+                return new ItemStack(entry.empty());
+            }
+        }
+        return filled.hasCraftingRemainingItem() ? filled.getCraftingRemainingItem() : ItemStack.EMPTY;
+    }
+
     /** {@code fillLiquidContainer}: the filled container if {@code available} holds enough, otherwise empty. */
     public static ItemStack fillLiquidContainer(FluidStack available, ItemStack container) {
         if (available.isEmpty() || container.isEmpty()) {

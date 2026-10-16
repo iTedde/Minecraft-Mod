@@ -14,6 +14,7 @@ ergänzen. Basispaket `dev.craft`, Einstieg `Craft` → `Ic2.init`, `BuildCraft.
 | Power Converters | `PcBlocks`, `PcItems`, `PcBlockEntityTypes`, `PcMenus`, `PowerSystem` (PCU je Einheit), `ConverterType` |
 | Compact Solars | `CsBlocks`, `CsItems`, `CsBlockEntityTypes`, `CsMenus`, `SolarArrayType` |
 | GregTech | `GtBlocks`, `GtItems` (`simpleItems` = Platten/Komponenten mit Textur unter `item/gt/`), `GtBlockEntityTypes`, `GtMenus`, `GtRecipes`, `GtMachine` (Enum aller GT-Maschinen: Name, GUI, Vorderseiten-Textur, Beschreibung, Fabrik) |
+| Kraftwerke (neu) | `PpBlocks`, `PpItems`, `PpBlockEntityTypes`, `PpMenus`, `PpFluids` (Dampf) |
 
 - Capabilities werden in der jeweiligen Init-Klasse (`registerCapabilities`) registriert.
 - Creative-Tabs: `core/CraftCreativeTabs` (ein Tab je Mod).
@@ -57,6 +58,7 @@ ergänzen. Basispaket `dev.craft`, Einstieg `Craft` → `Ic2.init`, `BuildCraft.
 | `core/multiblock/MultiblockPattern`, `MultiblockController` | gemeinsames Multiblock-System; `Listener.onChecked` nach jeder Prüfung; `MultiblockLease` = Zugehörigkeit eines Teils (nicht gespeichert) |
 | `compactsolars/SolarArrayBlockEntity`, `SolarArrayPatterns` | Solar-Array-Controller (erbt `MachineBlockEntity`, ohne Facing/`Ic2Machine`), rekursive Layouts |
 | `core/explosion/Ic2Explosion` | IC2-Explosion (`explodeMachineAt`) |
+| `powerplants/block/PlantControllerBlock(Entity)`, `PlantPartBlock(Entity)`, `SlotAccess` | Kraftwerks-Multiblocks: Controller prüft Struktur (bei Teil-Änderung, sonst alle 100 Ticks), least die Teile, `tickFormed`; Teile (ein gemeinsamer BE-Typ `plant_part`) reichen Item-/Fluid-Capability an den Controller weiter (`getPartItemHandler`/`getPartFluidHandler`) |
 | `ic2/block/Ic2ExplosiveEntity`, `IndustrialTntBlock`, `NukeBlock` | IC2-Sprengstoffe: gezündete Entity (Fuse synchronisiert, Werte über abstrakte Getter, Schadensart über `getDamageSource`, Renderer `Ic2ExplosiveRenderer`); Block zündet bei Abbau/Feuerzeug/Redstone/Explosion (`canExplodeByHand = false` → Abbau droppt, Hook `onIgnite`) |
 | `gregtech/machine/GtMachineBlockEntity` | GT-`BaseMetaTileEntity` (Spec 13 §1.1–1.6): Startverzögerung, EU-Netz, Upgrades als Zähler (Flags `is*Upgradable`), Entladen (`dechargerSlot`), Explosionen; Unterklasse implementiert `onPostTick` und die Wert-Hooks (`maxEUInput` …). Nicht-Basismaschinen (`GtMachine.isBasicMachine() = false`, z. B. Elektrolyseur): kein Facing, Texturen unten 32/oben `getTopTexture` (29)/Seiten eigene |
 | `gregtech/machine/GtTankMachineBlockEntity`, `menu/GtTankMachineMenu`, `client/GtTankMachineScreen` | Elektrolyseur/Zentrifuge: 2 Eingaben, 4 Ausgaben, Ein-Fluid-Tank mit Holo-Slot 6 als zweite Rezeptquelle; Unterklasse liefert nur Rezeptart, Fluid, Holo-Item, NBT-Schlüssel; Slot-Lagen und GUI je `GtMachine` |

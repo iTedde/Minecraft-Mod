@@ -1,0 +1,23 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "B": {
+      "item": "minecraft:bricks"
+    },
+    "F": {
+      "item": "minecraft:furnace"
+    },
+    "P": {
+      "tag": "c:plates/iron"
+    }
+  },
+  "pattern": [
+    "PBP",
+    "BFB",
+    "PBP"
+  ],
+  "result": {
+    "count": 4,
+    "id": "craft:boiler_casing"
+  }
+}

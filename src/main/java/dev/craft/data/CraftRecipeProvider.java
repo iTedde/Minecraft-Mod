@@ -669,6 +669,11 @@ public final class CraftRecipeProvider extends RecipeProvider {
         shaped(PpItems.COKE_BLOCK, 1, "coke_block").pattern("CCC", "CCC", "CCC")
                 .define('C', PpItems.COKE).save();
         shapeless(PpItems.COKE, 9, "coke_from_block", Ingredient.of(PpItems.COKE_BLOCK));
+        shaped(PpItems.BOILER_CASING, 4, "boiler_casing").pattern("PBP", "BFB", "PBP")
+                .define('P', CraftItemTagsProvider.PLATES_IRON).define('B', Items.BRICKS).define('F', Items.FURNACE)
+                .save();
+        shaped(PpItems.BOILER_FIREBOX, 1, "boiler_firebox").pattern("CCC", "CIC", "CCC")
+                .define('C', PpItems.BOILER_CASING).define('I', machine(Ic2Machine.IRON_FURNACE)).save();
     }
 
     // --- Compact Solars (multiblock variant, spec 11 §4): shapeless transformer → controller ---

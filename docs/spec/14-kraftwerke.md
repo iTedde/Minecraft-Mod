@@ -89,6 +89,10 @@ Dampftank, Temperaturbalken, Flamme (Brennzeit).
 - Kesselgehäuse ×4: `PBP/BFB/PBP` – P Eisenplatte (GT), B Ziegelblock, F Ofen.
 - Kesselfeuerung: `CCC/CIC/CCC` – C Kesselgehäuse, I Eisenofen (IC2).
 
+Blockwerte (ergänzt in 9.3a, wie Koksofen): Gehäuse und Feuerung Härte 2,0, Resistenz 10, Spitzhacke; Feuerung
+leuchtet beim Brennen (13). Automatisierung Items: oben/Seiten → Brennstoff-Slot, unten → Asche. Bei der Explosion
+geht der Inhalt der Feuerung verloren (Drop-Rate/Entity-Schaden wie `explodeMachineAt`: 0,75/0,75).
+
 ---
 
 ## 4. Dampfturbine (Kohlekraftwerk, Teil 2)

@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/orientable",
+  "textures": {
+    "front": "craft:block/powerplants/boiler_firebox_front",
+    "side": "craft:block/powerplants/boiler_casing",
+    "top": "craft:block/powerplants/boiler_casing"
+  }
+}

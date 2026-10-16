@@ -25,6 +25,7 @@ import dev.craft.powerconverters.ConverterType;
 import dev.craft.powerconverters.PcBlocks;
 import dev.craft.powerconverters.PowerSystem;
 import dev.craft.powerplants.PpBlocks;
+import dev.craft.powerplants.PpFluids;
 import dev.craft.powerplants.PpItems;
 import dev.craft.ic2.Ic2Blocks;
 import dev.craft.ic2.Ic2EntityTypes;
@@ -105,6 +106,9 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
         block(PpBlocks.COKE_BLOCK, german ? "Koksblock" : "Block of Coal Coke");
         block(PpBlocks.COKE_OVEN_BRICKS, german ? "Koksofenziegel" : "Coke Oven Bricks");
         block(PpBlocks.COKE_OVEN, german ? "Koksofen" : "Coke Oven");
+        block(PpBlocks.BOILER_CASING, german ? "Kesselgehäuse" : "Boiler Casing");
+        block(PpBlocks.BOILER_FIREBOX, german ? "Kesselfeuerung" : "Boiler Firebox");
+        add(PpFluids.STEAM_TYPE.get().getDescriptionId(), german ? "Dampf" : "Steam");
     }
 
     /** Compact Solars names ({@code CompactSolarType.friendlyName}, English only). */

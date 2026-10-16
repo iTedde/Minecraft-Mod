@@ -50,6 +50,8 @@
     "craft:hv_solar_array",
     "craft:coke_oven_bricks",
     "craft:coke_oven",
+    "craft:boiler_casing",
+    "craft:boiler_firebox",
     "craft:coke_block",
     "craft:plate_bending_machine",
     "craft:industrial_electrolyzer",

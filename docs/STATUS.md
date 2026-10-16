@@ -1056,8 +1056,23 @@ NaK-Kühlzellen, kein Vakuumgefrierer) **und die IC2-Nuke**. Teilpakete: 7a IC2-
 - 3 neue GameTests (`CokeOvenGameTests`, insgesamt 222 grün), `build` und `runClient` (Hauptmenü, keine Mod-Fehler)
   erfolgreich.
 
+## Erledigt (Teilpaket „Phase 9.3a: Kessel + Dampf“, 2026-10-16)
+- Flüssigkeit Dampf (`PpFluids.STEAM`, kein Block/Eimer, gasförmig, eigene graue Textur `block/powerplants/steam`).
+- Kessel (`BoilerBlockEntity`, Menü/Screen, GUI `boiler.png` = Railcraft `gui_boiler_solid.png` ohne die zwei
+  Zusatz-Brennstoffslots; Block-Texturen Railcraft-Feuerung aus `machines.png`): 3×3×3 Kesselgehäuse mit Luftkern,
+  Kesselfeuerung in einer Seitenmitte. Kohle 800 / Koks 1600 Ticks, ±1 °C je Tick (20–1000 °C), Dampf
+  `20·(T−100)/900` mB/t, Asche je 4 Punkte (Kohle 1, Koks 2), Tanks je 16 000 mB, Wasser per Fluid-Capability oder
+  Eimer/Wasserzelle, Dampfabgabe bis 1000 mB/t reihum an alle Außenflächen; trocken + Wasser oder trocken + 1000 °C →
+  Explosion Stärke 6 (alle Kesselblöcke weg).
+- Rezepte Kesselgehäuse ×4 (`PBP/BFB/PBP`), Kesselfeuerung (`CCC/CIC/CCC`); `LiquidContainers.emptyContainer`.
+- 6 neue GameTests (`BoilerGameTests`, Explosion in eigener Batch; insgesamt 228 grün), `build` und `runClient`
+  (Hauptmenü, keine Mod-Fehler) erfolgreich.
+
 ## Nächste Schritte
-1. 9.3 Kessel + Dampf + Dampfturbine · 9.4 Wasserturbine.
-2. Manuelle Client-Tests 9.2: Koksofen bauen, Kohle per Trichter/Ziegel einspeisen, Koks unten abziehen.
-3. Manuelle Client-Tests 9.1: Wassermühle an fließendem Wasser / im Fluss, zwei Mühlen nebeneinander; Windmühle in
+1. 9.3b Dampfturbine · 9.4 Wasserturbine.
+2. Manuelle Client-Tests 9.3a: Kessel bauen, Wasser per Eimer/IC2-Pumpe, Kohle/Koks nachlegen, Temperaturbalken und
+   Tanks in der GUI; Dampf in einen BC-Tank daneben; Explosion (Wasser auf trockenen heißen Kessel) aus sicherer
+   Entfernung.
+3. Manuelle Client-Tests 9.2: Koksofen bauen, Kohle per Trichter/Ziegel einspeisen, Koks unten abziehen.
+4. Manuelle Client-Tests 9.1: Wassermühle an fließendem Wasser / im Fluss, zwei Mühlen nebeneinander; Windmühle in
    großer Höhe bei Gewitter.

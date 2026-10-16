@@ -434,6 +434,9 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
         plantController(PpBlocks.COKE_OVEN.get(), "coke_oven", bricks, bricks);
         simpleBlockWithItem(PpBlocks.COKE_BLOCK.get(), models().cubeAll("coke_block",
                 modLoc("block/powerplants/coke_block")));
+        ResourceLocation boiler = modLoc("block/powerplants/boiler_casing");
+        simpleBlockWithItem(PpBlocks.BOILER_CASING.get(), models().cubeAll("boiler_casing", boiler));
+        plantController(PpBlocks.BOILER_FIREBOX.get(), "boiler_firebox", boiler, boiler);
     }
 
     /** Power plant controller: front texture {@code <name>_front(_active)}, rotated by the horizontal facing. */
