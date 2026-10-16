@@ -1,0 +1,23 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "C": {
+      "item": "craft:electronic_circuit"
+    },
+    "M": {
+      "item": "craft:machine_casing"
+    },
+    "P": {
+      "item": "craft:ic2_mining_pipe"
+    }
+  },
+  "pattern": [
+    "CMC",
+    " P ",
+    " P "
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:miner"
+  }
+}

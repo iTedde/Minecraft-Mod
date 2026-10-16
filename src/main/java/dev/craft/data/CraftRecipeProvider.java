@@ -1016,6 +1016,9 @@ public final class CraftRecipeProvider extends RecipeProvider {
                 .define('c', Ic2Items.EMPTY_CELL).define('C', Ic2Items.ELECTRONIC_CIRCUIT)
                 .define('M', Ic2Items.MACHINE_CASING).define('P', Ic2Items.MINING_PIPE)
                 .define('T', Ic2Items.TREETAP).save();
+        shaped(machine(Ic2Machine.MINER), 1, "miner").pattern("CMC", " P ", " P ")
+                .define('C', Ic2Items.ELECTRONIC_CIRCUIT).define('M', Ic2Items.MACHINE_CASING)
+                .define('P', Ic2Items.MINING_PIPE).save();
         shaped(Ic2Items.MINING_PIPE, 8, "ic2_mining_pipe").pattern("I I", "I I", "ITI")
                 .define('I', CraftItemTagsProvider.INGOTS_REFINED_IRON).define('T', Ic2Items.TREETAP).save();
         shaped(machine(Ic2Machine.EXTRACTOR), 1, "extractor").pattern("TMT", "TCT")

@@ -83,6 +83,7 @@ public final class Ic2Client {
                 case INDUCTION_FURNACE -> event.register(Ic2Menus.get(machine), InductionFurnaceScreen::new);
                 case CANNING_MACHINE -> event.register(Ic2Menus.get(machine), CanningMachineScreen::new);
                 case PUMP -> event.register(Ic2Menus.get(machine), PumpScreen::new);
+                case MINER -> event.register(Ic2Menus.get(machine), MinerScreen::new);
                 case NUCLEAR_REACTOR -> event.register(Ic2Menus.get(machine), NuclearReactorScreen::new);
                 case LV_TRANSFORMER, MV_TRANSFORMER, HV_TRANSFORMER, MAGNETIZER -> {
                 }

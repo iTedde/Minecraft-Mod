@@ -59,6 +59,7 @@ Testwelt. Sprache einmal Deutsch, einmal Englisch prüfen. EMI und Xaero's Minim
 | 3.22 | Bauschaum härtet bei Licht (im Dunkeln nicht), Sand härtet sofort; Wand färben (Farbroller), Wand droppt nichts, Pick-Block = Bauschaum | 12.2 | |
 | 3.23 | Gerüste: Säule bauen (Linksklick mit Gerüst), seitlich auskragen bis Stärke 0, verstärken (Stöcke/Eisenzaun, andere Textur), Unterbau entfernen → Gerüste fallen; Klettern mit Vorwärts, kein Fallschaden | 12.2 | |
 | 3.24 | Luminator: an Wand/Decke/Boden, auf Kabel als volle Platte; leuchtet nur mit Strom vom Halte-Kabel, verlischt ohne; Laden per Akku-Rechtsklick; Monster brennen; > 32 EU/t explodiert; Abbau droppt nichts | 12.2 | |
+| 3.25 | Miner: GUI (Energieanzeige, Slots nur für Batterie/Scanner/Block/Bohrer), Rohr senkt sich mit Bohrer, Drops in Truhe daneben, Loop-Sound; mit OD/OV-Scanner werden Erze der Ebene seitlich abgebaut; mit IC2-Pumpe daneben Wasser/Lava abpumpen; Bergbaubohrer bleibt an Obsidian hängen; ohne Bohrer Rohre einziehen, Block im Rohr-Slot füllt das Loch; Rohrspitze-Textur | 12.3 | |
 
 ## 4. IC2 – Canning, Pumpe, Reaktor, Nuke (Phasen 6b, 7, 8)
 

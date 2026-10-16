@@ -169,7 +169,8 @@ public class PumpBlockEntity extends MachineBlockEntity implements EnergySink {
         return true;
     }
 
-    private boolean pumpThis(boolean water) {
+    /** Also used by the miner, which removes the source block itself. */
+    public boolean pumpThis(boolean water) {
         if (!water && deliverLavaToGeo()) {
             pumpCharge = 0;
             return true;
@@ -238,7 +239,7 @@ public class PumpBlockEntity extends MachineBlockEntity implements EnergySink {
         return lava < 2980;
     }
 
-    private boolean canHarvest() {
+    public boolean canHarvest() {
         if (!isPumpReady()) {
             return false;
         }

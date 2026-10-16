@@ -94,6 +94,8 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
                 modLoc("block/reactor_chamber_top")));
         simpleBlockWithItem(Ic2Blocks.BRONZE_BLOCK.get(), cubeAll(Ic2Blocks.BRONZE_BLOCK.get()));
         ic2MiningPipe();
+        simpleBlock(Ic2Blocks.MINING_TIP.get(), models().cubeAll("ic2_mining_tip", modLoc("block/ic2_mining_tip"))
+                .renderType("cutout"));
         rubberWood();
         simpleBlockWithItem(Ic2Blocks.RUBBER_LEAVES.get(), models().withExistingParent("rubber_leaves",
                 mcLoc("block/leaves")).texture("all", modLoc("block/rubber_leaves")).renderType("cutout_mipped"));

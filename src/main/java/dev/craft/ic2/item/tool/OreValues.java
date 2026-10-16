@@ -10,6 +10,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.common.Tags;
 
@@ -52,6 +53,7 @@ public final class OreValues {
                 return entry.getValue();
             }
         }
-        return 0;
+        // GregTech adds glowstone and soul sand to the miner's list with value 1 (GT_Mod).
+        return state.is(Blocks.GLOWSTONE) || state.is(Blocks.SOUL_SAND) ? 1 : 0;
     }
 }

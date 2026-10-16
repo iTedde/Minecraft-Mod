@@ -249,7 +249,7 @@ Textur: `block_machine.png` Spalte 6 (Zeilen 0–5 unten/oben/hinten/vorne/links
   (Luft, Wasser, Lava, Miner, Rohr, Rohrspitze); sonst wird das Ziel schrittweise Richtung Rohr verschoben.
 - Abbaubar (`canMine`): Luft; nicht Rohr/Rohrspitze/Truhe; Flüssigkeit nur mit Pumpe (die abernten kann); Härte ≥ 0;
   Material ohne Werkzeugzwang oder Spinnennetz; sonst muss der Bohrer den Block abbauen können (Harvest-Level).
-  Sonst „festgefahren“ (`miningTicker = −1`, GUI zeigt Blockname) – Flüssigkeit ohne Pumpe ist auch festgefahren,
+  Sonst „festgefahren“ (`miningTicker = −1`) – Flüssigkeit ohne Pumpe ist auch festgefahren,
   außer überhaupt eine Pumpe ist angrenzend.
 - Pro Tick am Ziel: Bergbaubohrer `miningTicker += 1`, `energy −= 1`; Diamantbohrer `+4` und `energy −= 15`.
   Bei `miningTicker ≥ 200` → Block abbauen:
@@ -264,6 +264,50 @@ Textur: `block_machine.png` Spalte 6 (Zeilen 0–5 unten/oben/hinten/vorne/links
 - Sound `Machines/MinerOp.ogg`.
 
 Bergbaurohr/-spitze: Härte 6,0, Resistenz 10.
+
+### Details aus `TileEntityMiner` (nachgetragen für Phase 12.3)
+
+- Basis `TileEntityElecMachine(4 Slots, Batterie-Slot 0, maxEnergy 1000, maxInput 32, Tier 1)`, Block-Meta 7,
+  Wrench-Drop-Rate 1,0, Drop Maschinenblock. NBT `targetX/Y/Z`, `miningTicker` (short).
+- Tick: (1) `wasOperating = isOperating()`; dann `energy −1`, Scanner (Slot 1) mit Tier 2 und Bohrer (Slot 3) mit
+  Tier 1 aus dem Puffer laden. (2) `energy ≤ maxEnergy` → `provideEnergy` (Redstone +1000, Einwegbatterie +1000,
+  elektrische Items Tier 1). (3) `wasOperating` → `mine()`; sonst **ohne Bohrer**: `energy ≥ 2` und Rohr/Spitze
+  direkt unter dem Miner → Ziel verwerfen, `miningTicker +1`, `energy −2`, bei 20 → `withdrawPipe()`; sonst, wenn
+  festgefahren, `miningTicker = 0` (Bohrer herausnehmen löst das Festfahren). (4) `active = isOperating()`.
+- `mine()`: kein Ziel → `aquireTarget()` (eigener Tick). Ziel nicht erreichbar → Ziel einen Schritt Richtung Rohr
+  (größere Differenz zuerst), eigener Tick. Abbaubar → Ticker/Energie wie oben; Diamantbohrer: `+1 +3`, `−1 −14`.
+  Nicht abbaubar: Wasser/Lava (still oder fließend) und irgendeine Pumpe angrenzend → warten; sonst festgefahren
+  (`miningTicker = −1`, `stuckOn` = Blockname – **wird in der GUI nicht angezeigt**).
+- `aquireTarget()`: `y` = Höhe der untersten Rohrspitze (bzw. Miner-Höhe ohne Rohr). Mit Rohr und Scanner:
+  `startLayerScan` (kostet die Scan-Energie, sonst Radius 0) und Suche in der **Ebene der Spitze** (x, dann z
+  aufsteigend): erster Block mit Erzwert > 0, der abbaubar ist, **oder** (irgendeine Pumpe angrenzend) Lava-Quellblock.
+  Sonst Ziel = Block unter der Spitze.
+- `mineBlock()`: Bohrer-Ladung −50/−80 (`use` ohne Spieler). Luft → nichts. Fließende Flüssigkeit → nichts. Sonst:
+  fester Block → Drops mit dem Bohrer als Werkzeug (Fortune) an `distributeDrop`; Wasser/Lava-Quelle → erste
+  angrenzende erntefähige Pumpe (oben, unten, +X, −X, +Z, −Z) `pumpThis`; Block entfernen, `energy −= 2·(minerY − y)`.
+  Liegt das Ziel unter dem Miner: Bergbaurohr dorthin, `energy −10`. Dann `updateMineTip(zielY)`: zwischen Miner und
+  Ziel fehlende Rohre aus Slot 2 ergänzen (je 1 Item), Spitze auf `zielY` setzen.
+  **Originaleigenheit:** das Rohr am Ziel und die Spitze kosten kein Item; ein Strang der Tiefe n verbraucht n − 1
+  Rohre, beim Einziehen kommen n zurück (die Spitze droppt ein Rohr).
+- `withdrawPipe()`: Block an der Spitze abbauen (Drops ohne Fortune, Spitze → 1 Rohr) und entfernen; liegt in Slot 2
+  ein Block, der kein Rohr ist, wird er dort gesetzt (Slot −1, Loch füllen). Danach `updateMineTip(y + 1)` (das Rohr
+  darüber wird zur Spitze; `updateMineTip` nimmt aus Slot 2, was immer dort liegt).
+- `canMine`: Luft ja; Rohr, Spitze, Truhe nein; Wasser/Lava ja, wenn eine **erntefähige** Pumpe angrenzt; Härte < 0
+  nein; Block ohne Werkzeugzwang (feste Blöcke) oder Spinnennetz ja; sonst Bohrer-Abbaurecht inkl. Harvest-Level
+  (Bergbaubohrer 2, Diamantbohrer 3). Andere Flüssigkeiten (z. B. Öl) → festgefahren.
+- `canPass` (Weg zum Rohr): Luft, Wasser, Lava, Miner, Rohr, Spitze.
+- **GUI** (`GUIMiner.png`, 176 × 166): Titel zentriert y 6, „Inventory“ (8, 72). Slots: Batterie 0 (81, 59, Tier 1),
+  Scanner 1 (117, 22, nur Scanner), Rohre 2 (81, 22, jeder Block), Bohrer 3 (45, 22, nur Bergbau-/Diamantbohrer).
+  Energie: Höhe `min(14, energy·14/1000)` bei (81, 55 − h) ← (176, 14 − h), 14 breit. Sonst keine Anzeige. Sync:
+  `miningTicker`, Energie. Shift-Klick: IC2-Standard (Eingabe-Slot 0).
+- Seiten: „vorne“ ist im Original die der Front **gegenüberliegende** Seite (Originaleigenheit der Tabelle): links und
+  hinten (von der Front aus) → Bohrer, rechts und Front → Scanner, unten → Batterie, oben → Rohre.
+- Sound: `MinerOp.ogg` als Loop, solange aktiv.
+- Rohrspitze `BlockMiningTip`: Härte 6, Resistenz 10, Textur `block_0.png` Index 36, droppt ein Bergbaurohr, nicht im
+  Kreativinventar. Miner-Textur `block_machine.png` Spalte 7.
+- **GT im Pack:** GregTech ergänzt Glowstone und Seelensand mit Wert 1 in `valuableOres` (gilt auch für die Scanner).
+  `MinerListLavaAddition` steht in der Config, im GT-2.90-Code gibt es dazu keine weitere Logik – die Lava-Suche ist
+  IC2-Verhalten (Pumpe angrenzend) und damit umgesetzt.
 
 ---
 

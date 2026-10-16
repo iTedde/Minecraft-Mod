@@ -1353,6 +1353,19 @@ NaK-Kühlzellen, kein Vakuumgefrierer) **und die IC2-Nuke**. Teilpakete: 7a IC2-
 - 9 neue GameTests (`ConstructionFoamGameTests`, Canner `fillsCfPack`); `gradlew build`, **275 GameTests grün**.
   **`runClient` nicht gestartet** (Nutzer, 2026-10-16: Launcher vorerst nicht starten).
 
+## Erledigt (Teilpaket „Phase 12.3: Miner“, 2026-10-17)
+- Spezifikation nachgetragen: `spec/04-maschinen.md` §Miner „Details aus `TileEntityMiner`“ (Tick-Reihenfolge,
+  Zielsuche in der Ebene der Rohrspitze, Rohr-Eigenheit n − 1, Einziehen/Loch füllen, `canMine`/`canPass`, GUI,
+  Seiten). **Korrektur:** die GUI zeigt den Blocknamen beim Festfahren nicht (nur Energie).
+- `MinerBlockEntity` (EU-Senke 1000/32, Tier 1), `MinerMenu`/`MinerScreen`, Rohrspitze `MiningTipBlock`
+  (`craft:ic2_mining_tip`, droppt ein Bergbaurohr), Loop-Sound `machines/miner_op`, Texturen (`block_machine.png`
+  Spalte 7, `block_0.png` 36, `GUIMiner.png`). Pumpe: `canHarvest`/`pumpThis` öffentlich.
+- GT im Pack: Glowstone und Seelensand haben Erzwert 1 (`OreValues`, gilt auch für OD/OV-Scanner). Miner-Lava =
+  IC2-Verhalten mit angrenzender Pumpe (GT-Schalter ohne eigene Logik).
+- Rezept Miner (`CMC/ P / P `), Sprache en/de, Loot, Spitzhacken-Tag. `abweichungen.md` (Ziel-Merker, Abbaurecht,
+  Drops), `testplan.md` 3.25.
+- 4 neue GameTests (`MinerGameTests`), `gradlew build`, **279 GameTests grün**. `runClient` nicht gestartet (Nutzer).
+
 ## Nächste Schritte
-1. 12.3: Miner (+ Miner-Lava, `spec/17` §3). GUI-Layout, Fortschritt, Verhalten ohne Scanner und Drop-Verteilung
-   zuerst in `spec/04` nachtragen; nutzt IC2-Pumpe, Bergbaurohr und OD/OV-Scanner.
+1. 12.4: Teleporter + Frequenzsender, Tesla-Spule (`spec/04` §Teleporter/§Tesla-Spule, Details aus dem Original
+   nachtragen).

@@ -154,6 +154,9 @@ Status: *geplant* (aus Phase 1 abgeleitet, noch nicht umgesetzt), *entschieden* 
 | „Normalwürfel“ (`isBlockNormalCube`) | Gerüstsäule, Luminator-Halt | `isRedstoneConductor` (Bauschaum wie im Original: zählt als Normalwürfel) | keine Materialien | **umgesetzt** (12.2) |
 | Bauschaum: Platzierbarkeit | Material Feuer (ersetzbar), Sprühziel = Luft, Feuer, Flüssigkeit | Block `replaceable`; Sprühziel = Luft, Feuer oder ersetzbarer Flüssigkeitsblock (keine wassergeloggten Blöcke) | keine Materialien | **umgesetzt** (12.2) |
 | Bauschaumwand: Item | per `ItemBlockRare` registriert, aber nirgends erhältlich | kein Block-Item (Pick-Block = Bauschaum) | – | **umgesetzt** (12.2) |
+| Miner: Ziel „keins“ | `targetY = −1` | eigener Merker (negative Höhen sind in 1.21 gültig); Abbau bis zur Weltuntergrenze | Weltbereich ab 1.18 | **umgesetzt** (12.3) |
+| Miner: Abbaurecht | Forge-Werkzeugklassen/Harvest-Level per Reflection, Material „ohne Werkzeug“ | Block ohne `requiresCorrectToolForDrops` oder Spinnennetz; sonst Bohrer-Tag + Harvest-Level (Bergbaubohrer nicht bei `needs_diamond_tool`); andere Flüssigkeiten als Wasser/Lava = festgefahren | keine Materialien/Werkzeugklassen | **umgesetzt** (12.3) |
+| Miner: Drops | `getBlockDropped` mit Fortune-Level des Bohrers | Loot-Tabelle mit dem Bohrer als Werkzeug (Fortune und Behutsamkeit des Bohrers wirken) | Loot-Tabellen | **umgesetzt** (12.3) |
 | Quantum-Rezepte | Iridiumplatte, verst. Glas, fortg. Schaltkreis … | IC2-Rezepte, seit 6b.5b (Iridiumplatte aus dem Implosionskompressor, verstärktes Glas) | – | **umgesetzt** (6b.5b) |
 | Static Boots: Position | NBT `x`/`z` | Data Component `craft:last_position` | Data Components | **umgesetzt** |
 | Jetpack: Modus/Timer | NBT `hoverMode`/`toggleTimer` | Data Components `craft:hover_mode`/`craft:toggle_timer` | Data Components | **umgesetzt** |

@@ -10,6 +10,7 @@ import dev.craft.ic2.menu.ElectricMachineMenu;
 import dev.craft.ic2.menu.ElectricStorageMenu;
 import dev.craft.ic2.menu.ElectrolyzerMenu;
 import dev.craft.ic2.menu.CanningMachineMenu;
+import dev.craft.ic2.menu.MinerMenu;
 import dev.craft.ic2.menu.PumpMenu;
 import dev.craft.ic2.menu.InductionFurnaceMenu;
 import dev.craft.ic2.menu.GeneratorMenu;
@@ -58,6 +59,8 @@ public final class Ic2Menus {
                     (id, inventory, buf) -> new CanningMachineMenu(id, inventory, buf.readBlockPos()));
             case PUMP -> IMenuTypeExtension.create(
                     (id, inventory, buf) -> new PumpMenu(id, inventory, buf.readBlockPos()));
+            case MINER -> IMenuTypeExtension.create(
+                    (id, inventory, buf) -> new MinerMenu(id, inventory, buf.readBlockPos()));
             case NUCLEAR_REACTOR -> IMenuTypeExtension.create(
                     (id, inventory, buf) -> new NuclearReactorMenu(id, inventory, buf.readBlockPos()));
             case LV_TRANSFORMER, MV_TRANSFORMER, HV_TRANSFORMER, MAGNETIZER ->
