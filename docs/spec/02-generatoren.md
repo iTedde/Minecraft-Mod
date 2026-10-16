@@ -122,6 +122,8 @@ Abweichung 1.21: Vanilla 1.21 kennt weitere/andere Brennstoffe (Bambus, Kohleblo
 
 ## Wassermühle (Meta 2)
 
+> **Balancing (Phase 9.1):** passiver Zweig geändert, siehe `14-kraftwerke.md` §6. Hier steht das Original.
+
 | Wert | |
 |---|---|
 | Produktion | variabel (s. u.), Puffer 2 EU |
@@ -148,6 +150,9 @@ Ohne Wrench droppt die Wassermühle sich selbst.
 ---
 
 ## Windmühle (Meta 4)
+
+> **Balancing (Phase 9.1):** Faktoren, Überlastgrenze und Puffer geändert, siehe `14-kraftwerke.md` §7. Hier steht
+> das Original.
 
 | Wert | |
 |---|---|

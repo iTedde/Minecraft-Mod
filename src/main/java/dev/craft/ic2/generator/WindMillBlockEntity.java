@@ -19,14 +19,21 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 
 /**
- * Wind mill, 1:1 with IC2 {@code TileEntityWindGenerator}: output depends on global wind, height above y 64 and
- * obstructing blocks; too much wind can break it down into a plain generator.
+ * Wind mill after IC2 {@code TileEntityWindGenerator}: output depends on global wind, height above y 64 and
+ * obstructing blocks; too much wind can break it down into a plain generator. Factors, overload threshold and buffer
+ * follow the approved balancing (spec 14 §7).
  */
 public class WindMillBlockEntity extends BaseGeneratorBlockEntity {
     /** {@code energyGeneratorWind} from the pack's IC2.cfg. */
     public static final int ENERGY_GENERATOR_WIND = 100;
     public static final int TICK_RATE = 128;
-    public static final int MAX_ENERGY_OUTPUT = 10;
+    public static final int MAX_ENERGY_OUTPUT = 16;
+    /** Balancing: output multiplier on the IC2 formula. */
+    public static final double OUTPUT_FACTOR = 2.5;
+    /** Balancing: overload starts above this subproduction (IC2: 5). */
+    public static final double OVERLOAD_THRESHOLD = 12.5;
+    public static final double THUNDER_FACTOR = 3.0;
+    public static final double RAIN_FACTOR = 1.5;
 
     private double subproduction;
     private double substorage;
@@ -34,7 +41,7 @@ public class WindMillBlockEntity extends BaseGeneratorBlockEntity {
     private int obscuratedBlockCount;
 
     public WindMillBlockEntity(BlockPos pos, BlockState state) {
-        super(Ic2BlockEntityTypes.get(Ic2Machine.WIND_MILL), pos, state, 1, 4, 4);
+        super(Ic2BlockEntityTypes.get(Ic2Machine.WIND_MILL), pos, state, 1, 4, MAX_ENERGY_OUTPUT);
     }
 
     public double getSubproduction() {
@@ -54,11 +61,24 @@ public class WindMillBlockEntity extends BaseGeneratorBlockEntity {
         return result < 0 ? 0 : Math.min(result, scale);
     }
 
+    /** Wind output before overload check and config factor; not positive means no generation. */
+    public static double subproduction(int wind, int y, int obstructed, boolean thunder, boolean rain) {
+        double sub = wind * (y - 64 - obstructed) / 750.0 * OUTPUT_FACTOR;
+        if (sub <= 0.0) {
+            return sub;
+        }
+        if (thunder) {
+            return sub * THUNDER_FACTOR;
+        }
+        return rain ? sub * RAIN_FACTOR : sub;
+    }
+
     public static int getOverheatScaled(double subproduction, int scale) {
-        if (subproduction <= 5.0) {
+        if (subproduction <= OVERLOAD_THRESHOLD) {
             return 0;
         }
-        return subproduction >= 10.0 ? scale : (int) ((subproduction - 5.0) / 5.0 * scale);
+        return subproduction >= 2 * OVERLOAD_THRESHOLD ? scale
+                : (int) ((subproduction - OVERLOAD_THRESHOLD) / OVERLOAD_THRESHOLD * scale);
     }
 
     @Override
@@ -76,16 +96,13 @@ public class WindMillBlockEntity extends BaseGeneratorBlockEntity {
             if (ticker % (8 * TICK_RATE) == 0) {
                 updateObscuratedBlockCount();
             }
-            subproduction = Wind.getStrength() * (worldPosition.getY() - 64 - obscuratedBlockCount) / 750.0;
+            subproduction = subproduction(Wind.getStrength(), worldPosition.getY(), obscuratedBlockCount,
+                    level.isThundering(), level.isRaining());
             if (subproduction <= 0.0) {
                 return false;
             }
-            if (level.isThundering()) {
-                subproduction *= 1.5;
-            } else if (level.isRaining()) {
-                subproduction *= 1.2;
-            }
-            if (subproduction > 5.0 && level.random.nextInt(5000) <= subproduction - 5.0) {
+            if (subproduction > OVERLOAD_THRESHOLD
+                    && level.random.nextInt(5000) <= subproduction - OVERLOAD_THRESHOLD) {
                 subproduction = 0.0;
                 breakDown();
                 return false;

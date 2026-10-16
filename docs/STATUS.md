@@ -1037,5 +1037,14 @@ NaK-Kühlzellen, kein Vakuumgefrierer) **und die IC2-Nuke**. Teilpakete: 7a IC2-
 ## Erledigt (Teilpaket „Phase 9.0: Spezifikation“, 2026-10-16)
 - `docs/spec/14-kraftwerke.md` (Koksofen, Kessel, Dampfturbine, Wasserturbine, Wassermühle/Windmühle neu).
 
+## Erledigt (Teilpaket „Phase 9.1: Wassermühle/Windmühle neu“, 2026-10-16)
+- `WaterMillBlockEntity`: passiver Zweig nach `14-kraftwerke.md` §6 (5×5×3, Quelle 0,02 / fließend 0,04 EU/t, Teilung
+  zwischen überlappenden Mühlen, Fluss ×1,5 / Ozean ×1,25, Deckel 2 EU/t, Puffer 4). Behälter-Betrieb unverändert.
+- `WindMillBlockEntity`: Formel ×2,5, Gewitter ×3, Regen ×1,5, Überlast ab 12,5, Grenze/Ausgabe 16 EU/t; Formel als
+  `subproduction(...)` testbar.
+- 4 neue GameTests (`GeneratorBalancingGameTests`, insgesamt 219 grün), `build` und `runClient` erfolgreich.
+
 ## Nächste Schritte
-1. 9.1 Wassermühle/Windmühle nach §6–7 · 9.2 Koksofen + Koks · 9.3 Kessel + Dampf + Dampfturbine · 9.4 Wasserturbine.
+1. 9.2 Koksofen + Koks · 9.3 Kessel + Dampf + Dampfturbine · 9.4 Wasserturbine.
+2. Manuelle Client-Tests 9.1: Wassermühle an fließendem Wasser / im Fluss, zwei Mühlen nebeneinander; Windmühle in
+   großer Höhe bei Gewitter.
