@@ -238,7 +238,7 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
 
     /**
      * BuildCraft pipes ({@code PipeWorldRenderer}): core plus an arm to every connected side, the source (wood) or
-     * output (iron) arm with its own texture. The item is a vertical pipe segment with the base texture.
+     * output (iron) arm with its own texture; the diamond pipe has one texture per side. The item is a vertical pipe segment with the base texture.
      */
     private void pipes() {
         for (PipeType type : PipeType.values()) {
@@ -251,7 +251,8 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
                     : block.defaultBlockState().hasProperty(GenericPipeBlock.OUTPUT) ? GenericPipeBlock.OUTPUT : null;
             for (Direction side : Direction.values()) {
                 BooleanProperty connected = PipeBlock.PROPERTY_BY_DIRECTION.get(side);
-                ModelFile arm = pipeModel(type.getName() + "_" + side.getName(), texture, side);
+                ModelFile arm = pipeModel(type.getName() + "_" + side.getName(),
+                        modLoc("block/pipe/" + type.getArmTexture(side)), side);
                 if (sideProperty == null) {
                     builder.part().modelFile(arm).addModel().condition(connected, true).end();
                     continue;

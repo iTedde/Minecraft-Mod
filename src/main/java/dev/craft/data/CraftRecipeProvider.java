@@ -772,6 +772,9 @@ public final class CraftRecipeProvider extends RecipeProvider {
         pipe(PipeType.SANDSTONE_TRANSPORT, Ingredient.of(Items.SANDSTONE), Ingredient.of(Items.SANDSTONE));
         pipe(PipeType.IRON_TRANSPORT, Ingredient.of(Items.IRON_INGOT), Ingredient.of(Items.IRON_INGOT));
         pipe(PipeType.GOLDEN_TRANSPORT, Ingredient.of(Items.GOLD_INGOT), Ingredient.of(Items.GOLD_INGOT));
+        pipe(PipeType.DIAMOND_TRANSPORT, Ingredient.of(Items.DIAMOND), Ingredient.of(Items.DIAMOND));
+        pipe(PipeType.OBSIDIAN_TRANSPORT, Ingredient.of(Items.OBSIDIAN), Ingredient.of(Items.OBSIDIAN));
+        pipe(PipeType.EMERALD_TRANSPORT, Ingredient.of(Items.EMERALD), Ingredient.of(Items.EMERALD));
         pipe(PipeType.VOID_TRANSPORT, Ingredient.of(Items.INK_SAC), Ingredient.of(Items.REDSTONE));
     }
 

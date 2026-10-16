@@ -34,11 +34,20 @@ public abstract class PipeBlockEntity extends BlockEntity implements PowerRecept
 
     @Nullable
     private static PowerProvider createPowerProvider(PipeType type) {
-        if (type.getMaterial() == PipeMaterial.WOOD && type.getTransport() == PipeType.Transport.ITEMS) {
-            // PipeItemsWood: everything not used in the same tick is lost again.
+        if (type.getTransport() != PipeType.Transport.ITEMS) {
+            return null;
+        }
+        if (type.getMaterial().isWood()) {
+            // PipeItemsWood (and PipeItemsEmerald): everything not used in the same tick is lost again.
             PowerProvider provider = new PowerProvider();
             provider.configure(1, 64, 1, 64);
             provider.configurePowerPerdition(64, 1);
+            return provider;
+        }
+        if (type.getMaterial() == PipeMaterial.OBSIDIAN) {
+            PowerProvider provider = new PowerProvider();
+            provider.configure(1, 64, 1, 256);
+            provider.configurePowerPerdition(1, 1);
             return provider;
         }
         return null;

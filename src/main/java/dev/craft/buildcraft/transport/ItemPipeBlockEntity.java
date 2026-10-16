@@ -1,6 +1,7 @@
 package dev.craft.buildcraft.transport;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedHashMap;
@@ -13,6 +14,7 @@ import javax.annotation.Nullable;
 import dev.craft.buildcraft.BcBlockEntityTypes;
 import dev.craft.buildcraft.factory.MiningWellBlockEntity;
 import dev.craft.buildcraft.factory.QuarryBlockEntity;
+import dev.craft.buildcraft.menu.PipeFilterMenu;
 import dev.craft.buildcraft.util.ItemOutput;
 import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
 import net.minecraft.core.BlockPos;
@@ -21,6 +23,19 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.Container;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.Arrow;
+import net.minecraft.world.entity.vehicle.MinecartChest;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.Containers;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -30,15 +45,18 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.items.IItemHandlerModifiable;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
+import net.neoforged.neoforge.items.ItemStackHandler;
 import net.neoforged.neoforge.network.PacketDistributor;
 
 /**
  * BuildCraft {@code PipeTransportItems} with the hooks of the item pipes ({@code PipeItemsWood}, {@code
- * PipeItemsGold}, {@code PipeItemsVoid}, {@code PipeItemsIron} …). Server and client both move the items; the server
- * decides the destinations and sends every entering or bouncing item to the client.
+ * PipeItemsGold}, {@code PipeItemsVoid}, {@code PipeItemsIron}, {@code PipeItemsDiamond}, {@code PipeItemsEmerald},
+ * {@code PipeItemsObsidian} …). Server and client both move the items; the server decides the destinations and
+ * sends every entering or bouncing item to the client.
  */
-public class ItemPipeBlockEntity extends PipeBlockEntity {
+public class ItemPipeBlockEntity extends PipeBlockEntity implements MenuProvider {
     /** {@code pipes.groupItemsTrigger} of the pack. */
     public static final int GROUP_ITEMS_TRIGGER = 32;
     /** {@code pipes.maxItems} of the pack. */
@@ -47,14 +65,43 @@ public class ItemPipeBlockEntity extends PipeBlockEntity {
     public static final double PIPE_FLOOR = 0.25;
     /** Items from the saved data enter the pipe two ticks after loading. */
     private static final int LOAD_DELAY = 2;
+    public static final int DIAMOND_FILTERS = 54;
+    public static final int EMERALD_FILTERS = 9;
+    private static final int OBSIDIAN_DROPPED_MEMORY = 32;
+    /** {@code PipeItemsObsidian.doWork}: sucking boxes at distance 1 to 4. */
+    private static final int OBSIDIAN_MAX_DISTANCE = 4;
 
     private final Map<Integer, TravelingItem> items = new LinkedHashMap<>();
     private final Set<Integer> toRemove = new IntOpenHashSet();
     private final List<TravelingItem> toLoad = new ArrayList<>();
     private int loadDelay;
+    /** Phantom filters: diamond 6 rows of 9 (row = side), emerald one row of 9, none for the other pipes. */
+    private final ItemStackHandler filters;
+    /** {@code PipeItemsEmerald.currentFilter}. */
+    private int currentFilter;
+    /** {@code PipeItemsObsidian.entitiesDropped}: ids of the last 32 item entities this pipe threw out. */
+    private final int[] entitiesDropped = new int[OBSIDIAN_DROPPED_MEMORY];
+    private int entitiesDroppedIndex;
 
     public ItemPipeBlockEntity(BlockPos pos, BlockState state) {
         super(BcBlockEntityTypes.ITEM_PIPE.get(), pos, state);
+        int filterCount = switch (getPipeType().getMaterial()) {
+            case DIAMOND -> DIAMOND_FILTERS;
+            case EMERALD -> EMERALD_FILTERS;
+            default -> 0;
+        };
+        filters = new ItemStackHandler(filterCount) {
+            @Override
+            public int getSlotLimit(int slot) {
+                return 1;
+            }
+
+            @Override
+            protected void onContentsChanged(int slot) {
+                setChanged();
+            }
+        };
+        Arrays.fill(entitiesDropped, -1);
     }
 
     private PipeMaterial material() {
@@ -149,7 +196,33 @@ public class ItemPipeBlockEntity extends PipeBlockEntity {
         if (result.isEmpty() && allowBouncing() && canReceivePipeObjects(item.input.getOpposite(), item.stack)) {
             result.add(item.input.getOpposite());
         }
-        return result;
+        return material() == PipeMaterial.DIAMOND ? filterPossibleMovements(result, item.stack) : result;
+    }
+
+    /**
+     * {@code PipeItemsDiamond.filterPossibleMovements}: each side is added once per matching filter of its row (damage
+     * is ignored for damageable items, and 1.21 items have no other meta). Sides with an empty row are the fallback;
+     * sides with filters but no match are closed.
+     */
+    private List<Direction> filterPossibleMovements(List<Direction> possible, ItemStack stack) {
+        List<Direction> filtered = new ArrayList<>();
+        List<Direction> fallback = new ArrayList<>();
+        for (Direction side : possible) {
+            boolean foundFilter = false;
+            for (int slot = 0; slot < 9; slot++) {
+                ItemStack filter = filters.getStackInSlot(side.get3DDataValue() * 9 + slot);
+                if (!filter.isEmpty()) {
+                    foundFilter = true;
+                    if (ItemStack.isSameItem(filter, stack)) {
+                        filtered.add(side);
+                    }
+                }
+            }
+            if (!foundFilter) {
+                fallback.add(side);
+            }
+        }
+        return filtered.isEmpty() ? fallback : filtered;
     }
 
     /** {@code PipeLogic.outputOpen}: iron only to its output side. */
@@ -294,6 +367,10 @@ public class ItemPipeBlockEntity extends PipeBlockEntity {
                 level.random.nextGaussian() * noise + dir.getStepY() * motion,
                 level.random.nextGaussian() * noise + dir.getStepZ() * motion);
         level.addFreshEntity(entity);
+        if (material() == PipeMaterial.OBSIDIAN) {
+            entitiesDroppedIndex = entitiesDroppedIndex + 1 >= entitiesDropped.length ? 0 : entitiesDroppedIndex + 1;
+            entitiesDropped[entitiesDroppedIndex] = entity.getId();
+        }
     }
 
     private void scheduleRemoval(TravelingItem item) {
@@ -357,16 +434,22 @@ public class ItemPipeBlockEntity extends PipeBlockEntity {
         return map;
     }
 
-    // --- wooden pipe ---
+    // --- wooden and emerald pipe ---
 
     /**
      * {@code PipeItemsWood.doWork}: from the first non-empty slot of the source side, as many items as there is MJ
-     * (at most the slot). The item starts 0.6 in front of the inventory's center, moving away from it.
+     * (at most the slot). The item starts 0.6 in front of the inventory's center, moving away from it. The emerald
+     * pipe only takes the first slot matching its current filter ({@code PipeItemsEmerald.checkExtractGeneric}).
+     * The obsidian pipe sucks up items instead.
      */
     @Override
     public void doWork() {
+        if (material() == PipeMaterial.OBSIDIAN) {
+            obsidianWork();
+            return;
+        }
         Direction source = getSource();
-        if (source == null || material() != PipeMaterial.WOOD) {
+        if (source == null || !material().isWood()) {
             return;
         }
         BlockPos sourcePos = worldPosition.relative(source);
@@ -374,15 +457,7 @@ public class ItemPipeBlockEntity extends PipeBlockEntity {
         if (handler == null) {
             return;
         }
-        ItemStack extracted = ItemStack.EMPTY;
-        for (int slot = 0; slot < handler.getSlots(); slot++) {
-            ItemStack stack = handler.getStackInSlot(slot);
-            if (!stack.isEmpty() && !handler.extractItem(slot, 1, true).isEmpty()) {
-                int amount = (int) provider.useEnergy(1.0F, stack.getCount(), true);
-                extracted = handler.extractItem(slot, amount, false);
-                break;
-            }
-        }
+        ItemStack extracted = material() == PipeMaterial.EMERALD ? extractFiltered(handler) : extractAny(handler);
         if (extracted.isEmpty()) {
             provider.useEnergy(1.0F, 1.0F, true);
             return;
@@ -391,6 +466,219 @@ public class ItemPipeBlockEntity extends PipeBlockEntity {
         TravelingItem item = new TravelingItem(extracted, sourcePos.getX() + 0.5 + away.getStepX() * 0.6,
                 sourcePos.getY() + 0.5 + away.getStepY() * 0.6, sourcePos.getZ() + 0.5 + away.getStepZ() * 0.6);
         entityEntering(item, away);
+    }
+
+    private ItemStack extractAny(IItemHandler handler) {
+        for (int slot = 0; slot < handler.getSlots(); slot++) {
+            ItemStack stack = handler.getStackInSlot(slot);
+            if (!stack.isEmpty() && !handler.extractItem(slot, 1, true).isEmpty()) {
+                return extract(handler, slot, stack);
+            }
+        }
+        return ItemStack.EMPTY;
+    }
+
+    /**
+     * {@code PipeItemsEmerald.checkExtractGeneric}: the first slot matching the current filter; the filter only moves
+     * on when something was taken. Without any filter nothing is taken.
+     */
+    private ItemStack extractFiltered(IItemHandler handler) {
+        for (int slot = 0; slot < handler.getSlots(); slot++) {
+            ItemStack stack = handler.getStackInSlot(slot);
+            if (stack.isEmpty() || handler.extractItem(slot, 1, true).isEmpty()) {
+                continue;
+            }
+            ItemStack filter = getCurrentFilter();
+            if (filter.isEmpty()) {
+                return ItemStack.EMPTY;
+            }
+            if (isItemEqual(filter, stack)) {
+                incrementFilter();
+                return extract(handler, slot, stack);
+            }
+        }
+        return ItemStack.EMPTY;
+    }
+
+    private ItemStack extract(IItemHandler handler, int slot, ItemStack stack) {
+        int amount = (int) provider.useEnergy(1.0F, stack.getCount(), true);
+        return handler.extractItem(slot, amount, false);
+    }
+
+    /** 1.4.7 {@code ItemStack.isItemEqual}: same item and damage, components ignored. */
+    private static boolean isItemEqual(ItemStack filter, ItemStack stack) {
+        return ItemStack.isSameItem(filter, stack) && filter.getDamageValue() == stack.getDamageValue();
+    }
+
+    private ItemStack getCurrentFilter() {
+        if (filters.getStackInSlot(currentFilter % filters.getSlots()).isEmpty()) {
+            incrementFilter();
+        }
+        return filters.getStackInSlot(currentFilter % filters.getSlots());
+    }
+
+    private void incrementFilter() {
+        currentFilter++;
+        for (int count = 0; filters.getStackInSlot(currentFilter % filters.getSlots()).isEmpty()
+                && count < filters.getSlots(); count++) {
+            currentFilter++;
+        }
+    }
+
+    // --- obsidian pipe ---
+
+    /** {@code getOpenOrientation}: the side opposite the only connection, {@code null} unless exactly one. */
+    @Nullable
+    public Direction getOpenOrientation() {
+        Direction connected = null;
+        for (Direction side : Direction.values()) {
+            if (isConnected(side)) {
+                if (connected != null) {
+                    return null;
+                }
+                connected = side;
+            }
+        }
+        return connected == null ? null : connected.getOpposite();
+    }
+
+    /** {@code PipeItemsObsidian.doWork}: the boxes at distance 1 to 4, the first success ends the tick. */
+    private void obsidianWork() {
+        for (int distance = 1; distance <= OBSIDIAN_MAX_DISTANCE; distance++) {
+            if (trySuck(distance)) {
+                return;
+            }
+        }
+        provider.useEnergy(1.0F, 1.0F, true);
+    }
+
+    /**
+     * {@code getSuckingBox}: a slice of thickness 1 at {@code distance} towards the open side, (2d+1)² around the
+     * pipe's axis.
+     */
+    @Nullable
+    private AABB getSuckingBox(int distance) {
+        Direction open = getOpenOrientation();
+        if (open == null) {
+            return null;
+        }
+        Direction.Axis axis = open.getAxis();
+        return new AABB(worldPosition.relative(open, distance)).inflate(axis == Direction.Axis.X ? 0 : distance,
+                axis == Direction.Axis.Y ? 0 : distance, axis == Direction.Axis.Z ? 0 : distance);
+    }
+
+    private boolean trySuck(int distance) {
+        AABB box = getSuckingBox(distance);
+        if (box == null) {
+            return false;
+        }
+        for (Entity entity : level.getEntities((Entity) null, box)) {
+            if (canSuck(entity, distance)) {
+                pullItemIntoPipe(entity, distance);
+                return true;
+            }
+            if (distance == 1 && entity instanceof MinecartChest cart && cart.isAlive()) {
+                ItemStack stack = extractFirst(cart);
+                if (!stack.isEmpty() && provider.useEnergy(1.0F, 1.0F, true) == 1.0F) {
+                    ItemEntity item = new ItemEntity(level, cart.getX(), cart.getY() + 0.3, cart.getZ(), stack);
+                    item.setPickUpDelay(10);
+                    level.addFreshEntity(item);
+                    pullItemIntoPipe(item, 1);
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /** {@code checkExtractGeneric} of the obsidian pipe: one item of the first non-empty slot. */
+    private static ItemStack extractFirst(Container container) {
+        for (int slot = 0; slot < container.getContainerSize(); slot++) {
+            if (!container.getItem(slot).isEmpty()) {
+                return container.removeItem(slot, 1);
+            }
+        }
+        return ItemStack.EMPTY;
+    }
+
+    /**
+     * {@code canSuck}: living item entities not recently thrown out by this pipe, and arrows, if the MJ for the
+     * distance are there. Distance 0 (touching the pipe) is always free.
+     */
+    public boolean canSuck(Entity entity, int distance) {
+        if (!entity.isAlive()) {
+            return false;
+        }
+        if (entity instanceof ItemEntity item) {
+            if (item.getItem().isEmpty()) {
+                return false;
+            }
+            for (int id : entitiesDropped) {
+                if (id == item.getId()) {
+                    return false;
+                }
+            }
+            return provider.useEnergy(1.0F, distance, false) >= distance;
+        }
+        return entity instanceof Arrow && provider.useEnergy(1.0F, distance, false) >= distance;
+    }
+
+    /**
+     * {@code pullItemIntoPipe}: costs {@code distance} MJ per item (an arrow costs {@code distance}); without enough MJ
+     * only part of the stack is split off. The item starts in the middle moving towards the connection.
+     */
+    public void pullItemIntoPipe(Entity entity, int distance) {
+        Direction open = getOpenOrientation();
+        if (level.isClientSide() || open == null) {
+            return;
+        }
+        Direction orientation = open.getOpposite();
+        level.playSound(null, entity.getX(), entity.getY(), entity.getZ(), SoundEvents.ITEM_PICKUP,
+                SoundSource.BLOCKS, 0.2F, ((level.random.nextFloat() - level.random.nextFloat()) * 0.7F + 1.0F) * 2.0F);
+        ItemStack stack;
+        double speed = TravelingItem.NORMAL_SPEED;
+        if (entity instanceof ItemEntity item) {
+            ItemStack contained = item.getItem().copy();
+            float energyUsed = provider.useEnergy(distance, contained.getCount() * distance, true);
+            if (distance != 0 && energyUsed / distance != contained.getCount()) {
+                stack = contained.split((int) (energyUsed / distance));
+                item.setItem(contained);
+            } else {
+                stack = contained;
+                item.discard();
+            }
+            speed = Math.max(item.getDeltaMovement().length() / 2.0 - 0.05, TravelingItem.NORMAL_SPEED);
+        } else if (entity instanceof Arrow) {
+            provider.useEnergy(distance, distance, true);
+            stack = new ItemStack(Items.ARROW);
+            entity.discard();
+        } else {
+            return;
+        }
+        if (stack.isEmpty()) {
+            return;
+        }
+        TravelingItem passive = new TravelingItem(stack, worldPosition.getX() + 0.5,
+                worldPosition.getY() + PIPE_FLOOR, worldPosition.getZ() + 0.5);
+        passive.speed = (float) speed;
+        entityEntering(passive, orientation);
+    }
+
+    // --- filters (diamond, emerald) ---
+
+    public IItemHandlerModifiable getFilters() {
+        return filters;
+    }
+
+    @Override
+    public Component getDisplayName() {
+        return Component.translatable("container.craft.pipe_filters");
+    }
+
+    @Nullable
+    @Override
+    public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
+        return filters.getSlots() == 0 ? null : new PipeFilterMenu(id, inventory, this);
     }
 
     // --- sync ---
@@ -434,6 +722,10 @@ public class ItemPipeBlockEntity extends PipeBlockEntity {
             list.add(item.save(registries));
         }
         tag.put("items", list);
+        if (filters.getSlots() > 0) {
+            tag.put("filters", filters.serializeNBT(registries));
+            tag.putInt("currentFilter", currentFilter);
+        }
     }
 
     @Override
@@ -449,6 +741,12 @@ public class ItemPipeBlockEntity extends PipeBlockEntity {
             }
         }
         loadDelay = LOAD_DELAY;
+        if (filters.getSlots() > 0 && tag.contains("filters")) {
+            CompoundTag filterTag = tag.getCompound("filters");
+            filterTag.putInt("Size", filters.getSlots());
+            filters.deserializeNBT(registries, filterTag);
+            currentFilter = tag.getInt("currentFilter");
+        }
     }
 
     @Override

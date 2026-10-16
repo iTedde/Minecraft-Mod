@@ -1117,18 +1117,35 @@ NaK-Kühlzellen, kein Vakuumgefrierer) **und die IC2-Nuke**. Teilpakete: 7a IC2-
 - 6 neue GameTests (`PipeGameTests`, insgesamt 242 grün), `build` und `runClient` (Hauptmenü, keine
   Modellfehler) erfolgreich.
 
+## Erledigt (Teilpaket „Phase 10.2: Diamant-, Smaragd-, Obsidianrohr“, 2026-10-16)
+- `PipeType`: Diamant (Kern/Item Textur 21, Arme je Seite 22–27), Obsidian (28), Smaragd (109, Quellseite 110);
+  Rezepte Diamant/Obsidian/Smaragd + Glas → 8, Sprache, Multipart-Modelle per Datagen.
+- `ItemPipeBlockEntity`: Phantom-Filter (`ItemStackHandler`, Diamant 54, Smaragd 9, gespeichert), Diamant
+  `filterPossibleMovements` (Gewichtung je passendem Filterfeld, Seiten mit Filtern ohne Treffer gesperrt), Smaragd
+  Entnahme reihum nach `currentFilter` (Holz-MJ 1/64/1/64, Verlust 64), Obsidian-Saugen (MJ 1/64/1/256, Verlust 1;
+  Saugboxen Abstand 1–4, Kosten Abstand·Menge, Teilaufnahme, Pfeile, Truhen-Loren bei Abstand 1, letzte 32
+  ausgeworfene Items gesperrt, Berührung kostenlos über `GenericPipeBlock.entityInside`).
+- GUI: `PipeFilterMenu`/`PipeFilterScreen` (Texturen `filter.png` → `gui/diamond_pipe.png`, `filter_2.png` →
+  `gui/emerald_pipe.png`), Rechtsklick öffnet (Smaragd: Schraubenschlüssel wechselt weiter die Quelle), Klick setzt
+  Kopie mit Menge 1 bzw. löscht, Shift-Klick/Ziehen ohne Wirkung.
+- Abweichungen in `spec/15-rohre.md` §8.3 ergänzt (Filtervergleich, Abholanimation, Sound, Pfeile).
+- 4 neue GameTests (insgesamt 246 grün), `build` und `runClient` (keine Modellfehler) erfolgreich.
+
 ## Nächste Schritte
-1. 10.2: Diamant (GUI, Filter), Smaragd (GUI, Filter), Obsidian (Saugen).
-2. Manuelle Client-Tests 10.1: Truhe → Holzrohr (Redstone-Motor) → Rohrstrecke → Truhe; Eisenrohr mit
+1. 10.3: Flüssigkeitsrohre (alle 8) + Rohrdichtmittel.
+2. Manuelle Client-Tests 10.2: Diamantrohr-GUI (Filter setzen/löschen, Sortieren), Smaragdrohr an Truhe mit Motor
+   (nur gefilterte Items), Obsidianrohr mit einer Verbindung + Motor (Items in 4 Blöcken Umkreis, Pfeile, Truhenlore),
+   Items auf das Obsidianrohr werfen.
+3. Manuelle Client-Tests 10.1: Truhe → Holzrohr (Redstone-Motor) → Rohrstrecke → Truhe; Eisenrohr mit
    Schraubenschlüssel/Redstone umschalten; Goldrohr-Tempo; Leere-Rohr; Quarry mit Rohr daneben; Rohr mit Items
    abbauen (Drops).
-2. Manuelle Client-Tests 9.4: Wasserturbine in einen Fluss bauen (fließendes Wasser rundherum), Rechtsklick-Meldung,
+4. Manuelle Client-Tests 9.4: Wasserturbine in einen Fluss bauen (fließendes Wasser rundherum), Rechtsklick-Meldung,
    Kabel/BatBox am Controller.
-3. Manuelle Client-Tests 9.3b: Kraftwerk aus Kessel + Dampfturbine bauen, MFE/Kabel am Controller, GUI (Dampftank,
+5. Manuelle Client-Tests 9.3b: Kraftwerk aus Kessel + Dampfturbine bauen, MFE/Kabel am Controller, GUI (Dampftank,
    EU/t, Puffer); bis zu 3 Kessel an einer Turbine.
-4. Manuelle Client-Tests 9.3a: Kessel bauen, Wasser per Eimer/IC2-Pumpe, Kohle/Koks nachlegen, Temperaturbalken und
+6. Manuelle Client-Tests 9.3a: Kessel bauen, Wasser per Eimer/IC2-Pumpe, Kohle/Koks nachlegen, Temperaturbalken und
    Tanks in der GUI; Dampf in einen BC-Tank daneben; Explosion (Wasser auf trockenen heißen Kessel) aus sicherer
    Entfernung.
-5. Manuelle Client-Tests 9.2: Koksofen bauen, Kohle per Trichter/Ziegel einspeisen, Koks unten abziehen.
-6. Manuelle Client-Tests 9.1: Wassermühle an fließendem Wasser / im Fluss, zwei Mühlen nebeneinander; Windmühle in
+7. Manuelle Client-Tests 9.2: Koksofen bauen, Kohle per Trichter/Ziegel einspeisen, Koks unten abziehen.
+8. Manuelle Client-Tests 9.1: Wassermühle an fließendem Wasser / im Fluss, zwei Mühlen nebeneinander; Windmühle in
    großer Höhe bei Gewitter.

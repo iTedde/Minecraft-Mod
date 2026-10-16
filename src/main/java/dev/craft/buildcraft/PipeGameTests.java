@@ -12,6 +12,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
@@ -31,6 +32,11 @@ public final class PipeGameTests {
 
     private static void pipe(GameTestHelper helper, BlockPos pos, PipeType type) {
         helper.setBlock(pos, BcBlocks.pipe(type).get());
+    }
+
+    private static void assertStack(GameTestHelper helper, ItemStack actual, Item item, int count, String name) {
+        helper.assertTrue(actual.is(item) && actual.getCount() == count,
+                name + ": expected " + count + " " + item + ", got " + actual);
     }
 
     /** Puts an item at the pipe's edge facing {@code from}, moving into the pipe. */
@@ -151,5 +157,83 @@ public final class PipeGameTests {
                 new ItemStack(Items.COAL, 3)));
         helper.succeedWhen(() -> helper.assertValueEqual(
                 ((ChestBlockEntity) helper.getBlockEntity(chest)).getItem(0).getCount(), 3, "coal in chest"));
+    }
+
+    @GameTest(template = EMPTY, timeoutTicks = 300)
+    public static void diamondPipeSortsByFilter(GameTestHelper helper) {
+        BlockPos pos = new BlockPos(2, 1, 2);
+        helper.setBlock(pos.west(), Blocks.CHEST);
+        helper.setBlock(pos.east(), Blocks.CHEST);
+        helper.setBlock(pos.south(), Blocks.CHEST);
+        pipe(helper, pos, PipeType.DIAMOND_TRANSPORT);
+        ItemPipeBlockEntity diamond = helper.getBlockEntity(pos);
+        diamond.getFilters().setStackInSlot(Direction.WEST.get3DDataValue() * 9 + 4, new ItemStack(Items.DIRT));
+        diamond.getFilters().setStackInSlot(Direction.EAST.get3DDataValue() * 9, new ItemStack(Items.STONE));
+        helper.runAfterDelay(2, () -> {
+            for (int i = 0; i < 3; i++) {
+                inject(helper, pos, Direction.NORTH, new ItemStack(Items.DIRT));
+                inject(helper, pos, Direction.NORTH, new ItemStack(Items.STONE));
+                inject(helper, pos, Direction.NORTH, new ItemStack(Items.COBBLESTONE));
+            }
+        });
+        helper.runAfterDelay(150, () -> {
+            assertStack(helper, ((ChestBlockEntity) helper.getBlockEntity(pos.west())).getItem(0),
+                    Items.DIRT, 3, "west chest");
+            assertStack(helper, ((ChestBlockEntity) helper.getBlockEntity(pos.east())).getItem(0),
+                    Items.STONE, 3, "east chest");
+            assertStack(helper, ((ChestBlockEntity) helper.getBlockEntity(pos.south())).getItem(0),
+                    Items.COBBLESTONE, 3, "south chest");
+            helper.succeed();
+        });
+    }
+
+    @GameTest(template = EMPTY, timeoutTicks = 800)
+    public static void emeraldPipeExtractsOnlyFilteredItems(GameTestHelper helper) {
+        BlockPos source = new BlockPos(1, 1, 2);
+        BlockPos target = new BlockPos(4, 1, 2);
+        helper.setBlock(source, Blocks.CHEST);
+        helper.setBlock(target, Blocks.CHEST);
+        ChestBlockEntity sourceChest = helper.getBlockEntity(source);
+        sourceChest.setItem(0, new ItemStack(Items.DIRT, 5));
+        sourceChest.setItem(1, new ItemStack(Items.COBBLESTONE, 5));
+        pipe(helper, new BlockPos(2, 1, 2), PipeType.EMERALD_TRANSPORT);
+        pipe(helper, new BlockPos(3, 1, 2), PipeType.COBBLESTONE_TRANSPORT);
+        ItemPipeBlockEntity emerald = helper.getBlockEntity(new BlockPos(2, 1, 2));
+        emerald.getFilters().setStackInSlot(3, new ItemStack(Items.COBBLESTONE));
+        helper.onEachTick(() -> emerald.getPowerProvider().setEnergyStored(64.0F));
+        helper.runAfterDelay(200, () -> {
+            assertStack(helper, ((ChestBlockEntity) helper.getBlockEntity(target)).getItem(0),
+                    Items.COBBLESTONE, 5, "target chest");
+            assertStack(helper, sourceChest.getItem(0), Items.DIRT, 5, "dirt stays");
+            helper.succeed();
+        });
+    }
+
+    @GameTest(template = EMPTY, timeoutTicks = 300)
+    public static void obsidianPipeSucksUpItems(GameTestHelper helper) {
+        BlockPos pos = new BlockPos(2, 1, 2);
+        helper.setBlock(pos.west(), Blocks.CHEST);
+        pipe(helper, pos, PipeType.OBSIDIAN_TRANSPORT);
+        ItemPipeBlockEntity obsidian = helper.getBlockEntity(pos);
+        helper.onEachTick(() -> obsidian.getPowerProvider().setEnergyStored(256.0F));
+        helper.runAfterDelay(3, () -> {
+            helper.assertValueEqual(obsidian.getOpenOrientation(), Direction.EAST, "open side");
+            helper.spawnItem(Items.DIRT, 4.5F, 1.2F, 2.5F);
+        });
+        helper.succeedWhen(() -> {
+            assertStack(helper, ((ChestBlockEntity) helper.getBlockEntity(pos.west())).getItem(0),
+                    Items.DIRT, 1, "chest");
+            helper.assertEntityNotPresent(EntityType.ITEM);
+        });
+    }
+
+    @GameTest(template = EMPTY, timeoutTicks = 300)
+    public static void obsidianPipeTakesTouchingItemsForFree(GameTestHelper helper) {
+        BlockPos pos = new BlockPos(2, 1, 2);
+        helper.setBlock(pos.west(), Blocks.CHEST);
+        pipe(helper, pos, PipeType.OBSIDIAN_TRANSPORT);
+        helper.runAfterDelay(3, () -> helper.spawnItem(Items.DIRT, 2.5F, 2.0F, 2.5F));
+        helper.succeedWhen(() -> assertStack(helper, ((ChestBlockEntity) helper.getBlockEntity(pos.west())).getItem(0),
+                Items.DIRT, 1, "chest"));
     }
 }

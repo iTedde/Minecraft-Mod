@@ -410,6 +410,12 @@ Fluid-Capability nur zum **Füllen** (wie `fill`, kein Entnehmen).
 | Holzrohr-Entnahme | jeder Slot im Seitenbereich | erster Slot, aus dem die Capability etwas herausgibt (Simulation) | Capability-Slots können entnahmegesperrt sein |
 | Items im Rohr (Client) | `EntityPassiveItem` wird wie ein liegendes Item gezeichnet | Item-Modell in Bodenlage, Maßstab 0,7, um die Hochachse zur Kamera gedreht | 1.21-Item-Rendering |
 | Rohr-Eingang | `IPipeEntry` (nur Rohre) | nur Item-Rohre (`ItemPipeBlockEntity.entityEntering`) | – |
+| Filtervergleich | Diamant: Item-ID, Schaden nur bei nicht beschädigbaren Items; Smaragd: `isItemEqual` (ID + Schaden) | Diamant: `ItemStack.isSameItem`; Smaragd: gleiches Item + gleicher Schaden | Meta-Varianten sind in 1.21 eigene Items |
+| Filter-Sync | Rohr-Daten per Paket an alle Clients | Filter nur über das Menü (einziger Client-Nutzer) | keine Wirkung im Spiel |
+| Obsidian-Abholanimation | `obsidianPipePickup` (`EntityPickupFX`, nur im Einzelspieler sichtbar) | entfällt; das Item erscheint im Rohr | Pickup-Partikel brauchen in 1.21 eine Ziel-Entity |
+| Obsidian-Sound | `random.pop` an der Entity | `ITEM_PICKUP`, Kategorie Blöcke, gleiche Lautstärke/Tonhöhe | 1.21-Soundsystem |
+| Obsidian-Teilaufnahme | ohne Energie für 1 Item entsteht ein Rohr-Item mit Menge 0 | kein Rohr-Item (Stapel bleibt liegen) | leere Stacks gibt es in 1.21 nicht als Item; praktisch unerreichbar |
+| Obsidian: Pfeile | `EntityArrow` → 1 Pfeil | `Arrow` (normale/getränkte Pfeile) → 1 normaler Pfeil, Spektralpfeile nicht | 1:1 zur Original-Klasse |
 
 ## 9. Teilpakete (Vorschlag)
 

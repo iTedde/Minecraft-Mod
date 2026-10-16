@@ -606,6 +606,10 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             block(BcBlocks.pipe(PipeType.SANDSTONE_TRANSPORT), "Sandstone Transport Pipe");
             block(BcBlocks.pipe(PipeType.IRON_TRANSPORT), "Iron Transport Pipe");
             block(BcBlocks.pipe(PipeType.GOLDEN_TRANSPORT), "Golden Transport Pipe");
+            block(BcBlocks.pipe(PipeType.DIAMOND_TRANSPORT), "Diamond Transport Pipe");
+            block(BcBlocks.pipe(PipeType.OBSIDIAN_TRANSPORT), "Obsidian Transport Pipe");
+            block(BcBlocks.pipe(PipeType.EMERALD_TRANSPORT), "Emerald Transport Pipe");
+            add("container.craft.pipe_filters", "Filters");
             block(BcBlocks.pipe(PipeType.VOID_TRANSPORT), "Void Transport Pipe");
             block(BcBlocks.OIL, "Oil");
             item(BcItems.OIL_BUCKET, "Oil Bucket");
@@ -873,6 +877,10 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             block(BcBlocks.pipe(PipeType.SANDSTONE_TRANSPORT), "Sandstein-Transportrohr");
             block(BcBlocks.pipe(PipeType.IRON_TRANSPORT), "Eisen-Transportrohr");
             block(BcBlocks.pipe(PipeType.GOLDEN_TRANSPORT), "Gold-Transportrohr");
+            block(BcBlocks.pipe(PipeType.DIAMOND_TRANSPORT), "Diamant-Transportrohr");
+            block(BcBlocks.pipe(PipeType.OBSIDIAN_TRANSPORT), "Obsidian-Transportrohr");
+            block(BcBlocks.pipe(PipeType.EMERALD_TRANSPORT), "Smaragd-Transportrohr");
+            add("container.craft.pipe_filters", "Filter");
             block(BcBlocks.pipe(PipeType.VOID_TRANSPORT), "Leere-Transportrohr");
             block(BcBlocks.OIL, "Öl");
             item(BcItems.OIL_BUCKET, "Öleimer");

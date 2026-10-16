@@ -55,6 +55,7 @@ public final class BuildCraftClient {
             }
         }
         event.register(BcMenus.REFINERY.get(), RefineryScreen::new);
+        event.register(BcMenus.PIPE_FILTERS.get(), PipeFilterScreen::new);
     }
 
     @SubscribeEvent

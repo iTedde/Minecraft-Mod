@@ -8,7 +8,9 @@ import dev.craft.buildcraft.item.BcWrenchItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
@@ -174,6 +176,29 @@ public class GenericPipeBlock extends BaseEntityBlock {
             return ItemInteractionResult.sidedSuccess(level.isClientSide());
         }
         return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+    }
+
+    /** {@code PipeLogicDiamond}/{@code PipeItemsEmerald.blockActivated}: the filter GUI. */
+    @Override
+    protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player,
+                                               BlockHitResult hit) {
+        if (!(level.getBlockEntity(pos) instanceof ItemPipeBlockEntity pipe) || pipe.getFilters().getSlots() == 0) {
+            return InteractionResult.PASS;
+        }
+        if (!level.isClientSide()) {
+            player.openMenu(pipe, buf -> buf.writeVarInt(pipe.getFilters().getSlots()));
+            level.updateNeighborsAt(pos, this);
+        }
+        return InteractionResult.sidedSuccess(level.isClientSide());
+    }
+
+    /** {@code PipeItemsObsidian.onEntityCollidedWithBlock}: touching items and arrows are pulled in for free. */
+    @Override
+    protected void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
+        if (!level.isClientSide() && type.getMaterial() == PipeMaterial.OBSIDIAN
+                && level.getBlockEntity(pos) instanceof ItemPipeBlockEntity pipe && pipe.canSuck(entity, 0)) {
+            pipe.pullItemIntoPipe(entity, 0);
+        }
     }
 
     /** {@code PipeLogic.blockActivated} with a wrench; true if the logic used it. */

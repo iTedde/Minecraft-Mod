@@ -2,6 +2,8 @@ package dev.craft.buildcraft.transport;
 
 import javax.annotation.Nullable;
 
+import net.minecraft.core.Direction;
+
 /**
  * The BuildCraft pipe types ({@code BuildCraftTransport.createPipe}). Each type is its own block and item; textures
  * are the tiles of the original {@code blocks.png} under {@code block/pipe/}.
@@ -13,6 +15,9 @@ public enum PipeType {
     SANDSTONE_TRANSPORT("sandstone_transport_pipe", Transport.ITEMS, PipeMaterial.SANDSTONE, "sandstone", null),
     IRON_TRANSPORT("iron_transport_pipe", Transport.ITEMS, PipeMaterial.IRON, "iron", "iron_output"),
     GOLDEN_TRANSPORT("golden_transport_pipe", Transport.ITEMS, PipeMaterial.GOLD, "golden", null),
+    DIAMOND_TRANSPORT("diamond_transport_pipe", Transport.ITEMS, PipeMaterial.DIAMOND, "diamond_item", null),
+    OBSIDIAN_TRANSPORT("obsidian_transport_pipe", Transport.ITEMS, PipeMaterial.OBSIDIAN, "obsidian", null),
+    EMERALD_TRANSPORT("emerald_transport_pipe", Transport.ITEMS, PipeMaterial.EMERALD, "emerald", "emerald_source"),
     VOID_TRANSPORT("void_transport_pipe", Transport.ITEMS, PipeMaterial.VOID, "void", null);
 
     private final String name;
@@ -42,9 +47,14 @@ public enum PipeType {
         return material;
     }
 
-    /** Texture of the core and the plain arms, also used for the item. */
+    /** Texture of the core (and of the plain arms, see {@link #getArmTexture}), also used for the item. */
     public String getTexture() {
         return texture;
+    }
+
+    /** Texture of a plain arm: the diamond pipe has one per side ({@code getTextureIndex(direction)}). */
+    public String getArmTexture(Direction side) {
+        return material == PipeMaterial.DIAMOND ? "diamond_" + side.getName() : texture;
     }
 
     /** Texture of the source arm (wood, emerald) or the output arm (iron); {@code null} for the other pipes. */
