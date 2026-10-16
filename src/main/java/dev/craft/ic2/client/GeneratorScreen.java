@@ -1,5 +1,9 @@
 package dev.craft.ic2.client;
 
+import java.util.List;
+
+import dev.craft.core.client.RecipeArea;
+import dev.craft.core.client.RecipeCategories;
 import dev.craft.ic2.menu.GeneratorMenu;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
@@ -50,5 +54,14 @@ public class GeneratorScreen extends MachineScreen<GeneratorMenu> {
             default -> {
             }
         }
+    }
+
+    @Override
+    protected List<RecipeArea> getRecipeAreas() {
+        return switch (menu.getKind()) {
+            case GENERATOR -> List.of(new RecipeArea(65, 35, 16, 16, RecipeCategories.GENERATOR));
+            case GEOTHERMAL_GENERATOR -> List.of(new RecipeArea(65, 35, 16, 16, RecipeCategories.GEOTHERMAL_GENERATOR));
+            default -> List.of();
+        };
     }
 }

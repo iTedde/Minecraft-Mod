@@ -73,6 +73,16 @@ ergänzen. Basispaket `dev.craft`, Einstieg `Craft` → `Ic2.init`, `BuildCraft.
 | `buildcraft/transport/GenericPipeBlock`, `PipeBlockEntity`, `ItemPipeBlockEntity` | BC-Rohre: ein Block je `PipeType`, Verbindungen als Blockstate (`PipeBlock.PROPERTY_BY_DIRECTION`, Regeln in `PipeConnections.canConnect` + `PipeMaterial`), Quell-/Ausgabeseite als `source`/`output`; Transport in Unterklassen von `PipeBlockEntity` (`acceptsNonPipe`, `tickTransport`, `dropContents`); Items als `TravelingItem`, Sync per `PipeItemPayload`; Maschinen geben über `ItemOutput` in Rohre ab; Phantom-Filter (Diamant/Smaragd) in `ItemPipeBlockEntity.getFilters()`, GUI `menu/PipeFilterMenu` + `client/PipeFilterScreen` (ein Menütyp, Filterzahl im Öffnungspaket); Flüssigkeitsrohre in `FluidPipeBlockEntity` (7 `Section`s, Fluid-Capability je Seite nur Füllen, Sync `PipeFluidPayload`, Renderer `client/PipeFluidRenderer`); Leistungsrohre in `PowerPipeBlockEntity` (Doppelpuffer, `receiveEnergy`/`requestEnergy`, Holz = MJ-Empfänger mit Überhitzung, Sync `PipePowerPayload`, Renderer `client/PipePowerRenderer`); Strukturrohr `StructurePipeBlockEntity`. MJ-Empfänger melden Bedarf über `PowerReceptor.powerRequest()` (Standard 0; BC-Maschinen `PowerProvider.missingEnergyRequest()`) |
 | `gregtech/machine/AssemblerBlockEntity`, GT-Upgrades | Assembler = Muster für shapeless Zwei-Eingaben-Maschinen. GT-Basis ist `PowerReceptor`; MJ-Capability liefert nur mit MJ-Konverter einen Empfänger (`getPowerProvider() != null`) |
 
+## Rezeptanzeige (EMI)
+
+- Plugin `compat/emi/CraftEmiPlugin`; EMI-Klassen nur in `compat/emi` (EMI ist optional). Je Mod eine
+  Registrierungsklasse (`Ic2EmiRecipes` …) mit Kategorien, Workstations und Rezepten; Anzeige über
+  `CraftEmiRecipe` (Eingaben, Pfeil mit Dauer, Ausgaben, Textzeilen), Zahlen über `EmiText`.
+  Synthetische Rezept-IDs `craft:/<kategorie>/…`; Kategorienamen `emi.category.craft.<id>` in
+  `CraftLanguageProvider.recipeViewer`.
+- GUI-Klickbereiche: Screen liefert `List<RecipeArea>` (IC2: `MachineScreen.getRecipeAreas()` überschreiben),
+  IDs aus `core/client/RecipeCategories`; das Plugin bildet die IDs auf EMI-Kategorien ab.
+
 ## Tasten und Netzwerk
 
 - IC2-Tasten (Alt/Boost/Modus/Seiteninventar + Vorwärts/Springen): serverseitig `ic2/keyboard/Ic2Keyboard.isModeSwitchKeyDown(player)` usw.

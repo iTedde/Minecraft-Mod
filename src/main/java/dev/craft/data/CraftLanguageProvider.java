@@ -99,6 +99,39 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
         }
     }
 
+    /** Recipe viewer (EMI) categories and texts (spec 16 §2), English or German. */
+    protected void recipeViewer(boolean german) {
+        add("gui.craft.show_recipes", german ? "Rezepte anzeigen" : "Show Recipes");
+        add("emi.category.craft.macerator", "Macerator");
+        add("emi.category.craft.extractor", german ? "Extraktor" : "Extractor");
+        add("emi.category.craft.compressor", german ? "Kompressor" : "Compressor");
+        add("emi.category.craft.recycler", "Recycler");
+        add("emi.category.craft.scrap_box", german ? "Schrottbox" : "Scrap Box");
+        add("emi.category.craft.mass_fabricator", german ? "Massefabrikator" : "Mass Fabricator");
+        add("emi.category.craft.canning_machine", german ? "Konservierungsmaschine" : "Canning Machine");
+        add("emi.category.craft.electrolyzer", german ? "Elektrolyseur" : "Electrolyzer");
+        add("emi.category.craft.generator", german ? "Generator-Brennstoffe" : "Generator Fuels");
+        add("emi.category.craft.geothermal_generator", german ? "Geothermiegenerator" : "Geothermal Generator");
+        add("emi.craft.energy", "%1$s EU/t · %2$s s · %3$s EU");
+        add("emi.craft.compressor.pump", german ? "Leerer Kompressor neben Pumpe über Wasser"
+                : "Empty compressor next to a pump over water");
+        add("emi.craft.recycler.any", german ? "Beliebiges Item → 12,5 % Schrott" : "Any item → 12.5% scrap");
+        add("emi.craft.recycler.blacklist", german ? "Wird verbraucht, gibt nie Schrott" : "Consumed, never gives scrap");
+        add("emi.craft.mass_fabricator.energy", german ? "%1$s EU je UU-Materie" : "%1$s EU per UU-Matter");
+        add("emi.craft.mass_fabricator.amplifier", german ? "Verstärker: %1$s" : "Amplifier: %1$s");
+        add("emi.craft.mass_fabricator.saves", german ? "Spart bis zu %1$s EU" : "Saves up to %1$s EU");
+        add("emi.craft.canning_machine.fuel", german ? "Brennwert %1$s" : "Fuel value %1$s");
+        add("emi.craft.canning_machine.boosters", german ? "Danach Redstone/Glowstone/Schwarzpulver: +20/30/40 %"
+                : "Then redstone/glowstone/gunpowder: +20/30/40%");
+        add("emi.craft.electrolyzer.store", german ? "Speichert %1$s EU aus BatBox/MFE/MFSU"
+                : "Stores %1$s EU from a BatBox/MFE/MFSU");
+        add("emi.craft.electrolyzer.release", german ? "Gibt %1$s/%2$s/%3$s EU zurück (BatBox/MFE/MFSU)"
+                : "Gives back %1$s/%2$s/%3$s EU (BatBox/MFE/MFSU)");
+        add("emi.craft.generator.output", "%1$s EU (%2$s EU/t, %3$s s)");
+        add("emi.craft.geothermal_generator.pump", german ? "Lava aus der IC2-Pumpe zählt nur zur Hälfte"
+                : "Lava from an IC2 pump counts only half");
+    }
+
     /** Names of the new power plants (spec 14), English or German. */
     protected void powerPlants(boolean german) {
         add("itemGroup.craft.power_plants", german ? "Craft: Kraftwerke" : "Craft: Power Plants");
@@ -651,6 +684,7 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             compactSolars();
             gregTech();
             powerPlants(false);
+            recipeViewer(false);
         }
     }
 
@@ -937,6 +971,7 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             compactSolars();
             gregTech();
             powerPlants(true);
+            recipeViewer(true);
         }
     }
 }

@@ -55,7 +55,8 @@ public class MassFabricatorBlockEntity extends MachineBlockEntity implements Ene
         return value == null ? 0 : value;
     }
 
-    private static Map<Item, Integer> amplifiers() {
+    /** All amplifiers with their values. */
+    public static Map<Item, Integer> amplifiers() {
         return Map.ofEntries(
                 Map.entry(Ic2Items.SCRAP.get(), 5000),
                 Map.entry(Ic2Items.SCRAP_BOX.get(), 45000),

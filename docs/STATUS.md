@@ -1208,7 +1208,27 @@ NaK-Kühlzellen, kein Vakuumgefrierer) **und die IC2-Nuke**. Teilpakete: 7a IC2-
   (Rezepttypen + Code-Tabellen), Xaero's Minimap (nur `localRuntime`), verbundene GT-Gehäusetexturen,
   Forestry-Ledger, Testplan, Teilphasen 11.1–11.6, offene Entscheidungen E1–E4.
 
+## Erledigt (Teilpaket „Phase 11.1: EMI-Grundgerüst + IC2-Kategorien“, 2026-10-16)
+- EMI `1.1.22+1.21.1` (TerraformersMC-Maven): API `compileOnly`, Mod `localRuntime`, in `neoforge.mods.toml` optional
+  (nur Client). Plugin `compat/emi/CraftEmiPlugin` (`@EmiEntrypoint`), generische Anzeige `CraftEmiRecipe`
+  (Eingaben → Pfeil → Ausgaben, Textzeilen darunter).
+- IC2-Kategorien (`compat/emi/Ic2EmiRecipes`): Macerator/Extraktor/Kompressor (Rezepttypen, 2 EU/t · 20 s; Kompressor
+  + Pumpe → Schneeball), Recycler (beliebiges Item → Schrott 12,5 %, Blacklist-Tag), Schrottbox (alle Drops mit
+  Wahrscheinlichkeit), Massefabrikator (1 000 000 EU je UU-Materie, Verstärker mit Wert und Ersparnis 5 × Wert),
+  Konservierungsmaschine (alle Lebensmittel → Dosen, Brennstoffdosen + Booster-Hinweis), Elektrolyseur
+  (Speichern/Zurückgeben), Generator-Brennstoffe (Brennwert/4 Ticks × 10 EU/t, ohne Lavaeimer), Geothermie
+  (1000 mB → 20 000 EU, Pumpe zählt halb). Eisenofen, Elektroofen und Induktionsofen als Workstations des
+  Vanilla-Schmelzens.
+- Schrottbox-Drops nach `ic2/item/ScrapBoxDrops` ausgelagert (Quelle für Loot-Datagen und EMI; Loot-JSON unverändert).
+- Ausgeblendet: `craft:water`, `craft:lava` (Holo-Slot-Items).
+- Klickbereiche: EMI hat keine GUI-Klickbereiche wie JEI → eigener Hook `core/client/RecipeArea` (Klick öffnet die
+  Kategorie, Tooltip „Rezepte anzeigen“; ohne EMI wirkungslos), Kategorie-IDs in `core/client/RecipeCategories`.
+  IC2: Fortschrittspfeil von Macerator/Extraktor/Kompressor/Recycler/Elektroofen/Eisenofen/Induktionsofen/
+  Elektrolyseur/Konservierungsmaschine, Flamme von Generator/Geothermie, Fortschrittstext des Massefabrikators.
+- `gradlew build`, 255 GameTests grün, `runClient` startet mit EMI (Plugins laden erst in einer Welt – siehe unten).
+
 ## Nächste Schritte
-1. Entscheidungen E1–E4 getroffen (Nutzer, 2026-10-16: alle Vorschläge übernommen, restliche IC2-Inhalte als
-   Phase 12 nach dem Feinschliff) – siehe `spec/16-feinschliff.md` §8.
-2. Phase 11.1: EMI-Grundgerüst + IC2-Kategorien.
+1. Manuell im Client (Welt betreten): EMI-Kategorien der IC2-Maschinen ansehen (Werte, Texte de/en),
+   Klick auf Fortschrittspfeile/Flammen öffnet die Kategorie, `craft:water`/`craft:lava` nicht im Index,
+   Log ohne EMI-Plugin-Fehler.
+2. Phase 11.2: EMI GregTech (9 Kategorien) + Klickbereiche.

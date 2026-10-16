@@ -1,5 +1,9 @@
 package dev.craft.ic2.client;
 
+import java.util.List;
+
+import dev.craft.core.client.RecipeArea;
+import dev.craft.core.client.RecipeCategories;
 import dev.craft.ic2.menu.ElectricMachineMenu;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
@@ -21,5 +25,16 @@ public class ElectricMachineScreen extends MachineScreen<ElectricMachineMenu> {
         if (progress > 0) {
             blit(graphics, x + 79, y + 34, 176, 14, progress + 1, 16);
         }
+    }
+
+    @Override
+    protected List<RecipeArea> getRecipeAreas() {
+        return List.of(new RecipeArea(78, 33, 26, 18, switch (menu.getKind()) {
+            case MACERATOR -> RecipeCategories.MACERATOR;
+            case EXTRACTOR -> RecipeCategories.EXTRACTOR;
+            case COMPRESSOR -> RecipeCategories.COMPRESSOR;
+            case RECYCLER -> RecipeCategories.RECYCLER;
+            default -> RecipeCategories.SMELTING;
+        }));
     }
 }

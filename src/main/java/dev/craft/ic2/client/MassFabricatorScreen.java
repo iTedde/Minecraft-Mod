@@ -1,5 +1,9 @@
 package dev.craft.ic2.client;
 
+import java.util.List;
+
+import dev.craft.core.client.RecipeArea;
+import dev.craft.core.client.RecipeCategories;
 import dev.craft.ic2.menu.MassFabricatorMenu;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
@@ -28,5 +32,10 @@ public class MassFabricatorScreen extends MachineScreen<MassFabricatorMenu> {
 
     @Override
     protected void renderGauges(GuiGraphics graphics, int x, int y) {
+    }
+
+    @Override
+    protected List<RecipeArea> getRecipeAreas() {
+        return List.of(new RecipeArea(14, 18, 60, 20, RecipeCategories.MASS_FABRICATOR));
     }
 }

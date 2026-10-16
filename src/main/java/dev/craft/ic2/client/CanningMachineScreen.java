@@ -1,5 +1,9 @@
 package dev.craft.ic2.client;
 
+import java.util.List;
+
+import dev.craft.core.client.RecipeArea;
+import dev.craft.core.client.RecipeCategories;
 import dev.craft.ic2.menu.CanningMachineMenu;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
@@ -18,5 +22,10 @@ public class CanningMachineScreen extends MachineScreen<CanningMachineMenu> {
             blit(graphics, x + 31, y + 27 + 14 - height, 176, 14 - height, 14, height);
         }
         blit(graphics, x + 74, y + 36, 176, 15, menu.getProgressScaled(34), 13);
+    }
+
+    @Override
+    protected List<RecipeArea> getRecipeAreas() {
+        return List.of(new RecipeArea(73, 35, 36, 15, RecipeCategories.CANNING_MACHINE));
     }
 }

@@ -44,6 +44,7 @@ Elektroofen nutzen Vanilla-Schmelzrezepte).
 | Recycler | `RecyclerBlockEntity` (1/8, Blacklist-Tag) | „beliebiges Item → Schrott, 12,5 %“ + Blacklist als Info |
 | Schrottbox | Loot-Tabelle (`CraftScrapBoxLoot`) | Drops mit Wahrscheinlichkeit |
 | Massefabrikator | `MassFabricatorBlockEntity` | Verstärker (Schrott) und Energie je UU-Materie |
+| IC2-Elektrolyseur | `ElectrolyzerBlockEntity` | Wasserzelle ↔ elektrolysierte Wasserzelle (20 000 EU / 14–18 000 EU zurück) |
 | IC2-Canning Machine | Canning-Logik (`spec/04`) | Brennstoff-/Lebensmitteldosen |
 | Raffinerie | `RefineryRecipe` | Flüssigkeit → Flüssigkeit, MJ |
 | Verbrennungsmotor | `CombustionFuels` | Treibstoffe (MJ/t, Dauer), Kühlmittel |
@@ -55,7 +56,8 @@ Liste beim Umsetzen gegen alle Rezepttyp-Registrierungen und Maschinen prüfen; 
 
 ### 2.3 Sonstiges
 
-- GUI-Klickbereiche (Fortschrittspfeil → Kategorie) für alle Maschinen-Screens.
+- GUI-Klickbereiche (Fortschrittspfeil → Kategorie) für alle Maschinen-Screens. EMI bietet keine
+  JEI-artigen Klickbereiche; umgesetzt über den eigenen Hook `core/client/RecipeArea` (11.1).
 - Nicht erhältliche Hilfs-Items (`craft:water`, `craft:lava`, Holo-Slots) in EMI ausblenden.
 - Info-Seiten (EMI `EmiInfoRecipe`) für Multiblöcke (Solar Arrays, Hochofen, Kraftwerke, Wasserturbine,
   Koksofen): Bauplan in Textform.

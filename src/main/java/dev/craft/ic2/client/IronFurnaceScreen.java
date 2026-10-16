@@ -1,5 +1,9 @@
 package dev.craft.ic2.client;
 
+import java.util.List;
+
+import dev.craft.core.client.RecipeArea;
+import dev.craft.core.client.RecipeCategories;
 import dev.craft.ic2.menu.IronFurnaceMenu;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -9,6 +13,8 @@ import net.minecraft.world.entity.player.Inventory;
 
 /** IC2 {@code GuiIronFurnace}: the vanilla furnace GUI with IC2's gauges. */
 public class IronFurnaceScreen extends AbstractContainerScreen<IronFurnaceMenu> {
+    private static final List<RecipeArea> RECIPE_AREAS =
+            List.of(new RecipeArea(78, 33, 26, 18, RecipeCategories.SMELTING));
     private static final ResourceLocation TEXTURE =
             ResourceLocation.withDefaultNamespace("textures/gui/container/furnace.png");
     private static final ResourceLocation LIT_PROGRESS = ResourceLocation.withDefaultNamespace("container/furnace/lit_progress");
@@ -29,6 +35,17 @@ public class IronFurnaceScreen extends AbstractContainerScreen<IronFurnaceMenu> 
     public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
         super.render(graphics, mouseX, mouseY, partialTick);
         renderTooltip(graphics, mouseX, mouseY);
+        if (hoveredSlot == null && menu.getCarried().isEmpty()) {
+            RecipeArea.renderTooltip(RECIPE_AREAS, graphics, font, leftPos, topPos, mouseX, mouseY);
+        }
+    }
+
+    @Override
+    public boolean mouseClicked(double mouseX, double mouseY, int button) {
+        if (button == 0 && RecipeArea.click(RECIPE_AREAS, leftPos, topPos, mouseX, mouseY)) {
+            return true;
+        }
+        return super.mouseClicked(mouseX, mouseY, button);
     }
 
     @Override
