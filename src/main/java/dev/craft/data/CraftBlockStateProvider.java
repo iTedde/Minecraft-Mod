@@ -350,6 +350,9 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
             simpleBlockWithItem(GtBlocks.casing(type).get(), models().cubeAll(type.getName(),
                     modLoc("block/gt/blocks_" + type.getTexture())));
         }
+        // All six sides share index 10 on blocks.png.
+        simpleBlockWithItem(GtBlocks.HIGHLY_ADVANCED_MACHINE_BLOCK.get(),
+                models().cubeAll("highly_advanced_machine_block", modLoc("block/gt/blocks_10")));
         for (GtOre ore : GtOre.values()) {
             gtOre(GtBlocks.ore(ore).get(), ore.getBlockName(), ore.getMaterial());
             if (ore.hasDeepslateVariant()) {

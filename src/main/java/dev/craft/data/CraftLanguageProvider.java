@@ -298,6 +298,17 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
         item(GtItems.GROSSULAR_DUST, "Grossular Dust");
         item(GtItems.UVAROVITE_DUST, "Uvarovite Dust");
         add("tooltip.craft.diamond_grinder", "Fancy Grinding Head");
+        item(GtItems.ENERGY_FLOW_CIRCUIT, "Energy Flow Circuit");
+        add("tooltip.craft.energy_flow_circuit", "Manages large amounts of Energy");
+        item(GtItems.DATA_CONTROL_CIRCUIT, "Data Control Circuit");
+        add("tooltip.craft.data_control_circuit", "Basic Computer Processor");
+        item(GtItems.DATA_STORAGE_CIRCUIT, "Data Storage Circuit");
+        add("tooltip.craft.data_storage_circuit", "Stores Data");
+        item(GtItems.TITANIUM_MACHINE_HULL, "Titanium Machine Hull");
+        add("tooltip.craft.titanium_machine_hull", "Very Advanced Machine Block");
+        item(GtItems.ELITE_CIRCUIT_BOARD, "Elite Circuit Board");
+        add("tooltip.craft.elite_circuit_board", "Highly advanced Circuit Plate");
+        block(GtBlocks.HIGHLY_ADVANCED_MACHINE_BLOCK, "Highly Advanced Machineblock");
         add("tooltip.craft.gt.max_input", "Max EU/p IN: %s");
         add("tooltip.craft.gt.possible_upgrades", "Possible Upgrades: %s");
         add("tooltip.craft.gt.mj_converter", "has MJ-Converter");

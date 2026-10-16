@@ -979,12 +979,26 @@ NaK-Kühlzellen, kein Vakuumgefrierer) **und die IC2-Nuke**. Teilpakete: 7a IC2-
 - 4 neue GameTests (`GtUnlockedRecipeGameTests`, insgesamt 205 grün), `build` und `runClient` (Hauptmenü, keine
   Mod-Fehler) erfolgreich.
 
+## Erledigt (Teilpaket „Phase 8e.3: Schaltungen und Gehäuse“, 2026-10-16)
+- Items (`GtItems`): Energiefluss-, Datenkontroll-, Datenspeicher-Schaltung, Titan-Maschinenhülle, Elite-Platine
+  (Texturen `components.png` 0/1/3/36/50, Namen/Tooltips englisch wie GT). Block „Highly Advanced Machineblock“
+  (`GtBlocks.HIGHLY_ADVANCED_MACHINE_BLOCK`): Härte 10, Explosionsresistenz 200, Eisenspitzhacke, keine Mob-Spawns,
+  **kein** `GtCasingBlock` (keine Maschinen-Updates); alle sechs Seiten `blocks.png` Index 10 (identisch).
+- Rezepte (`CraftRecipeProvider.gregTechCircuits`): Assembler – Datenspeicher aus 8 Olivin / Olivinstaub / Smaragd /
+  Smaragdstaub + fortg. Schaltkreis, Elite-Platine (Platinplatte), Datenkontroll- (+ Datenspeicher) und
+  Energiefluss-Schaltung (+ Lapotronkristall beliebiger Ladung), Titan-Maschinenhülle; Werkbank – 4 Datenkontroll-
+  Schaltungen (`AEA/EIE/AEA`), Maschinenblock (`CTC/TMT/CTC`), 4 fortg. GT-Maschinengehäuse (`TTT/CMC/TTT`, damit
+  erstmals herstellbar), Nanosäbel (`PI /PI /CLC`, Ladung des Lapotrons geht über).
+- Schrottbox: Elite-Platine 0,2 (Schrott jetzt 20000 von 30455).
+- 4 neue GameTests (`GtCircuitGameTests`, insgesamt 209 grün), `build` und `runClient` (Hauptmenü, keine Mod-Fehler)
+  erfolgreich.
+
 ## Nächste Schritte
-1. Teilpaket 8e.3: Schaltungen und Gehäuse (Datenspeicher-/Datenkontroll-/Energiefluss-Schaltung, Elite-Platine,
-   Titan-Maschinenhülle, Hochentwickelter Maschinenblock, fortg. GT-Maschinengehäuse, Nanosäbel, Schrottbox
-   Elite-Platine 0,2).
-2. Manuelle Client-Tests 8e.1: Bauxitstaub (12 + 8 Zellen) im Elektrolyseur → kl. Titanstaub → Titanstaub →
+1. Teilpaket 8e.4: Wolfram-Kette + Vakuumgefrierer – zuerst Spezifikation (`12-gregtech-materialien.md` §5.4).
+2. Manuelle Client-Tests 8e.3: Schaltungskette im Assembler (Olivin → Datenspeicher → Elite-Platine → Datenkontrolle/
+   Energiefluss), fortg. GT-Gehäuse im Hochofen (+70 K je Block), Nanosäbel herstellen und einschalten.
+3. Manuelle Client-Tests 8e.1: Bauxitstaub (12 + 8 Zellen) im Elektrolyseur → kl. Titanstaub → Titanstaub →
    Hochofen (≥ 1500 K) → Titanbarren → Plattenbieger; Rubinstaub → Chromstaub → Hochofen (≥ 1700 K); Granatstaub in der
    Zentrifuge; Galenastaub im Hochofen; UU-Materie-Rezepte an fester Position.
-3. Manuelle Client-Tests 8e.2: Diamantbohrer → Quarry; Bergbaulaser (Ladung des Energiekristalls geht über);
+4. Manuelle Client-Tests 8e.2: Diamantbohrer → Quarry; Bergbaulaser (Ladung des Energiekristalls geht über);
    Kanthal-Spulen im Hochofen (+ Hitze); Magnalium-Windmühle im Assembler.

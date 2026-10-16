@@ -1,0 +1,23 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "C": {
+      "tag": "c:plates/chrome"
+    },
+    "M": {
+      "tag": "craft:raw_machine_tier_02"
+    },
+    "T": {
+      "tag": "c:plates/titanium"
+    }
+  },
+  "pattern": [
+    "CTC",
+    "TMT",
+    "CTC"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:highly_advanced_machine_block"
+  }
+}

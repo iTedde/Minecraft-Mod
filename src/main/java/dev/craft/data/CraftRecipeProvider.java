@@ -95,6 +95,7 @@ public final class CraftRecipeProvider extends RecipeProvider {
         grinder();
         gregTechUnlocks();
         gregTechUnlockedRecipes();
+        gregTechCircuits();
         uuMatter();
         smelting();
         macerator();
@@ -1607,6 +1608,43 @@ public final class CraftRecipeProvider extends RecipeProvider {
         assemble("wind_mill_from_magnalium", SizedIngredient.of(machine(Ic2Machine.GENERATOR), 1),
                 SizedIngredient.of(CraftItemTagsProvider.PLATES_MAGNALIUM, 2),
                 new ItemStack(machine(Ic2Machine.WIND_MILL)), 6400, 8);
+    }
+
+    /** GT circuits, hulls and the highly advanced machine block with what they unlock (spec 12 §5.2/5.3, phase 8e.3). */
+    private void gregTechCircuits() {
+        SizedIngredient advancedCircuit = SizedIngredient.of(Ic2Items.ADVANCED_CIRCUIT, 1);
+        assemble("data_storage_circuit_from_olivine", SizedIngredient.of(CraftItemTagsProvider.GEMS_OLIVINE, 8),
+                advancedCircuit, new ItemStack(GtItems.DATA_STORAGE_CIRCUIT.get(), 4), 6400, 8);
+        assemble("data_storage_circuit_from_olivine_dust", SizedIngredient.of(GtItems.OLIVINE_DUST, 8),
+                advancedCircuit, new ItemStack(GtItems.DATA_STORAGE_CIRCUIT.get(), 4), 6400, 8);
+        assemble("data_storage_circuit_from_emerald", SizedIngredient.of(Items.EMERALD, 8), advancedCircuit,
+                new ItemStack(GtItems.DATA_STORAGE_CIRCUIT.get(), 4), 3200, 4);
+        assemble("data_storage_circuit_from_emerald_dust", SizedIngredient.of(GtItems.EMERALD_DUST, 8),
+                advancedCircuit, new ItemStack(GtItems.DATA_STORAGE_CIRCUIT.get(), 4), 6400, 8);
+        assemble("elite_circuit_board", SizedIngredient.of(CraftItemTagsProvider.PLATES_PLATINUM, 1), advancedCircuit,
+                new ItemStack(GtItems.ELITE_CIRCUIT_BOARD.get()), 3200, 4);
+        SizedIngredient eliteBoard = SizedIngredient.of(GtItems.ELITE_CIRCUIT_BOARD, 1);
+        assemble("data_control_circuit", eliteBoard, SizedIngredient.of(GtItems.DATA_STORAGE_CIRCUIT, 1),
+                new ItemStack(GtItems.DATA_CONTROL_CIRCUIT.get()), 3200, 4);
+        // Any charge: the ingredient ignores the stored energy.
+        assemble("energy_flow_circuit", eliteBoard, SizedIngredient.of(Ic2Items.LAPOTRON_CRYSTAL, 1),
+                new ItemStack(GtItems.ENERGY_FLOW_CIRCUIT.get()), 3200, 4);
+        shaped(GtItems.DATA_CONTROL_CIRCUIT, 4, "data_control_circuit").pattern("AEA", "EIE", "AEA")
+                .define('A', Ic2Items.ADVANCED_CIRCUIT).define('E', GtItems.DATA_STORAGE_CIRCUIT)
+                .define('I', Ic2Items.IRIDIUM_PLATE).save();
+
+        machineHull("titanium_machine_hull", CraftItemTagsProvider.PLATES_TITANIUM, GtItems.TITANIUM_MACHINE_HULL);
+        shaped(GtItems.HIGHLY_ADVANCED_MACHINE_BLOCK, 1, "highly_advanced_machine_block").pattern("CTC", "TMT", "CTC")
+                .define('C', CraftItemTagsProvider.PLATES_CHROME).define('T', CraftItemTagsProvider.PLATES_TITANIUM)
+                .define('M', CraftItemTagsProvider.RAW_MACHINE_TIER_02).save();
+        shaped(GtItems.casing(GtCasingBlock.Type.ADVANCED), 4, "gt_advanced_machine_casing").pattern("TTT", "CMC", "TTT")
+                .define('T', CraftItemTagsProvider.PLATES_CHROME).define('C', GtItems.DATA_CONTROL_CIRCUIT)
+                .define('M', GtItems.HIGHLY_ADVANCED_MACHINE_BLOCK).save();
+
+        // craftingCircuitTier07 = energy flow circuit; the lapotron crystal's charge goes into the saber.
+        shaped(Ic2Items.NANO_SABER, 1, "nano_saber").pattern("PI ", "PI ", "CLC")
+                .define('P', CraftItemTagsProvider.PLATES_PLATINUM).define('I', Ic2Items.IRIDIUM_PLATE)
+                .define('L', Ic2Items.LAPOTRON_CRYSTAL).define('C', GtItems.ENERGY_FLOW_CIRCUIT).save();
     }
 
     /**

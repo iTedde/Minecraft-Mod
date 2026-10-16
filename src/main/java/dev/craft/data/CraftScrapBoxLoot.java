@@ -99,6 +99,7 @@ public record CraftScrapBoxLoot(HolderLookup.Provider registries) implements Loo
         add(pool, GtItems.CHROME_DUST.get(), 3);
         add(pool, GtItems.TITANIUM_DUST.get(), 3);
         add(pool, GtItems.MAGNESIUM_DUST.get(), 3);
+        add(pool, GtItems.ELITE_CIRCUIT_BOARD.get(), 20);
         add(pool, GtItems.NETHERRACK_DUST.get(), 400);
         // other GT dusts (flint, endstone): not yet available
         add(pool, GtItems.RED_GARNET.get(), 50);

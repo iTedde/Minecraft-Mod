@@ -158,6 +158,7 @@ public final class CraftCreativeTabs {
                         for (GtCasingBlock.Type type : GtCasingBlock.Type.values()) {
                             output.accept(GtItems.casing(type));
                         }
+                        output.accept(GtItems.HIGHLY_ADVANCED_MACHINE_BLOCK);
                         for (GtOre ore : GtOre.values()) {
                             output.accept(GtItems.ore(ore));
                             if (ore.hasDeepslateVariant()) {

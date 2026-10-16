@@ -318,7 +318,7 @@ public final class Ic2GameTests {
 
     @GameTest(template = EMPTY)
     public static void scrapBoxDropsMostlyScrap(GameTestHelper helper) {
-        // Pack weights: scrap 20000 of 30435 for the items that exist so far (≈ 66 %).
+        // Pack weights: scrap 20000 of 30455 for the items that exist so far (≈ 66 %).
         int scrap = 0;
         for (int i = 0; i < 1000; i++) {
             List<ItemStack> drop = ScrapBoxItem.getDrop(helper.getLevel());

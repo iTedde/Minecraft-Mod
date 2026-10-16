@@ -100,6 +100,8 @@ public final class CraftBlockTagsProvider extends BlockTagsProvider {
             tag(BlockTags.MINEABLE_WITH_PICKAXE).add(GtBlocks.casing(type).get());
             tag(BlockTags.NEEDS_IRON_TOOL).add(GtBlocks.casing(type).get());
         }
+        tag(BlockTags.MINEABLE_WITH_PICKAXE).add(GtBlocks.HIGHLY_ADVANCED_MACHINE_BLOCK.get());
+        tag(BlockTags.NEEDS_IRON_TOOL).add(GtBlocks.HIGHLY_ADVANCED_MACHINE_BLOCK.get());
         for (GtOre ore : GtOre.values()) {
             gtOre(ore, GtBlocks.ore(ore).get(), switch (ore.getGround()) {
                 case STONE -> Tags.Blocks.ORES_IN_GROUND_STONE;

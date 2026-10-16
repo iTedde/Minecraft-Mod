@@ -1,0 +1,23 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "C": {
+      "item": "craft:data_control_circuit"
+    },
+    "M": {
+      "item": "craft:highly_advanced_machine_block"
+    },
+    "T": {
+      "tag": "c:plates/chrome"
+    }
+  },
+  "pattern": [
+    "TTT",
+    "CMC",
+    "TTT"
+  ],
+  "result": {
+    "count": 4,
+    "id": "craft:gt_advanced_machine_casing"
+  }
+}

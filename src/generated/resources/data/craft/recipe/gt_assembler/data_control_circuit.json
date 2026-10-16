@@ -1,0 +1,21 @@
+{
+  "type": "craft:gt_assembler",
+  "duration": 3200,
+  "eu_per_tick": 4,
+  "inputs": [
+    {
+      "count": 1,
+      "item": "craft:elite_circuit_board"
+    },
+    {
+      "count": 1,
+      "item": "craft:data_storage_circuit"
+    }
+  ],
+  "outputs": [
+    {
+      "count": 1,
+      "id": "craft:data_control_circuit"
+    }
+  ]
+}

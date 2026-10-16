@@ -1,0 +1,23 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "A": {
+      "item": "craft:advanced_circuit"
+    },
+    "E": {
+      "item": "craft:data_storage_circuit"
+    },
+    "I": {
+      "item": "craft:iridium_plate"
+    }
+  },
+  "pattern": [
+    "AEA",
+    "EIE",
+    "AEA"
+  ],
+  "result": {
+    "count": 4,
+    "id": "craft:data_control_circuit"
+  }
+}

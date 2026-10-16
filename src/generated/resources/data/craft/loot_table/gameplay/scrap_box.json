@@ -324,6 +324,11 @@
         },
         {
           "type": "minecraft:item",
+          "name": "craft:elite_circuit_board",
+          "weight": 20
+        },
+        {
+          "type": "minecraft:item",
           "name": "craft:netherrack_dust",
           "weight": 400
         },

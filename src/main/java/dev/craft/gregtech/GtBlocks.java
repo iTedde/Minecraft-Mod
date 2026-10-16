@@ -10,6 +10,7 @@ import dev.craft.gregtech.block.GtCasingBlock;
 import dev.craft.gregtech.machine.GtMachineBlock;
 import dev.craft.gregtech.world.GtOre;
 import net.minecraft.util.valueproviders.ConstantInt;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DropExperienceBlock;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.block.SoundType;
@@ -42,6 +43,15 @@ public final class GtBlocks {
             }
         }
     }
+
+    /**
+     * {@code GT_BlockMetaID_Block} 10: hardness 10, explosion resistance 200; no machine casing, so it does not notify
+     * the machines around it.
+     */
+    public static final DeferredBlock<Block> HIGHLY_ADVANCED_MACHINE_BLOCK =
+            BLOCKS.registerBlock("highly_advanced_machine_block", Block::new, BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.METAL).strength(10.0F, 200.0F).sound(SoundType.METAL)
+                    .requiresCorrectToolForDrops().isValidSpawn((state, level, pos, type) -> false));
 
     private GtBlocks() {
     }

@@ -273,6 +273,16 @@ public final class GtItems {
     public static final DeferredItem<GtMaterialItem> GROSSULAR_DUST = material("grossular_dust", "Ca3Al2Si3O12");
     public static final DeferredItem<GtMaterialItem> UVAROVITE_DUST = material("uvarovite_dust", "Ca3Cr2Si3O12");
 
+    // --- circuits and hulls (phase 8e.3): Component 0/1/3/36/50 ---
+    public static final DeferredItem<GtMaterialItem> ENERGY_FLOW_CIRCUIT = component("energy_flow_circuit");
+    public static final DeferredItem<GtMaterialItem> DATA_CONTROL_CIRCUIT = component("data_control_circuit");
+    public static final DeferredItem<GtMaterialItem> DATA_STORAGE_CIRCUIT = component("data_storage_circuit");
+    public static final DeferredItem<GtMaterialItem> TITANIUM_MACHINE_HULL = component("titanium_machine_hull");
+    public static final DeferredItem<GtMaterialItem> ELITE_CIRCUIT_BOARD = component("elite_circuit_board");
+    /** {@code GT_BlockMetaID_Block} 10. */
+    public static final DeferredItem<BlockItem> HIGHLY_ADVANCED_MACHINE_BLOCK =
+            ITEMS.registerSimpleBlockItem(GtBlocks.HIGHLY_ADVANCED_MACHINE_BLOCK);
+
     public static DeferredItem<BlockItem> ore(GtOre ore) {
         return ORES.get(ore);
     }

@@ -1,0 +1,26 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "C": {
+      "item": "craft:energy_flow_circuit"
+    },
+    "I": {
+      "item": "craft:iridium_plate"
+    },
+    "L": {
+      "item": "craft:lapotron_crystal"
+    },
+    "P": {
+      "tag": "c:plates/platinum"
+    }
+  },
+  "pattern": [
+    "PI ",
+    "PI ",
+    "CLC"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:nano_saber"
+  }
+}
