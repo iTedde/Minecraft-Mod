@@ -939,3 +939,14 @@ NaK-Kühlzellen, kein Vakuumgefrierer) **und die IC2-Nuke**. Teilpakete: 7a IC2-
    füllen (Wasserbalken) und Erz ohne Zelle mahlen; Overclocker; Struktur zerstören → inaktiv.
 2. Danach Freischaltungen aus `07-weltgenerierung.md` §6.6 „später“ (Titan, Chrom, Magnesium …) bzw. Phase 9 –
    Umfang mit dem Nutzer klären.
+
+## Erledigt (Teilpaket „Phase 8e: Spezifikation Freischaltungen“, 2026-10-16)
+- Nutzer hat 8e (GT-Freischaltungen aus `07-weltgenerierung.md` §6.6 „später“) als nächsten Part gewählt.
+- `12-gregtech-materialien.md` §5: neue Items (Silber-, Zink-, Titan-, Chrombarren/-platten, Platin-/Magnaliumplatte,
+  Magnesium-/Mangan-/Titan-/Chromstaub, Granat-Unterstäube, Daten-/Energiefluss-Schaltungen, Elite-Platine,
+  Titan-Maschinenhülle, Hochentwickelter Maschinenblock), alle Herstellungs-/Verarbeitungsrezepte, freigeschaltete
+  Rezepte (Diamantbohrer → Quarry, Bergbaulaser, Nanosäbel, Kanthal-/Nichrom-Spule, fortg. GT-Gehäuse, Mischmetall-,
+  Kolben-Varianten, Energiekristall aus Rubin, Lapotron aus Saphir, Glasfaser mit Silber, Windmühle aus Magnalium).
+- Spec-Korrektur: Nanosäbel braucht die **Energiefluss**-Schaltung (`craftingCircuitTier07`), nicht die
+  Datenkontroll-Schaltung (`08-rezepte.md`).
+- Teilpakete: 8e.1 Materialien · 8e.2 freigeschaltete Rezepte · 8e.3 Schaltungen und Gehäuse.

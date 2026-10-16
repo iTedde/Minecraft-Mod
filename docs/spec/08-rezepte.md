@@ -197,7 +197,7 @@ IC2-Maschinenrezept für dieselbe Eingabe und fügen das neue ein.
 | OV-Scanner | ` G /GCG/cSc`, S = OD-Scanner (bzw. geladene RE-Batterie – Originalfehler im zweiten Rezept), c = 2× isol. Goldkabel, C = fortg. Schaltkreis | [IC2] |
 | EU-Meter | ` G /cCc/c c` | [IC2] |
 | Bergbaulaser | `Rcc/AAC/ AA`, c = Energiekristall, A = fortg. Legierung, C = fortg. Schaltkreis | **[GT⚠]** entfernt (`ExpensiveLaser`); Ersatz `RHE/TTC/ AA` mit Rubin, Titanplatten, GT-Heliumkühlzelle |
-| Nanosäbel | `GA /GA /CcC`, C = Kohleplatte, c = Energiekristall | **[GT⚠]** ersetzt: `PI /PI /CLC`, P = Platinplatte, I = Iridiumplatte, L = Lapotron, C = GT-Datenkontrollschaltung |
+| Nanosäbel | `GA /GA /CcC`, C = Kohleplatte, c = Energiekristall | **[GT⚠]** ersetzt: `PI /PI /CLC`, P = Platinplatte, I = Iridiumplatte, L = Lapotron, C = GT-Energiefluss-Schaltung (`craftingCircuitTier07`, Korrektur 8e) |
 | Elektrische Hacke etc. siehe oben | | |
 | Frequenzsender | formlos el. Schaltkreis + isol. Kupferkabel | [IC2] |
 | Fernzünder | ` c /GCG/TTT` (T = TNT) und ` C /TLT/ F ` (T = Zinn, L = Lapis, F = Frequenzsender) | [IC2] |

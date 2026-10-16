@@ -264,17 +264,17 @@ Zellen als Eingabe 2. Umfang: **8c** umgesetzt, sonst fehlt das genannte Item no
 | 2 Sphaleritstaub | Elektrolyseur | Zinkstaub, Schwefelstaub | 150 / 100 | 8c |
 | 2 Zinnoberstaub, 1 Zelle | Elektrolyseur | Quecksilberzelle, Schwefelstaub | 100 / 128 | 8c |
 | 2 Galenastaub | Elektrolyseur | 3 kl. Silber-, 3 kl. Blei-, 2 kl. Schwefelstaub | 1000 / 120 | 8c |
-| 2 Galenastaub | Hochofen | Silberbarren, Bleibarren | 20, 1500 K | später (Silberbarren) |
+| 2 Galenastaub | Hochofen | Silberbarren, Bleibarren | 20, 1500 K | 8e (`12-gregtech-materialien.md` §5) |
 | Zinkstaub | Zentrifuge | kl. Zinnstaub | 1050 | 8c |
-| Zinkstaub | Ofen | Zinkbarren | – | später (Zinkbarren) |
+| Zinkstaub | Ofen | Zinkbarren | – | 8e (`12-gregtech-materialien.md` §5) |
 | 8 Saphirstaub, 3 Zellen | Elektrolyseur | 2 Aluminiumstaub, 3 Luftzellen | 400 / 50 | 8c |
 | grüner Saphirstaub | Elektrolyseur | Saphirstaub | 100 / 50 | 8c |
-| 9 Rubinstaub, 3 Zellen | Elektrolyseur | 2 Aluminium-, 1 Chromstaub, 3 Luftzellen | 500 / 50 | später (Chrom) |
-| 9 Olivinstaub, 3 Zellen | Elektrolyseur | 2 Magnesium-, 2 Eisenstaub, Siliziumzelle, 2 Luftzellen | 600 / 60 | später (Magnesium) |
-| 12 Bauxitstaub, 8 Zellen | Elektrolyseur | 8 Aluminiumstaub, 2 kl. Titanstaub, 5 Wasserstoff-, 3 Luftzellen | 2000 / 128 | später (Titan) |
+| 9 Rubinstaub, 3 Zellen | Elektrolyseur | 2 Aluminium-, 1 Chromstaub, 3 Luftzellen | 500 / 50 | 8e (`12-gregtech-materialien.md` §5) |
+| 9 Olivinstaub, 3 Zellen | Elektrolyseur | 2 Magnesium-, 2 Eisenstaub, Siliziumzelle, 2 Luftzellen | 600 / 60 | 8e (`12-gregtech-materialien.md` §5) |
+| 12 Bauxitstaub, 8 Zellen | Elektrolyseur | 8 Aluminiumstaub, 2 kl. Titanstaub, 5 Wasserstoff-, 3 Luftzellen | 2000 / 128 | 8e (`12-gregtech-materialien.md` §5) |
 | Platinstaub | Zentrifuge | Iridiumnugget, kl. Nickelstaub | 3000 | 8d.2 |
-| 16 roter / gelber Granatstaub | Zentrifuge | Pyrop/Almandin/Spessartin bzw. Andradit/Grossular/Uwarowit | 3000 / 3500 | später |
-| 8 Olivin(staub) + fortg. Schaltkreis | Assembler | 4 Datenspeicherchips (Component 3) | 6400 / 8 | später |
+| 16 roter / gelber Granatstaub | Zentrifuge | Pyrop/Almandin/Spessartin bzw. Andradit/Grossular/Uwarowit | 3000 / 3500 | 8e (`12-gregtech-materialien.md` §5) |
+| 8 Olivin(staub) + fortg. Schaltkreis | Assembler | 4 Datenspeicherchips (Component 3) | 6400 / 8 | 8e (`12-gregtech-materialien.md` §5) |
 | 4 Edelsteinstaub + ITNT | Implosionskompressor | siehe `13-gregtech-maschinen.md` §8 | 20 / 32 | 8c |
 
 Massefabrikator-Verstärker: Rubin-, Saphir-, grüner Saphir-, Olivinstaub je 50 000, Platinstaub 100 000.
