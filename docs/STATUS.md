@@ -1303,3 +1303,23 @@ NaK-Kühlzellen, kein Vakuumgefrierer) **und die IC2-Nuke**. Teilpakete: 7a IC2-
 ## Nächste Schritte
 1. Manuelle Client-Tests nach `docs/testplan.md`, sobald der Start wieder erlaubt ist (Befunde dort eintragen).
 2. Abnahme Phase 11; danach Phase 12 (restliche IC2-Inhalte) – erstes Teilpaket festlegen.
+
+## Abnahme Phase 11 (Nutzer, 2026-10-17)
+- Phase 11 (Feinschliff) abgenommen („Weiter gehts“). Manuelle Client-Tests nach `docs/testplan.md` stehen weiter
+  aus, bis der Launcher-Start wieder erlaubt ist.
+
+# Stand Phase 12 (2026-10-17)
+
+## Erledigt (Teilpaket „Phase 12.0: Spezifikation restliche IC2-Inhalte“, 2026-10-17)
+- `docs/spec/17-ic2-rest.md`: Bestandsaufnahme (Liste E4 + bisher gar nicht zugeordnete IC2-Inhalte: Isolierungs-
+  schneider, Farbroller, EU-Meter, Werkzeugkasten, Dynamit/Fernzünder, Münze, Gummimatte, Gerüste, verstärkter
+  Stein/Tür), Spezifikationslücken je Teilphase, GT-Änderungen ohne Rezept mit Pack-Werten (`UpgradeStacksize=4`,
+  GT-Recycler-Blacklist – beide GT-Schalter aus, nur 4 unbedingte Einträge –, `MinerListLavaAddition=true`),
+  EMI-Kategorien, Teilphasen 12.1–12.10, offene Entscheidungen E1–E5.
+- Kein Code geändert.
+
+## Nächste Schritte
+- Entscheidungen (Nutzer, 2026-10-17): E1 alle nicht zugeordneten IC2-Inhalte aufnehmen, E2–E4 GT-Änderungen wie im
+  Pack, E5 Solar-Hüte entfallen (`spec/17` §6, `abweichungen.md`, `CLAUDE.md` offene Entscheidung 4).
+1. 12.1: kleine Werkzeuge und Blöcke (Isolierungsschneider, Farbroller, EU-Meter, Werkzeugkasten, Münze, Gummimatte,
+   verstärkter Stein + Tür).

@@ -91,4 +91,4 @@ abbaubar, Wrench-Drop-Rate 1,0, droppt sich selbst). Rezept **formlos**: LV-/MV-
 - Texturen: `block_textures.png` aus Compact Solars v4.0, Zeile = Stufe (LV 0, MV 1, HV 2), Spalte 0 Seite, 1 oben,
   2 unten. Namen „Low/Medium/High Voltage Solar Array“ (nur englisch registriert).
 
-**Solar-Hüte:** vorerst nicht umgesetzt (Entscheidung später; mit dem Controller als Zutat wären sie zu billig).
+**Solar-Hüte:** entfallen (Nutzer, 2026-10-17; mit dem Controller als Zutat wären sie zu billig).
