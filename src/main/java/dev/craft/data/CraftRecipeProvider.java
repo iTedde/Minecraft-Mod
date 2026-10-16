@@ -28,6 +28,7 @@ import dev.craft.gregtech.recipe.GtRecipe;
 import dev.craft.gregtech.world.GtOre;
 import dev.craft.ic2.Ic2DataComponents;
 import dev.craft.ic2.Ic2Items;
+import dev.craft.ic2.item.tool.PainterItem;
 import dev.craft.ic2.Ic2Machine;
 import dev.craft.ic2.cable.CableType;
 import dev.craft.ic2.item.FilledFuelCanItem;
@@ -1244,6 +1245,22 @@ public final class CraftRecipeProvider extends RecipeProvider {
         shaped(Ic2Items.TREETAP, 1, "treetap").pattern(" P ").pattern("PPP").pattern("P  ").define('P', ItemTags.PLANKS).save();
         shaped(Ic2Items.WRENCH, 1, "wrench").pattern("B B").pattern("BBB").pattern(" B ")
                 .define('B', CraftItemTagsProvider.INGOTS_BRONZE).save();
+        shaped(Ic2Items.INSULATION_CUTTER, 1, "insulation_cutter").pattern("A A", " A ", "I I")
+                .define('A', CraftItemTagsProvider.INGOTS_REFINED_IRON).define('I', Items.IRON_INGOT).save();
+        shaped(Ic2Items.TOOLBOX, 1, "toolbox").pattern("ICI", "III").define('C', Items.CHEST)
+                .define('I', CraftItemTagsProvider.INGOTS_REFINED_IRON).save();
+        shaped(Ic2Items.EU_METER, 1, "eu_meter").pattern(" G ", "cCc", "c c").define('G', Items.GLOWSTONE_DUST)
+                .define('c', Ic2Items.cable(CableType.INSULATED_COPPER)).define('C', Ic2Items.ELECTRONIC_CIRCUIT).save();
+        // 1.4.7 block ingredient = metadata 0 only, i.e. white wool.
+        shaped(Ic2Items.PAINTER, 1, "painter").pattern(" CC", " IC", "I  ").define('C', Items.WHITE_WOOL)
+                .define('I', Items.IRON_INGOT).save();
+        for (int color = 0; color < 16; color++) {
+            String name = Ic2Items.painter(color).getId().getPath();
+            shapeless(Ic2Items.painter(color), 1, name, Ingredient.of(Ic2Items.PAINTER),
+                    Ingredient.of(PainterItem.dyeTag(color)));
+            // IC2 and GregTech both register the way back; one recipe is enough.
+            shapeless(Ic2Items.PAINTER, 1, "painter_from_" + name, Ingredient.of(Ic2Items.painter(color)));
+        }
         // Electric tools: all but the scanners need GT plates in the pack (phase 6b).
         shaped(Ic2Items.OD_SCANNER, 1, "od_scanner").pattern(" G ").pattern("CBC").pattern("ccc")
                 .define('G', Items.GLOWSTONE_DUST).define('C', Ic2Items.ELECTRONIC_CIRCUIT).define('B', Ic2Items.RE_BATTERY)
@@ -1999,6 +2016,16 @@ public final class CraftRecipeProvider extends RecipeProvider {
         shaped(Items.PISTON, 1, "piston_from_refined_iron").pattern("WWW").pattern("CBC").pattern("CRC")
                 .define('W', ItemTags.PLANKS).define('C', Items.COBBLESTONE)
                 .define('B', CraftItemTagsProvider.INGOTS_REFINED_IRON).define('R', Items.REDSTONE).save();
+        shaped(Ic2Items.REINFORCED_STONE, 8, "reinforced_stone").pattern("SSS", "SAS", "SSS")
+                .define('S', Items.STONE).define('A', Ic2Items.ADVANCED_ALLOY).save();
+        shaped(Ic2Items.REINFORCED_DOOR, 1, "reinforced_door").pattern("SS", "SS", "SS")
+                .define('S', Ic2Items.REINFORCED_STONE).save();
+        shaped(Ic2Items.RUBBER_MAT, 3, "rubber_mat").pattern("RRR", "RRR").define('R', Ic2Items.RUBBER).save();
+        // Config enableCraftingCoin = true.
+        shaped(Ic2Items.COIN, 16, "coin").pattern("II", "II").define('I', CraftItemTagsProvider.INGOTS_REFINED_IRON)
+                .save();
+        shaped(Ic2Items.REFINED_IRON_INGOT, 1, "refined_iron_ingot_from_coins").pattern("III", "III", "III")
+                .define('I', Ic2Items.COIN).save();
         shaped(Ic2Items.REINFORCED_GLASS, 7, "reinforced_glass").pattern("GAG", "GGG", "GAG")
                 .define('G', Items.GLASS).define('A', Ic2Items.ADVANCED_ALLOY).save();
         shaped(Ic2Items.REINFORCED_GLASS, 7, "reinforced_glass_rotated").pattern("GGG", "AGA", "GGG")

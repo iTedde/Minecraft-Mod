@@ -199,6 +199,7 @@ Status: *geplant* (aus Phase 1 abgeleitet, noch nicht umgesetzt), *entschieden* 
 | Kondensator-Reparatur | `RecipeGradual` | eigener Rezepttyp `craft:gradual_repair` (Item + beliebig viel Material, Abzug je Material) | eigener Rezepttyp | **umgesetzt** |
 | Reaktorkammer: Abfallen | `dropBlockAsItem` + Block entfernen bei Nachbaränderung | `popResource` + `removeBlock` in `neighborChanged`; Platzieren nur bei genau einem Reaktor (`getStateForPlacement`) | Block-API | **umgesetzt** |
 | Schadensart „nuke“ | Todesnachricht „%1$s was nuked“ (nur Englisch) | `craft:nuke`, Deutsch „%1$s wurde atomisiert“; löst wie im Original den Strahlungseffekt der IC2-Explosion aus | Doku auf Deutsch | **umgesetzt** |
+| Werkzeugkasten | Schaden 0/1 + NBT `box0`–`box7`, packt Hotbar außer sich selbst | Inhalt im Vanilla-Container-Component, „gefüllt“ = Inhalt vorhanden (Icon über Item-Property); wird der Kasten aus der Zweithand benutzt, werden wie im Original höchstens 8 Einträge gepackt | Data Components, Zweithand | **umgesetzt** |
 | BC-Rohre (Phase 10) | ein Block `pipe.id`, Inventarseiten über `ISidedInventory`/2-3-Slot-Sonderfälle, Rohre ohne Inventar | ein Block je Rohrtyp, Seiten nur über die 1.21-Item-Capability, keine Item-Capability an Rohren; Einzelheiten `spec/15-rohre.md` §8 | Nutzerfreigabe 2026-10-16 | **10.1–10.4 umgesetzt** |
 
 ## Bewusst (Energiebalancing)

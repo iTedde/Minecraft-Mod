@@ -94,6 +94,11 @@
       "craft:tools/chainsaw_stop"
     ]
   },
+  "tools/insulation_cutters": {
+    "sounds": [
+      "craft:tools/insulation_cutters"
+    ]
+  },
   "tools/jetpack_loop": {
     "sounds": [
       "craft:tools/jetpack_loop"
@@ -127,6 +132,11 @@
   "tools/od_scanner": {
     "sounds": [
       "craft:tools/od_scanner"
+    ]
+  },
+  "tools/painter": {
+    "sounds": [
+      "craft:tools/painter"
     ]
   },
   "tools/treetap": {

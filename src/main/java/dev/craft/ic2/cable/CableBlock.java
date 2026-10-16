@@ -9,6 +9,8 @@ import dev.craft.core.energy.EnergySink;
 import dev.craft.core.energy.EnergySource;
 import dev.craft.ic2.Ic2BlockEntityTypes;
 import dev.craft.ic2.Ic2Blocks;
+import dev.craft.ic2.block.PaintableBlock;
+import dev.craft.ic2.item.tool.InsulationCutterItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.StringRepresentable;
@@ -44,7 +46,7 @@ import net.neoforged.neoforge.event.EventHooks;
  * One block per {@link CableType}. The block state holds the visual connections and the construction foam state;
  * paint color and foam color are kept in the {@link CableBlockEntity}.
  */
-public class CableBlock extends BaseEntityBlock {
+public class CableBlock extends BaseEntityBlock implements PaintableBlock {
     public static final Map<Direction, BooleanProperty> CONNECTIONS = PipeBlock.PROPERTY_BY_DIRECTION;
     public static final EnumProperty<Foam> FOAM = EnumProperty.create("foam", Foam.class);
 
@@ -267,7 +269,21 @@ public class CableBlock extends BaseEntityBlock {
         return true;
     }
 
-    // --- insulation ---
+    // --- painting and insulation ---
+
+    @Override
+    public boolean colorBlock(Level level, BlockPos pos, int color) {
+        return level.getBlockEntity(pos) instanceof CableBlockEntity cable && cable.changeColor(color);
+    }
+
+    /** Left click with the insulation cutter strips one insulation layer (IC2 {@code onBlockClicked}). */
+    @Override
+    protected void attack(BlockState state, Level level, BlockPos pos, Player player) {
+        ItemStack held = player.getMainHandItem();
+        if (held.getItem() instanceof InsulationCutterItem) {
+            InsulationCutterItem.cutInsulationFrom(held, level, pos);
+        }
+    }
 
     /**
      * Replaces the cable with {@code newType}, keeping connections, foam and colors (insulation cutter).

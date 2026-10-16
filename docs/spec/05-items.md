@@ -256,6 +256,37 @@ Schraubenschlüssel, Bergbaulaser, Farbroller (Modus), Jetpack (Vorwärts/Spring
 | Fernzünder (`itemRemote`) | – | Verknüpft Dynamit-Blöcke (NBT-Liste), Rechtsklick zündet alle |
 | Debug-Item | – | nur Entwickler |
 
+### 4.1 Details aus dem Original (nachgetragen für Phase 12.1)
+
+- **Isolierungsschneider** (Sprite `item_0.png` 92): Rechtsklick auf Kabel = Isolierung hinzufügen (Übergänge
+  `01-eu-system.md` §3), dann 1 Gummi aus dem Inventar verbrauchen (auch im Kreativmodus); fehlt Gummi, wird der
+  Typwechsel zurückgenommen. Schaden 1. Linksklick (`onBlockClicked` des Kabels, Abbau läuft normal weiter) =
+  Isolierung entfernen: 1 Gummi mit Zufallsversatz 0,15–0,85 und Aufhebeverzögerung 10, Schaden 3, Klang
+  `Tools/InsulationCutters.ogg`. Schaden: `damage + n`; **erst über** 512 (nicht bei 512) zerbricht der Schneider.
+- **Farbroller** (leer: Sprite 91, `ItemIC2`, Stack 64; gefärbt: Sprites 128 + Farbe, Stack 1, Haltbarkeit 32).
+  Farbe = Farbstoff-Meta (0 schwarz, 1 rot, 2 grün, 3 braun, 4 blau, 5 lila, 6 türkis, 7 hellgrau, 8 grau, 9 rosa,
+  10 hellgrün, 11 gelb, 12 hellblau, 13 magenta, 14 orange, 15 weiß); Tooltip = Farbstoffname. Rechtsklick auf
+  `IPaintableBlock` (Kabel; Bauschaumwand ab 12.2) mit Erfolg oder auf Wolle anderer Farbe → färben, abnutzen,
+  Klang `Tools/Painter.ogg`. Rechtsklick auf ein Schaf anderer Farbe → färben, abnutzen (kein Klang).
+  Abnutzen: Ist der Schaden schon ≥ 31, wird bei `autoRefill` der **letzte** Hauptinventar-Slot mit passendem
+  Farbstoff (`dye<Farbe>`) gesucht, 1 Farbstoff verbraucht und der Schaden auf 0 gesetzt, sonst wird der Roller zum
+  leeren Farbroller; andernfalls Schaden +1 (also 32 Anstriche). Modus-Taste + Rechtsklick in die Luft schaltet
+  `autoRefill` („Painter automatic refill mode enabled/disabled“).
+- **EU-Meter** (Sprite 90, Stack 1): `onItemUseFirst` auf einem Energie-Tile (Quelle, Leiter oder Senke), nur
+  serverseitig. Anderes Tile als zuletzt (nur x/y/z verglichen) → „Starting new measurement“ und Position merken;
+  dasselbe Tile → Zeitraum = Spielzeit − letzte Messzeit (mindestens 1), `in` = Δ`getTotalEnergySunken`/Zeitraum,
+  `out` = Δ`getTotalEnergyEmitted`/Zeitraum, `gain` = in − out, Format `0.##`. In beiden Fällen werden die
+  Summen und die Zeit neu gespeichert (jede weitere Messung bezieht sich auf die vorige).
+- **Werkzeugkasten** (Sprite 162 gefüllt, 163 leer, Stack 1; Schaden 0 = leer, 1 = gefüllt). Rechtsklick in die
+  Luft (Server): leer → **packen**: Hotbar-Slots 0–8 außer dem Kasten selbst, die „boxable“ sind, wandern in
+  `box0…`; nur wenn mindestens eines gepackt wurde, wird der Kasten gefüllt. Gefüllt → **auspacken**: Inhalt
+  der Reihe nach in freie Hotbar-Slots **0–7** (Originaleigenheit: Slot 8 wird nie belegt), Rest wird an der
+  Spielerposition fallen gelassen; Kasten wird leer. Gefüllt zeigt der Kasten den Namen des ersten Inhalts.
+  Boxable: `IBoxable` entscheidet (ja: Kabel, Dynamit, leere RE-Batterie, SU-Batterie, Dünger, Hydrierzelle; nein:
+  Werkzeugkasten, Brennstoffkanister, alle `ItemGradual` wie Bauschaumsprüher und Reaktor-Zellen), sonst alles mit
+  maximaler Stapelgröße ≤ 1 sowie Gerüst und Bergbaurohr. Gepackt werden höchstens 8 Einträge (`box0`–`box7`).
+- **Münze** (Sprite 101): ohne Funktion, kein Creative-Tab.
+
 ## 5. Rüstung
 
 ### 5.1 Klassische Rüstung
@@ -550,6 +581,22 @@ Rum; Fass mit Baumzapfer anzapfen) – Details `ItemMugCoffee`, `ItemBooze`, `Ti
 | Personal-Blöcke | – | 6 000 000 | |
 | ITNT/Nuke/Dynamit | 0 | – | |
 | Crop | – | – | siehe §9 |
+
+**Gummimatte** (`BlockRubberSheet`, nachgetragen für Phase 12.1; Sprite `block_0.png` 40, Material Stoff, Klang
+Wolle, Höhe 0,125, Item `uncommon`): platzierbar/haltbar nur, wenn ein waagerechter Nachbar (N/S/W/O) ein
+Normalwürfel oder eine Gummimatte ist; sonst droppt sie bei Nachbaränderung. Meta 1 = „trägt“ (Zwischenspeicher, bei
+jeder Nachbaränderung auf 0). Wirkung (`onEntityCollidedWithBlock`, also wenn ein Wesen in den Blockraum eintritt)
+**nur bei Luft darunter**: Lebewesen auf einer nicht tragenden Matte zerstören sie (ohne Drop). Tragend =
+Meta 1 oder in x- **oder** z-Richtung beidseitig über eine Kette von Matten ein Normalwürfel in gleicher Höhe oder
+unter einem Kettenglied (dann Meta 1). Sonst bei `motionY ≤ −0,4`: Fallhöhe 0, `motionX/Z × 1,1`, `motionY ×`
+−1,3 (Lebewesen springt), −0,1 (Spieler schleicht), sonst −0,8. Rezept 3 Stück `RRR/RRR` (R = Gummi).
+`RubberTrampoline.ogg` wird nirgends abgespielt.
+
+**Verstärkter Stein** (`blockAlloy`, Sprite 12, Material Eisen, Klang Metall, Härte 80, `setResistance(150)` = 90):
+Rezept 8 Stück `SSS/SAS/SSS` (S = Stein, A = fortgeschrittene Legierung). **Verstärkte Tür** (`BlockIC2Door`,
+Sprites 14 oben/15 unten, Item-Sprite `item_0.png` 102, Material Eisen → nur per Redstone zu öffnen, Härte 50,
+Resistenz 90, Klang Metall): Rezept `SS/SS/SS` aus verstärktem Stein; untere Hälfte droppt die Tür. GT nutzt
+verstärkten Stein nur für iridium-/wolframstahlverstärkten Stein (nicht im Umfang).
 
 **Eisenzaun** (`BlockPoleFence`, Sprite `block_0.png` 1, Material Eisen, kein Vollblock): verbindet sich **nur mit
 anderen Eisenzäunen** (Nord/Süd/West/Ost). Pfosten 0,25 × 0,25 (Mitte), Kollision 1,5 hoch, Auswahl 1 hoch; je

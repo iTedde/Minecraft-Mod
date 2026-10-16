@@ -73,6 +73,14 @@ ergänzen. Basispaket `dev.craft`, Einstieg `Craft` → `Ic2.init`, `BuildCraft.
 | `buildcraft/transport/GenericPipeBlock`, `PipeBlockEntity`, `ItemPipeBlockEntity` | BC-Rohre: ein Block je `PipeType`, Verbindungen als Blockstate (`PipeBlock.PROPERTY_BY_DIRECTION`, Regeln in `PipeConnections.canConnect` + `PipeMaterial`), Quell-/Ausgabeseite als `source`/`output`; Transport in Unterklassen von `PipeBlockEntity` (`acceptsNonPipe`, `tickTransport`, `dropContents`); Items als `TravelingItem`, Sync per `PipeItemPayload`; Maschinen geben über `ItemOutput` in Rohre ab; Phantom-Filter (Diamant/Smaragd) in `ItemPipeBlockEntity.getFilters()`, GUI `menu/PipeFilterMenu` + `client/PipeFilterScreen` (ein Menütyp, Filterzahl im Öffnungspaket); Flüssigkeitsrohre in `FluidPipeBlockEntity` (7 `Section`s, Fluid-Capability je Seite nur Füllen, Sync `PipeFluidPayload`, Renderer `client/PipeFluidRenderer`); Leistungsrohre in `PowerPipeBlockEntity` (Doppelpuffer, `receiveEnergy`/`requestEnergy`, Holz = MJ-Empfänger mit Überhitzung, Sync `PipePowerPayload`, Renderer `client/PipePowerRenderer`); Strukturrohr `StructurePipeBlockEntity`. MJ-Empfänger melden Bedarf über `PowerReceptor.powerRequest()` (Standard 0; BC-Maschinen `PowerProvider.missingEnergyRequest()`) |
 | `gregtech/machine/AssemblerBlockEntity`, GT-Upgrades | Assembler = Muster für shapeless Zwei-Eingaben-Maschinen. GT-Basis ist `PowerReceptor`; MJ-Capability liefert nur mit MJ-Konverter einen Empfänger (`getPowerProvider() != null`) |
 
+## Kleine IC2-Werkzeuge (Phase 12.1)
+
+- Färbbare Blöcke implementieren `ic2/block/PaintableBlock` (Kabel; Farbroller `PainterItem`, Farbe = IC2-Farbstoff-Meta,
+  `PainterItem.dyeColor/dyeTag`). Isolierung: `InsulationCutterItem` + `CableBlock.attack`/`changeType`.
+- Werkzeugkasten `ToolboxItem`: „boxable“ über die Item-Tags `craft:toolbox/boxable` (`IBoxable` = ja) und
+  `craft:toolbox/not_boxable` (`IBoxable` = nein, z. B. alle `GradualItem`), sonst Stapelgröße ≤ 1 – neue Items
+  (Dynamit, Dünger, Gerüst …) dort eintragen.
+
 ## Rezeptanzeige (EMI)
 
 - Plugin `compat/emi/CraftEmiPlugin`; EMI-Klassen nur in `compat/emi` (EMI ist optional). Je Mod eine

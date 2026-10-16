@@ -1,0 +1,19 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "C": {
+      "item": "minecraft:chest"
+    },
+    "I": {
+      "tag": "c:ingots/refined_iron"
+    }
+  },
+  "pattern": [
+    "ICI",
+    "III"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:toolbox"
+  }
+}

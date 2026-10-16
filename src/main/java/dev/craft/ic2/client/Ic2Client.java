@@ -7,6 +7,7 @@ import dev.craft.ic2.Ic2Items;
 import dev.craft.ic2.Ic2Machine;
 import dev.craft.ic2.Ic2Menus;
 import dev.craft.ic2.item.BatteryItem;
+import dev.craft.ic2.item.ToolboxItem;
 import dev.craft.ic2.item.tool.NanoSaberItem;
 import dev.craft.ic2.machine.MachineSoundHooks;
 import net.minecraft.client.renderer.item.ItemProperties;
@@ -28,6 +29,8 @@ public final class Ic2Client {
     public static final ResourceLocation CHARGE_PROPERTY = ResourceLocation.fromNamespaceAndPath(Craft.MODID, "charge");
     /** Item property of the nano saber: 1 when switched on. */
     public static final ResourceLocation ACTIVE_PROPERTY = ResourceLocation.fromNamespaceAndPath(Craft.MODID, "active");
+    /** Item property of the toolbox: 1 when packed. */
+    public static final ResourceLocation FULL_PROPERTY = ResourceLocation.fromNamespaceAndPath(Craft.MODID, "full");
 
     private Ic2Client() {
     }
@@ -43,6 +46,8 @@ public final class Ic2Client {
             }
             ItemProperties.register(Ic2Items.NANO_SABER.get(), ACTIVE_PROPERTY,
                     (stack, level, entity, seed) -> NanoSaberItem.isActive(stack) ? 1.0F : 0.0F);
+            ItemProperties.register(Ic2Items.TOOLBOX.get(), FULL_PROPERTY,
+                    (stack, level, entity, seed) -> ToolboxItem.isFull(stack) ? 1.0F : 0.0F);
         });
     }
 

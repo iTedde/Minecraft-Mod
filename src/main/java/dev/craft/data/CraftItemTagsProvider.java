@@ -6,6 +6,9 @@ import dev.craft.Craft;
 import dev.craft.gregtech.GtItems;
 import dev.craft.gregtech.world.GtOre;
 import dev.craft.ic2.Ic2Items;
+import dev.craft.ic2.cable.CableType;
+import dev.craft.ic2.item.ToolboxItem;
+import dev.craft.ic2.item.reactor.GradualItem;
 import dev.craft.powerplants.PpItems;
 import dev.craft.ic2.block.IronFenceBlock;
 import dev.craft.ic2.machine.RecyclerBlockEntity;
@@ -22,6 +25,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.registries.DeferredHolder;
 
 public final class CraftItemTagsProvider extends ItemTagsProvider {
     public static final TagKey<Item> INGOTS_TIN = commonTag("ingots/tin");
@@ -114,6 +118,16 @@ public final class CraftItemTagsProvider extends ItemTagsProvider {
     protected void addTags(HolderLookup.Provider provider) {
         copy(BlockTags.LOGS_THAT_BURN, ItemTags.LOGS_THAT_BURN);
         copy(BlockTags.LEAVES, ItemTags.LEAVES);
+        copy(BlockTags.DOORS, ItemTags.DOORS);
+        // IC2 IBoxable: cables and the SU battery go into the toolbox despite their stack size; ItemGradual items,
+        // the fuel can and the toolbox itself never do.
+        for (CableType type : CableType.values()) {
+            tag(ToolboxItem.BOXABLE).add(Ic2Items.cable(type).get());
+        }
+        tag(ToolboxItem.BOXABLE).add(Ic2Items.SU_BATTERY.get(), Ic2Items.RE_BATTERY.get(), Ic2Items.MINING_PIPE.get());
+        tag(ToolboxItem.NOT_BOXABLE).add(Ic2Items.TOOLBOX.get(), Ic2Items.FILLED_FUEL_CAN.get());
+        Ic2Items.ITEMS.getEntries().stream().map(DeferredHolder::get).filter(GradualItem.class::isInstance)
+                .forEach(item -> tag(ToolboxItem.NOT_BOXABLE).add(item));
         // The rubber sapling stays out of the item tag minecraft:saplings: IC2 did not register it as "treeSapling",
         // and the tag would give it the vanilla burn time of 100 instead of 80.
         copy(CraftBlockTagsProvider.ORES_TIN, commonTag("ores/tin"));

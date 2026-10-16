@@ -4,6 +4,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.craft.Craft;
 import io.netty.buffer.ByteBuf;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
@@ -102,6 +103,33 @@ public final class Ic2DataComponents {
             COMPONENTS.registerComponentType("last_position", builder -> builder
                     .persistent(Position.CODEC)
                     .networkSynchronized(Position.STREAM_CODEC));
+
+    /** Painter automatic refill mode (IC2 NBT {@code autoRefill}). */
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Boolean>> AUTO_REFILL =
+            COMPONENTS.registerComponentType("auto_refill", builder -> builder
+                    .persistent(Codec.BOOL)
+                    .networkSynchronized(ByteBufCodecs.BOOL));
+
+    /** Last EU meter reading (IC2 NBT {@code lastMeasuredTileEntityX/Y/Z}, {@code lastTotalEnergy*}, time). */
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Measurement>> EU_MEASUREMENT =
+            COMPONENTS.registerComponentType("eu_measurement", builder -> builder
+                    .persistent(Measurement.CODEC)
+                    .networkSynchronized(Measurement.STREAM_CODEC));
+
+    public record Measurement(BlockPos pos, long emitted, long sunken, long time) {
+        public static final Codec<Measurement> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+                BlockPos.CODEC.fieldOf("pos").forGetter(Measurement::pos),
+                Codec.LONG.fieldOf("emitted").forGetter(Measurement::emitted),
+                Codec.LONG.fieldOf("sunken").forGetter(Measurement::sunken),
+                Codec.LONG.fieldOf("time").forGetter(Measurement::time)
+        ).apply(instance, Measurement::new));
+        public static final StreamCodec<ByteBuf, Measurement> STREAM_CODEC = StreamCodec.composite(
+                BlockPos.STREAM_CODEC, Measurement::pos,
+                ByteBufCodecs.VAR_LONG, Measurement::emitted,
+                ByteBufCodecs.VAR_LONG, Measurement::sunken,
+                ByteBufCodecs.VAR_LONG, Measurement::time,
+                Measurement::new);
+    }
 
     public record Position(int x, int z) {
         public static final Codec<Position> CODEC = RecordCodecBuilder.create(instance -> instance.group(

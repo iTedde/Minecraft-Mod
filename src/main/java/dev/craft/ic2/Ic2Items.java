@@ -17,6 +17,7 @@ import dev.craft.ic2.item.FilledTinCanItem;
 import dev.craft.ic2.item.ResinItem;
 import dev.craft.ic2.item.ScrapBoxItem;
 import dev.craft.ic2.item.SingleUseBatteryItem;
+import dev.craft.ic2.item.ToolboxItem;
 import dev.craft.ic2.item.TreetapItem;
 import dev.craft.ic2.item.UpgradeModuleItem;
 import dev.craft.ic2.item.WrenchItem;
@@ -44,11 +45,15 @@ import dev.craft.ic2.item.tool.ChainsawItem;
 import dev.craft.ic2.item.tool.DrillItem;
 import dev.craft.ic2.item.tool.ElectricHoeItem;
 import dev.craft.ic2.item.tool.ElectricTreetapItem;
+import dev.craft.ic2.item.tool.EuMeterItem;
+import dev.craft.ic2.item.tool.InsulationCutterItem;
 import dev.craft.ic2.item.tool.MiningLaserItem;
 import dev.craft.ic2.item.tool.NanoSaberItem;
+import dev.craft.ic2.item.tool.PainterItem;
 import dev.craft.ic2.item.tool.ScannerItem;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.DoubleHighBlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
 import net.neoforged.neoforge.registries.DeferredItem;
@@ -99,6 +104,13 @@ public final class Ic2Items {
     public static final DeferredItem<BlockItem> INDUSTRIAL_TNT = ITEMS.registerSimpleBlockItem(Ic2Blocks.INDUSTRIAL_TNT);
     public static final DeferredItem<BlockItem> NUKE = ITEMS.registerSimpleBlockItem(Ic2Blocks.NUKE,
             new Item.Properties().rarity(Rarity.UNCOMMON));
+    public static final DeferredItem<BlockItem> REINFORCED_STONE =
+            ITEMS.registerSimpleBlockItem(Ic2Blocks.REINFORCED_STONE);
+    public static final DeferredItem<BlockItem> RUBBER_MAT = ITEMS.registerSimpleBlockItem(Ic2Blocks.RUBBER_MAT,
+            new Item.Properties().rarity(Rarity.UNCOMMON));
+    /** IC2 {@code ItemIC2Door} ({@code itemDoorAlloy}) with its own icon. */
+    public static final DeferredItem<DoubleHighBlockItem> REINFORCED_DOOR = simple(ITEMS.registerItem(
+            "reinforced_door", properties -> new DoubleHighBlockItem(Ic2Blocks.REINFORCED_DOOR.get(), properties)));
 
     // --- materials ---
     public static final DeferredItem<ResinItem> RESIN = simple(ITEMS.registerItem("resin", ResinItem::new));
@@ -123,6 +135,8 @@ public final class Ic2Items {
     public static final DeferredItem<Item> COMPRESSED_COAL_BALL = simple("compressed_coal_ball");
     public static final DeferredItem<Item> COAL_CHUNK = simple("coal_chunk");
     public static final DeferredItem<Item> INDUSTRIAL_DIAMOND = simple("industrial_diamond");
+    /** Industrial credit (IC2 {@code itemCoin}), not in the creative tab. */
+    public static final DeferredItem<Item> COIN = simple("coin");
     public static final DeferredItem<Item> SCRAP = simple("scrap");
     public static final DeferredItem<ScrapBoxItem> SCRAP_BOX = simple(ITEMS.registerItem("scrap_box", ScrapBoxItem::new));
     public static final DeferredItem<Item> UU_MATTER = simple("uu_matter", new Item.Properties().rarity(Rarity.RARE));
@@ -231,6 +245,22 @@ public final class Ic2Items {
     // --- tools ---
     public static final DeferredItem<TreetapItem> TREETAP = simple(ITEMS.registerItem("treetap", TreetapItem::new));
     public static final DeferredItem<WrenchItem> WRENCH = simple(ITEMS.registerItem("wrench", WrenchItem::new));
+    public static final DeferredItem<InsulationCutterItem> INSULATION_CUTTER =
+            simple(ITEMS.registerItem("insulation_cutter", InsulationCutterItem::new));
+    public static final DeferredItem<EuMeterItem> EU_METER = simple(ITEMS.registerItem("eu_meter", EuMeterItem::new));
+    public static final DeferredItem<ToolboxItem> TOOLBOX = ITEMS.registerItem("toolbox", ToolboxItem::new);
+    /** Empty painter (IC2 {@code itemToolPainter}, a plain item). */
+    public static final DeferredItem<Item> PAINTER = simple("painter");
+    /** Colored painters by IC2 dye metadata 0 (black) – 15 (white), named after the vanilla dye color. */
+    private static final List<DeferredItem<PainterItem>> PAINTERS = new ArrayList<>();
+
+    static {
+        for (int color = 0; color < 16; color++) {
+            int c = color;
+            PAINTERS.add(simple(ITEMS.registerItem("painter_" + PainterItem.dyeColor(c).getName(),
+                    properties -> new PainterItem(properties, c))));
+        }
+    }
 
     // --- electric tools (shown in the creative tab charged and empty) ---
     public static final DeferredItem<DrillItem> MINING_DRILL = ITEMS.registerItem("mining_drill",
@@ -325,6 +355,10 @@ public final class Ic2Items {
 
     private static DeferredItem<UpgradeModuleItem> upgrade(String name, UpgradeModuleItem.Type type) {
         return simple(ITEMS.registerItem(name, properties -> new UpgradeModuleItem(properties, type)));
+    }
+
+    public static DeferredItem<PainterItem> painter(int color) {
+        return PAINTERS.get(color);
     }
 
     public static DeferredItem<BlockItem> cable(CableType type) {

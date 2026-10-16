@@ -1,0 +1,20 @@
+{
+  "values": [
+    "craft:insulated_copper_cable",
+    "craft:copper_cable",
+    "craft:gold_cable",
+    "craft:insulated_gold_cable",
+    "craft:double_insulated_gold_cable",
+    "craft:hv_cable",
+    "craft:insulated_hv_cable",
+    "craft:double_insulated_hv_cable",
+    "craft:quadruple_insulated_hv_cable",
+    "craft:glass_fibre_cable",
+    "craft:tin_cable",
+    "craft:detector_cable",
+    "craft:splitter_cable",
+    "craft:su_battery",
+    "craft:re_battery",
+    "craft:ic2_mining_pipe"
+  ]
+}

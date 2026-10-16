@@ -1,0 +1,17 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "I": {
+      "item": "craft:coin"
+    }
+  },
+  "pattern": [
+    "III",
+    "III",
+    "III"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:refined_iron_ingot"
+  }
+}

@@ -50,6 +50,11 @@ Testwelt. Sprache einmal Deutsch, einmal Englisch prüfen. EMI und Xaero's Minim
 | 3.13 | BatPack/Lithium-BatPack laden gehaltenes Werkzeug (Bergbaubohrer zieht daraus); Solarhelm/Static Boots laden das Brust-Item | 6.3, 6b.4 | |
 | 3.14 | Massefabrikator: GUI-Texte, Fortschritt, Verstärker-Anzeige, Sounds Loop/Schrott, Redstone-Stopp, Abbau → fortg. Maschinenblock | 6.4 | |
 | 3.15 | UU-Rezepte in der Werkbank nur an der richtigen Stelle | 6.4, 8e.1 | |
+| 3.16 | Isolierungsschneider: Linksklick auf isoliertes Kabel → blank + Gummi + Sound, Rechtsklick mit Gummi → isoliert; Haltbarkeitsbalken | 12.1 | |
+| 3.17 | Farbroller: Kabel, Wolle und Schaf färben (Sound bei Blöcken), 32 Anstriche → leerer Roller; M + Rechtsklick → Nachfüllmeldung, Nachfüllen aus Farbstoff | 12.1 | |
+| 3.18 | EU-Meter: erster Klick „Neue Messung“, zweiter Klick auf Kabel/Maschine/Generator zeigt rein/raus/Gewinn | 12.1 | |
+| 3.19 | Werkzeugkasten: Packen (Icon gefüllt, Name des ersten Inhalts), Auspacken in Hotbar-Slots 0–7, Rest fällt | 12.1 | |
+| 3.20 | Gummimatte zwischen zwei Blöcken über Luft: Sprung federt (höher mit Leertaste, schwach beim Schleichen), kein Fallschaden; Matte ohne Halt reißt; verstärkter Stein/Tür (Tür nur per Redstone) | 12.1 | |
 
 ## 4. IC2 – Canning, Pumpe, Reaktor, Nuke (Phasen 6b, 7, 8)
 

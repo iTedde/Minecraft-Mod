@@ -1,0 +1,20 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "A": {
+      "tag": "c:ingots/refined_iron"
+    },
+    "I": {
+      "item": "minecraft:iron_ingot"
+    }
+  },
+  "pattern": [
+    "A A",
+    " A ",
+    "I I"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:insulation_cutter"
+  }
+}

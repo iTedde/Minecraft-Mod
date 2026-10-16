@@ -1,0 +1,17 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "S": {
+      "item": "craft:reinforced_stone"
+    }
+  },
+  "pattern": [
+    "SS",
+    "SS",
+    "SS"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:reinforced_door"
+  }
+}

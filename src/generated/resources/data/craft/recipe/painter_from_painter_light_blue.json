@@ -1,0 +1,12 @@
+{
+  "type": "craft:ic2_shapeless",
+  "ingredients": [
+    {
+      "item": "craft:painter_light_blue"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:painter"
+  }
+}

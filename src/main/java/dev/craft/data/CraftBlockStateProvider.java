@@ -323,6 +323,17 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
                 modLoc("block/industrial_tnt_top")));
         simpleBlockWithItem(Ic2Blocks.NUKE.get(), models().cubeBottomTop("nuke", modLoc("block/nuke_side"),
                 modLoc("block/nuke_bottom"), modLoc("block/nuke_top")));
+        simpleBlockWithItem(Ic2Blocks.REINFORCED_STONE.get(), cubeAll(Ic2Blocks.REINFORCED_STONE.get()));
+        doorBlockWithRenderType(Ic2Blocks.REINFORCED_DOOR.get(), modLoc("block/reinforced_door_bottom"),
+                modLoc("block/reinforced_door_top"), "cutout");
+        ResourceLocation rubberMat = modLoc("block/rubber_mat");
+        BlockModelBuilder rubberMatModel = models().withExistingParent("rubber_mat", mcLoc("block/block"))
+                .texture("particle", rubberMat).texture("texture", rubberMat)
+                .element().from(0, 0, 0).to(16, 2, 16)
+                .allFaces((direction, face) -> face.texture("#texture")
+                        .cullface(direction == Direction.UP ? null : direction))
+                .end();
+        simpleBlockWithItem(Ic2Blocks.RUBBER_MAT.get(), rubberMatModel);
         fenceBlock(Ic2Blocks.IRON_FENCE.get(), modLoc("block/iron_fence"));
         simpleBlockItem(Ic2Blocks.IRON_FENCE.get(), models().fenceInventory("iron_fence_inventory",
                 modLoc("block/iron_fence")));

@@ -39,6 +39,8 @@ public final class Ic2Sounds {
     public static final DeferredHolder<SoundEvent, SoundEvent> INTERRUPT_ONE = register("machines/interrupt_one");
     public static final DeferredHolder<SoundEvent, SoundEvent> TREETAP = register("tools/treetap");
     public static final DeferredHolder<SoundEvent, SoundEvent> WRENCH = register("tools/wrench");
+    public static final DeferredHolder<SoundEvent, SoundEvent> INSULATION_CUTTERS = register("tools/insulation_cutters");
+    public static final DeferredHolder<SoundEvent, SoundEvent> PAINTER = register("tools/painter");
     public static final DeferredHolder<SoundEvent, SoundEvent> CHAINSAW_IDLE = register("tools/chainsaw_idle");
     public static final DeferredHolder<SoundEvent, SoundEvent> CHAINSAW_STOP = register("tools/chainsaw_stop");
     public static final DeferredHolder<SoundEvent, SoundEvent> MINING_LASER = register("tools/mining_laser");

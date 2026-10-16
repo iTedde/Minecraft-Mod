@@ -14,6 +14,7 @@ import dev.craft.ic2.block.MiningPipeBlock;
 import dev.craft.ic2.block.ResinSheetBlock;
 import dev.craft.ic2.block.RubberLeavesBlock;
 import dev.craft.ic2.block.RubberSaplingBlock;
+import dev.craft.ic2.block.RubberMatBlock;
 import dev.craft.ic2.block.RubberWoodBlock;
 import dev.craft.ic2.cable.CableBlock;
 import dev.craft.ic2.cable.CableType;
@@ -39,9 +40,11 @@ import dev.craft.ic2.storage.ElectricStorageBlockEntity;
 import dev.craft.ic2.storage.TransformerBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.DoorBlock;
 import net.minecraft.world.level.block.DropExperienceBlock;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.TransparentBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
@@ -134,6 +137,20 @@ public final class Ic2Blocks {
                     .strength(5.0F, 90.0F).sound(SoundType.GLASS).noOcclusion().isValidSpawn((s, l, p, t) -> false)
                     .isRedstoneConductor((s, l, p) -> false).isSuffocating((s, l, p) -> false)
                     .isViewBlocking((s, l, p) -> false)));
+    /** IC2 {@code BlockTex} ({@code blockAlloy}): iron material, hardness 80, {@code setResistance(150)} = 90. */
+    public static final DeferredBlock<Block> REINFORCED_STONE = BLOCKS.registerSimpleBlock("reinforced_stone",
+            metal().strength(80.0F, 90.0F));
+    /**
+     * IC2 {@code BlockIC2Door} ({@code blockDoorAlloy}): iron material (redstone only), hardness 50,
+     * {@code setResistance(150)} = 90.
+     */
+    public static final DeferredBlock<DoorBlock> REINFORCED_DOOR = BLOCKS.register("reinforced_door",
+            () -> new DoorBlock(BlockSetType.IRON, metal().strength(50.0F, 90.0F).noOcclusion()
+                    .pushReaction(PushReaction.DESTROY)));
+    /** IC2 {@code BlockRubberSheet} ({@code blockRubber}): cloth material, hardness 0.8, {@code setResistance(2)}. */
+    public static final DeferredBlock<RubberMatBlock> RUBBER_MAT = BLOCKS.register("rubber_mat",
+            () -> new RubberMatBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLACK)
+                    .strength(0.8F, 1.2F).sound(SoundType.WOOL).noOcclusion().ignitedByLava()));
     /** IC2 {@code BlockITNT} ({@code blockITNT}): TNT material, hardness 0, grass sound, never drops. */
     public static final DeferredBlock<IndustrialTntBlock> INDUSTRIAL_TNT = BLOCKS.register("industrial_tnt",
             () -> new IndustrialTntBlock(BlockBehaviour.Properties.of().mapColor(MapColor.FIRE).instabreak()

@@ -2,6 +2,8 @@
   "values": [
     "craft:uranium_ore",
     "craft:deepslate_uranium_ore",
+    "craft:reinforced_stone",
+    "craft:reinforced_door",
     "craft:standard_machine_casing",
     "craft:reinforced_machine_casing",
     "craft:gt_advanced_machine_casing",

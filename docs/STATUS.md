@@ -1318,8 +1318,24 @@ NaK-Kühlzellen, kein Vakuumgefrierer) **und die IC2-Nuke**. Teilpakete: 7a IC2-
   EMI-Kategorien, Teilphasen 12.1–12.10, offene Entscheidungen E1–E5.
 - Kein Code geändert.
 
-## Nächste Schritte
 - Entscheidungen (Nutzer, 2026-10-17): E1 alle nicht zugeordneten IC2-Inhalte aufnehmen, E2–E4 GT-Änderungen wie im
   Pack, E5 Solar-Hüte entfallen (`spec/17` §6, `abweichungen.md`, `CLAUDE.md` offene Entscheidung 4).
-1. 12.1: kleine Werkzeuge und Blöcke (Isolierungsschneider, Farbroller, EU-Meter, Werkzeugkasten, Münze, Gummimatte,
-   verstärkter Stein + Tür).
+
+## Erledigt (Teilpaket „Phase 12.1: kleine Werkzeuge und Blöcke“, 2026-10-17)
+- Spezifikation nachgetragen: `spec/05-items.md` §4.1 (Schneider, Farbroller, EU-Meter, Werkzeugkasten, Münze) und
+  §10 (Gummimatte, verstärkter Stein/Tür); `spec/08-rezepte.md` Legenden EU-Meter/verstärkter Stein.
+- Isolierungsschneider (`InsulationCutterItem`, 512, Linksklick über `CableBlock.attack`, bricht erst über 512),
+  Farbroller leer + 16 Farben (`PainterItem`, 32 Anstriche, Kabel über `PaintableBlock`, Wolle, Schafe, Auto-Nachfüllen
+  per Modus-Taste aus dem letzten passenden Farbstoff-Slot), EU-Meter (`EuMeterItem`, Messung über
+  `EnergyNet.getTotalEnergyEmitted/Sunken`, Data Component `eu_measurement`), Werkzeugkasten (`ToolboxItem`,
+  Container-Component, Tags `craft:toolbox/boxable`/`not_boxable`, Icon leer/gefüllt), Münze (kein Creative-Tab).
+- Blöcke: Gummimatte (`RubberMatBlock`, Halt/Tragen/Federn 1:1, `LivingEntity.jumping` per Access Transformer),
+  verstärkter Stein, verstärkte Tür (Eisen-Türtyp, nur Redstone). Texturen aus `item_0.png`/`block_0.png`, Sounds
+  `InsulationCutters.ogg`/`Painter.ogg`. Rezepte inkl. Farbroller färben/zurück und Münzen (`enableCraftingCoin`).
+- `abweichungen.md`: Werkzeugkasten (Container-Component, Zweithand). `testplan.md` 3.16–3.20.
+- 6 neue GameTests (`SmallToolGameTests`); `gradlew build`, **266 GameTests grün**. **`runClient` nicht gestartet**
+  (Nutzer, 2026-10-16: Launcher vorerst nicht starten).
+
+## Nächste Schritte
+1. 12.2: Bauschaum komplett (Pellet, Sprüher, CF-Pack, Schaum/Wand, Gerüste, Canner-Modus 3, Kabelschaum) +
+   Luminator. Die Bauschaumwand implementiert `PaintableBlock`; Gerüst/Sprüher in die Werkzeugkasten-Tags eintragen.

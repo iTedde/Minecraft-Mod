@@ -55,6 +55,10 @@ public final class CraftItemModelProvider extends ItemModelProvider {
                 .texture("layer0", modLoc("item/nano_saber_active"));
         handheldItem(Ic2Items.NANO_SABER.get()).override().predicate(Ic2Client.ACTIVE_PROPERTY, 1.0F)
                 .model(saberActive).end();
+        ItemModelBuilder toolboxFull = withExistingParent("toolbox_full", mcLoc("item/generated"))
+                .texture("layer0", modLoc("item/toolbox_full"));
+        basicItem(Ic2Items.TOOLBOX.get()).override().predicate(Ic2Client.FULL_PROPERTY, 1.0F)
+                .model(toolboxFull).end();
         withExistingParent(BcItems.LANDMARK.getId().getPath(), mcLoc("item/generated"))
                 .texture("layer0", modLoc("block/landmark"));
         withExistingParent(GtItems.WATER.getId().getPath(), mcLoc("item/generated"))

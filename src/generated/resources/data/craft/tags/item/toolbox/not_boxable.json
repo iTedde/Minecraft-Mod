@@ -1,0 +1,25 @@
+{
+  "values": [
+    "craft:toolbox",
+    "craft:filled_fuel_can",
+    "craft:uranium_cell",
+    "craft:dual_uranium_cell",
+    "craft:quad_uranium_cell",
+    "craft:isotope_cell",
+    "craft:coolant_cell_10k",
+    "craft:coolant_cell_30k",
+    "craft:coolant_cell_60k",
+    "craft:heat_exchanger",
+    "craft:reactor_heat_exchanger",
+    "craft:component_heat_exchanger",
+    "craft:advanced_heat_exchanger",
+    "craft:heat_vent",
+    "craft:reactor_heat_vent",
+    "craft:overclocked_heat_vent",
+    "craft:advanced_heat_vent",
+    "craft:neutron_reflector",
+    "craft:thick_neutron_reflector",
+    "craft:rsh_condensator",
+    "craft:lzh_condensator"
+  ]
+}

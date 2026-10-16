@@ -586,6 +586,9 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             block(Ic2Blocks.BRONZE_BLOCK, "Bronze Block");
             block(Ic2Blocks.IRON_FENCE, "Iron Fence");
             block(Ic2Blocks.REINFORCED_GLASS, "Reinforced Glass");
+            block(Ic2Blocks.REINFORCED_STONE, "Reinforced Stone");
+            block(Ic2Blocks.REINFORCED_DOOR, "Reinforced Door");
+            block(Ic2Blocks.RUBBER_MAT, "Rubber Sheet");
             block(Ic2Blocks.INDUSTRIAL_TNT, "Industrial TNT");
             add(Ic2EntityTypes.INDUSTRIAL_TNT.get(), "Industrial TNT");
             block(Ic2Blocks.NUKE, "Nuke");
@@ -614,6 +617,7 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             item(Ic2Items.COMPRESSED_COAL_BALL, "Compressed Coal Ball");
             item(Ic2Items.COAL_CHUNK, "Coal Chunk");
             item(Ic2Items.INDUSTRIAL_DIAMOND, "Industrial Diamond");
+            item(Ic2Items.COIN, "Industrial Credit");
             item(Ic2Items.SCRAP, "Scrap");
             item(Ic2Items.SCRAP_BOX, "Scrap Box");
             item(Ic2Items.UU_MATTER, "UU-Matter");
@@ -664,6 +668,13 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             item(Ic2Items.LAPOTRON_CRYSTAL, "Lapotron Crystal");
             item(Ic2Items.SU_BATTERY, "Single-Use Battery");
             item(Ic2Items.TREETAP, "Treetap");
+            item(Ic2Items.INSULATION_CUTTER, "Insulation Cutter");
+            item(Ic2Items.EU_METER, "EU-Reader");
+            item(Ic2Items.TOOLBOX, "Tool Box");
+            item(Ic2Items.PAINTER, "Painter");
+            for (int color = 0; color < 16; color++) {
+                item(Ic2Items.painter(color), "Painter");
+            }
             item(Ic2Items.WRENCH, "Wrench");
             item(Ic2Items.MINING_DRILL, "Mining Drill");
             item(Ic2Items.DIAMOND_DRILL, "Diamond Drill");
@@ -719,6 +730,10 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             add("key.craft.mode_switch", "Mode Switch Key");
             add("key.craft.side_inventory", "Side Inventory Key");
             add("message.craft.wrench.lossless_enabled", "Lossless wrench mode enabled");
+            add("message.craft.painter.auto_refill_on", "Painter automatic refill mode enabled");
+            add("message.craft.painter.auto_refill_off", "Painter automatic refill mode disabled");
+            add("message.craft.eu_meter.start", "Starting new measurement");
+            add("message.craft.eu_meter.result", "Measured power [EU/t]: %1$s in %2$s out %3$s gain (avg. over %4$s ticks)");
             add("message.craft.wrench.lossless_disabled", "Lossless wrench mode disabled");
             add("message.craft.wrench.lossless_no_energy", "Not enough energy for lossless wrench operation");
             add("message.craft.mining_laser.mode", "Laser Mode: %s");
@@ -912,6 +927,9 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             block(Ic2Blocks.BRONZE_BLOCK, "Bronzeblock");
             block(Ic2Blocks.IRON_FENCE, "Eisenzaun");
             block(Ic2Blocks.REINFORCED_GLASS, "Verstärktes Glas");
+            block(Ic2Blocks.REINFORCED_STONE, "Verstärkter Stein");
+            block(Ic2Blocks.REINFORCED_DOOR, "Verstärkte Tür");
+            block(Ic2Blocks.RUBBER_MAT, "Gummimatte");
             block(Ic2Blocks.INDUSTRIAL_TNT, "Industrie-TNT");
             add(Ic2EntityTypes.INDUSTRIAL_TNT.get(), "Industrie-TNT");
             block(Ic2Blocks.NUKE, "Atombombe");
@@ -940,6 +958,7 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             item(Ic2Items.COMPRESSED_COAL_BALL, "Komprimierter Kohleball");
             item(Ic2Items.COAL_CHUNK, "Kohleklumpen");
             item(Ic2Items.INDUSTRIAL_DIAMOND, "Industriediamant");
+            item(Ic2Items.COIN, "Industrie-Münze");
             item(Ic2Items.SCRAP, "Schrott");
             item(Ic2Items.SCRAP_BOX, "Schrottbox");
             item(Ic2Items.UU_MATTER, "UU-Materie");
@@ -990,6 +1009,13 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             item(Ic2Items.LAPOTRON_CRYSTAL, "Lapotronkristall");
             item(Ic2Items.SU_BATTERY, "Einwegbatterie");
             item(Ic2Items.TREETAP, "Baumzapfer");
+            item(Ic2Items.INSULATION_CUTTER, "Isolierungsschneider");
+            item(Ic2Items.EU_METER, "EU-Messgerät");
+            item(Ic2Items.TOOLBOX, "Werkzeugkasten");
+            item(Ic2Items.PAINTER, "Farbroller");
+            for (int color = 0; color < 16; color++) {
+                item(Ic2Items.painter(color), "Farbroller");
+            }
             item(Ic2Items.WRENCH, "Schraubenschlüssel");
             item(Ic2Items.MINING_DRILL, "Bergbaubohrer");
             item(Ic2Items.DIAMOND_DRILL, "Diamantbohrer");
@@ -1045,6 +1071,11 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             add("key.craft.mode_switch", "Modus-Taste");
             add("key.craft.side_inventory", "Seiteninventar-Taste");
             add("message.craft.wrench.lossless_enabled", "Verlustfreier Modus eingeschaltet");
+            add("message.craft.painter.auto_refill_on", "Automatisches Nachfüllen eingeschaltet");
+            add("message.craft.painter.auto_refill_off", "Automatisches Nachfüllen ausgeschaltet");
+            add("message.craft.eu_meter.start", "Neue Messung gestartet");
+            add("message.craft.eu_meter.result",
+                    "Gemessene Leistung [EU/t]: %1$s rein, %2$s raus, %3$s Gewinn (Mittel über %4$s Ticks)");
             add("message.craft.wrench.lossless_disabled", "Verlustfreier Modus ausgeschaltet");
             add("message.craft.wrench.lossless_no_energy", "Nicht genug Energie für verlustfreien Abbau");
             add("message.craft.mining_laser.mode", "Lasermodus: %s");

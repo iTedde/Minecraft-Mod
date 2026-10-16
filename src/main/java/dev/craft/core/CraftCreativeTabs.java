@@ -59,11 +59,15 @@ public final class CraftCreativeTabs {
                 output.accept(Ic2Items.RUBBER_SAPLING);
                 output.accept(Ic2Items.IRON_FENCE);
                 output.accept(Ic2Items.REINFORCED_GLASS);
+                output.accept(Ic2Items.REINFORCED_STONE);
+                output.accept(Ic2Items.RUBBER_MAT);
                 output.accept(Ic2Items.INDUSTRIAL_TNT);
                 output.accept(Ic2Items.NUKE);
+                output.accept(Ic2Items.TOOLBOX);
                 for (DeferredHolder<Item, ? extends Item> item : Ic2Items.ITEMS.getEntries()) {
                     Item value = item.get();
-                    if (Ic2Items.simpleItems().contains(item) && value != Ic2Items.INDUSTRIAL_DIAMOND.get()) {
+                    if (Ic2Items.simpleItems().contains(item) && value != Ic2Items.INDUSTRIAL_DIAMOND.get()
+                            && value != Ic2Items.COIN.get()) {
                         output.accept(value);
                     } else if (value instanceof BatteryItem) {
                         output.accept(new ItemStack(value));

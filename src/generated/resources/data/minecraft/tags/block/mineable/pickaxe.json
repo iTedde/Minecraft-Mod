@@ -36,6 +36,8 @@
     "craft:deepslate_uranium_ore",
     "craft:uranium_block",
     "craft:reactor_chamber",
+    "craft:reinforced_stone",
+    "craft:reinforced_door",
     "craft:redstone_engine",
     "craft:stirling_engine",
     "craft:combustion_engine",

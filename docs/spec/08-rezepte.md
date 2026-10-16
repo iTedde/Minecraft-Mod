@@ -195,7 +195,7 @@ IC2-Maschinenrezept für dieselbe Eingabe und fügen das neue ein.
 | Elektrischer Schraubenschlüssel | `  W/ C /B  ` (W = Schraubenschlüssel) | **[GT⚠]** ersetzt: `S S/SCS/ B ` (Stahlplatten) |
 | OD-Scanner | ` G /CBC/ccc`, G = Glowstonestaub, B = RE-Batterie, c = isol. Kupferkabel | [IC2] |
 | OV-Scanner | ` G /GCG/cSc`, S = OD-Scanner (bzw. geladene RE-Batterie – Originalfehler im zweiten Rezept), c = 2× isol. Goldkabel, C = fortg. Schaltkreis | [IC2] |
-| EU-Meter | ` G /cCc/c c` | [IC2] |
+| EU-Meter | ` G /cCc/c c`, G = Glowstone-Staub, c = isol. Kupferkabel, C = el. Schaltkreis | [IC2] |
 | Bergbaulaser | `Rcc/AAC/ AA`, c = Energiekristall, A = fortg. Legierung, C = fortg. Schaltkreis | **[GT⚠]** entfernt (`ExpensiveLaser`); Ersatz `RHE/TTC/ AA` mit Rubin, Titanplatten, GT-Heliumkühlzelle |
 | Nanosäbel | `GA /GA /CcC`, C = Kohleplatte, c = Energiekristall | **[GT⚠]** ersetzt: `PI /PI /CLC`, P = Platinplatte, I = Iridiumplatte, L = Lapotron, C = GT-Energiefluss-Schaltung (`craftingCircuitTier07`, Korrektur 8e) |
 | Elektrische Hacke etc. siehe oben | | |
@@ -230,7 +230,7 @@ IC2-Maschinenrezept für dieselbe Eingabe und fügen das neue ein.
 
 | Ergebnis | Muster | Status |
 |---|---|---|
-| 8 verst. Stein | `SSS/SAS/SSS`, S = Stein | [IC2] |
+| 8 verst. Stein | `SSS/SAS/SSS`, S = Stein, A = fortg. Legierung | [IC2] |
 | 7 verst. Glas | `GAG/GGG/GAG` und `GGG/AGA/GGG` | [IC2] |
 | Verst. Tür | `SS/SS/SS`, S = verst. Stein | [IC2] |
 | 3 Gummimatten | `RRR/RRR` | [IC2] |
