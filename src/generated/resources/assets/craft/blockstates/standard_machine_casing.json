@@ -1,7 +1,196 @@
 {
   "variants": {
-    "": {
-      "model": "craft:block/standard_machine_casing"
+    "down=false,east=false,north=false,south=false,up=false,west=false": {
+      "model": "craft:block/gt/standard_machine_casing_7_7_7_7_7_7"
+    },
+    "down=false,east=false,north=false,south=false,up=false,west=true": {
+      "model": "craft:block/gt/standard_machine_casing_0_0_0_0_7_7"
+    },
+    "down=false,east=false,north=false,south=false,up=true,west=false": {
+      "model": "craft:block/gt/standard_machine_casing_7_7_1_1_1_1"
+    },
+    "down=false,east=false,north=false,south=false,up=true,west=true": {
+      "model": "craft:block/gt/standard_machine_casing_0_7_11_10_7_1"
+    },
+    "down=false,east=false,north=false,south=true,up=false,west=false": {
+      "model": "craft:block/gt/standard_machine_casing_1_1_7_7_0_0"
+    },
+    "down=false,east=false,north=false,south=true,up=false,west=true": {
+      "model": "craft:block/gt/standard_machine_casing_10_9_0_7_7_0"
+    },
+    "down=false,east=false,north=false,south=true,up=true,west=false": {
+      "model": "craft:block/gt/standard_machine_casing_1_7_1_7_11_10"
+    },
+    "down=false,east=false,north=false,south=true,up=true,west=true": {
+      "model": "craft:block/gt/standard_machine_casing_10_7_11_7_7_10"
+    },
+    "down=false,east=false,north=true,south=false,up=false,west=false": {
+      "model": "craft:block/gt/standard_machine_casing_1_1_7_7_0_0"
+    },
+    "down=false,east=false,north=true,south=false,up=false,west=true": {
+      "model": "craft:block/gt/standard_machine_casing_9_10_7_0_7_0"
+    },
+    "down=false,east=false,north=true,south=false,up=true,west=false": {
+      "model": "craft:block/gt/standard_machine_casing_1_7_7_1_10_11"
+    },
+    "down=false,east=false,north=true,south=false,up=true,west=true": {
+      "model": "craft:block/gt/standard_machine_casing_9_7_7_10_7_11"
+    },
+    "down=false,east=false,north=true,south=true,up=false,west=false": {
+      "model": "craft:block/gt/standard_machine_casing_1_1_7_7_0_0"
+    },
+    "down=false,east=false,north=true,south=true,up=false,west=true": {
+      "model": "craft:block/gt/standard_machine_casing_4_4_7_7_7_0"
+    },
+    "down=false,east=false,north=true,south=true,up=true,west=false": {
+      "model": "craft:block/gt/standard_machine_casing_1_7_7_7_5_5"
+    },
+    "down=false,east=false,north=true,south=true,up=true,west=true": {
+      "model": "craft:block/gt/standard_machine_casing_4_7_7_7_7_5"
+    },
+    "down=false,east=true,north=false,south=false,up=false,west=false": {
+      "model": "craft:block/gt/standard_machine_casing_0_0_0_0_7_7"
+    },
+    "down=false,east=true,north=false,south=false,up=false,west=true": {
+      "model": "craft:block/gt/standard_machine_casing_0_0_0_0_7_7"
+    },
+    "down=false,east=true,north=false,south=false,up=true,west=false": {
+      "model": "craft:block/gt/standard_machine_casing_0_7_10_11_1_7"
+    },
+    "down=false,east=true,north=false,south=false,up=true,west=true": {
+      "model": "craft:block/gt/standard_machine_casing_0_7_5_5_7_7"
+    },
+    "down=false,east=true,north=false,south=true,up=false,west=false": {
+      "model": "craft:block/gt/standard_machine_casing_11_8_0_7_0_7"
+    },
+    "down=false,east=true,north=false,south=true,up=false,west=true": {
+      "model": "craft:block/gt/standard_machine_casing_5_3_0_7_7_7"
+    },
+    "down=false,east=true,north=false,south=true,up=true,west=false": {
+      "model": "craft:block/gt/standard_machine_casing_11_7_10_7_11_7"
+    },
+    "down=false,east=true,north=false,south=true,up=true,west=true": {
+      "model": "craft:block/gt/standard_machine_casing_5_7_5_7_7_7"
+    },
+    "down=false,east=true,north=true,south=false,up=false,west=false": {
+      "model": "craft:block/gt/standard_machine_casing_8_11_7_0_0_7"
+    },
+    "down=false,east=true,north=true,south=false,up=false,west=true": {
+      "model": "craft:block/gt/standard_machine_casing_3_5_7_0_7_7"
+    },
+    "down=false,east=true,north=true,south=false,up=true,west=false": {
+      "model": "craft:block/gt/standard_machine_casing_8_7_7_11_10_7"
+    },
+    "down=false,east=true,north=true,south=false,up=true,west=true": {
+      "model": "craft:block/gt/standard_machine_casing_3_7_7_5_7_7"
+    },
+    "down=false,east=true,north=true,south=true,up=false,west=false": {
+      "model": "craft:block/gt/standard_machine_casing_2_2_7_7_0_7"
+    },
+    "down=false,east=true,north=true,south=true,up=false,west=true": {
+      "model": "craft:block/gt/standard_machine_casing_6_6_7_7_7_7"
+    },
+    "down=false,east=true,north=true,south=true,up=true,west=false": {
+      "model": "craft:block/gt/standard_machine_casing_2_7_7_7_5_7"
+    },
+    "down=false,east=true,north=true,south=true,up=true,west=true": {
+      "model": "craft:block/gt/standard_machine_casing_6_7_7_7_7_7"
+    },
+    "down=true,east=false,north=false,south=false,up=false,west=false": {
+      "model": "craft:block/gt/standard_machine_casing_7_7_1_1_1_1"
+    },
+    "down=true,east=false,north=false,south=false,up=false,west=true": {
+      "model": "craft:block/gt/standard_machine_casing_7_0_8_9_7_1"
+    },
+    "down=true,east=false,north=false,south=false,up=true,west=false": {
+      "model": "craft:block/gt/standard_machine_casing_7_7_1_1_1_1"
+    },
+    "down=true,east=false,north=false,south=false,up=true,west=true": {
+      "model": "craft:block/gt/standard_machine_casing_7_7_2_4_7_1"
+    },
+    "down=true,east=false,north=false,south=true,up=false,west=false": {
+      "model": "craft:block/gt/standard_machine_casing_7_1_1_7_8_9"
+    },
+    "down=true,east=false,north=false,south=true,up=false,west=true": {
+      "model": "craft:block/gt/standard_machine_casing_7_9_8_7_7_9"
+    },
+    "down=true,east=false,north=false,south=true,up=true,west=false": {
+      "model": "craft:block/gt/standard_machine_casing_7_7_1_7_2_4"
+    },
+    "down=true,east=false,north=false,south=true,up=true,west=true": {
+      "model": "craft:block/gt/standard_machine_casing_7_7_2_7_7_4"
+    },
+    "down=true,east=false,north=true,south=false,up=false,west=false": {
+      "model": "craft:block/gt/standard_machine_casing_7_1_7_1_9_8"
+    },
+    "down=true,east=false,north=true,south=false,up=false,west=true": {
+      "model": "craft:block/gt/standard_machine_casing_7_10_7_9_7_8"
+    },
+    "down=true,east=false,north=true,south=false,up=true,west=false": {
+      "model": "craft:block/gt/standard_machine_casing_7_7_7_1_4_2"
+    },
+    "down=true,east=false,north=true,south=false,up=true,west=true": {
+      "model": "craft:block/gt/standard_machine_casing_7_7_7_4_7_2"
+    },
+    "down=true,east=false,north=true,south=true,up=false,west=false": {
+      "model": "craft:block/gt/standard_machine_casing_7_1_7_7_3_3"
+    },
+    "down=true,east=false,north=true,south=true,up=false,west=true": {
+      "model": "craft:block/gt/standard_machine_casing_7_4_7_7_7_3"
+    },
+    "down=true,east=false,north=true,south=true,up=true,west=false": {
+      "model": "craft:block/gt/standard_machine_casing_7_7_7_7_6_6"
+    },
+    "down=true,east=false,north=true,south=true,up=true,west=true": {
+      "model": "craft:block/gt/standard_machine_casing_7_7_7_7_7_6"
+    },
+    "down=true,east=true,north=false,south=false,up=false,west=false": {
+      "model": "craft:block/gt/standard_machine_casing_7_0_9_8_1_7"
+    },
+    "down=true,east=true,north=false,south=false,up=false,west=true": {
+      "model": "craft:block/gt/standard_machine_casing_7_0_3_3_7_7"
+    },
+    "down=true,east=true,north=false,south=false,up=true,west=false": {
+      "model": "craft:block/gt/standard_machine_casing_7_7_4_2_1_7"
+    },
+    "down=true,east=true,north=false,south=false,up=true,west=true": {
+      "model": "craft:block/gt/standard_machine_casing_7_7_6_6_7_7"
+    },
+    "down=true,east=true,north=false,south=true,up=false,west=false": {
+      "model": "craft:block/gt/standard_machine_casing_7_8_9_7_8_7"
+    },
+    "down=true,east=true,north=false,south=true,up=false,west=true": {
+      "model": "craft:block/gt/standard_machine_casing_7_3_3_7_7_7"
+    },
+    "down=true,east=true,north=false,south=true,up=true,west=false": {
+      "model": "craft:block/gt/standard_machine_casing_7_7_4_7_2_7"
+    },
+    "down=true,east=true,north=false,south=true,up=true,west=true": {
+      "model": "craft:block/gt/standard_machine_casing_7_7_6_7_7_7"
+    },
+    "down=true,east=true,north=true,south=false,up=false,west=false": {
+      "model": "craft:block/gt/standard_machine_casing_7_11_7_8_9_7"
+    },
+    "down=true,east=true,north=true,south=false,up=false,west=true": {
+      "model": "craft:block/gt/standard_machine_casing_7_5_7_3_7_7"
+    },
+    "down=true,east=true,north=true,south=false,up=true,west=false": {
+      "model": "craft:block/gt/standard_machine_casing_7_7_7_2_4_7"
+    },
+    "down=true,east=true,north=true,south=false,up=true,west=true": {
+      "model": "craft:block/gt/standard_machine_casing_7_7_7_6_7_7"
+    },
+    "down=true,east=true,north=true,south=true,up=false,west=false": {
+      "model": "craft:block/gt/standard_machine_casing_7_2_7_7_3_7"
+    },
+    "down=true,east=true,north=true,south=true,up=false,west=true": {
+      "model": "craft:block/gt/standard_machine_casing_7_6_7_7_7_7"
+    },
+    "down=true,east=true,north=true,south=true,up=true,west=false": {
+      "model": "craft:block/gt/standard_machine_casing_7_7_7_7_6_7"
+    },
+    "down=true,east=true,north=true,south=true,up=true,west=true": {
+      "model": "craft:block/gt/standard_machine_casing_7_7_7_7_7_7"
     }
   }
 }

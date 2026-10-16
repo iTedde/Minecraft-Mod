@@ -1279,11 +1279,23 @@ NaK-Kühlzellen, kein Vakuumgefrierer) **und die IC2-Nuke**. Teilpakete: 7a IC2-
 - 2 neue GameTests (Motor-Fehlerwechsel, Carpenter-Fehler); `gradlew build`, **257 GameTests grün**.
   **`runClient` nicht gestartet** (Nutzer, 2026-10-16: Launcher vorerst nicht starten).
 
+## Erledigt (Teilpaket „Phase 11.5: verbundene GT-Gehäusetexturen“, 2026-10-17)
+- Spec `13-gregtech-maschinen.md` §5.1: Auswahllogik `getBlockTexture` (Varianten 0–11 als Rahmen offener Ränder,
+  Ränder je Seite, Originaleigenheit bei drei offenen Rändern, gespiegelte Unterseite in 1.21).
+- `GtCasingBlock`: Blockstate-Eigenschaften je Seite (gleichartiges Gehäuse), `textureVariant`; Datagen erzeugt die
+  Modelle je Kombination (171 Modelle), Item behält Textur 13/14/15. 36 Texturen `blocks_96…107/112…123/224…235`
+  aus `blocks.png` geschnitten. `abweichungen.md`: **umgesetzt**.
+- E1 (übrige Texturen) bleibt wie entschieden: keine weiteren Texturarbeiten.
+- 2 neue GameTests (Verbindung nur gleicher Typ, Varianten Rand/Wandmitte); `gradlew build`, **259 GameTests grün**.
+  **`runClient` nicht gestartet** (Nutzer, 2026-10-16: Launcher vorerst nicht starten).
+
 ## Nächste Schritte
 1. Manuell im Client (Welt betreten), sobald der Start wieder erlaubt ist: EMI-Kategorien der IC2-, GT-, BC-,
    Forestry- und Kraftwerks-Maschinen ansehen (Werte, Texte de/en, Flüssigkeiten, Raster der Glühelektrischen
    Maschine/Schreinerei, Info-Seiten der Multiblöcke), Klick auf Fortschrittspfeile/Flammen öffnet die Kategorie,
    `craft:water`/`craft:lava` nicht im Index, Log ohne EMI-Plugin-Fehler. Neu (11.4): Xaero's Minimap lädt;
    Ledger an Electrical Engine/Carpenter/Fabricator (Auf-/Zuklappen, Texte de/en, Fehler-Ledger nur bei Fehler,
-   offener Ledger bleibt für das nächste GUI offen, EMI überdeckt sie nicht).
-2. Phase 11.5: verbundene GT-Gehäusetexturen.
+   offener Ledger bleibt für das nächste GUI offen, EMI überdeckt sie nicht). Neu (11.5): GT-Gehäuse als Wand/
+   Hochofen bauen – Rahmen nur an Außenkanten, Unterseite und alle vier Seiten richtig ausgerichtet, verschiedene
+   Gehäusetypen verbinden sich nicht, Item zeigt die schlichte Textur.
+2. Phase 11.6: Testplan, Abschlusstests.

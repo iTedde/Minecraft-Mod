@@ -359,8 +359,20 @@ Rezept eine hat). **Shapeless:** zuerst wird die vertauschte Belegung (Slot 1, S
 | Rezept (→ 4 Stück) | `AAA/CMC/AAA`, A = raff. Eisen- **oder** Aluminiumplatte, C = el. Schaltkreis, M = Maschinenblock | `SSS/CMC/SSS`, S = Stahlplatte, C = fortg. Schaltkreis, M = fortg. Maschinenblock | `TTT/CMC/TTT`, T = Chromplatte, C = `craftingCircuitTier06`, M = `craftingRawMachineTier04` – **später** |
 
 Material Eisen, Spitzhacke Stufe 2 (Eisen), droppt sich selbst, keine Mob-Spawns, kein Beacon-Sockel. Platzieren und
-Abbauen lösen `causeMachineUpdate` aus. Textur: `blocks.png` Index 13/14/15 (alle Seiten gleich); im Original
-verbundene Texturen (Startindex 96/112/224, 12 Varianten je Seite) – **Abweichung: erst Phase 11** (Nutzerentscheidung).
+Abbauen lösen `causeMachineUpdate` aus. Item-Textur: `blocks.png` Index 13/14/15 (alle Seiten gleich).
+
+**Verbundene Texturen** (`getBlockTexture`, Pack-Config `ConnectedMachineCasingTextures=true`, Phase 11.5): Ein
+Nachbar ist „verbunden“, wenn er ein Gehäuse **desselben Typs** ist. Startindex 96 (Standard) / 112 (verstärkt) /
+224 (fortgeschritten), Variante 0–11 je Seite:
+- Nachbar direkt vor der Seite verbunden → **7** (voller Rahmen).
+- Sonst nach den vier Rand-Nachbarn der Seite (links/oben/rechts/unten, bezogen auf die Textur). Die Varianten sind
+  Rahmen an den Rändern **ohne** Nachbarn: 6 keiner, 2 links, 3 oben, 4 rechts, 5 unten, 8 links+oben, 9 oben+rechts,
+  10 rechts+unten, 11 links+unten, 1 links+rechts, 0 oben+unten, 7 alle vier. Sind drei Ränder offen, wählt das
+  Original **0**, wenn nur links oder rechts verbunden ist, und **1**, wenn nur oben oder unten verbunden ist
+  (Originaleigenheit, übernommen).
+- Ränder je Seite (Original): oben/unten W, N, O, S; Nord O, oben, W, unten; Süd W, oben, O, unten; West N, oben, S,
+  unten; Ost S, oben, N, unten. In 1.21 zeigt die Unterseite die Textur vertikal gespiegelt (oben = Süd); daher dort
+  W, S, O, N – dasselbe Bild an derselben Weltkante.
 
 ### 5.2 Heizspulen und Materialien (6b.3b)
 

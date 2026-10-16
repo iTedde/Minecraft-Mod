@@ -412,8 +412,7 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
             simpleBlockItem(block, gtModel(machine, models, Direction.NORTH, Direction.NORTH, false));
         }
         for (GtCasingBlock.Type type : GtCasingBlock.Type.values()) {
-            simpleBlockWithItem(GtBlocks.casing(type).get(), models().cubeAll(type.getName(),
-                    modLoc("block/gt/blocks_" + type.getTexture())));
+            gtCasing(GtBlocks.casing(type).get(), type);
         }
         // All six sides share index 10 on blocks.png.
         simpleBlockWithItem(GtBlocks.HIGHLY_ADVANCED_MACHINE_BLOCK.get(),
@@ -444,6 +443,26 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
         }
         getVariantBuilder(block).partialState().setModels(variants);
         simpleBlockItem(block, variants[0].model);
+    }
+
+    /** Connected casing textures per side (spec 13 §5.1); the item keeps the plain texture. */
+    private void gtCasing(GtCasingBlock block, GtCasingBlock.Type type) {
+        Map<String, ModelFile> models = new HashMap<>();
+        getVariantBuilder(block).forAllStates(state -> {
+            ResourceLocation[] faces = new ResourceLocation[6];
+            int[] variants = new int[6];
+            for (Direction side : Direction.values()) {
+                variants[side.get3DDataValue()] = GtCasingBlock.textureVariant(state, side);
+                faces[side.get3DDataValue()] = gtBlocksLoc(type.getConnectedTexture()
+                        + variants[side.get3DDataValue()]);
+            }
+            String key = Arrays.stream(variants).mapToObj(String::valueOf).collect(Collectors.joining("_"));
+            return ConfiguredModel.builder().modelFile(models.computeIfAbsent(key, k -> models().cube(
+                            "block/gt/" + type.getName() + "_" + k, faces[0], faces[1], faces[2], faces[3],
+                            faces[5], faces[4])
+                    .texture("particle", gtBlocksLoc(type.getTexture())))).build();
+        });
+        simpleBlockItem(block, models().cubeAll(type.getName(), gtBlocksLoc(type.getTexture())));
     }
 
     private ModelFile gtModel(GtMachine machine, Map<String, ModelFile> models, Direction facing,
@@ -484,6 +503,10 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
             return side == Direction.DOWN ? 38 : side == Direction.UP ? 79 : 36;
         }
         return side == Direction.DOWN ? 32 : side == Direction.UP ? machine.getTopTexture(active) : 40;
+    }
+
+    private ResourceLocation gtBlocksLoc(int index) {
+        return modLoc("block/gt/blocks_" + index);
     }
 
     private ResourceLocation gtLoc(int index) {
