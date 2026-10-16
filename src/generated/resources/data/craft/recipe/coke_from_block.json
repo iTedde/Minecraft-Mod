@@ -1,0 +1,12 @@
+{
+  "type": "craft:ic2_shapeless",
+  "ingredients": [
+    {
+      "item": "craft:coke_block"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "id": "craft:coke"
+  }
+}

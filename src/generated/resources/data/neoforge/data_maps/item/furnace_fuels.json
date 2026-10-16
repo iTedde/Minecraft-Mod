@@ -1,5 +1,11 @@
 {
   "values": {
+    "craft:coke": {
+      "burn_time": 1600
+    },
+    "craft:coke_block": {
+      "burn_time": 16000
+    },
     "craft:lava_cell": {
       "burn_time": 20000
     },

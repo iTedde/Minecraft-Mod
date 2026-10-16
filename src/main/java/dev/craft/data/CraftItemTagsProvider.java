@@ -6,6 +6,7 @@ import dev.craft.Craft;
 import dev.craft.gregtech.GtItems;
 import dev.craft.gregtech.world.GtOre;
 import dev.craft.ic2.Ic2Items;
+import dev.craft.powerplants.PpItems;
 import dev.craft.ic2.block.IronFenceBlock;
 import dev.craft.ic2.machine.RecyclerBlockEntity;
 import net.minecraft.core.HolderLookup;
@@ -34,6 +35,7 @@ public final class CraftItemTagsProvider extends ItemTagsProvider {
     public static final TagKey<Item> DUSTS_BRONZE = commonTag("dusts/bronze");
     public static final TagKey<Item> DUSTS_CLAY = commonTag("dusts/clay");
     public static final TagKey<Item> DUSTS_COAL = commonTag("dusts/coal");
+    public static final TagKey<Item> COAL_COKE = commonTag("coal_coke");
     public static final TagKey<Item> DUSTS_COPPER = commonTag("dusts/copper");
     public static final TagKey<Item> DUSTS_GOLD = commonTag("dusts/gold");
     public static final TagKey<Item> DUSTS_IRON = commonTag("dusts/iron");
@@ -197,6 +199,7 @@ public final class CraftItemTagsProvider extends ItemTagsProvider {
         tag(DUSTS_BRONZE).add(Ic2Items.BRONZE_DUST.get());
         tag(DUSTS_CLAY).add(Ic2Items.CLAY_DUST.get());
         tag(DUSTS_COAL).add(Ic2Items.COAL_DUST.get());
+        tag(COAL_COKE).add(PpItems.COKE.get());
         tag(DUSTS_COPPER).add(Ic2Items.COPPER_DUST.get());
         tag(DUSTS_GOLD).add(Ic2Items.GOLD_DUST.get());
         tag(DUSTS_IRON).add(Ic2Items.IRON_DUST.get());

@@ -27,6 +27,8 @@ import dev.craft.compactsolars.CsBlocks;
 import dev.craft.compactsolars.SolarArrayType;
 import dev.craft.powerconverters.ConverterType;
 import dev.craft.powerconverters.PcBlocks;
+import dev.craft.powerplants.PpBlocks;
+import dev.craft.powerplants.block.PlantControllerBlock;
 import dev.craft.powerconverters.block.PowerConverterBlock;
 import net.minecraft.core.Direction;
 import net.minecraft.data.PackOutput;
@@ -102,6 +104,7 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
         forestryMachines();
         powerConverters();
         compactSolars();
+        powerPlants();
         gregTech();
     }
 
@@ -423,6 +426,25 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
 
     private ResourceLocation gtLoc(int index) {
         return modLoc("block/gt/terrain_" + index);
+    }
+
+    private void powerPlants() {
+        ResourceLocation bricks = modLoc("block/powerplants/coke_oven_bricks");
+        simpleBlockWithItem(PpBlocks.COKE_OVEN_BRICKS.get(), models().cubeAll("coke_oven_bricks", bricks));
+        plantController(PpBlocks.COKE_OVEN.get(), "coke_oven", bricks, bricks);
+        simpleBlockWithItem(PpBlocks.COKE_BLOCK.get(), models().cubeAll("coke_block",
+                modLoc("block/powerplants/coke_block")));
+    }
+
+    /** Power plant controller: front texture {@code <name>_front(_active)}, rotated by the horizontal facing. */
+    private void plantController(PlantControllerBlock block, String name, ResourceLocation side, ResourceLocation top) {
+        String front = "block/powerplants/" + name + "_front";
+        ModelFile off = models().orientable(name, side, modLoc(front), top);
+        ModelFile on = models().orientable(name + "_active", side, modLoc(front + "_active"), top);
+        getVariantBuilder(block).forAllStates(state -> ConfiguredModel.builder()
+                .modelFile(state.getValue(MachineBlock.ACTIVE) ? on : off)
+                .rotationY(((int) state.getValue(MachineBlock.FACING).toYRot() + 180) % 360).build());
+        simpleBlockItem(block, off);
     }
 
     private void compactSolars() {

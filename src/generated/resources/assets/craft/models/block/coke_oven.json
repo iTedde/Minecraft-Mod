@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/orientable",
+  "textures": {
+    "front": "craft:block/powerplants/coke_oven_front",
+    "side": "craft:block/powerplants/coke_oven_bricks",
+    "top": "craft:block/powerplants/coke_oven_bricks"
+  }
+}

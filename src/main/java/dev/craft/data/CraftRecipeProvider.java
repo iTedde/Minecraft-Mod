@@ -38,6 +38,7 @@ import dev.craft.ic2.recipe.Ic2ShapelessRecipe;
 import dev.craft.ic2.recipe.MachineRecipe;
 import dev.craft.powerconverters.ConverterType;
 import dev.craft.powerconverters.PcItems;
+import dev.craft.powerplants.PpItems;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.component.DataComponents;
@@ -107,6 +108,7 @@ public final class CraftRecipeProvider extends RecipeProvider {
         powerConverters();
         compactSolars();
         gregTech();
+        powerPlants();
     }
 
     // --- GregTech (spec 13): plate bender, plates and what they unlock ---
@@ -655,6 +657,18 @@ public final class CraftRecipeProvider extends RecipeProvider {
         if (dust != null) {
             machine(MachineRecipe.Kind.MACERATOR, name + "_plate", Ingredient.of(plate), 1, dust, 1);
         }
+    }
+
+    // --- New power plants (spec 14) ---
+
+    private void powerPlants() {
+        shaped(PpItems.COKE_OVEN_BRICKS, 2, "coke_oven_bricks").pattern("BSB", "SCS", "BSB")
+                .define('B', Items.BRICK).define('S', Items.SAND).define('C', Items.CLAY_BALL).save();
+        shaped(PpItems.COKE_OVEN, 1, "coke_oven").pattern("BBB", "BFB", "BBB")
+                .define('B', PpItems.COKE_OVEN_BRICKS).define('F', Items.FURNACE).save();
+        shaped(PpItems.COKE_BLOCK, 1, "coke_block").pattern("CCC", "CCC", "CCC")
+                .define('C', PpItems.COKE).save();
+        shapeless(PpItems.COKE, 9, "coke_from_block", Ingredient.of(PpItems.COKE_BLOCK));
     }
 
     // --- Compact Solars (multiblock variant, spec 11 §4): shapeless transformer → controller ---

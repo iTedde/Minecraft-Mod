@@ -1044,7 +1044,20 @@ NaK-Kühlzellen, kein Vakuumgefrierer) **und die IC2-Nuke**. Teilpakete: 7a IC2-
   `subproduction(...)` testbar.
 - 4 neue GameTests (`GeneratorBalancingGameTests`, insgesamt 219 grün), `build` und `runClient` erfolgreich.
 
+## Erledigt (Teilpaket „Phase 9.2: Koksofen + Koks“, 2026-10-16)
+- Neues Paket `dev.craft.powerplants` mit eigenem Creative-Tab „Craft: Kraftwerke“ und gemeinsamer Multiblock-Basis
+  (`PlantControllerBlock(Entity)`, `PlantPartBlock(Entity)` – Teile reichen die Item-Capability an den Controller weiter,
+  `SlotAccess` für Eingabe-/Ausgabe-Sichten).
+- Koksofen (`CokeOvenBlockEntity`, Menü/Screen, GUI `coke_oven.png`): 3×3×3 Koksofenziegel mit Luftkern, Controller in
+  einer Seitenmitte; 1 Kohle → 1 Koks in 900 Ticks ohne Strom, Holzkohle abgelehnt, Fortschritt bleibt bei fehlender
+  Kohle/voller Ausgabe erhalten. Item-Zugriff über Controller und Ziegel (unten Ausgabe, sonst Eingabe).
+- Items/Blöcke: Koks (Tag `c:coal_coke`, Brennwert 1600), Koksblock (9 ⇄ 1, Brennwert 16 000), Koksofenziegel
+  (`BSB/SCS/BSB` ×2), Koksofen (`BBB/BFB/BBB`).
+- 3 neue GameTests (`CokeOvenGameTests`, insgesamt 222 grün), `build` und `runClient` (Hauptmenü, keine Mod-Fehler)
+  erfolgreich.
+
 ## Nächste Schritte
-1. 9.2 Koksofen + Koks · 9.3 Kessel + Dampf + Dampfturbine · 9.4 Wasserturbine.
-2. Manuelle Client-Tests 9.1: Wassermühle an fließendem Wasser / im Fluss, zwei Mühlen nebeneinander; Windmühle in
+1. 9.3 Kessel + Dampf + Dampfturbine · 9.4 Wasserturbine.
+2. Manuelle Client-Tests 9.2: Koksofen bauen, Kohle per Trichter/Ziegel einspeisen, Koks unten abziehen.
+3. Manuelle Client-Tests 9.1: Wassermühle an fließendem Wasser / im Fluss, zwei Mühlen nebeneinander; Windmühle in
    großer Höhe bei Gewitter.

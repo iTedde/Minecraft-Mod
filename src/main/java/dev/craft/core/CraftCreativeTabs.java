@@ -24,6 +24,7 @@ import dev.craft.ic2.item.armor.Ic2ArmorItem;
 import dev.craft.ic2.item.armor.JetpackItem;
 import dev.craft.powerconverters.ConverterType;
 import dev.craft.powerconverters.PcItems;
+import dev.craft.powerplants.PpItems;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -144,6 +145,15 @@ public final class CraftCreativeTabs {
                             output.accept(CsItems.array(type));
                         }
                     })
+                    .build());
+
+    public static final Supplier<CreativeModeTab> POWER_PLANTS = TABS.register("power_plants", () ->
+            CreativeModeTab.builder()
+                    .title(Component.translatable("itemGroup.craft.power_plants"))
+                    .icon(() -> PpItems.COKE_OVEN.toStack())
+                    .withTabsBefore(ResourceLocation.fromNamespaceAndPath(Craft.MODID, "gregtech"))
+                    .displayItems((parameters, output) -> PpItems.ITEMS.getEntries()
+                            .forEach(item -> output.accept(item.get())))
                     .build());
 
     public static final Supplier<CreativeModeTab> GREGTECH = TABS.register("gregtech", () ->

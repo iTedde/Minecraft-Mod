@@ -1,0 +1,23 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "B": {
+      "item": "minecraft:brick"
+    },
+    "C": {
+      "item": "minecraft:clay_ball"
+    },
+    "S": {
+      "item": "minecraft:sand"
+    }
+  },
+  "pattern": [
+    "BSB",
+    "SCS",
+    "BSB"
+  ],
+  "result": {
+    "count": 2,
+    "id": "craft:coke_oven_bricks"
+  }
+}

@@ -12,6 +12,7 @@ import dev.craft.forestry.circuit.ElectronTube;
 import dev.craft.ic2.Ic2Items;
 import dev.craft.ic2.cable.CableType;
 import dev.craft.ic2.client.Ic2Client;
+import dev.craft.powerplants.PpItems;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemDisplayContext;
@@ -28,6 +29,7 @@ public final class CraftItemModelProvider extends ItemModelProvider {
 
     @Override
     protected void registerModels() {
+        basicItem(PpItems.COKE.get());
         for (CableType type : CableType.values()) {
             basicItem(Ic2Items.cable(type).get());
         }

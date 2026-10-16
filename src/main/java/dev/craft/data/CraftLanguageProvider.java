@@ -24,6 +24,8 @@ import dev.craft.compactsolars.SolarArrayType;
 import dev.craft.powerconverters.ConverterType;
 import dev.craft.powerconverters.PcBlocks;
 import dev.craft.powerconverters.PowerSystem;
+import dev.craft.powerplants.PpBlocks;
+import dev.craft.powerplants.PpItems;
 import dev.craft.ic2.Ic2Blocks;
 import dev.craft.ic2.Ic2EntityTypes;
 import dev.craft.ic2.Ic2Items;
@@ -93,6 +95,16 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
                 add(circuit.getDescriptionKeys().get(line), descriptions[circuit.ordinal()][line]);
             }
         }
+    }
+
+    /** Names of the new power plants (spec 14), English or German. */
+    protected void powerPlants(boolean german) {
+        add("itemGroup.craft.power_plants", german ? "Craft: Kraftwerke" : "Craft: Power Plants");
+        add("gui.craft.structure_incomplete", german ? "Struktur unvollständig" : "Structure incomplete");
+        item(PpItems.COKE, german ? "Koks" : "Coal Coke");
+        block(PpBlocks.COKE_BLOCK, german ? "Koksblock" : "Block of Coal Coke");
+        block(PpBlocks.COKE_OVEN_BRICKS, german ? "Koksofenziegel" : "Coke Oven Bricks");
+        block(PpBlocks.COKE_OVEN, german ? "Koksofen" : "Coke Oven");
     }
 
     /** Compact Solars names ({@code CompactSolarType.friendlyName}, English only). */
@@ -601,6 +613,7 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             powerConverters();
             compactSolars();
             gregTech();
+            powerPlants(false);
         }
     }
 
@@ -862,6 +875,7 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             powerConverters();
             compactSolars();
             gregTech();
+            powerPlants(true);
         }
     }
 }

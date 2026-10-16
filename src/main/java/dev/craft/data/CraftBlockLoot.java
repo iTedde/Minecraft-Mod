@@ -8,6 +8,7 @@ import dev.craft.buildcraft.BcBlocks;
 import dev.craft.buildcraft.engine.EngineType;
 import dev.craft.forestry.FrBlocks;
 import dev.craft.compactsolars.CsBlocks;
+import dev.craft.powerplants.PpBlocks;
 import dev.craft.gregtech.GtBlocks;
 import dev.craft.gregtech.GtItems;
 import dev.craft.gregtech.GtMachine;
@@ -107,6 +108,9 @@ public final class CraftBlockLoot extends BlockLootSubProvider {
         for (var block : CsBlocks.BLOCKS.getEntries()) {
             dropSelf(block.get());
         }
+        for (var block : PpBlocks.BLOCKS.getEntries()) {
+            dropSelf(block.get());
+        }
         resinSheet();
         rubberWood();
         rubberLeaves();
@@ -177,7 +181,7 @@ public final class CraftBlockLoot extends BlockLootSubProvider {
     @Override
     protected Iterable<Block> getKnownBlocks() {
         return Stream.of(Ic2Blocks.BLOCKS, BcBlocks.BLOCKS, FrBlocks.BLOCKS, PcBlocks.BLOCKS,
-                        CsBlocks.BLOCKS, GtBlocks.BLOCKS)
+                        CsBlocks.BLOCKS, GtBlocks.BLOCKS, PpBlocks.BLOCKS)
                 .flatMap(blocks -> blocks.getEntries().stream())
                 .map(holder -> (Block) holder.get()).toList();
     }

@@ -3,6 +3,7 @@ package dev.craft.data;
 import java.util.concurrent.CompletableFuture;
 
 import dev.craft.ic2.Ic2Items;
+import dev.craft.powerplants.PpItems;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.item.Items;
@@ -24,6 +25,9 @@ public final class CraftDataMapProvider extends DataMapProvider {
                 .add(Items.CACTUS.builtInRegistryHolder(), new FurnaceFuel(50), false)
                 .add(Ic2Items.SCRAP, new FurnaceFuel(350), false)
                 .add(Ic2Items.SCRAP_BOX, new FurnaceFuel(3150), false)
-                .add(Ic2Items.LAVA_CELL, new FurnaceFuel(20000), false);
+                .add(Ic2Items.LAVA_CELL, new FurnaceFuel(20000), false)
+                // Coke burns like coal outside the coal power plant (spec 14 §1).
+                .add(PpItems.COKE, new FurnaceFuel(1600), false)
+                .add(PpItems.COKE_BLOCK, new FurnaceFuel(16000), false);
     }
 }

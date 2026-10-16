@@ -5,6 +5,7 @@ import java.util.concurrent.CompletableFuture;
 import dev.craft.Craft;
 import dev.craft.compactsolars.CsBlocks;
 import dev.craft.compactsolars.SolarArrayType;
+import dev.craft.powerplants.PpBlocks;
 import dev.craft.buildcraft.BcBlocks;
 import dev.craft.buildcraft.engine.EngineType;
 import dev.craft.core.explosion.Ic2Explosion;
@@ -93,6 +94,9 @@ public final class CraftBlockTagsProvider extends BlockTagsProvider {
                 FrBlocks.ELECTRICAL_ENGINE.get());
         for (SolarArrayType type : SolarArrayType.values()) {
             tag(BlockTags.MINEABLE_WITH_PICKAXE).add(CsBlocks.array(type).get());
+        }
+        for (var block : PpBlocks.BLOCKS.getEntries()) {
+            tag(BlockTags.MINEABLE_WITH_PICKAXE).add(block.get());
         }
         for (GtMachine machine : GtMachine.values()) {
             tag(BlockTags.MINEABLE_WITH_PICKAXE).add(GtBlocks.machine(machine).get());
