@@ -5,7 +5,12 @@ import java.util.Map;
 import java.util.function.BiFunction;
 
 import dev.craft.Craft;
+import dev.craft.ic2.block.ConstructionFoamBlock;
+import dev.craft.ic2.block.ConstructionFoamWallBlock;
 import dev.craft.ic2.block.IndustrialTntBlock;
+import dev.craft.ic2.block.LuminatorBlock;
+import dev.craft.ic2.block.ScaffoldBlock;
+import dev.craft.ic2.item.tool.PainterItem;
 import dev.craft.ic2.block.NukeBlock;
 import dev.craft.ic2.reactor.NuclearReactorBlock;
 import dev.craft.ic2.reactor.ReactorChamberBlock;
@@ -51,6 +56,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
+import net.minecraft.world.item.Items;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -160,6 +166,42 @@ public final class Ic2Blocks {
     public static final DeferredBlock<NukeBlock> NUKE = BLOCKS.register("nuke",
             () -> new NukeBlock(BlockBehaviour.Properties.of().mapColor(MapColor.FIRE).instabreak()
                     .sound(SoundType.GRASS).isRedstoneConductor((s, l, p) -> false)));
+
+    /**
+     * IC2 {@code BlockFoam} ({@code blockFoam}): fire material (replaceable, no collision, breaks when pushed),
+     * hardness 0.01, {@code setResistance(10)} = 6 effective, cloth sound, counts as a normal cube.
+     */
+    public static final DeferredBlock<ConstructionFoamBlock> CONSTRUCTION_FOAM = BLOCKS.register("construction_foam",
+            () -> new ConstructionFoamBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOL).noCollission()
+                    .noOcclusion().replaceable().randomTicks().strength(0.01F, 6.0F).sound(SoundType.WOOL)
+                    .pushReaction(PushReaction.DESTROY).isRedstoneConductor((s, l, p) -> true)
+                    .isValidSpawn((s, l, p, t) -> false)));
+    /** IC2 {@code BlockWall} ({@code blockWall}): rock material, hardness 3, {@code setResistance(30)} = 18. */
+    public static final DeferredBlock<ConstructionFoamWallBlock> CONSTRUCTION_FOAM_WALL = BLOCKS.register(
+            "construction_foam_wall", () -> new ConstructionFoamWallBlock(BlockBehaviour.Properties.of()
+                    .mapColor(state -> PainterItem.dyeColor(state.getValue(ConstructionFoamWallBlock.COLOR))
+                            .getMapColor())
+                    .strength(3.0F, 18.0F).sound(SoundType.STONE).requiresCorrectToolForDrops()));
+    /** IC2 {@code BlockScaffold} (wood): hardness 0.5, {@code setResistance(0.2)} = 0.12, strength 2/5. */
+    public static final DeferredBlock<ScaffoldBlock> WOODEN_SCAFFOLD = BLOCKS.register("wooden_scaffold",
+            () -> new ScaffoldBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).noOcclusion()
+                    .strength(0.5F, 0.12F).sound(SoundType.WOOD).ignitedByLava()
+                    .isRedstoneConductor((s, l, p) -> false).isSuffocating((s, l, p) -> false)
+                    .isViewBlocking((s, l, p) -> false), 2, 5, () -> Items.STICK, 2));
+    /** IC2 {@code BlockScaffold} (iron): hardness 0.8, {@code setResistance(10)} = 6, strength 5/12. */
+    public static final DeferredBlock<ScaffoldBlock> IRON_SCAFFOLD = BLOCKS.register("iron_scaffold",
+            () -> new ScaffoldBlock(metal().noOcclusion().strength(0.8F, 6.0F)
+                    .isRedstoneConductor((s, l, p) -> false).isSuffocating((s, l, p) -> false)
+                    .isViewBlocking((s, l, p) -> false), 5, 12, () -> Ic2Items.IRON_FENCE.get(), 1));
+    /**
+     * IC2 {@code BlockLuminator} (dark {@code blockLuminatorD} and lit {@code blockLuminator}): redstone-lamp material,
+     * hardness 0.3, {@code setResistance(0.5)} = 0.3, glass sound, lit light level 15.
+     */
+    public static final DeferredBlock<LuminatorBlock> LUMINATOR = BLOCKS.register("luminator",
+            () -> new LuminatorBlock(BlockBehaviour.Properties.of().mapColor(MapColor.NONE).noOcclusion()
+                    .strength(0.3F, 0.3F).sound(SoundType.GLASS)
+                    .lightLevel(state -> state.getValue(LuminatorBlock.LIT) ? 15 : 0)
+                    .isRedstoneConductor((s, l, p) -> false)));
 
     private Ic2Blocks() {
     }

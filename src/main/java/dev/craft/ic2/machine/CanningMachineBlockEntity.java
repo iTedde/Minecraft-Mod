@@ -48,6 +48,9 @@ public class CanningMachineBlockEntity extends MachineBlockEntity implements Ene
     public static final int MODE_NONE = 0;
     public static final int MODE_FOOD = 1;
     public static final int MODE_FUEL = 2;
+    public static final int MODE_CF_PACK = 3;
+    /** Ticks per pellet in CF pack mode. */
+    public static final int CF_PACK_LENGTH = 50;
 
     private int energy;
     /** IC2 keeps the progress in a {@code short}. */
@@ -80,8 +83,9 @@ public class CanningMachineBlockEntity extends MachineBlockEntity implements Ene
         boolean newActive = isActive();
         int mode = getMode();
         if (canOperate && (mode == MODE_FOOD && progress >= getFoodValue(inventory.get(SLOT_INPUT)) * 50
-                || mode == MODE_FUEL && progress > 0 && progress % 100 == 0)) {
-            if (mode != MODE_FOOD && progress < OPERATION_LENGTH) {
+                || mode == MODE_FUEL && progress > 0 && progress % 100 == 0
+                || mode == MODE_CF_PACK && progress >= CF_PACK_LENGTH)) {
+            if (mode == MODE_FUEL && progress < OPERATION_LENGTH) {
                 operate(true);
             } else {
                 operate(false);
@@ -188,6 +192,14 @@ public class CanningMachineBlockEntity extends MachineBlockEntity implements Ene
                     }
                 }
             }
+            case MODE_CF_PACK -> {
+                input.shrink(1);
+                container.setDamageValue(container.getDamageValue() - 2);
+                if (input.isEmpty() || container.getDamageValue() <= 1) {
+                    inventory.set(SLOT_OUTPUT, container);
+                    inventory.set(SLOT_CONTAINER, ItemStack.EMPTY);
+                }
+            }
             default -> {
             }
         }
@@ -208,11 +220,13 @@ public class CanningMachineBlockEntity extends MachineBlockEntity implements Ene
                         && FilledTinCanItem.getMeta(output) == getFoodMeta(input));
             }
             case MODE_FUEL -> getFuelValue(input) > 0 && output.isEmpty();
+            case MODE_CF_PACK -> inventory.get(SLOT_CONTAINER).getDamageValue() > 2
+                    && input.is(Ic2Items.CONSTRUCTION_FOAM_PELLET.get()) && output.isEmpty();
             default -> false;
         };
     }
 
-    /** Mode from the container slot: tin cans 1, empty fuel can or fuel jetpack 2 (CF pack 3 not yet), else 0. */
+    /** Mode from the container slot: tin cans 1, empty fuel can or fuel jetpack 2, CF pack 3, else 0. */
     public int getMode() {
         ItemStack container = inventory.get(SLOT_CONTAINER);
         if (container.isEmpty()) {
@@ -223,6 +237,9 @@ public class CanningMachineBlockEntity extends MachineBlockEntity implements Ene
         }
         if (container.is(Ic2Items.EMPTY_FUEL_CAN.get()) || container.is(Ic2Items.JETPACK.get())) {
             return MODE_FUEL;
+        }
+        if (container.is(Ic2Items.CF_PACK.get())) {
+            return MODE_CF_PACK;
         }
         return MODE_NONE;
     }

@@ -1336,6 +1336,23 @@ NaK-Kühlzellen, kein Vakuumgefrierer) **und die IC2-Nuke**. Teilpakete: 7a IC2-
 - 6 neue GameTests (`SmallToolGameTests`); `gradlew build`, **266 GameTests grün**. **`runClient` nicht gestartet**
   (Nutzer, 2026-10-16: Launcher vorerst nicht starten).
 
+## Erledigt (Teilpaket „Phase 12.2: Bauschaum + Luminator“, 2026-10-17)
+- Spezifikation nachgetragen: `spec/05-items.md` §4.2 (Pellet, Sprüher inkl. Flood-Fill/Richtungen, CF-Pack) und §10
+  (Bauschaum, Bauschaumwand, Holz-/Eisengerüst mit Stärke-Logik), `spec/04-maschinen.md` §Luminator (Halt, Formen,
+  Energie nur vom Halte-Kabel, Negativ-Energie des dunklen Tiles, Monster anzünden, kein Drop).
+- Blöcke: Bauschaum (`ConstructionFoamBlock`, härtet per Licht/Sand), Bauschaumwand (`ConstructionFoamWallBlock`,
+  16 Farben als Blockstate, `PaintableBlock`, Texturen = Kabelschaum-Texturen), Holz-/Eisengerüst (`ScaffoldBlock`,
+  Stärke, Verstärken, Säule verlängern, Klettern), Luminator (`LuminatorBlock` + `LuminatorBlockEntity`, ein Block mit
+  `lit`/`full_cover`; Kabel verbinden sich nur über die Halteseite).
+- Items: Bauschaum-Pellet, Bauschaumsprüher (`FoamSprayerItem`, `GradualItem` 1602, Füllen über
+  `craft:gradual_repair`), CF-Pack (`CfPackItem`, BatPack-Rüstungsbild). Canning Machine Modus 3 (+ Fortschrittsanzeige,
+  EMI-Rezept). Rezepte inkl. Compressor Bauschaum → Pellet, Holzgerüst 4 (GT). Tags: Holzgerüst in Werkzeugkasten und
+  Recycler-Blacklist. Texturen aus `block_0.png`/`item_0.png`.
+- `abweichungen.md`: CF-Pack umgesetzt, Luminator als ein Block, Normalwürfel = `isRedstoneConductor`,
+  Bauschaum-Platzierbarkeit, Wand ohne Item. `testplan.md` 3.21–3.24.
+- 9 neue GameTests (`ConstructionFoamGameTests`, Canner `fillsCfPack`); `gradlew build`, **275 GameTests grün**.
+  **`runClient` nicht gestartet** (Nutzer, 2026-10-16: Launcher vorerst nicht starten).
+
 ## Nächste Schritte
-1. 12.2: Bauschaum komplett (Pellet, Sprüher, CF-Pack, Schaum/Wand, Gerüste, Canner-Modus 3, Kabelschaum) +
-   Luminator. Die Bauschaumwand implementiert `PaintableBlock`; Gerüst/Sprüher in die Werkzeugkasten-Tags eintragen.
+1. 12.3: Miner (+ Miner-Lava, `spec/17` §3). GUI-Layout, Fortschritt, Verhalten ohne Scanner und Drop-Verteilung
+   zuerst in `spec/04` nachtragen; nutzt IC2-Pumpe, Bergbaurohr und OD/OV-Scanner.

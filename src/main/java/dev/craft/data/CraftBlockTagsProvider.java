@@ -84,6 +84,9 @@ public final class CraftBlockTagsProvider extends BlockTagsProvider {
         tag(BlockTags.MINEABLE_WITH_PICKAXE).add(Ic2Blocks.REINFORCED_STONE.get(), Ic2Blocks.REINFORCED_DOOR.get());
         tag(BlockTags.NEEDS_IRON_TOOL).add(Ic2Blocks.REINFORCED_STONE.get(), Ic2Blocks.REINFORCED_DOOR.get());
         tag(BlockTags.DOORS).add(Ic2Blocks.REINFORCED_DOOR.get());
+        tag(BlockTags.MINEABLE_WITH_PICKAXE).add(Ic2Blocks.CONSTRUCTION_FOAM_WALL.get(),
+                Ic2Blocks.IRON_SCAFFOLD.get());
+        tag(BlockTags.MINEABLE_WITH_AXE).add(Ic2Blocks.WOODEN_SCAFFOLD.get());
         // Reactor meltdown (1.4.7 materials): unbreakable rock/iron blocks → lava; wood, leaves, cloth → fire.
         tag(NuclearReactorBlockEntity.MELTDOWN_LAVA).add(Blocks.BEDROCK, Blocks.REINFORCED_DEEPSLATE,
                 Blocks.COMMAND_BLOCK, Blocks.CHAIN_COMMAND_BLOCK, Blocks.REPEATING_COMMAND_BLOCK);

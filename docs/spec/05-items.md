@@ -256,6 +256,28 @@ Schraubenschlüssel, Bergbaulaser, Farbroller (Modus), Jetpack (Vorwärts/Spring
 | Fernzünder (`itemRemote`) | – | Verknüpft Dynamit-Blöcke (NBT-Liste), Rechtsklick zündet alle |
 | Debug-Item | – | nur Entwickler |
 
+### 4.2 Bauschaum-Werkzeuge (nachgetragen für Phase 12.2)
+
+- **Bauschaum-Pellet** (`itemPartPellet`, „CF Pellet“, Sprite `item_0.png` 44): Compressor Bauschaum → Pellet.
+- **Bauschaumsprüher** (`ItemSprayer`, „CF Sprayer“, Sprite 45, `ItemGradual` mit Haltbarkeit 1602, nicht
+  reparierbar, nicht in den Werkzeugkasten): Rezept liefert ihn leer (Schaden 1601); Füllen über `RecipeGradual`
+  (Sprüher + beliebig viele Pellets, je Pellet −100, mindestens 0). Rechtsklick (nur Server): **zuerst** wird, falls
+  ein CF-Pack in der Brust steckt, 1 Pellet daraus genommen (auch wenn danach nichts gesprüht wird); ohne Pack-Pellet
+  braucht der Sprüher Schaden ≤ 1501. Geklickter Block = **Holzgerüst** → Gerüstmodus an genau diesem Block, sonst
+  Start im Nachbarblock an der geklickten Seite. Kosten je erfolgreichem Stoß +100 Schaden (auch im Kreativmodus),
+  nichts bei Pack-Pellet.
+- **Sprühen** (`sprayFoam`, Masse 13): Startblock muss passen (Schaummodus: Luft, Feuer, Flüssigkeit oder Kabel;
+  Gerüstmodus: Holzgerüst), sonst Fehlschlag. Breitensuche über eine Prüfliste (jede Position nur einmal); jede
+  passende Position kommt in die Ergebnisliste, kostet 1 Masse und hängt ihre sechs Nachbarn in **zufälliger**
+  Reihenfolge an (16 Zufallstausche von unten/oben/N/S/W/O). Im Schaummodus nur Richtungen, die vom Spieler weg
+  zeigen (`calculateDirectionsFromPlayer`: bei Nick −65…65° wird je nach Gier [ohne Normalisierung negativer Werte]
+  N (300–60°), O (30–150°), S (120–240°) bzw. W (210–330°) gesperrt; Nick ≤ −40° sperrt unten, ≥ 40° oben); im
+  Gerüstmodus alle sechs. Danach: Holzgerüst → droppt wie abgebaut und wird Schaum; Kabel → nasser Kabelschaum
+  (auch ausgehärteter Schaum wird wieder nass); sonst Schaumblock. Eisengerüste werden nie ersetzt.
+- **CF-Pack** (`ItemArmorCFPack`, „CF Backpack“, Sprite 46, Rüstungsbild des BatPacks, Haltbarkeit 260): Schaden =
+  verbrauchte Pellets, Rezept liefert ihn leer (259). `getCFPellet`: Schaden < 259 → +1. Utility-Rüstung ohne
+  Schutz; Forge-`isRepairable` = ja (zwei Packs im Raster kombinieren). Canner-Modus 3 siehe `04-maschinen.md`.
+
 ### 4.1 Details aus dem Original (nachgetragen für Phase 12.1)
 
 - **Isolierungsschneider** (Sprite `item_0.png` 92): Rechtsklick auf Kabel = Isolierung hinzufügen (Übergänge
@@ -597,6 +619,28 @@ Rezept 8 Stück `SSS/SAS/SSS` (S = Stein, A = fortgeschrittene Legierung). **Ver
 Sprites 14 oben/15 unten, Item-Sprite `item_0.png` 102, Material Eisen → nur per Redstone zu öffnen, Härte 50,
 Resistenz 90, Klang Metall): Rezept `SS/SS/SS` aus verstärktem Stein; untere Hälfte droppt die Tür. GT nutzt
 verstärkten Stein nur für iridium-/wolframstahlverstärkten Stein (nicht im Umfang).
+
+**Bauschaum** (`BlockFoam`, nachgetragen für Phase 12.2; Sprite `block_0.png` 37, Material Feuer → ersetzbar,
+keine Kollision, beim Schieben zerstört; Klang Stoff; Härte 0,01, `setResistance(10)` = 6; kein Drop, auch nicht mit
+Behutsamkeit; zählt als Normalwürfel): härtet bei Zufallsticks und – nach einem misslungenen Versuch – 500 Ticks später
+erneut: `Lichtwert(Block) · 6 ≥ random(1000)` → Bauschaumwand Farbe 7 (hellgrau). Rechtsklick mit Sand härtet sofort
+(1 Sand, im Kreativmodus keiner). Rezept 3 Stück formlos Tonstaub + Wasser + Redstone + Kohlestaub.
+**Bauschaumwand** (`BlockWall`, Sprites 96–111 = Farbe 0–15, Material Stein, Klang Stein, Härte 3,
+`setResistance(30)` = 18): Meta = IC2-Farbe, färbbar mit dem Farbroller (`IPaintableBlock`), kein Drop,
+Pick-Block = Bauschaum, kein Creative-Eintrag.
+
+**Gerüste** (`BlockScaffold`, nachgetragen für Phase 12.2): Holz (Sprites 116 Seite/117 oben-unten/118 Seite
+verstärkt, Holz, Härte 0,5, `setResistance(0.2)` = 0,12, brennbar 8/20, im Werkzeugkasten, Recycler-Blacklist) und
+Eisen (Sprites 132–134, Eisen, Härte 0,8, Resistenz 6, Klang Metall). Meta = **Stärke**: Standard 2 (Eisen 5),
+verstärkt 5 (Eisen 12). `getStrengthFrom` = max(Standard + 1, falls der Block darunter eine **Säule** ist [Gerüstsäule
+gleicher Art, die auf einem Normalwürfel steht, oder der Normalwürfel selbst]; Stärke des Gerüsts darunter und der vier
+waagerechten Nachbarn gleicher Art, je höchstens „verstärkt“) − 1. Platzierbar nur bei Ergebnis ≥ 0; Nachbaränderung
+→ Tick nach 1: verstärktes Gerüst ohne Säule droppt die Verstärkung und rechnet neu, sonst neu rechnen; < 0 → Block
+weg, droppt sich selbst. Rechtsklick (nicht schleichend) auf eine nicht verstärkte Säule mit ≥ 2 Stöcken (Holz) bzw.
+1 Eisenzaun (Eisen) → verstärkt (verbraucht auch im Kreativmodus). Linksklick mit dem Gerüst-Item → oben auf die
+Säule ein weiteres Gerüst (unter Welthöhe, ersetzbarer Platz, Stärke ≥ 0). Drop: sich selbst, verstärkt zusätzlich
+2 Stöcke bzw. 1 Eisenzaun. Kollision waagerecht 1/16 eingerückt; Spieler darin: Fallhöhe 0, `motionY ≥ −0,15`,
+Vorwärtstaste → `motionY = 0,2` (Klettern). Rezepte: Holz **4** (GT) `PPP/ s /s s`, Eisen 16 (raff. Eisen + Eisenzaun).
 
 **Eisenzaun** (`BlockPoleFence`, Sprite `block_0.png` 1, Material Eisen, kein Vollblock): verbindet sich **nur mit
 anderen Eisenzäunen** (Nord/Süd/West/Ost). Pfosten 0,25 × 0,25 (Mitte), Kollision 1,5 hoch, Auswahl 1 hoch; je

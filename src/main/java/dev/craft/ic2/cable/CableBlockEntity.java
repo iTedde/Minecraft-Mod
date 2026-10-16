@@ -6,6 +6,7 @@ import dev.craft.core.energy.EnergySink;
 import dev.craft.core.energy.EnergySource;
 import dev.craft.core.energy.EnergyTile;
 import dev.craft.ic2.Ic2BlockEntityTypes;
+import dev.craft.ic2.block.LuminatorBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -78,6 +79,9 @@ public class CableBlockEntity extends BlockEntity implements EnergyConductor {
         if (tile instanceof CableBlockEntity cable) {
             return canInteractWithCable(cable);
         }
+        if (tile instanceof LuminatorBlockEntity luminator) {
+            return luminator.canCableConnectFrom(worldPosition);
+        }
         return tile instanceof EnergySink || tile instanceof EnergySource || tile instanceof EnergyConductor;
     }
 
@@ -108,7 +112,10 @@ public class CableBlockEntity extends BlockEntity implements EnergyConductor {
 
     @Override
     public boolean emitsEnergyTo(EnergyTile receiver, Direction direction) {
-        return !(receiver instanceof CableBlockEntity cable) || canInteractWithCable(cable);
+        if (receiver instanceof CableBlockEntity cable) {
+            return canInteractWithCable(cable);
+        }
+        return !(receiver instanceof LuminatorBlockEntity luminator) || luminator.canCableConnectFrom(worldPosition);
     }
 
     @Override

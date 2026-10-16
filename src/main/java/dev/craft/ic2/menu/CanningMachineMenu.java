@@ -36,7 +36,7 @@ public class CanningMachineMenu extends MachineMenu<CanningMachineBlockEntity> {
         addPlayerInventory(inventory);
     }
 
-    /** {@code gaugeProgressScaled}: the divisor is 50 per food value in food mode, otherwise 600. */
+    /** {@code gaugeProgressScaled}: the divisor is 50 per food value in food mode, 50 for CF packs, else 600. */
     private static int getGaugeLength(CanningMachineBlockEntity canner) {
         if (canner.getMode() == CanningMachineBlockEntity.MODE_FOOD) {
             int food = CanningMachineBlockEntity.getFoodValue(
@@ -44,6 +44,9 @@ public class CanningMachineMenu extends MachineMenu<CanningMachineBlockEntity> {
             if (food > 0) {
                 return 50 * food;
             }
+        }
+        if (canner.getMode() == CanningMachineBlockEntity.MODE_CF_PACK) {
+            return CanningMachineBlockEntity.CF_PACK_LENGTH;
         }
         return CanningMachineBlockEntity.OPERATION_LENGTH;
     }

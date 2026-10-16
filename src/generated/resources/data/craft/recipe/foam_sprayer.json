@@ -1,0 +1,23 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "S": {
+      "item": "minecraft:cobblestone"
+    },
+    "s": {
+      "item": "minecraft:stick"
+    }
+  },
+  "pattern": [
+    "SS ",
+    "Ss ",
+    "  S"
+  ],
+  "result": {
+    "components": {
+      "minecraft:damage": 1601
+    },
+    "count": 1,
+    "id": "craft:foam_sprayer"
+  }
+}

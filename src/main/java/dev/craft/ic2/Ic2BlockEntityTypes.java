@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.function.Supplier;
 
 import dev.craft.Craft;
+import dev.craft.ic2.block.LuminatorBlockEntity;
 import dev.craft.ic2.cable.CableBlockEntity;
 import dev.craft.ic2.cable.CableType;
 import dev.craft.ic2.machine.MachineBlock;
@@ -27,6 +28,10 @@ public final class Ic2BlockEntityTypes {
     public static final Supplier<BlockEntityType<ReactorChamberBlockEntity>> REACTOR_CHAMBER =
             BLOCK_ENTITY_TYPES.register("reactor_chamber", () -> BlockEntityType.Builder.of(
                     ReactorChamberBlockEntity::new, Ic2Blocks.REACTOR_CHAMBER.get()).build(null));
+
+    public static final Supplier<BlockEntityType<LuminatorBlockEntity>> LUMINATOR =
+            BLOCK_ENTITY_TYPES.register("luminator", () -> BlockEntityType.Builder.of(
+                    LuminatorBlockEntity::new, Ic2Blocks.LUMINATOR.get()).build(null));
 
     private static final Map<Ic2Machine, Supplier<BlockEntityType<MachineBlockEntity>>> MACHINES =
             new EnumMap<>(Ic2Machine.class);

@@ -1,0 +1,33 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "C": {
+      "item": "craft:electronic_circuit"
+    },
+    "F": {
+      "item": "craft:empty_fuel_can"
+    },
+    "S": {
+      "type": "neoforge:components",
+      "components": {
+        "minecraft:damage": 1601
+      },
+      "items": "craft:foam_sprayer"
+    },
+    "T": {
+      "tag": "c:ingots/tin"
+    }
+  },
+  "pattern": [
+    "SCS",
+    "FTF",
+    "F F"
+  ],
+  "result": {
+    "components": {
+      "minecraft:damage": 259
+    },
+    "count": 1,
+    "id": "craft:cf_pack"
+  }
+}

@@ -21,6 +21,7 @@ import dev.craft.ic2.item.ToolboxItem;
 import dev.craft.ic2.item.TreetapItem;
 import dev.craft.ic2.item.UpgradeModuleItem;
 import dev.craft.ic2.item.WrenchItem;
+import dev.craft.ic2.item.armor.CfPackItem;
 import dev.craft.ic2.item.armor.ElectricJetpackItem;
 import dev.craft.ic2.item.armor.EnergyPackItem;
 import dev.craft.ic2.item.armor.HazmatArmorItem;
@@ -46,6 +47,7 @@ import dev.craft.ic2.item.tool.DrillItem;
 import dev.craft.ic2.item.tool.ElectricHoeItem;
 import dev.craft.ic2.item.tool.ElectricTreetapItem;
 import dev.craft.ic2.item.tool.EuMeterItem;
+import dev.craft.ic2.item.tool.FoamSprayerItem;
 import dev.craft.ic2.item.tool.InsulationCutterItem;
 import dev.craft.ic2.item.tool.MiningLaserItem;
 import dev.craft.ic2.item.tool.NanoSaberItem;
@@ -108,6 +110,11 @@ public final class Ic2Items {
             ITEMS.registerSimpleBlockItem(Ic2Blocks.REINFORCED_STONE);
     public static final DeferredItem<BlockItem> RUBBER_MAT = ITEMS.registerSimpleBlockItem(Ic2Blocks.RUBBER_MAT,
             new Item.Properties().rarity(Rarity.UNCOMMON));
+    public static final DeferredItem<BlockItem> CONSTRUCTION_FOAM =
+            ITEMS.registerSimpleBlockItem(Ic2Blocks.CONSTRUCTION_FOAM);
+    public static final DeferredItem<BlockItem> WOODEN_SCAFFOLD = ITEMS.registerSimpleBlockItem(Ic2Blocks.WOODEN_SCAFFOLD);
+    public static final DeferredItem<BlockItem> IRON_SCAFFOLD = ITEMS.registerSimpleBlockItem(Ic2Blocks.IRON_SCAFFOLD);
+    public static final DeferredItem<BlockItem> LUMINATOR = ITEMS.registerSimpleBlockItem(Ic2Blocks.LUMINATOR);
     /** IC2 {@code ItemIC2Door} ({@code itemDoorAlloy}) with its own icon. */
     public static final DeferredItem<DoubleHighBlockItem> REINFORCED_DOOR = simple(ITEMS.registerItem(
             "reinforced_door", properties -> new DoubleHighBlockItem(Ic2Blocks.REINFORCED_DOOR.get(), properties)));
@@ -138,6 +145,7 @@ public final class Ic2Items {
     /** Industrial credit (IC2 {@code itemCoin}), not in the creative tab. */
     public static final DeferredItem<Item> COIN = simple("coin");
     public static final DeferredItem<Item> SCRAP = simple("scrap");
+    public static final DeferredItem<Item> CONSTRUCTION_FOAM_PELLET = simple("construction_foam_pellet");
     public static final DeferredItem<ScrapBoxItem> SCRAP_BOX = simple(ITEMS.registerItem("scrap_box", ScrapBoxItem::new));
     public static final DeferredItem<Item> UU_MATTER = simple("uu_matter", new Item.Properties().rarity(Rarity.RARE));
     public static final DeferredItem<Item> IRIDIUM_ORE = simple("iridium_ore", new Item.Properties().rarity(Rarity.RARE));
@@ -247,6 +255,8 @@ public final class Ic2Items {
     public static final DeferredItem<WrenchItem> WRENCH = simple(ITEMS.registerItem("wrench", WrenchItem::new));
     public static final DeferredItem<InsulationCutterItem> INSULATION_CUTTER =
             simple(ITEMS.registerItem("insulation_cutter", InsulationCutterItem::new));
+    public static final DeferredItem<FoamSprayerItem> FOAM_SPRAYER =
+            simple(ITEMS.registerItem("foam_sprayer", FoamSprayerItem::new));
     public static final DeferredItem<EuMeterItem> EU_METER = simple(ITEMS.registerItem("eu_meter", EuMeterItem::new));
     public static final DeferredItem<ToolboxItem> TOOLBOX = ITEMS.registerItem("toolbox", ToolboxItem::new);
     /** Empty painter (IC2 {@code itemToolPainter}, a plain item). */
@@ -312,6 +322,7 @@ public final class Ic2Items {
     public static final DeferredItem<EnergyPackItem> LAPPACK = armor("lappack",
             properties -> new EnergyPackItem(Ic2ArmorMaterials.LAPPACK, properties.rarity(Rarity.UNCOMMON), 300000,
                     250, 2));
+    public static final DeferredItem<CfPackItem> CF_PACK = armor("cf_pack", CfPackItem::new);
     public static final DeferredItem<SolarHelmetItem> SOLAR_HELMET = armor("solar_helmet", SolarHelmetItem::new);
     public static final DeferredItem<StaticBootsItem> STATIC_BOOTS = armor("static_boots", StaticBootsItem::new);
     public static final DeferredItem<NightvisionGogglesItem> NIGHTVISION_GOGGLES =

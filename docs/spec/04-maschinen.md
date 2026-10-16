@@ -468,6 +468,18 @@ Exakte Algorithmen: `reference/decompiled/ic2/ic2/core/item/tfbp/*.java` (für d
 - Verbrauch: 1 EU alle 4 Ticks. Bei Energie > 0 → aktiver Block; bei 0 → dunkler Block.
 - Überspannung (> 32): Block entfernt, `ExplosionIC2(power 0,5, drop 0,85, damage 2,0)`.
 
+**Details aus dem Original (nachgetragen für Phase 12.2):** Sprites `block_0.png` 30 (an) / 31 (aus), Material
+Redstone-Lampe, Klang Glas, **droppt nichts** (auch beim Abbau). Meta = geklickte Seite; Halt am Block dahinter:
+Normalwürfel oder „Sonder-Träger“ (Zaun, Eisenzaun, Kabel, verstärktes Glas, Glas). Fehlt der Halt nach einer
+Nachbaränderung, verschwindet er ohne Drop. Form: am Sonder-Träger eine 1-px-Platte über die ganze Fläche, sonst
+eine Leuchte (Decke 8×3×8 px, Wand 4×10×2 px; Boden immer volle 1-px-Platte); Kollision = Auswahl = Form.
+Energie: nimmt nur von Kabeln an, und ein Kabel verbindet sich/liefert nur, wenn es der Halteblock ist
+(`canCableConnectFrom`). `injectEnergy`: dunkel → zuerst hell (frisches Tile mit 0 EU), Puffer bis 10 031 (`max +
+maxInput − 1`), Rest zurück. Tick: alle 4 Ticks −1 EU (erster Abzug im ersten Tick), bei ≤ 0 dunkel (frisches Tile);
+das dunkle Tile zählt weiter ins Negative (erhöht nur den Bedarf). Rechtsklick mit elektrischem Item: entlädt bis zur
+Lücke (Tier 2, ohne Transferlimit), macht hell (auch bei 0 EU). Hell: berührende Monster brennen 20 s (Untote) bzw.
+10 s. Rezept 8 Stück `ICI/GTG/GGG`.
+
 ---
 
 ## Personal-Blöcke (`blockPersonal`, Resistenz 6 000 000)

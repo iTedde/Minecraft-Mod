@@ -149,7 +149,11 @@ Status: *geplant* (aus Phase 1 abgeleitet, noch nicht umgesetzt), *entschieden* 
 | Jetpack: Welthöhe | `getHeight()` = 256 | `getMaxBuildHeight()` (Oberwelt 320) | Welthöhe | **umgesetzt** |
 | Jetpack: Sound | IC2-AudioManager „Rucksack“-Position | mitlaufender Loop am lokalen Spieler | API | **umgesetzt** |
 | Jetpack: Betankung | Canning Machine | Canning Machine Modus 2 wie im Original (neues Jetpack mit `damage − fuelQuality`, Schwebemodus/Timer gehen dabei verloren wie das Original-NBT) | – | **umgesetzt** (6b.5a) |
-| CF-Pack | Pellet-Vorrat für den Bauschaumsprüher | kommt mit dem Bauschaumsprüher (Rezept braucht ihn), ebenso Modus 3 der Canning Machine (Pack mit Pellets füllen) | Item fehlt noch | **offen** |
+| CF-Pack | Pellet-Vorrat für den Bauschaumsprüher | wie im Original (12.2), inkl. Canning Machine Modus 3 | – | **umgesetzt** (12.2) |
+| Luminator: zwei Blöcke | `blockLuminatorDark`/`blockLuminator`, Wechsel erzeugt ein neues Tile | ein Block mit `lit`; beim Umschalten werden Energie und Zähler wie bei einem frischen Tile zurückgesetzt; Halteform (Platte/Leuchte) als Blockstate `full_cover` | Blockstates statt Block-IDs; Modell statt eigenem Renderer | **umgesetzt** (12.2) |
+| „Normalwürfel“ (`isBlockNormalCube`) | Gerüstsäule, Luminator-Halt | `isRedstoneConductor` (Bauschaum wie im Original: zählt als Normalwürfel) | keine Materialien | **umgesetzt** (12.2) |
+| Bauschaum: Platzierbarkeit | Material Feuer (ersetzbar), Sprühziel = Luft, Feuer, Flüssigkeit | Block `replaceable`; Sprühziel = Luft, Feuer oder ersetzbarer Flüssigkeitsblock (keine wassergeloggten Blöcke) | keine Materialien | **umgesetzt** (12.2) |
+| Bauschaumwand: Item | per `ItemBlockRare` registriert, aber nirgends erhältlich | kein Block-Item (Pick-Block = Bauschaum) | – | **umgesetzt** (12.2) |
 | Quantum-Rezepte | Iridiumplatte, verst. Glas, fortg. Schaltkreis … | IC2-Rezepte, seit 6b.5b (Iridiumplatte aus dem Implosionskompressor, verstärktes Glas) | – | **umgesetzt** (6b.5b) |
 | Static Boots: Position | NBT `x`/`z` | Data Component `craft:last_position` | Data Components | **umgesetzt** |
 | Jetpack: Modus/Timer | NBT `hoverMode`/`toggleTimer` | Data Components `craft:hover_mode`/`craft:toggle_timer` | Data Components | **umgesetzt** |

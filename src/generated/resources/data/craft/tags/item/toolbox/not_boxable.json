@@ -20,6 +20,7 @@
     "craft:neutron_reflector",
     "craft:thick_neutron_reflector",
     "craft:rsh_condensator",
-    "craft:lzh_condensator"
+    "craft:lzh_condensator",
+    "craft:foam_sprayer"
   ]
 }

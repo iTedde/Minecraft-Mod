@@ -1,0 +1,20 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "P": {
+      "tag": "minecraft:planks"
+    },
+    "s": {
+      "item": "minecraft:stick"
+    }
+  },
+  "pattern": [
+    "PPP",
+    " s ",
+    "s s"
+  ],
+  "result": {
+    "count": 4,
+    "id": "craft:wooden_scaffold"
+  }
+}

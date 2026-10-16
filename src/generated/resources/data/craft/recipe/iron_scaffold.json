@@ -1,0 +1,20 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "P": {
+      "tag": "c:ingots/refined_iron"
+    },
+    "s": {
+      "item": "craft:iron_fence"
+    }
+  },
+  "pattern": [
+    "PPP",
+    " s ",
+    "s s"
+  ],
+  "result": {
+    "count": 16,
+    "id": "craft:iron_scaffold"
+  }
+}

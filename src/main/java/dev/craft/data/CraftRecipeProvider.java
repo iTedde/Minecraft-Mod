@@ -36,6 +36,8 @@ import dev.craft.ic2.item.FilledTinCanItem;
 import dev.craft.ic2.machine.CanningMachineBlockEntity;
 import dev.craft.ic2.recipe.Ic2ShapedRecipe;
 import dev.craft.ic2.recipe.GradualRepairRecipe;
+import dev.craft.ic2.item.armor.CfPackItem;
+import dev.craft.ic2.item.tool.FoamSprayerItem;
 import dev.craft.ic2.recipe.Ic2ShapelessRecipe;
 import dev.craft.ic2.recipe.MachineRecipe;
 import dev.craft.powerconverters.ConverterType;
@@ -1217,6 +1219,11 @@ public final class CraftRecipeProvider extends RecipeProvider {
         shaped(Ic2Items.JETPACK, 1, "jetpack").pattern("ICI").pattern("IFI").pattern("R R")
                 .define('I', CraftItemTagsProvider.INGOTS_REFINED_IRON).define('C', Ic2Items.ELECTRONIC_CIRCUIT)
                 .define('F', Ic2Items.EMPTY_FUEL_CAN).define('R', Items.REDSTONE).damage(18001).save();
+        shaped(Ic2Items.CF_PACK, 1, "cf_pack").pattern("SCS", "FTF", "F F")
+                .define('S', DataComponentIngredient.of(false, DataComponents.DAMAGE, FoamSprayerItem.EMPTY_DAMAGE,
+                        Ic2Items.FOAM_SPRAYER))
+                .define('C', Ic2Items.ELECTRONIC_CIRCUIT).define('F', Ic2Items.EMPTY_FUEL_CAN)
+                .define('T', CraftItemTagsProvider.INGOTS_TIN).damage(CfPackItem.EMPTY_DAMAGE).save();
         shaped(Ic2Items.ELECTRIC_JETPACK, 1, "electric_jetpack").pattern("ICI").pattern("IBI").pattern("G G")
                 .define('I', CraftItemTagsProvider.INGOTS_REFINED_IRON).define('C', Ic2Items.ADVANCED_CIRCUIT)
                 .define('B', Ic2Items.machine(Ic2Machine.BATBOX)).define('G', Items.GLOWSTONE_DUST).save();
@@ -1251,6 +1258,10 @@ public final class CraftRecipeProvider extends RecipeProvider {
                 .define('I', CraftItemTagsProvider.INGOTS_REFINED_IRON).save();
         shaped(Ic2Items.EU_METER, 1, "eu_meter").pattern(" G ", "cCc", "c c").define('G', Items.GLOWSTONE_DUST)
                 .define('c', Ic2Items.cable(CableType.INSULATED_COPPER)).define('C', Ic2Items.ELECTRONIC_CIRCUIT).save();
+        shaped(Ic2Items.FOAM_SPRAYER, 1, "foam_sprayer").pattern("SS ", "Ss ", "  S").define('S', Items.COBBLESTONE)
+                .define('s', Items.STICK).damage(FoamSprayerItem.EMPTY_DAMAGE).save();
+        gradualRepair("foam_sprayer_fill", Ic2Items.FOAM_SPRAYER.get(), Ingredient.of(Ic2Items.CONSTRUCTION_FOAM_PELLET),
+                FoamSprayerItem.DAMAGE_PER_SPRAY);
         // 1.4.7 block ingredient = metadata 0 only, i.e. white wool.
         shaped(Ic2Items.PAINTER, 1, "painter").pattern(" CC", " IC", "I  ").define('C', Items.WHITE_WOOL)
                 .define('I', Items.IRON_INGOT).save();
@@ -2021,6 +2032,17 @@ public final class CraftRecipeProvider extends RecipeProvider {
         shaped(Ic2Items.REINFORCED_DOOR, 1, "reinforced_door").pattern("SS", "SS", "SS")
                 .define('S', Ic2Items.REINFORCED_STONE).save();
         shaped(Ic2Items.RUBBER_MAT, 3, "rubber_mat").pattern("RRR", "RRR").define('R', Ic2Items.RUBBER).save();
+        shapeless(Ic2Items.CONSTRUCTION_FOAM, 3, "construction_foam", Ingredient.of(CraftItemTagsProvider.DUSTS_CLAY),
+                water(), Ingredient.of(Items.REDSTONE), Ingredient.of(CraftItemTagsProvider.DUSTS_COAL));
+        // GregTech: 4 wooden scaffolds instead of 16.
+        shaped(Ic2Items.WOODEN_SCAFFOLD, 4, "wooden_scaffold").pattern("PPP", " s ", "s s").define('P', ItemTags.PLANKS)
+                .define('s', Items.STICK).save();
+        shaped(Ic2Items.IRON_SCAFFOLD, 16, "iron_scaffold").pattern("PPP", " s ", "s s")
+                .define('P', CraftItemTagsProvider.INGOTS_REFINED_IRON).define('s', Ic2Items.IRON_FENCE).save();
+        shaped(Ic2Items.LUMINATOR, 8, "luminator").pattern("ICI", "GTG", "GGG")
+                .define('I', CraftItemTagsProvider.INGOTS_REFINED_IRON)
+                .define('C', Ic2Items.cable(CableType.INSULATED_COPPER)).define('T', Ic2Items.cable(CableType.TIN))
+                .define('G', Items.GLASS).save();
         // Config enableCraftingCoin = true.
         shaped(Ic2Items.COIN, 16, "coin").pattern("II", "II").define('I', CraftItemTagsProvider.INGOTS_REFINED_IRON)
                 .save();
@@ -2176,6 +2198,8 @@ public final class CraftRecipeProvider extends RecipeProvider {
         machine(MachineRecipe.Kind.COMPRESSOR, "coal_chunk", Ingredient.of(Ic2Items.COAL_CHUNK), 1,
                 Ic2Items.INDUSTRIAL_DIAMOND, 1);
         machine(MachineRecipe.Kind.COMPRESSOR, "empty_cell", Ingredient.of(Ic2Items.EMPTY_CELL), 1, Ic2Items.AIR_CELL, 1);
+        machine(MachineRecipe.Kind.COMPRESSOR, "construction_foam", Ingredient.of(Ic2Items.CONSTRUCTION_FOAM), 1,
+                Ic2Items.CONSTRUCTION_FOAM_PELLET, 1);
         machine(MachineRecipe.Kind.COMPRESSOR, "clay_ball", Ingredient.of(Items.CLAY_BALL), 4, Items.CLAY, 1);
         machine(MachineRecipe.Kind.COMPRESSOR, "glowstone_dust", Ingredient.of(Items.GLOWSTONE_DUST), 4,
                 Items.GLOWSTONE, 1);

@@ -22,6 +22,7 @@ import dev.craft.ic2.Ic2Blocks;
 import dev.craft.ic2.Ic2Items;
 import dev.craft.ic2.Ic2Machine;
 import dev.craft.ic2.block.RubberWoodBlock;
+import dev.craft.ic2.block.ScaffoldBlock;
 import dev.craft.ic2.cable.CableType;
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
 import net.minecraft.core.HolderLookup;
@@ -34,6 +35,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
@@ -119,6 +121,11 @@ public final class CraftBlockLoot extends BlockLootSubProvider {
             dropSelf(block.get());
         }
         resinSheet();
+        add(Ic2Blocks.CONSTRUCTION_FOAM.get(), noDrop());
+        add(Ic2Blocks.CONSTRUCTION_FOAM_WALL.get(), noDrop());
+        add(Ic2Blocks.LUMINATOR.get(), noDrop());
+        scaffold(Ic2Blocks.WOODEN_SCAFFOLD.get(), Items.STICK, 2);
+        scaffold(Ic2Blocks.IRON_SCAFFOLD.get(), Ic2Items.IRON_FENCE.get(), 1);
         rubberWood();
         rubberLeaves();
     }
@@ -166,6 +173,19 @@ public final class CraftBlockLoot extends BlockLootSubProvider {
                         .setProperties(StatePropertiesPredicate.Builder.properties()
                                 .hasProperty(RubberWoodBlock.RESIN, RubberWoodBlock.Resin.NONE)).invert())
                 .when(LootItemRandomChanceCondition.randomChance(1.0F / 6.0F)))));
+    }
+
+    /** IC2 {@code BlockScaffold}: itself, plus the reinforcement when reinforced. */
+    private void scaffold(ScaffoldBlock block, Item reinforcement, int count) {
+        add(block, LootTable.lootTable()
+                .withPool(applyExplosionCondition(block, LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+                        .add(LootItem.lootTableItem(block))))
+                .withPool(applyExplosionCondition(block, LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+                        .add(LootItem.lootTableItem(reinforcement)
+                                .apply(SetItemCountFunction.setCount(ConstantValue.exactly(count))))
+                        .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
+                                .setProperties(StatePropertiesPredicate.Builder.properties()
+                                        .hasProperty(ScaffoldBlock.STRENGTH, block.getReinforcedStrength()))))));
     }
 
     /** IC2 {@code BlockResin}: drops sticky resin with 4/5 chance. */

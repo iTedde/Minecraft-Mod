@@ -15,6 +15,7 @@
     "craft:splitter_cable",
     "craft:su_battery",
     "craft:re_battery",
-    "craft:ic2_mining_pipe"
+    "craft:ic2_mining_pipe",
+    "craft:wooden_scaffold"
   ]
 }

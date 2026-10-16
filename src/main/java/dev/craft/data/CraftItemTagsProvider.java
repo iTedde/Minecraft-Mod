@@ -124,7 +124,8 @@ public final class CraftItemTagsProvider extends ItemTagsProvider {
         for (CableType type : CableType.values()) {
             tag(ToolboxItem.BOXABLE).add(Ic2Items.cable(type).get());
         }
-        tag(ToolboxItem.BOXABLE).add(Ic2Items.SU_BATTERY.get(), Ic2Items.RE_BATTERY.get(), Ic2Items.MINING_PIPE.get());
+        tag(ToolboxItem.BOXABLE).add(Ic2Items.SU_BATTERY.get(), Ic2Items.RE_BATTERY.get(), Ic2Items.MINING_PIPE.get(),
+                Ic2Items.WOODEN_SCAFFOLD.get());
         tag(ToolboxItem.NOT_BOXABLE).add(Ic2Items.TOOLBOX.get(), Ic2Items.FILLED_FUEL_CAN.get());
         Ic2Items.ITEMS.getEntries().stream().map(DeferredHolder::get).filter(GradualItem.class::isInstance)
                 .forEach(item -> tag(ToolboxItem.NOT_BOXABLE).add(item));
@@ -225,9 +226,10 @@ public final class CraftItemTagsProvider extends ItemTagsProvider {
                 .addTag(DUSTS_PLATINUM).addTag(DUSTS_ZINC).addTag(DUSTS_CALCITE).addTag(DUSTS_MAGNESIUM)
                 .addTag(DUSTS_MANGANESE).addTag(DUSTS_TITANIUM).addTag(DUSTS_CHROME).addTag(DUSTS_TUNGSTEN);
 
-        // IC2 default blacklist (glass pane, stick, snowball) + pack config "102, 280, 332, 4081"; scaffold later.
+        // IC2 default blacklist (glass pane, stick, snowball, wooden scaffold) + pack config "102, 280, 332, 4081".
         tag(IronFenceBlock.METAL_BOOTS).add(Items.IRON_BOOTS, Items.GOLDEN_BOOTS, Items.CHAINMAIL_BOOTS,
                 Ic2Items.NANO_BOOTS.get(), Ic2Items.QUANTUM_BOOTS.get(), Ic2Items.STATIC_BOOTS.get());
-        tag(RecyclerBlockEntity.BLACKLIST).add(Items.GLASS_PANE, Items.STICK, Items.SNOWBALL);
+        tag(RecyclerBlockEntity.BLACKLIST).add(Items.GLASS_PANE, Items.STICK, Items.SNOWBALL,
+                Ic2Items.WOODEN_SCAFFOLD.get());
     }
 }

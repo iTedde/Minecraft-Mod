@@ -2,6 +2,7 @@
   "values": [
     "minecraft:glass_pane",
     "minecraft:stick",
-    "minecraft:snowball"
+    "minecraft:snowball",
+    "craft:wooden_scaffold"
   ]
 }

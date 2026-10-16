@@ -21,7 +21,10 @@ import dev.craft.gregtech.machine.GtMachineBlock;
 import dev.craft.gregtech.world.GtOre;
 import dev.craft.ic2.Ic2Blocks;
 import dev.craft.ic2.Ic2Machine;
+import dev.craft.ic2.block.ConstructionFoamWallBlock;
+import dev.craft.ic2.block.LuminatorBlock;
 import dev.craft.ic2.block.RubberWoodBlock;
+import dev.craft.ic2.block.ScaffoldBlock;
 import dev.craft.ic2.cable.CableType;
 import dev.craft.ic2.client.CableModel;
 import dev.craft.ic2.machine.MachineBlock;
@@ -33,12 +36,14 @@ import dev.craft.powerplants.PpBlocks;
 import dev.craft.powerplants.block.PlantControllerBlock;
 import dev.craft.powerconverters.block.PowerConverterBlock;
 import net.minecraft.core.Direction;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.PipeBlock;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.phys.AABB;
 import net.neoforged.neoforge.client.model.generators.BlockModelBuilder;
 import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
 import net.neoforged.neoforge.client.model.generators.ConfiguredModel;
@@ -95,6 +100,8 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
         simpleBlock(Ic2Blocks.RUBBER_SAPLING.get(), models().cross("rubber_sapling", modLoc("block/rubber_sapling"))
                 .renderType("cutout"));
         resinSheet();
+        constructionFoam();
+        luminator();
         engines();
         simpleBlock(BcBlocks.OIL.get(), models().getBuilder("oil").texture("particle", modLoc("block/oil_still")));
         landmark();
@@ -304,6 +311,47 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
             simpleBlock(BcBlocks.engine(type).get(), models().getBuilder(type.getName())
                     .texture("particle", mcLoc(particle)));
         }
+    }
+
+    /** Foam, the wall in 16 colors (the cable foam textures) and both scaffolds (reinforced: own side texture). */
+    private void constructionFoam() {
+        simpleBlockWithItem(Ic2Blocks.CONSTRUCTION_FOAM.get(), models().cubeAll("construction_foam",
+                modLoc("block/construction_foam")).renderType("cutout"));
+        getVariantBuilder(Ic2Blocks.CONSTRUCTION_FOAM_WALL.get()).forAllStates(state -> {
+            int color = state.getValue(ConstructionFoamWallBlock.COLOR);
+            return ConfiguredModel.builder().modelFile(models().cubeAll("construction_foam_wall_" + color,
+                    CableModel.foamTexture(color))).build();
+        });
+        for (ScaffoldBlock block : new ScaffoldBlock[]{Ic2Blocks.WOODEN_SCAFFOLD.get(), Ic2Blocks.IRON_SCAFFOLD.get()}) {
+            String name = BuiltInRegistries.BLOCK.getKey(block).getPath();
+            ResourceLocation top = modLoc("block/" + name + "_top");
+            ModelFile normal = models().cubeBottomTop(name, modLoc("block/" + name), top, top).renderType("cutout");
+            ModelFile reinforced = models().cubeBottomTop(name + "_reinforced", modLoc("block/" + name + "_reinforced"),
+                    top, top).renderType("cutout");
+            getVariantBuilder(block).forAllStates(state -> ConfiguredModel.builder()
+                    .modelFile(block.isReinforced(state) ? reinforced : normal).build());
+            simpleBlockItem(block, normal);
+        }
+    }
+
+    /** IC2 {@code RenderBlockLuminator}: the luminator box with the dark or lit texture on every face. */
+    private void luminator() {
+        LuminatorBlock block = Ic2Blocks.LUMINATOR.get();
+        getVariantBuilder(block).forAllStates(state -> {
+            Direction facing = state.getValue(LuminatorBlock.FACING);
+            boolean fullCover = state.getValue(LuminatorBlock.FULL_COVER);
+            boolean lit = state.getValue(LuminatorBlock.LIT);
+            String name = "luminator_" + (fullCover ? "full_" : "small_") + facing.getName() + (lit ? "_on" : "");
+            ResourceLocation texture = modLoc(lit ? "block/luminator_on" : "block/luminator");
+            AABB box = LuminatorBlock.shape(facing, fullCover).bounds();
+            BlockModelBuilder model = models().withExistingParent(name, mcLoc("block/block"))
+                    .texture("particle", texture).texture("texture", texture)
+                    .element().from((float) box.minX * 16, (float) box.minY * 16, (float) box.minZ * 16)
+                    .to((float) box.maxX * 16, (float) box.maxY * 16, (float) box.maxZ * 16)
+                    .allFaces((direction, face) -> face.texture("#texture")).end();
+            return ConfiguredModel.builder().modelFile(model).build();
+        });
+        simpleBlockItem(block, models().cubeAll("luminator_inventory", modLoc("block/luminator")));
     }
 
     /** IC2 {@code BlockResin}: a 2 px high layer with the resin texture on every face. */

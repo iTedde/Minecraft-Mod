@@ -38,6 +38,8 @@
     "craft:reactor_chamber",
     "craft:reinforced_stone",
     "craft:reinforced_door",
+    "craft:construction_foam_wall",
+    "craft:iron_scaffold",
     "craft:redstone_engine",
     "craft:stirling_engine",
     "craft:combustion_engine",

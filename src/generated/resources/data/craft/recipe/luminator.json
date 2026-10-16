@@ -1,0 +1,26 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "C": {
+      "item": "craft:insulated_copper_cable"
+    },
+    "G": {
+      "item": "minecraft:glass"
+    },
+    "I": {
+      "tag": "c:ingots/refined_iron"
+    },
+    "T": {
+      "item": "craft:tin_cable"
+    }
+  },
+  "pattern": [
+    "ICI",
+    "GTG",
+    "GGG"
+  ],
+  "result": {
+    "count": 8,
+    "id": "craft:luminator"
+  }
+}

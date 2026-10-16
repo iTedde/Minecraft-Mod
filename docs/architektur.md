@@ -80,6 +80,9 @@ ergänzen. Basispaket `dev.craft`, Einstieg `Craft` → `Ic2.init`, `BuildCraft.
 - Werkzeugkasten `ToolboxItem`: „boxable“ über die Item-Tags `craft:toolbox/boxable` (`IBoxable` = ja) und
   `craft:toolbox/not_boxable` (`IBoxable` = nein, z. B. alle `GradualItem`), sonst Stapelgröße ≤ 1 – neue Items
   (Dynamit, Dünger, Gerüst …) dort eintragen.
+- Bauschaum (Phase 12.2): `ic2/block/ConstructionFoamBlock` (Sprühziel `canFoamReplace`, `harden`), Wand
+  `ConstructionFoamWallBlock` (`COLOR`), Sprüher `FoamSprayerItem.sprayFoam` (auch für Kabel: `CableBlock.setFoam`),
+  `ScaffoldBlock` (Stärke/Säule), `LuminatorBlock(Entity)` (`canCableConnectFrom` wird von Kabeln abgefragt).
 
 ## Rezeptanzeige (EMI)
 

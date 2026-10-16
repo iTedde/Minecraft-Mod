@@ -1,0 +1,10 @@
+{
+  "type": "craft:compressor",
+  "ingredient": {
+    "item": "craft:construction_foam"
+  },
+  "result": {
+    "count": 1,
+    "id": "craft:construction_foam_pellet"
+  }
+}

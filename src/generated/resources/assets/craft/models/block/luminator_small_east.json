@@ -1,0 +1,41 @@
+{
+  "parent": "minecraft:block/block",
+  "elements": [
+    {
+      "faces": {
+        "down": {
+          "texture": "#texture"
+        },
+        "east": {
+          "texture": "#texture"
+        },
+        "north": {
+          "texture": "#texture"
+        },
+        "south": {
+          "texture": "#texture"
+        },
+        "up": {
+          "texture": "#texture"
+        },
+        "west": {
+          "texture": "#texture"
+        }
+      },
+      "from": [
+        0,
+        3,
+        6
+      ],
+      "to": [
+        2,
+        13,
+        10
+      ]
+    }
+  ],
+  "textures": {
+    "particle": "craft:block/luminator",
+    "texture": "craft:block/luminator"
+  }
+}

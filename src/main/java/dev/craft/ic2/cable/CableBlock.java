@@ -9,6 +9,7 @@ import dev.craft.core.energy.EnergySink;
 import dev.craft.core.energy.EnergySource;
 import dev.craft.ic2.Ic2BlockEntityTypes;
 import dev.craft.ic2.Ic2Blocks;
+import dev.craft.ic2.block.LuminatorBlockEntity;
 import dev.craft.ic2.block.PaintableBlock;
 import dev.craft.ic2.item.tool.InsulationCutterItem;
 import net.minecraft.core.BlockPos;
@@ -138,6 +139,9 @@ public class CableBlock extends BaseEntityBlock implements PaintableBlock {
             return self.canInteractWith(neighbor);
         }
         // placement: the new cable is unpainted and connects to every energy tile
+        if (neighbor instanceof LuminatorBlockEntity luminator) {
+            return luminator.canCableConnectFrom(pos);
+        }
         return neighbor instanceof CableBlockEntity
                 || neighbor instanceof EnergySink
                 || neighbor instanceof EnergySource

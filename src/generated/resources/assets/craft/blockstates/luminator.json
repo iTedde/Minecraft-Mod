@@ -1,0 +1,76 @@
+{
+  "variants": {
+    "facing=down,full_cover=false,lit=false": {
+      "model": "craft:block/luminator_small_down"
+    },
+    "facing=down,full_cover=false,lit=true": {
+      "model": "craft:block/luminator_small_down_on"
+    },
+    "facing=down,full_cover=true,lit=false": {
+      "model": "craft:block/luminator_full_down"
+    },
+    "facing=down,full_cover=true,lit=true": {
+      "model": "craft:block/luminator_full_down_on"
+    },
+    "facing=east,full_cover=false,lit=false": {
+      "model": "craft:block/luminator_small_east"
+    },
+    "facing=east,full_cover=false,lit=true": {
+      "model": "craft:block/luminator_small_east_on"
+    },
+    "facing=east,full_cover=true,lit=false": {
+      "model": "craft:block/luminator_full_east"
+    },
+    "facing=east,full_cover=true,lit=true": {
+      "model": "craft:block/luminator_full_east_on"
+    },
+    "facing=north,full_cover=false,lit=false": {
+      "model": "craft:block/luminator_small_north"
+    },
+    "facing=north,full_cover=false,lit=true": {
+      "model": "craft:block/luminator_small_north_on"
+    },
+    "facing=north,full_cover=true,lit=false": {
+      "model": "craft:block/luminator_full_north"
+    },
+    "facing=north,full_cover=true,lit=true": {
+      "model": "craft:block/luminator_full_north_on"
+    },
+    "facing=south,full_cover=false,lit=false": {
+      "model": "craft:block/luminator_small_south"
+    },
+    "facing=south,full_cover=false,lit=true": {
+      "model": "craft:block/luminator_small_south_on"
+    },
+    "facing=south,full_cover=true,lit=false": {
+      "model": "craft:block/luminator_full_south"
+    },
+    "facing=south,full_cover=true,lit=true": {
+      "model": "craft:block/luminator_full_south_on"
+    },
+    "facing=up,full_cover=false,lit=false": {
+      "model": "craft:block/luminator_small_up"
+    },
+    "facing=up,full_cover=false,lit=true": {
+      "model": "craft:block/luminator_small_up_on"
+    },
+    "facing=up,full_cover=true,lit=false": {
+      "model": "craft:block/luminator_full_up"
+    },
+    "facing=up,full_cover=true,lit=true": {
+      "model": "craft:block/luminator_full_up_on"
+    },
+    "facing=west,full_cover=false,lit=false": {
+      "model": "craft:block/luminator_small_west"
+    },
+    "facing=west,full_cover=false,lit=true": {
+      "model": "craft:block/luminator_small_west_on"
+    },
+    "facing=west,full_cover=true,lit=false": {
+      "model": "craft:block/luminator_full_west"
+    },
+    "facing=west,full_cover=true,lit=true": {
+      "model": "craft:block/luminator_full_west_on"
+    }
+  }
+}

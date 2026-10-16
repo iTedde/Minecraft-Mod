@@ -55,6 +55,10 @@ Testwelt. Sprache einmal Deutsch, einmal Englisch prüfen. EMI und Xaero's Minim
 | 3.18 | EU-Meter: erster Klick „Neue Messung“, zweiter Klick auf Kabel/Maschine/Generator zeigt rein/raus/Gewinn | 12.1 | |
 | 3.19 | Werkzeugkasten: Packen (Icon gefüllt, Name des ersten Inhalts), Auspacken in Hotbar-Slots 0–7, Rest fällt | 12.1 | |
 | 3.20 | Gummimatte zwischen zwei Blöcken über Luft: Sprung federt (höher mit Leertaste, schwach beim Schleichen), kein Fallschaden; Matte ohne Halt reißt; verstärkter Stein/Tür (Tür nur per Redstone) | 12.1 | |
+| 3.21 | Bauschaumsprüher: leer gecraftet, mit Pellets füllen (Balken), Sprühen füllt 13 Blöcke vom Spieler weg, Kabel werden nass geschäumt, Holzgerüst wird zu Schaum (droppt); mit CF-Pack ohne Sprüher-Verbrauch; CF-Pack im Canner füllen (Fortschrittspfeil je Pellet) | 12.2 | |
+| 3.22 | Bauschaum härtet bei Licht (im Dunkeln nicht), Sand härtet sofort; Wand färben (Farbroller), Wand droppt nichts, Pick-Block = Bauschaum | 12.2 | |
+| 3.23 | Gerüste: Säule bauen (Linksklick mit Gerüst), seitlich auskragen bis Stärke 0, verstärken (Stöcke/Eisenzaun, andere Textur), Unterbau entfernen → Gerüste fallen; Klettern mit Vorwärts, kein Fallschaden | 12.2 | |
+| 3.24 | Luminator: an Wand/Decke/Boden, auf Kabel als volle Platte; leuchtet nur mit Strom vom Halte-Kabel, verlischt ohne; Laden per Akku-Rechtsklick; Monster brennen; > 32 EU/t explodiert; Abbau droppt nichts | 12.2 | |
 
 ## 4. IC2 – Canning, Pumpe, Reaktor, Nuke (Phasen 6b, 7, 8)
 

@@ -10,6 +10,7 @@ import dev.craft.ic2.Ic2Items;
 import dev.craft.ic2.Ic2Machine;
 import dev.craft.ic2.item.FilledFuelCanItem;
 import dev.craft.ic2.item.FilledTinCanItem;
+import dev.craft.ic2.item.armor.CfPackItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
@@ -153,6 +154,26 @@ public final class CanningGameTests {
             ItemStack bucket = canner.getInventory().get(GtBasicMachineBlockEntity.SLOT_OUTPUT_2);
             helper.assertTrue(cell.is(Ic2Items.WATER_CELL.get()) || bucket.is(Ic2Items.WATER_CELL.get()), "water cell");
             helper.assertTrue(cell.is(Items.BUCKET) || bucket.is(Items.BUCKET), "bucket");
+        });
+    }
+
+    /** Mode 3: every 50 ticks one pellet takes 2 damage off the CF pack; without pellets the pack moves out. */
+    @GameTest(template = EMPTY, timeoutTicks = 200)
+    public static void fillsCfPack(GameTestHelper helper) {
+        CanningMachineBlockEntity canner = canner(helper);
+        canner.setEnergyForTest(CanningMachineBlockEntity.MAX_ENERGY);
+        canner.getInventory().set(CanningMachineBlockEntity.SLOT_INPUT,
+                new ItemStack(Ic2Items.CONSTRUCTION_FOAM_PELLET.get(), 3));
+        ItemStack pack = new ItemStack(Ic2Items.CF_PACK.get());
+        pack.setDamageValue(CfPackItem.EMPTY_DAMAGE);
+        canner.getInventory().set(CanningMachineBlockEntity.SLOT_CONTAINER, pack);
+        helper.assertValueEqual(canner.getMode(), CanningMachineBlockEntity.MODE_CF_PACK, "mode");
+        helper.succeedWhen(() -> {
+            ItemStack output = canner.getInventory().get(CanningMachineBlockEntity.SLOT_OUTPUT);
+            helper.assertTrue(output.is(Ic2Items.CF_PACK.get()), "pack in output");
+            helper.assertValueEqual(output.getDamageValue(), CfPackItem.EMPTY_DAMAGE - 6, "three pellets");
+            helper.assertTrue(canner.getInventory().get(CanningMachineBlockEntity.SLOT_CONTAINER).isEmpty(),
+                    "container slot empty");
         });
     }
 }

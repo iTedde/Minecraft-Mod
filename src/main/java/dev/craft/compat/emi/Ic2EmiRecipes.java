@@ -14,6 +14,7 @@ import dev.craft.ic2.generator.GeothermalGeneratorBlockEntity;
 import dev.craft.ic2.item.FilledFuelCanItem;
 import dev.craft.ic2.item.FilledTinCanItem;
 import dev.craft.ic2.item.ScrapBoxDrops;
+import dev.craft.ic2.item.armor.CfPackItem;
 import dev.craft.ic2.machine.CanningMachineBlockEntity;
 import dev.craft.ic2.machine.ElectrolyzerBlockEntity;
 import dev.craft.ic2.machine.MassFabricatorBlockEntity;
@@ -201,6 +202,17 @@ final class Ic2EmiRecipes {
         Component boosters = Component.translatable("emi.craft.canning_machine.boosters");
         fuelCan(registry, Ic2Items.COALFUEL_CELL.get(), CanningMachineBlockEntity.COALFUEL_VALUE, energy, boosters);
         fuelCan(registry, Ic2Items.BIOFUEL_CELL.get(), CanningMachineBlockEntity.BIOFUEL_VALUE, energy, boosters);
+        // Mode 3: 2 damage per pellet from empty (259) down to 1.
+        int pellets = (CfPackItem.EMPTY_DAMAGE - 1) / 2;
+        ItemStack emptyPack = new ItemStack(Ic2Items.CF_PACK.get());
+        emptyPack.setDamageValue(CfPackItem.EMPTY_DAMAGE);
+        ItemStack fullPack = new ItemStack(Ic2Items.CF_PACK.get());
+        fullPack.setDamageValue(CfPackItem.EMPTY_DAMAGE - 2 * pellets);
+        registry.addRecipe(new CraftEmiRecipe(CANNING_MACHINE, id("canning_machine/cf_pack"),
+                List.of(EmiStack.of(emptyPack), EmiStack.of(Ic2Items.CONSTRUCTION_FOAM_PELLET.get(), pellets)),
+                List.of(EmiStack.of(fullPack)), pellets * CanningMachineBlockEntity.CF_PACK_LENGTH,
+                List.of(Component.translatable("emi.craft.canning_machine.cf_pack",
+                        CanningMachineBlockEntity.CF_PACK_LENGTH))));
     }
 
     private static void fuelCan(EmiRegistry registry, Item cell, int value, Component energy, Component boosters) {

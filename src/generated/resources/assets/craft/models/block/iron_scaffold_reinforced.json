@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "bottom": "craft:block/iron_scaffold_top",
+    "side": "craft:block/iron_scaffold_reinforced",
+    "top": "craft:block/iron_scaffold_top"
+  }
+}

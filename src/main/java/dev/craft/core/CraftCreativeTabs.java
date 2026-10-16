@@ -61,6 +61,10 @@ public final class CraftCreativeTabs {
                 output.accept(Ic2Items.REINFORCED_GLASS);
                 output.accept(Ic2Items.REINFORCED_STONE);
                 output.accept(Ic2Items.RUBBER_MAT);
+                output.accept(Ic2Items.CONSTRUCTION_FOAM);
+                output.accept(Ic2Items.WOODEN_SCAFFOLD);
+                output.accept(Ic2Items.IRON_SCAFFOLD);
+                output.accept(Ic2Items.LUMINATOR);
                 output.accept(Ic2Items.INDUSTRIAL_TNT);
                 output.accept(Ic2Items.NUKE);
                 output.accept(Ic2Items.TOOLBOX);

@@ -1,0 +1,52 @@
+{
+  "variants": {
+    "color=0": {
+      "model": "craft:block/construction_foam_wall_0"
+    },
+    "color=1": {
+      "model": "craft:block/construction_foam_wall_1"
+    },
+    "color=10": {
+      "model": "craft:block/construction_foam_wall_10"
+    },
+    "color=11": {
+      "model": "craft:block/construction_foam_wall_11"
+    },
+    "color=12": {
+      "model": "craft:block/construction_foam_wall_12"
+    },
+    "color=13": {
+      "model": "craft:block/construction_foam_wall_13"
+    },
+    "color=14": {
+      "model": "craft:block/construction_foam_wall_14"
+    },
+    "color=15": {
+      "model": "craft:block/construction_foam_wall_15"
+    },
+    "color=2": {
+      "model": "craft:block/construction_foam_wall_2"
+    },
+    "color=3": {
+      "model": "craft:block/construction_foam_wall_3"
+    },
+    "color=4": {
+      "model": "craft:block/construction_foam_wall_4"
+    },
+    "color=5": {
+      "model": "craft:block/construction_foam_wall_5"
+    },
+    "color=6": {
+      "model": "craft:block/construction_foam_wall_6"
+    },
+    "color=7": {
+      "model": "craft:block/construction_foam_wall_7"
+    },
+    "color=8": {
+      "model": "craft:block/construction_foam_wall_8"
+    },
+    "color=9": {
+      "model": "craft:block/construction_foam_wall_9"
+    }
+  }
+}

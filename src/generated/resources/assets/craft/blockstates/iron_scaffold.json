@@ -1,0 +1,43 @@
+{
+  "variants": {
+    "strength=0": {
+      "model": "craft:block/iron_scaffold"
+    },
+    "strength=1": {
+      "model": "craft:block/iron_scaffold"
+    },
+    "strength=10": {
+      "model": "craft:block/iron_scaffold"
+    },
+    "strength=11": {
+      "model": "craft:block/iron_scaffold"
+    },
+    "strength=12": {
+      "model": "craft:block/iron_scaffold_reinforced"
+    },
+    "strength=2": {
+      "model": "craft:block/iron_scaffold"
+    },
+    "strength=3": {
+      "model": "craft:block/iron_scaffold"
+    },
+    "strength=4": {
+      "model": "craft:block/iron_scaffold"
+    },
+    "strength=5": {
+      "model": "craft:block/iron_scaffold"
+    },
+    "strength=6": {
+      "model": "craft:block/iron_scaffold"
+    },
+    "strength=7": {
+      "model": "craft:block/iron_scaffold"
+    },
+    "strength=8": {
+      "model": "craft:block/iron_scaffold"
+    },
+    "strength=9": {
+      "model": "craft:block/iron_scaffold"
+    }
+  }
+}

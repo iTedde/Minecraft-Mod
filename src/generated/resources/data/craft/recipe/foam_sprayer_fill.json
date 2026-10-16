@@ -1,0 +1,8 @@
+{
+  "type": "craft:gradual_repair",
+  "amount": 100,
+  "item": "craft:foam_sprayer",
+  "material": {
+    "item": "craft:construction_foam_pellet"
+  }
+}

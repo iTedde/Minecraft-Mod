@@ -133,6 +133,8 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
         add("emi.craft.mass_fabricator.amplifier", german ? "Verstärker: %1$s" : "Amplifier: %1$s");
         add("emi.craft.mass_fabricator.saves", german ? "Spart bis zu %1$s EU" : "Saves up to %1$s EU");
         add("emi.craft.canning_machine.fuel", german ? "Brennwert %1$s" : "Fuel value %1$s");
+        add("emi.craft.canning_machine.cf_pack", german ? "1 Pellet je %1$s Ticks, 1 EU/t"
+                : "1 pellet per %1$s ticks, 1 EU/t");
         add("emi.craft.canning_machine.boosters", german ? "Danach Redstone/Glowstone/Schwarzpulver: +20/30/40 %"
                 : "Then redstone/glowstone/gunpowder: +20/30/40%");
         add("emi.craft.electrolyzer.store", german ? "Speichert %1$s EU aus BatBox/MFE/MFSU"
@@ -589,6 +591,11 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             block(Ic2Blocks.REINFORCED_STONE, "Reinforced Stone");
             block(Ic2Blocks.REINFORCED_DOOR, "Reinforced Door");
             block(Ic2Blocks.RUBBER_MAT, "Rubber Sheet");
+            block(Ic2Blocks.CONSTRUCTION_FOAM, "Construction Foam");
+            block(Ic2Blocks.CONSTRUCTION_FOAM_WALL, "Construction Foam Wall");
+            block(Ic2Blocks.WOODEN_SCAFFOLD, "Scaffold");
+            block(Ic2Blocks.IRON_SCAFFOLD, "Iron Scaffold");
+            block(Ic2Blocks.LUMINATOR, "Luminator");
             block(Ic2Blocks.INDUSTRIAL_TNT, "Industrial TNT");
             add(Ic2EntityTypes.INDUSTRIAL_TNT.get(), "Industrial TNT");
             block(Ic2Blocks.NUKE, "Nuke");
@@ -671,6 +678,8 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             item(Ic2Items.INSULATION_CUTTER, "Insulation Cutter");
             item(Ic2Items.EU_METER, "EU-Reader");
             item(Ic2Items.TOOLBOX, "Tool Box");
+            item(Ic2Items.FOAM_SPRAYER, "CF Sprayer");
+            item(Ic2Items.CONSTRUCTION_FOAM_PELLET, "CF Pellet");
             item(Ic2Items.PAINTER, "Painter");
             for (int color = 0; color < 16; color++) {
                 item(Ic2Items.painter(color), "Painter");
@@ -717,6 +726,7 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             item(Ic2Items.ELECTRIC_JETPACK, "Electric Jetpack");
             item(Ic2Items.BATPACK, "BatPack");
             item(Ic2Items.LAPPACK, "Lappack");
+            item(Ic2Items.CF_PACK, "CF Backpack");
             item(Ic2Items.SOLAR_HELMET, "Solar Helmet");
             item(Ic2Items.STATIC_BOOTS, "Static Boots");
             item(Ic2Items.NIGHTVISION_GOGGLES, "Nightvision Goggles");
@@ -930,6 +940,11 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             block(Ic2Blocks.REINFORCED_STONE, "Verstärkter Stein");
             block(Ic2Blocks.REINFORCED_DOOR, "Verstärkte Tür");
             block(Ic2Blocks.RUBBER_MAT, "Gummimatte");
+            block(Ic2Blocks.CONSTRUCTION_FOAM, "Bauschaum");
+            block(Ic2Blocks.CONSTRUCTION_FOAM_WALL, "Bauschaumwand");
+            block(Ic2Blocks.WOODEN_SCAFFOLD, "Gerüst");
+            block(Ic2Blocks.IRON_SCAFFOLD, "Eisengerüst");
+            block(Ic2Blocks.LUMINATOR, "Luminator");
             block(Ic2Blocks.INDUSTRIAL_TNT, "Industrie-TNT");
             add(Ic2EntityTypes.INDUSTRIAL_TNT.get(), "Industrie-TNT");
             block(Ic2Blocks.NUKE, "Atombombe");
@@ -1012,6 +1027,8 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             item(Ic2Items.INSULATION_CUTTER, "Isolierungsschneider");
             item(Ic2Items.EU_METER, "EU-Messgerät");
             item(Ic2Items.TOOLBOX, "Werkzeugkasten");
+            item(Ic2Items.FOAM_SPRAYER, "Bauschaumsprüher");
+            item(Ic2Items.CONSTRUCTION_FOAM_PELLET, "Bauschaum-Pellet");
             item(Ic2Items.PAINTER, "Farbroller");
             for (int color = 0; color < 16; color++) {
                 item(Ic2Items.painter(color), "Farbroller");
@@ -1058,6 +1075,7 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             item(Ic2Items.ELECTRIC_JETPACK, "Elektrisches Jetpack");
             item(Ic2Items.BATPACK, "BatPack");
             item(Ic2Items.LAPPACK, "LapPack");
+            item(Ic2Items.CF_PACK, "CF-Rucksack");
             item(Ic2Items.SOLAR_HELMET, "Solarhelm");
             item(Ic2Items.STATIC_BOOTS, "Statikstiefel");
             item(Ic2Items.NIGHTVISION_GOGGLES, "Nachtsichtbrille");
