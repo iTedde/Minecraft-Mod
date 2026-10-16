@@ -1,0 +1,10 @@
+{
+  "type": "craft:macerator",
+  "ingredient": {
+    "item": "craft:pyrite_ore"
+  },
+  "result": {
+    "count": 5,
+    "id": "craft:pyrite_dust"
+  }
+}

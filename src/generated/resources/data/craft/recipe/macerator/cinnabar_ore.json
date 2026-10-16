@@ -1,0 +1,10 @@
+{
+  "type": "craft:macerator",
+  "ingredient": {
+    "item": "craft:cinnabar_ore"
+  },
+  "result": {
+    "count": 3,
+    "id": "craft:cinnabar_dust"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "craft:block/gt/ore/tungstate_3",
+    "east": "craft:block/gt/ore/tungstate_0",
+    "north": "craft:block/gt/ore/tungstate_1",
+    "particle": "craft:block/gt/ore/tungstate_3",
+    "south": "craft:block/gt/ore/tungstate_0",
+    "up": "craft:block/gt/ore/tungstate_2",
+    "west": "craft:block/gt/ore/tungstate_1"
+  }
+}

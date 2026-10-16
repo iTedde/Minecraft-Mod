@@ -12,6 +12,7 @@ import dev.craft.forestry.FrBlocks;
 import dev.craft.gregtech.GtBlocks;
 import dev.craft.gregtech.GtMachine;
 import dev.craft.gregtech.block.GtCasingBlock;
+import dev.craft.gregtech.world.GtOre;
 import dev.craft.ic2.Ic2Blocks;
 import dev.craft.ic2.Ic2Machine;
 import dev.craft.ic2.reactor.NuclearReactorBlockEntity;
@@ -29,6 +30,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.data.BlockTagsProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import org.jetbrains.annotations.Nullable;
 
 public final class CraftBlockTagsProvider extends BlockTagsProvider {
     public static final TagKey<Block> ORES_TIN = commonTag("ores/tin");
@@ -44,6 +46,23 @@ public final class CraftBlockTagsProvider extends BlockTagsProvider {
 
     private static TagKey<Block> commonTag(String path) {
         return TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath("c", path));
+    }
+
+    /** GT ore: pickaxe of the GT harvest level, not destroyed by the dragon, {@code c:ores/<material>}. */
+    private void gtOre(GtOre ore, Block block, @Nullable TagKey<Block> ground) {
+        tag(BlockTags.MINEABLE_WITH_PICKAXE).add(block);
+        tag(switch (ore.getToolLevel()) {
+            case STONE -> BlockTags.NEEDS_STONE_TOOL;
+            case IRON -> BlockTags.NEEDS_IRON_TOOL;
+            case DIAMOND -> BlockTags.NEEDS_DIAMOND_TOOL;
+        }).add(block);
+        tag(BlockTags.DRAGON_IMMUNE).add(block);
+        TagKey<Block> ores = commonTag("ores/" + ore.getMaterial());
+        tag(ores).add(block);
+        tag(Tags.Blocks.ORES).addTag(ores);
+        if (ground != null) {
+            tag(ground).add(block);
+        }
     }
 
     @Override
@@ -79,6 +98,16 @@ public final class CraftBlockTagsProvider extends BlockTagsProvider {
         for (GtCasingBlock.Type type : GtCasingBlock.Type.values()) {
             tag(BlockTags.MINEABLE_WITH_PICKAXE).add(GtBlocks.casing(type).get());
             tag(BlockTags.NEEDS_IRON_TOOL).add(GtBlocks.casing(type).get());
+        }
+        for (GtOre ore : GtOre.values()) {
+            gtOre(ore, GtBlocks.ore(ore).get(), switch (ore.getGround()) {
+                case STONE -> Tags.Blocks.ORES_IN_GROUND_STONE;
+                case NETHERRACK -> Tags.Blocks.ORES_IN_GROUND_NETHERRACK;
+                case END_STONE -> null;
+            });
+            if (ore.hasDeepslateVariant()) {
+                gtOre(ore, GtBlocks.deepslateOre(ore).get(), Tags.Blocks.ORES_IN_GROUND_DEEPSLATE);
+            }
         }
         // Material.ground: the shovel is the effective tool.
         tag(BlockTags.MINEABLE_WITH_SHOVEL).add(BcBlocks.MINING_WELL.get());

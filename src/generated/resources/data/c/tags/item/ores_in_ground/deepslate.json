@@ -1,5 +1,9 @@
 {
   "values": [
+    "craft:deepslate_galena_ore",
+    "craft:deepslate_iridium_ore_block",
+    "craft:deepslate_ruby_ore",
+    "craft:deepslate_sapphire_ore",
     "craft:deepslate_tin_ore",
     "craft:deepslate_uranium_ore"
   ]

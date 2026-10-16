@@ -1,0 +1,20 @@
+{
+  "values": [
+    "craft:galena_ore",
+    "craft:deepslate_galena_ore",
+    "craft:iridium_ore_block",
+    "craft:deepslate_iridium_ore_block",
+    "craft:ruby_ore",
+    "craft:deepslate_ruby_ore",
+    "craft:sapphire_ore",
+    "craft:deepslate_sapphire_ore",
+    "craft:bauxite_ore",
+    "craft:pyrite_ore",
+    "craft:cinnabar_ore",
+    "craft:sphalerite_ore",
+    "craft:tungstate_ore",
+    "craft:sheldonite_ore",
+    "craft:olivine_ore",
+    "craft:sodalite_ore"
+  ]
+}

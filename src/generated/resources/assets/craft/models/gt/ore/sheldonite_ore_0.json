@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "craft:block/gt/ore/sheldonite_0",
+    "east": "craft:block/gt/ore/sheldonite_5",
+    "north": "craft:block/gt/ore/sheldonite_2",
+    "particle": "craft:block/gt/ore/sheldonite_0",
+    "south": "craft:block/gt/ore/sheldonite_3",
+    "up": "craft:block/gt/ore/sheldonite_1",
+    "west": "craft:block/gt/ore/sheldonite_4"
+  }
+}

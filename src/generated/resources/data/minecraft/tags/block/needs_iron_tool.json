@@ -4,6 +4,13 @@
     "craft:deepslate_uranium_ore",
     "craft:standard_machine_casing",
     "craft:reinforced_machine_casing",
-    "craft:gt_advanced_machine_casing"
+    "craft:gt_advanced_machine_casing",
+    "craft:ruby_ore",
+    "craft:deepslate_ruby_ore",
+    "craft:sapphire_ore",
+    "craft:deepslate_sapphire_ore",
+    "craft:cinnabar_ore",
+    "craft:tungstate_ore",
+    "craft:sodalite_ore"
   ]
 }

@@ -1,0 +1,25 @@
+{
+  "type": "craft:gt_electrolyzer",
+  "duration": 400,
+  "eu_per_tick": 50,
+  "inputs": [
+    {
+      "count": 8,
+      "item": "craft:sapphire_dust"
+    },
+    {
+      "count": 3,
+      "item": "craft:empty_cell"
+    }
+  ],
+  "outputs": [
+    {
+      "count": 2,
+      "id": "craft:aluminium_dust"
+    },
+    {
+      "count": 3,
+      "id": "craft:air_cell"
+    }
+  ]
+}

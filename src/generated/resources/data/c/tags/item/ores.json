@@ -1,5 +1,21 @@
 {
   "values": [
+    "#c:ores/galena",
+    "#c:ores/galena",
+    "#c:ores/iridium",
+    "#c:ores/iridium",
+    "#c:ores/ruby",
+    "#c:ores/ruby",
+    "#c:ores/sapphire",
+    "#c:ores/sapphire",
+    "#c:ores/bauxite",
+    "#c:ores/pyrite",
+    "#c:ores/cinnabar",
+    "#c:ores/sphalerite",
+    "#c:ores/tungstate",
+    "#c:ores/sheldonite",
+    "#c:ores/olivine",
+    "#c:ores/sodalite",
     "#c:ores/tin",
     "#c:ores/uranium"
   ]

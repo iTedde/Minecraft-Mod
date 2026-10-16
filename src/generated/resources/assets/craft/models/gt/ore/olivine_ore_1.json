@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "craft:block/gt/ore/olivine_1",
+    "east": "craft:block/gt/ore/olivine_4",
+    "north": "craft:block/gt/ore/olivine_3",
+    "particle": "craft:block/gt/ore/olivine_1",
+    "south": "craft:block/gt/ore/olivine_2",
+    "up": "craft:block/gt/ore/olivine_0",
+    "west": "craft:block/gt/ore/olivine_5"
+  }
+}

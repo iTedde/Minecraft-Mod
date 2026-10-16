@@ -12,6 +12,9 @@ import dev.craft.gregtech.GtBlocks;
 import dev.craft.gregtech.GtItems;
 import dev.craft.gregtech.GtMachine;
 import dev.craft.gregtech.block.GtCasingBlock;
+import dev.craft.gregtech.world.GtOre;
+import dev.craft.gregtech.world.GtOreChanceCondition;
+import dev.craft.gregtech.world.GtOreCountFunction;
 import dev.craft.powerconverters.PcBlocks;
 import dev.craft.ic2.Ic2Blocks;
 import dev.craft.ic2.Ic2Items;
@@ -22,6 +25,7 @@ import net.minecraft.advancements.critereon.StatePropertiesPredicate;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.world.flag.FeatureFlags;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -54,6 +58,12 @@ public final class CraftBlockLoot extends BlockLootSubProvider {
         }
         for (GtCasingBlock.Type type : GtCasingBlock.Type.values()) {
             dropSelf(GtBlocks.casing(type).get());
+        }
+        for (GtOre ore : GtOre.values()) {
+            gtOre(ore, GtBlocks.ore(ore).get());
+            if (ore.hasDeepslateVariant()) {
+                gtOre(ore, GtBlocks.deepslateOre(ore).get());
+            }
         }
         for (CableType type : CableType.values()) {
             dropSelf(Ic2Blocks.cable(type).get());
@@ -97,6 +107,39 @@ public final class CraftBlockLoot extends BlockLootSubProvider {
         resinSheet();
         rubberWood();
         rubberLeaves();
+    }
+
+    /** {@code GT_BlockMetaID_Ore.getBlockDropped} (spec 07 §6.2); silk touch drops the ore block itself. */
+    private void gtOre(GtOre ore, Block block) {
+        switch (ore) {
+            case GALENA, BAUXITE, TUNGSTATE, SHELDONITE -> dropSelf(block);
+            case IRIDIUM -> add(block, gtOreTable(block, Ic2Items.IRIDIUM_ORE.get(), 1, 1, 2));
+            case RUBY -> add(block, gtOreTable(block, GtItems.RUBY.get(), 1, 1, 1)
+                    .withPool(gtOreExtra(block, GtItems.RED_GARNET.get(), 32)));
+            case SAPPHIRE -> add(block, gtOreTable(block, GtItems.SAPPHIRE.get(), 1, 1, 1)
+                    .withPool(gtOreExtra(block, GtItems.GREEN_SAPPHIRE.get(), 64)));
+            case PYRITE -> add(block, gtOreTable(block, GtItems.PYRITE_DUST.get(), 2, 1, 1));
+            case CINNABAR -> add(block, gtOreTable(block, GtItems.CINNABAR_DUST.get(), 2, 1, 1)
+                    .withPool(gtOreExtra(block, Items.REDSTONE, 4)));
+            case SPHALERITE -> add(block, gtOreTable(block, GtItems.SPHALERITE_DUST.get(), 2, 1, 1)
+                    .withPool(gtOreExtra(block, GtItems.ZINC_DUST.get(), 4))
+                    .withPool(gtOreExtra(block, GtItems.YELLOW_GARNET.get(), 32)));
+            case OLIVINE -> add(block, gtOreTable(block, GtItems.OLIVINE.get(), 1, 1, 1));
+            case SODALITE -> add(block, gtOreTable(block, GtItems.SODALITE_DUST.get(), 6, 3, 1)
+                    .withPool(gtOreExtra(block, GtItems.ALUMINIUM_DUST.get(), 4)));
+        }
+    }
+
+    /** Main drop {@code base + multiplier * rand(1 + fortune / divisor)}, the block itself with silk touch. */
+    private LootTable.Builder gtOreTable(Block block, Item drop, int base, int multiplier, int divisor) {
+        return createSilkTouchDispatchTable(block, applyExplosionDecay(block, LootItem.lootTableItem(drop)
+                .apply(GtOreCountFunction.count(base, multiplier, divisor))));
+    }
+
+    /** One extra item with chance {@code 1 / max(1, range / (fortune + 1))}, not with silk touch. */
+    private LootPool.Builder gtOreExtra(Block block, Item item, int range) {
+        return LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).when(doesNotHaveSilkTouch())
+                .when(GtOreChanceCondition.chance(range)).add(applyExplosionDecay(block, LootItem.lootTableItem(item)));
     }
 
     /** IC2 {@code BlockRubWood}: drops itself, and 1/6 sticky resin unless it was placed by a player. */

@@ -3,6 +3,7 @@ package dev.craft.gregtech;
 import dev.craft.buildcraft.power.BcCapabilities;
 import dev.craft.gregtech.machine.GtMachineBlockEntity;
 import dev.craft.gregtech.machine.GtTankMachineBlockEntity;
+import dev.craft.gregtech.world.GtWorldGen;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
@@ -19,6 +20,7 @@ public final class GregTech {
         GtMenus.MENUS.register(modBus);
         GtRecipes.TYPES.register(modBus);
         GtRecipes.SERIALIZERS.register(modBus);
+        GtWorldGen.register(modBus);
         modBus.addListener(GregTech::registerCapabilities);
     }
 

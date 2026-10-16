@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "craft:block/gt/ore/deepslate_sapphire_1",
+    "east": "craft:block/gt/ore/deepslate_sapphire_4",
+    "north": "craft:block/gt/ore/deepslate_sapphire_3",
+    "particle": "craft:block/gt/ore/deepslate_sapphire_1",
+    "south": "craft:block/gt/ore/deepslate_sapphire_2",
+    "up": "craft:block/gt/ore/deepslate_sapphire_0",
+    "west": "craft:block/gt/ore/deepslate_sapphire_5"
+  }
+}

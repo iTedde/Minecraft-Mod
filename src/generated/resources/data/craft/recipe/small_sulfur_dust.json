@@ -1,0 +1,12 @@
+{
+  "type": "craft:ic2_shapeless",
+  "ingredients": [
+    {
+      "item": "craft:sulfur_dust"
+    }
+  ],
+  "result": {
+    "count": 4,
+    "id": "craft:small_sulfur_dust"
+  }
+}

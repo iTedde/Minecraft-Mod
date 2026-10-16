@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "craft:block/gt/ore/deepslate_galena_1",
+    "east": "craft:block/gt/ore/deepslate_galena_4",
+    "north": "craft:block/gt/ore/deepslate_galena_3",
+    "particle": "craft:block/gt/ore/deepslate_galena_1",
+    "south": "craft:block/gt/ore/deepslate_galena_2",
+    "up": "craft:block/gt/ore/deepslate_galena_0",
+    "west": "craft:block/gt/ore/deepslate_galena_5"
+  }
+}

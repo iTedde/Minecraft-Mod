@@ -4,6 +4,7 @@ import java.util.concurrent.CompletableFuture;
 
 import dev.craft.Craft;
 import dev.craft.gregtech.GtItems;
+import dev.craft.gregtech.world.GtOre;
 import dev.craft.ic2.Ic2Items;
 import dev.craft.ic2.block.IronFenceBlock;
 import dev.craft.ic2.machine.RecyclerBlockEntity;
@@ -53,6 +54,16 @@ public final class CraftItemTagsProvider extends ItemTagsProvider {
     public static final TagKey<Item> DUSTS_ALUMINIUM = commonTag("dusts/aluminium");
     public static final TagKey<Item> DUSTS_STEEL = commonTag("dusts/steel");
     public static final TagKey<Item> DUSTS_LEAD = commonTag("dusts/lead");
+    public static final TagKey<Item> INGOTS_PLATINUM = commonTag("ingots/platinum");
+    public static final TagKey<Item> DUSTS_PLATINUM = commonTag("dusts/platinum");
+    public static final TagKey<Item> DUSTS_ZINC = commonTag("dusts/zinc");
+    public static final TagKey<Item> DUSTS_CALCITE = commonTag("dusts/calcite");
+    public static final TagKey<Item> GEMS_RUBY = commonTag("gems/ruby");
+    public static final TagKey<Item> GEMS_SAPPHIRE = commonTag("gems/sapphire");
+    public static final TagKey<Item> GEMS_GREEN_SAPPHIRE = commonTag("gems/green_sapphire");
+    public static final TagKey<Item> GEMS_OLIVINE = commonTag("gems/olivine");
+    public static final TagKey<Item> GEMS_RED_GARNET = commonTag("gems/red_garnet");
+    public static final TagKey<Item> GEMS_YELLOW_GARNET = commonTag("gems/yellow_garnet");
     /** GT {@code craftingRawMachineTier01}: IC2 machine casing, aluminium and bronze machine hull. */
     public static final TagKey<Item> RAW_MACHINE_TIER_01 = craftTag("raw_machine_tier_01");
     /** GT {@code craftingRawMachineTier02}: IC2 advanced machine casing, steel machine hull. */
@@ -85,6 +96,11 @@ public final class CraftItemTagsProvider extends ItemTagsProvider {
         copy(Tags.Blocks.ORES_IN_GROUND_DEEPSLATE, Tags.Items.ORES_IN_GROUND_DEEPSLATE);
         copy(CraftBlockTagsProvider.STORAGE_BLOCKS_TIN, commonTag("storage_blocks/tin"));
         copy(CraftBlockTagsProvider.ORES_URANIUM, commonTag("ores/uranium"));
+        copy(Tags.Blocks.ORES_IN_GROUND_NETHERRACK, Tags.Items.ORES_IN_GROUND_NETHERRACK);
+        for (GtOre ore : GtOre.values()) {
+            copy(TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath("c", "ores/" + ore.getMaterial())),
+                    commonTag("ores/" + ore.getMaterial()));
+        }
         copy(CraftBlockTagsProvider.STORAGE_BLOCKS_URANIUM, commonTag("storage_blocks/uranium"));
         copy(CraftBlockTagsProvider.STORAGE_BLOCKS_BRONZE, commonTag("storage_blocks/bronze"));
         copy(Tags.Blocks.STORAGE_BLOCKS, Tags.Items.STORAGE_BLOCKS);
@@ -112,12 +128,25 @@ public final class CraftItemTagsProvider extends ItemTagsProvider {
         tag(DUSTS_ALUMINIUM).add(GtItems.ALUMINIUM_DUST.get());
         tag(DUSTS_STEEL).add(GtItems.STEEL_DUST.get());
         tag(DUSTS_LEAD).add(GtItems.LEAD_DUST.get());
+        tag(INGOTS_PLATINUM).add(GtItems.PLATINUM_INGOT.get());
+        tag(DUSTS_PLATINUM).add(GtItems.PLATINUM_DUST.get());
+        tag(DUSTS_ZINC).add(GtItems.ZINC_DUST.get());
+        tag(DUSTS_CALCITE).add(GtItems.CALCITE_DUST.get());
+        tag(GEMS_RUBY).add(GtItems.RUBY.get());
+        tag(GEMS_SAPPHIRE).add(GtItems.SAPPHIRE.get());
+        tag(GEMS_GREEN_SAPPHIRE).add(GtItems.GREEN_SAPPHIRE.get());
+        tag(GEMS_OLIVINE).add(GtItems.OLIVINE.get());
+        tag(GEMS_RED_GARNET).add(GtItems.RED_GARNET.get());
+        tag(GEMS_YELLOW_GARNET).add(GtItems.YELLOW_GARNET.get());
+        tag(Tags.Items.GEMS).addTag(GEMS_RUBY).addTag(GEMS_SAPPHIRE).addTag(GEMS_GREEN_SAPPHIRE).addTag(GEMS_OLIVINE)
+                .addTag(GEMS_RED_GARNET).addTag(GEMS_YELLOW_GARNET);
         tag(RAW_MACHINE_TIER_01).add(Ic2Items.MACHINE_CASING.get(), GtItems.ALUMINIUM_MACHINE_HULL.get(),
                 GtItems.BRONZE_MACHINE_HULL.get());
         tag(RAW_MACHINE_TIER_02).add(Ic2Items.ADVANCED_MACHINE_CASING.get(), GtItems.STEEL_MACHINE_HULL.get());
         tag(CRAFTING_100K_EU_STORE).add(Ic2Items.ENERGY_CRYSTAL.get(), GtItems.LITHIUM_BATTERY.get());
         tag(Tags.Items.INGOTS).addTag(INGOTS_TIN).addTag(INGOTS_URANIUM).addTag(INGOTS_BRONZE).addTag(INGOTS_REFINED_IRON)
-                .addTag(INGOTS_NICKEL).addTag(INGOTS_ALUMINIUM).addTag(INGOTS_STEEL).addTag(INGOTS_LEAD);
+                .addTag(INGOTS_NICKEL).addTag(INGOTS_ALUMINIUM).addTag(INGOTS_STEEL).addTag(INGOTS_LEAD)
+                .addTag(INGOTS_PLATINUM);
         tag(DUSTS_BRONZE).add(Ic2Items.BRONZE_DUST.get());
         tag(DUSTS_CLAY).add(Ic2Items.CLAY_DUST.get());
         tag(DUSTS_COAL).add(Ic2Items.COAL_DUST.get());
@@ -128,7 +157,8 @@ public final class CraftItemTagsProvider extends ItemTagsProvider {
         tag(DUSTS_SILVER).add(Ic2Items.SILVER_DUST.get());
         tag(Tags.Items.DUSTS).addTag(DUSTS_BRONZE).addTag(DUSTS_CLAY).addTag(DUSTS_COAL).addTag(DUSTS_COPPER)
                 .addTag(DUSTS_GOLD).addTag(DUSTS_IRON).addTag(DUSTS_TIN).addTag(DUSTS_SILVER)
-                .addTag(DUSTS_NICKEL).addTag(DUSTS_ALUMINIUM).addTag(DUSTS_STEEL).addTag(DUSTS_LEAD);
+                .addTag(DUSTS_NICKEL).addTag(DUSTS_ALUMINIUM).addTag(DUSTS_STEEL).addTag(DUSTS_LEAD)
+                .addTag(DUSTS_PLATINUM).addTag(DUSTS_ZINC).addTag(DUSTS_CALCITE);
 
         // IC2 default blacklist (glass pane, stick, snowball) + pack config "102, 280, 332, 4081"; scaffold later.
         tag(IronFenceBlock.METAL_BOOTS).add(Items.IRON_BOOTS, Items.GOLDEN_BOOTS, Items.CHAINMAIL_BOOTS,

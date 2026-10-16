@@ -1,0 +1,25 @@
+{
+  "type": "craft:gt_electrolyzer",
+  "duration": 100,
+  "eu_per_tick": 128,
+  "inputs": [
+    {
+      "count": 2,
+      "item": "craft:cinnabar_dust"
+    },
+    {
+      "count": 1,
+      "item": "craft:empty_cell"
+    }
+  ],
+  "outputs": [
+    {
+      "count": 1,
+      "id": "craft:mercury_cell"
+    },
+    {
+      "count": 1,
+      "id": "craft:sulfur_dust"
+    }
+  ]
+}

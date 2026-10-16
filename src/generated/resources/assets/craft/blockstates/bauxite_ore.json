@@ -1,0 +1,24 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "craft:gt/ore/bauxite_ore_0"
+      },
+      {
+        "model": "craft:gt/ore/bauxite_ore_1"
+      },
+      {
+        "model": "craft:gt/ore/bauxite_ore_2"
+      },
+      {
+        "model": "craft:gt/ore/bauxite_ore_3"
+      },
+      {
+        "model": "craft:gt/ore/bauxite_ore_4"
+      },
+      {
+        "model": "craft:gt/ore/bauxite_ore_5"
+      }
+    ]
+  }
+}

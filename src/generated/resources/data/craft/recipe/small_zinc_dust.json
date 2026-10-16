@@ -1,0 +1,12 @@
+{
+  "type": "craft:ic2_shapeless",
+  "ingredients": [
+    {
+      "tag": "c:dusts/zinc"
+    }
+  ],
+  "result": {
+    "count": 4,
+    "id": "craft:small_zinc_dust"
+  }
+}

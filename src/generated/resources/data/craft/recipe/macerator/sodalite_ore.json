@@ -1,0 +1,10 @@
+{
+  "type": "craft:macerator",
+  "ingredient": {
+    "item": "craft:sodalite_ore"
+  },
+  "result": {
+    "count": 12,
+    "id": "craft:sodalite_dust"
+  }
+}

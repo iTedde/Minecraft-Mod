@@ -5,6 +5,10 @@ import java.util.Set;
 
 import dev.craft.Craft;
 import dev.craft.buildcraft.world.BcFeatures;
+import dev.craft.gregtech.GtBlocks;
+import dev.craft.gregtech.world.ChunkBiomeFilter;
+import dev.craft.gregtech.world.GtOre;
+import dev.craft.gregtech.world.GtWorldGen;
 import dev.craft.ic2.Ic2Blocks;
 import dev.craft.ic2.world.Ic2Features;
 import dev.craft.ic2.world.RubberTreeFeature;
@@ -27,6 +31,7 @@ import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.ReplaceBlockConfiguration;
 import net.minecraft.world.level.levelgen.heightproviders.TrapezoidHeight;
 import net.minecraft.world.level.levelgen.placement.BiomeFilter;
 import net.minecraft.world.level.levelgen.placement.CountPlacement;
@@ -34,6 +39,7 @@ import net.minecraft.world.level.levelgen.placement.HeightRangePlacement;
 import net.minecraft.world.level.levelgen.placement.InSquarePlacement;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.placement.PlacementModifier;
+import net.minecraft.world.level.levelgen.placement.RarityFilter;
 import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
 import net.neoforged.neoforge.common.world.BiomeModifier;
 import net.neoforged.neoforge.common.world.BiomeModifiers;
@@ -41,7 +47,7 @@ import net.neoforged.neoforge.registries.NeoForgeRegistries;
 
 /**
  * World generation as data: IC2 ({@code IC2.generate}) tin and uranium ore, copper ore with IC2 frequency instead of the vanilla
- * copper veins, rubber trees; BuildCraft oil.
+ * copper veins, rubber trees; BuildCraft oil; GregTech ores ({@code GT_Worldgenerator}, spec 07 §6.3).
  */
 public final class CraftWorldGen {
     public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_TIN_CONFIGURED = configuredKey("ore_tin");
@@ -58,6 +64,23 @@ public final class CraftWorldGen {
     public static final ResourceKey<BiomeModifier> REMOVE_VANILLA_COPPER = modifierKey("remove_vanilla_copper");
     public static final ResourceKey<BiomeModifier> ADD_RUBBER_TREES = modifierKey("add_rubber_trees");
     public static final ResourceKey<BiomeModifier> ADD_OIL = modifierKey("add_oil");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> GT_GALENA_CONFIGURED = configuredKey("gt_galena_ore");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> GT_IRIDIUM_CONFIGURED = configuredKey("gt_iridium_ore");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> GT_RUBY_CONFIGURED = configuredKey("gt_ruby_ore");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> GT_SAPPHIRE_CONFIGURED = configuredKey("gt_sapphire_ore");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> GT_BAUXITE_CONFIGURED = configuredKey("gt_bauxite_ore");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> GT_NETHER_ORES_CONFIGURED = configuredKey("gt_nether_ores");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> GT_END_ORES_CONFIGURED = configuredKey("gt_end_ores");
+    public static final ResourceKey<PlacedFeature> GT_GALENA = placedKey("gt_galena_ore");
+    public static final ResourceKey<PlacedFeature> GT_IRIDIUM = placedKey("gt_iridium_ore");
+    public static final ResourceKey<PlacedFeature> GT_RUBY = placedKey("gt_ruby_ore");
+    public static final ResourceKey<PlacedFeature> GT_SAPPHIRE = placedKey("gt_sapphire_ore");
+    public static final ResourceKey<PlacedFeature> GT_BAUXITE = placedKey("gt_bauxite_ore");
+    public static final ResourceKey<PlacedFeature> GT_NETHER_ORES = placedKey("gt_nether_ores");
+    public static final ResourceKey<PlacedFeature> GT_END_ORES = placedKey("gt_end_ores");
+    public static final ResourceKey<BiomeModifier> ADD_GT_ORES = modifierKey("add_gt_ores");
+    public static final ResourceKey<BiomeModifier> ADD_GT_NETHER_ORES = modifierKey("add_gt_nether_ores");
+    public static final ResourceKey<BiomeModifier> ADD_GT_END_ORES = modifierKey("add_gt_end_ores");
 
     /** IC2 vein counts per chunk: {@code X * baseScale / 64} with baseScale 65 (sea level 63 + 1, density 1.0). */
     private static final int COPPER_BASE_COUNT = 15 * 65 / 64;
@@ -94,6 +117,27 @@ public final class CraftWorldGen {
                 OreConfiguration.target(deepslate, Ic2Blocks.DEEPSLATE_URANIUM_ORE.get().defaultBlockState())), 3));
         register(context, RUBBER_TREE_CONFIGURED, Ic2Features.RUBBER_TREE.get(), NoneFeatureConfiguration.INSTANCE);
         register(context, OIL_CONFIGURED, BcFeatures.OIL.get(), NoneFeatureConfiguration.INSTANCE);
+        register(context, GT_GALENA_CONFIGURED, Feature.ORE, new OreConfiguration(gtTargets(GtOre.GALENA), 16));
+        register(context, GT_IRIDIUM_CONFIGURED, Feature.REPLACE_SINGLE_BLOCK,
+                new ReplaceBlockConfiguration(gtTargets(GtOre.IRIDIUM)));
+        register(context, GT_RUBY_CONFIGURED, Feature.REPLACE_SINGLE_BLOCK,
+                new ReplaceBlockConfiguration(gtTargets(GtOre.RUBY)));
+        register(context, GT_SAPPHIRE_CONFIGURED, Feature.REPLACE_SINGLE_BLOCK,
+                new ReplaceBlockConfiguration(gtTargets(GtOre.SAPPHIRE)));
+        register(context, GT_BAUXITE_CONFIGURED, Feature.ORE, new OreConfiguration(gtTargets(GtOre.BAUXITE), 16));
+        register(context, GT_NETHER_ORES_CONFIGURED, GtWorldGen.NETHER_ORES.get(), NoneFeatureConfiguration.INSTANCE);
+        register(context, GT_END_ORES_CONFIGURED, GtWorldGen.END_ORES.get(), NoneFeatureConfiguration.INSTANCE);
+    }
+
+    /** Overworld GT ore in stone, its deepslate variant (if any) in deepslate. */
+    private static List<OreConfiguration.TargetBlockState> gtTargets(GtOre ore) {
+        TagMatchTest stone = new TagMatchTest(BlockTags.STONE_ORE_REPLACEABLES);
+        if (!ore.hasDeepslateVariant()) {
+            return List.of(OreConfiguration.target(stone, GtBlocks.ore(ore).get().defaultBlockState()));
+        }
+        return List.of(OreConfiguration.target(stone, GtBlocks.ore(ore).get().defaultBlockState()),
+                OreConfiguration.target(new TagMatchTest(BlockTags.DEEPSLATE_ORE_REPLACEABLES),
+                        GtBlocks.deepslateOre(ore).get().defaultBlockState()));
     }
 
     private static <C extends FeatureConfiguration, F extends Feature<C>> void register(
@@ -118,6 +162,29 @@ public final class CraftWorldGen {
                         VerticalAnchor.absolute(64)))));
         context.register(RUBBER_TREE, new PlacedFeature(configured.getOrThrow(RUBBER_TREE_CONFIGURED), List.of()));
         context.register(OIL, new PlacedFeature(configured.getOrThrow(OIL_CONFIGURED), List.of()));
+        // GT_Worldgenerator.generateSurface: galena 1 vein y = rand(32); iridium rand(100) < 20, y = rand(99);
+        // ruby/sapphire 8 blocks y = rand(32), bauxite 2 veins y = 32 + rand(48), by the biome at chunk + 8.
+        context.register(GT_GALENA, new PlacedFeature(configured.getOrThrow(GT_GALENA_CONFIGURED), List.of(
+                CountPlacement.of(1), InSquarePlacement.spread(), uniformHeight(0, 31), BiomeFilter.biome())));
+        context.register(GT_IRIDIUM, new PlacedFeature(configured.getOrThrow(GT_IRIDIUM_CONFIGURED), List.of(
+                RarityFilter.onAverageOnceEvery(5), InSquarePlacement.spread(), uniformHeight(0, 98),
+                BiomeFilter.biome())));
+        context.register(GT_RUBY, new PlacedFeature(configured.getOrThrow(GT_RUBY_CONFIGURED), List.of(
+                ChunkBiomeFilter.of(GtWorldGen.RUBY_BIOMES), CountPlacement.of(8), InSquarePlacement.spread(),
+                uniformHeight(0, 31))));
+        context.register(GT_SAPPHIRE, new PlacedFeature(configured.getOrThrow(GT_SAPPHIRE_CONFIGURED), List.of(
+                ChunkBiomeFilter.of(GtWorldGen.SAPPHIRE_BIOMES), CountPlacement.of(8), InSquarePlacement.spread(),
+                uniformHeight(0, 31))));
+        context.register(GT_BAUXITE, new PlacedFeature(configured.getOrThrow(GT_BAUXITE_CONFIGURED), List.of(
+                ChunkBiomeFilter.of(GtWorldGen.BAUXITE_BIOMES), CountPlacement.of(2), InSquarePlacement.spread(),
+                uniformHeight(32, 79))));
+        context.register(GT_NETHER_ORES, new PlacedFeature(configured.getOrThrow(GT_NETHER_ORES_CONFIGURED),
+                List.of()));
+        context.register(GT_END_ORES, new PlacedFeature(configured.getOrThrow(GT_END_ORES_CONFIGURED), List.of()));
+    }
+
+    private static PlacementModifier uniformHeight(int min, int max) {
+        return HeightRangePlacement.uniform(VerticalAnchor.absolute(min), VerticalAnchor.absolute(max));
     }
 
     /**
@@ -148,5 +215,15 @@ public final class CraftWorldGen {
         // BuildCraft populates after the whole chunk decoration (PopulateChunkEvent.Post); not in the Nether/End.
         context.register(ADD_OIL, new BiomeModifiers.AddFeaturesBiomeModifier(overworld,
                 HolderSet.direct(placed.getOrThrow(OIL)), GenerationStep.Decoration.TOP_LAYER_MODIFICATION));
+        context.register(ADD_GT_ORES, new BiomeModifiers.AddFeaturesBiomeModifier(overworld,
+                HolderSet.direct(placed.getOrThrow(GT_GALENA), placed.getOrThrow(GT_IRIDIUM), placed.getOrThrow(GT_RUBY),
+                        placed.getOrThrow(GT_SAPPHIRE), placed.getOrThrow(GT_BAUXITE)),
+                GenerationStep.Decoration.UNDERGROUND_ORES));
+        context.register(ADD_GT_NETHER_ORES, new BiomeModifiers.AddFeaturesBiomeModifier(
+                biomes.getOrThrow(BiomeTags.IS_NETHER), HolderSet.direct(placed.getOrThrow(GT_NETHER_ORES)),
+                GenerationStep.Decoration.UNDERGROUND_ORES));
+        context.register(ADD_GT_END_ORES, new BiomeModifiers.AddFeaturesBiomeModifier(
+                biomes.getOrThrow(BiomeTags.IS_END), HolderSet.direct(placed.getOrThrow(GT_END_ORES)),
+                GenerationStep.Decoration.UNDERGROUND_ORES));
     }
 }

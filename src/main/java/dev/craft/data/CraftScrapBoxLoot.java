@@ -80,21 +80,29 @@ public record CraftScrapBoxLoot(HolderLookup.Provider registries) implements Loo
         // electrum dust 50: not yet available
         add(pool, Ic2Items.TIN_DUST.get(), 120);
         add(pool, Ic2Items.COPPER_DUST.get(), 120);
-        // bauxite dust 50: not yet available
+        add(pool, GtItems.BAUXITE_DUST.get(), 50);
         add(pool, GtItems.ALUMINIUM_DUST.get(), 50);
         add(pool, GtItems.LEAD_DUST.get(), 50);
         add(pool, GtItems.NICKEL_DUST.get(), 50);
-        // zinc and brass dust 50 each: not yet available
+        add(pool, GtItems.ZINC_DUST.get(), 50);
+        // brass dust 50: not yet available
         add(pool, GtItems.STEEL_DUST.get(), 50);
         // obsidian dust 150: not yet available
         add(pool, GtItems.SULFUR_DUST.get(), 150);
         add(pool, GtItems.SALTPETER_DUST.get(), 200);
         add(pool, GtItems.LAZURITE_DUST.get(), 200);
         add(pool, GtItems.PYRITE_DUST.get(), 200);
-        // calcite dust 200: not yet available
+        add(pool, GtItems.CALCITE_DUST.get(), 200);
         add(pool, GtItems.SODALITE_DUST.get(), 200);
         add(pool, GtItems.TUNGSTEN_DUST.get(), 3);
-        // other GT dusts and gems (netherrack, flint, platinum, chrome … ruby, sapphires): not yet available
+        add(pool, GtItems.PLATINUM_DUST.get(), 3);
+        // other GT dusts (netherrack, flint, chrome, titanium, magnesium, endstone): not yet available
+        add(pool, GtItems.RED_GARNET.get(), 50);
+        add(pool, GtItems.YELLOW_GARNET.get(), 50);
+        add(pool, GtItems.OLIVINE.get(), 5);
+        add(pool, GtItems.RUBY.get(), 5);
+        add(pool, GtItems.SAPPHIRE.get(), 5);
+        add(pool, GtItems.GREEN_SAPPHIRE.get(), 5);
         add(pool, Items.EMERALD, 5);
         add(pool, Items.DIAMOND, 5);
         output.accept(ScrapBoxItem.DROPS, LootTable.lootTable().withPool(pool));

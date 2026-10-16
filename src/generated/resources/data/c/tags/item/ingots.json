@@ -7,6 +7,7 @@
     "#c:ingots/nickel",
     "#c:ingots/aluminium",
     "#c:ingots/steel",
-    "#c:ingots/lead"
+    "#c:ingots/lead",
+    "#c:ingots/platinum"
   ]
 }

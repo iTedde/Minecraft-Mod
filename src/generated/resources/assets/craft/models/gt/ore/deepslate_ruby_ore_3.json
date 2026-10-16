@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "craft:block/gt/ore/deepslate_ruby_3",
+    "east": "craft:block/gt/ore/deepslate_ruby_0",
+    "north": "craft:block/gt/ore/deepslate_ruby_1",
+    "particle": "craft:block/gt/ore/deepslate_ruby_3",
+    "south": "craft:block/gt/ore/deepslate_ruby_0",
+    "up": "craft:block/gt/ore/deepslate_ruby_2",
+    "west": "craft:block/gt/ore/deepslate_ruby_1"
+  }
+}

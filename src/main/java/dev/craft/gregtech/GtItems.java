@@ -15,6 +15,7 @@ import dev.craft.gregtech.item.GtNeutronReflectorItem;
 import dev.craft.gregtech.item.GtRadioactiveCellItem;
 import dev.craft.gregtech.item.LithiumBatpackItem;
 import dev.craft.gregtech.item.LithiumBatteryItem;
+import dev.craft.gregtech.world.GtOre;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.neoforged.neoforge.registries.DeferredItem;
@@ -27,6 +28,8 @@ public final class GtItems {
     private static final Map<GtMachine, DeferredItem<GtMachineItem>> MACHINES = new EnumMap<>(GtMachine.class);
     private static final Map<GtCasingBlock.Type, DeferredItem<BlockItem>> CASINGS =
             new EnumMap<>(GtCasingBlock.Type.class);
+    private static final Map<GtOre, DeferredItem<BlockItem>> ORES = new EnumMap<>(GtOre.class);
+    private static final Map<GtOre, DeferredItem<BlockItem>> DEEPSLATE_ORES = new EnumMap<>(GtOre.class);
 
     static {
         for (GtMachine machine : GtMachine.values()) {
@@ -35,6 +38,12 @@ public final class GtItems {
         }
         for (GtCasingBlock.Type type : GtCasingBlock.Type.values()) {
             CASINGS.put(type, ITEMS.registerSimpleBlockItem(GtBlocks.casing(type)));
+        }
+        for (GtOre ore : GtOre.values()) {
+            ORES.put(ore, ITEMS.registerSimpleBlockItem(GtBlocks.ore(ore)));
+            if (ore.hasDeepslateVariant()) {
+                DEEPSLATE_ORES.put(ore, ITEMS.registerSimpleBlockItem(GtBlocks.deepslateOre(ore)));
+            }
         }
     }
 
@@ -187,6 +196,43 @@ public final class GtItems {
             "nak_coolant_cell_180k", properties -> new GtCoolantCellItem(properties, 180000)));
     public static final DeferredItem<GtCoolantCellItem> NAK_COOLANT_CELL_360K = simple(ITEMS.registerItem(
             "nak_coolant_cell_360k", properties -> new GtCoolantCellItem(properties, 360000)));
+
+    // --- GT ores (phase 8c): gems GT_MetaItem_Material 27/32–34/37/54/55, Dust 4/11/14/17/24/27/33/34/37/44/54/55, Cell 33 ---
+    public static final DeferredItem<GtMaterialItem> RUBY = material("ruby", "Al2O6Cr");
+    public static final DeferredItem<GtMaterialItem> SAPPHIRE = material("sapphire", "Al2O6");
+    public static final DeferredItem<GtMaterialItem> GREEN_SAPPHIRE = material("green_sapphire", "Al2O6");
+    public static final DeferredItem<GtMaterialItem> OLIVINE = material("olivine", "Mg2Fe2SiO4");
+    public static final DeferredItem<GtMaterialItem> RED_GARNET = material("red_garnet",
+            "(Al2Mg3Si3O12)3(Al2Fe3Si3O12)5(Al2Mn3Si3O12)8");
+    public static final DeferredItem<GtMaterialItem> YELLOW_GARNET = material("yellow_garnet",
+            "(Ca3Fe2Si3O12)5(Ca3Al2Si3O12)8(Ca3Cr2Si3O12)3");
+    public static final DeferredItem<GtMaterialItem> PLATINUM_INGOT = material("platinum_ingot", "Pt");
+    public static final DeferredItem<GtMaterialItem> GALENA_DUST = material("galena_dust", "Pb3Ag3S2");
+    public static final DeferredItem<GtMaterialItem> CINNABAR_DUST = material("cinnabar_dust", "HgS");
+    public static final DeferredItem<GtMaterialItem> SPHALERITE_DUST = material("sphalerite_dust", "ZnS");
+    public static final DeferredItem<GtMaterialItem> BAUXITE_DUST = material("bauxite_dust", "TiAl16H10O12");
+    public static final DeferredItem<GtMaterialItem> ZINC_DUST = material("zinc_dust", "Zn");
+    public static final DeferredItem<GtMaterialItem> PLATINUM_DUST = material("platinum_dust", "Pt");
+    public static final DeferredItem<GtMaterialItem> SAPPHIRE_DUST = material("sapphire_dust", "Al2O6");
+    public static final DeferredItem<GtMaterialItem> GREEN_SAPPHIRE_DUST = material("green_sapphire_dust", "Al2O6");
+    public static final DeferredItem<GtMaterialItem> OLIVINE_DUST = material("olivine_dust", "Mg2Fe2SiO4");
+    public static final DeferredItem<GtMaterialItem> RED_GARNET_DUST = material("red_garnet_dust",
+            "(Al2Mg3Si3O12)3(Al2Fe3Si3O12)5(Al2Mn3Si3O12)8");
+    public static final DeferredItem<GtMaterialItem> YELLOW_GARNET_DUST = material("yellow_garnet_dust",
+            "(Ca3Fe2Si3O12)5(Ca3Al2Si3O12)8(Ca3Cr2Si3O12)3");
+    public static final DeferredItem<GtMaterialItem> CALCITE_DUST = material("calcite_dust", "CaCO3");
+    public static final DeferredItem<GtMaterialItem> CALCIUM_CARBONATE_CELL = material("calcium_carbonate_cell",
+            "CaCO3");
+    public static final DeferredItem<GtMaterialItem> SMALL_SULFUR_DUST = material("small_sulfur_dust", "S");
+
+    public static DeferredItem<BlockItem> ore(GtOre ore) {
+        return ORES.get(ore);
+    }
+
+    /** The deepslate variant's item, {@code null} if the ore has none. */
+    public static DeferredItem<BlockItem> deepslateOre(GtOre ore) {
+        return DEEPSLATE_ORES.get(ore);
+    }
 
     /** Items with a generated flat item model. */
     public static List<DeferredItem<? extends Item>> simpleItems() {

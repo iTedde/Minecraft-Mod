@@ -16,6 +16,7 @@ import dev.craft.gregtech.GtBlocks;
 import dev.craft.gregtech.GtMachine;
 import dev.craft.gregtech.block.GtCasingBlock;
 import dev.craft.gregtech.machine.GtMachineBlock;
+import dev.craft.gregtech.world.GtOre;
 import dev.craft.ic2.Ic2Blocks;
 import dev.craft.ic2.Ic2Machine;
 import dev.craft.ic2.block.RubberWoodBlock;
@@ -340,6 +341,31 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
             simpleBlockWithItem(GtBlocks.casing(type).get(), models().cubeAll(type.getName(),
                     modLoc("block/gt/blocks_" + type.getTexture())));
         }
+        for (GtOre ore : GtOre.values()) {
+            gtOre(GtBlocks.ore(ore).get(), ore.getBlockName(), ore.getMaterial());
+            if (ore.hasDeepslateVariant()) {
+                gtOre(GtBlocks.deepslateOre(ore).get(), ore.getDeepslateBlockName(), "deepslate_" + ore.getMaterial());
+            }
+        }
+    }
+
+    /**
+     * GT picks one of six face images per side by {@code |side ^ x ^ y ^ z| % 6}; here six models with face
+     * {@code (side ^ k) % 6}, chosen randomly per position.
+     */
+    private void gtOre(Block block, String name, String texture) {
+        ConfiguredModel[] variants = new ConfiguredModel[6];
+        for (int k = 0; k < variants.length; k++) {
+            ResourceLocation[] faces = new ResourceLocation[6];
+            for (int side = 0; side < faces.length; side++) {
+                faces[side] = modLoc("block/gt/ore/" + texture + "_" + (side ^ k) % 6);
+            }
+            ModelFile model = models().cube("gt/ore/" + name + "_" + k, faces[0], faces[1], faces[2], faces[3],
+                    faces[5], faces[4]).texture("particle", faces[0]);
+            variants[k] = new ConfiguredModel(model);
+        }
+        getVariantBuilder(block).partialState().setModels(variants);
+        simpleBlockItem(block, variants[0].model);
     }
 
     private ModelFile gtModel(GtMachine machine, Map<String, ModelFile> models, Direction facing,

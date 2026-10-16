@@ -857,6 +857,30 @@ NaK-Kühlzellen, kein Vakuumgefrierer) **und die IC2-Nuke**. Teilpakete: 7a IC2-
 1. GT-Biomlisten mit 1.21-Entsprechungen (Liste in `07-weltgenerierung.md` §6.5).
 2. Industrial Grinder wird 1:1 nachgebaut – eigenes Teilpaket **8d** nach den Erzen.
 
+## Nächste Schritte (überholt)
+1. ~~Phase 8c~~ → erledigt, siehe unten.
+
+## Erledigt (Teilpaket „Phase 8c: GT-Erze“, 2026-10-16)
+- `GtOre` (12 Erze), Blöcke `craft:<erz>_ore` (Iridium: `iridium_ore_block`), Tiefenschiefer-Varianten für Galena,
+  Iridium, Rubin, Saphir (+1,5 Härte). Werkzeugstufe, `dragon_immune`, `c:ores/*`, Erzwerte für Miner/Scanner.
+- Loot wie `GT_BlockMetaID_Ore` (eigene Loot-Funktion `GtOreCountFunction` und Bedingung `GtOreChanceCondition` für
+  die Glück-Formeln), XP über `DropExperienceBlock`, Behutsamkeit → Erzblock.
+- Weltgen: Oberwelt (Galena, Iridium, Rubin/Saphir/Bauxit mit `ChunkBiomeFilter` und den entschiedenen Biom-Tags),
+  Nether (`GtNetherOresFeature`), End inkl. Asteroiden (`GtEndOresFeature`).
+- Texturen: sechs Flächenbilder je Erz aus `blocks.png` (Zeilen 8–13), sechs Modellvarianten je Erz.
+- Neue Items: Rubin, Saphir, grüner Saphir, Olivin, roter/gelber Granat, Platinbarren, Stäube Galena/Zinnober/
+  Sphalerit/Bauxit/Zink/Platin/Saphir/grüner Saphir/Olivin/Granate/Calcit, kl. Schwefelstaub, Calciumcarbonatzelle.
+- Rezepte: `07-weltgenerierung.md` §6.4 (Macerator, Ofen, Pyrit-Hochofen) und die erreichbaren Zeilen aus §6.6
+  (neu nachgetragen: Folgerezepte aus `GT_OreDictHandler`); Implosion der Edelsteinstäube; Verstärker; Schrottbox um
+  Bauxit, Zink, Calcit, Platin, Granate, Olivin, Rubin, Saphire ergänzt.
+- 5 neue GameTests (`GtOreGameTests`, insgesamt 185 grün), `build` und `runClient` erfolgreich.
+- Nicht umgesetzt (fehlende Items, §6.6 „später“): Galena → Silber-/Bleibarren (Hochofen), Bauxit-/Rubin-/Olivin-
+  Elektrolyse (Titan, Chrom, Magnesium), Platin-/Granat-Zentrifuge, Zinkbarren, Datenspeicherchips.
+
 ## Nächste Schritte
-1. Phase 8c: GT-Erze umsetzen (Blöcke, Loot, Weltgen, Macerator/Ofen/Hochofen-Rezepte, neue Stäube/Edelsteine).
+1. Manuelle Client-Tests 8c: neue Welt → Galena/Iridium unter y 32 bzw. 99, Rubin in Wüste/Badlands/Savanne,
+   Saphir an Ozean/Strand, Bauxit in Ebenen/Wäldern (y 32–79); Nether Pyrit/Zinnober/Sphalerit; End Erze und
+   Asteroiden. Abbau mit/ohne Glück und Behutsamkeit, Macerator/Ofen, Pyriterz + Calciumcarbonatzelle im Hochofen.
 2. Phase 8d: Industrial Grinder inkl. aller Erz-Rezepte (`07-weltgenerierung.md` §6.4).
+3. Danach Freischaltungen aus §6.6 „später“ (Titan aus Bauxit, Silberbarren, Chrom, Magnesium …) – Umfang mit dem
+   Nutzer klären.

@@ -1,0 +1,10 @@
+{
+  "type": "craft:macerator",
+  "ingredient": {
+    "item": "craft:green_sapphire"
+  },
+  "result": {
+    "count": 1,
+    "id": "craft:green_sapphire_dust"
+  }
+}

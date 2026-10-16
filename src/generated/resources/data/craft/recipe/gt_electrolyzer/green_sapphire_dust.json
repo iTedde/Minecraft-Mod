@@ -1,0 +1,17 @@
+{
+  "type": "craft:gt_electrolyzer",
+  "duration": 100,
+  "eu_per_tick": 50,
+  "inputs": [
+    {
+      "count": 1,
+      "item": "craft:green_sapphire_dust"
+    }
+  ],
+  "outputs": [
+    {
+      "count": 1,
+      "id": "craft:sapphire_dust"
+    }
+  ]
+}

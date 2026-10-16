@@ -1,5 +1,10 @@
 {
   "values": [
+    "craft:galena_ore",
+    "craft:iridium_ore_block",
+    "craft:ruby_ore",
+    "craft:sapphire_ore",
+    "craft:bauxite_ore",
     "craft:tin_ore",
     "craft:uranium_ore"
   ]

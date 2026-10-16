@@ -1,0 +1,10 @@
+{
+  "type": "craft:macerator",
+  "ingredient": {
+    "item": "craft:sphalerite_ore"
+  },
+  "result": {
+    "count": 4,
+    "id": "craft:sphalerite_dust"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "craft:block/gt/ore/sodalite_0",
+    "east": "craft:block/gt/ore/sodalite_5",
+    "north": "craft:block/gt/ore/sodalite_2",
+    "particle": "craft:block/gt/ore/sodalite_0",
+    "south": "craft:block/gt/ore/sodalite_3",
+    "up": "craft:block/gt/ore/sodalite_1",
+    "west": "craft:block/gt/ore/sodalite_4"
+  }
+}

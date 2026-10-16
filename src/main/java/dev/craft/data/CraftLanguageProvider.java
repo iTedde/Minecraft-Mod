@@ -18,6 +18,7 @@ import dev.craft.gregtech.GtBlocks;
 import dev.craft.gregtech.GtItems;
 import dev.craft.gregtech.GtMachine;
 import dev.craft.gregtech.block.GtCasingBlock;
+import dev.craft.gregtech.world.GtOre;
 import dev.craft.compactsolars.CsBlocks;
 import dev.craft.compactsolars.SolarArrayType;
 import dev.craft.powerconverters.ConverterType;
@@ -229,6 +230,33 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
         item(GtItems.SMALL_COPPER_DUST, "Tiny Pile of Copper Dust");
         item(GtItems.SMALL_TIN_DUST, "Tiny Pile of Tin Dust");
         item(GtItems.ELECTRUM_INGOT, "Electrum Ingot");
+        for (GtOre ore : GtOre.values()) {
+            block(GtBlocks.ore(ore), ore.getEnglishName());
+            if (ore.hasDeepslateVariant()) {
+                block(GtBlocks.deepslateOre(ore), "Deepslate " + ore.getEnglishName());
+            }
+        }
+        item(GtItems.RUBY, "Ruby");
+        item(GtItems.SAPPHIRE, "Sapphire");
+        item(GtItems.GREEN_SAPPHIRE, "Green Sapphire");
+        item(GtItems.OLIVINE, "Olivine");
+        item(GtItems.RED_GARNET, "Red Garnet");
+        item(GtItems.YELLOW_GARNET, "Yellow Garnet");
+        item(GtItems.PLATINUM_INGOT, "Platinum Ingot");
+        item(GtItems.GALENA_DUST, "Galena Dust");
+        item(GtItems.CINNABAR_DUST, "Cinnabar Dust");
+        item(GtItems.SPHALERITE_DUST, "Sphalerite Dust");
+        item(GtItems.BAUXITE_DUST, "Bauxite Dust");
+        item(GtItems.ZINC_DUST, "Zinc Dust");
+        item(GtItems.PLATINUM_DUST, "Platinum Dust");
+        item(GtItems.SAPPHIRE_DUST, "Sapphire Dust");
+        item(GtItems.GREEN_SAPPHIRE_DUST, "Green Sapphire Dust");
+        item(GtItems.OLIVINE_DUST, "Olivine Dust");
+        item(GtItems.RED_GARNET_DUST, "Red Garnet Dust");
+        item(GtItems.YELLOW_GARNET_DUST, "Yellow Garnet Dust");
+        item(GtItems.CALCITE_DUST, "Calcite Dust");
+        item(GtItems.CALCIUM_CARBONATE_CELL, "Calcium Carbonate Cell");
+        item(GtItems.SMALL_SULFUR_DUST, "Tiny Pile of Sulfur Dust");
         add("tooltip.craft.gt.max_input", "Max EU/p IN: %s");
         add("tooltip.craft.gt.possible_upgrades", "Possible Upgrades: %s");
         add("tooltip.craft.gt.mj_converter", "has MJ-Converter");

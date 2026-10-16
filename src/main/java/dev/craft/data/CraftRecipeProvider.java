@@ -24,6 +24,7 @@ import dev.craft.gregtech.GtItems;
 import dev.craft.gregtech.GtMachine;
 import dev.craft.gregtech.block.GtCasingBlock;
 import dev.craft.gregtech.recipe.GtRecipe;
+import dev.craft.gregtech.world.GtOre;
 import dev.craft.ic2.Ic2DataComponents;
 import dev.craft.ic2.Ic2Items;
 import dev.craft.ic2.Ic2Machine;
@@ -90,6 +91,7 @@ public final class CraftRecipeProvider extends RecipeProvider {
         reactor();
         reactorGregTech();
         gregTechFollowUps();
+        gregTechOres();
         uuMatter();
         smelting();
         macerator();
@@ -1368,6 +1370,102 @@ public final class CraftRecipeProvider extends RecipeProvider {
         plate("lead", CraftItemTagsProvider.INGOTS_LEAD, GtItems.LEAD_PLATE, GtItems.LEAD_DUST, GtItems.LEAD_INGOT);
         shapeless(Ic2Items.CONTAINMENT_REACTOR_PLATING, 1, "containment_reactor_plating_from_lead",
                 Ingredient.of(Ic2Items.REACTOR_PLATING), Ingredient.of(CraftItemTagsProvider.PLATES_LEAD));
+    }
+
+    /**
+     * Phase 8c: processing of the GT ores (spec 07 §6.4) and the {@code GT_OreDictHandler} recipes of their dusts and
+     * gems whose outputs exist. Industrial grinder recipes follow with 8d.
+     */
+    private void gregTechOres() {
+        gtOreMacerator(GtOre.GALENA, GtItems.GALENA_DUST, 2);
+        gtOreMacerator(GtOre.IRIDIUM, Ic2Items.IRIDIUM_ORE, 2);
+        gtOreMacerator(GtOre.RUBY, GtItems.RUBY_DUST, 2);
+        gtOreMacerator(GtOre.SAPPHIRE, GtItems.SAPPHIRE_DUST, 2);
+        gtOreMacerator(GtOre.BAUXITE, GtItems.BAUXITE_DUST, 4);
+        gtOreMacerator(GtOre.PYRITE, GtItems.PYRITE_DUST, 5);
+        gtOreMacerator(GtOre.CINNABAR, GtItems.CINNABAR_DUST, 3);
+        gtOreMacerator(GtOre.SPHALERITE, GtItems.SPHALERITE_DUST, 4);
+        gtOreMacerator(GtOre.TUNGSTATE, GtItems.TUNGSTEN_DUST, 2);
+        gtOreMacerator(GtOre.SHELDONITE, GtItems.PLATINUM_DUST, 2);
+        gtOreMacerator(GtOre.OLIVINE, GtItems.OLIVINE_DUST, 2);
+        gtOreMacerator(GtOre.SODALITE, GtItems.SODALITE_DUST, 12);
+        // Gems → 1 dust (addPulverisationRecipe), platinum ingot → dust.
+        machine(MachineRecipe.Kind.MACERATOR, "ruby", Ingredient.of(GtItems.RUBY), 1, GtItems.RUBY_DUST, 1);
+        machine(MachineRecipe.Kind.MACERATOR, "sapphire", Ingredient.of(GtItems.SAPPHIRE), 1, GtItems.SAPPHIRE_DUST, 1);
+        machine(MachineRecipe.Kind.MACERATOR, "green_sapphire", Ingredient.of(GtItems.GREEN_SAPPHIRE), 1,
+                GtItems.GREEN_SAPPHIRE_DUST, 1);
+        machine(MachineRecipe.Kind.MACERATOR, "olivine", Ingredient.of(GtItems.OLIVINE), 1, GtItems.OLIVINE_DUST, 1);
+        machine(MachineRecipe.Kind.MACERATOR, "red_garnet", Ingredient.of(GtItems.RED_GARNET), 1,
+                GtItems.RED_GARNET_DUST, 1);
+        machine(MachineRecipe.Kind.MACERATOR, "yellow_garnet", Ingredient.of(GtItems.YELLOW_GARNET), 1,
+                GtItems.YELLOW_GARNET_DUST, 1);
+        machine(MachineRecipe.Kind.MACERATOR, "platinum_ingot", Ingredient.of(CraftItemTagsProvider.INGOTS_PLATINUM), 1,
+                GtItems.PLATINUM_DUST, 1);
+
+        // Furnace: pyrite → iron, sheldonite → platinum, tungstate → tungsten dust (tungsten needs the blast furnace).
+        smelt("iron_ingot_from_pyrite_ore", gtOre(GtOre.PYRITE), Items.IRON_INGOT, 1, 0.0F);
+        smelt("platinum_ingot_from_sheldonite_ore", gtOre(GtOre.SHELDONITE), GtItems.PLATINUM_INGOT, 1, 0.0F);
+        smelt("tungsten_dust_from_tungstate_ore", gtOre(GtOre.TUNGSTATE), GtItems.TUNGSTEN_DUST, 1, 0.0F);
+        smelt("platinum_ingot_from_dust", Ingredient.of(CraftItemTagsProvider.DUSTS_PLATINUM), GtItems.PLATINUM_INGOT, 1,
+                0.0F);
+
+        // Blast furnace: ore + calcium carbonate cell → refined iron.
+        blast("refined_iron_from_iron_ore", SizedIngredient.of(Items.IRON_ORE, 1), SizedIngredient.of(
+                GtItems.CALCIUM_CARBONATE_CELL.get(), 1), 100, 1000, stack(Ic2Items.REFINED_IRON_INGOT, 3),
+                stack(Ic2Items.EMPTY_CELL, 1));
+        blast("refined_iron_from_deepslate_iron_ore", SizedIngredient.of(Items.DEEPSLATE_IRON_ORE, 1),
+                SizedIngredient.of(GtItems.CALCIUM_CARBONATE_CELL.get(), 1), 100, 1000,
+                stack(Ic2Items.REFINED_IRON_INGOT, 3), stack(Ic2Items.EMPTY_CELL, 1));
+        blast("refined_iron_from_pyrite_ore", new SizedIngredient(gtOre(GtOre.PYRITE), 1), SizedIngredient.of(
+                GtItems.CALCIUM_CARBONATE_CELL.get(), 1), 100, 1500, stack(Ic2Items.REFINED_IRON_INGOT, 2),
+                stack(Ic2Items.EMPTY_CELL, 1));
+
+        // Calcite: small dust (centrifuge byproduct) ↔ dust ↔ calcium carbonate cell, electrolysis.
+        smallDust("calcite", GtItems.SMALL_CALCITE_DUST, Ingredient.of(CraftItemTagsProvider.DUSTS_CALCITE),
+                GtItems.CALCITE_DUST);
+        can("calcium_carbonate_cell", SizedIngredient.of(GtItems.CALCITE_DUST.get(), 1),
+                SizedIngredient.of(Ic2Items.EMPTY_CELL.get(), 1), 100, stack(GtItems.CALCIUM_CARBONATE_CELL, 1));
+        centrifuge("calcium_carbonate_cell", Ingredient.of(GtItems.CALCIUM_CARBONATE_CELL), 1, 0, 40,
+                stack(GtItems.CALCITE_DUST, 1), ItemStack.EMPTY, ItemStack.EMPTY, stack(Ic2Items.EMPTY_CELL, 1));
+        electrolysis("calcite_dust", Ingredient.of(CraftItemTagsProvider.DUSTS_CALCITE), 10, 7, 700, 80,
+                stack(GtItems.CALCIUM_CELL, 2), stack(GtItems.CARBON_CELL, 2), stack(Ic2Items.AIR_CELL, 3));
+
+        // Nether ore dusts.
+        electrolysis("sphalerite_dust", Ingredient.of(GtItems.SPHALERITE_DUST), 2, 0, 150, 100,
+                stack(GtItems.ZINC_DUST, 1), stack(GtItems.SULFUR_DUST, 1));
+        electrolysis("cinnabar_dust", Ingredient.of(GtItems.CINNABAR_DUST), 2, 1, 100, 128,
+                stack(GtItems.MERCURY_CELL, 1), stack(GtItems.SULFUR_DUST, 1));
+        electrolysis("galena_dust", Ingredient.of(GtItems.GALENA_DUST), 2, 0, 1000, 120,
+                stack(GtItems.SMALL_SILVER_DUST, 3), stack(GtItems.SMALL_LEAD_DUST, 3), stack(GtItems.SMALL_SULFUR_DUST, 2));
+        smallDust("zinc", GtItems.SMALL_ZINC_DUST, Ingredient.of(CraftItemTagsProvider.DUSTS_ZINC), GtItems.ZINC_DUST);
+        centrifuge("zinc_dust", Ingredient.of(CraftItemTagsProvider.DUSTS_ZINC), 1, 0, 1050,
+                stack(GtItems.SMALL_TIN_DUST, 1));
+        smallDust("sulfur", GtItems.SMALL_SULFUR_DUST, Ingredient.of(GtItems.SULFUR_DUST), GtItems.SULFUR_DUST);
+
+        // Gem dusts.
+        electrolysis("sapphire_dust", Ingredient.of(GtItems.SAPPHIRE_DUST), 8, 3, 400, 50,
+                stack(GtItems.ALUMINIUM_DUST, 2), stack(Ic2Items.AIR_CELL, 3));
+        electrolysis("green_sapphire_dust", Ingredient.of(GtItems.GREEN_SAPPHIRE_DUST), 1, 0, 100, 50,
+                stack(GtItems.SAPPHIRE_DUST, 1));
+        implosion("ruby", GtItems.RUBY_DUST, 4, 24, stack(GtItems.RUBY, 3), stack(GtItems.DARK_ASH, 12));
+        implosion("sapphire", GtItems.SAPPHIRE_DUST, 4, 24, stack(GtItems.SAPPHIRE, 3), stack(GtItems.DARK_ASH, 12));
+        implosion("green_sapphire", GtItems.GREEN_SAPPHIRE_DUST, 4, 24, stack(GtItems.GREEN_SAPPHIRE, 3),
+                stack(GtItems.DARK_ASH, 12));
+        implosion("olivine", GtItems.OLIVINE_DUST, 4, 24, stack(GtItems.OLIVINE, 3), stack(GtItems.DARK_ASH, 12));
+        implosion("red_garnet", GtItems.RED_GARNET_DUST, 4, 16, stack(GtItems.RED_GARNET, 3),
+                stack(GtItems.DARK_ASH, 8));
+        implosion("yellow_garnet", GtItems.YELLOW_GARNET_DUST, 4, 16, stack(GtItems.YELLOW_GARNET, 3),
+                stack(GtItems.DARK_ASH, 8));
+    }
+
+    /** A GT ore and its deepslate variant. */
+    private static Ingredient gtOre(GtOre ore) {
+        return ore.hasDeepslateVariant() ? Ingredient.of(GtItems.ore(ore), GtItems.deepslateOre(ore))
+                : Ingredient.of(GtItems.ore(ore));
+    }
+
+    private void gtOreMacerator(GtOre ore, ItemLike result, int count) {
+        machine(MachineRecipe.Kind.MACERATOR, ore.getBlockName(), gtOre(ore), 1, result, count);
     }
 
     /** Depleted isotope cell as crafted: damage 9999. */

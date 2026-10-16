@@ -247,6 +247,40 @@ Status „mit GT-Erzen“ in `13-gregtech-maschinen.md` und `12-gregtech-materia
   `#is_forest`, `cherry_grove`.
 - **Entschieden (Nutzer, 2026-10-16):** Industrial Grinder wird 1:1 nachgebaut (Teilpaket 8d, nach den Erzen).
 
+### 6.6 Folgerezepte der Erz-Stäube und Edelsteine (`GT_OreDictHandler`, nachgetragen in Phase 8c)
+
+Maschinenwerte wie in `13-gregtech-maschinen.md` (Zentrifuge immer 5 EU/t, Hochofen 128 EU/t). „Zellen“ = leere
+Zellen als Eingabe 2. Umfang: **8c** umgesetzt, sonst fehlt das genannte Item noch.
+
+| Eingabe | Maschine | Ausgabe | Ticks / EU/t | Umfang |
+|---|---|---|---|---|
+| Rubin / Saphir / grüner Saphir / Olivin / roter / gelber Granat | Macerator | 1 Staub des Edelsteins | – | 8c |
+| Platinbarren | Macerator | 1 Platinstaub | – | 8c |
+| Platinstaub | Ofen | Platinbarren | – | 8c |
+| Eisenerz + Calciumcarbonatzelle | Hochofen | 3 raff. Eisen, leere Zelle | 100, 1000 K | 8c |
+| Calcitstaub + leere Zelle | Canning Machine | Calciumcarbonatzelle | 100 / 1 | 8c |
+| Calciumcarbonatzelle | Zentrifuge | Calcitstaub, leere Zelle | 40 | 8c |
+| 10 Calcitstaub, 7 Zellen | Elektrolyseur | 2 Calcium-, 2 Kohlenstoff-, 3 Luftzellen | 700 / 80 | 8c |
+| 2 Sphaleritstaub | Elektrolyseur | Zinkstaub, Schwefelstaub | 150 / 100 | 8c |
+| 2 Zinnoberstaub, 1 Zelle | Elektrolyseur | Quecksilberzelle, Schwefelstaub | 100 / 128 | 8c |
+| 2 Galenastaub | Elektrolyseur | 3 kl. Silber-, 3 kl. Blei-, 2 kl. Schwefelstaub | 1000 / 120 | 8c |
+| 2 Galenastaub | Hochofen | Silberbarren, Bleibarren | 20, 1500 K | später (Silberbarren) |
+| Zinkstaub | Zentrifuge | kl. Zinnstaub | 1050 | 8c |
+| Zinkstaub | Ofen | Zinkbarren | – | später (Zinkbarren) |
+| 8 Saphirstaub, 3 Zellen | Elektrolyseur | 2 Aluminiumstaub, 3 Luftzellen | 400 / 50 | 8c |
+| grüner Saphirstaub | Elektrolyseur | Saphirstaub | 100 / 50 | 8c |
+| 9 Rubinstaub, 3 Zellen | Elektrolyseur | 2 Aluminium-, 1 Chromstaub, 3 Luftzellen | 500 / 50 | später (Chrom) |
+| 9 Olivinstaub, 3 Zellen | Elektrolyseur | 2 Magnesium-, 2 Eisenstaub, Siliziumzelle, 2 Luftzellen | 600 / 60 | später (Magnesium) |
+| 12 Bauxitstaub, 8 Zellen | Elektrolyseur | 8 Aluminiumstaub, 2 kl. Titanstaub, 5 Wasserstoff-, 3 Luftzellen | 2000 / 128 | später (Titan) |
+| Platinstaub | Zentrifuge | Iridiumnugget, kl. Nickelstaub | 3000 | später (Iridiumnugget) |
+| 16 roter / gelber Granatstaub | Zentrifuge | Pyrop/Almandin/Spessartin bzw. Andradit/Grossular/Uwarowit | 3000 / 3500 | später |
+| 8 Olivin(staub) + fortg. Schaltkreis | Assembler | 4 Datenspeicherchips (Component 3) | 6400 / 8 | später |
+| 4 Edelsteinstaub + ITNT | Implosionskompressor | siehe `13-gregtech-maschinen.md` §8 | 20 / 32 | 8c |
+
+Massefabrikator-Verstärker: Rubin-, Saphir-, grüner Saphir-, Olivinstaub je 50 000, Platinstaub 100 000.
+Kleiner Schwefelstaub (`dustSmallSulfur`, `dustssmall.png` Index 8) kommt mit der Galena-Elektrolyse; kleine Stäube
+Calcit/Zink/Schwefel jeweils 4 ↔ 1 an der Werkbank.
+
 ## 7. Compact Solars, Forestry, Power Converters
 
 Keine Weltgenerierung im Umfang (Forestry-Erze/Torf etc. entfallen).

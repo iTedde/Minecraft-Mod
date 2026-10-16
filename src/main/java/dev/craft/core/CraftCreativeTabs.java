@@ -13,6 +13,7 @@ import dev.craft.forestry.circuit.ElectronTube;
 import dev.craft.gregtech.GtItems;
 import dev.craft.gregtech.GtMachine;
 import dev.craft.gregtech.block.GtCasingBlock;
+import dev.craft.gregtech.world.GtOre;
 import dev.craft.ic2.Ic2Items;
 import dev.craft.ic2.Ic2Machine;
 import dev.craft.ic2.cable.CableType;
@@ -156,6 +157,12 @@ public final class CraftCreativeTabs {
                         }
                         for (GtCasingBlock.Type type : GtCasingBlock.Type.values()) {
                             output.accept(GtItems.casing(type));
+                        }
+                        for (GtOre ore : GtOre.values()) {
+                            output.accept(GtItems.ore(ore));
+                            if (ore.hasDeepslateVariant()) {
+                                output.accept(GtItems.deepslateOre(ore));
+                            }
                         }
                         GtItems.simpleItems().forEach(output::accept);
                         output.accept(GtItems.LITHIUM_BATTERY);

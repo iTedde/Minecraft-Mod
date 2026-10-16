@@ -1,0 +1,29 @@
+{
+  "type": "craft:gt_electrolyzer",
+  "duration": 700,
+  "eu_per_tick": 80,
+  "inputs": [
+    {
+      "count": 10,
+      "tag": "c:dusts/calcite"
+    },
+    {
+      "count": 7,
+      "item": "craft:empty_cell"
+    }
+  ],
+  "outputs": [
+    {
+      "count": 2,
+      "id": "craft:calcium_cell"
+    },
+    {
+      "count": 2,
+      "id": "craft:carbon_cell"
+    },
+    {
+      "count": 3,
+      "id": "craft:air_cell"
+    }
+  ]
+}

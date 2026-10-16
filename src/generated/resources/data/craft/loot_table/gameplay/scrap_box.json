@@ -239,6 +239,11 @@
         },
         {
           "type": "minecraft:item",
+          "name": "craft:bauxite_dust",
+          "weight": 50
+        },
+        {
+          "type": "minecraft:item",
           "name": "craft:aluminium_dust",
           "weight": 50
         },
@@ -250,6 +255,11 @@
         {
           "type": "minecraft:item",
           "name": "craft:nickel_dust",
+          "weight": 50
+        },
+        {
+          "type": "minecraft:item",
+          "name": "craft:zinc_dust",
           "weight": 50
         },
         {
@@ -279,6 +289,11 @@
         },
         {
           "type": "minecraft:item",
+          "name": "craft:calcite_dust",
+          "weight": 200
+        },
+        {
+          "type": "minecraft:item",
           "name": "craft:sodalite_dust",
           "weight": 200
         },
@@ -286,6 +301,41 @@
           "type": "minecraft:item",
           "name": "craft:tungsten_dust",
           "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "craft:platinum_dust",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "craft:red_garnet",
+          "weight": 50
+        },
+        {
+          "type": "minecraft:item",
+          "name": "craft:yellow_garnet",
+          "weight": 50
+        },
+        {
+          "type": "minecraft:item",
+          "name": "craft:olivine",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "craft:ruby",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "craft:sapphire",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "craft:green_sapphire",
+          "weight": 5
         },
         {
           "type": "minecraft:item",

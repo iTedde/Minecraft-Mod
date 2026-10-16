@@ -1,0 +1,26 @@
+{
+  "type": "craft:gt_blast_furnace",
+  "duration": 100,
+  "eu_per_tick": 128,
+  "inputs": [
+    {
+      "count": 1,
+      "item": "minecraft:deepslate_iron_ore"
+    },
+    {
+      "count": 1,
+      "item": "craft:calcium_carbonate_cell"
+    }
+  ],
+  "outputs": [
+    {
+      "count": 3,
+      "id": "craft:refined_iron_ingot"
+    },
+    {
+      "count": 1,
+      "id": "craft:empty_cell"
+    }
+  ],
+  "special": 1000
+}

@@ -1,0 +1,21 @@
+{
+  "type": "craft:gt_electrolyzer",
+  "duration": 150,
+  "eu_per_tick": 100,
+  "inputs": [
+    {
+      "count": 2,
+      "item": "craft:sphalerite_dust"
+    }
+  ],
+  "outputs": [
+    {
+      "count": 1,
+      "id": "craft:zinc_dust"
+    },
+    {
+      "count": 1,
+      "id": "craft:sulfur_dust"
+    }
+  ]
+}

@@ -1,6 +1,11 @@
 {
   "values": [
     "craft:tin_ore",
-    "craft:deepslate_tin_ore"
+    "craft:deepslate_tin_ore",
+    "craft:galena_ore",
+    "craft:deepslate_galena_ore",
+    "craft:bauxite_ore",
+    "craft:pyrite_ore",
+    "craft:sphalerite_ore"
   ]
 }

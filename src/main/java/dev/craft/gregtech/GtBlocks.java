@@ -1,11 +1,17 @@
 package dev.craft.gregtech;
 
+import java.util.ArrayList;
 import java.util.EnumMap;
+import java.util.List;
 import java.util.Map;
 
 import dev.craft.Craft;
 import dev.craft.gregtech.block.GtCasingBlock;
 import dev.craft.gregtech.machine.GtMachineBlock;
+import dev.craft.gregtech.world.GtOre;
+import net.minecraft.util.valueproviders.ConstantInt;
+import net.minecraft.world.level.block.DropExperienceBlock;
+import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
@@ -18,6 +24,8 @@ public final class GtBlocks {
     private static final Map<GtMachine, DeferredBlock<GtMachineBlock>> MACHINES = new EnumMap<>(GtMachine.class);
     private static final Map<GtCasingBlock.Type, DeferredBlock<GtCasingBlock>> CASINGS =
             new EnumMap<>(GtCasingBlock.Type.class);
+    private static final Map<GtOre, DeferredBlock<DropExperienceBlock>> ORES = new EnumMap<>(GtOre.class);
+    private static final Map<GtOre, DeferredBlock<DropExperienceBlock>> DEEPSLATE_ORES = new EnumMap<>(GtOre.class);
 
     static {
         for (GtMachine machine : GtMachine.values()) {
@@ -26,6 +34,12 @@ public final class GtBlocks {
         }
         for (GtCasingBlock.Type type : GtCasingBlock.Type.values()) {
             CASINGS.put(type, BLOCKS.register(type.getName(), () -> new GtCasingBlock(casingProperties(type), type)));
+        }
+        for (GtOre ore : GtOre.values()) {
+            ORES.put(ore, BLOCKS.register(ore.getBlockName(), () -> oreBlock(ore, false)));
+            if (ore.hasDeepslateVariant()) {
+                DEEPSLATE_ORES.put(ore, BLOCKS.register(ore.getDeepslateBlockName(), () -> oreBlock(ore, true)));
+            }
         }
     }
 
@@ -38,6 +52,43 @@ public final class GtBlocks {
 
     public static DeferredBlock<GtCasingBlock> casing(GtCasingBlock.Type type) {
         return CASINGS.get(type);
+    }
+
+    public static DeferredBlock<DropExperienceBlock> ore(GtOre ore) {
+        return ORES.get(ore);
+    }
+
+    /** The deepslate variant, {@code null} if the ore has none. */
+    public static DeferredBlock<DropExperienceBlock> deepslateOre(GtOre ore) {
+        return DEEPSLATE_ORES.get(ore);
+    }
+
+    /** All GT ore blocks including the deepslate variants. */
+    public static List<DeferredBlock<DropExperienceBlock>> allOres() {
+        List<DeferredBlock<DropExperienceBlock>> ores = new ArrayList<>(ORES.values());
+        ores.addAll(DEEPSLATE_ORES.values());
+        return ores;
+    }
+
+    /**
+     * {@code GT_BlockMetaID_Ore}: Material.rock, stone sound, resistance 6, pickaxe of the ore's level; experience only
+     * when not mined with silk touch (vanilla {@code DropExperienceBlock}).
+     */
+    private static DropExperienceBlock oreBlock(GtOre ore, boolean deepslate) {
+        BlockBehaviour.Properties properties = BlockBehaviour.Properties.of().instrument(NoteBlockInstrument.BASEDRUM)
+                .requiresCorrectToolForDrops().strength(ore.getHardness()
+                        + (deepslate ? GtOre.DEEPSLATE_EXTRA_HARDNESS : 0.0F), GtOre.RESISTANCE);
+        if (deepslate) {
+            properties.mapColor(MapColor.DEEPSLATE).sound(SoundType.DEEPSLATE);
+        } else {
+            properties.mapColor(switch (ore.getGround()) {
+                case STONE -> MapColor.STONE;
+                case NETHERRACK -> MapColor.NETHER;
+                case END_STONE -> MapColor.SAND;
+            });
+        }
+        return new DropExperienceBlock(ore.getExperience() != null ? ore.getExperience() : ConstantInt.of(0),
+                properties);
     }
 
     /** {@code GT_BlockMetaID_Block}: Material.iron, hardness 3, iron pickaxe, no mob spawns. */

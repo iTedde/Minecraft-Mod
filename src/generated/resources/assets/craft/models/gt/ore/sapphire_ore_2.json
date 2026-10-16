@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "craft:block/gt/ore/sapphire_2",
+    "east": "craft:block/gt/ore/sapphire_1",
+    "north": "craft:block/gt/ore/sapphire_0",
+    "particle": "craft:block/gt/ore/sapphire_2",
+    "south": "craft:block/gt/ore/sapphire_1",
+    "up": "craft:block/gt/ore/sapphire_3",
+    "west": "craft:block/gt/ore/sapphire_0"
+  }
+}

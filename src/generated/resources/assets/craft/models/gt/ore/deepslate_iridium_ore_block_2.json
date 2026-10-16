@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "craft:block/gt/ore/deepslate_iridium_2",
+    "east": "craft:block/gt/ore/deepslate_iridium_1",
+    "north": "craft:block/gt/ore/deepslate_iridium_0",
+    "particle": "craft:block/gt/ore/deepslate_iridium_2",
+    "south": "craft:block/gt/ore/deepslate_iridium_1",
+    "up": "craft:block/gt/ore/deepslate_iridium_3",
+    "west": "craft:block/gt/ore/deepslate_iridium_0"
+  }
+}

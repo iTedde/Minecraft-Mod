@@ -11,6 +11,9 @@
     "#c:dusts/nickel",
     "#c:dusts/aluminium",
     "#c:dusts/steel",
-    "#c:dusts/lead"
+    "#c:dusts/lead",
+    "#c:dusts/platinum",
+    "#c:dusts/zinc",
+    "#c:dusts/calcite"
   ]
 }

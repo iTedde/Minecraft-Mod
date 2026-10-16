@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "craft:block/gt/ore/iridium_1",
+    "east": "craft:block/gt/ore/iridium_4",
+    "north": "craft:block/gt/ore/iridium_3",
+    "particle": "craft:block/gt/ore/iridium_1",
+    "south": "craft:block/gt/ore/iridium_2",
+    "up": "craft:block/gt/ore/iridium_0",
+    "west": "craft:block/gt/ore/iridium_5"
+  }
+}

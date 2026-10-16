@@ -1,0 +1,15 @@
+{
+  "type": "craft:macerator",
+  "ingredient": [
+    {
+      "item": "craft:iridium_ore_block"
+    },
+    {
+      "item": "craft:deepslate_iridium_ore_block"
+    }
+  ],
+  "result": {
+    "count": 2,
+    "id": "craft:iridium_ore"
+  }
+}

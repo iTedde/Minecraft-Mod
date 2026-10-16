@@ -1,0 +1,12 @@
+{
+  "type": "neoforge:add_features",
+  "biomes": "#minecraft:is_overworld",
+  "features": [
+    "craft:gt_galena_ore",
+    "craft:gt_iridium_ore",
+    "craft:gt_ruby_ore",
+    "craft:gt_sapphire_ore",
+    "craft:gt_bauxite_ore"
+  ],
+  "step": "underground_ores"
+}

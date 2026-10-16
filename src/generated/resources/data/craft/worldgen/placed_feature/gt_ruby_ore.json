@@ -1,0 +1,28 @@
+{
+  "feature": "craft:gt_ruby_ore",
+  "placement": [
+    {
+      "type": "craft:chunk_biome",
+      "biomes": "#craft:has_gt_ruby_ore"
+    },
+    {
+      "type": "minecraft:count",
+      "count": 8
+    },
+    {
+      "type": "minecraft:in_square"
+    },
+    {
+      "type": "minecraft:height_range",
+      "height": {
+        "type": "minecraft:uniform",
+        "max_inclusive": {
+          "absolute": 31
+        },
+        "min_inclusive": {
+          "absolute": 0
+        }
+      }
+    }
+  ]
+}

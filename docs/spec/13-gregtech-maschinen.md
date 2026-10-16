@@ -344,7 +344,7 @@ Slots 0 (34, 16), 1 (34, 34), Ausgaben 2 (86, 25), 3 (104, 25). Fortschrittspfei
 | Wolframstaub | – | Wolframbarren | – | 2000 | 2500 | später |
 | Wolframbarren + Stahlbarren | | 2 Wolframstahlbarren | 4 dunkle Asche | 2000 | 3000 | später |
 | 2 Galenastaub | – | Silberbarren | Bleibarren | 20 | 1500 | später |
-| Eisen-/Pyriterz (+ Calciumcarbonatzelle) | | raff. Eisen | leere Zelle | 100 | 1000/1500 | mit GT-Erzen |
+| Eisen-/Pyriterz (+ Calciumcarbonatzelle) | | raff. Eisen | leere Zelle | 100 | 1000/1500 | 8c |
 
 Pack-Config `basicmetalblastfurnacerequirement`: alles `true` → Aluminium-, Stahl-, Titan-, Chrom-, Wolframstaub
 lassen sich **nicht** im Ofen schmelzen. Rezeptsuche wie §2 (Eingabe 1 Item + Menge ≥ Rezept, Eingabe 2 nur wenn das
@@ -582,8 +582,8 @@ IC2 TNT), Anzahl aus `RecipesAdvancedConfig.cfg` Abschnitt `implosion` (im Pack 
 | Iridium-Legierungsbarren | 8 | IC2-Iridiumplatte | 4 dunkle Asche | 6b.5b |
 | 4 Diamantstaub | 32 | 3 Industriediamanten | 16 dunkle Asche | 6b.5b |
 | 4 Smaragdstaub | 24 | 3 Smaragde | 12 dunkle Asche | 6b.5b |
-| 4 Rubin-/Saphir-/grüner Saphir-/Olivinstaub | 24 | 3 Edelsteine | 12 dunkle Asche | mit GT-Erzen |
-| 4 roter/gelber Granatstaub | 16 | 3 Granat | 8 dunkle Asche | mit GT-Erzen |
+| 4 Rubin-/Saphir-/grüner Saphir-/Olivinstaub | 24 | 3 Edelsteine | 12 dunkle Asche | 8c |
+| 4 roter/gelber Granatstaub | 16 | 3 Granat | 8 dunkle Asche | 8c |
 
 ### 8.1 Iridium-Kette und Edelsteinstaub (6b.5b)
 
