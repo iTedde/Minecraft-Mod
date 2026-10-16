@@ -57,6 +57,8 @@ public final class CraftItemModelProvider extends ItemModelProvider {
                 .texture("layer0", modLoc("block/landmark"));
         withExistingParent(GtItems.WATER.getId().getPath(), mcLoc("item/generated"))
                 .texture("layer0", mcLoc("block/water_still"));
+        withExistingParent(GtItems.LAVA.getId().getPath(), mcLoc("item/generated"))
+                .texture("layer0", mcLoc("block/lava_still"));
         ItemModelBuilder lithiumCharged = withExistingParent("lithium_battery_charged", mcLoc("item/generated"))
                 .texture("layer0", modLoc("item/gt/lithium_battery"));
         withExistingParent(GtItems.LITHIUM_BATTERY.getId().getPath(), mcLoc("item/generated"))

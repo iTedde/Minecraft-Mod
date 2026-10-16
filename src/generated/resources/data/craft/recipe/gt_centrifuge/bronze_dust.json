@@ -1,0 +1,21 @@
+{
+  "type": "craft:gt_centrifuge",
+  "duration": 1500,
+  "eu_per_tick": 5,
+  "inputs": [
+    {
+      "count": 1,
+      "tag": "c:dusts/bronze"
+    }
+  ],
+  "outputs": [
+    {
+      "count": 6,
+      "id": "craft:small_copper_dust"
+    },
+    {
+      "count": 2,
+      "id": "craft:small_tin_dust"
+    }
+  ]
+}

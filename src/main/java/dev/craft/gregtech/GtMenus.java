@@ -6,7 +6,7 @@ import dev.craft.Craft;
 import dev.craft.gregtech.menu.GtBasicMachineMenu;
 import dev.craft.gregtech.menu.GtBlastFurnaceMenu;
 import dev.craft.gregtech.menu.GtImplosionCompressorMenu;
-import dev.craft.gregtech.menu.GtElectrolyzerMenu;
+import dev.craft.gregtech.menu.GtTankMachineMenu;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.inventory.MenuType;
 import net.neoforged.neoforge.common.extensions.IMenuTypeExtension;
@@ -21,9 +21,14 @@ public final class GtMenus {
                     buf.readBlockPos())));
 
     /** {@code GT_Container_Electrolyzer}. */
-    public static final Supplier<MenuType<GtElectrolyzerMenu>> ELECTROLYZER = MENUS.register("gt_electrolyzer",
-            () -> IMenuTypeExtension.create((id, inventory, buf) -> new GtElectrolyzerMenu(id, inventory,
-                    buf.readBlockPos())));
+    public static final Supplier<MenuType<GtTankMachineMenu>> ELECTROLYZER = MENUS.register("gt_electrolyzer",
+            () -> IMenuTypeExtension.create((id, inventory, buf) -> new GtTankMachineMenu(id, inventory,
+                    buf.readBlockPos(), GtMachine.INDUSTRIAL_ELECTROLYZER)));
+
+    /** {@code GT_Container_Centrifuge}. */
+    public static final Supplier<MenuType<GtTankMachineMenu>> CENTRIFUGE = MENUS.register("gt_centrifuge",
+            () -> IMenuTypeExtension.create((id, inventory, buf) -> new GtTankMachineMenu(id, inventory,
+                    buf.readBlockPos(), GtMachine.INDUSTRIAL_CENTRIFUGE)));
 
     /** {@code GT_Container_BlastFurnace}. */
     public static final Supplier<MenuType<GtBlastFurnaceMenu>> BLAST_FURNACE = MENUS.register("gt_blast_furnace",

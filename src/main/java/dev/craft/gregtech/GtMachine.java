@@ -6,6 +6,7 @@ import dev.craft.gregtech.machine.AssemblerBlockEntity;
 import dev.craft.gregtech.machine.BenderBlockEntity;
 import dev.craft.gregtech.machine.BlastFurnaceBlockEntity;
 import dev.craft.gregtech.machine.CannerBlockEntity;
+import dev.craft.gregtech.machine.CentrifugeBlockEntity;
 import dev.craft.gregtech.machine.ElectrolyzerBlockEntity;
 import dev.craft.gregtech.machine.GtMachineBlockEntity;
 import dev.craft.gregtech.machine.ImplosionCompressorBlockEntity;
@@ -30,7 +31,14 @@ public enum GtMachine {
     AUTOMATIC_CANNING_MACHINE("automatic_canning_machine", "canner", Layout.BASIC, 32, 254, 255,
             "Unmobile Food Canning Machine GTA4", CannerBlockEntity::new),
     IMPLOSION_COMPRESSOR("implosion_compressor", "implosion", Layout.TOP, 32, 68, 69, "Over 9000 Gibbl!",
-            ImplosionCompressorBlockEntity::new);
+            ImplosionCompressorBlockEntity::new),
+    INDUSTRIAL_CENTRIFUGE("industrial_centrifuge", "centrifuge", Layout.SIDES, 32, 27, 25,
+            "And round and round and round it goes", CentrifugeBlockEntity::new) {
+        @Override
+        public int getTopTexture(boolean active) {
+            return active ? 41 : 43;
+        }
+    };
 
     /** {@link Layout#FRONT}: back and remaining sides of the blast furnace ({@code terrain.png}). */
     public static final int FRONT_LAYOUT_BACK = 71;
@@ -89,7 +97,7 @@ public enum GtMachine {
         return active ? frontActive : frontInactive;
     }
 
-    /** Top texture of a basic machine ({@code getTopFacingActive/Inactive}), 29 unless overridden. */
+    /** Top texture of a basic or side-layout machine ({@code getTopFacingActive/Inactive}), 29 unless overridden. */
     public int getTopTexture(boolean active) {
         return 29;
     }
@@ -107,7 +115,7 @@ public enum GtMachine {
     public enum Layout {
         /** BasicMachine: all six facings, fixed main facing with the front texture, output side textures. */
         BASIC,
-        /** No facing: bottom 32, top 29, own texture on the four sides. */
+        /** No facing: bottom 32, top texture (29 unless overridden), own texture on the four sides. */
         SIDES,
         /** Horizontal facing only: front texture, back 71, everything else 72. */
         FRONT,

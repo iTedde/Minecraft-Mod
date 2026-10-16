@@ -1,0 +1,12 @@
+{
+  "type": "craft:ic2_shapeless",
+  "ingredients": [
+    {
+      "tag": "c:dusts/copper"
+    }
+  ],
+  "result": {
+    "count": 4,
+    "id": "craft:small_copper_dust"
+  }
+}

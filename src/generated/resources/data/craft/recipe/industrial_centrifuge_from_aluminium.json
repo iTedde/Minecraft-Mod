@@ -1,0 +1,26 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "A": {
+      "tag": "craft:raw_machine_tier_02"
+    },
+    "C": {
+      "item": "craft:advanced_circuit"
+    },
+    "E": {
+      "item": "craft:extractor"
+    },
+    "R": {
+      "tag": "c:plates/aluminium"
+    }
+  },
+  "pattern": [
+    "RCR",
+    "AEA",
+    "RCR"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:industrial_centrifuge"
+  }
+}

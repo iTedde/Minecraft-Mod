@@ -597,3 +597,29 @@ IC2 TNT), Anzahl aus `RecipesAdvancedConfig.cfg` Abschnitt `implosion` (im Pack 
 Die IC2-Rezepte der Iridiumplatte (`IAI/ADA/IAI` mit Iridiumerz und Diamant bzw. Industriediamant) entfernt GT.
 Später (Zutaten fehlen): Smaragdstaub im Assembler (8 + fortg. Schaltkreis) und Elektrolyseur (Berylliumzellen),
 GT-Rückgewinnung von Werkzeugen/Rüstung im Macerator (`applyUsagesForMaterials`, für alle Materialien offen).
+
+## 9. Industrielle Zentrifuge (`GT_MetaTileEntity_Centrifuge`, ID 62, „Industrial Centrifuge“) – Teilpaket 6b.5c
+
+Aufbau **wie der Elektrolyseur (§4)**, Code gemeinsam in `GtTankMachineBlockEntity`. Unterschiede:
+
+| Wert | |
+|---|---|
+| `maxEUInput` | **32** (ein IC2-Trafo-Upgrade → 128) |
+| Tank | nur **Lava**, 10 000 mB, von allen Seiten befüllbar, nie entleert (`getTankPressure −100`); je Tick ≥ 1000 mB → +1 Lava im Holo-Slot 6 (max. 64), NBT `mStoredLava` |
+| Rezeptsuche | erst (Slot 0, Slot 1), dann (Slot 6 = Lava, Slot 1); nicht shapeless |
+| Rezepte | `addCentrifugeRecipe(in, nZellen, out1..4, Dauer)`: **immer 5 EU/t**, Eingabe 2 = n leere Zellen |
+| Texturen | unten 32, oben 43 (aktiv 41), Seiten 27 (aktiv 25) |
+| GUI | `gui/Centrifuge.png`: Eingabe 0 (80,35), Zellen 1 (50,5), Ausgaben 2–5 (80,5)/(110,35)/(80,65)/(50,35), Holo 6 (110,65); vier Pfeile wachsen nach außen (Fortschritt 0–10); Titel zweizeilig „Industrial“/„Centrifuge“ bei (110,4)/(110,12) |
+| Beschreibung | „And round and round and round it goes“ |
+| Rezept | `RCR/AEA/RCR`, R = raff. Eisen- **oder** Aluminiumplatte, C = fortg. Schaltkreis, A = fortg. Maschinenblock (`craftingRawMachineTier02`), E = Extraktor |
+
+**Rezepte** (umgesetzt: alle mit erreichbarer Eingabe, Liste mit Dauern in `docs/STATUS.md` „Rezeptliste Zentrifuge“):
+Magmacreme, Erde, Gras, Myzel, Harz, Nahrung → Methan (+ Goldäpfel/-karotte/glitzernde Melone), Gummiholz, Seelensand,
+Lavazellen und Lava, Lapis, Redstone, Glowstonestaub, Bronze-/Kupfer-/Gold-/Nickel-/Eisen-/Zinn-/Silberstaub,
+dunkle Asche, Wasserstoff → Deuterium → Tritium, Helium → Helium-3.
+
+**Neue Materialien:** Zellen Deuterium (1, H-2), Tritium (2, H-3), Helium (3, He), Helium-3 (6), Methan (9, CH4),
+Quecksilber (16, Hg), Öl (17); Stäube Lazurit (2), Pyrit (3), Salpeter (9), Rubin (32), Asche (62, „Ashes“);
+kleine Stäube („Tiny Pile of …“, gleicher Index) Pyrit, Calcit, Sodalith, Wolfram, Blei, Zink, Nickel, Gold, Kupfer,
+Zinn; Elektrumbarren (Material 21, AgAu). GT `dustSmall*`: 4 kleine → 1 Staub und 1 Staub → 4 kleine, umgesetzt für
+Pyrit, Nickel, Gold, Kupfer, Zinn (die anderen Stäube gibt es nicht).

@@ -52,6 +52,7 @@ public final class GtItems {
     public static final DeferredItem<GtMaterialItem> NICKEL_INGOT = material("nickel_ingot", "Ni");
     public static final DeferredItem<GtMaterialItem> SILICON_PLATE = material("silicon_plate", "Si2");
     public static final DeferredItem<GtMaterialItem> IRIDIUM_INGOT = material("iridium_ingot", "Ir");
+    public static final DeferredItem<GtMaterialItem> ELECTRUM_INGOT = material("electrum_ingot", "AgAu");
     /** Material 4: no formula line. */
     public static final DeferredItem<GtMaterialItem> IRIDIUM_ALLOY_INGOT = material("iridium_alloy_ingot", "");
 
@@ -62,6 +63,13 @@ public final class GtItems {
     public static final DeferredItem<GtMaterialItem> CARBON_CELL = material("carbon_cell", "C");
     public static final DeferredItem<GtMaterialItem> CALCIUM_CELL = material("calcium_cell", "Ca");
     public static final DeferredItem<GtMaterialItem> SODIUM_CELL = material("sodium_cell", "Na");
+    public static final DeferredItem<GtMaterialItem> DEUTERIUM_CELL = material("deuterium_cell", "H-2");
+    public static final DeferredItem<GtMaterialItem> TRITIUM_CELL = material("tritium_cell", "H-3");
+    public static final DeferredItem<GtMaterialItem> HELIUM_CELL = material("helium_cell", "He");
+    public static final DeferredItem<GtMaterialItem> HELIUM_3_CELL = material("helium_3_cell", "He-3");
+    public static final DeferredItem<GtMaterialItem> METHANE_CELL = material("methane_cell", "CH4");
+    public static final DeferredItem<GtMaterialItem> MERCURY_CELL = material("mercury_cell", "Hg");
+    public static final DeferredItem<GtMaterialItem> OIL_CELL = material("oil_cell", "");
 
     // --- dusts (GT_MetaItem_Dust) ---
     public static final DeferredItem<GtMaterialItem> SULFUR_DUST = material("sulfur_dust", "S");
@@ -70,7 +78,25 @@ public final class GtItems {
     public static final DeferredItem<GtMaterialItem> STEEL_DUST = material("steel_dust", "Fe");
     public static final DeferredItem<GtMaterialItem> NICKEL_DUST = material("nickel_dust", "Ni");
     public static final DeferredItem<GtMaterialItem> EMERALD_DUST = material("emerald_dust", "Be3Al2Si6O18");
+    public static final DeferredItem<GtMaterialItem> LAZURITE_DUST = material("lazurite_dust", "Al6Si6Ca8Na8");
+    public static final DeferredItem<GtMaterialItem> PYRITE_DUST = material("pyrite_dust", "FeS2");
+    public static final DeferredItem<GtMaterialItem> SALTPETER_DUST = material("saltpeter_dust", "KNO3");
+    public static final DeferredItem<GtMaterialItem> RUBY_DUST = material("ruby_dust", "Al2O6Cr");
+    public static final DeferredItem<GtMaterialItem> ASH = material("ash", "C");
     public static final DeferredItem<GtMaterialItem> DIAMOND_DUST = material("diamond_dust", "C128");
+
+    // --- small dusts (GT_MetaItem_SmallDust, same index as the dust) ---
+    public static final DeferredItem<GtMaterialItem> SMALL_PYRITE_DUST = material("small_pyrite_dust", "FeS2");
+    public static final DeferredItem<GtMaterialItem> SMALL_CALCITE_DUST = material("small_calcite_dust", "CaCO3");
+    public static final DeferredItem<GtMaterialItem> SMALL_SODALITE_DUST = material("small_sodalite_dust",
+            "Al3Si3Na4Cl");
+    public static final DeferredItem<GtMaterialItem> SMALL_TUNGSTEN_DUST = material("small_tungsten_dust", "W");
+    public static final DeferredItem<GtMaterialItem> SMALL_LEAD_DUST = material("small_lead_dust", "Pb");
+    public static final DeferredItem<GtMaterialItem> SMALL_ZINC_DUST = material("small_zinc_dust", "Zn");
+    public static final DeferredItem<GtMaterialItem> SMALL_NICKEL_DUST = material("small_nickel_dust", "Ni");
+    public static final DeferredItem<GtMaterialItem> SMALL_GOLD_DUST = material("small_gold_dust", "Au");
+    public static final DeferredItem<GtMaterialItem> SMALL_COPPER_DUST = material("small_copper_dust", "Cu");
+    public static final DeferredItem<GtMaterialItem> SMALL_TIN_DUST = material("small_tin_dust", "Sn");
 
     // --- components (GT_MetaItem_Component) ---
     public static final DeferredItem<GtMaterialItem> CONVEYOR_MODULE = component("conveyor_module");
@@ -97,6 +123,9 @@ public final class GtItems {
      * not obtainable otherwise.
      */
     public static final DeferredItem<Item> WATER = ITEMS.registerSimpleItem("water");
+
+    /** The lava block item of the centrifuge's holo slot (1.4.7 {@code new ItemStack(Block.lavaStill)}). */
+    public static final DeferredItem<Item> LAVA = ITEMS.registerSimpleItem("lava");
 
     private GtItems() {
     }

@@ -673,7 +673,15 @@ entscheiden**.
 3. Später: GT-Rückgewinnung von Werkzeugen/Rüstung im Macerator (`applyUsagesForMaterials`, alle Materialien),
    Smaragdstaub im Assembler/Elektrolyseur, ITNT-Variante mit Feuersteinstaub, Dynamit aus ITNT.
 
-## Zwischenstand Teilpaket „Phase 6b.5c: Zentrifuge“ (2026-10-16, nur Recherche, noch kein Code)
+## Teilpaket „Phase 6b.5c: Zentrifuge“ (2026-10-16, **erledigt** – wartet auf Abnahme)
+- Umgesetzt: Maschine (Spec 13 §9, gemeinsame Basis mit dem Elektrolyseur `GtTankMachineBlockEntity`), 53
+  Zentrifugen-Rezepte (A + B1–B4), 23 neue Items + Lava-Holo-Item, Kleinstaub-Crafting, Werkbankrezept (2 Varianten).
+  Abweichungen (Fisch/Kürbis/Riesenpilze, Schlacke, kl. Eisenstaub, Lava-Item) in `abweichungen.md`.
+- Geprüft: `gradlew build`, alle 152 GameTests (neu: Asche, Lavatank, Rezeptwerte, Energiewerte), `runClient`
+  startet ohne Modell-/Texturfehler.
+- Zum Testen im Spiel: Zentrifuge craften, Lava per Pumpe/Rohr einfüllen (16 Lava → Metalle), Redstone/Glowstone/
+  Nahrung zentrifugieren, GUI-Pfeile und Holo-Slot ansehen.
+- Recherche-Notizen:
 - Quelle: `GT_MetaTileEntity_Centrifuge` (ID-Name „Industrial Centrifuge“, GUI-ID 146, `gui/Centrifuge.png`,
   `GT_Container_Centrifuge`). Aufbau **fast identisch zum Elektrolyseur** (§4 in `13-gregtech-maschinen.md`) – Umsetzung
   kann dessen Code-Muster nutzen. Unterschiede:
@@ -694,6 +702,47 @@ entscheiden**.
   `equals("dust…")` davor).
 - Namen geklärt: Zellen 3 Helium, 6 Helium-3, 7 Silizium, 9 Methan, 16 Quecksilber, 17 Öl, 23 Eis, 24 Saatöl;
   Kleinstaub 3/4/5 Pyrit/Calcit/Sodalith, 22 Wolfram, 24 Zink, 28 Nickel, 241–244 Eisen/Gold/Kupfer/Zinn.
-- Offen: Zuordnung der Vanilla-Feldnamen (`up.*`/`amq.*`, MC 1.4.7) für die Methan-/Nahrungsrezepte – keine
-  Mapping-Datei mehr vorhanden (`tools/` verloren); dann Liste „erreichbar / neue Ausgabe-Items nötig“ erstellen und
-  dem Nutzer zur Entscheidung vorlegen (Entscheidung: nur erreichbare Rezepte, neue Ausgabe-Items nur bei Bedarf).
+- Vanilla-Feldnamen geklärt (2026-10-16, per `javap -c` auf `up`/`amq` aus `ftb ultimate/instmods/minecraft.jar`,
+  statischer Initialisierer → `setUnlocalizedName`): `amq.x` Gras, `y` Erde, `G` Lava, `H` Sand, `aW` Eis,
+  `ai`/`aj` brauner/roter Pilz, `bq`/`br` Riesenpilzblöcke, `bd` Kürbis, `bf` Seelensand, `bB` Myzel; `up.j` Apfel,
+  `p` Goldbarren, `F` Pilzsuppe, `U` Brot, `aq`/`ar` Schwein roh/gebraten, `at` goldener Apfel (Meta 1 = verzaubert),
+  `aC` Redstone, `aI` Tonklumpen, `aM` Schleimball, `aU`/`aV` Fisch roh/gebraten, `aZ` Kuchen, `bc` Keks, `bf` Melone,
+  `bi`/`bj` Rind, `bk`/`bl` Huhn, `bm` verrottetes Fleisch, `bq` Goldnugget, `br` Netherwarze, `bu` Spinnenauge,
+  `bw` Lohenstaub, `bx` Magmacreme, `bB` glitzernde Melone, `bK` Karotte, `bL` Kartoffel, `bM` Ofenkartoffel,
+  `bN` giftige Kartoffel, `bP` goldene Karotte.
+- Weitere Namen: GT-Staub 0 Enderperle, 1 Enderauge, 2 Lazurit, 3 Pyrit, 4 Calcit, 5 Sodalith, 6 Netherrack,
+  7 Feuerstein, 8 Schwefel, 9 Salpeter, 13 Magnesium, 22 Wolfram, 23 Blei, 24 Zink, 28 Nickel, 32 Rubin, 37 Olivin,
+  62 Asche, 63 dunkle Asche; Zellen 1 Deuterium, 2 Tritium. `getGregTechItem(1,…)` = Staub, `(2,…)` = Zelle.
+  `ForestryBronzeNerf=true` (GregTech.cfg) → Bronzestaub-Rezept mit **1** Staub. Dauern in
+  `RecipesAdvancedConfig.cfg` = Code-Standardwerte. Zinnzellen-Anzahl 8 → Lavazellen-Rezept 10 Zinn.
+
+### Rezeptliste Zentrifuge (alle 5 EU/t; Zellen = leere Zellen als Eingabe 2)
+**A – sofort umsetzbar (alles vorhanden):** Magmacreme → Lohenstaub + Schleimball (500) · 16 Erde → kompr.
+Pflanzenball, Pflanzenball, Ton, 8 Sand (2500) · 16 Gras → 2 kompr. Pflanzenb., 2 Pflanzenb., Ton, 8 Sand (2500) ·
+8 Myzel → 2 braune + 2 rote Pilze, Ton, 4 Sand (1650) · 4 Harz → 14 Gummi, kompr. Pflanzenb., Pflanzenb. (1300).
+
+**B – Eingabe erreichbar, neue Ausgabe-Items nötig:**
+- B1 Methan (neu: Methanzelle): Nahrung + 1 Zelle → Methanzelle (5000; Apfel 32, Pilzsuppe 16, Brot 64, Schwein
+  12/16, Fisch 12/16, Rind 12/16, Huhn 12/16, Melone 64, Kürbis 16, verr. Fleisch 16, Spinnenauge 32, Karotte 16,
+  Kartoffel 16, giftige Kart. 12, Ofenkart. 24, Keks 64, Kuchen 8, Riesenpilzblöcke je 12, Pilze je 32,
+  Netherwarze 32) · goldene Karotte 1 / glitzernde Melone 8 + 1 Zelle → Methan + 6 Goldnuggets (10000) ·
+  verz. goldener Apfel + 2 Zellen → 2 Methan + 64 Gold (10000) · 16 Gummiholz + 5 Zellen → 8 Harz, 6 Pflanzenb.,
+  Methan, 4 Kohlenstoffzellen (5000).
+- B2 Lava (neu: Elektrumbarren, kleiner Wolframstaub): 16 Lavazellen → Elektrum, 4 Kupfer, kl. Wolfram, 10 Zinn
+  (15000) · 16 Lava (Tank) → dto. mit 2 Zinn (10000). Ohne B2 ist der Lavatank der Zentrifuge funktionslos.
+- B3 Kleinstäube (neu: kl. Kupfer/Gold/Zinn/Nickel/Zink/Bleistaub; kl. Eisen vorhanden): 3 Kupferst. → kl. Gold +
+  kl. Nickel (2400) · 3 Goldst. → kl. Kupfer + kl. Nickel (2400) · 3 Nickelst. → kl. Eisen/Gold/Kupfer (3450) ·
+  2 Eisenst. → kl. Zinn + kl. Nickel (1500) · 2 Zinnst. → kl. Zink + kl. Eisen (2100) · 1 Bronzest. → 6 kl. Kupfer +
+  2 kl. Zinn (1500) · 2 Silberst. → kl. Blei (2400).
+- B4 Gase/Mineralien: 4 Wasserstoffz. → Deuterium + 3 Zellen (3000) · 4 Deuterium → Tritium + 3 Zellen (3000) ·
+  16 Glowstonestaub + 1 Zelle → 8 Redstone, 8 Goldstaub, Heliumzelle (25000) · 16 Helium → Helium-3 + 15 Zellen
+  (10000) · 10 Redstone + 4 Zellen → Siliziumzelle, 5 Pyrit, Rubin, 3 Quecksilberzellen (7000) · 4 Lapis → 3 Lazurit,
+  kl. Pyrit, kl. Calcit, 2 kl. Sodalith (1500) · 16 Seelensand + 1 Zelle → Ölzelle, 4 Salpeter, Kohlestaub, 10 Sand
+  (2500) · 2 dunkle Asche → 2 Asche (250; TE-Schlacke gibt es nicht → 2. Ausgabe Asche).
+
+**Entschieden (Nutzer, 2026-10-16):** A und alle Gruppen B1–B4 werden umgesetzt (inkl. der neuen Ausgabe-Items).
+
+**C – Eingabe nicht erreichbar / später:** Eiszelle (Vakuumgefrierer fehlt), Uranzellen + Uranstaub (Phase 7),
+Terra Wart (Crops), Lava-Dose/Refractory Lava (andere Mods), Ölsand, Netherrack-/Endstein-/Enderaugenstaub (GT-
+Macerator-Rezepte fehlen noch), Marmor/Basalt/Granat/Invar/Messing/Elektrum/Platin/Iridium/Blei/Zink/
+Quecksilber-Staub, Schwefel-/Calciumcarbonat-/Quecksilber-Molekülzellen, Red Rock.

@@ -178,6 +178,10 @@ Status: *geplant* (aus Phase 1 abgeleitet, noch nicht umgesetzt), *entschieden* 
 | Konservieren: Behälter | IC2: nur Pilzsuppe → Schüssel; GT: Pilzsuppe → Schüssel, sonst `getContainerItem` | beide Maschinen: Crafting-Rest (Honig → Glasflasche), sonst `usingConvertsTo` (Schüssel der 1.21-Suppen) | Suppen haben in 1.21 keinen Crafting-Rest | **umgesetzt** |
 | GT-Canner: Zellen-Rezepte | Uran, Plutonium, Thorium, Schwefel, Calcit, Wolfram, Quecksilber, Railcraft-Schwellen | Uranzelle mit Phase 7, GT-Zellen sobald es sie gibt; Railcraft nicht im Umfang | Items fehlen | **offen** |
 | Konservierungsmaschine: deutscher Name | – (IC2 nur englisch) | „Konservierungsmaschine“ | Doku auf Deutsch | **umgesetzt** |
+| Zentrifuge: Fisch, Kürbis, Riesenpilze | 1.4.7: ein Fisch, Kürbis mit Gesicht, Riesenpilzblöcke mit Stiel als Meta | Fisch = Kabeljau + Lachs (roh/gebraten), Kürbis = Kürbis + geschnitzter Kürbis, brauner Riesenpilzblock + Pilzstiel | Items in 1.21 aufgeteilt | **umgesetzt** |
+| Zentrifuge: dunkle Asche | 2 dunkle Asche → Asche + TE-Schlacke (ohne TE: Asche) | Asche + Asche | Thermal Expansion nicht im Umfang | **umgesetzt** |
+| Zentrifuge: kleiner Eisenstaub | GT-Kleinstaub 241 (vereinheitlicht über `dustSmallIron`) | IC2-„Small Pile of Iron Dust“ | vorhandenes Item, gleiche Ore-Dict-Gruppe | **umgesetzt** |
+| Zentrifuge: Lava im Holo-Slot | `ItemStack(Block.lavaStill)` | eigenes Item `craft:lava` (Textur Vanilla-Lava), nicht erhältlich, geht beim Abbau verloren | Fluidblöcke haben in 1.21 kein Item | **umgesetzt** |
 
 ## Bewusst (Energiebalancing)
 

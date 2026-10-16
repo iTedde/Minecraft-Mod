@@ -1,0 +1,23 @@
+{
+  "type": "craft:gt_centrifuge",
+  "duration": 10000,
+  "eu_per_tick": 5,
+  "inputs": [
+    {
+      "count": 16,
+      "item": "craft:helium_cell"
+    }
+  ],
+  "outputs": [
+    {
+      "count": 1,
+      "id": "craft:helium_3_cell"
+    },
+    {},
+    {},
+    {
+      "count": 15,
+      "id": "craft:empty_cell"
+    }
+  ]
+}

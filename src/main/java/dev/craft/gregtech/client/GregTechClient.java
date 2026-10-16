@@ -30,7 +30,8 @@ public final class GregTechClient {
     @SubscribeEvent
     public static void registerScreens(RegisterMenuScreensEvent event) {
         event.register(GtMenus.BASIC_MACHINE.get(), GtBasicMachineScreen::new);
-        event.register(GtMenus.ELECTROLYZER.get(), GtElectrolyzerScreen::new);
+        event.register(GtMenus.ELECTROLYZER.get(), GtTankMachineScreen::electrolyzer);
+        event.register(GtMenus.CENTRIFUGE.get(), GtTankMachineScreen::centrifuge);
         event.register(GtMenus.BLAST_FURNACE.get(), GtBlastFurnaceScreen::new);
         event.register(GtMenus.IMPLOSION_COMPRESSOR.get(), GtImplosionCompressorScreen::new);
     }

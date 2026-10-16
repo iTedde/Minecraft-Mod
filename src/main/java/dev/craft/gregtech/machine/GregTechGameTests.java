@@ -180,7 +180,7 @@ public final class GregTechGameTests {
                     "water used");
             helper.assertTrue(electrolyzer.getInventory().get(ElectrolyzerBlockEntity.SLOT_CELLS).isEmpty(),
                     "cells used");
-            helper.assertValueEqual(electrolyzer.getStoredWater(), 500, "rest in the tank");
+            helper.assertValueEqual(electrolyzer.getStoredLiquid(), 500, "rest in the tank");
             helper.assertBlockProperty(pos, GtMachineBlock.ACTIVE, true);
         });
     }
@@ -215,6 +215,80 @@ public final class GregTechGameTests {
         helper.assertFalse(electrolyzer.installUpgrade(player, transformer), "second IC2 transformer refused");
         helper.assertValueEqual(electrolyzer.injectEnergy(Direction.EAST, 513), 0, "overvoltage");
         helper.assertBlockNotPresent(GtBlocks.machine(GtMachine.INDUSTRIAL_ELECTROLYZER).get(), pos);
+        helper.succeed();
+    }
+
+    // --- industrial centrifuge (phase 6b.5c) ---
+
+    private static CentrifugeBlockEntity centrifuge(GameTestHelper helper, BlockPos pos) {
+        helper.setBlock(pos, GtBlocks.machine(GtMachine.INDUSTRIAL_CENTRIFUGE).get());
+        return helper.getBlockEntity(pos);
+    }
+
+    @GameTest(template = EMPTY, timeoutTicks = 300)
+    public static void centrifugeSplitsDarkAsh(GameTestHelper helper) {
+        CentrifugeBlockEntity centrifuge = centrifuge(helper, new BlockPos(2, 1, 2));
+        centrifuge.getInventory().set(CentrifugeBlockEntity.SLOT_INPUT, new ItemStack(GtItems.DARK_ASH.get(), 3));
+        centrifuge.setStoredEnergyForTest(3000);
+        // 2 dark ashes → ash + ash, 250 ticks at 5 EU/t.
+        helper.succeedWhen(() -> {
+            helper.assertTrue(centrifuge.getInventory().get(CentrifugeBlockEntity.SLOT_OUTPUT_1).is(GtItems.ASH.get()),
+                    "ash in output 1");
+            helper.assertTrue(centrifuge.getInventory().get(CentrifugeBlockEntity.SLOT_OUTPUT_1 + 1)
+                    .is(GtItems.ASH.get()), "ash in output 2");
+            helper.assertValueEqual(centrifuge.getStoredEU(), 1750, "energy left");
+            helper.assertValueEqual(centrifuge.getInventory().get(CentrifugeBlockEntity.SLOT_INPUT).getCount(), 1,
+                    "one dark ash left");
+        });
+    }
+
+    @GameTest(template = EMPTY, timeoutTicks = 60)
+    public static void centrifugeUsesTankLava(GameTestHelper helper) {
+        BlockPos pos = new BlockPos(2, 1, 2);
+        CentrifugeBlockEntity centrifuge = centrifuge(helper, pos);
+        IFluidHandler tank = helper.getLevel().getCapability(Capabilities.FluidHandler.BLOCK, helper.absolutePos(pos),
+                Direction.DOWN);
+        helper.assertValueEqual(tank.fill(new FluidStack(Fluids.WATER, 1000), IFluidHandler.FluidAction.EXECUTE), 0,
+                "lava only");
+        helper.assertValueEqual(tank.fill(new FluidStack(Fluids.LAVA, 1500), IFluidHandler.FluidAction.EXECUTE),
+                1500, "filled");
+        centrifuge.getInventory().set(CentrifugeBlockEntity.SLOT_LAVA, new ItemStack(GtItems.LAVA.get(), 15));
+        centrifuge.setStoredEnergyForTest(10000);
+        // The 16th lava item appears, then the lava recipe (16 lava, no cells) starts.
+        helper.succeedWhen(() -> {
+            helper.assertTrue(centrifuge.getInventory().get(CentrifugeBlockEntity.SLOT_LAVA).isEmpty(), "lava used");
+            helper.assertValueEqual(centrifuge.getStoredLiquid(), 500, "rest in the tank");
+            helper.assertBlockProperty(pos, GtMachineBlock.ACTIVE, true);
+        });
+    }
+
+    @GameTest(template = EMPTY)
+    public static void centrifugeRecipesMatchPack(GameTestHelper helper) {
+        // Redstone: 10 redstone + 4 cells → silicon cell, 5 pyrite, ruby, 3 mercury cells; 7000 ticks at 5 EU/t.
+        GtRecipe recipe = GtRecipe.find(helper.getLevel(), GtRecipe.Kind.CENTRIFUGE, new ItemStack(Items.REDSTONE, 10),
+                new ItemStack(Ic2Items.EMPTY_CELL.get(), 4), false);
+        helper.assertTrue(recipe != null, "redstone recipe");
+        helper.assertValueEqual(recipe.getDuration(), 7000, "duration");
+        helper.assertValueEqual(recipe.getEuPerTick(), 5, "EU/t");
+        helper.assertTrue(recipe.getOutput(3).is(GtItems.MERCURY_CELL.get()) && recipe.getOutput(3).getCount() == 3,
+                "mercury cells");
+        helper.assertTrue(GtRecipe.find(helper.getLevel(), GtRecipe.Kind.CENTRIFUGE, new ItemStack(Items.REDSTONE, 9),
+                new ItemStack(Ic2Items.EMPTY_CELL.get(), 4), false) == null, "too little redstone");
+        GtRecipe food = GtRecipe.find(helper.getLevel(), GtRecipe.Kind.CENTRIFUGE, new ItemStack(Items.COOKED_SALMON, 16),
+                new ItemStack(Ic2Items.EMPTY_CELL.get()), false);
+        helper.assertTrue(food != null && food.getOutput(0).is(GtItems.METHANE_CELL.get()), "methane from fish");
+        helper.succeed();
+    }
+
+    @GameTest(template = EMPTY, batch = "gt_overvoltage")
+    public static void centrifugeEnergyValues(GameTestHelper helper) {
+        BlockPos pos = new BlockPos(2, 1, 2);
+        CentrifugeBlockEntity centrifuge = centrifuge(helper, pos);
+        helper.assertValueEqual(centrifuge.getMaxSafeInput(), 32, "input");
+        helper.assertValueEqual(centrifuge.getCapacity(), 10000, "capacity");
+        helper.assertTrue(centrifuge.acceptsEnergyFrom(centrifuge, Direction.UP), "input on every side");
+        helper.assertValueEqual(centrifuge.injectEnergy(Direction.EAST, 33), 0, "overvoltage");
+        helper.assertBlockNotPresent(GtBlocks.machine(GtMachine.INDUSTRIAL_CENTRIFUGE).get(), pos);
         helper.succeed();
     }
 }

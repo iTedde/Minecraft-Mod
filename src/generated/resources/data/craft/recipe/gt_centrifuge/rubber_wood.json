@@ -1,0 +1,33 @@
+{
+  "type": "craft:gt_centrifuge",
+  "duration": 5000,
+  "eu_per_tick": 5,
+  "inputs": [
+    {
+      "count": 16,
+      "item": "craft:rubber_wood"
+    },
+    {
+      "count": 5,
+      "item": "craft:empty_cell"
+    }
+  ],
+  "outputs": [
+    {
+      "count": 8,
+      "id": "craft:resin"
+    },
+    {
+      "count": 6,
+      "id": "craft:plant_ball"
+    },
+    {
+      "count": 1,
+      "id": "craft:methane_cell"
+    },
+    {
+      "count": 4,
+      "id": "craft:carbon_cell"
+    }
+  ]
+}

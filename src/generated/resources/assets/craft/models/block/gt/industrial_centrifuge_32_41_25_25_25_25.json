@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "craft:block/gt/terrain_32",
+    "east": "craft:block/gt/terrain_25",
+    "north": "craft:block/gt/terrain_25",
+    "particle": "craft:block/gt/terrain_27",
+    "south": "craft:block/gt/terrain_25",
+    "up": "craft:block/gt/terrain_41",
+    "west": "craft:block/gt/terrain_25"
+  }
+}

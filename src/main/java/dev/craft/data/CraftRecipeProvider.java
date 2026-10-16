@@ -141,6 +141,7 @@ public final class CraftRecipeProvider extends RecipeProvider {
         assembler();
         canner();
         implosionCompressor();
+        centrifuge();
     }
 
     /**
@@ -167,6 +168,143 @@ public final class CraftRecipeProvider extends RecipeProvider {
                 new ItemStack(Ic2Items.INDUSTRIAL_DIAMOND.get(), 3), new ItemStack(GtItems.DARK_ASH.get(), 16));
         implosion("emerald", GtItems.EMERALD_DUST, 4, 24, new ItemStack(Items.EMERALD, 3),
                 new ItemStack(GtItems.DARK_ASH.get(), 12));
+    }
+
+    /**
+     * Industrial centrifuge (spec 13 §9): crafting recipes, the reachable centrifuge recipes (groups A and B1–B4 in
+     * STATUS.md) and the small dust crafting ({@code dustSmall*} ↔ {@code dust*}) for the new small dusts.
+     */
+    private void centrifuge() {
+        for (String variant : new String[]{"refined_iron", "aluminium"}) {
+            shaped(GtItems.machine(GtMachine.INDUSTRIAL_CENTRIFUGE), 1, "industrial_centrifuge_from_" + variant)
+                    .pattern("RCR", "AEA", "RCR").define('R', variant.equals("aluminium")
+                            ? CraftItemTagsProvider.PLATES_ALUMINIUM : CraftItemTagsProvider.PLATES_REFINED_IRON)
+                    .define('C', Ic2Items.ADVANCED_CIRCUIT).define('A', CraftItemTagsProvider.RAW_MACHINE_TIER_02)
+                    .define('E', machine(Ic2Machine.EXTRACTOR)).save();
+        }
+        ItemStack none = ItemStack.EMPTY;
+        // GT_Mod: ice cell (needs the vacuum freezer) and uranium cells (phase 7) are left out.
+        centrifuge("magma_cream", Ingredient.of(Items.MAGMA_CREAM), 1, 0, 500, stack(Items.BLAZE_POWDER, 1),
+                stack(Items.SLIME_BALL, 1));
+        centrifuge("dirt", Ingredient.of(Items.DIRT), 16, 0, 2500, stack(Ic2Items.COMPRESSED_PLANT_BALL, 1),
+                stack(Ic2Items.PLANT_BALL, 1), stack(Items.CLAY_BALL, 1), stack(Items.SAND, 8));
+        centrifuge("grass_block", Ingredient.of(Items.GRASS_BLOCK), 16, 0, 2500,
+                stack(Ic2Items.COMPRESSED_PLANT_BALL, 2), stack(Ic2Items.PLANT_BALL, 2), stack(Items.CLAY_BALL, 1),
+                stack(Items.SAND, 8));
+        centrifuge("mycelium", Ingredient.of(Items.MYCELIUM), 8, 0, 1650, stack(Items.BROWN_MUSHROOM, 2),
+                stack(Items.RED_MUSHROOM, 2), stack(Items.CLAY_BALL, 1), stack(Items.SAND, 4));
+        centrifuge("enchanted_golden_apple", Ingredient.of(Items.ENCHANTED_GOLDEN_APPLE), 1, 2, 10000,
+                stack(GtItems.METHANE_CELL, 2), stack(Items.GOLD_INGOT, 64));
+        centrifuge("golden_apple", Ingredient.of(Items.GOLDEN_APPLE), 1, 1, 10000, stack(GtItems.METHANE_CELL, 1),
+                stack(Items.GOLD_NUGGET, 6));
+        centrifuge("golden_carrot", Ingredient.of(Items.GOLDEN_CARROT), 1, 1, 10000, stack(GtItems.METHANE_CELL, 1),
+                stack(Items.GOLD_NUGGET, 6));
+        centrifuge("glistering_melon_slice", Ingredient.of(Items.GLISTERING_MELON_SLICE), 8, 1, 10000,
+                stack(GtItems.METHANE_CELL, 1), stack(Items.GOLD_NUGGET, 6));
+        // Methane from food: 1.4.7 had one fish (cod and salmon here) and huge mushroom blocks with the stem as meta.
+        methane("apple", Ingredient.of(Items.APPLE), 32);
+        methane("mushroom_stew", Ingredient.of(Items.MUSHROOM_STEW), 16);
+        methane("bread", Ingredient.of(Items.BREAD), 64);
+        methane("porkchop", Ingredient.of(Items.PORKCHOP), 12);
+        methane("cooked_porkchop", Ingredient.of(Items.COOKED_PORKCHOP), 16);
+        methane("beef", Ingredient.of(Items.BEEF), 12);
+        methane("cooked_beef", Ingredient.of(Items.COOKED_BEEF), 16);
+        methane("fish", Ingredient.of(Items.COD, Items.SALMON), 12);
+        methane("cooked_fish", Ingredient.of(Items.COOKED_COD, Items.COOKED_SALMON), 16);
+        methane("chicken", Ingredient.of(Items.CHICKEN), 12);
+        methane("cooked_chicken", Ingredient.of(Items.COOKED_CHICKEN), 16);
+        methane("melon_slice", Ingredient.of(Items.MELON_SLICE), 64);
+        methane("pumpkin", Ingredient.of(Items.PUMPKIN, Items.CARVED_PUMPKIN), 16);
+        methane("rotten_flesh", Ingredient.of(Items.ROTTEN_FLESH), 16);
+        methane("spider_eye", Ingredient.of(Items.SPIDER_EYE), 32);
+        methane("carrot", Ingredient.of(Items.CARROT), 16);
+        methane("potato", Ingredient.of(Items.POTATO), 16);
+        methane("poisonous_potato", Ingredient.of(Items.POISONOUS_POTATO), 12);
+        methane("baked_potato", Ingredient.of(Items.BAKED_POTATO), 24);
+        methane("cookie", Ingredient.of(Items.COOKIE), 64);
+        methane("cake", Ingredient.of(Items.CAKE), 8);
+        methane("brown_mushroom_block", Ingredient.of(Items.BROWN_MUSHROOM_BLOCK, Items.MUSHROOM_STEM), 12);
+        methane("red_mushroom_block", Ingredient.of(Items.RED_MUSHROOM_BLOCK), 12);
+        methane("brown_mushroom", Ingredient.of(Items.BROWN_MUSHROOM), 32);
+        methane("red_mushroom", Ingredient.of(Items.RED_MUSHROOM), 32);
+        methane("nether_wart", Ingredient.of(Items.NETHER_WART), 32);
+        centrifuge("resin", Ingredient.of(Ic2Items.RESIN), 4, 0, 1300, stack(Ic2Items.RUBBER, 14),
+                stack(Ic2Items.COMPRESSED_PLANT_BALL, 1), stack(Ic2Items.PLANT_BALL, 1));
+        centrifuge("soul_sand", Ingredient.of(Items.SOUL_SAND), 16, 1, 2500, stack(GtItems.OIL_CELL, 1),
+                stack(GtItems.SALTPETER_DUST, 4), stack(Ic2Items.COAL_DUST, 1), stack(Items.SAND, 10));
+        // Tin cells per ingot: 8 (GregTech.cfg) → 2 + 64 / 8 tin ingots.
+        centrifuge("lava_cell", Ingredient.of(Ic2Items.LAVA_CELL), 16, 0, 15000, stack(GtItems.ELECTRUM_INGOT, 1),
+                stack(Items.COPPER_INGOT, 4), stack(GtItems.SMALL_TUNGSTEN_DUST, 1), stack(Ic2Items.TIN_INGOT, 10));
+        centrifuge("lava", Ingredient.of(GtItems.LAVA), 16, 0, 10000, stack(GtItems.ELECTRUM_INGOT, 1),
+                stack(Items.COPPER_INGOT, 4), stack(GtItems.SMALL_TUNGSTEN_DUST, 1), stack(Ic2Items.TIN_INGOT, 2));
+        // GT_OreDictHandler: dusts and molecule cells.
+        centrifuge("lapis_lazuli", Ingredient.of(Items.LAPIS_LAZULI), 4, 0, 1500, stack(GtItems.LAZURITE_DUST, 3),
+                stack(GtItems.SMALL_PYRITE_DUST, 1), stack(GtItems.SMALL_CALCITE_DUST, 1),
+                stack(GtItems.SMALL_SODALITE_DUST, 2));
+        centrifuge("redstone", Ingredient.of(Items.REDSTONE), 10, 4, 7000, stack(GtItems.SILICON_CELL, 1),
+                stack(GtItems.PYRITE_DUST, 5), stack(GtItems.RUBY_DUST, 1), stack(GtItems.MERCURY_CELL, 3));
+        centrifuge("glowstone_dust", Ingredient.of(Items.GLOWSTONE_DUST), 16, 1, 25000, stack(Items.REDSTONE, 8),
+                stack(Ic2Items.GOLD_DUST, 8), stack(GtItems.HELIUM_CELL, 1));
+        // ForestryBronzeNerf = true: a single bronze dust.
+        centrifuge("bronze_dust", Ingredient.of(CraftItemTagsProvider.DUSTS_BRONZE), 1, 0, 1500,
+                stack(GtItems.SMALL_COPPER_DUST, 6), stack(GtItems.SMALL_TIN_DUST, 2));
+        centrifuge("copper_dust", Ingredient.of(CraftItemTagsProvider.DUSTS_COPPER), 3, 0, 2400,
+                stack(GtItems.SMALL_GOLD_DUST, 1), stack(GtItems.SMALL_NICKEL_DUST, 1));
+        centrifuge("gold_dust", Ingredient.of(CraftItemTagsProvider.DUSTS_GOLD), 3, 0, 2400,
+                stack(GtItems.SMALL_COPPER_DUST, 1), stack(GtItems.SMALL_NICKEL_DUST, 1));
+        centrifuge("nickel_dust", Ingredient.of(CraftItemTagsProvider.DUSTS_NICKEL), 3, 0, 3450,
+                stack(Ic2Items.SMALL_IRON_DUST, 1), stack(GtItems.SMALL_GOLD_DUST, 1),
+                stack(GtItems.SMALL_COPPER_DUST, 1));
+        centrifuge("iron_dust", Ingredient.of(CraftItemTagsProvider.DUSTS_IRON), 2, 0, 1500,
+                stack(GtItems.SMALL_TIN_DUST, 1), stack(GtItems.SMALL_NICKEL_DUST, 1));
+        centrifuge("tin_dust", Ingredient.of(CraftItemTagsProvider.DUSTS_TIN), 2, 0, 2100,
+                stack(GtItems.SMALL_ZINC_DUST, 1), stack(Ic2Items.SMALL_IRON_DUST, 1));
+        centrifuge("silver_dust", Ingredient.of(CraftItemTagsProvider.DUSTS_SILVER), 2, 0, 2400,
+                stack(GtItems.SMALL_LEAD_DUST, 1));
+        // TE slag does not exist → the second output is ash as well.
+        centrifuge("dark_ash", Ingredient.of(GtItems.DARK_ASH), 2, 0, 250, stack(GtItems.ASH, 1),
+                stack(GtItems.ASH, 1));
+        centrifuge("hydrogen_cell", Ingredient.of(GtItems.HYDROGEN_CELL), 4, 0, 3000,
+                stack(GtItems.DEUTERIUM_CELL, 1), none, none, stack(Ic2Items.EMPTY_CELL, 3));
+        centrifuge("deuterium_cell", Ingredient.of(GtItems.DEUTERIUM_CELL), 4, 0, 3000,
+                stack(GtItems.TRITIUM_CELL, 1), none, none, stack(Ic2Items.EMPTY_CELL, 3));
+        centrifuge("helium_cell", Ingredient.of(GtItems.HELIUM_CELL), 16, 0, 10000,
+                stack(GtItems.HELIUM_3_CELL, 1), none, none, stack(Ic2Items.EMPTY_CELL, 15));
+        centrifuge("rubber_wood", Ingredient.of(Ic2Items.RUBBER_WOOD), 16, 5, 5000, stack(Ic2Items.RESIN, 8),
+                stack(Ic2Items.PLANT_BALL, 6), stack(GtItems.METHANE_CELL, 1), stack(GtItems.CARBON_CELL, 4));
+
+        smallDust("pyrite", GtItems.SMALL_PYRITE_DUST, Ingredient.of(GtItems.PYRITE_DUST), GtItems.PYRITE_DUST);
+        smallDust("nickel", GtItems.SMALL_NICKEL_DUST, Ingredient.of(CraftItemTagsProvider.DUSTS_NICKEL),
+                GtItems.NICKEL_DUST);
+        smallDust("gold", GtItems.SMALL_GOLD_DUST, Ingredient.of(CraftItemTagsProvider.DUSTS_GOLD), Ic2Items.GOLD_DUST);
+        smallDust("copper", GtItems.SMALL_COPPER_DUST, Ingredient.of(CraftItemTagsProvider.DUSTS_COPPER),
+                Ic2Items.COPPER_DUST);
+        smallDust("tin", GtItems.SMALL_TIN_DUST, Ingredient.of(CraftItemTagsProvider.DUSTS_TIN), Ic2Items.TIN_DUST);
+    }
+
+    /** Food etc. + 1 empty cell → 1 methane cell, 5000 ticks. */
+    private void methane(String name, Ingredient input, int amount) {
+        centrifuge(name, input, amount, 1, 5000, stack(GtItems.METHANE_CELL, 1));
+    }
+
+    /** {@code GT_Mod.addCentrifugeRecipe}: always 5 EU/t; input 2 is {@code cells} empty cells (none if 0). */
+    private void centrifuge(String name, Ingredient input, int amount, int cells, int duration, ItemStack... outputs) {
+        List<SizedIngredient> inputs = cells > 0
+                ? List.of(new SizedIngredient(input, amount), new SizedIngredient(Ingredient.of(Ic2Items.EMPTY_CELL), cells))
+                : List.of(new SizedIngredient(input, amount));
+        output.accept(id("gt_centrifuge/" + name), new GtRecipe(GtRecipe.Kind.CENTRIFUGE, inputs, List.of(outputs),
+                duration, 5, 0), null);
+    }
+
+    /** GT {@code dustSmall*}: four small dusts → one dust, one dust → four small dusts. */
+    private void smallDust(String name, ItemLike small, Ingredient dusts, ItemLike dust) {
+        shapeless(dust, 1, name + "_dust_from_small", Ingredient.of(small), Ingredient.of(small),
+                Ingredient.of(small), Ingredient.of(small));
+        shapeless(small, 4, "small_" + name + "_dust", dusts);
+    }
+
+    private static ItemStack stack(ItemLike item, int count) {
+        return new ItemStack(item, count);
     }
 
     /** {@code GT_Mod.addImplosionRecipe}: input 2 is always industrial TNT; 20 ticks at 32 EU/t. */

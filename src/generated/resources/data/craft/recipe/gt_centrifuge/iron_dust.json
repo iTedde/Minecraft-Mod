@@ -1,0 +1,21 @@
+{
+  "type": "craft:gt_centrifuge",
+  "duration": 1500,
+  "eu_per_tick": 5,
+  "inputs": [
+    {
+      "count": 2,
+      "tag": "c:dusts/iron"
+    }
+  ],
+  "outputs": [
+    {
+      "count": 1,
+      "id": "craft:small_tin_dust"
+    },
+    {
+      "count": 1,
+      "id": "craft:small_nickel_dust"
+    }
+  ]
+}
