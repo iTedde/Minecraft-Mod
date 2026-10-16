@@ -34,6 +34,7 @@ import org.jetbrains.annotations.Nullable;
  */
 public class CarpenterBlockEntity extends ForestryMachineBlockEntity {
     public static final int TANK_CAPACITY = 10000;
+    public static final int ACTIVATION_ENERGY = 25;
     public static final int SLOT_CRAFTING_1 = 0;
     public static final int SLOT_BOX = 9;
     public static final int SLOT_PRODUCT = 10;
@@ -64,7 +65,7 @@ public class CarpenterBlockEntity extends ForestryMachineBlockEntity {
     private int tankLevel;
 
     public CarpenterBlockEntity(BlockPos pos, BlockState state) {
-        super(FrBlockEntityTypes.CARPENTER.get(), pos, state, SLOT_COUNT, 1, 110, 25, 400);
+        super(FrBlockEntityTypes.CARPENTER.get(), pos, state, SLOT_COUNT, 1, 110, ACTIVATION_ENERGY, 400);
     }
 
     public FluidTank getResourceTank() {

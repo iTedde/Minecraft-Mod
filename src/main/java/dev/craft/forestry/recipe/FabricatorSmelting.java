@@ -16,6 +16,10 @@ public record FabricatorSmelting(Item resource, int amount, int meltingPoint) {
             new FabricatorSmelting(Items.GLASS_PANE, 375, 1000),
             new FabricatorSmelting(Items.SAND, 1000, 3000));
 
+    public static List<FabricatorSmelting> all() {
+        return SMELTINGS;
+    }
+
     public FluidStack product() {
         return new FluidStack(FrFluids.LIQUID_GLASS.get(), amount);
     }

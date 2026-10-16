@@ -1,6 +1,10 @@
 package dev.craft.forestry.client;
 
+import java.util.List;
+
 import dev.craft.Craft;
+import dev.craft.core.client.RecipeArea;
+import dev.craft.core.client.RecipeCategories;
 import dev.craft.forestry.machine.CarpenterBlockEntity;
 import dev.craft.forestry.menu.CarpenterMenu;
 import net.minecraft.client.gui.GuiGraphics;
@@ -16,6 +20,11 @@ public class CarpenterScreen extends ForestryScreen<CarpenterMenu> {
 
     public CarpenterScreen(CarpenterMenu menu, Inventory inventory, Component title) {
         super(menu, inventory, title, BACKGROUND, 215);
+    }
+
+    @Override
+    protected List<RecipeArea> getRecipeAreas() {
+        return List.of(new RecipeArea(108, 65, 11, 8, RecipeCategories.CARPENTER));
     }
 
     @Override

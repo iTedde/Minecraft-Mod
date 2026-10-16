@@ -1,6 +1,10 @@
 package dev.craft.powerplants.client;
 
+import java.util.List;
+
 import dev.craft.Craft;
+import dev.craft.core.client.RecipeArea;
+import dev.craft.core.client.RecipeCategories;
 import dev.craft.powerplants.cokeoven.CokeOvenMenu;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -12,6 +16,9 @@ import net.minecraft.world.entity.player.Inventory;
 public class CokeOvenScreen extends AbstractContainerScreen<CokeOvenMenu> {
     private static final ResourceLocation TEXTURE =
             ResourceLocation.fromNamespaceAndPath(Craft.MODID, "textures/gui/coke_oven.png");
+    private static final List<RecipeArea> RECIPE_AREAS = List.of(
+            new RecipeArea(16, 27, 14, 14, RecipeCategories.COKE_OVEN),
+            new RecipeArea(34, 47, 20, 15, RecipeCategories.COKE_OVEN));
 
     public CokeOvenScreen(CokeOvenMenu menu, Inventory inventory, Component title) {
         super(menu, inventory, title);
@@ -21,6 +28,17 @@ public class CokeOvenScreen extends AbstractContainerScreen<CokeOvenMenu> {
     public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
         super.render(graphics, mouseX, mouseY, partialTick);
         renderTooltip(graphics, mouseX, mouseY);
+        if (hoveredSlot == null && menu.getCarried().isEmpty()) {
+            RecipeArea.renderTooltip(RECIPE_AREAS, graphics, font, leftPos, topPos, mouseX, mouseY);
+        }
+    }
+
+    @Override
+    public boolean mouseClicked(double mouseX, double mouseY, int button) {
+        if (button == 0 && RecipeArea.click(RECIPE_AREAS, leftPos, topPos, mouseX, mouseY)) {
+            return true;
+        }
+        return super.mouseClicked(mouseX, mouseY, button);
     }
 
     @Override

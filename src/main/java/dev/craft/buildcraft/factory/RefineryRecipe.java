@@ -27,6 +27,10 @@ public record RefineryRecipe(FluidStack ingredient1, FluidStack ingredient2, Flu
                 new FluidStack(BcFluids.FUEL.get(), 1), 12, 1));
     }
 
+    public static List<RefineryRecipe> all() {
+        return List.copyOf(RECIPES);
+    }
+
     @Nullable
     public static RefineryRecipe find(FluidStack liquid1, FluidStack liquid2) {
         for (RefineryRecipe recipe : RECIPES) {

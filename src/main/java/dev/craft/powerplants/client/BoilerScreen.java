@@ -3,6 +3,8 @@ package dev.craft.powerplants.client;
 import java.util.List;
 
 import dev.craft.Craft;
+import dev.craft.core.client.RecipeArea;
+import dev.craft.core.client.RecipeCategories;
 import dev.craft.powerplants.PpFluids;
 import dev.craft.powerplants.boiler.BoilerBlockEntity;
 import dev.craft.powerplants.boiler.BoilerMenu;
@@ -21,6 +23,7 @@ import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtension
 public class BoilerScreen extends AbstractContainerScreen<BoilerMenu> {
     private static final ResourceLocation TEXTURE =
             ResourceLocation.fromNamespaceAndPath(Craft.MODID, "textures/gui/boiler.png");
+    private static final List<RecipeArea> RECIPE_AREAS = List.of(new RecipeArea(62, 22, 14, 14, RecipeCategories.BOILER));
     private static final int TANK_Y = 23;
     private static final int TANK_HEIGHT = 47;
     private static final int WATER_X = 17;
@@ -48,6 +51,17 @@ public class BoilerScreen extends AbstractContainerScreen<BoilerMenu> {
             }
         }
         renderTooltip(graphics, mouseX, mouseY);
+        if (hoveredSlot == null && menu.getCarried().isEmpty()) {
+            RecipeArea.renderTooltip(RECIPE_AREAS, graphics, font, leftPos, topPos, mouseX, mouseY);
+        }
+    }
+
+    @Override
+    public boolean mouseClicked(double mouseX, double mouseY, int button) {
+        if (button == 0 && RecipeArea.click(RECIPE_AREAS, leftPos, topPos, mouseX, mouseY)) {
+            return true;
+        }
+        return super.mouseClicked(mouseX, mouseY, button);
     }
 
     private void tankTooltip(GuiGraphics graphics, Fluid fluid, int amount, int mouseX, int mouseY) {

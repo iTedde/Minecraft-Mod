@@ -1,5 +1,6 @@
 package dev.craft.buildcraft.engine;
 
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -39,6 +40,14 @@ public final class CombustionFuels {
 
     public static void registerCoolant(Fluid fluid, float coolingPerUnit) {
         COOLANTS.put(fluid, coolingPerUnit);
+    }
+
+    public static Map<Fluid, Fuel> fuels() {
+        return Collections.unmodifiableMap(FUELS);
+    }
+
+    public static Map<Fluid, Float> coolants() {
+        return Collections.unmodifiableMap(COOLANTS);
     }
 
     @Nullable

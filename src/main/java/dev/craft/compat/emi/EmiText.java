@@ -16,4 +16,8 @@ final class EmiText {
     static String seconds(int ticks) {
         return new DecimalFormat("0.##", DecimalFormatSymbols.getInstance(Locale.ROOT)).format(ticks / 20.0);
     }
+
+    static String decimal(double value) {
+        return new DecimalFormat("0.##", DecimalFormatSymbols.getInstance(Locale.ROOT)).format(value);
+    }
 }

@@ -48,7 +48,8 @@ Elektroofen nutzen Vanilla-Schmelzrezepte).
 | IC2-Canning Machine | Canning-Logik (`spec/04`) | Brennstoff-/Lebensmitteldosen |
 | Raffinerie | `RefineryRecipe` | Flüssigkeit → Flüssigkeit, MJ |
 | Verbrennungsmotor | `CombustionFuels` | Treibstoffe (MJ/t, Dauer), Kühlmittel |
-| Koksofen | `CokeOvenBlockEntity` | Kohle → Koks (+ Kreosot, falls vorhanden) |
+| Koksofen | `CokeOvenBlockEntity` | Kohle → Koks (kein Kreosot im Umfang) |
+| Dampfturbine | `SteamTurbineBlockEntity` | 1000 mB Dampf → 1000 EU, höchstens 64 mB/t (ergänzt in 11.3) |
 | Brennstoffe Generator / Kessel | Burn-Time + Faktoren aus `spec/02`/`spec/14` | EU bzw. Dampf je Item |
 | Geothermiegenerator | Lava | EU je Eimer/Zelle |
 

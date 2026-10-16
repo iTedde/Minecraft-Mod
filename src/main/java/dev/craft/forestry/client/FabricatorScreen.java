@@ -1,6 +1,10 @@
 package dev.craft.forestry.client;
 
+import java.util.List;
+
 import dev.craft.Craft;
+import dev.craft.core.client.RecipeArea;
+import dev.craft.core.client.RecipeCategories;
 import dev.craft.forestry.machine.FabricatorBlockEntity;
 import dev.craft.forestry.menu.FabricatorMenu;
 import net.minecraft.client.gui.GuiGraphics;
@@ -15,6 +19,11 @@ public class FabricatorScreen extends ForestryScreen<FabricatorMenu> {
 
     public FabricatorScreen(FabricatorMenu menu, Inventory inventory, Component title) {
         super(menu, inventory, title, BACKGROUND, 211);
+    }
+
+    @Override
+    protected List<RecipeArea> getRecipeAreas() {
+        return List.of(new RecipeArea(122, 39, 14, 13, RecipeCategories.FABRICATOR));
     }
 
     @Override

@@ -33,6 +33,7 @@ import org.jetbrains.annotations.Nullable;
 public class FabricatorBlockEntity extends ForestryMachineBlockEntity {
     public static final int MAX_HEAT = 5000;
     public static final int TANK_CAPACITY = 2000;
+    public static final int ACTIVATION_ENERGY = 25;
     public static final int SLOT_METAL = 0;
     public static final int SLOT_PLAN = 1;
     public static final int SLOT_RESULT = 2;
@@ -52,7 +53,7 @@ public class FabricatorBlockEntity extends ForestryMachineBlockEntity {
     private final IItemHandler automation = new Automation(null);
 
     public FabricatorBlockEntity(BlockPos pos, BlockState state) {
-        super(FrBlockEntityTypes.FABRICATOR.get(), pos, state, SLOT_COUNT, 5, 110, 25, 250);
+        super(FrBlockEntityTypes.FABRICATOR.get(), pos, state, SLOT_COUNT, 5, 110, ACTIVATION_ENERGY, 250);
     }
 
     public FluidTank getMoltenTank() {

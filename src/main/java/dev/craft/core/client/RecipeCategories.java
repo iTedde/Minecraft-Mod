@@ -30,6 +30,17 @@ public final class RecipeCategories {
     public static final ResourceLocation GT_GRINDER = id("industrial_grinder");
     public static final ResourceLocation GT_VACUUM_FREEZER = id("vacuum_freezer");
 
+    // BuildCraft, Forestry and the power plants
+    public static final ResourceLocation REFINERY = id("refinery");
+    public static final ResourceLocation COMBUSTION_ENGINE = id("combustion_engine");
+    public static final ResourceLocation FUEL = ResourceLocation.withDefaultNamespace("fuel");
+    public static final ResourceLocation FABRICATOR = id("fabricator");
+    public static final ResourceLocation FABRICATOR_SMELTING = id("fabricator_smelting");
+    public static final ResourceLocation CARPENTER = id("carpenter");
+    public static final ResourceLocation COKE_OVEN = id("coke_oven");
+    public static final ResourceLocation BOILER = id("boiler");
+    public static final ResourceLocation STEAM_TURBINE = id("steam_turbine");
+
     private RecipeCategories() {
     }
 

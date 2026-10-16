@@ -142,6 +142,108 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
         add("emi.craft.generator.output", "%1$s EU (%2$s EU/t, %3$s s)");
         add("emi.craft.geothermal_generator.pump", german ? "Lava aus der IC2-Pumpe zählt nur zur Hälfte"
                 : "Lava from an IC2 pump counts only half");
+        buildCraftForestryPowerPlantViewer(german);
+        multiblockInfo(german);
+    }
+
+    /** EMI categories of BuildCraft, Forestry and the power plants (spec 16 §2, phase 11.3). */
+    private void buildCraftForestryPowerPlantViewer(boolean german) {
+        add("emi.category.craft.refinery", german ? "Raffinerie" : "Refinery");
+        add("emi.category.craft.combustion_engine", german ? "Verbrennungsmotor" : "Combustion Engine");
+        add("emi.category.craft.fabricator", german ? "Glühelektrische Maschine" : "Thermionic Fabricator");
+        add("emi.category.craft.carpenter", german ? "Schreinerei" : "Carpenter");
+        add("emi.category.craft.coke_oven", german ? "Koksofen" : "Coke Oven");
+        add("emi.category.craft.boiler", german ? "Kessel" : "Boiler");
+        add("emi.category.craft.steam_turbine", german ? "Dampfturbine" : "Steam Turbine");
+        add("emi.craft.refinery.energy", german ? "%1$s MJ je 1000 mB (%2$s MJ je mB)"
+                : "%1$s MJ per 1000 mB (%2$s MJ per mB)");
+        add("emi.craft.refinery.rate", german ? "Höchstens %1$s mB je %2$s Tick" : "At most %1$s mB per %2$s tick");
+        add("emi.craft.combustion_engine.fuel", german ? "%1$s MJ/t · %2$s s · %3$s MJ je 1000 mB"
+                : "%1$s MJ/t · %2$s s · %3$s MJ per 1000 mB");
+        add("emi.craft.combustion_engine.coolant", german ? "Kühlmittel: %1$s Hitze je mB, ab %2$s Hitze"
+                : "Coolant: %1$s heat per mB, above %2$s heat");
+        add("emi.craft.combustion_engine.ice", german ? "Eis im Slot wird zu 1000 mB Wasser, sobald es heiß ist"
+                : "Ice in the slot turns into 1000 mB water once hot");
+        add("emi.craft.fabricator.melting_point", german ? "Schmelzpunkt: %1$s Hitze" : "Melting point: %1$s heat");
+        add("emi.craft.fabricator.heating", german ? "Je Arbeitsschritt %1$s MJ → +25 Hitze (max. %2$s)"
+                : "Each work step %1$s MJ → +25 heat (max. %2$s)");
+        add("emi.craft.fabricator.plan", german ? "Bauplan wird nicht verbraucht" : "The plan is not consumed");
+        add("emi.craft.carpenter.steps", german ? "%1$s Arbeitsschritte · %2$s MJ" : "%1$s work steps · %2$s MJ");
+        add("emi.craft.coke_oven.time", german ? "%1$s s, ohne Strom" : "%1$s s, no power needed");
+        add("emi.craft.boiler.burn", german ? "Brenndauer %1$s s · %2$s mB/t Dampf bei %3$s °C"
+                : "Burns %1$s s · %2$s mB/t steam at %3$s °C");
+        add("emi.craft.boiler.energy", german ? "= %1$s EU in der Dampfturbine" : "= %1$s EU in the steam turbine");
+        add("emi.craft.boiler.cold", german ? "Kalter Kessel: weniger Dampf, solange er aufheizt"
+                : "Cold boiler: less steam while it heats up");
+        add("emi.craft.steam_turbine.output", german ? "%1$s EU (1 mB Dampf = 1 EU)" : "%1$s EU (1 mB steam = 1 EU)");
+        add("emi.craft.steam_turbine.max", german ? "Höchstens %1$s mB/t → %2$s EU/t" : "At most %1$s mB/t → %2$s EU/t");
+    }
+
+    /** Building plans of the multiblocks (EMI info pages, spec 16 §2.3). */
+    private void multiblockInfo(boolean german) {
+        add("emi.craft.info.coke_oven", german
+                ? "Koksofen: Würfel 3×3×3 aus 25 Koksofenziegeln, innen Luft. Der Koksofen sitzt in der Mitte einer "
+                + "Seitenfläche (nicht oben/unten). Kohle oben oder seitlich einfüllen, Koks unten entnehmen."
+                : "Coke oven: 3×3×3 cube of 25 coke oven bricks with air inside. The coke oven sits in the middle of a "
+                + "side face (not top/bottom). Insert coal from the top or sides, extract coke at the bottom.");
+        add("emi.craft.info.boiler", german
+                ? "Kessel: Würfel 3×3×3 aus 25 Kesselgehäusen, innen Luft. Die Kesselfeuerung sitzt in der Mitte einer "
+                + "Seitenfläche. Wasser über Behälter oder Rohre einfüllen; der Dampf wird an angrenzende Tanks und "
+                + "Turbinen abgegeben. Wasser auf einen trockenen, heißen Kessel bringt ihn zur Explosion."
+                : "Boiler: 3×3×3 cube of 25 boiler casings with air inside. The boiler firebox sits in the middle of a "
+                + "side face. Fill water via containers or pipes; steam is pushed into adjacent tanks and turbines. "
+                + "Water on a dry, hot boiler makes it explode.");
+        add("emi.craft.info.steam_turbine", german
+                ? "Dampfturbine: Quader 3×3 × 5 lang. Die Dampfturbine sitzt in der Mitte einer 3×3-Stirnseite, "
+                + "dahinter drei Turbinenrotoren in einer Reihe, der Rest sind 41 Turbinengehäuse. Dampf über jeden "
+                + "Block einspeisen; bis zu 3 Kessel werden voll genutzt."
+                : "Steam turbine: 3×3 × 5 long. The steam turbine sits in the middle of a 3×3 end face, three turbine "
+                + "rotors in a row behind it, the remaining 41 blocks are turbine casings. Steam enters through any "
+                + "block; up to 3 boilers are used fully.");
+        add("emi.craft.info.water_turbine", german
+                ? "Wasserturbine: massiver Würfel 3×3×3 aus 26 Wasserturbinengehäusen, die Wasserturbine in der Mitte "
+                + "einer Seitenfläche. Gezählt wird fließendes Wasser im Ring 7×7×3 um den Würfel: ab 16 Blöcken "
+                + "0,25 EU/t je Block, im Fluss-Biom ×1,5, höchstens 32 EU/t."
+                : "Water turbine: solid 3×3×3 cube of 26 water turbine casings, the water turbine in the middle of a "
+                + "side face. Flowing water in the 7×7×3 ring around the cube counts: from 16 blocks 0.25 EU/t per "
+                + "block, ×1.5 in river biomes, at most 32 EU/t.");
+        add("emi.craft.info.industrial_blast_furnace", german
+                ? "Hochofen: Quader 3×3, 4 hoch, direkt hinter dem Controller (dieser sitzt vor der Mitte der unteren "
+                + "Lage). Die zwei Mittelblöcke der Lagen 2 und 3 sind Luft oder Lava, die übrigen 34 "
+                + "GT-Maschinengehäuse. Hitze: Standard 30 K, verstärkt 50 K, fortgeschritten 70 K je Block, Lava "
+                + "250 K, je Heizspulen-Stufe 500 K (4 Kanthal-, dann 4 Nichrom-Spulen per Rechtsklick)."
+                : "Blast furnace: 3×3, 4 high, directly behind the controller (which sits in front of the middle of "
+                + "the bottom layer). The two centre blocks of layers 2 and 3 are air or lava, the other 34 GT machine "
+                + "casings. Heat: standard 30 K, reinforced 50 K, advanced 70 K per block, lava 250 K, 500 K per "
+                + "heating coil tier (4 Kanthal, then 4 Nichrome coils by right-click).");
+        add("emi.craft.info.industrial_grinder", german
+                ? "Industrial Grinder: Würfel 3×3×3 direkt hinter dem Controller (dieser mittig an der Würfelseite). "
+                + "Mitte Wasser, mittlere Ebene 8 verstärkte Gehäuse, obere und untere Ebene je 9 Standard-Gehäuse."
+                : "Industrial grinder: 3×3×3 cube directly behind the controller (centred on a cube side). Centre "
+                + "water, middle layer 8 reinforced casings, top and bottom layer 9 standard casings each.");
+        add("emi.craft.info.implosion_compressor", german
+                ? "Implosionskompressor: Würfel 3×3×3 unter dem Controller (dieser mittig obenauf). Mitte Luft, die 8 "
+                + "Ecken Standard-Gehäuse, die übrigen 18 Blöcke verstärkte Gehäuse."
+                : "Implosion compressor: 3×3×3 cube below the controller (centred on top). Centre air, the 8 corners "
+                + "standard casings, the other 18 blocks reinforced casings.");
+        add("emi.craft.info.vacuum_freezer", german
+                ? "Vakuumgefrierer: Würfel 3×3×3 unter dem Controller (dieser mittig obenauf). Mitte Luft, die 6 "
+                + "Flächenmitten fortgeschrittene Gehäuse, die übrigen 20 Blöcke verstärkte Gehäuse."
+                : "Vacuum freezer: 3×3×3 cube below the controller (centred on top). Centre air, the 6 face centres "
+                + "advanced casings, the other 20 blocks reinforced casings.");
+        add("emi.craft.info.lv_solar_array", german
+                ? "LV-Solar-Array: Fläche 3×3 auf einer Ebene, 8 IC2-Solarpanels um den Controller. 8 EU/t."
+                : "LV solar array: 3×3 area on one level, 8 IC2 solar panels around the controller. 8 EU/t.");
+        add("emi.craft.info.mv_solar_array", german
+                ? "MV-Solar-Array: Fläche 9×9 aus 3×3 Feldern zu 3×3: 8 vollständige LV-Arrays, im mittleren Feld 8 "
+                + "Solarpanels um den MV-Controller (72 Panels). 64 EU/t."
+                : "MV solar array: 9×9 area of 3×3 fields of 3×3: 8 complete LV arrays, in the middle field 8 solar "
+                + "panels around the MV controller (72 panels). 64 EU/t.");
+        add("emi.craft.info.hv_solar_array", german
+                ? "HV-Solar-Array: Fläche 27×27 aus 3×3 Feldern zu 9×9: 8 vollständige MV-Arrays, das mittlere Feld "
+                + "wie ein MV-Aufbau mit dem HV-Controller in der Mitte (648 Panels). 512 EU/t."
+                : "HV solar array: 27×27 area of 3×3 fields of 9×9: 8 complete MV arrays, the middle field built like "
+                + "an MV array with the HV controller in its centre (648 panels). 512 EU/t.");
     }
 
     /** Names of the new power plants (spec 14), English or German. */

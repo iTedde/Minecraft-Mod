@@ -1,6 +1,10 @@
 package dev.craft.buildcraft.client;
 
+import java.util.List;
+
 import dev.craft.Craft;
+import dev.craft.core.client.RecipeArea;
+import dev.craft.core.client.RecipeCategories;
 import dev.craft.buildcraft.engine.EngineType;
 import dev.craft.buildcraft.menu.EngineMenu;
 import net.minecraft.client.gui.GuiGraphics;
@@ -51,6 +55,9 @@ public class EngineScreen extends AbstractContainerScreen<EngineMenu> {
     public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
         super.render(graphics, mouseX, mouseY, partialTick);
         renderTooltip(graphics, mouseX, mouseY);
+        if (hoveredSlot == null && menu.getCarried().isEmpty()) {
+            RecipeArea.renderTooltip(recipeAreas(), graphics, font, leftPos, topPos, mouseX, mouseY);
+        }
     }
 
     @Override
@@ -116,12 +123,22 @@ public class EngineScreen extends AbstractContainerScreen<EngineMenu> {
 
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
+        if (button == 0 && RecipeArea.click(recipeAreas(), leftPos, topPos, mouseX, mouseY)) {
+            return true;
+        }
         boolean handled = super.mouseClicked(mouseX, mouseY, button);
         if (button == 0 && ledger.intersects((int) mouseX, (int) mouseY, leftPos + imageWidth, topPos + 8)) {
             ledger.toggleOpen();
             return true;
         }
         return handled;
+    }
+
+    /** Stirling flame → furnace fuels, combustion fuel gauge → combustion engine fuels. */
+    private List<RecipeArea> recipeAreas() {
+        return menu.getEngineType() == EngineType.STIRLING
+                ? List.of(new RecipeArea(80, 24, 14, 14, RecipeCategories.FUEL))
+                : List.of(new RecipeArea(104, 19, 16, 58, RecipeCategories.COMBUSTION_ENGINE));
     }
 
     @Override

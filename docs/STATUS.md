@@ -1240,10 +1240,30 @@ NaK-Kühlzellen, kein Vakuumgefrierer) **und die IC2-Nuke**. Teilpakete: 7a IC2-
   die vier Pfeile um den Eingabeslot (ohne Slot-Überlappung).
 - `gradlew build`, 255 GameTests grün, `runClient` startet mit EMI (Hauptmenü, keine Fehler).
 
+## Erledigt (Teilpaket „Phase 11.3: EMI BuildCraft/Forestry/Kraftwerke + Multiblock-Infoseiten“, 2026-10-16)
+- `compat/emi/BcEmiRecipes`: Raffinerie (aus `RefineryRecipe.all()`, Anzeige je 1000 mB: Öl → Treibstoff,
+  12 000 MJ, höchstens 1 mB je Tick), Verbrennungsmotor (Treibstoffe aus `CombustionFuels.fuels()` mit MJ/t, Dauer und
+  MJ je 1000 mB; Kühlmittel Wasser mit Hitze je mB, Eis-Hinweis). Stirling-Motor als Workstation der
+  EMI-Brennstoffkategorie (Vanilla-Brennwerte).
+- `compat/emi/ForestryEmiRecipes` + neue Anzeige `GridEmiRecipe` (3×3-Raster, Seitenslots, Pfeil, Ergebnis):
+  Glühelektrische Maschine (Schmelzen Glas/Glasscheibe/Sand mit Schmelzpunkt und Heizregel; Gussrezepte mit
+  Flüssigglas und optionalem Bauplan, „wird nicht verbraucht“), Schreinerei (Raster, Flüssigkeit, Kiste,
+  Arbeitsschritte × 25 MJ). Aktivierungsenergie als Konstante `ACTIVATION_ENERGY` in beiden Block-Entities.
+- `compat/emi/PowerPlantEmiRecipes`: Koksofen (Kohle → Koks, 45 s, ohne Strom), Kessel (Kohle/Koks mit Wasser →
+  16 000/32 000 mB Dampf bei 1000 °C, Asche 25/50 %, „= x EU in der Dampfturbine“, Kaltstart-Hinweis), neue Kategorie
+  Dampfturbine (1000 mB Dampf → 1000 EU, höchstens 64 mB/t → 64 EU/t).
+- `compat/emi/MultiblockEmiInfo`: Info-Seiten (Bauplan in Textform, de/en) für Koksofen, Kessel, Dampfturbine,
+  Wasserturbine, Hochofen (inkl. Hitzewerte/Heizspulen), Industrial Grinder, Implosionskompressor, Vakuumgefrierer
+  und LV/MV/HV-Solar-Arrays.
+- Klickbereiche: Glühelektrische Maschine (Zahnräder 122, 39), Schreinerei (Pfeil zum Produkt 108, 65), Koksofen
+  (Flamme + Fortschritt), Kessel (Flamme), Verbrennungsmotor (Treibstoffanzeige), Stirling-Motor (Flamme →
+  Brennstoffe). `ForestryScreen` hat dafür `getRecipeAreas()` (Standard leer). Raffinerie und Dampfturbine haben
+  keinen Pfeil/keine Flamme in der GUI → kein Klickbereich (Kategorie über EMI erreichbar).
+- `gradlew build`, 255 GameTests grün, `runClient` startet mit EMI (Hauptmenü, keine Fehler).
+
 ## Nächste Schritte
-1. Manuell im Client (Welt betreten): EMI-Kategorien der IC2- und GT-Maschinen ansehen (Werte, Texte de/en,
-   Flüssigkeiten bei Elektrolyseur/Zentrifuge/Grinder, Hitze beim Hochofen), Klick auf Fortschrittspfeile/Flammen
-   öffnet die Kategorie (auch die vier Zentrifugenpfeile), `craft:water`/`craft:lava` nicht im Index, Log ohne
-   EMI-Plugin-Fehler.
-2. Phase 11.3: EMI BuildCraft/Forestry/Kraftwerke (Raffinerie, Verbrennungsmotor, Fabricator, Carpenter, Koksofen,
-   Kessel) + Multiblock-Infoseiten.
+1. Manuell im Client (Welt betreten): EMI-Kategorien der IC2-, GT-, BC-, Forestry- und Kraftwerks-Maschinen ansehen
+   (Werte, Texte de/en, Flüssigkeiten, Raster der Glühelektrischen Maschine/Schreinerei, Info-Seiten der
+   Multiblöcke), Klick auf Fortschrittspfeile/Flammen öffnet die Kategorie, `craft:water`/`craft:lava` nicht im
+   Index, Log ohne EMI-Plugin-Fehler.
+2. Phase 11.4: Xaero's Minimap (nur `localRuntime`) + Forestry-Ledger.

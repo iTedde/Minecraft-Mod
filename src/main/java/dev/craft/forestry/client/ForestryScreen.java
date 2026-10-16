@@ -2,6 +2,7 @@ package dev.craft.forestry.client;
 
 import java.util.List;
 
+import dev.craft.core.client.RecipeArea;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -35,6 +36,22 @@ public abstract class ForestryScreen<T extends AbstractContainerMenu> extends Ab
     public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
         super.render(graphics, mouseX, mouseY, partialTick);
         renderTooltip(graphics, mouseX, mouseY);
+        if (hoveredSlot == null && menu.getCarried().isEmpty()) {
+            RecipeArea.renderTooltip(getRecipeAreas(), graphics, font, leftPos, topPos, mouseX, mouseY);
+        }
+    }
+
+    @Override
+    public boolean mouseClicked(double mouseX, double mouseY, int button) {
+        if (button == 0 && RecipeArea.click(getRecipeAreas(), leftPos, topPos, mouseX, mouseY)) {
+            return true;
+        }
+        return super.mouseClicked(mouseX, mouseY, button);
+    }
+
+    /** Areas that open the recipe viewer; none by default. */
+    protected List<RecipeArea> getRecipeAreas() {
+        return List.of();
     }
 
     @Override
