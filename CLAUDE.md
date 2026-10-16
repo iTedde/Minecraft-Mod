@@ -74,9 +74,14 @@ MJ und EU bleiben getrennte Systeme; Verbindung nur über Electrical Engine (EU�
 | 6 | IC2 Mid/Late Game: 6.1 MFE, MFSU, Trafos · 6.2 Elektrowerkzeuge + Tastensystem · 6.3 Nano-/Quanten-/Utility-Rüstung · 6.4 Mass Fabricator, Solar Arrays als Multiblocks | **erledigt** (abgenommen) |
 | 6b | GregTech-Maschinen 1:1 (Elektrolyseur, Hochofen-Multiblock + Heizspulen, Plattenbieger, Assembler, ggf. weitere) und GT-Materialien; danach Rezepte für Solarpanel, Wasser-/Windmühle u. a. [GT⚠]. Teilpakete: 6b.1 Plattenbieger (erledigt) · 6b.2 Elektrolyseur (erledigt) · 6b.3 Hochofen (erledigt) · 6b.4 Assembler (erledigt) · 6b.5a Canning Machine IC2 + GT (erledigt) · 6b.5b Implosionskompressor (erledigt) · 6b.5c Zentrifuge (erledigt, erreichbare Rezepte) | **erledigt** (abgenommen) |
 | 7 | Reaktor: 7a IC2-Reaktor (erledigt) · 7b erreichbare GT-Reaktorteile (erledigt) · 7c Nuke (erledigt) | **erledigt** – wartet auf Abnahme |
-| 8 | Neue Kraftwerke: Kohlekraftwerk mit Koksofen, Wasserturbine | offen |
-| 9 | BuildCraft-Rohre (fest im Umfang) | offen |
-| 10 | Feinschliff: Texturen, EMI-Integration (Rezeptanzeige), Xaero's Minimap mitinstallieren, Tests | offen |
+| 8 | GT-Nachträge: NaK-Kühlzellen (Natrium aus Sodalith, Kalium aus Enderperlenstaub), Containment-Reaktorplatte mit Bleiplatte (Blei über UU-Materie/Silberstaub), **GT-Erze** (Weltgen) und was sie freischalten | offen |
+| 9 | Neue Kraftwerke: Kohlekraftwerk mit Koksofen, Wasserturbine | offen |
+| 10 | BuildCraft-Rohre (fest im Umfang) | offen |
+| 11 | Feinschliff: Texturen, EMI-Integration (Rezeptanzeige), Xaero's Minimap mitinstallieren, Tests | offen |
+
+Phasen-Umnummerierung (Nutzer, 2026-10-16): Phase 8 „GT-Nachträge“ eingeschoben; die bisherigen Phasen 8/9/10
+(Kraftwerke, Rohre, Feinschliff) heißen jetzt 9/10/11. Ältere Einträge in `docs/STATUS.md` sind entsprechend
+angepasst.
 
 Nicht explizit in einer Phase, aber Teil von „IC2 komplett“ (Zuordnung klären): Eisenofen,
 Miner, Pumpe, Terraformer, Teleporter, Tesla-Spule, Crops/Crop-Matron,
@@ -84,13 +89,13 @@ Personal-Blöcke, Luminator, Sprengstoffe (Industrie-TNT erledigt in 6b.5b, Nuke
 
 ## Offene Entscheidungen (Stand Phase 1)
 
-1. GT-Erze (Bauxit, Sheldonit, Rubin …) – für Silizium/Aluminium nicht nötig (Elektrolyse von Sand/Tonstaub). Der
-   Herstellungsweg selbst ist entschieden (s. u.).
+1. ~~GT-Erze~~ **Entschieden (2026-10-16):** GT-Erze werden in Phase 8 generiert (Umfang siehe `docs/STATUS.md`).
+   Der Herstellungsweg selbst ist entschieden (s. u.).
 2. ~~Massefabrikator~~ **Entschieden:** IC2-Massefabrikator 1:1 mit IC2-Rezept (kein GT Matter Fabricator).
 3. Balancing-Vorschlag freigeben (`docs/balancing.md` §5) – **Solar freigegeben** (Fläche der Panels), Rest offen.
 4. GT-Nicht-Rezept-Änderungen: Upgrade-Stack 4 und Recycler-Blacklist noch offen. **Entschieden:** Schrottbox-Drops wie im Pack – GT ersetzt die IC2-Liste (Schrott 200 + GT-Liste; GT-Items erst, wenn es sie gibt).
 5. Iridiumerz-Generierung (GT).
-6. Rezeptanzeige und Minimap (Nutzerwunsch 2026-10-15): **Entschieden:** **EMI** (statt NEI, das es für 1.21 nicht gibt) mit eigener Integration (Rezeptkategorien für IC2-/GT-/BC-/Forestry-Maschinen, Phase 10); Minimap **Xaero's Minimap**, nur mitinstalliert (keine eigene Integration).
+6. Rezeptanzeige und Minimap (Nutzerwunsch 2026-10-15): **Entschieden:** **EMI** (statt NEI, das es für 1.21 nicht gibt) mit eigener Integration (Rezeptkategorien für IC2-/GT-/BC-/Forestry-Maschinen, Phase 11); Minimap **Xaero's Minimap**, nur mitinstalliert (keine eigene Integration).
 
 Aktueller Stand/ToDo: `docs/STATUS.md`.
 

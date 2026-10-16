@@ -82,7 +82,7 @@ Status: *geplant* (aus Phase 1 abgeleitet, noch nicht umgesetzt), *entschieden* 
 | Raffinerie: Filter | Flüssigkeits-ID + Meta, Setzen per eigenem Paket (`PacketUpdate` 50) | Flüssigkeit (Registry), Setzen über das Vanilla-Menü-Button-Paket (Server liest den Behälter am Mauszeiger); Filterfelder zeigen die Flüssigkeitstextur statt des Block-Icons | idiomatisch, kein eigenes Paket nötig | **umgesetzt** |
 | Raffinerie: Rezept | `"   ", "RTR", "TGT"` – nur in den unteren zwei Reihen | 1.21 entfernt die leere Reihe: passt auch in die oberen zwei Reihen | Rezeptformat | **umgesetzt** |
 | Raffinerie: Forestry-Rezept | Biomasse → Biotreibstoff (Forestry) | entfällt | Forestry-Flüssigkeiten nicht im Umfang | **umgesetzt** |
-| Raffinerie/Pumpe/Mining Well: `powerRequest`, `getTank(Seite)`, Rohr-Ausgabe | für Rohre und Gates | noch nicht umgesetzt | erst mit den Rohren (Phase 9) relevant | **offen bis Phase 9** |
+| Raffinerie/Pumpe/Mining Well: `powerRequest`, `getTank(Seite)`, Rohr-Ausgabe | für Rohre und Gates | noch nicht umgesetzt | erst mit den Rohren (Phase 10) relevant | **offen bis Phase 10** |
 | Mining Well: Tiefe | bis y 0 | bis zur Weltuntergrenze | 1.18-Weltgeometrie | **umgesetzt** |
 | Minenrohr | Block mit Item (nicht im Creative-Tab) | Block ohne Item | wird nie gedroppt oder gesetzt | **umgesetzt** |
 | Forestry-Zeitbasis (Arbeitstakt alle 5 Ticks, Carpenter 20/40 Ticks) | `getWorldTime()` | `getGameTime()` | wie BC-Zeitbasis | **umgesetzt** |
@@ -91,7 +91,7 @@ Status: *geplant* (aus Phase 1 abgeleitet, noch nicht umgesetzt), *entschieden* 
 | Fabricator/Carpenter-Rezepte | Code-Registrierung (`RecipeManagers`) | Datapack-Rezepttypen `craft:fabricator`/`craft:carpenter` (Datagen); Schmelztabelle (Glas, Glasscheibe, Sand) im Code | idiomatisch | **umgesetzt** |
 | Ore-Dictionary-Gleichheit beim Vorrat | `isItemOreEqual` (nur Kupferbarren-Sonderfall) | gleiches Item + Komponenten | nur Vanilla-Kupfer im Spiel | **umgesetzt** |
 | Forestry-Darstellung | TESR mit `ModelRenderer` | BER mit `ModelPart`, gleiche Geometrie/Drehwinkel; Item über BEWLR | wie BC-Engines | **umgesetzt** |
-| Forestry-Ledger (Energie, Hinweise, Fehlerstatus) und Zugriffsrechte | vorhanden | fehlen | Feinschliff (Phase 10) | **offen** |
+| Forestry-Ledger (Energie, Hinweise, Fehlerstatus) und Zugriffsrechte | vorhanden | fehlen | Feinschliff (Phase 11) | **offen** |
 | Fabricator-Ergebnisslot | virtueller Slot direkt auf der Maschine | Anzeige-Slot, vom Server bei jedem Zugriff neu berechnet | Client hat keine Maschine im Menü | **umgesetzt** |
 | Carpenter: Rezeptsuche nach Laden | sofort in `readFromNBT` | im ersten Tick | Level beim Laden noch nicht verfügbar | **umgesetzt** |
 | Tank-Tooltip in Forestry-GUIs | Name (+ Menge laut Config) | Name und Menge in mB | – | **umgesetzt** |
@@ -170,7 +170,7 @@ Status: *geplant* (aus Phase 1 abgeleitet, noch nicht umgesetzt), *entschieden* 
 | Eisenzaun: GT-Macerator | 2 Zäune → 3 kleine Eisenstaubhaufen (GT) | fehlt | GT-Kleinstaub nicht im Umfang | offen |
 | IC2-Elektrolyseur: Speicher | greift direkt auf `TileEntityElectricBlock.energy` zu | `ElectricStorageBlockEntity.setEnergy` (ohne Netz, ohne Kappung wie im Original) | – | **umgesetzt** |
 | GT-Heizspulen (Kupfernickel, Kanthal, Nichrom) | Railcraft-Walzmaschine (`MMIngotOnlyRollingMachine=true`) | Werkbank, gleiches Muster (GTs eigener Fallback ohne Railcraft) | Railcraft nicht im Umfang; Nutzerentscheidung | **umgesetzt** |
-| GT-Maschinengehäuse: Texturen | verbundene Texturen je Nachbarn (`blocks.png` ab 96/112/224, 12 Varianten je Seite) | eine Textur je Gehäusetyp (`blocks.png` 13/14/15) | Nutzerentscheidung: verbundene Texturen in Phase 10 | **vorläufig** |
+| GT-Maschinengehäuse: Texturen | verbundene Texturen je Nachbarn (`blocks.png` ab 96/112/224, 12 Varianten je Seite) | eine Textur je Gehäusetyp (`blocks.png` 13/14/15) | Nutzerentscheidung: verbundene Texturen in Phase 11 | **vorläufig** |
 | GT-Fortgeschrittenes Maschinengehäuse: ID | Metadaten 15 von `BlockMetaID_Block` | Registry-Name `gt_advanced_machine_casing` | Name `advanced_machine_casing` ist der IC2-Maschinenblock | **umgesetzt** |
 | Gefüllte Zinndose: Meta | Metadaten 0–5 | Data Component `craft:can_meta` (Standard 0 über `ModifyDefaultComponentsEvent`, damit Rezepte Meta 0 und 1 unterscheiden; Extractor/Schrottbox nutzen ihn) | keine Metadaten | **umgesetzt** |
 | Gefüllter Brennstoffkanister: Wert | NBT `value` (alte Kanister: Damage = Wert) | Data Component `craft:fuel_value`; Damage-Altfall entfällt | Data Components | **umgesetzt** |
@@ -184,7 +184,7 @@ Status: *geplant* (aus Phase 1 abgeleitet, noch nicht umgesetzt), *entschieden* 
 | Zentrifuge: Lava im Holo-Slot | `ItemStack(Block.lavaStill)` | eigenes Item `craft:lava` (Textur Vanilla-Lava), nicht erhältlich, geht beim Abbau verloren | Fluidblöcke haben in 1.21 kein Item | **umgesetzt** |
 | Tiefenschiefer-Uranerz | existiert nicht | eigener Block (Härte 5,5 = Uranerz + 1,5 wie Vanilla), Drop/Compressor wie Uranerz; Textur = Uranerz-Muster auf Vanilla-Tiefenschiefer | Tiefenschiefer ab 1.17 | **umgesetzt** |
 | Helium-Kühlzellen: Zurückkühlen | Vakuumgefrierer (GT) | nicht möglich, Vakuumgefrierer nicht im Umfang | Maschine fehlt | **offen** |
-| GT-Reaktorteile: NaK-Kühlzellen | 60k/180k/360k NaK Coolant Cell | nicht umgesetzt | Natrium/Kalium ohne GT-Erze nicht erreichbar (Nutzerentscheidung 2026-10-16) | **entschieden** |
+| GT-Reaktorteile: NaK-Kühlzellen | 60k/180k/360k NaK Coolant Cell | folgt in Phase 8 | in 7b irrtümlich als unerreichbar eingestuft: Natrium (Lapis → Sodalith → Elektrolyseur) und Kalium (Enderperlenstaub → Elektrolyseur) gehen ohne GT-Erze | **geplant (Phase 8)** |
 | Uranerz: Behutsamkeit | `canSilkHarvest` (normaler Block ohne TileEntity) | Behutsamkeit liefert den Erzblock, sonst 1 Uranerz-Brocken (kein Glück-Bonus) | wie Original, als Loot-Tabelle | **umgesetzt** |
 | Reaktor-Hitzeeffekte: Materialien | ab 85 %: unzerstörbare Blöcke aus Stein/Eisen/Lava/Erde/Ton → fließende Lava, sonstige unzerstörbare → Feuer; ab 50 % Material Wasser → Luft; ab 40 % Holz/Blätter/Wolle → Feuer | Block-Tags `craft:reactor_meltdown_lava` (Grundgestein, verstärkter Tiefenschiefer, Befehlsblöcke) und `craft:reactor_meltdown_flammable` (`#mineable/axe`, `#leaves`, `#wool`); Wasser = Wasserblock; Feuer über `BaseFireBlock.getState` | keine Materialien in 1.21 | **umgesetzt** |
 | Reaktor: Automatisierung | einfaches `IInventory`, alle 54 Slots von jeder Seite, Spalten außerhalb der Breite auf die letzte Spalte umgeleitet | gleiche Umleitung als Item-Capability (auch über die Kammern); eingefügt werden nur Items, die im Reaktor bleiben dürfen (wie die GUI-Slots) | 1.21-Trichter prüfen `isItemValid` | **umgesetzt** |

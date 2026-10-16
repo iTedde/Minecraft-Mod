@@ -232,7 +232,7 @@ Schraubenschlüssel (BC) auf Quarry: `reinitalize()` – Rahmen wird neu geprüf
   `sizeZ − 2 + 0,5`, Querschnitt 0,5; senkrechter Balken vom Kopf + 1 bis zur Wurzel; Kopf 0,2 × 1 × 0,2 bei
   `(kx + 0,4, ky, kz + 0,4)`. Kopfposition auf 1/32 gerastert. Texturen 33 (Balken) und 42 (Kopf).
 - **Ausgabe** `addToRandomInventory`: alle 6 Nachbarn mit Inventar außer Engines, die mindestens 1 Item aufnehmen;
-  zufällig einer davon bekommt den Stack. Rest → Rohr (Phase 9), Rest → Item-Entity.
+  zufällig einer davon bekommt den Stack. Rest → Rohr (Phase 10), Rest → Item-Entity.
 - **Gespeichert:** Energie, Box, Ziel, Kopfposition. **Nicht** gespeichert: `builderDone`, `inProcess`, `isDigging`,
   Roboter – nach dem Laden wird der Rahmen geprüft (25 MJ) und das Graben neu begonnen.
 - Chunkloading: Forge-Ticket (`maximumChunksPerTicket = 25`, max. 200 Tickets je Mod laut `forgeChunkLoading.cfg`).

@@ -360,7 +360,7 @@ Rezept eine hat). **Shapeless:** zuerst wird die vertauschte Belegung (Slot 1, S
 
 Material Eisen, Spitzhacke Stufe 2 (Eisen), droppt sich selbst, keine Mob-Spawns, kein Beacon-Sockel. Platzieren und
 Abbauen lösen `causeMachineUpdate` aus. Textur: `blocks.png` Index 13/14/15 (alle Seiten gleich); im Original
-verbundene Texturen (Startindex 96/112/224, 12 Varianten je Seite) – **Abweichung: erst Phase 10** (Nutzerentscheidung).
+verbundene Texturen (Startindex 96/112/224, 12 Varianten je Seite) – **Abweichung: erst Phase 11** (Nutzerentscheidung).
 
 ### 5.2 Heizspulen und Materialien (6b.3b)
 

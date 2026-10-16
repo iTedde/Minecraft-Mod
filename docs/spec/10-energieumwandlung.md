@@ -292,7 +292,7 @@ von Kolbengeschwindigkeit oder Aktiv-Zustand (enthält heat, storedEnergy).
 (30,40), Spielerinventar ab (8,84), Hotbar y 142. EU-Anzeige bei (74,25), 4×46 px, Höhe
 `euStored · 46 / (euStorage + 511)`, Quelle u = 176 + 4·Stufe (Stufe nach `euStored · 100 / (euStorage + 511)`:
 < 5 leer, < 30 niedrig, < 60 mittel, < 90 hoch, sonst max.), v = 46 − Höhe. Shift-Klick wie `ContainerForestry`
-(1 Maschinen-Slot). Ledger (MJ/t, gespeichert, Hitze/10 „C“) wie andere Forestry-Ledger → Phase 10.
+(1 Maschinen-Slot). Ledger (MJ/t, gespeichert, Hitze/10 „C“) wie andere Forestry-Ledger → Phase 11.
 
 **Zinn-Zahnrad (`gearTin`)**: Icon 38 in `items.png`; Rezepte ` # /#Y#/ # ` (# Zinnbarren, Y = BC-Stein-Zahnrad);
 die Variante mit Kupferbarren gilt nur ohne BuildCraft (im Pack nicht aktiv).

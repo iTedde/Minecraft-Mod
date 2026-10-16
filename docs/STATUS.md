@@ -69,7 +69,7 @@ Phase 2 gestartet (2026-10-14) – Zwischenstand siehe unten.
 ## Offen / Hinweise
 - Werkzeuge für Kabel (Isolierungsschneider, Farbroller, Bauschaum-Sprüher) kommen mit den Items (später);
   die Kabel-API dafür steht.
-- Kabel-Texturen sind aus dem Original-IC2-Jar geschnitten (privates Projekt) – endgültige Texturen in Phase 10.
+- Kabel-Texturen sind aus dem Original-IC2-Jar geschnitten (privates Projekt) – endgültige Texturen in Phase 11 (damals Phase 10).
 - Elektrische Items (Ladung, §5 der EU-Spec) kommen mit Phase 3 (Batterien).
 
 ## Entscheidungen nach Phase 2 (2026-10-14)
@@ -559,7 +559,7 @@ entscheiden**.
 
 ## Erledigt (Teilpaket „Phase 6b.3b: Industrieller Hochofen“, 2026-10-15)
 - Nutzerentscheidungen: Heizspulen an der **Werkbank** (statt Railcraft-Walzmaschine); verbundene Gehäusetexturen
-  erst in **Phase 10** (beides in `abweichungen.md`).
+  erst in **Phase 11** (damals Phase 10; beides in `abweichungen.md`).
 - Spec `13-gregtech-maschinen.md` §5 (Hochofen: Struktur, Hitze, Prüfzeitpunkt, Heizspulen, GUI, Rezepte), §5.1
   Gehäuse, §5.2 Spulen/Materialien; `12-gregtech-materialien.md` Stahl-Weg korrigiert (raff. Eisenbarren).
 - `GtMachine.Layout` (BASIC/SIDES/FRONT), **Hochofen** (`BlastFurnaceBlockEntity`: Struktur über `MultiblockPattern`,
@@ -787,8 +787,8 @@ NaK-Kühlzellen, kein Vakuumgefrierer) **und die IC2-Nuke**. Teilpakete: 7a IC2-
   angereicherte Uranzellen, Uranstaub), GT-Canner (Thorium-/Plutoniumzelle), Doppel-/Vierfachzellen, Heliumkühlzellen,
   Overclocker aus Heliumkühlzelle, dicker Neutronenreflektor mit Berylliumzelle, Iridium-Reflektor, Smaragdstaub im
   Elektrolyseur (→ Beryllium), GT-Wärmeableiter mit Aluminiumplatten. Massefabrikator-Verstärker Uran/Plutonium/Thorium.
-- Nicht umgesetzt: NaK-Kühlzellen (Natrium/Kalium nicht erreichbar), Vakuumgefrierer (Zurückkühlen der
-  Heliumzellen), Containment-Platte mit Bleiplatte (kein Bleibarren).
+- Nicht umgesetzt: NaK-Kühlzellen, Containment-Platte mit Bleiplatte (beide doch ohne GT-Erze erreichbar → Phase 8),
+  Vakuumgefrierer (Zurückkühlen der Heliumzellen; Rezept braucht die IC2-Pumpe).
 - 5 neue GameTests (`GtReactorGameTests`, insgesamt 172 grün), `build` und `runClient` erfolgreich.
 
 ## Erledigt (Teilpaket „Phase 7c: Nuke“, 2026-10-16)
@@ -812,3 +812,10 @@ NaK-Kühlzellen, kein Vakuumgefrierer) **und die IC2-Nuke**. Teilpakete: 7a IC2-
 3. Manuelle Client-Tests 7a: Uranerz finden (y 0–64), Reaktor + Kammern bauen (GUI-Breite 3–9, Kammer nur an einem
    Reaktor), Redstone an → Loop/Geigerzähler, Energie in eine MFE, Kühlzellen-Balken, Kernschmelze in einer Testwelt
    (Rauch/Flammen, Feuer/Lava ringsum, Explosion), Kondensator mit Redstone reparieren.
+
+## Phasenplan geändert (Nutzer, 2026-10-16)
+- Neue **Phase 8 „GT-Nachträge“**: NaK-Kühlzellen (Natrium: Lapis → Zentrifuge → kleiner Sodalithstaub → Sodalithstaub
+  → Elektrolyseur; Kalium: Enderperle → Macerator → Enderperlenstaub → Elektrolyseur), Containment-Reaktorplatte mit
+  Bleiplatte (Silberstaub per UU-Materie → Zentrifuge → Blei → Ofen → Barren → Plattenbieger) und **GT-Erze** samt
+  dem, was sie freischalten (z. B. Titan, Platin, Rubin). Bisherige Phasen 8/9/10 → 9/10/11.
+- Vakuumgefrierer bleibt offen, bis die IC2-Pumpe existiert (IC2-Teile ohne Phase).
