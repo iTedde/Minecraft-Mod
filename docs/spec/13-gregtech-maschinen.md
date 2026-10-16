@@ -623,3 +623,92 @@ Quecksilber (16, Hg), Öl (17); Stäube Lazurit (2), Pyrit (3), Salpeter (9), Ru
 kleine Stäube („Tiny Pile of …“, gleicher Index) Pyrit, Calcit, Sodalith, Wolfram, Blei, Zink, Nickel, Gold, Kupfer,
 Zinn; Elektrumbarren (Material 21, AgAu). GT `dustSmall*`: 4 kleine → 1 Staub und 1 Staub → 4 kleine, umgesetzt für
 Pyrit, Nickel, Gold, Kupfer, Zinn (die anderen Stäube gibt es nicht).
+
+## 10. Industrial Grinder (`GT_MetaTileEntity_Grinder`, ID 28, „Industrial Grinder“) – Teilpaket 8d
+
+Eigene MetaTileEntity wie der Hochofen (§5), Basis §1.1/§1.2/§1.5/§1.6. Werte:
+
+| Wert | |
+|---|---|
+| `maxEUInput` | **128** (sichere Eingabe 128 · 4^Trafos), Energie von **allen** Seiten |
+| `maxEUStore` | 10 000 (+ Upgrades §1.4), MJ-Kapazität 10 000 (nur mit MJ-Konverter) |
+| Facing | nur horizontal (`aFacing > 1`), Schraubenschlüssel dreht |
+| Upgrades | Transformer, **Overclocker**, Energiespeicher/Lithium, MJ-Konverter |
+| Texturen (`terrain.png`) | Front 68 (aktiv 69), Rückseite 71, alle anderen Seiten (auch oben/unten) 70 |
+| Beschreibung | „Ultimaceratron 42a“; Tooltip „Max EU/p IN: 128“ |
+| Rechtsklick | öffnet immer die GUI |
+
+**Slots:** 0 = Erz, 1 = Zelle/Eimer, 2–5 = Ausgaben 1–4 (alle droppen). Seiten: oben → Slot 0, unten → Slot 1,
+Seiten → Slots 2–5.
+
+**Struktur** (`checkMachine`): Würfel 3 × 3 × 3 **hinter** dem Controller, Mittelpunkt = Controller − 2 · Facing (der
+Controller sitzt mittig an der Würfelseite, außerhalb). Mitte muss **Wasser** sein (Block-ID 8 oder 9, also auch
+fließendes Wasser); die mittlere Ebene (y gleich Controller, 8 Blöcke) **verstärktes** Gehäuse (Meta 14), obere und
+untere Ebene (je 9) **Standard**-Gehäuse (Meta 13). Prüfzeitpunkt wie §5 (`mUpdate` = 5, `onMachineBlockUpdate`).
+
+**Wassertank:** nur Wasser, 10 000 mB, von allen Seiten befüllbar (`fill`), nie entleerbar (`getTankPressure −100`),
+NBT `mWaterAmount`. Der Tank wird **nicht** aus Slot 1 befüllt (Wasserzellen in Slot 1 sind Rezepteingabe).
+
+**Tick (`onPostTick`, Server):**
+1. Wenn `mUpdate-- == 0`: `mMachine = checkMachine()`. Aktiv = `mMachine`.
+2. Wenn `mMachine` und ein Rezept läuft (`mMaxProgresstime > 0`): ist `mProgresstime ≥ 0` und gelingt
+   `decreaseStoredEnergy(mEUt · 4^OC)` **nicht**, dann bei `constant_need_of_energy` (Pack: an) `mProgresstime = −10`
+   und Fehlercode 1 („Insufficient Energy Line!“). Sonst `mProgresstime += 2^OC`; erreicht es `mMaxProgresstime`:
+   Ausgaben in Slots 2–5 (leerer Slot → Kopie, gleicher Stapel → `min(maxStack, n + Ausgabe)`, anderes Item → Ausgabe
+   verloren), Fortschritt/Dauer 0, Fehlercode 0. Hinweis: bei `mProgresstime < 0` (nach Energiemangel) wird ohne
+   Energieabzug weitergezählt – Originaleigenheit.
+3. Sonst (keine Struktur oder kein Rezept) bei gespeicherter Energie > 100: `checkRecipe` (nur mit `mMachine`):
+   a. Rezept zu (Slot 0, Slot 1), **nicht shapeless**; bei Platz für alle vier Ausgaben Eingaben abziehen, Ausgaben
+      merken.
+   b. Nur wenn a. **kein Rezept findet:** virtuelle Eingabe 2 = `mWaterAmount / 1000` Wasserzellen (ab 1000 mB). Bei
+      passendem Rezept und Platz: Erz abziehen, Tank − Zellenzahl des Rezepts · 1000 mB. Ausgabe 4 entfällt, wenn sie
+      eine leere Zelle ist – der **Platz** für die leere Zelle in Slot 5 wird trotzdem geprüft (Originaleigenheit).
+4. Dauer = 100 · Erzanzahl des Rezepts (immer 100 bzw. 1600/800 bei Netherrack), **128 EU/t**.
+
+**GUI** (`gui/Grinder.png`, `GT_Container_Grinder`): Titel „Industrial Grinder“ (8, 4); „Incomplete Machine Casing!“
+(8, 62) bei fehlender Struktur; (8, 72) „Insufficient Energy Line!“ bei Fehlercode 1, sonst „Inventory“. Slots 0 (34,16),
+1 (34,34), Ausgaben 2–5 (86/104/122/140, 25). Fortschrittspfeil (58, 28) ← (176, 0), Breite
+`min(20, (p > 0 ? 1 : 0) + p · 20 / max)`, Höhe 11. Wasserstand hinter Slot 1: Höhe `mWaterAmount / 550` (max. 18),
+gezeichnet bei (33, 51 − h) aus (176, 51 − h), Breite 18. Shift-Klick aus dem Spielerinventar nur in Slot 0/1.
+Info-Anzeige (GT-Scanner): „Progress:“, „n secs“, „/m secs“.
+
+**Rezept des Grinders:** `EAP/GGG/ABA`, E = Industrieller Elektrolyseur, A = fortg. Schaltkreis
+(`craftingCircuitTier04`), P = **IC2-Pumpe**, G = Schleifkopf (`craftingGrinder`), B = fortg. Maschinenblock
+(`craftingRawMachineTier02`).
+
+**Schleifköpfe** (GT-Komponenten):
+
+| Item | GT | Tooltip | Rezept |
+|---|---|---|---|
+| Diamant-Schleifkopf („Diamond Grinder“) | Komponente 18 | „Fancy Grinding Head“ | → 2: `DSD/SGS/DSD`, D = Diamantstaub, S = Stahlplatte, G = Industriediamant |
+| Wolfram-Schleifkopf („Wolframium Grinder“) | Komponente 23 | „Regular Grinding Head“ | → 2: `TST/SBS/TST`, T = Wolframplatte, S = Stahlplatte, B = Stahlblock – **später** (Wolframplatte fehlt) |
+
+**Rezepte** (`addGrinderRecipe(in, n, out1..4)`): n = −1 → Eingabe 2 = 1 **Wasserzelle**; zusätzlich automatisch eine
+Variante mit **Wassereimer** → Ausgabe 4 = leerer Eimer (nur bei n = −1 und Ausgabe 4 = 1 leere Zelle). Mit Sonderzelle
+(Quecksilber 16, Natriumpersulfat 32) direkt als Eingabe 2. Erze = Stein- und Tiefenschiefer-Variante (1.21);
+Nether-/Dichte-Mengen entfallen (keine solchen Erze). Ausgabe 4 ist immer 1 leere Zelle (bzw. Eimer).
+
+| Eingabe | mit Wasser | Quecksilberzelle | Natriumpersulfatzelle |
+|---|---|---|---|
+| 16 Netherrack | 1 Goldnugget, 16 Netherrackstaub | 8 Netherrack: 1 Goldnugget, 8 Netherrackstaub | – |
+| Lapiserz | 12 Lapis, 3 Lazuritstaub | – | – |
+| Redstoneerz | 10 Redstone, 2 kl. Glowstonestaub | – | – |
+| Eisenerz | 2 Eisenstaub, kl. Zinnstaub, kl. Nickelstaub | – | – |
+| Golderz | 2 Goldstaub, kl. Kupferstaub, kl. Nickelstaub | 3 Goldstaub, kl. Kupfer-, kl. Nickelstaub | 2 Goldstaub, 1 Kupferstaub, kl. Nickelstaub |
+| Kupfererz | 2 Kupferstaub, kl. Goldstaub, kl. Nickelstaub | 2 Kupferstaub, 1 Goldstaub | 3 Kupferstaub, kl. Gold-, kl. Nickelstaub |
+| Zinnerz | 2 Zinnstaub, kl. Eisenstaub, kl. Zinkstaub | – | 2 Zinnstaub, kl. Eisenstaub, 1 Zinkstaub |
+| Diamanterz | 1 Diamant, 6 kl. Diamantstaub, 1 hydr. Kohlestaub | – | – |
+| Smaragderz | 1 Smaragd, 6 kl. Smaragdstaub, 2 kl. Olivinstaub | – | – |
+| Kohleerz | 1 Kohle, 1 Kohlestaub, 1 kl. Thoriumstaub | – | – |
+| Uranerz | 2 Uranstaub, 2 kl. Plutoniumstaub | – | – |
+| GT-Erze | siehe `07-weltgenerierung.md` §6.4 | | |
+
+Abweichung zu §6.4 (dort vereinfacht): Galena mit Wasser 2 Galena-, 1 Schwefelstaub; mit Quecksilber zusätzlich
+1 Silberstaub (Ausgabe 3). Rubin/Saphir/Olivin: Ausgabe 1 Edelstein, 2 = 6 kl. Staub, 3 = 2 kl. Nebenstaub.
+
+**Natriumpersulfatzelle** hat in GT 2.90 keine Herstellung (nur Grinder-Eingabe) → Rezepte mit ihr sind nicht
+erreichbar und werden nicht umgesetzt (Item entfällt).
+
+**Neue Items:** Netherrackstaub (Dust 6), kleine Stäube Glowstone, Diamant, Smaragd, Olivin, Rubin, Saphir, grüner
+Saphir, roter/gelber Granat, Thorium, Plutonium (vorhanden), Mangan, Platin, Redstone, Eisen (IC2, vorhanden);
+Iridiumnugget; Diamant-Schleifkopf. Kleine Stäube jeweils 4 ↔ 1 an der Werkbank, soweit der große Staub existiert.

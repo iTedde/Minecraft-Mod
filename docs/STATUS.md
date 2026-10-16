@@ -884,3 +884,15 @@ NaK-Kühlzellen, kein Vakuumgefrierer) **und die IC2-Nuke**. Teilpakete: 7a IC2-
 2. Phase 8d: Industrial Grinder inkl. aller Erz-Rezepte (`07-weltgenerierung.md` §6.4).
 3. Danach Freischaltungen aus §6.6 „später“ (Titan aus Bauxit, Silberbarren, Chrom, Magnesium …) – Umfang mit dem
    Nutzer klären.
+
+## Spezifikation 8d (2026-10-16)
+- `13-gregtech-maschinen.md` §10 Industrial Grinder (Struktur, Wassertank, Tick, GUI, Rezept, Schleifköpfe, alle
+  erreichbaren Grinder-Rezepte inkl. Netherrack und Vanilla-/IC2-Erze, neue Items).
+- `04-maschinen.md` Pumpe: Details aus `TileEntityPump` (Tick, Eigenheiten, `distributeDrop`, GUI) und Bergbaurohr.
+- **Entschieden (Nutzer, 2026-10-16):** Das Grinder-Rezept braucht die IC2-Pumpe → sie wird zuerst gebaut.
+  Teilpakete: **8d.1 IC2-Pumpe + Bergbaurohr**, **8d.2 Industrial Grinder**.
+- Natriumpersulfatzelle hat in GT 2.90 keine Herstellung → ihre Grinder-Rezepte entfallen. Wolfram-Schleifkopf später.
+
+## Nächste Schritte
+1. Teilpaket 8d.1: IC2-Pumpe (`04-maschinen.md` „Pumpe“) + Bergbaurohr, Compressor+Pumpe-Bonus (Schneeball).
+2. Teilpaket 8d.2: Industrial Grinder (`13-gregtech-maschinen.md` §10).

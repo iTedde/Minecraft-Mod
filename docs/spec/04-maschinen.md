@@ -288,6 +288,43 @@ Bergbaurohr/-spitze: Härte 6,0, Resistenz 10.
 - Mit Miner (angrenzend) und Compressor (s. o.) kombinierbar.
 - Sound `Machines/PumpOp.ogg`. Sided: unten → 1, sonst → 0.
 
+### Details aus `TileEntityPump` (nachgetragen Phase 8d.1)
+
+- Basis `TileEntityElecMachine(2 Slots, Batterie-Slot 1, maxEnergy 200, maxInput 32)`, Tier 1, Block-Meta 8
+  (Härte 1,0, Drop Maschinenblock wie die anderen Maschinen). `pumpCharge` (short) als NBT `pumpCharge`.
+- Tick-Reihenfolge: (1) `energy > 0` und nicht bereit → `energy −1`, `pumpCharge +1`; (2) wenn `energy ≤ maxEnergy`:
+  `provideEnergy` (Batterie-Slot); (3) bereit → `pump()`; (4) wenn `active == bereit` und `energy > 0` → `active`
+  umschalten. „Aktiv“ heißt also „lädt“ (Loop-Sound läuft beim Laden, nicht beim Pumpen); ohne Energie bleibt der
+  Zustand stehen.
+- `pump()`: nur wenn erntefähig (Slot 0 = leere Zelle oder leerer Eimer, **oder** ein leerer Eimer in einer der sechs
+  angrenzenden Truhen). Kein Wasser-/Lava-Quellblock (Meta 0, still oder fließend) darunter: nur mit leerem Eimer in
+  Slot 0 ein `FillBucketEvent` an y − 1 (andere Mods, z. B. BC-Öl); gefüllter Eimer → `distributeDrop`, Slot 0 −1,
+  `pumpCharge = 0`. Sonst passiert nichts (Ladung bleibt voll).
+- Quellblock darunter: Block **zuerst entfernen**, dann `pumpThis`:
+  1. Lava → `deliverLavaToGeo`: 3000 mB nacheinander an Geothermie-Generatoren oben, unten, +X, −X, +Z, −Z
+     (`distributeLava`, s. o.); Erfolg bei Rest < 2980 → `pumpCharge = 0`.
+  2. Leerer Eimer in Slot 0: der **ganze Stapel** wird zu Wasser-/Lavaeimern (Item-ID ersetzt) und per
+     `distributeDrop` ausgegeben; Slot 0 leer (Originaleigenheit: n Eimer für einen Block).
+  3. Leere Zelle in Slot 0: −1, eine Wasser-/Lavazelle per `distributeDrop`.
+  4. Sonst: `pumpCharge = 0`, erster leerer Eimer in der ersten angrenzenden Truhe (oben, unten, +X, −X, +Z, −Z;
+     nur Vanilla-Truhen) wird umgewandelt – ebenfalls der **ganze Stapel** dieses Slots.
+- `StackUtil.distributeDrop` (auch Miner): Nachbarn in der Reihenfolge −X, +X, −Y, +Y, −Z, +Z; nur Inventare mit
+  ≥ 6 Slots (bei Seiten-Inventaren ≥ 6 Slots von dieser Seite); Truhen mit horizontaler Nachbartruhe als
+  Doppeltruhe. Einfügen: erst auf gleiche Stapel auffüllen, dann leere Slots. Rest als Item-Entity im Pumpenblock
+  (Zufallsversatz 0,15–0,85, Aufhebeverzögerung 10).
+- GUI `GUIPump.png` (176 × 166): Titel „Pump“ zentriert (y 6), „Inventory“ (8, 72). Slot 0 (62, 17) nimmt **nur
+  leere Zellen** an (`SlotCustom` mit `Ic2Items.cell` – Eimer nur per Automatisierung), Batterie-Slot 1 (62, 53).
+  Energie: Höhe `min(14, energy · 14 / 200)` bei (62, 50 − h) ← (176, 14 − h), 14 breit. Ladung
+  `i = min(41, pumpCharge · 41 / 200)`: Zeiger (99, 61 − i) ← (176, 55), 12 × 5; Füllung (99, 66 − i) ← (176, 14),
+  12 × i; darüber Skala (98, 19) ← (188, 14), 13 × 47. Shift-Klick wie die anderen IC2-Maschinen.
+- `fountain()` existiert im Code, wird aber nie aufgerufen → entfällt.
+
+### Bergbaurohr (`BlockMiningPipe`)
+
+Block, Härte 6,0, Resistenz 10, Material Eisen, nicht voll (Kollisions-/Auswahlbox 0,375–0,625 in X/Z, volle Höhe),
+eigenes Render-Modell (dünnes Rohr), Rarity normal, droppt sich selbst. Rezept → 8: `I I/I I/ITI`, I = raff. Eisen
+(`ingotRefinedIron`), T = Baumzapfer. Die Rohrspitze (`BlockMiningTip`) kommt erst mit dem Miner.
+
 ---
 
 ## Magnetisierer
