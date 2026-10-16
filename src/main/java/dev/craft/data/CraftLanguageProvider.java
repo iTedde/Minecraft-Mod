@@ -112,6 +112,11 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
         block(PpBlocks.TURBINE_CASING, german ? "Turbinengehäuse" : "Turbine Casing");
         block(PpBlocks.TURBINE_ROTOR, german ? "Turbinenrotor" : "Turbine Rotor");
         block(PpBlocks.STEAM_TURBINE, german ? "Dampfturbine" : "Steam Turbine");
+        block(PpBlocks.WATER_TURBINE_CASING, german ? "Wasserturbinengehäuse" : "Water Turbine Casing");
+        block(PpBlocks.WATER_TURBINE, german ? "Wasserturbine" : "Water Turbine");
+        add("message.craft.water_turbine.status", german ? "Fließendes Wasser: %s, Leistung %s EU/t"
+                : "Flowing water: %s, output %s EU/t");
+        add("message.craft.water_turbine.incomplete", german ? "Struktur unvollständig" : "Structure incomplete");
     }
 
     /** Compact Solars names ({@code CompactSolarType.friendlyName}, English only). */

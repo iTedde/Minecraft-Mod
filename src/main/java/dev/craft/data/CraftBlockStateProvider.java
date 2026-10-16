@@ -442,6 +442,10 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
         simpleBlockWithItem(PpBlocks.TURBINE_ROTOR.get(), models().cubeAll("turbine_rotor",
                 modLoc("block/powerplants/turbine_rotor")));
         plantController(PpBlocks.STEAM_TURBINE.get(), "steam_turbine", turbine, turbine);
+        ResourceLocation waterTurbine = modLoc("block/powerplants/water_turbine_casing");
+        simpleBlockWithItem(PpBlocks.WATER_TURBINE_CASING.get(), models().cubeAll("water_turbine_casing",
+                waterTurbine));
+        plantController(PpBlocks.WATER_TURBINE.get(), "water_turbine", waterTurbine, waterTurbine);
     }
 
     /** Power plant controller: front texture {@code <name>_front(_active)}, rotated by the horizontal facing. */

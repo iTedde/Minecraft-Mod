@@ -682,6 +682,11 @@ public final class CraftRecipeProvider extends RecipeProvider {
         shaped(PpItems.STEAM_TURBINE, 1, "steam_turbine").pattern("CRC", "GMG", "CRC")
                 .define('C', PpItems.TURBINE_CASING).define('R', PpItems.TURBINE_ROTOR)
                 .define('G', machine(Ic2Machine.GENERATOR)).define('M', machine(Ic2Machine.MV_TRANSFORMER)).save();
+        shaped(PpItems.WATER_TURBINE_CASING, 4, "water_turbine_casing").pattern("RRR", "RMR", "RRR")
+                .define('R', CraftItemTagsProvider.PLATES_REFINED_IRON).define('M', Ic2Items.MACHINE_CASING).save();
+        shaped(PpItems.WATER_TURBINE, 1, "water_turbine").pattern("WCW", "CGC", "WCW")
+                .define('W', machine(Ic2Machine.WATER_MILL)).define('C', PpItems.WATER_TURBINE_CASING)
+                .define('G', machine(Ic2Machine.GENERATOR)).save();
     }
 
     // --- Compact Solars (multiblock variant, spec 11 §4): shapeless transformer → controller ---

@@ -1,0 +1,23 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "C": {
+      "item": "craft:water_turbine_casing"
+    },
+    "G": {
+      "item": "craft:generator"
+    },
+    "W": {
+      "item": "craft:water_mill"
+    }
+  },
+  "pattern": [
+    "WCW",
+    "CGC",
+    "WCW"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:water_turbine"
+  }
+}

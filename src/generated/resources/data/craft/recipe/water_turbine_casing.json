@@ -1,0 +1,20 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "M": {
+      "item": "craft:machine_casing"
+    },
+    "R": {
+      "tag": "c:plates/refined_iron"
+    }
+  },
+  "pattern": [
+    "RRR",
+    "RMR",
+    "RRR"
+  ],
+  "result": {
+    "count": 4,
+    "id": "craft:water_turbine_casing"
+  }
+}

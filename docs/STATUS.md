@@ -1078,13 +1078,27 @@ NaK-Kühlzellen, kein Vakuumgefrierer) **und die IC2-Nuke**. Teilpakete: 7a IC2-
 - 4 neue GameTests (`SteamTurbineGameTests` + Kessel→Turbine in `BoilerGameTests`; insgesamt 232 grün), `build` und
   `runClient` (Hauptmenü, keine Mod-Fehler) erfolgreich.
 
+## Erledigt (Teilpaket „Phase 9.4: Wasserturbine“, 2026-10-16)
+- Wasserturbine (`WaterTurbineBlockEntity`, kein Menü): voller 3×3×3-Würfel aus Wasserturbinengehäusen, Controller
+  in einer Seitenmitte. Zählt alle 128 Ticks (Zufallsversatz) fließendes Wasser (keine Quellen) im 7×7×3-Ring um den
+  Würfel (120 Positionen); ab 16 Blöcken 0,25 EU/t je Block, × 1,5 in Fluss-Biomen, Deckel 32 EU/t; EU-Quelle am
+  Controller, Pakete bis 32 EU (LV), Bruchteile im Puffer (höchstens 64 EU, in der Spezifikation ergänzt).
+  Rechtsklick: Chatmeldung „Fließendes Wasser: n, Leistung x EU/t“ bzw. „Struktur unvollständig“
+  (`PlantControllerBlockEntity.hasMenu()/onUse`).
+- Rezepte Wasserturbinengehäuse ×4 (`RRR/RMR/RRR`), Wasserturbine (`WCW/CGC/WCW`); eigene Texturen (Gehäuse
+  blaugrau, Front mit Rotor, aktiv mit Wasser).
+- 4 neue GameTests (`WaterTurbineGameTests`, insgesamt 236 grün), `build` und `runClient` (Hauptmenü, keine
+  Mod-Fehler) erfolgreich.
+
 ## Nächste Schritte
-1. 9.4 Wasserturbine.
-2. Manuelle Client-Tests 9.3b: Kraftwerk aus Kessel + Dampfturbine bauen, MFE/Kabel am Controller, GUI (Dampftank,
+1. Abnahme Phase 9; danach Phase 10 (BuildCraft-Rohre).
+2. Manuelle Client-Tests 9.4: Wasserturbine in einen Fluss bauen (fließendes Wasser rundherum), Rechtsklick-Meldung,
+   Kabel/BatBox am Controller.
+3. Manuelle Client-Tests 9.3b: Kraftwerk aus Kessel + Dampfturbine bauen, MFE/Kabel am Controller, GUI (Dampftank,
    EU/t, Puffer); bis zu 3 Kessel an einer Turbine.
-3. Manuelle Client-Tests 9.3a: Kessel bauen, Wasser per Eimer/IC2-Pumpe, Kohle/Koks nachlegen, Temperaturbalken und
+4. Manuelle Client-Tests 9.3a: Kessel bauen, Wasser per Eimer/IC2-Pumpe, Kohle/Koks nachlegen, Temperaturbalken und
    Tanks in der GUI; Dampf in einen BC-Tank daneben; Explosion (Wasser auf trockenen heißen Kessel) aus sicherer
    Entfernung.
-4. Manuelle Client-Tests 9.2: Koksofen bauen, Kohle per Trichter/Ziegel einspeisen, Koks unten abziehen.
-5. Manuelle Client-Tests 9.1: Wassermühle an fließendem Wasser / im Fluss, zwei Mühlen nebeneinander; Windmühle in
+5. Manuelle Client-Tests 9.2: Koksofen bauen, Kohle per Trichter/Ziegel einspeisen, Koks unten abziehen.
+6. Manuelle Client-Tests 9.1: Wassermühle an fließendem Wasser / im Fluss, zwei Mühlen nebeneinander; Windmühle in
    großer Höhe bei Gewitter.

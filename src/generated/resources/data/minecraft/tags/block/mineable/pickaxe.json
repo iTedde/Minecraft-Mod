@@ -55,6 +55,8 @@
     "craft:turbine_casing",
     "craft:turbine_rotor",
     "craft:steam_turbine",
+    "craft:water_turbine_casing",
+    "craft:water_turbine",
     "craft:coke_block",
     "craft:plate_bending_machine",
     "craft:industrial_electrolyzer",

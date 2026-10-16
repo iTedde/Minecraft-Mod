@@ -127,7 +127,7 @@ geht der Inhalt der Feuerung verloren (Drop-Rate/Entity-Schaden wie `explodeMach
   120 Positionen. Gezählt werden nur **fließende** Wasserblöcke (keine Quellen), alle 128 Ticks (Zufallsversatz).
 - Unter **16** fließenden Blöcken: 0 EU/t.
 - Leistung `0,25 EU/t · fließend`, × 1,5 in Fluss-Biomen (`#minecraft:is_river` am Controller), Deckel **32 EU/t**.
-- EU-Quelle am Controller, Paket bis 32 (LV), Bruchteile akkumuliert.
+- EU-Quelle am Controller, Paket bis 32 (LV), Bruchteile akkumuliert (interner Puffer höchstens 64 EU).
 
 **GUI:** keine; Rechtsklick zeigt Chat-Meldung „Fließendes Wasser: n, Leistung x EU/t“ bzw. „Struktur
 unvollständig“.
