@@ -791,8 +791,22 @@ NaK-Kühlzellen, kein Vakuumgefrierer) **und die IC2-Nuke**. Teilpakete: 7a IC2-
   Heliumzellen), Containment-Platte mit Bleiplatte (kein Bleibarren).
 - 5 neue GameTests (`GtReactorGameTests`, insgesamt 172 grün), `build` und `runClient` erfolgreich.
 
+## Erledigt (Teilpaket „Phase 7c: Nuke“, 2026-10-16)
+- `NukeBlock`/`NukeEntity` auf Basis des Industrie-TNT (neue Hooks `canExplodeByHand`, `onIgnite`,
+  `getDamageSource`): Zündschnur 300, Stärke 35, Drop-Rate 0,05, Schadensart `craft:nuke` (Hunger/Strahlung im Umkreis
+  100, Hazmat schützt), Abbauen von Hand droppt die Nuke, Entschärfen mit Schraubenschlüssel, Platzieren/Zünden im Log.
+  Rezept `RCR/UMU/RCR`. Texturen `block_0.png` 61–63. `NukeExplosion.ogg` wird im Original nirgends abgespielt und ist
+  deshalb nicht übernommen.
+- 3 neue GameTests (`NukeGameTests`, insgesamt 175 grün; eine echte Detonation wird bewusst nicht getestet),
+  `build` und `runClient` erfolgreich.
+
+## Abnahme Phase 7
+- Wartet auf Abnahme durch den Nutzer.
+
 ## Nächste Schritte
-1. Teilpaket 7c: Nuke.
+1. Manuelle Client-Tests 7c (in einer Testwelt!): Nuke platzieren → Log-Eintrag, von Hand abbauen → Item, Feuerzeug/
+   Redstone → 15 s Zündschnur, Schraubenschlüssel-Rechtsklick entschärft, Detonation (Krater, Strahlung/Hunger,
+   Hazmat schützt).
 2. Manuelle Client-Tests 7b: Thoriumzelle (Output nur jeden 5. Zyklus), Plutoniumzelle, Iridium-Reflektor (Stapel
    wirkt nicht), Heliumkühlzelle (Tooltip „Stored Heat“), Zentrifuge mit Uranstaub, Smaragdstaub-Elektrolyse.
 3. Manuelle Client-Tests 7a: Uranerz finden (y 0–64), Reaktor + Kammern bauen (GUI-Breite 3–9, Kammer nur an einem

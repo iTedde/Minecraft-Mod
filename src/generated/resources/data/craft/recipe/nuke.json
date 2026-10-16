@@ -1,0 +1,26 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "C": {
+      "item": "craft:advanced_circuit"
+    },
+    "M": {
+      "item": "craft:advanced_machine_casing"
+    },
+    "R": {
+      "item": "craft:re_enriched_uranium_cell"
+    },
+    "U": {
+      "item": "craft:uranium_block"
+    }
+  },
+  "pattern": [
+    "RCR",
+    "UMU",
+    "RCR"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:nuke"
+  }
+}

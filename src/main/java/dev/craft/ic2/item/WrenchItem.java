@@ -51,7 +51,7 @@ public class WrenchItem extends Item {
         return true;
     }
 
-    protected void damage(ItemStack stack, int amount, Player player, InteractionHand hand) {
+    public void damage(ItemStack stack, int amount, Player player, InteractionHand hand) {
         stack.hurtAndBreak(amount, player, hand == InteractionHand.MAIN_HAND
                 ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND);
     }

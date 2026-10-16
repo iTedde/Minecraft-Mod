@@ -7,6 +7,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -52,6 +53,11 @@ public abstract class Ic2ExplosiveEntity extends Entity {
     /** Block drawn by the renderer ({@code renderBlock}). */
     public abstract BlockState getRenderState();
 
+    /** IC2 default: the plain explosion damage source; the nuke uses {@code nuke}. */
+    protected DamageSource getDamageSource(ServerLevel level) {
+        return level.damageSources().explosion(null, null);
+    }
+
     public int getFuse() {
         return entityData.get(DATA_FUSE);
     }
@@ -89,7 +95,7 @@ public abstract class Ic2ExplosiveEntity extends Entity {
             discard();
             if (level() instanceof ServerLevel serverLevel) {
                 new Ic2Explosion(serverLevel, getX(), getY() + getBbHeight() / 2.0, getZ(), getPower(), getDropRate(),
-                        getEntityDamage()).explode();
+                        getEntityDamage(), getDamageSource(serverLevel)).explode();
             }
         } else if (level().isClientSide()) {
             level().addParticle(ParticleTypes.SMOKE, getX(), getY() + getBbHeight() / 2.0 + 0.5, getZ(), 0.0, 0.0,

@@ -49,7 +49,7 @@ public class ElectricWrenchItem extends WrenchItem implements ElectricItem {
     }
 
     @Override
-    protected void damage(ItemStack stack, int amount, Player player, InteractionHand hand) {
+    public void damage(ItemStack stack, int amount, Player player, InteractionHand hand) {
         ElectricItems.use(stack, EU_PER_DAMAGE * amount, player);
     }
 

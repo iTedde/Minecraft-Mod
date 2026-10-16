@@ -312,6 +312,8 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             block(Ic2Blocks.REINFORCED_GLASS, "Reinforced Glass");
             block(Ic2Blocks.INDUSTRIAL_TNT, "Industrial TNT");
             add(Ic2EntityTypes.INDUSTRIAL_TNT.get(), "Industrial TNT");
+            block(Ic2Blocks.NUKE, "Nuke");
+            add(Ic2EntityTypes.NUKE.get(), "Nuke");
             block(Ic2Blocks.RUBBER_WOOD, "Rubber Wood");
             block(Ic2Blocks.RUBBER_LEAVES, "Rubber Leaves");
             block(Ic2Blocks.RUBBER_SAPLING, "Rubber Tree Sapling");
@@ -567,6 +569,8 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             block(Ic2Blocks.REINFORCED_GLASS, "Verstärktes Glas");
             block(Ic2Blocks.INDUSTRIAL_TNT, "Industrie-TNT");
             add(Ic2EntityTypes.INDUSTRIAL_TNT.get(), "Industrie-TNT");
+            block(Ic2Blocks.NUKE, "Atombombe");
+            add(Ic2EntityTypes.NUKE.get(), "Atombombe");
             block(Ic2Blocks.RUBBER_WOOD, "Gummiholz");
             block(Ic2Blocks.RUBBER_LEAVES, "Gummibaumblätter");
             block(Ic2Blocks.RUBBER_SAPLING, "Gummibaumsetzling");

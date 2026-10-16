@@ -2,6 +2,7 @@ package dev.craft.ic2;
 
 import dev.craft.Craft;
 import dev.craft.ic2.block.IndustrialTntEntity;
+import dev.craft.ic2.block.NukeEntity;
 import dev.craft.ic2.item.tool.MiningLaserEntity;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.entity.EntityType;
@@ -31,6 +32,15 @@ public final class Ic2EntityTypes {
                     .clientTrackingRange(10)
                     .updateInterval(5)
                     .build("industrial_tnt"));
+
+    /** IC2 {@code EntityNuke}: same tracking as the industrial TNT. */
+    public static final DeferredHolder<EntityType<?>, EntityType<NukeEntity>> NUKE =
+            ENTITY_TYPES.register("nuke", () -> EntityType.Builder
+                    .<NukeEntity>of(NukeEntity::new, MobCategory.MISC)
+                    .sized(0.98F, 0.98F)
+                    .clientTrackingRange(10)
+                    .updateInterval(5)
+                    .build("nuke"));
 
     private Ic2EntityTypes() {
     }

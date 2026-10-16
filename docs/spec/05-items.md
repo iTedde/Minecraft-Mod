@@ -434,7 +434,7 @@ Ergänzung 6b.5a (`ItemTinCan`, `ItemFuelCanFilled`, `IC2.java`):
 | Block/Item | Zünder | Explosion |
 |---|---|---|
 | Industrie-TNT (ITNT) | Redstone, Feuerzeug, Abbauen, Explosion (verkürzt), Zündschnur 60 Ticks | `ExplosionIC2(5,5, drop 0,9, dmg 0,3)` |
-| Atombombe (Nuke, uncommon) | wie TNT, Zündschnur 300 Ticks; mit Wrench entschärfbar (Entity) | `ExplosionIC2(35 = explosionPowerNuke, drop 0,05, dmg 1,5, DamageSource nuke)` + Strahlung/Hunger im Umkreis 100; Platzieren/Zünden wird geloggt |
+| Atombombe (Nuke, uncommon) | wie ITNT, aber `canExplodeByHand = false`: Abbauen von Hand droppt den Block (auch im Kreativmodus), Feuerzeug/Redstone/Explosion zünden; Zündschnur 300 Ticks (NBT `Fuse` als Byte → nach Neuladen 44); Entity per Rechtsklick mit (Elektro-)Schraubenschlüssel entschärfbar (−1); Textur `block_0.png` 61/62/63 (unten/oben/Seite); `enableCraftingNuke = true` | `ExplosionIC2(35 = explosionPowerNuke, drop 0,05, dmg 1,5, DamageSource nuke)` + Strahlung/Hunger im Umkreis 100; Platzieren/Zünden wird geloggt |
 | Dynamit / Klebedynamit (Item, werfbar) | Wurf, Zündschnur 100 Ticks; Klebedynamit haftet an Blöcken; im Wasser erlischt es (+2000 Ticks) | `PointExplosion` 3×3×3: zerstört Blöcke mit Resistenz ≤ 10, Drop 100 %, Entity-Schaden ähnlich Vanilla (Stärke 1 → 2) |
 | Dynamit-Block (gelegt) / mit Fernzünder | Redstone, Fernzünder | Zündschnur 40 Ticks (durch Explosion 5) |
 

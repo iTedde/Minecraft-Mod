@@ -1383,6 +1383,10 @@ public final class CraftRecipeProvider extends RecipeProvider {
                 .define('G', Items.GLASS).define('A', Ic2Items.ADVANCED_ALLOY).save();
         shaped(Ic2Items.REINFORCED_GLASS, 7, "reinforced_glass_rotated").pattern("GGG", "AGA", "GGG")
                 .define('G', Items.GLASS).define('A', Ic2Items.ADVANCED_ALLOY).save();
+        shaped(Ic2Items.NUKE, 1, "nuke").pattern("RCR", "UMU", "RCR")
+                .define('R', Ic2Items.RE_ENRICHED_URANIUM_CELL).define('C', Ic2Items.ADVANCED_CIRCUIT)
+                .define('U', Ic2Items.URANIUM_BLOCK)
+                .define('M', Ic2Items.ADVANCED_MACHINE_CASING).save();
         shaped(Ic2Items.INDUSTRIAL_TNT, 4, "industrial_tnt").pattern("FFF", "TTT", "FFF")
                 .define('F', Items.FLINT).define('T', Items.TNT).save();
         shaped(Ic2Items.INDUSTRIAL_TNT, 4, "industrial_tnt_columns").pattern("FTF", "FTF", "FTF")

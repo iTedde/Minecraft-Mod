@@ -6,6 +6,7 @@ import java.util.function.BiFunction;
 
 import dev.craft.Craft;
 import dev.craft.ic2.block.IndustrialTntBlock;
+import dev.craft.ic2.block.NukeBlock;
 import dev.craft.ic2.reactor.NuclearReactorBlock;
 import dev.craft.ic2.reactor.ReactorChamberBlock;
 import dev.craft.ic2.block.IronFenceBlock;
@@ -131,6 +132,11 @@ public final class Ic2Blocks {
     /** IC2 {@code BlockITNT} ({@code blockITNT}): TNT material, hardness 0, grass sound, never drops. */
     public static final DeferredBlock<IndustrialTntBlock> INDUSTRIAL_TNT = BLOCKS.register("industrial_tnt",
             () -> new IndustrialTntBlock(BlockBehaviour.Properties.of().mapColor(MapColor.FIRE).instabreak()
+                    .sound(SoundType.GRASS).isRedstoneConductor((s, l, p) -> false)));
+
+    /** IC2 {@code BlockITNT} ({@code blockNuke}): like industrial TNT, but breaking it by hand drops it. */
+    public static final DeferredBlock<NukeBlock> NUKE = BLOCKS.register("nuke",
+            () -> new NukeBlock(BlockBehaviour.Properties.of().mapColor(MapColor.FIRE).instabreak()
                     .sound(SoundType.GRASS).isRedstoneConductor((s, l, p) -> false)));
 
     private Ic2Blocks() {

@@ -1,5 +1,6 @@
 package dev.craft.ic2.block;
 
+import javax.annotation.Nullable;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -30,12 +31,27 @@ public class IndustrialTntBlock extends Block {
         return new IndustrialTntEntity(level, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
     }
 
-    /** {@code removeBlockByPlayer}: removes the block and primes it with the full fuse. */
+    /** IC2 {@code canExplodeByHand}: industrial TNT primes when broken, the nuke drops itself. */
+    protected boolean canExplodeByHand() {
+        return true;
+    }
+
+    /** IC2 {@code onIgnite}: called when the block is primed by a player or redstone (not by explosions). */
+    protected void onIgnite(Level level, BlockPos pos, @Nullable Player player) {
+    }
+
+    /** {@code removeBlockByPlayer} without a player (redstone): removes the block and primes it. */
     public void ignite(Level level, BlockPos pos) {
+        ignite(level, pos, null);
+    }
+
+    /** {@code removeBlockByPlayer}: removes the block and primes it with the full fuse. */
+    public void ignite(Level level, BlockPos pos, @Nullable Player player) {
         if (level.isClientSide()) {
             return;
         }
         level.setBlock(pos, Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL);
+        onIgnite(level, pos, player);
         Ic2ExplosiveEntity entity = createEntity(level, pos);
         level.addFreshEntity(entity);
         level.playSound(null, entity.getX(), entity.getY(), entity.getZ(), SoundEvents.TNT_PRIMED, SoundSource.BLOCKS,
@@ -58,11 +74,19 @@ public class IndustrialTntBlock extends Block {
         }
     }
 
-    /** Breaking it (also in creative) primes it; returning false skips the drops. */
+    /**
+     * Breaking it (also in creative) primes it, or drops the block if it cannot be set off by hand; returning false
+     * skips the loot table.
+     */
     @Override
     public boolean onDestroyedByPlayer(BlockState state, Level level, BlockPos pos, Player player,
                                        boolean willHarvest, FluidState fluid) {
-        ignite(level, pos);
+        if (canExplodeByHand()) {
+            ignite(level, pos, player);
+        } else if (!level.isClientSide()) {
+            level.setBlock(pos, Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL);
+            popResource(level, pos, new ItemStack(this));
+        }
         return false;
     }
 
@@ -73,7 +97,7 @@ public class IndustrialTntBlock extends Block {
         if (!stack.is(Items.FLINT_AND_STEEL)) {
             return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
         }
-        ignite(level, pos);
+        ignite(level, pos, player);
         return ItemInteractionResult.sidedSuccess(level.isClientSide());
     }
 

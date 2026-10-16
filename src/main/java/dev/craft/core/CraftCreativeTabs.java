@@ -57,6 +57,7 @@ public final class CraftCreativeTabs {
                 output.accept(Ic2Items.IRON_FENCE);
                 output.accept(Ic2Items.REINFORCED_GLASS);
                 output.accept(Ic2Items.INDUSTRIAL_TNT);
+                output.accept(Ic2Items.NUKE);
                 for (DeferredHolder<Item, ? extends Item> item : Ic2Items.ITEMS.getEntries()) {
                     Item value = item.get();
                     if (Ic2Items.simpleItems().contains(item) && value != Ic2Items.INDUSTRIAL_DIAMOND.get()) {

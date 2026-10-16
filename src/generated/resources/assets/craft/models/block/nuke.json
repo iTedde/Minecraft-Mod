@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "bottom": "craft:block/nuke_bottom",
+    "side": "craft:block/nuke_side",
+    "top": "craft:block/nuke_top"
+  }
+}
