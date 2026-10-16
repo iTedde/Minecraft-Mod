@@ -1196,3 +1196,17 @@ NaK-Kühlzellen, kein Vakuumgefrierer) **und die IC2-Nuke**. Teilpakete: 7a IC2-
 8. Manuelle Client-Tests 9.2: Koksofen bauen, Kohle per Trichter/Ziegel einspeisen, Koks unten abziehen.
 9. Manuelle Client-Tests 9.1: Wassermühle an fließendem Wasser / im Fluss, zwei Mühlen nebeneinander; Windmühle in
    großer Höhe bei Gewitter.
+
+## Abnahme Phase 9 und 10 (Nutzer, 2026-10-16)
+- Phase 9 (Kraftwerke) und Phase 10 (Rohre) abgenommen.
+
+# Stand Phase 11 (2026-10-16)
+
+## Erledigt (Teilpaket „Phase 11.0: Spezifikation Feinschliff“, 2026-10-16)
+- `docs/spec/16-feinschliff.md`: Bestandsaufnahme (keine fehlenden Texturreferenzen, 1487 Modelle), EMI-Kategorien
+  (Rezepttypen + Code-Tabellen), Xaero's Minimap (nur `localRuntime`), verbundene GT-Gehäusetexturen,
+  Forestry-Ledger, Testplan, Teilphasen 11.1–11.6, offene Entscheidungen E1–E4.
+
+## Nächste Schritte
+1. Entscheidungen E1–E4 aus `spec/16-feinschliff.md` §8 klären.
+2. Phase 11.1: EMI-Grundgerüst + IC2-Kategorien.
