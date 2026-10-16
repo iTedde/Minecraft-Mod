@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "craft:block/machine/tesla_coil_back",
+    "east": "craft:block/machine/tesla_coil_left",
+    "north": "craft:block/machine/tesla_coil_top",
+    "particle": "craft:block/machine/tesla_coil_front",
+    "south": "craft:block/machine/tesla_coil_bottom",
+    "up": "craft:block/machine/tesla_coil_front",
+    "west": "craft:block/machine/tesla_coil_right"
+  }
+}

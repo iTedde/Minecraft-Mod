@@ -483,6 +483,32 @@ Exakte Algorithmen: `reference/decompiled/ic2/ic2/core/item/tfbp/*.java` (für d
   - Lebewesen zusätzlich: getragene Rüstung/Item je `100·n/max` (Spieler ohne Hand-Item).
 - Zielposition: Ziel-x+0,5, y+1,5 (+YOffset), z+0,5. Sound `Machines/Teleporter/TeleUse.ogg`, Partikel.
 
+### Details aus `TileEntityTeleporter`/`ItemFrequencyTransmitter` (nachgetragen für Phase 12.4)
+
+- `TileEntityBlock` ohne Energie und Inventar, `blockMachine2` Meta 0 (Härte 2, Textur `block_machine2.png` Spalte 0,
+  Front zum Spieler, Rarity „rare“, Drop fortg. Maschinenblock, Wrench-Rate 1,0). NBT `targetSet`, `targetX/Y/Z`
+  (an den Client synchronisiert).
+- Tick (Server): Redstone (`isBlockIndirectlyGettingPowered`) **und** Ziel gesetzt → Ziel-Chunk laden; ist dort ein
+  Teleporter → aktiv, Entities in der Box (x−1, y, z−1)–(x+2, y+3, z+2), die **auf nichts reiten**, die nächste zu
+  (x, y+1, z) (ohne +0,5) wird teleportiert. Kein Teleporter am Ziel → Ziel löschen, inaktiv. Ohne Redstone/Ziel →
+  inaktiv. Aktiv = Loop `TeleChargedLoop.ogg` + je Tick 2×2 blaue „reddust“-Partikel über dem Block.
+- `teleport`: Distanz = euklidisch zwischen den Blockpositionen; Gewicht 0 → nichts; Kosten
+  `(int)(gewicht · (distanz + 10)^0,7 · 5)` ≤ Summe der angrenzenden Speicher → abziehen, Spieler per
+  `setPositionAndUpdate`, sonst `setLocationAndAngles` (Blickrichtung bleibt); Ereignis → `TeleUse.ogg` und je 20×2
+  Partikel an beiden Teleportern. Erfolg „teleportFarAway“ ab 1000 Blöcken (Erfolge nicht im Umfang).
+- Gewicht: Kette Entity → Reiter → dessen Reiter …; Item-Entity `100·n/max`; Tier (`EntityAnimal`), Lore, Boot 100;
+  Spieler 1000 + Hauptinventar (36 Slots) je `100·n/max`; Ghast 2500; Enderdrache 10 000; sonstige `EntityCreature`
+  500; andere Entities 0 (z. B. Pfeile, XP, Fledermaus, Schleim). Lebewesen zusätzlich Hand-Item (nicht beim
+  Spieler) und die vier Rüstungsteile je `100·n/max`.
+- Energie: alle sechs Nachbarn, die `IEnergyStorage` sind (BatBox/MFE/MFSU, alle `isTeleporterCompatible`).
+  Abzug: Speicher mit Energie > 0 sammeln, je Runde `ceil(rest / anzahl)` von jedem, leere fallen heraus.
+- **Frequenzsender** (`itemFreq`, Stapel 1, Textur `item_0.png` Index 95): Rechtsklick auf einen Teleporter: ist das
+  gespeicherte Ziel kein Teleporter mehr → vergessen. Kein Ziel → diesen Teleporter speichern („Frequency Transmitter
+  linked to Teleporter.“). Gleicher Teleporter → „Can't link Teleporter to itself.“. Teleporter zeigt schon auf das
+  Ziel → „Teleportation link unchanged.“. Sonst Teleporter → Ziel verknüpfen, und das Ziel zurück, **falls es noch
+  kein Ziel hat**; „Teleportation link established.“. Das Ziel bleibt im Sender gespeichert. Rechtsklick in die Luft
+  mit Ziel → vergessen, „Frequency Transmitter unlinked“.
+
 ---
 
 ## Tesla-Spule
@@ -491,6 +517,16 @@ Exakte Algorithmen: `reference/decompiled/ic2/ic2/core/item/tfbp/*.java` (für d
 - Mit Redstone-Signal und `energy ≥ 400`: pro Tick `energy −= 1`; alle 32 Ticks Schock: alle Lebewesen im Würfel
   x−4..x+5 (usw.) **ohne vollständige Hazmat-Rüstung** erhalten `energy / 400` Schaden (DamageSource electricity);
   wurde jemand getroffen → `energy = 0`.
+
+### Details aus `TileEntityTesla` (nachgetragen für Phase 12.4)
+
+- `blockMachine2` Meta 1 (Textur Spalte 1, Drop Maschinenblock, Rarity normal), kein Inventar/GUI. NBT `energy`
+  (short). Annahme bis `maxEnergy + maxInput − 1`, Paket > 128 → Explosion.
+- Tick (Server), nur mit Redstone und `energy ≥ 400`: `damage = energy / 400` (vor dem Abzug), `energy −1`, dann
+  `ticker++ % 32 == 0` → Schock (also gleich beim ersten Tick mit Signal). Box (x−4, y−4, z−4)–(x+5, y+5, z+5);
+  geschützt ist nur ein **Spieler** mit vollständigem Hazmat-Anzug (inkl. Gummistiefel). Schadensart `electricity`.
+  Die „reddust“-Partikel entstehen im Original auf der Serverwelt und sind daher unsichtbar → entfallen.
+- Kein Sound.
 
 ---
 

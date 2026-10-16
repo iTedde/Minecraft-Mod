@@ -1,0 +1,26 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "C": {
+      "item": "craft:electronic_circuit"
+    },
+    "I": {
+      "tag": "c:ingots/refined_iron"
+    },
+    "M": {
+      "item": "craft:mv_transformer"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    }
+  },
+  "pattern": [
+    "RRR",
+    "RMR",
+    "ICI"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:tesla_coil"
+  }
+}

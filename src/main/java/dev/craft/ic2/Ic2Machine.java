@@ -37,7 +37,11 @@ public enum Ic2Machine {
     MV_TRANSFORMER("mv_transformer", Sheet.ELECTRIC, 4, 1.5F, FacingMode.ALL, 1.0F, Drop.MACHINE_CASING,
             Rarity.COMMON, false),
     HV_TRANSFORMER("hv_transformer", Sheet.ELECTRIC, 5, 1.5F, FacingMode.ALL, 1.0F, Drop.MACHINE_CASING,
-            Rarity.UNCOMMON, false);
+            Rarity.UNCOMMON, false),
+    TELEPORTER("teleporter", Sheet.MACHINE2, 0, 2.0F, FacingMode.HORIZONTAL, 1.0F, Drop.ADVANCED_MACHINE_CASING,
+            Rarity.RARE, false),
+    TESLA_COIL("tesla_coil", Sheet.MACHINE2, 1, 2.0F, FacingMode.HORIZONTAL, 1.0F, Drop.MACHINE_CASING,
+            Rarity.COMMON, false);
 
     private final String name;
     private final Sheet sheet;
@@ -71,7 +75,7 @@ public enum Ic2Machine {
         return rarity;
     }
 
-    /** Transformers and the magnetizer have neither an inventory nor a GUI. */
+    /** Transformers, the magnetizer, the teleporter and the tesla coil have neither an inventory nor a GUI. */
     public boolean hasMenu() {
         return hasMenu;
     }
@@ -109,6 +113,7 @@ public enum Ic2Machine {
     public enum Sheet {
         GENERATOR("block_generator"),
         MACHINE("block_machine"),
+        MACHINE2("block_machine2"),
         ELECTRIC("block_electric");
 
         private final String file;

@@ -1,0 +1,29 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "C": {
+      "item": "craft:glass_fibre_cable"
+    },
+    "D": {
+      "item": "minecraft:diamond"
+    },
+    "F": {
+      "item": "craft:frequency_transmitter"
+    },
+    "G": {
+      "item": "craft:advanced_circuit"
+    },
+    "M": {
+      "item": "craft:advanced_machine_casing"
+    }
+  },
+  "pattern": [
+    "GFG",
+    "CMC",
+    "GDG"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:teleporter"
+  }
+}

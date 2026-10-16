@@ -104,6 +104,12 @@ public final class Ic2DataComponents {
                     .persistent(Position.CODEC)
                     .networkSynchronized(Position.STREAM_CODEC));
 
+    /** Teleporter linked by the frequency transmitter (IC2 NBT {@code targetSet}, {@code targetX/Y/Z}). */
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<BlockPos>> TELEPORTER_TARGET =
+            COMPONENTS.registerComponentType("teleporter_target", builder -> builder
+                    .persistent(BlockPos.CODEC)
+                    .networkSynchronized(BlockPos.STREAM_CODEC));
+
     /** Painter automatic refill mode (IC2 NBT {@code autoRefill}). */
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Boolean>> AUTO_REFILL =
             COMPONENTS.registerComponentType("auto_refill", builder -> builder

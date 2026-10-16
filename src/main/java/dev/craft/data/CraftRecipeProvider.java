@@ -1016,6 +1016,19 @@ public final class CraftRecipeProvider extends RecipeProvider {
                 .define('c', Ic2Items.EMPTY_CELL).define('C', Ic2Items.ELECTRONIC_CIRCUIT)
                 .define('M', Ic2Items.MACHINE_CASING).define('P', Ic2Items.MINING_PIPE)
                 .define('T', Ic2Items.TREETAP).save();
+        shaped(machine(Ic2Machine.TELEPORTER), 1, "teleporter").pattern("GFG", "CMC", "GDG")
+                .define('G', Ic2Items.ADVANCED_CIRCUIT).define('F', Ic2Items.FREQUENCY_TRANSMITTER)
+                .define('C', Ic2Items.cable(CableType.GLASS_FIBRE)).define('M', Ic2Items.ADVANCED_MACHINE_CASING)
+                .define('D', Ic2Items.INDUSTRIAL_DIAMOND).save();
+        shaped(machine(Ic2Machine.TELEPORTER), 1, "teleporter_from_diamond").pattern("GFG", "CMC", "GDG")
+                .define('G', Ic2Items.ADVANCED_CIRCUIT).define('F', Ic2Items.FREQUENCY_TRANSMITTER)
+                .define('C', Ic2Items.cable(CableType.GLASS_FIBRE)).define('M', Ic2Items.ADVANCED_MACHINE_CASING)
+                .define('D', Items.DIAMOND).save();
+        shaped(machine(Ic2Machine.TESLA_COIL), 1, "tesla_coil").pattern("RRR", "RMR", "ICI")
+                .define('R', Items.REDSTONE).define('M', machine(Ic2Machine.MV_TRANSFORMER))
+                .define('C', Ic2Items.ELECTRONIC_CIRCUIT).define('I', CraftItemTagsProvider.INGOTS_REFINED_IRON).save();
+        shapeless(Ic2Items.FREQUENCY_TRANSMITTER, 1, "frequency_transmitter", Ingredient.of(Ic2Items.ELECTRONIC_CIRCUIT),
+                Ingredient.of(Ic2Items.cable(CableType.INSULATED_COPPER)));
         shaped(machine(Ic2Machine.MINER), 1, "miner").pattern("CMC", " P ", " P ")
                 .define('C', Ic2Items.ELECTRONIC_CIRCUIT).define('M', Ic2Items.MACHINE_CASING)
                 .define('P', Ic2Items.MINING_PIPE).save();

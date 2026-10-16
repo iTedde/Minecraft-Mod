@@ -89,6 +89,16 @@
       "craft:machines/recycler_op"
     ]
   },
+  "machines/teleporter/tele_charged_loop": {
+    "sounds": [
+      "craft:machines/teleporter/tele_charged_loop"
+    ]
+  },
+  "machines/teleporter/tele_use": {
+    "sounds": [
+      "craft:machines/teleporter/tele_use"
+    ]
+  },
   "tools/chainsaw_idle": {
     "sounds": [
       "craft:tools/chainsaw_idle"

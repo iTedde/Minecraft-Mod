@@ -47,6 +47,7 @@ import dev.craft.ic2.item.tool.DrillItem;
 import dev.craft.ic2.item.tool.ElectricHoeItem;
 import dev.craft.ic2.item.tool.ElectricTreetapItem;
 import dev.craft.ic2.item.tool.EuMeterItem;
+import dev.craft.ic2.item.FrequencyTransmitterItem;
 import dev.craft.ic2.item.tool.FoamSprayerItem;
 import dev.craft.ic2.item.tool.InsulationCutterItem;
 import dev.craft.ic2.item.tool.MiningLaserItem;
@@ -257,6 +258,8 @@ public final class Ic2Items {
             simple(ITEMS.registerItem("insulation_cutter", InsulationCutterItem::new));
     public static final DeferredItem<FoamSprayerItem> FOAM_SPRAYER =
             simple(ITEMS.registerItem("foam_sprayer", FoamSprayerItem::new));
+    public static final DeferredItem<FrequencyTransmitterItem> FREQUENCY_TRANSMITTER = simple(ITEMS.registerItem(
+            "frequency_transmitter", FrequencyTransmitterItem::new, new Item.Properties().stacksTo(1)));
     public static final DeferredItem<EuMeterItem> EU_METER = simple(ITEMS.registerItem("eu_meter", EuMeterItem::new));
     public static final DeferredItem<ToolboxItem> TOOLBOX = ITEMS.registerItem("toolbox", ToolboxItem::new);
     /** Empty painter (IC2 {@code itemToolPainter}, a plain item). */

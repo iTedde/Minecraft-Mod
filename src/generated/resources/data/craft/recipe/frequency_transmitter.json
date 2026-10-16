@@ -1,0 +1,15 @@
+{
+  "type": "craft:ic2_shapeless",
+  "ingredients": [
+    {
+      "item": "craft:electronic_circuit"
+    },
+    {
+      "item": "craft:insulated_copper_cable"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:frequency_transmitter"
+  }
+}

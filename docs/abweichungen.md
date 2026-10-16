@@ -157,6 +157,10 @@ Status: *geplant* (aus Phase 1 abgeleitet, noch nicht umgesetzt), *entschieden* 
 | Miner: Ziel „keins“ | `targetY = −1` | eigener Merker (negative Höhen sind in 1.21 gültig); Abbau bis zur Weltuntergrenze | Weltbereich ab 1.18 | **umgesetzt** (12.3) |
 | Miner: Abbaurecht | Forge-Werkzeugklassen/Harvest-Level per Reflection, Material „ohne Werkzeug“ | Block ohne `requiresCorrectToolForDrops` oder Spinnennetz; sonst Bohrer-Tag + Harvest-Level (Bergbaubohrer nicht bei `needs_diamond_tool`); andere Flüssigkeiten als Wasser/Lava = festgefahren | keine Materialien/Werkzeugklassen | **umgesetzt** (12.3) |
 | Miner: Drops | `getBlockDropped` mit Fortune-Level des Bohrers | Loot-Tabelle mit dem Bohrer als Werkzeug (Fortune und Behutsamkeit des Bohrers wirken) | Loot-Tabellen | **umgesetzt** (12.3) |
+| Teleporter: Gewicht | Spieler-Inventar = 36 Hauptslots, Lebewesen Slot 0–4 (Hand + Rüstung) | zusätzlich die Zweithand des Spielers (gehört in 1.21 zum Inventar); Mobs: Haupthand + Rüstung | Zweithand ab 1.9 | **umgesetzt** (12.4) |
+| Teleporter: Zielhöhe | `y + 1,5 + yOffset` (Spieler-Y ist 1.4.7 die Augenhöhe) | alle Entities mit den Füßen auf `y + 1,5` | Positionen ab 1.8 fußbasiert | **umgesetzt** (12.4) |
+| Teleporter: Partikel/Sound | Netzwerk-Ereignis an alle Clients | Block-Ereignis (`blockEvent`), Partikel `DustParticleOptions` blau | Netzwerk-API | **umgesetzt** (12.4) |
+| Tesla-Spule: Partikel | „reddust“ auf der Serverwelt (unsichtbar) | keine | wie im Original sichtbar | **umgesetzt** (12.4) |
 | Quantum-Rezepte | Iridiumplatte, verst. Glas, fortg. Schaltkreis … | IC2-Rezepte, seit 6b.5b (Iridiumplatte aus dem Implosionskompressor, verstärktes Glas) | – | **umgesetzt** (6b.5b) |
 | Static Boots: Position | NBT `x`/`z` | Data Component `craft:last_position` | Data Components | **umgesetzt** |
 | Jetpack: Modus/Timer | NBT `hoverMode`/`toggleTimer` | Data Components `craft:hover_mode`/`craft:toggle_timer` | Data Components | **umgesetzt** |

@@ -1366,6 +1366,17 @@ NaK-Kühlzellen, kein Vakuumgefrierer) **und die IC2-Nuke**. Teilpakete: 7a IC2-
   Drops), `testplan.md` 3.25.
 - 4 neue GameTests (`MinerGameTests`), `gradlew build`, **279 GameTests grün**. `runClient` nicht gestartet (Nutzer).
 
+## Erledigt (Teilpaket „Phase 12.4: Teleporter + Tesla-Spule“, 2026-10-17)
+- Spezifikation nachgetragen: `spec/04-maschinen.md` §Teleporter (Tick, Auswahl der Entity, Gewichte, Energieabzug,
+  Frequenzsender-Ablauf mit Meldungen) und §Tesla-Spule (Tick-Reihenfolge, Box, Hazmat nur für Spieler, unsichtbare
+  Partikel).
+- `Ic2Machine.Sheet.MACHINE2` (`block_machine2.png`), `TeleporterBlockEntity` (kein Menü, Ziel als NBT + Client-Sync,
+  Loop `machines/teleporter/tele_charged_loop`, Ereignis-Sound `tele_use`, blaue Partikel), `TeslaCoilBlockEntity`
+  (EU-Senke 10 000/128), `FrequencyTransmitterItem` (Data Component `craft:teleporter_target`, Stapel 1).
+- Rezepte Teleporter (Industriediamant oder Diamant), Tesla-Spule, Frequenzsender (formlos); Sprache en/de inkl.
+  Meldungen; Texturen aus `block_machine2.png` (Spalten 0/1) und `item_0.png` 95.
+- `abweichungen.md` (Gewicht mit Zweithand, Zielhöhe, Ereignis, Tesla-Partikel), `testplan.md` 3.26–3.27.
+- 6 neue GameTests (`TeleporterGameTests`), **285 GameTests grün**, `gradlew build`. `runClient` nicht gestartet.
+
 ## Nächste Schritte
-1. 12.4: Teleporter + Frequenzsender, Tesla-Spule (`spec/04` §Teleporter/§Tesla-Spule, Details aus dem Original
-   nachtragen).
+1. 12.5: Terraformer + Blaupausen (`spec/04` §Terraformer, Algorithmen aus `ic2/core/item/tfbp/*` nachtragen).

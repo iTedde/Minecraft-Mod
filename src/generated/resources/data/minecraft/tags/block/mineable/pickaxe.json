@@ -25,6 +25,8 @@
     "craft:lv_transformer",
     "craft:mv_transformer",
     "craft:hv_transformer",
+    "craft:teleporter",
+    "craft:tesla_coil",
     "craft:machine_casing",
     "craft:advanced_machine_casing",
     "craft:tin_ore",
