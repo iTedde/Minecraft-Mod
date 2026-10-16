@@ -3,6 +3,7 @@ package dev.craft.compat.emi;
 import java.util.HashMap;
 import java.util.Map;
 
+import dev.craft.core.client.ExtraAreas;
 import dev.craft.core.client.RecipeArea;
 import dev.craft.core.client.RecipeCategories;
 import dev.craft.gregtech.GtItems;
@@ -13,6 +14,7 @@ import dev.emi.emi.api.EmiRegistry;
 import dev.emi.emi.api.recipe.EmiRecipeCategory;
 import dev.emi.emi.api.recipe.VanillaEmiRecipeCategories;
 import dev.emi.emi.api.stack.EmiStack;
+import dev.emi.emi.api.widget.Bounds;
 import net.minecraft.resources.ResourceLocation;
 
 /**
@@ -37,6 +39,14 @@ public class CraftEmiPlugin implements EmiPlugin {
         // block items only shown in holo slots of the GT electrolyzer and centrifuge
         registry.removeEmiStacks(EmiStack.of(GtItems.WATER.get()));
         registry.removeEmiStacks(EmiStack.of(GtItems.LAVA.get()));
+
+        // Forestry ledgers to the right of the GUI
+        registry.addGenericExclusionArea((screen, consumer) -> {
+            if (screen instanceof ExtraAreas areas) {
+                areas.addExtraAreas(rect -> consumer.accept(
+                        new Bounds(rect.getX(), rect.getY(), rect.getWidth(), rect.getHeight())));
+            }
+        });
 
         RecipeArea.setViewer(id -> {
             EmiRecipeCategory category = CATEGORIES.get(id);

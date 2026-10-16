@@ -3,6 +3,7 @@ package dev.craft.forestry.menu;
 import dev.craft.buildcraft.fluid.LiquidContainers;
 import dev.craft.forestry.FrMenus;
 import dev.craft.forestry.machine.CarpenterBlockEntity;
+import dev.craft.forestry.machine.ErrorState;
 import dev.craft.forestry.recipe.CarpenterRecipe;
 import dev.craft.ic2.menu.SyncedInts;
 import net.minecraft.core.BlockPos;
@@ -22,7 +23,8 @@ import org.jetbrains.annotations.Nullable;
 /**
  * Forestry {@code ContainerCarpenter}: stock, liquid container, box, product, the locked recipe display and the
  * phantom pattern. Changing the pattern or the box looks the recipe up again. Synced: package time, total time,
- * liquid id, liquid amount and whether the carpenter works.
+ * liquid id, liquid amount, whether the carpenter works and for the ledgers stored MJ (float bits), MJ storage,
+ * maximum input and error state.
  */
 public class CarpenterMenu extends ForestryMenu {
     @Nullable
@@ -35,12 +37,16 @@ public class CarpenterMenu extends ForestryMenu {
                 carpenter::getTotalTime,
                 () -> BuiltInRegistries.FLUID.getId(carpenter.getResourceTank().getFluid().getFluid()),
                 () -> carpenter.getResourceTank().getFluidAmount(),
-                () -> carpenter.isWorking() ? 1 : 0));
+                () -> carpenter.isWorking() ? 1 : 0,
+                () -> Float.floatToIntBits(carpenter.getPowerProvider().getEnergyStored()),
+                () -> carpenter.getPowerProvider().getMaxEnergyStored(),
+                () -> carpenter.getPowerProvider().getMaxEnergyReceived(),
+                () -> carpenter.getErrorState().ordinal()));
         carpenter.menuOpened();
     }
 
     public CarpenterMenu(int id, Inventory inventory, BlockPos pos) {
-        this(id, inventory, null, pos, new ItemStackHandler(CarpenterBlockEntity.SLOT_COUNT), new SyncedInts(5));
+        this(id, inventory, null, pos, new ItemStackHandler(CarpenterBlockEntity.SLOT_COUNT), new SyncedInts(9));
     }
 
     private CarpenterMenu(int id, Inventory inventory, @Nullable CarpenterBlockEntity carpenter, BlockPos pos,
@@ -108,6 +114,22 @@ public class CarpenterMenu extends ForestryMenu {
 
     public boolean isWorking() {
         return data.getInt(4) != 0;
+    }
+
+    public float getEnergyStored() {
+        return Float.intBitsToFloat(data.getInt(5));
+    }
+
+    public int getMaxEnergyStored() {
+        return data.getInt(6);
+    }
+
+    public int getMaxEnergyReceived() {
+        return data.getInt(7);
+    }
+
+    public ErrorState getErrorState() {
+        return ErrorState.byId(data.getInt(8));
     }
 
     /** {@code getCraftingProgressScaled}. */

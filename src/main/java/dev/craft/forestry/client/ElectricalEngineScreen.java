@@ -1,6 +1,9 @@
 package dev.craft.forestry.client;
 
 import dev.craft.Craft;
+import dev.craft.forestry.client.ledger.EngineLedger;
+import dev.craft.forestry.client.ledger.ErrorLedger;
+import dev.craft.forestry.client.ledger.HintLedger;
 import dev.craft.forestry.engine.ElectricalEngineBlockEntity;
 import dev.craft.forestry.menu.ElectricalEngineMenu;
 import net.minecraft.client.gui.GuiGraphics;
@@ -8,13 +11,20 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
-/** Forestry {@code GuiEngineTin}: the EU meter coloured by fill level and the circuit board socket. */
+/**
+ * Forestry {@code GuiEngineTin}: the EU meter coloured by fill level, the circuit board socket; error, engine and hint
+ * ledgers.
+ */
 public class ElectricalEngineScreen extends ForestryScreen<ElectricalEngineMenu> {
     private static final ResourceLocation BACKGROUND =
             ResourceLocation.fromNamespaceAndPath(Craft.MODID, "textures/gui/electrical_engine.png");
 
     public ElectricalEngineScreen(ElectricalEngineMenu menu, Inventory inventory, Component title) {
         super(menu, inventory, title, BACKGROUND, 166);
+        // GuiEngine inserts the engine ledger before the last one (hints; engines have no owner ledger)
+        ledgers.add(new ErrorLedger(menu::getErrorState));
+        ledgers.add(new EngineLedger(menu::getCurrentOutput, menu::getStoredEnergy, menu::getHeat));
+        ledgers.add(new HintLedger(HintLedger.ELECTRICAL_ENGINE));
     }
 
     /** {@code getStorageScaled}. */

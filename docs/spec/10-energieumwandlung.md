@@ -292,7 +292,41 @@ von Kolbengeschwindigkeit oder Aktiv-Zustand (enthält heat, storedEnergy).
 (30,40), Spielerinventar ab (8,84), Hotbar y 142. EU-Anzeige bei (74,25), 4×46 px, Höhe
 `euStored · 46 / (euStorage + 511)`, Quelle u = 176 + 4·Stufe (Stufe nach `euStored · 100 / (euStorage + 511)`:
 < 5 leer, < 30 niedrig, < 60 mittel, < 90 hoch, sonst max.), v = 46 − Höhe. Shift-Klick wie `ContainerForestry`
-(1 Maschinen-Slot). Ledger (MJ/t, gespeichert, Hitze/10 „C“) wie andere Forestry-Ledger → Phase 11.
+(1 Maschinen-Slot). Ledger (MJ/t, gespeichert, Hitze/10 „C“) wie andere Forestry-Ledger → Phase 11 (§A.9).
+
+### A.9 Ledger (nachgetragen für Phase 11.4)
+
+Quelle `forestry/core/gui/Ledger*`, `GuiForestry.initLedgers`, `GuiEngine.EngineLedger`, `colour.properties`.
+
+- **Aufbau:** Reiter am rechten GUI-Rand ab 8 px unter der Oberkante, sichtbare Ledger untereinander. Zu 24 × 24,
+  offen 124 breit; Höhe offen: Fehler 72, Energie/Motor 94, Hinweis 96. Öffnen/Schließen 4 px je Frame. Klick (links)
+  schaltet um und schließt alle anderen; die Klasse des offenen Ledgers merkt sich die Sitzung
+  (`SessionVars.openedLedger`) und öffnet ihn im nächsten GUI sofort ganz. Hintergrund `ledger.png` (4 Ecken je nach
+  Breite/Höhe) eingefärbt; Icon 16 × 16 bei (3, 4); Text ab x 22. Tooltip: Text in dunkler Box (0xC0000000) bei
+  Maus + (12, −12).
+- **Farben:** Hintergrund Fehler `ff3535`, Hinweis `ea38ff`, Energie `d46c1f`; Überschrift `e1c92f` (Schatten),
+  Unterüberschrift `aaafb8` (Schatten), Text `000000`.
+- **Reihenfolge** (`initLedgers`): Fehler (wenn `throwsErrors`), Klima (keine unserer Maschinen), Energie (wenn
+  `consumesEnergy`), Hinweis (wenn Hinweise), Besitzer (entfällt, E2). `GuiEngine` fügt den Motor-Ledger vor dem
+  letzten ein → Motor: Fehler, Motor, Hinweis. Carpenter: Fehler, Energie, Hinweis. Fabricator: Fehler (wird nie
+  sichtbar), Energie (keine Hinweise).
+- **Fehler-Ledger:** nur sichtbar, wenn der Zustand ≠ OK; Icon aus `errors.png`, Überschrift = Kurztext (auch
+  Tooltip), darunter umbrochen der Hilfetext (Breite 96). Zustände: Motor `FORCEDCOOLDOWN` (Icon 21) während der
+  Zwangsabkühlung, sonst alle 80 Ticks (`DelayTimer`, Weltzeit): ohne Leistung und Zustand OK → `NOFUEL` (5), sonst
+  OK – ohne Leistung wechselt der Zustand also alle 80 Ticks (Original). `NOENERGYNET` nur ohne IC2 (entfällt).
+  Carpenter alle 40 Ticks (im 20-Tick-Takt): kein Rezept → `NORECIPE` (19), Ressourcen fehlen → `NORESOURCE` (8),
+  sonst OK; Produkt passt nicht in den Ausgabeslot → `NOSPACE` (17). Fabricator setzt keinen Fehler. Nicht
+  gespeichert.
+- **Energie-Ledger** (Maschinen): Icon `misc.png` 0; „Energie“, „Speicher:“ gespeicherte MJ (float wie Java sie
+  ausgibt), „Maximale Energie:“, „Maximale Aufnahme:“ (beide ebenfalls float, z. B. „1000.0 MJ“); Tooltip = gespeicherte
+  MJ.
+- **Motor-Ledger:** Icon `misc.png` 0; „Aktuelle Leistung:“ x MJ/t, „Speicher:“ x MJ, „Temperatur:“ Hitze/10 „C“;
+  Tooltip = Leistung.
+- **Hinweis-Ledger:** Icon `misc.png` 1; „Wusstest du schon?“ und der Text eines beim Öffnen zufällig gewählten
+  Hinweises; Tooltip = Kurztitel. Hinweise (`hints.properties`): Electrical Engine `energyunit`, `energybuffer`,
+  `forcedcooldown`, `cooldownloss`, `enginetinbatteries`, `enginetinchoke`; Carpenter `powerrequired`, `crating`.
+  Im Original zusätzlich `accesscontrol`, `accessrules`, `accesspipe` (beide) und `pipette` (Carpenter) – entfallen
+  (keine Zugriffsrechte, keine Pipette).
 
 **Zinn-Zahnrad (`gearTin`)**: Icon 38 in `items.png`; Rezepte ` # /#Y#/ # ` (# Zinnbarren, Y = BC-Stein-Zahnrad);
 die Variante mit Kupferbarren gilt nur ohne BuildCraft (im Pack nicht aktiv).

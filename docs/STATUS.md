@@ -1261,9 +1261,29 @@ NaK-Kühlzellen, kein Vakuumgefrierer) **und die IC2-Nuke**. Teilpakete: 7a IC2-
   keinen Pfeil/keine Flamme in der GUI → kein Klickbereich (Kategorie über EMI erreichbar).
 - `gradlew build`, 255 GameTests grün, `runClient` startet mit EMI (Hauptmenü, keine Fehler).
 
+## Erledigt (Teilpaket „Phase 11.4: Xaero's Minimap + Forestry-Ledger“, 2026-10-16)
+- Xaero's Minimap `neoforge-1.21.1-26.5.0` über den Modrinth-Maven als `localRuntime` (nur eigene Läufe, keine
+  Abhängigkeit); Installationshinweis in `spec/16-feinschliff.md` §3.
+- Ledger-Spezifikation nachgetragen: `spec/10-energieumwandlung.md` §A.9.
+- `forestry/client/ledger`: `Ledger` (Hintergrund aus `ledger.png`, eingefärbt, 4 px/Frame), `LedgerManager`
+  (Stapel am rechten Rand, ein offener Ledger, Sitzungsgedächtnis, Tooltip-Box, Klick), `ErrorLedger`,
+  `PowerLedger`, `EngineLedger`, `HintLedger`. Icons `forestry_errors.png`/`forestry_misc.png` aus Forestry.
+  `ForestryScreen` zeichnet/klickt sie; Klicks auf Ledger lassen kein getragenes Item fallen.
+- Electrical Engine: Fehler, Motor (MJ/t, MJ, Hitze/10 C), Hinweis. Carpenter: Fehler, Energie (gespeichert,
+  Maximum, maximale Aufnahme), Hinweis. Fabricator: Energie.
+- Fehlerzustände (`forestry/machine/ErrorState`, nicht gespeichert): Motor Zwangsabkühlung bzw. alle 80 Ticks
+  „Kein Treibstoff“ ↔ OK (Original-Wechsel); Carpenter alle 40 Ticks kein Rezept/Rohstoffe fehlen/OK, „Kein
+  Lagerplatz“ wenn das Produkt nicht passt. Menüs synchronisieren die Werte (MJ als Float-Bits).
+- EMI hält Ledger frei (`core/client/ExtraAreas`, generische Ausschlussfläche) – auch beim BC-Engine-Ledger.
+- Hinweise zu Zugriffsrechten/Pipette entfallen (`abweichungen.md`).
+- 2 neue GameTests (Motor-Fehlerwechsel, Carpenter-Fehler); `gradlew build`, **257 GameTests grün**.
+  **`runClient` nicht gestartet** (Nutzer, 2026-10-16: Launcher vorerst nicht starten).
+
 ## Nächste Schritte
-1. Manuell im Client (Welt betreten): EMI-Kategorien der IC2-, GT-, BC-, Forestry- und Kraftwerks-Maschinen ansehen
-   (Werte, Texte de/en, Flüssigkeiten, Raster der Glühelektrischen Maschine/Schreinerei, Info-Seiten der
-   Multiblöcke), Klick auf Fortschrittspfeile/Flammen öffnet die Kategorie, `craft:water`/`craft:lava` nicht im
-   Index, Log ohne EMI-Plugin-Fehler.
-2. Phase 11.4: Xaero's Minimap (nur `localRuntime`) + Forestry-Ledger.
+1. Manuell im Client (Welt betreten), sobald der Start wieder erlaubt ist: EMI-Kategorien der IC2-, GT-, BC-,
+   Forestry- und Kraftwerks-Maschinen ansehen (Werte, Texte de/en, Flüssigkeiten, Raster der Glühelektrischen
+   Maschine/Schreinerei, Info-Seiten der Multiblöcke), Klick auf Fortschrittspfeile/Flammen öffnet die Kategorie,
+   `craft:water`/`craft:lava` nicht im Index, Log ohne EMI-Plugin-Fehler. Neu (11.4): Xaero's Minimap lädt;
+   Ledger an Electrical Engine/Carpenter/Fabricator (Auf-/Zuklappen, Texte de/en, Fehler-Ledger nur bei Fehler,
+   offener Ledger bleibt für das nächste GUI offen, EMI überdeckt sie nicht).
+2. Phase 11.5: verbundene GT-Gehäusetexturen.

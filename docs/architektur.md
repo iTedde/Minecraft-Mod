@@ -82,6 +82,11 @@ ergänzen. Basispaket `dev.craft`, Einstieg `Craft` → `Ic2.init`, `BuildCraft.
   `CraftLanguageProvider.recipeViewer`.
 - GUI-Klickbereiche: Screen liefert `List<RecipeArea>` (IC2: `MachineScreen.getRecipeAreas()` überschreiben),
   IDs aus `core/client/RecipeCategories`; das Plugin bildet die IDs auf EMI-Kategorien ab.
+- Bereiche außerhalb des GUI-Rechtecks (Ledger): Screen implementiert `core/client/ExtraAreas`; das EMI-Plugin hält
+  sie über eine generische Ausschlussfläche frei.
+- Forestry-Ledger: `forestry/client/ledger` (`LedgerManager` in `ForestryScreen.ledgers`, Ledger im Konstruktor des
+  Screens hinzufügen; Werte kommen über die `SyncedInts` des Menüs). Fehlerzustand `forestry/machine/ErrorState`
+  (in `ForestryMachineBlockEntity.errorState` bzw. der Electrical Engine).
 
 ## Tasten und Netzwerk
 

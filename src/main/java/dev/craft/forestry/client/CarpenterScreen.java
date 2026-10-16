@@ -5,6 +5,9 @@ import java.util.List;
 import dev.craft.Craft;
 import dev.craft.core.client.RecipeArea;
 import dev.craft.core.client.RecipeCategories;
+import dev.craft.forestry.client.ledger.ErrorLedger;
+import dev.craft.forestry.client.ledger.HintLedger;
+import dev.craft.forestry.client.ledger.PowerLedger;
 import dev.craft.forestry.machine.CarpenterBlockEntity;
 import dev.craft.forestry.menu.CarpenterMenu;
 import net.minecraft.client.gui.GuiGraphics;
@@ -13,13 +16,16 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.level.material.Fluids;
 
-/** Forestry {@code GuiCarpenter}: resource tank with scale and the crafting progress bar. */
+/** Forestry {@code GuiCarpenter}: resource tank with scale, the crafting progress bar; error, power and hint ledgers. */
 public class CarpenterScreen extends ForestryScreen<CarpenterMenu> {
     private static final ResourceLocation BACKGROUND =
             ResourceLocation.fromNamespaceAndPath(Craft.MODID, "textures/gui/carpenter.png");
 
     public CarpenterScreen(CarpenterMenu menu, Inventory inventory, Component title) {
         super(menu, inventory, title, BACKGROUND, 215);
+        ledgers.add(new ErrorLedger(menu::getErrorState));
+        ledgers.add(new PowerLedger(menu::getEnergyStored, menu::getMaxEnergyStored, menu::getMaxEnergyReceived));
+        ledgers.add(new HintLedger(HintLedger.CARPENTER));
     }
 
     @Override

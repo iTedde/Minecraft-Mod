@@ -5,6 +5,7 @@ import java.util.List;
 import dev.craft.Craft;
 import dev.craft.core.client.RecipeArea;
 import dev.craft.core.client.RecipeCategories;
+import dev.craft.forestry.client.ledger.PowerLedger;
 import dev.craft.forestry.machine.FabricatorBlockEntity;
 import dev.craft.forestry.menu.FabricatorMenu;
 import net.minecraft.client.gui.GuiGraphics;
@@ -12,13 +13,17 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
-/** Forestry {@code GuiFabricator}: liquid glass reservoir, heat bar and melting point marker. */
+/**
+ * Forestry {@code GuiFabricator}: liquid glass reservoir, heat bar and melting point marker; the power ledger (the
+ * fabricator never sets an error and has no hints).
+ */
 public class FabricatorScreen extends ForestryScreen<FabricatorMenu> {
     private static final ResourceLocation BACKGROUND =
             ResourceLocation.fromNamespaceAndPath(Craft.MODID, "textures/gui/fabricator.png");
 
     public FabricatorScreen(FabricatorMenu menu, Inventory inventory, Component title) {
         super(menu, inventory, title, BACKGROUND, 211);
+        ledgers.add(new PowerLedger(menu::getEnergyStored, menu::getMaxEnergyStored, menu::getMaxEnergyReceived));
     }
 
     @Override

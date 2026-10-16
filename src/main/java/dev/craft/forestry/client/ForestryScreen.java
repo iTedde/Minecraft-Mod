@@ -1,10 +1,14 @@
 package dev.craft.forestry.client;
 
 import java.util.List;
+import java.util.function.Consumer;
 
+import dev.craft.core.client.ExtraAreas;
 import dev.craft.core.client.RecipeArea;
+import dev.craft.forestry.client.ledger.LedgerManager;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.renderer.Rect2i;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -17,10 +21,14 @@ import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtension
 
 /**
  * Forestry {@code GuiForestry}: the background texture, the title centred at y 6 and liquid gauges drawn like
- * {@code LiquidTankSlot} (16 px wide icon pieces stacked from the bottom).
+ * {@code LiquidTankSlot} (16 px wide icon pieces stacked from the bottom), and the ledgers at the right edge.
  */
-public abstract class ForestryScreen<T extends AbstractContainerMenu> extends AbstractContainerScreen<T> {
+public abstract class ForestryScreen<T extends AbstractContainerMenu> extends AbstractContainerScreen<T>
+        implements ExtraAreas {
     protected static final int TITLE_COLOR = 0x404040;
+
+    /** Subclasses add their ledgers in the constructor, in {@code GuiForestry.initLedgers} order. */
+    protected final LedgerManager ledgers = new LedgerManager();
 
     private final ResourceLocation background;
 
@@ -39,6 +47,7 @@ public abstract class ForestryScreen<T extends AbstractContainerMenu> extends Ab
         if (hoveredSlot == null && menu.getCarried().isEmpty()) {
             RecipeArea.renderTooltip(getRecipeAreas(), graphics, font, leftPos, topPos, mouseX, mouseY);
         }
+        ledgers.drawTooltip(graphics, font, mouseX, mouseY, leftPos, topPos, imageWidth);
     }
 
     @Override
@@ -46,7 +55,21 @@ public abstract class ForestryScreen<T extends AbstractContainerMenu> extends Ab
         if (button == 0 && RecipeArea.click(getRecipeAreas(), leftPos, topPos, mouseX, mouseY)) {
             return true;
         }
+        if (button == 0 && ledgers.click(mouseX, mouseY, leftPos, topPos, imageWidth)) {
+            return true;
+        }
         return super.mouseClicked(mouseX, mouseY, button);
+    }
+
+    @Override
+    protected boolean hasClickedOutside(double mouseX, double mouseY, int left, int top, int button) {
+        return super.hasClickedOutside(mouseX, mouseY, left, top, button)
+                && !ledgers.contains(mouseX, mouseY, leftPos, topPos, imageWidth);
+    }
+
+    @Override
+    public void addExtraAreas(Consumer<Rect2i> consumer) {
+        ledgers.addAreas(consumer, leftPos, topPos, imageWidth);
     }
 
     /** Areas that open the recipe viewer; none by default. */
@@ -57,6 +80,7 @@ public abstract class ForestryScreen<T extends AbstractContainerMenu> extends Ab
     @Override
     protected void renderBg(GuiGraphics graphics, float partialTick, int mouseX, int mouseY) {
         graphics.blit(background, leftPos, topPos, 0, 0, imageWidth, imageHeight);
+        ledgers.draw(graphics, font, leftPos, topPos, imageWidth);
     }
 
     @Override

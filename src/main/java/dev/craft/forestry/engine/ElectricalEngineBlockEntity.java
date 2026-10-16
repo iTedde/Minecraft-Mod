@@ -10,6 +10,7 @@ import dev.craft.forestry.FrBlockEntityTypes;
 import dev.craft.forestry.circuit.Circuit;
 import dev.craft.forestry.circuit.CircuitBoard;
 import dev.craft.forestry.item.CircuitBoardItem;
+import dev.craft.forestry.machine.ErrorState;
 import dev.craft.forestry.menu.ElectricalEngineMenu;
 import dev.craft.ic2.item.ElectricItem;
 import dev.craft.ic2.item.ElectricItems;
@@ -63,6 +64,10 @@ public class ElectricalEngineBlockEntity extends BlockEntity implements EnergySi
     private boolean active;
     private int currentOutput;
     private int euStored;
+    /** {@code TileForestry.errorState}: shown by the error ledger, not saved. */
+    private ErrorState errorState = ErrorState.OK;
+    /** {@code DelayTimer.markedTime} of the fuel check. */
+    private long errorCheckTime;
     // EuConfig: rebuilt from the board in the socket, not saved (Forestry re-applies the circuits on load).
     private int euForCycle = BASE_EU_FOR_CYCLE;
     private int mjPerCycle = BASE_MJ_PER_CYCLE;
@@ -118,6 +123,10 @@ public class ElectricalEngineBlockEntity extends BlockEntity implements EnergySi
 
     public int getMjPerCycle() {
         return mjPerCycle;
+    }
+
+    public ErrorState getErrorState() {
+        return errorState;
     }
 
     public boolean isForceCooldown() {
@@ -290,9 +299,31 @@ public class ElectricalEngineBlockEntity extends BlockEntity implements EnergySi
         } else if (forceCooldown && heat <= 0) {
             forceCooldown = false;
         }
-        if (!forceCooldown && !inventory.getStackInSlot(0).isEmpty()) {
+        if (forceCooldown) {
+            errorState = ErrorState.FORCED_COOLDOWN;
+            return;
+        }
+        if (!inventory.getStackInSlot(0).isEmpty()) {
             replenishFromBattery();
         }
+        if (delayPassed(80L)) {
+            // Original quirk: without output the state alternates between OK and NO_FUEL every check.
+            errorState = currentOutput <= 0 && errorState == ErrorState.OK ? ErrorState.NO_FUEL : ErrorState.OK;
+        }
+    }
+
+    /** {@code DelayTimer.delayPassed}. */
+    private boolean delayPassed(long delay) {
+        long time = level.getGameTime();
+        if (time < errorCheckTime) {
+            errorCheckTime = time;
+            return false;
+        }
+        if (errorCheckTime + delay <= time) {
+            errorCheckTime = time;
+            return true;
+        }
+        return false;
     }
 
     private void replenishFromBattery() {

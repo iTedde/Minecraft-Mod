@@ -10,6 +10,7 @@ import dev.craft.forestry.circuit.CircuitLayout;
 import dev.craft.forestry.circuit.ElectronTube;
 import dev.craft.forestry.item.CircuitBoardItem;
 import dev.craft.forestry.machine.CarpenterBlockEntity;
+import dev.craft.forestry.machine.ErrorState;
 import dev.craft.forestry.machine.FabricatorBlockEntity;
 import dev.craft.forestry.menu.SolderingIronMenu;
 import dev.craft.ic2.Ic2Items;
@@ -113,16 +114,7 @@ public final class ForestryGameTests {
     public static void carpenterFillsWaterAndMakesBasicBoard(GameTestHelper helper) {
         helper.setBlock(MACHINE, FrBlocks.CARPENTER.get());
         CarpenterBlockEntity carpenter = helper.getBlockEntity(MACHINE);
-        String[] pattern = {"R R", "R#R", "R R"};
-        for (int row = 0; row < 3; row++) {
-            for (int column = 0; column < 3; column++) {
-                char c = pattern[row].charAt(column);
-                ItemStack stack = c == 'R' ? new ItemStack(Items.REDSTONE)
-                        : c == '#' ? new ItemStack(Ic2Items.TIN_INGOT.get()) : ItemStack.EMPTY;
-                carpenter.getInventory().setStackInSlot(CarpenterBlockEntity.SLOT_CRAFTING_1 + column + row * 3,
-                        stack);
-            }
-        }
+        basicBoardPattern(carpenter);
         carpenter.getInventory().setStackInSlot(CarpenterBlockEntity.SLOT_INVENTORY_1, new ItemStack(Items.REDSTONE, 6));
         carpenter.getInventory().setStackInSlot(CarpenterBlockEntity.SLOT_INVENTORY_1 + 1,
                 new ItemStack(Ic2Items.TIN_INGOT.get()));
@@ -142,6 +134,37 @@ public final class ForestryGameTests {
             helper.assertValueEqual(carpenter.getInventory().getStackInSlot(CarpenterBlockEntity.SLOT_CRAFTING_1)
                     .getCount(), 1, "pattern kept");
         });
+    }
+
+    /** Checked every 40 ticks: no recipe, then missing resources once pattern and liquid name a recipe. */
+    @GameTest(template = EMPTY, timeoutTicks = 200)
+    public static void carpenterReportsRecipeAndResourceErrors(GameTestHelper helper) {
+        helper.setBlock(MACHINE, FrBlocks.CARPENTER.get());
+        CarpenterBlockEntity carpenter = helper.getBlockEntity(MACHINE);
+        helper.runAfterDelay(45, () -> {
+            helper.assertValueEqual(carpenter.getErrorState(), ErrorState.NO_RECIPE, "empty pattern");
+            basicBoardPattern(carpenter);
+            carpenter.getFluidHandler().fill(new FluidStack(Fluids.WATER, 100), IFluidHandler.FluidAction.EXECUTE);
+            carpenter.updateRecipe();
+        });
+        helper.runAfterDelay(90, () -> {
+            helper.assertValueEqual(carpenter.getErrorState(), ErrorState.NO_RESOURCE, "no stock");
+            helper.succeed();
+        });
+    }
+
+    /** Basic circuit board pattern "R R/R#R/R R" in the carpenter grid. */
+    private static void basicBoardPattern(CarpenterBlockEntity carpenter) {
+        String[] pattern = {"R R", "R#R", "R R"};
+        for (int row = 0; row < 3; row++) {
+            for (int column = 0; column < 3; column++) {
+                char c = pattern[row].charAt(column);
+                ItemStack stack = c == 'R' ? new ItemStack(Items.REDSTONE)
+                        : c == '#' ? new ItemStack(Ic2Items.TIN_INGOT.get()) : ItemStack.EMPTY;
+                carpenter.getInventory().setStackInSlot(CarpenterBlockEntity.SLOT_CRAFTING_1 + column + row * 3,
+                        stack);
+            }
+        }
     }
 
     @GameTest(template = EMPTY)

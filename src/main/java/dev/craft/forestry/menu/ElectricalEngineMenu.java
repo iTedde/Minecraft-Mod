@@ -4,6 +4,7 @@ import dev.craft.forestry.FrMenus;
 import dev.craft.forestry.engine.ElectricalEngineBlockEntity;
 import dev.craft.forestry.item.CircuitBoardItem;
 import dev.craft.forestry.item.SolderingIronItem;
+import dev.craft.forestry.machine.ErrorState;
 import dev.craft.ic2.menu.SyncedInts;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -20,7 +21,8 @@ import org.jetbrains.annotations.Nullable;
 /**
  * Forestry {@code ContainerEngineTin} ({@code ContainerSocketed}): the battery slot and the circuit board socket.
  * The socket is no real slot: a click with a board puts the whole held stack in (replacing, and losing, a board that
- * was there), a click with the soldering iron takes it out. Synced: EU stored and EU storage.
+ * was there), a click with the soldering iron takes it out. Synced: EU stored, EU storage and for the
+ * ledgers output, stored MJ, heat and error state.
  */
 public class ElectricalEngineMenu extends ForestryMenu {
     public static final int SOCKET_X = 30;
@@ -31,11 +33,12 @@ public class ElectricalEngineMenu extends ForestryMenu {
 
     public ElectricalEngineMenu(int id, Inventory inventory, ElectricalEngineBlockEntity engine) {
         this(id, inventory, engine, engine.getBlockPos(), engine.getInventory(), engine.getSocket(),
-                new SyncedInts(engine::getEuStored, engine::getEuStorage));
+                new SyncedInts(engine::getEuStored, engine::getEuStorage, engine::getCurrentOutput,
+                        engine::getStoredEnergy, engine::getHeat, () -> engine.getErrorState().ordinal()));
     }
 
     public ElectricalEngineMenu(int id, Inventory inventory, BlockPos pos) {
-        this(id, inventory, null, pos, new ItemStackHandler(1), new ItemStackHandler(1), new SyncedInts(2));
+        this(id, inventory, null, pos, new ItemStackHandler(1), new ItemStackHandler(1), new SyncedInts(6));
     }
 
     private ElectricalEngineMenu(int id, Inventory inventory, @Nullable ElectricalEngineBlockEntity engine,
@@ -54,6 +57,22 @@ public class ElectricalEngineMenu extends ForestryMenu {
 
     public int getEuStorage() {
         return data.getInt(1);
+    }
+
+    public int getCurrentOutput() {
+        return data.getInt(2);
+    }
+
+    public int getStoredEnergy() {
+        return data.getInt(3);
+    }
+
+    public int getHeat() {
+        return data.getInt(4);
+    }
+
+    public ErrorState getErrorState() {
+        return ErrorState.byId(data.getInt(5));
     }
 
     @Override

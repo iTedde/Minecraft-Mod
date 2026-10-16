@@ -738,6 +738,47 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             add("gui.craft.buildcraft.current_output", "Current Output");
             add("gui.craft.buildcraft.stored", "Stored");
             add("gui.craft.buildcraft.heat", "Heat");
+            add("gui.craft.forestry.energy", "Energy");
+            add("gui.craft.forestry.stored", "Stored");
+            add("gui.craft.forestry.max_energy", "Maximum Energy");
+            add("gui.craft.forestry.max_input", "Maximum Input");
+            add("gui.craft.forestry.current_output", "Current Output");
+            add("gui.craft.forestry.heat", "Heat");
+            add("gui.craft.forestry.did_you_know", "Did you know");
+            add("gui.craft.forestry.error.no_fuel", "No fuel");
+            add("gui.craft.forestry.error.no_fuel.help", "Replenish this machine's fuel supplies.");
+            add("gui.craft.forestry.error.no_resource", "Missing resources");
+            add("gui.craft.forestry.error.no_resource.help", "More resources need to be supplied for operation.");
+            add("gui.craft.forestry.error.no_space", "No inventory space");
+            add("gui.craft.forestry.error.no_space.help", "Empty this machine's inventory.");
+            add("gui.craft.forestry.error.no_recipe", "No recipe");
+            add("gui.craft.forestry.error.no_recipe.help", "No matching recipe was found for the supplied resources.");
+            add("gui.craft.forestry.error.forced_cooldown", "Forced Cooldown");
+            add("gui.craft.forestry.error.forced_cooldown.help", "Engine has overheated and is forced into cooldown.");
+            add("gui.craft.forestry.hint.energyunit.tag", "Say Minecraft Joule!");
+            add("gui.craft.forestry.hint.energyunit",
+                    "An engine's energy output is measured in MJ/t, which stands for \"Minecraft Joule per tick\". Each second has 20 ticks.");
+            add("gui.craft.forestry.hint.energybuffer.tag", "Buffering Energy!");
+            add("gui.craft.forestry.hint.energybuffer",
+                    "Engines are capable of buffering a lesser amount of energy if it cannot be transmitted to the target.");
+            add("gui.craft.forestry.hint.forcedcooldown.tag", "Beware Overheating!");
+            add("gui.craft.forestry.hint.forcedcooldown",
+                    "Engines can overheat if the energy they produce is not consumed. Reaching melting point will force them into cooldown.");
+            add("gui.craft.forestry.hint.cooldownloss.tag", "Cooldown means energy loss!");
+            add("gui.craft.forestry.hint.cooldownloss",
+                    "Engines going into forced cooldown will also lose a significant chunk of their stored energy.");
+            add("gui.craft.forestry.hint.enginetinbatteries.tag", "Charge those batteries!");
+            add("gui.craft.forestry.hint.enginetinbatteries",
+                    "You can use batteries to run your electrical engines without needing to wire them up.");
+            add("gui.craft.forestry.hint.enginetinchoke.tag", "Regulate Output");
+            add("gui.craft.forestry.hint.enginetinchoke",
+                    "Electrical engines can be outfitted with circuit boards to choke their power output to 1 MJ/t and also reduce their energy demand.");
+            add("gui.craft.forestry.hint.powerrequired.tag", "Requires Energy!");
+            add("gui.craft.forestry.hint.powerrequired",
+                    "This machine requires energy from an engine to function. Attach an engine and start it, to allow production.");
+            add("gui.craft.forestry.hint.crating.tag", "Crate your Surplus!");
+            add("gui.craft.forestry.hint.crating",
+                    "Main task of carpenters is the compression of your surplus resources. Many bulk blocks and items can be packaged into crates.");
             block(BcBlocks.engine(EngineType.REDSTONE), "Redstone Engine");
             block(BcBlocks.engine(EngineType.STIRLING), "Stirling Engine");
             block(BcBlocks.engine(EngineType.COMBUSTION), "Combustion Engine");
@@ -1023,6 +1064,49 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             add("gui.craft.buildcraft.current_output", "Aktuelle Leistung");
             add("gui.craft.buildcraft.stored", "Gespeichert");
             add("gui.craft.buildcraft.heat", "Hitze");
+            add("gui.craft.forestry.energy", "Energie");
+            add("gui.craft.forestry.stored", "Speicher");
+            add("gui.craft.forestry.max_energy", "Maximale Energie");
+            add("gui.craft.forestry.max_input", "Maximale Aufnahme");
+            add("gui.craft.forestry.current_output", "Aktuelle Leistung");
+            add("gui.craft.forestry.heat", "Temperatur");
+            add("gui.craft.forestry.did_you_know", "Wusstest du schon");
+            add("gui.craft.forestry.error.no_fuel", "Kein Treibstoff");
+            add("gui.craft.forestry.error.no_fuel.help", "Diese Maschine benötigt mehr Treibstoff.");
+            add("gui.craft.forestry.error.no_resource", "Rohstoffe fehlen");
+            add("gui.craft.forestry.error.no_resource.help", "Es müssen mehr Rohstoffe herangeschafft werden.");
+            add("gui.craft.forestry.error.no_space", "Kein Lagerplatz");
+            add("gui.craft.forestry.error.no_space.help", "Das Lager dieser Maschine muss geleert werden.");
+            add("gui.craft.forestry.error.no_recipe", "Kein Rezept");
+            add("gui.craft.forestry.error.no_recipe.help",
+                    "Es wurde kein passendes Rezept gefunden. Benötigt andere Ressourcen.");
+            add("gui.craft.forestry.error.forced_cooldown", "Abkühlphase");
+            add("gui.craft.forestry.error.forced_cooldown.help",
+                    "Motor ist überhitzt und muss eine zwangsweise Abkühlphase durchlaufen.");
+            add("gui.craft.forestry.hint.energyunit.tag", "Kennst du Minecraft Joule?");
+            add("gui.craft.forestry.hint.energyunit",
+                    "Der Energieausstoß eines Motors wird in MJ/t (\"Minecraft Joule pro Tick\") gemessen. Jede Sekunde hat ca. 20 Ticks.");
+            add("gui.craft.forestry.hint.energybuffer.tag", "Energiepuffer");
+            add("gui.craft.forestry.hint.energybuffer",
+                    "Motoren sind in der Lage, eine gewisse Menge Energie zu puffern, falls eine Weiterleitung nicht sofort möglich ist.");
+            add("gui.craft.forestry.hint.forcedcooldown.tag", "Vermeide Überhitzung!");
+            add("gui.craft.forestry.hint.forcedcooldown",
+                    "Motoren können überhitzen, falls die produzierte Energie nicht abgeführt wird. Falls das passiert, werden sie zwangsweise abgekühlt.");
+            add("gui.craft.forestry.hint.cooldownloss.tag", "Abkühlphase bedeutet Energieverlust!");
+            add("gui.craft.forestry.hint.cooldownloss",
+                    "Motoren in erzwungener Abkühlphase verlieren einen bedeutenden Teil der gespeicherten Energie.");
+            add("gui.craft.forestry.hint.enginetinbatteries.tag", "Nutze Batterien!");
+            add("gui.craft.forestry.hint.enginetinbatteries",
+                    "Du kannst Batterien verwenden, um deine elektrischen Motoren auch ohne Netz zu unterhalten.");
+            add("gui.craft.forestry.hint.enginetinchoke.tag", "Reguliere die Energie");
+            add("gui.craft.forestry.hint.enginetinchoke",
+                    "Elektrische Motoren können mit Leiterplatten ausgestattet werden, um ihre Eigenschaften zu verändern.");
+            add("gui.craft.forestry.hint.powerrequired.tag", "Benötigt Energie!");
+            add("gui.craft.forestry.hint.powerrequired",
+                    "Diese Maschine benötigt Energie von einem Motor. Bringe einen solchen an und fahre ihn hoch, um mit der Produktion zu beginnen.");
+            add("gui.craft.forestry.hint.crating.tag", "Komprimier Überschuss!");
+            add("gui.craft.forestry.hint.crating",
+                    "Hauptaufgabe eines Schreiners ist die Kompression von überschüssigen Ressourcen. Viele Massenprodukte können in Kisten verpackt werden.");
             block(BcBlocks.engine(EngineType.REDSTONE), "Redstone-Motor");
             block(BcBlocks.engine(EngineType.STIRLING), "Stirlingmotor");
             block(BcBlocks.engine(EngineType.COMBUSTION), "Verbrennungsmotor");

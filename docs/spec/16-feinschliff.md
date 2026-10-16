@@ -69,6 +69,11 @@ Nur mitinstalliert, keine Integration: `localRuntime` über den Modrinth-Maven
 (`https://api.modrinth.com/maven`, `maven.modrinth:xaeros-minimap:<NeoForge-1.21.1-Version>`), damit `runClient`
 sie lädt. Für die Spielinstallation: Hinweis in `docs/` (Version, Download).
 
+**Umgesetzt (11.4):** `maven.modrinth:xaeros-minimap:neoforge-1.21.1-26.5.0` (Version in `gradle.properties`,
+`xaeros_minimap_version`). Spielinstallation: dieselbe Version von https://modrinth.com/mod/xaeros-minimap
+(Datei `xaerominimap-neoforge-1.21.1-26.5.0.jar`, Loader NeoForge, MC 1.21.1) zusammen mit dem Mod und EMI
+(`emi-neoforge-1.1.22+1.21.1`) in den `mods`-Ordner legen. Keine Abhängigkeit des Mods darauf.
+
 ## 4. Texturen
 
 1. **Verbundene GT-Gehäusetexturen:** `blocks.png` ab Index 96/112/224, 12 Varianten je Seite, Auswahl je nach

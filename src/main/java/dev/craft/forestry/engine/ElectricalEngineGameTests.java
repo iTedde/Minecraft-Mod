@@ -11,6 +11,7 @@ import dev.craft.forestry.circuit.CircuitBoardType;
 import dev.craft.forestry.circuit.CircuitLayout;
 import dev.craft.forestry.item.CircuitBoardItem;
 import dev.craft.forestry.machine.CarpenterBlockEntity;
+import dev.craft.forestry.machine.ErrorState;
 import dev.craft.ic2.Ic2Items;
 import dev.craft.ic2.item.ElectricItems;
 import net.minecraft.core.BlockPos;
@@ -110,6 +111,18 @@ public final class ElectricalEngineGameTests {
         });
     }
 
+    /** The fuel check every 80 ticks: without output the state alternates between OK and "No fuel". */
+    @GameTest(template = EMPTY, timeoutTicks = 200)
+    public static void errorStateAlternatesWithoutFuel(GameTestHelper helper) {
+        ElectricalEngineBlockEntity engine = placeEngine(helper, true);
+        helper.runAfterDelay(5, () -> helper.assertValueEqual(engine.getErrorState(), ErrorState.NO_FUEL,
+                "first check without output"));
+        helper.runAfterDelay(90, () -> {
+            helper.assertValueEqual(engine.getErrorState(), ErrorState.OK, "second check flips back");
+            helper.succeed();
+        });
+    }
+
     @GameTest(template = EMPTY)
     public static void meltingForcesACooldownInsteadOfExploding(GameTestHelper helper) {
         ElectricalEngineBlockEntity engine = placeEngine(helper, true);
@@ -120,6 +133,7 @@ public final class ElectricalEngineGameTests {
         engine.injectEnergy(Direction.UP, 60);
         helper.succeedWhen(() -> {
             helper.assertTrue(engine.isForceCooldown(), "forced cooldown");
+            helper.assertValueEqual(engine.getErrorState(), ErrorState.FORCED_COOLDOWN, "cooldown error");
             helper.assertTrue(engine.getStoredEnergy() < 100, "2 MJ destroyed per tick");
             helper.assertValueEqual(engine.getEuStored(), 60, "no EU burnt while cooling");
             helper.assertBlockPresent(FrBlocks.ELECTRICAL_ENGINE.get(), ENGINE);

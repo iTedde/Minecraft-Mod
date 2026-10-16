@@ -1,14 +1,17 @@
 package dev.craft.buildcraft.client;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 import dev.craft.Craft;
+import dev.craft.core.client.ExtraAreas;
 import dev.craft.core.client.RecipeArea;
 import dev.craft.core.client.RecipeCategories;
 import dev.craft.buildcraft.engine.EngineType;
 import dev.craft.buildcraft.menu.EngineMenu;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.renderer.Rect2i;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -22,7 +25,7 @@ import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtension
  * BuildCraft {@code GuiSteamEngine} and {@code GuiCombustionEngine} with the engine ledger of {@code GuiEngine}
  * (opens to the right of the GUI on click and shows output, stored energy and heat).
  */
-public class EngineScreen extends AbstractContainerScreen<EngineMenu> {
+public class EngineScreen extends AbstractContainerScreen<EngineMenu> implements ExtraAreas {
     private static final ResourceLocation LEDGER = texture("ledger");
     private static final ResourceLocation ICONS = texture("bc_icons");
     private static final int TEXT_COLOR = 0x404040;
@@ -145,6 +148,11 @@ public class EngineScreen extends AbstractContainerScreen<EngineMenu> {
     protected boolean hasClickedOutside(double mouseX, double mouseY, int left, int top, int button) {
         return super.hasClickedOutside(mouseX, mouseY, left, top, button)
                 && !ledger.intersects((int) mouseX, (int) mouseY, leftPos + imageWidth, topPos + 8);
+    }
+
+    @Override
+    public void addExtraAreas(Consumer<Rect2i> consumer) {
+        consumer.accept(new Rect2i(leftPos + imageWidth, topPos + 8, ledger.width, ledger.height));
     }
 
     /** BuildCraft {@code GuiBuildCraft.Ledger} with the contents of {@code GuiEngine.EngineLedger}. */

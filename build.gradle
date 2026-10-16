@@ -31,6 +31,11 @@ repositories {
         url = 'https://maven.terraformersmc.com/'
         content { includeGroup 'dev.emi' }
     }
+    maven {
+        name = 'Modrinth'
+        url = 'https://api.modrinth.com/maven'
+        content { includeGroup 'maven.modrinth' }
+    }
 }
 
 base {
@@ -130,6 +135,8 @@ dependencies {
     // EMI recipe viewer: API at compile time, full mod only in our own runs (optional dependency)
     compileOnly "dev.emi:emi-neoforge:${emi_version}:api"
     localRuntime "dev.emi:emi-neoforge:${emi_version}"
+    // Xaero's Minimap: only installed alongside in our own runs, no integration
+    localRuntime "maven.modrinth:xaeros-minimap:${xaeros_minimap_version}"
 
     // Example optional mod dependency with JEI
     // The JEI API is declared for compile time use, while the full JEI artifact is used at runtime

@@ -21,6 +21,8 @@ import net.minecraft.world.level.block.state.BlockState;
 public abstract class ForestryMachineBlockEntity extends BlockEntity implements PowerReceptor, MenuProvider {
     protected final PowerProvider provider = new PowerProvider();
     protected final MachineInventory inventory;
+    /** {@code TileForestry.errorState}: shown by the error ledger, not saved. */
+    protected ErrorState errorState = ErrorState.OK;
 
     /** {@code EnergyConfiguration(latency, minReceived, maxReceived, activation, maxEnergy)}; latency is 0 in the pack. */
     protected ForestryMachineBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state, int inventorySize,
@@ -38,6 +40,10 @@ public abstract class ForestryMachineBlockEntity extends BlockEntity implements 
     @Override
     public PowerProvider getPowerProvider() {
         return provider;
+    }
+
+    public ErrorState getErrorState() {
+        return errorState;
     }
 
     /** {@code TileMachine.doWork}: called every tick by the provider while the activation energy is stored. */

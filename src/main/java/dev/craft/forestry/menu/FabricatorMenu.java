@@ -19,7 +19,8 @@ import org.jetbrains.annotations.Nullable;
 
 /**
  * Forestry {@code ContainerFabricator}: stock, melting slot, plan, result ({@code SlotCrafter}) and crafting grid.
- * Synced: liquid id, liquid amount, heat and melting point.
+ * Synced: liquid id, liquid amount, heat, melting point and for the power ledger stored MJ (float bits), MJ storage
+ * and maximum input.
  */
 public class FabricatorMenu extends ForestryMenu {
     @Nullable
@@ -31,11 +32,14 @@ public class FabricatorMenu extends ForestryMenu {
                 () -> BuiltInRegistries.FLUID.getId(fabricator.getMoltenTank().getFluid().getFluid()),
                 () -> fabricator.getMoltenTank().getFluidAmount(),
                 fabricator::getHeat,
-                fabricator::getMeltingPoint));
+                fabricator::getMeltingPoint,
+                () -> Float.floatToIntBits(fabricator.getPowerProvider().getEnergyStored()),
+                () -> fabricator.getPowerProvider().getMaxEnergyStored(),
+                () -> fabricator.getPowerProvider().getMaxEnergyReceived()));
     }
 
     public FabricatorMenu(int id, Inventory inventory, BlockPos pos) {
-        this(id, inventory, null, pos, new ItemStackHandler(FabricatorBlockEntity.SLOT_COUNT), new SyncedInts(4));
+        this(id, inventory, null, pos, new ItemStackHandler(FabricatorBlockEntity.SLOT_COUNT), new SyncedInts(7));
     }
 
     private FabricatorMenu(int id, Inventory inventory, @Nullable FabricatorBlockEntity fabricator, BlockPos pos,
@@ -75,6 +79,18 @@ public class FabricatorMenu extends ForestryMenu {
 
     public int getMeltingPoint() {
         return data.getInt(3);
+    }
+
+    public float getEnergyStored() {
+        return Float.intBitsToFloat(data.getInt(4));
+    }
+
+    public int getMaxEnergyStored() {
+        return data.getInt(5);
+    }
+
+    public int getMaxEnergyReceived() {
+        return data.getInt(6);
     }
 
     private void refreshResult() {

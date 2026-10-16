@@ -131,8 +131,17 @@ public class CarpenterBlockEntity extends ForestryMachineBlockEntity {
                 inventory.setStackInSlot(SLOT_CAN_INPUT, LiquidContainers.consumeItem(can));
             }
         }
-        if (time % 40L == 0L && currentRecipe == null) {
-            currentRecipe = findRecipe();
+        if (time % 40L == 0L) {
+            if (currentRecipe == null) {
+                currentRecipe = findRecipe();
+            }
+            if (currentRecipe == null) {
+                errorState = ErrorState.NO_RECIPE;
+            } else if (!validateResources()) {
+                errorState = ErrorState.NO_RESOURCE;
+            } else {
+                errorState = ErrorState.OK;
+            }
         }
     }
 
@@ -222,6 +231,7 @@ public class CarpenterBlockEntity extends ForestryMachineBlockEntity {
             pendingProduct = ItemStack.EMPTY;
             return true;
         }
+        errorState = ErrorState.NO_SPACE;
         return false;
     }
 
