@@ -95,7 +95,7 @@ Status: *geplant* (aus Phase 1 abgeleitet, noch nicht umgesetzt), *entschieden* 
 | Fabricator/Carpenter-Rezepte | Code-Registrierung (`RecipeManagers`) | Datapack-Rezepttypen `craft:fabricator`/`craft:carpenter` (Datagen); Schmelztabelle (Glas, Glasscheibe, Sand) im Code | idiomatisch | **umgesetzt** |
 | Ore-Dictionary-Gleichheit beim Vorrat | `isItemOreEqual` (nur Kupferbarren-Sonderfall) | gleiches Item + Komponenten | nur Vanilla-Kupfer im Spiel | **umgesetzt** |
 | Forestry-Darstellung | TESR mit `ModelRenderer` | BER mit `ModelPart`, gleiche Geometrie/Drehwinkel; Item über BEWLR | wie BC-Engines | **umgesetzt** |
-| Forestry-Ledger (Energie, Hinweise, Fehlerstatus) und Zugriffsrechte | vorhanden | fehlen | Feinschliff (Phase 11) | **offen** |
+| Forestry-Ledger (Energie, Hinweise, Fehlerstatus) und Zugriffsrechte | vorhanden | Ledger in Phase 11.4; Zugriffsrechte entfallen | Nutzerentscheidung 2026-10-16 (Einzelspieler) | **offen** (Ledger) |
 | Fabricator-Ergebnisslot | virtueller Slot direkt auf der Maschine | Anzeige-Slot, vom Server bei jedem Zugriff neu berechnet | Client hat keine Maschine im Menü | **umgesetzt** |
 | Carpenter: Rezeptsuche nach Laden | sofort in `readFromNBT` | im ersten Tick | Level beim Laden noch nicht verfügbar | **umgesetzt** |
 | Tank-Tooltip in Forestry-GUIs | Name (+ Menge laut Config) | Name und Menge in mB | – | **umgesetzt** |

@@ -1209,5 +1209,6 @@ NaK-Kühlzellen, kein Vakuumgefrierer) **und die IC2-Nuke**. Teilpakete: 7a IC2-
   Forestry-Ledger, Testplan, Teilphasen 11.1–11.6, offene Entscheidungen E1–E4.
 
 ## Nächste Schritte
-1. Entscheidungen E1–E4 aus `spec/16-feinschliff.md` §8 klären.
+1. Entscheidungen E1–E4 getroffen (Nutzer, 2026-10-16: alle Vorschläge übernommen, restliche IC2-Inhalte als
+   Phase 12 nach dem Feinschliff) – siehe `spec/16-feinschliff.md` §8.
 2. Phase 11.1: EMI-Grundgerüst + IC2-Kategorien.

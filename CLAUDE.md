@@ -78,12 +78,13 @@ MJ und EU bleiben getrennte Systeme; Verbindung nur über Electrical Engine (EU�
 | 9 | Neue Kraftwerke (`docs/spec/14-kraftwerke.md`): 9.0 Spezifikation (erledigt) · 9.1 Wassermühle/Windmühle neu (erledigt) · 9.2 Koksofen + Koks (erledigt) · 9.3 Kessel + Dampf + Dampfturbine (erledigt: 9.3a Kessel + Dampf, 9.3b Dampfturbine) · 9.4 Wasserturbine (erledigt) | **erledigt** (abgenommen) |
 | 10 | BuildCraft-Rohre (`docs/spec/15-rohre.md`; nur Rohre, ohne Gates/Drähte/Fassaden – Nutzer 2026-10-16): 10.0 Spezifikation (erledigt) · 10.1 Grundgerüst + einfache Item-Rohre (erledigt) · 10.2 Diamant/Smaragd/Obsidian (erledigt) · 10.3 Flüssigkeitsrohre (erledigt) · 10.4 Leistungsrohre + Strukturrohr (erledigt) | **erledigt** (abgenommen) |
 | 11 | Feinschliff (`docs/spec/16-feinschliff.md`): Texturen, EMI-Integration (Rezeptanzeige), Xaero's Minimap mitinstallieren, Tests. 11.0 Spezifikation (erledigt) · 11.1 EMI IC2 · 11.2 EMI GT · 11.3 EMI BC/Forestry/Kraftwerke · 11.4 Xaero + Forestry-Ledger · 11.5 verbundene GT-Gehäusetexturen · 11.6 Testplan/Abschluss | in Arbeit |
+| 12 | Restliche IC2-Inhalte (`spec/16-feinschliff.md` §8 E4): Miner, Terraformer, Teleporter, Tesla-Spule, Crops/Crop-Matron, Personal-Blöcke, Luminator, Bauschaum + CF-Pack, Kaffee/Fass, Solar-Hüte, Upgrade-Stack 4, GT-Recycler-Blacklist | offen |
 
 Phasen-Umnummerierung (Nutzer, 2026-10-16): Phase 8 „GT-Nachträge“ eingeschoben; die bisherigen Phasen 8/9/10
 (Kraftwerke, Rohre, Feinschliff) heißen jetzt 9/10/11. Ältere Einträge in `docs/STATUS.md` sind entsprechend
 angepasst.
 
-Nicht explizit in einer Phase, aber Teil von „IC2 komplett“ (Zuordnung klären): Eisenofen,
+Teil von „IC2 komplett“, jetzt Phase 12 (Nutzer, 2026-10-16): Eisenofen,
 Miner, Pumpe, Terraformer, Teleporter, Tesla-Spule, Crops/Crop-Matron,
 Personal-Blöcke, Luminator, Sprengstoffe (Industrie-TNT erledigt in 6b.5b, Nuke in 7c), Bauschaum, Kaffee/Fass.
 

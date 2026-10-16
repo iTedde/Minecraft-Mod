@@ -99,13 +99,11 @@ sie lädt. Für die Spielinstallation: Hinweis in `docs/` (Version, Download).
 | 11.5 | verbundene GT-Gehäusetexturen (+ Texturarbeiten je nach E1) |
 | 11.6 | Testplan, Abschlusstests |
 
-## 8. Offene Entscheidungen
+## 8. Entscheidungen (Nutzer, 2026-10-16)
 
-- **E1 Texturen:** Die geschnittenen Originaltexturen (privates Projekt) behalten und nur die verbundenen
-  Gehäusetexturen ergänzen – oder bestimmte Bereiche neu zeichnen? (Vorschlag: behalten.)
-- **E2 Forestry-Zugriffsrechte:** umsetzen (Besitzer, Modi geteilt/eingeschränkt/privat) oder weglassen?
-  (Vorschlag: weglassen, Einzelspieler-Projekt; nur Ledger.)
-- **E3 Xaero:** nur Minimap oder auch Xaero's World Map? (Vorschlag: nur Minimap, wie entschieden.)
-- **E4 Noch nicht zugeordnete IC2-Inhalte** (CLAUDE.md: Miner, Terraformer, Teleporter, Tesla-Spule,
-  Crops/Crop-Matron, Personal-Blöcke, Luminator, Bauschaum + CF-Pack, Kaffee/Fass; außerdem Solar-Hüte,
-  Upgrade-Stack 4, Recycler-Blacklist GT): gehören nicht zum Feinschliff – eigene Phase 12 davor oder danach?
+- **E1 Texturen:** geschnittene Originaltexturen bleiben; neu nur die verbundenen GT-Gehäusetexturen (11.5).
+- **E2 Forestry-Zugriffsrechte:** entfallen; nur die Ledger (11.4). In `abweichungen.md` vermerkt.
+- **E3 Xaero:** nur Xaero's Minimap, keine World Map.
+- **E4 Nicht zugeordnete IC2-Inhalte** (Miner, Terraformer, Teleporter, Tesla-Spule, Crops/Crop-Matron,
+  Personal-Blöcke, Luminator, Bauschaum + CF-Pack, Kaffee/Fass; Solar-Hüte, Upgrade-Stack 4, GT-Recycler-Blacklist):
+  eigene **Phase 12** nach dem Feinschliff; deren EMI-Kategorien kommen dann in Phase 12 dazu.
