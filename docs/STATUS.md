@@ -1199,6 +1199,7 @@ NaK-Kühlzellen, kein Vakuumgefrierer) **und die IC2-Nuke**. Teilpakete: 7a IC2-
 
 ## Abnahme Phase 9 und 10 (Nutzer, 2026-10-16)
 - Phase 9 (Kraftwerke) und Phase 10 (Rohre) abgenommen.
+- Ebenso alle übrigen bisherigen Phasen abgenommen (Phase 1, Phase 7 sowie 11.0).
 
 # Stand Phase 11 (2026-10-16)
 
