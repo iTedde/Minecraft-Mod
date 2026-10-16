@@ -10,6 +10,7 @@ import dev.craft.ic2.block.NukeBlock;
 import dev.craft.ic2.reactor.NuclearReactorBlock;
 import dev.craft.ic2.reactor.ReactorChamberBlock;
 import dev.craft.ic2.block.IronFenceBlock;
+import dev.craft.ic2.block.MiningPipeBlock;
 import dev.craft.ic2.block.ResinSheetBlock;
 import dev.craft.ic2.block.RubberLeavesBlock;
 import dev.craft.ic2.block.RubberSaplingBlock;
@@ -24,6 +25,7 @@ import dev.craft.ic2.generator.WindMillBlockEntity;
 import dev.craft.ic2.machine.ElectricFurnaceBlockEntity;
 import dev.craft.ic2.machine.ElectrolyzerBlockEntity;
 import dev.craft.ic2.machine.CanningMachineBlockEntity;
+import dev.craft.ic2.machine.PumpBlockEntity;
 import dev.craft.ic2.machine.InductionFurnaceBlockEntity;
 import dev.craft.ic2.machine.IronFurnaceBlockEntity;
 import dev.craft.ic2.machine.MachineBlock;
@@ -95,6 +97,9 @@ public final class Ic2Blocks {
     /** IC2 {@code BlockReactorChamber}: hardness 2, drops a machine casing without wrench. */
     public static final DeferredBlock<ReactorChamberBlock> REACTOR_CHAMBER = BLOCKS.register("reactor_chamber",
             () -> new ReactorChamberBlock(metal().strength(2.0F)));
+    /** IC2 {@code BlockMiningPipe}: hardness 6, resistance 10 (1.4.7 scale, = 6 in 1.21). */
+    public static final DeferredBlock<MiningPipeBlock> MINING_PIPE = BLOCKS.register("ic2_mining_pipe",
+            () -> new MiningPipeBlock(metal().strength(6.0F, 6.0F).noOcclusion()));
     public static final DeferredBlock<Block> TIN_BLOCK = BLOCKS.registerSimpleBlock("tin_block",
             metal().strength(4.0F));
     public static final DeferredBlock<Block> BRONZE_BLOCK = BLOCKS.registerSimpleBlock("bronze_block",
@@ -179,6 +184,7 @@ public final class Ic2Blocks {
             case ELECTROLYZER -> ElectrolyzerBlockEntity::new;
             case INDUCTION_FURNACE -> InductionFurnaceBlockEntity::new;
             case CANNING_MACHINE -> CanningMachineBlockEntity::new;
+            case PUMP -> PumpBlockEntity::new;
             case BATBOX, MFE, MFSU, LV_TRANSFORMER, MV_TRANSFORMER, HV_TRANSFORMER, MASS_FABRICATOR, NUCLEAR_REACTOR ->
                     throw new IllegalArgumentException(machine + " has its own block class");
         };

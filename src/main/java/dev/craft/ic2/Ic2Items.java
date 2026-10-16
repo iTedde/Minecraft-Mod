@@ -93,6 +93,7 @@ public final class Ic2Items {
     public static final DeferredItem<BlockItem> RUBBER_SAPLING =
             ITEMS.registerSimpleBlockItem(Ic2Blocks.RUBBER_SAPLING);
     public static final DeferredItem<BlockItem> IRON_FENCE = ITEMS.registerSimpleBlockItem(Ic2Blocks.IRON_FENCE);
+    public static final DeferredItem<BlockItem> MINING_PIPE = ITEMS.registerSimpleBlockItem(Ic2Blocks.MINING_PIPE);
     public static final DeferredItem<BlockItem> REINFORCED_GLASS =
             ITEMS.registerSimpleBlockItem(Ic2Blocks.REINFORCED_GLASS);
     public static final DeferredItem<BlockItem> INDUSTRIAL_TNT = ITEMS.registerSimpleBlockItem(Ic2Blocks.INDUSTRIAL_TNT);

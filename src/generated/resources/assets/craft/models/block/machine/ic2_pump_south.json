@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "craft:block/machine/ic2_pump_bottom",
+    "east": "craft:block/machine/ic2_pump_left",
+    "north": "craft:block/machine/ic2_pump_back",
+    "particle": "craft:block/machine/ic2_pump_front",
+    "south": "craft:block/machine/ic2_pump_front",
+    "up": "craft:block/machine/ic2_pump_top",
+    "west": "craft:block/machine/ic2_pump_right"
+  }
+}

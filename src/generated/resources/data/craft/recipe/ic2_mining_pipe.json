@@ -1,0 +1,20 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "I": {
+      "tag": "c:ingots/refined_iron"
+    },
+    "T": {
+      "item": "craft:treetap"
+    }
+  },
+  "pattern": [
+    "I I",
+    "I I",
+    "ITI"
+  ],
+  "result": {
+    "count": 8,
+    "id": "craft:ic2_mining_pipe"
+  }
+}

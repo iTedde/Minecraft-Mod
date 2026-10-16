@@ -74,6 +74,11 @@
       "craft:machines/macerator_op"
     ]
   },
+  "machines/pump_op": {
+    "sounds": [
+      "craft:machines/pump_op"
+    ]
+  },
   "machines/recycler_op": {
     "sounds": [
       "craft:machines/recycler_op"

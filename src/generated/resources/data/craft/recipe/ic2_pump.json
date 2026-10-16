@@ -1,0 +1,29 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "C": {
+      "item": "craft:electronic_circuit"
+    },
+    "M": {
+      "item": "craft:machine_casing"
+    },
+    "P": {
+      "item": "craft:ic2_mining_pipe"
+    },
+    "T": {
+      "item": "craft:treetap"
+    },
+    "c": {
+      "item": "craft:empty_cell"
+    }
+  },
+  "pattern": [
+    "cCc",
+    "cMc",
+    "PTP"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:ic2_pump"
+  }
+}

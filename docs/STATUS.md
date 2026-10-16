@@ -893,6 +893,21 @@ NaK-Kühlzellen, kein Vakuumgefrierer) **und die IC2-Nuke**. Teilpakete: 7a IC2-
   Teilpakete: **8d.1 IC2-Pumpe + Bergbaurohr**, **8d.2 Industrial Grinder**.
 - Natriumpersulfatzelle hat in GT 2.90 keine Herstellung → ihre Grinder-Rezepte entfallen. Wolfram-Schleifkopf später.
 
+## Erledigt (Teilpaket „Phase 8d.1: IC2-Pumpe“, 2026-10-16)
+- `Ic2Machine.PUMP` (`craft:ic2_pump`, Härte 2, Drop Maschinenblock, Wrench-Rate 1,0), `PumpBlockEntity` 1:1 nach
+  `TileEntityPump` (200 EU Ladung, Wasser/Lava-Quelle → Zelle/Eimer/Truhen-Eimer, Lava zuerst an Geothermie,
+  andere Flüssigkeiten wie BC-Öl in den Eimer, Eimerstapel-Eigenheit), `StackUtil.distributeDrop`.
+- `PumpMenu`/`PumpScreen` (`GUIPump.png`, Slot 0 nur leere Zellen, Shift-Klick bevorzugt Slot 1 wie im Original),
+  Loop-Sound `machines/pump_op` beim Laden.
+- Compressor + Pumpe: Schneeball aus dem Wasser unter einer bereiten Pumpe (`RecipeMachineBlockEntity`).
+- IC2-Bergbaurohr `craft:ic2_mining_pipe` (6–10 px, Härte 6) + Rezept (8 aus raff. Eisen + Baumzapfer);
+  Pumpen-Rezept `cCc/cMc/PTP`. Texturen aus `block_machine.png` (Spalte 8) und `block_0.png` (35).
+- 5 neue GameTests (`PumpGameTests`, insgesamt 190 grün), `build` und `runClient` (Hauptmenü, keine Mod-Fehler)
+  erfolgreich. Abweichungen in `abweichungen.md`.
+
 ## Nächste Schritte
-1. Teilpaket 8d.1: IC2-Pumpe (`04-maschinen.md` „Pumpe“) + Bergbaurohr, Compressor+Pumpe-Bonus (Schneeball).
-2. Teilpaket 8d.2: Industrial Grinder (`13-gregtech-maschinen.md` §10).
+1. Teilpaket 8d.2: Industrial Grinder (`13-gregtech-maschinen.md` §10).
+2. Manuelle Client-Tests 8d.1: Pumpe über Wasser/Lava mit Generator/BatBox → GUI (Energie, Ladebalken), leere Zellen
+   in Slot 0 → Wasserzellen in Truhe daneben, Truhe mit leeren Eimern, Geothermie-Generator daneben mit Lava,
+   Öl-Quelle + Eimer per Trichter, Loop-Sound beim Laden; Compressor neben der Pumpe → Schneebälle; Bergbaurohr
+   platzieren/abbauen.

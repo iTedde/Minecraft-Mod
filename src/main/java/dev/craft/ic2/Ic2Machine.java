@@ -21,6 +21,7 @@ public enum Ic2Machine {
     EXTRACTOR("extractor", Sheet.MACHINE, 4, 2.0F, FacingMode.HORIZONTAL, 0.85F, Drop.MACHINE_CASING),
     COMPRESSOR("compressor", Sheet.MACHINE, 5, 2.0F, FacingMode.HORIZONTAL, 0.85F, Drop.MACHINE_CASING),
     CANNING_MACHINE("canning_machine", Sheet.MACHINE, 6, 2.0F, FacingMode.HORIZONTAL, 0.85F, Drop.MACHINE_CASING),
+    PUMP("ic2_pump", Sheet.MACHINE, 8, 2.0F, FacingMode.HORIZONTAL, 1.0F, Drop.MACHINE_CASING),
     RECYCLER("recycler", Sheet.MACHINE, 11, 2.0F, FacingMode.HORIZONTAL, 0.85F, Drop.MACHINE_CASING),
     MAGNETIZER("magnetizer", Sheet.MACHINE, 9, 2.0F, FacingMode.HORIZONTAL, 1.0F, Drop.SELF, Rarity.COMMON, false),
     ELECTROLYZER("electrolyzer", Sheet.MACHINE, 10, 2.0F, FacingMode.HORIZONTAL, 1.0F, Drop.MACHINE_CASING),

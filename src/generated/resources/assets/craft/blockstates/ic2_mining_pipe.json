@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "craft:block/ic2_mining_pipe"
+    }
+  }
+}

@@ -1,3 +1,4 @@
+| `ic2/machine/PumpBlockEntity`, `StackUtil` | IC2-Pumpe (`isPumpReady`/`isWaterBelow`/`resetCharge` für Compressor und später Miner); `StackUtil.distributeDrop(level, pos, stacks)` = IC2-Ausgabe an Nachbarinventare (≥ 6 Slots) bzw. als Item |
 # Architektur – Kurzüberblick für neue Sitzungen
 
 Zweck: Bausteine wiederverwenden, ohne vorhandenen Code als Muster lesen zu müssen. Bei neuen Basisklassen hier

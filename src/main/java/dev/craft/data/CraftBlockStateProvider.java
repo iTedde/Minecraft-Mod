@@ -82,6 +82,7 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
                 modLoc("block/reactor_chamber_side"), modLoc("block/reactor_chamber_bottom"),
                 modLoc("block/reactor_chamber_top")));
         simpleBlockWithItem(Ic2Blocks.BRONZE_BLOCK.get(), cubeAll(Ic2Blocks.BRONZE_BLOCK.get()));
+        ic2MiningPipe();
         rubberWood();
         simpleBlockWithItem(Ic2Blocks.RUBBER_LEAVES.get(), models().withExistingParent("rubber_leaves",
                 mcLoc("block/leaves")).texture("all", modLoc("block/rubber_leaves")).renderType("cutout_mipped"));
@@ -185,6 +186,14 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
     }
 
     /** BuildCraft {@code BlockPlainPipe}: 4–12 px column with texture 32. */
+    /** IC2 {@code RenderBlockMiningPipe}: 6–10 px column, also in the inventory. */
+    private void ic2MiningPipe() {
+        ResourceLocation texture = modLoc("block/ic2_mining_pipe");
+        simpleBlockWithItem(Ic2Blocks.MINING_PIPE.get(), models().withExistingParent("ic2_mining_pipe",
+                        mcLoc("block/block")).texture("particle", texture).texture("pipe", texture).renderType("cutout")
+                .element().from(6, 0, 6).to(10, 16, 10).allFaces((d, f) -> f.texture("#pipe")).end());
+    }
+
     private void miningPipe() {
         ResourceLocation texture = modLoc("block/mining_pipe");
         simpleBlock(BcBlocks.MINING_PIPE.get(), models().withExistingParent("mining_pipe", mcLoc("block/block"))

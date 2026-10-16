@@ -70,6 +70,7 @@ public final class CraftBlockLoot extends BlockLootSubProvider {
         }
         dropSelf(Ic2Blocks.MACHINE_CASING.get());
         dropSelf(Ic2Blocks.IRON_FENCE.get());
+        dropSelf(Ic2Blocks.MINING_PIPE.get());
         dropSelf(Ic2Blocks.REINFORCED_GLASS.get());
         add(Ic2Blocks.INDUSTRIAL_TNT.get(), noDrop());
         add(Ic2Blocks.NUKE.get(), noDrop());

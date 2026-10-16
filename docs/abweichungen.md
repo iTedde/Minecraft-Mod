@@ -1,3 +1,7 @@
+| IC2-Pumpe: Name | Block `pump` (Meta 8) | `craft:ic2_pump`, Bergbaurohr `craft:ic2_mining_pipe` | `craft:pump`/`craft:mining_pipe` sind schon die BuildCraft-Blöcke | **umgesetzt** |
+| IC2-Pumpe: Fremd-Flüssigkeiten | Forge-`FillBucketEvent` mit leerem Eimer aus Slot 0 (z. B. BC-Öl) | jede andere Flüssigkeits-Quelle (`LiquidBlock`), die sich in einen Eimer aufnehmen lässt; wasserbeladene Blöcke zählen nicht als Wasser | kein Event-Gegenstück ohne Spieler | **umgesetzt** |
+| IC2-Pumpe: Eimerstapel | ganzer Stapel leerer Eimer wird zu gefüllten Eimern (überlanger Stapel), auch in der Truhe | gleiche Anzahl gefüllter Eimer; überlange Stapel werden beim Ausgeben in Einzelstapel geteilt, in der Truhe bleibt 1 Eimer im Slot, der Rest geht per `distributeDrop` raus | 1.21 erlaubt keine Stapel über der Maximalgröße | **umgesetzt** |
+| `StackUtil.distributeDrop` | `IInventory` mit ≥ 6 Slots, Doppeltruhe selbst zusammengesetzt | Item-Capability der Nachbarseite (≥ 6 Slots); NeoForge verbindet Doppeltruhen selbst | Capabilities | **umgesetzt** |
 # Abweichungen vom Original
 
 Hier wird jede Stelle dokumentiert, an der der neue Mod (MC 1.21.1 / NeoForge) vom Original (FTB Ultimate,

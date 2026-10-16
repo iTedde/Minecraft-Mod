@@ -75,6 +75,7 @@ public final class CraftBlockTagsProvider extends BlockTagsProvider {
                 Ic2Blocks.ADVANCED_MACHINE_CASING.get(), Ic2Blocks.TIN_ORE.get(), Ic2Blocks.DEEPSLATE_TIN_ORE.get(), Ic2Blocks.TIN_BLOCK.get(), Ic2Blocks.BRONZE_BLOCK.get(),
                 Ic2Blocks.IRON_FENCE.get());
         tag(BlockTags.NEEDS_STONE_TOOL).add(Ic2Blocks.TIN_ORE.get(), Ic2Blocks.DEEPSLATE_TIN_ORE.get());
+        tag(BlockTags.MINEABLE_WITH_PICKAXE).add(Ic2Blocks.MINING_PIPE.get());
         tag(BlockTags.MINEABLE_WITH_PICKAXE).add(Ic2Blocks.URANIUM_ORE.get(), Ic2Blocks.DEEPSLATE_URANIUM_ORE.get(),
                 Ic2Blocks.URANIUM_BLOCK.get(), Ic2Blocks.REACTOR_CHAMBER.get());
         tag(BlockTags.NEEDS_IRON_TOOL).add(Ic2Blocks.URANIUM_ORE.get(), Ic2Blocks.DEEPSLATE_URANIUM_ORE.get());
