@@ -65,5 +65,6 @@ Diamantstaub 125 000, Smaragdstaub 50 000 – die beiden Staube seit 6b.5b).
    Aluminiumbarren (200 Ticks, 128 EU/t, 1700 K); Plattenbieger → Platte; Assembler: Generator + 4 Aluminiumplatten →
    2 Wassermühlen, Generator + 4 Kohleplatten → Windmühle (je 6400 Ticks, 8 EU/t). GT-Maschinenrezepte brauchen u. a.
    IC2-Elektrolyseur, Magnetisierer, Induktionsofen, fortg. Maschinenblock, Kupfernickel-Heizspulen, Förderband-Modul.
-2. GT-Erze (Bauxit, Sheldonit, Rubin, Iridium …) generieren?
+2. ~~GT-Erze generieren?~~ **Entschieden (2026-10-16):** alle GT-Erze wie im Pack (Phase 8); Spezifikation
+   `07-weltgenerierung.md` §6.
 3. ~~Massefabrikator vs. GT Matter Fabricator~~ – entschieden, siehe §3.

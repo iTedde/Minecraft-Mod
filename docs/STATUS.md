@@ -843,4 +843,21 @@ NaK-Kühlzellen, kein Vakuumgefrierer) **und die IC2-Nuke**. Teilpakete: 7a IC2-
    Enderperle → Macerator → Elektrolyseur (Kalium); NaK-60k craften (nur mit unbenutzter 10k-Zelle), im Reaktor
    (Tooltip „Stored Heat“); Silberstaub (UU) → Zentrifuge → kl. Blei → Bleistaub → Ofen → Plattenbieger →
    Containment-Platte.
-2. Phase 8b: Spezifikation der GT-Weltgen (alle Erze wie im Pack).
+2. ~~Phase 8b: Spezifikation der GT-Weltgen~~ → erledigt, siehe unten.
+
+## Erledigt (Teilpaket „Phase 8b: Spezifikation GT-Weltgen“, 2026-10-16)
+- `07-weltgenerierung.md` §6 vollständig: Pack-Config, Erzblock (Härte, Werkzeugstufe, Drops mit Glück-Formeln, XP,
+  Erzwerte, Texturschema), Generierung Oberwelt (Galena, Iridium, Rubin/Saphir/Bauxit mit Biomlisten), Nether (Pyrit,
+  Zinnober, Sphalerit), End (Grundgenerierung + Asteroiden), Verarbeitung im Pack (Macerator, Ofen, Hochofen,
+  Industrial Grinder) und Umsetzungsvorschlag für 1.21. Originalfehler dokumentiert (Dimensionsprüfung mit
+  Chunkkoordinaten, Saphir-`case`-Durchfall, ungenutzter `Silverore`-Schlüssel).
+- `abweichungen.md`: GT-Erz-Blöcke und -Weltgen (geplant). `12-gregtech-materialien.md` §4.2 als entschieden markiert.
+
+## Offene Fragen vor 8c
+1. Abbildung der GT-Biomlisten (Vanilla 1.4.7 + ExtrabiomesXL/Twilight-Namen) auf 1.21-Biome – Vorschlag in
+   `07-weltgenerierung.md` §6.5.
+2. Industrial Grinder (GT-Multiblock) nachbauen? Ohne ihn liefern die Erze nur die Macerator-/Ofen-Ausbeute
+   (z. B. kein Iridiumnugget aus Sheldonit, kein Silber aus Galena).
+
+## Nächste Schritte
+1. Phase 8c: GT-Erze umsetzen (Blöcke, Loot, Weltgen, Macerator/Ofen/Hochofen-Rezepte, neue Stäube/Edelsteine).
