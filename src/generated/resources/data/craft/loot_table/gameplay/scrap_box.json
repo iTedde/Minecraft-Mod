@@ -309,6 +309,26 @@
         },
         {
           "type": "minecraft:item",
+          "name": "craft:chrome_dust",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "craft:titanium_dust",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "craft:magnesium_dust",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "craft:netherrack_dust",
+          "weight": 400
+        },
+        {
+          "type": "minecraft:item",
           "name": "craft:red_garnet",
           "weight": 50
         },

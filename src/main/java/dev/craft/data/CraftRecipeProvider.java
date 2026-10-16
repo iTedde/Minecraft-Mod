@@ -93,6 +93,7 @@ public final class CraftRecipeProvider extends RecipeProvider {
         gregTechFollowUps();
         gregTechOres();
         grinder();
+        gregTechUnlocks();
         uuMatter();
         smelting();
         macerator();
@@ -1047,6 +1048,14 @@ public final class CraftRecipeProvider extends RecipeProvider {
         uu(Ic2Items.SILVER_DUST, 14, "silver_dust", " M ", "MMM", "MMM");
         uu(GtItems.NICKEL_DUST, 10, "nickel_dust", "M  ", "M M", "   ");
         uu(GtItems.ALUMINIUM_DUST, 16, "aluminium_dust", " M ", " M ", "MMM");
+        uu(GtItems.ZINC_DUST, 10, "zinc_dust", "   ", "M M", "M  ");
+        uu(GtItems.TITANIUM_DUST, 2, "titanium_dust", "MMM", " M ", " M ");
+        uu(GtItems.PLATINUM_DUST, 1, "platinum_dust", "  M", "MMM", "MMM");
+        uu(GtItems.TUNGSTEN_DUST, 6, "tungsten_dust", "M  ", "MMM", "MMM");
+        uu(GtItems.RUBY, 2, "ruby", " MM", "MMM", "MM ");
+        uu(GtItems.SAPPHIRE, 2, "sapphire", "MM ", "MMM", " MM");
+        uu(GtItems.GREEN_SAPPHIRE, 2, "green_sapphire", " MM", "MMM", " MM");
+        uu(GtItems.OLIVINE, 2, "olivine", "MM ", "MMM", "MM ");
     }
 
     private void uu(ItemLike result, int count, String name, String... rows) {
@@ -1463,6 +1472,87 @@ public final class CraftRecipeProvider extends RecipeProvider {
                 stack(GtItems.DARK_ASH, 8));
         implosion("yellow_garnet", GtItems.YELLOW_GARNET_DUST, 4, 16, stack(GtItems.YELLOW_GARNET, 3),
                 stack(GtItems.DARK_ASH, 8));
+    }
+
+    /** Materials unlocked by the GT ores (spec 12 §5.2, phase 8e.1). */
+    private void gregTechUnlocks() {
+        // Silver and zinc: blast furnace galena, furnace dust, macerator ingot, bender.
+        blast("silver_and_lead_ingot_from_galena", SizedIngredient.of(GtItems.GALENA_DUST.get(), 2), null, 20, 1500,
+                stack(GtItems.SILVER_INGOT, 1), stack(GtItems.LEAD_INGOT, 1));
+        smelt("silver_ingot_from_dust", Ingredient.of(CraftItemTagsProvider.DUSTS_SILVER), GtItems.SILVER_INGOT, 1, 0.0F);
+        machine(MachineRecipe.Kind.MACERATOR, "silver_ingot", Ingredient.of(CraftItemTagsProvider.INGOTS_SILVER), 1,
+                Ic2Items.SILVER_DUST, 1);
+        smelt("zinc_ingot_from_dust", Ingredient.of(CraftItemTagsProvider.DUSTS_ZINC), GtItems.ZINC_INGOT, 1, 0.0F);
+        machine(MachineRecipe.Kind.MACERATOR, "zinc_ingot", Ingredient.of(CraftItemTagsProvider.INGOTS_ZINC), 1,
+                GtItems.ZINC_DUST, 1);
+        plate("zinc", CraftItemTagsProvider.INGOTS_ZINC, GtItems.ZINC_PLATE, GtItems.ZINC_DUST, GtItems.ZINC_INGOT);
+        plate("silver", CraftItemTagsProvider.INGOTS_SILVER, GtItems.SILVER_PLATE, Ic2Items.SILVER_DUST,
+                GtItems.SILVER_INGOT);
+
+        // Chrome, magnesium, titanium from gem and bauxite dusts.
+        electrolysis("ruby_dust", Ingredient.of(GtItems.RUBY_DUST), 9, 3, 500, 50,
+                stack(GtItems.ALUMINIUM_DUST, 2), stack(GtItems.CHROME_DUST, 1), stack(Ic2Items.AIR_CELL, 3));
+        electrolysis("olivine_dust", Ingredient.of(GtItems.OLIVINE_DUST), 9, 3, 600, 60,
+                stack(GtItems.MAGNESIUM_DUST, 2), stack(Ic2Items.IRON_DUST, 2), stack(GtItems.SILICON_CELL, 1),
+                stack(Ic2Items.AIR_CELL, 2));
+        electrolysis("bauxite_dust", Ingredient.of(GtItems.BAUXITE_DUST), 12, 8, 2000, 128,
+                stack(GtItems.ALUMINIUM_DUST, 8), stack(GtItems.SMALL_TITANIUM_DUST, 2),
+                stack(GtItems.HYDROGEN_CELL, 5), stack(Ic2Items.AIR_CELL, 3));
+
+        // Garnets → sub-dusts (centrifuge) → electrolysis.
+        centrifuge("red_garnet_dust", Ingredient.of(GtItems.RED_GARNET_DUST), 16, 0, 3000,
+                stack(GtItems.PYROPE_DUST, 3), stack(GtItems.ALMANDINE_DUST, 5), stack(GtItems.SPESSARTINE_DUST, 8));
+        centrifuge("yellow_garnet_dust", Ingredient.of(GtItems.YELLOW_GARNET_DUST), 16, 0, 3500,
+                stack(GtItems.ANDRADITE_DUST, 5), stack(GtItems.GROSSULAR_DUST, 8), stack(GtItems.UVAROVITE_DUST, 3));
+        electrolysis("pyrope_dust", Ingredient.of(GtItems.PYROPE_DUST), 20, 9, 1790, 50,
+                stack(GtItems.MAGNESIUM_DUST, 3), stack(GtItems.ALUMINIUM_DUST, 2), stack(GtItems.SILICON_CELL, 3),
+                stack(Ic2Items.AIR_CELL, 6));
+        electrolysis("almandine_dust", Ingredient.of(GtItems.ALMANDINE_DUST), 20, 9, 1640, 50,
+                stack(Ic2Items.IRON_DUST, 3), stack(GtItems.ALUMINIUM_DUST, 2), stack(GtItems.SILICON_CELL, 3),
+                stack(Ic2Items.AIR_CELL, 6));
+        electrolysis("spessartine_dust", Ingredient.of(GtItems.SPESSARTINE_DUST), 20, 9, 1810, 50,
+                stack(GtItems.ALUMINIUM_DUST, 2), stack(GtItems.MANGANESE_DUST, 3), stack(GtItems.SILICON_CELL, 3),
+                stack(Ic2Items.AIR_CELL, 6));
+        electrolysis("andradite_dust", Ingredient.of(GtItems.ANDRADITE_DUST), 20, 12, 1280, 50,
+                stack(GtItems.CALCIUM_CELL, 3), stack(Ic2Items.IRON_DUST, 2), stack(GtItems.SILICON_CELL, 3),
+                stack(Ic2Items.AIR_CELL, 6));
+        electrolysis("grossular_dust", Ingredient.of(GtItems.GROSSULAR_DUST), 20, 12, 2050, 50,
+                stack(GtItems.CALCIUM_CELL, 3), stack(GtItems.ALUMINIUM_DUST, 2), stack(GtItems.SILICON_CELL, 3),
+                stack(Ic2Items.AIR_CELL, 6));
+        electrolysis("uvarovite_dust", Ingredient.of(GtItems.UVAROVITE_DUST), 20, 12, 2200, 50,
+                stack(GtItems.CALCIUM_CELL, 3), stack(GtItems.CHROME_DUST, 2), stack(GtItems.SILICON_CELL, 3),
+                stack(Ic2Items.AIR_CELL, 6));
+
+        // Titanium and chrome: blast furnace only (basicmetalblastfurnacerequirement), macerator back, bender.
+        blast("titanium_ingot", SizedIngredient.of(GtItems.TITANIUM_DUST.get(), 1), null, 1000, 1500,
+                stack(GtItems.TITANIUM_INGOT, 1));
+        blast("chrome_ingot", SizedIngredient.of(GtItems.CHROME_DUST.get(), 1), null, 800, 1700,
+                stack(GtItems.CHROME_INGOT, 1));
+        machine(MachineRecipe.Kind.MACERATOR, "titanium_ingot", Ingredient.of(CraftItemTagsProvider.INGOTS_TITANIUM), 1,
+                GtItems.TITANIUM_DUST, 1);
+        machine(MachineRecipe.Kind.MACERATOR, "chrome_ingot", Ingredient.of(CraftItemTagsProvider.INGOTS_CHROME), 1,
+                GtItems.CHROME_DUST, 1);
+        plate("titanium", CraftItemTagsProvider.INGOTS_TITANIUM, GtItems.TITANIUM_PLATE, GtItems.TITANIUM_DUST,
+                GtItems.TITANIUM_INGOT);
+        plate("chrome", CraftItemTagsProvider.INGOTS_CHROME, GtItems.CHROME_PLATE, GtItems.CHROME_DUST,
+                GtItems.CHROME_INGOT);
+        plate("platinum", CraftItemTagsProvider.INGOTS_PLATINUM, GtItems.PLATINUM_PLATE, GtItems.PLATINUM_DUST,
+                GtItems.PLATINUM_INGOT);
+
+        // Small dusts 4 ↔ 1 (manganese dust exists now).
+        smallDust("magnesium", GtItems.SMALL_MAGNESIUM_DUST, Ingredient.of(CraftItemTagsProvider.DUSTS_MAGNESIUM),
+                GtItems.MAGNESIUM_DUST);
+        smallDust("titanium", GtItems.SMALL_TITANIUM_DUST, Ingredient.of(CraftItemTagsProvider.DUSTS_TITANIUM),
+                GtItems.TITANIUM_DUST);
+        smallDust("chrome", GtItems.SMALL_CHROME_DUST, Ingredient.of(CraftItemTagsProvider.DUSTS_CHROME),
+                GtItems.CHROME_DUST);
+        smallDust("manganese", GtItems.SMALL_MANGANESE_DUST, Ingredient.of(CraftItemTagsProvider.DUSTS_MANGANESE),
+                GtItems.MANGANESE_DUST);
+
+        // Magnalium plate: rolling machine recipe, crafting table without Railcraft.
+        shaped(GtItems.MAGNALIUM_PLATE, 3, "magnalium_plate").pattern("AAA", "MMM", "AAA")
+                .define('A', CraftItemTagsProvider.PLATES_ALUMINIUM).define('M', CraftItemTagsProvider.DUSTS_MAGNESIUM)
+                .save();
     }
 
     /**

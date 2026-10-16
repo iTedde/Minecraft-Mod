@@ -1,0 +1,25 @@
+{
+  "type": "craft:gt_centrifuge",
+  "duration": 3000,
+  "eu_per_tick": 5,
+  "inputs": [
+    {
+      "count": 16,
+      "item": "craft:red_garnet_dust"
+    }
+  ],
+  "outputs": [
+    {
+      "count": 3,
+      "id": "craft:pyrope_dust"
+    },
+    {
+      "count": 5,
+      "id": "craft:almandine_dust"
+    },
+    {
+      "count": 8,
+      "id": "craft:spessartine_dust"
+    }
+  ]
+}

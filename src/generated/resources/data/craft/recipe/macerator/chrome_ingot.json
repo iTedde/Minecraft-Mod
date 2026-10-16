@@ -1,0 +1,10 @@
+{
+  "type": "craft:macerator",
+  "ingredient": {
+    "tag": "c:ingots/chrome"
+  },
+  "result": {
+    "count": 1,
+    "id": "craft:chrome_dust"
+  }
+}

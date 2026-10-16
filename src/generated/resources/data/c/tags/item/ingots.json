@@ -8,6 +8,10 @@
     "#c:ingots/aluminium",
     "#c:ingots/steel",
     "#c:ingots/lead",
-    "#c:ingots/platinum"
+    "#c:ingots/platinum",
+    "#c:ingots/silver",
+    "#c:ingots/zinc",
+    "#c:ingots/titanium",
+    "#c:ingots/chrome"
   ]
 }

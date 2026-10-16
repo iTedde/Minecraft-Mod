@@ -14,6 +14,10 @@
     "#c:dusts/lead",
     "#c:dusts/platinum",
     "#c:dusts/zinc",
-    "#c:dusts/calcite"
+    "#c:dusts/calcite",
+    "#c:dusts/magnesium",
+    "#c:dusts/manganese",
+    "#c:dusts/titanium",
+    "#c:dusts/chrome"
   ]
 }

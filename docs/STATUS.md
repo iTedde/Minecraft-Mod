@@ -949,4 +949,25 @@ NaK-Kühlzellen, kein Vakuumgefrierer) **und die IC2-Nuke**. Teilpakete: 7a IC2-
   Kolben-Varianten, Energiekristall aus Rubin, Lapotron aus Saphir, Glasfaser mit Silber, Windmühle aus Magnalium).
 - Spec-Korrektur: Nanosäbel braucht die **Energiefluss**-Schaltung (`craftingCircuitTier07`), nicht die
   Datenkontroll-Schaltung (`08-rezepte.md`).
-- Teilpakete: 8e.1 Materialien · 8e.2 freigeschaltete Rezepte · 8e.3 Schaltungen und Gehäuse.
+- Teilpakete: 8e.1 Materialien · 8e.2 freigeschaltete Rezepte · 8e.3 Schaltungen und Gehäuse · **8e.4 Wolfram-Kette +
+  Vakuumgefrierer** (entschieden, Nutzer 2026-10-16; Spezifikation folgt vor 8e.4).
+
+## Erledigt (Teilpaket „Phase 8e.1: Materialien“, 2026-10-16)
+- Items (`GtItems`): Silber-, Zink-, Titan-, Chrombarren, Silber-, Zink-, Titan-, Chrom-, Platin-, Magnaliumplatte,
+  Magnesium-, Mangan-, Titan-, Chromstaub, kl. Magnesium-/Titan-/Chromstaub, Pyrop-, Almandin-, Spessartin-,
+  Andradit-, Grossular-, Uwarowitstaub. Tags `c:ingots|plates|dusts/*`, Texturen aus `GregTech.zip` (`metaitems/*`).
+- Rezepte (`CraftRecipeProvider.gregTechUnlocks`): Galena-Hochofen → Silber + Blei, Silber-/Zinkstaub im Ofen,
+  Rubin-/Olivin-/Bauxit-Elektrolyse (Chrom, Magnesium, kl. Titan), Granat-Zentrifuge + sechs Unterstaub-Elektrolysen,
+  Titan (1500 K) und Chrom (1700 K) nur im Hochofen, Macerator Barren → Staub, Plattenbieger für Silber/Zink/Titan/
+  Chrom/Platin, kleine Stäube 4 ↔ 1 (jetzt auch Mangan), Magnaliumplatte (Walzmaschinen-Rezept an der Werkbank).
+- UU-Materie: Titan-, Zinkstaub; nachgetragen Rubin, Saphir, grüner Saphir, Olivin, Platin-, Wolframstaub.
+- Massefabrikator: Manganstaub 5000, Wolframstaub 50 000 (nachgetragen). Schrottbox: Chrom-, Titan-, Magnesiumstaub,
+  Netherrackstaub (nachgetragen).
+- 4 neue GameTests (`GtUnlockGameTests`, insgesamt 201 grün), `build` und `runClient` (Hauptmenü, keine Mod-Fehler)
+  erfolgreich.
+
+## Nächste Schritte
+1. Teilpaket 8e.2: freigeschaltete Rezepte (`12-gregtech-materialien.md` §5.3 ohne Gehäuse).
+2. Manuelle Client-Tests 8e.1: Bauxitstaub (12 + 8 Zellen) im Elektrolyseur → kl. Titanstaub → Titanstaub →
+   Hochofen (≥ 1500 K) → Titanbarren → Plattenbieger; Rubinstaub → Chromstaub → Hochofen (≥ 1700 K); Granatstaub in der
+   Zentrifuge; Galenastaub im Hochofen; UU-Materie-Rezepte an fester Position.

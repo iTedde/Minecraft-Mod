@@ -1,0 +1,18 @@
+{
+  "type": "craft:gt_blast_furnace",
+  "duration": 1000,
+  "eu_per_tick": 128,
+  "inputs": [
+    {
+      "count": 1,
+      "item": "craft:titanium_dust"
+    }
+  ],
+  "outputs": [
+    {
+      "count": 1,
+      "id": "craft:titanium_ingot"
+    }
+  ],
+  "special": 1500
+}

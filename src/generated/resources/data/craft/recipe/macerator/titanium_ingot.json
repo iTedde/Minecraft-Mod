@@ -1,0 +1,10 @@
+{
+  "type": "craft:macerator",
+  "ingredient": {
+    "tag": "c:ingots/titanium"
+  },
+  "result": {
+    "count": 1,
+    "id": "craft:titanium_dust"
+  }
+}

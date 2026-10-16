@@ -71,7 +71,9 @@ public class MassFabricatorBlockEntity extends MachineBlockEntity implements Ene
                 Map.entry(GtItems.SAPPHIRE_DUST.get(), 50000),
                 Map.entry(GtItems.GREEN_SAPPHIRE_DUST.get(), 50000),
                 Map.entry(GtItems.OLIVINE_DUST.get(), 50000),
-                Map.entry(GtItems.PLATINUM_DUST.get(), 100000));
+                Map.entry(GtItems.PLATINUM_DUST.get(), 100000),
+                Map.entry(GtItems.TUNGSTEN_DUST.get(), 50000),
+                Map.entry(GtItems.MANGANESE_DUST.get(), 5000));
     }
 
     public int getEnergy() {

@@ -1,0 +1,10 @@
+{
+  "type": "craft:macerator",
+  "ingredient": {
+    "item": "craft:titanium_plate"
+  },
+  "result": {
+    "count": 1,
+    "id": "craft:titanium_dust"
+  }
+}

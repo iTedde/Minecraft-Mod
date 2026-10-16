@@ -248,6 +248,31 @@ public final class GtItems {
     public static final DeferredItem<GtMaterialItem> IRIDIUM_NUGGET = material("iridium_nugget", "Ir");
     public static final DeferredItem<GtMaterialItem> DIAMOND_GRINDER = component("diamond_grinder");
 
+    // --- unlocks (phase 8e.1): Material 13/17/19/20/24/76/77/79/82, Dust 12/13/19/20/56–61, SmallDust 13/19/20 ---
+    public static final DeferredItem<GtMaterialItem> SILVER_INGOT = material("silver_ingot", "Ag");
+    public static final DeferredItem<GtMaterialItem> SILVER_PLATE = material("silver_plate", "Ag");
+    public static final DeferredItem<GtMaterialItem> ZINC_INGOT = material("zinc_ingot", "Zn");
+    public static final DeferredItem<GtMaterialItem> ZINC_PLATE = material("zinc_plate", "Zn");
+    public static final DeferredItem<GtMaterialItem> TITANIUM_INGOT = material("titanium_ingot", "Ti");
+    public static final DeferredItem<GtMaterialItem> TITANIUM_PLATE = material("titanium_plate", "Ti");
+    public static final DeferredItem<GtMaterialItem> CHROME_INGOT = material("chrome_ingot", "Cr");
+    public static final DeferredItem<GtMaterialItem> CHROME_PLATE = material("chrome_plate", "Cr");
+    public static final DeferredItem<GtMaterialItem> PLATINUM_PLATE = material("platinum_plate", "Pt");
+    public static final DeferredItem<GtMaterialItem> MAGNALIUM_PLATE = material("magnalium_plate", "MgAl2");
+    public static final DeferredItem<GtMaterialItem> MAGNESIUM_DUST = material("magnesium_dust", "Mg");
+    public static final DeferredItem<GtMaterialItem> MANGANESE_DUST = material("manganese_dust", "Mn");
+    public static final DeferredItem<GtMaterialItem> TITANIUM_DUST = material("titanium_dust", "Ti");
+    public static final DeferredItem<GtMaterialItem> CHROME_DUST = material("chrome_dust", "Cr");
+    public static final DeferredItem<GtMaterialItem> SMALL_MAGNESIUM_DUST = material("small_magnesium_dust", "Mg");
+    public static final DeferredItem<GtMaterialItem> SMALL_TITANIUM_DUST = material("small_titanium_dust", "Ti");
+    public static final DeferredItem<GtMaterialItem> SMALL_CHROME_DUST = material("small_chrome_dust", "Cr");
+    public static final DeferredItem<GtMaterialItem> PYROPE_DUST = material("pyrope_dust", "Al2Mg3Si3O12");
+    public static final DeferredItem<GtMaterialItem> ALMANDINE_DUST = material("almandine_dust", "Al2Fe3Si3O12");
+    public static final DeferredItem<GtMaterialItem> SPESSARTINE_DUST = material("spessartine_dust", "Al2Mn3Si3O12");
+    public static final DeferredItem<GtMaterialItem> ANDRADITE_DUST = material("andradite_dust", "Ca3Fe2Si3O12");
+    public static final DeferredItem<GtMaterialItem> GROSSULAR_DUST = material("grossular_dust", "Ca3Al2Si3O12");
+    public static final DeferredItem<GtMaterialItem> UVAROVITE_DUST = material("uvarovite_dust", "Ca3Cr2Si3O12");
+
     public static DeferredItem<BlockItem> ore(GtOre ore) {
         return ORES.get(ore);
     }

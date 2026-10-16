@@ -82,7 +82,7 @@ Railcraft = false → Walzmaschinen-Rezepte als Werkbankrezept (wie Kupfernickel
 
 | Item | GT-Meta (Textur) | OreDict |
 |---|---|---|
-| Silberbarren | Material 17 (`materials.png` 17) | `ingotSilver` |
+| Silberbarren, Silberplatte | Material 17, 69 (`materials.png`) | `ingotSilver`, `plateSilver` |
 | Zinkbarren, Zinkplatte | Material 24, 82 | `ingotZinc`, `plateZinc` |
 | Titanbarren, Titanplatte | Material 19, 77 | `ingotTitanium`, `plateTitanium` |
 | Chrombarren, Chromplatte | Material 20, 76 | `ingotChrome`, `plateChrome` |
@@ -138,8 +138,12 @@ Kleine Stäube jeweils 4 ↔ 1 an der Werkbank (`dustSmall`-Handler); bei Mangan
 | `CTC/TMT/CTC`, C = Chromplatte, T = Titanplatte, M = Stahl-Maschinenhülle (`craftingRawMachineTier02`) | Werkbank | Hochentwickelter Maschinenblock | – |
 
 Magnesium-/Manganbarren gibt es in GT 2.90 nicht (Handler nur für Fremd-Mods) → entfallen.
-Massefabrikator-Verstärker: Manganstaub 5000 (`abweichungen.md` „GT-Verstärker“ damit teilweise erledigt).
-Schrottbox (GT-Liste): Chrom-, Titan-, Magnesiumstaub je 0,03; Zinkstaub 0,5; Elite-Platine 0,2.
+Massefabrikator-Verstärker: Manganstaub 5000; nachgetragen (fehlte seit 8c) Wolframstaub 50 000.
+Schrottbox (GT-Liste): Chrom-, Titan-, Magnesiumstaub je 0,03; Elite-Platine 0,2 (mit 8e.3); nachgetragen Netherrackstaub 4,0
+(fehlte seit 8d.2). Zinkstaub 0,5 war schon da.
+UU-Materie (GT, `uumrecipe` im Pack alle true, feste Position): 2 Titanstaub `UUU/ U / U `, 10 Zinkstaub `   /U U/U  `;
+nachgetragen (fehlten seit 8c): 2 Rubine ` UU/UUU/UU `, 2 Saphire `UU /UUU/ UU`, 2 grüne Saphire ` UU/UUU/ UU`, 2 Olivine
+`UU /UUU/UU `, 1 Platinstaub `  U/UUU/UUU`, 6 Wolframstaub `U  /UUU/UUU`.
 
 ### 5.3 Freigeschaltete Rezepte bestehender Items
 
@@ -160,7 +164,7 @@ Schrottbox (GT-Liste): Chrom-, Titan-, Magnesiumstaub je 0,03; Zinkstaub 0,5; El
 
 ### 5.4 Nicht im Umfang 8e
 
-- **Wolfram-Kette (Nutzerentscheidung offen):** Mit Kanthal-Spulen (+500 K) und fortgeschrittenen Gehäusen
+- **Wolfram-Kette – entschieden (Nutzer, 2026-10-16): Teilpaket 8e.4 zusammen mit dem Vakuumgefrierer.** Mit Kanthal-Spulen (+500 K) und fortgeschrittenen Gehäusen
   (34 × 70 K) erreicht der Hochofen 2500 K → Wolframbarren (Wolframstaub, 2000 / 128 / 2500 K), Wolframplatte,
   Wolframstahl (Wolfram + Stahl → 2 heiße Wolframstahlbarren + 4 dunkle Asche, 2000 / 128 / 3000 K; Vakuumgefrierer
   kühlt), Wolfram-Schleifkopf, weitere Mischmetall-Varianten, Energiefluss-Schaltung per Werkbank (`AWA/LIL/AWA`).

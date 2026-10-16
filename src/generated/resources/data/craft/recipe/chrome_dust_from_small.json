@@ -1,0 +1,21 @@
+{
+  "type": "craft:ic2_shapeless",
+  "ingredients": [
+    {
+      "item": "craft:small_chrome_dust"
+    },
+    {
+      "item": "craft:small_chrome_dust"
+    },
+    {
+      "item": "craft:small_chrome_dust"
+    },
+    {
+      "item": "craft:small_chrome_dust"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:chrome_dust"
+  }
+}

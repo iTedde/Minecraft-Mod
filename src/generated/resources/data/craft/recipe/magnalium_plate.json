@@ -1,0 +1,20 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "A": {
+      "tag": "c:plates/aluminium"
+    },
+    "M": {
+      "tag": "c:dusts/magnesium"
+    }
+  },
+  "pattern": [
+    "AAA",
+    "MMM",
+    "AAA"
+  ],
+  "result": {
+    "count": 3,
+    "id": "craft:magnalium_plate"
+  }
+}

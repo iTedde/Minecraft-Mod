@@ -1,0 +1,21 @@
+{
+  "type": "craft:ic2_shapeless",
+  "ingredients": [
+    {
+      "item": "craft:small_magnesium_dust"
+    },
+    {
+      "item": "craft:small_magnesium_dust"
+    },
+    {
+      "item": "craft:small_magnesium_dust"
+    },
+    {
+      "item": "craft:small_magnesium_dust"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:magnesium_dust"
+  }
+}

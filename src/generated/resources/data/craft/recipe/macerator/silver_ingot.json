@@ -1,0 +1,10 @@
+{
+  "type": "craft:macerator",
+  "ingredient": {
+    "tag": "c:ingots/silver"
+  },
+  "result": {
+    "count": 1,
+    "id": "craft:silver_dust"
+  }
+}

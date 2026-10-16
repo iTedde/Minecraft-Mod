@@ -1,0 +1,12 @@
+{
+  "type": "craft:ic2_shapeless",
+  "ingredients": [
+    {
+      "tag": "c:dusts/titanium"
+    }
+  ],
+  "result": {
+    "count": 4,
+    "id": "craft:small_titanium_dust"
+  }
+}
