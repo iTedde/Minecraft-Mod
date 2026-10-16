@@ -1022,3 +1022,20 @@ NaK-Kühlzellen, kein Vakuumgefrierer) **und die IC2-Nuke**. Teilpakete: 7a IC2-
    Zentrifuge; Galenastaub im Hochofen; UU-Materie-Rezepte an fester Position.
 4. Manuelle Client-Tests 8e.2: Diamantbohrer → Quarry; Bergbaulaser (Ladung des Energiekristalls geht über);
    Kanthal-Spulen im Hochofen (+ Hitze); Magnalium-Windmühle im Assembler.
+
+## Abnahme Phase 8 (Nutzer, 2026-10-16)
+- **Abgenommen.**
+
+# Stand Phase 9 (2026-10-16)
+
+## Entscheidungen (Nutzer, 2026-10-16)
+- Balancing freigegeben: Wassermühle/Wasserturbine wie `balancing.md` §3.2, Wind wie §3.3, Kohlekraftwerk wie §3.4
+  mit **Koks = 32 000 EU** im Kraftwerk.
+- Koks-Brennwert sonst wie Kohle (1600 Ticks); Dampf per direktem Kontakt (Kessel schiebt in Nachbarn) + Fluid-
+  Capability; Bauformen/Rezepte wie `spec/14-kraftwerke.md`; Wasserturbine ohne GUI (Chatmeldung).
+
+## Erledigt (Teilpaket „Phase 9.0: Spezifikation“, 2026-10-16)
+- `docs/spec/14-kraftwerke.md` (Koksofen, Kessel, Dampfturbine, Wasserturbine, Wassermühle/Windmühle neu).
+
+## Nächste Schritte
+1. 9.1 Wassermühle/Windmühle nach §6–7 · 9.2 Koksofen + Koks · 9.3 Kessel + Dampf + Dampfturbine · 9.4 Wasserturbine.

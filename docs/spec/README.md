@@ -29,6 +29,8 @@ Vanilla-Klassen/-Felder tragen lesbare Namen (`Block.cobblestone`, `Item.redston
 | `11-compact-solars.md` | Compact Solars (Arrays, Solar-Hüte) |
 | `12-gregtech-materialien.md` | benötigte GT-Materialien und Herstellungsweg im Pack |
 | `13-gregtech-maschinen.md` | GT-Maschinen 1:1 (Basis BasicMachine, Upgrades, Explosionen, GUI; Plattenbieger, Platten, Mischmetall) |
+| `14-kraftwerke.md` | neue Kraftwerke (Koksofen, Kessel, Dampfturbine, Wasserturbine), Balancing Wassermühle/Windmühle (Phase 9) |
+| `14-kraftwerke.md` | neue Kraftwerke (Koksofen, Kessel, Dampfturbine, Wasserturbine), Balancing Wassermühle/Windmühle (Phase 9) |
 
 Ergänzend: `docs/balancing.md` (Vorschlag, nicht freigegeben), `docs/abweichungen.md`.
 

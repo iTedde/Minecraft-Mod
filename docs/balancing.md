@@ -156,7 +156,7 @@ Gewitterspitzen, Kohle hat einen sinnvollen Ausbaupfad, Öl ist die lagerbare Ho
 
 1. ~~Solar-Variante~~ **Freigegeben (2026-10-15):** „Fläche der Panels“ (3×3 / 9×9 / 27×27), Mitte rekursiv mit
    Deckel, Controller-Rezept = Trafo 1:1 – Details `spec/11-compact-solars.md` §4.
-2. Wassermühlen-/Turbinen-Werte.
-3. Wind-Faktoren.
-4. Kohlekraftwerk-Werte (16 000 EU/Kohle, 20 mB/t Dampf = 20 EU/t pro Kessel, Koks 32 000 EU oder neutral,
+2. ~~Wassermühlen-/Turbinen-Werte~~ **Freigegeben (2026-10-16)** wie §3.2 – Details `spec/14-kraftwerke.md` §5–6.
+3. ~~Wind-Faktoren~~ **Freigegeben (2026-10-16)** wie §3.3 – Details `spec/14-kraftwerke.md` §7.
+4. ~~Kohlekraftwerk-Werte~~ **Freigegeben (2026-10-16): Koks 32 000 EU** (Brennwert sonst wie Kohle) – Details `spec/14-kraftwerke.md` §1–4. Vorschlag war: (16 000 EU/Kohle, 20 mB/t Dampf = 20 EU/t pro Kessel, Koks 32 000 EU oder neutral,
    Asche-Regel, Explosion).

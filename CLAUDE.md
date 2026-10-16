@@ -74,8 +74,8 @@ MJ und EU bleiben getrennte Systeme; Verbindung nur über Electrical Engine (EU�
 | 6 | IC2 Mid/Late Game: 6.1 MFE, MFSU, Trafos · 6.2 Elektrowerkzeuge + Tastensystem · 6.3 Nano-/Quanten-/Utility-Rüstung · 6.4 Mass Fabricator, Solar Arrays als Multiblocks | **erledigt** (abgenommen) |
 | 6b | GregTech-Maschinen 1:1 (Elektrolyseur, Hochofen-Multiblock + Heizspulen, Plattenbieger, Assembler, ggf. weitere) und GT-Materialien; danach Rezepte für Solarpanel, Wasser-/Windmühle u. a. [GT⚠]. Teilpakete: 6b.1 Plattenbieger (erledigt) · 6b.2 Elektrolyseur (erledigt) · 6b.3 Hochofen (erledigt) · 6b.4 Assembler (erledigt) · 6b.5a Canning Machine IC2 + GT (erledigt) · 6b.5b Implosionskompressor (erledigt) · 6b.5c Zentrifuge (erledigt, erreichbare Rezepte) | **erledigt** (abgenommen) |
 | 7 | Reaktor: 7a IC2-Reaktor (erledigt) · 7b erreichbare GT-Reaktorteile (erledigt) · 7c Nuke (erledigt) | **erledigt** – wartet auf Abnahme |
-| 8 | GT-Nachträge: 8a NaK-Kühlzellen (Natrium aus Sodalith, Kalium aus Enderperlenstaub) + Containment-Reaktorplatte mit Bleiplatte (erledigt) · 8b Spezifikation GT-Weltgen (erledigt) · 8c **alle GT-Erze** (Weltgen) und was sie freischalten (erledigt, erreichbare Rezepte) · 8d.1 IC2-Pumpe + Bergbaurohr (erledigt) · 8d.2 Industrial Grinder (erledigt) · 8e Freischaltungen (Spezifikation erledigt; 8e.1 Materialien (erledigt) · 8e.2 Rezepte (erledigt) · 8e.3 Schaltungen/Gehäuse (erledigt) · 8e.4 Wolfram-Kette + Vakuumgefrierer (erledigt)) | **erledigt** – wartet auf Abnahme |
-| 9 | Neue Kraftwerke: Kohlekraftwerk mit Koksofen, Wasserturbine | offen |
+| 8 | GT-Nachträge: 8a NaK-Kühlzellen (Natrium aus Sodalith, Kalium aus Enderperlenstaub) + Containment-Reaktorplatte mit Bleiplatte (erledigt) · 8b Spezifikation GT-Weltgen (erledigt) · 8c **alle GT-Erze** (Weltgen) und was sie freischalten (erledigt, erreichbare Rezepte) · 8d.1 IC2-Pumpe + Bergbaurohr (erledigt) · 8d.2 Industrial Grinder (erledigt) · 8e Freischaltungen (Spezifikation erledigt; 8e.1 Materialien (erledigt) · 8e.2 Rezepte (erledigt) · 8e.3 Schaltungen/Gehäuse (erledigt) · 8e.4 Wolfram-Kette + Vakuumgefrierer (erledigt)) | **erledigt** (abgenommen) |
+| 9 | Neue Kraftwerke (`docs/spec/14-kraftwerke.md`): 9.0 Spezifikation (erledigt) · 9.1 Wassermühle/Windmühle neu · 9.2 Koksofen + Koks · 9.3 Kessel + Dampf + Dampfturbine · 9.4 Wasserturbine | **in Arbeit** |
 | 10 | BuildCraft-Rohre (fest im Umfang) | offen |
 | 11 | Feinschliff: Texturen, EMI-Integration (Rezeptanzeige), Xaero's Minimap mitinstallieren, Tests | offen |
 
@@ -92,7 +92,7 @@ Personal-Blöcke, Luminator, Sprengstoffe (Industrie-TNT erledigt in 6b.5b, Nuke
 1. ~~GT-Erze~~ **Entschieden (2026-10-16):** **alle** GT-Erze wie im Pack werden in Phase 8 generiert.
    Der Herstellungsweg selbst ist entschieden (s. u.).
 2. ~~Massefabrikator~~ **Entschieden:** IC2-Massefabrikator 1:1 mit IC2-Rezept (kein GT Matter Fabricator).
-3. Balancing-Vorschlag freigeben (`docs/balancing.md` §5) – **Solar freigegeben** (Fläche der Panels), Rest offen.
+3. ~~Balancing-Vorschlag~~ **Freigegeben:** Solar (2026-10-15), Wasser, Wind, Kohlekraftwerk mit Koks 32 000 EU (2026-10-16) – `docs/balancing.md` §5.
 4. GT-Nicht-Rezept-Änderungen: Upgrade-Stack 4 und Recycler-Blacklist noch offen. **Entschieden:** Schrottbox-Drops wie im Pack – GT ersetzt die IC2-Liste (Schrott 200 + GT-Liste; GT-Items erst, wenn es sie gibt).
 5. ~~Iridiumerz-Generierung (GT)~~ **Entschieden:** wie im Pack (Teil der GT-Erze, Phase 8).
 6. Rezeptanzeige und Minimap (Nutzerwunsch 2026-10-15): **Entschieden:** **EMI** (statt NEI, das es für 1.21 nicht gibt) mit eigener Integration (Rezeptkategorien für IC2-/GT-/BC-/Forestry-Maschinen, Phase 11); Minimap **Xaero's Minimap**, nur mitinstalliert (keine eigene Integration).
