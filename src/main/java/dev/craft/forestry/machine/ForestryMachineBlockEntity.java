@@ -60,6 +60,15 @@ public abstract class ForestryMachineBlockEntity extends BlockEntity implements 
     /** {@code Machine.doWork}: one work step; {@code true} uses the activation energy. */
     protected abstract boolean machineWork();
 
+    /** {@code Machine.isWorking}. */
+    public abstract boolean isWorking();
+
+    /** {@code TileMachine.powerRequest}: while working a fifth of the activation energy + 1. */
+    @Override
+    public int powerRequest() {
+        return isWorking() ? Math.min(provider.getMaxEnergyReceived(), provider.getActivationEnergy() / 5 + 1) : 0;
+    }
+
     /** {@code Machine.updateServerSide}: runs every tick. */
     protected abstract void updateServerSide();
 

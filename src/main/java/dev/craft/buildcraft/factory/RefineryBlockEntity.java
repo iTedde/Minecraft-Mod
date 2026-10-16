@@ -37,6 +37,8 @@ public class RefineryBlockEntity extends BlockEntity implements PowerReceptor, M
     public static final int LIQUID_PER_SLOT = 4000;
 
     private final PowerProvider provider = new PowerProvider();
+    /** {@code isActive}: set every tick, not saved. */
+    private boolean isActive;
     private final FluidTank ingredient1 = tank();
     private final FluidTank ingredient2 = tank();
     private final FluidTank result = tank();
@@ -87,6 +89,12 @@ public class RefineryBlockEntity extends BlockEntity implements PowerReceptor, M
     public void doWork() {
     }
 
+    /** {@code TileMachine.powerRequest}: only while a recipe has room and input ({@code isActive}). */
+    @Override
+    public int powerRequest() {
+        return isActive ? provider.missingEnergyRequest() : 0;
+    }
+
     public IFluidHandler getFluidHandler() {
         return fluidHandler;
     }
@@ -131,6 +139,7 @@ public class RefineryBlockEntity extends BlockEntity implements PowerReceptor, M
         if (updateNetworkTime.markTimeIfDelay(level, 2)) {
             level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), 2);
         }
+        isActive = false;
         RefineryRecipe currentRecipe = RefineryRecipe.find(ingredient1.getFluid(), ingredient2.getFluid());
         if (currentRecipe == null) {
             decreaseAnimation();
@@ -141,6 +150,7 @@ public class RefineryBlockEntity extends BlockEntity implements PowerReceptor, M
                 != currentRecipe.result().getAmount()) {
             decreaseAnimation();
         } else if (containsInput(currentRecipe.ingredient1()) && containsInput(currentRecipe.ingredient2())) {
+            isActive = true;
             if (provider.getEnergyStored() >= currentRecipe.energy()) {
                 increaseAnimation();
             } else {

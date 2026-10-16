@@ -65,6 +65,12 @@ public class MiningWellBlockEntity extends BlockEntity implements PowerReceptor 
         }
     }
 
+    /** {@code TileMachine.powerRequest}: only while digging ({@code isActive}). */
+    @Override
+    public int powerRequest() {
+        return isDigging ? provider.missingEnergyRequest() : 0;
+    }
+
     public boolean isDigging() {
         return isDigging;
     }

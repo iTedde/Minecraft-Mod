@@ -98,6 +98,12 @@ public class QuarryBlockEntity extends BlockEntity implements PowerReceptor {
     public void doWork() {
     }
 
+    /** {@code TileMachine.powerRequest}: only while digging ({@code isActive}). */
+    @Override
+    public int powerRequest() {
+        return isDigging ? provider.missingEnergyRequest() : 0;
+    }
+
     public void setPlacedBy(Player player) {
         this.placedBy = player;
     }

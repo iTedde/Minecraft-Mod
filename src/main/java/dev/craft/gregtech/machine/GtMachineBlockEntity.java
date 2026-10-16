@@ -295,6 +295,12 @@ public abstract class GtMachineBlockEntity extends MachineBlockEntity implements
         return powerProvider;
     }
 
+    /** {@code BaseMetaTileEntityMJ.powerRequest}; without a provider no pipe sees this receiver anyway. */
+    @Override
+    public int powerRequest() {
+        return powerProvider != null ? powerProvider.missingEnergyRequest() : 0;
+    }
+
     /** GT never calls {@link PowerProvider#update}, so this never runs. */
     @Override
     public void doWork() {

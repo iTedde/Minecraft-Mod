@@ -27,7 +27,12 @@ public enum PipeType {
             "iron_fluid_output"),
     GOLDEN_FLUID("golden_fluid_pipe", Transport.FLUIDS, PipeMaterial.GOLD, "golden_fluid", null),
     EMERALD_FLUID("emerald_fluid_pipe", Transport.FLUIDS, PipeMaterial.EMERALD, "emerald_fluid", "emerald_source"),
-    VOID_FLUID("void_fluid_pipe", Transport.FLUIDS, PipeMaterial.VOID, "void_fluid", null);
+    VOID_FLUID("void_fluid_pipe", Transport.FLUIDS, PipeMaterial.VOID, "void_fluid", null),
+    WOODEN_POWER("wooden_power_pipe", Transport.POWER, PipeMaterial.WOOD, "wooden_power", "wooden_source"),
+    STONE_POWER("stone_power_pipe", Transport.POWER, PipeMaterial.STONE, "stone_power", null),
+    GOLDEN_POWER("golden_power_pipe", Transport.POWER, PipeMaterial.GOLD, "golden_power", null),
+    COBBLESTONE_STRUCTURE("cobblestone_structure_pipe", Transport.STRUCTURE, PipeMaterial.COBBLESTONE,
+            "cobblestone_structure", null);
 
     private final String name;
     private final Transport transport;

@@ -46,6 +46,7 @@ public final class BuildCraftClient {
         event.registerBlockEntityRenderer(BcBlockEntityTypes.REFINERY.get(), RefineryRenderer::new);
         event.registerBlockEntityRenderer(BcBlockEntityTypes.ITEM_PIPE.get(), PipeItemRenderer::new);
         event.registerBlockEntityRenderer(BcBlockEntityTypes.FLUID_PIPE.get(), PipeFluidRenderer::new);
+        event.registerBlockEntityRenderer(BcBlockEntityTypes.POWER_PIPE.get(), PipePowerRenderer::new);
     }
 
     @SubscribeEvent

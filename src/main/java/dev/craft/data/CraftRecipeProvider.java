@@ -787,6 +787,10 @@ public final class CraftRecipeProvider extends RecipeProvider {
         pipe(PipeType.GOLDEN_FLUID, BcItems.PIPE_WATERPROOF, PipeType.GOLDEN_TRANSPORT);
         pipe(PipeType.EMERALD_FLUID, BcItems.PIPE_WATERPROOF, PipeType.EMERALD_TRANSPORT);
         pipe(PipeType.VOID_FLUID, BcItems.PIPE_WATERPROOF, PipeType.VOID_TRANSPORT);
+        pipe(PipeType.WOODEN_POWER, Items.REDSTONE, PipeType.WOODEN_TRANSPORT);
+        pipe(PipeType.STONE_POWER, Items.REDSTONE, PipeType.STONE_TRANSPORT);
+        pipe(PipeType.GOLDEN_POWER, Items.REDSTONE, PipeType.GOLDEN_TRANSPORT);
+        pipe(PipeType.COBBLESTONE_STRUCTURE, Items.GRAVEL, PipeType.COBBLESTONE_TRANSPORT);
     }
 
     /** BuildCraft {@code createPipe} with two ingredients: shapeless, one pipe. */

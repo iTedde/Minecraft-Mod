@@ -172,6 +172,7 @@ public class CarpenterBlockEntity extends ForestryMachineBlockEntity {
     }
 
     /** {@code isWorking}: shows the progress bar. */
+    @Override
     public boolean isWorking() {
         return packageTime > 0 || !pendingProduct.isEmpty() || currentRecipe != null && validateResources();
     }

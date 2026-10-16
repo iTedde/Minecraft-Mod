@@ -59,6 +59,12 @@ public class FabricatorBlockEntity extends ForestryMachineBlockEntity {
         return moltenTank;
     }
 
+    /** {@code MachineFabricator.isWorking}: not above the maximum heat. */
+    @Override
+    public boolean isWorking() {
+        return heat <= MAX_HEAT;
+    }
+
     public int getHeat() {
         return heat;
     }

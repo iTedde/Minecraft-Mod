@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "minecraft:gravel"
+    },
+    {
+      "item": "craft:cobblestone_transport_pipe"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:cobblestone_structure_pipe"
+  }
+}

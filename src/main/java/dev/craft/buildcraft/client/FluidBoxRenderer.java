@@ -32,7 +32,12 @@ final class FluidBoxRenderer {
         IClientFluidTypeExtensions extensions = IClientFluidTypeExtensions.of(fluid.getFluid());
         TextureAtlasSprite sprite = Minecraft.getInstance().getTextureAtlas(InventoryMenu.BLOCK_ATLAS)
                 .apply(extensions.getStillTexture(fluid));
-        int color = extensions.getTintColor(fluid);
+        render(pose, buffers, sprite, extensions.getTintColor(fluid), x0, y0, z0, x1, y1, z1, light);
+    }
+
+    /** One box with a block-atlas sprite, the texture cut to the box bounds. */
+    static void render(PoseStack pose, MultiBufferSource buffers, TextureAtlasSprite sprite, int color, float x0,
+                       float y0, float z0, float x1, float y1, float z1, int light) {
         VertexConsumer c = buffers.getBuffer(RenderType.entityTranslucent(InventoryMenu.BLOCK_ATLAS));
         PoseStack.Pose last = pose.last();
         float u0 = sprite.getU(x0);

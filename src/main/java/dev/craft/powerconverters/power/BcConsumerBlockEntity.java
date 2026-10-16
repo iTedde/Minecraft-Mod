@@ -54,6 +54,12 @@ public class BcConsumerBlockEntity extends EnergyConsumerBlockEntity<PowerRecept
     public void doWork() {
     }
 
+    /** Demand of all bridges in MJ ({@code getTotalEnergyDemand / internalEnergyPerInput}). */
+    @Override
+    public int powerRequest() {
+        return getTotalEnergyDemand() / powerSystem.getEnergyPerInput();
+    }
+
     @Override
     public int getInputRate() {
         return mjLastTick;

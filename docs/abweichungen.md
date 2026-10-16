@@ -86,7 +86,7 @@ Status: *geplant* (aus Phase 1 abgeleitet, noch nicht umgesetzt), *entschieden* 
 | Raffinerie: Filter | Flüssigkeits-ID + Meta, Setzen per eigenem Paket (`PacketUpdate` 50) | Flüssigkeit (Registry), Setzen über das Vanilla-Menü-Button-Paket (Server liest den Behälter am Mauszeiger); Filterfelder zeigen die Flüssigkeitstextur statt des Block-Icons | idiomatisch, kein eigenes Paket nötig | **umgesetzt** |
 | Raffinerie: Rezept | `"   ", "RTR", "TGT"` – nur in den unteren zwei Reihen | 1.21 entfernt die leere Reihe: passt auch in die oberen zwei Reihen | Rezeptformat | **umgesetzt** |
 | Raffinerie: Forestry-Rezept | Biomasse → Biotreibstoff (Forestry) | entfällt | Forestry-Flüssigkeiten nicht im Umfang | **umgesetzt** |
-| Raffinerie/Pumpe/Mining Well: `powerRequest`, `getTank(Seite)`, Rohr-Ausgabe | für Rohre und Gates | noch nicht umgesetzt | erst mit den Rohren (Phase 10) relevant | **offen bis Phase 10** |
+| Raffinerie/Pumpe/Mining Well: `powerRequest`, `getTank(Seite)`, Rohr-Ausgabe | für Rohre und Gates | noch nicht umgesetzt | erst mit den Rohren (Phase 10) relevant | `powerRequest` in 10.4 umgesetzt (alle Empfänger); Rohr-Ausgabe in 10.1; `getTank(Seite)` entfällt (Fluid-Capability) |
 | Mining Well: Tiefe | bis y 0 | bis zur Weltuntergrenze | 1.18-Weltgeometrie | **umgesetzt** |
 | Minenrohr | Block mit Item (nicht im Creative-Tab) | Block ohne Item | wird nie gedroppt oder gesetzt | **umgesetzt** |
 | Forestry-Zeitbasis (Arbeitstakt alle 5 Ticks, Carpenter 20/40 Ticks) | `getWorldTime()` | `getGameTime()` | wie BC-Zeitbasis | **umgesetzt** |
@@ -199,7 +199,7 @@ Status: *geplant* (aus Phase 1 abgeleitet, noch nicht umgesetzt), *entschieden* 
 | Kondensator-Reparatur | `RecipeGradual` | eigener Rezepttyp `craft:gradual_repair` (Item + beliebig viel Material, Abzug je Material) | eigener Rezepttyp | **umgesetzt** |
 | Reaktorkammer: Abfallen | `dropBlockAsItem` + Block entfernen bei Nachbaränderung | `popResource` + `removeBlock` in `neighborChanged`; Platzieren nur bei genau einem Reaktor (`getStateForPlacement`) | Block-API | **umgesetzt** |
 | Schadensart „nuke“ | Todesnachricht „%1$s was nuked“ (nur Englisch) | `craft:nuke`, Deutsch „%1$s wurde atomisiert“; löst wie im Original den Strahlungseffekt der IC2-Explosion aus | Doku auf Deutsch | **umgesetzt** |
-| BC-Rohre (Phase 10) | ein Block `pipe.id`, Inventarseiten über `ISidedInventory`/2-3-Slot-Sonderfälle, Rohre ohne Inventar | ein Block je Rohrtyp, Seiten nur über die 1.21-Item-Capability, keine Item-Capability an Rohren; Einzelheiten `spec/15-rohre.md` §8 | Nutzerfreigabe 2026-10-16 | **10.1–10.2 umgesetzt** |
+| BC-Rohre (Phase 10) | ein Block `pipe.id`, Inventarseiten über `ISidedInventory`/2-3-Slot-Sonderfälle, Rohre ohne Inventar | ein Block je Rohrtyp, Seiten nur über die 1.21-Item-Capability, keine Item-Capability an Rohren; Einzelheiten `spec/15-rohre.md` §8 | Nutzerfreigabe 2026-10-16 | **10.1–10.4 umgesetzt** |
 
 ## Bewusst (Energiebalancing)
 

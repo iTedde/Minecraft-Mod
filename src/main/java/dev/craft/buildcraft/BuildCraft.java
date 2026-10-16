@@ -8,6 +8,7 @@ import dev.craft.buildcraft.fluid.BcFluids;
 import dev.craft.buildcraft.power.BcCapabilities;
 import dev.craft.buildcraft.transport.FluidPipeBlockEntity;
 import dev.craft.buildcraft.transport.PipeFluidPayload;
+import dev.craft.buildcraft.transport.PipePowerPayload;
 import dev.craft.buildcraft.transport.PipeItemPayload;
 import dev.craft.buildcraft.world.BcFeatures;
 import net.neoforged.bus.api.IEventBus;
@@ -34,6 +35,7 @@ public final class BuildCraft {
         modBus.addListener(QuarryChunkLoading::register);
         modBus.addListener(PipeItemPayload::register);
         modBus.addListener(PipeFluidPayload::register);
+        modBus.addListener(PipePowerPayload::register);
     }
 
     private static void commonSetup(FMLCommonSetupEvent event) {
@@ -64,6 +66,9 @@ public final class BuildCraft {
                 (be, side) -> be.getPowerProvider() != null ? be : null);
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, BcBlockEntityTypes.FLUID_PIPE.get(),
                 FluidPipeBlockEntity::getFluidHandler);
+        // Conductive wooden pipe; none while it overheats (PipePowerWood.getPowerProvider).
+        event.registerBlockEntity(BcCapabilities.POWER_RECEPTOR, BcBlockEntityTypes.POWER_PIPE.get(),
+                (be, side) -> be.getPowerProvider() != null ? be : null);
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, BcBlockEntityTypes.TANK.get(),
                 (be, side) -> be.getFluidHandler());
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, BcBlockEntityTypes.PUMP.get(),

@@ -1149,9 +1149,34 @@ NaK-Kühlzellen, kein Vakuumgefrierer) **und die IC2-Nuke**. Teilpakete: 7a IC2-
 - Abweichungen in `spec/15-rohre.md` §8.3 ergänzt (Sync-Paket, Seite `null`).
 - 4 neue GameTests (insgesamt 250 grün), `build` und `runClient` (keine Modellfehler) erfolgreich.
 
+## Erledigt (Teilpaket „Phase 10.4: Leistungsrohre + Strukturrohr“, 2026-10-16)
+- `PipeType`: Leitendes Holz-/Stein-/Goldrohr (Texturen `wooden_power` + Quelle `wooden_source`, `stone_power`,
+  `golden_power`) und Bruchstein-Strukturrohr (`cobblestone_structure`); Rezepte formlos Redstone + Holz-/Stein-/
+  Gold-Transportrohr → 1, Kies + Bruchstein-Transportrohr → 1; Sprache, Multipart-Modelle, Loot per Datagen.
+- `PowerPipeBlockEntity` (`PipeTransportPower` 1:1): Doppelpuffer je Seite mit Umschalten einmal je Weltzeit-Tick
+  (`step`, auch aus `receiveEnergy`/`requestEnergy`), Verteilung anteilig nach Anfragen, Anfragen der Empfänger und
+  Weitergabe an Nachbarrohre, Verlust 0,05 (Gold 0,005), Seiten ohne Anfrage −1 je Tick, Überlast > 7500,
+  Explosion Stärke 3 ohne Blockschaden ab 10 000 (Rohr ohne Drop weg), NBT aller vier Felder.
+- Leitendes Holzrohr (`PipePowerWood`): MJ 2/1000/1/1000, Verlust 1 je 100 Ticks; Überhitzung bei vollem Speicher
+  (bis 100 Ticks) → kein Provider, keine MJ-Capability; schiebt `gespeichert/40 + 4` bzw. `/10` bzw. 1 in jedes
+  verbundene Rohr. Holzrohr-Quelle zählt jetzt auch Engines (Original: `TileEngine` ist `IInventory`).
+- `PowerReceptor.powerRequest()` (Standard 0): Quarry/Mining Well (gräbt), Pumpe (nächster Block pumpbar),
+  Raffinerie (neues `isActive` wie `TileRefinery`) → `ceil(min(maxReceived, maxStored − stored))`; GT-Maschinen mit
+  MJ-Konverter ebenso; Forestry Fabricator (`heat ≤ 5000`)/Carpenter (`isWorking`) → `min(maxReceived,
+  Aktivierung/5 + 1)`; PC-BC-Consumer → Bedarf der Brücken / PCU je MJ; Engines/Producer 0.
+- Client: `PipePowerPayload` alle 20 Ticks, `PipePowerRenderer` (Strahl je Seite, 100 Stufen, Textur
+  `power_normal`/`power_overload`).
+- `StructurePipeBlockEntity`: kein Transport, verbindet sich mit Strukturrohren und jeder Block-Entity.
+- Abweichungen in `spec/15-rohre.md` §8.3 ergänzt; `abweichungen.md` „powerRequest offen bis Phase 10“ erledigt.
+- 5 neue GameTests (`PowerPipeGameTests`, insgesamt 255 grün), `build` und `runClient` (Hauptmenü, keine
+  Modellfehler) erfolgreich.
+
 ## Nächste Schritte
-1. 10.4: Leistungsrohre (3) + `powerRequest` aller Empfänger + Strukturrohr.
-2. Manuelle Client-Tests 10.3: BC-Tank mit Wasser → Holz-Flüssigkeitsrohr (Redstone-Motor) → Rohrstrecke → Tank;
+1. Abnahme Phase 9 und Phase 10; danach Phase 11 (Feinschliff: Texturen, EMI, Xaero's Minimap, Tests).
+2. Manuelle Client-Tests 10.4: Redstone-/Stirling-Engine → leitendes Holzrohr → Stein-/Goldrohre → Quarry bzw.
+   Pumpe/Raffinerie/Fabricator; Leistungsstrahlen in den Rohren (rot bei Überlast); Holzrohr ohne Abnehmer überhitzt
+   (Engine liefert nicht mehr); Strukturrohr an Truhe/Maschine.
+3. Manuelle Client-Tests 10.3: BC-Tank mit Wasser → Holz-Flüssigkeitsrohr (Redstone-Motor) → Rohrstrecke → Tank;
    Flüssigkeitsanzeige in waagerechten/senkrechten Rohren; Goldrohr-Tempo; Eisenrohr mit Schraubenschlüssel;
    Sandsteinrohr nimmt nichts aus Tanks; Leere-Rohr; Pumpe/Raffinerie/Verbrennungsmotor am Rohr; Kessel-Dampf in ein
    Rohr.

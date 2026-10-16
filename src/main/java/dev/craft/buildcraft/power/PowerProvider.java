@@ -58,6 +58,11 @@ public final class PowerProvider {
         this.energyStored = energyStored;
     }
 
+    /** {@code TileMachine.powerRequest} when active: {@code ceil(min(maxReceived, maxStored − stored))}. */
+    public int missingEnergyRequest() {
+        return (int) Math.ceil(Math.min(maxEnergyReceived, maxEnergyStored - energyStored));
+    }
+
     /** Runs once per tick of the receiver: work, power loss and the power source markers. */
     public boolean update(PowerReceptor receptor, Level level) {
         boolean result = false;

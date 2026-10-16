@@ -16,6 +16,8 @@ import dev.craft.buildcraft.factory.QuarryBlockEntity;
 import dev.craft.buildcraft.factory.RefineryBlockEntity;
 import dev.craft.buildcraft.factory.TankBlockEntity;
 import dev.craft.buildcraft.transport.FluidPipeBlockEntity;
+import dev.craft.buildcraft.transport.PowerPipeBlockEntity;
+import dev.craft.buildcraft.transport.StructurePipeBlockEntity;
 import dev.craft.buildcraft.transport.ItemPipeBlockEntity;
 import dev.craft.buildcraft.transport.PipeType;
 import net.minecraft.core.registries.Registries;
@@ -64,8 +66,19 @@ public final class BcBlockEntityTypes {
                     PipeType.values()).filter(type -> type.getTransport() == PipeType.Transport.FLUIDS)
                     .map(type -> BcBlocks.pipe(type).get()).toArray(Block[]::new))
                     .build(null));
+    public static final Supplier<BlockEntityType<PowerPipeBlockEntity>> POWER_PIPE = BLOCK_ENTITY_TYPES.register(
+            "power_pipe", () -> BlockEntityType.Builder.of(PowerPipeBlockEntity::new, pipes(PipeType.Transport.POWER))
+                    .build(null));
+    public static final Supplier<BlockEntityType<StructurePipeBlockEntity>> STRUCTURE_PIPE =
+            BLOCK_ENTITY_TYPES.register("structure_pipe", () -> BlockEntityType.Builder.of(
+                    StructurePipeBlockEntity::new, pipes(PipeType.Transport.STRUCTURE)).build(null));
 
     private BcBlockEntityTypes() {
+    }
+
+    private static Block[] pipes(PipeType.Transport transport) {
+        return Arrays.stream(PipeType.values()).filter(type -> type.getTransport() == transport)
+                .map(type -> BcBlocks.pipe(type).get()).toArray(Block[]::new);
     }
 
     public static BlockEntityType<EngineBlockEntity> engine(EngineType type) {

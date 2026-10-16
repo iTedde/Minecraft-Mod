@@ -76,6 +76,12 @@ public class PumpBlockEntity extends BlockEntity implements PowerReceptor {
     public void doWork() {
     }
 
+    /** {@code TileMachine.powerRequest}: only while the next block is pumpable ({@code isActive}). */
+    @Override
+    public int powerRequest() {
+        return isPumpableLiquid(getNextIndexToPump(false)) ? provider.missingEnergyRequest() : 0;
+    }
+
     public IFluidHandler getFluidHandler() {
         return fluidHandler;
     }

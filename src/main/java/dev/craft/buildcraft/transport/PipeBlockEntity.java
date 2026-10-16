@@ -2,6 +2,7 @@ package dev.craft.buildcraft.transport;
 
 import javax.annotation.Nullable;
 
+import dev.craft.buildcraft.engine.EngineBlockEntity;
 import dev.craft.buildcraft.power.PowerProvider;
 import dev.craft.buildcraft.power.PowerReceptor;
 import net.minecraft.core.BlockPos;
@@ -34,6 +35,16 @@ public abstract class PipeBlockEntity extends BlockEntity implements PowerRecept
 
     @Nullable
     private static PowerProvider createPowerProvider(PipeType type) {
+        if (type.getTransport() == PipeType.Transport.POWER) {
+            if (!type.getMaterial().isWood()) {
+                return null;
+            }
+            // PipePowerWood.
+            PowerProvider provider = new PowerProvider();
+            provider.configure(2, 1000, 1, 1000);
+            provider.configurePowerPerdition(1, 100);
+            return provider;
+        }
         if (type.getTransport() == PipeType.Transport.FLUIDS) {
             if (!type.getMaterial().isWood()) {
                 return null;
@@ -110,8 +121,9 @@ public abstract class PipeBlockEntity extends BlockEntity implements PowerRecept
             computeConnections();
             onNeighborBlockChange();
         }
-        if (server && provider != null) {
-            provider.update(this, level);
+        PowerProvider powerProvider = getPowerProvider();
+        if (server && powerProvider != null) {
+            powerProvider.update(this, level);
         }
         tickTransport();
     }
@@ -163,10 +175,14 @@ public abstract class PipeBlockEntity extends BlockEntity implements PowerRecept
         return source < 6 ? Direction.from3DDataValue(source) : null;
     }
 
-    /** {@code PipeLogicWood.isInput}: an inventory or tank (no pipe) that is connected. */
+    /**
+     * {@code PipeLogicWood.isInput}: an inventory or tank (no pipe) that is connected. Engines count as inventories
+     * ({@code TileEngine} is an {@code IInventory}, even without slots).
+     */
     private boolean isInput(Direction side) {
-        return !(level.getBlockEntity(worldPosition.relative(side)) instanceof PipeBlockEntity)
-                && (PipeConnections.itemHandler(level, worldPosition, side) != null
+        BlockEntity tile = level.getBlockEntity(worldPosition.relative(side));
+        return !(tile instanceof PipeBlockEntity)
+                && (tile instanceof EngineBlockEntity || PipeConnections.itemHandler(level, worldPosition, side) != null
                 || PipeConnections.fluidHandler(level, worldPosition, side) != null)
                 && PipeConnections.canConnect(level, worldPosition, side);
     }

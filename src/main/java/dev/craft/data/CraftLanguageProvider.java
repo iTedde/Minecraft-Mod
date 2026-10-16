@@ -620,6 +620,10 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             block(BcBlocks.pipe(PipeType.GOLDEN_FLUID), "Golden Waterproof Pipe");
             block(BcBlocks.pipe(PipeType.EMERALD_FLUID), "Emerald Waterproof Pipe");
             block(BcBlocks.pipe(PipeType.VOID_FLUID), "Void Waterproof Pipe");
+            block(BcBlocks.pipe(PipeType.WOODEN_POWER), "Wooden Conductive Pipe");
+            block(BcBlocks.pipe(PipeType.STONE_POWER), "Stone Conductive Pipe");
+            block(BcBlocks.pipe(PipeType.GOLDEN_POWER), "Golden Conductive Pipe");
+            block(BcBlocks.pipe(PipeType.COBBLESTONE_STRUCTURE), "Cobblestone Structure Pipe");
             block(BcBlocks.OIL, "Oil");
             item(BcItems.OIL_BUCKET, "Oil Bucket");
             item(BcItems.FUEL_BUCKET, "Fuel Bucket");
@@ -900,6 +904,10 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             block(BcBlocks.pipe(PipeType.GOLDEN_FLUID), "Wasserdichtes Goldrohr");
             block(BcBlocks.pipe(PipeType.EMERALD_FLUID), "Wasserdichtes Smaragdrohr");
             block(BcBlocks.pipe(PipeType.VOID_FLUID), "Wasserdichtes Leererohr");
+            block(BcBlocks.pipe(PipeType.WOODEN_POWER), "Leitendes Holzrohr");
+            block(BcBlocks.pipe(PipeType.STONE_POWER), "Leitendes Steinrohr");
+            block(BcBlocks.pipe(PipeType.GOLDEN_POWER), "Leitendes Goldrohr");
+            block(BcBlocks.pipe(PipeType.COBBLESTONE_STRUCTURE), "Bruchstein-Strukturrohr");
             block(BcBlocks.OIL, "Öl");
             item(BcItems.OIL_BUCKET, "Öleimer");
             item(BcItems.FUEL_BUCKET, "Treibstoffeimer");

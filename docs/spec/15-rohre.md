@@ -418,6 +418,10 @@ Fluid-Capability nur zum **Füllen** (wie `fill`, kein Entnehmen).
 | Obsidian-Abholanimation | `obsidianPipePickup` (`EntityPickupFX`, nur im Einzelspieler sichtbar) | entfällt; das Item erscheint im Rohr | Pickup-Partikel brauchen in 1.21 eine Ziel-Entity |
 | Obsidian-Sound | `random.pop` an der Entity | `ITEM_PICKUP`, Kategorie Blöcke, gleiche Lautstärke/Tonhöhe | 1.21-Soundsystem |
 | Obsidian-Teilaufnahme | ohne Energie für 1 Item entsteht ein Rohr-Item mit Menge 0 | kein Rohr-Item (Stapel bleibt liegen) | leere Stacks gibt es in 1.21 nicht als Item; praktisch unerreichbar |
+| Leistungs-Sync | `PacketPowerUpdate` an Spieler im Umkreis 24 | `PipePowerPayload` (6 Anzeigestufen + Überlast) an Spieler, die den Chunk verfolgen; beim Laden im Update-Tag | gleiche Taktung (20 Ticks) |
+| Leistungsrohr-Explosion | `createExplosion` an der Blockecke, danach `setBlock(0)` | `level.explode(…, ExplosionInteraction.NONE)` an der Blockecke, danach `removeBlock` (kein Drop) | 1.21-Explosions-API |
+| Holz-Leistungsrohr überhitzt | `getPowerProvider()` = `null`; Engines prüfen `isPoweredTile` | MJ-Capability des Rohrs liefert dann `null` | Capability-Idiom |
+| Holzrohr-Quelle an Engines | `TileEngine` ist `IInventory` (auch ohne Slots) → zählt als Quelle | jede BC-Engine zählt als Quelle (auch für Item-/Flüssigkeitsrohre) | Redstone-Engine hat keine Item-Capability |
 | Obsidian: Pfeile | `EntityArrow` → 1 Pfeil | `Arrow` (normale/getränkte Pfeile) → 1 normaler Pfeil, Spektralpfeile nicht | 1:1 zur Original-Klasse |
 
 ## 9. Teilpakete (Vorschlag)
