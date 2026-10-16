@@ -1090,8 +1090,18 @@ NaK-Kühlzellen, kein Vakuumgefrierer) **und die IC2-Nuke**. Teilpakete: 7a IC2-
 - 4 neue GameTests (`WaterTurbineGameTests`, insgesamt 236 grün), `build` und `runClient` (Hauptmenü, keine
   Mod-Fehler) erfolgreich.
 
+## Erledigt (Teilpaket „Phase 10.0: Spezifikation Rohre“, 2026-10-16)
+- Nutzerentscheidung: Phase 10 umfasst **nur die Rohre** (21 Rohrtypen + Rohrdichtmittel); Gates, Rohrdrähte,
+  Fassaden, Laser und Assembly Table nicht im Umfang.
+- `docs/spec/15-rohre.md`: Pack-Config, Rezepte/Texturen aller Rohre, Rohrblock und Verbindungsregeln,
+  Item-Transport (Bewegung, Zielwahl, Geschwindigkeiten, Holz/Smaragd/Eisen/Diamant/Obsidian/Leere),
+  Flüssigkeitstransport (Abschnitte, TTL, Holz-Entnahme), Leistungsrohre (Doppelpuffer, Verlust, Überlast,
+  Holz-Überhitzung), `powerRequest` der Empfänger, Strukturrohr, Abweichungen und Teilpakete 10.1–10.4.
+- Zur Freigabe: §8.1 Inventarseiten über die 1.21-Item-Capability (Vanilla-Ofen nach 1.21-Regeln), §8.2 keine
+  Item-Capability an Rohren (Trichter schieben nicht hinein).
+
 ## Nächste Schritte
-1. Abnahme Phase 9; danach Phase 10 (BuildCraft-Rohre).
+1. Freigabe `15-rohre.md` §8.1/§8.2 (und Abnahme Phase 9); danach 10.1 (Rohr-Grundgerüst + einfache Item-Rohre).
 2. Manuelle Client-Tests 9.4: Wasserturbine in einen Fluss bauen (fließendes Wasser rundherum), Rechtsklick-Meldung,
    Kabel/BatBox am Controller.
 3. Manuelle Client-Tests 9.3b: Kraftwerk aus Kessel + Dampfturbine bauen, MFE/Kabel am Controller, GUI (Dampftank,

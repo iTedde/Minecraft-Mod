@@ -248,7 +248,7 @@ Schraubenschlüssel (BC) auf Quarry: `reinitalize()` – Rahmen wird neu geprüf
 
 Rezepte: `08-rezepte.md` §BuildCraft.
 
-## 6. Rohre (optional, spätere Phase)
+## 6. Rohre (Phase 10) → `15-rohre.md`
 
 Nicht spezifiziert in Phase 1 außer: Quarry gibt Items an angrenzende Rohre ab (`Utils.addToRandomPipeEntry`);
 Leistungsrohre (Holz/Stein/Gold „Conductive Pipe“) übertragen MJ mit Verlust (`power.usePipeLoss = true`).
