@@ -1,5 +1,7 @@
 package dev.craft.core.client;
 
+import java.util.Map;
+
 import dev.craft.Craft;
 import net.minecraft.resources.ResourceLocation;
 
@@ -40,6 +42,26 @@ public final class RecipeCategories {
     public static final ResourceLocation COKE_OVEN = id("coke_oven");
     public static final ResourceLocation BOILER = id("boiler");
     public static final ResourceLocation STEAM_TURBINE = id("steam_turbine");
+
+    /**
+     * Category of every recipe type the mod registers (path of the type id). A GameTest checks that no recipe type
+     * is missing here, so new machines also get a recipe viewer category.
+     */
+    public static final Map<String, ResourceLocation> BY_RECIPE_TYPE = Map.ofEntries(
+            Map.entry("macerator", MACERATOR),
+            Map.entry("extractor", EXTRACTOR),
+            Map.entry("compressor", COMPRESSOR),
+            Map.entry("gt_bender", GT_BENDER),
+            Map.entry("gt_electrolyzer", GT_ELECTROLYZER),
+            Map.entry("gt_blast_furnace", GT_BLAST_FURNACE),
+            Map.entry("gt_assembler", GT_ASSEMBLER),
+            Map.entry("gt_canner", GT_CANNER),
+            Map.entry("gt_implosion", GT_IMPLOSION),
+            Map.entry("gt_centrifuge", GT_CENTRIFUGE),
+            Map.entry("gt_grinder", GT_GRINDER),
+            Map.entry("gt_vacuum_freezer", GT_VACUUM_FREEZER),
+            Map.entry("fabricator", FABRICATOR),
+            Map.entry("carpenter", CARPENTER));
 
     private RecipeCategories() {
     }

@@ -1289,13 +1289,17 @@ NaK-Kühlzellen, kein Vakuumgefrierer) **und die IC2-Nuke**. Teilpakete: 7a IC2-
 - 2 neue GameTests (Verbindung nur gleicher Typ, Varianten Rand/Wandmitte); `gradlew build`, **259 GameTests grün**.
   **`runClient` nicht gestartet** (Nutzer, 2026-10-16: Launcher vorerst nicht starten).
 
+## Erledigt (Teilpaket „Phase 11.6: Testplan, Abschlusstests“, 2026-10-17)
+- `docs/testplan.md`: alle manuellen Client-Tests aus den „Nächste Schritte“-Abschnitten (Phasen 2–11) nach
+  Mod/Thema geordnet (Allgemein, IC2 Grundlagen/Speicher-Werkzeuge-Rüstung/Canning-Pumpe-Reaktor, GregTech,
+  BuildCraft, Forestry + Power Converters, Compact Solars + Kraftwerke, EMI), mit Abhakspalte und Befundtabelle.
+  Überholte Einträge (z. B. „Offen: Quantenhelm/Jetpack“ aus 6.3, inzwischen mit 6b.5a erledigt) zusammengeführt.
+- EMI-Abdeckung: `RecipeCategories.BY_RECIPE_TYPE` (Rezeptart → Kategorie); GameTest `RecipeCategoryGameTests`
+  prüft, dass jede `craft:`-Rezeptart eine Kategorie hat und Rezepte besitzt (fängt neue Maschinen aus Phase 12).
+- `gradlew build`, **260 GameTests grün**. **`runClient` nicht gestartet** (Nutzer, 2026-10-16: Launcher vorerst
+  nicht starten).
+- **Damit ist Phase 11 inhaltlich vollständig** – wartet auf Abnahme durch den Nutzer.
+
 ## Nächste Schritte
-1. Manuell im Client (Welt betreten), sobald der Start wieder erlaubt ist: EMI-Kategorien der IC2-, GT-, BC-,
-   Forestry- und Kraftwerks-Maschinen ansehen (Werte, Texte de/en, Flüssigkeiten, Raster der Glühelektrischen
-   Maschine/Schreinerei, Info-Seiten der Multiblöcke), Klick auf Fortschrittspfeile/Flammen öffnet die Kategorie,
-   `craft:water`/`craft:lava` nicht im Index, Log ohne EMI-Plugin-Fehler. Neu (11.4): Xaero's Minimap lädt;
-   Ledger an Electrical Engine/Carpenter/Fabricator (Auf-/Zuklappen, Texte de/en, Fehler-Ledger nur bei Fehler,
-   offener Ledger bleibt für das nächste GUI offen, EMI überdeckt sie nicht). Neu (11.5): GT-Gehäuse als Wand/
-   Hochofen bauen – Rahmen nur an Außenkanten, Unterseite und alle vier Seiten richtig ausgerichtet, verschiedene
-   Gehäusetypen verbinden sich nicht, Item zeigt die schlichte Textur.
-2. Phase 11.6: Testplan, Abschlusstests.
+1. Manuelle Client-Tests nach `docs/testplan.md`, sobald der Start wieder erlaubt ist (Befunde dort eintragen).
+2. Abnahme Phase 11; danach Phase 12 (restliche IC2-Inhalte) – erstes Teilpaket festlegen.
