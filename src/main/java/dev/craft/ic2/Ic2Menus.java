@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.function.Supplier;
 
 import dev.craft.Craft;
+import dev.craft.ic2.menu.NuclearReactorMenu;
 import dev.craft.ic2.menu.ElectricMachineMenu;
 import dev.craft.ic2.menu.ElectricStorageMenu;
 import dev.craft.ic2.menu.ElectrolyzerMenu;
@@ -54,6 +55,8 @@ public final class Ic2Menus {
                     (id, inventory, buf) -> new InductionFurnaceMenu(id, inventory, buf.readBlockPos()));
             case CANNING_MACHINE -> IMenuTypeExtension.create(
                     (id, inventory, buf) -> new CanningMachineMenu(id, inventory, buf.readBlockPos()));
+            case NUCLEAR_REACTOR -> IMenuTypeExtension.create(
+                    (id, inventory, buf) -> new NuclearReactorMenu(id, inventory, buf.readBlockPos()));
             case LV_TRANSFORMER, MV_TRANSFORMER, HV_TRANSFORMER, MAGNETIZER ->
                     throw new IllegalArgumentException(machine + " has no menu");
         };

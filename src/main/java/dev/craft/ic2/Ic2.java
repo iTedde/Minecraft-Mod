@@ -1,5 +1,6 @@
 package dev.craft.ic2;
 
+import dev.craft.ic2.reactor.ReactorChamberBlockEntity;
 import dev.craft.ic2.generator.GeothermalGeneratorBlockEntity;
 import dev.craft.ic2.item.ScrapBoxItem;
 import dev.craft.ic2.item.armor.ArmorEvents;
@@ -58,6 +59,8 @@ public final class Ic2 {
             event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, Ic2BlockEntityTypes.get(machine),
                     MachineBlockEntity::getItemHandler);
         }
+        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, Ic2BlockEntityTypes.REACTOR_CHAMBER.get(),
+                ReactorChamberBlockEntity::getItemHandler);
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK,
                 Ic2BlockEntityTypes.get(Ic2Machine.GEOTHERMAL_GENERATOR),
                 (be, side) -> ((GeothermalGeneratorBlockEntity) be).getFluidHandler());

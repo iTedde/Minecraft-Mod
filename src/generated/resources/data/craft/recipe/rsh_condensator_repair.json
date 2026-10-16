@@ -1,0 +1,8 @@
+{
+  "type": "craft:gradual_repair",
+  "amount": 10000,
+  "item": "craft:rsh_condensator",
+  "material": {
+    "item": "minecraft:redstone"
+  }
+}

@@ -40,16 +40,18 @@ import net.neoforged.neoforge.common.world.BiomeModifiers;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 
 /**
- * World generation as data: IC2 ({@code IC2.generate}) tin ore, copper ore with IC2 frequency instead of the vanilla
+ * World generation as data: IC2 ({@code IC2.generate}) tin and uranium ore, copper ore with IC2 frequency instead of the vanilla
  * copper veins, rubber trees; BuildCraft oil.
  */
 public final class CraftWorldGen {
     public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_TIN_CONFIGURED = configuredKey("ore_tin");
     public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_COPPER_CONFIGURED = configuredKey("ore_copper");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_URANIUM_CONFIGURED = configuredKey("ore_uranium");
     public static final ResourceKey<ConfiguredFeature<?, ?>> RUBBER_TREE_CONFIGURED = configuredKey("rubber_tree");
     public static final ResourceKey<ConfiguredFeature<?, ?>> OIL_CONFIGURED = configuredKey("oil");
     public static final ResourceKey<PlacedFeature> ORE_TIN = placedKey("ore_tin");
     public static final ResourceKey<PlacedFeature> ORE_COPPER = placedKey("ore_copper");
+    public static final ResourceKey<PlacedFeature> ORE_URANIUM = placedKey("ore_uranium");
     public static final ResourceKey<PlacedFeature> RUBBER_TREE = placedKey("rubber_tree");
     public static final ResourceKey<PlacedFeature> OIL = placedKey("oil");
     public static final ResourceKey<BiomeModifier> ADD_ORES = modifierKey("add_ores");
@@ -60,6 +62,7 @@ public final class CraftWorldGen {
     /** IC2 vein counts per chunk: {@code X * baseScale / 64} with baseScale 65 (sea level 63 + 1, density 1.0). */
     private static final int COPPER_BASE_COUNT = 15 * 65 / 64;
     private static final int TIN_BASE_COUNT = 25 * 65 / 64;
+    private static final int URANIUM_BASE_COUNT = 20 * 65 / 64;
 
     private CraftWorldGen() {
     }
@@ -86,6 +89,9 @@ public final class CraftWorldGen {
         register(context, ORE_COPPER_CONFIGURED, Feature.ORE, new OreConfiguration(List.of(
                 OreConfiguration.target(stone, Blocks.COPPER_ORE.defaultBlockState()),
                 OreConfiguration.target(deepslate, Blocks.DEEPSLATE_COPPER_ORE.defaultBlockState())), 10));
+        register(context, ORE_URANIUM_CONFIGURED, Feature.ORE, new OreConfiguration(List.of(
+                OreConfiguration.target(stone, Ic2Blocks.URANIUM_ORE.get().defaultBlockState()),
+                OreConfiguration.target(deepslate, Ic2Blocks.DEEPSLATE_URANIUM_ORE.get().defaultBlockState())), 3));
         register(context, RUBBER_TREE_CONFIGURED, Ic2Features.RUBBER_TREE.get(), NoneFeatureConfiguration.INSTANCE);
         register(context, OIL_CONFIGURED, BcFeatures.OIL.get(), NoneFeatureConfiguration.INSTANCE);
     }
@@ -106,6 +112,10 @@ public final class CraftWorldGen {
         context.register(ORE_COPPER, new PlacedFeature(configured.getOrThrow(ORE_COPPER_CONFIGURED),
                 orePlacement(COPPER_BASE_COUNT, HeightRangePlacement.of(TrapezoidHeight.of(VerticalAnchor.absolute(10),
                         VerticalAnchor.absolute(68), 20)))));
+        // y = rand(64 * 65 / 64) = rand(65): uniform 0..64
+        context.register(ORE_URANIUM, new PlacedFeature(configured.getOrThrow(ORE_URANIUM_CONFIGURED),
+                orePlacement(URANIUM_BASE_COUNT, HeightRangePlacement.uniform(VerticalAnchor.absolute(0),
+                        VerticalAnchor.absolute(64)))));
         context.register(RUBBER_TREE, new PlacedFeature(configured.getOrThrow(RUBBER_TREE_CONFIGURED), List.of()));
         context.register(OIL, new PlacedFeature(configured.getOrThrow(OIL_CONFIGURED), List.of()));
     }
@@ -125,7 +135,8 @@ public final class CraftWorldGen {
         HolderGetter<Biome> biomes = context.lookup(Registries.BIOME);
         HolderSet<Biome> overworld = biomes.getOrThrow(BiomeTags.IS_OVERWORLD);
         context.register(ADD_ORES, new BiomeModifiers.AddFeaturesBiomeModifier(overworld,
-                HolderSet.direct(placed.getOrThrow(ORE_COPPER), placed.getOrThrow(ORE_TIN)),
+                HolderSet.direct(placed.getOrThrow(ORE_COPPER), placed.getOrThrow(ORE_TIN),
+                        placed.getOrThrow(ORE_URANIUM)),
                 GenerationStep.Decoration.UNDERGROUND_ORES));
         context.register(REMOVE_VANILLA_COPPER, new BiomeModifiers.RemoveFeaturesBiomeModifier(overworld,
                 HolderSet.direct(placed.getOrThrow(OrePlacements.ORE_COPPER),

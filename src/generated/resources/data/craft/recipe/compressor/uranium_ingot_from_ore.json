@@ -1,0 +1,15 @@
+{
+  "type": "craft:compressor",
+  "ingredient": [
+    {
+      "item": "craft:uranium_ore"
+    },
+    {
+      "item": "craft:deepslate_uranium_ore"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:uranium_ingot"
+  }
+}

@@ -23,6 +23,16 @@ import dev.craft.ic2.item.WrenchItem;
 import dev.craft.ic2.item.armor.ElectricJetpackItem;
 import dev.craft.ic2.item.armor.EnergyPackItem;
 import dev.craft.ic2.item.armor.HazmatArmorItem;
+import dev.craft.ic2.item.reactor.CondensatorItem;
+import dev.craft.ic2.item.reactor.HeatStorageItem;
+import dev.craft.ic2.item.reactor.HeatSwitchItem;
+import dev.craft.ic2.item.reactor.HeatpackItem;
+import dev.craft.ic2.item.reactor.IsotopeCellItem;
+import dev.craft.ic2.item.reactor.PlatingItem;
+import dev.craft.ic2.item.reactor.ReflectorItem;
+import dev.craft.ic2.item.reactor.UraniumCellItem;
+import dev.craft.ic2.item.reactor.VentItem;
+import dev.craft.ic2.item.reactor.VentSpreadItem;
 import dev.craft.ic2.item.armor.Ic2ArmorMaterials;
 import dev.craft.ic2.item.armor.JetpackItem;
 import dev.craft.ic2.item.armor.NanoArmorItem;
@@ -70,6 +80,12 @@ public final class Ic2Items {
     public static final DeferredItem<BlockItem> TIN_ORE = ITEMS.registerSimpleBlockItem(Ic2Blocks.TIN_ORE);
     public static final DeferredItem<BlockItem> DEEPSLATE_TIN_ORE =
             ITEMS.registerSimpleBlockItem(Ic2Blocks.DEEPSLATE_TIN_ORE);
+    public static final DeferredItem<BlockItem> URANIUM_ORE = ITEMS.registerSimpleBlockItem(Ic2Blocks.URANIUM_ORE);
+    public static final DeferredItem<BlockItem> DEEPSLATE_URANIUM_ORE =
+            ITEMS.registerSimpleBlockItem(Ic2Blocks.DEEPSLATE_URANIUM_ORE);
+    public static final DeferredItem<BlockItem> URANIUM_BLOCK = ITEMS.registerSimpleBlockItem(Ic2Blocks.URANIUM_BLOCK);
+    public static final DeferredItem<BlockItem> REACTOR_CHAMBER = ITEMS.registerSimpleBlockItem(
+            Ic2Blocks.REACTOR_CHAMBER, new Item.Properties().rarity(Rarity.UNCOMMON));
     public static final DeferredItem<BlockItem> TIN_BLOCK = ITEMS.registerSimpleBlockItem(Ic2Blocks.TIN_BLOCK);
     public static final DeferredItem<BlockItem> BRONZE_BLOCK = ITEMS.registerSimpleBlockItem(Ic2Blocks.BRONZE_BLOCK);
     public static final DeferredItem<BlockItem> RUBBER_WOOD = ITEMS.registerSimpleBlockItem(Ic2Blocks.RUBBER_WOOD);
@@ -137,9 +153,59 @@ public final class Ic2Items {
     public static final DeferredItem<Item> HYDRATED_COAL_CELL = simple("hydrated_coal_cell");
     public static final DeferredItem<Item> BIOFUEL_CELL = simple("biofuel_cell");
     public static final DeferredItem<Item> COALFUEL_CELL = simple("coalfuel_cell");
-    /** 10k coolant cell; only an ingredient until the reactor (phase 7) gives it its heat logic. */
-    public static final DeferredItem<Item> COOLANT_CELL_10K =
-            simple("coolant_cell_10k", new Item.Properties().stacksTo(1));
+    // --- uranium and reactor components (spec 06 §3) ---
+    public static final DeferredItem<Item> URANIUM_DROP = simple("uranium_drop");
+    public static final DeferredItem<Item> URANIUM_INGOT = simple("uranium_ingot");
+    public static final DeferredItem<Item> RE_ENRICHED_URANIUM_CELL = simple("re_enriched_uranium_cell");
+    public static final DeferredItem<Item> NEAR_DEPLETED_URANIUM_CELL = simple("near_depleted_uranium_cell");
+    public static final DeferredItem<UraniumCellItem> URANIUM_CELL =
+            simple(ITEMS.registerItem("uranium_cell", properties -> new UraniumCellItem(properties, 1)));
+    public static final DeferredItem<UraniumCellItem> DUAL_URANIUM_CELL =
+            simple(ITEMS.registerItem("dual_uranium_cell", properties -> new UraniumCellItem(properties, 2)));
+    public static final DeferredItem<UraniumCellItem> QUAD_URANIUM_CELL =
+            simple(ITEMS.registerItem("quad_uranium_cell", properties -> new UraniumCellItem(properties, 4)));
+    public static final DeferredItem<IsotopeCellItem> ISOTOPE_CELL =
+            simple(ITEMS.registerItem("isotope_cell", IsotopeCellItem::new));
+    public static final DeferredItem<HeatStorageItem> COOLANT_CELL_10K =
+            simple(ITEMS.registerItem("coolant_cell_10k", properties -> new HeatStorageItem(properties, 10000)));
+    public static final DeferredItem<HeatStorageItem> COOLANT_CELL_30K =
+            simple(ITEMS.registerItem("coolant_cell_30k", properties -> new HeatStorageItem(properties, 30000)));
+    public static final DeferredItem<HeatStorageItem> COOLANT_CELL_60K =
+            simple(ITEMS.registerItem("coolant_cell_60k", properties -> new HeatStorageItem(properties, 60000)));
+    public static final DeferredItem<PlatingItem> REACTOR_PLATING = simple(ITEMS.registerItem("reactor_plating",
+            properties -> new PlatingItem(properties, 1000, 0.95F)));
+    public static final DeferredItem<PlatingItem> HEAT_CAPACITY_REACTOR_PLATING = simple(ITEMS.registerItem(
+            "heat_capacity_reactor_plating", properties -> new PlatingItem(properties, 2000, 0.99F)));
+    public static final DeferredItem<PlatingItem> CONTAINMENT_REACTOR_PLATING = simple(ITEMS.registerItem(
+            "containment_reactor_plating", properties -> new PlatingItem(properties, 500, 0.9F)));
+    public static final DeferredItem<HeatSwitchItem> HEAT_EXCHANGER = simple(ITEMS.registerItem("heat_exchanger",
+            properties -> new HeatSwitchItem(properties, 2500, 12, 4)));
+    public static final DeferredItem<HeatSwitchItem> REACTOR_HEAT_EXCHANGER = simple(ITEMS.registerItem(
+            "reactor_heat_exchanger", properties -> new HeatSwitchItem(properties, 5000, 0, 72)));
+    public static final DeferredItem<HeatSwitchItem> COMPONENT_HEAT_EXCHANGER = simple(ITEMS.registerItem(
+            "component_heat_exchanger", properties -> new HeatSwitchItem(properties, 5000, 36, 0)));
+    public static final DeferredItem<HeatSwitchItem> ADVANCED_HEAT_EXCHANGER = simple(ITEMS.registerItem(
+            "advanced_heat_exchanger", properties -> new HeatSwitchItem(properties, 10000, 24, 8)));
+    public static final DeferredItem<VentItem> HEAT_VENT = simple(ITEMS.registerItem("heat_vent",
+            properties -> new VentItem(properties, 1000, 6, 0)));
+    public static final DeferredItem<VentItem> REACTOR_HEAT_VENT = simple(ITEMS.registerItem("reactor_heat_vent",
+            properties -> new VentItem(properties, 1000, 5, 5)));
+    public static final DeferredItem<VentItem> OVERCLOCKED_HEAT_VENT = simple(ITEMS.registerItem(
+            "overclocked_heat_vent", properties -> new VentItem(properties, 1000, 20, 36)));
+    public static final DeferredItem<VentSpreadItem> COMPONENT_HEAT_VENT = simple(ITEMS.registerItem(
+            "component_heat_vent", properties -> new VentSpreadItem(properties, 4)));
+    public static final DeferredItem<VentItem> ADVANCED_HEAT_VENT = simple(ITEMS.registerItem("advanced_heat_vent",
+            properties -> new VentItem(properties, 1000, 12, 0)));
+    public static final DeferredItem<HeatpackItem> HEATING_CELL = simple(ITEMS.registerItem("heating_cell",
+            properties -> new HeatpackItem(properties, 1000, 1)));
+    public static final DeferredItem<ReflectorItem> NEUTRON_REFLECTOR = simple(ITEMS.registerItem(
+            "neutron_reflector", properties -> new ReflectorItem(properties, 10000)));
+    public static final DeferredItem<ReflectorItem> THICK_NEUTRON_REFLECTOR = simple(ITEMS.registerItem(
+            "thick_neutron_reflector", properties -> new ReflectorItem(properties, 40000)));
+    public static final DeferredItem<CondensatorItem> RSH_CONDENSATOR = simple(ITEMS.registerItem(
+            "rsh_condensator", properties -> new CondensatorItem(properties, 20000)));
+    public static final DeferredItem<CondensatorItem> LZH_CONDENSATOR = simple(ITEMS.registerItem(
+            "lzh_condensator", properties -> new CondensatorItem(properties, 100000)));
 
     // --- upgrades ---
     public static final DeferredItem<UpgradeModuleItem> OVERCLOCKER_UPGRADE =

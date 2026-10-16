@@ -3,7 +3,8 @@
   "biomes": "#minecraft:is_overworld",
   "features": [
     "craft:ore_copper",
-    "craft:ore_tin"
+    "craft:ore_tin",
+    "craft:ore_uranium"
   ],
   "step": "underground_ores"
 }

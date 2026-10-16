@@ -64,6 +64,7 @@ ergänzen. Basispaket `dev.craft`, Einstieg `Craft` → `Ic2.init`, `BuildCraft.
 | `ic2/machine/InductionFurnaceBlockEntity`, `CanningMachineBlockEntity` | IC2-`TileEntityElecMachine` ohne Upgrades (eigene Energie, `provideEnergy` aus dem Batterie-Slot, Seiten über `getSlotForSide`) – Muster für weitere solche IC2-Maschinen |
 | `gregtech/machine/ImplosionCompressorBlockEntity` | GT-Multiblock ohne Facing (`GtMachine.Layout.TOP`, Texturen auf absoluten Seiten), Würfel unter dem Controller per `MultiblockPattern` mit fester Richtung |
 | `gregtech/machine/CannerBlockEntity` | GT-Zwei-Eingaben-Maschine mit zwei Ausgaben (wie Assembler, `outputItem2`) |
+| `ic2/reactor/NuclearReactorBlockEntity`, `Reactor`, `ReactorComponent` | IC2-Reaktor: Matrix über `getItemAt`/`setItemAt`, Komponenten implementieren `ReactorComponent` am Item (`ic2/item/reactor/*`, Basis `GradualItem`/`GradualIntItem` für Abnutzung, `HeatStorageItem` für Hitze, `PassiveComponentItem` für Teile ohne Puls/Hitze); `runCycle()` für Tests; Kammern `ReactorChamberBlockEntity` |
 | `gregtech/machine/AssemblerBlockEntity`, GT-Upgrades | Assembler = Muster für shapeless Zwei-Eingaben-Maschinen. GT-Basis ist `PowerReceptor`; MJ-Capability liefert nur mit MJ-Konverter einen Empfänger (`getPowerProvider() != null`) |
 
 ## Tasten und Netzwerk

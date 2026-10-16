@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "craft:block/uranium_block_top",
+    "side": "craft:block/uranium_block"
+  }
+}

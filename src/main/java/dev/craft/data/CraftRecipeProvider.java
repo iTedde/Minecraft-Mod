@@ -32,6 +32,7 @@ import dev.craft.ic2.item.FilledFuelCanItem;
 import dev.craft.ic2.item.FilledTinCanItem;
 import dev.craft.ic2.machine.CanningMachineBlockEntity;
 import dev.craft.ic2.recipe.Ic2ShapedRecipe;
+import dev.craft.ic2.recipe.GradualRepairRecipe;
 import dev.craft.ic2.recipe.Ic2ShapelessRecipe;
 import dev.craft.ic2.recipe.MachineRecipe;
 import dev.craft.powerconverters.ConverterType;
@@ -86,6 +87,7 @@ public final class CraftRecipeProvider extends RecipeProvider {
         tools();
         armor();
         misc();
+        reactor();
         uuMatter();
         smelting();
         macerator();
@@ -361,8 +363,13 @@ public final class CraftRecipeProvider extends RecipeProvider {
                 new ItemStack(Ic2Items.EMPTY_CELL.get(), 6));
     }
 
-    /** {@code GT_Mod.addCannerRecipe}: two inputs, one or two outputs, 1 EU/t. */
+    /** {@code GT_Mod.addCannerRecipe}: two inputs, one or two outputs, 1 EU/t unless given. */
     private void can(String name, SizedIngredient input1, SizedIngredient input2, int duration, ItemStack... outputs) {
+        can(name, input1, input2, duration, 1, outputs);
+    }
+
+    private void can(String name, SizedIngredient input1, SizedIngredient input2, int duration, int euPerTick,
+                     ItemStack... outputs) {
         List<ItemStack> results = new ArrayList<>();
         for (ItemStack stack : outputs) {
             if (!stack.isEmpty()) {
@@ -370,7 +377,7 @@ public final class CraftRecipeProvider extends RecipeProvider {
             }
         }
         output.accept(id("gt_canner/" + name), new GtRecipe(GtRecipe.Kind.CANNER, List.of(input1, input2), results,
-                duration, 1, 0), null);
+                duration, euPerTick, 0), null);
     }
 
     /**
@@ -1158,6 +1165,106 @@ public final class CraftRecipeProvider extends RecipeProvider {
                 .define('D', Ic2Items.INDUSTRIAL_DIAMOND).define('S', Items.STICK).save();
     }
 
+    // --- §6 reactor (spec 06, 08 §6) ---
+
+    private void reactor() {
+        shaped(Ic2Items.REACTOR_CHAMBER, 1, "reactor_chamber").pattern(" C ", "CMC", " C ")
+                .define('C', Ic2Items.DENSE_COPPER_PLATE).define('M', Ic2Items.MACHINE_CASING).save();
+        shaped(machine(Ic2Machine.NUCLEAR_REACTOR), 1, "nuclear_reactor").pattern(" c ", "CCC", " G ")
+                .define('c', Ic2Items.ADVANCED_CIRCUIT).define('C', Ic2Items.REACTOR_CHAMBER)
+                .define('G', machine(Ic2Machine.GENERATOR)).save();
+        // Uranium: ore/drop -> compressor -> ingot; storage block via compressor/furnace (GregTech).
+        machine(MachineRecipe.Kind.COMPRESSOR, "uranium_ingot_from_drop", Ingredient.of(Ic2Items.URANIUM_DROP), 1,
+                Ic2Items.URANIUM_INGOT, 1);
+        machine(MachineRecipe.Kind.COMPRESSOR, "uranium_ingot_from_ore", Ingredient.of(Ic2Items.URANIUM_ORE,
+                Ic2Items.DEEPSLATE_URANIUM_ORE), 1, Ic2Items.URANIUM_INGOT, 1);
+        machine(MachineRecipe.Kind.COMPRESSOR, "uranium_ingot", Ingredient.of(CraftItemTagsProvider.INGOTS_URANIUM), 9,
+                Ic2Items.URANIUM_BLOCK, 1);
+        smelt("uranium_ingots_from_block", Ingredient.of(Ic2Items.URANIUM_BLOCK), Ic2Items.URANIUM_INGOT, 9, 0.0F);
+        // Uranium cell from an ingot only in the GT canning machine (100 ticks, 2 EU/t).
+        can("uranium_cell", SizedIngredient.of(CraftItemTagsProvider.INGOTS_URANIUM, 1),
+                SizedIngredient.of(Ic2Items.EMPTY_CELL, 1), 100, 2, new ItemStack(Ic2Items.URANIUM_CELL.get()));
+        shapeless(Ic2Items.URANIUM_CELL, 1, "uranium_cell_from_re_enriched",
+                Ingredient.of(Ic2Items.RE_ENRICHED_URANIUM_CELL), Ingredient.of(CraftItemTagsProvider.DUSTS_COAL));
+        output.accept(id("isotope_cell"), new Ic2ShapelessRecipe(isotopeCell(),
+                NonNullList.of(Ingredient.EMPTY, Ingredient.of(Ic2Items.NEAR_DEPLETED_URANIUM_CELL),
+                        Ingredient.of(CraftItemTagsProvider.DUSTS_COAL))), null);
+        shaped(Ic2Items.NEAR_DEPLETED_URANIUM_CELL, 8, "near_depleted_uranium_cell").pattern("CCC", "CUC", "CCC")
+                .define('C', Ic2Items.EMPTY_CELL).define('U', CraftItemTagsProvider.INGOTS_URANIUM).save();
+        shaped(Ic2Items.DUAL_URANIUM_CELL, 1, "dual_uranium_cell").pattern("UCU")
+                .define('U', fresh(Ic2Items.URANIUM_CELL)).define('C', Ic2Items.DENSE_COPPER_PLATE).save();
+        shaped(Ic2Items.QUAD_URANIUM_CELL, 1, "quad_uranium_cell").pattern(" U ", "CCC", " U ")
+                .define('U', fresh(Ic2Items.DUAL_URANIUM_CELL)).define('C', Ic2Items.DENSE_COPPER_PLATE).save();
+        shaped(Ic2Items.COOLANT_CELL_30K, 1, "coolant_cell_30k").pattern("TTT", "CCC", "TTT")
+                .define('C', fresh(Ic2Items.COOLANT_CELL_10K)).define('T', CraftItemTagsProvider.INGOTS_TIN).save();
+        shaped(Ic2Items.COOLANT_CELL_60K, 1, "coolant_cell_60k").pattern("TCT", "TcT", "TCT")
+                .define('C', fresh(Ic2Items.COOLANT_CELL_30K)).define('T', CraftItemTagsProvider.INGOTS_TIN)
+                .define('c', Ic2Items.DENSE_COPPER_PLATE).save();
+        shapeless(Ic2Items.REACTOR_PLATING, 1, "reactor_plating", Ingredient.of(Ic2Items.DENSE_COPPER_PLATE),
+                Ingredient.of(Ic2Items.ADVANCED_ALLOY));
+        shapeless(Ic2Items.HEAT_CAPACITY_REACTOR_PLATING, 1, "heat_capacity_reactor_plating",
+                Ingredient.of(Ic2Items.REACTOR_PLATING), Ingredient.of(Ic2Items.DENSE_COPPER_PLATE),
+                Ingredient.of(Ic2Items.DENSE_COPPER_PLATE));
+        shapeless(Ic2Items.CONTAINMENT_REACTOR_PLATING, 1, "containment_reactor_plating",
+                Ingredient.of(Ic2Items.REACTOR_PLATING), Ingredient.of(Ic2Items.ADVANCED_ALLOY),
+                Ingredient.of(Ic2Items.ADVANCED_ALLOY));
+        shaped(Ic2Items.HEAT_EXCHANGER, 1, "heat_exchanger").pattern(" c ", "TCT", " T ")
+                .define('c', Ic2Items.ELECTRONIC_CIRCUIT).define('T', CraftItemTagsProvider.INGOTS_TIN)
+                .define('C', Ic2Items.DENSE_COPPER_PLATE).save();
+        shaped(Ic2Items.REACTOR_HEAT_EXCHANGER, 1, "reactor_heat_exchanger").pattern("C", "S", "C")
+                .define('S', fresh(Ic2Items.HEAT_EXCHANGER)).define('C', Ic2Items.DENSE_COPPER_PLATE).save();
+        shaped(Ic2Items.COMPONENT_HEAT_EXCHANGER, 1, "component_heat_exchanger").pattern(" G ", "GSG", " G ")
+                .define('S', fresh(Ic2Items.HEAT_EXCHANGER)).define('G', Items.GOLD_INGOT).save();
+        shaped(Ic2Items.ADVANCED_HEAT_EXCHANGER, 1, "advanced_heat_exchanger").pattern("GcG", "SCS", "GcG")
+                .define('S', fresh(Ic2Items.HEAT_EXCHANGER)).define('C', Ic2Items.DENSE_COPPER_PLATE)
+                .define('G', Ic2Items.cable(CableType.GLASS_FIBRE)).define('c', Ic2Items.ELECTRONIC_CIRCUIT).save();
+        shaped(Ic2Items.HEAT_VENT, 1, "heat_vent").pattern("I#I", "# #", "I#I")
+                .define('I', Ic2Items.REFINED_IRON_INGOT).define('#', Items.IRON_BARS).save();
+        shaped(Ic2Items.REACTOR_HEAT_VENT, 1, "reactor_heat_vent").pattern("C", "V", "C")
+                .define('V', fresh(Ic2Items.HEAT_VENT)).define('C', Ic2Items.DENSE_COPPER_PLATE).save();
+        shaped(Ic2Items.OVERCLOCKED_HEAT_VENT, 1, "overclocked_heat_vent").pattern("G", "V", "G")
+                .define('V', fresh(Ic2Items.REACTOR_HEAT_VENT)).define('G', Items.GOLD_INGOT).save();
+        shaped(Ic2Items.COMPONENT_HEAT_VENT, 1, "component_heat_vent").pattern("#T#", "TVT", "#T#")
+                .define('V', fresh(Ic2Items.HEAT_VENT)).define('#', Items.IRON_BARS)
+                .define('T', CraftItemTagsProvider.INGOTS_TIN).save();
+        shaped(Ic2Items.ADVANCED_HEAT_VENT, 1, "advanced_heat_vent").pattern("#V#", "#D#", "#V#")
+                .define('V', fresh(Ic2Items.HEAT_VENT)).define('#', Items.IRON_BARS).define('D', Items.DIAMOND).save();
+        shaped(Ic2Items.HEATING_CELL, 1, "heating_cell").pattern("c", "L", "C")
+                .define('c', Ic2Items.ELECTRONIC_CIRCUIT).define('C', Ic2Items.DENSE_COPPER_PLATE)
+                .define('L', Ic2Items.LAVA_CELL).save();
+        shaped(Ic2Items.NEUTRON_REFLECTOR, 1, "neutron_reflector").pattern("TcT", "cCc", "TcT")
+                .define('c', CraftItemTagsProvider.DUSTS_COAL).define('C', Ic2Items.DENSE_COPPER_PLATE)
+                .define('T', CraftItemTagsProvider.DUSTS_TIN).save();
+        shaped(Ic2Items.RSH_CONDENSATOR, 1, "rsh_condensator").pattern("RRR", "RVR", "RSR")
+                .define('R', Items.REDSTONE).define('V', fresh(Ic2Items.HEAT_VENT))
+                .define('S', fresh(Ic2Items.HEAT_EXCHANGER)).save();
+        shaped(Ic2Items.LZH_CONDENSATOR, 1, "lzh_condensator").pattern("RVR", "CLC", "RSR")
+                .define('R', Items.REDSTONE).define('V', fresh(Ic2Items.REACTOR_HEAT_VENT))
+                .define('S', fresh(Ic2Items.REACTOR_HEAT_EXCHANGER)).define('C', fresh(Ic2Items.RSH_CONDENSATOR))
+                .define('L', Items.LAPIS_BLOCK).save();
+        gradualRepair("rsh_condensator_repair", Ic2Items.RSH_CONDENSATOR.get(), Ingredient.of(Items.REDSTONE), 10000);
+        gradualRepair("lzh_condensator_repair_redstone", Ic2Items.LZH_CONDENSATOR.get(), Ingredient.of(Items.REDSTONE),
+                5000);
+        gradualRepair("lzh_condensator_repair_lapis", Ic2Items.LZH_CONDENSATOR.get(), Ingredient.of(Items.LAPIS_LAZULI),
+                40000);
+    }
+
+    /** Depleted isotope cell as crafted: damage 9999. */
+    private static ItemStack isotopeCell() {
+        ItemStack stack = new ItemStack(Ic2Items.ISOTOPE_CELL.get());
+        stack.setDamageValue(9999);
+        return stack;
+    }
+
+    private void gradualRepair(String name, Item item, Ingredient material, int amount) {
+        output.accept(id(name), new GradualRepairRecipe(item, material, amount), null);
+    }
+
+    /** IC2 recipes name gradual items as stacks with damage 0: worn components do not match. */
+    private static Ingredient fresh(ItemLike item) {
+        return DataComponentIngredient.of(false, DataComponents.DAMAGE, 0, item);
+    }
+
     // --- §9 misc ---
 
     private void misc() {
@@ -1174,7 +1281,7 @@ public final class CraftRecipeProvider extends RecipeProvider {
         shaped(Ic2Items.COOLANT_CELL_10K, 1, "coolant_cell_10k").pattern(" T ").pattern("TWT").pattern(" T ")
                 .define('T', CraftItemTagsProvider.INGOTS_TIN).define('W', water()).save();
         shaped(Ic2Items.OVERCLOCKER_UPGRADE, 1, "overclocker_upgrade").pattern("CCC", "WEW")
-                .define('C', Ic2Items.COOLANT_CELL_10K).define('W', Ic2Items.cable(CableType.INSULATED_COPPER))
+                .define('C', fresh(Ic2Items.COOLANT_CELL_10K)).define('W', Ic2Items.cable(CableType.INSULATED_COPPER))
                 .define('E', Ic2Items.ELECTRONIC_CIRCUIT).save();
         shaped(Ic2Items.TRANSFORMER_UPGRADE, 1, "transformer_upgrade").pattern("GGG").pattern("WTW").pattern("GEG")
                 .define('G', Items.GLASS).define('W', Ic2Items.cable(CableType.DOUBLE_INSULATED_GOLD))

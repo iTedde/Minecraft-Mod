@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "craft:block/reactor_chamber"
+    }
+  }
+}

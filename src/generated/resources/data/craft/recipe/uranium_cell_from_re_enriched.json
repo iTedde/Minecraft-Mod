@@ -1,0 +1,15 @@
+{
+  "type": "craft:ic2_shapeless",
+  "ingredients": [
+    {
+      "item": "craft:re_enriched_uranium_cell"
+    },
+    {
+      "tag": "c:dusts/coal"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:uranium_cell"
+  }
+}

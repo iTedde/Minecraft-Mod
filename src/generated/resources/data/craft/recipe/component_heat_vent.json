@@ -1,0 +1,27 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "#": {
+      "item": "minecraft:iron_bars"
+    },
+    "T": {
+      "tag": "c:ingots/tin"
+    },
+    "V": {
+      "type": "neoforge:components",
+      "components": {
+        "minecraft:damage": 0
+      },
+      "items": "craft:heat_vent"
+    }
+  },
+  "pattern": [
+    "#T#",
+    "TVT",
+    "#T#"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:component_heat_vent"
+  }
+}

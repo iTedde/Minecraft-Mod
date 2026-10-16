@@ -1,0 +1,8 @@
+{
+  "type": "craft:gradual_repair",
+  "amount": 5000,
+  "item": "craft:lzh_condensator",
+  "material": {
+    "item": "minecraft:redstone"
+  }
+}

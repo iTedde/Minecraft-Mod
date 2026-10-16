@@ -1,4 +1,19 @@
 {
+  "generators/geiger_high_eu": {
+    "sounds": [
+      "craft:generators/geiger_high_eu"
+    ]
+  },
+  "generators/geiger_low_eu": {
+    "sounds": [
+      "craft:generators/geiger_low_eu"
+    ]
+  },
+  "generators/geiger_med_eu": {
+    "sounds": [
+      "craft:generators/geiger_med_eu"
+    ]
+  },
   "generators/generator_loop": {
     "sounds": [
       "craft:generators/generator_loop"
@@ -17,6 +32,11 @@
   "generators/mass_fab_scrap_solo": {
     "sounds": [
       "craft:generators/mass_fab_scrap_solo"
+    ]
+  },
+  "generators/nuclear_reactor_loop": {
+    "sounds": [
+      "craft:generators/nuclear_reactor_loop"
     ]
   },
   "generators/watermill_loop": {

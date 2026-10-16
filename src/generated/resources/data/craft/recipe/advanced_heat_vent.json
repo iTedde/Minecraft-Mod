@@ -1,0 +1,27 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "#": {
+      "item": "minecraft:iron_bars"
+    },
+    "D": {
+      "item": "minecraft:diamond"
+    },
+    "V": {
+      "type": "neoforge:components",
+      "components": {
+        "minecraft:damage": 0
+      },
+      "items": "craft:heat_vent"
+    }
+  },
+  "pattern": [
+    "#V#",
+    "#D#",
+    "#V#"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:advanced_heat_vent"
+  }
+}

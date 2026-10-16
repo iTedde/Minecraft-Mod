@@ -1,0 +1,15 @@
+{
+  "type": "craft:ic2_shapeless",
+  "ingredients": [
+    {
+      "item": "craft:dense_copper_plate"
+    },
+    {
+      "item": "craft:advanced_alloy"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:reactor_plating"
+  }
+}

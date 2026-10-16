@@ -2,7 +2,11 @@
   "type": "craft:ic2_shaped",
   "key": {
     "C": {
-      "item": "craft:coolant_cell_10k"
+      "type": "neoforge:components",
+      "components": {
+        "minecraft:damage": 0
+      },
+      "items": "craft:coolant_cell_10k"
     },
     "E": {
       "item": "craft:electronic_circuit"

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "craft:item/reactor_heat_exchanger"
+  }
+}

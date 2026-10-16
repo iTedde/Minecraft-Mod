@@ -1,0 +1,18 @@
+{
+  "type": "craft:ic2_shapeless",
+  "ingredients": [
+    {
+      "item": "craft:reactor_plating"
+    },
+    {
+      "item": "craft:advanced_alloy"
+    },
+    {
+      "item": "craft:advanced_alloy"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:containment_reactor_plating"
+  }
+}

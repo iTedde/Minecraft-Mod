@@ -13,6 +13,8 @@ public enum Ic2Machine {
     WATER_MILL("water_mill", Sheet.GENERATOR, 2, 3.0F, FacingMode.HORIZONTAL, 0.9F, Drop.SELF),
     SOLAR_PANEL("solar_panel", Sheet.GENERATOR, 3, 3.0F, FacingMode.HORIZONTAL, 0.9F, Drop.GENERATOR),
     WIND_MILL("wind_mill", Sheet.GENERATOR, 4, 3.0F, FacingMode.HORIZONTAL, 0.9F, Drop.GENERATOR),
+    NUCLEAR_REACTOR("nuclear_reactor", Sheet.GENERATOR, 5, 3.0F, FacingMode.HORIZONTAL, 0.8F, Drop.GENERATOR,
+            Rarity.UNCOMMON, true),
     IRON_FURNACE("iron_furnace", Sheet.MACHINE, 1, 2.0F, FacingMode.HORIZONTAL, 1.0F, Drop.SELF),
     ELECTRIC_FURNACE("electric_furnace", Sheet.MACHINE, 2, 2.0F, FacingMode.HORIZONTAL, 1.0F, Drop.SELF),
     MACERATOR("macerator", Sheet.MACHINE, 3, 2.0F, FacingMode.HORIZONTAL, 0.85F, Drop.MACHINE_CASING),

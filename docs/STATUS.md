@@ -746,3 +746,41 @@ Pflanzenball, Pflanzenball, Ton, 8 Sand (2500) · 16 Gras → 2 kompr. Pflanzenb
 Terra Wart (Crops), Lava-Dose/Refractory Lava (andere Mods), Ölsand, Netherrack-/Endstein-/Enderaugenstaub (GT-
 Macerator-Rezepte fehlen noch), Marmor/Basalt/Granat/Invar/Messing/Elektrum/Platin/Iridium/Blei/Zink/
 Quecksilber-Staub, Schwefel-/Calciumcarbonat-/Quecksilber-Molekülzellen, Red Rock.
+
+## Abnahme Phase 6b
+- Vom Nutzer am 2026-10-16 abgenommen („Weiter geht's“). Offen bleiben die GT-Teile, die GT-Erze brauchen (Titan,
+  Platin, Natrium/Kalium …; offene Entscheidung 2 in `CLAUDE.md`).
+
+# Stand Phase 7 (2026-10-16)
+
+**Entschieden (Nutzer, 2026-10-16):** Phase 7 = IC2-Reaktor 1:1 **plus die ohne GT-Erze erreichbaren GT-Reaktorteile**
+(Helium-Kühlzellen 60k/180k/360k, Iridium-Neutronenreflektor, Thorium-/Plutoniumzellen samt Uranstaub-Kette; keine
+NaK-Kühlzellen, kein Vakuumgefrierer) **und die IC2-Nuke**. Teilpakete: 7a IC2-Reaktor · 7b GT-Reaktorteile · 7c Nuke.
+
+## Erledigt (Teilpaket „Phase 7a: IC2-Reaktor“, 2026-10-16)
+- Spec: `06-reaktor.md` ergänzt (Vent-Abbruch greift nie, Heizzelle/Platten stapelbar, §5a Block/GUI/Klang/Texturen,
+  Uranzelle im GT-Canner mit 2 EU/t).
+- **Uran:** Uranerz + Tiefenschiefer-Uranerz (Weltgen IC2: 20 Adern/Chunk, Größe 3, y 0–64; 1–3 XP; Behutsamkeit),
+  Uranerz-Brocken, raffiniertes Uran, Uranblock (Compressor 9 Barren / Ofen → 9 Barren wie GT). Compressor: Brocken
+  bzw. Erz → Barren. GT-Canner: Barren + Zelle → Uranzelle (100 Ticks, 2 EU/t).
+- **Reaktor** (`ic2/reactor/NuclearReactorBlockEntity`, `NuclearReactorBlock`): 9 × 6-Matrix, Breite 3 + Kammern,
+  Zyklus alle 20 Ticks (Zufallsversatz), Redstone-Pflicht, Energie `output · 5` je Tick (Rest über die Kammern),
+  Hitzeeffekte ab 40/50/70/85 % (Feuer, Wasser verdampft, Strahlungsschaden, Lava), Kernschmelze mit IC2-Explosion
+  (Stärke 10 + Komponenten, max. 45, Schadensart `craft:nuke` mit Strahlungseffekt ±100). GUI `GUI6by3–9`, Klang
+  (Loop + Geigerzähler nach Leistung), Rauch/Flammen nach Hitze.
+- **Reaktorkammer** (`ReactorChamberBlock`/`BlockEntity`): nur an genau einem Reaktor, fällt sonst ab, öffnet die
+  Reaktor-GUI, Item-Capability des Reaktors, Energiequelle (Rest der Reaktorenergie).
+- **Komponenten** (`ic2/item/reactor/*`): Uran-/Doppel-/Vierfachzelle, 10k/30k/60k-Kühlzelle, drei Platten, vier
+  Wärmetauscher, fünf Wärmeableiter, Heizzelle, Neutronenreflektor, dicker Neutronenreflektor (noch ohne Rezept, GT-
+  Berylliumzelle → 7b), RSH-/LZH-Kondensator (Reparatur per Redstone/Lapis, `craft:gradual_repair`), Isotopenzelle,
+  angereicherte und fast erschöpfte Uranzelle. Alle IC2-Rezepte (abgenutzte Teile passen nicht).
+- Texturen und Klänge aus `IC2.jar`. 15 neue GameTests (`ReactorGameTests`, insgesamt 167 grün), `build` und
+  `runClient` erfolgreich.
+
+## Nächste Schritte
+1. Teilpaket 7b: GT-Reaktorteile (Helium-Kühlzellen, Iridium-Reflektor, Thorium/Plutonium, Uranstaub, dicker
+   Neutronenreflektor mit Berylliumzelle – prüfen, ob Beryllium erreichbar ist).
+2. Teilpaket 7c: Nuke.
+3. Manuelle Client-Tests 7a: Uranerz finden (y 0–64), Reaktor + Kammern bauen (GUI-Breite 3–9, Kammer nur an einem
+   Reaktor), Redstone an → Loop/Geigerzähler, Energie in eine MFE, Kühlzellen-Balken, Kernschmelze in einer Testwelt
+   (Rauch/Flammen, Feuer/Lava ringsum, Explosion), Kondensator mit Redstone reparieren.

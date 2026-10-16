@@ -8,6 +8,9 @@ import java.util.Map;
 import java.util.Random;
 
 import dev.craft.Craft;
+import dev.craft.core.CraftDamageTypes;
+import dev.craft.ic2.Ic2MobEffects;
+import dev.craft.ic2.item.armor.HazmatArmorItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.Registries;
@@ -17,6 +20,8 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -123,6 +128,9 @@ public final class Ic2Explosion {
                 shootRay(x, y, z, phi, theta, power, entitiesAreInRange && phiN % 8 == 0 && thetaN % 8 == 0);
             }
         }
+        if (damageSource.is(CraftDamageTypes.NUKE)) {
+            applyNukeRadiation();
+        }
 
         float pitch = (1.0F + (level.random.nextFloat() - level.random.nextFloat()) * 0.2F) * 0.7F;
         level.playSound(null, x, y, z, SoundEvents.GENERIC_EXPLODE.value(), SoundSource.BLOCKS, 4.0F, pitch);
@@ -177,6 +185,25 @@ public final class Ic2Explosion {
             }
         }
         column.add(new Drop(stack.copyWithCount(1), stack.getCount(), y));
+    }
+
+    /** IC2 nuke damage source: hunger and radioactivity for everything without a full hazmat suit within ±100. */
+    private void applyNukeRadiation() {
+        AABB area = new AABB(x - 100.0, y - 100.0, z - 100.0, x + 100.0, y + 100.0, z + 100.0);
+        for (LivingEntity entity : level.getEntitiesOfClass(LivingEntity.class, area)) {
+            if (HazmatArmorItem.hasCompleteHazmat(entity)) {
+                continue;
+            }
+            double distance = Math.sqrt(entity.distanceToSqr(x, y, z));
+            int hungerLength = (int) (120.0 * (100.0 - distance));
+            int poisonLength = (int) (80.0 * (30.0 - distance));
+            if (hungerLength >= 0) {
+                entity.addEffect(new MobEffectInstance(MobEffects.HUNGER, hungerLength, 0));
+            }
+            if (poisonLength >= 0) {
+                entity.addEffect(new MobEffectInstance(Ic2MobEffects.RADIATION, poisonLength, 0));
+            }
+        }
     }
 
     private void shootRay(double x, double y, double z, double phi, double theta, double power,

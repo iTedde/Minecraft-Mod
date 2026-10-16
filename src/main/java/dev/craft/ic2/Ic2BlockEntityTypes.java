@@ -1,5 +1,6 @@
 package dev.craft.ic2;
 
+import dev.craft.ic2.reactor.ReactorChamberBlockEntity;
 import java.util.Arrays;
 import java.util.EnumMap;
 import java.util.Map;
@@ -22,6 +23,10 @@ public final class Ic2BlockEntityTypes {
     public static final Supplier<BlockEntityType<CableBlockEntity>> CABLE = BLOCK_ENTITY_TYPES.register("cable",
             () -> BlockEntityType.Builder.of(CableBlockEntity::new, Arrays.stream(CableType.values())
                     .map(type -> Ic2Blocks.cable(type).get()).toArray(Block[]::new)).build(null));
+
+    public static final Supplier<BlockEntityType<ReactorChamberBlockEntity>> REACTOR_CHAMBER =
+            BLOCK_ENTITY_TYPES.register("reactor_chamber", () -> BlockEntityType.Builder.of(
+                    ReactorChamberBlockEntity::new, Ic2Blocks.REACTOR_CHAMBER.get()).build(null));
 
     private static final Map<Ic2Machine, Supplier<BlockEntityType<MachineBlockEntity>>> MACHINES =
             new EnumMap<>(Ic2Machine.class);

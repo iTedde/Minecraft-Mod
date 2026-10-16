@@ -1,0 +1,24 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "C": {
+      "type": "neoforge:components",
+      "components": {
+        "minecraft:damage": 0
+      },
+      "items": "craft:coolant_cell_10k"
+    },
+    "T": {
+      "tag": "c:ingots/tin"
+    }
+  },
+  "pattern": [
+    "TTT",
+    "CCC",
+    "TTT"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:coolant_cell_30k"
+  }
+}

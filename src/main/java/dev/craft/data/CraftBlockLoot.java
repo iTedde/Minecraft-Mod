@@ -66,6 +66,13 @@ public final class CraftBlockLoot extends BlockLootSubProvider {
         dropSelf(Ic2Blocks.TIN_ORE.get());
         dropSelf(Ic2Blocks.DEEPSLATE_TIN_ORE.get());
         dropSelf(Ic2Blocks.TIN_BLOCK.get());
+        // IC2 uranium ore: one uranium drop (no fortune bonus), the block itself with silk touch.
+        for (Block ore : new Block[]{Ic2Blocks.URANIUM_ORE.get(), Ic2Blocks.DEEPSLATE_URANIUM_ORE.get()}) {
+            add(ore, createSilkTouchDispatchTable(ore,
+                    applyExplosionDecay(ore, LootItem.lootTableItem(Ic2Items.URANIUM_DROP.get()))));
+        }
+        dropSelf(Ic2Blocks.URANIUM_BLOCK.get());
+        dropOther(Ic2Blocks.REACTOR_CHAMBER.get(), Ic2Blocks.MACHINE_CASING.get());
         dropSelf(Ic2Blocks.BRONZE_BLOCK.get());
         dropSelf(Ic2Blocks.RUBBER_SAPLING.get());
         for (EngineType type : EngineType.values()) {

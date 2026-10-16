@@ -24,6 +24,11 @@ public final class Ic2Sounds {
     public static final DeferredHolder<SoundEvent, SoundEvent> MASS_FAB_LOOP = register("generators/mass_fab_loop");
     public static final DeferredHolder<SoundEvent, SoundEvent> MASS_FAB_SCRAP_SOLO =
             register("generators/mass_fab_scrap_solo");
+    public static final DeferredHolder<SoundEvent, SoundEvent> NUCLEAR_REACTOR_LOOP =
+            register("generators/nuclear_reactor_loop");
+    public static final DeferredHolder<SoundEvent, SoundEvent> GEIGER_LOW_EU = register("generators/geiger_low_eu");
+    public static final DeferredHolder<SoundEvent, SoundEvent> GEIGER_MED_EU = register("generators/geiger_med_eu");
+    public static final DeferredHolder<SoundEvent, SoundEvent> GEIGER_HIGH_EU = register("generators/geiger_high_eu");
     public static final DeferredHolder<SoundEvent, SoundEvent> COMPRESSOR_OP = register("machines/compressor_op");
     public static final DeferredHolder<SoundEvent, SoundEvent> EXTRACTOR_OP = register("machines/extractor_op");
     public static final DeferredHolder<SoundEvent, SoundEvent> MACERATOR_OP = register("machines/macerator_op");

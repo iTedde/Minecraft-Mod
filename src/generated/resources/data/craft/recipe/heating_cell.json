@@ -1,0 +1,23 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "C": {
+      "item": "craft:dense_copper_plate"
+    },
+    "L": {
+      "item": "craft:lava_cell"
+    },
+    "c": {
+      "item": "craft:electronic_circuit"
+    }
+  },
+  "pattern": [
+    "c",
+    "L",
+    "C"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:heating_cell"
+  }
+}

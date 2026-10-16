@@ -1,0 +1,24 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "G": {
+      "item": "minecraft:gold_ingot"
+    },
+    "V": {
+      "type": "neoforge:components",
+      "components": {
+        "minecraft:damage": 0
+      },
+      "items": "craft:reactor_heat_vent"
+    }
+  },
+  "pattern": [
+    "G",
+    "V",
+    "G"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:overclocked_heat_vent"
+  }
+}

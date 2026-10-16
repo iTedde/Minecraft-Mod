@@ -65,6 +65,21 @@ public final class Ic2DataComponents {
                     .persistent(ExtraCodecs.NON_NEGATIVE_INT)
                     .networkSynchronized(ByteBufCodecs.VAR_INT));
 
+    /** Stored heat of a coolant cell, heat exchanger or vent (IC2 NBT {@code heat}). */
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> REACTOR_HEAT =
+            COMPONENTS.registerComponentType("reactor_heat", builder -> builder
+                    .persistent(Codec.INT)
+                    .networkSynchronized(ByteBufCodecs.VAR_INT));
+
+    /**
+     * Wear of reflectors and condensators beyond the 10 000 damage steps (IC2 {@code ItemGradualInt}, NBT
+     * {@code advDmg}); may become negative like in the original.
+     */
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> ADV_DAMAGE =
+            COMPONENTS.registerComponentType("adv_damage", builder -> builder
+                    .persistent(Codec.INT)
+                    .networkSynchronized(ByteBufCodecs.VAR_INT));
+
     /** Last block position of the static boots (IC2 NBT {@code x}/{@code z}). */
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Position>> LAST_POSITION =
             COMPONENTS.registerComponentType("last_position", builder -> builder

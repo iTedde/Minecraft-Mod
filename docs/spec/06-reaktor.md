@@ -126,8 +126,9 @@ die Rest-Hitze einer Uranzelle). Exakt übernehmen.
 
 `processChamber`:
 1. Wenn `reactorVent > 0`: `drain = min(reactor.heat, reactorVent)`; `rest = alterHeat(+drain)`; ist `rest > 0`
-   → **Abbruch** (Hülle unverändert, kein Selbstkühlen; Komponente ist dann bereits zerstört). Sonst
-   `reactor.heat −= drain`.
+   → Abbruch, sonst `reactor.heat −= drain`. Hinweis: `alterHeat` einer positiven Menge ist nie positiv (beim
+   Überhitzen negativ), der Abbruch greift also nie – die Hülle wird auch beim Durchbrennen entleert, und das
+   Selbstkühlen läuft auf dem schon entfernten Stack ins Leere.
 2. `alterHeat(−selfVent)`.
 
 ### 3.5 Komponenten-Wärmeableiter (`ItemReactorVentSpread`, `reactorVentSpread`)
@@ -143,7 +144,8 @@ die Rest-Hitze einer Uranzelle). Exakt übernehmen.
 | Wärmekapazitive Reaktorplatte (`reactorPlatingHeat`) | +2 000 | ×0,99 | Faktor 0,99 |
 | Containment-Reaktorplatte (`reactorPlatingExplosive`) | +500 | ×0,90 | Faktor 0,9 |
 
-`processChamber`: `reactor.maxHeat += wert`, `reactor.hem *= faktor`. Keine Hitze speicherbar.
+`processChamber`: `reactor.maxHeat += wert`, `reactor.hem *= faktor`. Keine Hitze speicherbar. Platten sind stapelbar
+(64); ein Stapel in einem Feld zählt einmal.
 
 ### 3.7 Neutronenreflektoren (`ItemReactorReflector`, Haltbarkeit über NBT `advDmg`)
 
@@ -171,7 +173,8 @@ die Rest-Hitze einer Uranzelle). Exakt übernehmen.
 
 ### 3.9 Heizzelle (`ItemReactorHeatpack`, `reactorHeatpack`)
 
-- `maxPer = 1000`, `heatPer = 1`. `processChamber`: für jeden Nachbarn, **nur wenn `reactor.heat < 1000·stack`**,
+- Stapelbar (64). `maxPer = 1000`, `heatPer = 1`. `processChamber`: Nachbarn in der Reihenfolge x+1, x−1, y+1, y−1,
+  jeweils **nur wenn `reactor.heat < 1000·stack`**,
   und der Nachbar `canStoreHeat`: `add = min(1·stack, 1000·stack − cur)`, wenn > 0 → `alterHeat(add)`.
 - Explosion `+stack/10` (Ganzzahldivision → 0 bei < 10).
 
@@ -217,6 +220,25 @@ Alle zutreffenden Stufen werden pro Zyklus ausgeführt (von oben nach unten).
 - Fast erschöpfte Uranzelle + Kohlestaub → Depleted Isotope Cell (Damage 9999) → im Reaktor neben Uranzellen
   anreichern → angereicherte Uranzelle; + Kohlestaub → Uranzelle.
 - Rezepte und GregTech-Änderungen: `08-rezepte.md`.
+
+## 5a. Block, GUI, Klang (Ergänzung Phase 7a)
+
+- Reaktor: `blockGenerator` Meta 5, Rarität „uncommon“, Texturen `block_generator.png` Spalte 5 (Zeilen 0–5 inaktiv,
+  6–11 aktiv). Ohne Schraubenschlüssel droppt er einen Generator, Schraubenschlüssel-Drop-Rate 0,8.
+- Reaktorkammer: `block_0.png` unten 16, oben 17, Seiten 67; Rarität „uncommon“; Härte 2; Drop Maschinenblock.
+  Rauch/Flammen (`randomDisplayTick`) wie der Reaktor: `puffs = heat/1000`, davon `rand(puffs)` Rauch bei y+0,95,
+  dann `puffs −= rand(4)+3` Flammen bei y+1.
+- GUI `GUI6by<Breite>.png` (176 × 222), Slots ab x = 89 − 9·Breite, y = 18, Raster 18; Spielerinventar y 140,
+  Hotbar y 198; Titel zentriert y 6, „Inventory“ bei y 128. Keine Anzeigen. Die Breite wird beim Öffnen festgelegt.
+- Synchronisiert werden nur `output` (jeder Zyklus, für den Klang) und – nur über die GUI – die Hüllenhitze; Rauch und
+  Flammen sieht ein Client deshalb erst, nachdem er die GUI geöffnet hat (Originalverhalten).
+- Klang: `NuclearReactorLoop.ogg` bei `output > 0`; Geigerzähler `GeigerLowEU` (< 40), `GeigerMedEU` (< 80),
+  `GeigerHighEU` (≥ 80).
+- Uranerz `block_0.png` 34, Uranblock (`blockMetal` Meta 3) oben/unten 79, Seiten 95. Items `item_0.png`: Brocken 13,
+  Barren 12, Zellen 38/208/209, Kühlzellen 39/210/211, Platten 71/212/213, Tauscher 214–217, Ableiter 218/219/220/221,
+  fortg. Ableiter 72, Isotopenzelle 40, angereichert 41, fast erschöpft 42, Heizzelle 222, Reflektoren 223/224,
+  Kondensatoren 225/227.
+- Uranzelle aus Barren nur im GT-Canner: Barren + leere Zelle, 100 Ticks, **2 EU/t** (`GT_OreDictHandler` 2420).
 
 ## 6. Kühlmittelzellen als Flüssigkeitscontainer
 

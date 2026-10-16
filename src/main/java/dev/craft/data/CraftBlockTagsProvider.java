@@ -14,6 +14,7 @@ import dev.craft.gregtech.GtMachine;
 import dev.craft.gregtech.block.GtCasingBlock;
 import dev.craft.ic2.Ic2Blocks;
 import dev.craft.ic2.Ic2Machine;
+import dev.craft.ic2.reactor.NuclearReactorBlockEntity;
 import dev.craft.ic2.item.tool.ChainsawItem;
 import dev.craft.ic2.item.tool.DrillItem;
 import dev.craft.ic2.item.tool.ElectricHoeItem;
@@ -31,6 +32,8 @@ import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
 public final class CraftBlockTagsProvider extends BlockTagsProvider {
     public static final TagKey<Block> ORES_TIN = commonTag("ores/tin");
+    public static final TagKey<Block> ORES_URANIUM = commonTag("ores/uranium");
+    public static final TagKey<Block> STORAGE_BLOCKS_URANIUM = commonTag("storage_blocks/uranium");
     public static final TagKey<Block> STORAGE_BLOCKS_TIN = commonTag("storage_blocks/tin");
     public static final TagKey<Block> STORAGE_BLOCKS_BRONZE = commonTag("storage_blocks/bronze");
 
@@ -53,6 +56,14 @@ public final class CraftBlockTagsProvider extends BlockTagsProvider {
                 Ic2Blocks.ADVANCED_MACHINE_CASING.get(), Ic2Blocks.TIN_ORE.get(), Ic2Blocks.DEEPSLATE_TIN_ORE.get(), Ic2Blocks.TIN_BLOCK.get(), Ic2Blocks.BRONZE_BLOCK.get(),
                 Ic2Blocks.IRON_FENCE.get());
         tag(BlockTags.NEEDS_STONE_TOOL).add(Ic2Blocks.TIN_ORE.get(), Ic2Blocks.DEEPSLATE_TIN_ORE.get());
+        tag(BlockTags.MINEABLE_WITH_PICKAXE).add(Ic2Blocks.URANIUM_ORE.get(), Ic2Blocks.DEEPSLATE_URANIUM_ORE.get(),
+                Ic2Blocks.URANIUM_BLOCK.get(), Ic2Blocks.REACTOR_CHAMBER.get());
+        tag(BlockTags.NEEDS_IRON_TOOL).add(Ic2Blocks.URANIUM_ORE.get(), Ic2Blocks.DEEPSLATE_URANIUM_ORE.get());
+        // Reactor meltdown (1.4.7 materials): unbreakable rock/iron blocks → lava; wood, leaves, cloth → fire.
+        tag(NuclearReactorBlockEntity.MELTDOWN_LAVA).add(Blocks.BEDROCK, Blocks.REINFORCED_DEEPSLATE,
+                Blocks.COMMAND_BLOCK, Blocks.CHAIN_COMMAND_BLOCK, Blocks.REPEATING_COMMAND_BLOCK);
+        tag(NuclearReactorBlockEntity.MELTDOWN_FLAMMABLE).addTag(BlockTags.MINEABLE_WITH_AXE)
+                .addTag(BlockTags.LEAVES).addTag(BlockTags.WOOL);
         for (EngineType type : EngineType.values()) {
             tag(BlockTags.MINEABLE_WITH_PICKAXE).add(BcBlocks.engine(type).get());
         }
@@ -81,6 +92,12 @@ public final class CraftBlockTagsProvider extends BlockTagsProvider {
         tag(Tags.Blocks.ORES_IN_GROUND_STONE).add(Ic2Blocks.TIN_ORE.get());
         tag(Tags.Blocks.ORES_IN_GROUND_DEEPSLATE).add(Ic2Blocks.DEEPSLATE_TIN_ORE.get());
         tag(STORAGE_BLOCKS_TIN).add(Ic2Blocks.TIN_BLOCK.get());
+        tag(ORES_URANIUM).add(Ic2Blocks.URANIUM_ORE.get(), Ic2Blocks.DEEPSLATE_URANIUM_ORE.get());
+        tag(Tags.Blocks.ORES).addTag(ORES_URANIUM);
+        tag(Tags.Blocks.ORES_IN_GROUND_STONE).add(Ic2Blocks.URANIUM_ORE.get());
+        tag(Tags.Blocks.ORES_IN_GROUND_DEEPSLATE).add(Ic2Blocks.DEEPSLATE_URANIUM_ORE.get());
+        tag(STORAGE_BLOCKS_URANIUM).add(Ic2Blocks.URANIUM_BLOCK.get());
+        tag(Tags.Blocks.STORAGE_BLOCKS).addTag(STORAGE_BLOCKS_URANIUM);
         tag(STORAGE_BLOCKS_BRONZE).add(Ic2Blocks.BRONZE_BLOCK.get());
         tag(Tags.Blocks.STORAGE_BLOCKS).addTag(STORAGE_BLOCKS_TIN).addTag(STORAGE_BLOCKS_BRONZE);
         addElectricToolTags();

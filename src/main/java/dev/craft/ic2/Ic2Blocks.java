@@ -6,6 +6,8 @@ import java.util.function.BiFunction;
 
 import dev.craft.Craft;
 import dev.craft.ic2.block.IndustrialTntBlock;
+import dev.craft.ic2.reactor.NuclearReactorBlock;
+import dev.craft.ic2.reactor.ReactorChamberBlock;
 import dev.craft.ic2.block.IronFenceBlock;
 import dev.craft.ic2.block.ResinSheetBlock;
 import dev.craft.ic2.block.RubberLeavesBlock;
@@ -34,6 +36,8 @@ import dev.craft.ic2.storage.ElectricStorageBlockEntity;
 import dev.craft.ic2.storage.TransformerBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.DropExperienceBlock;
+import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.TransparentBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -77,6 +81,19 @@ public final class Ic2Blocks {
     public static final DeferredBlock<Block> DEEPSLATE_TIN_ORE = BLOCKS.registerSimpleBlock("deepslate_tin_ore",
             BlockBehaviour.Properties.of().mapColor(MapColor.DEEPSLATE).instrument(NoteBlockInstrument.BASEDRUM)
                     .requiresCorrectToolForDrops().strength(4.5F, 3.0F).sound(SoundType.DEEPSLATE));
+    /** IC2 {@code blockOreUran}: hardness 4, {@code setResistance(6)} = 3.6 effective, iron pickaxe, 1–3 XP. */
+    public static final DeferredBlock<DropExperienceBlock> URANIUM_ORE = BLOCKS.register("uranium_ore",
+            () -> new DropExperienceBlock(UniformInt.of(1, 3), BlockBehaviour.Properties.of().mapColor(MapColor.STONE)
+                    .instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(4.0F, 3.6F)));
+    public static final DeferredBlock<DropExperienceBlock> DEEPSLATE_URANIUM_ORE =
+            BLOCKS.register("deepslate_uranium_ore", () -> new DropExperienceBlock(UniformInt.of(1, 3),
+                    BlockBehaviour.Properties.of().mapColor(MapColor.DEEPSLATE).instrument(NoteBlockInstrument.BASEDRUM)
+                            .requiresCorrectToolForDrops().strength(5.5F, 3.6F).sound(SoundType.DEEPSLATE)));
+    public static final DeferredBlock<Block> URANIUM_BLOCK = BLOCKS.registerSimpleBlock("uranium_block",
+            metal().strength(4.0F));
+    /** IC2 {@code BlockReactorChamber}: hardness 2, drops a machine casing without wrench. */
+    public static final DeferredBlock<ReactorChamberBlock> REACTOR_CHAMBER = BLOCKS.register("reactor_chamber",
+            () -> new ReactorChamberBlock(metal().strength(2.0F)));
     public static final DeferredBlock<Block> TIN_BLOCK = BLOCKS.registerSimpleBlock("tin_block",
             metal().strength(4.0F));
     public static final DeferredBlock<Block> BRONZE_BLOCK = BLOCKS.registerSimpleBlock("bronze_block",
@@ -131,6 +148,7 @@ public final class Ic2Blocks {
                     (pos, state) -> new ElectricStorageBlockEntity(Ic2BlockEntityTypes.get(machine), pos, state,
                             ElectricStorageBlockEntity.Spec.of(machine)));
             case MASS_FABRICATOR -> new MassFabricatorBlock(properties);
+            case NUCLEAR_REACTOR -> new NuclearReactorBlock(properties);
             case LV_TRANSFORMER, MV_TRANSFORMER, HV_TRANSFORMER -> new MachineBlock(properties, machine,
                     (pos, state) -> new TransformerBlockEntity(Ic2BlockEntityTypes.get(machine), pos, state,
                             TransformerBlockEntity.Spec.of(machine)));
@@ -155,7 +173,7 @@ public final class Ic2Blocks {
             case ELECTROLYZER -> ElectrolyzerBlockEntity::new;
             case INDUCTION_FURNACE -> InductionFurnaceBlockEntity::new;
             case CANNING_MACHINE -> CanningMachineBlockEntity::new;
-            case BATBOX, MFE, MFSU, LV_TRANSFORMER, MV_TRANSFORMER, HV_TRANSFORMER, MASS_FABRICATOR ->
+            case BATBOX, MFE, MFSU, LV_TRANSFORMER, MV_TRANSFORMER, HV_TRANSFORMER, MASS_FABRICATOR, NUCLEAR_REACTOR ->
                     throw new IllegalArgumentException(machine + " has its own block class");
         };
     }

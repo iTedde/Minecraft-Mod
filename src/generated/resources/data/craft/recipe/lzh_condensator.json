@@ -1,0 +1,41 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "C": {
+      "type": "neoforge:components",
+      "components": {
+        "minecraft:damage": 0
+      },
+      "items": "craft:rsh_condensator"
+    },
+    "L": {
+      "item": "minecraft:lapis_block"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    },
+    "S": {
+      "type": "neoforge:components",
+      "components": {
+        "minecraft:damage": 0
+      },
+      "items": "craft:reactor_heat_exchanger"
+    },
+    "V": {
+      "type": "neoforge:components",
+      "components": {
+        "minecraft:damage": 0
+      },
+      "items": "craft:reactor_heat_vent"
+    }
+  },
+  "pattern": [
+    "RVR",
+    "CLC",
+    "RSR"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:lzh_condensator"
+  }
+}

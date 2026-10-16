@@ -1,0 +1,20 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "C": {
+      "item": "craft:empty_cell"
+    },
+    "U": {
+      "tag": "c:ingots/uranium"
+    }
+  },
+  "pattern": [
+    "CCC",
+    "CUC",
+    "CCC"
+  ],
+  "result": {
+    "count": 8,
+    "id": "craft:near_depleted_uranium_cell"
+  }
+}

@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.function.Supplier;
 
 import dev.craft.Craft;
+import dev.craft.ic2.recipe.GradualRepairRecipe;
 import dev.craft.ic2.recipe.Ic2ShapedRecipe;
 import dev.craft.ic2.recipe.Ic2ShapelessRecipe;
 import dev.craft.ic2.recipe.MachineRecipe;
@@ -23,6 +24,8 @@ public final class Ic2Recipes {
             SERIALIZERS.register("ic2_shaped", Ic2ShapedRecipe.Serializer::new);
     public static final Supplier<RecipeSerializer<Ic2ShapelessRecipe>> SHAPELESS =
             SERIALIZERS.register("ic2_shapeless", Ic2ShapelessRecipe.Serializer::new);
+    public static final Supplier<RecipeSerializer<GradualRepairRecipe>> GRADUAL_REPAIR =
+            SERIALIZERS.register("gradual_repair", GradualRepairRecipe.Serializer::new);
 
     private static final Map<MachineRecipe.Kind, Supplier<RecipeType<MachineRecipe>>> MACHINE_TYPES =
             new EnumMap<>(MachineRecipe.Kind.class);

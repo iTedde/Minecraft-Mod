@@ -1,0 +1,23 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "C": {
+      "item": "craft:dense_copper_plate"
+    },
+    "T": {
+      "tag": "c:dusts/tin"
+    },
+    "c": {
+      "tag": "c:dusts/coal"
+    }
+  },
+  "pattern": [
+    "TcT",
+    "cCc",
+    "TcT"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:neutron_reflector"
+  }
+}

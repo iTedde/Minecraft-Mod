@@ -1,0 +1,23 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "C": {
+      "item": "craft:reactor_chamber"
+    },
+    "G": {
+      "item": "craft:generator"
+    },
+    "c": {
+      "item": "craft:advanced_circuit"
+    }
+  },
+  "pattern": [
+    " c ",
+    "CCC",
+    " G "
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:nuclear_reactor"
+  }
+}

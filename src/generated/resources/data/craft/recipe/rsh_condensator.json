@@ -1,0 +1,31 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "R": {
+      "item": "minecraft:redstone"
+    },
+    "S": {
+      "type": "neoforge:components",
+      "components": {
+        "minecraft:damage": 0
+      },
+      "items": "craft:heat_exchanger"
+    },
+    "V": {
+      "type": "neoforge:components",
+      "components": {
+        "minecraft:damage": 0
+      },
+      "items": "craft:heat_vent"
+    }
+  },
+  "pattern": [
+    "RRR",
+    "RVR",
+    "RSR"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:rsh_condensator"
+  }
+}

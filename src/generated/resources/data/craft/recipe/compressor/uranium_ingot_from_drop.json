@@ -1,0 +1,10 @@
+{
+  "type": "craft:compressor",
+  "ingredient": {
+    "item": "craft:uranium_drop"
+  },
+  "result": {
+    "count": 1,
+    "id": "craft:uranium_ingot"
+  }
+}

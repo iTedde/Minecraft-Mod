@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "craft:block/machine/nuclear_reactor_front_active",
+    "east": "craft:block/machine/nuclear_reactor_right_active",
+    "north": "craft:block/machine/nuclear_reactor_top_active",
+    "particle": "craft:block/machine/nuclear_reactor_front_active",
+    "south": "craft:block/machine/nuclear_reactor_bottom_active",
+    "up": "craft:block/machine/nuclear_reactor_back_active",
+    "west": "craft:block/machine/nuclear_reactor_left_active"
+  }
+}

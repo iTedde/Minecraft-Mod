@@ -23,6 +23,7 @@ import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
 public final class CraftItemTagsProvider extends ItemTagsProvider {
     public static final TagKey<Item> INGOTS_TIN = commonTag("ingots/tin");
+    public static final TagKey<Item> INGOTS_URANIUM = commonTag("ingots/uranium");
     public static final TagKey<Item> INGOTS_BRONZE = commonTag("ingots/bronze");
     public static final TagKey<Item> INGOTS_REFINED_IRON = commonTag("ingots/refined_iron");
     public static final TagKey<Item> INGOTS_NICKEL = commonTag("ingots/nickel");
@@ -80,10 +81,13 @@ public final class CraftItemTagsProvider extends ItemTagsProvider {
         copy(Tags.Blocks.ORES_IN_GROUND_STONE, Tags.Items.ORES_IN_GROUND_STONE);
         copy(Tags.Blocks.ORES_IN_GROUND_DEEPSLATE, Tags.Items.ORES_IN_GROUND_DEEPSLATE);
         copy(CraftBlockTagsProvider.STORAGE_BLOCKS_TIN, commonTag("storage_blocks/tin"));
+        copy(CraftBlockTagsProvider.ORES_URANIUM, commonTag("ores/uranium"));
+        copy(CraftBlockTagsProvider.STORAGE_BLOCKS_URANIUM, commonTag("storage_blocks/uranium"));
         copy(CraftBlockTagsProvider.STORAGE_BLOCKS_BRONZE, commonTag("storage_blocks/bronze"));
         copy(Tags.Blocks.STORAGE_BLOCKS, Tags.Items.STORAGE_BLOCKS);
 
         tag(INGOTS_TIN).add(Ic2Items.TIN_INGOT.get());
+        tag(INGOTS_URANIUM).add(Ic2Items.URANIUM_INGOT.get());
         tag(INGOTS_BRONZE).add(Ic2Items.BRONZE_INGOT.get());
         tag(INGOTS_REFINED_IRON).add(Ic2Items.REFINED_IRON_INGOT.get());
         tag(PLATES_IRON).add(GtItems.IRON_PLATE.get());
@@ -106,7 +110,7 @@ public final class CraftItemTagsProvider extends ItemTagsProvider {
                 GtItems.BRONZE_MACHINE_HULL.get());
         tag(RAW_MACHINE_TIER_02).add(Ic2Items.ADVANCED_MACHINE_CASING.get(), GtItems.STEEL_MACHINE_HULL.get());
         tag(CRAFTING_100K_EU_STORE).add(Ic2Items.ENERGY_CRYSTAL.get(), GtItems.LITHIUM_BATTERY.get());
-        tag(Tags.Items.INGOTS).addTag(INGOTS_TIN).addTag(INGOTS_BRONZE).addTag(INGOTS_REFINED_IRON)
+        tag(Tags.Items.INGOTS).addTag(INGOTS_TIN).addTag(INGOTS_URANIUM).addTag(INGOTS_BRONZE).addTag(INGOTS_REFINED_IRON)
                 .addTag(INGOTS_NICKEL).addTag(INGOTS_ALUMINIUM).addTag(INGOTS_STEEL);
         tag(DUSTS_BRONZE).add(Ic2Items.BRONZE_DUST.get());
         tag(DUSTS_CLAY).add(Ic2Items.CLAY_DUST.get());

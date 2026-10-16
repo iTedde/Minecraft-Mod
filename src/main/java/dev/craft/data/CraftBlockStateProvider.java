@@ -73,6 +73,13 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
         simpleBlockWithItem(Ic2Blocks.TIN_ORE.get(), cubeAll(Ic2Blocks.TIN_ORE.get()));
         simpleBlockWithItem(Ic2Blocks.DEEPSLATE_TIN_ORE.get(), cubeAll(Ic2Blocks.DEEPSLATE_TIN_ORE.get()));
         simpleBlockWithItem(Ic2Blocks.TIN_BLOCK.get(), cubeAll(Ic2Blocks.TIN_BLOCK.get()));
+        simpleBlockWithItem(Ic2Blocks.URANIUM_ORE.get(), cubeAll(Ic2Blocks.URANIUM_ORE.get()));
+        simpleBlockWithItem(Ic2Blocks.DEEPSLATE_URANIUM_ORE.get(), cubeAll(Ic2Blocks.DEEPSLATE_URANIUM_ORE.get()));
+        simpleBlockWithItem(Ic2Blocks.URANIUM_BLOCK.get(), models().cubeColumn("uranium_block",
+                modLoc("block/uranium_block"), modLoc("block/uranium_block_top")));
+        simpleBlockWithItem(Ic2Blocks.REACTOR_CHAMBER.get(), models().cubeBottomTop("reactor_chamber",
+                modLoc("block/reactor_chamber_side"), modLoc("block/reactor_chamber_bottom"),
+                modLoc("block/reactor_chamber_top")));
         simpleBlockWithItem(Ic2Blocks.BRONZE_BLOCK.get(), cubeAll(Ic2Blocks.BRONZE_BLOCK.get()));
         rubberWood();
         simpleBlockWithItem(Ic2Blocks.RUBBER_LEAVES.get(), models().withExistingParent("rubber_leaves",

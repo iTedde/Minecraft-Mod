@@ -12,6 +12,8 @@ public final class CraftDamageTypes {
     public static final ResourceKey<DamageType> ELECTRICITY = key("electricity");
     /** Radioactivity effect; bypasses armor (IC2 {@code radiation}). */
     public static final ResourceKey<DamageType> RADIATION = key("radiation");
+    /** Reactor meltdown and nuke explosions (IC2 {@code nuke}); also triggers the nuke radiation effect. */
+    public static final ResourceKey<DamageType> NUKE = key("nuke");
 
     private CraftDamageTypes() {
     }
@@ -23,5 +25,6 @@ public final class CraftDamageTypes {
     public static void bootstrap(BootstrapContext<DamageType> context) {
         context.register(ELECTRICITY, new DamageType("craft.electricity", 0.1F));
         context.register(RADIATION, new DamageType("craft.radiation", 0.1F));
+        context.register(NUKE, new DamageType("craft.nuke", 0.1F));
     }
 }
