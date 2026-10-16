@@ -161,6 +161,10 @@ Status: *geplant* (aus Phase 1 abgeleitet, noch nicht umgesetzt), *entschieden* 
 | Teleporter: Zielhöhe | `y + 1,5 + yOffset` (Spieler-Y ist 1.4.7 die Augenhöhe) | alle Entities mit den Füßen auf `y + 1,5` | Positionen ab 1.8 fußbasiert | **umgesetzt** (12.4) |
 | Teleporter: Partikel/Sound | Netzwerk-Ereignis an alle Clients | Block-Ereignis (`blockEvent`), Partikel `DustParticleOptions` blau | Netzwerk-API | **umgesetzt** (12.4) |
 | Tesla-Spule: Partikel | „reddust“ auf der Serverwelt (unsichtbar) | keine | wie im Original sichtbar | **umgesetzt** (12.4) |
+| Terraformer: Blockgruppen | Block-IDs 1.4.7 (Stein, Erde, Holz 17, Blätter 18 …) | Umwandlungen exakt mit Stein/Erde/Gras/Sand; Lösch-/Brennlisten über Familien: `#base_stone_overworld`, `#sand`, Erde/Grobe Erde/Podsol, `#leaves`, `#logs_that_burn`, `#planks`, `#saplings`; Blätter zum Stamm per Name (`*_log` → `*_leaves`) | neue Blöcke ab 1.7 | **umgesetzt** (12.5) |
+| Terraformer: Pilzbiom | ein Biom je Säule | die 4×4-Biomzellen der ganzen Säule um (x, z) werden Pilzland, Biome an die Clients neu gesendet | 3D-Biome ab 1.18 | **umgesetzt** (12.5) |
+| Terraformer: Automatisierung | `IInventory` mit einem Slot | keine Item-Capability (Blaupause nur per Rechtsklick) | Maschine ohne GUI | **umgesetzt** (12.5) |
+| Terraformer: Suchgrenze | Höhe > 0 | Höhe > Weltuntergrenze | Weltbereich ab 1.18 | **umgesetzt** (12.5) |
 | Quantum-Rezepte | Iridiumplatte, verst. Glas, fortg. Schaltkreis … | IC2-Rezepte, seit 6b.5b (Iridiumplatte aus dem Implosionskompressor, verstärktes Glas) | – | **umgesetzt** (6b.5b) |
 | Static Boots: Position | NBT `x`/`z` | Data Component `craft:last_position` | Data Components | **umgesetzt** |
 | Jetpack: Modus/Timer | NBT `hoverMode`/`toggleTimer` | Data Components `craft:hover_mode`/`craft:toggle_timer` | Data Components | **umgesetzt** |

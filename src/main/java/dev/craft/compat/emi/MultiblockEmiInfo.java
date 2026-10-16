@@ -17,6 +17,7 @@ import dev.emi.emi.api.recipe.EmiInfoRecipe;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import net.minecraft.network.chat.Component;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.ItemLike;
 
 /** Info pages with the building plan of every multiblock (spec 16 §2.3), text in {@code emi.craft.info.<name>}. */
@@ -48,6 +49,18 @@ final class MultiblockEmiInfo {
                 items.add(CsItems.array(SolarArrayType.values()[i]).get());
             }
             info(registry, type.name().toLowerCase(Locale.ROOT) + "_solar_array", items.toArray(ItemLike[]::new));
+        }
+    }
+
+    /** Info pages of the terraformer blueprints (spec 17 §4), text in {@code emi.craft.info.<blueprint>}. */
+    static void registerTerraformer(EmiRegistry registry) {
+        ItemLike terraformer = Ic2Items.machine(Ic2Machine.TERRAFORMER).get();
+        for (ItemLike blueprint : List.<ItemLike>of(Ic2Items.CULTIVATION_BLUEPRINT.get(),
+                Ic2Items.IRRIGATION_BLUEPRINT.get(), Ic2Items.CHILLING_BLUEPRINT.get(),
+                Ic2Items.DESERTIFICATION_BLUEPRINT.get(), Ic2Items.FLATIFICATION_BLUEPRINT.get(),
+                Ic2Items.MUSHROOM_BLUEPRINT.get())) {
+            info(registry, BuiltInRegistries.ITEM.getKey(blueprint.asItem()).getPath(),
+                    blueprint, terraformer);
         }
     }
 

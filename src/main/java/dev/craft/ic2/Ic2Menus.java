@@ -63,7 +63,7 @@ public final class Ic2Menus {
                     (id, inventory, buf) -> new MinerMenu(id, inventory, buf.readBlockPos()));
             case NUCLEAR_REACTOR -> IMenuTypeExtension.create(
                     (id, inventory, buf) -> new NuclearReactorMenu(id, inventory, buf.readBlockPos()));
-            case LV_TRANSFORMER, MV_TRANSFORMER, HV_TRANSFORMER, MAGNETIZER, TELEPORTER, TESLA_COIL ->
+            case LV_TRANSFORMER, MV_TRANSFORMER, HV_TRANSFORMER, MAGNETIZER, TELEPORTER, TESLA_COIL, TERRAFORMER ->
                     throw new IllegalArgumentException(machine + " has no menu");
         };
     }

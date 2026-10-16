@@ -58,6 +58,7 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
+import net.neoforged.neoforge.registries.DeferredItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.CookingBookCategory;
@@ -1029,6 +1030,20 @@ public final class CraftRecipeProvider extends RecipeProvider {
                 .define('C', Ic2Items.ELECTRONIC_CIRCUIT).define('I', CraftItemTagsProvider.INGOTS_REFINED_IRON).save();
         shapeless(Ic2Items.FREQUENCY_TRANSMITTER, 1, "frequency_transmitter", Ingredient.of(Ic2Items.ELECTRONIC_CIRCUIT),
                 Ingredient.of(Ic2Items.cable(CableType.INSULATED_COPPER)));
+        shaped(machine(Ic2Machine.TERRAFORMER), 1, "terraformer").pattern("GTG", "DMD", "GDG")
+                .define('G', Items.GLOWSTONE_DUST).define('T', Ic2Items.TERRAFORMER_BLUEPRINT)
+                .define('D', Items.DIRT).define('M', Ic2Items.ADVANCED_MACHINE_CASING).save();
+        shaped(Ic2Items.TERRAFORMER_BLUEPRINT, 1, "terraformer_blueprint").pattern(" C ", " A ", "R R")
+                .define('C', Ic2Items.ELECTRONIC_CIRCUIT).define('A', Ic2Items.ADVANCED_CIRCUIT)
+                .define('R', Items.REDSTONE).save();
+        blueprint(Ic2Items.CULTIVATION_BLUEPRINT, Items.WHEAT_SEEDS, true);
+        blueprint(Ic2Items.DESERTIFICATION_BLUEPRINT, Items.SAND, true);
+        blueprint(Ic2Items.IRRIGATION_BLUEPRINT, Items.WATER_BUCKET, true);
+        blueprint(Ic2Items.CHILLING_BLUEPRINT, Items.SNOWBALL, true);
+        blueprint(Ic2Items.FLATIFICATION_BLUEPRINT, Items.DIRT, true);
+        shaped(Ic2Items.MUSHROOM_BLUEPRINT, 1, "mushroom_blueprint").pattern("mMm", "M#M", "mMm")
+                .define('#', Ic2Items.TERRAFORMER_BLUEPRINT).define('M', Items.BROWN_MUSHROOM)
+                .define('m', Items.MYCELIUM).save();
         shaped(machine(Ic2Machine.MINER), 1, "miner").pattern("CMC", " P ", " P ")
                 .define('C', Ic2Items.ELECTRONIC_CIRCUIT).define('M', Ic2Items.MACHINE_CASING)
                 .define('P', Ic2Items.MINING_PIPE).save();
@@ -2277,6 +2292,16 @@ public final class CraftRecipeProvider extends RecipeProvider {
 
     private ShapedBuilder shaped(ItemLike result, int count, String name) {
         return new ShapedBuilder(result, count, name);
+    }
+
+    /** IC2 terraformer blueprint: the empty blueprint surrounded by four items, and back (shapeless). */
+    private void blueprint(DeferredItem<? extends Item> result, ItemLike material, boolean reversible) {
+        shaped(result, 1, result.getId().getPath()).pattern(" S ", "S#S", " S ")
+                .define('#', Ic2Items.TERRAFORMER_BLUEPRINT).define('S', material).save();
+        if (reversible) {
+            shapeless(Ic2Items.TERRAFORMER_BLUEPRINT, 1, "terraformer_blueprint_from_" + result.getId().getPath(),
+                    Ingredient.of(result));
+        }
     }
 
     private void shapeless(ItemLike result, int count, String name, Ingredient... ingredients) {

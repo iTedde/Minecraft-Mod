@@ -1,0 +1,26 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "D": {
+      "item": "minecraft:dirt"
+    },
+    "G": {
+      "item": "minecraft:glowstone_dust"
+    },
+    "M": {
+      "item": "craft:advanced_machine_casing"
+    },
+    "T": {
+      "item": "craft:terraformer_blueprint"
+    }
+  },
+  "pattern": [
+    "GTG",
+    "DMD",
+    "GDG"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:terraformer"
+  }
+}

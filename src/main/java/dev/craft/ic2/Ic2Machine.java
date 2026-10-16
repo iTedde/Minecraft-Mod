@@ -30,6 +30,8 @@ public enum Ic2Machine {
             Drop.ADVANCED_MACHINE_CASING, Rarity.UNCOMMON, true),
     MASS_FABRICATOR("mass_fabricator", Sheet.MACHINE, 14, 2.0F, FacingMode.HORIZONTAL, 0.7F,
             Drop.ADVANCED_MACHINE_CASING, Rarity.RARE, true),
+    TERRAFORMER("terraformer", Sheet.MACHINE, 15, 2.0F, FacingMode.HORIZONTAL, 1.0F, Drop.ADVANCED_MACHINE_CASING,
+            Rarity.UNCOMMON, false),
     BATBOX("batbox", Sheet.ELECTRIC, 0, 1.5F, FacingMode.ALL, 1.0F, Drop.SELF),
     MFE("mfe", Sheet.ELECTRIC, 1, 1.5F, FacingMode.ALL, 1.0F, Drop.MACHINE_CASING),
     MFSU("mfsu", Sheet.ELECTRIC, 2, 1.5F, FacingMode.ALL, 1.0F, Drop.MACHINE_CASING, Rarity.UNCOMMON, true),
@@ -75,7 +77,10 @@ public enum Ic2Machine {
         return rarity;
     }
 
-    /** Transformers, the magnetizer, the teleporter and the tesla coil have neither an inventory nor a GUI. */
+    /**
+     * Transformers, the magnetizer, the teleporter and the tesla coil have neither an inventory nor a GUI; the
+     * terraformer has a blueprint slot but no GUI.
+     */
     public boolean hasMenu() {
         return hasMenu;
     }

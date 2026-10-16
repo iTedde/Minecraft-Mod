@@ -183,6 +183,36 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
 
     /** Building plans of the multiblocks (EMI info pages, spec 16 §2.3). */
     private void multiblockInfo(boolean german) {
+        add("emi.craft.info.cultivation_blueprint", german
+                ? "Terraformer (4000 EU je Schritt, Reichweite 40): Sand wird zu Erde, Erde zu Gras, auf Gras wachsen "
+                + "Gras, Blumen, Setzlinge, Weizen, Pilze, Kürbisse und Gummisetzlinge."
+                : "Terraformer (4000 EU per step, range 40): sand turns into dirt, dirt into grass; grass, flowers, "
+                + "saplings, wheat, mushrooms, pumpkins and rubber saplings grow on grass.");
+        add("emi.craft.info.irrigation_blueprint", german
+                ? "Terraformer (3000 EU je Schritt, Reichweite 60): selten Regen; Sand wird zu Erde, Setzlinge und "
+                + "Weizen wachsen sofort, Baumstämme wachsen mit Blättern, Feuer erlischt, Gras breitet sich aus."
+                : "Terraformer (3000 EU per step, range 60): rarely starts rain; sand turns into dirt, saplings and "
+                + "wheat grow at once, logs grow with leaves, fire goes out, grass spreads.");
+        add("emi.craft.info.chilling_blueprint", german
+                ? "Terraformer (2000 EU je Schritt, Reichweite 50): Wasser gefriert, Eis wächst nach unten, Schnee "
+                + "fällt und wird zu Schneeblöcken."
+                : "Terraformer (2000 EU per step, range 50): water freezes, ice grows downwards, snow is laid and turns "
+                + "into snow blocks.");
+        add("emi.craft.info.desertification_blueprint", german
+                ? "Terraformer (2500 EU je Schritt, Reichweite 40): Erde, Gras und Ackerboden werden zu Sand; Wasser, "
+                + "Schnee, Blätter und Pflanzen verschwinden, Eis schmilzt, Holz fängt Feuer."
+                : "Terraformer (2500 EU per step, range 40): dirt, grass and farmland turn into sand; water, snow, "
+                + "leaves and plants vanish, ice melts, wood catches fire.");
+        add("emi.craft.info.flatification_blueprint", german
+                ? "Terraformer (4000 EU je Schritt, Reichweite 40): ebnet das Gelände auf die Höhe des Terraformers "
+                + "ein – natürliche Blöcke darüber werden entfernt, Senken mit Erde aufgefüllt."
+                : "Terraformer (4000 EU per step, range 40): levels the ground to the terraformer's height – natural "
+                + "blocks above are removed, dips are filled with dirt.");
+        add("emi.craft.info.mushroom_blueprint", german
+                ? "Terraformer (8000 EU je Schritt, Reichweite 25): Myzel breitet sich aus (Biom Pilzland), darauf "
+                + "wachsen Pilze und Riesenpilze."
+                : "Terraformer (8000 EU per step, range 25): mycelium spreads (mushroom fields biome), mushrooms and "
+                + "huge mushrooms grow on it.");
         add("emi.craft.info.coke_oven", german
                 ? "Koksofen: Würfel 3×3×3 aus 25 Koksofenziegeln, innen Luft. Der Koksofen sitzt in der Mitte einer "
                 + "Seitenfläche (nicht oben/unten). Kohle oben oder seitlich einfüllen, Koks unten entnehmen."
@@ -576,6 +606,14 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             block(Ic2Blocks.MINING_TIP, "Mining Pipe");
             machine(Ic2Machine.TELEPORTER, "Teleporter");
             machine(Ic2Machine.TESLA_COIL, "Tesla Coil");
+            machine(Ic2Machine.TERRAFORMER, "Terraformer");
+            item(Ic2Items.TERRAFORMER_BLUEPRINT, "TFBP - Empty");
+            item(Ic2Items.CULTIVATION_BLUEPRINT, "TFBP - Cultivation");
+            item(Ic2Items.IRRIGATION_BLUEPRINT, "TFBP - Irrigation");
+            item(Ic2Items.CHILLING_BLUEPRINT, "TFBP - Chilling");
+            item(Ic2Items.DESERTIFICATION_BLUEPRINT, "TFBP - Desertification");
+            item(Ic2Items.FLATIFICATION_BLUEPRINT, "TFBP - Flatification");
+            item(Ic2Items.MUSHROOM_BLUEPRINT, "TFBP - Mushroom");
             item(Ic2Items.FREQUENCY_TRANSMITTER, "Frequency Transmitter");
             add("message.craft.frequency_transmitter.unlinked", "Frequency Transmitter unlinked");
             add("message.craft.frequency_transmitter.linked", "Frequency Transmitter linked to Teleporter.");
@@ -935,6 +973,14 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             block(Ic2Blocks.MINING_TIP, "Bergbaurohr");
             machine(Ic2Machine.TELEPORTER, "Teleporter");
             machine(Ic2Machine.TESLA_COIL, "Teslaspule");
+            machine(Ic2Machine.TERRAFORMER, "Terraformer");
+            item(Ic2Items.TERRAFORMER_BLUEPRINT, "TFBP - Leer");
+            item(Ic2Items.CULTIVATION_BLUEPRINT, "TFBP - Kultivierung");
+            item(Ic2Items.IRRIGATION_BLUEPRINT, "TFBP - Bewässerung");
+            item(Ic2Items.CHILLING_BLUEPRINT, "TFBP - Kühlung");
+            item(Ic2Items.DESERTIFICATION_BLUEPRINT, "TFBP - Wüstenbildung");
+            item(Ic2Items.FLATIFICATION_BLUEPRINT, "TFBP - Einebnung");
+            item(Ic2Items.MUSHROOM_BLUEPRINT, "TFBP - Pilze");
             item(Ic2Items.FREQUENCY_TRANSMITTER, "Frequenzsender");
             add("message.craft.frequency_transmitter.unlinked", "Frequenzsender entkoppelt");
             add("message.craft.frequency_transmitter.linked", "Frequenzsender mit dem Teleporter verbunden.");

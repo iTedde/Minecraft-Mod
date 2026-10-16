@@ -99,6 +99,11 @@
       "craft:machines/teleporter/tele_use"
     ]
   },
+  "terraformers/terraformer_generic_loop": {
+    "sounds": [
+      "craft:terraformers/terraformer_generic_loop"
+    ]
+  },
   "tools/chainsaw_idle": {
     "sounds": [
       "craft:tools/chainsaw_idle"

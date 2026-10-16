@@ -1,0 +1,23 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "#": {
+      "item": "craft:terraformer_blueprint"
+    },
+    "M": {
+      "item": "minecraft:brown_mushroom"
+    },
+    "m": {
+      "item": "minecraft:mycelium"
+    }
+  },
+  "pattern": [
+    "mMm",
+    "M#M",
+    "mMm"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:mushroom_blueprint"
+  }
+}

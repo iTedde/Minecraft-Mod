@@ -468,6 +468,45 @@ eigenes Render-Modell (dünnes Rohr), Rarity normal, droppt sich selbst. Rezept 
 
 Exakte Algorithmen: `reference/decompiled/ic2/ic2/core/item/tfbp/*.java` (für die Umsetzung 1:1 nachbauen).
 
+### Details aus `TileEntityTerra` und `ItemTFBP*` (nachgetragen für Phase 12.5)
+
+- `TileEntityElecMachine(1 Slot, maxEnergy 100 000, maxInput 512)`, Meta 15, kein GUI, kein Batterie-Slot.
+  Annahme bis genau `maxEnergy` (Rest zurück), Paket > 512 → Explosion. NBT nur Energie und Inventar
+  (`failedAttempts`, letzte Position gehen beim Neuladen verloren). Loop `Terraformers/TerraformerGenericloop.ogg`
+  solange aktiv; aktiv, sobald ein Versuch läuft, inaktiv nach > 30 Ticks ohne Versuch.
+- Tick: Blaupause in Slot 0 und `energy ≥ consume` → ein Versuch. Mit letztem Erfolg: `r = range/10` um (lastX,
+  lastZ); sonst `fehl = min(fehl, 4)`, `r = range·(fehl+1)/5` um den Terraformer; `x ± (rand(r+1) − rand(r+1))`.
+  `terraform(world, x, z, y_Terraformer)`: Erfolg → `−consume`, fehl = 0, Position merken; sonst `−consume/10`,
+  fehl+1, Position vergessen.
+- Einsetzen: Rechtsklick mit Blaupause auf den Terraformer (alte wird als Item ausgeworfen), Handstapel weg.
+  Schraubenschlüssel: wirft aus (−1 Haltbarkeit, Sound), statt zu drehen/abzubauen. Beim Abbau droppt der Inhalt.
+- Hilfsfunktionen: `getFirstSolidBlockFrom(y)` = erster Normalwürfel abwärts (> 0), `getFirstBlockFrom(y)` = erster
+  Nicht-Luft-Block; −1 = nichts. `switchGround(from, to, aufwärts)`: aufwärts → unterster `from`-Block der Säule,
+  die an `y` endet, wird `to`; abwärts → unter den `to`-Blöcken ab `y` wird der erste `from`-Block `to`.
+- **Cultivation** (4000/40): `y = solid(y+10)`; Sand→Erde (aufwärts) **oder** Erde→Gras **oder** auf Gras: Platz
+  darüber Luft oder (1/4) hohes Gras → Pflanze (Liste der Reihe nach je 2/5: hohes Gras, Rose, Löwenzahn, Setzling,
+  Weizen (Erde darunter → Ackerboden), roter Pilz, brauner Pilz, Kürbis, Gummisetzling; sonst hohes Gras).
+- **Irrigation** (3000/60): 1/48 000 Regen an (`setRaining`, Zeit bleibt) = Erfolg; `y = block(y+10)`; Sand→Erde
+  (aufwärts, bei Erfolg zweimal); hohes Gras oben → Gras ausbreiten (+X, −X, +Z, −Z je 1/2: Säule ab gleicher Höhe:
+  Erde→Gras, Gras → hohes Gras darüber); Setzling/Gummisetzling wächst sofort; Stamm: gleicher Stamm darüber,
+  Blätter derselben Holzart an y+2 und vier Seiten auf y+1 (nur Luft); Weizen → reif; Feuer → Luft.
+- **Chilling** (2000/50): `y = block(y+10)`; Wasser (auch fließend) → Eis; Eis über Wasser → darunter Eis; Schneeschicht
+  mit Schnee/Schneeblock in allen vier Nachbarsäulen (je ab y+16, nicht tiefer als y) → Schneeblock; sonst Schneeschicht
+  auf y+1, wenn dort möglich (oder auf Eis) – **kein** Erfolg. `isSnowHere` legt dabei auch Schnee auf die Nachbarn.
+- **Desertification** (2500/40): `y = block(y+10)`; Erde/Gras/Ackerboden → Sand (abwärts, dann Erde nochmal) **oder**
+  Wasser/Schneeschicht/Blätter/Gummiblätter/Pflanzen (Cultivation-Liste) → Luft **oder** Eis/Schneeblock → Wasser
+  **oder** Bretter/Stamm/Gummiholz 1/15 → Feuer (ersetzt den Block).
+- **Flatification** (4000/40): `y = block(y+20)`, Schneeschicht → y−1; `y == yT` → nichts; `y < yT` → Erde auf y+1;
+  sonst Block aus der Liste (Schneeschicht, Eis, Gras, Stein, Kies, Sand, Erde, Blätter, Stamm, Pflanzen, Gummiholz/
+  -blätter/-setzling) → Luft.
+- **Mushroom** (8000/25): `y = solid(y+20)`, `grow(x, y, z, Riesenpilz, abhängig: Pilz)`. Die Nachbarschleifen laufen
+  nur über x−1..x und z−1..z (Originaleigenheit), Höhe y+5 bis y−1. Abhängigkeit Myzel: Myzel/Pilzhut → Säule fertig,
+  Luft → weiter, Erde/Gras → Myzel + Biom Pilzinsel an (x, z) = Erfolg. Abhängigkeit Pilz: Pilz → Säule fertig, sonst
+  jeder feste Block → `grow(Pilz, abhängig: Myzel)` dort. Danach Ziel Pilz: Untergrund Myzel (Pilzhut wird zu Myzel),
+  darüber Luft/hohes Gras → brauner oder roter Pilz (1/2). Ziel Riesenpilz: auf y+1 ein Pilz, der als Riesenpilz
+  wächst → übrige Pilze im 2×2 auf y+1 entfernen.
+- Blaupausen: leer `itemTFBP` (Stapel 64, Textur 144), Varianten Stapel 1 (145–149, Mushroom 161).
+
 ---
 
 ## Teleporter

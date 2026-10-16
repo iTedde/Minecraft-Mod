@@ -25,7 +25,7 @@ Haltbarkeit = `maxDamage`. Elektrische Items: `charge` im NBT, siehe `01-eu-syst
 | Münze (`itemCoin`, kein Creative-Tab) | |
 | Zellen: leer, Lava, hydr. Kohle, Bio, Kohlebrennstoff, Biobrennstoff, Wasser, elektrolysiertes Wasser, Luft | siehe §6 |
 | Upgrade-Module: Overclocker (0), Transformer (1), Energiespeicher (2) | Stack 64 (GT: 4, siehe Rezepte/offene Punkte) |
-| Terraformer-Blaupausen (leer + 6 Sorten), Stack 1 | siehe `04-maschinen.md` |
+| Terraformer-Blaupausen (leer: Stack 64; 6 Sorten: Stack 1) | siehe `04-maschinen.md` |
 | Farbroller (`itemToolPainter`) + 16 Farb-Varianten | §4 |
 | Dynamit, Klebedynamit, Fernzünder | §7 |
 | Gefüllte/leere Zinndose, (leerer/gefüllter) Brennstoffkanister | §6 |

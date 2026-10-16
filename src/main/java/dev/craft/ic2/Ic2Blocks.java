@@ -34,6 +34,7 @@ import dev.craft.ic2.machine.ElectrolyzerBlockEntity;
 import dev.craft.ic2.machine.CanningMachineBlockEntity;
 import dev.craft.ic2.machine.MinerBlockEntity;
 import dev.craft.ic2.machine.TeleporterBlockEntity;
+import dev.craft.ic2.machine.TerraformerBlockEntity;
 import dev.craft.ic2.machine.TeslaCoilBlockEntity;
 import dev.craft.ic2.machine.PumpBlockEntity;
 import dev.craft.ic2.machine.InductionFurnaceBlockEntity;
@@ -254,6 +255,7 @@ public final class Ic2Blocks {
             case MINER -> MinerBlockEntity::new;
             case TELEPORTER -> TeleporterBlockEntity::new;
             case TESLA_COIL -> TeslaCoilBlockEntity::new;
+            case TERRAFORMER -> TerraformerBlockEntity::new;
             case BATBOX, MFE, MFSU, LV_TRANSFORMER, MV_TRANSFORMER, HV_TRANSFORMER, MASS_FABRICATOR, NUCLEAR_REACTOR ->
                     throw new IllegalArgumentException(machine + " has its own block class");
         };

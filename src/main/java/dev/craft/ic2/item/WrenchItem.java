@@ -6,6 +6,7 @@ import java.util.List;
 import dev.craft.Craft;
 import dev.craft.ic2.Ic2Sounds;
 import dev.craft.ic2.keyboard.Ic2Keyboard;
+import dev.craft.ic2.machine.TerraformerBlockEntity;
 import dev.craft.ic2.machine.Wrenchable;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -70,6 +71,13 @@ public class WrenchItem extends Item {
             return InteractionResult.PASS;
         }
         BlockEntity blockEntity = level.getBlockEntity(pos);
+        if (blockEntity instanceof TerraformerBlockEntity terraformer && terraformer.ejectBlueprint()) {
+            if (!level.isClientSide()) {
+                damage(stack, ROTATE_COST, player, context.getHand());
+                playSound(level, player);
+            }
+            return InteractionResult.sidedSuccess(level.isClientSide());
+        }
         if (!(blockEntity instanceof Wrenchable wrenchable)) {
             return InteractionResult.PASS;
         }

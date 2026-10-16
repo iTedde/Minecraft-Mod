@@ -1,0 +1,12 @@
+{
+  "type": "craft:ic2_shapeless",
+  "ingredients": [
+    {
+      "item": "craft:chilling_blueprint"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:terraformer_blueprint"
+  }
+}

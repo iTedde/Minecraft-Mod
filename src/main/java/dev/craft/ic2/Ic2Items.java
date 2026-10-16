@@ -48,6 +48,14 @@ import dev.craft.ic2.item.tool.ElectricHoeItem;
 import dev.craft.ic2.item.tool.ElectricTreetapItem;
 import dev.craft.ic2.item.tool.EuMeterItem;
 import dev.craft.ic2.item.FrequencyTransmitterItem;
+import dev.craft.ic2.terraformer.ChillingBlueprint;
+import dev.craft.ic2.terraformer.CultivationBlueprint;
+import dev.craft.ic2.terraformer.DesertificationBlueprint;
+import dev.craft.ic2.terraformer.FlatificationBlueprint;
+import dev.craft.ic2.terraformer.IrrigationBlueprint;
+import dev.craft.ic2.terraformer.MushroomBlueprint;
+import dev.craft.ic2.terraformer.TerraformerBlueprint;
+import dev.craft.ic2.terraformer.TerraformerBlueprintItem;
 import dev.craft.ic2.item.tool.FoamSprayerItem;
 import dev.craft.ic2.item.tool.InsulationCutterItem;
 import dev.craft.ic2.item.tool.MiningLaserItem;
@@ -258,6 +266,20 @@ public final class Ic2Items {
             simple(ITEMS.registerItem("insulation_cutter", InsulationCutterItem::new));
     public static final DeferredItem<FoamSprayerItem> FOAM_SPRAYER =
             simple(ITEMS.registerItem("foam_sprayer", FoamSprayerItem::new));
+    /** Empty terraformer blueprint (IC2 {@code itemTFBP}, a plain item stacking to 64). */
+    public static final DeferredItem<Item> TERRAFORMER_BLUEPRINT = simple("terraformer_blueprint");
+    public static final DeferredItem<TerraformerBlueprintItem> CULTIVATION_BLUEPRINT =
+            blueprint("cultivation_blueprint", new CultivationBlueprint());
+    public static final DeferredItem<TerraformerBlueprintItem> IRRIGATION_BLUEPRINT =
+            blueprint("irrigation_blueprint", new IrrigationBlueprint());
+    public static final DeferredItem<TerraformerBlueprintItem> CHILLING_BLUEPRINT =
+            blueprint("chilling_blueprint", new ChillingBlueprint());
+    public static final DeferredItem<TerraformerBlueprintItem> DESERTIFICATION_BLUEPRINT =
+            blueprint("desertification_blueprint", new DesertificationBlueprint());
+    public static final DeferredItem<TerraformerBlueprintItem> FLATIFICATION_BLUEPRINT =
+            blueprint("flatification_blueprint", new FlatificationBlueprint());
+    public static final DeferredItem<TerraformerBlueprintItem> MUSHROOM_BLUEPRINT =
+            blueprint("mushroom_blueprint", new MushroomBlueprint());
     public static final DeferredItem<FrequencyTransmitterItem> FREQUENCY_TRANSMITTER = simple(ITEMS.registerItem(
             "frequency_transmitter", FrequencyTransmitterItem::new, new Item.Properties().stacksTo(1)));
     public static final DeferredItem<EuMeterItem> EU_METER = simple(ITEMS.registerItem("eu_meter", EuMeterItem::new));
@@ -360,6 +382,10 @@ public final class Ic2Items {
 
     private static DeferredItem<Item> simple(String name, Item.Properties properties) {
         return simple(ITEMS.registerSimpleItem(name, properties));
+    }
+
+    private static DeferredItem<TerraformerBlueprintItem> blueprint(String name, TerraformerBlueprint blueprint) {
+        return simple(ITEMS.registerItem(name, properties -> new TerraformerBlueprintItem(properties, blueprint)));
     }
 
     private static <T extends Item> DeferredItem<T> simple(DeferredItem<T> item) {

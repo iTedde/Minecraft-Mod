@@ -1,0 +1,23 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "A": {
+      "item": "craft:advanced_circuit"
+    },
+    "C": {
+      "item": "craft:electronic_circuit"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    }
+  },
+  "pattern": [
+    " C ",
+    " A ",
+    "R R"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:terraformer_blueprint"
+  }
+}

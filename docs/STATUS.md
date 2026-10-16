@@ -1378,5 +1378,18 @@ NaK-Kühlzellen, kein Vakuumgefrierer) **und die IC2-Nuke**. Teilpakete: 7a IC2-
 - `abweichungen.md` (Gewicht mit Zweithand, Zielhöhe, Ereignis, Tesla-Partikel), `testplan.md` 3.26–3.27.
 - 6 neue GameTests (`TeleporterGameTests`), **285 GameTests grün**, `gradlew build`. `runClient` nicht gestartet.
 
+## Erledigt (Teilpaket „Phase 12.5: Terraformer + Blaupausen“, 2026-10-17)
+- Spezifikation nachgetragen: `spec/04-maschinen.md` §Terraformer (Tick, Einsetzen/Auswerfen, Hilfsfunktionen und alle
+  sechs Algorithmen im Detail); `spec/05` §1: leere Blaupause stapelt bis 64.
+- `TerraformerBlockEntity` (EU-Senke 100 000/512, ein Slot ohne GUI, Loop `terraformers/terraformer_generic_loop`),
+  Paket `ic2/terraformer/` (`TerraformerBlueprint`, `TerraformerBlueprintItem`, `Terraforming`, sechs Blaupausen),
+  Schraubenschlüssel wirft die Blaupause aus. Pilzbiom über `fillBiomesFromNoise` + `resendBiomesForChunks`.
+- Rezepte Terraformer, leere Blaupause, sechs Varianten + Rückweg (außer Pilz); Sprache en/de (Pack-Namen
+  „TFBP - …“); Texturen `block_machine.png` Spalte 15, `item_0.png` 144–149/161; EMI-Infoseiten je Blaupause.
+- `abweichungen.md` (Blockgruppen, Biomzellen, keine Item-Capability, Suchgrenze), `testplan.md` 3.28.
+- 7 neue GameTests (`TerraformerGameTests`; Teststruktur hat eine Barriere-Decke → Suchstart in der Struktur),
+  **292 GameTests grün**, `gradlew build`. `runClient` nicht gestartet.
+
 ## Nächste Schritte
-1. 12.5: Terraformer + Blaupausen (`spec/04` §Terraformer, Algorithmen aus `ic2/core/item/tfbp/*` nachtragen).
+1. 12.6: Personal-Blöcke (Safe, Trade-O-Mat, Energy-O-Mat; `spec/04` §Personal-Blöcke, GUIs/Besitzerprüfung aus dem
+   Original nachtragen).
