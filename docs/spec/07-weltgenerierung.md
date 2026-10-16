@@ -242,9 +242,10 @@ Status „mit GT-Erzen“ in `13-gregtech-maschinen.md` und `12-gregtech-materia
 - Asteroiden: Blöcke außerhalb der 3×3 beschreibbaren Chunks werden übersprungen (wie Öl-Weltgen).
 - Textur: sechs Flächenbilder → pro Erz sechs Modellvarianten mit unterschiedlich verteilten Flächen (zufällig je
   Position), da die Flächenwahl per Positions-XOR in Standardmodellen nicht geht.
-- **Offen:** Abbildung der Biomlisten auf 1.21-Biome (Vorschlag: Rubin `desert`, `#is_badlands`, `#is_savanna`;
-  Saphir `#is_ocean`, `#is_beach`, `mangrove_swamp`; Bauxit `plains`, `sunflower_plains`, `meadow`, `#is_forest`,
-  `cherry_grove`).
+- **Entschieden (Nutzer, 2026-10-16):** Biomlisten mit 1.21-Entsprechungen: Rubin `desert`, `#is_badlands`,
+  `#is_savanna`; Saphir `#is_ocean`, `#is_beach`, `mangrove_swamp`; Bauxit `plains`, `sunflower_plains`, `meadow`,
+  `#is_forest`, `cherry_grove`.
+- **Entschieden (Nutzer, 2026-10-16):** Industrial Grinder wird 1:1 nachgebaut (Teilpaket 8d, nach den Erzen).
 
 ## 7. Compact Solars, Forestry, Power Converters
 

@@ -853,11 +853,10 @@ NaK-Kühlzellen, kein Vakuumgefrierer) **und die IC2-Nuke**. Teilpakete: 7a IC2-
   Chunkkoordinaten, Saphir-`case`-Durchfall, ungenutzter `Silverore`-Schlüssel).
 - `abweichungen.md`: GT-Erz-Blöcke und -Weltgen (geplant). `12-gregtech-materialien.md` §4.2 als entschieden markiert.
 
-## Offene Fragen vor 8c
-1. Abbildung der GT-Biomlisten (Vanilla 1.4.7 + ExtrabiomesXL/Twilight-Namen) auf 1.21-Biome – Vorschlag in
-   `07-weltgenerierung.md` §6.5.
-2. Industrial Grinder (GT-Multiblock) nachbauen? Ohne ihn liefern die Erze nur die Macerator-/Ofen-Ausbeute
-   (z. B. kein Iridiumnugget aus Sheldonit, kein Silber aus Galena).
+## Entscheidungen (Nutzer, 2026-10-16)
+1. GT-Biomlisten mit 1.21-Entsprechungen (Liste in `07-weltgenerierung.md` §6.5).
+2. Industrial Grinder wird 1:1 nachgebaut – eigenes Teilpaket **8d** nach den Erzen.
 
 ## Nächste Schritte
 1. Phase 8c: GT-Erze umsetzen (Blöcke, Loot, Weltgen, Macerator/Ofen/Hochofen-Rezepte, neue Stäube/Edelsteine).
+2. Phase 8d: Industrial Grinder inkl. aller Erz-Rezepte (`07-weltgenerierung.md` §6.4).
