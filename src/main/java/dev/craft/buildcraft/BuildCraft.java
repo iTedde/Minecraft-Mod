@@ -6,6 +6,7 @@ import dev.craft.buildcraft.factory.QuarryChunkLoading;
 import dev.craft.buildcraft.factory.RefineryRecipe;
 import dev.craft.buildcraft.fluid.BcFluids;
 import dev.craft.buildcraft.power.BcCapabilities;
+import dev.craft.buildcraft.transport.PipeItemPayload;
 import dev.craft.buildcraft.world.BcFeatures;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -29,6 +30,7 @@ public final class BuildCraft {
         modBus.addListener(BuildCraft::registerCapabilities);
         modBus.addListener(BuildCraft::commonSetup);
         modBus.addListener(QuarryChunkLoading::register);
+        modBus.addListener(PipeItemPayload::register);
     }
 
     private static void commonSetup(FMLCommonSetupEvent event) {
@@ -52,6 +54,9 @@ public final class BuildCraft {
         event.registerBlockEntity(BcCapabilities.POWER_RECEPTOR, BcBlockEntityTypes.REFINERY.get(), (be, side) -> be);
         event.registerBlockEntity(BcCapabilities.POWER_RECEPTOR, BcBlockEntityTypes.MINING_WELL.get(),
                 (be, side) -> be);
+        // Only the pipes with a power provider (wood) receive MJ.
+        event.registerBlockEntity(BcCapabilities.POWER_RECEPTOR, BcBlockEntityTypes.ITEM_PIPE.get(),
+                (be, side) -> be.getPowerProvider() != null ? be : null);
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, BcBlockEntityTypes.TANK.get(),
                 (be, side) -> be.getFluidHandler());
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, BcBlockEntityTypes.PUMP.get(),

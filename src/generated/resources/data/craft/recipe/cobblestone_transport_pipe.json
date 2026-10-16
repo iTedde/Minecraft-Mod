@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "G": {
+      "item": "minecraft:glass"
+    },
+    "L": {
+      "item": "minecraft:cobblestone"
+    },
+    "R": {
+      "item": "minecraft:cobblestone"
+    }
+  },
+  "pattern": [
+    "LGR"
+  ],
+  "result": {
+    "count": 8,
+    "id": "craft:cobblestone_transport_pipe"
+  }
+}

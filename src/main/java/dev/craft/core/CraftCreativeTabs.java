@@ -4,6 +4,7 @@ import java.util.function.Supplier;
 
 import dev.craft.Craft;
 import dev.craft.buildcraft.BcItems;
+import dev.craft.buildcraft.transport.PipeType;
 import dev.craft.compactsolars.CsItems;
 import dev.craft.compactsolars.SolarArrayType;
 import dev.craft.buildcraft.engine.EngineType;
@@ -94,6 +95,9 @@ public final class CraftCreativeTabs {
                 output.accept(BcItems.PUMP);
                 output.accept(BcItems.TANK);
                 output.accept(BcItems.REFINERY);
+                for (PipeType type : PipeType.values()) {
+                    output.accept(BcItems.pipe(type));
+                }
                 for (DeferredHolder<Item, ? extends Item> item : BcItems.simpleItems()) {
                     output.accept(item.get());
                 }

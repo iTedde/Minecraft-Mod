@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "G": {
+      "item": "minecraft:glass"
+    },
+    "L": {
+      "item": "minecraft:gold_ingot"
+    },
+    "R": {
+      "item": "minecraft:gold_ingot"
+    }
+  },
+  "pattern": [
+    "LGR"
+  ],
+  "result": {
+    "count": 8,
+    "id": "craft:golden_transport_pipe"
+  }
+}

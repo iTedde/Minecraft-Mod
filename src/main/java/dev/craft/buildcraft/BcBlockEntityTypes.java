@@ -1,5 +1,6 @@
 package dev.craft.buildcraft;
 
+import java.util.Arrays;
 import java.util.EnumMap;
 import java.util.Map;
 import java.util.function.Supplier;
@@ -14,7 +15,10 @@ import dev.craft.buildcraft.factory.PumpBlockEntity;
 import dev.craft.buildcraft.factory.QuarryBlockEntity;
 import dev.craft.buildcraft.factory.RefineryBlockEntity;
 import dev.craft.buildcraft.factory.TankBlockEntity;
+import dev.craft.buildcraft.transport.ItemPipeBlockEntity;
+import dev.craft.buildcraft.transport.PipeType;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -47,6 +51,13 @@ public final class BcBlockEntityTypes {
     public static final Supplier<BlockEntityType<MiningWellBlockEntity>> MINING_WELL = BLOCK_ENTITY_TYPES.register(
             "mining_well",
             () -> BlockEntityType.Builder.of(MiningWellBlockEntity::new, BcBlocks.MINING_WELL.get()).build(null));
+
+    /** All item pipes share one type; the pipe type comes from the block. */
+    public static final Supplier<BlockEntityType<ItemPipeBlockEntity>> ITEM_PIPE = BLOCK_ENTITY_TYPES.register(
+            "item_pipe", () -> BlockEntityType.Builder.of(ItemPipeBlockEntity::new, Arrays.stream(
+                    PipeType.values()).filter(type -> type.getTransport() == PipeType.Transport.ITEMS)
+                    .map(type -> BcBlocks.pipe(type).get()).toArray(Block[]::new))
+                    .build(null));
 
     private BcBlockEntityTypes() {
     }

@@ -1100,8 +1100,28 @@ NaK-Kühlzellen, kein Vakuumgefrierer) **und die IC2-Nuke**. Teilpakete: 7a IC2-
 - Zur Freigabe: §8.1 Inventarseiten über die 1.21-Item-Capability (Vanilla-Ofen nach 1.21-Regeln), §8.2 keine
   Item-Capability an Rohren (Trichter schieben nicht hinein).
 
+## Erledigt (Teilpaket „Phase 10.1: Rohr-Grundgerüst + einfache Item-Rohre“, 2026-10-16)
+- Nutzerfreigabe `15-rohre.md` §8.1 (Inventarseiten über die 1.21-Item-Capability) und §8.2 (keine
+  Item-Capability an Rohren) – beide wie vorgeschlagen.
+- Paket `buildcraft/transport`: `PipeType` (Rohrtypen), `PipeMaterial` (Verbindungsregeln, Geschwindigkeit),
+  `GenericPipeBlock` (ein Block je Typ, Verbindungen als Blockstate, Quellseite Holz `source` 0–6, Ausgabe Eisen
+  `output` 0–5, Kollision Kern + Arme, Schraubenschlüssel), `PipeBlockEntity` (Nachbaränderung im nächsten Tick,
+  MJ-Provider Holz 1/64/1/64 mit Verlust 64, Holz-Quellwahl, Eisen-Redstone-Umschaltung), `ItemPipeBlockEntity`
+  (Item-Transport 1:1: Mitte/Rand, Zielwahl mit Sperrliste, Rückläufer, Eisen-Abprallen, Gold/Stein-Tempo,
+  Leere, Zusammenfassen ab 32, Explosion ab 100, Auswerfen), `TravelingItem`, `PipeItemPayload` (Client-Sync),
+  `PipeConnections`.
+- 7 Rohre: Holz, Bruchstein, Stein, Sandstein, Eisen, Gold, Leere (Rezepte → 8, Texturen aus `blocks.png`,
+  alle Rohrtexturen bereits unter `textures/block/pipe/`), Multipart-Modelle per Datagen, Item = senkrechtes
+  Rohrstück, Item-Renderer (`PipeItemRenderer`, erste 10 Items).
+- Quarry/Mining Well geben nach dem Nachbarinventar an ein zufälliges verbundenes Item-Rohr ab (`ItemOutput`).
+- 6 neue GameTests (`PipeGameTests`, insgesamt 242 grün), `build` und `runClient` (Hauptmenü, keine
+  Modellfehler) erfolgreich.
+
 ## Nächste Schritte
-1. Freigabe `15-rohre.md` §8.1/§8.2 (und Abnahme Phase 9); danach 10.1 (Rohr-Grundgerüst + einfache Item-Rohre).
+1. 10.2: Diamant (GUI, Filter), Smaragd (GUI, Filter), Obsidian (Saugen).
+2. Manuelle Client-Tests 10.1: Truhe → Holzrohr (Redstone-Motor) → Rohrstrecke → Truhe; Eisenrohr mit
+   Schraubenschlüssel/Redstone umschalten; Goldrohr-Tempo; Leere-Rohr; Quarry mit Rohr daneben; Rohr mit Items
+   abbauen (Drops).
 2. Manuelle Client-Tests 9.4: Wasserturbine in einen Fluss bauen (fließendes Wasser rundherum), Rechtsklick-Meldung,
    Kabel/BatBox am Controller.
 3. Manuelle Client-Tests 9.3b: Kraftwerk aus Kessel + Dampfturbine bauen, MFE/Kabel am Controller, GUI (Dampftank,

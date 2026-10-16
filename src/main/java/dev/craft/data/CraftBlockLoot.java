@@ -5,6 +5,7 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 import dev.craft.buildcraft.BcBlocks;
+import dev.craft.buildcraft.transport.PipeType;
 import dev.craft.buildcraft.engine.EngineType;
 import dev.craft.forestry.FrBlocks;
 import dev.craft.compactsolars.CsBlocks;
@@ -99,6 +100,9 @@ public final class CraftBlockLoot extends BlockLootSubProvider {
         dropSelf(BcBlocks.PUMP.get());
         dropSelf(BcBlocks.REFINERY.get());
         dropSelf(BcBlocks.MINING_WELL.get());
+        for (PipeType type : PipeType.values()) {
+            dropSelf(BcBlocks.pipe(type).get());
+        }
         dropSelf(FrBlocks.THERMIONIC_FABRICATOR.get());
         dropSelf(FrBlocks.CARPENTER.get());
         dropSelf(FrBlocks.ELECTRICAL_ENGINE.get());

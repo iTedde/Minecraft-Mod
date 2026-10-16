@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:block/block",
+  "elements": [
+    {
+      "faces": {
+        "down": {
+          "texture": "#pipe"
+        },
+        "east": {
+          "cullface": "east",
+          "texture": "#pipe"
+        },
+        "north": {
+          "texture": "#pipe"
+        },
+        "south": {
+          "texture": "#pipe"
+        },
+        "up": {
+          "texture": "#pipe"
+        },
+        "west": {
+          "texture": "#pipe"
+        }
+      },
+      "from": [
+        12,
+        4,
+        4
+      ],
+      "to": [
+        16,
+        12,
+        12
+      ]
+    }
+  ],
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "particle": "craft:block/pipe/void",
+    "pipe": "craft:block/pipe/void"
+  }
+}

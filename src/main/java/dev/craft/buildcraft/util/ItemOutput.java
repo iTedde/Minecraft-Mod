@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dev.craft.buildcraft.engine.EngineBlockEntity;
+import dev.craft.buildcraft.transport.ItemPipeBlockEntity;
+import dev.craft.buildcraft.transport.PipeConnections;
+import dev.craft.buildcraft.transport.TravelingItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -21,9 +24,12 @@ public final class ItemOutput {
     private ItemOutput() {
     }
 
-    /** Random adjacent inventory first (pipes come later), then the rest flies out above the machine. */
+    /** Random adjacent inventory first, then a random adjacent pipe, then the rest flies out above the machine. */
     public static void output(Level level, BlockPos pos, ItemStack stack) {
         ItemStack rest = addToRandomInventory(level, pos, stack);
+        if (!rest.isEmpty() && addToRandomPipeEntry(level, pos, rest)) {
+            return;
+        }
         if (!rest.isEmpty()) {
             float f = level.random.nextFloat() * 0.8F + 0.1F;
             float f1 = level.random.nextFloat() * 0.8F + 0.1F;
@@ -36,6 +42,31 @@ public final class ItemOutput {
                     (float) level.random.nextGaussian() * f3 + 1.0F, (float) level.random.nextGaussian() * f3);
             level.addFreshEntity(entity);
         }
+    }
+
+    /**
+     * BuildCraft {@code Utils.addToRandomPipeEntry}: a random adjacent item pipe connected to the machine takes the
+     * whole stack; it starts at the machine's edge (center + 0.5 towards the pipe, y + 0.25).
+     */
+    private static boolean addToRandomPipeEntry(Level level, BlockPos pos, ItemStack stack) {
+        List<Direction> possible = new ArrayList<>();
+        for (Direction side : Direction.values()) {
+            BlockPos adjacent = pos.relative(side);
+            if (level.getBlockEntity(adjacent) instanceof ItemPipeBlockEntity
+                    && PipeConnections.canConnect(level, adjacent, side.getOpposite())) {
+                possible.add(side);
+            }
+        }
+        if (possible.isEmpty()) {
+            return false;
+        }
+        Direction side = possible.get(level.random.nextInt(possible.size()));
+        ItemPipeBlockEntity pipe = (ItemPipeBlockEntity) level.getBlockEntity(pos.relative(side));
+        TravelingItem item = new TravelingItem(stack, pos.getX() + 0.5 + side.getStepX() * 0.5,
+                pos.getY() + ItemPipeBlockEntity.PIPE_FLOOR + side.getStepY() * 0.5,
+                pos.getZ() + 0.5 + side.getStepZ() * 0.5);
+        pipe.entityEntering(item, side);
+        return true;
     }
 
     /** BuildCraft {@code Utils.addToRandomInventory}: one random neighbour (no engine) that takes something. */

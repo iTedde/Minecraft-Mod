@@ -11,6 +11,7 @@ import java.util.concurrent.CompletableFuture;
 
 import dev.craft.Craft;
 import dev.craft.buildcraft.BcItems;
+import dev.craft.buildcraft.transport.PipeType;
 import dev.craft.buildcraft.engine.EngineType;
 import dev.craft.compactsolars.CsItems;
 import dev.craft.compactsolars.SolarArrayType;
@@ -765,6 +766,20 @@ public final class CraftRecipeProvider extends RecipeProvider {
         bcShaped(BcItems.REFINERY).pattern("RTR").pattern("TGT").define('R', Items.REDSTONE_TORCH)
                 .define('T', BcItems.TANK).define('G', BcItems.DIAMOND_GEAR)
                 .unlockedBy("has_tank", has(BcItems.TANK)).save(output, id("refinery"));
+        pipe(PipeType.WOODEN_TRANSPORT, Ingredient.of(ItemTags.PLANKS), Ingredient.of(ItemTags.PLANKS));
+        pipe(PipeType.COBBLESTONE_TRANSPORT, Ingredient.of(Items.COBBLESTONE), Ingredient.of(Items.COBBLESTONE));
+        pipe(PipeType.STONE_TRANSPORT, Ingredient.of(Items.STONE), Ingredient.of(Items.STONE));
+        pipe(PipeType.SANDSTONE_TRANSPORT, Ingredient.of(Items.SANDSTONE), Ingredient.of(Items.SANDSTONE));
+        pipe(PipeType.IRON_TRANSPORT, Ingredient.of(Items.IRON_INGOT), Ingredient.of(Items.IRON_INGOT));
+        pipe(PipeType.GOLDEN_TRANSPORT, Ingredient.of(Items.GOLD_INGOT), Ingredient.of(Items.GOLD_INGOT));
+        pipe(PipeType.VOID_TRANSPORT, Ingredient.of(Items.INK_SAC), Ingredient.of(Items.REDSTONE));
+    }
+
+    /** BuildCraft {@code createPipe} with three ingredients: one row, eight pipes. */
+    private void pipe(PipeType type, Ingredient left, Ingredient right) {
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, BcItems.pipe(type), 8).pattern("LGR").define('L', left)
+                .define('G', Items.GLASS).define('R', right).unlockedBy("has_glass", has(Items.GLASS))
+                .save(output, id(type.getName()));
     }
 
     private static ShapedRecipeBuilder bcShaped(ItemLike result) {

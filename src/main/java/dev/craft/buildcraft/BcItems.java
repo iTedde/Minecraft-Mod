@@ -11,6 +11,7 @@ import dev.craft.buildcraft.engine.EngineType;
 import dev.craft.buildcraft.fluid.BcFluids;
 import dev.craft.buildcraft.item.BcWrenchItem;
 import dev.craft.buildcraft.item.FuelBucketItem;
+import dev.craft.buildcraft.transport.PipeType;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.Item;
@@ -22,12 +23,16 @@ public final class BcItems {
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(Craft.MODID);
 
     private static final Map<EngineType, DeferredItem<BlockItem>> ENGINES = new EnumMap<>(EngineType.class);
+    private static final Map<PipeType, DeferredItem<BlockItem>> PIPES = new EnumMap<>(PipeType.class);
     /** Items with a plain generated item model (one texture named like the item). */
     private static final List<DeferredItem<? extends Item>> SIMPLE = new ArrayList<>();
 
     static {
         for (EngineType type : EngineType.values()) {
             ENGINES.put(type, ITEMS.registerSimpleBlockItem(BcBlocks.engine(type)));
+        }
+        for (PipeType type : PipeType.values()) {
+            PIPES.put(type, ITEMS.registerSimpleBlockItem(BcBlocks.pipe(type)));
         }
     }
 
@@ -66,6 +71,10 @@ public final class BcItems {
 
     public static DeferredItem<BlockItem> engine(EngineType type) {
         return ENGINES.get(type);
+    }
+
+    public static DeferredItem<BlockItem> pipe(PipeType type) {
+        return PIPES.get(type);
     }
 
     public static List<DeferredItem<? extends Item>> simpleItems() {

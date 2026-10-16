@@ -15,6 +15,8 @@ import dev.craft.buildcraft.factory.TankBlock;
 import dev.craft.buildcraft.factory.QuarryBlock;
 import dev.craft.buildcraft.engine.EngineType;
 import dev.craft.buildcraft.fluid.BcFluids;
+import dev.craft.buildcraft.transport.GenericPipeBlock;
+import dev.craft.buildcraft.transport.PipeType;
 import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -27,6 +29,7 @@ public final class BcBlocks {
     public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(Craft.MODID);
 
     private static final Map<EngineType, DeferredBlock<EngineBlock>> ENGINES = new EnumMap<>(EngineType.class);
+    private static final Map<PipeType, DeferredBlock<GenericPipeBlock>> PIPES = new EnumMap<>(PipeType.class);
 
     static {
         // BuildCraft BlockEngine: Material.iron (needs a pickaxe for drops), hardness 0.5, default step sound.
@@ -34,6 +37,12 @@ public final class BcBlocks {
             ENGINES.put(type, BLOCKS.register(type.getName(), () -> new EngineBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.METAL).strength(0.5F).requiresCorrectToolForDrops().sound(SoundType.STONE)
                     .noOcclusion(), type)));
+        }
+        // BuildCraft BlockGenericPipe: Material.glass, hardness pipes.durability = 0.25, stone step sound.
+        for (PipeType type : PipeType.values()) {
+            PIPES.put(type, BLOCKS.register(type.getName(), () -> GenericPipeBlock.create(BlockBehaviour.Properties
+                    .of().strength(0.25F).sound(SoundType.STONE).noOcclusion().isRedstoneConductor((s, l, p) -> false)
+                    .isViewBlocking((s, l, p) -> false).isSuffocating((s, l, p) -> false), type)));
         }
     }
 
@@ -82,5 +91,9 @@ public final class BcBlocks {
 
     public static DeferredBlock<EngineBlock> engine(EngineType type) {
         return ENGINES.get(type);
+    }
+
+    public static DeferredBlock<GenericPipeBlock> pipe(PipeType type) {
+        return PIPES.get(type);
     }
 }

@@ -376,7 +376,7 @@ gilt nur zwischen gleichen Transportarten, also praktisch ohne Wirkung). Eisenro
 
 ## 8. Abweichungen / Punkte zur Freigabe
 
-### 8.1 Inventarseiten (zur Freigabe)
+### 8.1 Inventarseiten (freigegeben 2026-10-16)
 
 Original: Holz-/Smaragdrohr entnehmen bei Forge-`ISidedInventory` aus dem Slotbereich der Seite, bei ungeseiteten
 Inventaren mit 2 Slots (oben/unten → Slot 0, Seiten → Slot 1) bzw. 3 Slots (oben → 0, unten → 1, Seiten → 2), sonst
@@ -388,7 +388,7 @@ Eingabe, unten Brennstoff, Seiten **Ausgabe** – in beide Richtungen.
 oben → Eingabe, Seiten → Brennstoff; Entnehmen nur unten (Ausgabe, leerer Eimer). Eigene Maschinen bilden ihre
 Original-Seiten bereits in ihrer Capability ab.
 
-### 8.2 Kein Hineinschieben in Rohre (zur Freigabe)
+### 8.2 Kein Hineinschieben in Rohre (freigegeben 2026-10-16)
 
 Original: Rohre sind kein Inventar; nur Rohr-Eingänge (Quarry, Mining Well, andere Rohre, Holz/Obsidian) bringen
 Items hinein, Trichter gab es noch nicht. **Vorschlag 1:1:** Rohre erhalten keine Item-Capability – Trichter/Spender
@@ -406,6 +406,10 @@ Fluid-Capability nur zum **Füllen** (wie `fill`, kein Entnehmen).
 | Renderer | Display-Listen (GL) | Block-Entity-Renderer bzw. dynamisches Modell für Rohrarme | 1.21-Rendering |
 | Rohrdichtmittel | Kaktusgrün (Farbstoff Meta 2) | `minecraft:green_dye` | 1.21-Item |
 | Schraubenschlüssel | jedes `IToolWrench` | BC-Schraubenschlüssel (`BcWrenchItem`) | einziges `IToolWrench` im Umfang |
+| Zusammenfassen (§4.8) | gleiche Item-ID + Schaden, NBT egal | gleiches Item **und** gleiche Data Components | sonst gingen Komponenten (Namen, Ladung …) verloren |
+| Holzrohr-Entnahme | jeder Slot im Seitenbereich | erster Slot, aus dem die Capability etwas herausgibt (Simulation) | Capability-Slots können entnahmegesperrt sein |
+| Items im Rohr (Client) | `EntityPassiveItem` wird wie ein liegendes Item gezeichnet | Item-Modell in Bodenlage, Maßstab 0,7, um die Hochachse zur Kamera gedreht | 1.21-Item-Rendering |
+| Rohr-Eingang | `IPipeEntry` (nur Rohre) | nur Item-Rohre (`ItemPipeBlockEntity.entityEntering`) | – |
 
 ## 9. Teilpakete (Vorschlag)
 

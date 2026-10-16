@@ -44,6 +44,7 @@ public final class BuildCraftClient {
         event.registerBlockEntityRenderer(BcBlockEntityTypes.TANK.get(), TankRenderer::new);
         event.registerBlockEntityRenderer(BcBlockEntityTypes.PUMP.get(), PumpRenderer::new);
         event.registerBlockEntityRenderer(BcBlockEntityTypes.REFINERY.get(), RefineryRenderer::new);
+        event.registerBlockEntityRenderer(BcBlockEntityTypes.ITEM_PIPE.get(), PipeItemRenderer::new);
     }
 
     @SubscribeEvent

@@ -11,6 +11,8 @@ import dev.craft.buildcraft.BcBlocks;
 import dev.craft.buildcraft.builders.MarkerBlock;
 import dev.craft.buildcraft.engine.EngineType;
 import dev.craft.buildcraft.factory.TankBlock;
+import dev.craft.buildcraft.transport.GenericPipeBlock;
+import dev.craft.buildcraft.transport.PipeType;
 import dev.craft.forestry.FrBlocks;
 import dev.craft.gregtech.GtBlocks;
 import dev.craft.gregtech.GtMachine;
@@ -35,6 +37,8 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.PipeBlock;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.neoforged.neoforge.client.model.generators.BlockModelBuilder;
 import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
 import net.neoforged.neoforge.client.model.generators.ConfiguredModel;
@@ -96,6 +100,7 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
         landmark();
         quarry();
         frame();
+        pipes();
         tank();
         pump();
         refinery();
@@ -229,6 +234,62 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
                     .allFaces((d, f) -> f.texture("#frame").cullface(d == side ? side : null)).end();
             builder.part().modelFile(arm).addModel().condition(PipeBlock.PROPERTY_BY_DIRECTION.get(side), true).end();
         }
+    }
+
+    /**
+     * BuildCraft pipes ({@code PipeWorldRenderer}): core plus an arm to every connected side, the source (wood) or
+     * output (iron) arm with its own texture. The item is a vertical pipe segment with the base texture.
+     */
+    private void pipes() {
+        for (PipeType type : PipeType.values()) {
+            GenericPipeBlock block = BcBlocks.pipe(type).get();
+            ResourceLocation texture = modLoc("block/pipe/" + type.getTexture());
+            MultiPartBlockStateBuilder builder = getMultipartBuilder(block).part()
+                    .modelFile(pipeModel(type.getName() + "_core", texture, null)).addModel().end();
+            IntegerProperty sideProperty = block.defaultBlockState().hasProperty(GenericPipeBlock.SOURCE)
+                    ? GenericPipeBlock.SOURCE
+                    : block.defaultBlockState().hasProperty(GenericPipeBlock.OUTPUT) ? GenericPipeBlock.OUTPUT : null;
+            for (Direction side : Direction.values()) {
+                BooleanProperty connected = PipeBlock.PROPERTY_BY_DIRECTION.get(side);
+                ModelFile arm = pipeModel(type.getName() + "_" + side.getName(), texture, side);
+                if (sideProperty == null) {
+                    builder.part().modelFile(arm).addModel().condition(connected, true).end();
+                    continue;
+                }
+                int value = side.get3DDataValue();
+                Integer[] others = sideProperty.getPossibleValues().stream().filter(v -> v != value)
+                        .toArray(Integer[]::new);
+                builder.part().modelFile(arm).addModel().condition(connected, true).condition(sideProperty, others)
+                        .end();
+                ModelFile special = pipeModel(type.getName() + "_" + side.getName() + "_" + sideProperty.getName(),
+                        modLoc("block/pipe/" + type.getSideTexture()), side);
+                builder.part().modelFile(special).addModel().condition(connected, true)
+                        .condition(sideProperty, value).end();
+            }
+            simpleBlockItem(block, models().withExistingParent(type.getName() + "_item", mcLoc("block/block"))
+                    .texture("particle", texture).texture("pipe", texture).renderType("cutout")
+                    .element().from(4, 0, 4).to(12, 16, 12).allFaces((d, f) -> f.texture("#pipe")).end());
+        }
+    }
+
+    /** Pipe core ({@code side == null}) or the arm towards {@code side}. */
+    private ModelFile pipeModel(String name, ResourceLocation texture, Direction side) {
+        Vector3f from = new Vector3f(4, 4, 4);
+        Vector3f to = new Vector3f(12, 12, 12);
+        if (side != null) {
+            switch (side) {
+                case DOWN -> { from.y = 0; to.y = 4; }
+                case UP -> { from.y = 12; to.y = 16; }
+                case NORTH -> { from.z = 0; to.z = 4; }
+                case SOUTH -> { from.z = 12; to.z = 16; }
+                case WEST -> { from.x = 0; to.x = 4; }
+                case EAST -> { from.x = 12; to.x = 16; }
+            }
+        }
+        return models().withExistingParent(name, mcLoc("block/block"))
+                .texture("particle", texture).texture("pipe", texture).renderType("cutout")
+                .element().from(from.x, from.y, from.z).to(to.x, to.y, to.z)
+                .allFaces((d, f) -> f.texture("#pipe").cullface(d == side ? side : null)).end();
     }
 
     /** Engines are drawn by their block entity renderer; the block model only provides the break particles. */
