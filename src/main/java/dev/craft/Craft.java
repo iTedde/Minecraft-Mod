@@ -5,6 +5,7 @@ import dev.craft.buildcraft.BuildCraft;
 import dev.craft.compactsolars.CompactSolars;
 import dev.craft.gregtech.GregTech;
 import dev.craft.core.CraftCreativeTabs;
+import dev.craft.core.world.OreRetrogen;
 import dev.craft.forestry.Forestry;
 import dev.craft.powerconverters.PowerConverters;
 import dev.craft.powerplants.PowerPlants;
@@ -30,5 +31,6 @@ public final class Craft {
         PowerPlants.init(modBus);
         Mining.init(modBus);
         CraftCreativeTabs.TABS.register(modBus);
+        OreRetrogen.ATTACHMENT_TYPES.register(modBus);
     }
 }

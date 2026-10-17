@@ -159,6 +159,13 @@ ergänzen. Basispaket `dev.craft`, Einstieg `Craft` → `Ic2.init`, `BuildCraft.
 | Rezepte | `CraftRecipeProvider` (Abschnitte je Mod) |
 | Weltgen, Data Maps, Sounds | `CraftWorldGen`, `CraftDataMapProvider`, `CraftSoundDefinitionsProvider` |
 
+## Erz-Nachgenerierung in alten Welten
+
+`core.world.OreRetrogen`: Chunk-Attachment `craft:retrogen_version`. Neu generierte Chunks bekommen die aktuelle
+Version; ältere werden beim Laden einmal mit den Erz-Features ihrer Biome dekoriert (`FEATURES`, ohne Kupfer, weil alte
+Chunks Vanilla-Kupfer haben), sobald alle acht Nachbarn geladen sind. Chunks mit einem Craft-Erz (`c:ores`) gelten als
+schon versorgt. Bei neuen Erz-Features `VERSION` erhöhen und die Features in `FEATURES` eintragen.
+
 ## Tests und Werkzeuge
 
 - GameTests: `@GameTestHolder(Craft.MODID)` + `@PrefixGameTestTemplate(false)`, Strukturen `empty_8x4x8`,

@@ -209,6 +209,9 @@ Wasser-/Windmühle/Solar bleiben ohne Rezept (Phase 6b).
   Mod-Fehler) erfolgreich. Abweichungen in `abweichungen.md` eingetragen.
 - **Damit ist Phase 4 inhaltlich vollständig** – wartet auf Abnahme durch den Nutzer.
 
+- Erz-Nachgenerierung für alte Welten (`OreRetrogen`, `architektur.md`): Test mit einer Kopie von „Neue Welt (1)“
+  auf dem Dev-Server; im Basisgebiet wurde nur natürlicher Stein/Tiefenschiefer zu Craft-Erz, sonst kein Block geändert.
+
 ## Nächste Schritte (Stand Ende Phase 4 – überholt, siehe Phase 5)
 Arbeitsweise: eine Sitzung pro Teilpaket, Übergabe über diese Datei; am Ende jedes Teilpakets committen und pushen.
 1. Manuelle Client-Tests macht der Nutzer gesammelt, wenn alles fertig ist (Engines: Animation/Farben, Drehen per
