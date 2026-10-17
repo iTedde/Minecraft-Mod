@@ -1640,5 +1640,9 @@ Nutzerentscheidung (2026-10-17): **alle vier Lücken umsetzen** → Phase 13 (13
 - 15.2 Portal erledigt (Glatter-Stein-Rahmen, Feuer zündet, Hin- und Rückweg im Client getestet, Gegenportal steht
   auf der Ebene).
 
+- 15.3 erledigt: CC: Tweaked 1.120.2 als `localRuntime`; Client-Test: Turtle legt per `turtle.drop()` 8 Bruchstein in
+  den Craft-Macerator (Eingabeslot). Mod-Version 0.3.0; CurseForge-Paket `X:/Craft/Craft-0.3.0-curseforge.zip`
+  (Craft, EMI, Xaero, CC: Tweaked in `overrides/mods`).
+
 ## Nächste Schritte
-1. 15.3 CC: Tweaked + CurseForge-Paket.
+1. Abnahme Phase 15.

@@ -107,8 +107,9 @@ Oberwelt ↔ `craft:mining`, Koordinaten **1:1**.
 ## 5. Turtles: CC: Tweaked
 
 - **CC: Tweaked** (offizieller ComputerCraft-Nachfolger, NeoForge 1.21.1) wird wie Xaero's Minimap nur mitinstalliert:
-  `localRuntime` in `build.gradle` (Version in `gradle.properties`, Maven `https://maven.squiddev.cc`, sonst Modrinth-Maven),
-  dazu im CurseForge-Paket (`overrides/mods`).
+  `localRuntime` in `build.gradle` über das Modrinth-Maven, Version **1.120.2** (`cc_tweaked_version` in
+  `gradle.properties` = Modrinth-Versions-ID `1ewzHZYg`, weil die Versionsnummer auch der Fabric-Build trägt; die Datei
+  heißt `cc-tweaked-1.21.1-forge-1.120.2.jar`, ist aber der NeoForge-Build), dazu im CurseForge-Paket (`overrides/mods`).
 - **Keine eigene Integration** (keine Peripherals, keine Turtle-Upgrades wie MiscPeripherals im Pack). Turtles können
   über die NeoForge-Item-Capability trotzdem in Craft-Maschinen/-Kisten legen und daraus nehmen.
 - Pack-Config CCTurtle: `turtlesNeedFuel=true` → in CC: Tweaked ist `need_fuel = true` Standard; keine Config nötig.
@@ -135,4 +136,4 @@ Oberwelt ↔ `craft:mining`, Koordinaten **1:1**.
 | 15.0 | diese Spezifikation |
 | 15.1 | Dimension: Typ, Noise-Settings, Biom, Erze (erledigt; umgestellt auf flache Steinwelt) |
 | 15.2 | Portal: Block, Textur, Rahmenprüfung, Zünden, Zielsuche/-erzeugung, POI (erledigt) |
-| 15.3 | CC: Tweaked mitinstallieren, Test Turtle ↔ Craft-Inventare, CurseForge-Paket neu bauen |
+| 15.3 | CC: Tweaked mitinstallieren, Test Turtle ↔ Craft-Inventare, CurseForge-Paket neu bauen (erledigt) |

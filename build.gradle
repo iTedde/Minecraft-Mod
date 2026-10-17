@@ -141,6 +141,8 @@ dependencies {
     localRuntime "dev.emi:emi-neoforge:${emi_version}"
     // Xaero's Minimap: only installed alongside in our own runs, no integration
     localRuntime "maven.modrinth:xaeros-minimap:${xaeros_minimap_version}"
+    // CC: Tweaked (computers and turtles): only installed alongside in our own runs, no integration (spec 18 §5)
+    localRuntime "maven.modrinth:cc-tweaked:${cc_tweaked_version}"
 
     // Example optional mod dependency with JEI
     // The JEI API is declared for compile time use, while the full JEI artifact is used at runtime
