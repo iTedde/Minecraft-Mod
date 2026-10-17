@@ -379,6 +379,10 @@ public final class Ic2Items {
             armor("hazmat_leggings", properties -> new HazmatArmorItem(ArmorItem.Type.LEGGINGS, properties));
     public static final DeferredItem<HazmatArmorItem> RUBBER_BOOTS =
             armor("rubber_boots", properties -> new HazmatArmorItem(ArmorItem.Type.BOOTS, properties));
+    /** IC2 {@code ItemArmorIC2} with {@code IC2_ALLOY}: an ordinary (enchantable, anvil-repairable) chestplate. */
+    public static final DeferredItem<ArmorItem> COMPOSITE_VEST = armor("composite_vest",
+            properties -> new ArmorItem(Ic2ArmorMaterials.ALLOY, ArmorItem.Type.CHESTPLATE,
+                    properties.durability(ArmorItem.Type.CHESTPLATE.getDurability(Ic2ArmorMaterials.ALLOY_DURABILITY))));
     public static final DeferredItem<NanoArmorItem> NANO_HELMET = nano("nano_helmet", ArmorItem.Type.HELMET);
     public static final DeferredItem<NanoArmorItem> NANO_CHESTPLATE =
             nano("nano_chestplate", ArmorItem.Type.CHESTPLATE);

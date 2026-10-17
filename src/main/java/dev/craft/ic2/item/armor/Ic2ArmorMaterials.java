@@ -4,6 +4,7 @@ import java.util.EnumMap;
 import java.util.List;
 
 import dev.craft.Craft;
+import dev.craft.ic2.Ic2Items;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
@@ -36,6 +37,23 @@ public final class Ic2ArmorMaterials {
     public static final Holder<ArmorMaterial> NIGHTVISION = register("nightvision", 0);
     /** GregTech lithium batpack (texture from {@code armor/lithiumbatpack_1.png}). */
     public static final Holder<ArmorMaterial> LITHIUM_BATPACK = register("lithium_batpack", 0);
+    /**
+     * IC2 {@code IC2_ALLOY} (composite vest): a plain vanilla material, defense 4/9/7/4, enchantability 12, repaired
+     * with advanced alloy; durability factor 50 is applied by the item.
+     */
+    public static final Holder<ArmorMaterial> ALLOY = MATERIALS.register("alloy", () -> {
+        EnumMap<ArmorItem.Type, Integer> defense = new EnumMap<>(ArmorItem.Type.class);
+        defense.put(ArmorItem.Type.HELMET, 4);
+        defense.put(ArmorItem.Type.CHESTPLATE, 9);
+        defense.put(ArmorItem.Type.LEGGINGS, 7);
+        defense.put(ArmorItem.Type.BOOTS, 4);
+        defense.put(ArmorItem.Type.BODY, 9);
+        return new ArmorMaterial(defense, 12, SoundEvents.ARMOR_EQUIP_GENERIC,
+                () -> Ingredient.of(Ic2Items.ADVANCED_ALLOY), List.of(new ArmorMaterial.Layer(
+                        ResourceLocation.fromNamespaceAndPath(Craft.MODID, "alloy"))), 0.0F, 0.0F);
+    });
+    /** IC2 {@code IC2_ALLOY} durability factor (chest 16 · 50 = 800). */
+    public static final int ALLOY_DURABILITY = 50;
 
     private Ic2ArmorMaterials() {
     }

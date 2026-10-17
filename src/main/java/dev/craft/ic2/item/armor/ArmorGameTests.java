@@ -1,5 +1,8 @@
 package dev.craft.ic2.item.armor;
 
+import java.util.List;
+import java.util.Optional;
+
 import dev.craft.Craft;
 import dev.craft.core.CraftDamageTypes;
 import dev.craft.ic2.Ic2Items;
@@ -18,6 +21,8 @@ import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.CraftingInput;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.GameType;
 import net.neoforged.neoforge.gametest.GameTestHolder;
 import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
@@ -178,5 +183,34 @@ public final class ArmorGameTests {
                 "quantum boots untouched");
         helper.assertValueEqual(ElectricItems.getCharge(saber), 40000 - 7 * 8, "saber charge");
         helper.succeed();
+    }
+
+    /** Composite vest: IC2_ALLOY chest 9 armor, 800 durability, enchantable 12, repaired with advanced alloy. */
+    @GameTest(template = EMPTY)
+    public static void compositeVest(GameTestHelper helper) {
+        ItemStack vest = Ic2Items.COMPOSITE_VEST.toStack();
+        helper.assertValueEqual(Ic2Items.COMPOSITE_VEST.get().getDefense(), 9, "armor");
+        helper.assertValueEqual(vest.getMaxDamage(), 800, "durability");
+        helper.assertValueEqual(vest.getItem().getEnchantmentValue(), 12, "enchantability");
+        helper.assertTrue(vest.getItem().isValidRepairItem(vest, Ic2Items.ADVANCED_ALLOY.toStack()), "repair alloy");
+        ItemStack alloy = Ic2Items.ADVANCED_ALLOY.toStack();
+        ItemStack leather = new ItemStack(Items.LEATHER_CHESTPLATE);
+        ItemStack iron = new ItemStack(Items.IRON_CHESTPLATE);
+        List<ItemStack> grid = List.of(alloy, ItemStack.EMPTY, alloy, alloy, leather, alloy, alloy, iron, alloy);
+        helper.assertTrue(craft(helper, grid).map(out -> out.is(Ic2Items.COMPOSITE_VEST.get())).orElse(false),
+                "recipe leather/iron");
+        List<ItemStack> swapped = List.of(alloy, ItemStack.EMPTY, alloy, alloy, iron, alloy, alloy, leather, alloy);
+        helper.assertTrue(craft(helper, swapped).isPresent(), "recipe iron/leather");
+        ItemStack worn = iron.copy();
+        worn.setDamageValue(1);
+        helper.assertTrue(craft(helper, List.of(alloy, ItemStack.EMPTY, alloy, alloy, leather, alloy, alloy, worn,
+                alloy)).isEmpty(), "damaged chestplate rejected");
+        helper.succeed();
+    }
+
+    private static Optional<ItemStack> craft(GameTestHelper helper, List<ItemStack> items) {
+        CraftingInput input = CraftingInput.of(3, 3, items);
+        return helper.getLevel().getRecipeManager().getRecipeFor(RecipeType.CRAFTING, input, helper.getLevel())
+                .map(holder -> holder.value().assemble(input, helper.getLevel().registryAccess()));
     }
 }

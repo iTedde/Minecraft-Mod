@@ -1,0 +1,31 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "A": {
+      "item": "craft:advanced_alloy"
+    },
+    "I": {
+      "type": "neoforge:components",
+      "components": {
+        "minecraft:damage": 0
+      },
+      "items": "minecraft:iron_chestplate"
+    },
+    "L": {
+      "type": "neoforge:components",
+      "components": {
+        "minecraft:damage": 0
+      },
+      "items": "minecraft:leather_chestplate"
+    }
+  },
+  "pattern": [
+    "A A",
+    "AIA",
+    "ALA"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:composite_vest"
+  }
+}

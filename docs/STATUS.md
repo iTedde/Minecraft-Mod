@@ -1530,6 +1530,23 @@ NaK-Kühlzellen, kein Vakuumgefrierer) **und die IC2-Nuke**. Teilpakete: 7a IC2-
    Im Pack teils durch Forestry/Railcraft/TE ersetzt (`OreDictUnificator.override`), funktional identisch.
 4. **GT-Rückgewinnung** von Werkzeugen/Rüstung im Macerator/Ofen (`GT_Utility.applyUsagesForMaterials`, 30 Aufrufe).
 
+Nutzerentscheidung (2026-10-17): **alle vier Lücken umsetzen** → Phase 13 (13.1–13.4 in dieser Reihenfolge).
+
+# Phase 13 – Nachträge (2026-10-17)
+
+## Erledigt (Teilpaket „Phase 13.1: Kompositweste“, 2026-10-17)
+- Spezifikation nachgetragen: `spec/05-items.md` §5.1 (Klasse, Sprite, Reparatur, Rezepte nur mit unbeschädigter
+  Rüstung).
+- Rüstungsmaterial `craft:alloy` (4/9/7/4, Verzauberbarkeit 12, Reparatur fortg. Legierung) in `Ic2ArmorMaterials`,
+  Item `composite_vest` (Vanilla-`ArmorItem`, Haltbarkeit 16 · 50 = 800). Texturen `item_0.png` 103 und
+  `armor/ic2/alloy_1.png`. Rezepte `A A/ALA/AIA` und `A A/AIA/ALA`; Sprache en/de.
+- `abweichungen.md` (Anlegegeräusch), `testplan.md` 3.36.
+- 1 neuer GameTest (`ArmorGameTests.compositeVest`), **335 GameTests grün**, `gradlew build`. `runClient` nicht
+  gestartet.
+
 ## Nächste Schritte
-1. Nutzerentscheidung zu den Lücken 1–4.
-2. Restliche manuelle Tests aus `testplan.md` (Sounds, Explosionen, Rüstung/Werkzeuge, Weltgen, Multiblöcke).
+1. Teilpaket 13.2: IC2-Kühlmittel als Flüssigkeit (Kühlzellen 10k/30k/60k = 1000/3000/6000 mB, Verbrennungsmotor
+   5,0 Hitze/mB) – vorher `spec/06` §6 und `spec/09` (Kühlmittel) aus `ic2/core/IC2.java` 983–993 und
+   `bcIntegration32x/SubModule.java` präzisieren (welche Zellen-Schadenswerte zählen, was zurückkommt).
+2. Danach 13.3 GT-Stäube, 13.4 Rückgewinnung.
+3. Restliche manuelle Tests aus `testplan.md` (Sounds, Explosionen, Rüstung/Werkzeuge, Weltgen, Multiblöcke).

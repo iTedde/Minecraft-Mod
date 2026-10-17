@@ -320,6 +320,12 @@ Schraubenschlüssel, Bergbaulaser, Farbroller (Modus), Jetpack (Vorwärts/Spring
 
 Beide sind `IMetalArmor` (Magnetzaun).
 
+**Details aus dem Original (nachgetragen für Phase 13.1):** Kompositweste = `ItemArmorIC2` (gewöhnliche Vanilla-Rüstung,
+kein `ISpecialArmor`), Sprite `item_0.png` 103, Rüstungstextur `armor/ic2/alloy_1.png`, Reparatur am Amboss mit
+fortgeschrittener Legierung (`getIsRepairable` vergleicht nur die Item-ID). Rezepte `A A/ALA/AIA` und `A A/AIA/ALA`
+(L = Lederharnisch, I = Eisenbrustplatte, beide als Schaden-0-Stapel → nur unbeschädigt; `AdvRecipe` vergleicht Item
+und Schaden). GregTech ändert sie nicht. Für den Magnetzaun ohne Bedeutung (der prüft nur Stiefel).
+
 ### 5.2 Elektrische Rüstung (`ItemArmorElectric`, Forge `ISpecialArmor`)
 
 Absorption: `ratio = basis[slot] · faktor`, Basis Helm 0,15 / Brust 0,40 / Hose 0,30 / Stiefel 0,15.

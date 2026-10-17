@@ -1228,6 +1228,13 @@ public final class CraftRecipeProvider extends RecipeProvider {
         shaped(Ic2Items.TIN_CAN, 4, "tin_can").pattern("T T").pattern("TTT")
                 .define('T', CraftItemTagsProvider.INGOTS_TIN).save();
 
+        // Composite vest, both row orders; Item.plateLeather/plateSteel are damage-0 stacks: only undamaged armor fits.
+        Ingredient leather = DataComponentIngredient.of(false, DataComponents.DAMAGE, 0, Items.LEATHER_CHESTPLATE);
+        Ingredient iron = DataComponentIngredient.of(false, DataComponents.DAMAGE, 0, Items.IRON_CHESTPLATE);
+        shaped(Ic2Items.COMPOSITE_VEST, 1, "composite_vest").pattern("A A", "ALA", "AIA")
+                .define('A', Ic2Items.ADVANCED_ALLOY).define('L', leather).define('I', iron).save();
+        shaped(Ic2Items.COMPOSITE_VEST, 1, "composite_vest_iron_top").pattern("A A", "AIA", "ALA")
+                .define('A', Ic2Items.ADVANCED_ALLOY).define('L', leather).define('I', iron).save();
         shaped(Ic2Items.NANO_HELMET, 1, "nano_helmet").pattern("CcC").pattern("CGC")
                 .define('C', Ic2Items.CARBON_PLATE).define('c', Ic2Items.ENERGY_CRYSTAL).define('G', Items.GLASS).save();
         shaped(Ic2Items.NANO_CHESTPLATE, 1, "nano_chestplate").pattern("C C").pattern("CcC").pattern("CCC")
