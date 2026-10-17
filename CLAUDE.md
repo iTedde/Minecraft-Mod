@@ -90,7 +90,7 @@ MJ und EU bleiben getrennte Systeme; Verbindung nur über Electrical Engine (EU�
 | 15 | Mining-Dimension + Turtles (Nutzer, 2026-10-17; `docs/spec/18-mining-dimension.md`, kein Pack-Vorbild): 15.0 Spezifikation (erledigt) · 15.1 Dimension + Erze, flache Steinwelt (erledigt) · 15.2 Portal (erledigt) · 15.3 CC: Tweaked mitinstallieren + CurseForge-Paket (erledigt) | **erledigt** |
 | 16 | Balancing-Nachträge Kraftwerke (Nutzer, 2026-10-17; `docs/STATUS.md`): 16.1 HV Solar Array 1024 EU/t (erledigt) · 16.2 Strom aus jedem Turbinengehäuse (Dampf-/Wasserturbine) (erledigt) · 16.3 Windmühle zerfällt nie (erledigt) | **erledigt** |
 | 17 | Nachträge (Nutzer, 2026-10-17; `docs/STATUS.md`): 17.1 Mining-Dimension mit doppelter Erzmenge (erledigt) · 17.2 RedPower-World-Edelsteinwerkzeuge (Rubin, Saphir, Grüner Saphir; komplettes Set; `docs/spec/19-redpower-werkzeuge.md`) (erledigt) | **erledigt** |
-| 18 | Projekttisch (RedPower) + Automatische Werkbank (BuildCraft) (Nutzer, 2026-10-17; `docs/spec/20-werkbaenke.md`): 18.0 Spezifikation + Liste weiterer Werkbank-Blöcke (erledigt) · 18.1 Projekttisch + Baupläne (erledigt, Tests/runData offen) · 18.2 Automatische Werkbank | **in Arbeit** |
+| 18 | Projekttisch (RedPower) + Automatische Werkbank (BuildCraft) (Nutzer, 2026-10-17; `docs/spec/20-werkbaenke.md`): 18.0 Spezifikation + Liste weiterer Werkbank-Blöcke (erledigt) · 18.1 Projekttisch + Baupläne (erledigt, Tests/runData offen) · 18.2 Automatische Werkbank (erledigt, Tests/runData offen) | **erledigt** (GameTests/runData/Client offen) |
 
 Phasen-Umnummerierung (Nutzer, 2026-10-16): Phase 8 „GT-Nachträge“ eingeschoben; die bisherigen Phasen 8/9/10
 (Kraftwerke, Rohre, Feinschliff) heißen jetzt 9/10/11. Ältere Einträge in `docs/STATUS.md` sind entsprechend

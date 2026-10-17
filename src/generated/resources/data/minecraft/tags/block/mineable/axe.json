@@ -1,6 +1,7 @@
 {
   "values": [
     "craft:wooden_scaffold",
+    "craft:auto_workbench",
     "craft:rubber_wood"
   ]
 }

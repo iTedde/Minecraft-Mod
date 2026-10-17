@@ -128,6 +128,7 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
         tank();
         pump();
         refinery();
+        autoWorkbench();
         miningWell();
         miningPipe();
         forestryMachines();
@@ -196,6 +197,14 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
     private void pump() {
         simpleBlockWithItem(BcBlocks.PUMP.get(), models().cubeBottomTop("pump", modLoc("block/pump_side"),
                 modLoc("block/pump_bottom"), modLoc("block/pump_top")));
+    }
+
+    /** BuildCraft {@code BlockAutoWorkbench}: top and bottom 43, sides 44. */
+    private void autoWorkbench() {
+        ModelFile model = models().cubeColumn("auto_workbench", modLoc("block/auto_workbench_side"),
+                modLoc("block/auto_workbench_top"));
+        simpleBlock(BcBlocks.AUTO_WORKBENCH.get(), model);
+        simpleBlockItem(BcBlocks.AUTO_WORKBENCH.get(), model);
     }
 
     /** The refinery is drawn by its block entity renderer; texture 0 of the sheet gives the (empty) particles. */

@@ -110,6 +110,7 @@ public final class CraftBlockLoot extends BlockLootSubProvider {
         dropSelf(BcBlocks.TANK.get());
         dropSelf(BcBlocks.PUMP.get());
         dropSelf(BcBlocks.REFINERY.get());
+        dropSelf(BcBlocks.AUTO_WORKBENCH.get());
         dropSelf(BcBlocks.MINING_WELL.get());
         for (PipeType type : PipeType.values()) {
             dropSelf(BcBlocks.pipe(type).get());

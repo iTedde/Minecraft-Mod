@@ -55,6 +55,8 @@ public final class BuildCraft {
             }
         }
         event.registerBlockEntity(BcCapabilities.POWER_RECEPTOR, BcBlockEntityTypes.QUARRY.get(), (be, side) -> be);
+        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, BcBlockEntityTypes.AUTO_WORKBENCH.get(),
+                (be, side) -> be.getPipeHandler());
         event.registerBlockEntity(BcCapabilities.POWER_RECEPTOR, BcBlockEntityTypes.PUMP.get(), (be, side) -> be);
         event.registerBlockEntity(BcCapabilities.POWER_RECEPTOR, BcBlockEntityTypes.REFINERY.get(), (be, side) -> be);
         event.registerBlockEntity(BcCapabilities.POWER_RECEPTOR, BcBlockEntityTypes.MINING_WELL.get(),

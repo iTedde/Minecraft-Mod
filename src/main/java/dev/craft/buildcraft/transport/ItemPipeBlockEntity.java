@@ -14,6 +14,7 @@ import javax.annotation.Nullable;
 import dev.craft.buildcraft.BcBlockEntityTypes;
 import dev.craft.buildcraft.factory.MiningWellBlockEntity;
 import dev.craft.buildcraft.factory.QuarryBlockEntity;
+import dev.craft.buildcraft.factory.SpecialInventory;
 import dev.craft.buildcraft.menu.PipeFilterMenu;
 import dev.craft.buildcraft.util.ItemOutput;
 import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
@@ -457,10 +458,20 @@ public class ItemPipeBlockEntity extends PipeBlockEntity implements MenuProvider
         if (handler == null) {
             return;
         }
-        ItemStack extracted = material() == PipeMaterial.EMERALD ? extractFiltered(handler) : extractAny(handler);
-        if (extracted.isEmpty()) {
-            provider.useEnergy(1.0F, 1.0F, true);
-            return;
+        ItemStack extracted;
+        if (level.getBlockEntity(sourcePos) instanceof SpecialInventory special) {
+            extracted = material() == PipeMaterial.EMERALD ? extractSpecialFiltered(special) : special.extractItem(true);
+            if (extracted.isEmpty()) {
+                // a special inventory with nothing to give costs no MJ (useEnergy(1, 1, false))
+                return;
+            }
+            provider.useEnergy(extracted.getCount(), extracted.getCount(), true);
+        } else {
+            extracted = material() == PipeMaterial.EMERALD ? extractFiltered(handler) : extractAny(handler);
+            if (extracted.isEmpty()) {
+                provider.useEnergy(1.0F, 1.0F, true);
+                return;
+            }
         }
         Direction away = source.getOpposite();
         TravelingItem item = new TravelingItem(extracted, sourcePos.getX() + 0.5 + away.getStepX() * 0.6,
@@ -495,6 +506,25 @@ public class ItemPipeBlockEntity extends PipeBlockEntity implements MenuProvider
             if (isItemEqual(filter, stack)) {
                 incrementFilter();
                 return extract(handler, slot, stack);
+            }
+        }
+        return ItemStack.EMPTY;
+    }
+
+    /**
+     * {@code PipeItemsEmerald.checkExtract} for special inventories: takes the output only if it matches any of the
+     * filters; the current filter does not move on.
+     */
+    private ItemStack extractSpecialFiltered(SpecialInventory special) {
+        ItemStack preview = special.extractItem(false);
+        if (preview.isEmpty()) {
+            return ItemStack.EMPTY;
+        }
+        IItemHandlerModifiable filters = getFilters();
+        for (int i = 0; i < filters.getSlots(); i++) {
+            ItemStack filter = filters.getStackInSlot(i);
+            if (!filter.isEmpty() && isItemEqual(filter, preview)) {
+                return special.extractItem(true);
             }
         }
         return ItemStack.EMPTY;

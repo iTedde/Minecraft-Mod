@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "g": {
+      "item": "craft:wooden_gear"
+    },
+    "w": {
+      "item": "minecraft:crafting_table"
+    }
+  },
+  "pattern": [
+    " g ",
+    "gwg",
+    " g "
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:auto_workbench"
+  }
+}

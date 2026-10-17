@@ -6,6 +6,7 @@ import java.util.Map;
 import dev.craft.Craft;
 import dev.craft.buildcraft.builders.MarkerBlock;
 import dev.craft.buildcraft.engine.EngineBlock;
+import dev.craft.buildcraft.factory.AutoWorkbenchBlock;
 import dev.craft.buildcraft.factory.FrameBlock;
 import dev.craft.buildcraft.factory.MiningPipeBlock;
 import dev.craft.buildcraft.factory.MiningWellBlock;
@@ -76,6 +77,10 @@ public final class BcBlocks {
     public static final DeferredBlock<RefineryBlock> REFINERY = BLOCKS.register("refinery", () -> new RefineryBlock(
             BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(0.5F).requiresCorrectToolForDrops()
                     .sound(SoundType.STONE).noOcclusion()));
+    /** BuildCraft {@code BlockAutoWorkbench}: Material.wood, hardness 1.0. */
+    public static final DeferredBlock<AutoWorkbenchBlock> AUTO_WORKBENCH = BLOCKS.register("auto_workbench",
+            () -> new AutoWorkbenchBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).strength(1.0F)
+                    .sound(SoundType.WOOD).ignitedByLava()));
     /** BuildCraft {@code BlockMiningWell}: Material.ground, hardness 1.5, resistance 10 (= 6 in 1.21 units). */
     public static final DeferredBlock<MiningWellBlock> MINING_WELL = BLOCKS.register("mining_well",
             () -> new MiningWellBlock(BlockBehaviour.Properties.of().mapColor(MapColor.DIRT).strength(1.5F, 6.0F)

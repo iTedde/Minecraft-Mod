@@ -106,6 +106,7 @@ public final class CraftCreativeTabs {
                 output.accept(BcItems.PUMP);
                 output.accept(BcItems.TANK);
                 output.accept(BcItems.REFINERY);
+                output.accept(BcItems.AUTO_WORKBENCH);
                 for (PipeType type : PipeType.values()) {
                     output.accept(BcItems.pipe(type));
                 }

@@ -7,6 +7,7 @@ import dev.craft.core.client.ExtraAreas;
 import dev.craft.core.client.RecipeArea;
 import dev.craft.core.client.RecipeCategories;
 import dev.craft.gregtech.GtItems;
+import dev.craft.redpower.RpItems;
 import dev.emi.emi.api.EmiApi;
 import dev.emi.emi.api.EmiEntrypoint;
 import dev.emi.emi.api.EmiPlugin;
@@ -34,6 +35,7 @@ public class CraftEmiPlugin implements EmiPlugin {
         BcEmiRecipes.register(registry, CATEGORIES);
         ForestryEmiRecipes.register(registry, CATEGORIES);
         PowerPlantEmiRecipes.register(registry, CATEGORIES);
+        registry.addWorkstation(VanillaEmiRecipeCategories.CRAFTING, EmiStack.of(RpItems.PROJECT_TABLE.get()));
         MultiblockEmiInfo.register(registry);
         MultiblockEmiInfo.registerTerraformer(registry);
         MultiblockEmiInfo.registerBrewing(registry);

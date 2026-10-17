@@ -43,6 +43,7 @@ final class BcEmiRecipes {
         registry.addWorkstation(REFINERY, EmiStack.of(BcItems.REFINERY.get()));
         registry.addWorkstation(COMBUSTION_ENGINE, EmiStack.of(BcItems.engine(EngineType.COMBUSTION).get()));
         registry.addWorkstation(VanillaEmiRecipeCategories.FUEL, EmiStack.of(BcItems.engine(EngineType.STIRLING).get()));
+        registry.addWorkstation(VanillaEmiRecipeCategories.CRAFTING, EmiStack.of(BcItems.AUTO_WORKBENCH.get()));
 
         refinery(registry);
         combustionEngine(registry);

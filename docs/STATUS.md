@@ -1725,9 +1725,12 @@ Werkbank-Blöcke als Liste vorlegen. Spezifikation `docs/spec/20-werkbaenke.md`.
   Bauplan-Knopf und Geister-Items, Original-Texturen aus `redpowercore.zip`, Rezepte Projekttisch/Leerer Bauplan).
   `gradlew build` grün. **Offen:** `runData` (generierte JSONs von Hand passend zu den Providern geschrieben),
   6 neue GameTests (`ProjectTableGameTests`) und Client-Check – Minecraft darf gerade nicht gestartet werden.
-- [ ] 18.2 Automatische Werkbank (Rohr-Schnittstelle)
+- [x] 18.2 Automatische Werkbank (`buildcraft/factory/AutoWorkbench*`, `SpecialInventory` im Holz-/Smaragdrohr,
+  Round-Robin-Capability, GUI mit Vanilla-Werkbank-Hintergrund, Original-Texturen, EMI-Workstation für beide Tische).
+  `gradlew build` grün. **Offen:** `runData` (generierte JSONs von Hand), 4 neue GameTests (`AutoWorkbenchGameTests`),
+  Client-Check.
 
 ## Nächste Schritte
 1. Freigabe erteilt (2026-10-18): F2 behoben, Rest wie vorgeschlagen; keine Blöcke aus §5 angefordert.
 2. Sobald Minecraft wieder gestartet werden darf: `runData` (Abgleich der handgeschriebenen JSONs), GameTests, Client.
-3. 18.2 Automatische Werkbank.
+3. Abnahme Phase 18 (im Client: Projekttisch mit Bauplan, Automatische Werkbank am Holzrohr).

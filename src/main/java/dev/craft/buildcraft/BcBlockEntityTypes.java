@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.function.Supplier;
 
 import dev.craft.Craft;
+import dev.craft.buildcraft.factory.AutoWorkbenchBlockEntity;
 import dev.craft.buildcraft.builders.MarkerBlockEntity;
 import dev.craft.buildcraft.engine.EngineBlock;
 import dev.craft.buildcraft.engine.EngineBlockEntity;
@@ -51,6 +52,9 @@ public final class BcBlockEntityTypes {
             () -> BlockEntityType.Builder.of(PumpBlockEntity::new, BcBlocks.PUMP.get()).build(null));
     public static final Supplier<BlockEntityType<RefineryBlockEntity>> REFINERY = BLOCK_ENTITY_TYPES.register(
             "refinery", () -> BlockEntityType.Builder.of(RefineryBlockEntity::new, BcBlocks.REFINERY.get()).build(null));
+    public static final Supplier<BlockEntityType<AutoWorkbenchBlockEntity>> AUTO_WORKBENCH =
+            BLOCK_ENTITY_TYPES.register("auto_workbench", () -> BlockEntityType.Builder
+                    .of(AutoWorkbenchBlockEntity::new, BcBlocks.AUTO_WORKBENCH.get()).build(null));
     public static final Supplier<BlockEntityType<MiningWellBlockEntity>> MINING_WELL = BLOCK_ENTITY_TYPES.register(
             "mining_well",
             () -> BlockEntityType.Builder.of(MiningWellBlockEntity::new, BcBlocks.MINING_WELL.get()).build(null));

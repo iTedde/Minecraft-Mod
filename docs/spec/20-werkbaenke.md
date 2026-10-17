@@ -184,6 +184,12 @@ Zusätzlich in 18.1: Container-Items aus einem Vorratsstapel überschreiben den 
 | F6 | Rohr-Entnahme Werkbank | `ISpecialInventory`, Ergebnisstack beliebiger Größe | eigene Schnittstelle (s. §3); die Item-Capability erlaubt keine Rückgabe größer als angefragt |
 | F7 | Trichter | – (gab es nicht) | können einfügen, nicht entnehmen |
 
+### 4.1 Umsetzung 18.2
+
+- Die Zutatenprüfung entnimmt nichts mehr probeweise (Simulation über die Capability des Nachbarn), Container-Items
+  überschreiben keinen Slot mehr, Shift-Klick aufs Ergebnis nur, wenn das ganze Ergebnis passt (`abweichungen.md`).
+- Projekttisch und Automatische Werkbank sind in EMI als Werkbank-Workstations eingetragen.
+
 ## 5. Weitere Werkbank-/Handwerksblöcke im Pack (Liste für den Nutzer)
 
 Gefunden in `ftb ultimate/mods/` (Klassen mit Workbench/Crafter/Bench/Assembler). **Nicht** im Craft-Umfang:

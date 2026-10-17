@@ -785,6 +785,9 @@ public final class CraftRecipeProvider extends RecipeProvider {
         bcShaped(BcItems.REFINERY).pattern("RTR").pattern("TGT").define('R', Items.REDSTONE_TORCH)
                 .define('T', BcItems.TANK).define('G', BcItems.DIAMOND_GEAR)
                 .unlockedBy("has_tank", has(BcItems.TANK)).save(output, id("refinery"));
+        bcShaped(BcItems.AUTO_WORKBENCH).pattern(" g ").pattern("gwg").pattern(" g ").define('w', Items.CRAFTING_TABLE)
+                .define('g', BcItems.WOODEN_GEAR).unlockedBy("has_gear", has(BcItems.WOODEN_GEAR))
+                .save(output, id("auto_workbench"));
         pipe(PipeType.WOODEN_TRANSPORT, Ingredient.of(ItemTags.PLANKS), Ingredient.of(ItemTags.PLANKS));
         pipe(PipeType.COBBLESTONE_TRANSPORT, Ingredient.of(Items.COBBLESTONE), Ingredient.of(Items.COBBLESTONE));
         pipe(PipeType.STONE_TRANSPORT, Ingredient.of(Items.STONE), Ingredient.of(Items.STONE));
