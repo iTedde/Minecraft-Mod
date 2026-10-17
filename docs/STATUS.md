@@ -1624,3 +1624,16 @@ Nutzerentscheidung (2026-10-17): **alle vier Lücken umsetzen** → Phase 13 (13
 
 ## Abnahme Phase 14 (Nutzer, 2026-10-17)
 - Phase 14 (Befunde aus 13.3, 14.1–14.5) abgenommen. Offen bleiben die manuellen Client-Tests aus `testplan.md`.
+
+# Phase 15 – Mining-Dimension und Turtles (Nutzer, 2026-10-17)
+
+- Nutzerwunsch: Mining-Dimension „wie in FTB Ultimate“ und Turtles. Prüfung des Packs: keine Mining-Dimension
+  vorhanden (vermutlich Erinnerung an Extra Utilities „Deep Dark“ aus späteren Packs); Turtles = ComputerCraft 1.5.
+- Entscheidungen: eigene Dimension, Portal aus Glattem Stein, Oberwelt-Erze überall, Aufbau wie Oberwelt-Untergrund
+  ohne Höhlen und hell; CC: Tweaked nur mitinstallieren.
+- 15.0 Spezifikation erledigt: `docs/spec/18-mining-dimension.md`.
+- Nebenbei: CurseForge-Paket `X:/Craft/Craft-0.2.0-curseforge.zip` (Mod + EMI + Xaero in `overrides/mods`,
+  `files` leer → CurseForge zeigt „Mods (0)“, die Jars liegen trotzdem im Profil).
+
+## Nächste Schritte
+1. 15.1 Dimension + Erze.

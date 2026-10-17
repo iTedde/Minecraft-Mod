@@ -44,6 +44,7 @@ ein überarbeitetes Energiebalancing und neue Kraftwerke. Wird nicht veröffentl
 | `…compactsolars` | Solar Arrays (als Multiblocks laut Balancing) |
 | `…gregtech` | nur die für Pack-Rezepte nötigen GT-Materialien (und ggf. deren Herstellung, offen) |
 | `…powerplants` (neue Inhalte) | Wasserturbine, Kohlekraftwerk (Kessel, Dampfturbine), Koksofen |
+| `…mining` (neue Inhalte) | Mining-Dimension, Mining-Portal |
 
 MJ und EU bleiben getrennte Systeme; Verbindung nur über Electrical Engine (EU→MJ) und Power Converters.
 
@@ -81,6 +82,7 @@ MJ und EU bleiben getrennte Systeme; Verbindung nur über Electrical Engine (EU�
 | 12 | Restliche IC2-Inhalte (`docs/spec/17-ic2-rest.md`; Umfang aus `spec/16-feinschliff.md` §8 E4): Miner, Terraformer, Teleporter, Tesla-Spule, Crops/Crop-Matron, Personal-Blöcke, Luminator, Bauschaum + CF-Pack, Kaffee/Fass, Upgrade-Stack 4, GT-Recycler-Blacklist, Miner-Lava, dazu bisher nicht zugeordnete IC2-Werkzeuge/Blöcke/Dynamit (Solar-Hüte entfallen). 12.0 Spezifikation (erledigt) · 12.1 kleine Werkzeuge/Blöcke (erledigt) · 12.2 Bauschaum + Luminator (erledigt) · 12.3 Miner (erledigt) · 12.4 Teleporter + Tesla-Spule (erledigt) · 12.5 Terraformer (erledigt) · 12.6 Personal-Blöcke (erledigt) · 12.7a Crops-Grundgerüst (erledigt) · 12.7b Crop-Sorten (erledigt) · 12.7c Crop-Matron (erledigt) · 12.8 Kaffee/Fass/Bier/Rum (erledigt) · 12.9 Dynamit/Fernzünder (erledigt) · 12.10 GT-Änderungen/Abschluss (erledigt) | **erledigt** (abgenommen) |
 | 13 | Nachträge aus der Vollständigkeitsprüfung (Nutzer, 2026-10-17; `docs/STATUS.md`): 13.1 Kompositweste (erledigt) · 13.2 IC2-Kühlmittel als Flüssigkeit (Kühlzellen, Verbrennungsmotor) (erledigt) · 13.3 erreichbare GT-Stäube (Feuerstein, Holzkohle, Obsidian, Holzschliff, Elektrum) (erledigt) · 13.4 GT-Rückgewinnung von Werkzeugen/Rüstung (`applyUsagesForMaterials`) (erledigt) | **erledigt** (abgenommen) |
 | 14 | Befunde aus 13.3 (Nutzer, 2026-10-17; `spec/12` §5.7): 14.1 Elektrumplatte + GT-Platinen (erledigt) · 14.2 Messing (erledigt) · 14.3 GT-Mörser + Mehl (erledigt) · 14.4 Compressor Setzlinge/Blätter (erledigt) · 14.5 Schaden 0 bei Solarhelm/Static Boots (erledigt) | **erledigt** (abgenommen) |
+| 15 | Mining-Dimension + Turtles (Nutzer, 2026-10-17; `docs/spec/18-mining-dimension.md`, kein Pack-Vorbild): 15.0 Spezifikation (erledigt) · 15.1 Dimension + Erze · 15.2 Portal · 15.3 CC: Tweaked mitinstallieren + CurseForge-Paket | in Arbeit |
 
 Phasen-Umnummerierung (Nutzer, 2026-10-16): Phase 8 „GT-Nachträge“ eingeschoben; die bisherigen Phasen 8/9/10
 (Kraftwerke, Rohre, Feinschliff) heißen jetzt 9/10/11. Ältere Einträge in `docs/STATUS.md` sind entsprechend

@@ -33,6 +33,7 @@ Vanilla-Klassen/-Felder tragen lesbare Namen (`Block.cobblestone`, `Item.redston
 | `15-rohre.md` | BuildCraft-Rohre: Item-, Flüssigkeits-, Leistungs- und Strukturrohre (Phase 10, ohne Gates/Drähte/Fassaden) |
 | `16-feinschliff.md` | Feinschliff: EMI-Kategorien, Xaero's Minimap, Texturen, Forestry-Ledger, Tests, Teilphasen (Phase 11) |
 | `17-ic2-rest.md` | Restliche IC2-Inhalte: Bestandsaufnahme, Lücken, GT-Änderungen ohne Rezept, Teilphasen, Entscheidungen (Phase 12) |
+| `18-mining-dimension.md` | Mining-Dimension (Portal aus Glattem Stein, nur Stein und Oberwelt-Erze) und CC: Tweaked für Turtles (Phase 15, neue Inhalte) |
 
 Ergänzend: `docs/balancing.md` (Vorschlag, nicht freigegeben), `docs/abweichungen.md`.
 
