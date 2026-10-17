@@ -179,6 +179,9 @@ public final class CraftRecipeProvider extends RecipeProvider {
                 .define('D', GtItems.DIAMOND_DUST).save();
         machine(MachineRecipe.Kind.MACERATOR, "diamond", diamond(), 1, GtItems.DIAMOND_DUST, 1);
         machine(MachineRecipe.Kind.MACERATOR, "emerald", Ingredient.of(Items.EMERALD), 1, GtItems.EMERALD_DUST, 1);
+        // GT_Mod: 2 iron fences → 3 small iron dust (GT small dust 241 = the IC2 item, see centrifuge).
+        machine(MachineRecipe.Kind.MACERATOR, "iron_fence", Ingredient.of(Ic2Items.IRON_FENCE), 2,
+                Ic2Items.SMALL_IRON_DUST, 3);
 
         implosion("iridium_plate", GtItems.IRIDIUM_ALLOY_INGOT, 1, 8, new ItemStack(Ic2Items.IRIDIUM_PLATE.get()),
                 new ItemStack(GtItems.DARK_ASH.get(), 4));
@@ -1620,6 +1623,15 @@ public final class CraftRecipeProvider extends RecipeProvider {
                 stack(GtItems.CALCITE_DUST, 1), ItemStack.EMPTY, ItemStack.EMPTY, stack(Ic2Items.EMPTY_CELL, 1));
         electrolysis("calcite_dust", Ingredient.of(CraftItemTagsProvider.DUSTS_CALCITE), 10, 7, 700, 80,
                 stack(GtItems.CALCIUM_CELL, 2), stack(GtItems.CARBON_CELL, 2), stack(Ic2Items.AIR_CELL, 3));
+
+        // Sulfur and tungsten cells (GT_OreDictHandler dustSulfur/dustTungsten, molecule_1s); further uses need the
+        // chemical/fusion reactor (not in scope).
+        can("sulfur_cell", SizedIngredient.of(GtItems.SULFUR_DUST.get(), 1),
+                SizedIngredient.of(Ic2Items.EMPTY_CELL.get(), 1), 100, stack(GtItems.SULFUR_CELL, 1));
+        centrifuge("sulfur_cell", Ingredient.of(GtItems.SULFUR_CELL), 1, 0, 40,
+                stack(GtItems.SULFUR_DUST, 1), ItemStack.EMPTY, ItemStack.EMPTY, stack(Ic2Items.EMPTY_CELL, 1));
+        can("tungsten_cell", SizedIngredient.of(GtItems.TUNGSTEN_DUST.get(), 1),
+                SizedIngredient.of(Ic2Items.EMPTY_CELL.get(), 1), 100, stack(GtItems.TUNGSTEN_CELL, 1));
 
         // Nether ore dusts.
         electrolysis("sphalerite_dust", Ingredient.of(GtItems.SPHALERITE_DUST), 2, 0, 150, 100,

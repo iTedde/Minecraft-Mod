@@ -534,9 +534,15 @@ GT-Rezepten, die im Pack den Ore-Namen nutzen: Standard-Gehäuse (Tier 01), vers
 | 6 Bio-Brennstoffzellen | leerer Brennstoffkanister | gefüllter Kanister (`value` 5208) | 6 leere Zellen | 600 | 1 |
 | 6 Kohle-Brennstoffzellen | leerer Brennstoffkanister | gefüllter Kanister (`value` 15288) | 6 leere Zellen | 600 | 1 |
 
-Spätere Rezepte (Zutaten fehlen noch): Uranbarren + Zelle → Uranzelle (100 Ticks, 2 EU/t, Phase 7), Plutonium-,
-Thorium-, Schwefel-, Calcit-, Wolfram-, Quecksilberzellen (GT-Zellen, je 100/1), Railcraft-Schwellen (Kreosot, nicht im
-Umfang).
+Zellen-Rezepte (je Barren/Staub + leere Zelle): Uranbarren → Uranzelle (100 Ticks, 2 EU/t, 7a), Plutonium-/
+Thoriumbarren → Plutonium-/Thoriumzelle (100/2, 7b), Calcitstaub → Calciumcarbonatzelle (GT-Zelle 33, 100/1, 8c),
+Schwefelstaub → Schwefelzelle (GT-Zelle 36 „Sulfur Cell“, 100/1), Wolframstaub → Wolframzelle (GT-Zelle 4
+„Wolframium Cell“, 100/1). Schwefelzelle zurück per Zentrifuge (40 Ticks → Schwefelstaub + leere Zelle,
+`molecule_1s`); ihre übrigen Verwendungen (Chemiereaktor) und die der Wolframzelle (Fusionsreaktor) sind nicht im
+Umfang. Entfallen: Quecksilberzelle aus Thaumcraft-Quicksilver, Railcraft-Schwellen (Kreosot).
+
+Macerator (`GT_Mod` Z. 4722): 2 Eisenzäune → 3 kleine Eisenstaubhaufen (GT-Kleinstaub 241 = IC2-„Small Pile of Iron
+Dust“).
 
 Umsetzung der Nahrungsrezepte: Datagen über alle Items mit `DataComponents.FOOD` (Vanilla und Mod) mit
 `ceil(nutrition / 2)`; die 1.4.7-Werte stimmen für alle Vanilla-Nahrungsmittel von damals mit den 1.21-Werten überein

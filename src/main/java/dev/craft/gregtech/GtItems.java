@@ -158,6 +158,8 @@ public final class GtItems {
     public static final DeferredItem<GtMaterialItem> PLUTONIUM_DUST = glowing("plutonium_dust", "Pu");
     public static final DeferredItem<GtMaterialItem> SMALL_PLUTONIUM_DUST = glowing("small_plutonium_dust", "Pu");
     public static final DeferredItem<GtMaterialItem> TUNGSTEN_DUST = material("tungsten_dust", "W");
+    public static final DeferredItem<GtMaterialItem> TUNGSTEN_CELL = material("tungsten_cell", "W");
+    public static final DeferredItem<GtMaterialItem> SULFUR_CELL = material("sulfur_cell", "S");
     public static final DeferredItem<GtMaterialItem> BERYLLIUM_CELL = material("beryllium_cell", "Be");
     public static final DeferredItem<GtCoolantCellItem> HELIUM_COOLANT_CELL_60K = simple(ITEMS.registerItem(
             "helium_coolant_cell_60k", properties -> new GtCoolantCellItem(properties, 60000)));

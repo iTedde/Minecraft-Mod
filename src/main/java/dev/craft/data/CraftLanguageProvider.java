@@ -524,6 +524,8 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
         item(GtItems.PLUTONIUM_DUST, "Plutonium Dust");
         item(GtItems.SMALL_PLUTONIUM_DUST, "Tiny Pile of Plutonium Dust");
         item(GtItems.TUNGSTEN_DUST, "Tungsten Dust");
+        item(GtItems.TUNGSTEN_CELL, "Wolframium Cell");
+        item(GtItems.SULFUR_CELL, "Sulfur Cell");
         item(GtItems.BERYLLIUM_CELL, "Berylium Cell");
         item(GtItems.HELIUM_COOLANT_CELL_60K, "60k Helium Coolant Cell");
         item(GtItems.HELIUM_COOLANT_CELL_180K, "180k Helium Coolant Cell");

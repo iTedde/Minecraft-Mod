@@ -137,6 +137,25 @@ public final class GtOreGameTests {
         helper.succeed();
     }
 
+    /** Sulfur/tungsten cells (canner, sulfur back in the centrifuge) and the GT iron fence macerator recipe. */
+    @GameTest(template = EMPTY)
+    public static void sulfurTungstenCellsAndFence(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        GtRecipe sulfur = GtRecipe.find(level, GtRecipe.Kind.CANNER, new ItemStack(GtItems.SULFUR_DUST.get()),
+                new ItemStack(Ic2Items.EMPTY_CELL.get()), false);
+        helper.assertTrue(sulfur != null && sulfur.getOutput(0).is(GtItems.SULFUR_CELL.get())
+                && sulfur.getDuration() == 100, "sulfur canning");
+        GtRecipe tungsten = GtRecipe.find(level, GtRecipe.Kind.CANNER, new ItemStack(GtItems.TUNGSTEN_DUST.get()),
+                new ItemStack(Ic2Items.EMPTY_CELL.get()), false);
+        helper.assertTrue(tungsten != null && tungsten.getOutput(0).is(GtItems.TUNGSTEN_CELL.get()), "tungsten canning");
+        GtRecipe back = GtRecipe.find(level, GtRecipe.Kind.CENTRIFUGE, new ItemStack(GtItems.SULFUR_CELL.get()),
+                ItemStack.EMPTY, false);
+        helper.assertTrue(back != null && back.getOutput(0).is(GtItems.SULFUR_DUST.get())
+                && back.getOutput(3).is(Ic2Items.EMPTY_CELL.get()) && back.getDuration() == 40, "sulfur cell centrifuge");
+        assertMacerator(helper, new ItemStack(Ic2Items.IRON_FENCE.get(), 2), new ItemStack(Ic2Items.SMALL_IRON_DUST.get(), 3));
+        helper.succeed();
+    }
+
     private static List<ItemStack> drops(GameTestHelper helper, Block block, ItemStack tool) {
         return Block.getDrops(block.defaultBlockState(), helper.getLevel(), helper.absolutePos(POS), null, null, tool);
     }
