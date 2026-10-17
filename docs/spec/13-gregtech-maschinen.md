@@ -618,6 +618,20 @@ Die IC2-Rezepte der Iridiumplatte (`IAI/ADA/IAI` mit Iridiumerz und Diamant bzw.
 Später (Zutaten fehlen): Smaragdstaub im Assembler (8 + fortg. Schaltkreis) und Elektrolyseur (Berylliumzellen),
 GT-Rückgewinnung von Werkzeugen/Rüstung im Macerator (`applyUsagesForMaterials`, für alle Materialien offen).
 
+**GT-Rückgewinnung (nachgetragen und umgesetzt in 13.4):** `GT_Mod` ~4655–4707 ruft `GT_Utility.applyUsagesForMaterials(
+Material, Staub, Ofen?, Macerator?)` für Rubin, Saphir, Grünsaphir, Messing, Silber, Olivin, Aluminium, Titan, Chrom,
+Stahl, Elektrum, Wolfram, Blei, Zink, Platin, Nickel, Invar, Osmium, Iridium, raff. Eisen, Bronze, Kupfer, Zinn, Eisen,
+Gold (Ofen + Macerator), Diamant (nur Macerator) und Bretter (→ 4 kl. Holzschliff, nur Macerator). Für jedes
+Werkbankrezept, das genau in eines von 28 3×3-Rastern passt (M = Material, S = Stock), entsteht ein Macerator-Rezept
+Ergebnis → Staub × n und bei „Ofen“ (nur wenn Rezept 1 Stück ergibt) ein Ofenrezept → 1-Stück-Material × n:
+Helm 5, Brust 8, Hose 7, Stiefel 4, Schwert 2, Spitzhacke 3, Schaufel 1, Axt 3 (beide Seiten), Hacke 2 (beide Seiten),
+Hammer `MMM/MSM/ S ` 5, dazu umgedrehte/diagonale Muster (RedPower-Sicheln u. Ä.). Bei Brettern kommen +2 (Schwert,
+Fremdmuster) bzw. +4 kl. Holzschliff (Stock-Werkzeuge) dazu. Macerator und Ofen vergleichen Item **und** Schaden →
+nur unbeschädigte Teile. Außerdem werden für jedes Material außer Eisen die Rezepte `M M/ M ` (oben/unten) → Eimer
+und `M M/MMM` (oben/unten) → Lore **entfernt** – im Mod trifft das das versteckte IC2-Zinneimer-Rezept.
+Im Umfang passen nur die Vanilla-Rüstungen/-Werkzeuge aus Eisen, Gold, Diamant und Holz (Bronze/Stahl/Edelstein-
+Werkzeuge gibt es nicht; ein Rasterabgleich aller Mod-Rezepte fand keine weiteren Treffer).
+
 ## 9. Industrielle Zentrifuge (`GT_MetaTileEntity_Centrifuge`, ID 62, „Industrial Centrifuge“) – Teilpaket 6b.5c
 
 Aufbau **wie der Elektrolyseur (§4)**, Code gemeinsam in `GtTankMachineBlockEntity`. Unterschiede:

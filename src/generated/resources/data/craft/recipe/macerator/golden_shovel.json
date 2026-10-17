@@ -1,0 +1,14 @@
+{
+  "type": "craft:macerator",
+  "ingredient": {
+    "type": "neoforge:components",
+    "components": {
+      "minecraft:damage": 0
+    },
+    "items": "minecraft:golden_shovel"
+  },
+  "result": {
+    "count": 1,
+    "id": "craft:gold_dust"
+  }
+}

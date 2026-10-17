@@ -104,6 +104,7 @@ public final class CraftRecipeProvider extends RecipeProvider {
         gregTechCircuits();
         gregTechTungsten();
         gregTechDusts();
+        gregTechRecycling();
         uuMatter();
         smelting();
         macerator();
@@ -1928,6 +1929,61 @@ public final class CraftRecipeProvider extends RecipeProvider {
                 stack(GtItems.SULFUR_DUST, 4), stack(Ic2Items.COAL_DUST, 1), stack(Items.GOLD_NUGGET, 1));
     }
 
+    /**
+     * Phase 13.4: {@code GT_Utility.applyUsagesForMaterials} – every crafting recipe in one of GregTech's armor/tool
+     * grids gets a macerator recipe (material dust × count) and, for metals, a furnace recipe (ingots × count). In
+     * this mod only the vanilla iron, gold, diamond and wooden armor/tools fit (bronze, steel, ruby … tools are not in
+     * scope). Machine and furnace recipes compared item and damage, so only undamaged pieces count.
+     */
+    private void gregTechRecycling() {
+        record Piece(String name, int count) {
+        }
+        List<Piece> armor = List.of(new Piece("helmet", 5), new Piece("chestplate", 8), new Piece("leggings", 7),
+                new Piece("boots", 4));
+        List<Piece> tools = List.of(new Piece("sword", 2), new Piece("pickaxe", 3), new Piece("shovel", 1),
+                new Piece("axe", 3), new Piece("hoe", 2));
+        record Material(String prefix, ItemLike dust, ItemLike ingot, boolean armor) {
+        }
+        List<Material> materials = List.of(new Material("iron", Ic2Items.IRON_DUST, Items.IRON_INGOT, true),
+                new Material("golden", Ic2Items.GOLD_DUST, Items.GOLD_INGOT, true),
+                new Material("diamond", GtItems.DIAMOND_DUST, null, true));
+        for (Material material : materials) {
+            for (Piece piece : material.armor() ? concat(armor, tools) : tools) {
+                Item item = BuiltInRegistries.ITEM.get(ResourceLocation.withDefaultNamespace(
+                        material.prefix() + "_" + piece.name()));
+                Ingredient undamaged = DataComponentIngredient.of(false, DataComponents.DAMAGE, 0, item);
+                String name = material.prefix() + "_" + piece.name();
+                machine(MachineRecipe.Kind.MACERATOR, name, undamaged, 1, material.dust(), piece.count());
+                if (material.ingot() != null) {
+                    smelt(material.ingot() == Items.IRON_INGOT ? "iron_ingots_from_" + name : "gold_ingots_from_" + name,
+                            undamaged, material.ingot(), piece.count(), 0.0F);
+                }
+            }
+        }
+        // Planks give 4 tiny piles of wood pulp; tool grids with sticks add 2 (sword) or 4 tiny piles.
+        for (Piece piece : tools) {
+            Item item = BuiltInRegistries.ITEM.get(ResourceLocation.withDefaultNamespace("wooden_" + piece.name()));
+            int extra = piece.name().equals("sword") ? 2 : 4;
+            machine(MachineRecipe.Kind.MACERATOR, "wooden_" + piece.name(),
+                    DataComponentIngredient.of(false, DataComponents.DAMAGE, 0, item), 1, GtItems.SMALL_WOOD_PULP,
+                    piece.count() * 4 + extra);
+        }
+        // The vanilla nugget smelting would compete with the ingot recipes: it keeps only the items GT leaves alone.
+        output.accept(ResourceLocation.withDefaultNamespace("iron_nugget_from_smelting"), new SmeltingRecipe("",
+                CookingBookCategory.MISC, Ingredient.of(Items.CHAINMAIL_HELMET, Items.CHAINMAIL_CHESTPLATE,
+                Items.CHAINMAIL_LEGGINGS, Items.CHAINMAIL_BOOTS, Items.IRON_HORSE_ARMOR),
+                new ItemStack(Items.IRON_NUGGET), 0.1F, 200), null);
+        output.accept(ResourceLocation.withDefaultNamespace("gold_nugget_from_smelting"), new SmeltingRecipe("",
+                CookingBookCategory.MISC, Ingredient.of(Items.GOLDEN_HORSE_ARMOR), new ItemStack(Items.GOLD_NUGGET),
+                0.1F, 200), null);
+    }
+
+    private static <T> List<T> concat(List<T> first, List<T> second) {
+        List<T> all = new ArrayList<>(first);
+        all.addAll(second);
+        return all;
+    }
+
     private void gregTechTungsten() {
         for (String variant : new String[]{"refined_iron", "aluminium"}) {
             shaped(GtItems.machine(GtMachine.VACUUM_FREEZER), 1, "vacuum_freezer_from_" + variant)
@@ -2189,8 +2245,7 @@ public final class CraftRecipeProvider extends RecipeProvider {
                 .define('R', Items.REDSTONE).define('G', CraftItemTagsProvider.DUSTS_GOLD).save();
         shaped(Items.GUNPOWDER, 3, "gunpowder_from_coal_dust").pattern("RCR").pattern("CRC").pattern("RCR")
                 .define('R', Items.REDSTONE).define('C', CraftItemTagsProvider.DUSTS_COAL).save();
-        shaped(Items.BUCKET, 1, "bucket_from_tin").pattern("T T", " T ")
-                .define('T', CraftItemTagsProvider.INGOTS_TIN).save();
+        // IC2's hidden tin bucket "T T/ T " is removed by GregTech (applyUsagesForMaterials, every metal but iron).
         shaped(Items.RAIL, 8, "rail_from_bronze").pattern("B B").pattern("BsB").pattern("B B")
                 .define('B', CraftItemTagsProvider.INGOTS_BRONZE).define('s', Items.STICK).save();
         shapeless(Items.STICKY_PISTON, 1, "sticky_piston_from_resin", Ingredient.of(Items.PISTON),

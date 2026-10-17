@@ -113,6 +113,43 @@ public final class GtDustGameTests {
         helper.succeed();
     }
 
+    /** Phase 13.4: GT reverse recipes for vanilla armor/tools (undamaged only); the tin bucket is gone. */
+    @GameTest(template = EMPTY)
+    public static void recycling(GameTestHelper helper) {
+        assertMacerates(helper, Items.IRON_CHESTPLATE, Ic2Items.IRON_DUST.get(), 8);
+        assertMacerates(helper, Items.GOLDEN_SWORD, Ic2Items.GOLD_DUST.get(), 2);
+        assertMacerates(helper, Items.DIAMOND_PICKAXE, GtItems.DIAMOND_DUST.get(), 3);
+        assertMacerates(helper, Items.WOODEN_AXE, GtItems.SMALL_WOOD_PULP.get(), 16);
+        assertMacerates(helper, Items.WOODEN_SWORD, GtItems.SMALL_WOOD_PULP.get(), 10);
+        ItemStack worn = new ItemStack(Items.IRON_HELMET);
+        worn.setDamageValue(3);
+        helper.assertTrue(MachineRecipe.getOutputFor(helper.getLevel(), MachineRecipe.Kind.MACERATOR, worn, false)
+                .isEmpty(), "damaged helmet not macerated");
+        assertSmelts(helper, new ItemStack(Items.IRON_LEGGINGS), Items.IRON_INGOT, 7);
+        assertSmelts(helper, new ItemStack(Items.GOLDEN_HELMET), Items.GOLD_INGOT, 5);
+        assertSmelts(helper, new ItemStack(Items.CHAINMAIL_BOOTS), Items.IRON_NUGGET, 1);
+        helper.assertTrue(helper.getLevel().getRecipeManager().getRecipeFor(RecipeType.SMELTING,
+                new SingleRecipeInput(worn), helper.getLevel()).isEmpty(), "damaged helmet not smelted");
+        helper.assertTrue(MachineRecipe.getOutputFor(helper.getLevel(), MachineRecipe.Kind.MACERATOR,
+                new ItemStack(Items.DIAMOND_HELMET), false).is(GtItems.DIAMOND_DUST.get()), "diamond helmet");
+        helper.assertTrue(helper.getLevel().getRecipeManager().getRecipeFor(RecipeType.SMELTING,
+                new SingleRecipeInput(new ItemStack(Items.DIAMOND_HELMET)), helper.getLevel()).isEmpty(),
+                "no diamond smelting");
+        ItemStack tin = new ItemStack(Ic2Items.TIN_INGOT.get());
+        helper.assertTrue(craft(helper, 3, List.of(tin, ItemStack.EMPTY, tin, ItemStack.EMPTY, tin, ItemStack.EMPTY))
+                .isEmpty(), "tin bucket removed by GregTech");
+        helper.succeed();
+    }
+
+    private static void assertSmelts(GameTestHelper helper, ItemStack input, Item output, int count) {
+        var recipe = helper.getLevel().getRecipeManager().getRecipeFor(RecipeType.SMELTING,
+                new SingleRecipeInput(input), helper.getLevel());
+        ItemStack result = recipe.map(holder -> holder.value().getResultItem(helper.getLevel().registryAccess()))
+                .orElse(ItemStack.EMPTY);
+        helper.assertTrue(result.is(output) && result.getCount() == count,
+                "smelting " + input + " → " + count + " " + output + ", got " + result);
+    }
+
     private static void assertMacerates(GameTestHelper helper, Item input, Item output, int count) {
         ItemStack result = MachineRecipe.getOutputFor(helper.getLevel(), MachineRecipe.Kind.MACERATOR,
                 new ItemStack(input), false);

@@ -1578,7 +1578,19 @@ Nutzerentscheidung (2026-10-17): **alle vier Lücken umsetzen** → Phase 13 (13
 4. GT-Compressor: 4 Setzlinge bzw. 8 Blätter → komprimierter Pflanzenball – fehlt.
 5. Solarhelm/Static Boots aus Eisenhelm/-stiefeln akzeptieren beschädigte Teile (IC2 `AdvRecipe` verlangt Schaden 0).
 
+## Erledigt (Teilpaket „Phase 13.4: GT-Rückgewinnung“, 2026-10-17)
+- Spezifikation nachgetragen: `spec/13` (nach §8.1: Raster, Mengen, Schaden-0, Eimer-/Lore-Entfernung), `spec/08`
+  (Zinneimer [GT−]).
+- `CraftRecipeProvider.gregTechRecycling`: Macerator für unbeschädigte Eisen-/Gold-/Diamantrüstung (5/8/7/4) und
+  -werkzeuge (2/3/1/3/2) sowie Holzwerkzeuge (10/16/8/16/12 kl. Holzschliff); Ofen Eisen/Gold → Barren; Vanilla-
+  Nugget-Schmelzrezepte auf Kettenrüstung/Pferderüstung beschränkt; IC2-Zinneimer entfernt. Rasterabgleich aller
+  Mod-Rezepte per Skript: keine weiteren Treffer.
+- `abweichungen.md` (Vanilla-Schmelzen), `testplan.md` 5.19.
+- 1 neuer GameTest (`GtDustGameTests.recycling`), **341 GameTests grün**, `gradlew build`.
+- **Damit ist Phase 13 inhaltlich vollständig** – wartet auf Abnahme durch den Nutzer.
+
 ## Nächste Schritte
-1. Teilpaket 13.4: GT-Rückgewinnung (`GT_Utility.applyUsagesForMaterials`, 30 Aufrufe in `GT_Mod` ~4680–4710).
-2. Danach Nutzerentscheidung zu den Befunden oben.
+1. Nutzerentscheidung zu den „Neuen Befunden aus 13.3“ (Elektrumplatte/Platinen, Messing, GT-Mörser,
+   Setzling-/Blätter-Compressor, Schaden-0 bei Solarhelm/Static Boots).
+2. Abnahme Phase 13; restliche manuelle Tests aus `testplan.md`.
 3. Restliche manuelle Tests aus `testplan.md` (Sounds, Explosionen, Rüstung/Werkzeuge, Weltgen, Multiblöcke).

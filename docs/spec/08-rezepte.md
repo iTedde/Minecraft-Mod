@@ -246,7 +246,7 @@ IC2-Maschinenrezept für dieselbe Eingabe und fügen das neue ein.
 | Kolben aus Bronze *(versteckt)* | `TTT/#X#/#R#` | **[GT~]** ersetzt durch gleichwertiges Muster `WWW/CBC/CRC` mit B = Bronze bzw. raff. Eisen (bzw. Eisen) |
 | Glowstonestaub *(versteckt)* | `RGR/GRG/RGR`, G = Goldstaub | [IC2] |
 | 3 Schwarzpulver *(versteckt)* | `RCR/CRC/RCR`, C = Kohlestaub | [IC2] |
-| Eimer *(versteckt)* | `T T/ T ` | [IC2] |
+| Eimer *(versteckt)* | `T T/ T ` | [IC2] **[GT−]** (GT `applyUsagesForMaterials` entfernt Eimer aus allem außer Eisen; 13.4) |
 | 8 Schienen *(versteckt)* | `B B/BsB/B B`, B = Bronze | [IC2] |
 | 2 Crop-Stäbe | `S S/S S` | [IC2] |
 | 2 Dünger | formlos Schrott + Knochenmehl; formlos 2 Schrott + Dünger | [IC2] |

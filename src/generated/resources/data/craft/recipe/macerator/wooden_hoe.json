@@ -1,0 +1,14 @@
+{
+  "type": "craft:macerator",
+  "ingredient": {
+    "type": "neoforge:components",
+    "components": {
+      "minecraft:damage": 0
+    },
+    "items": "minecraft:wooden_hoe"
+  },
+  "result": {
+    "count": 12,
+    "id": "craft:small_wood_pulp"
+  }
+}

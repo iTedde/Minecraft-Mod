@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 0.0,
+  "ingredient": {
+    "type": "neoforge:components",
+    "components": {
+      "minecraft:damage": 0
+    },
+    "items": "minecraft:iron_leggings"
+  },
+  "result": {
+    "count": 7,
+    "id": "minecraft:iron_ingot"
+  }
+}
