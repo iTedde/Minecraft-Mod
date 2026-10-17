@@ -10,6 +10,8 @@ import dev.craft.ic2.cable.CableType;
 import dev.craft.ic2.item.ToolboxItem;
 import dev.craft.ic2.item.reactor.GradualItem;
 import dev.craft.powerplants.PpItems;
+import dev.craft.redpower.RpGem;
+import dev.craft.redpower.RpItems;
 import dev.craft.ic2.block.IronFenceBlock;
 import dev.craft.ic2.machine.RecyclerBlockEntity;
 import net.minecraft.core.HolderLookup;
@@ -213,6 +215,18 @@ public final class CraftItemTagsProvider extends ItemTagsProvider {
         tag(GEMS_OLIVINE).add(GtItems.OLIVINE.get());
         tag(GEMS_RED_GARNET).add(GtItems.RED_GARNET.get());
         tag(GEMS_YELLOW_GARNET).add(GtItems.YELLOW_GARNET.get());
+        // RedPower gem tools: vanilla tool tags (enchantments, mining); the sickle enchants like a digging tool.
+        for (RpGem gem : RpGem.values()) {
+            tag(ItemTags.PICKAXES).add(RpItems.tool(gem, RpItems.Tool.PICKAXE).get());
+            tag(ItemTags.SHOVELS).add(RpItems.tool(gem, RpItems.Tool.SHOVEL).get());
+            tag(ItemTags.AXES).add(RpItems.tool(gem, RpItems.Tool.AXE).get());
+            tag(ItemTags.SWORDS).add(RpItems.tool(gem, RpItems.Tool.SWORD).get());
+            tag(ItemTags.HOES).add(RpItems.tool(gem, RpItems.Tool.HOE).get());
+            Item sickle = RpItems.tool(gem, RpItems.Tool.SICKLE).get();
+            tag(ItemTags.MINING_ENCHANTABLE).add(sickle);
+            tag(ItemTags.MINING_LOOT_ENCHANTABLE).add(sickle);
+            tag(ItemTags.DURABILITY_ENCHANTABLE).add(sickle);
+        }
         tag(Tags.Items.GEMS).addTag(GEMS_RUBY).addTag(GEMS_SAPPHIRE).addTag(GEMS_GREEN_SAPPHIRE).addTag(GEMS_OLIVINE)
                 .addTag(GEMS_RED_GARNET).addTag(GEMS_YELLOW_GARNET);
         tag(RAW_MACHINE_TIER_01).add(Ic2Items.MACHINE_CASING.get(), GtItems.ALUMINIUM_MACHINE_HULL.get(),

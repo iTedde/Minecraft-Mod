@@ -1,0 +1,20 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "G": {
+      "tag": "c:gems/ruby"
+    },
+    "S": {
+      "item": "minecraft:stick"
+    }
+  },
+  "pattern": [
+    "GG",
+    "GS",
+    " S"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:ruby_axe"
+  }
+}

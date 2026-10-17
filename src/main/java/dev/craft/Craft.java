@@ -8,6 +8,7 @@ import dev.craft.core.CraftCreativeTabs;
 import dev.craft.forestry.Forestry;
 import dev.craft.powerconverters.PowerConverters;
 import dev.craft.powerplants.PowerPlants;
+import dev.craft.redpower.RedPower;
 import dev.craft.ic2.Ic2;
 import dev.craft.mining.Mining;
 import net.neoforged.bus.api.IEventBus;
@@ -29,6 +30,7 @@ public final class Craft {
         GregTech.init(modBus);
         PowerPlants.init(modBus);
         Mining.init(modBus);
+        RedPower.init(modBus);
         CraftCreativeTabs.TABS.register(modBus);
     }
 }

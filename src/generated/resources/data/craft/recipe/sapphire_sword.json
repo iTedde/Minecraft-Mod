@@ -1,0 +1,20 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "G": {
+      "tag": "c:gems/sapphire"
+    },
+    "S": {
+      "item": "minecraft:stick"
+    }
+  },
+  "pattern": [
+    "G",
+    "G",
+    "S"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:sapphire_sword"
+  }
+}

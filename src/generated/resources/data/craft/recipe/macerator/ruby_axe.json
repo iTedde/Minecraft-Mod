@@ -1,0 +1,14 @@
+{
+  "type": "craft:macerator",
+  "ingredient": {
+    "type": "neoforge:components",
+    "components": {
+      "minecraft:damage": 0
+    },
+    "items": "craft:ruby_axe"
+  },
+  "result": {
+    "count": 3,
+    "id": "craft:ruby_dust"
+  }
+}

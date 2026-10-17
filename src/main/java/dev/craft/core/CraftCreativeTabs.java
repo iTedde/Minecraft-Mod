@@ -26,6 +26,8 @@ import dev.craft.ic2.item.armor.JetpackItem;
 import dev.craft.powerconverters.ConverterType;
 import dev.craft.powerconverters.PcItems;
 import dev.craft.powerplants.PpItems;
+import dev.craft.redpower.RpGem;
+import dev.craft.redpower.RpItems;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -195,6 +197,15 @@ public final class CraftCreativeTabs {
                         output.accept(ElectricItems.charged(GtItems.LITHIUM_BATPACK.toStack()));
                         output.accept(GtItems.LITHIUM_BATPACK);
                     })
+                    .build());
+
+    public static final Supplier<CreativeModeTab> REDPOWER = TABS.register("redpower", () ->
+            CreativeModeTab.builder()
+                    .title(Component.translatable("itemGroup.craft.redpower"))
+                    .icon(() -> RpItems.tool(RpGem.RUBY, RpItems.Tool.PICKAXE).toStack())
+                    .withTabsBefore(ResourceLocation.fromNamespaceAndPath(Craft.MODID, "power_plants"))
+                    .displayItems((parameters, output) -> RpItems.ITEMS.getEntries()
+                            .forEach(item -> output.accept(item.get())))
                     .build());
 
     private CraftCreativeTabs() {

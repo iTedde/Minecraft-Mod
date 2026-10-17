@@ -1,0 +1,23 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "G": {
+      "tag": "c:gems/green_sapphire"
+    },
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "S": {
+      "item": "minecraft:stick"
+    }
+  },
+  "pattern": [
+    "SSS",
+    " II",
+    " GG"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:green_sapphire_handsaw"
+  }
+}

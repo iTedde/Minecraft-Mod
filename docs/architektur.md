@@ -15,6 +15,7 @@ ergänzen. Basispaket `dev.craft`, Einstieg `Craft` → `Ic2.init`, `BuildCraft.
 | Compact Solars | `CsBlocks`, `CsItems`, `CsBlockEntityTypes`, `CsMenus`, `SolarArrayType` |
 | GregTech | `GtBlocks`, `GtItems` (`simpleItems` = Platten/Komponenten mit Textur unter `item/gt/`), `GtBlockEntityTypes`, `GtMenus`, `GtRecipes`, `GtMachine` (Enum aller GT-Maschinen: Name, GUI, Vorderseiten-Textur, Beschreibung, Fabrik) |
 | Kraftwerke (neu) | `PpBlocks`, `PpItems`, `PpBlockEntityTypes`, `PpMenus`, `PpFluids` (Dampf) |
+| RedPower | `RpItems` (`tool(gem, Tool)`, Enum `Tool` mit GT-Staubmenge), `RpGem` (Material/Tier, Edelstein-Tag, Staub), `SickleItem` |
 
 - Capabilities werden in der jeweiligen Init-Klasse (`registerCapabilities`) registriert.
 - Creative-Tabs: `core/CraftCreativeTabs` (ein Tab je Mod).

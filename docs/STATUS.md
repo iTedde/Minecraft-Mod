@@ -1697,5 +1697,12 @@ Werte aus RedPower World (`redpowermechanical.zip`) **dekompilieren** (Nutzer fr
 ## To Do
 - [x] 17.1 Mining-Dimension: alle Erze doppelt (`craft:mining/<name>`, `count: 2` vor der Oberwelt-Platzierung;
   `spec/18` §3). Vanilla-Kopien gegen die Vanilla-JSONs geprüft (identisch bis auf `count: 2`). 352 GameTests grün.
-- [ ] 17.2 RedPower-Edelsteinwerkzeuge: Werkzeugklassen/Rezepte dekompilieren, `docs/spec/19-redpower-werkzeuge.md`,
-  dann umsetzen (Items, Rezepte, Texturen, Lang, EMI).
+- [x] 17.2 RedPower-Edelsteinwerkzeuge: Werkzeugklassen/Rezepte dekompiliert (`reference/decompiled/redpower/`), `docs/spec/19-redpower-werkzeuge.md`,
+  umgesetzt (`redpower/`: 21 Items, Tab „Craft: RedPower“, Original-Icons, Rezepte, Werkzeug-Tags, GT-Macerator-Rückgewinnung).
+  5 neue GameTests (`RedPowerGameTests`), **357 GameTests grün**, `gradlew build`, Client lädt ohne Modellfehler.
+
+
+
+## Nächste Schritte
+1. Abnahme Phase 17 (im Client: Werkzeuge im Tab „Craft: RedPower“, Sichel an Gras/Laub, Mining-Dimension in neuen
+   Chunks).

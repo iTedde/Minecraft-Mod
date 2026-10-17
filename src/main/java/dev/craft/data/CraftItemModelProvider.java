@@ -14,6 +14,7 @@ import dev.craft.ic2.Ic2Machine;
 import dev.craft.ic2.cable.CableType;
 import dev.craft.ic2.client.Ic2Client;
 import dev.craft.powerplants.PpItems;
+import dev.craft.redpower.RpItems;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemDisplayContext;
@@ -31,6 +32,7 @@ public final class CraftItemModelProvider extends ItemModelProvider {
     @Override
     protected void registerModels() {
         basicItem(PpItems.COKE.get());
+        RpItems.ITEMS.getEntries().forEach(tool -> handheldItem(tool.get()));
         for (CableType type : CableType.values()) {
             basicItem(Ic2Items.cable(type).get());
         }

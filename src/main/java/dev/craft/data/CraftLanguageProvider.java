@@ -30,6 +30,8 @@ import dev.craft.powerconverters.PowerSystem;
 import dev.craft.powerplants.PpBlocks;
 import dev.craft.powerplants.PpFluids;
 import dev.craft.powerplants.PpItems;
+import dev.craft.redpower.RpGem;
+import dev.craft.redpower.RpItems;
 import dev.craft.ic2.Ic2Blocks;
 import dev.craft.ic2.Ic2EntityTypes;
 import dev.craft.ic2.Ic2Fluids;
@@ -159,6 +161,21 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
     }
 
     /** Mining dimension (spec 18). */
+    /** RedPower World gem tools (spec 19 §2). */
+    protected void redPower(boolean german) {
+        add("itemGroup.craft.redpower", "Craft: RedPower");
+        String[][] gems = {{"Ruby", "Rubin"}, {"Green Sapphire", "Grünsaphir"}, {"Sapphire", "Saphir"}};
+        String[][] tools = {{"Pickaxe", "Spitzhacke"}, {"Shovel", "Schaufel"}, {"Axe", "Axt"}, {"Sword", "Schwert"},
+                {"Hoe", "Hacke"}, {"Sickle", "Sichel"}, {"Handsaw", "Handsäge"}};
+        for (RpGem gem : RpGem.values()) {
+            for (RpItems.Tool tool : RpItems.Tool.values()) {
+                String[] gemName = gems[gem.ordinal()];
+                String[] toolName = tools[tool.ordinal()];
+                item(RpItems.tool(gem, tool), german ? gemName[1] + "-" + toolName[1] : gemName[0] + " " + toolName[0]);
+            }
+        }
+    }
+
     protected void mining(boolean german) {
         add("biome.craft.mining", german ? "Mining-Welt" : "Mining World");
         add(MiningBlocks.MINING_PORTAL.get(), german ? "Mining-Portal" : "Mining Portal");
@@ -1152,6 +1169,7 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             crops(false);
             recipeViewer(false);
             mining(false);
+            redPower(false);
         }
     }
 
@@ -1550,6 +1568,7 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             crops(true);
             recipeViewer(true);
             mining(true);
+            redPower(true);
         }
     }
 }

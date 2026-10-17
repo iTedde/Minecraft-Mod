@@ -1,0 +1,20 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "G": {
+      "tag": "c:gems/green_sapphire"
+    },
+    "S": {
+      "item": "minecraft:stick"
+    }
+  },
+  "pattern": [
+    "G",
+    "S",
+    "S"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:green_sapphire_shovel"
+  }
+}

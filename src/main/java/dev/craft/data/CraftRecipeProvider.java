@@ -2,6 +2,7 @@ package dev.craft.data;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.EnumMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,6 +44,8 @@ import dev.craft.ic2.recipe.MachineRecipe;
 import dev.craft.powerconverters.ConverterType;
 import dev.craft.powerconverters.PcItems;
 import dev.craft.powerplants.PpItems;
+import dev.craft.redpower.RpGem;
+import dev.craft.redpower.RpItems;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.component.DataComponents;
@@ -106,6 +109,7 @@ public final class CraftRecipeProvider extends RecipeProvider {
         gregTechTungsten();
         gregTechDusts();
         gregTechRecycling();
+        redPowerTools();
         gregTechCircuitBoards();
         gregTechBrass();
         gregTechMortars();
@@ -1939,8 +1943,8 @@ public final class CraftRecipeProvider extends RecipeProvider {
     /**
      * Phase 13.4: {@code GT_Utility.applyUsagesForMaterials} – every crafting recipe in one of GregTech's armor/tool
      * grids gets a macerator recipe (material dust × count) and, for metals, a furnace recipe (ingots × count). In
-     * this mod only the vanilla iron, gold, diamond and wooden armor/tools fit (bronze, steel, ruby … tools are not in
-     * scope). Machine and furnace recipes compared item and damage, so only undamaged pieces count.
+     * this mod the vanilla iron, gold, diamond and wooden armor/tools and the RedPower gem tools fit (bronze and steel
+     * tools are not in scope). Machine and furnace recipes compared item and damage, so only undamaged pieces count.
      */
     /** Electrum plate and the circuit boards made from it (spec 12 §5.7, phase 14). */
     private void gregTechCircuitBoards() {
@@ -2023,6 +2027,29 @@ public final class CraftRecipeProvider extends RecipeProvider {
         shapeless(result, 1, name, Ingredient.of(mortar), input);
     }
 
+    /** RedPower World gem tools (spec 19 §2): RedPower's gems are GregTech's here. */
+    private void redPowerTools() {
+        Map<RpItems.Tool, String[]> patterns = new EnumMap<>(RpItems.Tool.class);
+        patterns.put(RpItems.Tool.PICKAXE, new String[]{"GGG", " S ", " S "});
+        patterns.put(RpItems.Tool.SHOVEL, new String[]{"G", "S", "S"});
+        patterns.put(RpItems.Tool.AXE, new String[]{"GG", "GS", " S"});
+        patterns.put(RpItems.Tool.SWORD, new String[]{"G", "G", "S"});
+        patterns.put(RpItems.Tool.HOE, new String[]{"GG", " S", " S"});
+        patterns.put(RpItems.Tool.SICKLE, new String[]{" G ", "  G", "SG "});
+        patterns.put(RpItems.Tool.HANDSAW, new String[]{"SSS", " II", " GG"});
+        for (RpGem gem : RpGem.values()) {
+            for (RpItems.Tool tool : RpItems.Tool.values()) {
+                DeferredItem<Item> item = RpItems.tool(gem, tool);
+                ShapedBuilder recipe = shaped(item, 1, item.getId().getPath()).pattern(patterns.get(tool))
+                        .define('G', gem.getGemTag()).define('S', Items.STICK);
+                if (tool == RpItems.Tool.HANDSAW) {
+                    recipe.define('I', Items.IRON_INGOT);
+                }
+                recipe.save();
+            }
+        }
+    }
+
     private void gregTechRecycling() {
         record Piece(String name, int count) {
         }
@@ -2055,6 +2082,17 @@ public final class CraftRecipeProvider extends RecipeProvider {
             machine(MachineRecipe.Kind.MACERATOR, "wooden_" + piece.name(),
                     DataComponentIngredient.of(false, DataComponents.DAMAGE, 0, item), 1, GtItems.SMALL_WOOD_PULP,
                     piece.count() * 4 + extra);
+        }
+        // RedPower gem tools: macerator only, no furnace (spec 19 §5); the handsaw fits no grid.
+        for (RpGem gem : RpGem.values()) {
+            for (RpItems.Tool tool : RpItems.Tool.values()) {
+                if (tool.getRecoveredDust() > 0) {
+                    DeferredItem<Item> item = RpItems.tool(gem, tool);
+                    machine(MachineRecipe.Kind.MACERATOR, item.getId().getPath(),
+                            DataComponentIngredient.of(false, DataComponents.DAMAGE, 0, item.get()), 1, gem.getDust(),
+                            tool.getRecoveredDust());
+                }
+            }
         }
         // The vanilla nugget smelting would compete with the ingot recipes: it keeps only the items GT leaves alone.
         output.accept(ResourceLocation.withDefaultNamespace("iron_nugget_from_smelting"), new SmeltingRecipe("",

@@ -629,8 +629,9 @@ Hammer `MMM/MSM/ S ` 5, dazu umgedrehte/diagonale Muster (RedPower-Sicheln u. Ä
 Fremdmuster) bzw. +4 kl. Holzschliff (Stock-Werkzeuge) dazu. Macerator und Ofen vergleichen Item **und** Schaden →
 nur unbeschädigte Teile. Außerdem werden für jedes Material außer Eisen die Rezepte `M M/ M ` (oben/unten) → Eimer
 und `M M/MMM` (oben/unten) → Lore **entfernt** – im Mod trifft das das versteckte IC2-Zinneimer-Rezept.
-Im Umfang passen nur die Vanilla-Rüstungen/-Werkzeuge aus Eisen, Gold, Diamant und Holz (Bronze/Stahl/Edelstein-
-Werkzeuge gibt es nicht; ein Rasterabgleich aller Mod-Rezepte fand keine weiteren Treffer).
+Im Umfang passen nur die Vanilla-Rüstungen/-Werkzeuge aus Eisen, Gold, Diamant und Holz (Bronze/Stahl-
+Werkzeuge gibt es nicht; ein Rasterabgleich aller Mod-Rezepte fand keine weiteren Treffer). Seit Phase 17.2 kommen die
+RedPower-Edelsteinwerkzeuge dazu (Macerator, `spec/19` §5).
 
 ## 9. Industrielle Zentrifuge (`GT_MetaTileEntity_Centrifuge`, ID 62, „Industrial Centrifuge“) – Teilpaket 6b.5c
 
