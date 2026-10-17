@@ -1494,3 +1494,20 @@ NaK-Kühlzellen, kein Vakuumgefrierer) **und die IC2-Nuke**. Teilpakete: 7a IC2-
 ## Abnahme Phase 12 (Nutzer, 2026-10-17)
 - Phase 12 (restliche IC2-Inhalte) abgenommen. Damit sind alle Phasen des Phasenplans erledigt. Manuelle Client-Tests
   nach `docs/testplan.md` (3.1–3.35) stehen weiter aus, bis der Launcher-Start wieder erlaubt ist.
+
+# Nacharbeiten nach Phase 12 (2026-10-17)
+
+## Erledigt
+- `abweichungen.md` aufgeräumt: veraltete „geplant“/„offen bis Phase …“-Einträge auf ihren echten Stand gesetzt,
+  vier Zeilen vor der Überschrift an ihren Platz (Miner/IC2-Pumpe) verschoben.
+- Offene Kleinigkeiten aus den Abweichungen umgesetzt: GT-Schwefelzelle und Wolframzelle (Canner, Schwefelzelle zurück
+  per Zentrifuge), Macerator 2 Eisenzäune → 3 kleine Eisenstaubhaufen; `spec/13` §Canner nachgetragen.
+- Client-Test im echten Client (Launcher wieder erlaubt), Ergebnisse und Befunde in `testplan.md`:
+  1.1–1.4 OK, alle 72 GUIs öffnen fehlerfrei, EMI geprüft. Behoben: 82 unübersetzte EMI-Tags (Tag-Namen en/de),
+  lila Gummibaumblätter (jetzt Vanilla-Eichenlaub mit Birkenfarbe wie im Pack).
+- `build.gradle`: `gradlew runClient -PquickPlay=<Welt>` startet direkt in eine vorhandene Welt.
+- 1 neuer GameTest, **334 GameTests grün**, `gradlew build`.
+
+## Nächste Schritte
+1. Nutzerentscheidung: Nachtsichtbrillen-Icon (im Pack ein lila Platzhalter) so lassen oder eigenes Icon.
+2. Restliche manuelle Tests aus `testplan.md` (Sounds, Explosionen, Rüstung/Werkzeuge, Weltgen, Multiblöcke).

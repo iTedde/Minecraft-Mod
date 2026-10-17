@@ -107,7 +107,7 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
                 .renderType("cutout"));
         rubberWood();
         simpleBlockWithItem(Ic2Blocks.RUBBER_LEAVES.get(), models().withExistingParent("rubber_leaves",
-                mcLoc("block/leaves")).texture("all", modLoc("block/rubber_leaves")).renderType("cutout_mipped"));
+                mcLoc("block/leaves")).texture("all", mcLoc("block/oak_leaves")).renderType("cutout_mipped"));
         simpleBlock(Ic2Blocks.RUBBER_SAPLING.get(), models().cross("rubber_sapling", modLoc("block/rubber_sapling"))
                 .renderType("cutout"));
         resinSheet();

@@ -5,17 +5,17 @@ GameTests bereits abdecken (Werte, Rezepte, Energiefluss, Multiblock-Erkennung �
 Darstellung, GUIs, Sounds, Tasten, Weltgen und Zusammenspiel im echten Client. Spalte „OK“ zum Abhaken (`x`),
 Auffälligkeiten unter „Befunde“ am Ende notieren.
 
-**Vorbereitung:** `gradlew runClient`, neue Welt (Kreativ, Cheats an); für Explosionen/Reaktor/Nuke eine eigene
+**Vorbereitung:** `gradlew runClient` (mit `-PquickPlay=<Welt>` direkt in eine vorhandene Welt), neue Welt (Kreativ, Cheats an); für Explosionen/Reaktor/Nuke eine eigene
 Testwelt. Sprache einmal Deutsch, einmal Englisch prüfen. EMI und Xaero's Minimap laufen mit (`localRuntime`).
 
 ## 1. Allgemein / Start
 
 | Nr | Test | Herkunft | OK |
 |---|---|---|---|
-| 1.1 | Client startet, Welt betreten, Log ohne Mod-, Modell-, Textur- oder EMI-Plugin-Fehler | 2, 11.1 | |
-| 1.2 | Creative-Tabs vollständig, Item-Darstellung (Modelle/Texturen) stichprobenartig in allen Tabs | 2–10 | |
-| 1.3 | Xaero's Minimap lädt und zeigt die Karte | 11.4 | |
-| 1.4 | Steuerungsmenü: Kategorie „IndustrialCraft 2“ (Modus, Boost, Alt) | 6.2 | |
+| 1.1 | Client startet, Welt betreten, Log ohne Mod-, Modell-, Textur- oder EMI-Plugin-Fehler | 2, 11.1 | x |
+| 1.2 | Creative-Tabs vollständig, Item-Darstellung (Modelle/Texturen) stichprobenartig in allen Tabs | 2–10 | x |
+| 1.3 | Xaero's Minimap lädt und zeigt die Karte | 11.4 | x |
+| 1.4 | Steuerungsmenü: Kategorie „IndustrialCraft 2“ (Modus, Boost, Alt) | 6.2 | x |
 
 ## 2. IC2 – Grundlagen (Phase 2/3)
 
@@ -162,3 +162,24 @@ Testwelt. Sprache einmal Deutsch, einmal Englisch prüfen. EMI und Xaero's Minim
 
 | Nr | Datum | Befund | Status |
 |---|---|---|---|
+| B1 | 2026-10-17 | EMI meldete 82 unübersetzte Item-Tags (`c:plates/*`, `c:ingots/*`, `craft:*` …) | behoben (Tag-Namen en/de im Sprach-Datagen) |
+| B2 | 2026-10-17 | Gummibaumblätter mit lila Platzhaltertextur (IC2 nutzt Index 52 aus Vanilla-`terrain.png` = Eichenlaub) | behoben (Vanilla-`oak_leaves`, Birkenfarbe wie bisher) |
+| B3 | 2026-10-17 | Nachtsichtbrille: Icon ist eine lila Fläche – im Pack identisch (`item_0.png` Index 232 ist dort Platzhalter) | wie im Pack; Nutzerentscheidung offen |
+
+## Durchlauf 2026-10-17 (automatisiert im echten Client)
+
+Client per `gradlew runClient -PquickPlay=<Welt>` gestartet, Eingaben per Skript (Tasten, Klicks, Chat-Befehle),
+Auswertung über Bildschirmfotos und Log; Sprache en und de.
+
+- 1.1–1.4 vollständig (siehe Tabelle).
+- GUIs: alle 72 Blöcke mit Menü einzeln gesetzt und geöffnet – jede GUI zeichnet korrekt (Titel, Slots, Balken,
+  Statustexte wie „Structure incomplete“/„Incomplete Machine Casing!“), keine Fehler im Log. Blöcke ohne GUI
+  (Trafos, Konverter, Tank, Pumpe, Quarry, Teleporter, Tesla-Spule, Terraformer, Magnetisierer …) reagieren nicht.
+- Item-Darstellung: alle Seiten der Tabs IC2/GT/BC/Forestry/Power Converters/Compact Solars/Kraftwerke gesichtet;
+  Platzhalter-Suche über alle Texturen (B2, B3).
+- EMI: Rezept (R), Verwendung (U), eigene Kategorie (Extractor mit EU/t · Dauer · EU), Suche, neue Schwefelzelle in der
+  Automatic Canning Machine; deutsche Namen.
+- Gummibaum: Blätter mit Birkenfarbe gerendert (2.6 nur Blätterfarbe, Weltgen/Harz offen).
+
+Nicht automatisiert prüfbar und weiter offen: Sounds, Animationen im Betrieb, Explosionen, Rüstungs-/Werkzeugverhalten,
+Weltgen-Begehung, Multiblock-Aufbau im Spiel – alle übrigen Zeilen ohne `x`.

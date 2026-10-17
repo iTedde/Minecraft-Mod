@@ -1,5 +1,6 @@
 package dev.craft.data;
 
+import java.util.Arrays;
 import java.util.function.Supplier;
 
 import dev.craft.Craft;
@@ -100,7 +101,61 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
     }
 
     /** Recipe viewer (EMI) categories and texts (spec 16 §2), English or German. */
+    /** Item tag names ({@code tag.item.<namespace>.<path>}), shown by EMI for tag ingredients. */
+    protected void itemTags(boolean german) {
+        // material path → {English, German stem}
+        String[][] materials = {
+                {"aluminium", "Aluminium", "Aluminium"}, {"bronze", "Bronze", "Bronze"}, {"calcite", "Calcite", "Calcit"},
+                {"chrome", "Chrome", "Chrom"}, {"clay", "Clay", "Ton"}, {"coal", "Coal", "Kohle"},
+                {"lead", "Lead", "Blei"}, {"magnesium", "Magnesium", "Magnesium"}, {"manganese", "Manganese", "Mangan"},
+                {"nickel", "Nickel", "Nickel"}, {"platinum", "Platinum", "Platin"}, {"silver", "Silver", "Silber"},
+                {"steel", "Steel", "Stahl"}, {"tin", "Tin", "Zinn"}, {"titanium", "Titanium", "Titan"},
+                {"tungsten", "Tungsten", "Wolfram"}, {"zinc", "Zinc", "Zink"},
+                {"tungstensteel", "Tungstensteel", "Wolframstahl"}, {"uranium", "Uranium", "Uran"},
+                {"refined_iron", "Refined Iron", "Raffinierteisen"}, {"magnalium", "Magnalium", "Magnalium"},
+                {"silicon", "Silicon", "Silizium"}, {"bauxite", "Bauxite", "Bauxit"}, {"cinnabar", "Cinnabar", "Zinnober"},
+                {"galena", "Galena", "Galena"}, {"iridium", "Iridium", "Iridium"}, {"olivine", "Olivine", "Olivin"},
+                {"pyrite", "Pyrite", "Pyrit"}, {"ruby", "Ruby", "Rubin"}, {"sapphire", "Sapphire", "Saphir"},
+                {"sheldonite", "Sheldonite", "Sheldonit"}, {"sodalite", "Sodalite", "Sodalith"},
+                {"sphalerite", "Sphalerite", "Sphalerit"}, {"tungstate", "Tungstate", "Tungstat"}};
+        // tag folder → {English suffix, German suffix, materials with that tag}
+        String[][] kinds = {
+                {"dusts", "Dusts", "staub", "aluminium bronze calcite chrome clay coal lead magnesium manganese nickel "
+                        + "platinum silver steel tin titanium tungsten zinc"},
+                {"ingots", "Ingots", "barren", "aluminium bronze chrome lead nickel platinum refined_iron silver steel "
+                        + "tin titanium tungsten tungstensteel uranium zinc"},
+                {"ores", "Ores", "erze", "bauxite cinnabar galena iridium olivine pyrite ruby sapphire sheldonite "
+                        + "sodalite sphalerite tin tungstate uranium"},
+                {"plates", "Plates", "platten", "aluminium bronze chrome lead magnalium nickel platinum refined_iron "
+                        + "silicon silver steel tin titanium tungsten tungstensteel zinc"},
+                {"storage_blocks", "Storage Blocks", "blöcke", "bronze steel tin uranium"}};
+        for (String[] kind : kinds) {
+            for (String path : kind[3].split(" ")) {
+                String[] material = Arrays.stream(materials).filter(m -> m[0].equals(path)).findFirst()
+                        .orElseThrow(() -> new IllegalStateException("no tag name for " + path));
+                add("tag.item.c." + kind[0] + "." + path, german ? material[2] + kind[2] : material[1] + " " + kind[1]);
+            }
+        }
+        String[][] gems = {{"green_sapphire", "Green Sapphires", "Grüne Saphire"}, {"olivine", "Olivines", "Olivine"},
+                {"red_garnet", "Red Garnets", "Rote Granate"}, {"ruby", "Rubies", "Rubine"},
+                {"sapphire", "Sapphires", "Saphire"}, {"yellow_garnet", "Yellow Garnets", "Gelbe Granate"}};
+        for (String[] gem : gems) {
+            add("tag.item.c.gems." + gem[0], german ? gem[2] : gem[1]);
+        }
+        add("tag.item.c.coal_coke", german ? "Koks" : "Coal Coke");
+        add("tag.item.craft.crafting_100k_eu_store", german ? "100k-EU-Speicher" : "100k EU Storage");
+        add("tag.item.craft.crafting_grinder", german ? "Mahlwerkzeuge" : "Grinders");
+        add("tag.item.craft.item_lazurite", german ? "Lazurit" : "Lazurite");
+        add("tag.item.craft.metal_boots", german ? "Metallstiefel" : "Metal Boots");
+        add("tag.item.craft.raw_machine_tier_01", german ? "Maschinengehäuse (Stufe 1)" : "Machine Hulls (Tier 1)");
+        add("tag.item.craft.raw_machine_tier_02", german ? "Maschinengehäuse (Stufe 2)" : "Machine Hulls (Tier 2)");
+        add("tag.item.craft.recycler_blacklist", german ? "Recycler-Blacklist" : "Recycler Blacklist");
+        add("tag.item.craft.toolbox.boxable", german ? "Werkzeugkasten-tauglich" : "Toolbox Items");
+        add("tag.item.craft.toolbox.not_boxable", german ? "Nicht Werkzeugkasten-tauglich" : "Not Toolbox Items");
+    }
+
     protected void recipeViewer(boolean german) {
+        itemTags(german);
         add("gui.craft.show_recipes", german ? "Rezepte anzeigen" : "Show Recipes");
         add("emi.category.craft.macerator", "Macerator");
         add("emi.category.craft.extractor", german ? "Extraktor" : "Extractor");
