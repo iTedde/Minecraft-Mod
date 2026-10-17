@@ -1686,3 +1686,16 @@ Nutzerwunsch: „jedes Gerät soll immer anzeigen, wie viel Energie es gerade er
   Solar-Arrays (Controller), Dampf-/Wasserturbine + Gehäuse, Redstone-/Stirling-/Verbrennungs-Engine, Electrical
   Engine, Power Converters (IC2-/BC-Erzeuger).
 - GameTests `OutputReadoutGameTests` (brennender Generator = Produktion, leerer Generator = 0).
+
+# Phase 17 – Nachträge Mining-Dimension + RedPower-Werkzeuge (Nutzer, 2026-10-17)
+
+Nutzerwunsch: „In FTB gab es auch Emerald Spitzhacken, Ruby und Saphire, mach die auch nochmal rein. Und verdoppel
+mal die Menge an Erzen in der Mining Dimension.“ Entscheidungen: **komplettes RedPower-World-Werkzeugset** je Rubin,
+Saphir und Grüner Saphir („Emerald“ = Grüner Saphir; Spitzhacke, Axt, Schaufel, Schwert, Hacke, Sichel, Handsäge);
+Werte aus RedPower World (`redpowermechanical.zip`) **dekompilieren** (Nutzer freigegeben).
+
+## To Do
+- [x] 17.1 Mining-Dimension: alle Erze doppelt (`craft:mining/<name>`, `count: 2` vor der Oberwelt-Platzierung;
+  `spec/18` §3). Vanilla-Kopien gegen die Vanilla-JSONs geprüft (identisch bis auf `count: 2`). 352 GameTests grün.
+- [ ] 17.2 RedPower-Edelsteinwerkzeuge: Werkzeugklassen/Rezepte dekompilieren, `docs/spec/19-redpower-werkzeuge.md`,
+  dann umsetzen (Items, Rezepte, Texturen, Lang, EMI).

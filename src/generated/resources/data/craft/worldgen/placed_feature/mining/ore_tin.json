@@ -1,0 +1,37 @@
+{
+  "feature": "craft:ore_tin",
+  "placement": [
+    {
+      "type": "minecraft:count",
+      "count": 2
+    },
+    {
+      "type": "minecraft:count",
+      "count": {
+        "type": "minecraft:clamped_normal",
+        "deviation": 5.0,
+        "max_inclusive": 100,
+        "mean": 25.5,
+        "min_inclusive": 0
+      }
+    },
+    {
+      "type": "minecraft:in_square"
+    },
+    {
+      "type": "minecraft:height_range",
+      "height": {
+        "type": "minecraft:uniform",
+        "max_inclusive": {
+          "absolute": 39
+        },
+        "min_inclusive": {
+          "absolute": 0
+        }
+      }
+    },
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

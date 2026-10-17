@@ -12,6 +12,8 @@ import dev.craft.gregtech.world.GtWorldGen;
 import dev.craft.ic2.Ic2Blocks;
 import dev.craft.ic2.world.Ic2Features;
 import dev.craft.ic2.world.RubberTreeFeature;
+import dev.craft.mining.MiningDimension;
+import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
@@ -149,38 +151,46 @@ public final class CraftWorldGen {
     public static void bootstrapPlaced(BootstrapContext<PlacedFeature> context) {
         HolderGetter<ConfiguredFeature<?, ?>> configured = context.lookup(Registries.CONFIGURED_FEATURE);
         // y = rand(40): uniform 0..39
-        context.register(ORE_TIN, new PlacedFeature(configured.getOrThrow(ORE_TIN_CONFIGURED),
+        registerOre(context, ORE_TIN, configured.getOrThrow(ORE_TIN_CONFIGURED),
                 orePlacement(TIN_BASE_COUNT, HeightRangePlacement.uniform(VerticalAnchor.absolute(0),
-                        VerticalAnchor.absolute(39)))));
+                        VerticalAnchor.absolute(39))));
         // y = rand(40) + rand(20) + 10: exactly a trapezoid 10..68 with plateau 20
-        context.register(ORE_COPPER, new PlacedFeature(configured.getOrThrow(ORE_COPPER_CONFIGURED),
+        registerOre(context, ORE_COPPER, configured.getOrThrow(ORE_COPPER_CONFIGURED),
                 orePlacement(COPPER_BASE_COUNT, HeightRangePlacement.of(TrapezoidHeight.of(VerticalAnchor.absolute(10),
-                        VerticalAnchor.absolute(68), 20)))));
+                        VerticalAnchor.absolute(68), 20))));
         // y = rand(64 * 65 / 64) = rand(65): uniform 0..64
-        context.register(ORE_URANIUM, new PlacedFeature(configured.getOrThrow(ORE_URANIUM_CONFIGURED),
+        registerOre(context, ORE_URANIUM, configured.getOrThrow(ORE_URANIUM_CONFIGURED),
                 orePlacement(URANIUM_BASE_COUNT, HeightRangePlacement.uniform(VerticalAnchor.absolute(0),
-                        VerticalAnchor.absolute(64)))));
+                        VerticalAnchor.absolute(64))));
         context.register(RUBBER_TREE, new PlacedFeature(configured.getOrThrow(RUBBER_TREE_CONFIGURED), List.of()));
         context.register(OIL, new PlacedFeature(configured.getOrThrow(OIL_CONFIGURED), List.of()));
         // GT_Worldgenerator.generateSurface: galena 1 vein y = rand(32); iridium rand(100) < 20, y = rand(99);
         // ruby/sapphire 8 blocks y = rand(32), bauxite 2 veins y = 32 + rand(48), by the biome at chunk + 8.
-        context.register(GT_GALENA, new PlacedFeature(configured.getOrThrow(GT_GALENA_CONFIGURED), List.of(
-                CountPlacement.of(1), InSquarePlacement.spread(), uniformHeight(0, 31), BiomeFilter.biome())));
-        context.register(GT_IRIDIUM, new PlacedFeature(configured.getOrThrow(GT_IRIDIUM_CONFIGURED), List.of(
+        registerOre(context, GT_GALENA, configured.getOrThrow(GT_GALENA_CONFIGURED), List.of(
+                CountPlacement.of(1), InSquarePlacement.spread(), uniformHeight(0, 31), BiomeFilter.biome()));
+        registerOre(context, GT_IRIDIUM, configured.getOrThrow(GT_IRIDIUM_CONFIGURED), List.of(
                 RarityFilter.onAverageOnceEvery(5), InSquarePlacement.spread(), uniformHeight(0, 98),
-                BiomeFilter.biome())));
-        context.register(GT_RUBY, new PlacedFeature(configured.getOrThrow(GT_RUBY_CONFIGURED), List.of(
+                BiomeFilter.biome()));
+        registerOre(context, GT_RUBY, configured.getOrThrow(GT_RUBY_CONFIGURED), List.of(
                 ChunkBiomeFilter.of(GtWorldGen.RUBY_BIOMES), CountPlacement.of(8), InSquarePlacement.spread(),
-                uniformHeight(0, 31))));
-        context.register(GT_SAPPHIRE, new PlacedFeature(configured.getOrThrow(GT_SAPPHIRE_CONFIGURED), List.of(
+                uniformHeight(0, 31)));
+        registerOre(context, GT_SAPPHIRE, configured.getOrThrow(GT_SAPPHIRE_CONFIGURED), List.of(
                 ChunkBiomeFilter.of(GtWorldGen.SAPPHIRE_BIOMES), CountPlacement.of(8), InSquarePlacement.spread(),
-                uniformHeight(0, 31))));
-        context.register(GT_BAUXITE, new PlacedFeature(configured.getOrThrow(GT_BAUXITE_CONFIGURED), List.of(
+                uniformHeight(0, 31)));
+        registerOre(context, GT_BAUXITE, configured.getOrThrow(GT_BAUXITE_CONFIGURED), List.of(
                 ChunkBiomeFilter.of(GtWorldGen.BAUXITE_BIOMES), CountPlacement.of(2), InSquarePlacement.spread(),
-                uniformHeight(32, 79))));
+                uniformHeight(32, 79)));
         context.register(GT_NETHER_ORES, new PlacedFeature(configured.getOrThrow(GT_NETHER_ORES_CONFIGURED),
                 List.of()));
         context.register(GT_END_ORES, new PlacedFeature(configured.getOrThrow(GT_END_ORES_CONFIGURED), List.of()));
+        MiningDimension.bootstrapVanillaOres(context);
+    }
+
+    /** Overworld ore plus its doubled copy for the mining dimension. */
+    private static void registerOre(BootstrapContext<PlacedFeature> context, ResourceKey<PlacedFeature> key,
+                                    Holder<ConfiguredFeature<?, ?>> feature, List<PlacementModifier> placement) {
+        context.register(key, new PlacedFeature(feature, placement));
+        MiningDimension.registerDoubled(context, key, feature, placement);
     }
 
     private static PlacementModifier uniformHeight(int min, int max) {

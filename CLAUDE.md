@@ -88,6 +88,7 @@ MJ und EU bleiben getrennte Systeme; Verbindung nur über Electrical Engine (EU�
 | 14 | Befunde aus 13.3 (Nutzer, 2026-10-17; `spec/12` §5.7): 14.1 Elektrumplatte + GT-Platinen (erledigt) · 14.2 Messing (erledigt) · 14.3 GT-Mörser + Mehl (erledigt) · 14.4 Compressor Setzlinge/Blätter (erledigt) · 14.5 Schaden 0 bei Solarhelm/Static Boots (erledigt) | **erledigt** (abgenommen) |
 | 15 | Mining-Dimension + Turtles (Nutzer, 2026-10-17; `docs/spec/18-mining-dimension.md`, kein Pack-Vorbild): 15.0 Spezifikation (erledigt) · 15.1 Dimension + Erze, flache Steinwelt (erledigt) · 15.2 Portal (erledigt) · 15.3 CC: Tweaked mitinstallieren + CurseForge-Paket (erledigt) | **erledigt** |
 | 16 | Balancing-Nachträge Kraftwerke (Nutzer, 2026-10-17; `docs/STATUS.md`): 16.1 HV Solar Array 1024 EU/t (erledigt) · 16.2 Strom aus jedem Turbinengehäuse (Dampf-/Wasserturbine) (erledigt) · 16.3 Windmühle zerfällt nie (erledigt) | **erledigt** |
+| 17 | Nachträge (Nutzer, 2026-10-17; `docs/STATUS.md`): 17.1 Mining-Dimension mit doppelter Erzmenge (erledigt) · 17.2 RedPower-World-Edelsteinwerkzeuge (Rubin, Saphir, Grüner Saphir; komplettes Set) | in Arbeit |
 
 Phasen-Umnummerierung (Nutzer, 2026-10-16): Phase 8 „GT-Nachträge“ eingeschoben; die bisherigen Phasen 8/9/10
 (Kraftwerke, Rohre, Feinschliff) heißen jetzt 9/10/11. Ältere Einträge in `docs/STATUS.md` sind entsprechend

@@ -9,7 +9,7 @@ ComputerCraft 1.5 (CCTurtle) im Pack. Alle Werte hier sind Nutzerentscheidungen 
 | Punkt | Entscheidung |
 |---|---|
 | Art | eigene Dimension, per Portal erreichbar wie der Nether |
-| Erze | alle **Oberwelt**-Erze (Vanilla, IC2, GT) mit Oberwelt-Mengen; Rubin/Saphir/Bauxit überall (keine Oberwelt-Biome); Nether-/End-GT-Erze **nicht** |
+| Erze | alle **Oberwelt**-Erze (Vanilla, IC2, GT) in **doppelter** Oberwelt-Menge (Nutzer, 2026-10-17, Phase 17.1); Rubin/Saphir/Bauxit überall (keine Oberwelt-Biome); Nether-/End-GT-Erze **nicht** |
 | Portalrahmen | **Glatter Stein** (`minecraft:smooth_stone`), mit Feuerzeug gezündet |
 | Aufbau | **flache Steinwelt für Quarrys** (Nutzer, 2026-10-17, ersetzt „wie Oberwelt-Untergrund mit Bedrock-Decke“): Bedrock-Boden, darüber massiver Stein/Tiefenschiefer mit Erzen bis zu einer **flachen Oberfläche bei y 64**, darüber offener Himmel; **ohne Höhlen**, **hell**. Man steht oben auf der Ebene und baut nach unten ab |
 | Turtle | **CC: Tweaked mitinstallieren** (wie Xaero's Minimap, ohne eigene Integration) |
@@ -54,7 +54,10 @@ Andesit-/Tuff-/Ton-Feature, kein befallener Stein**.
 
 ## 3. Erze (Biom-Features, Schritt `underground_ores`)
 
-Es werden die bestehenden Placed Features wiederverwendet, damit die Mengen exakt der Oberwelt entsprechen:
+**Doppelte Menge** (Nutzer, 2026-10-17, Phase 17.1): je Oberwelt-Feature eine Kopie `craft:mining/<name>` mit
+gleicher Konfiguration (Adergröße, Ersetzungsregeln) und der Oberwelt-Platzierung, der ein `count: 2` vorangestellt
+ist – jeder Aderwurf (Anzahl bzw. Seltenheit, Höhe, Lage) läuft also zweimal je Chunk. Oberwelt-Features bleiben
+unverändert. Bereits erzeugte Chunks der Mining-Dimension behalten die alte Menge. Kopiert werden:
 
 | Herkunft | Placed Features |
 |---|---|
@@ -137,3 +140,4 @@ Oberwelt ↔ `craft:mining`, Koordinaten **1:1**.
 | 15.1 | Dimension: Typ, Noise-Settings, Biom, Erze (erledigt; umgestellt auf flache Steinwelt) |
 | 15.2 | Portal: Block, Textur, Rahmenprüfung, Zünden, Zielsuche/-erzeugung, POI (erledigt) |
 | 15.3 | CC: Tweaked mitinstallieren, Test Turtle ↔ Craft-Inventare, CurseForge-Paket neu bauen (erledigt) |
+| 17.1 | Erze in doppelter Menge (erledigt) |
