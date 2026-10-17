@@ -35,6 +35,7 @@ Vanilla-Klassen/-Felder tragen lesbare Namen (`Block.cobblestone`, `Item.redston
 | `17-ic2-rest.md` | Restliche IC2-Inhalte: Bestandsaufnahme, Lücken, GT-Änderungen ohne Rezept, Teilphasen, Entscheidungen (Phase 12) |
 | `18-mining-dimension.md` | Mining-Dimension (Portal aus Glattem Stein, nur Stein und Oberwelt-Erze) und CC: Tweaked für Turtles (Phase 15, neue Inhalte) |
 | `19-redpower-werkzeuge.md` | RedPower-World-Edelsteinwerkzeuge (Rubin, Grüner Saphir, Saphir: Spitzhacke, Schaufel, Axt, Schwert, Hacke, Sichel, Handsäge) und ihre GT-Rückgewinnung (Phase 17.2) |
+| `20-werkbaenke.md` | Projekttisch (RedPower) mit Bauplänen und Automatische Werkbank (BuildCraft); Liste weiterer Werkbank-Blöcke im Pack (Phase 18) |
 
 Ergänzend: `docs/balancing.md` (Vorschlag, nicht freigegeben), `docs/abweichungen.md`.
 

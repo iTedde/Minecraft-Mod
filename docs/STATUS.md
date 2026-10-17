@@ -1711,3 +1711,18 @@ Werte aus RedPower World (`redpowermechanical.zip`) **dekompilieren** (Nutzer fr
 - Mod-Version 0.3.2 (Erzeugungsanzeige, Phase 17.1/17.2); CurseForge-Paket `X:/Craft/Craft-0.3.2-curseforge.zip` bzw.
   `releases/Craft-0.3.2-curseforge.zip` (Craft, EMI, Xaero, CC: Tweaked in `overrides/mods`, wie 0.3.1). Wiki noch auf
   Stand Phase 16.
+
+# Phase 18 – Projekttisch und Automatische Werkbank (Nutzer, 2026-10-17)
+
+Nutzerwunsch: „Es fehlen noch sowas wie Project Table und Automatic Crafting Table.“ Entscheidungen: Project Table =
+**RedPower 2**, Automatic Crafting Table = **BuildCraft** (`TileAutoWorkbench`); Spezifikation zuerst; weitere
+Werkbank-Blöcke als Liste vorlegen. Spezifikation `docs/spec/20-werkbaenke.md`.
+
+## To Do
+- [x] 18.0 Spezifikation + Liste weiterer Werkbank-Blöcke (`spec/20` §5). RedPower-Klassen nachdekompiliert
+  (`reference/decompiled/redpower/…/base/*AdvBench*`, `ItemPlan`, `SlotCraftRefill`, `BlockAppliance`, `core/CoreLib`).
+- [ ] 18.1 Projekttisch + Baupläne
+- [ ] 18.2 Automatische Werkbank (Rohr-Schnittstelle)
+
+## Nächste Schritte
+1. Freigabe `spec/20` §4 (F1–F7), v. a. F2 (verlorener letzter Vorratsslot beim Abbau) und ob Blöcke aus §5 dazukommen.
