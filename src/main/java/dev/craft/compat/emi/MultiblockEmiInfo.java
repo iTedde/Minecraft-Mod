@@ -64,6 +64,14 @@ final class MultiblockEmiInfo {
         }
     }
 
+    /** Info pages of the booze barrel and the drinks (spec 17 §4). */
+    static void registerBrewing(EmiRegistry registry) {
+        info(registry, "booze_barrel", Ic2Items.BOOZE_BARREL.get(), Ic2Items.WOODEN_SCAFFOLD.get(),
+                Ic2Items.TREETAP.get(), Ic2Items.STONE_MUG.get(), Ic2Items.HOPS.get());
+        info(registry, "booze_mug", Ic2Items.BOOZE_MUG.get());
+        info(registry, "coffee", Ic2Items.COLD_COFFEE.get(), Ic2Items.DARK_COFFEE.get(), Ic2Items.COFFEE.get());
+    }
+
     private static ItemLike casing(GtCasingBlock.Type type) {
         return GtItems.casing(type).get();
     }

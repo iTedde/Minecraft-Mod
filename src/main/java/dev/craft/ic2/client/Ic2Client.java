@@ -5,6 +5,7 @@ import dev.craft.ic2.Ic2BlockEntityTypes;
 import dev.craft.ic2.Ic2Blocks;
 import dev.craft.ic2.Ic2EntityTypes;
 import dev.craft.ic2.Ic2Items;
+import dev.craft.ic2.brewing.BoozeMugItem;
 import dev.craft.ic2.Ic2Machine;
 import dev.craft.ic2.Ic2Menus;
 import dev.craft.ic2.item.BatteryItem;
@@ -37,6 +38,8 @@ public final class Ic2Client {
     public static final ResourceLocation ACTIVE_PROPERTY = ResourceLocation.fromNamespaceAndPath(Craft.MODID, "active");
     /** Item property of the toolbox: 1 when packed. */
     public static final ResourceLocation FULL_PROPERTY = ResourceLocation.fromNamespaceAndPath(Craft.MODID, "full");
+    /** Item property of the booze mug: icon offset 0–8 ({@code BoozeMugItem.getIconOffset}) divided by 8. */
+    public static final ResourceLocation BOOZE_PROPERTY = ResourceLocation.fromNamespaceAndPath(Craft.MODID, "booze");
 
     private Ic2Client() {
     }
@@ -54,6 +57,8 @@ public final class Ic2Client {
                     (stack, level, entity, seed) -> NanoSaberItem.isActive(stack) ? 1.0F : 0.0F);
             ItemProperties.register(Ic2Items.TOOLBOX.get(), FULL_PROPERTY,
                     (stack, level, entity, seed) -> ToolboxItem.isFull(stack) ? 1.0F : 0.0F);
+            ItemProperties.register(Ic2Items.BOOZE_MUG.get(), BOOZE_PROPERTY,
+                    (stack, level, entity, seed) -> BoozeMugItem.getIconOffset(stack) / 8.0F);
         });
     }
 

@@ -1,0 +1,12 @@
+{
+  "type": "craft:ic2_shapeless",
+  "ingredients": [
+    {
+      "item": "craft:coffee_beans"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:coffee_powder"
+  }
+}

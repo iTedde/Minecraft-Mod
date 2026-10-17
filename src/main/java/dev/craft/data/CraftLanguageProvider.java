@@ -183,6 +183,30 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
 
     /** Building plans of the multiblocks (EMI info pages, spec 16 §2.3). */
     private void multiblockInfo(boolean german) {
+        add("emi.craft.info.booze_barrel", german
+                ? "Auf ein Holzgerüst setzen. Rechtsklick mit Wasser (Eimer/Zellen), Weizen und Hopfen braut Bier, mit "
+                + "Zuckerrohr Rum (nur junges Fass). Bier reift: Brew → Youngster (1 Tag) → Beer (3) → Ale (9) → "
+                + "Dragonblood (27), nach weiteren 729 Tagen verdorben; spätere Zutaten können es verderben. Rum braucht "
+                + "1200 · n · 0,95^(n−1) Ticks für n Liter. Ein unbenutzter Baumzapfer an der Seite stoppt die Reifung; "
+                + "dort mit dem Steinkrug zapfen. Schlagen entfernt den Zapfer (1 L geht verloren) bzw. nimmt das Fass "
+                + "mit Inhalt auf."
+                : "Place on a wooden scaffold. Right-click with water (bucket/cells), wheat and hops to brew beer, or "
+                + "sugar cane for rum (young barrel only). Beer matures: Brew → Youngster (1 day) → Beer (3) → Ale (9) → "
+                + "Dragonblood (27), spoiled after another 729 days; adding solids later may spoil it. Rum needs "
+                + "1200 · n · 0.95^(n−1) ticks for n litres. An unused treetap on a side stops ageing; draw there with a "
+                + "stone mug. Punching removes the treetap (1 L is lost) or picks up the barrel with its contents.");
+        add("emi.craft.info.booze_mug", german
+                ? "Hopfen/Weizen bestimmt die Stärke, (Weizen + Hopfen)/Wasser die Sättigung und Dauer, das Alter die "
+                + "Intensität. Bier gibt Abbaulähmung, bei wiederholtem Trinken Stärke, Langsamkeit, Resistenz, Übelkeit "
+                + "und Schaden. Fertiger Rum gibt Feuer- und Schadensresistenz; verdorbene Getränke zufällige Übel."
+                : "Hops/wheat sets the strength, (wheat + hops)/water the food and duration, the age the intensity. Beer "
+                + "gives mining fatigue, when drunk repeatedly strength, slowness, resistance, nausea and damage. "
+                + "Finished rum gives fire resistance and resistance; spoiled drinks random ailments.");
+        add("emi.craft.info.coffee", german
+                ? "Gibt Tempo und Eile und steigert beide bei jedem Schluck (kalt bis II, schwarz bis VI, mit Milch "
+                + "bis VII). Ab Stufe IV (Milchkaffee: VI) Übelkeit, ab V (VII) zusätzlich Schaden."
+                : "Gives speed and haste and raises both with every mug (cold up to II, dark up to VI, with milk up "
+                + "to VII). From level IV (milk coffee: VI) nausea, from V (VII) also damage.");
         add("emi.craft.info.cultivation_blueprint", german
                 ? "Terraformer (4000 EU je Schritt, Reichweite 40): Sand wird zu Erde, Erde zu Gras, auf Gras wachsen "
                 + "Gras, Blumen, Setzlinge, Weizen, Pilze, Kürbisse und Gummisetzlinge."
@@ -341,6 +365,31 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
         item(Ic2Items.TERRA_WART, german ? "Terra-Warze" : "Terra Wart");
         item(Ic2Items.COFFEE_BEANS, german ? "Kaffeebohnen" : "Coffee Beans");
         item(Ic2Items.HOPS, german ? "Hopfen" : "Hops");
+        item(Ic2Items.COFFEE_POWDER, german ? "Kaffeepulver" : "Coffee Powder");
+        item(Ic2Items.STONE_MUG, german ? "Steinkrug" : "Stone Mug");
+        item(Ic2Items.COLD_COFFEE, german ? "Kalter Kaffee" : "Cold Coffee");
+        item(Ic2Items.DARK_COFFEE, german ? "Schwarzer Kaffee" : "Dark Coffee");
+        item(Ic2Items.COFFEE, german ? "Kaffee" : "Coffee");
+        // ItemBarrel/ItemBooze names are hard-coded English in IC2; the brew names stay English (proper names).
+        item(Ic2Items.BOOZE_BARREL, german ? "Leeres Fass" : "Empty Booze Barrel");
+        add(Ic2Items.BOOZE_BARREL.get().getDescriptionId() + ".filled", german ? "Fass (%s L)" : "%sL Booze Barrel");
+        add(Ic2Blocks.BARREL.get().getDescriptionId(), german ? "Fass" : "Booze Barrel");
+        String booze = Ic2Items.BOOZE_MUG.get().getDescriptionId();
+        add(booze, "Booze");
+        add(booze + ".zero", "Zero");
+        add(booze + ".rum", "Rum");
+        add(booze + ".black_stuff", "Black Stuff");
+        add(booze + ".beer", "%s%s%s");
+        String[] solid = {"Watery ", "Clear ", "Lite ", "", "Strong ", "Thick ", "Stodge "};
+        String[] hops = {"Soup ", "Alcfree ", "White ", "", "Dark ", "Full ", "Black "};
+        String[] time = {"Brew", "Youngster", "Beer", "Ale", "Dragonblood"};
+        for (int i = 0; i < solid.length; i++) {
+            add(booze + ".solid." + i, solid[i]);
+            add(booze + ".hops." + i, hops[i]);
+        }
+        for (int i = 0; i < time.length; i++) {
+            add(booze + ".time." + i, time[i]);
+        }
         add("message.craft.crop.unknown", german ? "Unbekannte Pflanze" : "Unknown Crop");
         add("message.craft.crop.scanned", "%s - Gr: %s Ga: %s Re: %s");
         add("gui.craft.cropnalyzer.unknown", german ? "UNBEKANNT" : "UNKNOWN");

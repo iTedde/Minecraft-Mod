@@ -1,0 +1,17 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "S": {
+      "item": "minecraft:stone"
+    }
+  },
+  "pattern": [
+    "SS ",
+    "SSS",
+    "SS "
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:stone_mug"
+  }
+}

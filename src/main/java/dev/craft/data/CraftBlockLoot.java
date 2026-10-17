@@ -128,6 +128,7 @@ public final class CraftBlockLoot extends BlockLootSubProvider {
         add(Ic2Blocks.LUMINATOR.get(), noDrop());
         scaffold(Ic2Blocks.WOODEN_SCAFFOLD.get(), Items.STICK, 2);
         scaffold(Ic2Blocks.IRON_SCAFFOLD.get(), Ic2Items.IRON_FENCE.get(), 1);
+        boozeBarrel();
         rubberWood();
         rubberLeaves();
     }
@@ -178,6 +179,16 @@ public final class CraftBlockLoot extends BlockLootSubProvider {
     }
 
     /** IC2 {@code BlockScaffold}: itself, plus the reinforcement when reinforced. */
+    /** IC2 {@code BlockBarrel.getBlockDropped}: a wooden scaffold and an empty barrel. */
+    private void boozeBarrel() {
+        Block block = Ic2Blocks.BARREL.get();
+        add(block, LootTable.lootTable()
+                .withPool(applyExplosionCondition(block, LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+                        .add(LootItem.lootTableItem(Ic2Blocks.WOODEN_SCAFFOLD.get()))))
+                .withPool(applyExplosionCondition(block, LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+                        .add(LootItem.lootTableItem(Ic2Items.BOOZE_BARREL.get())))));
+    }
+
     private void scaffold(ScaffoldBlock block, Item reinforcement, int count) {
         add(block, LootTable.lootTable()
                 .withPool(applyExplosionCondition(block, LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))

@@ -1,0 +1,23 @@
+{
+  "type": "craft:ic2_shapeless",
+  "ingredients": [
+    {
+      "item": "craft:stone_mug"
+    },
+    {
+      "item": "craft:coffee_powder"
+    },
+    [
+      {
+        "item": "minecraft:water_bucket"
+      },
+      {
+        "item": "craft:water_cell"
+      }
+    ]
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:cold_coffee"
+  }
+}

@@ -1443,5 +1443,18 @@ NaK-Kühlzellen, kein Vakuumgefrierer) **und die IC2-Nuke**. Teilpakete: 7a IC2-
 - 4 neue GameTests (`CropMatronGameTests`), **314 GameTests grün**, `gradlew build`. `runClient` nicht gestartet
   (Nutzer).
 
+## Erledigt (Teilpaket „Phase 12.8: Kaffee, Fass, Bier/Rum“, 2026-10-17)
+- Spezifikation nachgetragen: `spec/05-items.md` §9.3 (Items, Kaffee-Effekte – Tempo/Eile statt „Sprungkraft“, Fass-
+  Block, Befüllen, Reifen, Festschreiben mit Originalfehlern, Zapfen, Bitbelegung, Namen, Bier-/Rum-/Black-Stuff-Effekte).
+- Paket `ic2/brewing`: `Booze` (gepackter Wert), `BarrelBlock`/`BarrelBlockEntity`, `BarrelItem`, `StoneMugItem`,
+  `DrinkItem` mit `CoffeeMugItem` (kalt/schwarz/Milch) und `BoozeMugItem`; Baumzapfer auf dem Fass (`TreetapItem`).
+  Data Component `craft:booze`, Item-Property `craft:booze` für das Tassen-Symbol.
+- Items Kaffeepulver, Steinkrug, 3 Kaffeetassen, Fass, Booze-Tasse (nicht im Creative-Tab); Block `booze_barrel` (Loot:
+  Gerüst + leeres Fass). Rezepte Tasse, Pulver, kalter Kaffee, Milchkaffee, Fass, Leeren (Tasse, Fass), Ofen kalt →
+  schwarz, Macerator Bohnen → 3 Pulver. Texturen `item_0.png` 168–173/192–197/200, `block_0.png` 28/29/44. Sprache en/de
+  (Pack-Texte, Braunamen englisch). EMI-Infoseiten Fass, Booze-Tasse, Kaffee.
+- `abweichungen.md` (Block-Item, Haupthand, Namen, Metadaten), `testplan.md` 3.33.
+- 7 neue GameTests (`BrewingGameTests`), **321 GameTests grün**, `gradlew build`. `runClient` nicht gestartet (Nutzer).
+
 ## Nächste Schritte
-1. 12.8: Kaffee, Hopfen, Fass, Bier/Rum (`spec/17-ic2-rest.md`).
+1. 12.9: Dynamit, Klebedynamit, Dynamit-Block, Fernzünder (`spec/17-ic2-rest.md`).

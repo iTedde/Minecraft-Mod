@@ -10,6 +10,7 @@ import dev.craft.Craft;
 import dev.craft.ic2.block.LuminatorBlockEntity;
 import dev.craft.ic2.cable.CableBlockEntity;
 import dev.craft.ic2.cable.CableType;
+import dev.craft.ic2.brewing.BarrelBlockEntity;
 import dev.craft.ic2.crop.CropBlockEntity;
 import dev.craft.ic2.machine.MachineBlock;
 import dev.craft.ic2.machine.MachineBlockEntity;
@@ -37,6 +38,10 @@ public final class Ic2BlockEntityTypes {
     public static final Supplier<BlockEntityType<CropBlockEntity>> CROP =
             BLOCK_ENTITY_TYPES.register("crop", () -> BlockEntityType.Builder.of(
                     CropBlockEntity::new, Ic2Blocks.CROP.get()).build(null));
+
+    public static final Supplier<BlockEntityType<BarrelBlockEntity>> BARREL =
+            BLOCK_ENTITY_TYPES.register("booze_barrel", () -> BlockEntityType.Builder.of(
+                    BarrelBlockEntity::new, Ic2Blocks.BARREL.get()).build(null));
 
     private static final Map<Ic2Machine, Supplier<BlockEntityType<MachineBlockEntity>>> MACHINES =
             new EnumMap<>(Ic2Machine.class);

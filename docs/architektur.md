@@ -95,6 +95,9 @@ ergänzen. Basispaket `dev.craft`, Einstieg `Craft` → `Ic2.init`, `BuildCraft.
   Logik teilen sich eine parametrisierte Klasse (`ColorFlowerCrop`, `MetalCrop`, `WartCrop`, `SeedFoodCrop`, 12.7b);
   Items anderer Registries nur per `Supplier`/zur Laufzeit, `Crops` wird erst nach der Registrierung geladen.
   EMI-Ernteseiten: Drop-Liste je Sorte in `Ic2EmiRecipes.cropGains`.
+- Kaffee/Fass (Phase 12.8): Paket `ic2/brewing`. Getränke erben von `DrinkItem` (32 Ticks, leerer Steinkrug zurück,
+  `drink` serverseitig); gepackter IC2-Wert in `Booze` (Data Component `craft:booze`); `BarrelBlock` (Zapfer-Seite als
+  Blockstate `tapped`/`facing`, Linksklick über `attack`) + `BarrelBlockEntity`; Baumzapfer-Zweig in `TreetapItem`.
 
 ## Rezeptanzeige (EMI)
 

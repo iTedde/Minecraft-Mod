@@ -1,0 +1,15 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "#": {
+      "item": "craft:booze_mug"
+    }
+  },
+  "pattern": [
+    "#"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:stone_mug"
+  }
+}

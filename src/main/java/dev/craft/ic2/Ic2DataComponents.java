@@ -129,6 +129,12 @@ public final class Ic2DataComponents {
                     .persistent(CropSeedItem.Seed.CODEC)
                     .networkSynchronized(CropSeedItem.Seed.STREAM_CODEC));
 
+    /** Packed booze value of barrel items and booze mugs (IC2 metadata, see {@code Booze}). */
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> BOOZE =
+            COMPONENTS.registerComponentType("booze", builder -> builder
+                    .persistent(ExtraCodecs.NON_NEGATIVE_INT)
+                    .networkSynchronized(ByteBufCodecs.VAR_INT));
+
     public record Measurement(BlockPos pos, long emitted, long sunken, long time) {
         public static final Codec<Measurement> CODEC = RecordCodecBuilder.create(instance -> instance.group(
                 BlockPos.CODEC.fieldOf("pos").forGetter(Measurement::pos),

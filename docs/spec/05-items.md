@@ -661,11 +661,73 @@ Terra-Warze, Kaffeebohnen je 1 → Größe 1, 1/1/1; Zuckerrohr 1 → 1, 3/0/2; 
 `onFoodEaten` wird nicht aufgerufen); verbraucht 1 (auch im Kreativmodus), Rülpser (0,5, Tonhöhe 0,9–1,0), entfernt
 Übelkeit, Abbaulähmung, Schwäche, Langsamkeit, Gift. **Kaffeebohnen** (167) und **Hopfen** (174) sind einfache Items.
 Rezepte: Macerator Spinnenauge → 2 Grinpulver [IC2]; GT-Zentrifuge 16 Terra-Warzen + 1 Zelle → Methanzelle (5000)
-[GT]; Kaffeebohnen → Kaffeepulver folgt mit 12.8.
+[GT]; Kaffeebohnen → Kaffeepulver siehe §9.3.
 
-Getränke: Kaffee (Bohnen → Pulver; Tasse + Pulver + Wasser → kalter Kaffee, Ofen → Kaffee, + Zucker + Milch →
-Milchkaffee; Effekte Eile/Sprungkraft, Überdosis Übelkeit/Schaden) und Fass-Brauen (Weizen/Hopfen → Bier, Zuckerrohr →
-Rum; Fass mit Baumzapfer anzapfen) – Details `ItemMugCoffee`, `ItemBooze`, `TileEntityBarrel`.
+### 9.3 Kaffee, Fass, Bier/Rum (nachgetragen für Phase 12.8)
+
+**Items** (`item_0.png`): Kaffeepulver 168, Steinkrug (`itemMugEmpty`, „Stone Mug“) 169, Kaffeetasse
+(`itemMugCoffee`, Meta 0 „Cold Coffee“ 170, 1 „Dark Coffee“ 171, 2 „Coffee“ 172), Fass-Item (`itemBarrel`) 173,
+Bier-/Rum-Tasse (`itemMugBooze`, nicht im Creative-Tab) 192 + Zeitstufe (Bier), 200 (Rum), 192 (leer). Alle
+Stapelgröße 1. Rezepte siehe `08-rezepte.md` (Tasse, Pulver, kalter Kaffee, Milchkaffee, Fass, Leeren; Ofen kalt →
+schwarz 0,1 XP; Macerator Bohnen → 3 Pulver).
+
+**Trinken** (Kaffee und Booze): Rechtsklick startet immer (32 Ticks, Trink-Animation), Ergebnis ist ein leerer
+Steinkrug (auch im Kreativmodus).
+
+**Kaffee** (`ItemMugCoffee`): `amplifyEffect` für **Tempo** und **Eile** (nicht Sprungkraft): ohne Effekt → 300 Ticks
+Stufe 0, Rückgabe 1; sonst Verstärker +1 bis max (Meta 0: 1, Meta 1: 5, Meta 2: 6), Dauer +600 (Meta 0) bzw. +1200,
+Rückgabe neuer Verstärker. `highest` = Maximum beider; Meta 2: −2. `highest ≥ 3` → Übelkeit `(highest − 2) · 200`
+Ticks; `≥ 4` zusätzlich Sofortschaden Stufe `highest − 3`.
+
+**Fass-Block** (`BlockBarrel`, ID 217): Material Holz, Härte 1, Holz-Sound, kein Creative-Item (`ItemBlockRare`).
+Textur `block_0.png` oben/unten 28, Seiten 44, Seite mit Baumzapfer 29. Entsteht nur durch das Fass-Item auf einem
+**Holzgerüst** mit Stärke < 5 (nicht verstärkt); das Item wird verbraucht (außer Kreativmodus), Inhalt per `set(meta)`.
+Linksklick (`onBlockClicked`): mit Baumzapfer → Zapfer droppt, Seite = 0, **1 L geht verloren** (`drainLiquid(1)`);
+ohne → Fass-Item mit Inhalt droppt, Block wird Holzgerüst Meta 0. Normale Drops (Explosion): Holzgerüst + leeres Fass.
+
+**Befüllen** (Rechtsklick mit dem gehaltenen Item; Schleichen = 1 Stück; Stapel schrumpfen auch im Kreativmodus):
+
+| Item | Bedingung | Wirkung |
+|---|---|---|
+| Wassereimer | `detailed`, Menge < 32, Typ ≤ 1 | Typ Bier, +1 L, Eimer wird leer |
+| Wasserzellen | `detailed`, Typ ≤ 1 | Typ Bier, +n L (bis 32); Zellen verschwinden (keine leeren Zellen zurück) |
+| Weizen / Hopfen | `detailed`, Typ ≤ 1 | Typ Bier, je bis 64, dann `alterComposition` |
+| Zuckerrohr | Alter ≤ 600, Typ 0 oder 2 | Typ Rum, +n L (bis 32) |
+
+Der Typ wird vor der Mengenprüfung gesetzt (auch wenn nichts hineinpasst). `alterComposition`: Zeitstufe 0 → Alter 0;
+Stufe 1 → 50 % zurück auf 0, sonst 50 % verdorben (5); Stufe 2 → 50 % verdorben; > 2 → verdorben.
+
+**Reifen** (jeden Tick, nur mit Inhalt und **ohne** Baumzapfer): Alter +1. Bier mit Zeitstufe < 5: bei
+`Alter ≥ 24000 · 3^x` (x = Stufe, bei Stufe 4 x = 6) → Alter 0, Stufe +1. Stufen: Brew (0) → Youngster (1 Tag) →
+Beer (3) → Ale (9) → Dragonblood (27) → Black Stuff (nach weiteren 729 Tagen). Rum: Fortschritt =
+`Alter · 100 / (1200 · n · 0,95^(n−1))` (n = Liter, ganzzahlig), im Wert auf 100 begrenzt.
+
+**Festschreiben** (`enforceUndetailed`, beim ersten Zapfen/Aufnehmen): Hopfen = Hopfen/Weizen (kein Weizen → 10,
+beides 0 → 0); Stufe ≤ 0,25 → 0, ≤ ⅓ → 1, ≤ 0,5 → 2, < 2 → 3, < 3 → 4, < 4 → 5, < 5 → 6, ≥ 5 → verdorben.
+Feststoff = (Hopfen + Weizen)/Wasser: > 0,5 und < 1 → 2, = 1 → 3, < 2 → 4, < 2,4 → 5, < 4 → 6, ≥ 4 → verdorben.
+Originalfehler: Feststoffstufe 1 ist unerreichbar (widersprüchliche Bedingung), Werte ≤ 0,5 behalten die alte Stufe
+(frisch 0). Danach nimmt das Fass keine Zutaten mehr an (`detailed = false`).
+
+**Zapfen**: Baumzapfer mit Schaden 0 auf eine Seitenfläche → Zapfer sitzt dort (Item verbraucht außer Kreativmodus;
+erneut setzen verschiebt ihn). Steinkrug auf die Zapfer-Seite: Wert berechnen, 1 L ablassen → Booze-Tasse mit dem
+Wert. `drainLiquid` bei Rum: Fortschritt in ganzen Prozent, danach `Alter = Fortschritt / 100 · Zeit` – Originalfehler:
+unfertiger Rum verliert beim Zapfen sein Alter. Leer → alles zurückgesetzt, `detailed = true`.
+
+**Wert** (Meta von Fass-Item und Tasse): Bits 0–1 Typ (0 leer, 1 Bier, 2 Rum), 2–6 Menge − 1, Bier: 7–9 Feststoff,
+10–12 Hopfen, 13–15 Zeit; Rum: 7–13 Fortschritt.
+
+**Namen** (fest englisch im Original): Fass „Empty Booze Barrel“ / „<n>L Booze Barrel“; Tasse: leer „Zero“, Rum „Rum“,
+Bier mit Zeit 5 „Black Stuff“, sonst Feststoff + Hopfen + Zeit aus {Watery, Clear, Lite, –, Strong, Thick, Stodge},
+{Soup, Alcfree, White, –, Dark, Full, Black}, {Brew, Youngster, Beer, Ale, Dragonblood}.
+
+**Bier trinken**: Zeit 5 → Black Stuff. Sonst Dauer = {300, 600, 900, 1200, 1600, 2000, 2400}[Feststoff], Intensität
+= {0,4; 0,75; 1; 1,5; 2}[Zeit]; Nahrung `6 − Hopfen`, Sättigungsfaktor `Feststoff · 0,15`; `max = (int)(Intensität ·
+Hopfen · 0,5)`. Abbaulähmung (max) immer; war sie schon aktiv (Stufe L): Stärke (max); L > 0 Langsamkeit (max/2);
+L > 1 Resistenz (max − 1); L > 2 Übelkeit (0); L > 3 Sofortschaden Stufe 0–2. `amplifyEffect`: ohne Effekt → Dauer,
+Stufe 0; sonst Dauer + min(Dauer, max(0, (int)(Dauer · (1 + 2 · Intensität) − Restdauer) / 2)), Stufe +1 bis max.
+**Rum**: Fortschritt < 100 → Black Stuff; sonst (Intensität 2, Dauer 600) Feuerresistenz (0), Resistenz (2); war
+Resistenz aktiv: Blindheit, ab Stufe 1 zusätzlich Übelkeit. **Black Stuff**: Zufall 0–5: nichts, Übelkeit 1200,
+Blindheit 2400, Gift 2400, Gift III 200, Sofortschaden Stufe 0–3. Leere Tasse („Zero“): keine Wirkung.
 
 ## 10. Blöcke (Übersicht)
 

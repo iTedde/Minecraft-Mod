@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "craft:block/booze_barrel_top",
+    "east": "craft:block/booze_barrel_side",
+    "north": "craft:block/booze_barrel_tapped",
+    "particle": "craft:block/booze_barrel_side",
+    "south": "craft:block/booze_barrel_side",
+    "up": "craft:block/booze_barrel_top",
+    "west": "craft:block/booze_barrel_side"
+  }
+}

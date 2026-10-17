@@ -3,6 +3,7 @@ package dev.craft.ic2.item;
 import dev.craft.ic2.Ic2Items;
 import dev.craft.ic2.Ic2Sounds;
 import dev.craft.ic2.block.RubberWoodBlock;
+import dev.craft.ic2.brewing.BarrelBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundSource;
@@ -31,6 +32,9 @@ public class TreetapItem extends Item {
     public InteractionResult useOn(UseOnContext context) {
         Level level = context.getLevel();
         BlockState state = level.getBlockState(context.getClickedPos());
+        if (state.getBlock() instanceof BarrelBlock) {
+            return useOnBarrel(context, state);
+        }
         if (!(state.getBlock() instanceof RubberWoodBlock)) {
             return InteractionResult.PASS;
         }
@@ -40,6 +44,26 @@ public class TreetapItem extends Item {
                     context.getHand() == InteractionHand.MAIN_HAND ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND);
         }
         return InteractionResult.sidedSuccess(level.isClientSide());
+    }
+
+    /**
+     * IC2 {@code TileEntityBarrel.useTreetapOn}: an unused treetap (damage 0) on a horizontal side of a barrel is
+     * mounted there and consumed (unless in creative mode); mounting it again moves it.
+     */
+    private static InteractionResult useOnBarrel(UseOnContext context, BlockState state) {
+        Direction side = context.getClickedFace();
+        if (context.getItemInHand().getDamageValue() != 0 || side.getAxis() == Direction.Axis.Y) {
+            return InteractionResult.PASS;
+        }
+        Level level = context.getLevel();
+        if (!level.isClientSide) {
+            level.setBlock(context.getClickedPos(), state.setValue(BarrelBlock.TAPPED, true)
+                    .setValue(BarrelBlock.FACING, side), Block.UPDATE_ALL);
+            if (context.getPlayer() == null || !context.getPlayer().getAbilities().instabuild) {
+                context.getItemInHand().shrink(1);
+            }
+        }
+        return InteractionResult.sidedSuccess(level.isClientSide);
     }
 
     /** IC2 {@code attemptExtract}: wet hole → 1–3 resin and dry hole; dry hole → small chances. */

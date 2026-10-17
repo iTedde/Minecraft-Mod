@@ -1,0 +1,44 @@
+{
+  "parent": "minecraft:item/generated",
+  "overrides": [
+    {
+      "model": "craft:item/booze_mug_1",
+      "predicate": {
+        "craft:booze": 0.125
+      }
+    },
+    {
+      "model": "craft:item/booze_mug_2",
+      "predicate": {
+        "craft:booze": 0.25
+      }
+    },
+    {
+      "model": "craft:item/booze_mug_3",
+      "predicate": {
+        "craft:booze": 0.375
+      }
+    },
+    {
+      "model": "craft:item/booze_mug_4",
+      "predicate": {
+        "craft:booze": 0.5
+      }
+    },
+    {
+      "model": "craft:item/booze_mug_5",
+      "predicate": {
+        "craft:booze": 0.625
+      }
+    },
+    {
+      "model": "craft:item/booze_mug_rum",
+      "predicate": {
+        "craft:booze": 1.0
+      }
+    }
+  ],
+  "textures": {
+    "layer0": "craft:item/booze_mug_0"
+  }
+}

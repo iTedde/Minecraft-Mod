@@ -1,5 +1,6 @@
 package dev.craft.ic2;
 
+import dev.craft.ic2.brewing.BarrelBlock;
 import dev.craft.ic2.crop.CropBlock;
 import dev.craft.ic2.crop.CropMatronBlockEntity;
 import java.util.EnumMap;
@@ -225,6 +226,11 @@ public final class Ic2Blocks {
                     .ignitedByLava().strength(0.8F, 0.12F).pushReaction(PushReaction.DESTROY)
                     .isRedstoneConductor((s, l, p) -> false).isSuffocating((s, l, p) -> false)
                     .isViewBlocking((s, l, p) -> false)));
+
+    /** IC2 {@code BlockBarrel}: wood material, hardness 1 (resistance 5 = 1.0), wood sound; no block item. */
+    public static final DeferredBlock<BarrelBlock> BARREL = BLOCKS.register("booze_barrel",
+            () -> new BarrelBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD)
+                    .instrument(NoteBlockInstrument.BASS).strength(1.0F).sound(SoundType.WOOD).ignitedByLava()));
 
     private Ic2Blocks() {
     }

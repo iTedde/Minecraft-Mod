@@ -1,0 +1,10 @@
+{
+  "type": "craft:macerator",
+  "ingredient": {
+    "item": "craft:coffee_beans"
+  },
+  "result": {
+    "count": 3,
+    "id": "craft:coffee_powder"
+  }
+}

@@ -1311,6 +1311,19 @@ public final class CraftRecipeProvider extends RecipeProvider {
                 Ingredient.of(Items.BONE_MEAL));
         shaped(Ic2Items.WEED_EX, 1, "weed_ex").pattern("R", "G", "C").define('R', Items.REDSTONE)
                 .define('G', Ic2Items.GRIN_POWDER).define('C', Ic2Items.EMPTY_CELL).save();
+        shaped(Ic2Items.STONE_MUG, 1, "stone_mug").pattern("SS ", "SSS", "SS ").define('S', Items.STONE).save();
+        shapeless(Ic2Items.COFFEE_POWDER, 1, "coffee_powder", Ingredient.of(Ic2Items.COFFEE_BEANS));
+        shapeless(Ic2Items.COLD_COFFEE, 1, "cold_coffee", Ingredient.of(Ic2Items.STONE_MUG),
+                Ingredient.of(Ic2Items.COFFEE_POWDER), water());
+        shapeless(Ic2Items.COFFEE, 1, "coffee", Ingredient.of(Ic2Items.DARK_COFFEE), Ingredient.of(Items.SUGAR),
+                Ingredient.of(Items.MILK_BUCKET));
+        shaped(Ic2Items.BOOZE_BARREL, 1, "booze_barrel").pattern("P", "W", "P").define('P', ItemTags.PLANKS)
+                .define('W', Ic2Items.RUBBER_WOOD).save();
+        // Emptying: any booze mug back to a stone mug, any barrel to an empty barrel.
+        shaped(Ic2Items.STONE_MUG, 1, "stone_mug_from_booze_mug").pattern("#").define('#', Ic2Items.BOOZE_MUG)
+                .save();
+        shaped(Ic2Items.BOOZE_BARREL, 1, "booze_barrel_emptying").pattern("#").define('#', Ic2Items.BOOZE_BARREL)
+                .save();
         shaped(Ic2Items.EU_METER, 1, "eu_meter").pattern(" G ", "cCc", "c c").define('G', Items.GLOWSTONE_DUST)
                 .define('c', Ic2Items.cable(CableType.INSULATED_COPPER)).define('C', Ic2Items.ELECTRONIC_CIRCUIT).save();
         shaped(Ic2Items.FOAM_SPRAYER, 1, "foam_sprayer").pattern("SS ", "Ss ", "  S").define('S', Items.COBBLESTONE)
@@ -2131,6 +2144,7 @@ public final class CraftRecipeProvider extends RecipeProvider {
         smelt("bronze_ingot_from_dust", Ingredient.of(Ic2Items.BRONZE_DUST), Ic2Items.BRONZE_INGOT, 1, 0.0F);
         smelt("coal_dust_from_hydrated", Ingredient.of(Ic2Items.HYDRATED_COAL_DUST), Ic2Items.COAL_DUST, 1, 0.0F);
         smelt("rubber_from_resin", Ingredient.of(Ic2Items.RESIN), Ic2Items.RUBBER, 1, 0.3F);
+        smelt("dark_coffee", Ingredient.of(Ic2Items.COLD_COFFEE), Ic2Items.DARK_COFFEE, 1, 0.1F);
         smelt("refined_iron_from_machine_casing", Ingredient.of(Ic2Items.MACHINE_CASING), Ic2Items.REFINED_IRON_INGOT, 8,
                 0.0F);
         smelt("tin_ingots_from_block", Ingredient.of(Ic2Items.TIN_BLOCK), Ic2Items.TIN_INGOT, 9, 0.0F);
@@ -2208,6 +2222,8 @@ public final class CraftRecipeProvider extends RecipeProvider {
                 Items.BLAZE_POWDER, 5);
         machine(MachineRecipe.Kind.MACERATOR, "spider_eye", Ingredient.of(Items.SPIDER_EYE), 1,
                 Ic2Items.GRIN_POWDER, 2);
+        machine(MachineRecipe.Kind.MACERATOR, "coffee_beans", Ingredient.of(Ic2Items.COFFEE_BEANS), 1,
+                Ic2Items.COFFEE_POWDER, 3);
         machine(MachineRecipe.Kind.MACERATOR, "machine_casing", Ingredient.of(Ic2Items.MACHINE_CASING), 1,
                 Ic2Items.IRON_DUST, 8);
         machine(MachineRecipe.Kind.MACERATOR, "melon", Ingredient.of(Items.MELON), 1, Items.MELON_SLICE, 8);

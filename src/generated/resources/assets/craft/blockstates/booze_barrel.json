@@ -1,0 +1,31 @@
+{
+  "variants": {
+    "facing=east,tapped=false": {
+      "model": "craft:block/booze_barrel"
+    },
+    "facing=east,tapped=true": {
+      "model": "craft:block/booze_barrel_tapped",
+      "y": 90
+    },
+    "facing=north,tapped=false": {
+      "model": "craft:block/booze_barrel"
+    },
+    "facing=north,tapped=true": {
+      "model": "craft:block/booze_barrel_tapped"
+    },
+    "facing=south,tapped=false": {
+      "model": "craft:block/booze_barrel"
+    },
+    "facing=south,tapped=true": {
+      "model": "craft:block/booze_barrel_tapped",
+      "y": 180
+    },
+    "facing=west,tapped=false": {
+      "model": "craft:block/booze_barrel"
+    },
+    "facing=west,tapped=true": {
+      "model": "craft:block/booze_barrel_tapped",
+      "y": 270
+    }
+  }
+}

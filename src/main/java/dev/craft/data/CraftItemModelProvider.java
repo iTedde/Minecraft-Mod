@@ -60,6 +60,14 @@ public final class CraftItemModelProvider extends ItemModelProvider {
                 .texture("layer0", modLoc("item/toolbox_full"));
         basicItem(Ic2Items.TOOLBOX.get()).override().predicate(Ic2Client.FULL_PROPERTY, 1.0F)
                 .model(toolboxFull).end();
+        // IC2 ItemBooze icons 192 + time ratio (beer), 200 (rum).
+        ItemModelBuilder booze = withExistingParent("booze_mug", mcLoc("item/generated"))
+                .texture("layer0", modLoc("item/booze_mug_0"));
+        for (int offset : new int[]{1, 2, 3, 4, 5, 8}) {
+            String name = offset == 8 ? "booze_mug_rum" : "booze_mug_" + offset;
+            booze.override().predicate(Ic2Client.BOOZE_PROPERTY, offset / 8.0F).model(
+                    withExistingParent(name, mcLoc("item/generated")).texture("layer0", modLoc("item/" + name))).end();
+        }
         withExistingParent(BcItems.LANDMARK.getId().getPath(), mcLoc("item/generated"))
                 .texture("layer0", modLoc("block/landmark"));
         withExistingParent(GtItems.WATER.getId().getPath(), mcLoc("item/generated"))

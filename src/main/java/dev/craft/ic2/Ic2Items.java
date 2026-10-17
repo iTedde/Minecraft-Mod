@@ -9,6 +9,10 @@ import java.util.function.Function;
 
 import dev.craft.Craft;
 import dev.craft.ic2.cable.CableType;
+import dev.craft.ic2.brewing.BarrelItem;
+import dev.craft.ic2.brewing.BoozeMugItem;
+import dev.craft.ic2.brewing.CoffeeMugItem;
+import dev.craft.ic2.brewing.StoneMugItem;
 import dev.craft.ic2.crop.CropSeedItem;
 import dev.craft.ic2.crop.CropnalyzerItem;
 import dev.craft.ic2.crop.TerraWartItem;
@@ -307,6 +311,21 @@ public final class Ic2Items {
             TerraWartItem::new));
     public static final DeferredItem<Item> COFFEE_BEANS = simple("coffee_beans");
     public static final DeferredItem<Item> HOPS = simple("hops");
+    // --- coffee and booze ---
+    public static final DeferredItem<Item> COFFEE_POWDER = simple("coffee_powder");
+    public static final DeferredItem<StoneMugItem> STONE_MUG = simple(ITEMS.registerItem("stone_mug",
+            StoneMugItem::new));
+    public static final DeferredItem<CoffeeMugItem> COLD_COFFEE = simple(ITEMS.registerItem("cold_coffee",
+            properties -> new CoffeeMugItem(properties, CoffeeMugItem.COLD)));
+    public static final DeferredItem<CoffeeMugItem> DARK_COFFEE = simple(ITEMS.registerItem("dark_coffee",
+            properties -> new CoffeeMugItem(properties, CoffeeMugItem.DARK)));
+    public static final DeferredItem<CoffeeMugItem> COFFEE = simple(ITEMS.registerItem("coffee",
+            properties -> new CoffeeMugItem(properties, CoffeeMugItem.MILK)));
+    /** Shown empty in the creative tab; the barrel block itself has no item (IC2 {@code ItemBlockRare}). */
+    public static final DeferredItem<BarrelItem> BOOZE_BARREL = simple(ITEMS.registerItem("booze_barrel",
+            BarrelItem::new));
+    /** Not in the creative tab (as in IC2); icon chosen by an item property. */
+    public static final DeferredItem<BoozeMugItem> BOOZE_MUG = ITEMS.registerItem("booze_mug", BoozeMugItem::new);
     /** Empty painter (IC2 {@code itemToolPainter}, a plain item). */
     public static final DeferredItem<Item> PAINTER = simple("painter");
     /** Colored painters by IC2 dye metadata 0 (black) – 15 (white), named after the vanilla dye color. */

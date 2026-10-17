@@ -21,6 +21,7 @@ import dev.craft.gregtech.block.GtCasingBlock;
 import dev.craft.gregtech.machine.GtMachineBlock;
 import dev.craft.gregtech.world.GtOre;
 import dev.craft.ic2.Ic2Blocks;
+import dev.craft.ic2.brewing.BarrelBlock;
 import dev.craft.ic2.Ic2Machine;
 import dev.craft.ic2.block.ConstructionFoamWallBlock;
 import dev.craft.ic2.block.LuminatorBlock;
@@ -342,6 +343,20 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
                     .modelFile(block.isReinforced(state) ? reinforced : normal).build());
             simpleBlockItem(block, normal);
         }
+        boozeBarrel();
+    }
+
+    /** IC2 {@code BlockBarrel}: top/bottom sprite 28, sides 44, the treetap side 29 ({@code block_0.png}). */
+    private void boozeBarrel() {
+        ResourceLocation top = modLoc("block/booze_barrel_top");
+        ResourceLocation side = modLoc("block/booze_barrel_side");
+        ModelFile plain = models().cubeBottomTop("booze_barrel", side, top, top);
+        ModelFile tapped = models().cube("booze_barrel_tapped", top, top, modLoc("block/booze_barrel_tapped"), side,
+                side, side).texture("particle", side);
+        getVariantBuilder(Ic2Blocks.BARREL.get()).forAllStates(state -> state.getValue(BarrelBlock.TAPPED)
+                ? ConfiguredModel.builder().modelFile(tapped)
+                        .rotationY(((int) state.getValue(BarrelBlock.FACING).toYRot() + 180) % 360).build()
+                : ConfiguredModel.builder().modelFile(plain).build());
     }
 
     /**

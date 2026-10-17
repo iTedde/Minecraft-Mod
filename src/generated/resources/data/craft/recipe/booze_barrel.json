@@ -1,0 +1,20 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "P": {
+      "tag": "minecraft:planks"
+    },
+    "W": {
+      "item": "craft:rubber_wood"
+    }
+  },
+  "pattern": [
+    "P",
+    "W",
+    "P"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:booze_barrel"
+  }
+}
