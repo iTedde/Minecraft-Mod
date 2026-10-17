@@ -39,6 +39,7 @@ public class RedstoneEngineBlockEntity extends EngineBlockEntity {
         super.update();
         if (isRedstonePowered() && level.getGameTime() % 20L == 0L) {
             energy++;
+            outputMeter.record(level, 1.0F);
         }
     }
 

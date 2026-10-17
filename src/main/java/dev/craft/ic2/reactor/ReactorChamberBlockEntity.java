@@ -3,6 +3,7 @@ package dev.craft.ic2.reactor;
 import dev.craft.core.energy.EnergyNets;
 import dev.craft.core.energy.EnergySource;
 import dev.craft.core.energy.EnergyTile;
+import dev.craft.core.energy.OutputReadout;
 import dev.craft.ic2.Ic2BlockEntityTypes;
 import dev.craft.ic2.machine.Wrenchable;
 import javax.annotation.Nullable;
@@ -18,7 +19,7 @@ import net.neoforged.neoforge.items.IItemHandler;
  * IC2 {@code TileEntityReactorChamberElectric}: widens the reactor by one column, proxies its inventory and offers
  * the energy the reactor could not deliver once more (without the ×5).
  */
-public class ReactorChamberBlockEntity extends BlockEntity implements EnergySource, Wrenchable {
+public class ReactorChamberBlockEntity extends BlockEntity implements EnergySource, Wrenchable, OutputReadout {
     public ReactorChamberBlockEntity(BlockPos pos, BlockState state) {
         super(Ic2BlockEntityTypes.REACTOR_CHAMBER.get(), pos, state);
     }
@@ -97,5 +98,13 @@ public class ReactorChamberBlockEntity extends BlockEntity implements EnergySour
     @Override
     public ItemStack getWrenchDrop(Player player) {
         return new ItemStack(getBlockState().getBlock());
+    }
+
+    /** Shows the output of the reactor it belongs to. */
+    @Override
+    @Nullable
+    public OutputReading getOutputReading() {
+        NuclearReactorBlockEntity reactor = getReactor();
+        return reactor != null ? reactor.getOutputReading() : null;
     }
 }

@@ -3,6 +3,8 @@ package dev.craft.powerconverters.power;
 import dev.craft.buildcraft.power.BcCapabilities;
 import dev.craft.buildcraft.power.PowerProvider;
 import dev.craft.buildcraft.power.PowerReceptor;
+import dev.craft.core.energy.OutputMeter;
+import dev.craft.core.energy.OutputReadout;
 import dev.craft.powerconverters.PcBlockEntityTypes;
 import dev.craft.powerconverters.PowerSystem;
 import java.util.Map;
@@ -15,8 +17,10 @@ import org.jetbrains.annotations.Nullable;
  * {@code TileEntityBuildCraftProducer}: hands MJ directly to the adjacent receptors every tick. It is a receptor
  * itself with an empty provider, so engines facing it transfer nothing.
  */
-public class BcProducerBlockEntity extends EnergyProducerBlockEntity<PowerReceptor> implements PowerReceptor {
+public class BcProducerBlockEntity extends EnergyProducerBlockEntity<PowerReceptor>
+        implements PowerReceptor, OutputReadout {
     private final PowerProvider powerProvider = new PowerProvider();
+    private final OutputMeter outputMeter = new OutputMeter();
 
     public BcProducerBlockEntity(BlockPos pos, BlockState state) {
         super(PcBlockEntityTypes.BC_PRODUCER.get(), pos, state, PowerSystem.BUILDCRAFT, 0);
@@ -42,6 +46,7 @@ public class BcProducerBlockEntity extends EnergyProducerBlockEntity<PowerRecept
                 int energyUsed = Math.min(Math.min(provider.getMaxEnergyReceived(), mj),
                         provider.getMaxEnergyStored() - (int) Math.floor(provider.getEnergyStored()));
                 provider.receiveEnergy(energyUsed, output.getKey());
+                outputMeter.record(level, energyUsed);
                 energy -= energyUsed * perOutput;
                 if (energy <= 0) {
                     return 0;
@@ -58,5 +63,10 @@ public class BcProducerBlockEntity extends EnergyProducerBlockEntity<PowerRecept
 
     @Override
     public void doWork() {
+    }
+
+    @Override
+    public OutputReading getOutputReading() {
+        return outputMeter.read(level, OutputReading.Unit.MJ);
     }
 }

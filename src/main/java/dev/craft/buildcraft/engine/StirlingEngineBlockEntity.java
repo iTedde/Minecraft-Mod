@@ -54,6 +54,7 @@ public class StirlingEngineBlockEntity extends EngineBlockEntity implements Menu
             burnTime--;
             currentOutput = 1.0F;
             addEnergy(1.0F);
+            outputMeter.record(level, 1.0F);
             if (isRemoved()) {
                 return;
             }

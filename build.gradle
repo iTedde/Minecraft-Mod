@@ -82,6 +82,10 @@ neoForge {
         gameTestServer {
             type = "gameTestServer"
             systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
+            // gradlew runGameTestServer -PgameTestDir=<dir>: own game directory, e.g. while runServer holds run/
+            if (project.hasProperty('gameTestDir')) {
+                gameDirectory = file(project.property('gameTestDir').toString())
+            }
         }
 
         data {

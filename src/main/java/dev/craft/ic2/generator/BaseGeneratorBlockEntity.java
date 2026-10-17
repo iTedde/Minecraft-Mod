@@ -5,6 +5,8 @@ import java.util.Random;
 import dev.craft.core.energy.EnergyNets;
 import dev.craft.core.energy.EnergySource;
 import dev.craft.core.energy.EnergyTile;
+import dev.craft.core.energy.OutputMeter;
+import dev.craft.core.energy.OutputReadout;
 import dev.craft.ic2.Ic2Items;
 import dev.craft.ic2.item.ElectricItems;
 import dev.craft.ic2.machine.MachineBlockEntity;
@@ -24,7 +26,7 @@ import org.jetbrains.annotations.Nullable;
  * Common generator logic, 1:1 with IC2 {@code TileEntityBaseGenerator}: fuel → internal storage → charge slot and
  * one packet per tick into the energy net.
  */
-public abstract class BaseGeneratorBlockEntity extends MachineBlockEntity implements EnergySource {
+public abstract class BaseGeneratorBlockEntity extends MachineBlockEntity implements EnergySource, OutputReadout {
     protected static final Random RANDOM = new Random();
     public static final int TIER = 1;
 
@@ -34,6 +36,7 @@ public abstract class BaseGeneratorBlockEntity extends MachineBlockEntity implem
     protected int production;
     private int ticksSinceLastActiveUpdate;
     private int activityMeter;
+    private final OutputMeter outputMeter = new OutputMeter();
 
     protected BaseGeneratorBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state, int slots,
                                        int production, int maxStorage) {
@@ -65,7 +68,9 @@ public abstract class BaseGeneratorBlockEntity extends MachineBlockEntity implem
         if (needsFuel()) {
             needsInvUpdate = gainFuel();
         }
+        int storageBefore = storage;
         boolean newActive = gainEnergy();
+        outputMeter.record(level, storage - storageBefore);
         if (isRemoved()) {
             return;
         }
@@ -180,6 +185,11 @@ public abstract class BaseGeneratorBlockEntity extends MachineBlockEntity implem
     @Override
     public int getMaxEnergyOutput() {
         return production;
+    }
+
+    @Override
+    public OutputReading getOutputReading() {
+        return outputMeter.read(level, OutputReading.Unit.EU);
     }
 
     // --- wrench / sides ---

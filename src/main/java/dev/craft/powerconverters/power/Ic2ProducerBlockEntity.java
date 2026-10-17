@@ -4,6 +4,8 @@ import dev.craft.core.energy.EnergyAcceptor;
 import dev.craft.core.energy.EnergyNets;
 import dev.craft.core.energy.EnergySource;
 import dev.craft.core.energy.EnergyTile;
+import dev.craft.core.energy.OutputMeter;
+import dev.craft.core.energy.OutputReadout;
 import dev.craft.powerconverters.PcBlockEntityTypes;
 import dev.craft.powerconverters.PowerSystem;
 import dev.craft.powerconverters.block.PowerConverterBlock;
@@ -16,7 +18,10 @@ import org.jetbrains.annotations.Nullable;
  * {@code TileEntityIndustrialCraftProducer}: an EU source in all directions that only emits full packets of its
  * nominal voltage, at most one per tick; fractional EU of the returned energy are lost.
  */
-public class Ic2ProducerBlockEntity extends EnergyProducerBlockEntity<EnergyAcceptor> implements EnergySource {
+public class Ic2ProducerBlockEntity extends EnergyProducerBlockEntity<EnergyAcceptor>
+        implements EnergySource, OutputReadout {
+    private final OutputMeter outputMeter = new OutputMeter();
+
     public Ic2ProducerBlockEntity(BlockPos pos, BlockState state) {
         super(PcBlockEntityTypes.IC2_PRODUCER.get(), pos, state, PowerSystem.INDUSTRIALCRAFT,
                 ((PowerConverterBlock) state.getBlock()).getType().getVoltageIndex());
@@ -58,6 +63,7 @@ public class Ic2ProducerBlockEntity extends EnergyProducerBlockEntity<EnergyAcce
         }
         int producedEu = Math.min(eu, maxOutput);
         int notDistributed = EnergyNets.emit(level, this, producedEu);
+        outputMeter.record(level, producedEu - notDistributed);
         return (eu - (producedEu - notDistributed)) * perOutput;
     }
 
@@ -69,5 +75,10 @@ public class Ic2ProducerBlockEntity extends EnergyProducerBlockEntity<EnergyAcce
     @Override
     public int getMaxEnergyOutput() {
         return powerSystem.getVoltageValue(getVoltageIndex());
+    }
+
+    @Override
+    public OutputReading getOutputReading() {
+        return outputMeter.read(level, OutputReading.Unit.EU);
     }
 }

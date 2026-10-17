@@ -31,6 +31,9 @@ ergänzen. Basispaket `dev.craft`, Einstieg `Craft` → `Ic2.init`, `BuildCraft.
   (`configure(minRecv, maxRecv, activation, maxStored)`), ruft jeden Server-Tick `provider.update(this, level)` und
   registriert die Capability `BcCapabilities.POWER_RECEPTOR`. Engines suchen Empfänger über diese Capability.
 - Zeitbasis überall `level.getGameTime()` (siehe `abweichungen.md`).
+- Erzeugungsanzeige: Erzeuger implementieren `core/energy/OutputReadout` und zählen ihre Erzeugung je Tick mit
+  `OutputMeter.record` (Sekundenmittel); Teile von Multiblocks reichen an den Controller weiter. Der Client fragt
+  den Wert des angeschauten Blocks alle 10 Ticks über `OutputPayloads` ab, `core/client/OutputOverlay` zeichnet ihn.
 
 ## Rüstung
 

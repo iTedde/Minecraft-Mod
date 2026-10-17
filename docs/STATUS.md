@@ -1675,3 +1675,14 @@ bleiben beim Controller).
 
 ## Nächste Schritte
 1. Abnahme Phase 16 (im Client: Kabel an ein Turbinengehäuse, HV-Array an MFSU).
+
+# Nachtrag – Erzeugungsanzeige (Nutzer, 2026-10-17)
+
+Nutzerwunsch: „jedes Gerät soll immer anzeigen, wie viel Energie es gerade erzeugt“. Entscheidungen: **Blick-Overlay**
+(kein GUI-Eintrag), **alle Erzeuger EU + MJ**.
+
+- [x] `OutputReadout`/`OutputMeter`/`OutputPayloads` (core), `OutputOverlay` (Client), Sprachschlüssel `gui.craft.output`.
+- [x] Angeschlossen: IC2-Generatoren (Generator, Geothermie, Solarpanel, Wasser-/Windmühle), Reaktor + Kammern,
+  Solar-Arrays (Controller), Dampf-/Wasserturbine + Gehäuse, Redstone-/Stirling-/Verbrennungs-Engine, Electrical
+  Engine, Power Converters (IC2-/BC-Erzeuger).
+- GameTests `OutputReadoutGameTests` (brennender Generator = Produktion, leerer Generator = 0).

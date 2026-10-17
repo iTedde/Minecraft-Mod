@@ -381,6 +381,7 @@
   "gui.craft.inventory": "Inventar",
   "gui.craft.o_mat.offer": "Angebot:",
   "gui.craft.o_mat.want": "Preis:",
+  "gui.craft.output": "Erzeugt: %s %s",
   "gui.craft.show_recipes": "Rezepte anzeigen",
   "gui.craft.structure_incomplete": "Struktur unvollständig",
   "gui.craft.trade_o_mat.stock": "Vorrat:",

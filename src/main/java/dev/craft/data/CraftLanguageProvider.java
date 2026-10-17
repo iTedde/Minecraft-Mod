@@ -469,6 +469,7 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
     protected void powerPlants(boolean german) {
         add("itemGroup.craft.power_plants", german ? "Craft: Kraftwerke" : "Craft: Power Plants");
         add("gui.craft.structure_incomplete", german ? "Struktur unvollständig" : "Structure incomplete");
+        add("gui.craft.output", german ? "Erzeugt: %s %s" : "Output: %s %s");
         item(PpItems.COKE, german ? "Koks" : "Coal Coke");
         block(PpBlocks.COKE_BLOCK, german ? "Koksblock" : "Block of Coal Coke");
         block(PpBlocks.COKE_OVEN_BRICKS, german ? "Koksofenziegel" : "Coke Oven Bricks");

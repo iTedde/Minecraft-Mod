@@ -106,6 +106,7 @@ public class CombustionEngineBlockEntity extends EngineBlockEntity implements Me
                 float power = currentFuel.powerPerCycle();
                 currentOutput = power;
                 addEnergy(power);
+                outputMeter.record(level, power);
                 heat = (int) (heat + power);
             }
         } else if (penaltyCooling <= 0 && lastPowered) {

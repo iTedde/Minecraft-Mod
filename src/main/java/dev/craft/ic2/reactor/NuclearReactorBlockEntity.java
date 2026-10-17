@@ -6,6 +6,8 @@ import dev.craft.core.CraftDamageTypes;
 import dev.craft.core.energy.EnergyNets;
 import dev.craft.core.energy.EnergySource;
 import dev.craft.core.energy.EnergyTile;
+import dev.craft.core.energy.OutputMeter;
+import dev.craft.core.energy.OutputReadout;
 import dev.craft.core.explosion.Ic2Explosion;
 import dev.craft.ic2.Ic2BlockEntityTypes;
 import dev.craft.ic2.Ic2Items;
@@ -48,7 +50,7 @@ import org.slf4j.Logger;
  * IC2 {@code TileEntityNuclearReactorElectric} (spec 06): 9 × 6 matrix, usable width 3 + adjacent chambers, a
  * reactor cycle every 20 ticks and one EU packet of {@code output · 5} per tick.
  */
-public class NuclearReactorBlockEntity extends MachineBlockEntity implements EnergySource, Reactor {
+public class NuclearReactorBlockEntity extends MachineBlockEntity implements EnergySource, Reactor, OutputReadout {
     /** IC2 config {@code energyGeneratorNuclear}. */
     public static final int ENERGY_GENERATOR_NUCLEAR = 5;
     /** IC2 config {@code explosionPowerReactorMax}. */
@@ -73,6 +75,7 @@ public class NuclearReactorBlockEntity extends MachineBlockEntity implements Ene
     private int maxHeat = 10000;
     private float hem = 1.0F;
     private final IItemHandler itemHandler = new ReactorItemHandler(this);
+    private final OutputMeter outputMeter = new OutputMeter();
 
     public NuclearReactorBlockEntity(BlockPos pos, BlockState state) {
         super(Ic2BlockEntityTypes.get(Ic2Machine.NUCLEAR_REACTOR), pos, state, COLUMNS * ROWS);
@@ -305,6 +308,7 @@ public class NuclearReactorBlockEntity extends MachineBlockEntity implements Ene
         if (send == 0) {
             return 0;
         }
+        outputMeter.record(level, send * ENERGY_GENERATOR_NUCLEAR);
         send = EnergyNets.emit(level, this, send * ENERGY_GENERATOR_NUCLEAR);
         for (Direction direction : Direction.values()) {
             if (send > 0 && level.getBlockEntity(worldPosition.relative(direction))
@@ -471,5 +475,10 @@ public class NuclearReactorBlockEntity extends MachineBlockEntity implements Ene
     public void onDataPacket(Connection connection, ClientboundBlockEntityDataPacket packet,
                              HolderLookup.Provider registries) {
         handleUpdateTag(packet.getTag(), registries);
+    }
+
+    @Override
+    public OutputReading getOutputReading() {
+        return outputMeter.read(level, OutputReading.Unit.EU);
     }
 }

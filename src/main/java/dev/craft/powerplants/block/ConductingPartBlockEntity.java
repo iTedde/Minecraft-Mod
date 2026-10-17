@@ -4,6 +4,7 @@ import dev.craft.core.energy.EnergyConductor;
 import dev.craft.core.energy.EnergyNets;
 import dev.craft.core.energy.EnergySource;
 import dev.craft.core.energy.EnergyTile;
+import dev.craft.core.energy.OutputReadout;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.state.BlockState;
@@ -14,7 +15,7 @@ import org.jetbrains.annotations.Nullable;
  * lossless conductor that only takes EU from that controller or from other parts of the same structure, so cables can
  * be attached to any casing block (user, 2026-10-17). Otherwise it neither accepts nor emits.
  */
-public class ConductingPartBlockEntity extends PlantPartBlockEntity implements EnergyConductor {
+public class ConductingPartBlockEntity extends PlantPartBlockEntity implements EnergyConductor, OutputReadout {
     public ConductingPartBlockEntity(BlockPos pos, BlockState state) {
         super(pos, state);
     }
@@ -83,5 +84,12 @@ public class ConductingPartBlockEntity extends PlantPartBlockEntity implements E
     public void onChunkUnloaded() {
         EnergyNets.remove(level, this);
         super.onChunkUnloaded();
+    }
+
+    /** Shows the output of the formed turbine it belongs to. */
+    @Override
+    @Nullable
+    public OutputReading getOutputReading() {
+        return getSource() instanceof OutputReadout readout ? readout.getOutputReading() : null;
     }
 }

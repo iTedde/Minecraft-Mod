@@ -3,6 +3,8 @@ package dev.craft.powerplants.turbine;
 import dev.craft.core.energy.EnergyNets;
 import dev.craft.core.energy.EnergySource;
 import dev.craft.core.energy.EnergyTile;
+import dev.craft.core.energy.OutputMeter;
+import dev.craft.core.energy.OutputReadout;
 import dev.craft.core.multiblock.BlockMatcher;
 import dev.craft.core.multiblock.MultiblockPattern;
 import dev.craft.powerplants.PpBlockEntityTypes;
@@ -26,7 +28,7 @@ import org.jetbrains.annotations.Nullable;
  * controller in the middle of one 3×3 end face. Turns up to 64 mB steam per tick into as many EU (1 mB = 1 EU) and
  * emits them from the controller and every casing block in packets of up to 64 EU (MV).
  */
-public class SteamTurbineBlockEntity extends PlantControllerBlockEntity implements EnergySource {
+public class SteamTurbineBlockEntity extends PlantControllerBlockEntity implements EnergySource, OutputReadout {
     public static final int TANK_CAPACITY = 16000;
     public static final int MAX_STEAM_PER_TICK = 64;
     public static final int MAX_OUTPUT = 64;
@@ -42,6 +44,7 @@ public class SteamTurbineBlockEntity extends PlantControllerBlockEntity implemen
             .build();
 
     private final IFluidHandler tank = new SteamTank();
+    private final OutputMeter outputMeter = new OutputMeter();
     private int steam;
     private int buffer;
     /** EU produced in the last tick (GUI). */
@@ -76,6 +79,7 @@ public class SteamTurbineBlockEntity extends PlantControllerBlockEntity implemen
     protected void tickFormed() {
         production = Math.min(steam, Math.min(MAX_STEAM_PER_TICK, BUFFER_CAPACITY - buffer));
         steam -= production;
+        outputMeter.record(level, production);
         buffer += production;
         int output = Math.min(buffer, MAX_OUTPUT);
         if (output > 0) {
@@ -195,5 +199,10 @@ public class SteamTurbineBlockEntity extends PlantControllerBlockEntity implemen
         public FluidStack drain(int maxDrain, FluidAction action) {
             return FluidStack.EMPTY;
         }
+    }
+
+    @Override
+    public OutputReading getOutputReading() {
+        return outputMeter.read(level, OutputReading.Unit.EU);
     }
 }

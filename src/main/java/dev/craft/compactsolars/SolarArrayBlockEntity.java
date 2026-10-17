@@ -6,6 +6,8 @@ import java.util.Set;
 import dev.craft.core.energy.EnergyNets;
 import dev.craft.core.energy.EnergySource;
 import dev.craft.core.energy.EnergyTile;
+import dev.craft.core.energy.OutputMeter;
+import dev.craft.core.energy.OutputReadout;
 import dev.craft.core.multiblock.MultiblockController;
 import dev.craft.core.multiblock.MultiblockLease;
 import dev.craft.core.multiblock.MultiblockPattern;
@@ -29,13 +31,14 @@ import org.jetbrains.annotations.Nullable;
  * charge slot, the rest as packets of at most the tier's packet size into the net. Energy the net does not take is
  * lost; there is no buffer.
  */
-public class SolarArrayBlockEntity extends MachineBlockEntity implements EnergySource {
+public class SolarArrayBlockEntity extends MachineBlockEntity implements EnergySource, OutputReadout {
     public static final int CHECK_INTERVAL = 20;
     public static final int LEASE_DURATION = 40;
 
     private final SolarArrayType type;
     private final MultiblockController structure;
     private final MultiblockLease lease = new MultiblockLease();
+    private final OutputMeter outputMeter = new OutputMeter();
     private int sunnyPanels;
     private boolean delivering;
 
@@ -98,6 +101,7 @@ public class SolarArrayBlockEntity extends MachineBlockEntity implements EnergyS
             return;
         }
         int energy = Math.min(type.getOutput(), sunnyPanels * type.getPanelYield());
+        outputMeter.record(level, Math.max(energy, 0));
         if (energy <= 0) {
             return;
         }
@@ -215,5 +219,10 @@ public class SolarArrayBlockEntity extends MachineBlockEntity implements EnergyS
     @Override
     public AbstractContainerMenu createMenu(int id, Inventory playerInventory, Player player) {
         return new SolarArrayMenu(id, playerInventory, this);
+    }
+
+    @Override
+    public OutputReading getOutputReading() {
+        return outputMeter.read(level, OutputReading.Unit.EU);
     }
 }

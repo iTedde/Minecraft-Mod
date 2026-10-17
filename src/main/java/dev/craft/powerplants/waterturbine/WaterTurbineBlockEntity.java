@@ -5,6 +5,8 @@ import java.util.Locale;
 import dev.craft.core.energy.EnergyNets;
 import dev.craft.core.energy.EnergySource;
 import dev.craft.core.energy.EnergyTile;
+import dev.craft.core.energy.OutputMeter;
+import dev.craft.core.energy.OutputReadout;
 import dev.craft.core.multiblock.BlockMatcher;
 import dev.craft.core.multiblock.MultiblockPattern;
 import dev.craft.ic2.machine.MachineBlock;
@@ -31,7 +33,7 @@ import org.jetbrains.annotations.Nullable;
  * emitted from the controller and every casing block in packets of up to 32 EU (LV). No menu; right-clicking
  * reports the state in chat.
  */
-public class WaterTurbineBlockEntity extends PlantControllerBlockEntity implements EnergySource {
+public class WaterTurbineBlockEntity extends PlantControllerBlockEntity implements EnergySource, OutputReadout {
     public static final int COUNT_INTERVAL = 128;
     public static final int MIN_FLOWING = 16;
     public static final double YIELD_PER_BLOCK = 0.25;
@@ -53,6 +55,7 @@ public class WaterTurbineBlockEntity extends PlantControllerBlockEntity implemen
     /** EU/t from the last water count. */
     private double flow;
     private double buffer;
+    private final OutputMeter outputMeter = new OutputMeter();
 
     public WaterTurbineBlockEntity(BlockPos pos, BlockState state) {
         super(PpBlockEntityTypes.WATER_TURBINE.get(), pos, state, 0);
@@ -115,7 +118,9 @@ public class WaterTurbineBlockEntity extends PlantControllerBlockEntity implemen
         if (++ticker >= COUNT_INTERVAL) {
             updateWaterCount();
         }
+        double bufferBefore = buffer;
         buffer = Math.min(buffer + flow, BUFFER_CAPACITY);
+        outputMeter.record(level, buffer - bufferBefore);
         int output = Math.min((int) buffer, MAX_OUTPUT);
         if (output > 0) {
             buffer += EnergyNets.emit(level, this, output) - output;
@@ -198,5 +203,10 @@ public class WaterTurbineBlockEntity extends PlantControllerBlockEntity implemen
         tag.putInt("flowing", flowing);
         tag.putDouble("flow", flow);
         tag.putDouble("buffer", buffer);
+    }
+
+    @Override
+    public OutputReading getOutputReading() {
+        return outputMeter.read(level, OutputReading.Unit.EU);
     }
 }
