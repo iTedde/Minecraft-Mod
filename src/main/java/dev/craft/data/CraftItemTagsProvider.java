@@ -98,6 +98,8 @@ public final class CraftItemTagsProvider extends ItemTagsProvider {
     public static final TagKey<Item> CRAFTING_100K_EU_STORE = craftTag("crafting_100k_eu_store");
     /** GT {@code itemLazurite}: lapis lazuli ({@code dustLapis}) and lazurite dust. */
     public static final TagKey<Item> ITEM_LAZURITE = craftTag("item_lazurite");
+    /** GT {@code chunkLazurite}: lapis block and chunk of lazurite. */
+    public static final TagKey<Item> CHUNK_LAZURITE = craftTag("chunk_lazurite");
     /** GT {@code craftingGrinder}: diamond and wolframium grinding heads. */
     public static final TagKey<Item> CRAFTING_GRINDER = craftTag("crafting_grinder");
 
@@ -208,6 +210,7 @@ public final class CraftItemTagsProvider extends ItemTagsProvider {
         tag(RAW_MACHINE_TIER_02).add(Ic2Items.ADVANCED_MACHINE_CASING.get(), GtItems.STEEL_MACHINE_HULL.get());
         tag(CRAFTING_100K_EU_STORE).add(Ic2Items.ENERGY_CRYSTAL.get(), GtItems.LITHIUM_BATTERY.get());
         tag(ITEM_LAZURITE).add(Items.LAPIS_LAZULI, GtItems.LAZURITE_DUST.get());
+        tag(CHUNK_LAZURITE).add(Items.LAPIS_BLOCK, GtItems.LAZURITE_CHUNK.get());
         tag(CRAFTING_GRINDER).add(GtItems.DIAMOND_GRINDER.get(), GtItems.WOLFRAMIUM_GRINDER.get());
         tag(Tags.Items.INGOTS).addTag(INGOTS_TIN).addTag(INGOTS_URANIUM).addTag(INGOTS_BRONZE).addTag(INGOTS_REFINED_IRON)
                 .addTag(INGOTS_NICKEL).addTag(INGOTS_ALUMINIUM).addTag(INGOTS_STEEL).addTag(INGOTS_LEAD)
@@ -227,6 +230,9 @@ public final class CraftItemTagsProvider extends ItemTagsProvider {
                 .addTag(DUSTS_NICKEL).addTag(DUSTS_ALUMINIUM).addTag(DUSTS_STEEL).addTag(DUSTS_LEAD)
                 .addTag(DUSTS_PLATINUM).addTag(DUSTS_ZINC).addTag(DUSTS_CALCITE).addTag(DUSTS_MAGNESIUM)
                 .addTag(DUSTS_MANGANESE).addTag(DUSTS_TITANIUM).addTag(DUSTS_CHROME).addTag(DUSTS_TUNGSTEN);
+
+        // GT wood plate is registered as plankWood.
+        tag(ItemTags.PLANKS).add(GtItems.WOOD_PLATE.get());
 
         tag(IronFenceBlock.METAL_BOOTS).add(Items.IRON_BOOTS, Items.GOLDEN_BOOTS, Items.CHAINMAIL_BOOTS,
                 Ic2Items.NANO_BOOTS.get(), Ic2Items.QUANTUM_BOOTS.get(), Ic2Items.STATIC_BOOTS.get());

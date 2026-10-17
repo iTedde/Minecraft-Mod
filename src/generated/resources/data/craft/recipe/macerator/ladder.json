@@ -1,0 +1,10 @@
+{
+  "type": "craft:macerator",
+  "ingredient": {
+    "item": "minecraft:ladder"
+  },
+  "result": {
+    "count": 1,
+    "id": "craft:wood_pulp"
+  }
+}

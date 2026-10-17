@@ -255,10 +255,12 @@ C = fortg. Schaltkreis (`craftingCircuitTier04`), R = raff. Eisenplatte **oder**
 | 16 Sand | 2 | 1 Siliziumzelle, 1 Luftzelle | 1000 | 25 | 6b.2 |
 | 8 Tonstaub | 5 | 1 Lithiumzelle, 2 Siliziumzellen, 2 Aluminiumstaub, 2 Natriumzellen | 200 | 50 | 6b.2 |
 | 1 Kohlestaub | 2 | 2 Kohlenstoffzellen | 40 | 50 | 6b.2 |
-| 8 Feuersteinstaub | 2 | 1 Siliziumzelle, 1 Luftzelle | 1000 | 5 | später (GT-Staub) |
-| 1 Holzkohlestaub / 2 Asche | 1 | 1 Kohlenstoffzelle | 20 / 25 | 50 | später (GT-Staub) |
-| 4 Obsidianstaub | 3 | 2 kl. Magnesium-, 2 kl. Eisenstaub, 1 Siliziumzelle, 2 Luftzellen | 500 | 5 | später (Kleinstaub) |
-| 10 Salpeterstaub | 7 | 2 Kalium-, 2 Stickstoffzellen, –, 3 Luftzellen | 50 | 110 | später |
+| 8 Feuersteinstaub | 2 | 1 Siliziumzelle, 1 Luftzelle | 1000 | 5 | 13.3 |
+| 1 Holzkohlestaub / 2 Asche | 1 | 1 Kohlenstoffzelle | 20 / 25 | 50 | 13.3 |
+| 4 Obsidianstaub | 3 | 2 kl. Magnesium-, 2 kl. Eisenstaub, 1 Siliziumzelle, 2 Luftzellen | 500 | 5 | 13.3 |
+| 10 Salpeterstaub | 7 | 2 Kalium-, 2 Stickstoffzellen, –, 3 Luftzellen | 50 | 110 | 13.3 |
+| 3 Pyritstaub | – | 1 Eisenstaub, 2 Schwefelstaub | 120 | 128 | 13.3 |
+| 29 Lazuritstaub | 11 | 3 Aluminiumstaub, 3 Siliziumzellen, 4 Calciumzellen, 4 Natriumzellen | 1475 | 100 | 13.3 (Compressor: 8 → Lazuritbrocken) |
 | Erze/Edelsteine (Bauxit, Rubin, Saphir, Granate, Smaragd, Enderperle, Lazurit, Pyrit, Calcit, Sodalith, Galena, Sphalerit, Zinnober …), Schwefelsäure-, Methan-, Holzgaszellen | | siehe `GT_OreDictHandler` | | | mit den GT-Erzen/-Stäuben |
 
 Zellen (`GT_MetaItem_Cell`, Tooltip = Formel): 0 Wasserstoff H, 5 Lithium Li, 7 Silizium Si, 8 Kohlenstoff C,

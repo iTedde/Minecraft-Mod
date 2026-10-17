@@ -1,0 +1,10 @@
+{
+  "type": "craft:macerator",
+  "ingredient": {
+    "item": "minecraft:chest"
+  },
+  "result": {
+    "count": 8,
+    "id": "craft:wood_pulp"
+  }
+}

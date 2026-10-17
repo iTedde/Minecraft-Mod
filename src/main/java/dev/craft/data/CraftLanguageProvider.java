@@ -147,6 +147,7 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
         add("tag.item.craft.crafting_100k_eu_store", german ? "100k-EU-Speicher" : "100k EU Storage");
         add("tag.item.craft.crafting_grinder", german ? "Mahlwerkzeuge" : "Grinders");
         add("tag.item.craft.item_lazurite", german ? "Lazurit" : "Lazurite");
+        add("tag.item.craft.chunk_lazurite", german ? "Lazuritbrocken" : "Chunk of Lazurite");
         add("tag.item.craft.metal_boots", german ? "Metallstiefel" : "Metal Boots");
         add("tag.item.craft.raw_machine_tier_01", german ? "Maschinengehäuse (Stufe 1)" : "Machine Hulls (Tier 1)");
         add("tag.item.craft.raw_machine_tier_02", german ? "Maschinengehäuse (Stufe 2)" : "Machine Hulls (Tier 2)");
@@ -658,6 +659,15 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
         item(GtItems.SMALL_MANGANESE_DUST, "Tiny Pile of Manganese Dust");
         item(GtItems.SMALL_PLATINUM_DUST, "Tiny Pile of Platinum Dust");
         item(GtItems.IRIDIUM_NUGGET, "Iridium Nugget");
+        item(GtItems.FLINT_DUST, "Flint Dust");
+        item(GtItems.SMALL_FLINT_DUST, "Tiny Pile of Flint Dust");
+        item(GtItems.WOOD_PULP, "Wood Pulp");
+        item(GtItems.SMALL_WOOD_PULP, "Tiny Pile of Wood Pulp");
+        item(GtItems.WOOD_PLATE, "Wood Plate");
+        item(GtItems.ELECTRUM_DUST, "Electrum Dust");
+        item(GtItems.OBSIDIAN_DUST, "Obsidian Dust");
+        item(GtItems.CHARCOAL_DUST, "Charcoal Dust");
+        item(GtItems.LAZURITE_CHUNK, "Chunk of Lazurite");
         item(GtItems.DIAMOND_GRINDER, "Diamond Grinder");
         item(GtItems.SILVER_INGOT, "Silver Ingot");
         item(GtItems.SILVER_PLATE, "Silver Plate");

@@ -41,7 +41,8 @@ heraus. Auswahl gewichtet: `rand · Summe` gegen die kumulierten Chancen.
 **Pack-Liste:** IC2 füllt die Liste in PreInit (`ItemScrapbox.init`), GregTech **leert sie** in seiner PreInit
 (`GT_Mod.java:431`), trägt Schrott (Chance 200) ein und fügt in PostInit seine Liste hinzu (`GT_Mod.java:2231–2311`,
 alle Einträge in `RecipesAdvancedConfig.cfg` aktiv). Die IC2-Liste (inkl. „suddenlyHoes“) ist damit wirkungslos.
-Summe aller Pack-Chancen 320,78; Schrott ≈ 62 %. Die Sonderregeln in `GT_ModHandler.getRandomScrapboxDrop`
+Summe aller Pack-Chancen 320,78; Schrott ≈ 62 %. Seit 13.3 sind auch Holzschliff, Holzkohle-, Elektrum-, Obsidian- und Feuersteinstaub enthalten; es fehlen nur noch die
+Platinen 48/49/24 und Messingstaub. Die Sonderregeln in `GT_ModHandler.getRandomScrapboxDrop`
 (Minecart und Goldhelm neu würfeln) gelten nur für den GT-Scrapboxinator, nicht für den Rechtsklick.
 
 | Chance | Drops |

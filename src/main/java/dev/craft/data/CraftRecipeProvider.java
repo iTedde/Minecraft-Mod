@@ -103,6 +103,7 @@ public final class CraftRecipeProvider extends RecipeProvider {
         gregTechUnlockedRecipes();
         gregTechCircuits();
         gregTechTungsten();
+        gregTechDusts();
         uuMatter();
         smelting();
         macerator();
@@ -1285,7 +1286,8 @@ public final class CraftRecipeProvider extends RecipeProvider {
                 .define('T', CraftItemTagsProvider.INGOTS_TIN).define('C', Ic2Items.ELECTRONIC_CIRCUIT)
                 .define('B', Ic2Items.RE_BATTERY).save();
         shaped(Ic2Items.LAPPACK, 1, "lappack").pattern("LAL").pattern("LBL").pattern("L L")
-                .define('L', Items.LAPIS_BLOCK).define('A', Ic2Items.ADVANCED_CIRCUIT).define('B', Ic2Items.BATPACK)
+                .define('L', CraftItemTagsProvider.CHUNK_LAZURITE).define('A', Ic2Items.ADVANCED_CIRCUIT)
+                .define('B', Ic2Items.BATPACK)
                 .save();
         shaped(Ic2Items.SOLAR_HELMET, 1, "solar_helmet").pattern("III").pattern("ISI").pattern("CCC")
                 .define('I', Items.IRON_INGOT).define('S', Ic2Items.machine(Ic2Machine.SOLAR_PANEL))
@@ -1840,6 +1842,92 @@ public final class CraftRecipeProvider extends RecipeProvider {
     }
 
     /** Tungsten chain and vacuum freezer (spec 12 §5.6, spec 13 §11, phase 8e.4). */
+    /**
+     * Phase 13.3: GT dusts reachable without other mods (flint, wood pulp, charcoal, obsidian, electrum) with their
+     * macerator sources ({@code GT_Mod} 1670–1684, 2019, 4738–4750, {@code GT_OreDictHandler} plank/slab/sapling),
+     * uses and the GT gunpowder recipes. Only the main macerator output, as before.
+     */
+    private void gregTechDusts() {
+        // Flint: 2 tiny piles from flint (10 % third pile = secondary output), electrolysis, 5 ITNT.
+        machine(MachineRecipe.Kind.MACERATOR, "flint", Ingredient.of(Items.FLINT), 1, GtItems.SMALL_FLINT_DUST, 2);
+        smallDust("flint", GtItems.SMALL_FLINT_DUST, Ingredient.of(GtItems.FLINT_DUST), GtItems.FLINT_DUST);
+        electrolysis("flint_dust", Ingredient.of(GtItems.FLINT_DUST), 8, 2, 1000, 5,
+                new ItemStack(GtItems.SILICON_CELL.get()), new ItemStack(Ic2Items.AIR_CELL.get()));
+        shaped(Ic2Items.INDUSTRIAL_TNT, 5, "industrial_tnt_from_flint_dust").pattern("FFF", "TTT", "FFF")
+                .define('F', GtItems.FLINT_DUST).define('T', Items.TNT).save();
+
+        // Wood pulp: plankWood → 1, slabWood/treeSapling/stick → 2 tiny piles, wooden items (1.21 tags).
+        machine(MachineRecipe.Kind.MACERATOR, "planks", Ingredient.of(ItemTags.PLANKS), 1, GtItems.WOOD_PULP, 1);
+        machine(MachineRecipe.Kind.MACERATOR, "wooden_slab", Ingredient.of(ItemTags.WOODEN_SLABS), 1,
+                GtItems.SMALL_WOOD_PULP, 2);
+        machine(MachineRecipe.Kind.MACERATOR, "sapling", Ingredient.of(ItemTags.SAPLINGS), 1,
+                GtItems.SMALL_WOOD_PULP, 2);
+        machine(MachineRecipe.Kind.MACERATOR, "stick", Ingredient.of(Items.STICK), 1, GtItems.SMALL_WOOD_PULP, 2);
+        machine(MachineRecipe.Kind.MACERATOR, "crop", Ingredient.of(Ic2Items.CROP), 1, GtItems.WOOD_PULP, 1);
+        machine(MachineRecipe.Kind.MACERATOR, "sign", Ingredient.of(ItemTags.SIGNS), 1, GtItems.WOOD_PULP, 2);
+        // 1.21 makes 3 wooden doors from 6 planks (1.4.7: 1 door, 6 pulp), so a door gives 2 like the iron door.
+        machine(MachineRecipe.Kind.MACERATOR, "wooden_door", Ingredient.of(ItemTags.WOODEN_DOORS), 1,
+                GtItems.WOOD_PULP, 2);
+        machine(MachineRecipe.Kind.MACERATOR, "chest", Ingredient.of(Items.CHEST), 1, GtItems.WOOD_PULP, 8);
+        machine(MachineRecipe.Kind.MACERATOR, "wooden_button", Ingredient.of(ItemTags.WOODEN_BUTTONS), 1,
+                GtItems.WOOD_PULP, 1);
+        machine(MachineRecipe.Kind.MACERATOR, "wooden_pressure_plate", Ingredient.of(ItemTags.WOODEN_PRESSURE_PLATES),
+                1, GtItems.WOOD_PULP, 2);
+        machine(MachineRecipe.Kind.MACERATOR, "redstone_torch", Ingredient.of(Items.REDSTONE_TORCH), 1,
+                GtItems.SMALL_WOOD_PULP, 2);
+        machine(MachineRecipe.Kind.MACERATOR, "ladder", Ingredient.of(Items.LADDER), 1, GtItems.WOOD_PULP, 1);
+        smallDust("wood", GtItems.SMALL_WOOD_PULP, Ingredient.of(GtItems.WOOD_PULP), GtItems.WOOD_PULP);
+        machine(MachineRecipe.Kind.COMPRESSOR, "wood_pulp", Ingredient.of(GtItems.WOOD_PULP), 8, GtItems.WOOD_PLATE,
+                1);
+
+        // Charcoal dust: macerator, electrolysis → carbon cell, gunpowder (and the coal dust variant).
+        machine(MachineRecipe.Kind.MACERATOR, "charcoal", Ingredient.of(Items.CHARCOAL), 1, GtItems.CHARCOAL_DUST, 1);
+        electrolysis("charcoal_dust", Ingredient.of(GtItems.CHARCOAL_DUST), 1, 1, 20, 50,
+                new ItemStack(GtItems.CARBON_CELL.get()));
+        Ingredient sulfur = Ingredient.of(GtItems.SULFUR_DUST);
+        Ingredient saltpeter = Ingredient.of(GtItems.SALTPETER_DUST);
+        shapeless(Items.GUNPOWDER, 3, "gunpowder_from_coal_dust_shapeless",
+                Ingredient.of(CraftItemTagsProvider.DUSTS_COAL), sulfur, saltpeter, saltpeter);
+        shapeless(Items.GUNPOWDER, 2, "gunpowder_from_charcoal_dust", Ingredient.of(GtItems.CHARCOAL_DUST), sulfur,
+                saltpeter, saltpeter);
+
+        // Obsidian dust: macerator (obsidian; enchanting table → diamond dust), electrolysis.
+        machine(MachineRecipe.Kind.MACERATOR, "obsidian", Ingredient.of(Items.OBSIDIAN), 1, GtItems.OBSIDIAN_DUST, 1);
+        machine(MachineRecipe.Kind.MACERATOR, "enchanting_table", Ingredient.of(Items.ENCHANTING_TABLE), 1,
+                GtItems.DIAMOND_DUST, 2);
+        electrolysis("obsidian_dust", Ingredient.of(GtItems.OBSIDIAN_DUST), 4, 3, 500, 5,
+                stack(GtItems.SMALL_MAGNESIUM_DUST, 2), stack(Ic2Items.SMALL_IRON_DUST, 2),
+                new ItemStack(GtItems.SILICON_CELL.get()), stack(Ic2Items.AIR_CELL, 2));
+
+        // Electrum dust: from silver + gold dust, back to ingot and to small gold/silver; ingot → dust.
+        shapeless(GtItems.ELECTRUM_DUST, 2, "electrum_dust", Ingredient.of(CraftItemTagsProvider.DUSTS_SILVER),
+                Ingredient.of(CraftItemTagsProvider.DUSTS_GOLD));
+        Ingredient smallSilver = Ingredient.of(GtItems.SMALL_SILVER_DUST);
+        Ingredient smallGold = Ingredient.of(GtItems.SMALL_GOLD_DUST);
+        shapeless(GtItems.ELECTRUM_DUST, 1, "electrum_dust_from_small", smallSilver, smallSilver, smallGold,
+                smallGold);
+        smelt("electrum_ingot_from_dust", Ingredient.of(GtItems.ELECTRUM_DUST), GtItems.ELECTRUM_INGOT, 1, 0.0F);
+        centrifuge("electrum_dust", Ingredient.of(GtItems.ELECTRUM_DUST), 1, 0, 975, stack(GtItems.SMALL_GOLD_DUST, 2),
+                stack(GtItems.SMALL_SILVER_DUST, 2));
+        machine(MachineRecipe.Kind.MACERATOR, "electrum_ingot", Ingredient.of(GtItems.ELECTRUM_INGOT), 1,
+                GtItems.ELECTRUM_DUST, 1);
+
+        // Further GT_OreDictHandler dust recipes whose items exist (left as "later" since 6b.2).
+        electrolysis("ash", Ingredient.of(GtItems.ASH), 2, 1, 25, 50, new ItemStack(GtItems.CARBON_CELL.get()));
+        electrolysis("saltpeter_dust", Ingredient.of(GtItems.SALTPETER_DUST), 10, 7, 50, 110,
+                stack(GtItems.POTASSIUM_CELL, 2), stack(GtItems.NITROGEN_CELL, 2), ItemStack.EMPTY,
+                stack(Ic2Items.AIR_CELL, 3));
+        electrolysis("pyrite_dust", Ingredient.of(GtItems.PYRITE_DUST), 3, 0, 120, 128, stack(Ic2Items.IRON_DUST, 1),
+                stack(GtItems.SULFUR_DUST, 2));
+        electrolysis("lazurite_dust", Ingredient.of(GtItems.LAZURITE_DUST), 29, 11, 1475, 100,
+                stack(GtItems.ALUMINIUM_DUST, 3), stack(GtItems.SILICON_CELL, 3), stack(GtItems.CALCIUM_CELL, 4),
+                stack(GtItems.SODIUM_CELL, 4));
+        machine(MachineRecipe.Kind.COMPRESSOR, "lazurite_dust", Ingredient.of(GtItems.LAZURITE_DUST), 8,
+                GtItems.LAZURITE_CHUNK, 1);
+        centrifuge("netherrack_dust", Ingredient.of(GtItems.NETHERRACK_DUST), 16, 0, 2400, stack(Items.REDSTONE, 1),
+                stack(GtItems.SULFUR_DUST, 4), stack(Ic2Items.COAL_DUST, 1), stack(Items.GOLD_NUGGET, 1));
+    }
+
     private void gregTechTungsten() {
         for (String variant : new String[]{"refined_iron", "aluminium"}) {
             shaped(GtItems.machine(GtMachine.VACUUM_FREEZER), 1, "vacuum_freezer_from_" + variant)

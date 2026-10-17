@@ -1,0 +1,10 @@
+{
+  "type": "craft:macerator",
+  "ingredient": {
+    "item": "craft:electrum_ingot"
+  },
+  "result": {
+    "count": 1,
+    "id": "craft:electrum_dust"
+  }
+}

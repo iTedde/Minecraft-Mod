@@ -1552,8 +1552,33 @@ Nutzerentscheidung (2026-10-17): **alle vier Lücken umsetzen** → Phase 13 (13
 - `abweichungen.md` (kein Symbol-Item), `testplan.md` 6.13.
 - 1 neuer GameTest (`BuildCraftGameTests.combustionEngineTakesIc2Coolant`), **336 GameTests grün**, `gradlew build`.
 
+## Erledigt (Teilpaket „Phase 13.3: erreichbare GT-Stäube“, 2026-10-17)
+- Items (GT-Sheets `dusts.png` 7/15/21/46/47, `dustssmall.png` 7/15, `materials.png` 15/35): Feuersteinstaub + kl.,
+  Holzschliff + kl., Holzplatte (Tag `minecraft:planks`), Elektrum-, Obsidian-, Holzkohlestaub, Lazuritbrocken.
+- Rezepte (`CraftRecipeProvider.gregTechDusts`): Macerator Feuerstein, Bretter, Holzstufen, Setzlinge, Stock, Crop-Stab,
+  Schild, Holztür (2), Truhe, Holzknopf/-druckplatte, Redstone-Fackel, Leiter, Holzkohle, Obsidian, Zaubertisch
+  (2 Diamantstaub), Elektrumbarren; Compressor 8 Holzschliff → Holzplatte, 8 Lazuritstaub → Lazuritbrocken;
+  Elektrolyseur Feuerstein-, Holzkohle-, Obsidianstaub und die liegengebliebenen Asche, Salpeter, Pyrit, Lazurit;
+  Zentrifuge Elektrum- und Netherrackstaub; Werkbank Elektrumstaub (2 Varianten), kl. Stäube, GT-Schießpulver
+  (Kohlestaub 3, Holzkohlestaub 2), 5 ITNT aus Feuersteinstaub; Ofen Elektrumstaub → Barren; Lappack mit
+  `chunkLazurite` (Lapisblock oder Lazuritbrocken). Schrottbox: Holzschliff 380, Holzkohle 250, Elektrum 50,
+  Obsidian 150, Feuerstein 400.
+- Spezifikation: `spec/13` §4 (Elektrolyseur-Tabelle), `spec/12` §5.4 (Korrektur Elektrum/Messing), `spec/05` §1.1;
+  `abweichungen.md` (Holzschliff-Quellen, Fremdmod-Stäube), `testplan.md` 5.18.
+- 4 neue GameTests (`GtDustGameTests`), **340 GameTests grün**, `gradlew build`.
+
+## Neue Befunde aus 13.3 (Nutzerentscheidung offen)
+1. **Elektrum ist erreichbar** (Werkbank Silber- + Goldstaub, s. o.) → im Pack auch Elektrumplatte (Plattenbieger) und
+   damit die in 8e gestrichenen **Platinen 48/49/24** (Basis-/fortg. Platine, fortg. Schaltkreisteile, auch Glowstone +
+   Lazurit im Assembler → 2 Schaltkreisteile) samt Schrottbox-Drops. Die 8e-Begründung war falsch.
+2. **Messingstaub** (3 Kupfer- + 1 Zinkstaub → 4) ist ebenso erreichbar → Messingbarren/-platte, Messing-Varianten des
+   Mischmetalls, Schrottbox 50.
+3. **GT-Mörser** (Eisenmörser `" R /SRS/SSS"`, Feuersteinmörser) mit Werkbank-Rezepten Barren → Staub, Kies → Feuerstein
+   usw. – nie umgesetzt.
+4. GT-Compressor: 4 Setzlinge bzw. 8 Blätter → komprimierter Pflanzenball – fehlt.
+5. Solarhelm/Static Boots aus Eisenhelm/-stiefeln akzeptieren beschädigte Teile (IC2 `AdvRecipe` verlangt Schaden 0).
+
 ## Nächste Schritte
-1. Teilpaket 13.3: erreichbare GT-Stäube (Feuerstein, Holzkohle, Obsidian, Holzschliff, Elektrum) samt Macerator-,
-   Elektrolyseur-, Schrottbox- und Werkbankrezepten – Spec vorher aus `GT_Mod.java` ergänzen.
-2. Danach 13.4 Rückgewinnung.
+1. Teilpaket 13.4: GT-Rückgewinnung (`GT_Utility.applyUsagesForMaterials`, 30 Aufrufe in `GT_Mod` ~4680–4710).
+2. Danach Nutzerentscheidung zu den Befunden oben.
 3. Restliche manuelle Tests aus `testplan.md` (Sounds, Explosionen, Rüstung/Werkzeuge, Weltgen, Multiblöcke).

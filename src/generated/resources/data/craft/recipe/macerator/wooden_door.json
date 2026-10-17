@@ -1,0 +1,10 @@
+{
+  "type": "craft:macerator",
+  "ingredient": {
+    "tag": "minecraft:wooden_doors"
+  },
+  "result": {
+    "count": 2,
+    "id": "craft:wood_pulp"
+  }
+}

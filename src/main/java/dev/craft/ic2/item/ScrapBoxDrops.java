@@ -58,7 +58,7 @@ public final class ScrapBoxDrops {
         add(drops, Items.LEATHER, 100);
         add(drops, Items.FEATHER, 100);
         add(drops, Ic2Items.PLANT_BALL.get(), 70);
-        // wood pulp 380: not yet available
+        add(drops, GtItems.WOOD_PULP.get(), 380);
         add(drops, Items.SLIME_BALL, 60);
         add(drops, Ic2Items.RUBBER.get(), 80);
         add(drops, Ic2Items.SU_BATTERY.get(), 270);
@@ -69,11 +69,11 @@ public final class ScrapBoxDrops {
         add(drops, Items.REDSTONE, 90);
         add(drops, Items.GLOWSTONE_DUST, 80);
         add(drops, Ic2Items.COAL_DUST.get(), 80);
-        // charcoal dust 250: not yet available
+        add(drops, GtItems.CHARCOAL_DUST.get(), 250);
         add(drops, Ic2Items.IRON_DUST.get(), 100);
         add(drops, Ic2Items.GOLD_DUST.get(), 100);
         add(drops, Ic2Items.SILVER_DUST.get(), 50);
-        // electrum dust 50: not yet available
+        add(drops, GtItems.ELECTRUM_DUST.get(), 50);
         add(drops, Ic2Items.TIN_DUST.get(), 120);
         add(drops, Ic2Items.COPPER_DUST.get(), 120);
         add(drops, GtItems.BAUXITE_DUST.get(), 50);
@@ -83,7 +83,7 @@ public final class ScrapBoxDrops {
         add(drops, GtItems.ZINC_DUST.get(), 50);
         // brass dust 50: not yet available
         add(drops, GtItems.STEEL_DUST.get(), 50);
-        // obsidian dust 150: not yet available
+        add(drops, GtItems.OBSIDIAN_DUST.get(), 150);
         add(drops, GtItems.SULFUR_DUST.get(), 150);
         add(drops, GtItems.SALTPETER_DUST.get(), 200);
         add(drops, GtItems.LAZURITE_DUST.get(), 200);
@@ -97,7 +97,7 @@ public final class ScrapBoxDrops {
         add(drops, GtItems.MAGNESIUM_DUST.get(), 3);
         add(drops, GtItems.ELITE_CIRCUIT_BOARD.get(), 20);
         add(drops, GtItems.NETHERRACK_DUST.get(), 400);
-        // other GT dusts (flint, endstone): not yet available
+        add(drops, GtItems.FLINT_DUST.get(), 400);
         add(drops, GtItems.RED_GARNET.get(), 50);
         add(drops, GtItems.YELLOW_GARNET.get(), 50);
         add(drops, GtItems.OLIVINE.get(), 5);

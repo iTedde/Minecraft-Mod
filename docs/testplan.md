@@ -107,6 +107,7 @@ Testwelt. Sprache einmal Deutsch, einmal Englisch prüfen. EMI und Xaero's Minim
 | 5.14 | GT-Erze in neuer Welt: Galena/Iridium unter y 32 bzw. 99, Rubin in Wüste/Badlands/Savanne, Saphir an Ozean/Strand, Bauxit in Ebenen/Wäldern (y 32–79); Nether Pyrit/Zinnober/Sphalerit; End-Erze und Asteroiden; Abbau mit/ohne Glück und Behutsamkeit | 8c | |
 | 5.15 | Ketten: Lapis → Sodalith → Natrium; Enderperle → Kalium; NaK-60k (nur mit unbenutzter 10k-Zelle); Silberstaub → Blei → Containment-Platte; Bauxit → Titan → Platte; Rubin → Chrom; Pyriterz + Calciumcarbonat im Hochofen | 8a, 8c, 8e.1 | |
 | 5.16 | Schaltungskette im Assembler (Olivin → Datenspeicher → Elite-Platine → Datenkontrolle/Energiefluss); Nanosäbel herstellen und einschalten | 8e.3 | |
+| 5.18 | GT-Stäube (13.3): Macerator Feuerstein → 2 kl. Feuersteinstaub, Bretter/Holzplatte → Holzschliff, Stock/Setzling/Stufe → 2 kl., Tür → 2, Truhe → 8, Holzkohle/Obsidian/Elektrumbarren → Staub, Zaubertisch → 2 Diamantstaub; 8 Holzschliff → Holzplatte (als Brett nutzbar); Elektrolyseur Feuerstein/Holzkohle/Asche/Obsidian/Salpeter/Pyrit/Lazurit; Zentrifuge Elektrum/Netherrack; Werkbank Elektrumstaub, Schießpulver (Kohle 3, Holzkohle 2), 5 ITNT aus Feuersteinstaub, Lappack mit Lazuritbrocken; Schrottbox-Seite in EMI | 13.3 | |
 | 5.17 | Diamantbohrer → Quarry-Rezept; Bergbaulaser-Rezept (Ladung des Energiekristalls geht über); Quantum-Rüstung craften (Ladung übernommen) | 8e.2, 6b.5b | |
 
 ## 6. BuildCraft (Phasen 4, 10)

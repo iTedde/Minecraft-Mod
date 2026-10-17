@@ -168,6 +168,10 @@ nachgetragen (fehlten seit 8c): 2 Rubine ` UU/UUU/UU `, 2 Saphire `UU /UUU/ UU`,
   in §5.6 bzw. `13-gregtech-maschinen.md` §11.
 - **Platinen 48/49/24** (Basis-/fortg. Platine, fortg. Schaltkreisteile): brauchen Elektrumplatten; Elektrum gibt es
   nur über die Legierungsschmelze (nicht im Umfang) → entfallen, ebenso ihre Schrottbox-Drops.
+  **Korrektur (13.3, 2026-10-17):** falsch – GT hat die unbedingten Werkbankrezepte Silber- + Goldstaub → 2
+  Elektrumstaub und 2 kl. Silber- + 2 kl. Goldstaub → 1 (`GT_Mod` 3951–3953), Elektrumstaub wird im Ofen zum Barren;
+  ebenso 3 Kupfer- + 1 Zinkstaub → 4 Messingstaub (3955). Elektrumstaub ist seit 13.3 umgesetzt; Elektrumplatte,
+  Platinen 48/49/24 und Messing neu zu entscheiden (`STATUS.md`).
 - GT-eigene Items (Jackhammer, Cloaking Device, Lapotronic Energy Orb, Datenkugel, Sonictron, Fusion,
   Railcraft-Teile) und Nuggets/Speicherblöcke (bisher nie umgesetzt, außer Iridiumnugget) → nicht im Umfang.
 

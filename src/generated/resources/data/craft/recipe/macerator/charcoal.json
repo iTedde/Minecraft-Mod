@@ -1,0 +1,10 @@
+{
+  "type": "craft:macerator",
+  "ingredient": {
+    "item": "minecraft:charcoal"
+  },
+  "result": {
+    "count": 1,
+    "id": "craft:charcoal_dust"
+  }
+}

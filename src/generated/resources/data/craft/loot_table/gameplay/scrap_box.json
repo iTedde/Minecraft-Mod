@@ -169,6 +169,11 @@
         },
         {
           "type": "minecraft:item",
+          "name": "craft:wood_pulp",
+          "weight": 380
+        },
+        {
+          "type": "minecraft:item",
           "name": "minecraft:slime_ball",
           "weight": 60
         },
@@ -214,6 +219,11 @@
         },
         {
           "type": "minecraft:item",
+          "name": "craft:charcoal_dust",
+          "weight": 250
+        },
+        {
+          "type": "minecraft:item",
           "name": "craft:iron_dust",
           "weight": 100
         },
@@ -225,6 +235,11 @@
         {
           "type": "minecraft:item",
           "name": "craft:silver_dust",
+          "weight": 50
+        },
+        {
+          "type": "minecraft:item",
+          "name": "craft:electrum_dust",
           "weight": 50
         },
         {
@@ -266,6 +281,11 @@
           "type": "minecraft:item",
           "name": "craft:steel_dust",
           "weight": 50
+        },
+        {
+          "type": "minecraft:item",
+          "name": "craft:obsidian_dust",
+          "weight": 150
         },
         {
           "type": "minecraft:item",
@@ -330,6 +350,11 @@
         {
           "type": "minecraft:item",
           "name": "craft:netherrack_dust",
+          "weight": 400
+        },
+        {
+          "type": "minecraft:item",
+          "name": "craft:flint_dust",
           "weight": 400
         },
         {

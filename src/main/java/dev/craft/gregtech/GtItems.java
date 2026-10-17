@@ -298,6 +298,19 @@ public final class GtItems {
     /** {@code GT_BlockMetaID_Block} 11. */
     public static final DeferredItem<BlockItem> STEEL_BLOCK = ITEMS.registerSimpleBlockItem(GtBlocks.STEEL_BLOCK);
 
+    // --- reachable dusts (phase 13.3): Dust 7/15/21/46/47, SmallDust 7/15, Material 15 ---
+    public static final DeferredItem<GtMaterialItem> FLINT_DUST = material("flint_dust", "SiO2");
+    public static final DeferredItem<GtMaterialItem> SMALL_FLINT_DUST = material("small_flint_dust", "SiO2");
+    public static final DeferredItem<GtMaterialItem> WOOD_PULP = material("wood_pulp", "");
+    public static final DeferredItem<GtMaterialItem> SMALL_WOOD_PULP = material("small_wood_pulp", "");
+    /** {@code plankWood}: tagged as planks (Forge turned the vanilla plank recipes into {@code plankWood} ones). */
+    public static final DeferredItem<GtMaterialItem> WOOD_PLATE = material("wood_plate", "");
+    public static final DeferredItem<GtMaterialItem> ELECTRUM_DUST = material("electrum_dust", "AgAu");
+    public static final DeferredItem<GtMaterialItem> OBSIDIAN_DUST = material("obsidian_dust", "MgFeSi2O8");
+    public static final DeferredItem<GtMaterialItem> CHARCOAL_DUST = material("charcoal_dust", "C");
+    /** Material 35 {@code chunkLazurite} (the lapis block is registered under the same name). */
+    public static final DeferredItem<GtMaterialItem> LAZURITE_CHUNK = material("lazurite_chunk", "(Al6Si6Ca8Na8)8");
+
     public static DeferredItem<BlockItem> ore(GtOre ore) {
         return ORES.get(ore);
     }

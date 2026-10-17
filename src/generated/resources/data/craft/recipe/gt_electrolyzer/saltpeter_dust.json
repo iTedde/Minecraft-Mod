@@ -1,0 +1,30 @@
+{
+  "type": "craft:gt_electrolyzer",
+  "duration": 50,
+  "eu_per_tick": 110,
+  "inputs": [
+    {
+      "count": 10,
+      "item": "craft:saltpeter_dust"
+    },
+    {
+      "count": 7,
+      "item": "craft:empty_cell"
+    }
+  ],
+  "outputs": [
+    {
+      "count": 2,
+      "id": "craft:potassium_cell"
+    },
+    {
+      "count": 2,
+      "id": "craft:nitrogen_cell"
+    },
+    {},
+    {
+      "count": 3,
+      "id": "craft:air_cell"
+    }
+  ]
+}

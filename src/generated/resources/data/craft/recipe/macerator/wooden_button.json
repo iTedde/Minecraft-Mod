@@ -1,0 +1,10 @@
+{
+  "type": "craft:macerator",
+  "ingredient": {
+    "tag": "minecraft:wooden_buttons"
+  },
+  "result": {
+    "count": 1,
+    "id": "craft:wood_pulp"
+  }
+}

@@ -8,7 +8,7 @@
       "item": "craft:batpack"
     },
     "L": {
-      "item": "minecraft:lapis_block"
+      "tag": "craft:chunk_lazurite"
     }
   },
   "pattern": [
