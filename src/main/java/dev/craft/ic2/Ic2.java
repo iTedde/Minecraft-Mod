@@ -36,6 +36,8 @@ public final class Ic2 {
         Ic2Keyboard.ATTACHMENT_TYPES.register(modBus);
         Ic2ArmorMaterials.MATERIALS.register(modBus);
         Ic2MobEffects.EFFECTS.register(modBus);
+        Ic2Fluids.FLUID_TYPES.register(modBus);
+        Ic2Fluids.FLUIDS.register(modBus);
         ArmorEvents.register(NeoForge.EVENT_BUS);
         modBus.addListener(Ic2Keyboard::registerPayloads);
         NeoForge.EVENT_BUS.addListener(ElectricToolItem::onBlockBreak);

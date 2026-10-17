@@ -324,6 +324,7 @@
   "entity.craft.mining_laser": "Mining Laser",
   "entity.craft.nuke": "Nuke",
   "entity.craft.sticky_dynamite": "Sticky Dynamite",
+  "fluid_type.craft.coolant": "Coolant",
   "fluid_type.craft.fuel": "Fuel",
   "fluid_type.craft.liquid_glass": "Liquid Glass",
   "fluid_type.craft.oil": "Oil",

@@ -91,7 +91,7 @@ eingefüllt, Eis wird ab Hitze > 49 000 wie Wassereimer behandelt).
 | Öl | 3 | 20 000 | 60 000 |
 | Treibstoff (Fuel) | 6 | 100 000 | 600 000 |
 
-Kühlmittel: Wasser (1,0 Hitze pro mB). (Andere Mods registrieren weitere – außer Umfang.) Behälter im Slot: Eimer (→ leerer Eimer) und die IC2-Wasser-/Lavazelle (1000 mB, wird **ohne** leere Zelle verbraucht, da BC `consumeItem` nur Container-Items zurückgibt).
+Kühlmittel: Wasser (1,0 Hitze pro mB) und **IC2-Kühlmittel** (5,0 Hitze pro mB, registriert von IC2 `bcIntegration32x/SubModule`; nachgetragen 13.2). Weitere Mods (Railcraft, Forestry …) – außer Umfang. Behälter im Slot: Eimer (→ leerer Eimer), die IC2-Wasser-/Lavazelle (1000 mB) und die IC2-Kühlzellen (10k/30k/60k = 1000/3000/6000 mB Kühlmittel, nur unbeschädigt); Zellen werden **ohne** leere Zelle verbraucht, da BC `consumeItem` nur Container-Items zurückgibt.
 Eigenheiten (1:1): Beim Abbau der Combustion-Engine gehen Slot-Inhalt und Tanks verloren (`EngineIron.delete` droppt nichts). Der gewählte Brennstoff (`currentFuel`) wird erst zurückgesetzt, wenn Tank und Brennzeit leer sind. Der Puffer (`PowerProvider`) der Engines wird nicht gespeichert.
 
 Treibstoff entsteht nur in der **Raffinerie** (Öl → Treibstoff, 12 MJ, 1:1), siehe §7.3.

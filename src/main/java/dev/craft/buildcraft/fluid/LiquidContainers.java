@@ -3,6 +3,7 @@ package dev.craft.buildcraft.fluid;
 import java.util.List;
 
 import dev.craft.buildcraft.BcItems;
+import dev.craft.ic2.Ic2Fluids;
 import dev.craft.ic2.Ic2Items;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -15,22 +16,30 @@ import net.neoforged.neoforge.fluids.FluidUtil;
 
 /**
  * Forge 1.4.7 {@code LiquidContainerRegistry} as used by the BuildCraft machines: the filled containers registered in
- * the pack (vanilla buckets, BuildCraft oil/fuel buckets, IC2 water/lava cells), each holding 1000 mB.
+ * the pack (vanilla buckets, BuildCraft oil/fuel buckets, IC2 water/lava cells with 1000 mB, IC2 coolant cells with
+ * 1000/3000/6000 mB coolant). The registry keys on item and damage, so only undamaged (unheated) coolant cells count.
  */
 public final class LiquidContainers {
-    private record Entry(Fluid fluid, Item filled, Item empty) {
+    private record Entry(Fluid fluid, int amount, Item filled, Item empty) {
     }
 
     private LiquidContainers() {
     }
 
     private static List<Entry> entries() {
-        return List.of(new Entry(Fluids.WATER, Items.WATER_BUCKET, Items.BUCKET),
-                new Entry(Fluids.LAVA, Items.LAVA_BUCKET, Items.BUCKET),
-                new Entry(BcFluids.OIL.get(), BcItems.OIL_BUCKET.get(), Items.BUCKET),
-                new Entry(BcFluids.FUEL.get(), BcItems.FUEL_BUCKET.get(), Items.BUCKET),
-                new Entry(Fluids.WATER, Ic2Items.WATER_CELL.get(), Ic2Items.EMPTY_CELL.get()),
-                new Entry(Fluids.LAVA, Ic2Items.LAVA_CELL.get(), Ic2Items.EMPTY_CELL.get()));
+        int bucket = FluidType.BUCKET_VOLUME;
+        Item cell = Ic2Items.EMPTY_CELL.get();
+        Fluid coolant = Ic2Fluids.COOLANT.get();
+        // Filling an empty cell with coolant gives the 10k cell: Forge keeps the last registration (simple cell).
+        return List.of(new Entry(Fluids.WATER, bucket, Items.WATER_BUCKET, Items.BUCKET),
+                new Entry(Fluids.LAVA, bucket, Items.LAVA_BUCKET, Items.BUCKET),
+                new Entry(BcFluids.OIL.get(), bucket, BcItems.OIL_BUCKET.get(), Items.BUCKET),
+                new Entry(BcFluids.FUEL.get(), bucket, BcItems.FUEL_BUCKET.get(), Items.BUCKET),
+                new Entry(Fluids.WATER, bucket, Ic2Items.WATER_CELL.get(), cell),
+                new Entry(Fluids.LAVA, bucket, Ic2Items.LAVA_CELL.get(), cell),
+                new Entry(coolant, 1000, Ic2Items.COOLANT_CELL_10K.get(), cell),
+                new Entry(coolant, 3000, Ic2Items.COOLANT_CELL_30K.get(), cell),
+                new Entry(coolant, 6000, Ic2Items.COOLANT_CELL_60K.get(), cell));
     }
 
     /** {@code getLiquidForFilledItem}: the liquid in a filled container, or empty. */
@@ -39,8 +48,8 @@ public final class LiquidContainers {
             return FluidStack.EMPTY;
         }
         for (Entry entry : entries()) {
-            if (stack.is(entry.filled())) {
-                return new FluidStack(entry.fluid(), FluidType.BUCKET_VOLUME);
+            if (stack.is(entry.filled()) && stack.getDamageValue() == 0) {
+                return new FluidStack(entry.fluid(), entry.amount());
             }
         }
         return FluidUtil.getFluidContained(stack).orElse(FluidStack.EMPTY);
@@ -49,7 +58,7 @@ public final class LiquidContainers {
     /** The empty container left over from a filled one (bucket, empty cell), or empty if unknown. */
     public static ItemStack emptyContainer(ItemStack filled) {
         for (Entry entry : entries()) {
-            if (filled.is(entry.filled())) {
+            if (filled.is(entry.filled()) && filled.getDamageValue() == 0) {
                 return new ItemStack(entry.empty());
             }
         }
@@ -63,7 +72,7 @@ public final class LiquidContainers {
         }
         for (Entry entry : entries()) {
             if (container.is(entry.empty()) && available.is(entry.fluid())
-                    && available.getAmount() >= FluidType.BUCKET_VOLUME) {
+                    && available.getAmount() >= entry.amount()) {
                 return new ItemStack(entry.filled());
             }
         }

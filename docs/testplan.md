@@ -124,6 +124,7 @@ Testwelt. Sprache einmal Deutsch, einmal Englisch prüfen. EMI und Xaero's Minim
 | 6.9 | Item-Rohre: Truhe → Holzrohr (Redstone-Motor) → Strecke → Truhe; Eisenrohr per Schraubenschlüssel/Redstone; Goldrohr-Tempo; Leere-Rohr; Rohr mit Items abbauen (Drops) | 10.1 | |
 | 6.10 | Diamantrohr-GUI (Filter setzen/löschen, Sortieren); Smaragdrohr an Truhe mit Motor; Obsidianrohr (Items in 4 Blöcken, Pfeile, Truhenlore, geworfene Items) | 10.2 | |
 | 6.11 | Flüssigkeitsrohre: Tank → Holz-Flüssigkeitsrohr → Strecke → Tank, Anzeige waagerecht/senkrecht, Goldrohr-Tempo, Eisenrohr, Sandstein nimmt nichts aus Tanks, Leere-Rohr; Pumpe/Raffinerie/Verbrennungsmotor/Kessel-Dampf am Rohr | 10.3 | |
+| 6.13 | IC2-Kühlmittel: kalte 10k/30k/60k-Kühlzelle in den Verbrennungsmotor → 1000/3000/6000 mB im Kühltank (Cyan), erhitzte Zelle wird nicht angenommen; Zelle am BC-Tank leeren, leere Zelle am Tank füllen → 10k-Zelle; EMI-Seite „Kühlmittel 5,0“ | 13.2 | |
 | 6.12 | Leistungsrohre: Redstone-/Stirling-Engine → leitendes Holzrohr → Stein-/Goldrohre → Quarry/Pumpe/Raffinerie/Fabricator; Strahlen (rot bei Überlast); Holzrohr ohne Abnehmer überhitzt; Strukturrohr an Truhe/Maschine | 10.4 | |
 
 ## 7. Forestry und Power Converters (Phase 5)

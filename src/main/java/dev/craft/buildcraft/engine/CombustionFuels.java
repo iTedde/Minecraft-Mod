@@ -6,6 +6,7 @@ import java.util.Map;
 
 import dev.craft.buildcraft.fluid.BcFluids;
 import dev.craft.buildcraft.fluid.LiquidContainers;
+import dev.craft.ic2.Ic2Fluids;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
@@ -29,6 +30,8 @@ public final class CombustionFuels {
         registerFuel(BcFluids.OIL.get(), 3.0F, 20000);
         registerFuel(BcFluids.FUEL.get(), 6.0F, 100000);
         registerCoolant(Fluids.WATER, 1.0F);
+        // IC2 bcIntegration32x: IC2 coolant cools five times as well as water.
+        registerCoolant(Ic2Fluids.COOLANT.get(), 5.0F);
     }
 
     private CombustionFuels() {

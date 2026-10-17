@@ -2,11 +2,15 @@ package dev.craft.buildcraft;
 
 import dev.craft.Craft;
 import dev.craft.buildcraft.engine.CombustionEngineBlockEntity;
+import dev.craft.buildcraft.engine.CombustionFuels;
 import dev.craft.buildcraft.engine.EngineBlock;
 import dev.craft.buildcraft.engine.EngineBlockEntity;
 import dev.craft.buildcraft.engine.EngineType;
 import dev.craft.buildcraft.engine.RedstoneEngineBlockEntity;
 import dev.craft.buildcraft.engine.StirlingEngineBlockEntity;
+import dev.craft.buildcraft.fluid.LiquidContainers;
+import dev.craft.ic2.Ic2Fluids;
+import dev.craft.ic2.Ic2Items;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.gametest.framework.GameTest;
@@ -109,6 +113,27 @@ public final class BuildCraftGameTests {
         helper.assertValueEqual(engine.getFuelTank().getFluidAmount(), 10000, "fuel tank");
         helper.assertTrue(tanks.drain(1000, IFluidHandler.FluidAction.EXECUTE).isEmpty(), "no draining");
         helper.succeed();
+    }
+
+    /** IC2 coolant cells: 30k cell → 3000 mB coolant (5.0 per mB); heated cells are no containers; refill → 10k. */
+    @GameTest(template = EMPTY, timeoutTicks = 40)
+    public static void combustionEngineTakesIc2Coolant(GameTestHelper helper) {
+        CombustionEngineBlockEntity engine = place(helper, new BlockPos(1, 1, 1), EngineType.COMBUSTION,
+                Direction.UP);
+        helper.assertValueEqual(CombustionFuels.getCoolant(new FluidStack(Ic2Fluids.COOLANT.get(), 1)), 5.0F,
+                "cooling per mB");
+        ItemStack heated = Ic2Items.COOLANT_CELL_10K.toStack();
+        heated.setDamageValue(1);
+        helper.assertTrue(LiquidContainers.getLiquidForFilledItem(heated).isEmpty(), "heated cell holds no coolant");
+        helper.assertTrue(LiquidContainers.fillLiquidContainer(new FluidStack(Ic2Fluids.COOLANT.get(), 6000),
+                Ic2Items.EMPTY_CELL.toStack()).is(Ic2Items.COOLANT_CELL_10K.get()), "empty cell → 10k cell");
+        engine.getInventory().setStackInSlot(0, Ic2Items.COOLANT_CELL_30K.toStack());
+        helper.runAfterDelay(5, () -> {
+            helper.assertValueEqual(engine.getCoolantTank().getFluidAmount(), 3000, "coolant from the 30k cell");
+            helper.assertTrue(engine.getCoolantTank().getFluid().is(Ic2Fluids.COOLANT.get()), "coolant fluid");
+            helper.assertTrue(engine.getInventory().getStackInSlot(0).isEmpty(), "cell used up (no empty cell)");
+            helper.succeed();
+        });
     }
 
     @GameTest(template = EMPTY, timeoutTicks = 100)

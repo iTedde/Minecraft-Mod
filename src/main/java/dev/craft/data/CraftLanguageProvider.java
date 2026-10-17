@@ -31,6 +31,7 @@ import dev.craft.powerplants.PpFluids;
 import dev.craft.powerplants.PpItems;
 import dev.craft.ic2.Ic2Blocks;
 import dev.craft.ic2.Ic2EntityTypes;
+import dev.craft.ic2.Ic2Fluids;
 import dev.craft.ic2.Ic2Items;
 import dev.craft.ic2.Ic2Machine;
 import dev.craft.ic2.Ic2MobEffects;
@@ -965,6 +966,7 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             item(Ic2Items.RUBBER_BOOTS, "Rubber Boots");
             item(Ic2Items.NANO_HELMET, "NanoSuit Helmet");
             item(Ic2Items.COMPOSITE_VEST, "Composite Vest");
+            add(Ic2Fluids.COOLANT_TYPE.get().getDescriptionId(), "Coolant");
             item(Ic2Items.NANO_CHESTPLATE, "NanoSuit Bodyarmor");
             item(Ic2Items.NANO_LEGGINGS, "NanoSuit Leggings");
             item(Ic2Items.NANO_BOOTS, "NanoSuit Boots");
@@ -1356,6 +1358,7 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             item(Ic2Items.RUBBER_BOOTS, "Gummistiefel");
             item(Ic2Items.NANO_HELMET, "Nanoanzug-Helm");
             item(Ic2Items.COMPOSITE_VEST, "Kompositweste");
+            add(Ic2Fluids.COOLANT_TYPE.get().getDescriptionId(), "Kühlmittel");
             item(Ic2Items.NANO_CHESTPLATE, "Nanoanzug-Körperpanzer");
             item(Ic2Items.NANO_LEGGINGS, "Nanoanzug-Hose");
             item(Ic2Items.NANO_BOOTS, "Nanoanzug-Stiefel");

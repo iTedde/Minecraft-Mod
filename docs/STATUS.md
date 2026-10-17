@@ -1544,9 +1544,16 @@ Nutzerentscheidung (2026-10-17): **alle vier Lücken umsetzen** → Phase 13 (13
 - 1 neuer GameTest (`ArmorGameTests.compositeVest`), **335 GameTests grün**, `gradlew build`. `runClient` nicht
   gestartet.
 
+## Erledigt (Teilpaket „Phase 13.2: IC2-Kühlmittel“, 2026-10-17)
+- Spezifikation nachgetragen: `spec/06` §6 (Schaden-0-Regel, Befüll-Reihenfolge, Nutzer), `spec/09` (Kühlmittel 5,0).
+- `ic2/Ic2Fluids` (`craft:coolant`, nur in Tanks), Still-Textur aus `item_0.png` 202, Sprache en/de.
+  `LiquidContainers` mit Mengen je Behälter und Schaden-0-Prüfung; Kühlzellen 1000/3000/6000 mB, leere Zelle +
+  Kühlmittel → 10k-Zelle. Verbrennungsmotor: Kühlmittel 5,0 Hitze/mB (EMI-Seite kommt automatisch dazu).
+- `abweichungen.md` (kein Symbol-Item), `testplan.md` 6.13.
+- 1 neuer GameTest (`BuildCraftGameTests.combustionEngineTakesIc2Coolant`), **336 GameTests grün**, `gradlew build`.
+
 ## Nächste Schritte
-1. Teilpaket 13.2: IC2-Kühlmittel als Flüssigkeit (Kühlzellen 10k/30k/60k = 1000/3000/6000 mB, Verbrennungsmotor
-   5,0 Hitze/mB) – vorher `spec/06` §6 und `spec/09` (Kühlmittel) aus `ic2/core/IC2.java` 983–993 und
-   `bcIntegration32x/SubModule.java` präzisieren (welche Zellen-Schadenswerte zählen, was zurückkommt).
-2. Danach 13.3 GT-Stäube, 13.4 Rückgewinnung.
+1. Teilpaket 13.3: erreichbare GT-Stäube (Feuerstein, Holzkohle, Obsidian, Holzschliff, Elektrum) samt Macerator-,
+   Elektrolyseur-, Schrottbox- und Werkbankrezepten – Spec vorher aus `GT_Mod.java` ergänzen.
+2. Danach 13.4 Rückgewinnung.
 3. Restliche manuelle Tests aus `testplan.md` (Sounds, Explosionen, Rüstung/Werkzeuge, Weltgen, Multiblöcke).

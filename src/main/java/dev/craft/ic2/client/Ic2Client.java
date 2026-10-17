@@ -4,6 +4,7 @@ import dev.craft.Craft;
 import dev.craft.ic2.Ic2BlockEntityTypes;
 import dev.craft.ic2.Ic2Blocks;
 import dev.craft.ic2.Ic2EntityTypes;
+import dev.craft.ic2.Ic2Fluids;
 import dev.craft.ic2.Ic2Items;
 import dev.craft.ic2.brewing.BoozeMugItem;
 import dev.craft.ic2.Ic2Machine;
@@ -17,6 +18,7 @@ import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
+import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
@@ -97,6 +99,19 @@ public final class Ic2Client {
                 return renderer;
             }
         }, Ic2Items.machine(Ic2Machine.PERSONAL_SAFE).get());
+        // IC2 draws liquids with their item icon: coolant = item_0.png 202.
+        ResourceLocation coolant = ResourceLocation.fromNamespaceAndPath(Craft.MODID, "block/coolant_still");
+        event.registerFluidType(new IClientFluidTypeExtensions() {
+            @Override
+            public ResourceLocation getStillTexture() {
+                return coolant;
+            }
+
+            @Override
+            public ResourceLocation getFlowingTexture() {
+                return coolant;
+            }
+        }, Ic2Fluids.COOLANT_TYPE.get());
     }
 
     @SubscribeEvent

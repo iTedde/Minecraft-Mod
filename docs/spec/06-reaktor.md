@@ -243,8 +243,11 @@ Alle zutreffenden Stufen werden pro Zyklus ausgeführt (von oben nach unten).
 ## 6. Kühlmittelzellen als Flüssigkeitscontainer
 
 Kühlzellen sind in der Liquid-Registry als gefüllte Container für die Flüssigkeit „coolant“ registriert:
-10k = 1000 mB, 30k = 3000 mB, 60k = 6000 mB (leerer Container: leere Zelle). In 1.21 nur relevant, falls
-Fluid-Handling gewünscht ist (siehe Abweichungen).
+10k = 1000 mB, 30k = 3000 mB, 60k = 6000 mB (leerer Container: leere Zelle). Die Registry vergleicht Item **und**
+Schaden → nur unbeschädigte (kalte) Zellen zählen. Registrierungsreihenfolge 60k, 30k, 10k: Forge behält für
+„Kühlmittel + leere Zelle“ die letzte → Befüllen einer leeren Zelle (z. B. am BC-Tank, ab 1000 mB) ergibt die
+10k-Zelle. Flüssigkeitssymbol = `itemCoolant` (`item_0.png` 202, kein Rezept, keine Funktion als Item). Nutzer im Pack:
+BC-Verbrennungsmotor (5,0 Hitze/mB, `spec/09`), BC-Tank/-Raffinerie (Ein-/Auslagern). Umgesetzt in 13.2.
 
 ## 7. Hinweise zur Umsetzung
 

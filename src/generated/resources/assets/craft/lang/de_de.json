@@ -324,6 +324,7 @@
   "entity.craft.mining_laser": "Bergbaulaser",
   "entity.craft.nuke": "Atombombe",
   "entity.craft.sticky_dynamite": "Klebedynamit",
+  "fluid_type.craft.coolant": "Kühlmittel",
   "fluid_type.craft.fuel": "Treibstoff",
   "fluid_type.craft.liquid_glass": "Flüßiges Glass",
   "fluid_type.craft.oil": "Öl",
