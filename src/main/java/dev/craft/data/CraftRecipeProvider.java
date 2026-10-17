@@ -246,6 +246,7 @@ public final class CraftRecipeProvider extends RecipeProvider {
         methane("brown_mushroom", Ingredient.of(Items.BROWN_MUSHROOM), 32);
         methane("red_mushroom", Ingredient.of(Items.RED_MUSHROOM), 32);
         methane("nether_wart", Ingredient.of(Items.NETHER_WART), 32);
+        methane("terra_wart", Ingredient.of(Ic2Items.TERRA_WART), 16);
         centrifuge("resin", Ingredient.of(Ic2Items.RESIN), 4, 0, 1300, stack(Ic2Items.RUBBER, 14),
                 stack(Ic2Items.COMPRESSED_PLANT_BALL, 1), stack(Ic2Items.PLANT_BALL, 1));
         centrifuge("soul_sand", Ingredient.of(Items.SOUL_SAND), 16, 1, 2500, stack(GtItems.OIL_CELL, 1),
@@ -2202,6 +2203,8 @@ public final class CraftRecipeProvider extends RecipeProvider {
         machine(MachineRecipe.Kind.MACERATOR, "plant_ball", Ingredient.of(Ic2Items.PLANT_BALL), 1, Items.DIRT, 1);
         machine(MachineRecipe.Kind.MACERATOR, "blaze_rod", Ingredient.of(Items.BLAZE_ROD), 1,
                 Items.BLAZE_POWDER, 5);
+        machine(MachineRecipe.Kind.MACERATOR, "spider_eye", Ingredient.of(Items.SPIDER_EYE), 1,
+                Ic2Items.GRIN_POWDER, 2);
         machine(MachineRecipe.Kind.MACERATOR, "machine_casing", Ingredient.of(Ic2Items.MACHINE_CASING), 1,
                 Ic2Items.IRON_DUST, 8);
         machine(MachineRecipe.Kind.MACERATOR, "melon", Ingredient.of(Items.MELON), 1, Items.MELON_SLICE, 8);

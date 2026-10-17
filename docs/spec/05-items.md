@@ -628,6 +628,41 @@ Quelle: `TileEntityCrop`, `BlockCrop`, `api/CropCard`, `ItemCropSeed`, `HandHeld
   Werkzeugkasten), Weed-EX (Stapel 1, 64 Schaden), Grinpulver. Texturen `item_0.png` 152/153/160/39/198/199,
   Crop-Sprites `crops_0.png` 0–51 (Stab 0, Kreuzungsstab 1, Weizen 2–8, Unkraut 9–11).
 
+### 9.2 Sorten (nachgetragen für Phase 12.7b)
+
+Quelle: `ic2/core/block/crop/*`, `IC2Crops`, `ItemTerraWart`. Standard (`CropCard`): Dauer `tier · 200`, Einfluss
+Feuchte + Nährstoffe + Luft, Größe nach Ernte 1, Entdecker „Alblaka“. Stats = `stat(0..4)` (Chemie, Nahrung, Abwehr,
+Farbe, Unkraut).
+
+| ID | Sorte (Entdecker) | Stats | Sprites (`crops_0.png`) | Wachsen / Dauer | Ernte (ab) → Größe danach | Sonst |
+|---:|---|---|---|---|---|---|
+| 2 | Pumpkin (Notch) | 0 1 0 3 1 | Größe + 15 | ≤ 3; 200, Stufe 3→4 600 | 4: Kürbis → 3 | Einfluss F·1,1 + N·0,9 + L; Saat mit Stats ≤ 1 → 1–3 Kürbiskerne |
+| 3 | Melon (Chao) | 0 4 0 2 0 | 16–18, reif 20 | ≤ 3; 250, 3→4 700 | 4: Melone (1/3) oder 2–5 Scheiben → 3 | wie Kürbis; Saat ≤ 1 → 1–2 Melonenkerne |
+| 4–8 | Dandelion/Rose (Notch), Blackthorn/Tulip/Cyazint | 1 1 0 5 1 | 12/13/14, reif 15/21/22/23/24 | ≤ 3 bei Licht ≥ 12; 400, 3→4 600 | 4: Farbstoff → 3 | Farbe gelb/rot/schwarz (Tinte)/lila/türkis |
+| 9 | Venomilia (raGan) | 3 1 3 3 3 | 12–14, 4: 23, 5: 25 | ≤ 4 bei Licht ≥ 12, 4→5 immer; 400, ab 3 600 | 4: lila Farbstoff, 5: Grinpulver → 3 | Berührung bei 5 (Lebewesen): Gift (5–14 s), Größe 4; schleichende Spieler nur mit 1/50; Klick ohne Schleichen = Berührung; Unkraut bei 5 und Gr ≥ 8 |
+| 10 | Reed (Notch) | 0 0 1 0 2 | Größe + 27 | < 3; 200 | ab 2: Größe − 1 Zuckerrohr → 1 | F·1,2 + N + L·0,8; nie zertrampelt |
+| 11 | Stickreed (raa1337) | 2 0 1 0 1 | Größe + 27 | < 4; 100, 4: 400 | ab 2: Größe − 1 Zuckerrohr, 4: Harz → 4: 1–3, sonst 1 | wie Reed |
+| 12 | Cocoa (Notch) | 1 3 0 4 0 | Größe + 15, reif 26 | ≤ 3 bei Nährstoffe ≥ 3; 400, 3→4 900 | 4: Kakaobohne → 3 | F·0,8 + N·1,3 + L·0,9 |
+| 13 | Ferru | 2 0 0 1 0 | 31 + Größe, reif 35 | < 3, 3→4 nur mit Eisenerz 1–3 darunter; 800, 3→4 2000 | 4: kleiner Eisenstaub → 2 | Drop-Chance halbiert |
+| 14 | Aurelia | 2 0 0 2 0 | 31 + Größe, reif 36 | wie Ferru mit Golderz; 1000, 3→4 2200 | 4: Goldnugget → 2 | |
+| 15 | Redwheat (raa1337) | 3 0 0 2 0 | Größe + 1, reif 27 | < 7 bei Licht 5–10; 600 | 7: Redstone (bestromt immer, sonst 50 %) oder Weizen → 2 | Drop-Chance 0,5; reif Licht 7 + Redstone-Signal |
+| 16 | Nether Wart (Notch) | 4 2 0 2 1 | Größe + 36 | < 3 | 3: Netherwarze → 1 | Drop-Chance 2; Seelensand darunter: je Zyklus zusätzlich ½ Wachstumsrate; sonst Schneeblock darunter: 1/300 → Terra Wart |
+| 17 | Terra Wart | 2 4 0 3 0 | 1: 37, sonst Größe + 38 | < 3 | 3: Terra-Warze → 1 | Drop-Chance 0,8; umgekehrt (Schneeblock schneller, Seelensand → Nether Wart). Wechsel ohne Neuzeichnen |
+| 18 | Coffee (Snoochy) | 1 4 1 2 0 | 31 + Größe, 4: 42, 5: 43 | < 5 bei Licht ≥ 9; 1400, 3→4 700, 4→5 2100 | ab 4 (bei 4 nichts), 5: Kaffeebohnen → 3 | F·0,4 + N·1,4 + L·1,2 |
+| 19 | Hops | 2 2 0 1 1 | Größe + 1, ab 5: Größe + 39 | < 7 bei Licht ≥ 9; 600 | 7: Hopfen → 3 | |
+| 20 | Carrots | 0 4 0 0 2 | 48/49, reif 50 | < 3 bei Licht ≥ 9 | 3: Karotte → 1 | Attribute Orange, Food, Carrots |
+| 21 | Potato | wie 20 | 48/49, reif 51 | wie 20 | 3: Kartoffel, 1/50 giftige Kartoffel → 1 | Attribute Yellow, Food, Potato |
+
+Basissaaten (`registerBaseSeed(Stapel, Sorte, Größe, Gr, Ga, Re)`): Weizen-, Kürbis-, Melonenkerne, Netherwarze,
+Terra-Warze, Kaffeebohnen je 1 → Größe 1, 1/1/1; Zuckerrohr 1 → 1, 3/0/2; Kakaobohne 1 → 1, 0/0/0; **4** Rosen bzw.
+**4** Löwenzahn → Größe **4**, 1/1/1; Karotte, Kartoffel je 1 → 1, 1/1/1.
+
+**Terra-Warze** (`ItemTerraWart`, `item_0.png` 166): immer essbar mit Trink-Animation, aber ohne Nahrung (Vanilla-
+`onFoodEaten` wird nicht aufgerufen); verbraucht 1 (auch im Kreativmodus), Rülpser (0,5, Tonhöhe 0,9–1,0), entfernt
+Übelkeit, Abbaulähmung, Schwäche, Langsamkeit, Gift. **Kaffeebohnen** (167) und **Hopfen** (174) sind einfache Items.
+Rezepte: Macerator Spinnenauge → 2 Grinpulver [IC2]; GT-Zentrifuge 16 Terra-Warzen + 1 Zelle → Methanzelle (5000)
+[GT]; Kaffeebohnen → Kaffeepulver folgt mit 12.8.
+
 Getränke: Kaffee (Bohnen → Pulver; Tasse + Pulver + Wasser → kalter Kaffee, Ofen → Kaffee, + Zucker + Milch →
 Milchkaffee; Effekte Eile/Sprungkraft, Überdosis Übelkeit/Schaden) und Fass-Brauen (Weizen/Hopfen → Bier, Zuckerrohr →
 Rum; Fass mit Baumzapfer anzapfen) – Details `ItemMugCoffee`, `ItemBooze`, `TileEntityBarrel`.

@@ -1418,6 +1418,20 @@ NaK-Kühlzellen, kein Vakuumgefrierer) **und die IC2-Nuke**. Teilpakete: 7a IC2-
 - 8 neue GameTests (`CropGameTests`), **304 GameTests grün**, `gradlew build`. `runClient` nicht gestartet (Nutzer).
 - EMI-Kategorie „Crops“ (Basissaat → Sorte) folgt mit den übrigen Sorten in 12.7b.
 
+## Erledigt (Teilpaket „Phase 12.7b: Crop-Sorten“, 2026-10-17)
+- Spezifikation nachgetragen: `spec/05-items.md` §9.2 (alle Sorten mit Stats, Sprites, Dauern, Ernte, Sonderregeln,
+  Basissaaten, Terra-Warze).
+- Sorten 2–21 in `ic2/crop/`: `PumpkinCrop`, `MelonCrop`, `ColorFlowerCrop` (4–8), `VenomiliaCrop`, `ReedCrop`,
+  `StickreedCrop`, `CocoaCrop`, `MetalCrop` (Ferru/Aurelia), `RedwheatCrop`, `WartCrop` (Nether-/Terra-Warze),
+  `CoffeeCrop`, `HopsCrop`, `SeedFoodCrop` (Karotten/Kartoffel); Registrierung und alle Basissaaten in `Crops`.
+  `CropBlockEntity`: `isBlockBelow` mit mehreren Blöcken, `setGrowthPoints`, `setCropId`.
+- Items Terra-Warze (`TerraWartItem`), Kaffeebohnen, Hopfen (Texturen `item_0.png` 166/167/174); Rezepte Macerator
+  Spinnenauge → 2 Grinpulver, GT-Zentrifuge 16 Terra-Warzen → Methanzelle. Sprache en/de (Sorten, Items, EMI).
+- EMI-Kategorie „Crops“ (`RecipeCategories.CROPS`): Basissaat → Saatbeutel (Größe/Stats), je Sorte eine Ernteseite
+  mit allen möglichen Drops, Stufe und Bedingung.
+- `abweichungen.md` (Mohn statt Rose, Tiefenschiefer-Erze, Farbstoffe, Sortennamen), `testplan.md` 3.31.
+- 6 neue GameTests (`CropSpeciesGameTests`), Kreuzungstest angepasst (jetzt können alle Sorten entstehen),
+  **310 GameTests grün**, `gradlew build`. `runClient` nicht gestartet (Nutzer).
+
 ## Nächste Schritte
-1. 12.7b: übrige Crop-Sorten (Kürbis … Kartoffel, IDs 2–21) mit Basissaaten, Sonderregeln je Sorte
-   (`ic2/core/block/crop/*`), EMI-Kategorie Crops; Terra-Warze, Kaffeebohnen, Hopfen als Items.
+1. 12.7c: Crop-Matron (`04` §Crop-Matron; Pflege-Varianten mit `manual = false` gibt es schon).

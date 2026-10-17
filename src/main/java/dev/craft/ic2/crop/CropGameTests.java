@@ -143,8 +143,9 @@ public final class CropGameTests {
                 crossed = stick.attemptCrossing();
             }
             helper.assertTrue(crossed, "crossing happened");
-            helper.assertTrue(stick.crop() == Crops.WHEAT && stick.getSize() == 1 && !stick.isUpgraded(),
-                    "only wheat can come out");
+            // since 12.7b any species that can grow on the stick may come out, wheat (2 × 500) most likely
+            helper.assertTrue(stick.getCropId() > 0 && stick.getSize() == 1 && !stick.isUpgraded(),
+                    "a new plant of size 1");
             helper.assertTrue(Math.abs(stick.getGrowth() - 11) <= 2 && Math.abs(stick.getGain() - 21) <= 2
                     && Math.abs(stick.getResistance() - 5) <= 2, "stats are the average ± parents");
             helper.succeed();

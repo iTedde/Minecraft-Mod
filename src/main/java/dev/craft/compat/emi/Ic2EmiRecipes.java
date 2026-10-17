@@ -8,6 +8,9 @@ import dev.craft.Craft;
 import dev.craft.core.client.RecipeCategories;
 import dev.craft.ic2.Ic2Items;
 import dev.craft.ic2.Ic2Machine;
+import dev.craft.ic2.crop.CropCard;
+import dev.craft.ic2.crop.CropSeedItem;
+import dev.craft.ic2.crop.Crops;
 import dev.craft.ic2.generator.FuelValues;
 import dev.craft.ic2.generator.GeneratorBlockEntity;
 import dev.craft.ic2.generator.GeothermalGeneratorBlockEntity;
@@ -51,13 +54,14 @@ final class Ic2EmiRecipes {
     static final EmiRecipeCategory GENERATOR = machineCategory(RecipeCategories.GENERATOR, Ic2Machine.GENERATOR);
     static final EmiRecipeCategory GEOTHERMAL_GENERATOR =
             machineCategory(RecipeCategories.GEOTHERMAL_GENERATOR, Ic2Machine.GEOTHERMAL_GENERATOR);
+    static final EmiRecipeCategory CROPS = new EmiRecipeCategory(RecipeCategories.CROPS, EmiStack.of(Ic2Items.CROP.get()));
 
     private Ic2EmiRecipes() {
     }
 
     static void register(EmiRegistry registry, Map<ResourceLocation, EmiRecipeCategory> categories) {
         for (EmiRecipeCategory category : List.of(MACERATOR, EXTRACTOR, COMPRESSOR, RECYCLER, SCRAP_BOX,
-                MASS_FABRICATOR, CANNING_MACHINE, ELECTROLYZER, GENERATOR, GEOTHERMAL_GENERATOR)) {
+                MASS_FABRICATOR, CANNING_MACHINE, ELECTROLYZER, GENERATOR, GEOTHERMAL_GENERATOR, CROPS)) {
             registry.addCategory(category);
             categories.put(category.getId(), category);
         }
@@ -74,6 +78,7 @@ final class Ic2EmiRecipes {
         workstation(registry, VanillaEmiRecipeCategories.SMELTING, Ic2Machine.ELECTRIC_FURNACE);
         workstation(registry, VanillaEmiRecipeCategories.SMELTING, Ic2Machine.INDUCTION_FURNACE);
         registry.addWorkstation(SCRAP_BOX, EmiStack.of(Ic2Items.SCRAP_BOX.get()));
+        registry.addWorkstation(CROPS, EmiStack.of(Ic2Items.CROP.get()));
 
         machineRecipes(registry, MACERATOR, MachineRecipe.Kind.MACERATOR);
         machineRecipes(registry, EXTRACTOR, MachineRecipe.Kind.EXTRACTOR);
@@ -85,6 +90,59 @@ final class Ic2EmiRecipes {
         electrolyzer(registry);
         generator(registry);
         geothermalGenerator(registry);
+        crops(registry);
+    }
+
+    /** Base seed → species (planted at the base seed's size and stats) and one harvest page per species. */
+    private static void crops(EmiRegistry registry) {
+        for (Map.Entry<Item, Crops.BaseSeed> entry : Crops.baseSeeds().entrySet()) {
+            Crops.BaseSeed seed = entry.getValue();
+            registry.addRecipe(new CraftEmiRecipe(CROPS, id("crops/seed/" + path(entry.getKey())),
+                    List.of(EmiStack.of(entry.getKey(), seed.stackSize()), EmiStack.of(Ic2Items.CROP.get())),
+                    List.of(EmiStack.of(CropSeedItem.create(seed.crop().getId(), seed.growth(), seed.gain(),
+                            seed.resistance(), 1))), 0,
+                    List.of(Component.translatable("emi.craft.crop.planted", seed.crop().displayName(), seed.size(),
+                            seed.growth(), seed.gain(), seed.resistance()))));
+        }
+        for (CropCard crop : Crops.all()) {
+            List<EmiStack> gains = cropGains(crop);
+            if (gains.isEmpty()) {
+                continue;
+            }
+            registry.addRecipe(new CraftEmiRecipe(CROPS, id("crops/harvest/" + crop.name()),
+                    List.of(EmiStack.of(CropSeedItem.create(crop.getId(), 0, 0, 0, 1))), gains, 0,
+                    List.of(Component.translatable("emi.craft.crop.tier", crop.displayName(), crop.tier()),
+                            Component.translatable("emi.craft.crop." + crop.name()))));
+        }
+    }
+
+    /** Everything a species can drop when harvested (IC2 {@code getGain} over all sizes). */
+    private static List<EmiStack> cropGains(CropCard crop) {
+        List<Item> items = switch (crop.name()) {
+            case "wheat" -> List.of(Items.WHEAT);
+            case "pumpkin" -> List.of(Items.PUMPKIN);
+            case "melon" -> List.of(Items.MELON, Items.MELON_SLICE);
+            case "dandelion" -> List.of(Items.YELLOW_DYE);
+            case "rose" -> List.of(Items.RED_DYE);
+            case "blackthorn" -> List.of(Items.INK_SAC);
+            case "tulip" -> List.of(Items.PURPLE_DYE);
+            case "cyazint" -> List.of(Items.CYAN_DYE);
+            case "venomilia" -> List.of(Items.PURPLE_DYE, Ic2Items.GRIN_POWDER.get());
+            case "reed" -> List.of(Items.SUGAR_CANE);
+            case "stickreed" -> List.of(Items.SUGAR_CANE, Ic2Items.RESIN.get());
+            case "cocoa" -> List.of(Items.COCOA_BEANS);
+            case "ferru" -> List.of(Ic2Items.SMALL_IRON_DUST.get());
+            case "aurelia" -> List.of(Items.GOLD_NUGGET);
+            case "redwheat" -> List.of(Items.REDSTONE, Items.WHEAT);
+            case "nether_wart" -> List.of(Items.NETHER_WART);
+            case "terra_wart" -> List.of(Ic2Items.TERRA_WART.get());
+            case "coffee" -> List.of(Ic2Items.COFFEE_BEANS.get());
+            case "hops" -> List.of(Ic2Items.HOPS.get());
+            case "carrots" -> List.of(Items.CARROT);
+            case "potato" -> List.of(Items.POTATO, Items.POISONOUS_POTATO);
+            default -> List.of();
+        };
+        return items.stream().map(EmiStack::of).toList();
     }
 
     private static EmiRecipeCategory machineCategory(ResourceLocation id, Ic2Machine machine) {

@@ -118,6 +118,15 @@ public class CropBlockEntity extends BlockEntity {
         return growthPoints;
     }
 
+    public void setGrowthPoints(int growthPoints) {
+        this.growthPoints = growthPoints;
+    }
+
+    /** Switches the species without re-rendering, like IC2's direct {@code id} writes (wart conversion). */
+    public void setCropId(int id) {
+        this.id = (short) id;
+    }
+
     public boolean isUpgraded() {
         return upgraded;
     }
@@ -709,15 +718,17 @@ public class CropBlockEntity extends BlockEntity {
         return base;
     }
 
-    /** True if {@code block} lies 1–3 blocks below, stopping at the first air block. */
-    public boolean isBlockBelow(Block block) {
+    /** True if one of {@code blocks} lies 1–3 blocks below, stopping at the first air block. */
+    public boolean isBlockBelow(Block... blocks) {
         for (int i = 1; i < 4; i++) {
             BlockState state = level.getBlockState(worldPosition.below(i));
             if (state.isAir()) {
                 return false;
             }
-            if (state.is(block)) {
-                return true;
+            for (Block block : blocks) {
+                if (state.is(block)) {
+                    return true;
+                }
             }
         }
         return false;

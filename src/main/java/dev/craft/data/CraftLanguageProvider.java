@@ -292,6 +292,55 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
         item(Ic2Items.GRIN_POWDER, german ? "Grinpulver" : "Grin Powder");
         add("crop.craft.weed", german ? "Unkraut" : "Weed");
         add("crop.craft.wheat", german ? "Weizen" : "Wheat");
+        add("crop.craft.pumpkin", german ? "Kürbis" : "Pumpkin");
+        add("crop.craft.melon", german ? "Melone" : "Melon");
+        add("crop.craft.dandelion", german ? "Löwenzahn" : "Dandelion");
+        add("crop.craft.rose", "Rose");
+        add("crop.craft.blackthorn", german ? "Schwarzdorn" : "Blackthorn");
+        add("crop.craft.tulip", german ? "Tulpe" : "Tulip");
+        add("crop.craft.cyazint", "Cyazint");
+        add("crop.craft.venomilia", "Venomilia");
+        add("crop.craft.reed", german ? "Schilf" : "Reed");
+        add("crop.craft.stickreed", german ? "Klebschilf" : "Stickreed");
+        add("crop.craft.cocoa", german ? "Kakao" : "Cocoa");
+        add("crop.craft.ferru", "Ferru");
+        add("crop.craft.aurelia", "Aurelia");
+        add("crop.craft.redwheat", german ? "Rotweizen" : "Redwheat");
+        add("crop.craft.nether_wart", german ? "Netherwarze" : "Nether Wart");
+        add("crop.craft.terra_wart", german ? "Terra-Warze" : "Terra Wart");
+        add("crop.craft.coffee", german ? "Kaffee" : "Coffee");
+        add("crop.craft.hops", german ? "Hopfen" : "Hops");
+        add("crop.craft.carrots", german ? "Karotten" : "Carrots");
+        add("crop.craft.potato", german ? "Kartoffel" : "Potato");
+        add("emi.category.craft.crops", "Crops");
+        add("emi.craft.crop.planted", german ? "%s: Größe %s, Gr %s Ga %s Re %s" : "%s: size %s, Gr %s Ga %s Re %s");
+        add("emi.craft.crop.tier", german ? "%s – Stufe %s" : "%s - tier %s");
+        add("emi.craft.crop.wheat", german ? "bis 7 (Licht ≥ 9), Ernte bei 7" : "to 7 (light ≥ 9), harvest at 7");
+        add("emi.craft.crop.pumpkin", german ? "bis 4, Ernte bei 4" : "to 4, harvest at 4");
+        add("emi.craft.crop.melon", german ? "4: Melone (1/3) oder 2–5 Scheiben" : "4: melon (1/3) or 2-5 slices");
+        for (String flower : new String[]{"dandelion", "rose", "blackthorn", "tulip", "cyazint"}) {
+            add("emi.craft.crop." + flower, german ? "bis 4 (Licht ≥ 12), Ernte bei 4" : "to 4 (light ≥ 12), harvest at 4");
+        }
+        add("emi.craft.crop.venomilia", german ? "4: Farbstoff, 5: Grinpulver; vergiftet bei 5"
+                : "4: dye, 5: grin powder; poisons at 5");
+        add("emi.craft.crop.reed", german ? "bis 3, Größe − 1 Zuckerrohr" : "to 3, size - 1 sugar cane");
+        add("emi.craft.crop.stickreed", german ? "bis 3 Zuckerrohr, 4: Harz" : "to 3 sugar cane, 4: resin");
+        add("emi.craft.crop.cocoa", german ? "bis 4 (Nährstoffe ≥ 3)" : "to 4 (nutrients ≥ 3)");
+        add("emi.craft.crop.ferru", german ? "Stufe 4 nur über Eisenerz" : "size 4 only above iron ore");
+        add("emi.craft.crop.aurelia", german ? "Stufe 4 nur über Golderz" : "size 4 only above gold ore");
+        add("emi.craft.crop.redwheat", german ? "bis 7 (Licht 5–10); leuchtet, Redstone-Signal"
+                : "to 7 (light 5-10); glows, redstone signal");
+        add("emi.craft.crop.nether_wart", german ? "schneller auf Seelensand; auf Schnee → Terra-Warze"
+                : "faster on soul sand; on snow → Terra Wart");
+        add("emi.craft.crop.terra_wart", german ? "schneller auf Schnee; auf Seelensand → Netherwarze"
+                : "faster on snow; on soul sand → Nether Wart");
+        add("emi.craft.crop.coffee", german ? "bis 5 (Licht ≥ 9), Bohnen nur bei 5" : "to 5 (light ≥ 9), beans at 5 only");
+        add("emi.craft.crop.hops", german ? "bis 7 (Licht ≥ 9), Ernte bei 7" : "to 7 (light ≥ 9), harvest at 7");
+        add("emi.craft.crop.carrots", german ? "bis 3 (Licht ≥ 9), Ernte bei 3" : "to 3 (light ≥ 9), harvest at 3");
+        add("emi.craft.crop.potato", german ? "bis 3 (Licht ≥ 9); 1/50 giftig" : "to 3 (light ≥ 9); 1/50 poisonous");
+        item(Ic2Items.TERRA_WART, german ? "Terra-Warze" : "Terra Wart");
+        item(Ic2Items.COFFEE_BEANS, german ? "Kaffeebohnen" : "Coffee Beans");
+        item(Ic2Items.HOPS, german ? "Hopfen" : "Hops");
         add("message.craft.crop.unknown", german ? "Unbekannte Pflanze" : "Unknown Crop");
         add("message.craft.crop.scanned", "%s - Gr: %s Ga: %s Re: %s");
         add("gui.craft.cropnalyzer.unknown", german ? "UNBEKANNT" : "UNKNOWN");

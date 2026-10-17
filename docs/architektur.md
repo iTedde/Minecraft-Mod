@@ -91,7 +91,10 @@ ergänzen. Basispaket `dev.craft`, Einstieg `Craft` → `Ic2.init`, `BuildCraft.
   werden in `Crops` mit fester ID registriert (dazu Basissaaten `registerBaseSeed`, Biom-Boni). Tile
   `CropBlockEntity` (IC2 `TileEntityCrop`, `forcePlant` für Tests), Block `CropBlock` (Sprite als Blockstate
   `sprite`), Saatbeutel `CropSeedItem` (Data Component `craft:crop_seed`), Cropnalyzer `CropnalyzerItem`/`Menu`
-  (Inhalt im Container-Component, Scan in `broadcastChanges`) + `client/CropnalyzerScreen`.
+  (Inhalt im Container-Component, Scan in `broadcastChanges`) + `client/CropnalyzerScreen`. Sorten mit gleicher
+  Logik teilen sich eine parametrisierte Klasse (`ColorFlowerCrop`, `MetalCrop`, `WartCrop`, `SeedFoodCrop`, 12.7b);
+  Items anderer Registries nur per `Supplier`/zur Laufzeit, `Crops` wird erst nach der Registrierung geladen.
+  EMI-Ernteseiten: Drop-Liste je Sorte in `Ic2EmiRecipes.cropGains`.
 
 ## Rezeptanzeige (EMI)
 

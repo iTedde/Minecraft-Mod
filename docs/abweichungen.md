@@ -175,6 +175,10 @@ Status: *geplant* (aus Phase 1 abgeleitet, noch nicht umgesetzt), *entschieden* 
 | Crops: Rechtsklick | einzige Hand | nur die Haupthand; ein nicht genutzter Klick geht an das Item (Saatbeutel pflanzt so) | Zweithand ab 1.9 | **umgesetzt** (12.7a) |
 | Saatbeutel | NBT `id`/`growth`/`gain`/`resistance`/`scan`, Namen nur englisch | Data Component `craft:crop_seed`; Sortennamen übersetzt (`crop.craft.<name>`), deutsch „<Sorte>-Samen“ | Data Components | **umgesetzt** (12.7a) |
 | Cropnalyzer | Inventar im Item-NBT, beim Schließen gespeichert; Schutz gegen Verschieben über eine Zufalls-`uid`; Scan über einen Welt-Tick-Callback | Inhalt im Container-Component, bei jeder Änderung gespeichert; der Hotbar-Slot des offenen Cropnalyzers ist gesperrt; Scan im serverseitigen Menü-Tick; Texte übersetzbar | Menüs/Data Components | **umgesetzt** (12.7a) |
+| Crops: Basissaat Rose | Rose (Block 38) | Mohn (`minecraft:poppy`), 4 Stück | Rose heißt seit 1.7 Mohn | **umgesetzt** (12.7b) |
+| Crops: Ferru/Aurelia | Eisen-/Golderzblock 1–3 Blöcke darunter | zusätzlich die Tiefenschiefer-Erze | Erz in 1.17 aufgeteilt | **umgesetzt** (12.7b) |
+| Crops: Farbstoffe | Farbstoff-Metas 11/1/0/5/6/3 | Gelber/Roter Farbstoff, Tintenbeutel, Lila/Türkiser Farbstoff, Kakaobohnen | Item-Aufteilung | **umgesetzt** (12.7b) |
+| Crops: Sortennamen | nur englisch (`name()`) | übersetzbar (`crop.craft.<name>`), deutsch eigene Namen | Lokalisierung | **umgesetzt** (12.7b) |
 | Quantum-Rezepte | Iridiumplatte, verst. Glas, fortg. Schaltkreis … | IC2-Rezepte, seit 6b.5b (Iridiumplatte aus dem Implosionskompressor, verstärktes Glas) | – | **umgesetzt** (6b.5b) |
 | Static Boots: Position | NBT `x`/`z` | Data Component `craft:last_position` | Data Components | **umgesetzt** |
 | Jetpack: Modus/Timer | NBT `hoverMode`/`toggleTimer` | Data Components `craft:hover_mode`/`craft:toggle_timer` | Data Components | **umgesetzt** |

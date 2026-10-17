@@ -20,6 +20,7 @@ public final class RecipeCategories {
     public static final ResourceLocation ELECTROLYZER = id("electrolyzer");
     public static final ResourceLocation GENERATOR = id("generator");
     public static final ResourceLocation GEOTHERMAL_GENERATOR = id("geothermal_generator");
+    public static final ResourceLocation CROPS = id("crops");
 
     // GregTech (ids of the machine blocks)
     public static final ResourceLocation GT_BENDER = id("plate_bending_machine");
