@@ -1670,5 +1670,8 @@ bleiben beim Controller).
 - Bestehende Welten: Turbinengehäuse behalten ihren Block-Entity-Typ `plant_part` (die Fabrik wählt die Klasse je
   Block), keine Migration nötig.
 
+- Mod-Version 0.3.1; CurseForge-Paket `X:/Craft/Craft-0.3.1-curseforge.zip` (Craft, EMI, Xaero, CC: Tweaked in
+  `overrides/mods`, wie 0.3.0). Wiki (`X:/Craft/Craft-Wiki.html`) auf Phase 16 aktualisiert.
+
 ## Nächste Schritte
 1. Abnahme Phase 16 (im Client: Kabel an ein Turbinengehäuse, HV-Array an MFSU).
