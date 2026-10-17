@@ -171,7 +171,7 @@ nachgetragen (fehlten seit 8c): 2 Rubine ` UU/UUU/UU `, 2 Saphire `UU /UUU/ UU`,
   **Korrektur (13.3, 2026-10-17):** falsch – GT hat die unbedingten Werkbankrezepte Silber- + Goldstaub → 2
   Elektrumstaub und 2 kl. Silber- + 2 kl. Goldstaub → 1 (`GT_Mod` 3951–3953), Elektrumstaub wird im Ofen zum Barren;
   ebenso 3 Kupfer- + 1 Zinkstaub → 4 Messingstaub (3955). Elektrumstaub ist seit 13.3 umgesetzt; Elektrumplatte,
-  Platinen 48/49/24 und Messing neu zu entscheiden (`STATUS.md`).
+  Platinen 48/49/24 und Messing seit Phase 14 umgesetzt (§5.7).
 - GT-eigene Items (Jackhammer, Cloaking Device, Lapotronic Energy Orb, Datenkugel, Sonictron, Fusion,
   Railcraft-Teile) und Nuggets/Speicherblöcke (bisher nie umgesetzt, außer Iridiumnugget) → nicht im Umfang.
 
@@ -234,8 +234,64 @@ Diamant- + Wolfram-Schleifkopf) und – **nachgetragen**, fehlte seit 8d.2 – M
 (F = Feuerstein, D = Schleifkopf, A = el. Schaltkreis `craftingCircuitTier02`, M = Maschinenblock), zusätzlich zur
 Diamant-Variante (`08-rezepte.md`).
 
-**Entfällt:** Messing-Varianten des Mischmetalls (Messing nur über Legierungsschmelze/Induktionsofen, nicht im Umfang);
+**Entfällt:** ~~Messing-Varianten des Mischmetalls~~ (seit Phase 14 umgesetzt, §5.7);
 Wolframiumzelle (GT-Zelle 4, Canner Wolframstaub + Zelle, nur für den Fusionsreaktor); **Supraleiter** (Komponente 2,
 `CCC/WIW/LLL`; alle Verwendungen – Fusion, Plasmagenerator, Lapotronic Orb … – nicht im Umfang; Nutzerentscheidung
 2026-10-16); Plasmagenerator (Wolframstahlplatten); Wolframstahl-Wände (`BlockMetaID_Block2` 8/9, brauchen IC2-Stahlbeton
 bzw. Iridium-verstärkten Stein, nicht vorhanden); Wolframblock/-nugget; Railcraft-Teile.
+
+### 5.7 Phase 14: Elektrum-Platinen, Messing, Mörser (Spezifikation 2026-10-17)
+
+Korrigiert §5.4 und §5.6 „Entfällt: Messing-Varianten“: Elektrum- und Messingstaub sind über die unbedingten
+Werkbankrezepte erreichbar (`GT_Mod` 3951–3957). Quellen: `GT_Mod.java` 733/740/744/767/777/827/978/989/990 (Items),
+1005–1006 (Mörser), 1675 (Weizen), 1769 (fortg. Schaltkreis), 2120–2141 (Schrottbox), 2279–2371 (Mischmetall),
+3923–3945 (Mörser-Rezepte), 3955–3957 (Messingstaub); `GT_OreDictHandler.java` 1638/3433 (Schaltkreisteile),
+1703 (`dustBrass`), 2281 (`dustWheat`), 2696 (`ingotBrass`), 3174–3262 (`plate*`), 3600–3615 (`copperWire`).
+
+**Neue Items:**
+
+| Item | GT (Textur) | Tooltip | OreDict / Tag |
+|---|---|---|---|
+| Elektrumplatte („Electrum Plate“) | Material 71 | AgAu | `plateElectrum` / `c:plates/electrum` |
+| Basis-Platine („Basic Circuit Board“, ID `gt_basic_circuit_board`, Forestry hat `basic_circuit_board`) | Komponente 48 | „Just a simple Circuit Plate“ | `craftingCircuitBoardTier02` |
+| Fortg. Platine („Advanced Circuit Board“, ID `gt_advanced_circuit_board`) | Komponente 49 | „Standard Circuit Plate“ | `craftingCircuitBoardTier04` |
+| Fortg. Schaltkreisteile („Advanced Circuit Parts“) | Komponente 24 | „Part of advanced Circuitry“ | `craftingCircuitPartsTier04` |
+| Messingstaub / -barren / -platte („Brass Dust/Ingot/Plate“) | Dust 25 / Material 25 / 81 | ZnCu3 | `c:dusts/brass`, `c:ingots/brass`, `c:plates/brass` |
+| Mehl („Flour“) | Material 14 | – | `dustWheat` |
+| Eisenmörser („Iron Mortar“) | `items.png` 30 | „Can pulverize Ingots to Dust“ | – |
+| Feuersteinmörser („Flint Mortar“) | `items.png` 31 | – | – |
+
+Eisenmörser (`GT_Mortar_Item`): Stapel 1, max. Schaden 63, nicht reparierbar/verzauberbar; bleibt beim Craften im
+Raster mit Schaden +1, bei Schaden 63 wird er stattdessen zu Eisenstaub (64 Benutzungen). Feuersteinmörser
+(`GT_Generic_Item`): Stapel 64, wird verbraucht. Elektrumbarren bekommt den Tag `c:ingots/electrum`.
+
+**Rezepte:**
+
+| Eingabe | Maschine | Ausgabe | Ticks / EU/t |
+|---|---|---|---|
+| Elektrumbarren | Plattenbieger | Elektrumplatte | 50 / 20 (+ Platten-Nebenrezepte Ofen/Macerator) |
+| raff. Eisen- **oder** Aluminiumplatte + 2 Elektrumplatten | Assembler | 2 Basis-Platinen | 800 / 1 |
+| el. Schaltkreis + 2 Elektrumplatten | Assembler | 1 fortg. Platine | 1600 / 2 |
+| Siliziumplatte + 4 Elektrumplatten | Assembler | 2 fortg. Platinen | 1600 / 2 |
+| Lazurit (`itemLazurite`: Lapis, Lazuritstaub) + Glowstonestaub | Assembler | 2 fortg. Schaltkreisteile | 800 / 2 |
+| fortg. Platine + 2 fortg. Schaltkreisteile | Assembler | fortg. Schaltkreis | 1600 / 2 |
+| Basis-Platine + 3 isol. Kupferkabel (`copperWire`) | Assembler | el. Schaltkreis | 800 / 1 |
+| el. Schaltkreis + isol. Kupferkabel | Assembler | Frequenzsender (nachgetragen, gleicher Handler) | 800 / 1 |
+| 3 Kupfer- + 1 Zinkstaub (formlos) | Werkbank | 4 Messingstaub | – |
+| 3 kl. Kupfer- + 1 kl. Zinkstaub (formlos) | Werkbank | 1 Messingstaub | – |
+| Messingstaub | Ofen | Messingbarren | – (`furnace` dustBrass true) |
+| Messingbarren | Macerator / Plattenbieger | Messingstaub / Messingplatte (50 / 20) | – |
+| Messingstaub | Zentrifuge | 3 kl. Kupfer-, 1 kl. Zinkstaub | 1500 (ForestryBronzeNerf: 1 Staub) |
+| Mischmetall `X/Y/Z` mit Messingplatte als Y | Werkbank | wie mit Bronze (`13-…` §3) | – |
+| Schüssel + Feuerstein (formlos) | Werkbank | Feuersteinmörser | – |
+| ` R /SRS/SSS`, R = raff. Eisenbarren, S = Steinziegel (nur Meta 0) | Werkbank | Eisenmörser | – |
+| Mörser + Kohle / Goldbarren / Tonblock / Kupfer- / Zinn- / Silber- / Elektrumbarren / Weizen | Werkbank | **hydr. Kohlestaub** (GT-Eigenheit: `getIC2Item("hydratedCoalDust")`) / Gold- / 1 Ton- / Kupfer- / Zinn- / Silber- / Elektrumstaub / Mehl | beide Mörser |
+| Eisenmörser + Bronze- / Messing- / Eisen- / raff. Eisenbarren / Kies | Werkbank | Bronze- / Messing- / Eisen- / Eisenstaub / Feuerstein | nur Eisenmörser |
+| Weizen | Macerator | Mehl | – |
+| Mehl | Ofen | Brot | – |
+
+Schrottbox: fortg. Schaltkreisteile 1,2, Basis-Platine 1,8, fortg. Platine 0,4, Messingstaub 0,5.
+
+**Entfällt:** Messing-Maschinenhülle (Komponente 34, „Cheap Machine Block“; nur für GT-Automatisierungsblöcke, nicht im
+Umfang), Messing-/Elektrumblock und -nuggets (Speicherblöcke/Nuggets nie im Umfang), Legierungsschmelze und
+TE-Induktionsschmelze (3 Kupfer + Zink → 4 Messing), alle Elektrumplatten-Verwendungen in GT-Automatisierungsblöcken.

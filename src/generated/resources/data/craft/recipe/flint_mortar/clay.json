@@ -1,0 +1,15 @@
+{
+  "type": "craft:ic2_shapeless",
+  "ingredients": [
+    {
+      "item": "craft:flint_mortar"
+    },
+    {
+      "item": "minecraft:clay"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:clay_dust"
+  }
+}

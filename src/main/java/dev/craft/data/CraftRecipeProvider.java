@@ -68,6 +68,7 @@ import net.minecraft.world.item.crafting.SmeltingRecipe;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.material.Fluids;
 import net.neoforged.neoforge.common.Tags;
+import net.neoforged.neoforge.common.crafting.DifferenceIngredient;
 import net.neoforged.neoforge.common.crafting.DataComponentIngredient;
 import net.neoforged.neoforge.common.crafting.SizedIngredient;
 import net.neoforged.neoforge.fluids.FluidStack;
@@ -105,6 +106,9 @@ public final class CraftRecipeProvider extends RecipeProvider {
         gregTechTungsten();
         gregTechDusts();
         gregTechRecycling();
+        gregTechCircuitBoards();
+        gregTechBrass();
+        gregTechMortars();
         uuMatter();
         smelting();
         macerator();
@@ -143,11 +147,8 @@ public final class CraftRecipeProvider extends RecipeProvider {
         machine(MachineRecipe.Kind.MACERATOR, "dense_copper_plate", Ingredient.of(Ic2Items.DENSE_COPPER_PLATE), 1,
                 Ic2Items.COPPER_DUST, 8);
         // GT mixed metal ingot (IC2 recipe removed), vertical in any column; other metals follow with their plates.
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, Ic2Items.MIXED_METAL_INGOT, 1).pattern("X").pattern("Y")
-                .pattern("Z").define('X', CraftItemTagsProvider.PLATES_REFINED_IRON)
-                .define('Y', CraftItemTagsProvider.PLATES_BRONZE).define('Z', CraftItemTagsProvider.PLATES_TIN)
-                .unlockedBy("has_plate", has(CraftItemTagsProvider.PLATES_TIN))
-                .save(output, id("mixed_metal_ingot_refined_iron_bronze_tin"));
+        mixedMetal("refined_iron_bronze_tin", CraftItemTagsProvider.PLATES_REFINED_IRON, CraftItemTagsProvider.PLATES_TIN,
+                1);
         machine(MachineRecipe.Kind.COMPRESSOR, "mixed_metal_ingot", Ingredient.of(Ic2Items.MIXED_METAL_INGOT), 1,
                 Ic2Items.ADVANCED_ALLOY, 1);
         shaped(Ic2Items.ADVANCED_MACHINE_CASING, 1, "advanced_machine_casing").pattern(" A ", "CMC", " A ")
@@ -496,11 +497,14 @@ public final class CraftRecipeProvider extends RecipeProvider {
                 .define('C', Ic2Items.ELECTRONIC_CIRCUIT).define('B', Ic2Items.RE_BATTERY).save();
     }
 
-    /** Mixed metal ingot {@code X/Y/Z} with a bronze plate in the middle (spec 13 §3). */
+    /** Mixed metal ingot {@code X/Y/Z} with a bronze plate in the middle, and the same with brass (spec 13 §3). */
     private void mixedMetal(String name, TagKey<Item> top, TagKey<Item> bottom, int count) {
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, Ic2Items.MIXED_METAL_INGOT, count).pattern("X").pattern("Y")
-                .pattern("Z").define('X', top).define('Y', CraftItemTagsProvider.PLATES_BRONZE).define('Z', bottom)
-                .unlockedBy("has_plate", has(bottom)).save(output, id("mixed_metal_ingot_" + name));
+        for (TagKey<Item> middle : List.of(CraftItemTagsProvider.PLATES_BRONZE, CraftItemTagsProvider.PLATES_BRASS)) {
+            ShapedRecipeBuilder.shaped(RecipeCategory.MISC, Ic2Items.MIXED_METAL_INGOT, count).pattern("X")
+                    .pattern("Y").pattern("Z").define('X', top).define('Y', middle).define('Z', bottom)
+                    .unlockedBy("has_plate", has(bottom)).save(output, id("mixed_metal_ingot_"
+                            + (middle == CraftItemTagsProvider.PLATES_BRASS ? name.replace("_bronze_", "_brass_") : name)));
+        }
     }
 
     /** Assembling machine (spec 13 §6): crafting recipe, lithium items and the assembler recipes of §6.2. */
@@ -1293,14 +1297,17 @@ public final class CraftRecipeProvider extends RecipeProvider {
         shaped(Ic2Items.SOLAR_HELMET, 1, "solar_helmet").pattern("III").pattern("ISI").pattern("CCC")
                 .define('I', Items.IRON_INGOT).define('S', Ic2Items.machine(Ic2Machine.SOLAR_PANEL))
                 .define('C', Ic2Items.cable(CableType.INSULATED_COPPER)).save();
+        // Item.helmetSteel/bootsSteel are damage-0 stacks in AdvRecipe: only undamaged iron armor fits.
+        Ingredient ironHelmet = DataComponentIngredient.of(false, DataComponents.DAMAGE, 0, Items.IRON_HELMET);
+        Ingredient ironBoots = DataComponentIngredient.of(false, DataComponents.DAMAGE, 0, Items.IRON_BOOTS);
         shaped(Ic2Items.SOLAR_HELMET, 1, "solar_helmet_from_iron_helmet").pattern(" H ").pattern(" S ")
-                .pattern("CCC").define('H', Items.IRON_HELMET).define('S', Ic2Items.machine(Ic2Machine.SOLAR_PANEL))
+                .pattern("CCC").define('H', ironHelmet).define('S', Ic2Items.machine(Ic2Machine.SOLAR_PANEL))
                 .define('C', Ic2Items.cable(CableType.INSULATED_COPPER)).save();
         shaped(Ic2Items.STATIC_BOOTS, 1, "static_boots").pattern("I I").pattern("ISI").pattern("CCC")
                 .define('I', Items.IRON_INGOT).define('S', ItemTags.WOOL)
                 .define('C', Ic2Items.cable(CableType.INSULATED_COPPER)).save();
         shaped(Ic2Items.STATIC_BOOTS, 1, "static_boots_from_iron_boots").pattern(" H ").pattern(" S ")
-                .pattern("CCC").define('H', Items.IRON_BOOTS).define('S', ItemTags.WOOL)
+                .pattern("CCC").define('H', ironBoots).define('S', ItemTags.WOOL)
                 .define('C', Ic2Items.cable(CableType.INSULATED_COPPER)).save();
     }
 
@@ -1935,6 +1942,87 @@ public final class CraftRecipeProvider extends RecipeProvider {
      * this mod only the vanilla iron, gold, diamond and wooden armor/tools fit (bronze, steel, ruby … tools are not in
      * scope). Machine and furnace recipes compared item and damage, so only undamaged pieces count.
      */
+    /** Electrum plate and the circuit boards made from it (spec 12 §5.7, phase 14). */
+    private void gregTechCircuitBoards() {
+        plate("electrum", CraftItemTagsProvider.INGOTS_ELECTRUM, GtItems.ELECTRUM_PLATE, GtItems.ELECTRUM_DUST,
+                GtItems.ELECTRUM_INGOT);
+        SizedIngredient twoElectrum = SizedIngredient.of(CraftItemTagsProvider.PLATES_ELECTRUM, 2);
+        assemble("gt_basic_circuit_board", SizedIngredient.of(CraftItemTagsProvider.PLATES_REFINED_IRON, 1), twoElectrum,
+                stack(GtItems.BASIC_CIRCUIT_BOARD, 2), 800, 1);
+        assemble("gt_basic_circuit_board_from_aluminium", SizedIngredient.of(CraftItemTagsProvider.PLATES_ALUMINIUM, 1),
+                twoElectrum, stack(GtItems.BASIC_CIRCUIT_BOARD, 2), 800, 1);
+        assemble("gt_advanced_circuit_board", SizedIngredient.of(Ic2Items.ELECTRONIC_CIRCUIT, 1), twoElectrum,
+                stack(GtItems.ADVANCED_CIRCUIT_BOARD, 1), 1600, 2);
+        assemble("gt_advanced_circuit_board_from_silicon", SizedIngredient.of(CraftItemTagsProvider.PLATES_SILICON, 1),
+                SizedIngredient.of(CraftItemTagsProvider.PLATES_ELECTRUM, 4), stack(GtItems.ADVANCED_CIRCUIT_BOARD, 2),
+                1600, 2);
+        assemble("advanced_circuit_parts", SizedIngredient.of(CraftItemTagsProvider.ITEM_LAZURITE, 1),
+                SizedIngredient.of(Tags.Items.DUSTS_GLOWSTONE, 1), stack(GtItems.ADVANCED_CIRCUIT_PARTS, 2), 800, 2);
+        assemble("advanced_circuit", SizedIngredient.of(GtItems.ADVANCED_CIRCUIT_BOARD, 1),
+                SizedIngredient.of(GtItems.ADVANCED_CIRCUIT_PARTS, 2), stack(Ic2Items.ADVANCED_CIRCUIT, 1), 1600, 2);
+        // copperWire = insulated copper cable.
+        ItemLike copperWire = Ic2Items.cable(CableType.INSULATED_COPPER);
+        assemble("electronic_circuit", SizedIngredient.of(GtItems.BASIC_CIRCUIT_BOARD, 1),
+                SizedIngredient.of(copperWire, 3), stack(Ic2Items.ELECTRONIC_CIRCUIT, 1), 800, 1);
+        assemble("frequency_transmitter", SizedIngredient.of(Ic2Items.ELECTRONIC_CIRCUIT, 1),
+                SizedIngredient.of(copperWire, 1), stack(Ic2Items.FREQUENCY_TRANSMITTER, 1), 800, 1);
+    }
+
+    /** Brass from copper and zinc dust (spec 12 §5.7, phase 14); mixed metal variants in {@link #mixedMetal}. */
+    private void gregTechBrass() {
+        Ingredient copper = Ingredient.of(CraftItemTagsProvider.DUSTS_COPPER);
+        shapeless(GtItems.BRASS_DUST, 4, "brass_dust", copper, copper, copper,
+                Ingredient.of(CraftItemTagsProvider.DUSTS_ZINC));
+        Ingredient smallCopper = Ingredient.of(GtItems.SMALL_COPPER_DUST);
+        shapeless(GtItems.BRASS_DUST, 1, "brass_dust_from_small", smallCopper, smallCopper, smallCopper,
+                Ingredient.of(GtItems.SMALL_ZINC_DUST));
+        smelt("brass_ingot_from_dust", Ingredient.of(GtItems.BRASS_DUST), GtItems.BRASS_INGOT, 1, 0.0F);
+        machine(MachineRecipe.Kind.MACERATOR, "brass_ingot", Ingredient.of(CraftItemTagsProvider.INGOTS_BRASS), 1,
+                GtItems.BRASS_DUST, 1);
+        plate("brass", CraftItemTagsProvider.INGOTS_BRASS, GtItems.BRASS_PLATE, GtItems.BRASS_DUST, GtItems.BRASS_INGOT);
+        // ForestryBronzeNerf = true: a single brass dust, as for bronze.
+        centrifuge("brass_dust", Ingredient.of(CraftItemTagsProvider.DUSTS_BRASS), 1, 0, 1500,
+                stack(GtItems.SMALL_COPPER_DUST, 3), stack(GtItems.SMALL_ZINC_DUST, 1));
+    }
+
+    /** Flint and iron mortar ({@code GT_Mod} 3923–3945, spec 12 §5.7) and flour (phase 14). */
+    private void gregTechMortars() {
+        machine(MachineRecipe.Kind.MACERATOR, "wheat", Ingredient.of(Items.WHEAT), 1, GtItems.FLOUR, 1);
+        smelt("bread_from_flour", Ingredient.of(GtItems.FLOUR), Items.BREAD, 1, 0.0F);
+        shapeless(GtItems.FLINT_MORTAR, 1, "flint_mortar", Ingredient.of(Items.BOWL), Ingredient.of(Items.FLINT));
+        shaped(GtItems.IRON_MORTAR, 1, "iron_mortar").pattern(" R ", "SRS", "SSS")
+                .define('R', CraftItemTagsProvider.INGOTS_REFINED_IRON).define('S', Items.STONE_BRICKS).save();
+        for (ItemLike mortar : List.of(GtItems.FLINT_MORTAR, GtItems.IRON_MORTAR)) {
+            boolean iron = mortar == GtItems.IRON_MORTAR;
+            String prefix = iron ? "iron_mortar/" : "flint_mortar/";
+            // GT gives hydrated coal dust here (getIC2Item("hydratedCoalDust")), not coal dust.
+            mortar(mortar, prefix + "coal", Ingredient.of(Items.COAL), Ic2Items.HYDRATED_COAL_DUST);
+            mortar(mortar, prefix + "gold", Ingredient.of(Tags.Items.INGOTS_GOLD), Ic2Items.GOLD_DUST);
+            mortar(mortar, prefix + "clay", Ingredient.of(Items.CLAY), Ic2Items.CLAY_DUST);
+            mortar(mortar, prefix + "copper", Ingredient.of(ingotsCopper()), Ic2Items.COPPER_DUST);
+            mortar(mortar, prefix + "tin", Ingredient.of(CraftItemTagsProvider.INGOTS_TIN), Ic2Items.TIN_DUST);
+            if (iron) {
+                mortar(mortar, prefix + "bronze", Ingredient.of(CraftItemTagsProvider.INGOTS_BRONZE),
+                        Ic2Items.BRONZE_DUST);
+            }
+            mortar(mortar, prefix + "silver", Ingredient.of(CraftItemTagsProvider.INGOTS_SILVER), Ic2Items.SILVER_DUST);
+            mortar(mortar, prefix + "electrum", Ingredient.of(CraftItemTagsProvider.INGOTS_ELECTRUM),
+                    GtItems.ELECTRUM_DUST);
+            if (iron) {
+                mortar(mortar, prefix + "brass", Ingredient.of(CraftItemTagsProvider.INGOTS_BRASS), GtItems.BRASS_DUST);
+                mortar(mortar, prefix + "iron", Ingredient.of(Tags.Items.INGOTS_IRON), Ic2Items.IRON_DUST);
+                mortar(mortar, prefix + "refined_iron", Ingredient.of(CraftItemTagsProvider.INGOTS_REFINED_IRON),
+                        Ic2Items.IRON_DUST);
+                mortar(mortar, prefix + "gravel", Ingredient.of(Items.GRAVEL), Items.FLINT);
+            }
+            mortar(mortar, prefix + "wheat", Ingredient.of(Items.WHEAT), GtItems.FLOUR);
+        }
+    }
+
+    private void mortar(ItemLike mortar, String name, Ingredient input, ItemLike result) {
+        shapeless(result, 1, name, Ingredient.of(mortar), input);
+    }
+
     private void gregTechRecycling() {
         record Piece(String name, int count) {
         }
@@ -2428,6 +2516,11 @@ public final class CraftRecipeProvider extends RecipeProvider {
             machine(MachineRecipe.Kind.COMPRESSOR, BuiltInRegistries.ITEM.getKey(plant)
                     .getPath(), Ingredient.of(plant), 8, Ic2Items.COMPRESSED_PLANT_BALL, 1);
         }
+        // GregTech treeSapling/treeLeaves handler: 4 saplings or 8 leaves; IC2 rubber leaves were not "treeLeaves".
+        machine(MachineRecipe.Kind.COMPRESSOR, "saplings", Ingredient.of(ItemTags.SAPLINGS), 4,
+                Ic2Items.COMPRESSED_PLANT_BALL, 1);
+        machine(MachineRecipe.Kind.COMPRESSOR, "leaves", DifferenceIngredient.of(Ingredient.of(ItemTags.LEAVES),
+                Ingredient.of(Ic2Items.RUBBER_LEAVES)), 8, Ic2Items.COMPRESSED_PLANT_BALL, 1);
         machine(MachineRecipe.Kind.COMPRESSOR, "hydrated_coal_dust", Ingredient.of(Ic2Items.HYDRATED_COAL_DUST), 1,
                 Ic2Items.HYDRATED_COAL_CLUMP, 1);
         machine(MachineRecipe.Kind.COMPRESSOR, "netherrack", Ingredient.of(Items.NETHERRACK), 3,

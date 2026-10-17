@@ -1,0 +1,21 @@
+{
+  "type": "craft:gt_centrifuge",
+  "duration": 1500,
+  "eu_per_tick": 5,
+  "inputs": [
+    {
+      "count": 1,
+      "tag": "c:dusts/brass"
+    }
+  ],
+  "outputs": [
+    {
+      "count": 3,
+      "id": "craft:small_copper_dust"
+    },
+    {
+      "count": 1,
+      "id": "craft:small_zinc_dust"
+    }
+  ]
+}

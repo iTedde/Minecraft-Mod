@@ -5,7 +5,11 @@
       "item": "craft:insulated_copper_cable"
     },
     "H": {
-      "item": "minecraft:iron_helmet"
+      "type": "neoforge:components",
+      "components": {
+        "minecraft:damage": 0
+      },
+      "items": "minecraft:iron_helmet"
     },
     "S": {
       "item": "craft:solar_panel"

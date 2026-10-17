@@ -11,6 +11,7 @@ import dev.craft.gregtech.block.GtCasingBlock;
 import dev.craft.gregtech.item.GtMachineItem;
 import dev.craft.gregtech.item.GtCoolantCellItem;
 import dev.craft.gregtech.item.GtMaterialItem;
+import dev.craft.gregtech.item.GtMortarItem;
 import dev.craft.gregtech.item.GtNeutronReflectorItem;
 import dev.craft.gregtech.item.GtRadioactiveCellItem;
 import dev.craft.gregtech.item.LithiumBatpackItem;
@@ -310,6 +311,21 @@ public final class GtItems {
     public static final DeferredItem<GtMaterialItem> CHARCOAL_DUST = material("charcoal_dust", "C");
     /** Material 35 {@code chunkLazurite} (the lapis block is registered under the same name). */
     public static final DeferredItem<GtMaterialItem> LAZURITE_CHUNK = material("lazurite_chunk", "(Al6Si6Ca8Na8)8");
+
+    // --- phase 14: electrum plate, circuit boards (Component 24/48/49), brass, flour, mortars ---
+    public static final DeferredItem<GtMaterialItem> ELECTRUM_PLATE = material("electrum_plate", "AgAu");
+    public static final DeferredItem<GtMaterialItem> BASIC_CIRCUIT_BOARD = component("gt_basic_circuit_board");
+    public static final DeferredItem<GtMaterialItem> ADVANCED_CIRCUIT_BOARD = component("gt_advanced_circuit_board");
+    public static final DeferredItem<GtMaterialItem> ADVANCED_CIRCUIT_PARTS = component("advanced_circuit_parts");
+    public static final DeferredItem<GtMaterialItem> BRASS_DUST = material("brass_dust", "ZnCu3");
+    public static final DeferredItem<GtMaterialItem> BRASS_INGOT = material("brass_ingot", "ZnCu3");
+    public static final DeferredItem<GtMaterialItem> BRASS_PLATE = material("brass_plate", "ZnCu3");
+    public static final DeferredItem<GtMaterialItem> FLOUR = material("flour", "");
+    /** {@code GT_Mortar_Item}: 64 uses, then iron dust. */
+    public static final DeferredItem<GtMortarItem> IRON_MORTAR = simple(ITEMS.registerItem("iron_mortar",
+            properties -> new GtMortarItem(properties.durability(63).setNoRepair())));
+    /** {@code GT_Generic_Item}: used up in one craft. */
+    public static final DeferredItem<Item> FLINT_MORTAR = simple(ITEMS.registerSimpleItem("flint_mortar"));
 
     public static DeferredItem<BlockItem> ore(GtOre ore) {
         return ORES.get(ore);

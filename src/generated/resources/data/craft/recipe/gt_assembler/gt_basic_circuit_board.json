@@ -1,0 +1,21 @@
+{
+  "type": "craft:gt_assembler",
+  "duration": 800,
+  "eu_per_tick": 1,
+  "inputs": [
+    {
+      "count": 1,
+      "tag": "c:plates/refined_iron"
+    },
+    {
+      "count": 2,
+      "tag": "c:plates/electrum"
+    }
+  ],
+  "outputs": [
+    {
+      "count": 2,
+      "id": "craft:gt_basic_circuit_board"
+    }
+  ]
+}

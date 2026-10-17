@@ -1,0 +1,21 @@
+{
+  "type": "craft:gt_assembler",
+  "duration": 1600,
+  "eu_per_tick": 2,
+  "inputs": [
+    {
+      "count": 1,
+      "item": "craft:gt_advanced_circuit_board"
+    },
+    {
+      "count": 2,
+      "item": "craft:advanced_circuit_parts"
+    }
+  ],
+  "outputs": [
+    {
+      "count": 1,
+      "id": "craft:advanced_circuit"
+    }
+  ]
+}

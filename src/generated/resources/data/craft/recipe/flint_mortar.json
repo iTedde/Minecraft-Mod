@@ -1,0 +1,15 @@
+{
+  "type": "craft:ic2_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:bowl"
+    },
+    {
+      "item": "minecraft:flint"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:flint_mortar"
+  }
+}

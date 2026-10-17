@@ -1,0 +1,17 @@
+{
+  "type": "craft:compressor",
+  "count": 8,
+  "ingredient": {
+    "type": "neoforge:difference",
+    "base": {
+      "tag": "minecraft:leaves"
+    },
+    "subtracted": {
+      "item": "craft:rubber_leaves"
+    }
+  },
+  "result": {
+    "count": 1,
+    "id": "craft:compressed_plant_ball"
+  }
+}

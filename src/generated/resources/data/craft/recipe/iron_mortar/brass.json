@@ -1,0 +1,15 @@
+{
+  "type": "craft:ic2_shapeless",
+  "ingredients": [
+    {
+      "item": "craft:iron_mortar"
+    },
+    {
+      "tag": "c:ingots/brass"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:brass_dust"
+  }
+}

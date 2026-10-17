@@ -1,0 +1,15 @@
+{
+  "type": "craft:ic2_shapeless",
+  "ingredients": [
+    {
+      "item": "craft:flint_mortar"
+    },
+    {
+      "tag": "c:ingots/silver"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:silver_dust"
+  }
+}

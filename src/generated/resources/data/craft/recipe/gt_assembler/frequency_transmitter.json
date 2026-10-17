@@ -1,0 +1,21 @@
+{
+  "type": "craft:gt_assembler",
+  "duration": 800,
+  "eu_per_tick": 1,
+  "inputs": [
+    {
+      "count": 1,
+      "item": "craft:electronic_circuit"
+    },
+    {
+      "count": 1,
+      "item": "craft:insulated_copper_cable"
+    }
+  ],
+  "outputs": [
+    {
+      "count": 1,
+      "id": "craft:frequency_transmitter"
+    }
+  ]
+}

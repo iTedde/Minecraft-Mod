@@ -456,7 +456,7 @@ Ausgabe teilen den Wert – im Pack gleich den Code-Standardwerten, außer wo un
 | 4 Eisenbarren | Redstone | Kompass | 400 | 4 | `ingotIron` |
 | 4 Goldbarren | Redstone | Uhr | 400 | 4 | `ingotGold` |
 
-**Später** (Zutaten fehlen): Schaltkreise/Platinen (Elektrum, Platin, Lazurit, Olivin/Smaragd → Datenspeicher …),
+**Später** (Zutaten fehlen): ~~Platinen 48/49, Schaltkreisteile, Frequenzsender~~ (Phase 14, `12-…` §5.7), Schaltkreise (Platin, Lazurit, Olivin/Smaragd → Datenspeicher …),
 Daten-Orb, Sonictron, Scanner (Cropnalyzer), Sensor-Kit, Messing-/Titan-Hülle, RS-Energiezellen-Upgrade (Thermal
 Expansion), Railcraft-Teile (nicht im Umfang), Zahnräder aus Bronze/Kupfer/Invar.
 

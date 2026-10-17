@@ -41,8 +41,8 @@ heraus. Auswahl gewichtet: `rand · Summe` gegen die kumulierten Chancen.
 **Pack-Liste:** IC2 füllt die Liste in PreInit (`ItemScrapbox.init`), GregTech **leert sie** in seiner PreInit
 (`GT_Mod.java:431`), trägt Schrott (Chance 200) ein und fügt in PostInit seine Liste hinzu (`GT_Mod.java:2231–2311`,
 alle Einträge in `RecipesAdvancedConfig.cfg` aktiv). Die IC2-Liste (inkl. „suddenlyHoes“) ist damit wirkungslos.
-Summe aller Pack-Chancen 320,78; Schrott ≈ 62 %. Seit 13.3 sind auch Holzschliff, Holzkohle-, Elektrum-, Obsidian- und Feuersteinstaub enthalten; es fehlen nur noch die
-Platinen 48/49/24 und Messingstaub. Die Sonderregeln in `GT_ModHandler.getRandomScrapboxDrop`
+Summe aller Pack-Chancen 320,78; Schrott ≈ 62 %. Seit 13.3 sind auch Holzschliff, Holzkohle-, Elektrum-, Obsidian- und Feuersteinstaub enthalten, seit Phase 14 die
+Platinen 48/49/24 und Messingstaub – damit ist die GT-Liste vollständig. Die Sonderregeln in `GT_ModHandler.getRandomScrapboxDrop`
 (Minecart und Goldhelm neu würfeln) gelten nur für den GT-Scrapboxinator, nicht für den Rechtsklick.
 
 | Chance | Drops |
@@ -459,7 +459,8 @@ quantum, hazmat (auch Gummistiefel), jetpack (beide), batpack (auch CF-Pack), la
 nightvision.
 
 **Rezepte** (Ergänzung zu `08-rezepte.md` §11): Solarhelm `III/ISI/CCC` I = Eisenbarren, C = isol. Kupferkabel;
-` H / S /CCC` H = Eisenhelm. Static Boots ebenso mit Wolle, H = Eisenstiefel. Jetpack: I = raffiniertes Eisen,
+` H / S /CCC` H = Eisenhelm. Static Boots ebenso mit Wolle, H = Eisenstiefel. Eisenhelm/-stiefel nur unbeschädigt
+(IC2 `AdvRecipe` vergleicht Schaden 0). Jetpack: I = raffiniertes Eisen,
 C = el. Schaltkreis, R = Redstone. El. Jetpack: I = raffiniertes Eisen, G = Glowstonestaub. BatPack: T = Zinnbarren,
 C = el. Schaltkreis, B = RE-Batterie (geladen oder leer). Hazmat: R = Gummi.
 

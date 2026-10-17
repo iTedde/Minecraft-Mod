@@ -1,0 +1,15 @@
+{
+  "type": "craft:ic2_shapeless",
+  "ingredients": [
+    {
+      "item": "craft:flint_mortar"
+    },
+    {
+      "tag": "c:ingots/electrum"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:electrum_dust"
+  }
+}

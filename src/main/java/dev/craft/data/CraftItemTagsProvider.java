@@ -78,6 +78,11 @@ public final class CraftItemTagsProvider extends ItemTagsProvider {
     public static final TagKey<Item> INGOTS_TUNGSTENSTEEL = commonTag("ingots/tungstensteel");
     public static final TagKey<Item> PLATES_TUNGSTEN = commonTag("plates/tungsten");
     public static final TagKey<Item> PLATES_TUNGSTENSTEEL = commonTag("plates/tungstensteel");
+    public static final TagKey<Item> PLATES_ELECTRUM = commonTag("plates/electrum");
+    public static final TagKey<Item> INGOTS_ELECTRUM = commonTag("ingots/electrum");
+    public static final TagKey<Item> PLATES_BRASS = commonTag("plates/brass");
+    public static final TagKey<Item> INGOTS_BRASS = commonTag("ingots/brass");
+    public static final TagKey<Item> DUSTS_BRASS = commonTag("dusts/brass");
     public static final TagKey<Item> DUSTS_TUNGSTEN = commonTag("dusts/tungsten");
     public static final TagKey<Item> STORAGE_BLOCKS_STEEL = commonTag("storage_blocks/steel");
     public static final TagKey<Item> DUSTS_MAGNESIUM = commonTag("dusts/magnesium");
@@ -188,6 +193,11 @@ public final class CraftItemTagsProvider extends ItemTagsProvider {
         tag(PLATES_CHROME).add(GtItems.CHROME_PLATE.get());
         tag(PLATES_PLATINUM).add(GtItems.PLATINUM_PLATE.get());
         tag(PLATES_MAGNALIUM).add(GtItems.MAGNALIUM_PLATE.get());
+        tag(PLATES_ELECTRUM).add(GtItems.ELECTRUM_PLATE.get());
+        tag(INGOTS_ELECTRUM).add(GtItems.ELECTRUM_INGOT.get());
+        tag(PLATES_BRASS).add(GtItems.BRASS_PLATE.get());
+        tag(INGOTS_BRASS).add(GtItems.BRASS_INGOT.get());
+        tag(DUSTS_BRASS).add(GtItems.BRASS_DUST.get());
         tag(INGOTS_TUNGSTEN).add(GtItems.TUNGSTEN_INGOT.get());
         tag(INGOTS_TUNGSTENSTEEL).add(GtItems.TUNGSTENSTEEL_INGOT.get());
         tag(PLATES_TUNGSTEN).add(GtItems.TUNGSTEN_PLATE.get());
@@ -215,7 +225,8 @@ public final class CraftItemTagsProvider extends ItemTagsProvider {
         tag(Tags.Items.INGOTS).addTag(INGOTS_TIN).addTag(INGOTS_URANIUM).addTag(INGOTS_BRONZE).addTag(INGOTS_REFINED_IRON)
                 .addTag(INGOTS_NICKEL).addTag(INGOTS_ALUMINIUM).addTag(INGOTS_STEEL).addTag(INGOTS_LEAD)
                 .addTag(INGOTS_PLATINUM).addTag(INGOTS_SILVER).addTag(INGOTS_ZINC).addTag(INGOTS_TITANIUM)
-                .addTag(INGOTS_CHROME).addTag(INGOTS_TUNGSTEN).addTag(INGOTS_TUNGSTENSTEEL);
+                .addTag(INGOTS_CHROME).addTag(INGOTS_TUNGSTEN).addTag(INGOTS_TUNGSTENSTEEL).addTag(INGOTS_BRASS)
+                .addTag(INGOTS_ELECTRUM);
         tag(DUSTS_BRONZE).add(Ic2Items.BRONZE_DUST.get());
         tag(DUSTS_CLAY).add(Ic2Items.CLAY_DUST.get());
         tag(DUSTS_COAL).add(Ic2Items.COAL_DUST.get());
@@ -229,7 +240,8 @@ public final class CraftItemTagsProvider extends ItemTagsProvider {
                 .addTag(DUSTS_GOLD).addTag(DUSTS_IRON).addTag(DUSTS_TIN).addTag(DUSTS_SILVER)
                 .addTag(DUSTS_NICKEL).addTag(DUSTS_ALUMINIUM).addTag(DUSTS_STEEL).addTag(DUSTS_LEAD)
                 .addTag(DUSTS_PLATINUM).addTag(DUSTS_ZINC).addTag(DUSTS_CALCITE).addTag(DUSTS_MAGNESIUM)
-                .addTag(DUSTS_MANGANESE).addTag(DUSTS_TITANIUM).addTag(DUSTS_CHROME).addTag(DUSTS_TUNGSTEN);
+                .addTag(DUSTS_MANGANESE).addTag(DUSTS_TITANIUM).addTag(DUSTS_CHROME).addTag(DUSTS_TUNGSTEN)
+                .addTag(DUSTS_BRASS);
 
         // GT wood plate is registered as plankWood.
         tag(ItemTags.PLANKS).add(GtItems.WOOD_PLATE.get());

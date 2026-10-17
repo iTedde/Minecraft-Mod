@@ -1598,3 +1598,26 @@ Nutzerentscheidung (2026-10-17): **alle vier Lücken umsetzen** → Phase 13 (13
 - Phase 13 (Nachträge 13.1–13.4) abgenommen. Offen: Nutzerentscheidung zu den „Neuen Befunden aus 13.3“ und die
   manuellen Client-Tests aus `testplan.md`.
 3. Restliche manuelle Tests aus `testplan.md` (Sounds, Explosionen, Rüstung/Werkzeuge, Weltgen, Multiblöcke).
+
+# Phase 14 – Befunde aus 13.3 (Nutzer, 2026-10-17: „Mach die letzten 5 Schritte“)
+
+## Erledigt (2026-10-17)
+- Spezifikation `spec/12` §5.7 (Elektrum-Platinen, Messing, Mörser, Mehl; §5.4/§5.6 korrigiert), `spec/13` §6.2,
+  `spec/08` §10.3 (Compressor), `spec/05` (Schrottbox vollständig, Solarhelm/Static Boots Schaden 0).
+- 14.1 **Elektrumplatte + Platinen:** Items Elektrumplatte, `gt_basic_circuit_board`, `gt_advanced_circuit_board`
+  (Forestry belegt die IDs ohne Präfix), fortg. Schaltkreisteile; Plattenbieger, Assembler-Kette bis zum fortg. und el.
+  Schaltkreis, Frequenzsender (gleicher GT-Handler, fehlte); Schrottbox 120/180/40.
+- 14.2 **Messing:** Staub/Barren/Platte, Werkbank 3 Kupfer + 1 Zink → 4 (auch aus kl. Stäuben), Ofen, Macerator,
+  Plattenbieger, Zentrifuge 1500, alle Mischmetall-Varianten mit Messingplatte (`mixedMetal` erzeugt beide), Schrottbox 50.
+  Tags `c:ingots|dusts|plates/brass`, `c:plates/electrum`, `c:ingots/electrum` (mit EMI-Namen).
+- 14.3 **GT-Mörser:** `GtMortarItem` (Eisenmörser, 64 Benutzungen → Eisenstaub), Feuersteinmörser, alle Werkbank-
+  Rezepte inkl. GT-Eigenheit Kohle → hydr. Kohlestaub; Mehl (Macerator Weizen, Ofen → Brot).
+- 14.4 Compressor 4 Setzlinge / 8 Blätter (ohne Gummiblätter, `DifferenceIngredient`) → kompr. Pflanzenball.
+- 14.5 Solarhelm/Static Boots aus Eisenhelm/-stiefeln nur unbeschädigt.
+- `abweichungen.md` (3 Zeilen), `testplan.md` 5.20.
+- 5 neue GameTests (`GtPhase14GameTests`), **346 GameTests grün**, `gradlew build`. `runClient` nicht gestartet.
+- **Damit ist Phase 14 inhaltlich vollständig** – wartet auf Abnahme durch den Nutzer.
+
+## Nächste Schritte
+1. Abnahme Phase 14.
+2. Restliche manuelle Tests aus `testplan.md` (inkl. 5.20).

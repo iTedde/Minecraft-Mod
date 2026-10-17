@@ -115,20 +115,21 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
                 {"tungstensteel", "Tungstensteel", "Wolframstahl"}, {"uranium", "Uranium", "Uran"},
                 {"refined_iron", "Refined Iron", "Raffinierteisen"}, {"magnalium", "Magnalium", "Magnalium"},
                 {"silicon", "Silicon", "Silizium"}, {"bauxite", "Bauxite", "Bauxit"}, {"cinnabar", "Cinnabar", "Zinnober"},
+                {"brass", "Brass", "Messing"}, {"electrum", "Electrum", "Elektrum"},
                 {"galena", "Galena", "Galena"}, {"iridium", "Iridium", "Iridium"}, {"olivine", "Olivine", "Olivin"},
                 {"pyrite", "Pyrite", "Pyrit"}, {"ruby", "Ruby", "Rubin"}, {"sapphire", "Sapphire", "Saphir"},
                 {"sheldonite", "Sheldonite", "Sheldonit"}, {"sodalite", "Sodalite", "Sodalith"},
                 {"sphalerite", "Sphalerite", "Sphalerit"}, {"tungstate", "Tungstate", "Tungstat"}};
         // tag folder → {English suffix, German suffix, materials with that tag}
         String[][] kinds = {
-                {"dusts", "Dusts", "staub", "aluminium bronze calcite chrome clay coal lead magnesium manganese nickel "
-                        + "platinum silver steel tin titanium tungsten zinc"},
-                {"ingots", "Ingots", "barren", "aluminium bronze chrome lead nickel platinum refined_iron silver steel "
-                        + "tin titanium tungsten tungstensteel uranium zinc"},
+                {"dusts", "Dusts", "staub", "aluminium brass bronze calcite chrome clay coal lead magnesium manganese "
+                        + "nickel platinum silver steel tin titanium tungsten zinc"},
+                {"ingots", "Ingots", "barren", "aluminium brass bronze chrome electrum lead nickel platinum refined_iron "
+                        + "silver steel tin titanium tungsten tungstensteel uranium zinc"},
                 {"ores", "Ores", "erze", "bauxite cinnabar galena iridium olivine pyrite ruby sapphire sheldonite "
                         + "sodalite sphalerite tin tungstate uranium"},
-                {"plates", "Plates", "platten", "aluminium bronze chrome lead magnalium nickel platinum refined_iron "
-                        + "silicon silver steel tin titanium tungsten tungstensteel zinc"},
+                {"plates", "Plates", "platten", "aluminium brass bronze electrum chrome lead magnalium nickel platinum "
+                        + "refined_iron silicon silver steel tin titanium tungsten tungstensteel zinc"},
                 {"storage_blocks", "Storage Blocks", "blöcke", "bronze steel tin uranium"}};
         for (String[] kind : kinds) {
             for (String path : kind[3].split(" ")) {
@@ -668,6 +669,20 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
         item(GtItems.OBSIDIAN_DUST, "Obsidian Dust");
         item(GtItems.CHARCOAL_DUST, "Charcoal Dust");
         item(GtItems.LAZURITE_CHUNK, "Chunk of Lazurite");
+        item(GtItems.ELECTRUM_PLATE, "Electrum Plate");
+        item(GtItems.BASIC_CIRCUIT_BOARD, "Basic Circuit Board");
+        add("tooltip.craft.gt_basic_circuit_board", "Just a simple Circuit Plate");
+        item(GtItems.ADVANCED_CIRCUIT_BOARD, "Advanced Circuit Board");
+        add("tooltip.craft.gt_advanced_circuit_board", "Standard Circuit Plate");
+        item(GtItems.ADVANCED_CIRCUIT_PARTS, "Advanced Circuit Parts");
+        add("tooltip.craft.advanced_circuit_parts", "Part of advanced Circuitry");
+        item(GtItems.BRASS_DUST, "Brass Dust");
+        item(GtItems.BRASS_INGOT, "Brass Ingot");
+        item(GtItems.BRASS_PLATE, "Brass Plate");
+        item(GtItems.FLOUR, "Flour");
+        item(GtItems.IRON_MORTAR, "Iron Mortar");
+        add("tooltip.craft.iron_mortar", "Can pulverize Ingots to Dust");
+        item(GtItems.FLINT_MORTAR, "Flint Mortar");
         item(GtItems.DIAMOND_GRINDER, "Diamond Grinder");
         item(GtItems.SILVER_INGOT, "Silver Ingot");
         item(GtItems.SILVER_PLATE, "Silver Plate");

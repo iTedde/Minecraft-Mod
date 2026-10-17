@@ -145,6 +145,7 @@ ergänzen. Basispaket `dev.craft`, Einstieg `Craft` → `Ic2.init`, `BuildCraft.
   `forestry/recipe/FabricatorRecipe`, `CarpenterRecipe`. Code-Tabellen nur für Kleinkram (`RefineryRecipe`,
   `FabricatorSmelting`).
 - GT-Maschinenrezepte: `gregtech/recipe/GtRecipe` (1–2 `SizedIngredient`, 1–4 Ausgaben, Dauer, EU/t, `special`), eine Liste je `GtRecipe.Kind` (Typ `craft:gt_<name>`), Suche mit `GtRecipe.find`; Datagen-Helfer `plate(...)` in `CraftRecipeProvider`.
+- Werkbank-Werkzeug, das im Raster bleibt (Schaden +1, am Ende ein anderes Item): `gregtech/item/GtMortarItem` (`getCraftingRemainingItem`); Zutaten „nur unbeschädigt“: `DataComponentIngredient.of(false, DataComponents.DAMAGE, 0, item)`.
 
 ## Datagen (`dev.craft.data`) – wo was ergänzt wird
 

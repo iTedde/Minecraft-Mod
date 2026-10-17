@@ -388,6 +388,7 @@ IC2-Maschinenrezept für dieselbe Eingabe und fügen das neue ein.
 |---|---|---|
 | Pflanzenball | kompr. Pflanzenball | [IC2] |
 | 8 Weizen / 8 Zuckerrohr / 8 Kaktus / 8 Rosen / 8 Löwenzahn | kompr. Pflanzenball | **[GT+]** (Blumen: alle per Knochenmehl wachsenden Grasblumen) |
+| 4 Setzlinge (`treeSapling`, ohne Gummisetzling) / 8 Blätter (`treeLeaves`, ohne Gummiblätter) | kompr. Pflanzenball | **[GT+]** (`GT_OreDictHandler` Z. 3384–3412; seit Phase 14) |
 | Hydr. Kohlestaub | hydr. Kohleklumpen | [IC2] |
 | 3 Netherrack | Netherziegel | [IC2] |
 | Sand (1) | Sandstein | **[GT~]** → **4 Sand** |

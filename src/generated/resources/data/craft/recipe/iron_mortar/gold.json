@@ -1,0 +1,15 @@
+{
+  "type": "craft:ic2_shapeless",
+  "ingredients": [
+    {
+      "item": "craft:iron_mortar"
+    },
+    {
+      "tag": "c:ingots/gold"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:gold_dust"
+  }
+}

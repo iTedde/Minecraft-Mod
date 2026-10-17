@@ -63,7 +63,9 @@ public final class ScrapBoxDrops {
         add(drops, Ic2Items.RUBBER.get(), 80);
         add(drops, Ic2Items.SU_BATTERY.get(), 270);
         add(drops, GtItems.MACHINE_PARTS.get(), 80);
-        // advanced circuit parts 120, circuit boards 180/40/20: not yet available
+        add(drops, GtItems.ADVANCED_CIRCUIT_PARTS.get(), 120);
+        add(drops, GtItems.BASIC_CIRCUIT_BOARD.get(), 180);
+        add(drops, GtItems.ADVANCED_CIRCUIT_BOARD.get(), 40);
         add(drops, Ic2Blocks.cable(CableType.INSULATED_COPPER).get(), 200);
         add(drops, Ic2Blocks.cable(CableType.DOUBLE_INSULATED_GOLD).get(), 40);
         add(drops, Items.REDSTONE, 90);
@@ -81,7 +83,7 @@ public final class ScrapBoxDrops {
         add(drops, GtItems.LEAD_DUST.get(), 50);
         add(drops, GtItems.NICKEL_DUST.get(), 50);
         add(drops, GtItems.ZINC_DUST.get(), 50);
-        // brass dust 50: not yet available
+        add(drops, GtItems.BRASS_DUST.get(), 50);
         add(drops, GtItems.STEEL_DUST.get(), 50);
         add(drops, GtItems.OBSIDIAN_DUST.get(), 150);
         add(drops, GtItems.SULFUR_DUST.get(), 150);

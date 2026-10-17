@@ -1,0 +1,21 @@
+{
+  "type": "craft:gt_assembler",
+  "duration": 1600,
+  "eu_per_tick": 2,
+  "inputs": [
+    {
+      "count": 1,
+      "item": "craft:electronic_circuit"
+    },
+    {
+      "count": 2,
+      "tag": "c:plates/electrum"
+    }
+  ],
+  "outputs": [
+    {
+      "count": 1,
+      "id": "craft:gt_advanced_circuit_board"
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "type": "craft:macerator",
+  "ingredient": {
+    "tag": "c:ingots/brass"
+  },
+  "result": {
+    "count": 1,
+    "id": "craft:brass_dust"
+  }
+}

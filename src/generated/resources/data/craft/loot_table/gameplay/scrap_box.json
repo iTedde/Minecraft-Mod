@@ -194,6 +194,21 @@
         },
         {
           "type": "minecraft:item",
+          "name": "craft:advanced_circuit_parts",
+          "weight": 120
+        },
+        {
+          "type": "minecraft:item",
+          "name": "craft:gt_basic_circuit_board",
+          "weight": 180
+        },
+        {
+          "type": "minecraft:item",
+          "name": "craft:gt_advanced_circuit_board",
+          "weight": 40
+        },
+        {
+          "type": "minecraft:item",
           "name": "craft:insulated_copper_cable",
           "weight": 200
         },
@@ -275,6 +290,11 @@
         {
           "type": "minecraft:item",
           "name": "craft:zinc_dust",
+          "weight": 50
+        },
+        {
+          "type": "minecraft:item",
+          "name": "craft:brass_dust",
           "weight": 50
         },
         {
