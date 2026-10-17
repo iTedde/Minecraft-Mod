@@ -9,6 +9,7 @@ import dev.craft.forestry.Forestry;
 import dev.craft.powerconverters.PowerConverters;
 import dev.craft.powerplants.PowerPlants;
 import dev.craft.ic2.Ic2;
+import dev.craft.mining.Mining;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
@@ -27,6 +28,7 @@ public final class Craft {
         CompactSolars.init(modBus);
         GregTech.init(modBus);
         PowerPlants.init(modBus);
+        Mining.init(modBus);
         CraftCreativeTabs.TABS.register(modBus);
     }
 }

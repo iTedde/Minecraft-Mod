@@ -31,6 +31,7 @@ import dev.craft.ic2.block.ScaffoldBlock;
 import dev.craft.ic2.cable.CableType;
 import dev.craft.ic2.client.CableModel;
 import dev.craft.ic2.machine.MachineBlock;
+import dev.craft.mining.MiningBlocks;
 import dev.craft.compactsolars.CsBlocks;
 import dev.craft.compactsolars.SolarArrayType;
 import dev.craft.powerconverters.ConverterType;
@@ -43,6 +44,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.NetherPortalBlock;
 import net.minecraft.world.level.block.PipeBlock;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
@@ -74,6 +76,7 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
 
     @Override
     protected void registerStatesAndModels() {
+        miningPortal();
         for (CableType type : CableType.values()) {
             BlockModelBuilder model = models().getBuilder("block/cable/" + type.getName())
                     .texture("particle", CableModel.cableTexture(type, 0))
@@ -696,5 +699,16 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
             }
         }
         simpleBlockItem(block, models().cubeAll(name, texture));
+    }
+
+    /** Nether portal models with the mining portal texture (spec 18 §4.2). */
+    private void miningPortal() {
+        ResourceLocation texture = modLoc("block/mining_portal");
+        BlockModelBuilder alongX = models().withExistingParent("mining_portal_ns", mcLoc("block/nether_portal_ns"))
+                .texture("particle", texture).texture("portal", texture).renderType("translucent");
+        BlockModelBuilder alongZ = models().withExistingParent("mining_portal_ew", mcLoc("block/nether_portal_ew"))
+                .texture("particle", texture).texture("portal", texture).renderType("translucent");
+        getVariantBuilder(MiningBlocks.MINING_PORTAL.get()).forAllStates(state -> ConfiguredModel.builder()
+                .modelFile(state.getValue(NetherPortalBlock.AXIS) == Direction.Axis.X ? alongX : alongZ).build());
     }
 }

@@ -1,4 +1,5 @@
 {
+  "biome.craft.mining": "Mining-Welt",
   "block.craft.advanced_machine_casing": "Fortgeschrittener Maschinenblock",
   "block.craft.assembling_machine": "Assembling Machine",
   "block.craft.automatic_canning_machine": "Automatic Canning Machine",
@@ -99,6 +100,7 @@
   "block.craft.mfsu": "MFSU",
   "block.craft.miner": "Miner",
   "block.craft.mining_pipe": "Minenrohr",
+  "block.craft.mining_portal": "Mining-Portal",
   "block.craft.mining_well": "Minenbohrer",
   "block.craft.mv_solar_array": "Medium Voltage Solar Array",
   "block.craft.mv_transformer": "MV-Transformator",

@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "craft:block/mining_portal_ns"
+    },
+    "axis=z": {
+      "model": "craft:block/mining_portal_ew"
+    }
+  }
+}

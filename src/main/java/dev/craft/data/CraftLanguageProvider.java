@@ -5,6 +5,7 @@ import java.util.function.Supplier;
 
 import dev.craft.Craft;
 import dev.craft.buildcraft.BcBlocks;
+import dev.craft.mining.MiningBlocks;
 import dev.craft.buildcraft.BcItems;
 import dev.craft.buildcraft.transport.PipeType;
 import dev.craft.buildcraft.fluid.BcFluids;
@@ -155,6 +156,12 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
         add("tag.item.craft.recycler_blacklist", german ? "Recycler-Blacklist" : "Recycler Blacklist");
         add("tag.item.craft.toolbox.boxable", german ? "Werkzeugkasten-tauglich" : "Toolbox Items");
         add("tag.item.craft.toolbox.not_boxable", german ? "Nicht Werkzeugkasten-tauglich" : "Not Toolbox Items");
+    }
+
+    /** Mining dimension (spec 18). */
+    protected void mining(boolean german) {
+        add("biome.craft.mining", german ? "Mining-Welt" : "Mining World");
+        add(MiningBlocks.MINING_PORTAL.get(), german ? "Mining-Portal" : "Mining Portal");
     }
 
     protected void recipeViewer(boolean german) {
@@ -1143,6 +1150,7 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             powerPlants(false);
             crops(false);
             recipeViewer(false);
+            mining(false);
         }
     }
 
@@ -1540,6 +1548,7 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             powerPlants(true);
             crops(true);
             recipeViewer(true);
+            mining(true);
         }
     }
 }

@@ -5,6 +5,7 @@ import java.util.concurrent.CompletableFuture;
 import dev.craft.Craft;
 import dev.craft.gregtech.world.GtWorldGen;
 import dev.craft.ic2.world.RubberTreeFeature;
+import dev.craft.mining.MiningDimension;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.BiomeTagsProvider;
@@ -24,10 +25,12 @@ public final class CraftBiomeTagsProvider extends BiomeTagsProvider {
         tag(RubberTreeFeature.HAS_RUBBER_TREES).addTag(BiomeTags.IS_TAIGA).addTag(BiomeTags.IS_FOREST)
                 .addTag(BiomeTags.IS_JUNGLE).addTag(Tags.Biomes.IS_SWAMP);
         // GT biome lists with their 1.21 counterparts (spec 07 §6.5, decided 2026-10-16).
-        tag(GtWorldGen.RUBY_BIOMES).add(Biomes.DESERT).addTag(BiomeTags.IS_BADLANDS).addTag(BiomeTags.IS_SAVANNA);
+        // The mining dimension has all of them (spec 18 §3).
+        tag(GtWorldGen.RUBY_BIOMES).add(Biomes.DESERT).addTag(BiomeTags.IS_BADLANDS).addTag(BiomeTags.IS_SAVANNA)
+                .add(MiningDimension.BIOME);
         tag(GtWorldGen.SAPPHIRE_BIOMES).addTag(BiomeTags.IS_OCEAN).addTag(BiomeTags.IS_BEACH)
-                .add(Biomes.MANGROVE_SWAMP);
+                .add(Biomes.MANGROVE_SWAMP).add(MiningDimension.BIOME);
         tag(GtWorldGen.BAUXITE_BIOMES).add(Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS, Biomes.MEADOW)
-                .addTag(BiomeTags.IS_FOREST).add(Biomes.CHERRY_GROVE);
+                .addTag(BiomeTags.IS_FOREST).add(Biomes.CHERRY_GROVE).add(MiningDimension.BIOME);
     }
 }

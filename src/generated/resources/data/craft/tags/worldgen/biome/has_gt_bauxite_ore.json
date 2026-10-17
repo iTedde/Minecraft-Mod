@@ -4,6 +4,7 @@
     "minecraft:sunflower_plains",
     "minecraft:meadow",
     "#minecraft:is_forest",
-    "minecraft:cherry_grove"
+    "minecraft:cherry_grove",
+    "craft:mining"
   ]
 }

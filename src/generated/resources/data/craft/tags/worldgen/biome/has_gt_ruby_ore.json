@@ -2,6 +2,7 @@
   "values": [
     "minecraft:desert",
     "#minecraft:is_badlands",
-    "#minecraft:is_savanna"
+    "#minecraft:is_savanna",
+    "craft:mining"
   ]
 }

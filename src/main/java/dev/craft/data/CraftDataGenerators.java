@@ -6,6 +6,7 @@ import java.util.concurrent.CompletableFuture;
 
 import dev.craft.Craft;
 import dev.craft.core.CraftDamageTypes;
+import dev.craft.mining.MiningDimension;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
@@ -26,6 +27,10 @@ public final class CraftDataGenerators {
             .add(Registries.DAMAGE_TYPE, CraftDamageTypes::bootstrap)
             .add(Registries.CONFIGURED_FEATURE, CraftWorldGen::bootstrapConfigured)
             .add(Registries.PLACED_FEATURE, CraftWorldGen::bootstrapPlaced)
+            .add(Registries.DIMENSION_TYPE, MiningDimension::bootstrapType)
+            .add(Registries.NOISE_SETTINGS, MiningDimension::bootstrapNoiseSettings)
+            .add(Registries.BIOME, MiningDimension::bootstrapBiome)
+            .add(Registries.LEVEL_STEM, MiningDimension::bootstrapStem)
             .add(NeoForgeRegistries.Keys.BIOME_MODIFIERS, CraftWorldGen::bootstrapBiomeModifiers);
 
     private CraftDataGenerators() {

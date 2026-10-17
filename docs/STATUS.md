@@ -1635,5 +1635,10 @@ Nutzerentscheidung (2026-10-17): **alle vier Lücken umsetzen** → Phase 13 (13
 - Nebenbei: CurseForge-Paket `X:/Craft/Craft-0.2.0-curseforge.zip` (Mod + EMI + Xaero in `overrides/mods`,
   `files` leer → CurseForge zeigt „Mods (0)“, die Jars liegen trotzdem im Profil).
 
+- 15.1 Dimension + Erze erledigt; nach dem ersten Test auf Nutzerwunsch auf **flache Steinwelt** umgestellt
+  (Oberfläche y 64, offener Himmel, darunter massiver Stein mit Erzen – zum Herunterbauen/Quarry).
+- 15.2 Portal erledigt (Glatter-Stein-Rahmen, Feuer zündet, Hin- und Rückweg im Client getestet, Gegenportal steht
+  auf der Ebene).
+
 ## Nächste Schritte
-1. 15.1 Dimension + Erze.
+1. 15.3 CC: Tweaked + CurseForge-Paket.
