@@ -34,6 +34,10 @@ import dev.craft.ic2.machine.ElectrolyzerBlockEntity;
 import dev.craft.ic2.machine.CanningMachineBlockEntity;
 import dev.craft.ic2.machine.MinerBlockEntity;
 import dev.craft.ic2.machine.TeleporterBlockEntity;
+import dev.craft.ic2.personal.EnergyOMatBlockEntity;
+import dev.craft.ic2.personal.PersonalBlock;
+import dev.craft.ic2.personal.PersonalSafeBlockEntity;
+import dev.craft.ic2.personal.TradeOMatBlockEntity;
 import dev.craft.ic2.machine.TerraformerBlockEntity;
 import dev.craft.ic2.machine.TeslaCoilBlockEntity;
 import dev.craft.ic2.machine.PumpBlockEntity;
@@ -226,6 +230,9 @@ public final class Ic2Blocks {
                     (pos, state) -> new ElectricStorageBlockEntity(Ic2BlockEntityTypes.get(machine), pos, state,
                             ElectricStorageBlockEntity.Spec.of(machine)));
             case MASS_FABRICATOR -> new MassFabricatorBlock(properties);
+            // IC2 BlockPersonal: unbreakable, setResistance(6 000 000) = 3 600 000 (bedrock).
+            case PERSONAL_SAFE, TRADE_O_MAT, ENERGY_O_MAT -> new PersonalBlock(
+                    metal().strength(-1.0F, 3600000.0F).noOcclusion(), machine, factory(machine));
             case NUCLEAR_REACTOR -> new NuclearReactorBlock(properties);
             case LV_TRANSFORMER, MV_TRANSFORMER, HV_TRANSFORMER -> new MachineBlock(properties, machine,
                     (pos, state) -> new TransformerBlockEntity(Ic2BlockEntityTypes.get(machine), pos, state,
@@ -256,6 +263,9 @@ public final class Ic2Blocks {
             case TELEPORTER -> TeleporterBlockEntity::new;
             case TESLA_COIL -> TeslaCoilBlockEntity::new;
             case TERRAFORMER -> TerraformerBlockEntity::new;
+            case PERSONAL_SAFE -> PersonalSafeBlockEntity::new;
+            case TRADE_O_MAT -> TradeOMatBlockEntity::new;
+            case ENERGY_O_MAT -> EnergyOMatBlockEntity::new;
             case BATBOX, MFE, MFSU, LV_TRANSFORMER, MV_TRANSFORMER, HV_TRANSFORMER, MASS_FABRICATOR, NUCLEAR_REACTOR ->
                     throw new IllegalArgumentException(machine + " has its own block class");
         };

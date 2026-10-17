@@ -1,0 +1,25 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "B": {
+      "item": "craft:re_battery"
+    },
+    "C": {
+      "item": "craft:insulated_copper_cable"
+    },
+    "M": {
+      "item": "craft:machine_casing"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    }
+  },
+  "pattern": [
+    "RBR",
+    "CMC"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:energy_o_mat"
+  }
+}

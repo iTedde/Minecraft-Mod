@@ -1044,6 +1044,14 @@ public final class CraftRecipeProvider extends RecipeProvider {
         shaped(Ic2Items.MUSHROOM_BLUEPRINT, 1, "mushroom_blueprint").pattern("mMm", "M#M", "mMm")
                 .define('#', Ic2Items.TERRAFORMER_BLUEPRINT).define('M', Items.BROWN_MUSHROOM)
                 .define('m', Items.MYCELIUM).save();
+        shaped(machine(Ic2Machine.PERSONAL_SAFE), 1, "personal_safe").pattern("c", "M", "C")
+                .define('c', Ic2Items.ELECTRONIC_CIRCUIT).define('M', Ic2Items.MACHINE_CASING).define('C', Items.CHEST)
+                .save();
+        shaped(machine(Ic2Machine.TRADE_O_MAT), 1, "trade_o_mat").pattern("RRR", "CMC")
+                .define('R', Items.REDSTONE).define('C', Items.CHEST).define('M', Ic2Items.MACHINE_CASING).save();
+        shaped(machine(Ic2Machine.ENERGY_O_MAT), 1, "energy_o_mat").pattern("RBR", "CMC")
+                .define('R', Items.REDSTONE).define('B', Ic2Items.RE_BATTERY)
+                .define('C', Ic2Items.cable(CableType.INSULATED_COPPER)).define('M', Ic2Items.MACHINE_CASING).save();
         shaped(machine(Ic2Machine.MINER), 1, "miner").pattern("CMC", " P ", " P ")
                 .define('C', Ic2Items.ELECTRONIC_CIRCUIT).define('M', Ic2Items.MACHINE_CASING)
                 .define('P', Ic2Items.MINING_PIPE).save();

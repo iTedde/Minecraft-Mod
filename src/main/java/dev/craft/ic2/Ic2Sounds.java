@@ -35,6 +35,7 @@ public final class Ic2Sounds {
     public static final DeferredHolder<SoundEvent, SoundEvent> RECYCLER_OP = register("machines/recycler_op");
     public static final DeferredHolder<SoundEvent, SoundEvent> PUMP_OP = register("machines/pump_op");
     public static final DeferredHolder<SoundEvent, SoundEvent> MINER_OP = register("machines/miner_op");
+    public static final DeferredHolder<SoundEvent, SoundEvent> O_MAT = register("machines/o_mat");
     public static final DeferredHolder<SoundEvent, SoundEvent> TELE_CHARGED_LOOP =
             register("machines/teleporter/tele_charged_loop");
     public static final DeferredHolder<SoundEvent, SoundEvent> TELE_USE = register("machines/teleporter/tele_use");

@@ -10,6 +10,7 @@ import dev.craft.gregtech.GtItems;
 import dev.craft.forestry.circuit.CircuitBoardType;
 import dev.craft.forestry.circuit.ElectronTube;
 import dev.craft.ic2.Ic2Items;
+import dev.craft.ic2.Ic2Machine;
 import dev.craft.ic2.cable.CableType;
 import dev.craft.ic2.client.Ic2Client;
 import dev.craft.powerplants.PpItems;
@@ -86,6 +87,7 @@ public final class CraftItemModelProvider extends ItemModelProvider {
         engine(BcItems.REFINERY);
         // RenderMachine/RenderBlock.inventoryRender, drawn by ForestryMachineItemRenderer.
         engine(FrItems.CARPENTER);
+        engine(Ic2Items.machine(Ic2Machine.PERSONAL_SAFE));
         engine(FrItems.THERMIONIC_FABRICATOR);
         engine(FrItems.ELECTRICAL_ENGINE);
         basicItem(FrItems.TIN_GEAR.get());

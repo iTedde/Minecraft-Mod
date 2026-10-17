@@ -63,6 +63,7 @@ Testwelt. Sprache einmal Deutsch, einmal Englisch prüfen. EMI und Xaero's Minim
 | 3.26 | Teleporter: zwei Teleporter mit Frequenzsender verknüpfen (alle Meldungen de/en, Luft-Klick entkoppelt), BatBox/MFE daneben, Hebel → blaue Partikel + Loop, Spieler/Tier/Items springen, Sound und Partikel an beiden Enden; leerer Speicher → nichts; Ziel abbauen → Teleporter vergisst es | 12.4 | |
 | 3.27 | Tesla-Spule: mit MV-Strom und Redstone werden Mobs/Spieler im Umkreis 4 alle 1,6 s geschockt (Schaden = Energie/400), danach leer; voller Hazmat-Anzug schützt; > 128 EU/t explodiert | 12.4 | |
 | 3.28 | Terraformer: Blaupause per Rechtsklick einsetzen (alte fliegt raus), Schraubenschlüssel wirft aus; mit MFSU-Strom je Blaupause im Umkreis beobachten: Kultivierung (Sand → Erde → Gras + Pflanzen), Bewässerung (Bäume/Weizen wachsen, Gras), Kühlung (Eis, Schnee), Wüste (Sand, Feuer), Einebnung, Pilze (Myzel, Biomfarbe ändert sich in 4×4-Säulen); Loop-Sound; EMI-Infoseiten der Blaupausen | 12.5 | |
+| 3.29 | Personal-Blöcke: Safe (Tür öffnet/schließt mit Sound, fremder Spieler bekommt die Meldung, Abbau nur leer mit Schraubenschlüssel, unzerstörbar sonst), Trade-O-Mat (Besitzer-GUI mit Mustern und Zähler, Kunden-GUI mit Vorrat rot/schwarz, Handel aus Truhe/eigenem Safe daneben, Sound), Energy-O-Mat (Knöpfe ±100/±1000, Kunde bezahlt, Strom über die Front rein, an andere Seiten raus; Upgrades) | 12.6 | |
 
 ## 4. IC2 – Canning, Pumpe, Reaktor, Nuke (Phasen 6b, 7, 8)
 

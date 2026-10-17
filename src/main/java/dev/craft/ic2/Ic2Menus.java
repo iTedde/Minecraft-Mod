@@ -11,6 +11,9 @@ import dev.craft.ic2.menu.ElectricStorageMenu;
 import dev.craft.ic2.menu.ElectrolyzerMenu;
 import dev.craft.ic2.menu.CanningMachineMenu;
 import dev.craft.ic2.menu.MinerMenu;
+import dev.craft.ic2.personal.EnergyOMatMenu;
+import dev.craft.ic2.personal.PersonalSafeMenu;
+import dev.craft.ic2.personal.TradeOMatMenu;
 import dev.craft.ic2.menu.PumpMenu;
 import dev.craft.ic2.menu.InductionFurnaceMenu;
 import dev.craft.ic2.menu.GeneratorMenu;
@@ -59,6 +62,12 @@ public final class Ic2Menus {
                     (id, inventory, buf) -> new CanningMachineMenu(id, inventory, buf.readBlockPos()));
             case PUMP -> IMenuTypeExtension.create(
                     (id, inventory, buf) -> new PumpMenu(id, inventory, buf.readBlockPos()));
+            case PERSONAL_SAFE -> IMenuTypeExtension.create(
+                    (id, inventory, buf) -> new PersonalSafeMenu(id, inventory, buf.readBlockPos()));
+            case TRADE_O_MAT -> IMenuTypeExtension.create(
+                    (id, inventory, buf) -> new TradeOMatMenu(id, inventory, buf.readBlockPos(), buf.readBoolean()));
+            case ENERGY_O_MAT -> IMenuTypeExtension.create(
+                    (id, inventory, buf) -> new EnergyOMatMenu(id, inventory, buf.readBlockPos(), buf.readBoolean()));
             case MINER -> IMenuTypeExtension.create(
                     (id, inventory, buf) -> new MinerMenu(id, inventory, buf.readBlockPos()));
             case NUCLEAR_REACTOR -> IMenuTypeExtension.create(

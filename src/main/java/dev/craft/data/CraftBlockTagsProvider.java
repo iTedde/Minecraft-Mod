@@ -78,6 +78,9 @@ public final class CraftBlockTagsProvider extends BlockTagsProvider {
                 Ic2Blocks.IRON_FENCE.get());
         tag(BlockTags.NEEDS_STONE_TOOL).add(Ic2Blocks.TIN_ORE.get(), Ic2Blocks.DEEPSLATE_TIN_ORE.get());
         tag(BlockTags.MINEABLE_WITH_PICKAXE).add(Ic2Blocks.MINING_PIPE.get(), Ic2Blocks.MINING_TIP.get());
+        // IC2 BlockPersonal.canDragonDestroy = false.
+        tag(BlockTags.DRAGON_IMMUNE).add(Ic2Blocks.machine(Ic2Machine.PERSONAL_SAFE).get(),
+                Ic2Blocks.machine(Ic2Machine.TRADE_O_MAT).get(), Ic2Blocks.machine(Ic2Machine.ENERGY_O_MAT).get());
         tag(BlockTags.MINEABLE_WITH_PICKAXE).add(Ic2Blocks.URANIUM_ORE.get(), Ic2Blocks.DEEPSLATE_URANIUM_ORE.get(),
                 Ic2Blocks.URANIUM_BLOCK.get(), Ic2Blocks.REACTOR_CHAMBER.get());
         tag(BlockTags.NEEDS_IRON_TOOL).add(Ic2Blocks.URANIUM_ORE.get(), Ic2Blocks.DEEPSLATE_URANIUM_ORE.get());

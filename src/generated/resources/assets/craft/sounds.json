@@ -79,6 +79,11 @@
       "craft:machines/miner_op"
     ]
   },
+  "machines/o_mat": {
+    "sounds": [
+      "craft:machines/o_mat"
+    ]
+  },
   "machines/pump_op": {
     "sounds": [
       "craft:machines/pump_op"

@@ -30,6 +30,10 @@ public enum Ic2Machine {
             Drop.ADVANCED_MACHINE_CASING, Rarity.UNCOMMON, true),
     MASS_FABRICATOR("mass_fabricator", Sheet.MACHINE, 14, 2.0F, FacingMode.HORIZONTAL, 0.7F,
             Drop.ADVANCED_MACHINE_CASING, Rarity.RARE, true),
+    PERSONAL_SAFE("personal_safe", Sheet.PERSONAL, 0, -1.0F, FacingMode.HORIZONTAL, 1.0F, Drop.SELF,
+            Rarity.UNCOMMON, true),
+    TRADE_O_MAT("trade_o_mat", Sheet.PERSONAL, 1, -1.0F, FacingMode.HORIZONTAL, 1.0F, Drop.SELF),
+    ENERGY_O_MAT("energy_o_mat", Sheet.PERSONAL, 2, -1.0F, FacingMode.HORIZONTAL, 1.0F, Drop.SELF),
     TERRAFORMER("terraformer", Sheet.MACHINE, 15, 2.0F, FacingMode.HORIZONTAL, 1.0F, Drop.ADVANCED_MACHINE_CASING,
             Rarity.UNCOMMON, false),
     BATBOX("batbox", Sheet.ELECTRIC, 0, 1.5F, FacingMode.ALL, 1.0F, Drop.SELF),
@@ -98,8 +102,13 @@ public enum Ic2Machine {
         return column;
     }
 
+    /** −1: unbreakable (the personal blocks, only the owner's wrench removes them). */
     public float getHardness() {
         return hardness;
+    }
+
+    public boolean isPersonal() {
+        return sheet == Sheet.PERSONAL;
     }
 
     public FacingMode getFacingMode() {
@@ -119,6 +128,7 @@ public enum Ic2Machine {
         GENERATOR("block_generator"),
         MACHINE("block_machine"),
         MACHINE2("block_machine2"),
+        PERSONAL("block_personal"),
         ELECTRIC("block_electric");
 
         private final String file;

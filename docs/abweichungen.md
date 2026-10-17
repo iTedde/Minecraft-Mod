@@ -165,6 +165,10 @@ Status: *geplant* (aus Phase 1 abgeleitet, noch nicht umgesetzt), *entschieden* 
 | Terraformer: Pilzbiom | ein Biom je Säule | die 4×4-Biomzellen der ganzen Säule um (x, z) werden Pilzland, Biome an die Clients neu gesendet | 3D-Biome ab 1.18 | **umgesetzt** (12.5) |
 | Terraformer: Automatisierung | `IInventory` mit einem Slot | keine Item-Capability (Blaupause nur per Rechtsklick) | Maschine ohne GUI | **umgesetzt** (12.5) |
 | Terraformer: Suchgrenze | Höhe > 0 | Höhe > Weltuntergrenze | Weltbereich ab 1.18 | **umgesetzt** (12.5) |
+| Personal-Blöcke: Besitzer | Spielername (Groß-/Kleinschreibung egal), Operator-Prüfung per Name | UUID (Name nur zur Anzeige), Operator/Einzelspieler-Besitzer per Profil | Namen sind ab 1.7 änderbar | **umgesetzt** (12.6) |
+| Personal-Blöcke: Nachbarinventare | `IInventory` jeder Art (auch der Safe, obwohl ohne Seitenzugriff) | Item-Capability ohne Seite; der Safe direkt (nur gleicher Besitzer) | Capabilities | **umgesetzt** (12.6) |
+| Personal-Blöcke: Sound und Tür | Netzwerk-Ereignis bzw. Block-Ereignis, Truhengeräusch auf beiden Seiten | Block-Ereignisse, Geräusche nur auf dem Client | – | **umgesetzt** (12.6) |
+| Trade-O-Mat: Stapelvergleich | ID + Meta (bei beschädigbaren nur ID), NBT egal | gleiches Item, Komponenten egal; eingelagerte Bezahlung als Kopie des Preis-Musters | keine Metadaten | **umgesetzt** (12.6) |
 | Quantum-Rezepte | Iridiumplatte, verst. Glas, fortg. Schaltkreis … | IC2-Rezepte, seit 6b.5b (Iridiumplatte aus dem Implosionskompressor, verstärktes Glas) | – | **umgesetzt** (6b.5b) |
 | Static Boots: Position | NBT `x`/`z` | Data Component `craft:last_position` | Data Components | **umgesetzt** |
 | Jetpack: Modus/Timer | NBT `hoverMode`/`toggleTimer` | Data Components `craft:hover_mode`/`craft:toggle_timer` | Data Components | **umgesetzt** |

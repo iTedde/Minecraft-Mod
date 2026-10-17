@@ -1,0 +1,22 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "C": {
+      "item": "minecraft:chest"
+    },
+    "M": {
+      "item": "craft:machine_casing"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    }
+  },
+  "pattern": [
+    "RRR",
+    "CMC"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:trade_o_mat"
+  }
+}

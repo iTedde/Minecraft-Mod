@@ -1,6 +1,7 @@
 package dev.craft.ic2.client;
 
 import dev.craft.Craft;
+import dev.craft.ic2.Ic2BlockEntityTypes;
 import dev.craft.ic2.Ic2Blocks;
 import dev.craft.ic2.Ic2EntityTypes;
 import dev.craft.ic2.Ic2Items;
@@ -10,6 +11,11 @@ import dev.craft.ic2.item.BatteryItem;
 import dev.craft.ic2.item.ToolboxItem;
 import dev.craft.ic2.item.tool.NanoSaberItem;
 import dev.craft.ic2.machine.MachineSoundHooks;
+import dev.craft.ic2.personal.PersonalSafeBlockEntity;
+import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
+import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.FoliageColor;
@@ -61,6 +67,28 @@ public final class Ic2Client {
         event.registerEntityRenderer(Ic2EntityTypes.MINING_LASER.get(), MiningLaserRenderer::new);
         event.registerEntityRenderer(Ic2EntityTypes.INDUSTRIAL_TNT.get(), Ic2ExplosiveRenderer::new);
         event.registerEntityRenderer(Ic2EntityTypes.NUKE.get(), Ic2ExplosiveRenderer::new);
+        event.registerBlockEntityRenderer(personalSafeType(), PersonalSafeRenderer::new);
+    }
+
+    @SuppressWarnings("unchecked")
+    private static BlockEntityType<PersonalSafeBlockEntity> personalSafeType() {
+        return (BlockEntityType<PersonalSafeBlockEntity>) (BlockEntityType<?>)
+                Ic2BlockEntityTypes.get(Ic2Machine.PERSONAL_SAFE);
+    }
+
+    @SubscribeEvent
+    public static void registerClientExtensions(RegisterClientExtensionsEvent event) {
+        event.registerItem(new IClientItemExtensions() {
+            private BlockEntityWithoutLevelRenderer renderer;
+
+            @Override
+            public BlockEntityWithoutLevelRenderer getCustomRenderer() {
+                if (renderer == null) {
+                    renderer = new PersonalSafeRenderer.ItemRenderer();
+                }
+                return renderer;
+            }
+        }, Ic2Items.machine(Ic2Machine.PERSONAL_SAFE).get());
     }
 
     @SubscribeEvent
@@ -84,6 +112,9 @@ public final class Ic2Client {
                 case CANNING_MACHINE -> event.register(Ic2Menus.get(machine), CanningMachineScreen::new);
                 case PUMP -> event.register(Ic2Menus.get(machine), PumpScreen::new);
                 case MINER -> event.register(Ic2Menus.get(machine), MinerScreen::new);
+                case PERSONAL_SAFE -> event.register(Ic2Menus.get(machine), PersonalScreens.Safe::new);
+                case TRADE_O_MAT -> event.register(Ic2Menus.get(machine), PersonalScreens.TradeOMat::new);
+                case ENERGY_O_MAT -> event.register(Ic2Menus.get(machine), PersonalScreens.EnergyOMat::new);
                 case NUCLEAR_REACTOR -> event.register(Ic2Menus.get(machine), NuclearReactorScreen::new);
                 case LV_TRANSFORMER, MV_TRANSFORMER, HV_TRANSFORMER, MAGNETIZER, TELEPORTER, TESLA_COIL, TERRAFORMER -> {
                 }

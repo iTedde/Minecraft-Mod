@@ -1,5 +1,8 @@
 {
   "values": [
+    "craft:personal_safe",
+    "craft:trade_o_mat",
+    "craft:energy_o_mat",
     "craft:galena_ore",
     "craft:deepslate_galena_ore",
     "craft:iridium_ore_block",

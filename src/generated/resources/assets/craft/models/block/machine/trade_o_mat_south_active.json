@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "craft:block/machine/trade_o_mat_bottom_active",
+    "east": "craft:block/machine/trade_o_mat_left_active",
+    "north": "craft:block/machine/trade_o_mat_back_active",
+    "particle": "craft:block/machine/trade_o_mat_front_active",
+    "south": "craft:block/machine/trade_o_mat_front_active",
+    "up": "craft:block/machine/trade_o_mat_top_active",
+    "west": "craft:block/machine/trade_o_mat_right_active"
+  }
+}

@@ -615,4 +615,39 @@ Besitzer = erster Spieler, der zugreift. Nur der Besitzer kann abbauen (Wrench) 
   Ausgabe: übrige Seiten, `min(maxOutputRate, euBuffer)` pro Tick. Puffer 10 000; Upgrade-Slot 2:
   Energiespeicher-Upgrade → `10 000 · (n+1)`, Transformer-Upgrade → Ausgabe `32 · 4^min(4,n)`.
 
+### Details aus `ic2.core.block.personal.*` (nachgetragen für Phase 12.6)
+
+- Block: unzerstörbar (Härte −1), Resistenz 6 000 000, nicht vom Enderdrachen zerstörbar, droppt sich selbst (Meta),
+  Front zum Spieler. Texturen `block_personal.png` Spalten 1/2 (Trade-/Energy-O-Mat, Maschinenschema ohne Aktiv);
+  der Safe wird nur vom TESR gezeichnet (`newsafe.png`, 64 × 64, fünf Wände + Tür 12 × 14 × 1 an (2, 1, 2), die Tür
+  dreht um Y mit `(1 − (1 − l)³) · π/2`; `mirror` wird erst nach `addBox` gesetzt → wirkungslos). Rarity: Safe
+  „uncommon“, sonst normal.
+- Besitzer: Name des ersten Spielers, der `canAccess` auslöst (Rechtsklick, Schraubenschlüssel); Vergleich ohne
+  Groß-/Kleinschreibung. Schraubenschlüssel entfernt nur für den Besitzer; Drehen nur beim Energy-O-Mat (Besitzer,
+  andere Seite).
+- **Safe** (`TileEntityPersonalChest`, 54 Slots): Rechtsklick nur für Besitzer, Server-Besitzer (Einzelspieler) oder
+  Operatoren, sonst Meldung „This safe is owned by …“ und keine GUI. Abbau mit Schraubenschlüssel nur leer („Can't
+  wrench non-empty safe“). Keine Automatisierung (Seitengröße 0). Tür: Nutzerzahl per Block-Ereignis (alle 20 Ticks
+  und bei Öffnen/Schließen), Winkel ±0,1 je Tick, Truhengeräusche (Öffnen bei 0, Schließen beim Unterschreiten von
+  0,5). GUI `GUIPersonalChest.png` 176 × 222: 6 × 9 Slots ab (8, 18), Inventar ab y 140, Hotbar y 198, Titel (8, 6).
+- **Trade-O-Mat** (4 Slots): jeden Tick, wenn Muster 0 (Preis) und 1 (Ware) und Bezahlung (Slot 2, gleiches Item,
+  Menge ≥ Preis) vorhanden und Ausgabe 3 leer oder gleiche Ware mit Platz für **eine** Ware: Nachbarn in IC2-Reihenfolge
+  (−X, +X, −Y, +Y, −Z, +Z), jedes Inventar mit ≥ 18 Slots (Personal-Safe nur bei gleichem Besitzer): Platz für die
+  Bezahlung (leere Slots zählen mit der Stapelgröße des Preises), vorhandene Ware → `n = min(Bezahlung/Preis,
+  Platz/Preis, Ausgabeplatz/Ware, Vorrat/Ware)`; erster Nachbar mit `n > 0` handelt n-mal, Sound `o-mat.ogg`,
+  `totalTradeCount += n`, Vorrat neu zählen. Vergleich `isStackEqual` = gleiches Item (Meta nur bei nicht
+  beschädigbaren Items). Seiten: unten → 3, sonst → 2. GUI Besitzer `GUITradeOMatOpen.png`: Slots 0 (24, 17),
+  1 (24, 53), 2 (80, 17), 3 (80, 53), Text „Performed“/„Trades:“/Zahl bei (112, 20/28/36). GUI Kunde
+  `GUITradeOMatClosed.png`: Muster nur angezeigt (50, 19)/(50, 38), Bezahlung (143, 17), Ware (143, 53), „Want:“
+  (12, 23), „Offer:“ (12, 42), „Stock:“ (12, 60) mit Vorrat bei (50, 60), rot bei 0. Shift-Klick Eingabe Slot 2.
+- **Energy-O-Mat** (3 Slots: 0 Preis, 1 Bezahlung, 2 Upgrade): je Tick Puffer 10 000 / Ausgabe 32; Upgrade-Slot
+  Energiespeicher → `10 000·(n+1)`, sonst Transformer → `32·4^min(4,n)`. Bezahlung gleiches Item wie der Preis →
+  `paidFor += euOffer / Preis-Menge · Menge` (Ganzzahl), dann in das erste Nachbarinventar, das **alles** aufnimmt;
+  der Slot wird immer geleert (Rest geht verloren). Puffer kappen, `min(Ausgabe, Puffer)` ins Netz (an alle Seiten außer
+  der Front). Eingang nur über die Front, `demandsEnergy = min(paidFor, frei)`, keine Überspannung. Knöpfe (Besitzer)
+  −1000/−100/+1000/+100 (Angebot bleibt > 0). Seiten → Slot 1. GUI Besitzer `GUIEnergyOMatOpen.png`: Slots 0 (24, 17),
+  2 (24, 53), 1 (80, 17), „Offer:“ + Angebot bei (112, 20/28), Knöpfe 28 × 12 bei (112/140, 43/55). Kunde
+  `GUIEnergyOMatClosed.png`: Preis angezeigt (50, 19), Bezahlung (143, 17), „Want:“, „Offer:“ + Angebot (50, 42),
+  „Paid For: n EU“ (12, 60). Shift-Klick: Containerslot 1 (beim Besitzer der Upgrade-Slot – Originaleigenheit).
+
 Rezepte aller Maschinen: `08-rezepte.md`.

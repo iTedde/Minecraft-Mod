@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "craft:block/machine/energy_o_mat_bottom",
+    "east": "craft:block/machine/energy_o_mat_back",
+    "north": "craft:block/machine/energy_o_mat_right",
+    "particle": "craft:block/machine/energy_o_mat_front",
+    "south": "craft:block/machine/energy_o_mat_left",
+    "up": "craft:block/machine/energy_o_mat_top",
+    "west": "craft:block/machine/energy_o_mat_front"
+  }
+}

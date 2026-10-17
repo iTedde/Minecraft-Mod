@@ -78,6 +78,12 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
             getMultipartBuilder(Ic2Blocks.cable(type).get()).part().modelFile(model).addModel().end();
         }
         for (Ic2Machine machine : Ic2Machine.values()) {
+            if (machine == Ic2Machine.PERSONAL_SAFE) {
+                // Drawn by its block entity renderer; the item model is builtin/entity.
+                simpleBlock(Ic2Blocks.machine(machine).get(), models().getBuilder("personal_safe")
+                        .texture("particle", modLoc("block/machine/trade_o_mat_top")));
+                continue;
+            }
             machine(machine);
         }
         simpleBlockWithItem(Ic2Blocks.MACHINE_CASING.get(), cubeAll(Ic2Blocks.MACHINE_CASING.get()));

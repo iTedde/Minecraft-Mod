@@ -1390,6 +1390,17 @@ NaK-Kühlzellen, kein Vakuumgefrierer) **und die IC2-Nuke**. Teilpakete: 7a IC2-
 - 7 neue GameTests (`TerraformerGameTests`; Teststruktur hat eine Barriere-Decke → Suchstart in der Struktur),
   **292 GameTests grün**, `gradlew build`. `runClient` nicht gestartet.
 
+## Erledigt (Teilpaket „Phase 12.6: Personal-Blöcke“, 2026-10-17)
+- Spezifikation nachgetragen: `spec/04-maschinen.md` §Personal-Blöcke (Block, Besitzer, Safe inkl. Tür-Modell, Trade-O-Mat-
+  und Energy-O-Mat-Ablauf, alle GUIs mit Koordinaten, Seiten, Shift-Klick-Eigenheit).
+- Paket `ic2/personal/`: `PersonalBlockEntity`, `PersonalBlock` (unzerstörbar, Resistenz 3 600 000, `dragon_immune`),
+  `PersonalSafeBlockEntity` + `PersonalSafeMenu` + `PersonalSafeRenderer` (BER/BEWLR, `newsafe.png`),
+  `TradeOMatBlockEntity`/`TradeOMatMenu`, `EnergyOMatBlockEntity`/`EnergyOMatMenu` (EU-Senke an der Front, Quelle
+  sonst), `PersonalInventories`; Screens `ic2/client/PersonalScreens`, `ic2/menu/DisplaySlot`. Sound `machines/o_mat`.
+- Rezepte Safe, Trade-O-Mat, Energy-O-Mat; Sprache en/de (Pack-Texte), Texturen `block_personal.png` Spalten 1/2, GUIs.
+- `abweichungen.md` (UUID-Besitzer, Nachbarinventare, Sound/Tür, Stapelvergleich), `testplan.md` 3.29.
+- 4 neue GameTests (`PersonalGameTests`), **296 GameTests grün**, `gradlew build`. `runClient` nicht gestartet.
+
 ## Nächste Schritte
-1. 12.6: Personal-Blöcke (Safe, Trade-O-Mat, Energy-O-Mat; `spec/04` §Personal-Blöcke, GUIs/Besitzerprüfung aus dem
-   Original nachtragen).
+1. 12.7a: Crops-Grundgerüst (Crop-Stab, Umwelt/Wachstum/Kreuzung/Ernte, Saatbeutel, Pflege-Items, Cropnalyzer,
+   Weed; `spec/05` §9, Details aus `ic2/core/block/crop/*` nachtragen).
