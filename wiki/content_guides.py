@@ -312,11 +312,20 @@ Mehrere Öfen nebeneinander lassen sich über eine gemeinsame Rohrleitung versor
 
     # ================================================================== Wasserturbine
     W = ('craft:water_turbine_casing', 'Wasserturbinengehäuse', '')
-    wk = {'W': W, 'C': ('craft:water_turbine', 'Wasserturbine (Controller)', 'ctrl'), '~': (None, 'Ring: hier zählt fließendes Wasser', 'flow')}
-    ring = ['~~~~~~~', '~~~~~~~', '~~WWW~~', '~~WWW~~', '~~WCW~~', '~~~~~~~', '~~~~~~~']
-    sk = {'Q': (None, 'Wasserquelle (Eimer)', 'water'), '~': (None, 'fallendes / fließendes Wasser', 'flow'),
-          'W': W, '_': (None, 'fester Boden', 'ground'), ' ': (None, 'Luft', 'air'), 'C': ('craft:water_turbine', 'Wasserturbine', 'ctrl')}
-    side = ['QQ   QQ', '~~WWW~~', '~~WWW~~', '~~WWW~~', '_______']
+    wk = {'W': W, 'C': ('craft:water_turbine', 'Wasserturbine (Controller)', 'ctrl'),
+          '~': (None, 'Messring: hier zählt fließendes Wasser', 'flow'),
+          'x': (None, 'außerhalb – zählt nicht mehr', 'nocount')}
+    ring = ['xxxxxxxxx', 'x~~~~~~~x', 'x~~~~~~~x', 'x~~WWW~~x', 'x~~WWW~~x', 'x~~WCW~~x', 'x~~~~~~~x', 'x~~~~~~~x', 'xxxxxxxxx']
+    # side views: cut through the controller (left) along its facing axis
+    hk = {'~': (None, 'Messring: fließendes/fallendes Wasser zählt', 'flow'),
+          'x': (None, 'Höhe/Abstand außerhalb – zählt nicht', 'nocount'),
+          'W': W, 'C': ('craft:water_turbine', 'Wasserturbine (Controller)', 'ctrl'), '_': (None, 'fester Boden', 'ground')}
+    heights = ['über dem Deckel', 'obere Ebene', 'mittlere Ebene', 'untere Ebene', 'unter der Turbine']
+    zones = ['xxxxxxxxx', 'x~~WWW~~x', 'x~~CWW~~x', 'x~~WWW~~x', '_________']
+    sk = {'Q': (None, 'Wasserquelle (Eimer) – zählt selbst nicht', 'water'), '~': (None, 'fallendes / fließendes Wasser – zählt', 'flow'),
+          'W': W, '_': (None, 'fester Boden', 'ground'), ' ': (None, 'Luft', 'air'), 'C': ('craft:water_turbine', 'Wasserturbine (Controller)', 'ctrl')}
+    side = [' QQ   QQ ', ' ~~WWW~~ ', ' ~~CWW~~ ', ' ~~WWW~~ ', '_________']
+    brook = ['         ', '   WWW   ', '   CWW   ', '~~~WWW~~~', '_________']
     wt = f'''<h1>Wasserturbine</h1>
 {h.infobox('Wasserturbine', 'craft:water_turbine', [
     ('Herkunft', NEW + ' Craft (Kraftwerke)'), ('Typ', 'Multiblock 3×3×3, voll'), ('Leistung', '0,25 EU/t je fließendem Wasserblock'),
@@ -343,17 +352,33 @@ Entscheidend ist <b>fließendes</b> Wasser rund um die Turbine – stilles Wasse
 ])}
 {controller_rule}
 <h2 id="wt--wasser">Das Wasser: worauf es ankommt</h2>
-<div class="layers">{h.layer(ring, wk, 'Draufsicht: Turbine (3×3) und der Messring 7×7 – gezählt wird auf allen drei Höhen der Turbine, also 120 Positionen', 28)}<div>{h.legend(wk)}</div></div>
+<p>Die Turbine zählt Wasser nur in einem genau festgelegten <b>Messring</b>. Wasser außerhalb davon – auch direkt darüber oder darunter – bringt nichts.</p>
+<div class="layers">{h.layer(ring, wk, 'Draufsicht (gilt für jede der drei Ebenen): Turbine 3×3 in der Mitte, Messring 7×7 = die 2 Blöcke rund um die Turbine, auch die Ecken. Ab dem 3. Block Abstand zählt nichts mehr.', 26)}
+{h.layer(zones, hk, 'Seitenansicht (Schnitt durch den Controller): gezählt wird nur auf den Höhen der drei Turbinenebenen.', 26, labels=heights)}<div>{h.legend(hk)}</div></div>
 <ul>
-<li>Gezählt werden alle 128 Ticks die <b>Wasserblöcke, die keine Quellblöcke sind</b> – also fließendes und <b>herabfallendes</b> Wasser – im Ring bis 2 Blöcke um den Würfel, auf den drei Höhen der Turbine.</li>
+<li><b>Wo genau:</b> horizontal 1 oder 2 Blöcke neben der Turbine (an allen vier Seiten und in den Ecken), vertikal nur auf Höhe der unteren,
+mittleren und oberen Turbinenebene. Das sind je Ebene 40 Positionen (16 direkt angrenzend + 24 im äußeren Ring), zusammen <b>120</b>.</li>
+<li><b>Was zählt:</b> Wasser, das <b>kein Quellblock</b> ist – fließendes Wasser und <b>herabfallendes</b> Wasser (Wasserfall). Die Fließrichtung ist egal.</li>
+<li><b>Was nicht zählt:</b> Quellblöcke (stilles Wasser, Ozean, die meisten natürlichen Flüsse), Wasser über dem Deckel oder unter dem Boden der Turbine,
+Wasser ab 3 Blöcken Abstand, Seegras/Seetang/Blasensäulen und Blöcke mit Wasser darin (z. B. wassergefüllte Stufen).</li>
+<li>Gezählt wird alle 128 Ticks (≈ 6 s). Das Fluss-Biom (×1,5) wird am Controller-Block geprüft.</li>
 <li>Unter 16 solchen Blöcken: 0 EU/t. Darüber 0,25 EU/t je Block, im Fluss-Biom ×1,5, höchstens 32 EU/t.</li>
 <li>Für volle 32 EU/t braucht man 128 fließende Blöcke – der Ring hat aber nur 120. <b>Außerhalb von Fluss-Biomen sind also maximal 30 EU/t möglich</b>, im Fluss-Biom reichen 86 Blöcke für 32 EU/t.</li>
 </ul>
 {h.note('warn', '<b>Natürliche Flüsse bestehen fast nur aus Quellblöcken</b> – die zählen nicht! Eine Turbine einfach in den Fluss zu stellen bringt deshalb oft wenig. Das Fluss-Biom bringt aber den Faktor 1,5, egal woher das fließende Wasser kommt.')}
+<h3 id="wt--varianten">Was welcher Aufbau bringt</h3>
+{h.table(['Aufbau', 'gezählte Blöcke', 'Leistung', 'Fluss-Biom'], [
+    ['Turbine in stillem Wasser / Ozean / natürlichem Fluss (Quellblöcke)', 'meist 0', '0 EU/t', '0 EU/t'],
+    ['Bach am Boden: fließendes Wasser nur auf der <b>unteren Ebene</b> (Skizze unten), rundherum 2 breit', 'höchstens 40', '10 EU/t', '15 EU/t'],
+    ['Bach am Boden nur an <b>einer</b> Seite, 2 breit (7 lang)', '14', '0 EU/t (unter 16)', '0 EU/t'],
+    ['Wasserfall nur an <b>einer</b> Seite (7 × 2 Quellen über dem Deckel)', '42', '10,5 EU/t', '15,75 EU/t'],
+    ['<b>Wasserfall rundherum</b> (40 Quellen über dem Ring, siehe unten)', '120', '<b>30 EU/t</b>', '<b>32 EU/t</b> (Deckel)'],
+])}
+<div class="layers">{h.layer(brook, sk, 'Seitenansicht Bach am Boden: fließt das Wasser nur flach über den Boden, füllt es nur die untere Ebene – höchstens ein Drittel des Rings.', 26, labels=heights)}<div>{h.legend(sk)}</div></div>
 <h3 id="wt--wasserfall">Bewährter Aufbau: Wasserfall rundherum</h3>
 <p>Herabfallendes Wasser zählt als fließend. Am einfachsten setzt du einen Ring aus Wasserquellen <b>eine Ebene über der Turbine</b>, sodass das Wasser
 an allen Seiten herunterfällt:</p>
-<div class="layers">{h.layer(side, sk, 'Seitenansicht (Schnitt): Quellen oben im Ring, Wasser fällt an der Turbine vorbei auf festen Boden', 30)}<div>{h.legend(sk)}</div></div>
+<div class="layers">{h.layer(side, sk, 'Seitenansicht (Schnitt durch den Controller): Quellen eine Ebene über dem Deckel genau über den 2 Ringreihen, das Wasser fällt durch alle drei gezählten Höhen auf festen Boden.', 26, labels=heights)}<div>{h.legend(sk)}</div></div>
 {steps([
     'Turbine auf festem Boden bauen (z. B. Stein). Unter dem Ring muss ebenfalls fester Boden sein.',
     'Eine Ebene über dem Turbinendeckel einen Rahmen bauen, auf den du stellen kannst (oder Gerüst), und über allen 40 Ringpositionen je eine Wasserquelle setzen. Eine gesetzte Quelle bleibt auch in der Luft stehen und fällt nach unten.',

@@ -430,11 +430,14 @@ def recipe(rows, key, out, count=1, title=None, shapeless=False):
             f'<ul class="rkey">{legend}</ul></figure>')
 
 
-def layer(rows, key, caption, cell=34):
-    """Structure layer. rows: list of strings, key: char -> (ref or None for air/color, name, css class)."""
+def layer(rows, key, caption, cell=34, labels=None):
+    """Structure layer. rows: list of strings, key: char -> (ref or None for air/color, name, css class).
+    labels: optional text per row, shown left of the row (e.g. heights in a side view)."""
     cols = max(len(r) for r in rows)
     cells = []
-    for row in rows:
+    for i, row in enumerate(rows):
+        if labels:
+            cells.append(f'<span class="rlabel">{labels[i]}</span>')
         for c in range(cols):
             ch = row[c] if c < len(row) else ' '
             ref, nm, cls = key.get(ch, (None, 'Luft', 'air'))
@@ -444,7 +447,8 @@ def layer(rows, key, caption, cell=34):
             else:
                 inner = ''
             cells.append(f'<span class="cell {cls}" title="{esc(nm)}">{inner}</span>')
-    return (f'<figure class="layer"><div class="lgrid" style="grid-template-columns:repeat({cols},{cell}px)">'
+    lead = 'auto ' if labels else ''
+    return (f'<figure class="layer"><div class="lgrid" style="grid-template-columns:{lead}repeat({cols},{cell}px)">'
             f'{"".join(cells)}</div><figcaption>{caption}</figcaption></figure>')
 
 
