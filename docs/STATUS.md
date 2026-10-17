@@ -1706,3 +1706,8 @@ Werte aus RedPower World (`redpowermechanical.zip`) **dekompilieren** (Nutzer fr
 ## Nächste Schritte
 1. Abnahme Phase 17 (im Client: Werkzeuge im Tab „Craft: RedPower“, Sichel an Gras/Laub, Mining-Dimension in neuen
    Chunks).
+
+## Version 0.3.2 (2026-10-17)
+- Mod-Version 0.3.2 (Erzeugungsanzeige, Phase 17.1/17.2); CurseForge-Paket `X:/Craft/Craft-0.3.2-curseforge.zip` bzw.
+  `releases/Craft-0.3.2-curseforge.zip` (Craft, EMI, Xaero, CC: Tweaked in `overrides/mods`, wie 0.3.1). Wiki noch auf
+  Stand Phase 16.
