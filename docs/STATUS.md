@@ -1621,3 +1621,6 @@ Nutzerentscheidung (2026-10-17): **alle vier Lücken umsetzen** → Phase 13 (13
 ## Nächste Schritte
 1. Abnahme Phase 14.
 2. Restliche manuelle Tests aus `testplan.md` (inkl. 5.20).
+
+## Abnahme Phase 14 (Nutzer, 2026-10-17)
+- Phase 14 (Befunde aus 13.3, 14.1–14.5) abgenommen. Offen bleiben die manuellen Client-Tests aus `testplan.md`.
