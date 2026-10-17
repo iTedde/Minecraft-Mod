@@ -59,6 +59,10 @@ MJ und EU bleiben getrennte Systeme; Verbindung nur über Electrical Engine (EU�
   `vineflower.jar -dgs=1 -e=<libs>`).
 - Externe Quellen sind freigegeben (z. B. BuildCraft-Quellcode 3.4.3). Compact Solars 4.0: `reference/source/compactsolars/v4.0/` (nicht im Pack-Download, von GitHub).
 
+- Wiki: `wiki/` (Generator `build_wiki.py`, Python 3.12) erzeugt `wiki/Craft-Wiki.html` aus `docs/`, Lang-Dateien und
+  Texturen; nach Balancing-/Inhaltsänderungen die Texte in `wiki/content*.py` anpassen und neu erzeugen.
+- CurseForge-Pakete: `releases/Craft-<Version>-curseforge.zip` (Mod + EMI + Xaero + CC: Tweaked in `overrides/mods`).
+
 ## Spezifikation
 
 `docs/spec/README.md` (Index), `docs/balancing.md`, `docs/abweichungen.md`. Code-Überblick: `docs/architektur.md` (statt Code als Muster lesen).

@@ -1,0 +1,535 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Craft-Wiki</title>
+<link rel="icon" href="{{LOGO}}">
+<style>
+:root{
+  --bg:#eef1ee; --paper:#ffffff; --ink:#202122; --ink2:#54595d; --muted:#72777d;
+  --line:#c8ccd1; --line2:#e3e6e8; --head:#2c3e2c; --headink:#f4f7f2;
+  --accent:#3b7a2a; --accent2:#5a9f3e; --link:#2a6fb0; --linkv:#2a6fb0;
+  --side:#f6f7f5; --code:#f2f3f1; --th:#eaecf0; --chip:#f3f5f1;
+  --slotbg:#8b8b8b; --slotdark:#373737; --slotlight:#ffffff; --ui:#c6c6c6;
+  --orig:#f6f2ea; --origline:#b9a17a; --new:#edf6e8; --newline:#5a9f3e;
+  --info:#eaf2fb; --infoline:#2a6fb0; --warn:#fdf2e5; --warnline:#c56a12; --tip:#edf6e8;
+  --bar:#4f8f35; --chg:#c56a12; --newb:#3b7a2a;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#121412; --paper:#1b1e1b; --ink:#e6e8e4; --ink2:#b8bdb5; --muted:#8f958c;
+    --line:#3a403a; --line2:#2b302b; --head:#0f1a0f; --headink:#e9f2e4;
+    --accent:#7cc35a; --accent2:#5a9f3e; --link:#7fb6ee; --linkv:#7fb6ee;
+    --side:#161916; --code:#252a25; --th:#252a25; --chip:#232823;
+    --orig:#2a251c; --origline:#8d7650; --new:#1d2a18; --newline:#5a9f3e;
+    --info:#17222e; --infoline:#5d9ad6; --warn:#2c2216; --warnline:#d98a3a; --tip:#1d2a18;
+    --bar:#6cb34a; --chg:#e0913f; --newb:#6cb34a; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#121412; --paper:#1b1e1b; --ink:#e6e8e4; --ink2:#b8bdb5; --muted:#8f958c;
+  --line:#3a403a; --line2:#2b302b; --head:#0f1a0f; --headink:#e9f2e4;
+  --accent:#7cc35a; --accent2:#5a9f3e; --link:#7fb6ee; --linkv:#7fb6ee;
+  --side:#161916; --code:#252a25; --th:#252a25; --chip:#232823;
+  --orig:#2a251c; --origline:#8d7650; --new:#1d2a18; --newline:#5a9f3e;
+  --info:#17222e; --infoline:#5d9ad6; --warn:#2c2216; --warnline:#d98a3a; --tip:#1d2a18;
+  --bar:#6cb34a; --chg:#e0913f; --newb:#6cb34a; color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font:15px/1.6 "Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif}
+a{color:var(--link);text-decoration:none}
+a:hover{text-decoration:underline}
+img{image-rendering:pixelated}
+code{background:var(--code);border-radius:3px;padding:1px 4px;font:0.88em Consolas,"Cascadia Mono",monospace;word-break:break-word}
+pre{background:var(--code);padding:10px 12px;border-radius:4px;overflow:auto}
+pre code{background:none;padding:0}
+
+/* header */
+header.top{position:sticky;top:0;z-index:20;background:var(--head);color:var(--headink);
+  display:flex;align-items:center;gap:14px;padding:8px 16px;border-bottom:4px solid var(--accent2)}
+.brand{display:flex;align-items:center;gap:10px;color:var(--headink);font-weight:700;font-size:20px;letter-spacing:.3px;white-space:nowrap}
+.brand img{width:32px;height:32px;background:#0003;border-radius:3px;padding:2px}
+.brand small{display:block;font-weight:400;font-size:11px;opacity:.75;letter-spacing:0}
+.brand:hover{text-decoration:none}
+.searchbox{flex:1;min-width:0;max-width:560px;position:relative;margin-left:auto}
+.searchbox input{width:100%;padding:8px 12px;border-radius:4px;border:1px solid #ffffff40;background:#ffffff18;color:var(--headink);font-size:15px}
+.searchbox input::placeholder{color:#ffffffa0}
+.searchbox input:focus{outline:2px solid var(--accent);background:#ffffff26}
+#sugg{position:absolute;left:0;right:0;top:100%;margin-top:4px;background:var(--paper);color:var(--ink);border:1px solid var(--line);
+  border-radius:4px;box-shadow:0 6px 24px #0005;max-height:70vh;overflow:auto;display:none}
+#sugg a{display:flex;gap:8px;align-items:center;padding:6px 10px;color:var(--ink);border-bottom:1px solid var(--line2)}
+#sugg a:hover,#sugg a.sel{background:var(--chip);text-decoration:none}
+#sugg img{width:20px;height:20px}
+#sugg .sk{font-size:11px;color:var(--muted);margin-left:auto;white-space:nowrap}
+.hbtn{background:#ffffff18;border:1px solid #ffffff40;color:var(--headink);border-radius:4px;padding:6px 10px;cursor:pointer;font-size:14px}
+.hbtn:hover{background:#ffffff30}
+#menuBtn{display:none}
+
+/* layout */
+.wrap{display:flex;max-width:1500px;margin:0 auto}
+nav.side{width:260px;flex:none;background:var(--side);border-right:1px solid var(--line);padding:12px 10px 40px;
+  position:sticky;top:60px;height:calc(100vh - 60px);overflow:auto}
+.navgroup{margin-bottom:14px}
+.navh{font-size:11px;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);font-weight:700;padding:4px 8px}
+nav.side a{display:block;padding:3px 8px 3px 12px;border-left:3px solid transparent;color:var(--ink);font-size:14px;border-radius:0 3px 3px 0}
+nav.side a:hover{background:var(--chip);text-decoration:none}
+nav.side a.active{border-left-color:var(--accent);background:var(--chip);font-weight:600}
+main{flex:1;min-width:0;overflow-wrap:anywhere;padding:20px 28px 60px;background:var(--paper);min-height:calc(100vh - 60px)}
+.page{max-width:1100px}
+.page h1{font-family:Georgia,"Linux Libertine","Times New Roman",serif;font-weight:400;font-size:30px;margin:0 0 4px;
+  border-bottom:1px solid var(--line);padding-bottom:6px}
+.page h2{overflow:hidden;font-family:Georgia,"Linux Libertine","Times New Roman",serif;font-weight:400;font-size:23px;margin:28px 0 8px;
+  border-bottom:1px solid var(--line);padding-bottom:3px}
+.page h3{font-size:17px;margin:20px 0 6px}
+.page h4{font-size:15px;margin:16px 0 4px}
+.crumbs{font-size:12px;color:var(--muted);margin-bottom:6px}
+.lead{font-size:16px;color:var(--ink2)}
+.srcnote{font-size:12px;color:var(--muted);margin-top:0}
+.toc{display:inline-block;background:var(--side);border:1px solid var(--line);border-radius:4px;padding:8px 16px 8px 12px;margin:10px 0 6px;font-size:14px;max-width:100%}
+.toc b{display:block;margin-bottom:2px}
+.toc ol{margin:0;padding-left:4px;list-style:none}
+.toc ol ol{padding-left:16px}
+.toc a{color:var(--link)}
+.toc.collapsed ol{display:none}
+.toc button{background:none;border:none;color:var(--link);cursor:pointer;font-size:12px;padding:0 0 0 6px}
+
+/* tables */
+.tablewrap{overflow-x:auto;margin:10px 0}
+table.wikitable{border-collapse:collapse;background:var(--paper);font-size:14px}
+table.wikitable th,table.wikitable td{border:1px solid var(--line);padding:5px 9px;vertical-align:top;text-align:left}
+table.wikitable th{background:var(--th);font-weight:600}
+table.wikitable tbody tr:hover td{background:var(--chip)}
+td[align=right],th[align=right]{text-align:right!important}
+
+/* infobox */
+.infobox{float:right;width:300px;margin:0 0 16px 20px;border:1px solid var(--line);background:var(--side);font-size:13px;border-radius:3px;overflow:hidden}
+.ibtitle{background:var(--accent2);color:#fff;text-align:center;font-weight:700;padding:6px;font-size:15px}
+.ibimg{text-align:center;padding:12px;background:var(--paper)}
+.ibimg img{width:96px;height:96px}
+.infobox table{width:100%;border-collapse:collapse}
+.infobox th,.infobox td{padding:5px 8px;border-top:1px solid var(--line);vertical-align:top;text-align:left}
+.infobox th{width:42%;background:var(--th);font-weight:600}
+.clear{clear:both}
+
+/* chips */
+.chip{display:inline-flex;align-items:center;gap:4px;padding:0 5px 0 2px;border-radius:3px;background:var(--chip);border:1px solid var(--line2);
+  color:var(--ink);white-space:nowrap;line-height:1.5;vertical-align:baseline}
+.chip img{width:16px;height:16px}
+.chip code{background:none;padding:0}
+a.chip:hover{border-color:var(--accent);text-decoration:none}
+.chip.vanilla{color:var(--ink2)}
+.noicon{display:inline-block;width:14px;height:14px;border:1px dashed var(--line);border-radius:2px}
+
+/* notes & compare */
+.note{border-left:4px solid var(--infoline);background:var(--info);padding:8px 12px;margin:12px 0;border-radius:0 4px 4px 0}
+.note.warn{border-color:var(--warnline);background:var(--warn)}
+.note.tip,.note.new{border-color:var(--newline);background:var(--tip)}
+.note.chg{border-color:var(--warnline);background:var(--warn)}
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+.cmp{border:1px solid var(--line);border-top:4px solid var(--origline);background:var(--orig);border-radius:4px;padding:8px 12px}
+.cmp.new{border-top-color:var(--newline);background:var(--new)}
+.cmph{font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.5px;color:var(--ink2);margin-bottom:4px}
+.cmp ul{margin:4px 0;padding-left:18px}
+
+/* cards */
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px;margin:12px 0}
+.card{display:block;border:1px solid var(--line);border-radius:5px;padding:10px 12px;background:var(--side);color:var(--ink)}
+a.card:hover{border-color:var(--accent);text-decoration:none;box-shadow:0 2px 8px #0002}
+.card h4{margin:0 0 4px;display:flex;align-items:center;gap:8px;font-size:15px}
+.card h4 img{width:32px;height:32px}
+.card p{margin:0;font-size:13px;color:var(--ink2)}
+.badge{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;padding:1px 6px;border-radius:3px;color:#fff;vertical-align:middle}
+.badge.new{background:var(--newb)}
+.badge.chg{background:var(--chg)}
+.badge.gone{background:#888}
+.badge.tech{background:var(--link)}
+
+/* hero */
+.hero{display:flex;gap:18px;align-items:center;background:linear-gradient(135deg,#2f5a22,#4c8a33 60%,#6a9c4a);color:#fff;border-radius:6px;padding:20px 24px;margin-bottom:16px}
+.hero img{width:72px;height:72px;background:#0003;border-radius:6px;padding:6px}
+.hero h1{border:none;color:#fff;margin:0;font-size:34px}
+.hero p{margin:4px 0 0;opacity:.92}
+.stats{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0}
+.stat{border:1px solid var(--line);border-radius:5px;padding:8px 14px;background:var(--side);min-width:120px}
+.stat b{display:block;font-size:22px;color:var(--accent)}
+.stat span{font-size:12px;color:var(--muted)}
+
+/* minecraft ui: crafting */
+.recipes{display:flex;flex-wrap:wrap;gap:16px;margin:10px 0}
+figure.recipe{margin:0;display:flex;flex-direction:column;gap:6px;max-width:330px}
+.rtitle{font-weight:600;font-size:14px}
+.craftui{display:inline-flex;align-items:center;gap:12px;background:var(--ui);padding:10px;border:3px solid;border-color:#fff #555 #555 #fff;border-radius:3px;align-self:flex-start}
+.grid3{display:grid;grid-template-columns:repeat(3,38px);gap:2px}
+.slot{width:38px;height:38px;background:var(--slotbg);border:2px solid;border-color:var(--slotdark) var(--slotlight) var(--slotlight) var(--slotdark);
+  display:inline-flex;align-items:center;justify-content:center;position:relative}
+.slot a{display:flex;align-items:center;justify-content:center;width:100%;height:100%}
+.slot img{width:32px;height:32px}
+.slot.big{width:52px;height:52px}
+.slot .count{position:absolute;right:2px;bottom:0;color:#fff;font:700 14px/1 Consolas,monospace;text-shadow:2px 2px 0 #3f3f3f}
+.slotlabel{font-size:10px;color:#fff;text-align:center;line-height:1}
+.arrow{font-size:26px;color:#555}
+.shapeless{font-size:12px;color:var(--muted)}
+ul.rkey{list-style:none;margin:0;padding:0;font-size:13px;display:flex;flex-wrap:wrap;gap:4px 10px}
+ul.rkey b{display:inline-block;width:14px;color:var(--muted)}
+
+/* structure layers */
+.layers{display:flex;flex-wrap:wrap;gap:16px;align-items:flex-end;margin:10px 0}
+figure.layer{margin:0}
+.lgrid{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);width:max-content}
+.cell{width:100%;aspect-ratio:1;background:var(--paper);display:flex;align-items:center;justify-content:center;min-width:6px}
+.cell img{width:100%;height:100%}
+.cell.air{background:repeating-linear-gradient(45deg,var(--paper) 0 4px,var(--line2) 4px 8px)}
+.cell.water{background:#3f76e4}
+.cell.flow{background:#6f9cf5}
+.cell.ctrl{outline:2px solid #e0b030;outline-offset:-2px}
+.cell.lv{background:#8fbf5a}.cell.mv{background:#e0b030}.cell.hv{background:#d0503a}.cell.pan{background:#3d5a80}
+figure.layer figcaption{font-size:12px;color:var(--muted);text-align:center;margin-top:4px;max-width:260px}
+ul.slegend{list-style:none;padding:0;display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13px;margin:6px 0}
+ul.slegend li{display:flex;align-items:center;gap:6px}
+ul.slegend .cell{width:18px;height:18px;border:1px solid var(--line)}
+
+/* calculators */
+.calc{border:1px solid var(--line);border-radius:6px;background:var(--side);padding:12px 14px;margin:14px 0}
+.calc h4{margin:0 0 8px}
+.calc .row{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;margin-bottom:8px}
+.calc label{font-size:13px;color:var(--ink2);display:flex;gap:6px;align-items:center}
+.calc input[type=number]{width:80px;padding:4px 6px;border:1px solid var(--line);border-radius:3px;background:var(--paper);color:var(--ink)}
+.calc input[type=range]{width:160px}
+.calc select{padding:4px;border:1px solid var(--line);border-radius:3px;background:var(--paper);color:var(--ink)}
+.calc .out{display:flex;flex-wrap:wrap;gap:10px}
+.calc .res{background:var(--paper);border:1px solid var(--line);border-radius:4px;padding:6px 12px;min-width:150px}
+.calc .res b{display:block;font-size:20px;color:var(--accent)}
+.calc .res span{font-size:12px;color:var(--muted)}
+.calc .msg{font-size:13px;margin-top:6px;color:var(--ink2)}
+.calc svg{max-width:560px;width:100%;height:auto;display:block;margin-top:8px}
+
+/* bar chart */
+.bars{margin:10px 0;max-width:820px}
+.brow{display:grid;grid-template-columns:230px 1fr 110px;gap:10px;align-items:center;padding:3px 0;font-size:13px;position:relative}
+.brow .bl{color:var(--ink)}
+.brow .bt{height:14px;background:var(--line2);border-radius:0 4px 4px 0}
+.brow .bf{height:14px;background:var(--bar);border-radius:0 4px 4px 0;min-width:2px}
+.brow .bv{color:var(--ink2);text-align:right;font-variant-numeric:tabular-nums}
+.brow:hover{background:var(--chip)}
+.brow[data-tip]:hover::after{content:attr(data-tip);position:absolute;left:240px;top:-28px;background:var(--ink);color:var(--paper);font-size:12px;padding:3px 8px;border-radius:3px;white-space:nowrap;z-index:5}
+
+/* gallery */
+.gfilter{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
+.gfilter button{border:1px solid var(--line);background:var(--side);color:var(--ink);border-radius:14px;padding:3px 12px;cursor:pointer;font-size:13px}
+.gfilter button.on{background:var(--accent2);color:#fff;border-color:var(--accent2)}
+.gsearch{padding:6px 10px;border:1px solid var(--line);border-radius:4px;width:280px;max-width:100%;background:var(--paper);color:var(--ink)}
+.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:6px;margin-top:10px}
+.gitem{display:flex;gap:8px;align-items:center;border:1px solid var(--line2);border-radius:4px;padding:5px 8px;background:var(--side);cursor:pointer;color:var(--ink);text-align:left;font:inherit;font-size:13px}
+.gitem:hover{border-color:var(--accent)}
+.gitem img,.gitem .noicon{width:32px;height:32px;flex:none}
+.gitem small{display:block;color:var(--muted);font-size:11px}
+.ghead{grid-column:1/-1;font-weight:700;margin-top:10px;border-bottom:1px solid var(--line);padding-bottom:2px}
+
+/* modal */
+
+.rlist{display:flex;flex-wrap:wrap;gap:12px;margin:8px 0}
+.rcard{border:1px solid var(--line);border-radius:5px;background:var(--side);padding:8px 10px;display:flex;flex-direction:column;gap:6px;max-width:100%}
+.rhead{font-size:13px;display:flex;flex-wrap:wrap;gap:4px;align-items:center}
+.wsicon{display:inline-flex;padding:1px;border:1px solid var(--line2);border-radius:3px;background:var(--chip)}.wsicon img{width:20px;height:20px}.wsicon:hover{border-color:var(--accent)}
+.rmeta{font-size:12px;color:var(--ink2)}
+.rid{font-size:10px;color:var(--muted);font-family:Consolas,monospace}
+.gridn{display:grid;gap:2px}
+.tagm{position:absolute;left:2px;top:0;color:#ffe680;font:700 11px/1 Consolas,monospace;text-shadow:1px 1px 0 #3f3f3f}
+.page h2 small{font-size:14px;color:var(--muted)}
+button.more{background:var(--accent2);color:#fff;margin:4px 0 8px}
+.cell.ground{background:var(--line2)}
+ol.steps{counter-reset:st;list-style:none;padding-left:0;margin:10px 0}
+ol.steps>li{counter-increment:st;position:relative;padding:6px 0 6px 40px;min-height:30px}
+ol.steps>li::before{content:counter(st);position:absolute;left:0;top:4px;width:28px;height:28px;border-radius:50%;background:var(--accent2);color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center}
+details.faq{border:1px solid var(--line);border-radius:4px;margin:6px 0;background:var(--side)}
+details.faq summary{cursor:pointer;padding:7px 12px;font-weight:600}
+details.faq[open] summary{border-bottom:1px solid var(--line)}
+details.faq>div{padding:8px 12px}
+.flow{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:12px 0}
+.flow span{border:1px solid var(--line);border-radius:5px;background:var(--side);padding:6px 12px;text-align:center;font-weight:600}
+.flow span small{font-weight:400;color:var(--muted)}
+.flow b{color:var(--accent);font-size:20px}
+footer{font-size:12px;color:var(--muted);border-top:1px solid var(--line);margin-top:40px;padding-top:10px;max-width:1100px}
+#toTop{position:fixed;right:16px;bottom:16px;display:none;z-index:30}
+.searchres a.sr{display:block;padding:8px 0;border-bottom:1px solid var(--line2);color:var(--ink)}
+.searchres a.sr b{color:var(--link)}
+.searchres a.sr span{display:block;font-size:13px;color:var(--ink2)}
+mark{background:#f3d95c;color:#000;padding:0 1px}
+
+@media (max-width:900px){
+  #menuBtn{display:inline-block}
+  nav.side{position:fixed;left:0;top:56px;bottom:0;height:auto;z-index:25;transform:translateX(-100%);transition:transform .2s;box-shadow:4px 0 20px #0004}
+  nav.side.open{transform:none}
+  main{padding:14px 16px 50px}
+  .infobox{float:none;width:100%;margin:0 0 14px}
+  .compare{grid-template-columns:1fr}
+  .brand small{display:none}
+  .brow{grid-template-columns:120px 1fr 80px}
+  .brow[data-tip]:hover::after{left:0}
+}
+@media (max-width:520px){ header.top{gap:8px;padding:8px 10px} .brand span.bt{display:none} .page h1{font-size:24px} .hero h1{font-size:26px} .hero{flex-direction:column;text-align:center} }
+@media print{ header.top,nav.side,#toTop{display:none} main{padding:0} .page[hidden]{display:none} }
+</style>
+</head>
+<body>
+<header class="top">
+  <button class="hbtn" id="menuBtn" aria-label="Menü">☰</button>
+  <a class="brand" href="#/home"><img src="{{LOGO}}" alt=""><span class="bt">Craft-Wiki<small>IC2 · GregTech · BuildCraft · Forestry · Power Converters · Compact Solars</small></span></a>
+  <div class="searchbox"><input id="q" type="search" placeholder="Wiki durchsuchen (Seiten, Gegenstände, Begriffe) …" autocomplete="off"><div id="sugg"></div></div>
+  <button class="hbtn" id="themeBtn" title="Hell/Dunkel umschalten">◐</button>
+</header>
+<div class="wrap">
+  <nav class="side" id="side">{{NAV}}</nav>
+  <main id="main">
+    {{PAGES}}
+    <section class="page" id="page-item" data-title="Gegenstand" data-group="Gegenstände" hidden></section>
+    <section class="page" id="page-search" hidden><h1>Suchergebnisse</h1><div id="searchres" class="searchres"></div></section>
+    <footer>Craft-Wiki · {{BUILD}} · privates Projekt, nicht veröffentlicht. Originalinhalte © ihrer jeweiligen Autoren (IC2, GregTech, BuildCraft, Forestry, Power Converters, Compact Solars). Diese Datei funktioniert komplett offline.</footer>
+  </main>
+</div>
+<button class="hbtn" id="toTop" style="background:var(--accent2)">▲ nach oben</button>
+<script>
+const ITEMS = {{ITEMS}};
+const GROUPS = {{GROUPS}};
+const BYID = Object.fromEntries(ITEMS.map(i => [i.id, i]));
+const $ = s => document.querySelector(s);
+const $$ = s => Array.from(document.querySelectorAll(s));
+const PAGES = $$('section.page').filter(s => s.id !== 'page-search' && s.id !== 'page-item');
+const TITLES = Object.fromEntries(PAGES.map(s => [s.id.slice(5), s.dataset.title]));
+function esc(s){return String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+
+/* theme */
+(function(){
+  let t = null; try { t = localStorage.getItem('craftwiki-theme'); } catch(e) {}
+  if (t) document.documentElement.dataset.theme = t;
+  $('#themeBtn').onclick = () => {
+    const dark = getComputedStyle(document.documentElement).colorScheme.includes('dark');
+    const n = dark ? 'light' : 'dark';
+    document.documentElement.dataset.theme = n;
+    try { localStorage.setItem('craftwiki-theme', n); } catch(e) {}
+  };
+})();
+
+/* toc */
+function buildToc(sec){
+  if (sec.dataset.toc) return;
+  sec.dataset.toc = '1';
+  const hs = Array.from(sec.querySelectorAll('h2[id],h3[id]'));
+  if (hs.length < 3) return;
+  let html = '<b>Inhalt <button type="button">[verbergen]</button></b><ol>';
+  let open3 = false, n2 = 0;
+  hs.forEach(h => {
+    const txt = esc(h.textContent);
+    const href = '#/' + sec.id.slice(5) + '/' + h.id;
+    if (h.tagName === 'H2'){ if (open3){ html += '</ol>'; open3 = false; } if (n2++) html += '</li>'; html += `<li><a href="${href}">${txt}</a>`; }
+    else { if (!open3){ html += '<ol>'; open3 = true; } html += `<li><a href="${href}">${txt}</a></li>`; }
+  });
+  if (open3) html += '</ol>';
+  html += '</li></ol>';
+  const d = document.createElement('div'); d.className = 'toc'; d.innerHTML = html;
+  const anchor = sec.querySelector('.tocpos') || sec.querySelector('h2');
+  if (anchor) anchor.parentNode.insertBefore(d, anchor); else sec.appendChild(d);
+  d.querySelector('button').onclick = () => { d.classList.toggle('collapsed'); d.querySelector('button').textContent = d.classList.contains('collapsed') ? '[anzeigen]' : '[verbergen]'; };
+}
+
+/* router */
+function show(id, anchor){
+  let sec = document.getElementById('page-' + id);
+  if (!sec) { sec = document.getElementById('page-home'); id = 'home'; }
+  $$('section.page').forEach(s => s.hidden = s !== sec);
+  $$('nav.side a').forEach(a => a.classList.toggle('active', a.dataset.nav === id));
+  buildToc(sec);
+  initCalcs(sec);
+  if (id === 'items') initGallery();
+  document.title = (sec.dataset.title || 'Suche') + ' – Craft-Wiki';
+  if (anchor){ const el = document.getElementById(anchor); if (el){ el.scrollIntoView(); window.scrollBy(0, -70); return; } }
+  window.scrollTo(0, 0);
+}
+let lastPage = 'home';
+function route(){
+  const h = decodeURIComponent(location.hash.replace(/^#\/?/, ''));
+  $('#side').classList.remove('open');
+  if (h.startsWith('item/') && renderItem(h.slice(5))) return;
+  if (h.startsWith('search/')) { doSearch(h.slice(7)); return; }
+  const [id, ...rest] = h.split('/');
+  lastPage = id || 'home';
+  show(lastPage, rest.join('/'));
+}
+window.addEventListener('hashchange', route);
+
+{{ITEMJS}}
+/* gallery */
+let galleryDone = false;
+function initGallery(){
+  if (galleryDone) return; galleryDone = true;
+  const root = $('#gallery'); if (!root) return;
+  let group = 'Alle', q = '';
+  const groups = ['Alle', ...GROUPS.filter(g => ITEMS.some(i => i.g === g)), 'Neu & geändert'];
+  root.innerHTML = `<input class="gsearch" placeholder="Filtern nach Name oder ID …"><div class="gfilter">${groups.map(g => `<button data-g="${esc(g)}">${esc(g)} (${g === 'Alle' ? ITEMS.length : g === 'Neu & geändert' ? ITEMS.filter(i => i.b).length : ITEMS.filter(i => i.g === g).length})</button>`).join('')}</div><div class="gallery"></div>`;
+  const grid = root.querySelector('.gallery');
+  function draw(){
+    root.querySelectorAll('.gfilter button').forEach(b => b.classList.toggle('on', b.dataset.g === group));
+    const ql = q.toLowerCase();
+    let html = '', cur = null, n = 0;
+    ITEMS.forEach(i => {
+      if (group === 'Neu & geändert' ? !i.b : (group !== 'Alle' && i.g !== group)) return;
+      if (ql && !(i.de.toLowerCase().includes(ql) || i.en.toLowerCase().includes(ql) || i.id.includes(ql))) return;
+      if (i.g !== cur){ cur = i.g; html += `<div class="ghead">${esc(cur)}</div>`; }
+      const badge = i.b === 'new' ? ' <span class="badge new">neu</span>' : i.b === 'chg' ? ' <span class="badge chg">geändert</span>' : '';
+      html += `<button class="gitem" data-id="${i.id}">${i.i ? `<img src="${i.i}" alt="" loading="lazy">` : '<span class="noicon"></span>'}<span>${esc(i.de)}${badge}<small>${i.de !== i.en ? esc(i.en) + ' · ' : ''}${i.k}</small></span></button>`;
+      n++;
+    });
+    grid.innerHTML = html || '<p>Nichts gefunden.</p>';
+  }
+  root.querySelector('.gfilter').onclick = e => { const b = e.target.closest('button'); if (b){ group = b.dataset.g; draw(); } };
+  root.querySelector('.gsearch').oninput = e => { q = e.target.value; draw(); };
+  grid.onclick = e => { const b = e.target.closest('.gitem'); if (b) location.hash = '#/item/' + b.dataset.id; };
+  draw();
+}
+
+/* search */
+const DEC = document.createElement('textarea');
+function plain(s){ DEC.innerHTML = s.innerHTML.replace(/<[^>]+>/g, ' '); return DEC.value.replace(/\s+/g, ' ').trim(); }
+const TEXT = PAGES.map(s => ({id: s.id.slice(5), title: s.dataset.title, group: s.dataset.group, text: plain(s)}));
+function norm(s){ return s.toLowerCase(); }
+function snippet(t, q){
+  const i = norm(t).indexOf(q); if (i < 0) return '';
+  const a = Math.max(0, i - 70), b = Math.min(t.length, i + q.length + 110);
+  return (a ? '… ' : '') + esc(t.slice(a, i)) + '<mark>' + esc(t.slice(i, i + q.length)) + '</mark>' + esc(t.slice(i + q.length, b)) + (b < t.length ? ' …' : '');
+}
+function searchAll(q){
+  q = norm(q.trim()); if (q.length < 2) return {items: [], pages: []};
+  const items = ITEMS.filter(i => norm(i.de).includes(q) || norm(i.en).includes(q) || i.id.includes(q))
+    .sort((a, b) => (norm(a.de).startsWith(q) ? 0 : 1) - (norm(b.de).startsWith(q) ? 0 : 1));
+  const pages = TEXT.map(p => {
+    const t = norm(p.title).includes(q) ? 100 : 0;
+    let c = 0, i = -1, tl = norm(p.text); while ((i = tl.indexOf(q, i + 1)) >= 0 && c < 99) c++;
+    return {p, score: t + c};
+  }).filter(r => r.score > 0).sort((a, b) => b.score - a.score);
+  return {items, pages};
+}
+const qi = $('#q'), sg = $('#sugg');
+let sel = -1;
+qi.addEventListener('input', () => {
+  const r = searchAll(qi.value); sel = -1;
+  if (!qi.value.trim() || (!r.items.length && !r.pages.length)) { sg.style.display = 'none'; return; }
+  let h = r.pages.slice(0, 6).map(x => `<a href="#/${x.p.id}">📄 ${esc(x.p.title)}<span class="sk">${esc(x.p.group)}</span></a>`).join('');
+  h += r.items.slice(0, 8).map(i => `<a href="#/item/${i.id}">${i.i ? `<img src="${i.i}" alt="">` : '<span class="noicon"></span>'}${esc(i.de)}<span class="sk">${esc(i.g)}</span></a>`).join('');
+  h += `<a href="#/search/${encodeURIComponent(qi.value.trim())}"><b>Alle Ergebnisse für „${esc(qi.value.trim())}“ anzeigen …</b></a>`;
+  sg.innerHTML = h; sg.style.display = 'block';
+});
+qi.addEventListener('keydown', e => {
+  const links = Array.from(sg.querySelectorAll('a'));
+  if (e.key === 'ArrowDown' || e.key === 'ArrowUp'){ e.preventDefault(); sel = Math.max(0, Math.min(links.length - 1, sel + (e.key === 'ArrowDown' ? 1 : -1))); links.forEach((l, i) => l.classList.toggle('sel', i === sel)); }
+  if (e.key === 'Enter'){ e.preventDefault(); if (sel >= 0 && links[sel]) location.hash = links[sel].getAttribute('href'); else if (qi.value.trim()) location.hash = '#/search/' + encodeURIComponent(qi.value.trim()); sg.style.display = 'none'; qi.blur(); }
+  if (e.key === 'Escape'){ sg.style.display = 'none'; }
+});
+document.addEventListener('click', e => { if (!e.target.closest('.searchbox')) sg.style.display = 'none'; else if (e.target.closest('#sugg a')) sg.style.display = 'none'; });
+function doSearch(q){
+  const r = searchAll(q); const ql = norm(q.trim());
+  let h = `<p>${r.pages.length} Seiten und ${r.items.length} Gegenstände für „<b>${esc(q)}</b>“.</p>`;
+  if (r.items.length) h += '<h2>Gegenstände & Blöcke</h2><div class="gallery">' + r.items.slice(0, 60).map(i => `<button class="gitem" onclick="location.hash='#/item/${i.id}'">${i.i ? `<img src="${i.i}" alt="">` : '<span class="noicon"></span>'}<span>${esc(i.de)}<small>${esc(i.g)}</small></span></button>`).join('') + '</div>';
+  if (r.pages.length) h += '<h2>Seiten</h2>' + r.pages.map(x => `<a class="sr" href="#/${x.p.id}"><b>${esc(x.p.title)}</b> <small>(${x.score >= 100 ? 'Titel, ' : ''}${x.score % 100} Treffer · ${esc(x.p.group)})</small><span>${snippet(x.p.text, ql)}</span></a>`).join('');
+  $('#searchres').innerHTML = h;
+  $$('section.page').forEach(s => s.hidden = s.id !== 'page-search');
+  $$('nav.side a').forEach(a => a.classList.remove('active'));
+  document.title = 'Suche – Craft-Wiki'; window.scrollTo(0, 0);
+}
+
+/* calculators */
+function fmt(x, d = 2){ return Number(x).toLocaleString('de-DE', {maximumFractionDigits: d, minimumFractionDigits: 0}); }
+const CALCS = {
+  wind(el){
+    const v = n => +el.querySelector(`[name=${n}]`).value;
+    function simulate(sub, maxSt){ // average EU/t over 2000 ticks, network takes everything
+      let ss = 0, st = 0, tot = 0;
+      for (let t = 0; t < 2000; t++){ ss += sub; const p = Math.floor(ss); if (st + p >= maxSt) ss = 0; else { st += p; ss -= p; } tot += st; st = 0; }
+      return tot / 2000;
+    }
+    function upd(){
+      const y = v('y'), ob = v('ob'), w = v('w'), we = el.querySelector('[name=we]').value;
+      const base = w * (y - 64 - ob) / 750;
+      const fo = we === 'thunder' ? 1.5 : we === 'rain' ? 1.2 : 1, fn = we === 'thunder' ? 3 : we === 'rain' ? 1.5 : 1;
+      const so = Math.max(0, base * fo), sn = Math.max(0, base * 2.5 * fn);
+      const po = so > 5 ? (Math.floor(so - 5) + 1) / 5000 : 0, pn = sn > 12.5 ? (Math.floor(sn - 12.5) + 1) / 5000 : 0;
+      const eo = simulate(so, 4), en = simulate(sn, 16);
+      const life = p => p > 0 ? '≈ ' + fmt(128 / p / 20 / 60, 0) + ' min Lebensdauer (Mittel)' : 'kein Bruchrisiko';
+      el.querySelector('.out').innerHTML = `<div class="res"><b>${fmt(so)} EU/t</b><span>Original: Rohleistung</span></div><div class="res"><b>${fmt(eo)} EU/t</b><span>Original: tatsächlich abgegeben</span></div>
+        <div class="res"><b>${fmt(sn)} EU/t</b><span>Craft: Rohleistung</span></div><div class="res"><b>${fmt(en)} EU/t</b><span>Craft: tatsächlich abgegeben</span></div>`;
+      el.querySelector('.msg').innerHTML = `Bruchrisiko je Prüfung (alle 128 Ticks): Original ${fmt(po * 100, 3)} % (${life(po)}), Craft ${fmt(pn * 100, 3)} % (${life(pn)}).` +
+        (sn >= 16 ? ' <b>Achtung:</b> Ab 16 EU pro Tick verfällt die Energie des Ticks (Puffer-Eigenheit wie im Original, dort schon ab 4 EU).' : '');
+    }
+    el.addEventListener('input', upd); upd();
+  },
+  watermill(el){
+    const v = n => +el.querySelector(`[name=${n}]`).value;
+    function upd(){
+      let q = Math.max(0, v('q')), f = Math.max(0, v('f')); if (q + f > 74){ f = Math.max(0, 74 - q); }
+      const bio = +el.querySelector('[name=bio]').value, sh = Math.max(1, v('sh'));
+      const raw = (q * 0.02 + f * 0.04) * bio / sh, out = Math.min(2, raw);
+      const orig = Math.min(26, q + f) / 100;
+      el.querySelector('.out').innerHTML = `<div class="res"><b>${fmt(out)} EU/t</b><span>Craft (Deckel 2 EU/t)</span></div><div class="res"><b>${fmt(out * 24000, 0)} EU</b><span>pro Minecraft-Tag</span></div><div class="res"><b>${fmt(orig)} EU/t</b><span>Original (nur 3×3×3, max. 0,26)</span></div>`;
+      el.querySelector('.msg').textContent = raw > 2 ? `Rohwert ${fmt(raw)} EU/t – auf 2 EU/t gedeckelt. Weniger Wasser würde reichen.` : (q + f) + ' Wasserblöcke im 5×5×3-Bereich gezählt (max. 74).';
+    }
+    el.addEventListener('input', upd); upd();
+  },
+  waterturbine(el){
+    function upd(){
+      const n = Math.max(0, Math.min(120, +el.querySelector('[name=n]').value)), r = el.querySelector('[name=r]').checked;
+      const raw = n < 16 ? 0 : 0.25 * n * (r ? 1.5 : 1), out = Math.min(32, raw);
+      el.querySelector('.out').innerHTML = `<div class="res"><b>${fmt(out)} EU/t</b><span>Leistung (Deckel 32)</span></div><div class="res"><b>${fmt(out * 24000, 0)} EU</b><span>pro Minecraft-Tag</span></div><div class="res"><b>${Math.ceil(32 / 0.25 / (r ? 1.5 : 1))}</b><span>fließende Blöcke für Volllast</span></div>`;
+      el.querySelector('.msg').textContent = n < 16 ? 'Unter 16 fließenden Wasserblöcken liefert die Turbine nichts.' : (raw > 32 ? `Rohwert ${fmt(raw)} EU/t – gedeckelt auf 32.` : '');
+    }
+    el.addEventListener('input', upd); upd();
+  },
+  boiler(el){
+    function upd(){
+      const nb = +el.querySelector('[name=nb]').value, fuel = el.querySelector('[name=fuel]').value;
+      // simulate one boiler from cold for 3000 ticks with endless fuel
+      let T = 20, steam = 0, pts = [], first = -1, frac = 0;
+      for (let t = 0; t <= 3000; t++){
+        T = Math.min(1000, T + 1);
+        if (T > 100){ const s = 20 * (T - 100) / 900; steam += s; }
+        if (T >= 1000 && first < 0) first = t;
+        if (t % 50 === 0) pts.push([t, T, T > 100 ? 20 * (T - 100) / 900 : 0]);
+      }
+      const per = fuel === 'coke' ? 1600 * 20 : 800 * 20;
+      const tur = Math.min(64, 20 * nb);
+      const W = 520, H = 170, px = t => 40 + t / 3000 * (W - 60), py = s => H - 25 - s / 20 * (H - 45);
+      const line = pts.map((p, i) => (i ? 'L' : 'M') + px(p[0]).toFixed(1) + ' ' + py(p[2]).toFixed(1)).join(' ');
+      el.querySelector('.out').innerHTML = `<div class="res"><b>${fmt(per, 0)} EU</b><span>je ${fuel === 'coke' ? 'Koks' : 'Kohle'} bei Volllast</span></div>
+        <div class="res"><b>${fmt(tur)} EU/t</b><span>Dampfturbine mit ${nb} Kessel${nb > 1 ? 'n' : ''}</span></div>
+        <div class="res"><b>${fmt(per / 4000, 1)}×</b><span>Ausbeute ggü. IC2-Generator</span></div>
+        <div class="res"><b>${first} Ticks</b><span>bis 1000 °C (≈ ${fmt(first / 20, 0)} s)</span></div>`;
+      el.querySelector('svg').innerHTML = `<line x1="40" y1="${H - 25}" x2="${W - 20}" y2="${H - 25}" stroke="currentColor" opacity=".35"/>
+        <line x1="40" y1="${py(20)}" x2="${W - 20}" y2="${py(20)}" stroke="currentColor" opacity=".15" stroke-dasharray="3 3"/>
+        <path d="${line}" fill="none" stroke="var(--bar)" stroke-width="2"/>
+        <text x="40" y="12" font-size="11" fill="currentColor">Dampf je Kessel (mB/t) beim Kaltstart</text>
+        <text x="34" y="${py(20) + 4}" font-size="10" text-anchor="end" fill="currentColor">20</text><text x="34" y="${H - 21}" font-size="10" text-anchor="end" fill="currentColor">0</text>
+        ${[0, 1000, 2000, 3000].map(t => `<text x="${px(t)}" y="${H - 8}" font-size="10" text-anchor="middle" fill="currentColor">${t} t</text>`).join('')}`;
+    }
+    el.addEventListener('input', upd); upd();
+  },
+  solar(el){
+    function upd(){
+      const tier = el.querySelector('[name=tier]').value, sun = +el.querySelector('[name=sun]').value;
+      const cap = {lv: 8, mv: 64, hv: 1024}[tier], panels = {lv: 8, mv: 72, hv: 648}[tier], yld = tier === 'hv' ? 2 : 1;
+      const n = Math.round(panels * sun / 100), out = Math.min(cap, n * yld), need = Math.ceil(cap / yld);
+      el.querySelector('.out').innerHTML = `<div class="res"><b>${out} EU/t</b><span>Leistung (Deckel ${cap})</span></div><div class="res"><b>${n} / ${panels}</b><span>Panels mit Sonne</span></div><div class="res"><b>${fmt(out * 0.5 * 24000, 0)} EU</b><span>pro Tag (≈ halber Tag Sonne)</span></div>`;
+      el.querySelector('.msg').textContent = n >= need ? (n > need ? `${n - need} Panels Reserve – Abdeckung bis dahin kostet keine Leistung.` : 'Genau ausgelastet.') : `Es fehlen ${need - n} besonnte Panels bis zur vollen Leistung.`;
+    }
+    el.addEventListener('input', upd); upd();
+  },
+};
+function initCalcs(sec){ sec.querySelectorAll('.calc[data-calc]:not([data-ok])').forEach(el => { el.dataset.ok = 1; CALCS[el.dataset.calc] && CALCS[el.dataset.calc](el); }); }
+
+/* misc */
+$('#menuBtn').onclick = () => $('#side').classList.toggle('open');
+const tt = $('#toTop'); window.addEventListener('scroll', () => tt.style.display = scrollY > 800 ? 'block' : 'none'); tt.onclick = () => scrollTo(0, 0);
+route();
+</script>
+</body>
+</html>

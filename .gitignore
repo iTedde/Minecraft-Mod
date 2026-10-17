@@ -44,3 +44,6 @@ repo/
 /reference/
 /tools/
 /ftb ultimate/
+
+### Wiki ###
+__pycache__/
