@@ -278,6 +278,30 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
                 + "an MV array with the HV controller in its centre (648 panels). 512 EU/t.");
     }
 
+    /** IC2 crops (spec 05 §9): blocks, items, crop names, Cropnalyzer texts. */
+    protected void crops(boolean german) {
+        block(Ic2Blocks.CROP, german ? "Crop-Stab" : "Crop");
+        item(Ic2Items.CROP_SEED_BAG, german ? "Saatbeutel" : "Seed Bag");
+        add("item.craft.crop_seed_bag.unknown", german ? "Unbekannte Samen" : "Unknown Seeds");
+        add("item.craft.crop_seed_bag.invalid", german ? "Samen ohne Daten – Fehler?" : "Seed is missing data - bug?");
+        add("item.craft.crop_seed_bag.named", german ? "%s-Samen" : "%s Seeds");
+        item(Ic2Items.CROPNALYZER, "Cropnalyzer");
+        item(Ic2Items.FERTILIZER, german ? "Dünger" : "Fertilizer");
+        item(Ic2Items.HYDRATING_CELL, german ? "Hydrierzelle" : "Hydration Cell");
+        item(Ic2Items.WEED_EX, "Weed-EX");
+        item(Ic2Items.GRIN_POWDER, german ? "Grinpulver" : "Grin Powder");
+        add("crop.craft.weed", german ? "Unkraut" : "Weed");
+        add("crop.craft.wheat", german ? "Weizen" : "Wheat");
+        add("message.craft.crop.unknown", german ? "Unbekannte Pflanze" : "Unknown Crop");
+        add("message.craft.crop.scanned", "%s - Gr: %s Ga: %s Re: %s");
+        add("gui.craft.cropnalyzer.unknown", german ? "UNBEKANNT" : "UNKNOWN");
+        add("gui.craft.cropnalyzer.tier", german ? "Stufe: %s" : "Tier: %s");
+        add("gui.craft.cropnalyzer.discovered", german ? "Entdeckt von:" : "Discovered by:");
+        add("gui.craft.cropnalyzer.growth", german ? "Wachstum:" : "Growth:");
+        add("gui.craft.cropnalyzer.gain", german ? "Ertrag:" : "Gain:");
+        add("gui.craft.cropnalyzer.resistance", german ? "Resist.:" : "Resis.:");
+    }
+
     /** Names of the new power plants (spec 14), English or German. */
     protected void powerPlants(boolean german) {
         add("itemGroup.craft.power_plants", german ? "Craft: Kraftwerke" : "Craft: Power Plants");
@@ -923,6 +947,7 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             compactSolars();
             gregTech();
             powerPlants(false);
+            crops(false);
             recipeViewer(false);
         }
     }
@@ -1306,6 +1331,7 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             compactSolars();
             gregTech();
             powerPlants(true);
+            crops(true);
             recipeViewer(true);
         }
     }

@@ -1,5 +1,6 @@
 package dev.craft.data;
 
+import dev.craft.ic2.crop.CropBlock;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -110,6 +111,7 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
         resinSheet();
         constructionFoam();
         luminator();
+        crop();
         engines();
         simpleBlock(BcBlocks.OIL.get(), models().getBuilder("oil").texture("particle", modLoc("block/oil_still")));
         landmark();
@@ -340,6 +342,20 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
                     .modelFile(block.isReinforced(state) ? reinforced : normal).build());
             simpleBlockItem(block, normal);
         }
+    }
+
+    /**
+     * IC2 {@code RenderBlockCrop}: two pairs of crossed planes at 4 and 12 px, shifted down 1 px – the vanilla crop
+     * model – with the sprite of {@code crops_0.png} chosen by the tile.
+     */
+    private void crop() {
+        CropBlock block = Ic2Blocks.CROP.get();
+        getVariantBuilder(block).forAllStates(state -> {
+            int sprite = state.getValue(CropBlock.SPRITE);
+            return ConfiguredModel.builder().modelFile(models().crop("block/crop/crop_" + sprite,
+                    modLoc("block/crop/crop_" + sprite)).renderType("cutout")).build();
+        });
+        itemModels().withExistingParent("crop", mcLoc("item/generated")).texture("layer0", modLoc("block/crop/crop_0"));
     }
 
     /** IC2 {@code RenderBlockLuminator}: the luminator box with the dark or lit texture on every face. */

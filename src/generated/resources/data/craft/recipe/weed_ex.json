@@ -1,0 +1,23 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "C": {
+      "item": "craft:empty_cell"
+    },
+    "G": {
+      "item": "craft:grin_powder"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    }
+  },
+  "pattern": [
+    "R",
+    "G",
+    "C"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:weed_ex"
+  }
+}

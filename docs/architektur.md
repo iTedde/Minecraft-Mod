@@ -87,6 +87,11 @@ ergänzen. Basispaket `dev.craft`, Einstieg `Craft` → `Ic2.init`, `BuildCraft.
 - Bauschaum (Phase 12.2): `ic2/block/ConstructionFoamBlock` (Sprühziel `canFoamReplace`, `harden`), Wand
   `ConstructionFoamWallBlock` (`COLOR`), Sprüher `FoamSprayerItem.sprayFoam` (auch für Kabel: `CableBlock.setFoam`),
   `ScaffoldBlock` (Stärke/Säule), `LuminatorBlock(Entity)` (`canCableConnectFrom` wird von Kabeln abgefragt).
+- Crops (Phase 12.7a): Paket `ic2/crop`. Sorten erben von `CropCard` (IC2-API, Standardwerte wie im Original) und
+  werden in `Crops` mit fester ID registriert (dazu Basissaaten `registerBaseSeed`, Biom-Boni). Tile
+  `CropBlockEntity` (IC2 `TileEntityCrop`, `forcePlant` für Tests), Block `CropBlock` (Sprite als Blockstate
+  `sprite`), Saatbeutel `CropSeedItem` (Data Component `craft:crop_seed`), Cropnalyzer `CropnalyzerItem`/`Menu`
+  (Inhalt im Container-Component, Scan in `broadcastChanges`) + `client/CropnalyzerScreen`.
 
 ## Rezeptanzeige (EMI)
 

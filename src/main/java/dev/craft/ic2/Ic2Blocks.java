@@ -1,5 +1,6 @@
 package dev.craft.ic2;
 
+import dev.craft.ic2.crop.CropBlock;
 import java.util.EnumMap;
 import java.util.Map;
 import java.util.function.BiFunction;
@@ -214,6 +215,15 @@ public final class Ic2Blocks {
                     .strength(0.3F, 0.3F).sound(SoundType.GLASS)
                     .lightLevel(state -> state.getValue(LuminatorBlock.LIT) ? 15 : 0)
                     .isRedstoneConductor((s, l, p) -> false)));
+    /**
+     * IC2 {@code BlockCrop} ({@code blockCrop}): vine material (replaceable, burns, destroyed by pistons), hardness 0.8,
+     * {@code setResistance(0.2)} = 0.12.
+     */
+    public static final DeferredBlock<CropBlock> CROP = BLOCKS.register("crop",
+            () -> new CropBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noOcclusion().replaceable()
+                    .ignitedByLava().strength(0.8F, 0.12F).pushReaction(PushReaction.DESTROY)
+                    .isRedstoneConductor((s, l, p) -> false).isSuffocating((s, l, p) -> false)
+                    .isViewBlocking((s, l, p) -> false)));
 
     private Ic2Blocks() {
     }

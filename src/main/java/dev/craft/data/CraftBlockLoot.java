@@ -82,6 +82,7 @@ public final class CraftBlockLoot extends BlockLootSubProvider {
         dropSelf(Ic2Blocks.REINFORCED_STONE.get());
         add(Ic2Blocks.REINFORCED_DOOR.get(), createDoorTable(Ic2Blocks.REINFORCED_DOOR.get()));
         dropSelf(Ic2Blocks.RUBBER_MAT.get());
+        dropSelf(Ic2Blocks.CROP.get());
         add(Ic2Blocks.INDUSTRIAL_TNT.get(), noDrop());
         add(Ic2Blocks.NUKE.get(), noDrop());
         dropSelf(Ic2Blocks.ADVANCED_MACHINE_CASING.get());

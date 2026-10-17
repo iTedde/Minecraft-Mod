@@ -98,6 +98,7 @@ public final class Ic2Client {
 
     @SubscribeEvent
     public static void registerScreens(RegisterMenuScreensEvent event) {
+        event.register(Ic2Menus.CROPNALYZER.get(), CropnalyzerScreen::new);
         for (Ic2Machine machine : Ic2Machine.values()) {
             switch (machine) {
                 case GENERATOR, GEOTHERMAL_GENERATOR, WATER_MILL, SOLAR_PANEL, WIND_MILL ->

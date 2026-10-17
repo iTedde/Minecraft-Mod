@@ -169,6 +169,12 @@ Status: *geplant* (aus Phase 1 abgeleitet, noch nicht umgesetzt), *entschieden* 
 | Personal-Blöcke: Nachbarinventare | `IInventory` jeder Art (auch der Safe, obwohl ohne Seitenzugriff) | Item-Capability ohne Seite; der Safe direkt (nur gleicher Besitzer) | Capabilities | **umgesetzt** (12.6) |
 | Personal-Blöcke: Sound und Tür | Netzwerk-Ereignis bzw. Block-Ereignis, Truhengeräusch auf beiden Seiten | Block-Ereignisse, Geräusche nur auf dem Client | – | **umgesetzt** (12.6) |
 | Trade-O-Mat: Stapelvergleich | ID + Meta (bei beschädigbaren nur ID), NBT egal | gleiches Item, Komponenten egal; eingelagerte Bezahlung als Kopie des Preis-Musters | keine Metadaten | **umgesetzt** (12.6) |
+| Crops: Darstellung | eigener Render-Handler, Sprite-Index aus der TileEntity | Blockstate `sprite` 0–51 (vom Tile gesetzt), Modelle = Vanilla-`block/crop` (gleiche Ebenen bei 4/12 px, 1 px tiefer) | Rendering | **umgesetzt** (12.7a) |
+| Crops: Biom-Boni | auch Waldhügel, Dschungelhügel, Wüstenhügel, Pilzinsel-Ufer | nur Fluss, Sumpf, Wald, Dschungel, Wüste, Pilzland | Hügel-/Ufer-Biome in 1.21 zusammengelegt | **umgesetzt** (12.7a) |
+| Crops: Unkraut-Gras | hohes Gras (`tallgrass` Meta 1) | `minecraft:short_grass` | Umbenennung | **umgesetzt** (12.7a) |
+| Crops: Rechtsklick | einzige Hand | nur die Haupthand; ein nicht genutzter Klick geht an das Item (Saatbeutel pflanzt so) | Zweithand ab 1.9 | **umgesetzt** (12.7a) |
+| Saatbeutel | NBT `id`/`growth`/`gain`/`resistance`/`scan`, Namen nur englisch | Data Component `craft:crop_seed`; Sortennamen übersetzt (`crop.craft.<name>`), deutsch „<Sorte>-Samen“ | Data Components | **umgesetzt** (12.7a) |
+| Cropnalyzer | Inventar im Item-NBT, beim Schließen gespeichert; Schutz gegen Verschieben über eine Zufalls-`uid`; Scan über einen Welt-Tick-Callback | Inhalt im Container-Component, bei jeder Änderung gespeichert; der Hotbar-Slot des offenen Cropnalyzers ist gesperrt; Scan im serverseitigen Menü-Tick; Texte übersetzbar | Menüs/Data Components | **umgesetzt** (12.7a) |
 | Quantum-Rezepte | Iridiumplatte, verst. Glas, fortg. Schaltkreis … | IC2-Rezepte, seit 6b.5b (Iridiumplatte aus dem Implosionskompressor, verstärktes Glas) | – | **umgesetzt** (6b.5b) |
 | Static Boots: Position | NBT `x`/`z` | Data Component `craft:last_position` | Data Components | **umgesetzt** |
 | Jetpack: Modus/Timer | NBT `hoverMode`/`toggleTimer` | Data Components `craft:hover_mode`/`craft:toggle_timer` | Data Components | **umgesetzt** |

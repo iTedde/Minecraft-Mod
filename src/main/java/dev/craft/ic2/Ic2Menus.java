@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.function.Supplier;
 
 import dev.craft.Craft;
+import dev.craft.ic2.crop.CropnalyzerMenu;
 import dev.craft.ic2.menu.NuclearReactorMenu;
 import dev.craft.ic2.menu.ElectricMachineMenu;
 import dev.craft.ic2.menu.ElectricStorageMenu;
@@ -38,6 +39,10 @@ public final class Ic2Menus {
             }
         }
     }
+
+    public static final Supplier<MenuType<CropnalyzerMenu>> CROPNALYZER = MENUS.register("cropnalyzer",
+            () -> IMenuTypeExtension.create((id, inventory, buf) -> new CropnalyzerMenu(id, inventory,
+                    buf.readVarInt())));
 
     private Ic2Menus() {
     }

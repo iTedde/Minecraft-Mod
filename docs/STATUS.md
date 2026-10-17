@@ -1401,6 +1401,23 @@ NaK-Kühlzellen, kein Vakuumgefrierer) **und die IC2-Nuke**. Teilpakete: 7a IC2-
 - `abweichungen.md` (UUID-Besitzer, Nachbarinventare, Sound/Tür, Stapelvergleich), `testplan.md` 3.29.
 - 4 neue GameTests (`PersonalGameTests`), **296 GameTests grün**, `gradlew build`. `runClient` nicht gestartet.
 
+## Erledigt (Teilpaket „Phase 12.7a: Crops-Grundgerüst“, 2026-10-17)
+- Spezifikation nachgetragen: `spec/05-items.md` §9.1 (Block, Tick-Ablauf, Unkraut-Ausbreitung mit Original-Eigenheit
+  nur x − 1/z − 1, Kreuzungsgewichte, Pflege, Ernte/Pflücken, Umwelt, Zertrampeln, Speicherung, Saatbeutel,
+  Cropnalyzer-GUI mit Koordinaten/Farben, Items).
+- Paket `ic2/crop/`: `CropCard` (IC2-API mit Standardwerten), `Crops` (Registry 256 IDs, Basissaaten, Biom-Boni),
+  `CropBlockEntity` (Tick, Umwelt, Wachstum, Kreuzung, Unkraut, Ernte/Pflücken, Pflege, Zertrampeln), `CropBlock`
+  (nur auf Ackerboden, Kollisionsbox, Blockstate `sprite`, Redstone/Licht über die Sorte), Sorten `WeedCrop` (0) und
+  `WheatCrop` (1, als Referenzsorte vorgezogen; Basissaat Weizensamen), `CropSeedItem` (Data Component
+  `craft:crop_seed`, Namen je Scanlevel), `CropnalyzerItem`/`CropnalyzerMenu` + `client/CropnalyzerScreen`.
+- Items Dünger, Hydrierzelle (Extractor: Wasserzelle → Hydrierzelle), Weed-EX, Grinpulver (Quelle Venomilia folgt in
+  12.7b); Rezepte Crop-Stab, Cropnalyzer, Dünger (IC2 + GT), Weed-EX. Werkzeugkasten: Dünger und Hydrierzelle
+  boxable. Texturen `crops_0.png` 0–51 (alle Sprites schon geschnitten), `item_0.png`, `GUICropnalyzer.png`.
+  Sprache en/de; Saatbeutel nicht im Creative-Tab (wie im Pack).
+- `abweichungen.md` (Darstellung, Biom-Boni, Gras, Haupthand, Saatbeutel, Cropnalyzer), `testplan.md` 3.30.
+- 8 neue GameTests (`CropGameTests`), **304 GameTests grün**, `gradlew build`. `runClient` nicht gestartet (Nutzer).
+- EMI-Kategorie „Crops“ (Basissaat → Sorte) folgt mit den übrigen Sorten in 12.7b.
+
 ## Nächste Schritte
-1. 12.7a: Crops-Grundgerüst (Crop-Stab, Umwelt/Wachstum/Kreuzung/Ernte, Saatbeutel, Pflege-Items, Cropnalyzer,
-   Weed; `spec/05` §9, Details aus `ic2/core/block/crop/*` nachtragen).
+1. 12.7b: übrige Crop-Sorten (Kürbis … Kartoffel, IDs 2–21) mit Basissaaten, Sonderregeln je Sorte
+   (`ic2/core/block/crop/*`), EMI-Kategorie Crops; Terra-Warze, Kaffeebohnen, Hopfen als Items.

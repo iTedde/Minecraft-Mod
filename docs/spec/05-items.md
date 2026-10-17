@@ -574,6 +574,60 @@ Ablauf alle 256 Ticks (`tick`):
 
 Detail-Stats (`stat(0..4)`), Dauern und Sonderregeln je Sorte: `reference/decompiled/ic2/ic2/core/block/crop/*.java`.
 
+### 9.1 Details aus dem Original (nachgetragen für Phase 12.7a)
+
+Quelle: `TileEntityCrop`, `BlockCrop`, `api/CropCard`, `ItemCropSeed`, `HandHeldCropnalyzer`, `GuiCropnalyzer`.
+
+- **Block** `blockCrop`: Material Ranke (ersetzbar, brennbar, von Kolben zerstört), Härte 0,8, Resistenz 0,2;
+  Kollisionsbox 0,2–0,8 × 0,7 hoch, Auswahl = ganzer Block. Nur auf Ackerboden; fehlt der Ackerboden, fällt der Stab ab
+  (Drop: 1 Crop-Stab – auch beim Kreuzungsstab und bei bepflanzten Stäben, keine Pflanzen-Drops). Linksklick
+  (Anfang des Abbauens) → `leftclick`, Rechtsklick → `rightclick`. Redstone (schwach, 15) und Licht über die Sorte.
+  Ackerboden unter IC2-Crops wird **nicht** feucht gehalten (kein `IPlantable`) – trocken wird er zu Erde.
+- **Tick**: Zähler startet zufällig 0–255 (nicht gespeichert), `tick()` alle 256 Ticks. Feuchte bei `ticker % 1024 = 0`,
+  Nährstoffe bei `(ticker + 256) % 1024 = 0`, Luft bei `(ticker + 512) % 1024 = 0`; Werte −1 = „neu berechnen“.
+  Leerer Stab: Kreuzungsstab versucht Kreuzung; sonst (oder misslungen) mit `rand(100) == 0` und ohne Weed-EX
+  (`hasEx`: Speicher > 0 → −5) wird Unkraut (Größe 1); sonst ggf. Weed-EX −1 (`rand(10) == 0`) und Ende. Danach
+  `crop.tick`, Wachstum (`growthPoints`; bei ≥ `growthDuration` → Größe + 1, Punkte 0), Nährstoff-/Wasserspeicher −1,
+  Unkraut-Ausbreitung bei `isWeed` und `rand(50) − Gr ≤ 2`.
+- **Unkraut-Ausbreitung** (`generateWeed`): die Richtungswahl fällt im Original durch (`switch` ohne `break`) → nur
+  x − 1 (Fall 1), z − 1 (Fall 3) oder die eigene Position (Fälle 0, 2). Nachbar-Crop wird Unkraut, wenn leer oder (kein
+  Unkraut, `rand(32) ≥ Re`, kein Weed-EX); Gr = max(eigenes, fremdes), mit 50 % +1 (bis 31). Leere Luft über
+  Erde/Gras/Ackerboden → Boden wird Gras, darauf hohes Gras.
+- **Kreuzung**: `rand(3) == 0`, Nachbarn W/O/N/S mit Sorte > 0, `canGrow(Kreuzungsstab)` und `canCross` (Größe ≥ 3),
+  Teilnahme bei `base ≥ rand(20)` (base wie oben). Gewichte je Sorte i ≥ 1 mit `canGrow(Stab)`: Summe
+  `calculateRatioFor(i, Elternteil)`; Stat-Unterschied 0 → +3, 1 → +1, 2 → 0, ≥ 3 → +2 (durchfallender `switch`),
+  +5 je gleichem Attribut, Tier-Abzüge, min 0; gleiche Sorte 500. Neue Pflanze Größe 1, Stats Mittel (ganzzahlig) +
+  `rand(1+2n) − n`, 0–31, Kreuzungsstab weg.
+- **Pflege per Rechtsklick** (Haupthand): leerer Stab + Crop-Stab → Kreuzungsstab (im Kreativmodus ohne Verbrauch);
+  leerer Stab + Basissaat (Stapel ≥ Mindestmenge) → pflanzen (Größe/Stats der Basissaat, Scanlevel 1). Bepflanzt +
+  Cropnalyzer → Chatmeldung „Name“ (Scan 1–3) bzw. „Name - Gr: x Ga: y Re: z“ (ab 4), sonst „Unknown Crop“.
+  Wassereimer/Wasserzelle: Wasser < 10 → 10 (nicht verbraucht); voller Speicher: Eimer gilt trotzdem als benutzt.
+  Weizensamen: Nährstoffe ≤ 50 → +25 (1 Samen). Knochenmehl/Dünger: < 100 → +100. Hydrierzelle: bis 200, die Zelle
+  nutzt sich um die gegebene Menge ab (10 000 = leer). Weed-EX: Speicher < 100 → +50, 1 Nutzung (64 Nutzungen);
+  bei Sorte > 0, Speicher ≥ 75 und `rand(5) == 0` (Crop-Matron `rand(3)`): `rand(5)` 0 → Gr, Ga, Re −1; 1 → Ga, Re −1;
+  sonst Re −1 (durchfallender `switch`). Nichts davon → `crop.rightclick` (Standard: ernten).
+- **Ernte/Pflücken**: wie oben; Pflücken droppt Saat erst nach dem Leeren; fremde Saat-Items (z. B. Weizensamen) ohne
+  NBT. Weizen: Saat mit allen Stats ≤ 1 → Vanilla-Weizensamen.
+- **Umwelt**: Luft zählt im 2×2-Bereich x − 1..x, z − 1..z (inkl. eigener Stab) undurchsichtige Würfel und Crops;
+  Himmel über dem Block darüber. Licht = kombiniertes Licht am Stab.
+- **Zertrampeln**: Kollision mit einem sprintenden Lebewesen (Unkraut nie) → `rand(100) == 0` und `rand(40) > Re` →
+  Crop leer, Ackerboden → Erde (Stab fällt dadurch ab).
+- **Gespeichert**: `cropid`, `size`, Stats, `data0–15`, `growthPoints`, Nährstoff-/Wasserspeicher, `upgraded`,
+  `scanLevel`; **nicht** der Weed-EX-Speicher. Synchronisiert: Sorte, Größe, Kreuzungsstab, Zusatzdaten.
+- **Saatbeutel** (`itemCropSeed`, Stapel 1): NBT `id`/`growth`/`gain`/`resistance`/`scan`; Name Scan 0 „Unknown Seeds“,
+  ohne NBT „Seed is missing data - bug?“, sonst „<Sorte> Seeds“; Tooltip Gr/Ga/Re ab Scan 4. Rechtsklick auf leeren
+  Stab pflanzt (Größe 1). Creative-Tab nur in der Entwicklungsumgebung → im Pack nicht im Creative-Tab.
+- **Cropnalyzer** (Stapel 1): GUI 176×166, Slots Eingabe (8, 7; nur Saatbeutel), Ausgabe (41, 7; nichts einlegbar),
+  Batterie (152, 7; `SlotDischarge`), Hotbar y 142. Solange offen, jeden Tick: Ausgabe leer und Saatbeutel in der
+  Eingabe → bei Scan 4 direkt in die Ausgabe, sonst Kosten 10/90/900/9000 EU (Scan 0/1/2/3) aus einem elektrischen
+  Item (Tier ≤ 2, Transferlimit egal) → Scan + 1 und in die Ausgabe. Anzeige (ohne Schatten): Titel (74, 11); Scan 0
+  „UNKNOWN“, sonst Name (8, 37); ab 2 „Tier: “ + römische Zahl (8, 50), „Discovered by:“ (8, 73), Entdecker (8, 86);
+  ab 3 Attributzeilen (8, 109/122); ab 4 Growth/Gain/Resis. mit Werten (118, 37/50/73/86/109/122) in
+  0xADFF2F/0xEEC900/0x00CED1. Inhalt im Item gespeichert.
+- **Items**: Dünger (`IBoxable` ja), Hydrierzelle (`ItemGradual` 10 000, als einzige Gradual-Zelle in den
+  Werkzeugkasten), Weed-EX (Stapel 1, 64 Schaden), Grinpulver. Texturen `item_0.png` 152/153/160/39/198/199,
+  Crop-Sprites `crops_0.png` 0–51 (Stab 0, Kreuzungsstab 1, Weizen 2–8, Unkraut 9–11).
+
 Getränke: Kaffee (Bohnen → Pulver; Tasse + Pulver + Wasser → kalter Kaffee, Ofen → Kaffee, + Zucker + Milch →
 Milchkaffee; Effekte Eile/Sprungkraft, Überdosis Übelkeit/Schaden) und Fass-Brauen (Weizen/Hopfen → Bier, Zuckerrohr →
 Rum; Fass mit Baumzapfer anzapfen) – Details `ItemMugCoffee`, `ItemBooze`, `TileEntityBarrel`.

@@ -1,0 +1,26 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "C": {
+      "item": "craft:electronic_circuit"
+    },
+    "G": {
+      "item": "minecraft:glass"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    },
+    "c": {
+      "item": "craft:insulated_copper_cable"
+    }
+  },
+  "pattern": [
+    "cc ",
+    "RGR",
+    "RCR"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:cropnalyzer"
+  }
+}

@@ -9,6 +9,8 @@ import java.util.function.Function;
 
 import dev.craft.Craft;
 import dev.craft.ic2.cable.CableType;
+import dev.craft.ic2.crop.CropSeedItem;
+import dev.craft.ic2.crop.CropnalyzerItem;
 import dev.craft.ic2.item.BatteryItem;
 import dev.craft.ic2.item.ElectricWrenchItem;
 import dev.craft.ic2.item.EmptyCellItem;
@@ -26,6 +28,7 @@ import dev.craft.ic2.item.armor.ElectricJetpackItem;
 import dev.craft.ic2.item.armor.EnergyPackItem;
 import dev.craft.ic2.item.armor.HazmatArmorItem;
 import dev.craft.ic2.item.reactor.CondensatorItem;
+import dev.craft.ic2.item.reactor.GradualItem;
 import dev.craft.ic2.item.reactor.HeatStorageItem;
 import dev.craft.ic2.item.reactor.HeatSwitchItem;
 import dev.craft.ic2.item.reactor.HeatpackItem;
@@ -284,6 +287,21 @@ public final class Ic2Items {
             "frequency_transmitter", FrequencyTransmitterItem::new, new Item.Properties().stacksTo(1)));
     public static final DeferredItem<EuMeterItem> EU_METER = simple(ITEMS.registerItem("eu_meter", EuMeterItem::new));
     public static final DeferredItem<ToolboxItem> TOOLBOX = ITEMS.registerItem("toolbox", ToolboxItem::new);
+    // --- crops ---
+    /** Crop stick item; IC2's item icon is sprite 0 of {@code crops_0.png} (model generated separately). */
+    public static final DeferredItem<BlockItem> CROP = ITEMS.registerSimpleBlockItem(Ic2Blocks.CROP);
+    /** Seed bag; IC2 shows it in the creative tab only in a deobfuscated environment, so not at all here. */
+    public static final DeferredItem<CropSeedItem> CROP_SEED_BAG = simple(ITEMS.registerItem("crop_seed_bag",
+            CropSeedItem::new));
+    public static final DeferredItem<CropnalyzerItem> CROPNALYZER = simple(ITEMS.registerItem("cropnalyzer",
+            CropnalyzerItem::new));
+    public static final DeferredItem<Item> FERTILIZER = simple("fertilizer");
+    /** IC2 {@code itemCellHydrant}, an {@code ItemGradual}. */
+    public static final DeferredItem<GradualItem> HYDRATING_CELL = simple(ITEMS.registerItem("hydrating_cell",
+            GradualItem::new));
+    /** IC2 {@code itemWeedEx}: stack size 1, 64 uses. */
+    public static final DeferredItem<Item> WEED_EX = simple("weed_ex", new Item.Properties().durability(64));
+    public static final DeferredItem<Item> GRIN_POWDER = simple("grin_powder");
     /** Empty painter (IC2 {@code itemToolPainter}, a plain item). */
     public static final DeferredItem<Item> PAINTER = simple("painter");
     /** Colored painters by IC2 dye metadata 0 (black) – 15 (white), named after the vanilla dye color. */

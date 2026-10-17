@@ -119,15 +119,16 @@ public final class CraftItemTagsProvider extends ItemTagsProvider {
         copy(BlockTags.LOGS_THAT_BURN, ItemTags.LOGS_THAT_BURN);
         copy(BlockTags.LEAVES, ItemTags.LEAVES);
         copy(BlockTags.DOORS, ItemTags.DOORS);
-        // IC2 IBoxable: cables and the SU battery go into the toolbox despite their stack size; ItemGradual items,
-        // the fuel can and the toolbox itself never do.
+        // IC2 IBoxable: cables and the SU battery go into the toolbox despite their stack size; ItemGradual items
+        // (except the hydration cell), the fuel can and the toolbox itself never do.
         for (CableType type : CableType.values()) {
             tag(ToolboxItem.BOXABLE).add(Ic2Items.cable(type).get());
         }
         tag(ToolboxItem.BOXABLE).add(Ic2Items.SU_BATTERY.get(), Ic2Items.RE_BATTERY.get(), Ic2Items.MINING_PIPE.get(),
-                Ic2Items.WOODEN_SCAFFOLD.get());
+                Ic2Items.WOODEN_SCAFFOLD.get(), Ic2Items.FERTILIZER.get());
         tag(ToolboxItem.NOT_BOXABLE).add(Ic2Items.TOOLBOX.get(), Ic2Items.FILLED_FUEL_CAN.get());
         Ic2Items.ITEMS.getEntries().stream().map(DeferredHolder::get).filter(GradualItem.class::isInstance)
+                .filter(item -> item != Ic2Items.HYDRATING_CELL.get())
                 .forEach(item -> tag(ToolboxItem.NOT_BOXABLE).add(item));
         // The rubber sapling stays out of the item tag minecraft:saplings: IC2 did not register it as "treeSapling",
         // and the tag would give it the vanilla burn time of 100 instead of 80.

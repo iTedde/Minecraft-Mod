@@ -1295,6 +1295,18 @@ public final class CraftRecipeProvider extends RecipeProvider {
                 .define('A', CraftItemTagsProvider.INGOTS_REFINED_IRON).define('I', Items.IRON_INGOT).save();
         shaped(Ic2Items.TOOLBOX, 1, "toolbox").pattern("ICI", "III").define('C', Items.CHEST)
                 .define('I', CraftItemTagsProvider.INGOTS_REFINED_IRON).save();
+        shaped(Ic2Items.CROP, 2, "crop").pattern("S S", "S S").define('S', Tags.Items.RODS_WOODEN).save();
+        shaped(Ic2Items.CROPNALYZER, 1, "cropnalyzer").pattern("cc ", "RGR", "RCR").define('G', Items.GLASS)
+                .define('c', Ic2Items.cable(CableType.INSULATED_COPPER)).define('R', Items.REDSTONE)
+                .define('C', Ic2Items.ELECTRONIC_CIRCUIT).save();
+        shapeless(Ic2Items.FERTILIZER, 2, "fertilizer", Ingredient.of(Ic2Items.SCRAP), Ingredient.of(Items.BONE_MEAL));
+        shapeless(Ic2Items.FERTILIZER, 2, "fertilizer_from_scrap", Ingredient.of(Ic2Items.SCRAP),
+                Ingredient.of(Ic2Items.SCRAP), Ingredient.of(Ic2Items.FERTILIZER));
+        // GregTech adds fertilizer + bone meal.
+        shapeless(Ic2Items.FERTILIZER, 2, "fertilizer_from_bone_meal", Ingredient.of(Ic2Items.FERTILIZER),
+                Ingredient.of(Items.BONE_MEAL));
+        shaped(Ic2Items.WEED_EX, 1, "weed_ex").pattern("R", "G", "C").define('R', Items.REDSTONE)
+                .define('G', Ic2Items.GRIN_POWDER).define('C', Ic2Items.EMPTY_CELL).save();
         shaped(Ic2Items.EU_METER, 1, "eu_meter").pattern(" G ", "cCc", "c c").define('G', Items.GLOWSTONE_DUST)
                 .define('c', Ic2Items.cable(CableType.INSULATED_COPPER)).define('C', Ic2Items.ELECTRONIC_CIRCUIT).save();
         shaped(Ic2Items.FOAM_SPRAYER, 1, "foam_sprayer").pattern("SS ", "Ss ", "  S").define('S', Items.COBBLESTONE)
@@ -2258,6 +2270,8 @@ public final class CraftRecipeProvider extends RecipeProvider {
         machine(MachineRecipe.Kind.EXTRACTOR, "bio_cell", Ingredient.of(Ic2Items.BIO_CELL), 1, Ic2Items.BIOFUEL_CELL, 1);
         machine(MachineRecipe.Kind.EXTRACTOR, "hydrated_coal_cell", Ingredient.of(Ic2Items.HYDRATED_COAL_CELL), 1,
                 Ic2Items.COALFUEL_CELL, 1);
+        machine(MachineRecipe.Kind.EXTRACTOR, "water_cell", Ingredient.of(Ic2Items.WATER_CELL), 1,
+                Ic2Items.HYDRATING_CELL, 1);
         machine(MachineRecipe.Kind.EXTRACTOR, "air_cell", Ingredient.of(Ic2Items.AIR_CELL), 1, Ic2Items.EMPTY_CELL, 1);
         // GregTech: only the plain and the spoiled (meta 1) filled tin can.
         for (int meta = 0; meta <= 1; meta++) {

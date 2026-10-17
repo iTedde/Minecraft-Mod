@@ -1,5 +1,6 @@
 package dev.craft.ic2;
 
+import dev.craft.ic2.crop.CropSeedItem;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.craft.Craft;
@@ -121,6 +122,12 @@ public final class Ic2DataComponents {
             COMPONENTS.registerComponentType("eu_measurement", builder -> builder
                     .persistent(Measurement.CODEC)
                     .networkSynchronized(Measurement.STREAM_CODEC));
+
+    /** Seed bag data (IC2 NBT {@code id}, {@code growth}, {@code gain}, {@code resistance}, {@code scan}). */
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<CropSeedItem.Seed>> CROP_SEED =
+            COMPONENTS.registerComponentType("crop_seed", builder -> builder
+                    .persistent(CropSeedItem.Seed.CODEC)
+                    .networkSynchronized(CropSeedItem.Seed.STREAM_CODEC));
 
     public record Measurement(BlockPos pos, long emitted, long sunken, long time) {
         public static final Codec<Measurement> CODEC = RecordCodecBuilder.create(instance -> instance.group(
