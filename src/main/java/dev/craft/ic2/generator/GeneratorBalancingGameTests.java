@@ -76,9 +76,6 @@ public final class GeneratorBalancingGameTests {
         assertClose(helper, WindMillBlockEntity.subproduction(15, 128, 0, false, true), 4.8, "rain");
         assertClose(helper, WindMillBlockEntity.subproduction(15, 200, 0, false, false), 6.8, "y 200");
         helper.assertTrue(WindMillBlockEntity.subproduction(15, 70, 10, false, false) <= 0.0, "obstructed");
-        helper.assertValueEqual(WindMillBlockEntity.getOverheatScaled(12.5, 14), 0, "no overheat at threshold");
-        helper.assertValueEqual(WindMillBlockEntity.getOverheatScaled(18.75, 14), 7, "half overheat");
-        helper.assertValueEqual(WindMillBlockEntity.getOverheatScaled(25.0, 14), 14, "full overheat");
         helper.succeed();
     }
 

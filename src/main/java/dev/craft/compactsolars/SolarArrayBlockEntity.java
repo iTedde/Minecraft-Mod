@@ -25,8 +25,9 @@ import org.jetbrains.annotations.Nullable;
 /**
  * Controller of a solar array multiblock (Compact Solars {@code TileEntityCompactSolar} as a flat structure, spec 11
  * §4). Every {@link #CHECK_INTERVAL} ticks it validates the structure, leases its panels and lower controllers and
- * counts the panels that see the sun; each tick it delivers {@code min(cap, sunny panels)} EU: first into the charge
- * slot, the rest as one packet into the net. Energy the net does not take is lost; there is no buffer.
+ * counts the panels that see the sun; each tick it delivers {@code min(cap, sunny panels · yield)} EU: first into the
+ * charge slot, the rest as packets of at most the tier's packet size into the net. Energy the net does not take is
+ * lost; there is no buffer.
  */
 public class SolarArrayBlockEntity extends MachineBlockEntity implements EnergySource {
     public static final int CHECK_INTERVAL = 20;
@@ -96,7 +97,7 @@ public class SolarArrayBlockEntity extends MachineBlockEntity implements EnergyS
         if (!structure.isFormed()) {
             return;
         }
-        int energy = Math.min(type.getOutput(), sunnyPanels);
+        int energy = Math.min(type.getOutput(), sunnyPanels * type.getPanelYield());
         if (energy <= 0) {
             return;
         }
@@ -109,8 +110,12 @@ public class SolarArrayBlockEntity extends MachineBlockEntity implements EnergyS
                 onInventoryChanged();
             }
         }
-        if (energy > 0) {
-            EnergyNets.emit(level, this, energy);
+        while (energy > 0) {
+            int packet = Math.min(energy, type.getPacketSize());
+            energy -= packet;
+            if (EnergyNets.emit(level, this, packet) > 0) {
+                break;
+            }
         }
     }
 
@@ -169,7 +174,7 @@ public class SolarArrayBlockEntity extends MachineBlockEntity implements EnergyS
 
     @Override
     public int getMaxEnergyOutput() {
-        return type.getOutput();
+        return type.getPacketSize();
     }
 
     // --- no facing, no active state ---

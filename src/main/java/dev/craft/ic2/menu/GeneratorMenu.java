@@ -79,11 +79,8 @@ public class GeneratorMenu extends MachineMenu<BaseGeneratorBlockEntity> {
         return () -> 0;
     }
 
-    /** Wind mill: overheat gauge (14 px); solar panel: 1 while the sun is visible. */
+    /** Solar panel: 1 while the sun is visible. */
     private static IntSupplier extra(BaseGeneratorBlockEntity generator) {
-        if (generator instanceof WindMillBlockEntity be) {
-            return () -> WindMillBlockEntity.getOverheatScaled(be.getSubproduction(), 14);
-        }
         if (generator instanceof SolarPanelBlockEntity be) {
             return () -> be.isSunVisible() ? 1 : 0;
         }
@@ -110,10 +107,6 @@ public class GeneratorMenu extends MachineMenu<BaseGeneratorBlockEntity> {
 
     public int getFuelGauge() {
         return data.getInt(FUEL_GAUGE);
-    }
-
-    public int getOverheatGauge() {
-        return data.getInt(EXTRA);
     }
 
     public boolean isSunVisible() {

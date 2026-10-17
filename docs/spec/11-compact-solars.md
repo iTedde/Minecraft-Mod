@@ -65,17 +65,17 @@ abbaubar, Wrench-Drop-Rate 1,0, droppt sich selbst). Rezept **formlos**: LV-/MV-
 |---|---|---|---:|---:|
 | LV | 3×3 | 8 IC2-Solarpanels um den LV-Controller | 8 | 8 EU/t |
 | MV | 9×9 | 3×3-Raster aus 3×3-Feldern: 8 LV-Arrays, das mittlere Feld = 8 Panels um den MV-Controller | 72 | 64 EU/t |
-| HV | 27×27 | 3×3-Raster aus 9×9-Feldern: 8 MV-Arrays, das mittlere Feld = MV-Aufbau, dessen Mitte der HV-Controller ist | 648 | 512 EU/t |
+| HV | 27×27 | 3×3-Raster aus 9×9-Feldern: 8 MV-Arrays, das mittlere Feld = MV-Aufbau, dessen Mitte der HV-Controller ist | 648 | **1024 EU/t** (2 je Panel) |
 
 - Rekursiv: das mittlere Teilfeld einer Stufe ist ein vollständiges Feld der Stufe darunter, dessen Controller durch
   den höheren ersetzt ist. Mehrkosten gegenüber dem Original: MV +8 Panels, HV +136 Panels und +8 LV-Controller; dafür
   puffern die überzähligen Panels Abdeckung.
-- **Leistung je Tick** = `min(Deckel, Anzahl Panels mit Sonne)`; Sonne je Panel wie IC2-Solarpanel (eigene Prüfung
+- **Leistung je Tick** = `min(Deckel, Anzahl Panels mit Sonne · Ertrag)`, Ertrag 1 / 1 / **2** EU je Panel (HV: Nutzer, 2026-10-17 – „der Aufwand soll sich lohnen“; voll ab 512 besonnten Panels); Sonne je Panel wie IC2-Solarpanel (eigene Prüfung
   alle 128 Ticks, Himmelssicht über dem Panel, Tag, kein Regen außer in Wüsten). Gezählt wird beim Prüfen des Aufbaus
   (alle 20 Ticks).
-- Abgabe wie im Original (`TileEntityCompactSolar`): erst Lade-Slot (Tier 1/2/3 für LV/MV/HV), Rest als **ein**
-  Paket in alle Richtungen ins Netz, nicht abgenommene Energie geht verloren, kein Puffer. Spannung (maxOutput)
-  8 / 64 / 512.
+- Abgabe wie im Original (`TileEntityCompactSolar`): erst Lade-Slot (Tier 1/2/3 für LV/MV/HV), Rest als Pakete
+  von höchstens 8 / 64 / 512 EU (Spannung = maxOutput) in alle Richtungen ins Netz – LV/MV ein Paket, HV bis zu
+  zwei –, nicht abgenommene Energie geht verloren, kein Puffer.
 - Panels in einem geformten Array erzeugen selbst nichts (auch nicht für ihren eigenen Lade-Slot). Controller, die in
   einem höheren Array verbaut sind, geben nichts ab; nur der oberste geformte Controller liefert. Die Zugehörigkeit
   wird als Lease gehalten (alle 20 Ticks erneuert, verfällt nach 40 Ticks) und nicht gespeichert.

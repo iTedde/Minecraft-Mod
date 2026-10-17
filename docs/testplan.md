@@ -147,11 +147,11 @@ Testwelt. Sprache einmal Deutsch, einmal Englisch prüfen. EMI und Xaero's Minim
 | Nr | Test | Herkunft | OK |
 |---|---|---|---|
 | 8.1 | LV-Array (8 Panels + Controller): Sonnensymbol am Tag, BatBox lädt mit 8 EU/t, Panel abdecken → weniger; MV 9 × 9 (verbaute LV-Controller liefern nichts, 64 EU/t), HV 27 × 27; Lade-Slot; Abbau droppt Controller; Texturen | 6.4b | |
-| 8.2 | Wassermühle an fließendem Wasser/im Fluss, zwei Mühlen nebeneinander; Windmühle in großer Höhe bei Gewitter | 9.1 | |
+| 8.2 | Wassermühle an fließendem Wasser/im Fluss, zwei Mühlen nebeneinander; Windmühle in großer Höhe bei Gewitter (zerfällt nie) | 9.1 | |
 | 8.3 | Koksofen bauen, Kohle per Trichter einspeisen, Koks unten abziehen | 9.2 | |
 | 8.4 | Kessel: Wasser per Eimer/IC2-Pumpe, Kohle/Koks nachlegen, Temperaturbalken und Tanks in der GUI, Dampf in BC-Tank daneben; Explosion (Wasser auf trockenen heißen Kessel) aus sicherer Entfernung | 9.3a | |
-| 8.5 | Dampfturbine: Kraftwerk aus Kessel + Turbine, MFE/Kabel am Controller, GUI (Dampftank, EU/t, Puffer), bis zu 3 Kessel an einer Turbine | 9.3b | |
-| 8.6 | Wasserturbine in einen Fluss (fließendes Wasser rundherum), Rechtsklick-Meldung, Kabel/BatBox am Controller | 9.4 | |
+| 8.5 | Dampfturbine: Kraftwerk aus Kessel + Turbine, MFE/Kabel am Controller und an beliebigem Gehäuseblock, GUI (Dampftank, EU/t, Puffer), bis zu 3 Kessel an einer Turbine | 9.3b | |
+| 8.6 | Wasserturbine in einen Fluss (fließendes Wasser rundherum), Rechtsklick-Meldung, Kabel/BatBox am Controller und an beliebigem Gehäuseblock | 9.4 | |
 
 ## 9. EMI (Phase 11)
 

@@ -3,6 +3,7 @@ package dev.craft.powerplants;
 import dev.craft.Craft;
 import dev.craft.ic2.machine.MachineBlock;
 import dev.craft.powerplants.block.PlantControllerBlock;
+import dev.craft.powerplants.block.ConductingPartBlockEntity;
 import dev.craft.powerplants.block.PlantPartBlock;
 import dev.craft.powerplants.boiler.BoilerBlockEntity;
 import dev.craft.powerplants.cokeoven.CokeOvenBlockEntity;
@@ -28,13 +29,13 @@ public final class PpBlocks {
     public static final DeferredBlock<PlantControllerBlock> BOILER_FIREBOX = BLOCKS.register("boiler_firebox",
             () -> new PlantControllerBlock(bricks().lightLevel(PpBlocks::activeLight), BoilerBlockEntity::new));
     public static final DeferredBlock<PlantPartBlock> TURBINE_CASING = BLOCKS.register("turbine_casing",
-            () -> new PlantPartBlock(metal()));
+            () -> new PlantPartBlock(metal(), ConductingPartBlockEntity::new));
     public static final DeferredBlock<PlantPartBlock> TURBINE_ROTOR = BLOCKS.register("turbine_rotor",
             () -> new PlantPartBlock(metal()));
     public static final DeferredBlock<PlantControllerBlock> STEAM_TURBINE = BLOCKS.register("steam_turbine",
             () -> new PlantControllerBlock(metal(), SteamTurbineBlockEntity::new));
     public static final DeferredBlock<PlantPartBlock> WATER_TURBINE_CASING = BLOCKS.register("water_turbine_casing",
-            () -> new PlantPartBlock(metal()));
+            () -> new PlantPartBlock(metal(), ConductingPartBlockEntity::new));
     public static final DeferredBlock<PlantControllerBlock> WATER_TURBINE = BLOCKS.register("water_turbine",
             () -> new PlantControllerBlock(metal(), WaterTurbineBlockEntity::new));
     public static final DeferredBlock<Block> COKE_BLOCK = BLOCKS.registerSimpleBlock("coke_block",

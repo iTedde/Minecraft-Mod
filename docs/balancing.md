@@ -58,7 +58,7 @@ Platzbedarf**. Solar wird nicht pauschal geschwächt, die anderen Quellen werden
 |---|---|---|---:|---:|---|
 | LV Solar Array | **3×3** | 8 Solarpanels + 1 LV-Array-Controller (Mitte) | 8 EU/t (ein 8-EU-Paket) | 0,89 | 8 Panels wie im Originalrezept; 2×2 hätte nur Platz für 3 Panels |
 | MV Solar Array | **9×9** | 3×3 Raster aus LV-Arrays, Mitte = MV-Controller statt LV-Controller | 64 EU/t | 0,79 | 8 LV-Arrays wie im Originalrezept |
-| HV Solar Array | **27×27** | 3×3 Raster aus MV-Arrays, Mitte = HV-Controller | 512 EU/t | 0,70 | 8 MV-Arrays wie im Originalrezept |
+| HV Solar Array | **27×27** | 3×3 Raster aus MV-Arrays, Mitte = HV-Controller | ~~512~~ **1024 EU/t** (2 je Panel, 2 Pakete à 512) | 1,40 | 8 MV-Arrays wie im Originalrezept; Leistung verdoppelt (Nutzer, 2026-10-17) |
 
 - Kosten = Originalrezept (die Arrays bestehen aus denselben Teilen), nur aufgeteilt auf Controller + verbaute Module.
 - Bedingungen pro Modul wie Solarpanel (jedes Panel braucht Himmelssicht; abgedeckte Panels liefern nichts).
@@ -88,7 +88,7 @@ Platzbedarf**. Solar wird nicht pauschal geschwächt, die anderen Quellen werden
 Formel bleibt, Faktoren werden erhöht:
 - `sub = windStrength · (y − 64 − Hindernisse) / 750 · 2,5`
 - Regen ×1,5 (statt 1,2), Gewitter ×3,0 (statt 1,5).
-- Bruchgefahr erst ab `sub > 12,5` (statt 5), sonst gleiche Formel (`random(5000) ≤ sub − 12,5`).
+- ~~Bruchgefahr erst ab `sub > 12,5`~~ **Kein Zerfall mehr** (Nutzer, 2026-10-17).
 - Puffer/Ausgabe auf 16 EU/t Paket (LV) angehoben.
 → y 128, Wind 15: ≈ 3,2 EU/t; Gewitter ≈ 9,6 EU/t; y 200: ≈ 6,8 EU/t (Gewitter ≈ 20).
 Platzbedarf (Hindernis-Würfel) bleibt – Wind braucht Höhe und Abstand.
@@ -137,7 +137,7 @@ Platzbedarf (Hindernis-Würfel) bleibt – Wind braucht Höhe und Abstand.
 | Quelle | Leistung typ. | EU/t pro Block Fläche | EU pro Ressource | Zuverlässigkeit |
 |---|---:|---:|---:|---|
 | Solarpanel | 1 (Tag) | 1,0 Spitze / 0,5 Mittel | – (wartungsfrei) | niedrig (nur Tag, kein Regen) |
-| LV/MV/HV Solar Array | 8 / 64 / 512 (Tag) | 0,9 / 0,8 / 0,7 Spitze | – | niedrig |
+| LV/MV/HV Solar Array | 8 / 64 / 1024 (Tag) | 0,9 / 0,8 / 1,4 Spitze | – | niedrig |
 | Wassermühle (neu) | bis 2 | ≈ 0,08 (inkl. Wasserfläche) | – | **hoch** (Tag & Nacht) |
 | Wasserturbine | 16–32 | ≈ 0,5–0,65 (inkl. Wasserring) | – | **hoch** |
 | Windmühle (neu) | 3–7, Gewitter bis 20 | ≈ 0,04–0,25 (Freiraum 9×9) | – | mittel (Wetter, Wind) |

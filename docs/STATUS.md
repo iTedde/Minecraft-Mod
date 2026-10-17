@@ -1646,3 +1646,29 @@ Nutzerentscheidung (2026-10-17): **alle vier Lücken umsetzen** → Phase 13 (13
 
 ## Nächste Schritte
 1. Abnahme Phase 15.
+
+# Phase 16 – Balancing-Nachträge Kraftwerke (Nutzer, 2026-10-17)
+
+Nutzerwunsch: „Kann das HV-Panel mehr Energie geben? Der Aufwand ist schon sehr immens … bei Kohle, Wasserkraft usw.
+muss das ganze Konstrukt Strom leisten können. Windkraft darf nicht von selbst kaputt gehen.“
+Entscheidungen: HV-Array **1024 EU/t** (2 Pakete à 512); „ganzes Konstrukt“ **nur für die Turbinen** (Solar-Arrays
+bleiben beim Controller).
+
+## To Do
+- [x] 16.1 HV Solar Array: 2 EU je besonntem Panel, Deckel 1024 EU/t, Pakete à 512 (Spannung bleibt HV)
+  (`SolarArrayType` Ertrag/Paketgröße, `spec/11` §4, `balancing.md` §3.1/§4).
+- [x] 16.2 Dampfturbine und Wasserturbine: jedes Gehäuse gibt Strom ab (`ConductingPartBlockEntity`: verlustfreier
+  Leiter nur für die eigene geformte Struktur; `EnergyNets.rejoin` beim Formen/Zerfallen), `spec/14` §4/§5.
+- [x] 16.3 Windmühle zerfällt nie (Überlast-Regel und Überhitzungsanzeige entfernt), `spec/14` §7, `balancing.md` §3.3.
+
+## Erledigt (2026-10-17)
+- 16.1–16.3 umgesetzt; Tests: HV-Array füllt eine MFSU mit 1024 EU/t, Abgabe über ein seitliches Gehäuse bei
+  Dampf- und Wasserturbine (Dampfturbine: nichts mehr, sobald die Struktur zerfällt). **350 GameTests grün**,
+  `gradlew build`, `runClient` startet.
+- Mitgenommen: die zwei offenen HV-Array-Tests aus der Arbeitskopie (`hvArrayTakesOverMvControllers`,
+  `hvControllerPlacedIntoRunningMvArrays` + Struktur `empty_32x8x32`).
+- Bestehende Welten: Turbinengehäuse behalten ihren Block-Entity-Typ `plant_part` (die Fabrik wählt die Klasse je
+  Block), keine Migration nötig.
+
+## Nächste Schritte
+1. Abnahme Phase 16 (im Client: Kabel an ein Turbinengehäuse, HV-Array an MFSU).

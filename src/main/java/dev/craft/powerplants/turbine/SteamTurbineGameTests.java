@@ -96,6 +96,31 @@ public final class SteamTurbineGameTests {
         });
     }
 
+    /** Every casing block conducts: an MFE beside a side casing gets the full 64 EU/t, only while formed. */
+    @GameTest(template = EMPTY, timeoutTicks = 80)
+    public static void casingDeliversEnergy(GameTestHelper helper) {
+        BlockPos beside = new BlockPos(5, 2, 4);
+        SteamTurbineBlockEntity turbine = build(helper);
+        helper.setBlock(beside, Ic2Blocks.machine(Ic2Machine.MFE).get());
+        ElectricStorageBlockEntity mfe = helper.getBlockEntity(beside);
+        turbine.getTank().fill(new FluidStack(PpFluids.STEAM.get(), SteamTurbineBlockEntity.TANK_CAPACITY),
+                IFluidHandler.FluidAction.EXECUTE);
+        int[] start = new int[1];
+        helper.runAtTickTime(10, () -> start[0] = mfe.getEnergy());
+        helper.runAtTickTime(40, () -> {
+            helper.assertValueEqual(mfe.getEnergy() - start[0], 30 * SteamTurbineBlockEntity.MAX_OUTPUT,
+                    "energy through the casing");
+            helper.setBlock(new BlockPos(3, 2, 3), PpBlocks.TURBINE_CASING.get());
+        });
+        helper.runAtTickTime(45, () -> start[0] = mfe.getEnergy());
+        helper.runAtTickTime(60, () -> {
+            helper.assertFalse(turbine.isFormed(), "not formed");
+            helper.assertValueEqual(mfe.getEnergy(), start[0], "no energy while broken");
+            helper.setBlock(beside, Blocks.AIR);
+            helper.succeed();
+        });
+    }
+
     /** A missing rotor breaks the structure: no steam is used. */
     @GameTest(template = EMPTY, timeoutTicks = 40)
     public static void missingRotorStopsTheTurbine(GameTestHelper helper) {

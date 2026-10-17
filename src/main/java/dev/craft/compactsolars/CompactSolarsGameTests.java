@@ -17,6 +17,7 @@ import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
 @PrefixGameTestTemplate(false)
 public final class CompactSolarsGameTests {
     private static final String EMPTY = "empty_16x8x16";
+    private static final String EMPTY_LARGE = "empty_32x8x32";
     private static final String BATCH = "compact_solars";
 
     private CompactSolarsGameTests() {
@@ -122,6 +123,54 @@ public final class CompactSolarsGameTests {
             SolarPanelBlockEntity panel = helper.getBlockEntity(centre.offset(-3, 0, -2));
             helper.assertValueEqual(panel.getArrayLease().getOwner(now(helper)), mv.getBlockPos(), "panel owner");
             helper.succeed();
+        });
+    }
+
+    @GameTest(template = EMPTY_LARGE, batch = BATCH, timeoutTicks = 100)
+    public static void hvArrayTakesOverMvControllers(GameTestHelper helper) {
+        sunshine(helper);
+        BlockPos centre = new BlockPos(13, 1, 13);
+        SolarArrayBlockEntity hv = build(helper, SolarArrayType.HV, centre);
+        BlockPos mfsuPos = centre.above();
+        helper.setBlock(mfsuPos, Ic2Blocks.machine(Ic2Machine.MFSU).get());
+        helper.runAfterDelay(1, () -> refreshPanels(helper, centre, 13));
+        helper.runAfterDelay(50, () -> {
+            helper.assertTrue(hv.isFormed(), "HV array not formed");
+            helper.assertValueEqual(hv.getSunnyPanels(), 648, "sunny panels");
+            helper.assertTrue(hv.isDelivering(), "HV array not delivering");
+            SolarArrayBlockEntity mv = helper.getBlockEntity(centre.offset(-9, 0, -9));
+            helper.assertValueEqual(mv.getLease().getOwner(now(helper)), hv.getBlockPos(), "MV controller owner");
+            helper.assertFalse(mv.isDelivering(), "built-in MV controller delivers");
+            ElectricStorageBlockEntity mfsu = helper.getBlockEntity(mfsuPos);
+            int before = mfsu.getEnergy();
+            // 1024 EU/t (2 per sunny panel, capped) in two HV packets
+            helper.runAfterDelay(10, () -> {
+                helper.assertValueEqual(mfsu.getEnergy() - before, 10240, "MFSU gain over 10 ticks");
+                helper.succeed();
+            });
+        });
+    }
+
+    /** As built in survival: the MV arrays run on their own before the HV controller is placed. */
+    @GameTest(template = EMPTY_LARGE, batch = BATCH, timeoutTicks = 140)
+    public static void hvControllerPlacedIntoRunningMvArrays(GameTestHelper helper) {
+        sunshine(helper);
+        BlockPos centre = new BlockPos(13, 1, 13);
+        build(helper, SolarArrayType.HV, centre);
+        helper.setBlock(centre, Blocks.AIR);
+        helper.runAfterDelay(1, () -> refreshPanels(helper, centre, 13));
+        helper.runAfterDelay(40, () -> {
+            SolarArrayBlockEntity mv = helper.getBlockEntity(centre.offset(-9, 0, -9));
+            helper.assertTrue(mv.isDelivering(), "MV array not delivering on its own");
+            helper.setBlock(centre, CsBlocks.array(SolarArrayType.HV).get());
+            helper.runAfterDelay(50, () -> {
+                SolarArrayBlockEntity hv = helper.getBlockEntity(centre);
+                helper.assertTrue(hv.isFormed(), "HV array not formed");
+                helper.assertValueEqual(hv.getSunnyPanels(), 648, "sunny panels");
+                helper.assertTrue(hv.isDelivering(), "HV array not delivering");
+                helper.assertFalse(mv.isDelivering(), "built-in MV controller delivers");
+                helper.succeed();
+            });
         });
     }
 

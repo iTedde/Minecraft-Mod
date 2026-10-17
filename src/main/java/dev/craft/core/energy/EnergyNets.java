@@ -45,6 +45,14 @@ public final class EnergyNets {
         }
     }
 
+    /** Removes and re-adds {@code tile}, dropping its cached paths (e.g. after its own conductors changed). */
+    public static void rejoin(Level level, EnergyTile tile) {
+        if (isAdded(level, tile)) {
+            remove(level, tile);
+            add(level, tile);
+        }
+    }
+
     /** Whether {@code tile} is currently part of the net. */
     public static boolean isAdded(Level level, EnergyTile tile) {
         if (level instanceof ServerLevel serverLevel) {

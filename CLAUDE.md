@@ -83,6 +83,7 @@ MJ und EU bleiben getrennte Systeme; Verbindung nur über Electrical Engine (EU�
 | 13 | Nachträge aus der Vollständigkeitsprüfung (Nutzer, 2026-10-17; `docs/STATUS.md`): 13.1 Kompositweste (erledigt) · 13.2 IC2-Kühlmittel als Flüssigkeit (Kühlzellen, Verbrennungsmotor) (erledigt) · 13.3 erreichbare GT-Stäube (Feuerstein, Holzkohle, Obsidian, Holzschliff, Elektrum) (erledigt) · 13.4 GT-Rückgewinnung von Werkzeugen/Rüstung (`applyUsagesForMaterials`) (erledigt) | **erledigt** (abgenommen) |
 | 14 | Befunde aus 13.3 (Nutzer, 2026-10-17; `spec/12` §5.7): 14.1 Elektrumplatte + GT-Platinen (erledigt) · 14.2 Messing (erledigt) · 14.3 GT-Mörser + Mehl (erledigt) · 14.4 Compressor Setzlinge/Blätter (erledigt) · 14.5 Schaden 0 bei Solarhelm/Static Boots (erledigt) | **erledigt** (abgenommen) |
 | 15 | Mining-Dimension + Turtles (Nutzer, 2026-10-17; `docs/spec/18-mining-dimension.md`, kein Pack-Vorbild): 15.0 Spezifikation (erledigt) · 15.1 Dimension + Erze, flache Steinwelt (erledigt) · 15.2 Portal (erledigt) · 15.3 CC: Tweaked mitinstallieren + CurseForge-Paket (erledigt) | **erledigt** |
+| 16 | Balancing-Nachträge Kraftwerke (Nutzer, 2026-10-17; `docs/STATUS.md`): 16.1 HV Solar Array 1024 EU/t (erledigt) · 16.2 Strom aus jedem Turbinengehäuse (Dampf-/Wasserturbine) (erledigt) · 16.3 Windmühle zerfällt nie (erledigt) | **erledigt** |
 
 Phasen-Umnummerierung (Nutzer, 2026-10-16): Phase 8 „GT-Nachträge“ eingeschoben; die bisherigen Phasen 8/9/10
 (Kraftwerke, Rohre, Feinschliff) heißen jetzt 9/10/11. Ältere Einträge in `docs/STATUS.md` sind entsprechend
@@ -97,7 +98,7 @@ Personal-Blöcke, Luminator, Sprengstoffe (Industrie-TNT erledigt in 6b.5b, Nuke
 1. ~~GT-Erze~~ **Entschieden (2026-10-16):** **alle** GT-Erze wie im Pack werden in Phase 8 generiert.
    Der Herstellungsweg selbst ist entschieden (s. u.).
 2. ~~Massefabrikator~~ **Entschieden:** IC2-Massefabrikator 1:1 mit IC2-Rezept (kein GT Matter Fabricator).
-3. ~~Balancing-Vorschlag~~ **Freigegeben:** Solar (2026-10-15), Wasser, Wind, Kohlekraftwerk mit Koks 32 000 EU (2026-10-16) – `docs/balancing.md` §5.
+3. ~~Balancing-Vorschlag~~ **Freigegeben:** Solar (2026-10-15), Wasser, Wind, Kohlekraftwerk mit Koks 32 000 EU (2026-10-16) – `docs/balancing.md` §5. Nachträge 2026-10-17 (Phase 16): HV-Array 1024 EU/t, Turbinengehäuse leiten, Windmühle ohne Zerfall.
 4. ~~GT-Nicht-Rezept-Änderungen~~ **Entschieden (2026-10-17):** Upgrade-Stack 4, GT-Recycler-Blacklist und Miner-Lava wie im Pack (Phase 12.10); Solar-Hüte entfallen. **Entschieden:** Schrottbox-Drops wie im Pack – GT ersetzt die IC2-Liste (Schrott 200 + GT-Liste; GT-Items erst, wenn es sie gibt).
 5. ~~Iridiumerz-Generierung (GT)~~ **Entschieden:** wie im Pack (Teil der GT-Erze, Phase 8).
 6. Rezeptanzeige und Minimap (Nutzerwunsch 2026-10-15): **Entschieden:** **EMI** (statt NEI, das es für 1.21 nicht gibt) mit eigener Integration (Rezeptkategorien für IC2-/GT-/BC-/Forestry-Maschinen, Phase 11); Minimap **Xaero's Minimap**, nur mitinstalliert (keine eigene Integration).

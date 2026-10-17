@@ -28,7 +28,8 @@ import org.jetbrains.annotations.Nullable;
  * Water turbine (spec 14 §5): a full 3×3×3 cube of water turbine casings, the controller in the middle of one side.
  * Counts the flowing (non-source) water in the 7×7×3 ring around the cube every {@link #COUNT_INTERVAL} ticks and
  * produces 0.25 EU/t per flowing block from {@link #MIN_FLOWING} blocks on (× 1.5 in river biomes, at most 32 EU/t),
- * emitted from the controller in packets of up to 32 EU (LV). No menu; right-clicking reports the state in chat.
+ * emitted from the controller and every casing block in packets of up to 32 EU (LV). No menu; right-clicking
+ * reports the state in chat.
  */
 public class WaterTurbineBlockEntity extends PlantControllerBlockEntity implements EnergySource {
     public static final int COUNT_INTERVAL = 128;
@@ -128,6 +129,8 @@ public class WaterTurbineBlockEntity extends PlantControllerBlockEntity implemen
         if (formed) {
             updateWaterCount();
         }
+        // the casing conducts only while formed
+        EnergyNets.rejoin(level, this);
     }
 
     @Override

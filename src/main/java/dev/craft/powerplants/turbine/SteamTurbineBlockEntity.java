@@ -24,7 +24,7 @@ import org.jetbrains.annotations.Nullable;
 /**
  * Steam turbine of the coal power plant (spec 14 §4): 3×3×5 of turbine casings around an axis of three rotors, the
  * controller in the middle of one 3×3 end face. Turns up to 64 mB steam per tick into as many EU (1 mB = 1 EU) and
- * emits them from the controller in packets of up to 64 EU (MV).
+ * emits them from the controller and every casing block in packets of up to 64 EU (MV).
  */
 public class SteamTurbineBlockEntity extends PlantControllerBlockEntity implements EnergySource {
     public static final int TANK_CAPACITY = 16000;
@@ -89,6 +89,12 @@ public class SteamTurbineBlockEntity extends PlantControllerBlockEntity implemen
     protected void tickUnformed() {
         production = 0;
         super.tickUnformed();
+    }
+
+    @Override
+    protected void onFormedChanged(boolean formed) {
+        // the casing conducts only while formed
+        EnergyNets.rejoin(level, this);
     }
 
     @Override

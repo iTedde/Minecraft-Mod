@@ -106,6 +106,10 @@ geht der Inhalt der Feuerung verloren (Drop-Rate/Entity-Schaden wie `explodeMach
   Bis zu 3 Kessel (je 20 mB/t) sind damit voll nutzbar.
 - EU-Quelle am **Controller**, Ausgabe-Paket bis **64 EU**, Stufe MV (Puffer 128 EU); ist der Puffer voll,
   wird kein Dampf verbraucht.
+- **Ganze Struktur gibt Strom ab** (Nutzer, 2026-10-17): jedes Turbinengehäuse einer geformten Turbine ist ein
+  verlustfreier Leiter, der nur vom eigenen Controller bzw. eigenen Gehäuse annimmt und an alle Nachbarn abgibt –
+  Kabel/Speicher dürfen an jedem Gehäuseblock anliegen. Nicht geformt: leitet nichts. Gilt ebenso für die
+  Wasserturbine (§5). Kein Schock, kein Schmelzen.
 - Keine Explosion, kein Verschleiß.
 
 **GUI:** Railcraft `gui_engine_steam.png`-Stil: Dampftank, aktuelle Leistung in EU/t, Pufferanzeige.
@@ -128,6 +132,7 @@ geht der Inhalt der Feuerung verloren (Drop-Rate/Entity-Schaden wie `explodeMach
 - Unter **16** fließenden Blöcken: 0 EU/t.
 - Leistung `0,25 EU/t · fließend`, × 1,5 in Fluss-Biomen (`#minecraft:is_river` am Controller), Deckel **32 EU/t**.
 - EU-Quelle am Controller, Paket bis 32 (LV), Bruchteile akkumuliert (interner Puffer höchstens 64 EU).
+- Kabel dürfen an **jedem** Gehäuseblock anliegen (wie Dampfturbine §4).
 
 **GUI:** keine; Rechtsklick zeigt Chat-Meldung „Fließendes Wasser: n, Leistung x EU/t“ bzw. „Struktur
 unvollständig“.
@@ -154,9 +159,11 @@ unvollständig“.
 Ändert gegenüber `02-generatoren.md`:
 - `sub = windStrength · (y − 64 − hindernisse) / 750 · 2,5`.
 - Gewitter × **3,0** (statt 1,5), sonst Regen × **1,5** (statt 1,2).
-- Überlast erst ab `sub > 12,5`: `random(5000) ≤ sub − 12,5` → Zerfall wie bisher.
+- **Kein Zerfall** (Nutzer, 2026-10-17: „Windkraft darf nicht von selbst kaputt gehen“): die Überlast-Regel aus
+  IC2 (Umwandlung in einen Generator + 0–4 Eisenbarren) entfällt ganz; ursprünglich freigegeben war „erst ab
+  `sub > 12,5`“.
 - Grenze `storage + production ≥ 16` (statt 4); `getMaxEnergyOutput` 16 (statt 10).
-- GUI-Anzeigen: Leistung `sub/3` bleibt, Überhitzung `(sub − 12,5)/12,5`.
+- GUI-Anzeigen: Leistung `sub/3` bleibt, die Überhitzungsanzeige entfällt.
 
 Beispiele: y 128, Wind 15, frei → 3,2 EU/t; Gewitter 9,6 EU/t; y 200 → 6,8 EU/t (Gewitter 20 → durch die
 16er-Grenze gekappt).
@@ -167,4 +174,5 @@ Beispiele: y 128, Wind 15, frei → 3,2 EU/t; Gewitter 9,6 EU/t; y 200 → 6,8 E
 
 Koksofen (Struktur, 900 Ticks, Holzkohle abgelehnt), Kessel (Aufheizen, Dampfrate bei 1000 °C, Asche, Explosion bei
 Wasser auf trockenen heißen Kessel), Turbine (64-mB-Deckel, 1 mB = 1 EU, Abgabe ins Netz), Wasserturbine (16er-Schwelle,
-Deckel 32), Wassermühle (Bereich, Teilung, Deckel), Windmühle (Faktoren, Grenze 16).
+Deckel 32), Wassermühle (Bereich, Teilung, Deckel), Windmühle (Faktoren, Grenze 16), Abgabe über ein
+Gehäuse (Dampf- und Wasserturbine).

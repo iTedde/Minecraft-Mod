@@ -48,8 +48,6 @@ public class GeneratorScreen extends MachineScreen<GeneratorMenu> {
             case WIND_MILL -> {
                 int power = menu.getFuelGauge();
                 blit(graphics, x + 80, y + 45 + 14 - power, 176, 14 - power, 14, power);
-                int overheat = menu.getOverheatGauge();
-                blit(graphics, x + 80, y + 45 + 14 - overheat, 176, 28 - overheat, 14, overheat);
             }
             default -> {
             }

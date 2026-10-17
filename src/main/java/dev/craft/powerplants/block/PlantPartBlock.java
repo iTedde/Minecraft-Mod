@@ -2,6 +2,8 @@ package dev.craft.powerplants.block;
 
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
+import java.util.function.BiFunction;
+
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.RenderShape;
@@ -13,8 +15,22 @@ public class PlantPartBlock extends BaseEntityBlock {
     /** Largest distance between a part and its controller (3×3×5 turbine). */
     public static final int NOTIFY_RANGE = 4;
 
+    private final BiFunction<BlockPos, BlockState, ? extends PlantPartBlockEntity> factory;
+
     public PlantPartBlock(Properties properties) {
+        this(properties, PlantPartBlockEntity::new);
+    }
+
+    /** @param factory creates the part's block entity (e.g. {@link ConductingPartBlockEntity} for turbines) */
+    public PlantPartBlock(Properties properties,
+                          BiFunction<BlockPos, BlockState, ? extends PlantPartBlockEntity> factory) {
         super(properties);
+        this.factory = factory;
+    }
+
+    /** Factory of the shared part block entity type: the block decides which part class it gets. */
+    public static PlantPartBlockEntity createPart(BlockPos pos, BlockState state) {
+        return ((PlantPartBlock) state.getBlock()).factory.apply(pos, state);
     }
 
     @Override
@@ -29,7 +45,7 @@ public class PlantPartBlock extends BaseEntityBlock {
 
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new PlantPartBlockEntity(pos, state);
+        return factory.apply(pos, state);
     }
 
     @Override

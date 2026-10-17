@@ -3,6 +3,7 @@ package dev.craft.powerplants;
 import java.util.function.Supplier;
 
 import dev.craft.Craft;
+import dev.craft.powerplants.block.PlantPartBlock;
 import dev.craft.powerplants.block.PlantPartBlockEntity;
 import dev.craft.powerplants.boiler.BoilerBlockEntity;
 import dev.craft.powerplants.cokeoven.CokeOvenBlockEntity;
@@ -16,9 +17,9 @@ public final class PpBlockEntityTypes {
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITY_TYPES =
             DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, Craft.MODID);
 
-    /** All casing parts of all power plants share one type. */
+    /** All casing parts of all power plants share one type; the block picks the part class. */
     public static final Supplier<BlockEntityType<PlantPartBlockEntity>> PLANT_PART = BLOCK_ENTITY_TYPES.register(
-            "plant_part", () -> BlockEntityType.Builder.of(PlantPartBlockEntity::new,
+            "plant_part", () -> BlockEntityType.Builder.of(PlantPartBlock::createPart,
                     PpBlocks.COKE_OVEN_BRICKS.get(), PpBlocks.BOILER_CASING.get(), PpBlocks.TURBINE_CASING.get(),
                     PpBlocks.TURBINE_ROTOR.get(), PpBlocks.WATER_TURBINE_CASING.get()).build(null));
     public static final Supplier<BlockEntityType<CokeOvenBlockEntity>> COKE_OVEN = BLOCK_ENTITY_TYPES.register(

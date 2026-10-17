@@ -114,6 +114,27 @@ public final class WaterTurbineGameTests {
         });
     }
 
+    /** Every casing block conducts: an MFE beside a side casing gets the same energy as one at the controller. */
+    @GameTest(template = EMPTY, timeoutTicks = 60)
+    public static void casingDeliversEnergy(GameTestHelper helper) {
+        BlockPos beside = new BlockPos(5, 2, 4);
+        WaterTurbineBlockEntity turbine = build(helper);
+        helper.setBlock(beside, Ic2Blocks.machine(Ic2Machine.MFE).get());
+        ElectricStorageBlockEntity mfe = helper.getBlockEntity(beside);
+        int[] start = new int[1];
+        helper.runAtTickTime(5, () -> {
+            flood(helper, turbine, 16, 0);
+            start[0] = mfe.getEnergy();
+        });
+        helper.runAtTickTime(35, () -> {
+            helper.assertTrue(turbine.getFlow() > 0, "turbine runs");
+            helper.assertValueEqual(mfe.getEnergy() - start[0], (int) (30 * turbine.getFlow()),
+                    "energy through the casing");
+            helper.setBlock(beside, Blocks.AIR);
+            helper.succeed();
+        });
+    }
+
     /** A missing casing breaks the structure: no energy despite water. */
     @GameTest(template = EMPTY, timeoutTicks = 40)
     public static void missingCasingStopsTheTurbine(GameTestHelper helper) {
