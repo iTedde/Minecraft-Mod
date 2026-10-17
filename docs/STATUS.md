@@ -1592,5 +1592,9 @@ Nutzerentscheidung (2026-10-17): **alle vier Lücken umsetzen** → Phase 13 (13
 ## Nächste Schritte
 1. Nutzerentscheidung zu den „Neuen Befunden aus 13.3“ (Elektrumplatte/Platinen, Messing, GT-Mörser,
    Setzling-/Blätter-Compressor, Schaden-0 bei Solarhelm/Static Boots).
-2. Abnahme Phase 13; restliche manuelle Tests aus `testplan.md`.
+2. Restliche manuelle Tests aus `testplan.md`.
+
+## Abnahme Phase 13 (Nutzer, 2026-10-17)
+- Phase 13 (Nachträge 13.1–13.4) abgenommen. Offen: Nutzerentscheidung zu den „Neuen Befunden aus 13.3“ und die
+  manuellen Client-Tests aus `testplan.md`.
 3. Restliche manuelle Tests aus `testplan.md` (Sounds, Explosionen, Rüstung/Werkzeuge, Weltgen, Multiblöcke).
