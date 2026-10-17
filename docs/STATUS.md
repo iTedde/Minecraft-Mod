@@ -1490,3 +1490,7 @@ NaK-Kühlzellen, kein Vakuumgefrierer) **und die IC2-Nuke**. Teilpakete: 7a IC2-
 ## Nächste Schritte
 1. Manuelle Client-Tests nach `docs/testplan.md` (inkl. Phase 12: 3.16–3.35), sobald der Start wieder erlaubt ist.
 2. Abnahme Phase 12.
+
+## Abnahme Phase 12 (Nutzer, 2026-10-17)
+- Phase 12 (restliche IC2-Inhalte) abgenommen. Damit sind alle Phasen des Phasenplans erledigt. Manuelle Client-Tests
+  nach `docs/testplan.md` (3.1–3.35) stehen weiter aus, bis der Launcher-Start wieder erlaubt ist.
