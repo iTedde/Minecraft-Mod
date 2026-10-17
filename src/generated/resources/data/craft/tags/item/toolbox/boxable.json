@@ -17,6 +17,8 @@
     "craft:re_battery",
     "craft:ic2_mining_pipe",
     "craft:wooden_scaffold",
-    "craft:fertilizer"
+    "craft:fertilizer",
+    "craft:dynamite",
+    "craft:sticky_dynamite"
   ]
 }

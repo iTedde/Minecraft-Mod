@@ -1456,5 +1456,25 @@ NaK-Kühlzellen, kein Vakuumgefrierer) **und die IC2-Nuke**. Teilpakete: 7a IC2-
 - `abweichungen.md` (Block-Item, Haupthand, Namen, Metadaten), `testplan.md` 3.33.
 - 7 neue GameTests (`BrewingGameTests`), **321 GameTests grün**, `gradlew build`. `runClient` nicht gestartet (Nutzer).
 
+## Erledigt (Teilpaket „Phase 12.9: Dynamit + Fernzünder“, 2026-10-17)
+- Spezifikation nachgetragen: `spec/05-items.md` §7.1 (Items, Wurf/Werfer, Entity-Tick mit Kleben/Wasser/Verschwinden,
+  `PointExplosion` inkl. Original-Eigenheiten, Dynamit-Block, Fernzünder).
+- `core/explosion/PointExplosion` (3×3×3, Resistenz ≤ 10 · Stärke, volle Drops, Entity-Schaden; keine Partikel wie im
+  Pack); `Ic2Explosion.explosionResistance` dafür statisch gemacht.
+- `ic2/block/DynamiteEntity` (zwei Entity-Typen `dynamite`/`sticky_dynamite`, `ThrownItemRenderer`),
+  `DynamiteBlock` (`dynamite_stick`, `dynamite_stick_with_remote`; Fackel-Modelle, Zündung durch Abbau/Redstone,
+  Stützverlust/Explosion → Zündschnur 5, nie Drops), `ic2/item/DynamiteItem` (werfen, Block setzen, Werfer über
+  `ProjectileItem`), `DynamiteRemoteItem` (Data Component `craft:remote_links`, Tooltip, Meldung), Sound
+  `tools/dynamite_o_mote`.
+- Rezepte Dynamit, Klebedynamit, Fernzünder ×2; Sprache en/de; Texturen `item_0.png` 61–63, `block_0.png` 56/57;
+  Dynamit/Klebedynamit in `toolbox/boxable`.
+- **Fehlerkorrektur:** Industrie-TNT/Atombombe zündeten nicht, wenn die Stromquelle erst nach dem Block gesetzt wurde
+  (1.21 übergibt bei Nachbaränderung den alten Block) – jetzt wird der aktuelle Nachbarzustand geprüft.
+- `abweichungen.md` (Block-Item, Normalblock, Redstone-Zündung, Fernzünder-Daten, Entity-Sync), `testplan.md` 3.34,
+  `architektur.md`.
+- 8 neue GameTests (`DynamiteGameTests`) + 1 in `NukeGameTests`, **330 GameTests grün**, `gradlew build`. `runClient`
+  nicht gestartet (Nutzer).
+
 ## Nächste Schritte
-1. 12.9: Dynamit, Klebedynamit, Dynamit-Block, Fernzünder (`spec/17-ic2-rest.md`).
+1. 12.10: GT-Änderungen ohne Rezeptcharakter (`spec/17-ic2-rest.md` §3: Upgrade-Stack 4, Recycler-Blacklist,
+   Miner-Lava prüfen), Testplan ergänzen, Abschluss Phase 12.

@@ -782,6 +782,16 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             add(Ic2EntityTypes.INDUSTRIAL_TNT.get(), "Industrial TNT");
             block(Ic2Blocks.NUKE, "Nuke");
             add(Ic2EntityTypes.NUKE.get(), "Nuke");
+            item(Ic2Items.DYNAMITE, "Dynamite");
+            item(Ic2Items.STICKY_DYNAMITE, "Sticky Dynamite");
+            item(Ic2Items.DYNAMITE_O_MOTE, "Dynamite-O-Mote");
+            add("item.craft.dynamite_o_mote.linked", "Linked to %s dynamite");
+            add("message.craft.dynamite_o_mote.not_linked",
+                    "This dynamite stick is not linked to this remote, cannot unlink.");
+            block(Ic2Blocks.DYNAMITE_STICK, "Dynamite");
+            block(Ic2Blocks.DYNAMITE_STICK_WITH_REMOTE, "Dynamite (linked)");
+            add(Ic2EntityTypes.DYNAMITE.get(), "Dynamite");
+            add(Ic2EntityTypes.STICKY_DYNAMITE.get(), "Sticky Dynamite");
             block(Ic2Blocks.RUBBER_WOOD, "Rubber Wood");
             block(Ic2Blocks.RUBBER_LEAVES, "Rubber Leaves");
             block(Ic2Blocks.RUBBER_SAPLING, "Rubber Tree Sapling");
@@ -1162,6 +1172,16 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             add(Ic2EntityTypes.INDUSTRIAL_TNT.get(), "Industrie-TNT");
             block(Ic2Blocks.NUKE, "Atombombe");
             add(Ic2EntityTypes.NUKE.get(), "Atombombe");
+            item(Ic2Items.DYNAMITE, "Dynamit");
+            item(Ic2Items.STICKY_DYNAMITE, "Klebedynamit");
+            item(Ic2Items.DYNAMITE_O_MOTE, "Fernzünder");
+            add("item.craft.dynamite_o_mote.linked", "Mit %s Dynamit verbunden");
+            add("message.craft.dynamite_o_mote.not_linked",
+                    "Dieses Dynamit ist nicht mit diesem Fernzünder verbunden und kann nicht getrennt werden.");
+            block(Ic2Blocks.DYNAMITE_STICK, "Dynamit");
+            block(Ic2Blocks.DYNAMITE_STICK_WITH_REMOTE, "Dynamit (verbunden)");
+            add(Ic2EntityTypes.DYNAMITE.get(), "Dynamit");
+            add(Ic2EntityTypes.STICKY_DYNAMITE.get(), "Klebedynamit");
             block(Ic2Blocks.RUBBER_WOOD, "Gummiholz");
             block(Ic2Blocks.RUBBER_LEAVES, "Gummibaumblätter");
             block(Ic2Blocks.RUBBER_SAPLING, "Gummibaumsetzling");

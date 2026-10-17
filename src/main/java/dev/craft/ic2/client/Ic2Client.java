@@ -14,6 +14,7 @@ import dev.craft.ic2.item.tool.NanoSaberItem;
 import dev.craft.ic2.machine.MachineSoundHooks;
 import dev.craft.ic2.personal.PersonalSafeBlockEntity;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
+import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
@@ -72,6 +73,8 @@ public final class Ic2Client {
         event.registerEntityRenderer(Ic2EntityTypes.MINING_LASER.get(), MiningLaserRenderer::new);
         event.registerEntityRenderer(Ic2EntityTypes.INDUSTRIAL_TNT.get(), Ic2ExplosiveRenderer::new);
         event.registerEntityRenderer(Ic2EntityTypes.NUKE.get(), Ic2ExplosiveRenderer::new);
+        event.registerEntityRenderer(Ic2EntityTypes.DYNAMITE.get(), ThrownItemRenderer::new);
+        event.registerEntityRenderer(Ic2EntityTypes.STICKY_DYNAMITE.get(), ThrownItemRenderer::new);
         event.registerBlockEntityRenderer(personalSafeType(), PersonalSafeRenderer::new);
     }
 

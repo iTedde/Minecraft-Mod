@@ -125,7 +125,8 @@ public final class CraftItemTagsProvider extends ItemTagsProvider {
             tag(ToolboxItem.BOXABLE).add(Ic2Items.cable(type).get());
         }
         tag(ToolboxItem.BOXABLE).add(Ic2Items.SU_BATTERY.get(), Ic2Items.RE_BATTERY.get(), Ic2Items.MINING_PIPE.get(),
-                Ic2Items.WOODEN_SCAFFOLD.get(), Ic2Items.FERTILIZER.get());
+                Ic2Items.WOODEN_SCAFFOLD.get(), Ic2Items.FERTILIZER.get(), Ic2Items.DYNAMITE.get(),
+                Ic2Items.STICKY_DYNAMITE.get());
         tag(ToolboxItem.NOT_BOXABLE).add(Ic2Items.TOOLBOX.get(), Ic2Items.FILLED_FUEL_CAN.get());
         Ic2Items.ITEMS.getEntries().stream().map(DeferredHolder::get).filter(GradualItem.class::isInstance)
                 .filter(item -> item != Ic2Items.HYDRATING_CELL.get())

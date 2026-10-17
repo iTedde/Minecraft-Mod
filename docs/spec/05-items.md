@@ -512,6 +512,55 @@ Gezündete IC2-Sprengstoffe springen wie TNT (motionY 0,2).
 - Rezepte: 4 ITNT aus `FFF/TTT/FFF` und `FTF/FTF/FTF` (F = Feuerstein, T = TNT); GT-Variante mit Feuersteinstaub
   (→ 5) folgt mit dem Staub.
 
+### 7.1 Dynamit, Dynamit-Block, Fernzünder (nachgetragen für Phase 12.9)
+
+**Items** (`item_0.png`, Creative-Tab IC2): Dynamit (`itemDynamite`) 62, Klebedynamit (`itemDynamiteSticky`) 63, je
+Stapel 16 und `IBoxable`; Fernzünder „Dynamite-O-Mote“ (`itemRemote`) 61, Stapel 1. Rezepte siehe `08-rezepte.md`
+(8 Dynamit formlos aus ITNT + Faden, 8 Klebedynamit `DDD/DRD/DDD` mit Harz, zwei Fernzünder-Rezepte).
+- Rechtsklick wirft (beide Sorten; im Kreativmodus ohne Verbrauch), Klang „random.bow“ 0,5 / 0,4 ÷ (rand·0,4 + 0,8).
+- **Dynamit** auf einen Block: setzt einen Dynamit-Block auf die angeklickte Seite, wenn dort **Luft** ist und der
+  Block stehen kann; verbraucht immer eins (auch im Kreativmodus), kein Klang. Auch wenn nichts gesetzt wird, wird
+  nicht geworfen. **Klebedynamit** auf einen Block wirft.
+- Werfer: `BehaviorProjectileDispense` – Entity an Mitte + 0,7 · Richtung, Richtung (dx, dy + 0,1, dz), Tempo 1,1,
+  Streuung 6.
+
+**Entity** (`EntityDynamite`, `EntityStickyDynamite`; 0,5 × 0,5, Tracking 160/5, Darstellung Item-Sprite 62 für beide):
+- Wurf: Start Augenhöhe − 0,1, seitlich −cos(Yaw)·0,16 / −sin(Yaw)·0,16; Richtung aus Yaw/Pitch, Tempo 1,0, Streuung
+  Gauß · 0,0075.
+- Tick: `fuse` (Start 100) herunterzählen; bei `fuse-- ≤ 0` entfernen und explodieren (Server). Sonst Rauch bei
+  `fuse < 100` und gerade. Liegt sie (`inGround`): nach 200 Ticks am Boden **verschwindet** sie ohne Explosion;
+  Klebedynamit zusätzlich `fuse −= 3`, Bewegung 0, und solange der getroffene Block existiert keine Bewegung.
+- Bewegung: Strahl Position → Position + Bewegung gegen Blöcke mit Kollisionsbox (keine Flüssigkeiten, keine
+  Entities). Treffer: Position = Trefferpunkt − 0,05 in Flugrichtung, Bewegung x/z · (0,75 − rand), y · −0,3,
+  `inGround`. Danach Dämpfung 0,98 (im Wasser 0,75 und **`fuse += 2000` pro Tick** + Blasen), Schwerkraft 0,04.
+- NBT nur `inGround` – Zündschnur nach dem Neuladen wieder 100.
+- Explosion `PointExplosion(Stärke 1, Drop 1,0, Schaden 0,8)` 3×3×3 an `(int)`-Position.
+
+**`PointExplosion`**: Mittelpunkt = Blockecke `(int) x/y/z`, negative x/z zusätzlich −1. Alle Blöcke im Würfel mit
+`Stärke ≥ Resistenz / 10` (IC2-Werte: Obsidian 36, Wasser/stehende Lava 18) werden zerstört. Danach Stärke ×2 und
+Entities im Umkreis 2 (Abstand Füße–Mittelpunkt) wie Vanilla: `(int)(((d²+d)/2 · 8 · 2 + 1) · 0,8)` Schaden
+(Explosion), Rückstoß d in Richtung vom Mittelpunkt (d = (1 − Abstand/2) · Sichtanteil). Dann Klang „random.explode“
+4,0; **keine Partikel** (IC2 erzeugte sie nur auf dem Server). Jeder zerstörte Block droppt alle Drops (Chance 1,0) an
+seiner Stelle, wird Luft und bekommt `onBlockDestroyedByExplosion` (Kettenreaktion).
+
+**Dynamit-Block** (`BlockDynamite`, `blockDynamite` Sprite 57, mit Fernzünder `blockDynamiteRemote` Sprite 56 in
+`block_0.png`; TNT-Material, Härte 0, Klang Gras, keine Kollision, Darstellung wie Fackel, nicht im Creative-Tab):
+- Hält an einem Nachbarn, der ein Normalblock ist (unten, −x, +x, −z, +z; in dieser Reihenfolge wird beim Setzen die
+  Ausrichtung gewählt). Auswahlbox wie eine Fackel (stehend 0,4–0,6 × 0–0,6; an der Wand 0,3 tief, 0,2–0,8 hoch).
+- Setzen: bestromt → zünden; sonst Ausrichtung; ohne Halt sofort „Explosion“ (s. u.).
+- Nachbaränderung: liefert der **neue** Nachbarblock Redstone und ist der Block bestromt → zünden. Sonst ohne jeden
+  Halt → Entity mit `fuse = 5` + Block weg; fehlt nur der eigene Halteblock → Block verschwindet **ohne Drop**.
+- Abbauen durch den Spieler (auch Kreativ) → zünden. Droppt nie etwas (`quantityDropped = 0`).
+- Zünden: Entity an der Blockmitte, `fuse = 40`, Klang „random.fuse“. Von einer Explosion zerstört: `fuse = 5`, kein
+  Klang. Das Entity ist immer normales Dynamit (nicht klebend).
+
+**Fernzünder** (`ItemRemote`): Rechtsklick auf Dynamit-Block → Position in die Liste (NBT `coords`, Item-Schaden =
+Anzahl), Block wird zum Fernzünder-Dynamit (Ausrichtung neu bestimmt, bestromt → zündet). Auf Fernzünder-Dynamit:
+steht die Position in der Liste → zurück zum normalen Dynamit-Block und austragen; sonst Meldung „This dynamite stick
+is not linked to this remote, cannot unlink.“. Jeder andere Rechtsklick: Klang `Tools/dynamiteomote.ogg`, jede
+gelistete Position, an der noch Fernzünder-Dynamit steht, explodiert (`fuse = 5`, Block weg), Liste geleert.
+Positionen ohne Dimension. Tooltip „Linked to n dynamite“, wenn n > 0.
+
 ## 8. Strahlung, Schadensquellen
 
 - Trank-Effekt **Radioaktivität** (`potion.radiation`, ID 24, schlecht, Farbe 0x4E9331): Schaden `stufe+1` alle

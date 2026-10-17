@@ -55,6 +55,8 @@ import dev.craft.ic2.item.tool.DrillItem;
 import dev.craft.ic2.item.tool.ElectricHoeItem;
 import dev.craft.ic2.item.tool.ElectricTreetapItem;
 import dev.craft.ic2.item.tool.EuMeterItem;
+import dev.craft.ic2.item.DynamiteItem;
+import dev.craft.ic2.item.DynamiteRemoteItem;
 import dev.craft.ic2.item.FrequencyTransmitterItem;
 import dev.craft.ic2.terraformer.ChillingBlueprint;
 import dev.craft.ic2.terraformer.CultivationBlueprint;
@@ -292,6 +294,14 @@ public final class Ic2Items {
             "frequency_transmitter", FrequencyTransmitterItem::new, new Item.Properties().stacksTo(1)));
     public static final DeferredItem<EuMeterItem> EU_METER = simple(ITEMS.registerItem("eu_meter", EuMeterItem::new));
     public static final DeferredItem<ToolboxItem> TOOLBOX = ITEMS.registerItem("toolbox", ToolboxItem::new);
+    // --- explosives ---
+    public static final DeferredItem<DynamiteItem> DYNAMITE = simple(ITEMS.registerItem("dynamite",
+            properties -> new DynamiteItem(properties, false), new Item.Properties().stacksTo(16)));
+    public static final DeferredItem<DynamiteItem> STICKY_DYNAMITE = simple(ITEMS.registerItem("sticky_dynamite",
+            properties -> new DynamiteItem(properties, true), new Item.Properties().stacksTo(16)));
+    /** IC2 {@code itemRemote}. */
+    public static final DeferredItem<DynamiteRemoteItem> DYNAMITE_O_MOTE = simple(ITEMS.registerItem(
+            "dynamite_o_mote", DynamiteRemoteItem::new, new Item.Properties().stacksTo(1)));
     // --- crops ---
     /** Crop stick item; IC2's item icon is sprite 0 of {@code crops_0.png} (model generated separately). */
     public static final DeferredItem<BlockItem> CROP = ITEMS.registerSimpleBlockItem(Ic2Blocks.CROP);

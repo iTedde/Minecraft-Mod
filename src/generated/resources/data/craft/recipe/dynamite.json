@@ -1,0 +1,15 @@
+{
+  "type": "craft:ic2_shapeless",
+  "ingredients": [
+    {
+      "item": "craft:industrial_tnt"
+    },
+    {
+      "item": "minecraft:string"
+    }
+  ],
+  "result": {
+    "count": 8,
+    "id": "craft:dynamite"
+  }
+}

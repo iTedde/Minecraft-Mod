@@ -9,6 +9,7 @@ import dev.craft.ic2.item.tool.ElectricToolItem;
 import dev.craft.ic2.keyboard.Ic2Keyboard;
 import dev.craft.ic2.machine.MachineBlockEntity;
 import dev.craft.ic2.world.Ic2Features;
+import net.minecraft.world.level.block.DispenserBlock;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.capabilities.Capabilities;
@@ -48,7 +49,11 @@ public final class Ic2 {
     }
 
     private static void commonSetup(FMLCommonSetupEvent event) {
-        event.enqueueWork(() -> ScrapBoxItem.registerDispenserBehavior(Ic2Items.SCRAP_BOX.get()));
+        event.enqueueWork(() -> {
+            ScrapBoxItem.registerDispenserBehavior(Ic2Items.SCRAP_BOX.get());
+            DispenserBlock.registerProjectileBehavior(Ic2Items.DYNAMITE.get());
+            DispenserBlock.registerProjectileBehavior(Ic2Items.STICKY_DYNAMITE.get());
+        });
     }
 
     private static void registerCapabilities(RegisterCapabilitiesEvent event) {

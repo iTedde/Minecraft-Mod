@@ -219,7 +219,7 @@ public final class Ic2Explosion {
             boolean isBlock = !state.isAir();
             double absorption = 0.5;
             if (isBlock) {
-                absorption += (explosionResistance(state) + 4.0) * 0.3;
+                absorption += (explosionResistance(level, cursor, state, vanillaExplosion) + 4.0) * 0.3;
             }
 
             if (absorption > 1000.0 && !state.is(WHITELIST)) {
@@ -312,9 +312,9 @@ public final class Ic2Explosion {
     /**
      * Explosion resistance in 1.21 units; IC2 lowered some vanilla values globally ({@code setResistance(60)} on
      * obsidian, enchanting table, ender chest, anvil → 36; {@code setResistance(30)} on water and still lava → 18).
-     * Here the changed values apply to IC2 explosions only.
+     * Here the changed values apply to IC2 explosions only (also {@link PointExplosion}).
      */
-    private float explosionResistance(BlockState state) {
+    static float explosionResistance(ServerLevel level, BlockPos pos, BlockState state, Explosion explosion) {
         if (state.is(Blocks.OBSIDIAN) || state.is(Blocks.ENCHANTING_TABLE) || state.is(Blocks.ENDER_CHEST)
                 || state.is(Blocks.ANVIL) || state.is(Blocks.CHIPPED_ANVIL) || state.is(Blocks.DAMAGED_ANVIL)) {
             return 36.0F;
@@ -326,7 +326,7 @@ public final class Ic2Explosion {
             // still lava had resistance 30 (→ 18), flowing lava none
             return state.getFluidState().isSource() ? 18.0F : 0.0F;
         }
-        return state.getExplosionResistance(level, cursor, vanillaExplosion);
+        return state.getExplosionResistance(level, pos, explosion);
     }
 
     private static final class Drop {

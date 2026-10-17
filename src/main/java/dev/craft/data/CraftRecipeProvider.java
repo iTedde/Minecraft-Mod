@@ -2128,6 +2128,17 @@ public final class CraftRecipeProvider extends RecipeProvider {
                 .define('F', Items.FLINT).define('T', Items.TNT).save();
         shaped(Ic2Items.INDUSTRIAL_TNT, 4, "industrial_tnt_columns").pattern("FTF", "FTF", "FTF")
                 .define('F', Items.FLINT).define('T', Items.TNT).save();
+        shapeless(Ic2Items.DYNAMITE, 8, "dynamite", Ingredient.of(Ic2Items.INDUSTRIAL_TNT),
+                Ingredient.of(Items.STRING));
+        shaped(Ic2Items.STICKY_DYNAMITE, 8, "sticky_dynamite").pattern("DDD", "DRD", "DDD")
+                .define('D', Ic2Items.DYNAMITE).define('R', Ic2Items.RESIN).save();
+        shaped(Ic2Items.DYNAMITE_O_MOTE, 1, "dynamite_o_mote").pattern(" c ", "GCG", "TTT")
+                .define('c', Ic2Items.cable(CableType.INSULATED_COPPER)).define('G', Items.GLOWSTONE_DUST)
+                .define('C', Ic2Items.ELECTRONIC_CIRCUIT).define('T', Items.TNT).save();
+        shaped(Ic2Items.DYNAMITE_O_MOTE, 1, "dynamite_o_mote_from_frequency_transmitter")
+                .pattern(" C ", "TLT", " F ").define('C', Ic2Items.cable(CableType.INSULATED_COPPER))
+                .define('F', Ic2Items.FREQUENCY_TRANSMITTER).define('L', Items.LAPIS_LAZULI)
+                .define('T', CraftItemTagsProvider.INGOTS_TIN).save();
     }
 
     // --- §10.1 furnace ---

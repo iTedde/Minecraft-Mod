@@ -24,6 +24,7 @@ import dev.craft.ic2.Ic2Blocks;
 import dev.craft.ic2.brewing.BarrelBlock;
 import dev.craft.ic2.Ic2Machine;
 import dev.craft.ic2.block.ConstructionFoamWallBlock;
+import dev.craft.ic2.block.DynamiteBlock;
 import dev.craft.ic2.block.LuminatorBlock;
 import dev.craft.ic2.block.RubberWoodBlock;
 import dev.craft.ic2.block.ScaffoldBlock;
@@ -359,6 +360,24 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
                 : ConfiguredModel.builder().modelFile(plain).build());
     }
 
+    /** IC2 render type 2 (torch): the vanilla torch templates; a wall stick leans away from its support. */
+    private void dynamiteStick(DynamiteBlock block) {
+        String name = BuiltInRegistries.BLOCK.getKey(block).getPath();
+        ResourceLocation texture = modLoc("block/" + name);
+        ModelFile standing = models().withExistingParent(name, mcLoc("block/template_torch"))
+                .texture("torch", texture).renderType("cutout");
+        ModelFile wall = models().withExistingParent(name + "_wall", mcLoc("block/template_torch_wall"))
+                .texture("torch", texture).renderType("cutout");
+        getVariantBuilder(block).forAllStates(state -> {
+            Direction support = state.getValue(DynamiteBlock.SUPPORT);
+            if (support == Direction.DOWN) {
+                return ConfiguredModel.builder().modelFile(standing).build();
+            }
+            int rotation = ((int) support.getOpposite().toYRot() + 90) % 360;
+            return ConfiguredModel.builder().modelFile(wall).rotationY(rotation).build();
+        });
+    }
+
     /**
      * IC2 {@code RenderBlockCrop}: two pairs of crossed planes at 4 and 12 px, shifted down 1 px – the vanilla crop
      * model – with the sprite of {@code crops_0.png} chosen by the tile.
@@ -410,6 +429,8 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
                 modLoc("block/industrial_tnt_top")));
         simpleBlockWithItem(Ic2Blocks.NUKE.get(), models().cubeBottomTop("nuke", modLoc("block/nuke_side"),
                 modLoc("block/nuke_bottom"), modLoc("block/nuke_top")));
+        dynamiteStick(Ic2Blocks.DYNAMITE_STICK.get());
+        dynamiteStick(Ic2Blocks.DYNAMITE_STICK_WITH_REMOTE.get());
         simpleBlockWithItem(Ic2Blocks.REINFORCED_STONE.get(), cubeAll(Ic2Blocks.REINFORCED_STONE.get()));
         doorBlockWithRenderType(Ic2Blocks.REINFORCED_DOOR.get(), modLoc("block/reinforced_door_bottom"),
                 modLoc("block/reinforced_door_top"), "cutout");

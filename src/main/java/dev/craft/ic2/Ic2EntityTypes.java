@@ -1,6 +1,7 @@
 package dev.craft.ic2;
 
 import dev.craft.Craft;
+import dev.craft.ic2.block.DynamiteEntity;
 import dev.craft.ic2.block.IndustrialTntEntity;
 import dev.craft.ic2.block.NukeEntity;
 import dev.craft.ic2.item.tool.MiningLaserEntity;
@@ -41,6 +42,24 @@ public final class Ic2EntityTypes {
                     .clientTrackingRange(10)
                     .updateInterval(5)
                     .build("nuke"));
+
+    /** IC2 {@code EntityDynamite}: 0.5 × 0.5, tracked like the industrial TNT. */
+    public static final DeferredHolder<EntityType<?>, EntityType<DynamiteEntity>> DYNAMITE =
+            ENTITY_TYPES.register("dynamite", () -> EntityType.Builder
+                    .<DynamiteEntity>of(DynamiteEntity::new, MobCategory.MISC)
+                    .sized(0.5F, 0.5F)
+                    .clientTrackingRange(10)
+                    .updateInterval(5)
+                    .build("dynamite"));
+
+    /** IC2 {@code EntityStickyDynamite}: registered separately in IC2 as well. */
+    public static final DeferredHolder<EntityType<?>, EntityType<DynamiteEntity>> STICKY_DYNAMITE =
+            ENTITY_TYPES.register("sticky_dynamite", () -> EntityType.Builder
+                    .<DynamiteEntity>of(DynamiteEntity::new, MobCategory.MISC)
+                    .sized(0.5F, 0.5F)
+                    .clientTrackingRange(10)
+                    .updateInterval(5)
+                    .build("sticky_dynamite"));
 
     private Ic2EntityTypes() {
     }

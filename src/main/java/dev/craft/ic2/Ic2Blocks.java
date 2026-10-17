@@ -10,6 +10,7 @@ import java.util.function.BiFunction;
 import dev.craft.Craft;
 import dev.craft.ic2.block.ConstructionFoamBlock;
 import dev.craft.ic2.block.ConstructionFoamWallBlock;
+import dev.craft.ic2.block.DynamiteBlock;
 import dev.craft.ic2.block.IndustrialTntBlock;
 import dev.craft.ic2.block.LuminatorBlock;
 import dev.craft.ic2.block.ScaffoldBlock;
@@ -231,6 +232,18 @@ public final class Ic2Blocks {
     public static final DeferredBlock<BarrelBlock> BARREL = BLOCKS.register("booze_barrel",
             () -> new BarrelBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD)
                     .instrument(NoteBlockInstrument.BASS).strength(1.0F).sound(SoundType.WOOD).ignitedByLava()));
+
+    /** IC2 {@code BlockDynamite} ({@code blockDynamite}): TNT material, hardness 0, grass sound, no collision. */
+    public static final DeferredBlock<DynamiteBlock> DYNAMITE_STICK = BLOCKS.register("dynamite_stick",
+            () -> new DynamiteBlock(dynamiteProperties()));
+    /** IC2 {@code BlockDynamite} ({@code blockDynamiteRemote}): a stick linked to a Dynamite-O-Mote. */
+    public static final DeferredBlock<DynamiteBlock> DYNAMITE_STICK_WITH_REMOTE =
+            BLOCKS.register("dynamite_stick_with_remote", () -> new DynamiteBlock(dynamiteProperties()));
+
+    private static BlockBehaviour.Properties dynamiteProperties() {
+        return BlockBehaviour.Properties.of().mapColor(MapColor.FIRE).instabreak().noCollission().noOcclusion()
+                .sound(SoundType.GRASS);
+    }
 
     private Ic2Blocks() {
     }

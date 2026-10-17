@@ -46,6 +46,16 @@ public final class NukeGameTests {
         helper.succeed();
     }
 
+    /** A signal source placed next to it later primes it as well (IC2 looks at the new neighbour block). */
+    @GameTest(template = EMPTY)
+    public static void primesWhenRedstoneIsPlacedNextToIt(GameTestHelper helper) {
+        helper.setBlock(POS, Ic2Blocks.NUKE.get());
+        helper.setBlock(POS.east(), Blocks.REDSTONE_BLOCK);
+        helper.assertBlockPresent(Blocks.AIR, POS);
+        helper.assertValueEqual(takePrimed(helper).size(), 1, "primed nukes");
+        helper.succeed();
+    }
+
     /** Unlike industrial TNT, breaking it by hand drops the nuke instead of priming it. */
     @GameTest(template = EMPTY)
     public static void breakingDropsIt(GameTestHelper helper) {

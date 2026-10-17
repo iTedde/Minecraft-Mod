@@ -1,6 +1,7 @@
 package dev.craft.ic2;
 
 import dev.craft.ic2.crop.CropSeedItem;
+import java.util.List;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.craft.Craft;
@@ -110,6 +111,12 @@ public final class Ic2DataComponents {
             COMPONENTS.registerComponentType("teleporter_target", builder -> builder
                     .persistent(BlockPos.CODEC)
                     .networkSynchronized(BlockPos.STREAM_CODEC));
+
+    /** Dynamite sticks linked to a Dynamite-O-Mote (IC2 NBT list {@code coords}; the count was the item damage). */
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<List<BlockPos>>> REMOTE_LINKS =
+            COMPONENTS.registerComponentType("remote_links", builder -> builder
+                    .persistent(BlockPos.CODEC.listOf())
+                    .networkSynchronized(BlockPos.STREAM_CODEC.apply(ByteBufCodecs.list())));
 
     /** Painter automatic refill mode (IC2 NBT {@code autoRefill}). */
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Boolean>> AUTO_REFILL =

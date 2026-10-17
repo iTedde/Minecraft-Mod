@@ -69,7 +69,8 @@ public class IndustrialTntBlock extends Block {
     @Override
     protected void neighborChanged(BlockState state, Level level, BlockPos pos, Block neighborBlock,
                                    BlockPos neighborPos, boolean movedByPiston) {
-        if (neighborBlock.defaultBlockState().isSignalSource() && level.hasNeighborSignal(pos)) {
+        // IC2 1.4.7 got the id of the new neighbour block; 1.21 passes the old one, so look at the current state
+        if (level.getBlockState(neighborPos).isSignalSource() && level.hasNeighborSignal(pos)) {
             ignite(level, pos);
         }
     }

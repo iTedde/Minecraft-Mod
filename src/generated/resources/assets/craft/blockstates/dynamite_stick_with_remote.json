@@ -1,0 +1,22 @@
+{
+  "variants": {
+    "support=down": {
+      "model": "craft:block/dynamite_stick_with_remote"
+    },
+    "support=east": {
+      "model": "craft:block/dynamite_stick_with_remote_wall",
+      "y": 180
+    },
+    "support=north": {
+      "model": "craft:block/dynamite_stick_with_remote_wall",
+      "y": 90
+    },
+    "support=south": {
+      "model": "craft:block/dynamite_stick_with_remote_wall",
+      "y": 270
+    },
+    "support=west": {
+      "model": "craft:block/dynamite_stick_with_remote_wall"
+    }
+  }
+}
