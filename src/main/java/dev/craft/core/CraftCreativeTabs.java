@@ -204,7 +204,8 @@ public final class CraftCreativeTabs {
                     .title(Component.translatable("itemGroup.craft.redpower"))
                     .icon(() -> RpItems.tool(RpGem.RUBY, RpItems.Tool.PICKAXE).toStack())
                     .withTabsBefore(ResourceLocation.fromNamespaceAndPath(Craft.MODID, "power_plants"))
-                    .displayItems((parameters, output) -> RpItems.ITEMS.getEntries()
+                    .displayItems((parameters, output) -> RpItems.ITEMS.getEntries().stream()
+                            .filter(item -> item != RpItems.PLAN)
                             .forEach(item -> output.accept(item.get())))
                     .build());
 

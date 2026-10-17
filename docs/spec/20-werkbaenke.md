@@ -39,7 +39,7 @@ Bruchstein), W = `plankWood` (`#minecraft:planks`), T = Werkbank, C = Truhe.
 - Automatisierung (`ISidedInventory`): **jede Seite** greift nur auf den Vorrat 10–27 zu (`getStartInventorySide 10`,
   `getSizeInventorySide 18`). 1.21: Item-Capability auf allen Seiten = Slots 10–27.
 - Abbau (`onBlockRemoval`): droppt die Slots **0–26** (`i < 27`). Slot 27 (letzter Vorratsslot) wird **nicht**
-  gedroppt – Originalfehler, Inhalt geht verloren (→ §4, F2).
+  gedroppt – Originalfehler, Inhalt geht verloren. **Umsetzung: alle 28 Slots droppen** (§4, F2).
 - NBT `Items` (Slot-Byte) + `rot`.
 
 ### 1.3 Handwerk mit Vorrat (`ContainerAdvBench`, `SlotCraftRefill`)
@@ -169,6 +169,10 @@ Ergebnis → Spielerinventar (von hinten); Inventar ↔ Hotbar (Raster ist kein 
 | Tests | GameTests: Projekttisch-Nachschub aus dem Vorrat, Bauplan-Handwerk ohne Raster, Bauplan beschreiben; Werkbank: Holzrohr zieht 4 Bretter und lässt das Muster liegen, Zutat aus Nachbartruhe, Round-Robin-Einfügen |
 
 ## 4. Abweichungen / Punkte zur Freigabe
+
+Entscheidung Nutzer 2026-10-18: F2 – Fehler muss nicht bleiben (alle Slots droppen); übrige Punkte wie vorgeschlagen.
+Zusätzlich in 18.1: Container-Items aus einem Vorratsstapel überschreiben den Rest des Stapels nicht mehr
+(`abweichungen.md`).
 
 | Nr. | Thema | Original | Vorschlag |
 |---|---|---|---|

@@ -39,6 +39,7 @@ import dev.craft.powerconverters.PcBlocks;
 import dev.craft.powerplants.PpBlocks;
 import dev.craft.powerplants.block.PlantControllerBlock;
 import dev.craft.powerconverters.block.PowerConverterBlock;
+import dev.craft.redpower.RpBlocks;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
@@ -121,6 +122,7 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
         simpleBlock(BcBlocks.OIL.get(), models().getBuilder("oil").texture("particle", modLoc("block/oil_still")));
         landmark();
         quarry();
+        projectTable();
         frame();
         pipes();
         tank();
@@ -157,6 +159,15 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
     }
 
     /** BuildCraft {@code BlockQuarry}: front 39 on the facing side, top 40, every other side (incl. bottom) 41. */
+    /** RedPower {@code RenderAdvBench} ({@code base1.png}): bottom 35, top 32, front 34, other sides 33. */
+    private void projectTable() {
+        ModelFile model = models().orientableWithBottom("project_table", modLoc("block/project_table_side"),
+                modLoc("block/project_table_front"), modLoc("block/project_table_bottom"),
+                modLoc("block/project_table_top"));
+        horizontalBlock(RpBlocks.PROJECT_TABLE.get(), model);
+        simpleBlockItem(RpBlocks.PROJECT_TABLE.get(), model);
+    }
+
     private void quarry() {
         ModelFile model = models().orientableWithBottom("quarry", modLoc("block/quarry_side"),
                 modLoc("block/quarry_front"), modLoc("block/quarry_side"), modLoc("block/quarry_top"));

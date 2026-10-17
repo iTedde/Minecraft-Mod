@@ -30,6 +30,7 @@ import dev.craft.powerconverters.PowerSystem;
 import dev.craft.powerplants.PpBlocks;
 import dev.craft.powerplants.PpFluids;
 import dev.craft.powerplants.PpItems;
+import dev.craft.redpower.RpBlocks;
 import dev.craft.redpower.RpGem;
 import dev.craft.redpower.RpItems;
 import dev.craft.ic2.Ic2Blocks;
@@ -161,9 +162,13 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
     }
 
     /** Mining dimension (spec 18). */
-    /** RedPower World gem tools (spec 19 §2). */
+    /** RedPower World gem tools (spec 19 §2), project table and plans (spec 20 §1). */
     protected void redPower(boolean german) {
         add("itemGroup.craft.redpower", "Craft: RedPower");
+        block(RpBlocks.PROJECT_TABLE, german ? "Projekttisch" : "Project Table");
+        item(RpItems.BLANK_PLAN, german ? "Leerer Bauplan" : "Blank Plan");
+        item(RpItems.PLAN, german ? "Bauplan" : "Plan");
+        add(RpItems.PLAN.get().getDescriptionId() + ".named", german ? "Bauplan: %s" : "%s Plan");
         String[][] gems = {{"Ruby", "Rubin"}, {"Green Sapphire", "Grünsaphir"}, {"Sapphire", "Saphir"}};
         String[][] tools = {{"Pickaxe", "Spitzhacke"}, {"Shovel", "Schaufel"}, {"Axe", "Axt"}, {"Sword", "Schwert"},
                 {"Hoe", "Hacke"}, {"Sickle", "Sichel"}, {"Handsaw", "Handsäge"}};

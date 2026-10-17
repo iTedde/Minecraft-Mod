@@ -32,7 +32,9 @@ public final class CraftItemModelProvider extends ItemModelProvider {
     @Override
     protected void registerModels() {
         basicItem(PpItems.COKE.get());
-        RpItems.ITEMS.getEntries().forEach(tool -> handheldItem(tool.get()));
+        RpItems.tools().forEach(tool -> handheldItem(tool.get()));
+        basicItem(RpItems.BLANK_PLAN.get());
+        basicItem(RpItems.PLAN.get());
         for (CableType type : CableType.values()) {
             basicItem(Ic2Items.cable(type).get());
         }

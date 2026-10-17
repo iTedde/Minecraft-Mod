@@ -10,6 +10,7 @@ import dev.craft.buildcraft.engine.EngineType;
 import dev.craft.forestry.FrBlocks;
 import dev.craft.compactsolars.CsBlocks;
 import dev.craft.powerplants.PpBlocks;
+import dev.craft.redpower.RpBlocks;
 import dev.craft.gregtech.GtBlocks;
 import dev.craft.gregtech.GtItems;
 import dev.craft.gregtech.GtMachine;
@@ -64,6 +65,7 @@ public final class CraftBlockLoot extends BlockLootSubProvider {
             dropSelf(GtBlocks.casing(type).get());
         }
         dropSelf(GtBlocks.HIGHLY_ADVANCED_MACHINE_BLOCK.get());
+        dropSelf(RpBlocks.PROJECT_TABLE.get());
         dropSelf(GtBlocks.STEEL_BLOCK.get());
         for (GtOre ore : GtOre.values()) {
             gtOre(ore, GtBlocks.ore(ore).get());
@@ -223,7 +225,7 @@ public final class CraftBlockLoot extends BlockLootSubProvider {
     @Override
     protected Iterable<Block> getKnownBlocks() {
         return Stream.of(Ic2Blocks.BLOCKS, BcBlocks.BLOCKS, FrBlocks.BLOCKS, PcBlocks.BLOCKS,
-                        CsBlocks.BLOCKS, GtBlocks.BLOCKS, PpBlocks.BLOCKS)
+                        CsBlocks.BLOCKS, GtBlocks.BLOCKS, PpBlocks.BLOCKS, RpBlocks.BLOCKS)
                 .flatMap(blocks -> blocks.getEntries().stream())
                 .map(holder -> (Block) holder.get()).toList();
     }

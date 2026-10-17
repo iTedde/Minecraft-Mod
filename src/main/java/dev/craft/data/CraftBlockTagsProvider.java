@@ -6,6 +6,7 @@ import dev.craft.Craft;
 import dev.craft.compactsolars.CsBlocks;
 import dev.craft.compactsolars.SolarArrayType;
 import dev.craft.powerplants.PpBlocks;
+import dev.craft.redpower.RpBlocks;
 import dev.craft.buildcraft.BcBlocks;
 import dev.craft.buildcraft.engine.EngineType;
 import dev.craft.core.explosion.Ic2Explosion;
@@ -73,6 +74,7 @@ public final class CraftBlockTagsProvider extends BlockTagsProvider {
         for (Ic2Machine machine : Ic2Machine.values()) {
             tag(BlockTags.MINEABLE_WITH_PICKAXE).add(Ic2Blocks.machine(machine).get());
         }
+        tag(BlockTags.MINEABLE_WITH_PICKAXE).add(RpBlocks.PROJECT_TABLE.get());
         tag(BlockTags.MINEABLE_WITH_PICKAXE).add(Ic2Blocks.MACHINE_CASING.get(),
                 Ic2Blocks.ADVANCED_MACHINE_CASING.get(), Ic2Blocks.TIN_ORE.get(), Ic2Blocks.DEEPSLATE_TIN_ORE.get(), Ic2Blocks.TIN_BLOCK.get(), Ic2Blocks.BRONZE_BLOCK.get(),
                 Ic2Blocks.IRON_FENCE.get());

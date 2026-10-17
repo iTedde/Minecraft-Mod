@@ -1721,8 +1721,13 @@ Werkbank-Blöcke als Liste vorlegen. Spezifikation `docs/spec/20-werkbaenke.md`.
 ## To Do
 - [x] 18.0 Spezifikation + Liste weiterer Werkbank-Blöcke (`spec/20` §5). RedPower-Klassen nachdekompiliert
   (`reference/decompiled/redpower/…/base/*AdvBench*`, `ItemPlan`, `SlotCraftRefill`, `BlockAppliance`, `core/CoreLib`).
-- [ ] 18.1 Projekttisch + Baupläne
+- [x] 18.1 Projekttisch + Baupläne (`redpower/table`, `RpBlocks`/`RpMenus`/`RpDataComponents`, Screen mit
+  Bauplan-Knopf und Geister-Items, Original-Texturen aus `redpowercore.zip`, Rezepte Projekttisch/Leerer Bauplan).
+  `gradlew build` grün. **Offen:** `runData` (generierte JSONs von Hand passend zu den Providern geschrieben),
+  6 neue GameTests (`ProjectTableGameTests`) und Client-Check – Minecraft darf gerade nicht gestartet werden.
 - [ ] 18.2 Automatische Werkbank (Rohr-Schnittstelle)
 
 ## Nächste Schritte
-1. Freigabe `spec/20` §4 (F1–F7), v. a. F2 (verlorener letzter Vorratsslot beim Abbau) und ob Blöcke aus §5 dazukommen.
+1. Freigabe erteilt (2026-10-18): F2 behoben, Rest wie vorgeschlagen; keine Blöcke aus §5 angefordert.
+2. Sobald Minecraft wieder gestartet werden darf: `runData` (Abgleich der handgeschriebenen JSONs), GameTests, Client.
+3. 18.2 Automatische Werkbank.

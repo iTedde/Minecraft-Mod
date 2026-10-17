@@ -3,20 +3,27 @@ package dev.craft.redpower;
 import java.util.EnumMap;
 import java.util.Map;
 import java.util.function.Function;
+import java.util.stream.Stream;
 
 import dev.craft.Craft;
+import dev.craft.redpower.table.PlanItem;
 import net.minecraft.world.item.AxeItem;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.DiggerItem;
 import net.minecraft.world.item.HoeItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.PickaxeItem;
+import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.ShovelItem;
 import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.item.Tier;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
-/** RedPower World gem tools (spec 19): seven tools for each of ruby, green sapphire and sapphire. */
+/**
+ * RedPower World gem tools (spec 19): seven tools for each of ruby, green sapphire and sapphire; project table and plans
+ * (spec 20).
+ */
 public final class RpItems {
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(Craft.MODID);
 
@@ -61,6 +68,13 @@ public final class RpItems {
         }
     }
 
+    /** {@code itemPlanBlank}: paper + indigo dye. */
+    public static final DeferredItem<Item> BLANK_PLAN = ITEMS.registerSimpleItem("blank_plan");
+    /** {@code ItemPlan}: written by the project table, stack size 1, rare. */
+    public static final DeferredItem<PlanItem> PLAN = ITEMS.register("plan",
+            () -> new PlanItem(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)));
+    public static final DeferredItem<BlockItem> PROJECT_TABLE = ITEMS.registerSimpleBlockItem(RpBlocks.PROJECT_TABLE);
+
     private static final Map<RpGem, Map<Tool, DeferredItem<Item>>> TOOLS = new EnumMap<>(RpGem.class);
 
     static {
@@ -79,5 +93,9 @@ public final class RpItems {
 
     public static DeferredItem<Item> tool(RpGem gem, Tool tool) {
         return TOOLS.get(gem).get(tool);
+    }
+
+    public static Stream<DeferredItem<Item>> tools() {
+        return TOOLS.values().stream().flatMap(tools -> tools.values().stream());
     }
 }

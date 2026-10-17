@@ -110,6 +110,7 @@ public final class CraftRecipeProvider extends RecipeProvider {
         gregTechDusts();
         gregTechRecycling();
         redPowerTools();
+        redPowerTable();
         gregTechCircuitBoards();
         gregTechBrass();
         gregTechMortars();
@@ -2048,6 +2049,17 @@ public final class CraftRecipeProvider extends RecipeProvider {
                 recipe.save();
             }
         }
+    }
+
+    /**
+     * RedPower project table ({@code RedPowerBase} 354, stone, planks, crafting table, chest) and blank plan: paper and
+     * indigo dye, here any blue dye (RedPower registers indigo as {@code dyeBlue}, spec 20 §4 F4).
+     */
+    private void redPowerTable() {
+        shaped(RpItems.PROJECT_TABLE, 1, "project_table").pattern("SSS", "WTW", "WCW")
+                .define('S', Items.STONE).define('W', ItemTags.PLANKS).define('T', Items.CRAFTING_TABLE)
+                .define('C', Items.CHEST).save();
+        shapeless(RpItems.BLANK_PLAN, 1, "blank_plan", Ingredient.of(Items.PAPER), Ingredient.of(Tags.Items.DYES_BLUE));
     }
 
     private void gregTechRecycling() {
