@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "craft:block/machine/crop_matron_bottom_active",
+    "east": "craft:block/machine/crop_matron_back_active",
+    "north": "craft:block/machine/crop_matron_right_active",
+    "particle": "craft:block/machine/crop_matron_front_active",
+    "south": "craft:block/machine/crop_matron_left_active",
+    "up": "craft:block/machine/crop_matron_top_active",
+    "west": "craft:block/machine/crop_matron_front_active"
+  }
+}

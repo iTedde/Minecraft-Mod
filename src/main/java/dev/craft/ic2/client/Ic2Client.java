@@ -113,6 +113,7 @@ public final class Ic2Client {
                 case CANNING_MACHINE -> event.register(Ic2Menus.get(machine), CanningMachineScreen::new);
                 case PUMP -> event.register(Ic2Menus.get(machine), PumpScreen::new);
                 case MINER -> event.register(Ic2Menus.get(machine), MinerScreen::new);
+                case CROP_MATRON -> event.register(Ic2Menus.get(machine), CropMatronScreen::new);
                 case PERSONAL_SAFE -> event.register(Ic2Menus.get(machine), PersonalScreens.Safe::new);
                 case TRADE_O_MAT -> event.register(Ic2Menus.get(machine), PersonalScreens.TradeOMat::new);
                 case ENERGY_O_MAT -> event.register(Ic2Menus.get(machine), PersonalScreens.EnergyOMat::new);

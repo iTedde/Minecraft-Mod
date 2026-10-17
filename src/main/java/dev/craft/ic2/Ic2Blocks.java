@@ -1,6 +1,7 @@
 package dev.craft.ic2;
 
 import dev.craft.ic2.crop.CropBlock;
+import dev.craft.ic2.crop.CropMatronBlockEntity;
 import java.util.EnumMap;
 import java.util.Map;
 import java.util.function.BiFunction;
@@ -272,6 +273,7 @@ public final class Ic2Blocks {
             case MINER -> MinerBlockEntity::new;
             case TELEPORTER -> TeleporterBlockEntity::new;
             case TESLA_COIL -> TeslaCoilBlockEntity::new;
+            case CROP_MATRON -> CropMatronBlockEntity::new;
             case TERRAFORMER -> TerraformerBlockEntity::new;
             case PERSONAL_SAFE -> PersonalSafeBlockEntity::new;
             case TRADE_O_MAT -> TradeOMatBlockEntity::new;

@@ -31,6 +31,7 @@
     "craft:hv_transformer",
     "craft:teleporter",
     "craft:tesla_coil",
+    "craft:crop_matron",
     "craft:machine_casing",
     "craft:advanced_machine_casing",
     "craft:tin_ore",

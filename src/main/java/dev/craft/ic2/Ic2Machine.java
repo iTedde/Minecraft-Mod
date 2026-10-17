@@ -47,7 +47,8 @@ public enum Ic2Machine {
     TELEPORTER("teleporter", Sheet.MACHINE2, 0, 2.0F, FacingMode.HORIZONTAL, 1.0F, Drop.ADVANCED_MACHINE_CASING,
             Rarity.RARE, false),
     TESLA_COIL("tesla_coil", Sheet.MACHINE2, 1, 2.0F, FacingMode.HORIZONTAL, 1.0F, Drop.MACHINE_CASING,
-            Rarity.COMMON, false);
+            Rarity.COMMON, false),
+    CROP_MATRON("crop_matron", Sheet.MACHINE2, 2, 2.0F, FacingMode.HORIZONTAL, 1.0F, Drop.MACHINE_CASING);
 
     private final String name;
     private final Sheet sheet;

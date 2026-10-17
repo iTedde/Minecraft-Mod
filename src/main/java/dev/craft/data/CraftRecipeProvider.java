@@ -1029,6 +1029,9 @@ public final class CraftRecipeProvider extends RecipeProvider {
         shaped(machine(Ic2Machine.TESLA_COIL), 1, "tesla_coil").pattern("RRR", "RMR", "ICI")
                 .define('R', Items.REDSTONE).define('M', machine(Ic2Machine.MV_TRANSFORMER))
                 .define('C', Ic2Items.ELECTRONIC_CIRCUIT).define('I', CraftItemTagsProvider.INGOTS_REFINED_IRON).save();
+        shaped(machine(Ic2Machine.CROP_MATRON), 1, "crop_matron").pattern("cBc", "CMC", "CCC")
+                .define('c', Ic2Items.ELECTRONIC_CIRCUIT).define('B', Items.CHEST).define('C', Ic2Items.CROP)
+                .define('M', Ic2Items.MACHINE_CASING).save();
         shapeless(Ic2Items.FREQUENCY_TRANSMITTER, 1, "frequency_transmitter", Ingredient.of(Ic2Items.ELECTRONIC_CIRCUIT),
                 Ingredient.of(Ic2Items.cable(CableType.INSULATED_COPPER)));
         shaped(machine(Ic2Machine.TERRAFORMER), 1, "terraformer").pattern("GTG", "DMD", "GDG")

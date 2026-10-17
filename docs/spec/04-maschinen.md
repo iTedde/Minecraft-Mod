@@ -577,6 +577,18 @@ Exakte Algorithmen: `reference/decompiled/ic2/ic2/core/item/tfbp/*.java` (für d
   beschädigt), Weed-EX anwenden (−10 EU, 1 Haltbarkeit).
 - Sided: unten → 6–8, oben → 3–5, Seiten → 0–2.
 
+**Details aus `TileEntityCropmatron` (nachgetragen für Phase 12.7c):** `blockMachine2` Meta 2 (Sprites Spalte 2: unten,
+oben, Seiten gleich; aktiv = inaktiv), Drop Maschinenblock, Wrench-Rate 1,0, NBT nur `energy` (short); Scan-Position
+wird nicht gespeichert. Scan: erst `x++` (Start −4, erste Prüfung also x −3), bei x > 4 → x −4 und `z++`, bei z > 4 →
+z −4 und `y++` (y −1..1); 243 Ticks je Durchgang. Energie: `demandsEnergy = 1000 − energy`, Annahme bis 1000 (Rest
+zurück), Paket > 32 → Explosion; kein Batterie-Slot. Pro Crop zuerst `updateSlots` (je Spalte 1→0, dann 2→1 – ein
+Stapel rückt also pro Crop-Besuch nur einen Slot vor), dann je Spalte nur Slot 0/3/6 und nur, wenn die Pflege
+greift (Rückgabe `true`): Dünger −1, Hydrierzelle nutzt sich um die zugegebene Wassermenge ab (bis 180), Weed-EX +1
+Schaden und weg bei Schaden ≥ 64. Mindestens 31 EU, damit der Tick (bis 1 + 3 × 10 EU) nicht ins Negative geht.
+GUI `GUICropmatron.png`: Slots x 62/98/134, y 20/38/56 (nur passende Items), Energiebalken (26, 38) 14 × 14 aus
+(176, 0), Titel zentriert; Shift-Klick bevorzugt Slot 0. Automatisierung kann beliebige Items in die Seiten-Slots
+legen (sie bleiben liegen).
+
 ---
 
 ## Luminator

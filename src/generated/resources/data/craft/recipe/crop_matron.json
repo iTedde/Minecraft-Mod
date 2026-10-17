@@ -1,0 +1,26 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "B": {
+      "item": "minecraft:chest"
+    },
+    "C": {
+      "item": "craft:crop"
+    },
+    "M": {
+      "item": "craft:machine_casing"
+    },
+    "c": {
+      "item": "craft:electronic_circuit"
+    }
+  },
+  "pattern": [
+    "cBc",
+    "CMC",
+    "CCC"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:crop_matron"
+  }
+}

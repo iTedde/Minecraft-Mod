@@ -1433,5 +1433,15 @@ NaK-Kühlzellen, kein Vakuumgefrierer) **und die IC2-Nuke**. Teilpakete: 7a IC2-
 - 6 neue GameTests (`CropSpeciesGameTests`), Kreuzungstest angepasst (jetzt können alle Sorten entstehen),
   **310 GameTests grün**, `gradlew build`. `runClient` nicht gestartet (Nutzer).
 
+## Erledigt (Teilpaket „Phase 12.7c: Crop-Matron“, 2026-10-17)
+- Spezifikation nachgetragen: `spec/04-maschinen.md` §Crop-Matron (Scan-Reihenfolge, Energie, Nachrücken nur eine
+  Stufe pro Crop-Besuch, Abnutzung, GUI-Koordinaten).
+- `ic2/crop/CropMatronBlockEntity` (`blockMachine2` Spalte 2, EU-Senke 32 EU/1000 EU, Seitenzugriff je 3 Slots),
+  `ic2/menu/CropMatronMenu`, `ic2/client/CropMatronScreen`; Texturen aus `block_machine2.png`, GUI
+  `crop_matron.png`; Rezept `cBc/CMC/CCC`; Sprache en/de.
+- `testplan.md` 3.32; keine neuen Abweichungen.
+- 4 neue GameTests (`CropMatronGameTests`), **314 GameTests grün**, `gradlew build`. `runClient` nicht gestartet
+  (Nutzer).
+
 ## Nächste Schritte
-1. 12.7c: Crop-Matron (`04` §Crop-Matron; Pflege-Varianten mit `manual = false` gibt es schon).
+1. 12.8: Kaffee, Hopfen, Fass, Bier/Rum (`spec/17-ic2-rest.md`).

@@ -679,6 +679,7 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             block(Ic2Blocks.MINING_TIP, "Mining Pipe");
             machine(Ic2Machine.TELEPORTER, "Teleporter");
             machine(Ic2Machine.TESLA_COIL, "Tesla Coil");
+            machine(Ic2Machine.CROP_MATRON, "Crop-Matron");
             machine(Ic2Machine.TERRAFORMER, "Terraformer");
             machine(Ic2Machine.PERSONAL_SAFE, "Personal Safe");
             machine(Ic2Machine.TRADE_O_MAT, "Trade-O-Mat");
@@ -1058,6 +1059,7 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             block(Ic2Blocks.MINING_TIP, "Bergbaurohr");
             machine(Ic2Machine.TELEPORTER, "Teleporter");
             machine(Ic2Machine.TESLA_COIL, "Teslaspule");
+            machine(Ic2Machine.CROP_MATRON, "Crop-Matron");
             machine(Ic2Machine.TERRAFORMER, "Terraformer");
             machine(Ic2Machine.PERSONAL_SAFE, "Persönlicher Safe");
             machine(Ic2Machine.TRADE_O_MAT, "Trade-O-Mat");
