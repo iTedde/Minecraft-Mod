@@ -89,8 +89,8 @@ Overclocker: schneller, aber mehr EU pro Vorgang (×1,6/0,7 ≈ 2,29 → +14 % E
 Transformer-Upgrade: erhöht die sichere Eingangsspannung ×4 und den Tier zum Entladen von Batterien.
 Energiespeicher-Upgrade: +10 000 EU Puffer.
 
-Upgrade-Stackgröße: 64 (IC2-Standard). Hinweis: GregTech setzt im Pack `UpgradeStacksize=4` – keine Rezeptänderung,
-wird später entschieden (`08-rezepte.md` §11).
+Upgrade-Stackgröße: **4** wie im Pack (GregTech `UpgradeStacksize=4`, `GT_Mod` setzt die Stackgröße des IC2-Upgrade-
+Items, also für Overclocker, Transformer- und Energiespeicher-Upgrade; IC2 allein: 64). Umgesetzt in Phase 12.10.
 
 ### Werte der Standardmaschinen
 
@@ -124,7 +124,10 @@ Vorrang.
 - Pro Vorgang 1 Item verbraucht; mit Wahrscheinlichkeit **1/8** entsteht 1 Schrott – außer das Item steht auf der
   Blacklist (dann nie).
 - Blacklist: Glasscheibe, Stock, Schneeball, Holzgerüst (fest) + Config `recyclerBlacklist` (Pack:
-  `102, 280, 332, 4081` → Glasscheibe, Stock, Schneeball, ID 4081 = unbelegt).
+  `102, 280, 332, 4081` → Glasscheibe, Stock, Schneeball, ID 4081 = unbelegt) + GregTech, unbedingt (`GT_Mod`
+  Z. 2080–2083: `up.aD`, `amq.aW`, `amq.aV`, `amq.aX` → Schneeball, Eis, Schneeschicht, Schneeblock). Die
+  bedingten GT-Einträge (`DisableEasyMobGrindersInRecycler`, `DisableStoneInRecycler`) sind im Pack aus; GT-Kleinstäube
+  nicht im Umfang. Tag `craft:recycler_blacklist`.
 
 ---
 

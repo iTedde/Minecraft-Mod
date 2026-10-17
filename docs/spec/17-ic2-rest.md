@@ -66,7 +66,7 @@ Wie in den Phasen 6/8 werden Details erst in der Teilphase aus `reference/decomp
 | Änderung | Pack-Wert (Config) | Wirkung |
 |---|---|---|
 | Upgrade-Stack | `GregTech.cfg` `UpgradeStacksize=4` | Overclocker/Transformer/Energiespeicher-Upgrade stapeln nur bis 4 (IC2: 64) |
-| Recycler-Blacklist | `IC2.cfg` `recyclerBlacklist=102, 280, 332, 4081` (Glasscheibe, Stock, Schneeball, Fremdmod); GT `DisableEasyMobGrindersInRecycler=false`, `DisableStoneInRecycler=false` | Weil beide GT-Schalter aus sind, ergänzt GT nur die vier unbedingten Einträge (`GT_Mod` Z. 2080–2083: 1 Item, 3 Vanilla-Blöcke) und die GT-Kleinstäube (nicht im Umfang). Zuordnung der IDs in der Teilphase |
+| Recycler-Blacklist | `IC2.cfg` `recyclerBlacklist=102, 280, 332, 4081` (Glasscheibe, Stock, Schneeball, Fremdmod); GT `DisableEasyMobGrindersInRecycler=false`, `DisableStoneInRecycler=false` | Weil beide GT-Schalter aus sind, ergänzt GT nur die vier unbedingten Einträge (`GT_Mod` Z. 2080–2083: 1 Item, 3 Vanilla-Blöcke) und die GT-Kleinstäube (nicht im Umfang). Zuordnung (12.10): `up.aD` Schneeball, `amq.aW` Eis, `amq.aV` Schneeschicht, `amq.aX` Schneeblock |
 | Miner: Lava wertvoll | `GregTech.cfg` `MinerListLavaAddition=true` | Miner mit Scanner und angrenzender Pumpe zielt auf Lava-Quellblöcke (schon in `04` §Miner beschrieben) |
 | Miner: Lapotron | `IC2.cfg` `enableMinerLapotron=false` | Tier 1 (wie spezifiziert) |
 | Teleporter-Inventar | `IC2.cfg` `enableTeleporterInventory=true` | Inventar zählt zum Gewicht (wie spezifiziert) |

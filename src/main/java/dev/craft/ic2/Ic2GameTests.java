@@ -17,6 +17,7 @@ import dev.craft.ic2.machine.IronFurnaceBlockEntity;
 import dev.craft.ic2.machine.MachineBlock;
 import dev.craft.ic2.machine.MachineBlockEntity;
 import dev.craft.ic2.machine.RecipeMachineBlockEntity;
+import dev.craft.ic2.machine.RecyclerBlockEntity;
 import dev.craft.ic2.storage.ElectricStorageBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -159,6 +160,30 @@ public final class Ic2GameTests {
             helper.assertTrue(recycler.getInventory().isEmpty(ElectricMachineBlockEntity.SLOT_INPUT), "stick used");
             helper.assertTrue(recycler.getInventory().isEmpty(ElectricMachineBlockEntity.SLOT_OUTPUT), "no scrap");
         });
+    }
+
+    /** GregTech adds snowball, snow layer, ice and snow block to the recycler blacklist (phase 12.10). */
+    @GameTest(template = EMPTY, timeoutTicks = 100)
+    public static void recyclerNeverScrapsGregTechBlacklist(GameTestHelper helper) {
+        ElectricMachineBlockEntity recycler = place(helper, new BlockPos(1, 1, 1), Ic2Machine.RECYCLER);
+        recycler.getInventory().set(ElectricMachineBlockEntity.SLOT_INPUT, new ItemStack(Items.ICE));
+        recycler.getInventory().set(ElectricMachineBlockEntity.SLOT_BATTERY, new ItemStack(Items.REDSTONE));
+        helper.assertTrue(new ItemStack(Items.SNOW).is(RecyclerBlockEntity.BLACKLIST), "snow layer blacklisted");
+        helper.assertTrue(new ItemStack(Items.SNOW_BLOCK).is(RecyclerBlockEntity.BLACKLIST), "snow block blacklisted");
+        helper.succeedWhen(() -> {
+            helper.assertTrue(recycler.getInventory().isEmpty(ElectricMachineBlockEntity.SLOT_INPUT), "ice used");
+            helper.assertTrue(recycler.getInventory().isEmpty(ElectricMachineBlockEntity.SLOT_OUTPUT), "no scrap");
+        });
+    }
+
+    /** GregTech {@code UpgradeStacksize=4}: all three upgrade modules stack to 4. */
+    @GameTest(template = EMPTY)
+    public static void upgradeModulesStackToFour(GameTestHelper helper) {
+        helper.assertValueEqual(new ItemStack(Ic2Items.OVERCLOCKER_UPGRADE.get()).getMaxStackSize(), 4, "overclocker");
+        helper.assertValueEqual(new ItemStack(Ic2Items.TRANSFORMER_UPGRADE.get()).getMaxStackSize(), 4, "transformer");
+        helper.assertValueEqual(new ItemStack(Ic2Items.ENERGY_STORAGE_UPGRADE.get()).getMaxStackSize(), 4,
+                "energy storage");
+        helper.succeed();
     }
 
     @GameTest(template = EMPTY, timeoutTicks = 100)

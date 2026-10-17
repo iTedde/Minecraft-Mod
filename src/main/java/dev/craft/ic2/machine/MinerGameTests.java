@@ -117,4 +117,31 @@ public final class MinerGameTests {
             helper.assertBlockPresent(Blocks.STONE, tip.below());
         });
     }
+
+    /**
+     * GregTech {@code MinerListLavaAddition}: with a pump beside it, the scanner also targets lava sources; the
+     * pump bottles the lava into a cell.
+     */
+    @GameTest(template = EMPTY, timeoutTicks = 120)
+    public static void scannerTargetsLavaWithPump(GameTestHelper helper) {
+        BlockPos tip = MINER.below();
+        BlockPos lava = tip.south(2);
+        helper.setBlock(tip, Ic2Blocks.MINING_TIP.get());
+        helper.setBlock(lava, Blocks.LAVA);
+        helper.setBlock(tip.below(), Blocks.STONE);
+        MinerBlockEntity miner = place(helper, Ic2Items.DIAMOND_DRILL.get());
+        miner.getInventory().set(MinerBlockEntity.SLOT_PIPE, new ItemStack(Ic2Items.MINING_PIPE.get(), 4));
+        miner.getInventory().set(MinerBlockEntity.SLOT_SCANNER,
+                ElectricItems.charged(new ItemStack(Ic2Items.OD_SCANNER.get())));
+        BlockPos pumpPos = MINER.west();
+        helper.setBlock(pumpPos, Ic2Blocks.machine(Ic2Machine.PUMP).get());
+        PumpBlockEntity pump = helper.getBlockEntity(pumpPos);
+        pump.getInventory().set(PumpBlockEntity.SLOT_CONTAINER, new ItemStack(Ic2Items.EMPTY_CELL.get(), 2));
+        pump.setPumpChargeForTest(PumpBlockEntity.CHARGE_READY);
+        helper.succeedWhen(() -> {
+            helper.assertFalse(helper.getBlockState(lava).getFluidState().isSource(), "lava source pumped");
+            helper.assertBlockPresent(Ic2Blocks.MINING_TIP.get(), tip);
+            helper.assertBlockPresent(Blocks.STONE, tip.below());
+        });
+    }
 }

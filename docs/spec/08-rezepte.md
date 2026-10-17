@@ -434,11 +434,11 @@ IC2-Maschinenrezept für dieselbe Eingabe und fügen das neue ein.
 
 | Änderung | Pack-Wert | Vorschlag |
 |---|---|---|
-| Upgrade-Module max. Stack | 4 (`UpgradeStacksize`) | **übernehmen** (2026-10-17, Phase 12.10) |
+| Upgrade-Module max. Stack | 4 (`UpgradeStacksize`) | **übernommen** (Phase 12.10) |
 | Schrottbox-Drops ersetzt | Schrott 200 + GT-Liste | **übernommen** (2026-10-15), GT-Items ab Phase 6b |
-| Recycler-Blacklist erweitert | GT-Liste | **übernehmen** (2026-10-17, Phase 12.10) |
+| Recycler-Blacklist erweitert | GT-Liste | **übernommen** (Phase 12.10: Eis, Schneeschicht, Schneeblock; Schneeball schon IC2) |
 | Stackgrößen diverser Vanilla-Blöcke | 64 | nicht übernehmen (Vanilla) |
-| Miner: Lava als „wertvoll“ (`MinerListLavaAddition`) | an | **übernehmen** (2026-10-17, Phase 12.3) |
+| Miner: Lava als „wertvoll“ (`MinerListLavaAddition`) | an | **übernommen** (Phase 12.3, Test 12.10) |
 | Erzwerte (valuableOres) | GT ergänzt | IC2-Werte gewinnen (erste Registrierung), siehe Weltgen |
 
 ## 12. BuildCraft-Rezepte (3.4.3)

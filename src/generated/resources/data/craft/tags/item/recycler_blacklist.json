@@ -3,6 +3,9 @@
     "minecraft:glass_pane",
     "minecraft:stick",
     "minecraft:snowball",
-    "craft:wooden_scaffold"
+    "craft:wooden_scaffold",
+    "minecraft:snow",
+    "minecraft:ice",
+    "minecraft:snow_block"
   ]
 }

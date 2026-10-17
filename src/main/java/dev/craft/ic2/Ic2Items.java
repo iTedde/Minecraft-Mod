@@ -446,7 +446,8 @@ public final class Ic2Items {
     }
 
     private static DeferredItem<UpgradeModuleItem> upgrade(String name, UpgradeModuleItem.Type type) {
-        return simple(ITEMS.registerItem(name, properties -> new UpgradeModuleItem(properties, type)));
+        return simple(ITEMS.registerItem(name, properties -> new UpgradeModuleItem(properties, type),
+                new Item.Properties().stacksTo(UpgradeModuleItem.MAX_STACK_SIZE)));
     }
 
     public static DeferredItem<PainterItem> painter(int color) {

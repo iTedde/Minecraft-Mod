@@ -1475,6 +1475,18 @@ NaK-Kühlzellen, kein Vakuumgefrierer) **und die IC2-Nuke**. Teilpakete: 7a IC2-
 - 8 neue GameTests (`DynamiteGameTests`) + 1 in `NukeGameTests`, **330 GameTests grün**, `gradlew build`. `runClient`
   nicht gestartet (Nutzer).
 
+## Erledigt (Teilpaket „Phase 12.10: GT-Änderungen, Abschluss“, 2026-10-17)
+- Upgrade-Stack 4 (GregTech `UpgradeStacksize`): Overclocker-, Transformer- und Energiespeicher-Upgrade
+  `stacksTo(UpgradeModuleItem.MAX_STACK_SIZE)`; `spec/04-maschinen.md` angepasst.
+- Recycler-Blacklist um die unbedingten GT-Einträge ergänzt (IDs zugeordnet: Schneeball, Eis, Schneeschicht,
+  Schneeblock); Tag `craft:recycler_blacklist`, EMI-Blacklist-Seite zeigt sie automatisch. `spec/04`, `spec/08` §11,
+  `spec/17` §3 nachgetragen.
+- Miner-Lava (seit 12.3 umgesetzt) jetzt mit GameTest abgesichert.
+- `testplan.md` 3.35; keine neuen Abweichungen.
+- 3 neue GameTests (`Ic2GameTests` 2, `MinerGameTests` 1), **333 GameTests grün**, `gradlew build`. `runClient`
+  nicht gestartet (Nutzer).
+- **Damit ist Phase 12 inhaltlich vollständig** – wartet auf Abnahme durch den Nutzer.
+
 ## Nächste Schritte
-1. 12.10: GT-Änderungen ohne Rezeptcharakter (`spec/17-ic2-rest.md` §3: Upgrade-Stack 4, Recycler-Blacklist,
-   Miner-Lava prüfen), Testplan ergänzen, Abschluss Phase 12.
+1. Manuelle Client-Tests nach `docs/testplan.md` (inkl. Phase 12: 3.16–3.35), sobald der Start wieder erlaubt ist.
+2. Abnahme Phase 12.

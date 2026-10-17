@@ -228,10 +228,11 @@ public final class CraftItemTagsProvider extends ItemTagsProvider {
                 .addTag(DUSTS_PLATINUM).addTag(DUSTS_ZINC).addTag(DUSTS_CALCITE).addTag(DUSTS_MAGNESIUM)
                 .addTag(DUSTS_MANGANESE).addTag(DUSTS_TITANIUM).addTag(DUSTS_CHROME).addTag(DUSTS_TUNGSTEN);
 
-        // IC2 default blacklist (glass pane, stick, snowball, wooden scaffold) + pack config "102, 280, 332, 4081".
         tag(IronFenceBlock.METAL_BOOTS).add(Items.IRON_BOOTS, Items.GOLDEN_BOOTS, Items.CHAINMAIL_BOOTS,
                 Ic2Items.NANO_BOOTS.get(), Ic2Items.QUANTUM_BOOTS.get(), Ic2Items.STATIC_BOOTS.get());
+        // IC2 default blacklist (glass pane, stick, snowball, wooden scaffold) + pack config "102, 280, 332, 4081",
+        // then GregTech's unconditional entries (snowball, snow layer, ice, snow block).
         tag(RecyclerBlockEntity.BLACKLIST).add(Items.GLASS_PANE, Items.STICK, Items.SNOWBALL,
-                Ic2Items.WOODEN_SCAFFOLD.get());
+                Ic2Items.WOODEN_SCAFFOLD.get(), Items.SNOW, Items.ICE, Items.SNOW_BLOCK);
     }
 }
