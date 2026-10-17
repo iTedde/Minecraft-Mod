@@ -1508,6 +1508,28 @@ NaK-Kühlzellen, kein Vakuumgefrierer) **und die IC2-Nuke**. Teilpakete: 7a IC2-
 - `build.gradle`: `gradlew runClient -PquickPlay=<Welt>` startet direkt in eine vorhandene Welt.
 - 1 neuer GameTest, **334 GameTests grün**, `gradlew build`.
 
+## Erledigt (Nachtsichtbrille + Vollständigkeitsprüfung, 2026-10-17)
+- Nachtsichtbrille: eigenes Icon statt des lila Pack-Platzhalters (Nutzerwunsch; `abweichungen.md`, Befund B3).
+- Ressourcen-Prüfung per Skript: en/de je 927 Schlüssel, keine fehlenden; alle Modell-Texturen, Blockstate-Modelle,
+  Item-Modelle, Loot-Tabellen (außer Rahmen/Bergbaurohr/Öl, gewollt ohne Drop), Sounds und im Code referenzierten
+  Texturen vorhanden; keine Rezept-ID ohne Item. Verbleibende lila Flächen nur in unbenutzten Spalten der
+  Detektor-/Splitterkabel (nicht färbbar, nie gezeichnet).
+- Namensabgleich mit den Original-Sprachdaten (IC2 `Localization`, BC, Forestry, Power Converters): alles vorhanden oder
+  bewusst entfallen – bis auf die unten genannten Lücken.
+
+## Gefundene Lücken (Nutzerentscheidung offen)
+1. **Kompositweste** (IC2 `itemArmorAlloyChestplate`, `spec/05` §5.1, Rezept `spec/08`): nie umgesetzt; in der
+   Phase-12-Bestandsaufnahme übersehen (nur Bronze war per Entscheidung gestrichen).
+2. **IC2-Kühlmittel als Flüssigkeit** (`itemCoolant`): Kühlzellen 10k/30k/60k = 1000/3000/6000 mB „coolant“; im
+   Pack kühlt es den Verbrennungsmotor mit 5,0 Hitze/mB (IC2 `bcIntegration32x`). `spec/09` nennt nur Wasser,
+   `spec/06` §6 verweist auf eine fehlende Abweichung.
+3. **Erreichbare GT-Stäube** (seit 6b.2 „später“, nie nachgeholt): Feuersteinstaub (Macerator Feuerstein → 2 kl.,
+   Schrottbox 4; Elektrolyseur 8 → Silizium-/Luftzelle; 5 ITNT), Holzkohlestaub (Macerator Holzkohle, Schrottbox 2,5,
+   Elektrolyseur, Schießpulver), Obsidianstaub (Macerator Obsidian, Schrottbox 1,5, Elektrolyseur), Holzschliff
+   (Macerator Holz/Stock/Crop-Stab …, Schrottbox 3,8), Elektrumstaub (Elektrumbarren aus der Zentrifuge, Schrottbox 0,5).
+   Im Pack teils durch Forestry/Railcraft/TE ersetzt (`OreDictUnificator.override`), funktional identisch.
+4. **GT-Rückgewinnung** von Werkzeugen/Rüstung im Macerator/Ofen (`GT_Utility.applyUsagesForMaterials`, 30 Aufrufe).
+
 ## Nächste Schritte
-1. Nutzerentscheidung: Nachtsichtbrillen-Icon (im Pack ein lila Platzhalter) so lassen oder eigenes Icon.
+1. Nutzerentscheidung zu den Lücken 1–4.
 2. Restliche manuelle Tests aus `testplan.md` (Sounds, Explosionen, Rüstung/Werkzeuge, Weltgen, Multiblöcke).

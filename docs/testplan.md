@@ -164,7 +164,7 @@ Testwelt. Sprache einmal Deutsch, einmal Englisch prüfen. EMI und Xaero's Minim
 |---|---|---|---|
 | B1 | 2026-10-17 | EMI meldete 82 unübersetzte Item-Tags (`c:plates/*`, `c:ingots/*`, `craft:*` …) | behoben (Tag-Namen en/de im Sprach-Datagen) |
 | B2 | 2026-10-17 | Gummibaumblätter mit lila Platzhaltertextur (IC2 nutzt Index 52 aus Vanilla-`terrain.png` = Eichenlaub) | behoben (Vanilla-`oak_leaves`, Birkenfarbe wie bisher) |
-| B3 | 2026-10-17 | Nachtsichtbrille: Icon ist eine lila Fläche – im Pack identisch (`item_0.png` Index 232 ist dort Platzhalter) | wie im Pack; Nutzerentscheidung offen |
+| B3 | 2026-10-17 | Nachtsichtbrille: Icon ist eine lila Fläche – im Pack identisch (`item_0.png` Index 232 ist dort Platzhalter) | behoben: eigenes Icon (Nutzerwunsch 2026-10-17, `abweichungen.md`) |
 
 ## Durchlauf 2026-10-17 (automatisiert im echten Client)
 
