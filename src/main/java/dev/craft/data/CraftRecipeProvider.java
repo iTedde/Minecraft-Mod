@@ -534,6 +534,10 @@ public final class CraftRecipeProvider extends RecipeProvider {
         ItemLike waterMill = machine(Ic2Machine.WATER_MILL);
         assemble("water_mill", SizedIngredient.of(generator, 1),
                 SizedIngredient.of(CraftItemTagsProvider.PLATES_ALUMINIUM, 4), new ItemStack(waterMill, 2), 6400, 8);
+        // User request (2026-10-18): IC2's own water mill recipe back, which GregTech removed
+        // (ExpensiveWatermillRecipe), so the mills no longer need aluminium plates.
+        shaped(waterMill, 2, "water_mill_from_generator").pattern("SPS", "PGP", "SPS")
+                .define('S', Items.STICK).define('P', ItemTags.PLANKS).define('G', generator).save();
         assemble("wind_mill", SizedIngredient.of(generator, 1), SizedIngredient.of(Ic2Items.CARBON_PLATE, 4),
                 new ItemStack(machine(Ic2Machine.WIND_MILL)), 6400, 8);
         assemble("generator_from_water_mills", SizedIngredient.of(waterMill, 2), null, new ItemStack(generator),

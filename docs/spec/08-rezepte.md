@@ -123,7 +123,7 @@ IC2-Maschinenrezept für dieselbe Eingabe und fügen das neue ein.
 | Ergebnis | Muster | Status |
 |---|---|---|
 | Generator | ` B /III/ F ` (B = RE-Batterie, I = raff. Eisen, F = Eisenofen) und `B/M/F` (F = Ofen, M = Maschinenblock), je mit leerer/geladener Batterie | **[GT~]** gleichwertig (B = jede `battery`, M = `craftingRawMachineTier01`); + **[GT+M]** Varianten mit Aluminium-/Invarbarren und raff.-Eisen-/Aluminium-/Invarplatten |
-| 2 Wassermühlen | `SPS/PGP/SPS`, S = Stock, P = Bretter, G = Generator | **[GT⚠]** entfernt (`ExpensiveWatermillRecipe`); im Pack nur über GT-Assembler (Generator + 4 Aluminiumplatten → 2 Wassermühlen) |
+| 2 Wassermühlen | `SPS/PGP/SPS`, S = Stock, P = Bretter, G = Generator | **[GT⚠]** entfernt (`ExpensiveWatermillRecipe`); im Pack nur über GT-Assembler (Generator + 4 Aluminiumplatten → 2 Wassermühlen). **Mod (Nutzer, 2026-10-18):** IC2-Rezept wieder aktiv, Assembler-Rezept zusätzlich (`abweichungen.md`) |
 | Windmühle | `I I/ G /I I`, I = Eisenbarren | **[GT⚠]** entfernt (`ExpensiveWindRecipe`); im Pack nur GT-Assembler (Generator + 4 Kohleplatten → Windmühle) |
 | Solarpanel | `CgC/gCg/cGc`, C = Kohlestaub, g = Glas, c = el. Schaltkreis, G = Generator | **[GT⚠]** ersetzt: `GGG/SPS/CHC`, G = Glasscheibe, S = **Silizium-Platte (GT)**, P = Kohleplatte, C = el. Schaltkreis, H = Generator |
 | Geothermiegenerator | `gCg/gCg/IGI`, g = Glas, C = leere Zelle, I = raff. Eisen | [IC2] |

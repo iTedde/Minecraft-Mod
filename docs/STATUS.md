@@ -1754,3 +1754,17 @@ Nutzerwunsch: „long fall boots fehlen noch im Mod“. Entscheidungen: Portal-G
 ## Nächste Schritte
 1. Sobald Minecraft wieder gestartet werden darf: `runData`, GameTests (Phase 18 + 19), Client.
 2. Abnahme Phase 18 + 19 im Client.
+
+# Nachtrag – Wassermühle ohne Aluminium (Nutzer, 2026-10-18)
+
+Nutzerwunsch: Wassermühlen sollen keine Aluminiumplatten mehr brauchen („nervig, ein bisschen ein Loop“). Umgesetzt:
+IC2-Rezept `SPS/PGP/SPS` (Stock, Bretter, Generator → 2 Wassermühlen) wieder aktiv, GT-Assembler-Rezept bleibt
+zusätzlich (`abweichungen.md`). Version 0.3.4, CurseForge-Paket `releases/Craft-0.3.4-curseforge.zip` bzw.
+`X:/Craft/Craft-0.3.4-curseforge.zip`. JSON von Hand (`runData` offen).
+
+# Nachtrag – Wassermühle ohne Aluminium (Nutzer, 2026-10-18)
+
+Nutzerwunsch: Wassermühlen sollen keine Aluminiumplatten mehr brauchen („nervig, ein bisschen ein Loop“). Umgesetzt:
+IC2-Rezept `SPS/PGP/SPS` (Stock, Bretter, Generator → 2 Wassermühlen) wieder aktiv, GT-Assembler-Rezept bleibt
+zusätzlich (`abweichungen.md`). Version 0.3.4, CurseForge-Paket `releases/Craft-0.3.4-curseforge.zip` bzw.
+`X:/Craft/Craft-0.3.4-curseforge.zip`. JSON von Hand (`runData` offen).
