@@ -1798,3 +1798,4 @@ Nutzerwunsch: fließendes Wasser über der Turbine soll zählen, „etwas teurer
 - [x] Gehäuserezept liefert 2 statt 4 (`spec/14` §5, `balancing.md` §3.2, EMI-Text, Wiki). JSON von Hand
   (`runData` offen).
 - [x] GameTest `WaterTurbineGameTests.waterAboveTheCubeCounts` (nicht ausgeführt, Freigabe offen).
+- [x] Version 0.3.5, CurseForge-Paket `releases/Craft-0.3.5-curseforge.zip` bzw. `X:/Craft/Craft-0.3.5-curseforge.zip`.
