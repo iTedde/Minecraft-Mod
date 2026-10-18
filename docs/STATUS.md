@@ -1788,3 +1788,13 @@ Zeile „Verbraucht: X EU/t“ bzw. „MJ/t“ (Sekundenmittel, Sprachschlüssel
 - Nicht angeschlossen: Speicher (BatBox/MFE/MFSU), Trafos, Teleporter (einmalig je Teleport), Energy-O-Mat, Rohre.
 - GameTests `OutputReadoutGameTests.runningMaceratorReadsItsConsumption` / `idleMaceratorReadsZero` (nicht
   ausgeführt, Freigabe offen).
+
+# Nachtrag – Wasserturbine: größerer Messbereich, teurere Gehäuse (Nutzer, 2026-10-18)
+
+Nutzerwunsch: fließendes Wasser über der Turbine soll zählen, „etwas teurer, dafür deutlich mehr Fläche“.
+
+- [x] Messbereich 13×13 (5 Blöcke um den Würfel), von der unteren Lage bis 20 Blöcke über dem Deckel (3860
+  Positionen, der alte 7×7×3-Ring liegt darin); Werte unverändert (ab 16 Blöcken 0,25 EU/t, Fluss ×1,5, Deckel 32).
+- [x] Gehäuserezept liefert 2 statt 4 (`spec/14` §5, `balancing.md` §3.2, EMI-Text, Wiki). JSON von Hand
+  (`runData` offen).
+- [x] GameTest `WaterTurbineGameTests.waterAboveTheCubeCounts` (nicht ausgeführt, Freigabe offen).

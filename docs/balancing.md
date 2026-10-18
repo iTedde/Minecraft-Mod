@@ -78,8 +78,9 @@ Platzbedarf**. Solar wird nicht pauschal geschwächt, die anderen Quellen werden
 
 **Wasserturbine (neuer Multiblock)**:
 - Gehäuse 3×3×3 (Turbinengehäuse-Blöcke), Front mit Turbinenrotor, muss vollständig **in fließendem Wasser** stehen
-  (mindestens 16 fließende Wasserblöcke im 7×7-Ring um das Gehäuse).
-- Leistung: 0,25 EU/t je fließendem Wasserblock im Ring, Deckel **32 EU/t** (LV-Paket), Fluss ×1,5 → Deckel bleibt 32.
+  (mindestens 16 fließende Wasserblöcke im Messbereich: 5 Blöcke rund um das Gehäuse, von der unteren Lage bis
+  20 Blöcke über dem Deckel – Nutzer, 2026-10-18; vorher 7×7-Ring).
+- Leistung: 0,25 EU/t je fließendem Wasserblock im Messbereich, Deckel **32 EU/t** (LV-Paket), Fluss ×1,5 → Deckel bleibt 32.
 - Kosten-Richtwert: 4 Wassermühlen + 1 Generator + Maschinenblöcke/raff. Eisen (wie IC2-Mittelklasse).
 - Rolle: zuverlässige 16–32 EU/t Grundlast, benötigt einen echten Fluss.
 
@@ -139,7 +140,7 @@ Platzbedarf (Hindernis-Würfel) bleibt – Wind braucht Höhe und Abstand.
 | Solarpanel | 1 (Tag) | 1,0 Spitze / 0,5 Mittel | – (wartungsfrei) | niedrig (nur Tag, kein Regen) |
 | LV/MV/HV Solar Array | 8 / 64 / 1024 (Tag) | 0,9 / 0,8 / 1,4 Spitze | – | niedrig |
 | Wassermühle (neu) | bis 2 | ≈ 0,08 (inkl. Wasserfläche) | – | **hoch** (Tag & Nacht) |
-| Wasserturbine | 16–32 | ≈ 0,5–0,65 (inkl. Wasserring) | – | **hoch** |
+| Wasserturbine | 16–32 | ≈ 0,2–0,65 (inkl. Wasserfläche) | – | **hoch** |
 | Windmühle (neu) | 3–7, Gewitter bis 20 | ≈ 0,04–0,25 (Freiraum 9×9) | – | mittel (Wetter, Wind) |
 | IC2-Generator | 10 | 10 | 4 000 / Kohle | hoch, solange befüllt |
 | Kohlekraftwerk | 20 je Kessel (bis 64) | ≈ 0,7–1,5 (Kessel+Turbine+Ofen) | 16 000 / Kohle | hoch (Aufheizen, Asche) |

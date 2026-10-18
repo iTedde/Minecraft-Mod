@@ -15,6 +15,7 @@ import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LiquidBlock;
+import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.gametest.GameTestHolder;
 import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
 
@@ -75,6 +76,28 @@ public final class WaterTurbineGameTests {
         helper.assertValueEqual(WaterTurbineBlockEntity.output(120, true), 32.0, "cap");
         helper.assertValueEqual(ring().size() + 1, 120, "ring size");
         helper.succeed();
+    }
+
+    /** Flowing water above the cube and beyond the old ring counts; water 21 blocks above the top does not. */
+    @GameTest(template = EMPTY, timeoutTicks = 40)
+    public static void waterAboveTheCubeCounts(GameTestHelper helper) {
+        WaterTurbineBlockEntity turbine = build(helper);
+        helper.runAtTickTime(5, () -> {
+            helper.assertTrue(turbine.isFormed(), "structure formed");
+            BlockState flowing = Blocks.WATER.defaultBlockState().setValue(LiquidBlock.LEVEL, 1);
+            // 9 directly on the cube, 9 at the top of the area, 1 five blocks beside it, 1 just out of reach
+            for (BlockPos pos : BlockPos.betweenClosed(new BlockPos(2, 4, 2), new BlockPos(4, 4, 4))) {
+                helper.setBlock(pos, flowing);
+            }
+            for (BlockPos pos : BlockPos.betweenClosed(new BlockPos(2, 23, 2), new BlockPos(4, 23, 4))) {
+                helper.setBlock(pos, flowing);
+            }
+            helper.setBlock(new BlockPos(9, 10, 3), flowing);
+            helper.setBlock(new BlockPos(3, 24, 3), flowing);
+            turbine.updateWaterCount();
+            helper.assertValueEqual(turbine.getFlowing(), 19, "flowing");
+            helper.succeed();
+        });
     }
 
     /** Only flowing water counts: 15 flowing + sources give nothing. */

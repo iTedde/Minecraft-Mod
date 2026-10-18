@@ -313,7 +313,7 @@
   "emi.craft.info.mv_solar_array": "MV solar array: 9×9 area of 3×3 fields of 3×3: 8 complete LV arrays, in the middle field 8 solar panels around the MV controller (72 panels). 64 EU/t.",
   "emi.craft.info.steam_turbine": "Steam turbine: 3×3 × 5 long. The steam turbine sits in the middle of a 3×3 end face, three turbine rotors in a row behind it, the remaining 41 blocks are turbine casings. Steam enters through any block; up to 3 boilers are used fully.",
   "emi.craft.info.vacuum_freezer": "Vacuum freezer: 3×3×3 cube below the controller (centred on top). Centre air, the 6 face centres advanced casings, the other 20 blocks reinforced casings.",
-  "emi.craft.info.water_turbine": "Water turbine: solid 3×3×3 cube of 26 water turbine casings, the water turbine in the middle of a side face. Flowing water in the 7×7×3 ring around the cube counts: from 16 blocks 0.25 EU/t per block, ×1.5 in river biomes, at most 32 EU/t.",
+  "emi.craft.info.water_turbine": "Water turbine: solid 3×3×3 cube of 26 water turbine casings, the water turbine in the middle of a side face. Flowing water up to 5 blocks around the cube and up to 20 blocks above it counts: from 16 blocks 0.25 EU/t per block, ×1.5 in river biomes, at most 32 EU/t.",
   "emi.craft.mass_fabricator.amplifier": "Amplifier: %1$s",
   "emi.craft.mass_fabricator.energy": "%1$s EU per UU-Matter",
   "emi.craft.mass_fabricator.saves": "Saves up to %1$s EU",

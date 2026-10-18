@@ -151,7 +151,7 @@ Testwelt. Sprache einmal Deutsch, einmal Englisch prüfen. EMI und Xaero's Minim
 | 8.3 | Koksofen bauen, Kohle per Trichter einspeisen, Koks unten abziehen | 9.2 | |
 | 8.4 | Kessel: Wasser per Eimer/IC2-Pumpe, Kohle/Koks nachlegen, Temperaturbalken und Tanks in der GUI, Dampf in BC-Tank daneben; Explosion (Wasser auf trockenen heißen Kessel) aus sicherer Entfernung | 9.3a | |
 | 8.5 | Dampfturbine: Kraftwerk aus Kessel + Turbine, MFE/Kabel am Controller und an beliebigem Gehäuseblock, GUI (Dampftank, EU/t, Puffer), bis zu 3 Kessel an einer Turbine | 9.3b | |
-| 8.6 | Wasserturbine in einen Fluss (fließendes Wasser rundherum), Rechtsklick-Meldung, Kabel/BatBox am Controller und an beliebigem Gehäuseblock | 9.4 | |
+| 8.6 | Wasserturbine mit fließendem Wasser rundherum und darüber (z. B. Eimer auf dem Deckel), Rechtsklick-Meldung, Kabel/BatBox am Controller und an beliebigem Gehäuseblock | 9.4 | |
 
 ## 9. EMI (Phase 11)
 

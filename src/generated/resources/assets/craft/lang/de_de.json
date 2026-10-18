@@ -313,7 +313,7 @@
   "emi.craft.info.mv_solar_array": "MV-Solar-Array: Fläche 9×9 aus 3×3 Feldern zu 3×3: 8 vollständige LV-Arrays, im mittleren Feld 8 Solarpanels um den MV-Controller (72 Panels). 64 EU/t.",
   "emi.craft.info.steam_turbine": "Dampfturbine: Quader 3×3 × 5 lang. Die Dampfturbine sitzt in der Mitte einer 3×3-Stirnseite, dahinter drei Turbinenrotoren in einer Reihe, der Rest sind 41 Turbinengehäuse. Dampf über jeden Block einspeisen; bis zu 3 Kessel werden voll genutzt.",
   "emi.craft.info.vacuum_freezer": "Vakuumgefrierer: Würfel 3×3×3 unter dem Controller (dieser mittig obenauf). Mitte Luft, die 6 Flächenmitten fortgeschrittene Gehäuse, die übrigen 20 Blöcke verstärkte Gehäuse.",
-  "emi.craft.info.water_turbine": "Wasserturbine: massiver Würfel 3×3×3 aus 26 Wasserturbinengehäusen, die Wasserturbine in der Mitte einer Seitenfläche. Gezählt wird fließendes Wasser im Ring 7×7×3 um den Würfel: ab 16 Blöcken 0,25 EU/t je Block, im Fluss-Biom ×1,5, höchstens 32 EU/t.",
+  "emi.craft.info.water_turbine": "Wasserturbine: massiver Würfel 3×3×3 aus 26 Wasserturbinengehäusen, die Wasserturbine in der Mitte einer Seitenfläche. Gezählt wird fließendes Wasser bis 5 Blöcke um den Würfel herum und bis 20 Blöcke darüber: ab 16 Blöcken 0,25 EU/t je Block, im Fluss-Biom ×1,5, höchstens 32 EU/t.",
   "emi.craft.mass_fabricator.amplifier": "Verstärker: %1$s",
   "emi.craft.mass_fabricator.energy": "%1$s EU je UU-Materie",
   "emi.craft.mass_fabricator.saves": "Spart bis zu %1$s EU",

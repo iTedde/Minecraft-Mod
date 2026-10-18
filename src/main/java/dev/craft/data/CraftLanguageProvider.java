@@ -352,11 +352,11 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
                 + "block; up to 3 boilers are used fully.");
         add("emi.craft.info.water_turbine", german
                 ? "Wasserturbine: massiver Würfel 3×3×3 aus 26 Wasserturbinengehäusen, die Wasserturbine in der Mitte "
-                + "einer Seitenfläche. Gezählt wird fließendes Wasser im Ring 7×7×3 um den Würfel: ab 16 Blöcken "
-                + "0,25 EU/t je Block, im Fluss-Biom ×1,5, höchstens 32 EU/t."
+                + "einer Seitenfläche. Gezählt wird fließendes Wasser bis 5 Blöcke um den Würfel herum und bis 20 "
+                + "Blöcke darüber: ab 16 Blöcken 0,25 EU/t je Block, im Fluss-Biom ×1,5, höchstens 32 EU/t."
                 : "Water turbine: solid 3×3×3 cube of 26 water turbine casings, the water turbine in the middle of a "
-                + "side face. Flowing water in the 7×7×3 ring around the cube counts: from 16 blocks 0.25 EU/t per "
-                + "block, ×1.5 in river biomes, at most 32 EU/t.");
+                + "side face. Flowing water up to 5 blocks around the cube and up to 20 blocks above it counts: from "
+                + "16 blocks 0.25 EU/t per block, ×1.5 in river biomes, at most 32 EU/t.");
         add("emi.craft.info.industrial_blast_furnace", german
                 ? "Hochofen: Quader 3×3, 4 hoch, direkt hinter dem Controller (dieser sitzt vor der Mitte der unteren "
                 + "Lage). Die zwei Mittelblöcke der Lagen 2 und 3 sind Luft oder Lava, die übrigen 34 "

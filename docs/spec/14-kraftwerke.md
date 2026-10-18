@@ -127,8 +127,9 @@ geht der Inhalt der Feuerung verloren (Drop-Rate/Entity-Schaden wie `explodeMach
 **Wasserturbine** (Controller mit Rotor-Textur), restliche 26 Blöcke **Wasserturbinengehäuse**.
 
 **Werte (Balancing §3.2):**
-- Ring: alle Positionen im 7×7×3-Quader um das Gehäuse (gleiche Höhe wie die 3 Lagen) außer dem Gehäuse selbst =
-  120 Positionen. Gezählt werden nur **fließende** Wasserblöcke (keine Quellen), alle 128 Ticks (Zufallsversatz).
+- Messbereich (Nutzer, 2026-10-18; vorher 7×7×3-Ring): 13×13 Blöcke (5 Blöcke über jede Seitenfläche hinaus), von
+  der unteren Lage bis 20 Blöcke über der oberen Lage, außer dem Gehäuse selbst = 3860 Positionen. Gezählt werden nur
+  **fließende** Wasserblöcke (keine Quellen), alle 128 Ticks (Zufallsversatz); nicht geladene Positionen zählen nicht.
 - Unter **16** fließenden Blöcken: 0 EU/t.
 - Leistung `0,25 EU/t · fließend`, × 1,5 in Fluss-Biomen (`#minecraft:is_river` am Controller), Deckel **32 EU/t**.
 - EU-Quelle am Controller, Paket bis 32 (LV), Bruchteile akkumuliert (interner Puffer höchstens 64 EU).
@@ -138,7 +139,7 @@ geht der Inhalt der Feuerung verloren (Drop-Rate/Entity-Schaden wie `explodeMach
 unvollständig“.
 
 **Rezepte (Richtwert „4 Wassermühlen + Generator + Maschinengehäuse/raff. Eisen“):**
-- Wasserturbinengehäuse ×4: `RRR/RMR/RRR` – R Raffinierte-Eisen-Platte, M Maschinengehäuse.
+- Wasserturbinengehäuse ×2 (Nutzer, 2026-10-18; vorher ×4): `RRR/RMR/RRR` – R Raffinierte-Eisen-Platte, M Maschinengehäuse.
 - Wasserturbine: `WCW/CGC/WCW` – W Wassermühle, C Wasserturbinengehäuse, G Generator.
 
 ---

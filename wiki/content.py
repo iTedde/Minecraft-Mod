@@ -167,7 +167,7 @@ Engine, Power Converters und der Kernreaktor.</p>
 {h.table(['Inhalt', 'Was es ist', 'Kurz'], [
     row('Koksofen', 'Multiblock 3×3×3 aus Koksofenziegeln', '1 Kohle → 1 Koks in 900 Ticks, ohne Strom', 'koksofen', NEW),
     row('Kohlekraftwerk', 'Kessel (3×3×3) + Dampfturbine (3×3×5)', 'Kohle/Koks → Dampf → EU; 1 mB Dampf = 1 EU; bis 64 EU/t', 'kohlekraftwerk', NEW),
-    row('Wasserturbine', 'Multiblock 3×3×3 in fließendem Wasser', '0,25 EU/t je fließendem Wasserblock im Ring, bis 32 EU/t', 'wasserturbine', NEW),
+    row('Wasserturbine', 'Multiblock 3×3×3 in fließendem Wasser', '0,25 EU/t je fließendem Wasserblock bis 5 Blöcke um und 20 über der Turbine, bis 32 EU/t', 'wasserturbine', NEW),
     row('Mining-Dimension', 'eigene Dimension, Portal aus Glattem Stein', 'flache Steinwelt bis y 64 mit allen Oberwelt-Erzen, hell, ohne Mobs', 'mining-dimension', NEW),
     row('Dampf', 'Flüssigkeit <code>craft:steam</code>', 'nur in Tanks und Rohren, kein Eimer', 'kohlekraftwerk', NEW),
     row('CC: Tweaked', 'mitinstallierter Mod', 'Computer und Turtles (Ersatz für ComputerCraft 1.5 im Pack)', 'zusatzmods', NEW),
@@ -507,8 +507,8 @@ Spezifikation: <a href="#/spec-14">14 – Kraftwerke</a> §3–4.</p>
 
     # ------------------------------------------------------------------ Wasserturbine
     W = ('craft:water_turbine_casing', 'Wasserturbinengehäuse', '')
-    wk = {'W': W, 'C': ('craft:water_turbine', 'Wasserturbine (Controller)', 'ctrl'), '~': (None, 'Ring: hier zählt fließendes Wasser', 'flow')}
-    ring = ['~~~~~~~', '~~~~~~~', '~~WWW~~', '~~WWW~~', '~~WCW~~', '~~~~~~~', '~~~~~~~']
+    wk = {'W': W, 'C': ('craft:water_turbine', 'Wasserturbine (Controller)', 'ctrl'), '~': (None, 'Messbereich: hier zählt fließendes Wasser', 'flow')}
+    ring = ['~' * 13] * 5 + ['~~~~~WWW~~~~~', '~~~~~WWW~~~~~', '~~~~~WCW~~~~~'] + ['~' * 13] * 5
     wt = f'''<h1>Wasserturbine</h1>
 {h.infobox('Wasserturbine', 'craft:water_turbine', [
     ('Herkunft', NEW + ' Craft (Kraftwerke)'), ('Typ', 'Multiblock 3×3×3, voll'), ('Leistung', '0,25 EU/t je fließendem Block'),
@@ -519,23 +519,22 @@ sie braucht aber einen echten, fließenden Fluss.</p>
 
 <h2 id="wt--aufbau">Aufbau</h2>
 <p>Voller Würfel 3×3×3 (auch die Mitte ist ein Gehäuseblock), die Wasserturbine (Controller mit Rotor-Textur) in der Mitte einer
-Seitenfläche, 26 Wasserturbinengehäuse. Drumherum zählt ein Ring von 7×7 auf allen drei Höhen der Turbine.</p>
-<div class="layers">{h.layer(ring, wk, 'Draufsicht mittlere Ebene: Turbine + Wasserring (7×7×3 = 120 Positionen)', 28)}<div>{h.legend(wk)}</div></div>
+Seitenfläche, 26 Wasserturbinengehäuse. Gezählt wird fließendes Wasser bis 5 Blöcke um die Turbine herum (13×13), von der unteren Ebene bis 20 Blöcke über dem Deckel.</p>
+<div class="layers">{h.layer(ring, wk, 'Draufsicht mittlere Ebene: Turbine + Messbereich (13×13, zusammen 3860 Positionen)', 18)}<div>{h.legend(wk)}</div></div>
 <h2 id="wt--funktion">So funktioniert es</h2>
 <ul>
-<li>Alle 128 Ticks zählt die Turbine die <b>fließenden</b> Wasserblöcke im Ring (Quellblöcke zählen nicht).</li>
+<li>Alle 128 Ticks zählt die Turbine die <b>fließenden</b> Wasserblöcke im Messbereich (Quellblöcke zählen nicht).</li>
 <li>Unter <b>16</b> fließenden Blöcken: 0 EU/t.</li>
-<li>Leistung <code>0,25 EU/t · fließend</code>, in Fluss-Biomen ×1,5, gedeckelt auf <b>32 EU/t</b>. Volllast also ab 128 fließenden Blöcken (im Fluss ab 86) –
-da der Ring nur 120 Positionen hat, erreicht man 32 EU/t praktisch nur in einem Fluss-Biom.</li>
+<li>Leistung <code>0,25 EU/t · fließend</code>, in Fluss-Biomen ×1,5, gedeckelt auf <b>32 EU/t</b>. Volllast also ab 128 fließenden Blöcken (im Fluss ab 86).</li>
 <li>EU kommen am Controller <b>und an jedem Gehäuseblock</b> heraus, Pakete bis 32 (LV), Bruchteile werden gesammelt.</li>
 <li>Rechtsklick: Chat-Meldung „Fließendes Wasser: n, Leistung x EU/t“ oder „Struktur unvollständig“.</li>
 </ul>
 <div class="calc" data-calc="waterturbine"><h4>Rechner: Wasserturbine</h4><div class="row">
-<label>fließende Wasserblöcke im Ring <input type="number" name="n" min="0" max="120" value="90"></label>
+<label>gezählte fließende Wasserblöcke <input type="number" name="n" min="0" max="3860" value="90"></label>
 <label><input type="checkbox" name="r" checked> Fluss-Biom</label></div><div class="out"></div><div class="msg"></div></div>
 <h2 id="wt--rezepte">Rezepte</h2>
 <div class="recipes">
-{h.recipe(['RRR', 'RMR', 'RRR'], {'R': ('craft:refined_iron_plate', None), 'M': ('craft:machine_casing', None)}, ('craft:water_turbine_casing', None), 4)}
+{h.recipe(['RRR', 'RMR', 'RRR'], {'R': ('craft:refined_iron_plate', None), 'M': ('craft:machine_casing', None)}, ('craft:water_turbine_casing', None), 2)}
 {h.recipe(['WCW', 'CGC', 'WCW'], {'W': ('craft:water_mill', None), 'C': ('craft:water_turbine_casing', None), 'G': ('craft:generator', None)}, ('craft:water_turbine', None))}
 </div>
 <p>Spezifikation: <a href="#/spec-14">14 – Kraftwerke</a> §5.</p>

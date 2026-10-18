@@ -28,14 +28,19 @@ import org.jetbrains.annotations.Nullable;
 
 /**
  * Water turbine (spec 14 §5): a full 3×3×3 cube of water turbine casings, the controller in the middle of one side.
- * Counts the flowing (non-source) water in the 7×7×3 ring around the cube every {@link #COUNT_INTERVAL} ticks and
- * produces 0.25 EU/t per flowing block from {@link #MIN_FLOWING} blocks on (× 1.5 in river biomes, at most 32 EU/t),
+ * Counts the flowing (non-source) water around and above the cube every {@link #COUNT_INTERVAL} ticks – up to
+ * {@link #AREA_RADIUS} blocks out from every side face and from the bottom layer up to {@link #AREA_HEIGHT} blocks
+ * above the top layer, the cube itself excluded – and produces 0.25 EU/t per flowing block from {@link #MIN_FLOWING} blocks on (× 1.5 in river biomes, at most 32 EU/t),
  * emitted from the controller and every casing block in packets of up to 32 EU (LV). No menu; right-clicking
  * reports the state in chat.
  */
 public class WaterTurbineBlockEntity extends PlantControllerBlockEntity implements EnergySource, OutputReadout {
     public static final int COUNT_INTERVAL = 128;
     public static final int MIN_FLOWING = 16;
+    /** Horizontal reach of the counted area beyond the cube's side faces. */
+    public static final int AREA_RADIUS = 5;
+    /** Height of the counted area above the cube's top layer. */
+    public static final int AREA_HEIGHT = 20;
     public static final double YIELD_PER_BLOCK = 0.25;
     public static final double RIVER_FACTOR = 1.5;
     public static final int MAX_OUTPUT = 32;
@@ -61,7 +66,7 @@ public class WaterTurbineBlockEntity extends PlantControllerBlockEntity implemen
         super(PpBlockEntityTypes.WATER_TURBINE.get(), pos, state, 0);
     }
 
-    /** EU/t for the given number of flowing water blocks in the ring. */
+    /** EU/t for the given number of counted flowing water blocks. */
     public static double output(int flowing, boolean river) {
         if (flowing < MIN_FLOWING) {
             return 0.0;
@@ -85,13 +90,19 @@ public class WaterTurbineBlockEntity extends PlantControllerBlockEntity implemen
         return level.getBiome(worldPosition).is(BiomeTags.IS_RIVER);
     }
 
-    /** Recounts the flowing water in the ring around the cube and restarts the count interval. */
+    /** Recounts the flowing water around and above the cube and restarts the count interval. */
     public void updateWaterCount() {
         ticker = 0;
         BlockPos center = worldPosition.relative(getBlockState().getValue(MachineBlock.FACING).getOpposite());
         int count = 0;
-        for (BlockPos pos : BlockPos.betweenClosed(center.offset(-3, -1, -3), center.offset(3, 1, 3))) {
-            if (Math.abs(pos.getX() - center.getX()) <= 1 && Math.abs(pos.getZ() - center.getZ()) <= 1) {
+        int reach = 1 + AREA_RADIUS;
+        for (BlockPos pos : BlockPos.betweenClosed(center.offset(-reach, -1, -reach),
+                center.offset(reach, 1 + AREA_HEIGHT, reach))) {
+            if (Math.abs(pos.getX() - center.getX()) <= 1 && Math.abs(pos.getY() - center.getY()) <= 1
+                    && Math.abs(pos.getZ() - center.getZ()) <= 1) {
+                continue;
+            }
+            if (!level.isLoaded(pos)) {
                 continue;
             }
             BlockState state = level.getBlockState(pos);
