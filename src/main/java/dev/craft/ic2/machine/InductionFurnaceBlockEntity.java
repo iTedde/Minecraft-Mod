@@ -1,8 +1,11 @@
 package dev.craft.ic2.machine;
 
+import dev.craft.core.energy.ConsumptionReadout;
 import dev.craft.core.energy.EnergyNets;
 import dev.craft.core.energy.EnergySink;
 import dev.craft.core.energy.EnergyTile;
+import dev.craft.core.energy.OutputMeter;
+import dev.craft.core.energy.OutputReadout.OutputReading;
 import dev.craft.core.explosion.Ic2Explosion;
 import dev.craft.ic2.Ic2BlockEntityTypes;
 import dev.craft.ic2.Ic2Items;
@@ -29,7 +32,7 @@ import org.jetbrains.annotations.Nullable;
  * IC2 {@code TileEntityInduction}: smelts two furnace inputs at once; speed grows with the heat, which rises by one per
  * tick while working or while powered by redstone (spec 04, induction furnace).
  */
-public class InductionFurnaceBlockEntity extends MachineBlockEntity implements EnergySink {
+public class InductionFurnaceBlockEntity extends MachineBlockEntity implements EnergySink, ConsumptionReadout {
     public static final int SLOT_INPUT_1 = 0;
     public static final int SLOT_INPUT_2 = 1;
     public static final int SLOT_BATTERY = 2;
@@ -42,6 +45,7 @@ public class InductionFurnaceBlockEntity extends MachineBlockEntity implements E
     public static final int OPERATION_PROGRESS = 4000;
     public static final int ENERGY_PER_TICK = 15;
 
+    private final OutputMeter consumptionMeter = new OutputMeter();
     private int energy;
     /** IC2 keeps heat and progress in {@code short}s. */
     private short heat;
@@ -83,6 +87,7 @@ public class InductionFurnaceBlockEntity extends MachineBlockEntity implements E
         boolean canOperate = canOperate();
         if (energy > 0 && (canOperate || level.hasNeighborSignal(worldPosition))) {
             energy--;
+            consumptionMeter.record(level, 1);
             if (heat < MAX_HEAT) {
                 heat++;
             }
@@ -107,6 +112,7 @@ public class InductionFurnaceBlockEntity extends MachineBlockEntity implements E
         if (newActive && canOperate) {
             progress = (short) (progress + heat / 30);
             energy -= ENERGY_PER_TICK;
+            consumptionMeter.record(level, ENERGY_PER_TICK);
         }
         if (needsInvUpdate) {
             onInventoryChanged();
@@ -294,5 +300,10 @@ public class InductionFurnaceBlockEntity extends MachineBlockEntity implements E
 
     public void setHeatForTest(int heat) {
         this.heat = (short) heat;
+    }
+
+    @Override
+    public OutputReading getConsumptionReading() {
+        return consumptionMeter.read(level, OutputReading.Unit.EU);
     }
 }

@@ -1,8 +1,11 @@
 package dev.craft.ic2.machine;
 
+import dev.craft.core.energy.ConsumptionReadout;
 import dev.craft.core.energy.EnergyNets;
 import dev.craft.core.energy.EnergySink;
 import dev.craft.core.energy.EnergyTile;
+import dev.craft.core.energy.OutputMeter;
+import dev.craft.core.energy.OutputReadout.OutputReading;
 import dev.craft.core.explosion.Ic2Explosion;
 import dev.craft.ic2.Ic2BlockEntityTypes;
 import dev.craft.ic2.Ic2Blocks;
@@ -24,11 +27,12 @@ import org.jetbrains.annotations.Nullable;
  * IC2 {@code TileEntityMagnetizer}: charges the iron fences in the column above and below to magnetization 15
  * (spec 04, magnetizer). No inventory, no GUI.
  */
-public class MagnetizerBlockEntity extends MachineBlockEntity implements EnergySink {
+public class MagnetizerBlockEntity extends MachineBlockEntity implements EnergySink, ConsumptionReadout {
     public static final int MAX_ENERGY = 100;
     public static final int MAX_INPUT = 32;
     private static final int RANGE = 20;
 
+    private final OutputMeter consumptionMeter = new OutputMeter();
     private int energy;
     private int ticker;
 
@@ -73,6 +77,8 @@ public class MagnetizerBlockEntity extends MachineBlockEntity implements EnergyS
             int need = 15 - state.getValue(IronFenceBlock.MAGNETIZATION);
             if (need > 0) {
                 changed = true;
+                // IC2 tops the energy up to the need, so only what was stored counts as used
+                consumptionMeter.record(level, Math.min(need, energy));
                 if (need > energy) {
                     energy = need;
                 }
@@ -160,5 +166,10 @@ public class MagnetizerBlockEntity extends MachineBlockEntity implements EnergyS
     /** Test hook. */
     public void setEnergyForTest(int energy) {
         this.energy = energy;
+    }
+
+    @Override
+    public OutputReading getConsumptionReading() {
+        return consumptionMeter.read(level, OutputReading.Unit.EU);
     }
 }

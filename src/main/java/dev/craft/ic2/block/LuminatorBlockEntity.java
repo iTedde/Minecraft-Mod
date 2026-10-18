@@ -1,8 +1,11 @@
 package dev.craft.ic2.block;
 
+import dev.craft.core.energy.ConsumptionReadout;
 import dev.craft.core.energy.EnergyNets;
 import dev.craft.core.energy.EnergySink;
 import dev.craft.core.energy.EnergyTile;
+import dev.craft.core.energy.OutputMeter;
+import dev.craft.core.energy.OutputReadout.OutputReading;
 import dev.craft.core.explosion.Ic2Explosion;
 import dev.craft.ic2.Ic2BlockEntityTypes;
 import dev.craft.ic2.cable.CableBlockEntity;
@@ -23,13 +26,14 @@ import net.minecraft.world.level.block.state.BlockState;
  * LuminatorBlock#LIT} resets energy and ticker the same way. The dark luminator keeps counting its energy down below
  * zero, which only raises its demand.
  */
-public class LuminatorBlockEntity extends BlockEntity implements EnergySink {
+public class LuminatorBlockEntity extends BlockEntity implements EnergySink, ConsumptionReadout {
     public static final int MAX_ENERGY = 10000;
     public static final int MAX_INPUT = 32;
     public static final float EXPLOSION_POWER = 0.5F;
     public static final float EXPLOSION_DROP_RATE = 0.85F;
     public static final float EXPLOSION_ENTITY_DAMAGE = 2.0F;
 
+    private final OutputMeter consumptionMeter = new OutputMeter();
     private int energy;
     private int ticker = -1;
 
@@ -44,6 +48,9 @@ public class LuminatorBlockEntity extends BlockEntity implements EnergySink {
     public static void serverTick(Level level, BlockPos pos, BlockState state, LuminatorBlockEntity luminator) {
         luminator.ticker++;
         if (luminator.ticker % 4 == 0) {
+            if (luminator.energy > 0) {
+                luminator.consumptionMeter.record(level, 1);
+            }
             luminator.energy--;
             if (luminator.energy <= 0 && state.getValue(LuminatorBlock.LIT)) {
                 luminator.setLit(false);
@@ -152,5 +159,10 @@ public class LuminatorBlockEntity extends BlockEntity implements EnergySink {
     protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.saveAdditional(tag, registries);
         tag.putShort("energy", (short) energy);
+    }
+
+    @Override
+    public OutputReading getConsumptionReading() {
+        return consumptionMeter.read(level, OutputReading.Unit.EU);
     }
 }

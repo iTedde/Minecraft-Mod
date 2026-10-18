@@ -2,9 +2,12 @@ package dev.craft.ic2.machine;
 
 import java.util.Optional;
 
+import dev.craft.core.energy.ConsumptionReadout;
 import dev.craft.core.energy.EnergyNets;
 import dev.craft.core.energy.EnergySink;
 import dev.craft.core.energy.EnergyTile;
+import dev.craft.core.energy.OutputMeter;
+import dev.craft.core.energy.OutputReadout.OutputReading;
 import dev.craft.core.explosion.Ic2Explosion;
 import dev.craft.ic2.Ic2BlockEntityTypes;
 import dev.craft.ic2.Ic2Items;
@@ -32,7 +35,7 @@ import net.minecraft.world.level.block.state.BlockState;
  * IC2 {@code TileEntityCanner}: cans food into tin cans, fills fuel cans and jetpacks with fuel cells (spec 04, canning
  * machine). Mode 3 (CF pack) follows with the construction foam.
  */
-public class CanningMachineBlockEntity extends MachineBlockEntity implements EnergySink {
+public class CanningMachineBlockEntity extends MachineBlockEntity implements EnergySink, ConsumptionReadout {
     public static final int SLOT_INPUT = 0;
     public static final int SLOT_BATTERY = 1;
     public static final int SLOT_OUTPUT = 2;
@@ -52,6 +55,7 @@ public class CanningMachineBlockEntity extends MachineBlockEntity implements Ene
     /** Ticks per pellet in CF pack mode. */
     public static final int CF_PACK_LENGTH = 50;
 
+    private final OutputMeter consumptionMeter = new OutputMeter();
     private int energy;
     /** IC2 keeps the progress in a {@code short}. */
     private short progress;
@@ -114,6 +118,7 @@ public class CanningMachineBlockEntity extends MachineBlockEntity implements Ene
         if (newActive) {
             progress++;
             energy -= ENERGY_PER_TICK;
+            consumptionMeter.record(level, ENERGY_PER_TICK);
         }
         if (needsInvUpdate) {
             onInventoryChanged();
@@ -400,5 +405,10 @@ public class CanningMachineBlockEntity extends MachineBlockEntity implements Ene
     /** Test hook. */
     public void setEnergyForTest(int energy) {
         this.energy = energy;
+    }
+
+    @Override
+    public OutputReading getConsumptionReading() {
+        return consumptionMeter.read(level, OutputReading.Unit.EU);
     }
 }

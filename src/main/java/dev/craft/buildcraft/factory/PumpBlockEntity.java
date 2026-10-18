@@ -12,6 +12,9 @@ import java.util.TreeSet;
 import dev.craft.buildcraft.BcBlockEntityTypes;
 import dev.craft.buildcraft.power.PowerProvider;
 import dev.craft.buildcraft.power.PowerReceptor;
+import dev.craft.core.energy.ConsumptionReadout;
+import dev.craft.core.energy.OutputMeter;
+import dev.craft.core.energy.OutputReadout.OutputReading;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -38,7 +41,7 @@ import org.jetbrains.annotations.Nullable;
  * BuildCraft {@code TilePump}: lowers its tube onto the liquid below, pumps source blocks (10 MJ per 1000 mB) from the
  * top layer of the connected liquid and hands its tank to every adjacent fluid handler.
  */
-public class PumpBlockEntity extends BlockEntity implements PowerReceptor {
+public class PumpBlockEntity extends BlockEntity implements PowerReceptor, ConsumptionReadout {
     public static final int MAX_LIQUID = 1000;
     /** {@code dx² + dz² > 4096} is out of reach (64 blocks). */
     private static final int MAX_DISTANCE_SQ = 4096;
@@ -47,6 +50,7 @@ public class PumpBlockEntity extends BlockEntity implements PowerReceptor {
     private static final Comparator<BlockPos> BLOCK_INDEX_ORDER = Comparator.<BlockPos>comparingInt(BlockPos::getX)
             .thenComparingInt(BlockPos::getZ).thenComparingInt(BlockPos::getY);
 
+    private final OutputMeter consumptionMeter = new OutputMeter();
     private final PowerProvider provider = new PowerProvider();
     private final FluidTank tank = new FluidTank(MAX_LIQUID) {
         @Override
@@ -122,6 +126,7 @@ public class PumpBlockEntity extends BlockEntity implements PowerReceptor {
                 FluidStack liquidToPump = new FluidStack(liquidAt(index), FluidType.BUCKET_VOLUME);
                 if (tank.fill(liquidToPump, IFluidHandler.FluidAction.SIMULATE) == liquidToPump.getAmount()
                         && provider.useEnergy(10.0F, 10.0F, true) == 10.0F) {
+                    consumptionMeter.record(level, 10.0F);
                     index = getNextIndexToPump(true);
                     // consumeWaterSources = true in the pack: water sources are removed as well.
                     level.setBlock(index, Blocks.AIR.defaultBlockState(), 3);
@@ -373,5 +378,10 @@ public class PumpBlockEntity extends BlockEntity implements PowerReceptor {
         public FluidStack drain(int maxDrain, FluidAction action) {
             return tank.drain(maxDrain, action);
         }
+    }
+
+    @Override
+    public OutputReading getConsumptionReading() {
+        return consumptionMeter.read(level, OutputReading.Unit.MJ);
     }
 }

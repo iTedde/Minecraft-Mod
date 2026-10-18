@@ -5,6 +5,9 @@ import dev.craft.buildcraft.menu.RefineryMenu;
 import dev.craft.buildcraft.power.PowerProvider;
 import dev.craft.buildcraft.power.PowerReceptor;
 import dev.craft.buildcraft.power.SafeTimeTracker;
+import dev.craft.core.energy.ConsumptionReadout;
+import dev.craft.core.energy.OutputMeter;
+import dev.craft.core.energy.OutputReadout.OutputReading;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -33,9 +36,10 @@ import org.jetbrains.annotations.Nullable;
  * BuildCraft {@code TileRefinery}: two ingredient tanks with optional filters and a result tank (4000 mB each); one
  * recipe operation per {@code delay} ticks while enough MJ are stored.
  */
-public class RefineryBlockEntity extends BlockEntity implements PowerReceptor, MenuProvider {
+public class RefineryBlockEntity extends BlockEntity implements PowerReceptor, MenuProvider, ConsumptionReadout {
     public static final int LIQUID_PER_SLOT = 4000;
 
+    private final OutputMeter consumptionMeter = new OutputMeter();
     private final PowerProvider provider = new PowerProvider();
     /** {@code isActive}: set every tick, not saved. */
     private boolean isActive;
@@ -158,6 +162,7 @@ public class RefineryBlockEntity extends BlockEntity implements PowerReceptor, M
             }
             if (time.markTimeIfDelay(level, currentRecipe.delay())) {
                 float energyUsed = provider.useEnergy(currentRecipe.energy(), currentRecipe.energy(), true);
+                consumptionMeter.record(level, energyUsed);
                 if (energyUsed != 0.0F && consumeInput(currentRecipe.ingredient1())
                         && consumeInput(currentRecipe.ingredient2())) {
                     result.fill(currentRecipe.result().copy(), IFluidHandler.FluidAction.EXECUTE);
@@ -384,5 +389,10 @@ public class RefineryBlockEntity extends BlockEntity implements PowerReceptor, M
         public FluidStack drain(int maxDrain, FluidAction action) {
             return result.drain(maxDrain, action);
         }
+    }
+
+    @Override
+    public OutputReading getConsumptionReading() {
+        return consumptionMeter.read(level, OutputReading.Unit.MJ);
     }
 }

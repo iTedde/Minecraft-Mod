@@ -1,8 +1,11 @@
 package dev.craft.ic2.machine;
 
+import dev.craft.core.energy.ConsumptionReadout;
 import dev.craft.core.energy.EnergyNets;
 import dev.craft.core.energy.EnergySink;
 import dev.craft.core.energy.EnergyTile;
+import dev.craft.core.energy.OutputMeter;
+import dev.craft.core.energy.OutputReadout.OutputReading;
 import dev.craft.core.explosion.Ic2Explosion;
 import dev.craft.ic2.Ic2BlockEntityTypes;
 import dev.craft.ic2.Ic2Items;
@@ -36,7 +39,7 @@ import net.minecraft.world.level.material.FluidState;
  * IC2 {@code TileEntityPump}: charges for 200 ticks (1 EU each), then takes the water or lava source block below
  * into a cell, a bucket or an adjacent geothermal generator (spec 04, pump).
  */
-public class PumpBlockEntity extends MachineBlockEntity implements EnergySink {
+public class PumpBlockEntity extends MachineBlockEntity implements EnergySink, ConsumptionReadout {
     public static final int SLOT_CONTAINER = 0;
     public static final int SLOT_BATTERY = 1;
     public static final int MAX_ENERGY = 200;
@@ -47,6 +50,7 @@ public class PumpBlockEntity extends MachineBlockEntity implements EnergySink {
     private static final Direction[] NEIGHBOURS = {Direction.UP, Direction.DOWN, Direction.EAST, Direction.WEST,
             Direction.SOUTH, Direction.NORTH};
 
+    private final OutputMeter consumptionMeter = new OutputMeter();
     private int energy;
     /** IC2 keeps the charge in a {@code short}. */
     private short pumpCharge;
@@ -78,6 +82,7 @@ public class PumpBlockEntity extends MachineBlockEntity implements EnergySink {
         boolean needsInvUpdate = false;
         if (energy > 0 && !isPumpReady()) {
             energy--;
+            consumptionMeter.record(level, 1);
             pumpCharge++;
         }
         if (energy <= MAX_ENERGY) {
@@ -371,5 +376,10 @@ public class PumpBlockEntity extends MachineBlockEntity implements EnergySink {
 
     public void setPumpChargeForTest(int charge) {
         this.pumpCharge = (short) charge;
+    }
+
+    @Override
+    public OutputReading getConsumptionReading() {
+        return consumptionMeter.read(level, OutputReading.Unit.EU);
     }
 }

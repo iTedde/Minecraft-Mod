@@ -1,9 +1,12 @@
 package dev.craft.powerconverters.power;
 
+import dev.craft.core.energy.ConsumptionReadout;
 import dev.craft.core.energy.EnergyEmitter;
 import dev.craft.core.energy.EnergyNets;
 import dev.craft.core.energy.EnergySink;
 import dev.craft.core.energy.EnergyTile;
+import dev.craft.core.energy.OutputMeter;
+import dev.craft.core.energy.OutputReadout.OutputReading;
 import dev.craft.powerconverters.ConverterType;
 import dev.craft.powerconverters.PcBlockEntityTypes;
 import dev.craft.powerconverters.PowerSystem;
@@ -17,7 +20,9 @@ import org.jetbrains.annotations.Nullable;
  * {@code TileEntityIndustrialCraftConsumer}: an EU sink on all sides that stores {@code amount · 1800} PCU in the
  * bridges. It never explodes – IC2 does not check {@code getMaxSafeInput} in the energy net.
  */
-public class Ic2ConsumerBlockEntity extends EnergyConsumerBlockEntity<EnergyEmitter> implements EnergySink {
+public class Ic2ConsumerBlockEntity extends EnergyConsumerBlockEntity<EnergyEmitter>
+        implements EnergySink, ConsumptionReadout {
+    private final OutputMeter consumptionMeter = new OutputMeter();
     private int euLastTick;
     private long lastTickInjected;
 
@@ -71,6 +76,7 @@ public class Ic2ConsumerBlockEntity extends EnergyConsumerBlockEntity<EnergyEmit
         int pcuNotStored = storeEnergy(amount * powerSystem.getEnergyPerInput());
         int euNotStored = pcuNotStored / powerSystem.getEnergyPerInput();
         int euThisInjection = amount - euNotStored;
+        consumptionMeter.record(level, euThisInjection);
         long time = level.getGameTime();
         if (lastTickInjected == time) {
             euLastTick += euThisInjection;
@@ -90,5 +96,10 @@ public class Ic2ConsumerBlockEntity extends EnergyConsumerBlockEntity<EnergyEmit
     @Override
     public int getInputRate() {
         return euLastTick;
+    }
+
+    @Override
+    public OutputReading getConsumptionReading() {
+        return consumptionMeter.read(level, OutputReading.Unit.EU);
     }
 }

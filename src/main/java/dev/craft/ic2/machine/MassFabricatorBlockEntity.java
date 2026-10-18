@@ -2,9 +2,12 @@ package dev.craft.ic2.machine;
 
 import java.util.Map;
 
+import dev.craft.core.energy.ConsumptionReadout;
 import dev.craft.core.energy.EnergyNets;
 import dev.craft.core.energy.EnergySink;
 import dev.craft.core.energy.EnergyTile;
+import dev.craft.core.energy.OutputMeter;
+import dev.craft.core.energy.OutputReadout.OutputReading;
 import dev.craft.core.explosion.Ic2Explosion;
 import dev.craft.gregtech.GtItems;
 import dev.craft.ic2.Ic2BlockEntityTypes;
@@ -31,7 +34,7 @@ import net.minecraft.world.level.block.state.BlockState;
  * Mass fabricator, 1:1 with IC2 {@code TileEntityMatter}: 1 000 000 EU per UU matter; amplifiers add a scrap value
  * that multiplies incoming energy by 6 until it is used up.
  */
-public class MassFabricatorBlockEntity extends MachineBlockEntity implements EnergySink {
+public class MassFabricatorBlockEntity extends MachineBlockEntity implements EnergySink, ConsumptionReadout {
     public static final int MAX_ENERGY = 1_100_000;
     public static final int MAX_INPUT = 512;
     public static final int ENERGY_PER_MATTER = 1_000_000;
@@ -42,6 +45,7 @@ public class MassFabricatorBlockEntity extends MachineBlockEntity implements Ene
     public static final int STATE_RUNNING = 1;
     public static final int STATE_RUNNING_SCRAP = 2;
 
+    private final OutputMeter consumptionMeter = new OutputMeter();
     private int energy;
     private int scrap;
 
@@ -218,6 +222,9 @@ public class MassFabricatorBlockEntity extends MachineBlockEntity implements Ene
             rest = energy - MAX_ENERGY;
             energy = MAX_ENERGY;
         }
+        // all of it goes into the next UU matter, so what it takes in is what it uses (counted here as one big
+        // operation every million EU would never read as a steady rate)
+        consumptionMeter.record(level, Math.max(0, amount - rest));
         return rest;
     }
 
@@ -251,5 +258,10 @@ public class MassFabricatorBlockEntity extends MachineBlockEntity implements Ene
         super.saveAdditional(tag, registries);
         tag.putInt("energy", energy);
         tag.putInt("scrap", scrap);
+    }
+
+    @Override
+    public OutputReading getConsumptionReading() {
+        return consumptionMeter.read(level, OutputReading.Unit.EU);
     }
 }

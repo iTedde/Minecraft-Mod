@@ -1,8 +1,11 @@
 package dev.craft.ic2.machine;
 
+import dev.craft.core.energy.ConsumptionReadout;
 import dev.craft.core.energy.EnergyNets;
 import dev.craft.core.energy.EnergySink;
 import dev.craft.core.energy.EnergyTile;
+import dev.craft.core.energy.OutputMeter;
+import dev.craft.core.energy.OutputReadout.OutputReading;
 import dev.craft.core.explosion.Ic2Explosion;
 import dev.craft.ic2.Ic2Items;
 import dev.craft.ic2.item.ElectricItem;
@@ -25,7 +28,8 @@ import org.jetbrains.annotations.Nullable;
  * 0 input, 1 battery, 2 output, 3–6 upgrades. Used by the electric furnace, macerator, extractor, compressor and
  * recycler.
  */
-public abstract class ElectricMachineBlockEntity extends MachineBlockEntity implements EnergySink {
+public abstract class ElectricMachineBlockEntity extends MachineBlockEntity
+        implements EnergySink, ConsumptionReadout {
     public static final int SLOT_INPUT = 0;
     public static final int SLOT_BATTERY = 1;
     public static final int SLOT_OUTPUT = 2;
@@ -40,6 +44,7 @@ public abstract class ElectricMachineBlockEntity extends MachineBlockEntity impl
     protected int energy;
     protected int maxEnergy;
     protected int maxInput;
+    private final OutputMeter consumptionMeter = new OutputMeter();
     protected int tier = 1;
     protected int progress;
 
@@ -158,6 +163,7 @@ public abstract class ElectricMachineBlockEntity extends MachineBlockEntity impl
         if (newActive) {
             progress++;
             energy -= energyConsume;
+            consumptionMeter.record(level, energyConsume);
         }
         if (needsInvUpdate) {
             onInventoryChanged();
@@ -347,5 +353,10 @@ public abstract class ElectricMachineBlockEntity extends MachineBlockEntity impl
         super.saveAdditional(tag, registries);
         tag.putInt("energy", energy);
         tag.putShort("progress", (short) progress);
+    }
+
+    @Override
+    public OutputReading getConsumptionReading() {
+        return consumptionMeter.read(level, OutputReading.Unit.EU);
     }
 }

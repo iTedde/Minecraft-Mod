@@ -1,5 +1,7 @@
 package dev.craft.core.energy;
 
+import java.util.Optional;
+
 import dev.craft.Craft;
 import dev.craft.core.energy.OutputReadout.OutputReading;
 import io.netty.buffer.ByteBuf;
@@ -9,6 +11,7 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.network.PacketDistributor;
@@ -17,13 +20,22 @@ import net.neoforged.neoforge.network.handling.IPayloadContext;
 import org.jetbrains.annotations.Nullable;
 
 /**
- * Look-at overlay: the client asks for the output of the {@link OutputReadout} under the crosshair, the server
- * answers with the current reading. The last answer is kept here for the overlay.
+ * Look-at overlay: the client asks for the output ({@link OutputReadout}) and consumption ({@link ConsumptionReadout})
+ * of the block under the crosshair, the server answers with the current readings. The last answer is kept here for
+ * the overlay.
  */
 @EventBusSubscriber(modid = Craft.MODID, bus = EventBusSubscriber.Bus.MOD)
 public final class OutputPayloads {
     /** Farther than any block reach; only guards against querying arbitrary positions. */
     private static final double MAX_QUERY_DISTANCE_SQR = 32.0 * 32.0;
+
+    private static final StreamCodec<ByteBuf, OutputReading.Unit> UNIT_CODEC = ByteBufCodecs.BYTE.map(
+            id -> OutputReading.Unit.values()[Math.floorMod(id, OutputReading.Unit.values().length)],
+            unit -> (byte) unit.ordinal());
+    private static final StreamCodec<ByteBuf, OutputReading> READING_CODEC = StreamCodec.composite(
+            ByteBufCodecs.DOUBLE, OutputReading::rate,
+            UNIT_CODEC, OutputReading::unit,
+            OutputReading::new);
 
     @Nullable
     private static volatile Answer lastAnswer;
@@ -33,7 +45,7 @@ public final class OutputPayloads {
 
     @SubscribeEvent
     public static void register(RegisterPayloadHandlersEvent event) {
-        event.registrar("1")
+        event.registrar("2")
                 .playToServer(Query.TYPE, Query.STREAM_CODEC, OutputPayloads::handleQuery)
                 .playToClient(Answer.TYPE, Answer.STREAM_CODEC, (answer, context) -> lastAnswer = answer);
     }
@@ -54,11 +66,11 @@ public final class OutputPayloads {
         if (player.distanceToSqr(pos.getCenter()) > MAX_QUERY_DISTANCE_SQR || !player.level().isLoaded(pos)) {
             return;
         }
-        OutputReading reading = player.level().getBlockEntity(pos) instanceof OutputReadout readout
-                ? readout.getOutputReading() : null;
-        context.reply(reading == null
-                ? new Answer(pos, false, 0.0, (byte) 0)
-                : new Answer(pos, true, reading.rate(), (byte) reading.unit().ordinal()));
+        BlockEntity entity = player.level().getBlockEntity(pos);
+        OutputReading output = entity instanceof OutputReadout readout ? readout.getOutputReading() : null;
+        OutputReading consumption = entity instanceof ConsumptionReadout readout
+                ? readout.getConsumptionReading() : null;
+        context.reply(new Answer(pos, Optional.ofNullable(output), Optional.ofNullable(consumption)));
     }
 
     public record Query(BlockPos pos) implements CustomPacketPayload {
@@ -73,21 +85,15 @@ public final class OutputPayloads {
         }
     }
 
-    public record Answer(BlockPos pos, boolean present, double rate, byte unit) implements CustomPacketPayload {
+    public record Answer(BlockPos pos, Optional<OutputReading> output, Optional<OutputReading> consumption)
+            implements CustomPacketPayload {
         public static final Type<Answer> TYPE =
                 new Type<>(ResourceLocation.fromNamespaceAndPath(Craft.MODID, "output_answer"));
         public static final StreamCodec<ByteBuf, Answer> STREAM_CODEC = StreamCodec.composite(
                 BlockPos.STREAM_CODEC, Answer::pos,
-                ByteBufCodecs.BOOL, Answer::present,
-                ByteBufCodecs.DOUBLE, Answer::rate,
-                ByteBufCodecs.BYTE, Answer::unit,
+                ByteBufCodecs.optional(READING_CODEC), Answer::output,
+                ByteBufCodecs.optional(READING_CODEC), Answer::consumption,
                 Answer::new);
-
-        @Nullable
-        public OutputReading reading() {
-            OutputReading.Unit[] units = OutputReading.Unit.values();
-            return present && unit >= 0 && unit < units.length ? new OutputReading(rate, units[unit]) : null;
-        }
 
         @Override
         public Type<? extends CustomPacketPayload> type() {

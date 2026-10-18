@@ -8,6 +8,9 @@ import dev.craft.buildcraft.power.PowerProvider;
 import dev.craft.buildcraft.power.PowerReceptor;
 import dev.craft.buildcraft.util.BlockUtil;
 import dev.craft.buildcraft.util.ItemOutput;
+import dev.craft.core.energy.ConsumptionReadout;
+import dev.craft.core.energy.OutputMeter;
+import dev.craft.core.energy.OutputReadout.OutputReading;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
@@ -21,7 +24,8 @@ import net.minecraft.world.level.block.state.BlockState;
  * BuildCraft {@code TileMiningWell}: 25 MJ per block, replaces the block below the pipe column with another pipe and
  * hands the drops out like the quarry. {@code isDigging} is not saved, as in the original.
  */
-public class MiningWellBlockEntity extends BlockEntity implements PowerReceptor {
+public class MiningWellBlockEntity extends BlockEntity implements PowerReceptor, ConsumptionReadout {
+    private final OutputMeter consumptionMeter = new OutputMeter();
     private final PowerProvider provider = new PowerProvider();
     private boolean isDigging = true;
 
@@ -45,6 +49,7 @@ public class MiningWellBlockEntity extends BlockEntity implements PowerReceptor 
         if (provider.useEnergy(25.0F, 25.0F, true) < 25.0F) {
             return;
         }
+        consumptionMeter.record(level, 25.0F);
         BlockPos.MutableBlockPos pos = worldPosition.below().mutable();
         while (level.getBlockState(pos).is(BcBlocks.MINING_PIPE.get())) {
             pos.move(0, -1, 0);
@@ -87,5 +92,10 @@ public class MiningWellBlockEntity extends BlockEntity implements PowerReceptor 
         if (tag.contains("power")) {
             provider.load(tag.getCompound("power"));
         }
+    }
+
+    @Override
+    public OutputReading getConsumptionReading() {
+        return consumptionMeter.read(level, OutputReading.Unit.MJ);
     }
 }

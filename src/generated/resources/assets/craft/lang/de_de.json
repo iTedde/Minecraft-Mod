@@ -337,6 +337,7 @@
   "gui.craft.buildcraft.energy": "Energie",
   "gui.craft.buildcraft.heat": "Hitze",
   "gui.craft.buildcraft.stored": "Gespeichert",
+  "gui.craft.consumption": "Verbraucht: %s %s",
   "gui.craft.cropnalyzer.discovered": "Entdeckt von:",
   "gui.craft.cropnalyzer.gain": "Ertrag:",
   "gui.craft.cropnalyzer.growth": "Wachstum:",

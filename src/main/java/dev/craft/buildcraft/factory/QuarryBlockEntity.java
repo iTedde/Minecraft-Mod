@@ -16,6 +16,9 @@ import dev.craft.buildcraft.power.PowerProvider;
 import dev.craft.buildcraft.power.PowerReceptor;
 import dev.craft.buildcraft.util.BlockUtil;
 import dev.craft.buildcraft.util.ItemOutput;
+import dev.craft.core.energy.ConsumptionReadout;
+import dev.craft.core.energy.OutputMeter;
+import dev.craft.core.energy.OutputReadout.OutputReading;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
@@ -44,11 +47,12 @@ import org.jetbrains.annotations.Nullable;
  * keeps its chunks loaded, has the robot build the frame and then digs the inside layer by layer with the drill
  * head. MJ: 25 MJ per frame order, 60 MJ per block plus the head movement.
  */
-public class QuarryBlockEntity extends BlockEntity implements PowerReceptor {
+public class QuarryBlockEntity extends BlockEntity implements PowerReceptor, ConsumptionReadout {
     public static final int MAX_ENERGY = 15000;
     /** {@code forgeChunkLoading.cfg}: {@code maximumChunksPerTicket} of the pack. */
     public static final int MAX_CHUNK_LIST_DEPTH = 25;
 
+    private final OutputMeter consumptionMeter = new OutputMeter();
     private final PowerProvider provider = new PowerProvider();
     private final Box box = new Box();
     private boolean inProcess;
@@ -128,7 +132,7 @@ public class QuarryBlockEntity extends BlockEntity implements PowerReceptor {
         }
         if (inProcess) {
             float energyToUse = 2.0F + provider.getEnergyStored() / 500.0F;
-            float energy = provider.useEnergy(energyToUse, energyToUse, true);
+            float energy = useEnergy(energyToUse, energyToUse);
             if (energy > 0.0F) {
                 moveHead(0.1 + energy / 200.0F);
             }
@@ -203,9 +207,15 @@ public class QuarryBlockEntity extends BlockEntity implements PowerReceptor {
         sendNetworkUpdate();
     }
 
+    private float useEnergy(float min, float max) {
+        float used = provider.useEnergy(min, max, true);
+        consumptionMeter.record(level, used);
+        return used;
+    }
+
     private void buildFrame() {
         provider.configure(25, 100, 25, MAX_ENERGY);
-        if (provider.useEnergy(25.0F, 25.0F, true) == 25.0F) {
+        if (useEnergy(25.0F, 25.0F) == 25.0F) {
             if (robot == null) {
                 robot = new BuilderRobot();
                 sendNetworkUpdate();
@@ -218,7 +228,7 @@ public class QuarryBlockEntity extends BlockEntity implements PowerReceptor {
 
     private void dig() {
         provider.configure(30, 500, 50, MAX_ENERGY);
-        if (provider.useEnergy(60.0F, 60.0F, true) == 60.0F) {
+        if (useEnergy(60.0F, 60.0F) == 60.0F) {
             if (!findTarget(true)) {
                 if (armCreated) {
                     setTarget(box.xMin + 1, worldPosition.getY() + 2, box.zMin + 1);
@@ -760,5 +770,10 @@ public class QuarryBlockEntity extends BlockEntity implements PowerReceptor {
             displayStage = (displayStage + 1) % 400;
             return stage;
         }
+    }
+
+    @Override
+    public OutputReading getConsumptionReading() {
+        return consumptionMeter.read(level, OutputReading.Unit.MJ);
     }
 }

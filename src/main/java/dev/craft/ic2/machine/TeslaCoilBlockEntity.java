@@ -1,9 +1,12 @@
 package dev.craft.ic2.machine;
 
 import dev.craft.core.CraftDamageTypes;
+import dev.craft.core.energy.ConsumptionReadout;
 import dev.craft.core.energy.EnergyNets;
 import dev.craft.core.energy.EnergySink;
 import dev.craft.core.energy.EnergyTile;
+import dev.craft.core.energy.OutputMeter;
+import dev.craft.core.energy.OutputReadout.OutputReading;
 import dev.craft.core.explosion.Ic2Explosion;
 import dev.craft.ic2.Ic2BlockEntityTypes;
 import dev.craft.ic2.Ic2Machine;
@@ -25,11 +28,12 @@ import net.minecraft.world.phys.AABB;
  * IC2 {@code TileEntityTesla}: with a redstone signal and at least 400 EU it shocks every living entity without a
  * full hazmat suit within 4 blocks every 32 ticks for {@code energy / 400} damage (spec 04, tesla coil).
  */
-public class TeslaCoilBlockEntity extends MachineBlockEntity implements EnergySink {
+public class TeslaCoilBlockEntity extends MachineBlockEntity implements EnergySink, ConsumptionReadout {
     public static final int MAX_ENERGY = 10000;
     public static final int MAX_INPUT = 128;
     public static final int COST = 400;
 
+    private final OutputMeter consumptionMeter = new OutputMeter();
     private int energy;
     private int ticker;
 
@@ -46,7 +50,9 @@ public class TeslaCoilBlockEntity extends MachineBlockEntity implements EnergySi
         if (level.hasNeighborSignal(worldPosition) && energy >= COST) {
             int damage = energy / COST;
             energy--;
+            consumptionMeter.record(level, 1);
             if (ticker++ % 32 == 0 && shock(damage)) {
+                consumptionMeter.record(level, energy);
                 energy = 0;
             }
             setChanged();
@@ -146,5 +152,10 @@ public class TeslaCoilBlockEntity extends MachineBlockEntity implements EnergySi
     /** Test hook. */
     public void setEnergyForTest(int energy) {
         this.energy = energy;
+    }
+
+    @Override
+    public OutputReading getConsumptionReading() {
+        return consumptionMeter.read(level, OutputReading.Unit.EU);
     }
 }

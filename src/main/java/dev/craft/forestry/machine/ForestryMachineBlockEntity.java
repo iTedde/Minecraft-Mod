@@ -2,6 +2,9 @@ package dev.craft.forestry.machine;
 
 import dev.craft.buildcraft.power.PowerProvider;
 import dev.craft.buildcraft.power.PowerReceptor;
+import dev.craft.core.energy.ConsumptionReadout;
+import dev.craft.core.energy.OutputMeter;
+import dev.craft.core.energy.OutputReadout.OutputReading;
 import dev.craft.ic2.machine.MachineInventory;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
@@ -18,7 +21,9 @@ import net.minecraft.world.level.block.state.BlockState;
  * Forestry {@code TileMachine}: a BuildCraft power receptor that runs one machine work step every 5 ticks while the
  * activation energy is stored, and uses exactly that energy when the step did something.
  */
-public abstract class ForestryMachineBlockEntity extends BlockEntity implements PowerReceptor, MenuProvider {
+public abstract class ForestryMachineBlockEntity extends BlockEntity
+        implements PowerReceptor, MenuProvider, ConsumptionReadout {
+    private final OutputMeter consumptionMeter = new OutputMeter();
     protected final PowerProvider provider = new PowerProvider();
     protected final MachineInventory inventory;
     /** {@code TileForestry.errorState}: shown by the error ledger, not saved. */
@@ -52,7 +57,7 @@ public abstract class ForestryMachineBlockEntity extends BlockEntity implements 
         if (level.getGameTime() % 5L == 0L) {
             int activation = provider.getActivationEnergy();
             if (machineWork()) {
-                provider.useEnergy(activation, activation, true);
+                consumptionMeter.record(level, provider.useEnergy(activation, activation, true));
             }
         }
     }
@@ -112,5 +117,10 @@ public abstract class ForestryMachineBlockEntity extends BlockEntity implements 
         if (tag.contains("power")) {
             provider.load(tag.getCompound("power"));
         }
+    }
+
+    @Override
+    public OutputReading getConsumptionReading() {
+        return consumptionMeter.read(level, OutputReading.Unit.MJ);
     }
 }

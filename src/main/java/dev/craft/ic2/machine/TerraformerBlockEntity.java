@@ -1,8 +1,11 @@
 package dev.craft.ic2.machine;
 
+import dev.craft.core.energy.ConsumptionReadout;
 import dev.craft.core.energy.EnergyNets;
 import dev.craft.core.energy.EnergySink;
 import dev.craft.core.energy.EnergyTile;
+import dev.craft.core.energy.OutputMeter;
+import dev.craft.core.energy.OutputReadout.OutputReading;
 import dev.craft.core.explosion.Ic2Explosion;
 import dev.craft.ic2.Ic2BlockEntityTypes;
 import dev.craft.ic2.Ic2Machine;
@@ -24,10 +27,11 @@ import net.minecraft.world.level.block.state.BlockState;
  * IC2 {@code TileEntityTerra}: runs the inserted blueprint at random columns around itself (near the last success,
  * otherwise in a radius growing with the failures) as long as the energy suffices (spec 04, terraformer).
  */
-public class TerraformerBlockEntity extends MachineBlockEntity implements EnergySink {
+public class TerraformerBlockEntity extends MachineBlockEntity implements EnergySink, ConsumptionReadout {
     public static final int MAX_ENERGY = 100000;
     public static final int MAX_INPUT = 512;
 
+    private final OutputMeter consumptionMeter = new OutputMeter();
     private int energy;
     private int failedAttempts;
     private boolean hasLast;
@@ -71,12 +75,14 @@ public class TerraformerBlockEntity extends MachineBlockEntity implements Energy
                 }
                 if (blueprint.terraform((ServerLevel) level, x, z, worldPosition.getY())) {
                     energy -= blueprint.getConsume();
+                    consumptionMeter.record(level, blueprint.getConsume());
                     failedAttempts = 0;
                     lastX = x;
                     lastZ = z;
                     hasLast = true;
                 } else {
                     energy -= blueprint.getConsume() / 10;
+                    consumptionMeter.record(level, blueprint.getConsume() / 10);
                     failedAttempts++;
                     hasLast = false;
                 }
@@ -192,5 +198,10 @@ public class TerraformerBlockEntity extends MachineBlockEntity implements Energy
     /** Test hook. */
     public void setEnergyForTest(int energy) {
         this.energy = energy;
+    }
+
+    @Override
+    public OutputReading getConsumptionReading() {
+        return consumptionMeter.read(level, OutputReading.Unit.EU);
     }
 }

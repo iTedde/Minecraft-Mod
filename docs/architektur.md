@@ -35,6 +35,9 @@ ergänzen. Basispaket `dev.craft`, Einstieg `Craft` → `Ic2.init`, `BuildCraft.
 - Erzeugungsanzeige: Erzeuger implementieren `core/energy/OutputReadout` und zählen ihre Erzeugung je Tick mit
   `OutputMeter.record` (Sekundenmittel); Teile von Multiblocks reichen an den Controller weiter. Der Client fragt
   den Wert des angeschauten Blocks alle 10 Ticks über `OutputPayloads` ab, `core/client/OutputOverlay` zeichnet ihn.
+- Verbrauchsanzeige: Verbraucher implementieren `core/energy/ConsumptionReadout` und zählen mit einem eigenen
+  `OutputMeter` dort, wo Energie tatsächlich verbraucht wird (nicht bei `injectEnergy`); die Antwort von
+  `OutputPayloads` enthält beide Werte, das Overlay zeigt den Verbrauch als zweite Zeile.
 
 ## Rüstung
 

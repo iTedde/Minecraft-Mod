@@ -1,8 +1,11 @@
 package dev.craft.ic2.crop;
 
+import dev.craft.core.energy.ConsumptionReadout;
 import dev.craft.core.energy.EnergyNets;
 import dev.craft.core.energy.EnergySink;
 import dev.craft.core.energy.EnergyTile;
+import dev.craft.core.energy.OutputMeter;
+import dev.craft.core.energy.OutputReadout.OutputReading;
 import dev.craft.core.explosion.Ic2Explosion;
 import dev.craft.ic2.Ic2BlockEntityTypes;
 import dev.craft.ic2.Ic2Items;
@@ -27,7 +30,7 @@ import org.jetbrains.annotations.Nullable;
  * IC2 {@code TileEntityCropmatron}: with at least 31 EU it checks one position of the 9×3×9 area around it per tick
  * and feeds a crop there with fertilizer, hydration cells and Weed-EX (spec 04, Crop-Matron).
  */
-public class CropMatronBlockEntity extends MachineBlockEntity implements EnergySink {
+public class CropMatronBlockEntity extends MachineBlockEntity implements EnergySink, ConsumptionReadout {
     public static final int SLOT_FERTILIZER = 0;
     public static final int SLOT_HYDRATION = 3;
     public static final int SLOT_WEED_EX = 6;
@@ -36,6 +39,7 @@ public class CropMatronBlockEntity extends MachineBlockEntity implements EnergyS
     public static final int MIN_ENERGY = 31;
     public static final int APPLY_COST = 10;
 
+    private final OutputMeter consumptionMeter = new OutputMeter();
     private int energy;
     /** Scan offsets; IC2 does not save them, so a reload starts over. */
     private int scanX = -4;
@@ -68,7 +72,7 @@ public class CropMatronBlockEntity extends MachineBlockEntity implements EnergyS
                 }
             }
         }
-        energy--;
+        useEnergy(1);
         setChanged();
         if (!(level.getBlockEntity(worldPosition.offset(scanX, scanY, scanZ)) instanceof CropBlockEntity crop)) {
             return;
@@ -76,24 +80,29 @@ public class CropMatronBlockEntity extends MachineBlockEntity implements EnergyS
         updateSlots();
         ItemStack fertilizer = inventory.get(SLOT_FERTILIZER);
         if (fertilizer.is(Ic2Items.FERTILIZER.get()) && crop.applyFertilizer(false)) {
-            energy -= APPLY_COST;
+            useEnergy(APPLY_COST);
             fertilizer.shrink(1);
             clearIfEmpty(SLOT_FERTILIZER);
         }
         ItemStack cell = inventory.get(SLOT_HYDRATION);
         if (cell.is(Ic2Items.HYDRATING_CELL.get()) && crop.applyHydration(false, cell)) {
-            energy -= APPLY_COST;
+            useEnergy(APPLY_COST);
             clearIfEmpty(SLOT_HYDRATION);
         }
         ItemStack weedEx = inventory.get(SLOT_WEED_EX);
         if (weedEx.is(Ic2Items.WEED_EX.get()) && crop.applyWeedEx(false)) {
-            energy -= APPLY_COST;
+            useEnergy(APPLY_COST);
             weedEx.setDamageValue(weedEx.getDamageValue() + 1);
             if (weedEx.getDamageValue() >= weedEx.getMaxDamage()) {
                 weedEx.shrink(1);
             }
             clearIfEmpty(SLOT_WEED_EX);
         }
+    }
+
+    private void useEnergy(int amount) {
+        energy -= amount;
+        consumptionMeter.record(level, amount);
     }
 
     /** IC2 {@code updateSlots}: each column moves up by one slot into an empty slot (2→1, then 1→0). */
@@ -211,5 +220,10 @@ public class CropMatronBlockEntity extends MachineBlockEntity implements EnergyS
     /** Test hook. */
     public void setEnergyForTest(int energy) {
         this.energy = energy;
+    }
+
+    @Override
+    public OutputReading getConsumptionReading() {
+        return consumptionMeter.read(level, OutputReading.Unit.EU);
     }
 }

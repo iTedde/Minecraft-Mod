@@ -1768,3 +1768,23 @@ Nutzerwunsch: Wassermühlen sollen keine Aluminiumplatten mehr brauchen („nerv
 IC2-Rezept `SPS/PGP/SPS` (Stock, Bretter, Generator → 2 Wassermühlen) wieder aktiv, GT-Assembler-Rezept bleibt
 zusätzlich (`abweichungen.md`). Version 0.3.4, CurseForge-Paket `releases/Craft-0.3.4-curseforge.zip` bzw.
 `X:/Craft/Craft-0.3.4-curseforge.zip`. JSON von Hand (`runData` offen).
+
+# Nachtrag – Verbrauchsanzeige (Nutzer, 2026-10-18)
+
+Nutzerwunsch: „Verbrauchsanzeige, genau wie beim Output der Energien“. Umgesetzt im selben Blick-Overlay als zweite
+Zeile „Verbraucht: X EU/t“ bzw. „MJ/t“ (Sekundenmittel, Sprachschlüssel `gui.craft.consumption`, JSON von Hand –
+`runData` offen).
+
+- [x] `core/energy/ConsumptionReadout`; `OutputPayloads` überträgt Erzeugung und Verbrauch (Protokoll „2“),
+  `OutputOverlay` zeichnet beide Zeilen (Electrical Engine zeigt z. B. MJ-Erzeugung und EU-Verbrauch).
+- [x] Gezählt wird der **tatsächliche Verbrauch** (Arbeit, Laden von Werkzeugen), nicht die Aufnahme – Maschinen auf
+  Batterie-Slot zeigen ihn also auch. Angeschlossen: alle IC2-Elektromaschinen (Basisklasse), Canning Machine,
+  Induktionsofen, Magnetisierer, Miner (inkl. Laden von Scanner/Bohrer), IC2-Pumpe, Terraformer, Tesla-Spule,
+  Luminator, Crop-Matron, alle GT-Maschinen (`decreaseStoredEnergy`, MJ 1:1 als EU), Electrical Engine (EU je Zyklus),
+  Quarry, Mining Well, BC-Pumpe, Raffinerie, Thermionic Fabricator/Carpenter, Power-Converter-Verbraucher
+  (IC2/BC, an die Bridges abgegeben).
+- Ausnahme Massefabrikator: zählt die Aufnahme, da er sie ohne Puffer vollständig in UU-Materie steckt (sonst ein
+  Ausschlag je 1 000 000 EU).
+- Nicht angeschlossen: Speicher (BatBox/MFE/MFSU), Trafos, Teleporter (einmalig je Teleport), Energy-O-Mat, Rohre.
+- GameTests `OutputReadoutGameTests.runningMaceratorReadsItsConsumption` / `idleMaceratorReadsZero` (nicht
+  ausgeführt, Freigabe offen).

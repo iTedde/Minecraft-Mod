@@ -3,10 +3,12 @@ package dev.craft.forestry.engine;
 import dev.craft.buildcraft.power.BcCapabilities;
 import dev.craft.buildcraft.power.PowerProvider;
 import dev.craft.buildcraft.power.PowerReceptor;
+import dev.craft.core.energy.ConsumptionReadout;
 import dev.craft.core.energy.EnergyNets;
 import dev.craft.core.energy.EnergySink;
 import dev.craft.core.energy.EnergyTile;
 import dev.craft.core.energy.OutputMeter;
+import dev.craft.core.energy.OutputReadout.OutputReading;
 import dev.craft.core.energy.OutputReadout;
 import dev.craft.forestry.FrBlockEntityTypes;
 import dev.craft.forestry.circuit.Circuit;
@@ -43,7 +45,7 @@ import org.jetbrains.annotations.Nullable;
  * board in the socket changes the EU/MJ per cycle and the EU storage.
  */
 public class ElectricalEngineBlockEntity extends BlockEntity
-        implements EnergySink, PowerReceptor, MenuProvider, OutputReadout {
+        implements EnergySink, PowerReceptor, MenuProvider, OutputReadout, ConsumptionReadout {
     public static final int MAX_ENERGY = 10000;
     public static final int MAX_ENERGY_EXTRACTED = 400;
     public static final int MAX_HEAT = 3000;
@@ -54,6 +56,7 @@ public class ElectricalEngineBlockEntity extends BlockEntity
     /** {@code Engine.maxEnergyReceived}. */
     private static final int MAX_ENERGY_RECEIVED = 200;
 
+    private final OutputMeter consumptionMeter = new OutputMeter();
     private final PowerProvider provider = new PowerProvider();
     private final OutputMeter outputMeter = new OutputMeter();
     private final MachineInventory inventory = new MachineInventory(1, this::setChanged);
@@ -374,6 +377,7 @@ public class ElectricalEngineBlockEntity extends BlockEntity
             addEnergy(mjPerCycle);
             outputMeter.record(level, mjPerCycle);
             euStored -= euForCycle;
+            consumptionMeter.record(level, euForCycle);
         }
     }
 
@@ -528,5 +532,10 @@ public class ElectricalEngineBlockEntity extends BlockEntity
     @Override
     public OutputReading getOutputReading() {
         return outputMeter.read(level, OutputReading.Unit.MJ);
+    }
+
+    @Override
+    public OutputReading getConsumptionReading() {
+        return consumptionMeter.read(level, OutputReading.Unit.EU);
     }
 }

@@ -2,10 +2,13 @@ package dev.craft.gregtech.machine;
 
 import dev.craft.buildcraft.power.PowerProvider;
 import dev.craft.buildcraft.power.PowerReceptor;
+import dev.craft.core.energy.ConsumptionReadout;
 import dev.craft.core.energy.EnergyNets;
 import dev.craft.core.energy.EnergySink;
 import dev.craft.core.energy.EnergySource;
 import dev.craft.core.energy.EnergyTile;
+import dev.craft.core.energy.OutputMeter;
+import dev.craft.core.energy.OutputReadout.OutputReading;
 import dev.craft.gregtech.GtItems;
 import dev.craft.gregtech.GtMachine;
 import dev.craft.ic2.item.ElectricItem;
@@ -34,9 +37,10 @@ import org.jetbrains.annotations.Nullable;
  * implement {@link #onPostTick()} plus the value hooks ({@link #maxEUInput()} …).
  */
 public abstract class GtMachineBlockEntity extends MachineBlockEntity implements EnergySink, EnergySource,
-        PowerReceptor {
+        PowerReceptor, ConsumptionReadout {
     public static final int MAX_UPGRADES = 16;
 
+    private final OutputMeter consumptionMeter = new OutputMeter();
     private int storedEnergy;
     private int storedMJ;
     private int overclockers;
@@ -413,8 +417,12 @@ public abstract class GtMachineBlockEntity extends MachineBlockEntity implements
 
     /** {@code decreaseStoredEnergy}: MJ first, then EU, then MJ down to zero. */
     public boolean decreaseStoredEnergy(int energy, boolean ignoreTooLessEnergy) {
-        return decreaseStoredMJ(energy, false) || decreaseStoredEU(energy, ignoreTooLessEnergy)
+        int before = storedMJ + storedEnergy;
+        boolean decreased = decreaseStoredMJ(energy, false) || decreaseStoredEU(energy, ignoreTooLessEnergy)
                 || decreaseStoredMJ(energy, true);
+        // MJ count 1:1 like in GT, so the reading stays in EU/t
+        consumptionMeter.record(level, before - (storedMJ + storedEnergy));
+        return decreased;
     }
 
     // --- energy net ---
@@ -586,5 +594,10 @@ public abstract class GtMachineBlockEntity extends MachineBlockEntity implements
     /** Test hook: skips the two-second start-up delay. */
     public void skipStartupForTest() {
         tickTimer = Math.max(tickTimer, 40);
+    }
+
+    @Override
+    public OutputReading getConsumptionReading() {
+        return consumptionMeter.read(level, OutputReading.Unit.EU);
     }
 }

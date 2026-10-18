@@ -3,6 +3,7 @@ package dev.craft.core.client;
 import java.util.Locale;
 
 import dev.craft.Craft;
+import dev.craft.core.energy.ConsumptionReadout;
 import dev.craft.core.energy.OutputPayloads;
 import dev.craft.core.energy.OutputReadout;
 import dev.craft.core.energy.OutputReadout.OutputReading;
@@ -12,6 +13,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.neoforged.api.distmarker.Dist;
@@ -22,7 +24,10 @@ import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
 import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
 import org.jetbrains.annotations.Nullable;
 
-/** Shows the current output of the producer under the crosshair (e.g. "Output: 12.5 EU/t") below the crosshair. */
+/**
+ * Shows the current output and/or consumption of the block under the crosshair (e.g. "Output: 12.5 EU/t",
+ * "Consumes: 2 EU/t") below the crosshair.
+ */
 public final class OutputOverlay {
     private static final int QUERY_INTERVAL = 10;
 
@@ -76,7 +81,8 @@ public final class OutputOverlay {
             return null;
         }
         BlockPos pos = hit.getBlockPos();
-        return minecraft.level.getBlockEntity(pos) instanceof OutputReadout ? pos : null;
+        BlockEntity entity = minecraft.level.getBlockEntity(pos);
+        return entity instanceof OutputReadout || entity instanceof ConsumptionReadout ? pos : null;
     }
 
     private static void render(GuiGraphics graphics, DeltaTracker deltaTracker) {
@@ -86,13 +92,19 @@ public final class OutputOverlay {
                 || minecraft.screen != null) {
             return;
         }
-        OutputReading reading = answer.reading();
-        if (reading == null) {
-            return;
-        }
-        Component text = Component.translatable("gui.craft.output", format(reading.rate()), reading.unit().symbol());
-        int x = (graphics.guiWidth() - minecraft.font.width(text)) / 2;
         int y = graphics.guiHeight() / 2 + 10;
+        if (answer.output().isPresent()) {
+            drawLine(graphics, minecraft, "gui.craft.output", answer.output().get(), y);
+            y += minecraft.font.lineHeight + 1;
+        }
+        if (answer.consumption().isPresent()) {
+            drawLine(graphics, minecraft, "gui.craft.consumption", answer.consumption().get(), y);
+        }
+    }
+
+    private static void drawLine(GuiGraphics graphics, Minecraft minecraft, String key, OutputReading reading, int y) {
+        Component text = Component.translatable(key, format(reading.rate()), reading.unit().symbol());
+        int x = (graphics.guiWidth() - minecraft.font.width(text)) / 2;
         graphics.drawString(minecraft.font, text, x, y, 0xFFFFFF);
     }
 

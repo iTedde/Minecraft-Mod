@@ -1,8 +1,11 @@
 package dev.craft.ic2.machine;
 
+import dev.craft.core.energy.ConsumptionReadout;
 import dev.craft.core.energy.EnergyNets;
 import dev.craft.core.energy.EnergySink;
 import dev.craft.core.energy.EnergyTile;
+import dev.craft.core.energy.OutputMeter;
+import dev.craft.core.energy.OutputReadout.OutputReading;
 import dev.craft.core.explosion.Ic2Explosion;
 import dev.craft.ic2.Ic2BlockEntityTypes;
 import dev.craft.ic2.Ic2Blocks;
@@ -38,7 +41,7 @@ import net.minecraft.world.level.block.state.BlockState;
  * valuable block of the tip's layer), pumps liquids through an adjacent pump and pulls the pipe back up without a
  * drill (spec 04, miner).
  */
-public class MinerBlockEntity extends MachineBlockEntity implements EnergySink {
+public class MinerBlockEntity extends MachineBlockEntity implements EnergySink, ConsumptionReadout {
     public static final int SLOT_BATTERY = 0;
     public static final int SLOT_SCANNER = 1;
     public static final int SLOT_PIPE = 2;
@@ -53,6 +56,7 @@ public class MinerBlockEntity extends MachineBlockEntity implements EnergySink {
     private static final Direction[] PUMP_SIDES = {Direction.UP, Direction.DOWN, Direction.EAST, Direction.WEST,
             Direction.SOUTH, Direction.NORTH};
 
+    private final OutputMeter consumptionMeter = new OutputMeter();
     private int energy;
     private int targetX;
     private int targetY = NO_TARGET;
@@ -81,14 +85,14 @@ public class MinerBlockEntity extends MachineBlockEntity implements EnergySink {
         boolean wasOperating = isOperating();
         boolean needsInvUpdate = false;
         if (wasOperating) {
-            energy--;
+            useEnergy(1);
             ItemStack scanner = inventory.get(SLOT_SCANNER);
             if (scanner.getItem() instanceof ScannerItem) {
-                energy -= ElectricItems.charge(scanner, energy, 2, false, false);
+                useEnergy(ElectricItems.charge(scanner, energy, 2, false, false));
             }
             ItemStack drill = inventory.get(SLOT_DRILL);
             if (drill.getItem() instanceof DrillItem) {
-                energy -= ElectricItems.charge(drill, energy, 1, false, false);
+                useEnergy(ElectricItems.charge(drill, energy, 1, false, false));
             }
         }
         if (energy <= MAX_ENERGY) {
@@ -100,7 +104,7 @@ public class MinerBlockEntity extends MachineBlockEntity implements EnergySink {
             if (energy >= 2 && canWithdraw()) {
                 targetY = NO_TARGET;
                 miningTicker++;
-                energy -= 2;
+                useEnergy(2);
                 if (miningTicker >= 20) {
                     miningTicker = 0;
                     needsInvUpdate = withdrawPipe();
@@ -126,6 +130,11 @@ public class MinerBlockEntity extends MachineBlockEntity implements EnergySink {
     }
 
     /** IC2 {@code TileEntityElecMachine.provideEnergy} (redstone adds the full capacity). */
+    private void useEnergy(int amount) {
+        energy -= amount;
+        consumptionMeter.record(level, amount);
+    }
+
     private boolean provideEnergy() {
         ItemStack stack = inventory.get(SLOT_BATTERY);
         if (stack.isEmpty()) {
@@ -173,10 +182,10 @@ public class MinerBlockEntity extends MachineBlockEntity implements EnergySink {
         if (canMine(target)) {
             stuckOn = null;
             miningTicker++;
-            energy--;
+            useEnergy(1);
             if (inventory.get(SLOT_DRILL).is(Ic2Items.DIAMOND_DRILL.get())) {
                 miningTicker += 3;
-                energy -= 14;
+                useEnergy(14);
             }
             if (miningTicker >= 200) {
                 miningTicker = 0;
@@ -213,12 +222,12 @@ public class MinerBlockEntity extends MachineBlockEntity implements EnergySink {
                 usePump(state.is(Blocks.WATER));
             }
             level.setBlock(target, Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL);
-            energy -= 2 * (worldPosition.getY() - targetY);
+            useEnergy(2 * (worldPosition.getY() - targetY));
         }
         if (targetX == worldPosition.getX() && targetZ == worldPosition.getZ()) {
             // Original: the pipe below is placed without taking one from the slot.
             level.setBlock(target, Ic2Blocks.MINING_PIPE.get().defaultBlockState(), Block.UPDATE_ALL);
-            energy -= 10;
+            useEnergy(10);
         }
         updateMineTip(targetY);
         targetY = NO_TARGET;
@@ -515,5 +524,10 @@ public class MinerBlockEntity extends MachineBlockEntity implements EnergySink {
     /** Test hook. */
     public void setEnergyForTest(int energy) {
         this.energy = energy;
+    }
+
+    @Override
+    public OutputReading getConsumptionReading() {
+        return consumptionMeter.read(level, OutputReading.Unit.EU);
     }
 }
