@@ -14,6 +14,7 @@ import dev.craft.ic2.Ic2Machine;
 import dev.craft.ic2.cable.CableType;
 import dev.craft.ic2.client.Ic2Client;
 import dev.craft.powerplants.PpItems;
+import dev.craft.portalgun.PgItems;
 import dev.craft.redpower.RpItems;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.item.Item;
@@ -35,6 +36,8 @@ public final class CraftItemModelProvider extends ItemModelProvider {
         RpItems.tools().forEach(tool -> handheldItem(tool.get()));
         basicItem(RpItems.BLANK_PLAN.get());
         basicItem(RpItems.PLAN.get());
+        basicItem(PgItems.LONG_FALL_BOOT.get());
+        basicItem(PgItems.LONG_FALL_BOOTS.get());
         for (CableType type : CableType.values()) {
             basicItem(Ic2Items.cable(type).get());
         }

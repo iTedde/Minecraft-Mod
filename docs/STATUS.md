@@ -1734,3 +1734,23 @@ Werkbank-Blöcke als Liste vorlegen. Spezifikation `docs/spec/20-werkbaenke.md`.
 1. Freigabe erteilt (2026-10-18): F2 behoben, Rest wie vorgeschlagen; keine Blöcke aus §5 angefordert.
 2. Sobald Minecraft wieder gestartet werden darf: `runData` (Abgleich der handgeschriebenen JSONs), GameTests, Client.
 3. Abnahme Phase 18 (im Client: Projekttisch mit Bauplan, Automatische Werkbank am Holzrohr).
+
+# Phase 19 – Long Fall Boots (Nutzer, 2026-10-18)
+
+Nutzerwunsch: „long fall boots fehlen noch im Mod“. Entscheidungen: Portal-Gun-Klassen **gezielt dekompilieren**
+(`reference/decompiled/portalgun/`), Umfang **nur die Long Fall Boots**. Spezifikation `docs/spec/21-long-fall-boots.md`.
+
+## To Do
+- [x] 19.1 Long Fall Boot (einzeln, Stapel 2) + Long Fall Boots (Diamant-Stiefelwerte, unzerstörbar), Rezepte wie im
+  Pack (Eisen/Obsidian/Diamant; 2 Einzelstiefel ↔ Stiefel), kein Fallschaden für Spieler und Zombies, Original-Texturen
+  (`items.png`, `skin_lfb.png`), Kampf-Tab, Tag `minecraft:foot_armor`. `gradlew build` grün. **Offen:** `runData`
+  (JSONs von Hand), 2 neue GameTests (`PortalGunGameTests`), Client-Check.
+
+## Version 0.3.3 (2026-10-18)
+- Mod-Version 0.3.3 mit Phase 18 (Projekttisch, Automatische Werkbank) und Phase 19 (Long Fall Boots); das Paket
+  0.3.2 war vor Phase 18 gebaut und enthielt die Werkbänke noch nicht. CurseForge-Paket
+  `releases/Craft-0.3.3-curseforge.zip` bzw. `X:/Craft/Craft-0.3.3-curseforge.zip` (Mods wie 0.3.2).
+
+## Nächste Schritte
+1. Sobald Minecraft wieder gestartet werden darf: `runData`, GameTests (Phase 18 + 19), Client.
+2. Abnahme Phase 18 + 19 im Client.

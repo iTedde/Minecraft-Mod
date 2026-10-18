@@ -30,6 +30,7 @@ import dev.craft.powerconverters.PowerSystem;
 import dev.craft.powerplants.PpBlocks;
 import dev.craft.powerplants.PpFluids;
 import dev.craft.powerplants.PpItems;
+import dev.craft.portalgun.PgItems;
 import dev.craft.redpower.RpBlocks;
 import dev.craft.redpower.RpGem;
 import dev.craft.redpower.RpItems;
@@ -179,6 +180,12 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
                 item(RpItems.tool(gem, tool), german ? gemName[1] + "-" + toolName[1] : gemName[0] + " " + toolName[0]);
             }
         }
+    }
+
+    /** Portal Gun long fall boots (spec 21). */
+    protected void portalGun(boolean german) {
+        item(PgItems.LONG_FALL_BOOT, german ? "Einzelner Weitfallstiefel" : "Long Fall Boot");
+        item(PgItems.LONG_FALL_BOOTS, german ? "Weitfallstiefel" : "Long Fall Boots");
     }
 
     protected void mining(boolean german) {
@@ -1176,6 +1183,7 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             recipeViewer(false);
             mining(false);
             redPower(false);
+            portalGun(false);
         }
     }
 
@@ -1576,6 +1584,7 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             recipeViewer(true);
             mining(true);
             redPower(true);
+            portalGun(true);
         }
     }
 }

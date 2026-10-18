@@ -10,6 +10,7 @@ import dev.craft.ic2.cable.CableType;
 import dev.craft.ic2.item.ToolboxItem;
 import dev.craft.ic2.item.reactor.GradualItem;
 import dev.craft.powerplants.PpItems;
+import dev.craft.portalgun.PgItems;
 import dev.craft.redpower.RpGem;
 import dev.craft.redpower.RpItems;
 import dev.craft.ic2.block.IronFenceBlock;
@@ -227,6 +228,7 @@ public final class CraftItemTagsProvider extends ItemTagsProvider {
             tag(ItemTags.MINING_LOOT_ENCHANTABLE).add(sickle);
             tag(ItemTags.DURABILITY_ENCHANTABLE).add(sickle);
         }
+        tag(ItemTags.FOOT_ARMOR).add(PgItems.LONG_FALL_BOOTS.get());
         tag(Tags.Items.GEMS).addTag(GEMS_RUBY).addTag(GEMS_SAPPHIRE).addTag(GEMS_GREEN_SAPPHIRE).addTag(GEMS_OLIVINE)
                 .addTag(GEMS_RED_GARNET).addTag(GEMS_YELLOW_GARNET);
         tag(RAW_MACHINE_TIER_01).add(Ic2Items.MACHINE_CASING.get(), GtItems.ALUMINIUM_MACHINE_HULL.get(),

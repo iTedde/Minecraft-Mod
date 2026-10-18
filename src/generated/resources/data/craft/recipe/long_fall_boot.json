@@ -1,0 +1,23 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "#": {
+      "item": "minecraft:iron_ingot"
+    },
+    "D": {
+      "item": "minecraft:diamond"
+    },
+    "O": {
+      "item": "minecraft:obsidian"
+    }
+  },
+  "pattern": [
+    "#O#",
+    "#D#",
+    "#D#"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:long_fall_boot"
+  }
+}

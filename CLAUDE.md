@@ -46,6 +46,7 @@ ein überarbeitetes Energiebalancing und neue Kraftwerke. Wird nicht veröffentl
 | `…powerplants` (neue Inhalte) | Wasserturbine, Kohlekraftwerk (Kessel, Dampfturbine), Koksofen |
 | `…mining` (neue Inhalte) | Mining-Dimension, Mining-Portal |
 | `…redpower` | RedPower-World-Edelsteinwerkzeuge (Phase 17.2), Projekttisch (Phase 18) |
+| `…portalgun` | Long Fall Boots aus Portal Gun (Phase 19) |
 
 MJ und EU bleiben getrennte Systeme; Verbindung nur über Electrical Engine (EU→MJ) und Power Converters.
 
@@ -91,6 +92,7 @@ MJ und EU bleiben getrennte Systeme; Verbindung nur über Electrical Engine (EU�
 | 16 | Balancing-Nachträge Kraftwerke (Nutzer, 2026-10-17; `docs/STATUS.md`): 16.1 HV Solar Array 1024 EU/t (erledigt) · 16.2 Strom aus jedem Turbinengehäuse (Dampf-/Wasserturbine) (erledigt) · 16.3 Windmühle zerfällt nie (erledigt) | **erledigt** |
 | 17 | Nachträge (Nutzer, 2026-10-17; `docs/STATUS.md`): 17.1 Mining-Dimension mit doppelter Erzmenge (erledigt) · 17.2 RedPower-World-Edelsteinwerkzeuge (Rubin, Saphir, Grüner Saphir; komplettes Set; `docs/spec/19-redpower-werkzeuge.md`) (erledigt) | **erledigt** |
 | 18 | Projekttisch (RedPower) + Automatische Werkbank (BuildCraft) (Nutzer, 2026-10-17; `docs/spec/20-werkbaenke.md`): 18.0 Spezifikation + Liste weiterer Werkbank-Blöcke (erledigt) · 18.1 Projekttisch + Baupläne (erledigt, Tests/runData offen) · 18.2 Automatische Werkbank (erledigt, Tests/runData offen) | **erledigt** (GameTests/runData/Client offen) |
+| 19 | Long Fall Boots aus Portal Gun (Nutzer, 2026-10-18; `docs/spec/21-long-fall-boots.md`; nur die Stiefel): 19.1 Einzelstiefel + Stiefel, Rezepte, Fallschaden-Aufhebung (erledigt, GameTests/runData/Client offen) | **erledigt** (GameTests/runData/Client offen) |
 
 Phasen-Umnummerierung (Nutzer, 2026-10-16): Phase 8 „GT-Nachträge“ eingeschoben; die bisherigen Phasen 8/9/10
 (Kraftwerke, Rohre, Feinschliff) heißen jetzt 9/10/11. Ältere Einträge in `docs/STATUS.md` sind entsprechend

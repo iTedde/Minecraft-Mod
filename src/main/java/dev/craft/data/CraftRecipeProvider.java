@@ -44,6 +44,7 @@ import dev.craft.ic2.recipe.MachineRecipe;
 import dev.craft.powerconverters.ConverterType;
 import dev.craft.powerconverters.PcItems;
 import dev.craft.powerplants.PpItems;
+import dev.craft.portalgun.PgItems;
 import dev.craft.redpower.RpGem;
 import dev.craft.redpower.RpItems;
 import net.minecraft.core.HolderLookup;
@@ -111,6 +112,7 @@ public final class CraftRecipeProvider extends RecipeProvider {
         gregTechRecycling();
         redPowerTools();
         redPowerTable();
+        longFallBoots();
         gregTechCircuitBoards();
         gregTechBrass();
         gregTechMortars();
@@ -2063,6 +2065,19 @@ public final class CraftRecipeProvider extends RecipeProvider {
                 .define('S', Items.STONE).define('W', ItemTags.PLANKS).define('T', Items.CRAFTING_TABLE)
                 .define('C', Items.CHEST).save();
         shapeless(RpItems.BLANK_PLAN, 1, "blank_plan", Ingredient.of(Items.PAPER), Ingredient.of(Tags.Items.DYES_BLUE));
+    }
+
+    /**
+     * Portal Gun long fall boots (spec 21): one boot from iron, obsidian and diamonds (non-easy recipe), two boots make
+     * the pair and the pair splits back into two boots.
+     */
+    private void longFallBoots() {
+        shaped(PgItems.LONG_FALL_BOOT, 1, "long_fall_boot").pattern("#O#", "#D#", "#D#")
+                .define('#', Items.IRON_INGOT).define('O', Items.OBSIDIAN).define('D', Items.DIAMOND).save();
+        shapeless(PgItems.LONG_FALL_BOOTS, 1, "long_fall_boots", Ingredient.of(PgItems.LONG_FALL_BOOT),
+                Ingredient.of(PgItems.LONG_FALL_BOOT));
+        shapeless(PgItems.LONG_FALL_BOOT, 2, "long_fall_boot_from_long_fall_boots",
+                Ingredient.of(PgItems.LONG_FALL_BOOTS));
     }
 
     private void gregTechRecycling() {

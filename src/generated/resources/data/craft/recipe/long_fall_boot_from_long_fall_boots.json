@@ -1,0 +1,12 @@
+{
+  "type": "craft:ic2_shapeless",
+  "ingredients": [
+    {
+      "item": "craft:long_fall_boots"
+    }
+  ],
+  "result": {
+    "count": 2,
+    "id": "craft:long_fall_boot"
+  }
+}
