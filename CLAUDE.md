@@ -91,8 +91,8 @@ MJ und EU bleiben getrennte Systeme; Verbindung nur über Electrical Engine (EU�
 | 15 | Mining-Dimension + Turtles (Nutzer, 2026-10-17; `docs/spec/18-mining-dimension.md`, kein Pack-Vorbild): 15.0 Spezifikation (erledigt) · 15.1 Dimension + Erze, flache Steinwelt (erledigt) · 15.2 Portal (erledigt) · 15.3 CC: Tweaked mitinstallieren + CurseForge-Paket (erledigt) | **erledigt** |
 | 16 | Balancing-Nachträge Kraftwerke (Nutzer, 2026-10-17; `docs/STATUS.md`): 16.1 HV Solar Array 1024 EU/t (erledigt) · 16.2 Strom aus jedem Turbinengehäuse (Dampf-/Wasserturbine) (erledigt) · 16.3 Windmühle zerfällt nie (erledigt) | **erledigt** |
 | 17 | Nachträge (Nutzer, 2026-10-17; `docs/STATUS.md`): 17.1 Mining-Dimension mit doppelter Erzmenge (erledigt) · 17.2 RedPower-World-Edelsteinwerkzeuge (Rubin, Saphir, Grüner Saphir; komplettes Set; `docs/spec/19-redpower-werkzeuge.md`) (erledigt) | **erledigt** |
-| 18 | Projekttisch (RedPower) + Automatische Werkbank (BuildCraft) (Nutzer, 2026-10-17; `docs/spec/20-werkbaenke.md`): 18.0 Spezifikation + Liste weiterer Werkbank-Blöcke (erledigt) · 18.1 Projekttisch + Baupläne (erledigt, Tests/runData offen) · 18.2 Automatische Werkbank (erledigt, Tests/runData offen) | **erledigt** (GameTests/runData/Client offen) |
-| 19 | Long Fall Boots aus Portal Gun (Nutzer, 2026-10-18; `docs/spec/21-long-fall-boots.md`; nur die Stiefel): 19.1 Einzelstiefel + Stiefel, Rezepte, Fallschaden-Aufhebung (erledigt, GameTests/runData/Client offen) | **erledigt** (GameTests/runData/Client offen) |
+| 18 | Projekttisch (RedPower) + Automatische Werkbank (BuildCraft) (Nutzer, 2026-10-17; `docs/spec/20-werkbaenke.md`): 18.0 Spezifikation + Liste weiterer Werkbank-Blöcke (erledigt) · 18.1 Projekttisch + Baupläne (erledigt) · 18.2 Automatische Werkbank (erledigt) | **erledigt** (Client-Abnahme offen) |
+| 19 | Long Fall Boots aus Portal Gun (Nutzer, 2026-10-18; `docs/spec/21-long-fall-boots.md`; nur die Stiefel): 19.1 Einzelstiefel + Stiefel, Rezepte, Fallschaden-Aufhebung (erledigt, Client offen) | **erledigt** (Client-Abnahme offen) |
 
 Phasen-Umnummerierung (Nutzer, 2026-10-16): Phase 8 „GT-Nachträge“ eingeschoben; die bisherigen Phasen 8/9/10
 (Kraftwerke, Rohre, Feinschliff) heißen jetzt 9/10/11. Ältere Einträge in `docs/STATUS.md` sind entsprechend
@@ -107,7 +107,7 @@ Personal-Blöcke, Luminator, Sprengstoffe (Industrie-TNT erledigt in 6b.5b, Nuke
 1. ~~GT-Erze~~ **Entschieden (2026-10-16):** **alle** GT-Erze wie im Pack werden in Phase 8 generiert.
    Der Herstellungsweg selbst ist entschieden (s. u.).
 2. ~~Massefabrikator~~ **Entschieden:** IC2-Massefabrikator 1:1 mit IC2-Rezept (kein GT Matter Fabricator).
-3. ~~Balancing-Vorschlag~~ **Freigegeben:** Solar (2026-10-15), Wasser, Wind, Kohlekraftwerk mit Koks 32 000 EU (2026-10-16) – `docs/balancing.md` §5. Nachträge 2026-10-17 (Phase 16): HV-Array 1024 EU/t, Turbinengehäuse leiten, Windmühle ohne Zerfall.
+3. ~~Balancing-Vorschlag~~ **Freigegeben:** Solar (2026-10-15), Wasser, Wind, Kohlekraftwerk mit Koks 32 000 EU (2026-10-16) – `docs/balancing.md` §5. Nachträge 2026-10-17 (Phase 16): HV-Array 1024 EU/t, Turbinengehäuse leiten, Windmühle ohne Zerfall. Nachtrag 2026-10-20: Solar Arrays als 3×3-Felder mit Bonus (LV ×1,2 / MV ×1,4 / HV ×1,5), Originalrezepte.
 4. ~~GT-Nicht-Rezept-Änderungen~~ **Entschieden (2026-10-17):** Upgrade-Stack 4, GT-Recycler-Blacklist und Miner-Lava wie im Pack (Phase 12.10); Solar-Hüte entfallen. **Entschieden:** Schrottbox-Drops wie im Pack – GT ersetzt die IC2-Liste (Schrott 200 + GT-Liste; GT-Items erst, wenn es sie gibt).
 5. ~~Iridiumerz-Generierung (GT)~~ **Entschieden:** wie im Pack (Teil der GT-Erze, Phase 8).
 6. Rezeptanzeige und Minimap (Nutzerwunsch 2026-10-15): **Entschieden:** **EMI** (statt NEI, das es für 1.21 nicht gibt) mit eigener Integration (Rezeptkategorien für IC2-/GT-/BC-/Forestry-Maschinen, Phase 11); Minimap **Xaero's Minimap**, nur mitinstalliert (keine eigene Integration).

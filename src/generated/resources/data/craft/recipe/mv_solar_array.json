@@ -1,9 +1,17 @@
 {
-  "type": "craft:ic2_shapeless",
-  "ingredients": [
-    {
+  "type": "craft:ic2_shaped",
+  "key": {
+    "S": {
+      "item": "craft:lv_solar_array"
+    },
+    "X": {
       "item": "craft:mv_transformer"
     }
+  },
+  "pattern": [
+    "SSS",
+    "SXS",
+    "SSS"
   ],
   "result": {
     "count": 1,

@@ -1,6 +1,9 @@
 package dev.craft.compactsolars;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import dev.craft.core.energy.EnergyNets;
@@ -21,15 +24,16 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
 /**
- * Controller of a solar array multiblock (Compact Solars {@code TileEntityCompactSolar} as a flat structure, spec 11
- * §4). Every {@link #CHECK_INTERVAL} ticks it validates the structure, leases its panels and lower controllers and
- * counts the panels that see the sun; each tick it delivers {@code min(cap, sunny panels · yield)} EU: first into the
- * charge slot, the rest as packets of at most the tier's packet size into the net. Energy the net does not take is
- * lost; there is no buffer.
+ * Centre of a solar array multiblock (Compact Solars {@code TileEntityCompactSolar} as a 3×3 structure, spec 11 §4).
+ * Every {@link #CHECK_INTERVAL} ticks it validates the structure, leases the panels and arrays of its ring and adds up
+ * the base values of the parts that see the sun, itself included; each tick it delivers that sum times its bonus:
+ * first into the charge slot, the rest as packets of at most the tier's packet size into the net. Energy the net
+ * does not take is lost; there is no buffer.
  */
 public class SolarArrayBlockEntity extends MachineBlockEntity implements EnergySource, OutputReadout {
     public static final int CHECK_INTERVAL = 20;
@@ -39,7 +43,7 @@ public class SolarArrayBlockEntity extends MachineBlockEntity implements EnergyS
     private final MultiblockController structure;
     private final MultiblockLease lease = new MultiblockLease();
     private final OutputMeter outputMeter = new OutputMeter();
-    private int sunnyPanels;
+    private int sunnyValue;
     private boolean delivering;
 
     public SolarArrayBlockEntity(BlockPos pos, BlockState state) {
@@ -57,7 +61,7 @@ public class SolarArrayBlockEntity extends MachineBlockEntity implements EnergyS
 
             @Override
             public void onChecked(@Nullable MultiblockPattern.Match match) {
-                sunnyPanels = match == null ? 0 : claimParts(match);
+                sunnyValue = match == null ? 0 : claimParts(match);
             }
         });
     }
@@ -70,9 +74,9 @@ public class SolarArrayBlockEntity extends MachineBlockEntity implements EnergyS
         return structure.isFormed();
     }
 
-    /** Sunny panels counted at the last check (not capped). */
-    public int getSunnyPanels() {
-        return sunnyPanels;
+    /** Base values of the sunny parts at the last check, before the bonus. */
+    public int getSunnyValue() {
+        return sunnyValue;
     }
 
     /** True while the array delivers energy (sun symbol in the GUI). */
@@ -80,7 +84,7 @@ public class SolarArrayBlockEntity extends MachineBlockEntity implements EnergyS
         return delivering;
     }
 
-    /** Held by the controller of a higher array this one is built into. */
+    /** Held by the centre of the array whose ring this one is part of. */
     public MultiblockLease getLease() {
         return lease;
     }
@@ -92,7 +96,7 @@ public class SolarArrayBlockEntity extends MachineBlockEntity implements EnergyS
         if (lease.isHeld(now)) {
             return;
         }
-        int radius = type.getRadius();
+        int radius = SolarArrayPatterns.RADIUS;
         if (!level.hasChunksAt(worldPosition.offset(-radius, 0, -radius), worldPosition.offset(radius, 0, radius))) {
             return;
         }
@@ -100,7 +104,7 @@ public class SolarArrayBlockEntity extends MachineBlockEntity implements EnergyS
         if (!structure.isFormed()) {
             return;
         }
-        int energy = Math.min(type.getOutput(), sunnyPanels * type.getPanelYield());
+        int energy = type.output(sunnyValue);
         outputMeter.record(level, Math.max(energy, 0));
         if (energy <= 0) {
             return;
@@ -124,31 +128,39 @@ public class SolarArrayBlockEntity extends MachineBlockEntity implements EnergyS
     }
 
     /**
-     * Renews the leases on the lower controllers (highest tier first, so a controller may take over the parts of
-     * the controllers it has just claimed) and on the panels; returns the number of claimed panels that see the sun.
-     * Parts leased by a foreign array are skipped.
+     * Renews the leases on the arrays of the ring (highest tier first, so this array may take over the parts of the
+     * arrays it has just claimed) and on its panels; returns the summed base values of itself and of the claimed
+     * parts that see the sun. Parts leased by a foreign array are skipped.
      */
     private int claimParts(MultiblockPattern.Match match) {
         long now = level.getGameTime();
+        List<BlockPos> ring = new ArrayList<>(match.get(SolarArrayPatterns.RING));
+        ring.sort(Comparator.comparingInt(pos -> level.getBlockEntity(pos) instanceof SolarArrayBlockEntity array
+                ? -array.type.ordinal() : 1));
         Set<BlockPos> owners = new HashSet<>();
         owners.add(worldPosition);
-        for (int i = type.ordinal() - 1; i >= 0; i--) {
-            for (BlockPos pos : match.get(SolarArrayType.values()[i].getSymbol())) {
-                if (level.getBlockEntity(pos) instanceof SolarArrayBlockEntity lower
-                        && lower.lease.claim(worldPosition, owners, now, LEASE_DURATION)) {
+        int sunny = sunVisible(worldPosition) ? type.getBaseValue() : 0;
+        for (BlockPos pos : ring) {
+            BlockEntity part = level.getBlockEntity(pos);
+            if (part instanceof SolarArrayBlockEntity array) {
+                if (array.lease.claim(worldPosition, owners, now, LEASE_DURATION)) {
                     owners.add(pos);
+                    if (sunVisible(pos)) {
+                        sunny += array.type.getBaseValue();
+                    }
                 }
-            }
-        }
-        int sunny = 0;
-        for (BlockPos pos : match.get(SolarArrayPatterns.PANEL)) {
-            if (level.getBlockEntity(pos) instanceof SolarPanelBlockEntity panel
+            } else if (part instanceof SolarPanelBlockEntity panel
                     && panel.getArrayLease().claim(worldPosition, owners, now, LEASE_DURATION)
                     && panel.isSunVisible()) {
                 sunny++;
             }
         }
         return sunny;
+    }
+
+    /** Same sun check as the IC2 solar panel, for this array and the arrays of its ring. */
+    private boolean sunVisible(BlockPos pos) {
+        return SolarPanelBlockEntity.isSunVisible(level, pos.above());
     }
 
     // --- energy net ---

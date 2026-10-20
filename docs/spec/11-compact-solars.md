@@ -51,44 +51,55 @@ Kosten kumuliert: LV = 8 Panels + LV-Trafo; MV = 64 Panels + 8 LV- + 1 MV-Trafo;
   pro Tick, sonst sinkt er um die vergangenen Ticks. Überschreitet er `5 · 10^typ` (5 / 50 / 500), bekommt der
   Spieler Übelkeit für `dose/4` Ticks und der Zähler sinkt um `dose`.
 
-## 4. Umsetzung als Multiblock (Balancing, entschieden 2026-10-15)
+## 4. Umsetzung als Multiblock (Balancing; 3×3 mit Bonus, Nutzer 2026-10-20)
 
-Variante „Fläche der Panels“ aus `balancing.md` §3.1. Leitregel: ein Array bündelt, verdichtet aber nicht.
+Ersetzt die Variante „Fläche der Panels“ (3×3 / 9×9 / 27×27, 2026-10-15 bis 2026-10-20): die riesigen Flächen waren
+dem Nutzer zu unhandlich. Jetzt ist jede Stufe ein 3×3-Feld, und das Aufstellen in dieser Konstellation wird mit einem
+Bonus belohnt.
 
-**Blöcke:** LV-, MV-, HV-Solar-Array-Controller (Material Eisen, Härte 3,0, Metall-Sound, mit Schraubenschlüssel
-abbaubar, Wrench-Drop-Rate 1,0, droppt sich selbst). Rezept **formlos**: LV-/MV-/HV-Trafo → Controller gleicher Stufe
-(die Kosten der Panels werden beim Aufstellen bezahlt; Gesamtkosten = Originalrezept, s. u.).
+**Blöcke:** LV-, MV-, HV-Solar-Array (Material Eisen, Härte 3,0, Metall-Sound, mit Schraubenschlüssel abbaubar,
+Wrench-Drop-Rate 1,0, droppt sich selbst). Rezept **wie im Original** (§1): `SSS/SXS/SSS`, S = IC2-Solarpanel /
+LV-Array / MV-Array, X = LV-/MV-/HV-Trafo.
 
-**Aufbau** (eine Ebene, flach, jede Drehung gleich – das Muster ist symmetrisch):
+**Aufbau** (eine Ebene, flach, jede Drehung gleich): das Array in der Mitte, darum ein Ring aus 8 Blöcken. Im Ring sind
+IC2-Solarpanels und Arrays **bis zur Stufe der Mitte** erlaubt, beliebig gemischt (um ein MV also Panels, LV- und
+MV-Arrays, aber kein HV-Array). Fehlt ein Ringblock oder steht dort etwas anderes, ist das Feld nicht geformt.
 
-| Stufe | Fläche | Aufbau | Panels | Deckel |
+**Grundwert** je Block = die Panels, die in ihm stecken: Solarpanel 1, LV 8, MV 64, HV 512 EU/t.
+
+**Leistung je Tick** = `⌊(Grundwerte aller besonnten Teile, Mitte eingeschlossen) × Bonus der Mitte⌋`, Bonus
+**LV ×1,2 · MV ×1,4 · HV ×1,5**. Der Bonus ist zugleich der Ertrag je verbautem Panel. Kein Deckel.
+
+| Mitte | Ring | Rechnung | Leistung (Tag) | Panels verbaut |
 |---|---|---|---:|---:|
-| LV | 3×3 | 8 IC2-Solarpanels um den LV-Controller | 8 | 8 EU/t |
-| MV | 9×9 | 3×3-Raster aus 3×3-Feldern: 8 LV-Arrays, das mittlere Feld = 8 Panels um den MV-Controller | 72 | 64 EU/t |
-| HV | 27×27 | 3×3-Raster aus 9×9-Feldern: 8 MV-Arrays, das mittlere Feld = MV-Aufbau, dessen Mitte der HV-Controller ist | 648 | **1024 EU/t** (2 je Panel) |
+| LV | 8 Solarpanels | 16 × 1,2 | 19 EU/t | 16 |
+| LV | 8 LV-Arrays | 72 × 1,2 | 86 EU/t | 72 |
+| MV | 8 LV-Arrays | 128 × 1,4 | 179 EU/t | 128 |
+| MV | 8 MV-Arrays | 576 × 1,4 | 806 EU/t | 576 |
+| HV | 8 MV-Arrays | 1024 × 1,5 | 1536 EU/t | 1024 |
+| HV | 8 HV-Arrays | 4608 × 1,5 | 6912 EU/t | 4608 |
 
-- Rekursiv: das mittlere Teilfeld einer Stufe ist ein vollständiges Feld der Stufe darunter, dessen Controller durch
-  den höheren ersetzt ist. Mehrkosten gegenüber dem Original: MV +8 Panels, HV +136 Panels und +8 LV-Controller; dafür
-  puffern die überzähligen Panels Abdeckung.
-- **Leistung je Tick** = `min(Deckel, Anzahl Panels mit Sonne · Ertrag)`, Ertrag 1 / 1 / **2** EU je Panel (HV: Nutzer, 2026-10-17 – „der Aufwand soll sich lohnen“; voll ab 512 besonnten Panels); Sonne je Panel wie IC2-Solarpanel (eigene Prüfung
-  alle 128 Ticks, Himmelssicht über dem Panel, Tag, kein Regen außer in Wüsten). Gezählt wird beim Prüfen des Aufbaus
-  (alle 20 Ticks).
-- Abgabe wie im Original (`TileEntityCompactSolar`): erst Lade-Slot (Tier 1/2/3 für LV/MV/HV), Rest als Pakete
-  von höchstens 8 / 64 / 512 EU (Spannung = maxOutput) in alle Richtungen ins Netz – LV/MV ein Paket, HV bis zu
-  zwei –, nicht abgenommene Energie geht verloren, kein Puffer.
-- Panels in einem geformten Array erzeugen selbst nichts (auch nicht für ihren eigenen Lade-Slot). Controller, die in
-  einem höheren Array verbaut sind, geben nichts ab; nur der oberste geformte Controller liefert. Die Zugehörigkeit
-  wird als Lease gehalten (alle 20 Ticks erneuert, verfällt nach 40 Ticks) und nicht gespeichert.
-- Nicht geformter Controller: liefert nichts. Teilweise abgedeckte Arrays liefern entsprechend weniger.
-- Aufbau-Prüfung nur, wenn der ganze Bereich geladen ist; sonst ruht der Controller.
+- Sonne: Panels wie IC2-Solarpanel (eigene Prüfung alle 128 Ticks, Himmelssicht über dem Panel, Tag, kein Regen außer
+  in Wüsten); Arrays (Mitte und Ring) mit derselben Bedingung, geprüft beim Prüfen des Aufbaus (alle 20 Ticks). Ein
+  abgedeckter Block zählt 0, das Feld bleibt geformt.
+- Abgabe wie im Original (`TileEntityCompactSolar`): erst Lade-Slot (Tier 1/2/3 für LV/MV/HV), Rest als Pakete von
+  höchstens 8 / 64 / 512 EU (Spannung wie im Original) in alle Richtungen ins Netz – so viele Pakete wie nötig (19 EU/t
+  am LV = 8 + 8 + 3) –, nicht abgenommene Energie geht verloren, kein Puffer.
+- Einzeln aufgestellt oder ohne vollständigen Ring liefert ein Array **nichts**. Panels und Arrays im Ring eines
+  geformten Felds erzeugen selbst nichts (Panels auch nicht für ihren Lade-Slot); nur die Mitte liefert. Die
+  Zugehörigkeit wird als Lease gehalten (alle 20 Ticks erneuert, verfällt nach 40 Ticks) und nicht gespeichert.
+- Felder dürfen sich Ränder teilen; ein Teil zählt nur für ein Feld (wer es zuerst hält).
+- Aufbau-Prüfung nur, wenn das 3×3-Feld geladen ist; sonst ruht das Array.
 - GUI wie IC2-Solarpanel (`GUISolarGenerator`): ein Lade-Slot, Sonnensymbol, solange das Array Energie liefert.
 
-- Umsetzungsdetails (6.4b): Prüfung über `MultiblockController` mit fester Ausrichtung (Muster symmetrisch).
-  Reihenfolge beim Prüfen: erst die unteren Controller (höchste Stufe zuerst), dann die Panels; ein Teil darf
-  übernommen werden, wenn sein Lease frei/abgelaufen ist oder einem Controller gehört, den dieser Controller gerade
-  selbst hält. Teile eines fremden Arrays werden übersprungen (zählen nicht). Ein verbautes Panel setzt seinen
-  Puffer auf 0 und prüft weiter selbst die Sonne (aktive Textur bleibt).
+- Umsetzungsdetails: Prüfung über `MultiblockController` mit fester Ausrichtung (Muster symmetrisch, Ringsymbol `R`).
+  Reihenfolge beim Prüfen: erst die Arrays im Ring (höchste Stufe zuerst), dann die Panels; ein Teil darf übernommen
+  werden, wenn sein Lease frei/abgelaufen ist oder einem Array gehört, das diese Mitte gerade selbst hält. Teile eines
+  fremden Felds werden übersprungen (zählen nicht). Ein verbautes Panel setzt seinen Puffer auf 0 und prüft weiter
+  selbst die Sonne (aktive Textur bleibt). Abgerundet wird erst nach der Multiplikation.
 - Texturen: `block_textures.png` aus Compact Solars v4.0, Zeile = Stufe (LV 0, MV 1, HV 2), Spalte 0 Seite, 1 oben,
   2 unten. Namen „Low/Medium/High Voltage Solar Array“ (nur englisch registriert).
+- Bestehende Welten: alte 9×9-/27×27-Aufbauten liefern nach dem Update nur noch, wo zufällig ein gültiges 3×3-Feld
+  entsteht; sie müssen umgebaut werden. Die Array-Blöcke selbst bleiben erhalten.
 
 **Solar-Hüte:** entfallen (Nutzer, 2026-10-17; mit dem Controller als Zutat wären sie zu billig).

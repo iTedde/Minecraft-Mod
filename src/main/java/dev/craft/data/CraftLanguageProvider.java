@@ -382,18 +382,26 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
                 : "Vacuum freezer: 3×3×3 cube below the controller (centred on top). Centre air, the 6 face centres "
                 + "advanced casings, the other 20 blocks reinforced casings.");
         add("emi.craft.info.lv_solar_array", german
-                ? "LV-Solar-Array: Fläche 3×3 auf einer Ebene, 8 IC2-Solarpanels um den Controller. 8 EU/t."
-                : "LV solar array: 3×3 area on one level, 8 IC2 solar panels around the controller. 8 EU/t.");
+                ? "LV-Solar-Array: Fläche 3×3 auf einer Ebene, das LV-Array in der Mitte, im Ring 8 Solarpanels oder "
+                + "LV-Arrays (gemischt). Leistung: besonnte Teile (Panel 1, LV 8 EU/t) × 1,2 – mit 8 Panels 19 EU/t. "
+                + "Einzeln liefert ein Array nichts."
+                : "LV solar array: 3×3 area on one level, the LV array in the centre, a ring of 8 solar panels or LV "
+                + "arrays (mixed). Output: sunny parts (panel 1, LV 8 EU/t) × 1.2 – with 8 panels 19 EU/t. A single "
+                + "array delivers nothing.");
         add("emi.craft.info.mv_solar_array", german
-                ? "MV-Solar-Array: Fläche 9×9 aus 3×3 Feldern zu 3×3: 8 vollständige LV-Arrays, im mittleren Feld 8 "
-                + "Solarpanels um den MV-Controller (72 Panels). 64 EU/t."
-                : "MV solar array: 9×9 area of 3×3 fields of 3×3: 8 complete LV arrays, in the middle field 8 solar "
-                + "panels around the MV controller (72 panels). 64 EU/t.");
+                ? "MV-Solar-Array: Fläche 3×3 auf einer Ebene, das MV-Array in der Mitte, im Ring 8 Solarpanels, LV- "
+                + "oder MV-Arrays (gemischt). Leistung: besonnte Teile (Panel 1, LV 8, MV 64 EU/t) × 1,4 – mit 8 "
+                + "LV-Arrays 179 EU/t. Einzeln liefert ein Array nichts."
+                : "MV solar array: 3×3 area on one level, the MV array in the centre, a ring of 8 solar panels, LV or "
+                + "MV arrays (mixed). Output: sunny parts (panel 1, LV 8, MV 64 EU/t) × 1.4 – with 8 LV arrays 179 "
+                + "EU/t. A single array delivers nothing.");
         add("emi.craft.info.hv_solar_array", german
-                ? "HV-Solar-Array: Fläche 27×27 aus 3×3 Feldern zu 9×9: 8 vollständige MV-Arrays, das mittlere Feld "
-                + "wie ein MV-Aufbau mit dem HV-Controller in der Mitte (648 Panels). 512 EU/t."
-                : "HV solar array: 27×27 area of 3×3 fields of 9×9: 8 complete MV arrays, the middle field built like "
-                + "an MV array with the HV controller in its centre (648 panels). 512 EU/t.");
+                ? "HV-Solar-Array: Fläche 3×3 auf einer Ebene, das HV-Array in der Mitte, im Ring 8 Solarpanels oder "
+                + "Arrays bis HV (gemischt). Leistung: besonnte Teile (Panel 1, LV 8, MV 64, HV 512 EU/t) × 1,5 – mit "
+                + "8 MV-Arrays 1536 EU/t. Einzeln liefert ein Array nichts."
+                : "HV solar array: 3×3 area on one level, the HV array in the centre, a ring of 8 solar panels or "
+                + "arrays up to HV (mixed). Output: sunny parts (panel 1, LV 8, MV 64, HV 512 EU/t) × 1.5 – with 8 MV "
+                + "arrays 1536 EU/t. A single array delivers nothing.");
     }
 
     /** IC2 crops (spec 05 §9): blocks, items, crop names, Cropnalyzer texts. */

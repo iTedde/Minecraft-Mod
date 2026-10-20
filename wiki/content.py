@@ -66,7 +66,7 @@ dazu kommen <a href="#/aenderungen">neue Kraftwerke und eine Mining-Dimension</a
 
 <h2 id="home--neu">Neu und geändert</h2>
 <div class="cards">
-{card('solar-arrays', 'craft:lv_solar_array', 'Solar Arrays', 'Compact Solars als flache Multiblocks 3×3 / 9×9 / 27×27.', CHG)}
+{card('solar-arrays', 'craft:lv_solar_array', 'Solar Arrays', 'Compact Solars als 3×3-Felder mit Bonus für die Mitte.', CHG)}
 {card('wassermuehle', 'craft:water_mill', 'Wassermühle', 'Bis 2 EU/t aus fließendem Wasser statt 0,26 EU/t.', CHG)}
 {card('windmuehle', 'craft:wind_mill', 'Windmühle', 'Faktor 2,5, Gewitter ×3, geht nie kaputt.', CHG)}
 {card('koksofen', 'craft:coke_oven', 'Koksofen', '3×3×3-Multiblock: Kohle → Koks ohne Strom.', NEW)}
@@ -155,7 +155,7 @@ nach Art der Änderung. Jede Zeile verlinkt auf eine ausführliche Seite; die vo
 <b>Rezepte und Kosten bleiben, gebalanct wird über Leistung, Effizienz und Platzbedarf.</b>
 Details und Begründung: <a href="#/energie">Energiequellen im Vergleich</a>.</p>
 {h.table(['Thema', 'Original', 'Craft'], [
-    row('Compact Solar Arrays', 'ein Block je Stufe: 8 / 64 / 512 EU/t', 'flache Multiblocks 3×3 / 9×9 / 27×27 aus echten Solarpanels; Leistung = besonnte Panels (HV: ×2), gedeckelt auf 8 / 64 / 1024', 'solar-arrays', CHG),
+    row('Compact Solar Arrays', 'ein Block je Stufe: 8 / 64 / 512 EU/t', 'Rezepte wie im Original; ein Array liefert nur als Mitte eines 3×3-Felds (Ring aus Panels/Arrays bis zur eigenen Stufe), Leistung = (Mitte + Ring) × 1,2 / 1,4 / 1,5', 'solar-arrays', CHG),
     row('Wassermühle', '3×3×3 Wasserblöcke zählen, max. 0,26 EU/t', '5×5×3-Bereich, fließendes Wasser 0,04 EU/t je Block, Biom-Bonus, bis 2 EU/t', 'wassermuehle', CHG),
     row('Windmühle', 'Faktor 1, Regen ×1,2, Gewitter ×1,5, Bruch ab 5 EU/t, Puffer 4', 'Faktor 2,5, Regen ×1,5, Gewitter ×3, kein Zerfall, Puffer 16', 'windmuehle', CHG),
     row('Koks', '– (im Pack nur über Railcraft, das nicht nachgebaut wird)', 'neues Item: im Generator wie Kohle, im Kohlekraftwerk doppelt so viel', 'koksofen', NEW),
@@ -176,7 +176,7 @@ Engine, Power Converters und der Kernreaktor.</p>
 <h2 id="chg--weg">3. Weggelassen oder eingeschränkt</h2>
 {h.table(['Inhalt', 'Original', 'Craft'], [
     row('Bronze-Werkzeuge und -Rüstung', 'IC2-Items', 'nicht umgesetzt (Entscheidung vom 2026-10-15)', '', GONE),
-    row('Solar-Hüte (LV/MV/HV)', 'Compact Solars', 'entfallen – mit dem Array-Controller als Zutat wären sie zu billig; der IC2-Solarhelm existiert', 'solar-arrays', GONE),
+    row('Solar-Hüte (LV/MV/HV)', 'Compact Solars', 'entfallen (Nutzer, 2026-10-17); der IC2-Solarhelm existiert', 'solar-arrays', GONE),
     row('BuildCraft-Gates, Drähte, Fassaden', 'BuildCraft 3.4.3', 'nur die Rohre selbst (Item-, Flüssigkeits-, Leistungs-, Strukturrohre)', 'spec-15', GONE),
     row('GregTech', 'kompletter Mod', 'nur Maschinen und Materialien, die für die Pack-Rezepte nötig sind; dafür <b>alle</b> GT-Erze und alle damit erreichbaren Rezepte', 'mod-gregtech', GONE),
     row('Massefabrikator', 'im Pack durch GTs Matter Fabricator ersetzt', 'IC2-Massefabrikator 1:1 mit IC2-Rezept', 'spec-04', CHG),
@@ -212,30 +212,30 @@ Diese hier bemerkt man im Spiel:</p>
         ('IC2-Solarpanel', 1, '1 EU/t bei Sonne, unverändert'),
         ('Wassermühle (neu)', 2, 'bis 2 EU/t, Tag und Nacht'),
         ('Windmühle (neu, y 128)', 3.2, 'Gewitter bis ≈ 9,6 EU/t'),
-        ('LV Solar Array', 8, '3×3 Fläche'),
         ('IC2-Generator', 10, '4 000 EU je Kohle'),
+        ('LV Solar Array', 19, '3×3, 8 Solarpanels im Ring'),
         ('Kessel + Dampfturbine', 20, 'je Kessel; bis 64 mit 3 Kesseln'),
         ('Geothermiegenerator', 20, '20 000 EU je Lava-Eimer'),
         ('Wasserturbine', 32, 'Deckel, braucht Fluss'),
-        ('MV Solar Array', 64, '9×9 Fläche'),
+        ('MV Solar Array', 179, '3×3, 8 LV-Arrays im Ring'),
         ('Kernreaktor (typisch)', 400, '60–400+ EU/t je nach Design'),
-        ('HV Solar Array', 1024, '27×27 Fläche, 2 Pakete à 512'),
+        ('HV Solar Array', 1536, '3×3, 8 MV-Arrays im Ring, 3 Pakete à 512'),
     ]
     mx = max(b[1] for b in bars)
     bar_html = ''.join(
         f'<div class="brow" data-tip="{h.esc(t)}"><span class="bl">{h.esc(n)}</span><span class="bt"><span class="bf" style="display:block;width:{v_ / mx * 100:.2f}%"></span></span>'
         f'<span class="bv">{str(v_).replace(".", ",")} EU/t</span></div>' for n, v_, t in bars)
     energie = f'''<h1>Energiequellen im Vergleich</h1>
-<p class="lead">Das Ziel des Balancings: <b>Solar ist pro Fläche am schwächsten, Wasser die zuverlässige Mittelklasse, Wind
+<p class="lead">Das Ziel des Balancings: <b>Solar ist wartungsfrei und kompakt, aber teuer und nur am Tag, Wasser die zuverlässige Mittelklasse, Wind
 wetterabhängig mit Gewitterspitzen, Kohle hat einen Ausbaupfad, Öl ist die lagerbare Hochenergie, Atom die Spitze.</b></p>
 <h2 id="en--leistung">Typische Leistung je Anlage (Craft)</h2>
 <div class="bars" role="img" aria-label="Typische Leistung je Anlage in EU pro Tick">{bar_html}</div>
 <p style="font-size:12px;color:var(--muted)">Spitzenleistung; Solar liefert im Tagesmittel nur etwa die Hälfte (nur bei Tag, kein Regen).
-Die Arrays brauchen dafür aber auch 9 / 81 / 729 Blöcke Fläche.</p>
+Die Solar-Felder sind 3×3 groß, aber teuer: in den Beispielen stecken 16 / 128 / 1024 Solarpanels.</p>
 <h2 id="en--tabelle">Vergleichstabelle</h2>
 {h.table(['Quelle', 'Leistung typ.', 'EU/t pro Block Fläche', 'EU pro Ressource', 'Zuverlässigkeit'], [
     ['Solarpanel', '1 (Tag)', '1,0 Spitze / 0,5 Mittel', '– (wartungsfrei)', 'niedrig (nur Tag, kein Regen)'],
-    [f'LV/MV/HV Solar Array {CHG}', '8 / 64 / 1024 (Tag)', '0,9 / 0,8 / 1,4 Spitze', '–', 'niedrig'],
+    [f'LV/MV/HV Solar Array {CHG}', '19 / 179 / 1536 (Tag, 3×3-Feld)', '2 / 20 / 171 Spitze', '– (sehr teuer)', 'niedrig (nur Tag, kein Regen)'],
     [f'Wassermühle {CHG}', 'bis 2', '≈ 0,08 (inkl. Wasserfläche)', '–', '<b>hoch</b> (Tag & Nacht)'],
     [f'Wasserturbine {NEW}', '16–32', '≈ 0,5–0,65 (inkl. Wasserring)', '–', '<b>hoch</b>'],
     [f'Windmühle {CHG}', '3–7, Gewitter bis 20', '≈ 0,04–0,25 (Freiraum 9×9)', '–', 'mittel (Wetter, Wind)'],
@@ -258,84 +258,8 @@ Die Arrays brauchen dafür aber auch 9 / 81 / 729 Blöcke Fläche.</p>
     page('energie', 'Energiequellen im Vergleich', 'Änderungen', energie)
 
     # ------------------------------------------------------------------ Solar arrays
-    P_ = ('craft:solar_panel', 'Solarpanel', 'pan')
-    key_lv = {'P': P_, 'L': ('craft:lv_solar_array', 'LV-Array-Controller', 'ctrl')}
-    lv_layer = h.layer(['PPP', 'PLP', 'PPP'], key_lv, 'LV Solar Array – 3×3 (von oben)', 40)
-
-    def solar_map(size):
-        rows = []
-        for z in range(size):
-            r = ''
-            for x in range(size):
-                ch = 'p'
-                if size >= 3 and x % 3 == 1 and z % 3 == 1:
-                    ch = 'l'
-                if size >= 9 and x % 9 == 4 and z % 9 == 4:
-                    ch = 'm'
-                if size == 27 and x == 13 and z == 13:
-                    ch = 'h'
-                if size == 9 and x == 4 and z == 4:
-                    ch = 'm'
-                r += ch
-            rows.append(r)
-        return rows
-
-    key_col = {'p': (None, 'Solarpanel', 'pan'), 'l': (None, 'LV-Controller', 'lv'),
-               'm': (None, 'MV-Controller', 'mv'), 'h': (None, 'HV-Controller', 'hv')}
-    key_mv = {'p': P_, 'l': ('craft:lv_solar_array', 'LV-Array-Controller', 'ctrl'),
-              'm': ('craft:mv_solar_array', 'MV-Array-Controller', 'ctrl')}
-    mv_layer = h.layer(solar_map(9), key_mv, 'MV Solar Array – 9×9: acht LV-Arrays, in der Mitte der MV-Controller', 26)
-    hv_layer = h.layer(solar_map(27), key_col, 'HV Solar Array – 27×27 (schematisch)', 9)
-
-    solar = f'''<h1>Solar Arrays (Compact Solars)</h1>
-{h.infobox('Solar Arrays', 'craft:hv_solar_array', [
-    ('Herkunft', 'Compact Solars 4.0'), ('Status', CHG + ' Balancing'),
-    ('Stufen', 'LV · MV · HV'), ('Fläche', '3×3 · 9×9 · 27×27'), ('Panels', '8 · 72 · 648'),
-    ('Deckel', '8 · 64 · 1024 EU/t'), ('Paket', '8 · 64 · 512 EU (HV: 2 Pakete je Tick)'),
-    ('Controller-Rezept', 'formlos aus LV-/MV-/HV-Trafo'), ('Abbau', 'Schraubenschlüssel, droppt sich selbst'),
-])}
-<p class="lead">Im Original war ein Solar Array <b>ein einzelner Block</b> mit 8, 64 oder 512 EU/t – wartungsfrei und damit stärker
-als jede andere Quelle. In Craft sind die Arrays <b>flache Multiblocks</b>, die genau die Fläche ihrer Panels belegen.
-Leitregel: <i>Ein Array bündelt, es verdichtet nicht.</i></p>
-{h.compare('<ul><li>1 Block = 8 / 64 / 512 EU/t</li><li>Rezept: 8 Panels (+ Trafo) → LV, 8 LV → MV, 8 MV → HV</li><li>dazu Solar-Hüte als Rüstung</li></ul>',
-           '<ul><li>Controller + echte Solarpanels in der Welt</li><li>Leistung = <b>min(Deckel, Panels mit Sonne)</b></li><li>gleiche Gesamtkosten, aber 9 / 81 / 729 Blöcke Fläche</li><li>Solar-Hüte entfallen</li></ul>')}
-<h2 id="sol--aufbau">Aufbau</h2>
-<p>Das Muster ist symmetrisch und liegt auf <b>einer Ebene</b>; die Drehung ist egal. Jede Stufe ist rekursiv: Das mittlere
-Teilfeld ist ein vollständiges Feld der Stufe darunter, dessen Controller durch den höheren ersetzt ist.</p>
-<div class="layers">{lv_layer}{mv_layer}</div>
-<div class="layers">{hv_layer}<div>{h.legend(key_col)}<p style="max-width:420px;font-size:13px">27 × 27 = 729 Felder: 1 HV-Controller, 8 MV-Controller,
-72 LV-Controller und 648 Solarpanels. Die acht äußeren 9×9-Felder sind komplette MV-Arrays; das mittlere 9×9-Feld ist ein MV-Aufbau,
-dessen Mitte der HV-Controller ist.</p></div></div>
-<h2 id="sol--funktion">So funktioniert es</h2>
-<ul>
-<li>Der Controller prüft seinen Aufbau <b>alle 20 Ticks</b> (nur wenn der ganze Bereich geladen ist, sonst ruht er).</li>
-<li>Jedes Panel prüft selbst alle 128 Ticks die Sonne – genau wie ein einzelnes IC2-Solarpanel: Himmelssicht über dem Panel,
-Tag, kein Regen (außer in Wüsten). Abgedeckte Panels liefern nichts, ein teilweise abgedecktes Array entsprechend weniger.</li>
-<li><b>Leistung pro Tick = min(Deckel, Anzahl besonnter Panels × Ertrag).</b> Ertrag 1 EU je Panel bei LV/MV, <b>2 EU je Panel beim HV-Array</b>
-(Deckel 1024 EU/t – damit sich der riesige Aufbau lohnt). MV braucht 64 von 72, HV 512 von 648 besonnten Panels für volle Leistung;
-die überzähligen Panels puffern Abdeckung.</li>
-<li>Abgabe: erst der Lade-Slot (Tier 1/2/3), der Rest geht in alle Richtungen ins Netz – bei LV/MV als <b>ein</b> Paket, beim HV-Array
-als bis zu <b>zwei 512er Pakete</b> pro Tick (Spannung bleibt HV). Nicht abgenommene Energie verfällt, es gibt keinen Puffer.</li>
-<li>Panels in einem geformten Array erzeugen selbst nichts mehr. In ein höheres Array eingebaute Controller geben nichts ab –
-nur der oberste geformte Controller liefert.</li>
-<li>Die Zugehörigkeit eines Panels ist ein <i>Lease</i>: alle 20 Ticks erneuert, verfällt nach 40 Ticks, wird nicht gespeichert.
-Bei überlappenden Arrays zählt ein Panel nur für den Controller, der es zuerst hält.</li>
-<li>Ein nicht geformter Controller liefert nichts. Die GUI entspricht der des Solarpanels (ein Lade-Slot, Sonnensymbol).</li>
-</ul>
-<div class="calc" data-calc="solar"><h4>Rechner: Solar Array</h4><div class="row">
-<label>Stufe <select name="tier"><option value="lv">LV (3×3)</option><option value="mv" selected>MV (9×9)</option><option value="hv">HV (27×27)</option></select></label>
-<label>Panels mit Sonne <input type="range" name="sun" min="0" max="100" value="100"></label></div><div class="out"></div><div class="msg"></div></div>
-<h2 id="sol--rezepte">Rezepte</h2>
-<p>Die Controller entstehen <b>formlos</b> aus dem Transformator gleicher Stufe. Die Kosten der Panels bezahlt man beim Aufstellen;
-die Gesamtkosten entsprechen damit dem Originalrezept (MV: +8 Panels, HV: +136 Panels und +8 LV-Controller).</p>
-<div class="recipes">
-{h.recipe(['T'], {'T': ('craft:lv_transformer', None)}, ('craft:lv_solar_array', None), shapeless=True)}
-{h.recipe(['T'], {'T': ('craft:mv_transformer', None)}, ('craft:mv_solar_array', None), shapeless=True)}
-{h.recipe(['T'], {'T': ('craft:hv_transformer', None)}, ('craft:hv_solar_array', None), shapeless=True)}
-</div>
-<p>Spezifikation: <a href="#/spec-11">11 – Compact Solars</a>, Abschnitt 4.</p>
-'''
-    page('solar-arrays', 'Solar Arrays', 'Neu & geändert', solar)
+    # The page body lives in content_guides.py (it replaces this entry, which only keeps the position).
+    page('solar-arrays', 'Solar Arrays', 'Neu & geändert', '')
 
     # ------------------------------------------------------------------ Wassermühle
     wm_rows = ['fffff', 'fWWWf', 'fWMWf', 'fWWWf', 'fffff']

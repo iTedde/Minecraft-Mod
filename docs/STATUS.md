@@ -1762,13 +1762,6 @@ IC2-Rezept `SPS/PGP/SPS` (Stock, Bretter, Generator → 2 Wassermühlen) wieder 
 zusätzlich (`abweichungen.md`). Version 0.3.4, CurseForge-Paket `releases/Craft-0.3.4-curseforge.zip` bzw.
 `X:/Craft/Craft-0.3.4-curseforge.zip`. JSON von Hand (`runData` offen).
 
-# Nachtrag – Wassermühle ohne Aluminium (Nutzer, 2026-10-18)
-
-Nutzerwunsch: Wassermühlen sollen keine Aluminiumplatten mehr brauchen („nervig, ein bisschen ein Loop“). Umgesetzt:
-IC2-Rezept `SPS/PGP/SPS` (Stock, Bretter, Generator → 2 Wassermühlen) wieder aktiv, GT-Assembler-Rezept bleibt
-zusätzlich (`abweichungen.md`). Version 0.3.4, CurseForge-Paket `releases/Craft-0.3.4-curseforge.zip` bzw.
-`X:/Craft/Craft-0.3.4-curseforge.zip`. JSON von Hand (`runData` offen).
-
 # Nachtrag – Verbrauchsanzeige (Nutzer, 2026-10-18)
 
 Nutzerwunsch: „Verbrauchsanzeige, genau wie beim Output der Energien“. Umgesetzt im selben Blick-Overlay als zweite
@@ -1799,3 +1792,23 @@ Nutzerwunsch: fließendes Wasser über der Turbine soll zählen, „etwas teurer
   (`runData` offen).
 - [x] GameTest `WaterTurbineGameTests.waterAboveTheCubeCounts` (nicht ausgeführt, Freigabe offen).
 - [x] Version 0.3.5, CurseForge-Paket `releases/Craft-0.3.5-curseforge.zip` bzw. `X:/Craft/Craft-0.3.5-curseforge.zip`.
+
+# Nachtrag – Solar Arrays als 3×3-Felder mit Bonus (Nutzer, 2026-10-20)
+
+Nutzerwunsch: „Diese riesigen Flächen sind nicht gut genug.“ Entschieden nach Vorschlag: jede Stufe ein 3×3-Feld, Array
+in der Mitte, im Ring Solarpanels und Arrays bis zur Stufe der Mitte (gemischt); Leistung = besonnte Grundwerte
+(Panel 1, LV 8, MV 64, HV 512) × Bonus der Mitte **LV ×1,2 · MV ×1,4 · HV ×1,5** (HV 1,5 statt vorgeschlagener 1,6 –
+Nutzer). Arrays wieder mit Originalrezept `SSS/SXS/SSS`. Ersetzt 3×3/9×9/27×27 und die HV-Verdopplung aus 16.1.
+
+- [x] `SolarArrayType` (Grundwert, Bonus, `output()`), `SolarArrayPatterns` (3×3, Ringsymbol `R`),
+  `SolarArrayBlockEntity` (Mitte und Ring-Arrays mit eigener Sonnenprüfung, Lease wie bisher, beliebig viele Pakete).
+- [x] Rezepte (Provider + JSON), EMI-Texte, `spec/11` §4, `balancing.md` §3.1/§4/§5, `abweichungen.md`,
+  `architektur.md`, `testplan.md` 8.1, Wiki (Solar-Seite, Rechner, Energievergleich) neu erzeugt.
+- [x] Unit-Tests (`SolarArrayPatternsTest`), 9 GameTests (`CompactSolarsGameTests`) neu. `gradlew build` grün,
+  **alle 374 GameTests grün** (damit auch die bisher nicht ausgeführten Tests aus Phase 18/19 und den Nachträgen vom
+  2026-10-18). `runData` ausgeführt: keine Abweichung zu den handgeschriebenen JSONs (auch Phase 18/19).
+- Bestehende Welten: alte 9×9-/27×27-Aufbauten müssen auf 3×3-Felder umgebaut werden.
+- [x] Version 0.3.6, CurseForge-Paket `releases/Craft-0.3.6-curseforge.zip`.
+
+## Nächste Schritte
+1. Abnahme im Client: Solar-Felder (Testplan 8.1), Phase 18 + 19 (Projekttisch, Automatische Werkbank, Long Fall Boots).

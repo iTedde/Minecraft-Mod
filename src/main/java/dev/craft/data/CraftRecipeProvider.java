@@ -718,8 +718,12 @@ public final class CraftRecipeProvider extends RecipeProvider {
     // --- Compact Solars (multiblock variant, spec 11 §4): shapeless transformer → controller ---
 
     private void compactSolars() {
+        // Original Compact Solars recipes: 8 of the tier below around its transformer (user, 2026-10-20)
         for (SolarArrayType type : SolarArrayType.values()) {
-            shapeless(CsItems.array(type), 1, type.getName(), Ingredient.of(machine(type.getTransformer())));
+            ItemLike lower = type.ordinal() == 0 ? machine(Ic2Machine.SOLAR_PANEL)
+                    : CsItems.array(SolarArrayType.values()[type.ordinal() - 1]);
+            shaped(CsItems.array(type), 1, type.getName()).pattern("SSS", "SXS", "SSS").define('S', lower)
+                    .define('X', machine(type.getTransformer())).save();
         }
     }
 

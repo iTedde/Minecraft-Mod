@@ -517,11 +517,16 @@ const CALCS = {
   },
   solar(el){
     function upd(){
-      const tier = el.querySelector('[name=tier]').value, sun = +el.querySelector('[name=sun]').value;
-      const cap = {lv: 8, mv: 64, hv: 1024}[tier], panels = {lv: 8, mv: 72, hv: 648}[tier], yld = tier === 'hv' ? 2 : 1;
-      const n = Math.round(panels * sun / 100), out = Math.min(cap, n * yld), need = Math.ceil(cap / yld);
-      el.querySelector('.out').innerHTML = `<div class="res"><b>${out} EU/t</b><span>Leistung (Deckel ${cap})</span></div><div class="res"><b>${n} / ${panels}</b><span>Panels mit Sonne</span></div><div class="res"><b>${fmt(out * 0.5 * 24000, 0)} EU</b><span>pro Tag (≈ halber Tag Sonne)</span></div>`;
-      el.querySelector('.msg').textContent = n >= need ? (n > need ? `${n - need} Panels Reserve – Abdeckung bis dahin kostet keine Leistung.` : 'Genau ausgelastet.') : `Es fehlen ${need - n} besonnte Panels bis zur vollen Leistung.`;
+      const tier = el.querySelector('[name=tier]').value, ring = el.querySelector('[name=ring]').value, n = +el.querySelector('[name=sun]').value;
+      const base = {p: 1, lv: 8, mv: 64, hv: 512}, bonus = {lv: 120, mv: 140, hv: 150}, rank = {p: 0, lv: 1, mv: 2, hv: 3};
+      if (rank[ring] > rank[tier]) {
+        el.querySelector('.out').innerHTML = `<div class="res"><b>0 EU/t</b><span>nicht geformt</span></div>`;
+        el.querySelector('.msg').textContent = 'Im Ring sind nur Solarpanels und Arrays bis zur Stufe der Mitte erlaubt.';
+        return;
+      }
+      const sunny = base[tier] + n * base[ring], out = Math.floor(sunny * bonus[tier] / 100), panels = base[tier] + 8 * base[ring];
+      el.querySelector('.out').innerHTML = `<div class="res"><b>${fmt(out, 0)} EU/t</b><span>Leistung (${sunny} × ${fmt(bonus[tier] / 100, 1)})</span></div><div class="res"><b>${fmt(panels, 0)}</b><span>Solarpanels verbaut</span></div><div class="res"><b>${fmt(out * 0.5 * 24000, 0)} EU</b><span>pro Tag (≈ halber Tag Sonne)</span></div>`;
+      el.querySelector('.msg').textContent = n < 8 ? `${8 - n} Ringblöcke ohne Sonne zählen nicht.` : `${fmt(out / panels, 2)} EU/t je verbautem Panel.`;
     }
     el.addEventListener('input', upd); upd();
   },

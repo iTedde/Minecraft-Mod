@@ -47,24 +47,26 @@ Platzbedarf**. Solar wird nicht pauschal geschwächt, die anderen Quellen werden
 
 ## 3. Vorschlag
 
-### 3.1 Solar (Rolle: wartungsfrei, pro Fläche am schwächsten)
+### 3.1 Solar (Rolle: wartungsfrei, teuer, kompakt)
 
 - **IC2-Solarpanel bleibt 1:1** (1 EU/t bei Sonne, 1 Block).
-- **Compact Solar Arrays werden flache Multiblocks**, die genau die Fläche ihrer Panels belegen. Leitregel:
-  *Ein Array ist nur noch eine Bündelung, keine Verdichtung* – es spart Kabel und liefert ein einziges Paket der
-  passenden Spannung, verdichtet aber nicht.
+- **Compact Solar Arrays: 3×3-Felder mit Bonus** (Nutzer, 2026-10-20; ersetzt „Fläche der Panels“ 3×3/9×9/27×27 vom
+  2026-10-15/17 – die riesigen Flächen waren unhandlich). Arrays wieder mit Originalrezept (8 der Stufe darunter +
+  Trafo); ein Array liefert nur in der Mitte eines 3×3-Felds, dessen Ring aus Solarpanels und Arrays bis zur Stufe der
+  Mitte besteht. Leistung = Summe der besonnten Grundwerte (Panel 1, LV 8, MV 64, HV 512) × Bonus der Mitte.
 
-| Stufe | Größe (Vorschlag) | Aufbau | Leistung (Tag) | EU/t pro Block | Begründung |
-|---|---|---|---:|---:|---|
-| LV Solar Array | **3×3** | 8 Solarpanels + 1 LV-Array-Controller (Mitte) | 8 EU/t (ein 8-EU-Paket) | 0,89 | 8 Panels wie im Originalrezept; 2×2 hätte nur Platz für 3 Panels |
-| MV Solar Array | **9×9** | 3×3 Raster aus LV-Arrays, Mitte = MV-Controller statt LV-Controller | 64 EU/t | 0,79 | 8 LV-Arrays wie im Originalrezept |
-| HV Solar Array | **27×27** | 3×3 Raster aus MV-Arrays, Mitte = HV-Controller | ~~512~~ **1024 EU/t** (2 je Panel, 2 Pakete à 512) | 1,40 | 8 MV-Arrays wie im Originalrezept; Leistung verdoppelt (Nutzer, 2026-10-17) |
+| Mitte | Bonus | Beispiel-Ring | Leistung (Tag) | EU/t pro Block |
+|---|---:|---|---:|---:|
+| LV Solar Array | ×1,2 | 8 Solarpanels | 19 EU/t | 2,1 |
+| MV Solar Array | ×1,4 | 8 LV-Arrays | 179 EU/t | 19,9 |
+| HV Solar Array | ×1,5 | 8 MV-Arrays | 1536 EU/t | 170,7 |
 
-- Kosten = Originalrezept (die Arrays bestehen aus denselben Teilen), nur aufgeteilt auf Controller + verbaute Module.
-- Bedingungen pro Modul wie Solarpanel (jedes Panel braucht Himmelssicht; abgedeckte Panels liefern nichts).
-- Alternative (kompakter, näher an den Richtwerten 2×2/3×3/4×4): spezielle Array-Module mit 2×2 / 3×3 / 4×4 Blöcken
-  und Leistung 4 / 9 / 16 EU/t (1 EU/t pro Block). Nachteil: die Original-Paketgrößen 8/64/512 gehen verloren und die
-  Rezepte müssten angepasst werden. **Empfehlung: Variante „Fläche der Panels“.**
+- Der Bonus ist der Ertrag je verbautem Panel (1,2 / 1,4 / 1,5 EU/t); eine höhere Mitte lohnt sich immer. Gebremst wird
+  nur über die Kosten (HV-Feld mit MV-Ring = 1024 Panels), nicht mehr über die Fläche.
+- Folge (bewusst, Nutzer 2026-10-20): Solar ist nicht mehr die pro Fläche schwächste Quelle, sondern die stärkste
+  wartungsfreie – dafür nur am Tag, ohne Regen und sehr teuer.
+- Bedingungen pro Block wie Solarpanel (Himmelssicht, Tag, kein Regen); abgedeckte Blöcke zählen 0. Details
+  `spec/11-compact-solars.md` §4.
 
 ### 3.2 Wasserkraft (Rolle: zuverlässig, mittelstark, Tag und Nacht)
 
@@ -138,7 +140,7 @@ Platzbedarf (Hindernis-Würfel) bleibt – Wind braucht Höhe und Abstand.
 | Quelle | Leistung typ. | EU/t pro Block Fläche | EU pro Ressource | Zuverlässigkeit |
 |---|---:|---:|---:|---|
 | Solarpanel | 1 (Tag) | 1,0 Spitze / 0,5 Mittel | – (wartungsfrei) | niedrig (nur Tag, kein Regen) |
-| LV/MV/HV Solar Array | 8 / 64 / 1024 (Tag) | 0,9 / 0,8 / 1,4 Spitze | – | niedrig |
+| LV/MV/HV Solar Array (3×3) | 19 / 179 / 1536 (Tag, Beispiel-Ring) | 2 / 20 / 171 Spitze | – | niedrig (nur Tag), sehr teuer |
 | Wassermühle (neu) | bis 2 | ≈ 0,08 (inkl. Wasserfläche) | – | **hoch** (Tag & Nacht) |
 | Wasserturbine | 16–32 | ≈ 0,2–0,65 (inkl. Wasserfläche) | – | **hoch** |
 | Windmühle (neu) | 3–7, Gewitter bis 20 | ≈ 0,04–0,25 (Freiraum 9×9) | – | mittel (Wetter, Wind) |
@@ -150,13 +152,14 @@ Platzbedarf (Hindernis-Würfel) bleibt – Wind braucht Höhe und Abstand.
 | Stirling + PC | 2,4 | ≈ 1 | 3 888 / Kohle | mittel (Explosionsgefahr) |
 | Kernreaktor | 60–400+ | 10–50+ | ≈ 1–12 Mio. / Zelle | hoch bei korrekter Kühlung, Risiko |
 
-Ergebnis: Solar ist pro Fläche am schwächsten, Wasser die zuverlässige Mittelklasse, Wind wetterabhängig mit
+Ergebnis: Solar ist wartungsfrei und kompakt, aber teuer und nur am Tag (bis 2026-10-20: pro Fläche am schwächsten), Wasser die zuverlässige Mittelklasse, Wind wetterabhängig mit
 Gewitterspitzen, Kohle hat einen sinnvollen Ausbaupfad, Öl ist die lagerbare Hochenergie, Atom die Spitze.
 
 ## 5. Zu bestätigen
 
 1. ~~Solar-Variante~~ **Freigegeben (2026-10-15):** „Fläche der Panels“ (3×3 / 9×9 / 27×27), Mitte rekursiv mit
-   Deckel, Controller-Rezept = Trafo 1:1 – Details `spec/11-compact-solars.md` §4.
+   Deckel, Controller-Rezept = Trafo 1:1. **Ersetzt (2026-10-20):** 3×3-Felder mit Bonus LV ×1,2 / MV ×1,4 / HV ×1,5,
+   Originalrezepte (§3.1) – Details `spec/11-compact-solars.md` §4.
 2. ~~Wassermühlen-/Turbinen-Werte~~ **Freigegeben (2026-10-16)** wie §3.2 – Details `spec/14-kraftwerke.md` §5–6.
 3. ~~Wind-Faktoren~~ **Freigegeben (2026-10-16)** wie §3.3 – Details `spec/14-kraftwerke.md` §7.
 4. ~~Kohlekraftwerk-Werte~~ **Freigegeben (2026-10-16): Koks 32 000 EU** (Brennwert sonst wie Kohle) – Details `spec/14-kraftwerke.md` §1–4. Vorschlag war: (16 000 EU/Kohle, 20 mB/t Dampf = 20 EU/t pro Kessel, Koks 32 000 EU oder neutral,

@@ -7,45 +7,26 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 class SolarArrayPatternsTest {
-    private static long count(String[] rows, char symbol) {
-        return Arrays.stream(rows).flatMapToInt(String::chars).filter(c -> c == symbol).count();
+    @Test
+    void everyTierIsARingAroundItsCentre() {
+        assertEquals(Arrays.asList("RRR", "RLR", "RRR"), Arrays.asList(SolarArrayPatterns.layout(SolarArrayType.LV)));
+        assertEquals(Arrays.asList("RRR", "RMR", "RRR"), Arrays.asList(SolarArrayPatterns.layout(SolarArrayType.MV)));
+        assertEquals(Arrays.asList("RRR", "RHR", "RRR"), Arrays.asList(SolarArrayPatterns.layout(SolarArrayType.HV)));
     }
 
     @Test
-    void lvIsEightPanelsAroundTheController() {
-        assertEquals(Arrays.asList("PPP", "PLP", "PPP"), Arrays.asList(SolarArrayPatterns.layout(SolarArrayType.LV)));
+    void baseValuesAreThePanelsInside() {
+        assertEquals(8, SolarArrayType.LV.getBaseValue());
+        assertEquals(64, SolarArrayType.MV.getBaseValue());
+        assertEquals(512, SolarArrayType.HV.getBaseValue());
     }
 
     @Test
-    void mvIsEightLvArraysAndAnMvCentre() {
-        String[] rows = SolarArrayPatterns.layout(SolarArrayType.MV);
-        assertEquals(9, rows.length);
-        assertEquals(72, count(rows, 'P'));
-        assertEquals(8, count(rows, 'L'));
-        assertEquals(1, count(rows, 'M'));
-        assertEquals('M', rows[4].charAt(4));
-        assertEquals('L', rows[1].charAt(1));
-        assertEquals('L', rows[7].charAt(4));
-    }
-
-    @Test
-    void hvIsEightMvArraysAndAnHvCentre() {
-        String[] rows = SolarArrayPatterns.layout(SolarArrayType.HV);
-        assertEquals(27, rows.length);
-        assertEquals(27, rows[0].length());
-        assertEquals(648, count(rows, 'P'));
-        assertEquals(72, count(rows, 'L'));
-        assertEquals(8, count(rows, 'M'));
-        assertEquals(1, count(rows, 'H'));
-        assertEquals('H', rows[13].charAt(13));
-        assertEquals('M', rows[4].charAt(13));
-        assertEquals('L', rows[13].charAt(10));
-    }
-
-    @Test
-    void radii() {
-        assertEquals(1, SolarArrayType.LV.getRadius());
-        assertEquals(4, SolarArrayType.MV.getRadius());
-        assertEquals(13, SolarArrayType.HV.getRadius());
+    void outputIsTheSunnyValueTimesTheCentresBonusRoundedDown() {
+        assertEquals(19, SolarArrayType.LV.output(8 + 8));
+        assertEquals(179, SolarArrayType.MV.output(64 + 8 * 8));
+        assertEquals(1536, SolarArrayType.HV.output(512 + 8 * 64));
+        assertEquals(1, SolarArrayType.LV.output(1));
+        assertEquals(0, SolarArrayType.HV.output(0));
     }
 }

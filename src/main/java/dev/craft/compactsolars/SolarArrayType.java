@@ -3,30 +3,26 @@ package dev.craft.compactsolars;
 import dev.craft.ic2.Ic2Machine;
 
 /**
- * Compact Solars array tiers ({@code CompactSolarType}) as multiblocks: output cap, packet size, EU per sunny panel,
- * charge tier and the transformer the controller is made from. Each tier is a 3×3 grid of the tier below
- * ({@code docs/spec/11} §4). The HV array yields 2 EU per sunny panel up to 1024 EU/t in packets of 512 (user,
- * 2026-10-17).
+ * Compact Solars array tiers ({@code CompactSolarType}) as 3×3 multiblocks (user, 2026-10-20; {@code docs/spec/11} §4):
+ * the array in the centre and every part of the ring of at most its tier count with their base value (the panels
+ * inside: 1 / 8 / 64 / 512), the sum is multiplied by the centre's bonus.
  */
 public enum SolarArrayType {
-    LV("lv_solar_array", 8, 8, 1, 1, Ic2Machine.LV_TRANSFORMER, 'L'),
-    MV("mv_solar_array", 64, 64, 1, 2, Ic2Machine.MV_TRANSFORMER, 'M'),
-    HV("hv_solar_array", 1024, 512, 2, 3, Ic2Machine.HV_TRANSFORMER, 'H');
+    LV("lv_solar_array", 8, 120, 1, Ic2Machine.LV_TRANSFORMER, 'L'),
+    MV("mv_solar_array", 64, 140, 2, Ic2Machine.MV_TRANSFORMER, 'M'),
+    HV("hv_solar_array", 512, 150, 3, Ic2Machine.HV_TRANSFORMER, 'H');
 
     private final String name;
-    private final int output;
-    private final int packetSize;
-    private final int panelYield;
+    private final int baseValue;
+    private final int bonusPercent;
     private final int tier;
     private final Ic2Machine transformer;
     private final char symbol;
 
-    SolarArrayType(String name, int output, int packetSize, int panelYield, int tier, Ic2Machine transformer,
-                   char symbol) {
+    SolarArrayType(String name, int baseValue, int bonusPercent, int tier, Ic2Machine transformer, char symbol) {
         this.name = name;
-        this.output = output;
-        this.packetSize = packetSize;
-        this.panelYield = panelYield;
+        this.baseValue = baseValue;
+        this.bonusPercent = bonusPercent;
         this.tier = tier;
         this.transformer = transformer;
         this.symbol = symbol;
@@ -36,19 +32,24 @@ public enum SolarArrayType {
         return name;
     }
 
-    /** Maximum EU per tick (8 / 64 / 1024). */
-    public int getOutput() {
-        return output;
+    /** EU per tick this array adds to a structure when it sees the sun (8 / 64 / 512, its panels). */
+    public int getBaseValue() {
+        return baseValue;
     }
 
-    /** Largest packet, i.e. the voltage (8 / 64 / 512). */
+    /** Largest packet, i.e. the voltage (8 / 64 / 512, the original output). */
     public int getPacketSize() {
-        return packetSize;
+        return baseValue;
     }
 
-    /** EU per tick and sunny panel (1 / 1 / 2). */
-    public int getPanelYield() {
-        return panelYield;
+    /** Bonus of an array of this tier in the centre, in percent (120 / 140 / 150). */
+    public int getBonusPercent() {
+        return bonusPercent;
+    }
+
+    /** EU per tick of a structure with this centre whose sunny parts add up to {@code sunnyValue}, rounded down. */
+    public int output(int sunnyValue) {
+        return sunnyValue * bonusPercent / 100;
     }
 
     /** Charge tier of the charge slot. */
@@ -60,22 +61,8 @@ public enum SolarArrayType {
         return transformer;
     }
 
-    /** Symbol of this tier's controller in the layouts of {@link SolarArrayPatterns}. */
+    /** Symbol of this tier's array in the centre of {@link SolarArrayPatterns#layout}. */
     public char getSymbol() {
         return symbol;
-    }
-
-    /** Edge length of the square: 3, 9, 27. */
-    public int getSize() {
-        int size = 3;
-        for (int i = 0; i < ordinal(); i++) {
-            size *= 3;
-        }
-        return size;
-    }
-
-    /** Distance from the controller to the edge. */
-    public int getRadius() {
-        return getSize() / 2;
     }
 }
