@@ -2023,5 +2023,13 @@ Spezifikation: `docs/spec/24-herkunft.md`.
   Implosionskompressor, Kompressor, UU-Materie); alle erreichbar.
 - [x] `SourceTextsTest`: jedes `*_ingot`, `*_plate`, `*_nugget` und die Edelsteine. `gradlew test build` grün, Wiki neu.
 
+## Erledigt (23.4 Zellen und Sonstiges, 2026-10-20)
+- [x] Herkunftstexte für alle 53 Zellen: Flüssigkeits-/Gaszellen (Welt, Canning Machine, Elektrolyseur, Zentrifuge,
+  Vakuumgefrierer, Extraktor), Brennstäbe und Reaktorzellen kurz (Doppel/Vierfach bzw. Kühlzellen-Stufen je ein Text).
+  Alle erreichbar; Wasser-/Lavazelle auch per Rechtsklick auf eine Quelle, wiederangereicherte Uranzelle nur im Reaktor.
+- [x] Sonstiges: Kohleball-Kette, Kohlefaser/-netz, Koks/Koksblock, Asche/dunkle Asche, Pflanzenball/komprimierte
+  Pflanzen, hydrierte Kohle, Gummi, fortgeschrittene Legierung, Treibstoffeimer (Kohleplatte und Mischmetall schon in 23.3).
+- [x] `SourceTextsTest`: jedes `*_cell` plus die Sonstiges-Liste. `gradlew test build` grün, Wiki neu.
+
 ## Nächste Schritte
-1. 23.4: Zellen und Sonstiges.
+1. 23.5: Wiki-Seite „Rohstoffe & Erze“, Durchsicht der Anleitungsseiten.

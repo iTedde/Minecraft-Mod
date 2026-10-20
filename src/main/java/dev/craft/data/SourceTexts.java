@@ -23,6 +23,9 @@ public final class SourceTexts {
         ingots();
         plates();
         gems();
+        cells();
+        fuelRods();
+        misc();
     }
 
     private SourceTexts() {
@@ -777,6 +780,244 @@ public final class SourceTexts {
                 "Compressor: coal chunk → 1 (coal ball → compressed coal ball → 8 of them around obsidian, bricks or an iron block → coal chunk). "
                         + "Implosion compressor: 4 diamond dust + 32 industrial TNT → 3. Crafting: → diamond.",
                 "industrial_diamond");
+    }
+
+    /** Liquid and gas cells (canning machine, electrolyzer, centrifuge, vacuum freezer; phase 23.4). */
+    private static void cells() {
+        add("Werkbank: 4 Zinnbarren → 4. Kommt aus fast allen GT-Maschinen zurück, sobald ihr Inhalt verarbeitet ist "
+                        + "(Elektrolyseur, Zentrifuge, Industrial Grinder …); Druckluftzelle → 1 (Werkbank oder Extraktor).",
+                "Crafting: 4 tin ingots → 4. Returned by almost every GT machine once the content is used up "
+                        + "(electrolyzer, centrifuge, industrial grinder …); air cell → 1 (crafting or extractor).",
+                "empty_cell");
+        add("Leere Zelle auf eine Wasserquelle anwenden (nimmt den Block auf). Canning Machine: Wassereimer + Zelle. "
+                        + "Elektrolyseur: 32 Zucker + 7 Zellen → 5 + 2 Kohlenstoffzellen.",
+                "Use an empty cell on a water source (picks up the block). Canning machine: water bucket + cell. "
+                        + "Electrolyzer: 32 sugar + 7 cells → 5 + 2 carbon cells.",
+                "water_cell");
+        add("Leere Zelle auf eine Lavaquelle anwenden (nimmt den Block auf). Canning Machine: Lavaeimer + Zelle.",
+                "Use an empty cell on a lava source (picks up the block). Canning machine: lava bucket + cell.",
+                "lava_cell");
+        add("Kompressor: leere Zelle → 1. Nebenprodukt vieler Elektrolysen (Sand, Wasser, Granat-, Rubin-, "
+                        + "Saphir-, Olivin-, Feuerstein-, Obsidianstaub …).",
+                "Compressor: empty cell → 1. By-product of many electrolyses (sand, water, garnet, ruby, sapphire, "
+                        + "olivine, flint, obsidian dust …).",
+                "air_cell");
+        add("Extraktor: Wasserzelle → 1.",
+                "Extractor: water cell → 1.",
+                "hydrating_cell");
+        add("Elektrolyseur: Wasserzelle → 1 oder Wassereimer + leere Zelle → 1.",
+                "Electrolyzer: water cell → 1, or water bucket + empty cell → 1.",
+                "electrolyzed_water_cell");
+        add("Elektrolyseur: 6 elektrolysierte Wasserzellen → 4 (+ Druckluftzelle); 6000 mB Wasser im Tank + "
+                        + "5 Zellen → 4; 12 Bauxitstaub + 8 Zellen → 5 (+ Aluminiumstaub).",
+                "Electrolyzer: 6 electrolyzed water cells → 4 (+ air cell); 6000 mB water in its tank + 5 "
+                        + "cells → 4; 12 bauxite dust + 8 cells → 5 (+ aluminium dust).",
+                "hydrogen_cell");
+        add("Zentrifuge: 4 Wasserstoffzellen → 1 (+ 3 leere Zellen, 3000 Ticks).",
+                "Centrifuge: 4 hydrogen cells → 1 (+ 3 empty cells, 3000 ticks).",
+                "deuterium_cell");
+        add("Zentrifuge: 4 Deuteriumzellen → 1 (+ 3 leere Zellen, 3000 Ticks).",
+                "Centrifuge: 4 deuterium cells → 1 (+ 3 empty cells, 3000 ticks).",
+                "tritium_cell");
+        add("Zentrifuge: 16 Glowstonestaub + 1 Zelle → 1 (+ 8 Redstone, 8 Goldstaub; 25 000 Ticks).",
+                "Centrifuge: 16 glowstone dust + 1 cell → 1 (+ 8 redstone, 8 gold dust; 25,000 ticks).",
+                "helium_cell");
+        add("Zentrifuge: 16 Heliumzellen → 1 (+ 15 leere Zellen, 10 000 Ticks).",
+                "Centrifuge: 16 helium cells → 1 (+ 15 empty cells, 10,000 ticks).",
+                "helium_3_cell");
+        add("Elektrolyseur: Kohle- oder Holzkohlestaub, 2 Asche, Calcitstaub, 32 Zucker (je + leere Zellen). "
+                        + "Zentrifuge: 16 Gummiholz + 5 Zellen → 4 (+ Harz, Pflanzenbälle, Methan).",
+                "Electrolyzer: coal or charcoal dust, 2 ash, calcite dust, 32 sugar (each + empty cells). Centrifuge: "
+                        + "16 rubber wood + 5 cells → 4 (+ resin, plant balls, methane).",
+                "carbon_cell");
+        add("Zentrifuge: fast jedes Essen (Äpfel, Fleisch, Brot, Kartoffeln, Pilze, Melonen, Kürbis, Netherwarze, "
+                        + "verrottetes Fleisch …) mit leeren Zellen; auch 16 Gummiholz → 1.",
+                "Centrifuge: almost any food (apples, meat, bread, potatoes, mushrooms, melons, pumpkin, nether wart, "
+                        + "rotten flesh …) with empty cells; also 16 rubber wood → 1.",
+                "methane_cell");
+        add("Elektrolyseur: Sand, Ton-, Feuerstein-, Obsidian-, Olivin-, Smaragd-, Lasurit-, Sodalith- und Granatstäube "
+                        + "(je + leere Zellen). Zentrifuge: 10 Redstone + 4 Zellen → 1 (+ Quecksilber, Pyrit, Rubin).",
+                "Electrolyzer: sand, clay, flint, obsidian, olivine, emerald, lazurite, sodalite and garnet dusts (each "
+                        + "+ empty cells). Centrifuge: 10 redstone + 4 cells → 1 (+ mercury, pyrite, ruby).",
+                "silicon_cell");
+        add("Elektrolyseur: 3 Knochenmehl + 1 Zelle → 1; Nebenprodukt von Calcit-, Lasurit-, Andradit-, Grossular- "
+                        + "und Uwarowitstaub.",
+                "Electrolyzer: 3 bone meal + 1 cell → 1; by-product of calcite, lazurite, andradite, grossular and "
+                        + "uvarovite dust.",
+                "calcium_cell");
+        add("Canning Machine: Calcitstaub + leere Zelle.",
+                "Canning machine: calcite dust + empty cell.",
+                "calcium_carbonate_cell");
+        add("Elektrolyseur: Tonstaub + 5 Zellen → 2 (+ Lithium, Silizium, Aluminium); 29 Lasuritstaub → 4; "
+                        + "23 Sodalithstaub + 8 Zellen → 4 (bester Weg).",
+                "Electrolyzer: clay dust + 5 cells → 2 (+ lithium, silicon, aluminium); 29 lazurite dust → 4; "
+                        + "23 sodalite dust + 8 cells → 4 (best way).",
+                "sodium_cell");
+        add("Elektrolyseur: 10 Salpeterstaub + 7 Zellen → 2 (+ Stickstoff); 16 Enderperlenstaub + 16 Zellen → 4.",
+                "Electrolyzer: 10 saltpeter dust + 7 cells → 2 (+ nitrogen); 16 ender pearl dust + 16 cells → 4.",
+                "potassium_cell");
+        add("Elektrolyseur: 10 Salpeterstaub + 7 Zellen → 2; 16 Enderperlenstaub + 16 Zellen → 5.",
+                "Electrolyzer: 10 saltpeter dust + 7 cells → 2; 16 ender pearl dust + 16 cells → 5.",
+                "nitrogen_cell");
+        add("Elektrolyseur: 29 Smaragdstaub + 18 Zellen → 3; 16 Enderperlenstaub + 16 Zellen → 1.",
+                "Electrolyzer: 29 emerald dust + 18 cells → 3; 16 ender pearl dust + 16 cells → 1.",
+                "beryllium_cell");
+        add("Elektrolyseur: 16 Enderperlenstaub + 16 Zellen → 6; 23 Sodalithstaub + 8 Zellen → 1.",
+                "Electrolyzer: 16 ender pearl dust + 16 cells → 6; 23 sodalite dust + 8 cells → 1.",
+                "chlorite_cell");
+        add("Elektrolyseur: Tonstaub + 5 Zellen → 1 (+ Natrium, Silizium, Aluminium).",
+                "Electrolyzer: clay dust + 5 cells → 1 (+ sodium, silicon, aluminium).",
+                "lithium_cell");
+        add("Elektrolyseur: 2 Zinnoberstaub + 1 Zelle → 1 (+ Schwefelstaub). Zentrifuge: 10 Redstone + 4 Zellen → 3.",
+                "Electrolyzer: 2 cinnabar dust + 1 cell → 1 (+ sulfur dust). Centrifuge: 10 redstone + 4 cells → 3.",
+                "mercury_cell");
+        add("Canning Machine: Schwefelstaub + leere Zelle.",
+                "Canning machine: sulfur dust + empty cell.",
+                "sulfur_cell");
+        add("Canning Machine: Wolframstaub + leere Zelle.",
+                "Canning machine: tungsten dust + empty cell.",
+                "tungsten_cell");
+        add("Zentrifuge: 16 Seelensand + 1 Zelle → 1 (+ 4 Salpeterstaub, Kohlestaub, 10 Sand). Öl aus der Welt "
+                        + "kommt nur in Eimer und Tanks, nicht in Zellen.",
+                "Centrifuge: 16 soul sand + 1 cell → 1 (+ 4 saltpeter dust, coal dust, 10 sand). Oil from the world "
+                        + "only goes into buckets and tanks, not cells.",
+                "oil_cell");
+        add("Vakuumgefrierer: Wasserzelle → 1 (50 Ticks).",
+                "Vacuum freezer: water cell → 1 (50 ticks).",
+                "ice_cell");
+        add("Canning Machine: komprimierte Pflanzen + leere Zelle. Extraktor → Bio-Brennstoffzelle.",
+                "Canning machine: compressed plants + empty cell. Extractor → biofuel cell.",
+                "bio_cell");
+        add("Extraktor: Biozelle → 1 (Biozelle: komprimierte Pflanzen in die Canning Machine).",
+                "Extractor: bio cell → 1 (bio cell: compressed plants in the canning machine).",
+                "biofuel_cell");
+        add("Canning Machine: hydrierte Kohle + leere Zelle (hydrierte Kohle: Kompressor aus hydriertem Kohlestaub).",
+                "Canning machine: hydrated coal + empty cell (hydrated coal: compressor from hydrated coal dust).",
+                "hydrated_coal_cell");
+        add("Extraktor: hydrierte Kohlezelle → 1.",
+                "Extractor: hydrated coal cell → 1.",
+                "coalfuel_cell");
+    }
+
+    /** Fuel rods and reactor cells, kept short (spec 24 §3; phase 23.4). */
+    private static void fuelRods() {
+        add("Canning Machine: Uranbarren + leere Zelle. Werkbank: wiederangereicherte Uranzelle + Kohlestaub. "
+                        + "Zentrifuge: 4 Uranstaub + 4 Zellen → 4 (+ Plutonium, Thorium, Wolfram).",
+                "Canning machine: uranium ingot + empty cell. Crafting: re-enriched uranium cell + coal dust. "
+                        + "Centrifuge: 4 uranium dust + 4 cells → 4 (+ plutonium, thorium, tungsten).",
+                "uranium_cell");
+        add("Werkbank: Uranzelle + dichte Kupferplatte + Uranzelle → Doppel; 2 Doppel + 3 dichte Kupferplatten → "
+                        + "Vierfach.",
+                "Crafting: uranium cell + dense copper plate + uranium cell → dual; 2 dual + 3 dense copper plates → "
+                        + "quad.",
+                "dual_uranium_cell", "quad_uranium_cell");
+        add("Canning Machine: Plutoniumbarren + leere Zelle (Plutonium aus Uran, siehe Plutoniumstaub). Werkbank: "
+                        + "2 Zellen + dichte Kupferplatte → Doppel; 2 Doppel + 3 dichte Kupferplatten → Vierfach.",
+                "Canning machine: plutonium ingot + empty cell (plutonium from uranium, see plutonium dust). Crafting: "
+                        + "2 cells + dense copper plate → dual; 2 dual + 3 dense copper plates → quad.",
+                "plutonium_cell", "dual_plutonium_cell", "quad_plutonium_cell");
+        add("Canning Machine: Thoriumbarren + leere Zelle (Thorium aus der Zentrifuge). Werkbank: 2 Zellen + "
+                        + "Kupferplatte → Doppel; 2 Doppel + 3 Kupferplatten → Vierfach.",
+                "Canning machine: thorium ingot + empty cell (thorium from the centrifuge). Crafting: 2 cells + copper "
+                        + "plate → dual; 2 dual + 3 copper plates → quad.",
+                "thorium_cell", "dual_thorium_cell", "quad_thorium_cell");
+        add("Werkbank: 8 leere Zellen um einen Uranbarren → 8. Zentrifuge: 8 wiederangereicherte Uranzellen → 3 "
+                        + "(+ Plutonium-, Thoriumstaub).",
+                "Crafting: 8 empty cells around an uranium ingot → 8. Centrifuge: 8 re-enriched uranium cells → 3 "
+                        + "(+ plutonium, thorium dust).",
+                "near_depleted_uranium_cell");
+        add("Werkbank: fast erschöpfte Uranzelle + Kohlestaub. Im Reaktor neben aktiven Uranzellen wird sie zur "
+                        + "wiederangereicherten Uranzelle (schneller bei hoher Hitze).",
+                "Crafting: near-depleted uranium cell + coal dust. In the reactor next to active uranium cells it turns "
+                        + "into a re-enriched uranium cell (faster at high heat).",
+                "isotope_cell");
+        add("Entsteht im Reaktor aus einer abgereicherten Isotopenzelle neben aktiven Uranzellen. Werkbank: + "
+                        + "Kohlestaub → Uranzelle.",
+                "Made in the reactor from a depleted isotope cell next to active uranium cells. Crafting: + coal dust → "
+                        + "uranium cell.",
+                "re_enriched_uranium_cell");
+        add("Werkbank: 4 Zinnbarren um eine Wasserzelle (oder Wassereimer) → 10k; 3× 10k + 6 Zinn → 30k; 2× 30k + "
+                        + "6 Zinn + dichte Kupferplatte → 60k. Vakuumgefrierer kühlt benutzte Zellen wieder ab.",
+                "Crafting: 4 tin ingots around a water cell (or water bucket) → 10k; 3× 10k + 6 tin → 30k; 2× 30k + "
+                        + "6 tin + dense copper plate → 60k. The vacuum freezer cools used cells back down.",
+                "coolant_cell_10k", "coolant_cell_30k", "coolant_cell_60k");
+        add("Werkbank: 4 Zinnbarren um eine Heliumzelle → 60k; 3× 60k + 6 Zinn → 180k; 2× 180k + 6 Zinn + dichte "
+                        + "Kupferplatte → 360k. Vakuumgefrierer kühlt benutzte Zellen wieder ab.",
+                "Crafting: 4 tin ingots around a helium cell → 60k; 3× 60k + 6 tin → 180k; 2× 180k + 6 tin + dense "
+                        + "copper plate → 360k. The vacuum freezer cools used cells back down.",
+                "helium_coolant_cell_60k", "helium_coolant_cell_180k", "helium_coolant_cell_360k");
+        add("Werkbank: 10k-Kühlzelle + 2 Natrium- + 2 Kaliumzellen + 4 Zinn → 60k; 3× 60k + 6 Zinn → 180k; 2× 180k "
+                        + "+ 6 Zinn + dichte Kupferplatte → 360k. Vakuumgefrierer kühlt benutzte Zellen wieder ab.",
+                "Crafting: 10k coolant cell + 2 sodium + 2 potassium cells + 4 tin → 60k; 3× 60k + 6 tin → 180k; "
+                        + "2× 180k + 6 tin + dense copper plate → 360k. The vacuum freezer cools used cells back down.",
+                "nak_coolant_cell_60k", "nak_coolant_cell_180k", "nak_coolant_cell_360k");
+        add("Werkbank: Schaltkreis, Lavazelle, dichte Kupferplatte (untereinander).",
+                "Crafting: circuit, lava cell, dense copper plate (in a column).",
+                "heating_cell");
+    }
+
+    /** Coal chain, carbon, coke, ash, plants, rubber, alloys, fuel (phase 23.4). */
+    private static void misc() {
+        add("Werkbank: 8 Kohlestaub um einen Feuerstein → 1.",
+                "Crafting: 8 coal dust around a flint → 1.",
+                "coal_ball");
+        add("Kompressor: Kohleball → 1.",
+                "Compressor: coal ball → 1.",
+                "compressed_coal_ball");
+        add("Werkbank: 8 komprimierte Kohlebälle um Obsidian, Ziegel oder einen Eisenblock → 1. Kompressor → "
+                        + "Industriediamant.",
+                "Crafting: 8 compressed coal balls around obsidian, bricks or an iron block → 1. Compressor → "
+                        + "industrial diamond.",
+                "coal_chunk");
+        add("Werkbank: 4 Kohlestaub (2×2) → 1. Zwei davon → rohes Kohlenetz.",
+                "Crafting: 4 coal dust (2×2) → 1. Two of them → raw carbon mesh.",
+                "carbon_fiber");
+        add("Werkbank: 2 rohe Kohlefasern → 1. Kompressor → Kohleplatte.",
+                "Crafting: 2 raw carbon fibres → 1. Compressor → carbon plate.",
+                "carbon_mesh");
+        add("Koksofen (3×3×3 aus Koksofenziegeln, ohne Strom): 1 Kohle → 1 in 900 Ticks; Holzkohle geht nicht. "
+                        + "Koksblock → 9.",
+                "Coke oven (3×3×3 of coke oven bricks, no power): 1 coal → 1 in 900 ticks; charcoal is not accepted. "
+                        + "Coke block → 9.",
+                "coke");
+        add("Werkbank: 9 Koks → 1.",
+                "Crafting: 9 coke → 1.",
+                "coke_block");
+        add("Kessel des Kohlekraftwerks: je 4 Kohle (oder 2 Koks) → 1 im Asche-Slot. Zentrifuge: 2 dunkle Asche → 2.",
+                "Coal power plant boiler: every 4 coal (or 2 coke) → 1 in the ash slot. Centrifuge: 2 dark ashes → 2.",
+                "ash");
+        add("Nebenprodukt des Implosionskompressors (4–16 je Vorgang) und des Industriellen Hochofens (Stahl 2, "
+                        + "Wolframstahl 4). Elektrolyseur: 4 Lohenstaub → 1 (+ Schwefelstaub).",
+                "By-product of the implosion compressor (4–16 per run) and the industrial blast furnace (steel 2, "
+                        + "tungstensteel 4). Electrolyzer: 4 blaze powder → 1 (+ sulfur dust).",
+                "dark_ash");
+        add("Werkbank: 8 Blätter, Weizen, Samen, Gras, Zuckerrohr oder Gummisetzlinge im Ring → 1; 8 Setzlinge → 2. "
+                        + "Zentrifuge: Nebenprodukt von Erde, Grasblöcken, Harz und Gummiholz.",
+                "Crafting: 8 leaves, wheat, seeds, grass, sugar cane or rubber saplings in a ring → 1; 8 saplings → 2. "
+                        + "Centrifuge: by-product of dirt, grass blocks, resin and rubber wood.",
+                "plant_ball");
+        add("Kompressor: Pflanzenball → 1; 4 Setzlinge, 8 Blätter (kein Gummibaum), Weizen, Zuckerrohr, Kakteen, "
+                        + "Löwenzahn oder Mohn → 1. Zentrifuge: Nebenprodukt von Erde, Grasblöcken und Harz.",
+                "Compressor: plant ball → 1; 4 saplings, 8 leaves (not rubber), wheat, sugar cane, cacti, dandelions "
+                        + "or poppies → 1. Centrifuge: by-product of dirt, grass blocks and resin.",
+                "compressed_plant_ball");
+        add("Kompressor: hydrierter Kohlestaub → 1 (Staub: 8 Kohlestaub um eine Wasserzelle oder einen Wassereimer).",
+                "Compressor: hydrated coal dust → 1 (dust: 8 coal dust around a water cell or water bucket).",
+                "hydrated_coal_clump");
+        add("Extraktor: Harz → 3 (bester Weg), Schleimball → 2, Gummiholz oder -setzling → 1. Ofen: Harz → 1. "
+                        + "Zentrifuge: 4 Harz → 14.",
+                "Extractor: resin → 3 (best way), slime ball → 2, rubber wood or sapling → 1. Furnace: resin → 1. "
+                        + "Centrifuge: 4 resin → 14.",
+                "rubber");
+        add("Kompressor: Mischmetallbarren → 1 (Mischmetall: Werkbank aus drei Platten senkrecht, z. B. raff. Eisen, "
+                        + "Bronze, Zinn).",
+                "Compressor: mixed metal ingot → 1 (mixed metal: crafting from three plates in a column, e.g. refined "
+                        + "iron, bronze, tin).",
+                "advanced_alloy");
+        add("Raffinerie (BuildCraft): Öl → Treibstoff 1:1; Treibstoff in einen Tank pumpen und dort mit einem leeren "
+                        + "Eimer abfüllen.",
+                "Refinery (BuildCraft): oil → fuel 1:1; pump the fuel into a tank and fill an empty bucket there.",
+                "fuel_bucket");
     }
 
     /** Tiny pile of {@code material}: 4 make one dust, one dust makes 4; {@code from} lists the by-product sources. */
