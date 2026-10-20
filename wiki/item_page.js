@@ -1,6 +1,7 @@
 /* recipes + item pages */
 const RECIPES = {{RECIPES}};
 const REFS = {{REFS}};
+const SOURCES = {{SOURCES}};
 const MADE = {}, USED = {}, WS = {};
 RECIPES.forEach((r, i) => {
   const add = (m, k) => { m[k] = m[k] || []; if (m[k][m[k].length - 1] !== i) m[k].push(i); };
@@ -59,7 +60,7 @@ function recipeBlock(title, idx, hid, limit){
 function renderItem(key){
   const ref = key.includes(':') ? key : 'craft:' + key;
   const it = isCraft(ref) ? BYID[ref.slice(6)] : null;
-  if (!it && !REFS[ref] && !MADE[ref] && !USED[ref]) return false;
+  if (!it && !REFS[ref] && !MADE[ref] && !USED[ref] && !SOURCES[ref]) return false;
   const name = refName(ref), ic = refIcon(ref);
   const badge = it ? (it.b === 'new' ? '<span class="badge new">neu</span> ' : it.b === 'chg' ? '<span class="badge chg">geändert</span> ' : '') : '';
   const group = it ? it.g : (ref.startsWith('minecraft:') ? 'Minecraft (Vanilla)' : ref.split(':')[0]);
@@ -74,8 +75,9 @@ function renderItem(key){
   if (it && it.p) h += `<p class="note tip"><b>Anleitung:</b> <a href="#/${it.p}">${esc(TITLES[it.p] || it.p)}</a></p>`;
   if (!it) h += '<p class="lead">Vanilla-Gegenstand. Hier stehen die Craft-Rezepte, in denen er vorkommt.</p>';
   h += '<p style="font-size:13px;color:var(--muted)">Zutaten anklicken führt zu deren Seite. Felder mit <b>#</b> akzeptieren mehrere Gegenstände (Tag) und wechseln ihr Bild durch; mit der Maus darüber siehst du alle.</p>';
+  if (SOURCES[ref]) h += `<h2 id="item--source">Herkunft</h2><p class="lead">${esc(SOURCES[ref])}</p>`;
   h += recipeBlock('Herstellung', made, 'made', 24);
-  if (!made && it) h += '<h2 id="item--made">Herstellung</h2><p style="color:var(--muted)">Kein Rezept in den Datenpaketen. Mögliche Quellen: Weltgenerierung, Drops, Maschinen mit fest eingebauten Tabellen (Recycler, Schrottbox, Massefabrikator, IC2-Canning, Fass, Crops …) oder Flüssigkeiten. Im Spiel zeigt EMI mit <b>R</b> alle Wege.</p>';
+  if (!made && it && !SOURCES[ref]) h += '<h2 id="item--made">Herstellung</h2><p style="color:var(--muted)">Kein Rezept in den Datenpaketen. Mögliche Quellen: Weltgenerierung, Drops, Maschinen mit fest eingebauten Tabellen (Recycler, Schrottbox, Massefabrikator, IC2-Canning, Fass, Crops …) oder Flüssigkeiten. Im Spiel zeigt EMI mit <b>R</b> alle Wege.</p>';
   h += recipeBlock('In dieser Maschine', ws, 'ws', 12);
   h += recipeBlock('Verwendung', used, 'used', 12);
   if (ment) h += `<h2 id="item--ment">Erwähnt in</h2><ul>${ment}</ul>`;

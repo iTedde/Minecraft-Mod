@@ -79,5 +79,5 @@ dass jedes Item der Gruppe einen Herkunftstext in DE und EN hat; `gradlew build`
 
 ## 5. Entscheidungen
 
-- **E1** Tooltip mit Shift zusätzlich zur EMI-Info-Seite? *Vorschlag: ja.*
-- **E2** Nicht erreichbare Materialien als solche kennzeichnen? *Vorschlag: ja.*
+- **E1** Tooltip mit Shift zusätzlich zur EMI-Info-Seite: **ja** (Nutzer, 2026-10-20).
+- **E2** Nicht erreichbare Materialien als solche kennzeichnen: **ja** (Nutzer, 2026-10-20).

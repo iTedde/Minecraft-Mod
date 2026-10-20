@@ -40,6 +40,7 @@ public class CraftEmiPlugin implements EmiPlugin {
         MultiblockEmiInfo.register(registry);
         MultiblockEmiInfo.registerTerraformer(registry);
         MultiblockEmiInfo.registerBrewing(registry);
+        SourceEmiInfo.register(registry);
 
         // block items only shown in holo slots of the GT electrolyzer and centrifuge
         registry.removeEmiStacks(EmiStack.of(GtItems.WATER.get()));

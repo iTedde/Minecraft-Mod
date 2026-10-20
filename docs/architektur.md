@@ -123,6 +123,10 @@ ergänzen. Basispaket `dev.craft`, Einstieg `Craft` → `Ic2.init`, `BuildCraft.
   IDs aus `core/client/RecipeCategories`; das Plugin bildet die IDs auf EMI-Kategorien ab.
 - Bereiche außerhalb des GUI-Rechtecks (Ledger): Screen implementiert `core/client/ExtraAreas`; das EMI-Plugin hält
   sie über eine generische Ausschlussfläche frei.
+- Herkunftstexte der Rohstoffe (spec 24): Text in `data/SourceTexts` (Eintrag = Item-IDs + DE + EN), ausgegeben als
+  `source.<namespace>.<path>`; jedes Item mit diesem Schlüssel bekommt automatisch die EMI-Info-Seite
+  (`compat/emi/SourceEmiInfo`), den Shift-Tooltip (`core/client/SourceTooltip`) und im Wiki den Abschnitt „Herkunft“.
+  Abdeckung prüft `SourceTextsTest` (JUnit; Liste `REQUIRED` je Teilphase erweitern).
 - Forestry-Ledger: `forestry/client/ledger` (`LedgerManager` in `ForestryScreen.ledgers`, Ledger im Konstruktor des
   Screens hinzufügen; Werte kommen über die `SyncedInts` des Menüs). Fehlerzustand `forestry/machine/ErrorState`
   (in `ForestryMachineBlockEntity.errorState` bzw. der Electrical Engine).

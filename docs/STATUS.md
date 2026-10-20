@@ -1994,6 +1994,19 @@ Spezifikation: `docs/spec/24-herkunft.md`.
 - [x] Lösung: Herkunftstexte `source.craft.<id>` (DE/EN) aus einer Klasse `SourceTexts`, angezeigt als EMI-Info-Seite,
   Shift-Tooltip und Wiki-Abschnitt; neue Wiki-Seite „Rohstoffe & Erze“.
 
+- [x] E1 Shift-Tooltip und E2 Kennzeichnung nicht erreichbarer Materialien: beide **ja** (Nutzer, 2026-10-20).
+
+## Erledigt (23.1 Mechanismus + Erze/Weltgen-Rohstoffe, 2026-10-20)
+- [x] `data/SourceTexts` (DE/EN) → Lang `source.<ns>.<path>`, `tooltip.craft.source.hint`, `emi.craft.source.title`.
+- [x] Shift-Tooltip `core/client/SourceTooltip` (Hinweiszeile, mit Shift umgebrochener Text), EMI-Info-Seite
+  `compat/emi/SourceEmiInfo` für jedes Item mit Herkunftstext.
+- [x] Wiki: Abschnitt „Herkunft“ auf der Gegenstandsseite (`SOURCES` aus de_de), Sammeltext „Mögliche Quellen …“ nur
+  noch ohne Herkunftstext.
+- [x] Texte: alle 21 Erzblöcke (inkl. Tiefenschiefer), Vanilla-Kupfererz/Rohkupfer, Gummiholz/-blätter/-setzling, Harz,
+  Uranerz-Brocken, Iridiumerz, Schrott, UU-Materie, Kaffeebohnen, Hopfen, Terra-Warze, Öl (Block + Eimer); Werte aus
+  Weltgen-Daten, Loot-Tabellen und Rezepten geprüft.
+- [x] JUnit `SourceTextsTest` (IDs bekannt, DE+EN erzeugt, alle Erze + Liste abgedeckt); `gradlew test build` grün;
+  Wiki neu erzeugt. Kein Client-Test (Nutzer spielt gerade) – mit 23.5 nachholen.
+
 ## Nächste Schritte
-1. Entscheidungen E1 (Shift-Tooltip) und E2 (nicht erreichbare Materialien kennzeichnen) – `spec/24` §5.
-2. 23.1: Mechanismus + Erze und Weltgen-/Drop-Rohstoffe.
+1. 23.2: Stäube und kleine Stäube (`REQUIRED` in `SourceTextsTest` erweitern).

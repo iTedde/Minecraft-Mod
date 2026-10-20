@@ -39,6 +39,8 @@ def read(path):
 
 LANG_DE = json.loads(read(os.path.join(ASSETS_GEN, 'lang', 'de_de.json')))
 LANG_EN = json.loads(read(os.path.join(ASSETS_GEN, 'lang', 'en_us.json')))
+# where the raw materials come from (spec 24): 'source.<ns>.<path>' -> text, keyed by item ref
+SOURCES = {k[7:].replace('.', ':', 1): v for k, v in LANG_DE.items() if k.startswith('source.')}
 
 GROUPS = [
     ('ironchest', 'Iron Chests'),
@@ -599,6 +601,7 @@ def main():
               .replace('{{GROUPS}}', json.dumps(GROUP_ORDER, ensure_ascii=False))
               .replace('{{RECIPES}}', json.dumps(recipe_list, ensure_ascii=False, separators=(',', ':')).replace('</', '<\\/'))
               .replace('{{REFS}}', json.dumps(refs, ensure_ascii=False, separators=(',', ':')).replace('</', '<\\/'))
+              .replace('{{SOURCES}}', json.dumps(SOURCES, ensure_ascii=False, separators=(',', ':')).replace('</', '<\\/'))
               .replace('{{LOGO}}', logo)
               .replace('{{BUILD}}', esc(f'Stand {glast} · Craft 0.3.0')))
     with open(OUT, 'w', encoding='utf-8') as f:

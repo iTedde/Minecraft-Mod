@@ -46,6 +46,7 @@ import dev.craft.ic2.Ic2MobEffects;
 import dev.craft.ic2.cable.CableType;
 import dev.craft.ic2.item.FilledTinCanItem;
 import net.minecraft.data.PackOutput;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.data.LanguageProvider;
@@ -267,6 +268,20 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
                 : "Lava from an IC2 pump counts only half");
         buildCraftForestryPowerPlantViewer(german);
         multiblockInfo(german);
+        sourceTexts(german);
+    }
+
+    /** Where the raw materials come from (EMI info page, shift tooltip, wiki; spec 24). */
+    private void sourceTexts(boolean german) {
+        add("tooltip.craft.source.hint", german ? "[Shift] Herkunft" : "[Shift] Where to get it");
+        add("emi.craft.source.title", german ? "Herkunft" : "Where to get it");
+        for (SourceTexts.Entry entry : SourceTexts.entries()) {
+            for (String id : entry.ids()) {
+                ResourceLocation location = ResourceLocation.parse(id);
+                add("source." + location.getNamespace() + "." + location.getPath(),
+                        german ? entry.german() : entry.english());
+            }
+        }
     }
 
     /** EMI categories of BuildCraft, Forestry and the power plants (spec 16 §2, phase 11.3). */
