@@ -32,6 +32,8 @@ import net.minecraft.world.level.block.ChestBlock;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.ChestType;
+import net.minecraft.world.level.pathfinder.PathType;
+import net.minecraft.world.level.pathfinder.WalkNodeEvaluator;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
@@ -193,9 +195,15 @@ public final class IronChestGameTests {
 
     @GameTest(template = EMPTY)
     public static void catsSitOnIronChests(GameTestHelper helper) {
+        place(helper, IronChestType.IRON, POS);
         Cat cat = helper.spawn(EntityType.CAT, POS.above());
         helper.assertTrue(cat.goalSelector.getAvailableGoals().stream()
                 .anyMatch(goal -> goal.getGoal() instanceof IronChestCatSitGoal), "goal replaced");
+        // the cat must path onto the chest like onto a vanilla chest, not into it
+        PathType chest = WalkNodeEvaluator.getPathTypeStatic(cat, helper.absolutePos(POS));
+        PathType top = WalkNodeEvaluator.getPathTypeStatic(cat, helper.absolutePos(POS.above()));
+        helper.assertTrue(chest == PathType.BLOCKED, "chest blocks the path: " + chest);
+        helper.assertTrue(top == PathType.WALKABLE, "top of the chest is walkable: " + top);
         helper.succeed();
     }
 

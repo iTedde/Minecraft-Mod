@@ -70,7 +70,7 @@ Testwelt. Sprache einmal Deutsch, einmal Englisch prüfen. EMI und Xaero's Minim
 | 3.33 | Kaffee/Fass: Kaffee aus Bohnen (Werkbank 1, Macerator 3), Tasse + Pulver + Wasser → kalt, Ofen → schwarz, + Zucker + Milch; Trinken gibt Tempo/Eile, viel Kaffee Übelkeit; Fass auf Holzgerüst setzen, mit Wasser/Weizen/Hopfen bzw. Zuckerrohr befüllen, Baumzapfer an die Seite (Textur), mit Steinkrug zapfen (Name je Bier/Rum, Symbol je Reifestufe), Linksklick entfernt Zapfer bzw. gibt Fass mit Inhalt (Name „n L“) und lässt das Gerüst stehen; EMI-Infoseiten | 12.8 | |
 | 3.34 | Dynamit: Rezepte (ITNT + Faden → 8, Klebedynamit mit Harz, zwei Fernzünder-Rezepte); werfen (Item-Sprite fliegt, raucht, prallt ab), Klebedynamit bleibt an Wand/Decke kleben und geht schneller hoch, im Wasser keine Explosion; Explosion 3×3×3 (Stein/Erde weg mit Drops, Obsidian bleibt, keine Partikel); Dynamit auf Boden/Wand setzen (Fackel-Modell), Redstone/Abbauen zündet (40 Ticks), Halt entfernen → sofort; Fernzünder verknüpft (Textur wechselt, Tooltip „n Dynamit“), trennt, zündet alle; Werfer schießt Dynamit; Industrie-TNT neben später gesetztem Redstone-Block zündet | 12.9 | |
 | 3.36 | Kompositweste: beide Rezepte (Lederharnisch/Eisenbrustplatte unbeschädigt), Rüstungsanzeige 9, Textur am Spieler, Verzaubern, Amboss-Reparatur mit fortg. Legierung | 13.1 | |
-| 3.37 | Ladeanzeige: Tooltip „x / y EU“ an Akkus, Werkzeugen, Rüstung; Treibstoff-Jetpack „Treibstoff: n %“; getragene elektrische Rüstung/Jetpacks oben links mit Symbol und %, gelb ≤ 25 %, rot ≤ 10 %; ausgeblendet mit F1/F3 | 20.2 | |
+| 3.37 | Ladeanzeige: Tooltip „x / y EU“ an Akkus, Werkzeugen, Rüstung; Treibstoff-Jetpack „Treibstoff: n %“; getragene elektrische Rüstung/Jetpacks oben links mit Symbol und %, gelb ≤ 25 %, rot ≤ 10 %; ausgeblendet mit F1/F3 | 20.2 | x |
 | 3.35 | GT-Änderungen: Upgrades stapeln nur bis 4 (Inventar, Shift-Klick in Maschinen-Upgrade-Slots, Creative-Tab); Eis/Schnee im Recycler ergibt nie Schrott (EMI-Blacklist-Seite zeigt sie); Miner mit Scanner + IC2-Pumpe daneben fährt zu Lava-Quellen der Ebene und füllt Lavazellen | 12.10 | |
 
 ## 4. IC2 – Canning, Pumpe, Reaktor, Nuke (Phasen 6b, 7, 8)
@@ -147,16 +147,16 @@ Testwelt. Sprache einmal Deutsch, einmal Englisch prüfen. EMI und Xaero's Minim
 
 | Nr | Test | Herkunft | OK |
 |---|---|---|---|
-| 8.1 | Solar Arrays (3×3, 2026-10-20): Rezepte SSS/SXS/SSS; LV + 8 Panels: Sonnensymbol am Tag, BatBox lädt mit 19 EU/t, Panel abdecken → weniger; einzelnes Array liefert nichts; MV mit 8 LV-Arrays 179 EU/t (Ring-Arrays liefern selbst nichts), HV mit 8 MV-Arrays 1536 EU/t (Glasfaser/MFSU); HV-Array im MV-Ring → nicht geformt; zweites Feld, das einen Randblock mit einem ersten teilt, liefert nichts (nach Abbau des ersten schon); ein laufendes Feld wird nicht Teil eines anderen; Lade-Slot; Abbau droppt das Array; Texturen | 6.4b, Nachtrag 2026-10-20 | |
+| 8.1 | Solar Arrays (3×3, 2026-10-20): Rezepte SSS/SXS/SSS; LV + 8 Panels: Sonnensymbol am Tag, BatBox lädt mit 19 EU/t, Panel abdecken → weniger; einzelnes Array liefert nichts; MV mit 8 LV-Arrays 179 EU/t (Ring-Arrays liefern selbst nichts), HV mit 8 MV-Arrays 1536 EU/t (Glasfaser/MFSU); HV-Array im MV-Ring → nicht geformt; zweites Feld, das einen Randblock mit einem ersten teilt, liefert nichts (nach Abbau des ersten schon); ein laufendes Feld wird nicht Teil eines anderen; Lade-Slot; Abbau droppt das Array; Texturen | 6.4b, Nachtrag 2026-10-20 | x |
 | 8.2 | Wassermühle an fließendem Wasser/im Fluss, zwei Mühlen nebeneinander; Windmühle in großer Höhe bei Gewitter (zerfällt nie) | 9.1 | |
 | 8.3 | Koksofen bauen, Kohle per Trichter einspeisen, Koks unten abziehen | 9.2 | |
 | 8.4 | Kessel: Wasser per Eimer/IC2-Pumpe, Kohle/Koks nachlegen, Temperaturbalken und Tanks in der GUI, Dampf in BC-Tank daneben; Explosion (Wasser auf trockenen heißen Kessel) aus sicherer Entfernung | 9.3a | |
 | 8.5 | Dampfturbine: Kraftwerk aus Kessel + Turbine, MFE/Kabel am Controller und an beliebigem Gehäuseblock, GUI (Dampftank, EU/t, Puffer), bis zu 3 Kessel an einer Turbine | 9.3b | |
 | 8.6 | Wasserturbine mit fließendem Wasser rundherum und darüber (z. B. Eimer auf dem Deckel), Rechtsklick-Meldung, Kabel/BatBox am Controller und an beliebigem Gehäuseblock | 9.4 | |
-| 8.7 | Hochdruckkessel (5×5×5 hohl): Rezepte, Wasser per Pumpe/Rohr, Kohle/Koks, GUI-Balken bis 1500 °C und 64 000 mB, Feuerung leuchtet; Explosion (Stärke 10) nur aus großer Entfernung | 21 | |
-| 8.8 | Große Dampfturbine (5×5×9, 7 Große Turbinenrotoren): Dampf von 1–3 Hochdruckkesseln, GUI, HV-Kabel/MFSU am Controller und an einem Gehäuseblock, bis 512 EU/t | 21 | |
-| 8.9 | Große Wasserturbine (5×5×5 massiv) im Fluss: Rechtsklick-Meldung (ab 64 fließenden Blöcken), Leistung bis 256 EU/t, Abgabe über jedes Gehäuse | 21 | |
-| 8.10 | Große Windturbine: Gondel auf 8 Masten, Rotor einsetzen/tauschen/mit Schleichen herausnehmen, Rotor dreht sich (5×5) mit richtiger Textur, Rechtsklick-Meldung, Leistung in y 128/y 200/bei Gewitter, Kabel am Mastfuß, Abbau droppt den Rotor; EMI-Info-Seiten der vier Großanlagen | 21 | |
+| 8.7 | Hochdruckkessel (5×5×5 hohl): Rezepte, Wasser per Pumpe/Rohr, Kohle/Koks, GUI-Balken bis 1500 °C und 64 000 mB, Feuerung leuchtet; Explosion (Stärke 10) nur aus großer Entfernung | 21 | x |
+| 8.8 | Große Dampfturbine (5×5×9, 7 Große Turbinenrotoren): Dampf von 1–3 Hochdruckkesseln, GUI, HV-Kabel/MFSU am Controller und an einem Gehäuseblock, bis 512 EU/t | 21 | x |
+| 8.9 | Große Wasserturbine (5×5×5 massiv) im Fluss: Rechtsklick-Meldung (ab 64 fließenden Blöcken), Leistung bis 256 EU/t, Abgabe über jedes Gehäuse | 21 | x |
+| 8.10 | Große Windturbine: Gondel auf 8 Masten, Rotor einsetzen/tauschen/mit Schleichen herausnehmen, Rotor dreht sich (5×5) mit richtiger Textur, Rechtsklick-Meldung, Leistung in y 128/y 200/bei Gewitter, Kabel am Mastfuß, Abbau droppt den Rotor; EMI-Info-Seiten der vier Großanlagen | 21 | x |
 
 ## 9. EMI (Phase 11)
 
@@ -167,16 +167,16 @@ Testwelt. Sprache einmal Deutsch, einmal Englisch prüfen. EMI und Xaero's Minim
 | 9.3 | Kategorien BC/Forestry/Kraftwerke: Raffinerie, Verbrennungsmotor, Fabricator (Raster), Carpenter (Raster), Koksofen, Kessel, Dampfturbine; Info-Seiten der Multiblöcke | 11.3 | |
 | 9.4 | Klick auf Fortschrittspfeile/Flammen in den GUIs öffnet die passende Kategorie | 11.1–11.3 | |
 | 9.5 | `craft:water`/`craft:lava` nicht im Index | 11.2 | |
-| 9.6 | EMI-„+“ im Projekttisch (Zutaten aus Vorrat und Inventar, Shift-+ für viele) und in der Automatischen Werkbank; nur Werkbank-Rezepte | 20.1 | |
+| 9.6 | EMI-„+“ im Projekttisch (Zutaten aus Vorrat und Inventar, Shift-+ für viele) und in der Automatischen Werkbank; nur Werkbank-Rezepte | 20.1 | x |
 
 ## 10. Iron Chests (Phase 20)
 
 | Nr | Test | Herkunft | OK |
 |---|---|---|---|
-| 10.1 | Alle 7 Kisten herstellen (auch Eisenkiste aus Raffiniertem Eisen), platzieren: Front zum Spieler, Modell und Textur richtig herum, Deckel öffnet mit Geräusch; GUI-Größe und Slots (Kupfer 45 … Diamant 108), Shift-Klick in beide Richtungen; Block darüber verhindert das Öffnen | 20.4 | |
-| 10.2 | Kristallkiste: durchsichtig, die häufigsten Items drehen sich darin (ein Item groß in der Mitte) | 20.4 | |
-| 10.3 | Upgrades: Holzkiste (auch eine Hälfte einer Doppelkiste) → Eisen/Kupfer, Eisen → Gold → Diamant → Kristall/Obsidian; Inhalt und Blickrichtung bleiben, Upgrade verbraucht; falsches Upgrade öffnet nur die Kiste | 20.4 | |
-| 10.4 | Obsidiankiste neben TNT bleibt stehen; Abbau mit Spitzhacke droppt Kiste und Inhalt; Trichter/BC-Rohr füllt und leert; Komparator zeigt den Füllstand; zahme Katze setzt sich auf eine Iron Chest; Items im Inventar/in der Hand als Kiste dargestellt | 20.4 | |
+| 10.1 | Alle 7 Kisten herstellen (auch Eisenkiste aus Raffiniertem Eisen), platzieren: Front zum Spieler, Modell und Textur richtig herum, Deckel öffnet mit Geräusch; GUI-Größe und Slots (Kupfer 45 … Diamant 108), Shift-Klick in beide Richtungen; Block darüber verhindert das Öffnen | 20.4 | x |
+| 10.2 | Kristallkiste: durchsichtig, die häufigsten Items drehen sich darin (ein Item groß in der Mitte) | 20.4 | x |
+| 10.3 | Upgrades: Holzkiste (auch eine Hälfte einer Doppelkiste) → Eisen/Kupfer, Eisen → Gold → Diamant → Kristall/Obsidian; Inhalt und Blickrichtung bleiben, Upgrade verbraucht; falsches Upgrade öffnet nur die Kiste | 20.4 | x |
+| 10.4 | Obsidiankiste neben TNT bleibt stehen; Abbau mit Spitzhacke droppt Kiste und Inhalt; Trichter/BC-Rohr füllt und leert; Komparator zeigt den Füllstand; zahme Katze setzt sich auf eine Iron Chest; Items im Inventar/in der Hand als Kiste dargestellt | 20.4 | x |
 
 ## Befunde
 
@@ -184,6 +184,9 @@ Testwelt. Sprache einmal Deutsch, einmal Englisch prüfen. EMI und Xaero's Minim
 |---|---|---|---|
 | B1 | 2026-10-17 | EMI meldete 82 unübersetzte Item-Tags (`c:plates/*`, `c:ingots/*`, `craft:*` …) | behoben (Tag-Namen en/de im Sprach-Datagen) |
 | B2 | 2026-10-17 | Gummibaumblätter mit lila Platzhaltertextur (IC2 nutzt Index 52 aus Vanilla-`terrain.png` = Eichenlaub) | behoben (Vanilla-`oak_leaves`, Birkenfarbe wie bisher) |
+| B4 | 2026-10-20 | Zahme Katzen setzten sich nicht auf Iron Chests, sondern blieben davor stehen: `IronChestBlock` meldete der Wegfindung „begehbar“ (Standard für nicht volle Blöcke), die Katze plante den Weg durch die Kiste. Vanilla-Truhe: `isPathfindable` = false | behoben (0.4.2, `isPathfindable` = false, GameTest `catsSitOnIronChests` prüft die Wegfindung) |
+| B5 | 2026-10-20 | Ladeanzeige (HUD oben links) liegt über der Xaero-Minimap, die ebenfalls oben links sitzt | offen – Position mit dem Nutzer klären |
+| B6 | 2026-10-20 | Shift-„+“ in EMI leert ein Raster, in dem schon ein Rezept liegt, statt es aufzufüllen (Projekttisch, Automatische Werkbank) | kein Mod-Fehler: Vanilla-Werkbank verhält sich in EMI 1.1.22 genauso; bei leerem Raster füllt Shift-„+“ korrekt |
 | B3 | 2026-10-17 | Nachtsichtbrille: Icon ist eine lila Fläche – im Pack identisch (`item_0.png` Index 232 ist dort Platzhalter) | behoben: eigenes Icon (Nutzerwunsch 2026-10-17, `abweichungen.md`) |
 
 ## Durchlauf 2026-10-17 (automatisiert im echten Client)
@@ -203,3 +206,31 @@ Auswertung über Bildschirmfotos und Log; Sprache en und de.
 
 Nicht automatisiert prüfbar und weiter offen: Sounds, Animationen im Betrieb, Explosionen, Rüstungs-/Werkzeugverhalten,
 Weltgen-Begehung, Multiblock-Aufbau im Spiel – alle übrigen Zeilen ohne `x`.
+
+## Durchlauf 2026-10-20 (automatisiert im echten Client, Version 0.4.1)
+
+Testwelt `ClaudeTest`, Aufbauten per Datapack-Funktionen (`datapacks/abnahme`), Auswertung über Bildschirmfotos,
+Blick-Overlay, Chat-Meldungen und `/data get`; Sprache en.
+
+- 8.1 Solar-Felder: LV 19, MV 179, HV 1536 EU/t; einzelnes Array 0; HV-Array im MV-Ring 0; zweites Feld mit geteiltem
+  Rand 0, nach Abbau des ersten 19; abgedecktes Panel 18; Sonnensymbol und Lade-Slot in der GUI; Abbau droppt das
+  Array; Rezept in EMI. Oberseiten der drei Stufen gleich, Seiten verschieden (wie das Original-Texturblatt).
+- 8.7–8.10 Großkraftwerke: Hochdruckkessel 1500 °C, Feuerung leuchtet, Asche; Große Dampfturbine 160 EU/t mit einem
+  Kessel, 512 EU/t (Deckel) mit vollem Dampftank; Große Wasserturbine „Flowing water: 334, output 256.00 EU/t“; Große
+  Windturbine in y 159: Carbon 119 EU/t, Eisen 59,5 EU/t, Gewitter 357 EU/t, Rotor dreht sich (≈ 5 Blöcke), Tausch und
+  Herausnehmen mit Schleichen, Abbau droppt Gondel und Rotor; MFSUs laden am Mastfuß und an allen Gehäusen; Kessel
+  bei 1500 °C trockengelaufen → Explosion Stärke 10. EMI: Rezepte und Info-Seiten aller vier Anlagen, Rotor-Tooltip.
+- 3.37 Ladeanzeige: Tooltips „100 000 / 100 000 EU“, „Fuel: 20 %“; HUD 100 % weiß, 20 % gelb, 5 % rot, bei F3 aus (B5).
+- 9.6 / Phase 18: EMI-„+“ füllt den Projekttisch aus dem Vorrat und die Automatische Werkbank aus dem Inventar;
+  Shift-Klick aufs Ergebnis stellt her, bis die letzte Nutzung erreicht ist (Raster bleibt); Bauplan beschreiben
+  („Chest Plan – 8 × Oak Planks“, cyan), Geister-Zutaten rot bei leerem Vorrat (B6).
+- Phase 19: Long Fall Boots – 25 Blöcke Fall ohne Schaden, Stiefel unbeschädigt (Diamantstiefel 15 Blöcke: 8,8 Schaden).
+- 10.1–10.4 Iron Chests: alle 7 GUIs (45/54/72/81/108/108/108), Block darüber verhindert Öffnen, Front zum Spieler,
+  Kristallkiste mit drehendem Inhalt (8 Plätze bzw. ein Item mittig), Upgrades inkl. Doppelkisten-Hälfte, Inhalt und
+  Richtung bleiben, falsches Upgrade öffnet nur, Trichter füllt und leert, Komparator, Obsidiankiste übersteht TNT,
+  Abbau droppt Kiste + Inhalt, Kiste in Hand/Hotbar als Modell; Katzen (B4, behoben).
+
+Nicht geprüft: Geräusche, deutsche Texte im Spiel, Windturbine in y 128/200 (Formel durch GameTests abgedeckt).
+Hinweis: Bildschirmfotos auf diesem Rechner wirken aufgehellt (auch Vanilla-GUIs); das liegt an der Aufnahme, nicht
+am Spiel.
+

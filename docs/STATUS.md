@@ -1921,3 +1921,20 @@ Reihenfolge (Nutzer): **erst Iron Chests (20.3/20.4) fertig, dann Phase 21.**
 ## Nächste Schritte
 1. Abnahme im Client: Solar-Felder (Testplan 8.1), Phase 18 + 19, 3.37, 9.6, Iron Chests (§10), Großkraftwerke
    (8.7–8.10).
+
+# Client-Abnahme 2026-10-20 (Phasen 18–21, Solar-Felder)
+
+Auf Wunsch des Nutzers („mach die Abnahmen“) im echten Client geprüft, Ergebnisse in `testplan.md` (Durchlauf
+2026-10-20).
+
+- [x] Bestanden: 8.1, 8.7–8.10, 3.37, 9.6, 10.1–10.4, Projekttisch/Baupläne/Automatische Werkbank, Long Fall Boots.
+- [x] B4 behoben: Katzen setzen sich wieder auf Iron Chests (`IronChestBlock.isPathfindable` = false wie die
+  Vanilla-Truhe; GameTest erweitert). Alle 394 GameTests grün, `gradlew build` grün. Version 0.4.2,
+  CurseForge-Paket `releases/Craft-0.4.2-curseforge.zip`.
+- [ ] B5 offen: Ladeanzeige und Xaero-Minimap überlagern sich oben links – Position mit dem Nutzer klären.
+- B6: Shift-„+“ auf ein schon gefülltes Raster leert es – Verhalten von EMI 1.1.22 (auch bei der Vanilla-Werkbank).
+
+## Nächste Schritte
+1. B5 entscheiden (Ladeanzeige verschieben, z. B. unten links/rechts über der Hotbar, oder Minimap-Position ändern).
+2. Offen aus dem Testplan: Geräusche, deutsche Texte im Spiel.
+
