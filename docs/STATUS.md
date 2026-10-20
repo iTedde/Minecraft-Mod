@@ -1938,3 +1938,29 @@ Auf Wunsch des Nutzers („mach die Abnahmen“) im echten Client geprüft, Erge
 1. B5 entscheiden (Ladeanzeige verschieben, z. B. unten links/rechts über der Hotbar, oder Minimap-Position ändern).
 2. Offen aus dem Testplan: Geräusche, deutsche Texte im Spiel.
 
+
+# Phase 22 – Mitinstallierte Komfort-Mods (Nutzer, 2026-10-20)
+
+Nutzerwunsch: Sortierfunktion für Kisten und Inventar, Jade (Blockname + Abbau-Werkzeug), Right Click Harvest,
+Trading Post für die Handelshalle. Easy Magic, Solar-Array-Buff, Projekttisch-Debuff und die übrigen Punkte der Liste
+entfallen. Entschieden: Sortieren mit **Inventory Profiles Next**; **Jade fügt der Nutzer selbst in CurseForge hinzu**
+(nicht im Paket, keine eigene Integration). Alle Mods nur mitinstalliert, keine Integration.
+
+## Erledigt (22.1, 2026-10-20)
+- [x] `build.gradle`/`gradle.properties`: als `localRuntime` (Modrinth-Version-IDs) Inventory Profiles Next 2.2.4 +
+  libIPN 6.6.2 + Kotlin for Forge 5.12.0, Right Click Harvest 4.6.1 + JamLib 1.3.6 + Architectury 13.0.11,
+  Trading Post 21.1.1 + Puzzles Lib 21.1.64.
+- [x] `gradlew build` grün. Client ohne `quickPlay` startet bis ins Hauptmenü (vom Nutzer beendet, da er selbst spielt).
+- [x] Version 0.4.3, CurseForge-Paket `releases/Craft-0.4.3-curseforge.zip` bzw. `X:/Craft/Craft-0.4.3-curseforge.zip`
+  (Craft, EMI, Xaero, CC: Tweaked + die 8 neuen Jars in `overrides/mods`).
+
+## Befund
+- IPN (2.2.5 und 2.2.4) stürzt im Dev-Client beim direkten Weltbeitritt mit `-PquickPlay` ab
+  (`Features.ENABLE_PROFILES$delegate` null – Kreis in der statischen Initialisierung, ausgelöst durch Rendern während
+  des Ladebildschirms). Ohne `quickPlay` kein Absturz. Für Client-Tests mit `quickPlay` IPN ggf. vorübergehend aus
+  `localRuntime` nehmen.
+
+## Nächste Schritte
+1. Abnahme im Spiel (Nutzer): Sortieren in Inventar/Vanilla-/Iron Chests, Rechtsklick-Ernte (Vanilla-Feldfrüchte;
+   IC2-Crops ernten ohnehin per Rechtsklick), Trading Post an der Handelshalle.
+2. B5 (Ladeanzeige/Minimap oben links) weiter offen.

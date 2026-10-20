@@ -64,7 +64,7 @@ MJ und EU bleiben getrennte Systeme; Verbindung nur über Electrical Engine (EU�
 
 - Wiki: `wiki/` (Generator `build_wiki.py`, Python 3.12) erzeugt `wiki/Craft-Wiki.html` aus `docs/`, Lang-Dateien und
   Texturen; nach Balancing-/Inhaltsänderungen die Texte in `wiki/content*.py` anpassen und neu erzeugen.
-- CurseForge-Pakete: `releases/Craft-<Version>-curseforge.zip` (Mod + EMI + Xaero + CC: Tweaked in `overrides/mods`).
+- CurseForge-Pakete: `releases/Craft-<Version>-curseforge.zip` (Mod + EMI + Xaero + CC: Tweaked + ab 0.4.3 Inventory Profiles Next, Right Click Harvest, Trading Post samt Bibliotheken in `overrides/mods`; Jade fügt der Nutzer selbst hinzu).
 
 ## Spezifikation
 
@@ -96,6 +96,7 @@ MJ und EU bleiben getrennte Systeme; Verbindung nur über Electrical Engine (EU�
 | 19 | Long Fall Boots aus Portal Gun (Nutzer, 2026-10-18; `docs/spec/21-long-fall-boots.md`; nur die Stiefel): 19.1 Einzelstiefel + Stiefel, Rezepte, Fallschaden-Aufhebung (erledigt, Client offen) | **erledigt** (Client-Test 2026-10-20 bestanden) |
 | 20 | Nutzerwünsche (2026-10-20; `docs/STATUS.md`): 20.1 EMI-„+“ für Projekttisch/Automatische Werkbank (erledigt) · 20.2 Ladeanzeige Tooltip + HUD (erledigt) · 20.3 Spezifikation Iron Chests (komplett wie im Pack; `docs/spec/22-iron-chests.md`) (erledigt) · 20.4 Umsetzung Iron Chests (Paket `…ironchest`; mit Komparator) (erledigt, Client offen) | **erledigt** (Client-Test 2026-10-20 bestanden) |
 | 21 | Großkraftwerke (Nutzer, 2026-10-20; `docs/balancing.md` §3.8; **erst nach Phase 20**): 21.0 Spezifikation `docs/spec/23-grosskraftwerke.md` (erledigt) · 21.1 Hochdruckkessel + große Dampfturbine (erledigt) · 21.2 große Wasserturbine (erledigt) · 21.3 große Windturbine (erledigt) | **erledigt** (Client-Test 2026-10-20 bestanden) |
+| 22 | Komfort-Mods mitinstalliert (Nutzer, 2026-10-20; `docs/STATUS.md`): 22.1 Inventory Profiles Next, Right Click Harvest, Trading Post + Bibliotheken im CurseForge-Paket 0.4.3 (erledigt; Jade fügt der Nutzer selbst hinzu) | **erledigt** (Abnahme im Spiel offen) |
 
 Phasen-Umnummerierung (Nutzer, 2026-10-16): Phase 8 „GT-Nachträge“ eingeschoben; die bisherigen Phasen 8/9/10
 (Kraftwerke, Rohre, Feinschliff) heißen jetzt 9/10/11. Ältere Einträge in `docs/STATUS.md` sind entsprechend

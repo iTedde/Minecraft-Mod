@@ -147,6 +147,15 @@ dependencies {
     localRuntime "maven.modrinth:xaeros-minimap:${xaeros_minimap_version}"
     // CC: Tweaked (computers and turtles): only installed alongside in our own runs, no integration (spec 18 §5)
     localRuntime "maven.modrinth:cc-tweaked:${cc_tweaked_version}"
+    // Phase 22: inventory sorting, right-click harvesting and the trading post, only installed alongside
+    localRuntime "maven.modrinth:inventory-profiles-next:${ipn_version}"
+    localRuntime "maven.modrinth:libipn:${libipn_version}"
+    localRuntime "maven.modrinth:kotlin-for-forge:${kotlinforforge_version}"
+    localRuntime "maven.modrinth:rightclickharvest:${rightclickharvest_version}"
+    localRuntime "maven.modrinth:jamlib:${jamlib_version}"
+    localRuntime "maven.modrinth:architectury-api:${architectury_version}"
+    localRuntime "maven.modrinth:trading-post:${tradingpost_version}"
+    localRuntime "maven.modrinth:puzzles-lib:${puzzleslib_version}"
 
     // Example optional mod dependency with JEI
     // The JEI API is declared for compile time use, while the full JEI artifact is used at runtime
