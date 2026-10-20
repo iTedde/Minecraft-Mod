@@ -1,6 +1,7 @@
 package dev.craft;
 
 import com.mojang.logging.LogUtils;
+import dev.craft.advancedmachines.AdvancedMachines;
 import dev.craft.buildcraft.BuildCraft;
 import dev.craft.compactsolars.CompactSolars;
 import dev.craft.gregtech.GregTech;
@@ -35,6 +36,7 @@ public final class Craft {
         RedPower.init(modBus);
         PortalGun.init(modBus);
         IronChests.init(modBus);
+        AdvancedMachines.init(modBus);
         CraftCreativeTabs.TABS.register(modBus);
     }
 }

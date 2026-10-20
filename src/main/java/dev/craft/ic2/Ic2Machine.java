@@ -48,7 +48,14 @@ public enum Ic2Machine {
             Rarity.RARE, false),
     TESLA_COIL("tesla_coil", Sheet.MACHINE2, 1, 2.0F, FacingMode.HORIZONTAL, 1.0F, Drop.MACHINE_CASING,
             Rarity.COMMON, false),
-    CROP_MATRON("crop_matron", Sheet.MACHINE2, 2, 2.0F, FacingMode.HORIZONTAL, 1.0F, Drop.MACHINE_CASING);
+    CROP_MATRON("crop_matron", Sheet.MACHINE2, 2, 2.0F, FacingMode.HORIZONTAL, 1.0F, Drop.MACHINE_CASING),
+    // Advanced Machines addon (spec 25): logic in dev.craft.advancedmachines.
+    ROTARY_MACERATOR("rotary_macerator", Sheet.ADVANCED_MACHINES, 0, 2.0F, FacingMode.HORIZONTAL, 1.0F,
+            Drop.ADVANCED_MACHINE_CASING),
+    SINGULARITY_COMPRESSOR("singularity_compressor", Sheet.ADVANCED_MACHINES, 1, 2.0F, FacingMode.HORIZONTAL, 1.0F,
+            Drop.ADVANCED_MACHINE_CASING),
+    CENTRIFUGE_EXTRACTOR("centrifuge_extractor", Sheet.ADVANCED_MACHINES, 2, 2.0F, FacingMode.HORIZONTAL, 1.0F,
+            Drop.ADVANCED_MACHINE_CASING);
 
     private final String name;
     private final Sheet sheet;
@@ -108,6 +115,10 @@ public enum Ic2Machine {
         return hardness;
     }
 
+    public boolean isAdvancedMachine() {
+        return sheet == Sheet.ADVANCED_MACHINES;
+    }
+
     public boolean isPersonal() {
         return sheet == Sheet.PERSONAL;
     }
@@ -130,7 +141,9 @@ public enum Ic2Machine {
         MACHINE("block_machine"),
         MACHINE2("block_machine2"),
         PERSONAL("block_personal"),
-        ELECTRIC("block_electric");
+        ELECTRIC("block_electric"),
+        /** Advanced Machines {@code block_advmachine.png}. */
+        ADVANCED_MACHINES("block_advmachine");
 
         private final String file;
 

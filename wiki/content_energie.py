@@ -38,6 +38,9 @@ USE = {
     'energy_o_mat': 'verkauft EU gegen Items (gibt 32er-Pakete ab)',
     'electrical_engine': '6 EU/t → 2 MJ/t (mit Platinen bis 36 EU/t → 10 MJ/t)',
     'recycler': None,
+    'rotary_macerator': '3 EU/t; erst Hochlaufen (7 500 Ticks), dann 16 t je Vorgang (48 EU)',
+    'singularity_compressor': '3 EU/t; erst Hochlaufen (7 500 Ticks), dann 16 t je Vorgang (48 EU)',
+    'centrifuge_extractor': '3 EU/t; erst Hochlaufen (7 500 Ticks), dann 16 t je Vorgang (48 EU)',
 }
 GT_USE = 'je Rezept (EU/t steht im Rezept, EMI)'
 OUT = {

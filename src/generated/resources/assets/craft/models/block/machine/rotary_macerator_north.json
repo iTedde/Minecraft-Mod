@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "craft:block/machine/rotary_macerator_bottom",
+    "east": "craft:block/machine/rotary_macerator_right",
+    "north": "craft:block/machine/rotary_macerator_front",
+    "particle": "craft:block/machine/rotary_macerator_front",
+    "south": "craft:block/machine/rotary_macerator_back",
+    "up": "craft:block/machine/rotary_macerator_top",
+    "west": "craft:block/machine/rotary_macerator_left"
+  }
+}

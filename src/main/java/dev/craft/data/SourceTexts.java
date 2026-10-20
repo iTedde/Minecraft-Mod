@@ -262,9 +262,11 @@ public final class SourceTexts {
                         + "4 tiny gold dust → 1. Also UU-matter (2) and scrap box.",
                 "gold_dust");
         add("Werkbank: 3 Kupfer- + 1 Zinnstaub → 2 Bronzestaub. Macerator: Bronzebarren/-platte → 1, Bronzeblock → 9, "
-                        + "Schraubenschlüssel → 6. Mörser: Bronzebarren → 1.",
+                        + "Schraubenschlüssel → 6. Mörser: Bronzebarren → 1. Rotations-Macerator: Kupfer mit Zinn im "
+                        + "Zusatzslot → Bronzestaub statt Kupferstaub.",
                 "Crafting: 3 copper + 1 tin dust → 2 bronze dust. Macerator: bronze ingot/plate → 1, bronze block → 9, "
-                        + "wrench → 6. Mortar: bronze ingot → 1.",
+                        + "wrench → 6. Mortar: bronze ingot → 1. Rotary macerator: copper with tin in the supplement "
+                        + "slot → bronze dust instead of copper dust.",
                 "bronze_dust");
         add("Werkbank: 3 Kupfer- + 1 Zinkstaub → 4 Messingstaub (oder 3 kl. Kupfer- + 1 kl. Zinkstaub → 1). "
                         + "Macerator: Messingbarren/-platte → 1. Auch Schrottbox.",
@@ -428,9 +430,9 @@ public final class SourceTexts {
                         + "Centrifuge: 16 netherrack dust or 16 soul sand. Furnace: hydrated coal dust → 1. Also scrap box.",
                 "coal_dust");
         add("Werkbank: 8 Kohlestaub um einen Wassereimer oder eine Wasserzelle → 8 (oder 1 + 1 → 1). Industrial "
-                        + "Grinder: Diamanterz → 1.",
+                        + "Grinder: Diamanterz → 1. Rotations-Macerator: Kohle mit Wasserzelle im Zusatzslot.",
                 "Crafting: 8 coal dust around a water bucket or water cell → 8 (or 1 + 1 → 1). Industrial grinder: "
-                        + "diamond ore → 1.",
+                        + "diamond ore → 1. Rotary macerator: coal with a water cell in the supplement slot.",
                 "hydrated_coal_dust");
         add("Macerator: Holzkohle → 1. Auch Schrottbox (häufig).",
                 "Macerator: charcoal → 1. Also scrap box (common).",
@@ -630,6 +632,11 @@ public final class SourceTexts {
                 "Furnace: iron ingot → 1. Industrial blast furnace (1000 K): iron ore + calcium carbonate cell → 3, "
                         + "pyrite ore + calcium carbonate cell → 2 (1500 K). Crafting/furnace: machine casing → 8.",
                 "refined_iron_ingot");
+        add("Rotations-Macerator (Advanced Machines): Eisen (Erz, Barren, Rohmetall) mahlen, mit Kohle oder Holzkohle "
+                        + "im Zusatzslot – 1 Kohle reicht für 128 Vorgänge. Ofen → Raffiniertes Eisen.",
+                "Rotary macerator (Advanced Machines): grind iron (ore, ingot, raw metal) with coal or charcoal in the "
+                        + "supplement slot – 1 coal lasts 128 operations. Furnace → refined iron.",
+                "refined_iron_dust");
         add("Industrieller Hochofen (1000 K): raff. Eisen + 2 Kohlestaub → 1 (+ 2 dunkle Asche), Stahlstaub → 1. Ofen: "
                         + "Platte → 1, Stahlblock → 9.",
                 "Industrial blast furnace (1000 K): refined iron + 2 coal dust → 1 (+ 2 dark ashes), steel dust → 1. "

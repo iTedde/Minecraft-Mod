@@ -743,6 +743,28 @@ braucht vieles früh GT-Materialien (Platten, Stahl).</p>
             [('Kisten', '7'), ('Upgrades', '9'), ('Paket', 'Kreativ-Tab „Iron Chests“')],
             [('spec-22', '22 – Iron Chests')])
 
+    modpage('mod-advancedmachines', 'Advanced Machines', 'craft:rotary_macerator',
+            'Das IC2-Addon aus dem Pack: <b>Rotations-Macerator</b>, <b>Singularitätskompressor</b> und <b>Zentrifugalextraktor</b> nutzen '
+            'die Rezepte von Macerator, Kompressor und Extraktor, müssen aber erst <b>hochlaufen</b>: Jeder Tick mit Energie und Arbeit '
+            '(oder einem Redstone-Signal) erhöht die Drehzahl um 1 bis 7 500 (3 EU/t). Der Fortschritt wächst um Drehzahl/30 je Tick, ein '
+            'Vorgang braucht 4 000 – bei voller Drehzahl also nur <b>16 Ticks</b> statt 400 bei 3 EU/t. Hochlaufen dauert gut 6 Minuten '
+            '(22 500 EU); ohne Arbeit sinkt die Drehzahl um 4 je Tick, ein Redstone-Signal hält sie oben. Overclocker beschleunigen das '
+            'Hochlaufen und heben die Höchstdrehzahl (+500 je Stück), kosten beim Hochlaufen aber 3 · 2<sup>n</sup> EU/t; bei voller '
+            'Drehzahl bleibt es bei 3 EU/t.',
+            [('Version (Vorlage)', '4.7b'), ('Speicher', '5 000 EU (+5 000 je Speicher-Upgrade)'), ('Eingang', 'LV 32 (×4 je Transformer-Upgrade)'),
+             ('Paket', 'Kreativ-Tab „Advanced Machines“')],
+            [('spec-25', '25 – Advanced Machines')],
+            f'''<h2 id="mod-advancedmachines--zusatz">Zusatzslot des Rotations-Macerators</h2>
+<p>Der Slot neben der Eingabe ändert das Ergebnis:</p>
+{h.table(['Normales Ergebnis', 'Zusatz', 'Ergebnis', 'reicht für'], [
+    [c('iron_dust'), v('minecraft:coal', 'Kohle') + ' / ' + v('minecraft:charcoal', 'Holzkohle'), c('refined_iron_dust'), '128 Vorgänge'],
+    [c('copper_dust'), 'etwas, das zu ' + c('tin_dust') + ' gemahlen wird (Zinnerz, Zinnbarren …)', c('bronze_dust'), '4 Vorgänge'],
+    [c('coal_dust'), c('water_cell'), c('hydrated_coal_dust') + ' (immer 1)', '8 Vorgänge'],
+])}
+{h.note('warn', 'Solange ein Zusatz „angebrochen“ ist, verarbeitet der Rotations-Macerator nur passende Eingaben – andere bleiben liegen, bis der Zusatz entnommen wird (wie im Original).')}
+<p>Abbau ohne Schraubenschlüssel gibt nur ein Fortgeschrittenes Maschinengehäuse zurück; mit Schraubenschlüssel immer die Maschine.
+Redstone im Energieslot füllt den ganzen Speicher auf einmal.</p>''')
+
     # ------------------------------------------------------------------ Items
     page('items', 'Gegenstände & Blöcke', 'Allgemein', f'''<h1>Gegenstände & Blöcke</h1>
 <p class="lead">Alle {stats['items']} registrierten Blöcke und Items von Craft mit deutschem und englischem Namen. Jeder Eintrag hat eine eigene Seite

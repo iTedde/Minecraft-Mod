@@ -11,6 +11,7 @@ import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
 import dev.craft.Craft;
+import dev.craft.advancedmachines.AdvancedMachinesItems;
 import dev.craft.buildcraft.BcItems;
 import dev.craft.buildcraft.transport.PipeType;
 import dev.craft.buildcraft.engine.EngineType;
@@ -118,6 +119,7 @@ public final class CraftRecipeProvider extends RecipeProvider {
         redPowerTable();
         longFallBoots();
         ironChests();
+        advancedMachines();
         gregTechCircuitBoards();
         gregTechBrass();
         gregTechMortars();
@@ -2131,6 +2133,21 @@ public final class CraftRecipeProvider extends RecipeProvider {
      * Iron Chests (spec 22 §4): chest recipes of {@code IronChestType} and upgrade recipes of {@code ChestChangerType}.
      * Iron is the iron or the refined iron ingot (the original adds every recipe once per material).
      */
+    /** Advanced Machines (spec 25 §2). */
+    private void advancedMachines() {
+        shaped(machine(Ic2Machine.ROTARY_MACERATOR), 1, "rotary_macerator").pattern("RRR", "RMR", "RAR")
+                .define('R', CraftItemTagsProvider.INGOTS_REFINED_IRON).define('M', machine(Ic2Machine.MACERATOR))
+                .define('A', Ic2Items.ADVANCED_MACHINE_CASING).save();
+        shaped(machine(Ic2Machine.SINGULARITY_COMPRESSOR), 1, "singularity_compressor").pattern("RRR", "RMR", "RAR")
+                .define('R', Items.OBSIDIAN).define('M', machine(Ic2Machine.COMPRESSOR))
+                .define('A', Ic2Items.ADVANCED_MACHINE_CASING).save();
+        shaped(machine(Ic2Machine.CENTRIFUGE_EXTRACTOR), 1, "centrifuge_extractor").pattern("RRR", "RMR", "RAR")
+                .define('R', Ic2Items.ELECTROLYZED_WATER_CELL).define('M', machine(Ic2Machine.EXTRACTOR))
+                .define('A', Ic2Items.ADVANCED_MACHINE_CASING).save();
+        smelt("refined_iron_ingot_from_dust", Ingredient.of(AdvancedMachinesItems.REFINED_IRON_DUST),
+                Ic2Items.REFINED_IRON_INGOT, 1, 1.0F);
+    }
+
     private void ironChests() {
         Ingredient iron = CompoundIngredient.of(Ingredient.of(Items.IRON_INGOT),
                 Ingredient.of(CraftItemTagsProvider.INGOTS_REFINED_IRON));

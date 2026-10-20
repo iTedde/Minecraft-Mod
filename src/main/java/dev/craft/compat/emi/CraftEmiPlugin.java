@@ -31,6 +31,7 @@ public class CraftEmiPlugin implements EmiPlugin {
         CATEGORIES.clear();
         CATEGORIES.put(RecipeCategories.SMELTING, VanillaEmiRecipeCategories.SMELTING);
         Ic2EmiRecipes.register(registry, CATEGORIES);
+        AdvancedMachinesEmiRecipes.register(registry, CATEGORIES);
         GtEmiRecipes.register(registry, CATEGORIES);
         BcEmiRecipes.register(registry, CATEGORIES);
         ForestryEmiRecipes.register(registry, CATEGORIES);

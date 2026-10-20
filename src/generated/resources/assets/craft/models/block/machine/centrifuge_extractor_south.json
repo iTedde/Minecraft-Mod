@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "craft:block/machine/centrifuge_extractor_bottom",
+    "east": "craft:block/machine/centrifuge_extractor_left",
+    "north": "craft:block/machine/centrifuge_extractor_back",
+    "particle": "craft:block/machine/centrifuge_extractor_front",
+    "south": "craft:block/machine/centrifuge_extractor_front",
+    "up": "craft:block/machine/centrifuge_extractor_top",
+    "west": "craft:block/machine/centrifuge_extractor_right"
+  }
+}

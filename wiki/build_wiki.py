@@ -61,6 +61,7 @@ WIKI_NOTES = {
 }
 
 GROUPS = [
+    ('advancedmachines', 'Advanced Machines'),
     ('ironchest', 'Iron Chests'),
     ('powerplants', 'Kraftwerke (neu)'),
     ('mining', 'Mining-Dimension (neu)'),
@@ -72,7 +73,8 @@ GROUPS = [
     ('ic2', 'IndustrialCraft 2'),
 ]
 GROUP_ORDER = ['IndustrialCraft 2', 'GregTech', 'BuildCraft', 'Forestry', 'Power Converters',
-               'Compact Solars', 'Kraftwerke (neu)', 'Mining-Dimension (neu)', 'Iron Chests', 'Sonstiges']
+               'Compact Solars', 'Kraftwerke (neu)', 'Mining-Dimension (neu)', 'Iron Chests', 'Advanced Machines',
+               'Sonstiges']
 
 # items whose behaviour was changed on purpose or which are new content
 CHANGED = {

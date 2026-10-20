@@ -1,0 +1,23 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "A": {
+      "item": "craft:advanced_machine_casing"
+    },
+    "M": {
+      "item": "craft:extractor"
+    },
+    "R": {
+      "item": "craft:electrolyzed_water_cell"
+    }
+  },
+  "pattern": [
+    "RRR",
+    "RMR",
+    "RAR"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:centrifuge_extractor"
+  }
+}

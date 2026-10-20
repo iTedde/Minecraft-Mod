@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.function.Supplier;
 
 import dev.craft.Craft;
+import dev.craft.advancedmachines.AdvancedMachinesItems;
 import dev.craft.buildcraft.BcBlocks;
 import dev.craft.mining.MiningBlocks;
 import dev.craft.buildcraft.BcItems;
@@ -184,6 +185,31 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
                 item(RpItems.tool(gem, tool), german ? gemName[1] + "-" + toolName[1] : gemName[0] + " " + toolName[0]);
             }
         }
+    }
+
+    /** Advanced Machines (spec 25): machines, refined iron dust, tab, GUI and EMI texts. */
+    protected void advancedMachines(boolean german) {
+        add("itemGroup.craft.advanced_machines", "Craft: Advanced Machines");
+        machine(Ic2Machine.ROTARY_MACERATOR, german ? "Rotations-Macerator" : "Rotary Macerator");
+        machine(Ic2Machine.SINGULARITY_COMPRESSOR, german ? "Singularitätskompressor" : "Singularity Compressor");
+        machine(Ic2Machine.CENTRIFUGE_EXTRACTOR, german ? "Zentrifugalextraktor" : "Centrifuge Extractor");
+        item(AdvancedMachinesItems.REFINED_IRON_DUST, german ? "Raffinierter Eisenstaub" : "Refined Iron Dust");
+        add("gui.craft.advanced_machine.speed", german ? "Drehzahl:" : "Speed:");
+        add("emi.category.craft.rotary_macerator_supplement",
+                german ? "Rotations-Macerator: Zusatz" : "Rotary Macerator: Supplement");
+        add("emi.craft.rotary_macerator_supplement.uses",
+                german ? "Reicht für %s Vorgänge" : "Lasts for %s operations");
+        add("emi.info.craft.advanced_machine", german
+                ? "Läuft erst hoch: jeder Tick mit Energie und Rezept (oder Redstone-Signal) erhöht die Drehzahl um 1 "
+                + "(3 EU/t) bis 7500; der Fortschritt wächst um Drehzahl/30 je Tick, fertig bei 4000. Bei voller "
+                + "Drehzahl 16 Ticks je Vorgang für 3 EU/t. Ohne Arbeit sinkt die Drehzahl um 4 je Tick; ein "
+                + "Redstone-Signal hält sie (kostet weiter Energie). Overclocker: schneller hoch und höher, aber "
+                + "3 · 2^n EU/t beim Hochlaufen. Redstone im Energieslot füllt den ganzen Speicher."
+                : "Spins up first: every tick with energy and a recipe (or a redstone signal) raises the speed by 1 "
+                + "(3 EU/t) up to 7500; progress grows by speed/30 per tick and is done at 4000. At full speed 16 "
+                + "ticks per operation for 3 EU/t. Without work the speed drops by 4 per tick; a redstone signal keeps "
+                + "it up (still using energy). Overclockers: faster and higher speed, but 3 · 2^n EU/t while "
+                + "spinning up. Redstone in the energy slot fills the whole storage.");
     }
 
     /** Iron Chests (spec 22): chests and upgrades. */
@@ -1288,6 +1314,7 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             redPower(false);
             portalGun(false);
             ironChests(false);
+            advancedMachines(false);
         }
     }
 
@@ -1690,6 +1717,7 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             redPower(true);
             portalGun(true);
             ironChests(true);
+            advancedMachines(true);
         }
     }
 }

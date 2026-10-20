@@ -1,0 +1,40 @@
+{
+  "variants": {
+    "active=false,facing=down": {
+      "model": "craft:block/machine/rotary_macerator_down"
+    },
+    "active=false,facing=east": {
+      "model": "craft:block/machine/rotary_macerator_east"
+    },
+    "active=false,facing=north": {
+      "model": "craft:block/machine/rotary_macerator_north"
+    },
+    "active=false,facing=south": {
+      "model": "craft:block/machine/rotary_macerator_south"
+    },
+    "active=false,facing=up": {
+      "model": "craft:block/machine/rotary_macerator_up"
+    },
+    "active=false,facing=west": {
+      "model": "craft:block/machine/rotary_macerator_west"
+    },
+    "active=true,facing=down": {
+      "model": "craft:block/machine/rotary_macerator_down_active"
+    },
+    "active=true,facing=east": {
+      "model": "craft:block/machine/rotary_macerator_east_active"
+    },
+    "active=true,facing=north": {
+      "model": "craft:block/machine/rotary_macerator_north_active"
+    },
+    "active=true,facing=south": {
+      "model": "craft:block/machine/rotary_macerator_south_active"
+    },
+    "active=true,facing=up": {
+      "model": "craft:block/machine/rotary_macerator_up_active"
+    },
+    "active=true,facing=west": {
+      "model": "craft:block/machine/rotary_macerator_west_active"
+    }
+  }
+}

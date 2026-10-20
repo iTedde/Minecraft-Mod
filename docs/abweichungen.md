@@ -287,3 +287,7 @@ Siehe `docs/balancing.md`. Wird hier eingetragen, sobald freigegeben.
 | Iron Chests: Blöcke und Kreativ-Tab | ein Metadaten-Block, Kisten unter „Dekoration“, Upgrades unter „Verschiedenes“ | ein Block je Kiste, eigener Tab „Craft: Iron Chests“ | 1.21 / ein Tab je Ursprungs-Mod | **umgesetzt** (20.4) |
 | Iron Chests: Eisen-Rezepte | jedes Rezept einmal mit Eisen, einmal mit Raffiniertem Eisen | ein Rezept, Zutat „Eisenbarren oder Raffiniertes Eisen“ | gleiche Wirkung, weniger Einträge in EMI | **umgesetzt** (20.4) |
 | Herkunft in EMI | – (Craft-Erweiterung, spec 24) | Info-Seite „Herkunft“ als EMI-Tab „Info“ **hinter** den Rezeptkategorien statt davor | EMI legt die Reihenfolge seiner eingebauten Info-Kategorie fest | **umgesetzt** (23.7) |
+| Advanced Machines: Kreativ-Tab | Maschinen im IC2-Tab | eigener Tab „Craft: Advanced Machines“ | ein Tab je Ursprungs-Mod | **umgesetzt** (24.1) |
+| Advanced Machines: Schraubenschlüssel-Fehler | Rechtsklick mit Schraubenschlüssel, den das Werkzeug nicht verarbeitet, invalidiert das Tile-Entity (Maschine tot bis zum Neuladen) | kein Effekt | Originalfehler ohne Spielwert | **umgesetzt** (24.1) |
+| Advanced Machines: Geräusch | Startereignis jeden Arbeitstick (Audioquelle spielt weiter) | Startereignis nur beim Übergang, Schleife bis zur Unterbrechung | gleiche Wirkung, weniger Pakete | **umgesetzt** (24.1) |
+| Advanced Machines: NEI | NEI-Handler | EMI: Workstations, Kategorie „Rotations-Macerator: Zusatz“, Info-Seite | NEI gibt es für 1.21 nicht | **umgesetzt** (24.1) |

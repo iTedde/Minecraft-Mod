@@ -1,6 +1,8 @@
 package dev.craft.ic2.client;
 
 import dev.craft.Craft;
+import dev.craft.advancedmachines.AdvancedMachineMenu;
+import dev.craft.advancedmachines.client.AdvancedMachineScreen;
 import dev.craft.ic2.Ic2BlockEntityTypes;
 import dev.craft.ic2.Ic2Blocks;
 import dev.craft.ic2.Ic2EntityTypes;
@@ -141,6 +143,8 @@ public final class Ic2Client {
                 case TRADE_O_MAT -> event.register(Ic2Menus.get(machine), PersonalScreens.TradeOMat::new);
                 case ENERGY_O_MAT -> event.register(Ic2Menus.get(machine), PersonalScreens.EnergyOMat::new);
                 case NUCLEAR_REACTOR -> event.register(Ic2Menus.get(machine), NuclearReactorScreen::new);
+                case ROTARY_MACERATOR, SINGULARITY_COMPRESSOR, CENTRIFUGE_EXTRACTOR ->
+                        event.register(Ic2Menus.<AdvancedMachineMenu>get(machine), AdvancedMachineScreen::new);
                 case LV_TRANSFORMER, MV_TRANSFORMER, HV_TRANSFORMER, MAGNETIZER, TELEPORTER, TESLA_COIL, TERRAFORMER -> {
                 }
             }

@@ -3,6 +3,7 @@ package dev.craft.core;
 import java.util.function.Supplier;
 
 import dev.craft.Craft;
+import dev.craft.advancedmachines.AdvancedMachinesItems;
 import dev.craft.buildcraft.BcItems;
 import dev.craft.buildcraft.transport.PipeType;
 import dev.craft.compactsolars.CsItems;
@@ -48,7 +49,9 @@ public final class CraftCreativeTabs {
             .icon(() -> Ic2Items.cable(CableType.INSULATED_COPPER).toStack())
             .displayItems((parameters, output) -> {
                 for (Ic2Machine machine : Ic2Machine.values()) {
-                    output.accept(Ic2Items.machine(machine));
+                    if (!machine.isAdvancedMachine()) {
+                        output.accept(Ic2Items.machine(machine));
+                    }
                 }
                 output.accept(Ic2Items.MACHINE_CASING);
                 for (CableType type : CableType.values()) {
@@ -219,6 +222,21 @@ public final class CraftCreativeTabs {
                     .withTabsBefore(ResourceLocation.fromNamespaceAndPath(Craft.MODID, "redpower"))
                     .displayItems((parameters, output) -> IronChestItems.ITEMS.getEntries()
                             .forEach(item -> output.accept(item.get())))
+                    .build());
+
+    public static final Supplier<CreativeModeTab> ADVANCED_MACHINES = TABS.register("advanced_machines", () ->
+            CreativeModeTab.builder()
+                    .title(Component.translatable("itemGroup.craft.advanced_machines"))
+                    .icon(() -> Ic2Items.machine(Ic2Machine.ROTARY_MACERATOR).toStack())
+                    .withTabsBefore(ResourceLocation.fromNamespaceAndPath(Craft.MODID, "iron_chests"))
+                    .displayItems((parameters, output) -> {
+                        for (Ic2Machine machine : Ic2Machine.values()) {
+                            if (machine.isAdvancedMachine()) {
+                                output.accept(Ic2Items.machine(machine));
+                            }
+                        }
+                        output.accept(AdvancedMachinesItems.REFINED_IRON_DUST);
+                    })
                     .build());
 
     private CraftCreativeTabs() {

@@ -1,5 +1,7 @@
 package dev.craft.ic2;
 
+import dev.craft.advancedmachines.AdvancedMachineBlock;
+import dev.craft.advancedmachines.AdvancedMachineBlockEntity;
 import dev.craft.ic2.brewing.BarrelBlock;
 import dev.craft.ic2.crop.CropBlock;
 import dev.craft.ic2.crop.CropMatronBlockEntity;
@@ -264,6 +266,8 @@ public final class Ic2Blocks {
             case PERSONAL_SAFE, TRADE_O_MAT, ENERGY_O_MAT -> new PersonalBlock(
                     metal().strength(-1.0F, 3600000.0F).noOcclusion(), machine, factory(machine));
             case NUCLEAR_REACTOR -> new NuclearReactorBlock(properties);
+            case ROTARY_MACERATOR, SINGULARITY_COMPRESSOR, CENTRIFUGE_EXTRACTOR ->
+                    new AdvancedMachineBlock(properties, machine, factory(machine));
             case LV_TRANSFORMER, MV_TRANSFORMER, HV_TRANSFORMER -> new MachineBlock(properties, machine,
                     (pos, state) -> new TransformerBlockEntity(Ic2BlockEntityTypes.get(machine), pos, state,
                             TransformerBlockEntity.Spec.of(machine)));
@@ -297,6 +301,9 @@ public final class Ic2Blocks {
             case PERSONAL_SAFE -> PersonalSafeBlockEntity::new;
             case TRADE_O_MAT -> TradeOMatBlockEntity::new;
             case ENERGY_O_MAT -> EnergyOMatBlockEntity::new;
+            case ROTARY_MACERATOR -> AdvancedMachineBlockEntity::rotaryMacerator;
+            case SINGULARITY_COMPRESSOR -> AdvancedMachineBlockEntity::singularityCompressor;
+            case CENTRIFUGE_EXTRACTOR -> AdvancedMachineBlockEntity::centrifugeExtractor;
             case BATBOX, MFE, MFSU, LV_TRANSFORMER, MV_TRANSFORMER, HV_TRANSFORMER, MASS_FABRICATOR, NUCLEAR_REACTOR ->
                     throw new IllegalArgumentException(machine + " has its own block class");
         };

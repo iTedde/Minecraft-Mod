@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.function.Supplier;
 
 import dev.craft.Craft;
+import dev.craft.advancedmachines.AdvancedMachineMenu;
 import dev.craft.ic2.crop.CropnalyzerMenu;
 import dev.craft.ic2.menu.NuclearReactorMenu;
 import dev.craft.ic2.menu.ElectricMachineMenu;
@@ -78,6 +79,8 @@ public final class Ic2Menus {
                     (id, inventory, buf) -> new CropMatronMenu(id, inventory, buf.readBlockPos()));
             case MINER -> IMenuTypeExtension.create(
                     (id, inventory, buf) -> new MinerMenu(id, inventory, buf.readBlockPos()));
+            case ROTARY_MACERATOR, SINGULARITY_COMPRESSOR, CENTRIFUGE_EXTRACTOR -> IMenuTypeExtension.create(
+                    (id, inventory, buf) -> new AdvancedMachineMenu(machine, id, inventory, buf.readBlockPos()));
             case NUCLEAR_REACTOR -> IMenuTypeExtension.create(
                     (id, inventory, buf) -> new NuclearReactorMenu(id, inventory, buf.readBlockPos()));
             case LV_TRANSFORMER, MV_TRANSFORMER, HV_TRANSFORMER, MAGNETIZER, TELEPORTER, TESLA_COIL, TERRAFORMER ->

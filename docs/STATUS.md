@@ -2058,5 +2058,26 @@ Spezifikation: `docs/spec/24-herkunft.md`.
 - [x] Version 0.4.5, CurseForge-Paket `releases/Craft-0.4.5-curseforge.zip` bzw. `X:/Craft/Craft-0.4.5-curseforge.zip`
   (16,2 MB, Mods wie 0.4.4). Phase 23 damit erledigt.
 
+# Phase 24 – Advanced Machines (Nutzer, 2026-10-20)
+
+Spezifikation: `docs/spec/25-advanced-machines.md`. Quelle: `ftb ultimate/mods/advancedmachines.zip` (4.7b), neu
+dekompiliert nach `reference/decompiled/advancedmachines/` (mit Vineflower, ohne MCP-Remapping; die Zip enthält auch die
+Quelltexte). Ebenso `thermalexpansion` und `CoFHCore` für Phase 25.
+
+## Erledigt (24.0 Spezifikation, 24.1 Umsetzung, 2026-10-20)
+- [x] Rotations-Macerator, Singularitätskompressor, Zentrifugalextraktor als `Ic2Machine`-Einträge (Blattsatz
+  `ADVANCED_MACHINES`), Logik in `dev.craft.advancedmachines` (`AdvancedMachineBlockEntity`,
+  `RotaryMaceratorBlockEntity`, `AdvancedMachineMenu`, `client/AdvancedMachineScreen`), Raffinierter Eisenstaub.
+- [x] Hochlauf (3 EU/t, +1 Drehzahl/Tick bis 7500, Fortschritt Drehzahl/30), Upgrades mit AM-Formeln, Redstone/
+  Einweg-Batterie im Energieslot, Seitenzugriff, Zusatzslot (128/4/8), Drop Fortgeschrittenes Maschinengehäuse.
+- [x] Rezepte (Raffiniertes Eisen / Obsidian / Elektrolysierte Wasserzelle um Maschine + Gehäuse), Ofen Staub → Barren.
+- [x] Texturen aus `block_advmachine.png`, GUIs aus den Original-PNGs, IC2-Geräusche, Rauchpartikel.
+- [x] EMI: Workstations, Kategorie „Rotations-Macerator: Zusatz“, Info-Seite. Herkunftstexte (Raffinierter
+  Eisenstaub, Bronzestaub, Hydrierter Kohlestaub). Wiki: Mod-Seite, Energie-Steckbrief.
+- [x] 7 GameTests (`AdvancedMachinesGameTests`), alle 401 grün; `gradlew test build` grün.
+- Befund beim Bauen: die Rezeptsuche für den Zusatz verkleinert die Kopie auf 0 – im Original zählt nur die Item-ID,
+  daher sucht Craft auf einer eigenen Kopie.
+
 ## Nächste Schritte
-1. Phase 24: Advanced Machines (Spezifikation + Umsetzung).
+1. Phase 25: Thermal Expansion (Spezifikation + Umsetzung). Entschieden (Nutzer, 2026-10-20): vorhandene Craft-Items
+   statt TE-Duplikaten, nur Silber-, Blei- und Nickelerz (Ferrous) generieren, kompletter Umfang inkl. Tesserakte.

@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "craft:block/machine/singularity_compressor_bottom_active",
+    "east": "craft:block/machine/singularity_compressor_left_active",
+    "north": "craft:block/machine/singularity_compressor_back_active",
+    "particle": "craft:block/machine/singularity_compressor_front_active",
+    "south": "craft:block/machine/singularity_compressor_front_active",
+    "up": "craft:block/machine/singularity_compressor_top_active",
+    "west": "craft:block/machine/singularity_compressor_right_active"
+  }
+}

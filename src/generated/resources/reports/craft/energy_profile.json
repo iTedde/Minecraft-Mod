@@ -642,6 +642,58 @@
     },
     {
       "classes": [
+        "RotaryMaceratorBlockEntity",
+        "AdvancedMachineBlockEntity",
+        "MachineBlockEntity"
+      ],
+      "id": "rotary_macerator",
+      "kinds": [
+        "eu_sink"
+      ],
+      "maxSafeInput": 32,
+      "values": {
+        "ENERGY_PER_TICK": 3,
+        "getEnergyConsume": 3,
+        "getMaxEnergy": 5000,
+        "getTier": 1
+      }
+    },
+    {
+      "classes": [
+        "AdvancedMachineBlockEntity",
+        "MachineBlockEntity"
+      ],
+      "id": "singularity_compressor",
+      "kinds": [
+        "eu_sink"
+      ],
+      "maxSafeInput": 32,
+      "values": {
+        "ENERGY_PER_TICK": 3,
+        "getEnergyConsume": 3,
+        "getMaxEnergy": 5000,
+        "getTier": 1
+      }
+    },
+    {
+      "classes": [
+        "AdvancedMachineBlockEntity",
+        "MachineBlockEntity"
+      ],
+      "id": "centrifuge_extractor",
+      "kinds": [
+        "eu_sink"
+      ],
+      "maxSafeInput": 32,
+      "values": {
+        "ENERGY_PER_TICK": 3,
+        "getEnergyConsume": 3,
+        "getMaxEnergy": 5000,
+        "getTier": 1
+      }
+    },
+    {
+      "classes": [
         "ReactorChamberBlockEntity"
       ],
       "id": "reactor_chamber",

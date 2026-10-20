@@ -3,6 +3,7 @@ package dev.craft.data;
 import java.util.List;
 
 import dev.craft.Craft;
+import dev.craft.advancedmachines.AdvancedMachinesItems;
 import dev.craft.buildcraft.BcItems;
 import dev.craft.buildcraft.engine.EngineType;
 import dev.craft.forestry.FrItems;
@@ -36,6 +37,7 @@ public final class CraftItemModelProvider extends ItemModelProvider {
     @Override
     protected void registerModels() {
         basicItem(PpItems.COKE.get());
+        basicItem(AdvancedMachinesItems.REFINED_IRON_DUST.get());
         basicItem(PpItems.IRON_WIND_ROTOR.get());
         basicItem(PpItems.STEEL_WIND_ROTOR.get());
         basicItem(PpItems.CARBON_WIND_ROTOR.get());

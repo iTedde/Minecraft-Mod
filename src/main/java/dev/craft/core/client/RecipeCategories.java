@@ -13,6 +13,8 @@ public final class RecipeCategories {
     public static final ResourceLocation MACERATOR = id("macerator");
     public static final ResourceLocation EXTRACTOR = id("extractor");
     public static final ResourceLocation COMPRESSOR = id("compressor");
+    /** Advanced Machines: the rotary macerator's supplement slot (spec 25 §4). */
+    public static final ResourceLocation ROTARY_MACERATOR_SUPPLEMENT = id("rotary_macerator_supplement");
     public static final ResourceLocation RECYCLER = id("recycler");
     public static final ResourceLocation SCRAP_BOX = id("scrap_box");
     public static final ResourceLocation MASS_FABRICATOR = id("mass_fabricator");
