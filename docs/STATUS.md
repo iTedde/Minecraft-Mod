@@ -1982,3 +1982,18 @@ entfallen. Entschieden: Sortieren mit **Inventory Profiles Next**; **Jade fügt 
 - [x] Paket 0.4.4 unter 20 MB (21,7 → 16,9 MB): Kotlin for Forge 5.12.0 nicht mehr in `overrides/mods`, sondern in
   `manifest.json` `files` (CurseForge projectID 351264, fileID 8335665; Inhalt identisch mit dem Modrinth-Jar, nur
   andere Zeitstempel). Jars im Zip ungepackt (`STORED`), da schon komprimiert.
+
+# Phase 23 – Herkunft aller Rohstoffe erklären (Nutzer, 2026-10-20)
+
+Anlass: Nickel (nur Nebenprodukt) war weder im Spiel noch im Wiki auffindbar; Wiki-Herkunftsangaben zu vage.
+Spezifikation: `docs/spec/24-herkunft.md`.
+
+## Erledigt (23.0 Spezifikation, 2026-10-20)
+- [x] Bestandsaufnahme: EMI ohne Weltgenerierung/mehrstufige Wege/Drops; 47 Items ohne Rezept im Wiki nur mit
+  Sammeltext; ≈ 240 Rohstoff-Items (Erze, Stäube, kleine Stäube, Barren, Platten, Edelsteine, Zellen, Sonstiges).
+- [x] Lösung: Herkunftstexte `source.craft.<id>` (DE/EN) aus einer Klasse `SourceTexts`, angezeigt als EMI-Info-Seite,
+  Shift-Tooltip und Wiki-Abschnitt; neue Wiki-Seite „Rohstoffe & Erze“.
+
+## Nächste Schritte
+1. Entscheidungen E1 (Shift-Tooltip) und E2 (nicht erreichbare Materialien kennzeichnen) – `spec/24` §5.
+2. 23.1: Mechanismus + Erze und Weltgen-/Drop-Rohstoffe.
