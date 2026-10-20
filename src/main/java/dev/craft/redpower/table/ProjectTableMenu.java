@@ -27,9 +27,9 @@ import org.jetbrains.annotations.Nullable;
  */
 public class ProjectTableMenu extends AbstractContainerMenu {
     public static final int RESULT = 10;
-    private static final int STORAGE = 11;
-    private static final int PLAYER = STORAGE + STORAGE_SIZE;
-    private static final int END = PLAYER + 36;
+    public static final int STORAGE = 11;
+    public static final int PLAYER = STORAGE + STORAGE_SIZE;
+    public static final int END = PLAYER + 36;
     /** Menu button: write the blank plan. */
     public static final int BUTTON_WRITE_PLAN = 0;
 

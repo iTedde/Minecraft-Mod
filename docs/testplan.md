@@ -70,6 +70,7 @@ Testwelt. Sprache einmal Deutsch, einmal Englisch prüfen. EMI und Xaero's Minim
 | 3.33 | Kaffee/Fass: Kaffee aus Bohnen (Werkbank 1, Macerator 3), Tasse + Pulver + Wasser → kalt, Ofen → schwarz, + Zucker + Milch; Trinken gibt Tempo/Eile, viel Kaffee Übelkeit; Fass auf Holzgerüst setzen, mit Wasser/Weizen/Hopfen bzw. Zuckerrohr befüllen, Baumzapfer an die Seite (Textur), mit Steinkrug zapfen (Name je Bier/Rum, Symbol je Reifestufe), Linksklick entfernt Zapfer bzw. gibt Fass mit Inhalt (Name „n L“) und lässt das Gerüst stehen; EMI-Infoseiten | 12.8 | |
 | 3.34 | Dynamit: Rezepte (ITNT + Faden → 8, Klebedynamit mit Harz, zwei Fernzünder-Rezepte); werfen (Item-Sprite fliegt, raucht, prallt ab), Klebedynamit bleibt an Wand/Decke kleben und geht schneller hoch, im Wasser keine Explosion; Explosion 3×3×3 (Stein/Erde weg mit Drops, Obsidian bleibt, keine Partikel); Dynamit auf Boden/Wand setzen (Fackel-Modell), Redstone/Abbauen zündet (40 Ticks), Halt entfernen → sofort; Fernzünder verknüpft (Textur wechselt, Tooltip „n Dynamit“), trennt, zündet alle; Werfer schießt Dynamit; Industrie-TNT neben später gesetztem Redstone-Block zündet | 12.9 | |
 | 3.36 | Kompositweste: beide Rezepte (Lederharnisch/Eisenbrustplatte unbeschädigt), Rüstungsanzeige 9, Textur am Spieler, Verzaubern, Amboss-Reparatur mit fortg. Legierung | 13.1 | |
+| 3.37 | Ladeanzeige: Tooltip „x / y EU“ an Akkus, Werkzeugen, Rüstung; Treibstoff-Jetpack „Treibstoff: n %“; getragene elektrische Rüstung/Jetpacks oben links mit Symbol und %, gelb ≤ 25 %, rot ≤ 10 %; ausgeblendet mit F1/F3 | 20.2 | |
 | 3.35 | GT-Änderungen: Upgrades stapeln nur bis 4 (Inventar, Shift-Klick in Maschinen-Upgrade-Slots, Creative-Tab); Eis/Schnee im Recycler ergibt nie Schrott (EMI-Blacklist-Seite zeigt sie); Miner mit Scanner + IC2-Pumpe daneben fährt zu Lava-Quellen der Ebene und füllt Lavazellen | 12.10 | |
 
 ## 4. IC2 – Canning, Pumpe, Reaktor, Nuke (Phasen 6b, 7, 8)
@@ -162,6 +163,7 @@ Testwelt. Sprache einmal Deutsch, einmal Englisch prüfen. EMI und Xaero's Minim
 | 9.3 | Kategorien BC/Forestry/Kraftwerke: Raffinerie, Verbrennungsmotor, Fabricator (Raster), Carpenter (Raster), Koksofen, Kessel, Dampfturbine; Info-Seiten der Multiblöcke | 11.3 | |
 | 9.4 | Klick auf Fortschrittspfeile/Flammen in den GUIs öffnet die passende Kategorie | 11.1–11.3 | |
 | 9.5 | `craft:water`/`craft:lava` nicht im Index | 11.2 | |
+| 9.6 | EMI-„+“ im Projekttisch (Zutaten aus Vorrat und Inventar, Shift-+ für viele) und in der Automatischen Werkbank; nur Werkbank-Rezepte | 20.1 | |
 
 ## Befunde
 

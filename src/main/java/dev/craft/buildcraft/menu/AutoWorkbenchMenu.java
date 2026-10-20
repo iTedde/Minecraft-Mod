@@ -20,9 +20,9 @@ import org.jetbrains.annotations.Nullable;
  */
 public class AutoWorkbenchMenu extends AbstractContainerMenu {
     public static final int RESULT = 0;
-    private static final int PLAYER = 10;
+    public static final int PLAYER = 10;
     private static final int HOTBAR = 37;
-    private static final int END = 46;
+    public static final int END = 46;
 
     @Nullable
     private final AutoWorkbenchBlockEntity workbench;

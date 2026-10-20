@@ -531,6 +531,7 @@ bauen sie nicht ab. Turtles brauchen Treibstoff (wie im Pack).</p>
 <li><b>BuildCraft / Forestry / Kraftwerke:</b> Raffinerie, Thermionic Fabricator, Carpenter, Koksofen, Kessel, Turbine …</li>
 </ul>
 <p>Angezeigt werden Ein-/Ausgaben, Dauer, EU/t und Gesamt-EU wie in der jeweiligen GUI. Werkbank-Rezepte und Öfen zeigt EMI ohnehin.
+Der <b>+</b>-Knopf füllt Werkbank-Rezepte auch in den <b>Projekttisch</b> (aus Vorrat und Inventar) und in die <b>Automatische Werkbank</b>.
 Über einem Gegenstand: <b>R</b> = Rezept, <b>U</b> = Verwendungen. EMI ist optional – ohne EMI startet Craft trotzdem.</p>
 <h2 id="zu--xaero">Xaero's Minimap</h2>
 <p>Nur mitinstalliert, keine eigene Integration. Version neoforge-1.21.1-26.5.0.</p>

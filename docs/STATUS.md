@@ -1844,3 +1844,28 @@ laufenden Felds, liefert das neue Feld nichts (`spec/11` §4).
 
 ## Nächste Schritte
 1. Abnahme im Client: Solar-Felder (Testplan 8.1), Phase 18 + 19 (Projekttisch, Automatische Werkbank, Long Fall Boots).
+
+# Phase 20 – Nutzerwünsche EMI-Projekttisch, Ladeanzeige, Iron Chests (Nutzer, 2026-10-20)
+
+Nutzerwunsch: Projekttisch arbeitet nicht mit der Rezeptanzeige zusammen; Anzeige, wie viel Energie z. B. im Jetpack
+steckt; Gold-/Eisen-/Diamantkisten. Entschieden: Ladeanzeige als **Tooltip + HUD**; Iron Chests **komplett wie im
+Pack** (alle 7 Kisten + Upgrade-Items, `ftb ultimate/mods/IronChest.zip`, noch nicht dekompiliert).
+
+## Erledigt (20.1 EMI-„+“ + 20.2 Ladeanzeige, 2026-10-20)
+- [x] 20.1 `compat/emi/CraftingTableEmiHandlers`: EMI-`StandardRecipeHandler` für Projekttisch (Raster 0–8, Zutaten
+  aus Vorrat + Spielerinventar) und Automatische Werkbank (Raster, Zutaten aus dem Spielerinventar); nur
+  Werkbank-Rezepte. Slot-Konstanten der Menüs dafür öffentlich.
+- [x] 20.2 `ic2/client/ChargeDisplay`: Tooltip `tooltip.craft.charge` „x / y EU“ an jedem `ElectricItem`,
+  `tooltip.craft.fuel` „Treibstoff: n %“ am Treibstoff-Jetpack; GUI-Layer `craft:charge` oben links mit Symbol + %
+  für getragene elektrische Rüstung/Jetpacks (gelb ≤ 25 %, rot ≤ 10 %, aus bei F1/F3).
+- [x] `abweichungen.md` (2 Zeilen), `testplan.md` 3.37 + 9.6, Wiki-Text (`content.py`; **HTML nicht neu erzeugt** –
+  auf diesem Rechner kein Python 3.12). `runData` ausgeführt, `gradlew build` grün, `runClient` startet (Hauptmenü).
+- [x] Version 0.3.9, CurseForge-Paket `releases/Craft-0.3.9-curseforge.zip`.
+
+## Nächste Schritte
+1. 20.3 Iron Chests: `IronChest.zip` dekompilieren (`tools/decompile.sh`, Ausgabe `reference/decompiled/ironchest/`),
+   Spezifikation `docs/spec/22-iron-chests.md` (Kisten, Größen, Rezepte, Upgrades, Kristallkiste, Obsidian,
+   Ozelot-Verhalten, Kupfer/Silber-Rezepte über `c:ingots/…`); neues Paket `…ironchest`.
+2. 20.4 Umsetzung Iron Chests.
+3. Wiki-HTML auf dem Rechner mit Python neu erzeugen.
+4. Abnahme im Client: Solar-Felder (Testplan 8.1), Phase 18 + 19, 3.37, 9.6.

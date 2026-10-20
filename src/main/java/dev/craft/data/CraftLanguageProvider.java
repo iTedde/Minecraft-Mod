@@ -508,6 +508,8 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
         add("gui.craft.structure_incomplete", german ? "Struktur unvollständig" : "Structure incomplete");
         add("gui.craft.output", german ? "Erzeugt: %s %s" : "Output: %s %s");
         add("gui.craft.consumption", german ? "Verbraucht: %s %s" : "Consumes: %s %s");
+        add("tooltip.craft.charge", "%s / %s EU");
+        add("tooltip.craft.fuel", german ? "Treibstoff: %s %%" : "Fuel: %s %%");
         item(PpItems.COKE, german ? "Koks" : "Coal Coke");
         block(PpBlocks.COKE_BLOCK, german ? "Koksblock" : "Block of Coal Coke");
         block(PpBlocks.COKE_OVEN_BRICKS, german ? "Koksofenziegel" : "Coke Oven Bricks");
