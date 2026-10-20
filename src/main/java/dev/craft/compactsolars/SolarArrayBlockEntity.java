@@ -1,8 +1,6 @@
 package dev.craft.compactsolars;
 
 import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -44,6 +42,7 @@ public class SolarArrayBlockEntity extends MachineBlockEntity implements EnergyS
     private final MultiblockLease lease = new MultiblockLease();
     private final OutputMeter outputMeter = new OutputMeter();
     private int sunnyValue;
+    private boolean centre;
     private boolean delivering;
 
     public SolarArrayBlockEntity(BlockPos pos, BlockState state) {
@@ -61,7 +60,9 @@ public class SolarArrayBlockEntity extends MachineBlockEntity implements EnergyS
 
             @Override
             public void onChecked(@Nullable MultiblockPattern.Match match) {
-                sunnyValue = match == null ? 0 : claimParts(match);
+                int value = match == null ? -1 : claimParts(match);
+                centre = value >= 0;
+                sunnyValue = Math.max(value, 0);
             }
         });
     }
@@ -84,7 +85,12 @@ public class SolarArrayBlockEntity extends MachineBlockEntity implements EnergyS
         return delivering;
     }
 
-    /** Held by the centre of the array whose ring this one is part of. */
+    /** True while this array is the centre of a field holding all its 8 ring blocks. */
+    public boolean isCentre() {
+        return centre;
+    }
+
+    /** Held by the centre of the field whose ring this one is part of. */
     public MultiblockLease getLease() {
         return lease;
     }
@@ -94,6 +100,8 @@ public class SolarArrayBlockEntity extends MachineBlockEntity implements EnergyS
         delivering = false;
         long now = level.getGameTime();
         if (lease.isHeld(now)) {
+            centre = false;
+            sunnyValue = 0;
             return;
         }
         int radius = SolarArrayPatterns.RADIUS;
@@ -128,24 +136,23 @@ public class SolarArrayBlockEntity extends MachineBlockEntity implements EnergyS
     }
 
     /**
-     * Renews the leases on the arrays of the ring (highest tier first, so this array may take over the parts of the
-     * arrays it is about to claim) and on its panels; returns the summed base values of itself and of the parts that
-     * see the sun. Only the 9 blocks of one field work together (user, 2026-10-20): if any part of the ring is held
-     * by a foreign field, nothing is claimed and the field delivers nothing.
+     * Renews the leases on the 8 blocks of the ring and returns the summed base values of itself and of the parts
+     * that see the sun. Every field is a unit of its own 9 blocks (user, 2026-10-20): if a ring block belongs to
+     * another field – as its part or, for an array, as the centre of its own field – nothing is claimed and -1 is
+     * returned.
      */
     private int claimParts(MultiblockPattern.Match match) {
         long now = level.getGameTime();
-        List<BlockPos> ring = new ArrayList<>(match.get(SolarArrayPatterns.RING));
-        ring.sort(Comparator.comparingInt(pos -> level.getBlockEntity(pos) instanceof SolarArrayBlockEntity array
-                ? -array.type.ordinal() : 1));
-        Set<BlockPos> owners = new HashSet<>();
-        owners.add(worldPosition);
+        Set<BlockPos> owners = Set.of(worldPosition);
         List<MultiblockLease> leases = new ArrayList<>();
         int sunny = sunVisible(worldPosition) ? type.getBaseValue() : 0;
-        for (BlockPos pos : ring) {
+        for (BlockPos pos : match.get(SolarArrayPatterns.RING)) {
             BlockEntity part = level.getBlockEntity(pos);
             MultiblockLease partLease;
             if (part instanceof SolarArrayBlockEntity array) {
+                if (array.centre) {
+                    return -1;
+                }
                 partLease = array.lease;
                 if (sunVisible(pos)) {
                     sunny += array.type.getBaseValue();
@@ -156,13 +163,10 @@ public class SolarArrayBlockEntity extends MachineBlockEntity implements EnergyS
                     sunny++;
                 }
             } else {
-                return 0;
+                return -1;
             }
             if (!partLease.canClaim(owners, now)) {
-                return 0;
-            }
-            if (part instanceof SolarArrayBlockEntity) {
-                owners.add(pos);
+                return -1;
             }
             leases.add(partLease);
         }

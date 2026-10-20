@@ -475,7 +475,7 @@ das Kabel kommt an die Mitte.</li>
 <li>Abgabe: zuerst in den Lade-Slot, der Rest in alle Richtungen ins Netz, in Paketen von höchstens 8 / 64 / 512 EU – so viele wie nötig (19 EU/t am LV-Feld = 8 + 8 + 3). Was niemand abnimmt, geht verloren – kein Puffer.
 Ein Speicher (BatBox/MFE/MFSU) gehört also dazu, wenn du den Strom nachts nutzen willst.</li>
 <li>Im Tagesmittel liefert Solar etwa die Hälfte der Spitzenleistung (nachts nichts).</li>
-<li><b>Nur die 9 Blöcke eines Felds arbeiten zusammen.</b> Teilt ein Feld auch nur einen Block mit einem anderen Feld, liefert es <b>nichts</b> – Felder also nicht überlappen lassen. Fällt das erste Feld weg, übernimmt das zweite nach spätestens 3 Sekunden (Lease, alle 20 Ticks erneuert, verfällt nach 40 Ticks).</li>
+<li><b>Nur die 9 Blöcke eines Felds arbeiten zusammen.</b> Teilt ein Feld auch nur einen Block mit einem anderen Feld, liefert es <b>nichts</b> – Felder also nicht überlappen lassen. Ein Array, das selbst Mitte eines laufenden Felds ist, kann nie Teil eines anderen Felds werden – jedes Feld ist eine eigene Einheit. Fällt das erste Feld weg, übernimmt das zweite nach spätestens 3 Sekunden (Lease, alle 20 Ticks erneuert, verfällt nach 40 Ticks).</li>
 </ul>
 <div class="calc" data-calc="solar"><h4>Rechner: Solar-Feld</h4><div class="row">
 <label>Mitte <select name="tier"><option value="lv">LV</option><option value="mv" selected>MV</option><option value="hv">HV</option></select></label>

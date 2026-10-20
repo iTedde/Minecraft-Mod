@@ -1828,3 +1828,19 @@ wegfällt (`spec/11` §4).
 
 ## Nächste Schritte
 1. Abnahme im Client: Solar-Felder (Testplan 8.1), Phase 18 + 19 (Projekttisch, Automatische Werkbank, Long Fall Boots).
+
+# Nachtrag – Solar-Felder als eigene Einheiten (Nutzer, 2026-10-20)
+
+Nutzerwunsch: „lass jeden 9er Block eine eigene Entität sein … Ein Teil eines Blocks darf selber kein Teil eines
+Blocks sein.“ Bisher übernahm ein Feld ein laufendes Feld, dessen Mitte in seinem Ring stand, samt dessen Panels.
+Jetzt gehört jeder Block höchstens zu einem Feld (Mitte **oder** Ringblock); ist ein Ring-Array selbst Mitte eines
+laufenden Felds, liefert das neue Feld nichts (`spec/11` §4).
+
+- [x] `SolarArrayBlockEntity`: Status `isCentre()`; `claimParts` ohne Übernahme (nur die eigene Mitte als Halter),
+  sperrt bei fremdem Lease oder Ring-Array, das Mitte ist.
+- [x] GameTest `runningFieldIsNeverTakenOver` ersetzt `hvArrayTakesOverARunningMvArray`. Alle 374 GameTests grün,
+  `gradlew build` grün.
+- [x] `abweichungen.md`, `testplan.md` 8.1, Wiki; Version 0.3.8, CurseForge-Paket `releases/Craft-0.3.8-curseforge.zip`.
+
+## Nächste Schritte
+1. Abnahme im Client: Solar-Felder (Testplan 8.1), Phase 18 + 19 (Projekttisch, Automatische Werkbank, Long Fall Boots).

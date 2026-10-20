@@ -189,28 +189,33 @@ public final class CompactSolarsGameTests {
         });
     }
 
-    /** As built in survival: an MV array runs on its own until it ends up in the ring of an HV array. */
+    /**
+     * Every field is a unit of its own 9 blocks: the centre of a running field never becomes part of another one. The
+     * new array placed into its ring cannot form a field of its own and ends up as a part of the running field.
+     */
     @GameTest(template = EMPTY, batch = BATCH, timeoutTicks = 140)
-    public static void hvArrayTakesOverARunningMvArray(GameTestHelper helper) {
+    public static void runningFieldIsNeverTakenOver(GameTestHelper helper) {
         sunshine(helper);
         BlockPos centre = new BlockPos(5, 1, 5);
-        BlockPos mvPos = centre.east();
-        SolarArrayBlockEntity mv = build(helper, SolarArrayType.MV, mvPos, panel());
+        BlockPos firstPos = centre.east();
+        SolarArrayBlockEntity first = build(helper, SolarArrayType.MV, firstPos, panel());
         for (int z = -1; z <= 1; z++) {
             helper.setBlock(centre.offset(-1, 0, z), panel());
         }
         helper.runAfterDelay(1, () -> refreshPanels(helper, centre, 2));
         helper.runAfterDelay(40, () -> {
-            helper.assertTrue(mv.isDelivering(), "MV array not delivering on its own");
-            helper.setBlock(centre, array(SolarArrayType.HV));
+            helper.assertTrue(first.isCentre() && first.isDelivering(), "first field not running");
+            // An MV array in the ring of the first field, itself surrounded by panels and the first array.
+            helper.setBlock(centre, array(SolarArrayType.MV));
             helper.runAfterDelay(50, () -> {
-                SolarArrayBlockEntity hv = helper.getBlockEntity(centre);
-                helper.assertTrue(hv.isFormed(), "HV array not formed");
-                // 512 + 64 + 7 panels, four of them taken over from the MV array
-                helper.assertValueEqual(hv.getSunnyValue(), 583, "sunny value");
-                helper.assertTrue(hv.isDelivering(), "HV array not delivering");
-                helper.assertValueEqual(mv.getLease().getOwner(now(helper)), hv.getBlockPos(), "MV array owner");
-                helper.assertFalse(mv.isDelivering(), "MV array in the ring delivers");
+                SolarArrayBlockEntity second = helper.getBlockEntity(centre);
+                helper.assertFalse(second.isCentre(), "second array became a centre");
+                helper.assertFalse(second.isDelivering(), "second array delivers");
+                helper.assertFalse(first.getLease().isHeld(now(helper)), "first array taken over");
+                helper.assertTrue(first.isCentre() && first.isDelivering(), "first field stopped");
+                helper.assertValueEqual(second.getLease().getOwner(now(helper)), first.getBlockPos(), "second owner");
+                // 64 + 64 for the new MV array + 7 panels
+                helper.assertValueEqual(first.getSunnyValue(), 135, "first field");
                 helper.succeed();
             });
         });
