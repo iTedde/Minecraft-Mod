@@ -1977,3 +1977,8 @@ entfallen. Entschieden: Sortieren mit **Inventory Profiles Next**; **Jade fügt 
 1. Abnahme im Spiel (Nutzer): Ladeanzeige neben der Hotbar (mit/ohne Offhand-Item), Phase 22 (Sortieren,
    Rechtsklick-Ernte, Trading Post).
 2. Offen aus dem Testplan: Geräusche, deutsche Texte im Spiel.
+
+## Paketgröße (Nutzer, 2026-10-20)
+- [x] Paket 0.4.4 unter 20 MB (21,7 → 16,9 MB): Kotlin for Forge 5.12.0 nicht mehr in `overrides/mods`, sondern in
+  `manifest.json` `files` (CurseForge projectID 351264, fileID 8335665; Inhalt identisch mit dem Modrinth-Jar, nur
+  andere Zeitstempel). Jars im Zip ungepackt (`STORED`), da schon komprimiert.
