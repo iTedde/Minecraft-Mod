@@ -6,12 +6,14 @@ import dev.craft.Craft;
 import dev.craft.ic2.item.ElectricItem;
 import dev.craft.ic2.item.ElectricItems;
 import dev.craft.ic2.item.armor.JetpackItem;
+import net.minecraft.client.AttackIndicatorStatus;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.api.distmarker.Dist;
@@ -23,7 +25,7 @@ import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 
 /**
  * Charge display (not in IC2, which only shows the damage bar): tooltip "x / y EU" on every electric item, fuel in
- * percent on the fuel jetpack, and a HUD list of the worn electric armor and jetpacks in the top left corner.
+ * percent on the fuel jetpack, and a HUD list of the worn electric armor and jetpacks left of the hotbar.
  */
 public final class ChargeDisplay {
     private static final EquipmentSlot[] ARMOR_SLOTS = {
@@ -69,9 +71,18 @@ public final class ChargeDisplay {
         if (player == null || minecraft.options.hideGui || minecraft.getDebugOverlay().showDebugScreen()) {
             return;
         }
-        int y = 2;
-        for (EquipmentSlot slot : ARMOR_SLOTS) {
-            ItemStack stack = player.getItemBySlot(slot);
+        // Left of the hotbar (Xaero's minimap sits top left), right-aligned, skipping the left offhand slot
+        // and the left attack indicator; laid out from the hotbar outwards, so iterate the slots in reverse
+        int x = graphics.guiWidth() / 2 - 91 - 6;
+        boolean offhandLeft = player.getMainArm() == HumanoidArm.RIGHT;
+        if (offhandLeft && !player.getOffhandItem().isEmpty()) {
+            x -= 29;
+        } else if (!offhandLeft && minecraft.options.attackIndicator().get() == AttackIndicatorStatus.HOTBAR) {
+            x -= 24;
+        }
+        int y = graphics.guiHeight() - 19;
+        for (int i = ARMOR_SLOTS.length - 1; i >= 0; i--) {
+            ItemStack stack = player.getItemBySlot(ARMOR_SLOTS[i]);
             int percent;
             if (stack.getItem() instanceof ElectricItem item) {
                 percent = percent(ElectricItems.getCharge(stack), item.getMaxCharge());
@@ -80,10 +91,13 @@ public final class ChargeDisplay {
             } else {
                 continue;
             }
-            graphics.renderItem(stack, 2, y);
+            String text = percent + " %";
+            x -= minecraft.font.width(text);
             int color = percent <= 10 ? 0xFF5555 : percent <= 25 ? 0xFFFF55 : 0xFFFFFF;
-            graphics.drawString(minecraft.font, percent + " %", 21, y + 4, color);
-            y += 17;
+            graphics.drawString(minecraft.font, text, x, y + 4, color);
+            x -= 18;
+            graphics.renderItem(stack, x, y);
+            x -= 6;
         }
     }
 

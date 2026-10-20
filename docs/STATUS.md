@@ -1964,3 +1964,16 @@ entfallen. Entschieden: Sortieren mit **Inventory Profiles Next**; **Jade fügt 
 1. Abnahme im Spiel (Nutzer): Sortieren in Inventar/Vanilla-/Iron Chests, Rechtsklick-Ernte (Vanilla-Feldfrüchte;
    IC2-Crops ernten ohnehin per Rechtsklick), Trading Post an der Handelshalle.
 2. B5 (Ladeanzeige/Minimap oben links) weiter offen.
+
+# B5 – Ladeanzeige neben die Hotbar (Nutzer, 2026-10-20)
+
+- [x] Entschieden: HUD-Ladeanzeige **links neben der Hotbar** statt oben links (dort sitzt Xaero's Minimap).
+  `ChargeDisplay`: Einträge rechtsbündig vor der Hotbar (Reihenfolge Kopf → Füße von links nach rechts), weicht dem
+  linken Offhand-Slot bzw. bei Linkshändern der Angriffsanzeige aus. `abweichungen.md`, `testplan.md` 3.37/B5.
+- [x] `gradlew build` grün. Version 0.4.4, CurseForge-Paket `releases/Craft-0.4.4-curseforge.zip` bzw.
+  `X:/Craft/Craft-0.4.4-curseforge.zip` (Mods wie 0.4.3). Kein Client-Test (Nutzer spielt gerade).
+
+## Nächste Schritte
+1. Abnahme im Spiel (Nutzer): Ladeanzeige neben der Hotbar (mit/ohne Offhand-Item), Phase 22 (Sortieren,
+   Rechtsklick-Ernte, Trading Post).
+2. Offen aus dem Testplan: Geräusche, deutsche Texte im Spiel.
