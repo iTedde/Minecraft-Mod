@@ -95,6 +95,7 @@ MJ und EU bleiben getrennte Systeme; Verbindung nur über Electrical Engine (EU�
 | 18 | Projekttisch (RedPower) + Automatische Werkbank (BuildCraft) (Nutzer, 2026-10-17; `docs/spec/20-werkbaenke.md`): 18.0 Spezifikation + Liste weiterer Werkbank-Blöcke (erledigt) · 18.1 Projekttisch + Baupläne (erledigt) · 18.2 Automatische Werkbank (erledigt) | **erledigt** (Client-Abnahme offen) |
 | 19 | Long Fall Boots aus Portal Gun (Nutzer, 2026-10-18; `docs/spec/21-long-fall-boots.md`; nur die Stiefel): 19.1 Einzelstiefel + Stiefel, Rezepte, Fallschaden-Aufhebung (erledigt, Client offen) | **erledigt** (Client-Abnahme offen) |
 | 20 | Nutzerwünsche (2026-10-20; `docs/STATUS.md`): 20.1 EMI-„+“ für Projekttisch/Automatische Werkbank (erledigt) · 20.2 Ladeanzeige Tooltip + HUD (erledigt) · 20.3 Spezifikation Iron Chests (komplett wie im Pack) · 20.4 Umsetzung Iron Chests (Paket `…ironchest`) | **in Arbeit** |
+| 21 | Großkraftwerke (Nutzer, 2026-10-20; `docs/balancing.md` §3.8; **erst nach Phase 20**): 21.0 Spezifikation `docs/spec/23-grosskraftwerke.md` · 21.1 Hochdruckkessel + große Dampfturbine · 21.2 große Wasserturbine · 21.3 große Windturbine | geplant |
 
 Phasen-Umnummerierung (Nutzer, 2026-10-16): Phase 8 „GT-Nachträge“ eingeschoben; die bisherigen Phasen 8/9/10
 (Kraftwerke, Rohre, Feinschliff) heißen jetzt 9/10/11. Ältere Einträge in `docs/STATUS.md` sind entsprechend

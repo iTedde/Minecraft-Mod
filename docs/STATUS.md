@@ -1869,3 +1869,18 @@ Pack** (alle 7 Kisten + Upgrade-Items, `ftb ultimate/mods/IronChest.zip`, noch n
 2. 20.4 Umsetzung Iron Chests.
 3. Wiki-HTML auf dem Rechner mit Python neu erzeugen.
 4. Abnahme im Client: Solar-Felder (Testplan 8.1), Phase 18 + 19, 3.37, 9.6.
+
+# Phase 21 – Großkraftwerke (Nutzer, 2026-10-20, geplant nach Phase 20)
+
+Befund des Nutzers: Ein HV-Solarfeld (1024 Panels, 1536 EU/t am Tag) entspricht etwa 3 Reaktoren oder rund 100
+Kohle-Multiblöcken (77 Kessel à 20 EU/t + 26 Dampfturbinen à 64 EU/t) – der Abstand ist zu groß. Solar bleibt, die
+anderen Quellen bekommen je eine **zweite, große Ausbaustufe** (neue Blöcke; die kleinen Anlagen bleiben). Richtung
+freigegeben, Zahlen in 21.0 noch änderbar (Vorschlag `balancing.md` §3.8).
+
+Reihenfolge (Nutzer): **erst Iron Chests (20.3/20.4) fertig, dann Phase 21.**
+
+## Nächste Schritte
+1. 21.0 Spezifikation `docs/spec/23-grosskraftwerke.md` (Strukturen, Werte, Rezepte, Texturen) zur Freigabe.
+2. 21.1 Hochdruckkessel + große Dampfturbine (Kessel-/Turbinenlogik parametrisieren statt kopieren).
+3. 21.2 Große Wasserturbine.
+4. 21.3 Große Windturbine.

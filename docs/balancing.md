@@ -135,6 +135,19 @@ Platzbedarf (Hindernis-Würfel) bleibt – Wind braucht Höhe und Abstand.
 
 - Electrical Engine und Power Converters bleiben 1:1 (bewusste Verluste und Rundungen erhalten).
 
+### 3.8 Großkraftwerke (Phase 21, Richtung freigegeben 2026-10-20)
+
+Befund (Nutzer): Solar skaliert über die Array-Stufen exponentiell, alle anderen Quellen nur linear über die Anzahl
+mit kleinen Deckeln – ein HV-Feld (1536 EU/t Tag) entspricht ≈ 3 Reaktoren oder ≈ 100 Kohle-Multiblöcken. Solar
+bleibt; jede andere Quelle bekommt eine zweite, große Ausbaustufe (neue Blöcke, kleine Anlagen unverändert). Ziel:
+eine Großanlage ≈ ⅓–⅔ eines HV-Felds, dafür Tag und Nacht. Vorschlagswerte (endgültig in `spec/23-grosskraftwerke.md`):
+
+- **Hochdruckkessel** 5×5×5 (Stahl), bis 1500 °C, 160 mB/t Dampf; Koks 48 000 EU (statt 32 000); Explosion Stärke 10.
+- **Große Dampfturbine** 5×5×9 (Titan-/Wolframstahl-Rotoren), Deckel 512 EU/t (HV), bis 3 Hochdruckkessel.
+- **Große Wasserturbine** 5×5×5, Deckel 256 EU/t, ≈ 64 fließende Wasserblöcke nötig.
+- **Große Windturbine** Mast + 5×5-Rotor, Rotorstufen Eisen/Stahl/Carbon; y 128 ≈ 64, y 200 ≈ 128, Gewitter bis 384 EU/t.
+- Reaktor, Öl/Treibstoff und Umwandler bleiben 1:1.
+
 ## 4. Vergleichstabelle (Vorschlag, gerundet)
 
 | Quelle | Leistung typ. | EU/t pro Block Fläche | EU pro Ressource | Zuverlässigkeit |
