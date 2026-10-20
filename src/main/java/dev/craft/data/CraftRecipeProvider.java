@@ -718,6 +718,40 @@ public final class CraftRecipeProvider extends RecipeProvider {
         shaped(PpItems.WATER_TURBINE, 1, "water_turbine").pattern("WCW", "CGC", "WCW")
                 .define('W', machine(Ic2Machine.WATER_MILL)).define('C', PpItems.WATER_TURBINE_CASING)
                 .define('G', machine(Ic2Machine.GENERATOR)).save();
+        // large stages (spec 23)
+        shaped(PpItems.HIGH_PRESSURE_BOILER_CASING, 8, "high_pressure_boiler_casing").pattern("SBS", "BKB", "SBS")
+                .define('S', CraftItemTagsProvider.PLATES_STEEL).define('B', PpItems.BOILER_CASING)
+                .define('K', Items.BRICKS).save();
+        shaped(PpItems.HIGH_PRESSURE_BOILER_FIREBOX, 1, "high_pressure_boiler_firebox").pattern("CCC", "CFC", "CCC")
+                .define('C', PpItems.HIGH_PRESSURE_BOILER_CASING).define('F', PpItems.BOILER_FIREBOX).save();
+        shaped(PpItems.LARGE_TURBINE_CASING, 8, "large_turbine_casing").pattern("PPP", "PAP", "PPP")
+                .define('P', CraftItemTagsProvider.PLATES_STEEL).define('A', Ic2Items.ADVANCED_MACHINE_CASING).save();
+        shaped(PpItems.LARGE_TURBINE_ROTOR, 1, "large_turbine_rotor").pattern("TWT", "WRW", "TWT")
+                .define('T', CraftItemTagsProvider.PLATES_TITANIUM)
+                .define('W', CraftItemTagsProvider.PLATES_TUNGSTENSTEEL).define('R', PpItems.TURBINE_ROTOR).save();
+        shaped(PpItems.LARGE_STEAM_TURBINE, 1, "large_steam_turbine").pattern("CRC", "GHG", "CRC")
+                .define('C', PpItems.LARGE_TURBINE_CASING).define('R', PpItems.LARGE_TURBINE_ROTOR)
+                .define('G', PpItems.STEAM_TURBINE).define('H', machine(Ic2Machine.HV_TRANSFORMER)).save();
+        shaped(PpItems.LARGE_WATER_TURBINE_CASING, 8, "large_water_turbine_casing").pattern("SRS", "RMR", "SRS")
+                .define('S', CraftItemTagsProvider.PLATES_STEEL)
+                .define('R', CraftItemTagsProvider.PLATES_REFINED_IRON).define('M', Ic2Items.MACHINE_CASING).save();
+        shaped(PpItems.LARGE_WATER_TURBINE, 1, "large_water_turbine").pattern("WCW", "CHC", "WCW")
+                .define('W', PpItems.WATER_TURBINE).define('C', PpItems.LARGE_WATER_TURBINE_CASING)
+                .define('H', machine(Ic2Machine.HV_TRANSFORMER)).save();
+        shaped(PpItems.WIND_TURBINE_MAST, 8, "wind_turbine_mast").pattern("R R", "RRR", "R R")
+                .define('R', CraftItemTagsProvider.INGOTS_REFINED_IRON).save();
+        shaped(PpItems.LARGE_WIND_TURBINE, 1, "large_wind_turbine").pattern("WAW", "GHG", "WAW")
+                .define('W', machine(Ic2Machine.WIND_MILL)).define('A', Ic2Items.ADVANCED_MACHINE_CASING)
+                .define('G', machine(Ic2Machine.GENERATOR)).define('H', machine(Ic2Machine.HV_TRANSFORMER)).save();
+        shaped(PpItems.IRON_WIND_ROTOR, 1, "iron_wind_rotor").pattern("PIP", "IBI", "PIP")
+                .define('P', CraftItemTagsProvider.PLATES_IRON).define('I', Items.IRON_INGOT)
+                .define('B', Items.IRON_BLOCK).save();
+        shaped(PpItems.STEEL_WIND_ROTOR, 1, "steel_wind_rotor").pattern("PSP", "SRS", "PSP")
+                .define('P', CraftItemTagsProvider.PLATES_STEEL).define('S', CraftItemTagsProvider.INGOTS_STEEL)
+                .define('R', PpItems.IRON_WIND_ROTOR).save();
+        shaped(PpItems.CARBON_WIND_ROTOR, 1, "carbon_wind_rotor").pattern("CAC", "ARA", "CAC")
+                .define('C', Ic2Items.CARBON_PLATE).define('A', Ic2Items.ADVANCED_ALLOY)
+                .define('R', PpItems.STEEL_WIND_ROTOR).save();
     }
 
     // --- Compact Solars (multiblock variant, spec 11 §4): shapeless transformer → controller ---

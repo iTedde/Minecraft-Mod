@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "craft:block/large_water_turbine_casing"
+    }
+  }
+}

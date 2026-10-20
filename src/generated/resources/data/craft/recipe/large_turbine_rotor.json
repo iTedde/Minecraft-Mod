@@ -1,0 +1,23 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "R": {
+      "item": "craft:turbine_rotor"
+    },
+    "T": {
+      "tag": "c:plates/titanium"
+    },
+    "W": {
+      "tag": "c:plates/tungstensteel"
+    }
+  },
+  "pattern": [
+    "TWT",
+    "WRW",
+    "TWT"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:large_turbine_rotor"
+  }
+}

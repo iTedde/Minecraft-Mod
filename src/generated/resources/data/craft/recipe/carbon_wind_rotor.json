@@ -1,0 +1,23 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "A": {
+      "item": "craft:advanced_alloy"
+    },
+    "C": {
+      "item": "craft:carbon_plate"
+    },
+    "R": {
+      "item": "craft:steel_wind_rotor"
+    }
+  },
+  "pattern": [
+    "CAC",
+    "ARA",
+    "CAC"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:carbon_wind_rotor"
+  }
+}

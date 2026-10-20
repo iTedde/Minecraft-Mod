@@ -1,0 +1,20 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "C": {
+      "item": "craft:high_pressure_boiler_casing"
+    },
+    "F": {
+      "item": "craft:boiler_firebox"
+    }
+  },
+  "pattern": [
+    "CCC",
+    "CFC",
+    "CCC"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:high_pressure_boiler_firebox"
+  }
+}

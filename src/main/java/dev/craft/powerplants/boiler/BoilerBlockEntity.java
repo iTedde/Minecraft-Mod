@@ -7,11 +7,9 @@ import java.util.Set;
 
 import dev.craft.buildcraft.fluid.LiquidContainers;
 import dev.craft.core.explosion.Ic2Explosion;
-import dev.craft.core.multiblock.BlockMatcher;
 import dev.craft.core.multiblock.MultiblockPattern;
 import dev.craft.gregtech.GtItems;
 import dev.craft.powerplants.PpBlockEntityTypes;
-import dev.craft.powerplants.PpBlocks;
 import dev.craft.powerplants.PpFluids;
 import dev.craft.powerplants.PpItems;
 import dev.craft.powerplants.block.PlantControllerBlockEntity;
@@ -28,6 +26,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluids;
 import net.neoforged.neoforge.capabilities.Capabilities;
@@ -40,13 +39,14 @@ import org.jetbrains.annotations.Nullable;
  * Solid fuel boiler of the coal power plant (spec 14 §3): 3×3×3 of boiler casings with an air core, the firebox in the
  * middle of one side. Burns coal or coke at full rate, heats up by 1 °C per tick up to 1000 °C and turns water into
  * steam above 100 °C (20 mB/t at 1000 °C). Pushes steam into adjacent fluid receivers and explodes when water reaches
- * a dry, hot boiler.
+ * a dry, hot boiler. The values come from the {@link BoilerTier}; the high-pressure boiler only changes those.
  */
 public class BoilerBlockEntity extends PlantControllerBlockEntity {
     public static final int SLOT_FUEL = 0;
     public static final int SLOT_ASH = 1;
     public static final int SLOT_CONTAINER_IN = 2;
     public static final int SLOT_CONTAINER_OUT = 3;
+    // values of the small boiler; see BoilerTier for the high-pressure boiler
     public static final int TANK_CAPACITY = 16000;
     public static final int COAL_BURN_TIME = 800;
     public static final int COKE_BURN_TIME = 1600;
@@ -58,16 +58,6 @@ public class BoilerBlockEntity extends PlantControllerBlockEntity {
     public static final int MAX_PUSH = 1000;
     public static final int ASH_PER_ITEM = 4;
     public static final float EXPLOSION_POWER = 6.0F;
-    private static final int STEAM_DIVISOR = MAX_TEMPERATURE - BOILING_POINT;
-
-    private static final MultiblockPattern PATTERN = MultiblockPattern.builder()
-            .layer("BBB", "BBB", "BBB")
-            .layer("BCB", "BAB", "BBB")
-            .layer("BBB", "BBB", "BBB")
-            .where('B', BlockMatcher.blocks(PpBlocks.BOILER_CASING.get()))
-            .where('A', BlockMatcher.AIR)
-            .controller('C', BlockMatcher.blocks(PpBlocks.BOILER_FIREBOX.get()))
-            .build();
 
     private final IFluidHandler tanks = new Tanks();
     /** Outer faces of the structure that steam is pushed through, in round-robin order. */
@@ -80,7 +70,7 @@ public class BoilerBlockEntity extends PlantControllerBlockEntity {
     private int burnTime;
     private int maxBurnTime;
     private int ashCounter;
-    /** Steam production numerator carried over between ticks (denominator {@link #STEAM_DIVISOR}). */
+    /** Steam production numerator carried over between ticks (denominator max temperature − boiling point). */
     private int steamRemainder;
     private boolean dry;
 
@@ -88,7 +78,16 @@ public class BoilerBlockEntity extends PlantControllerBlockEntity {
     }
 
     public BoilerBlockEntity(BlockPos pos, BlockState state) {
-        super(PpBlockEntityTypes.BOILER.get(), pos, state, 4);
+        this(PpBlockEntityTypes.BOILER.get(), pos, state);
+    }
+
+    protected BoilerBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+        super(type, pos, state, 4);
+    }
+
+    /** Size and values of this boiler; constant per class (it is needed before the constructor finishes). */
+    public BoilerTier getTier() {
+        return BoilerTier.SMALL;
     }
 
     public static boolean isFuel(ItemStack stack) {
@@ -119,11 +118,11 @@ public class BoilerBlockEntity extends PlantControllerBlockEntity {
         return dry;
     }
 
-    void setTemperature(int temperature) {
+    public void setTemperature(int temperature) {
         this.temperature = temperature;
     }
 
-    void setWater(int water) {
+    public void setWater(int water) {
         this.water = water;
     }
 
@@ -137,19 +136,20 @@ public class BoilerBlockEntity extends PlantControllerBlockEntity {
 
     @Override
     protected MultiblockPattern getPattern() {
-        return PATTERN;
+        return getTier().pattern();
     }
 
-    /** Centre of the cube: the air block behind the firebox. */
+    /** Centre of the cube: the middle of the air core behind the firebox. */
     public BlockPos getCore() {
-        return worldPosition.relative(getFacing().getOpposite());
+        return worldPosition.relative(getFacing().getOpposite(), getTier().size() / 2);
     }
 
     @Override
     protected void onStructureChecked(MultiblockPattern.Match match) {
         BlockPos core = getCore();
+        int half = getTier().size() / 2;
         Set<BlockPos> cube = new HashSet<>();
-        for (BlockPos pos : BlockPos.betweenClosed(core.offset(-1, -1, -1), core.offset(1, 1, 1))) {
+        for (BlockPos pos : BlockPos.betweenClosed(core.offset(-half, -half, -half), core.offset(half, half, half))) {
             cube.add(pos.immutable());
         }
         outerFaces.clear();
@@ -165,16 +165,17 @@ public class BoilerBlockEntity extends PlantControllerBlockEntity {
 
     @Override
     protected void tickFormed() {
+        BoilerTier tier = getTier();
         if (dry && water > 0) {
             explode();
             return;
         }
         fillFromContainer();
         ItemStack fuel = inventory.get(SLOT_FUEL);
-        if (burnTime <= 0 && steam < TANK_CAPACITY && water > 0
+        if (burnTime <= 0 && steam < tier.tankCapacity() && water > 0
                 && inventory.get(SLOT_ASH).getCount() < inventory.get(SLOT_ASH).getMaxStackSize() && isFuel(fuel)) {
             boolean coke = fuel.is(PpItems.COKE.get());
-            burnTime = maxBurnTime = coke ? COKE_BURN_TIME : COAL_BURN_TIME;
+            burnTime = maxBurnTime = coke ? tier.cokeBurnTime() : tier.coalBurnTime();
             ashCounter += coke ? 2 : 1;
             fuel.shrink(1);
             inventory.notifyChanged(SLOT_FUEL);
@@ -185,17 +186,17 @@ public class BoilerBlockEntity extends PlantControllerBlockEntity {
         }
         if (burnTime > 0) {
             burnTime--;
-            temperature = Math.min(temperature + 1, MAX_TEMPERATURE);
+            temperature = Math.min(temperature + 1, tier.maxTemperature());
         } else {
             temperature = Math.max(temperature - 1, MIN_TEMPERATURE);
         }
-        produceSteam();
+        produceSteam(tier);
         if (water == 0 && temperature > BOILING_POINT) {
             dry = true;
         } else if (temperature <= BOILING_POINT) {
             dry = false;
         }
-        if (dry && temperature >= MAX_TEMPERATURE) {
+        if (dry && temperature >= tier.maxTemperature()) {
             explode();
             return;
         }
@@ -204,15 +205,16 @@ public class BoilerBlockEntity extends PlantControllerBlockEntity {
         setChanged();
     }
 
-    private void produceSteam() {
+    private void produceSteam(BoilerTier tier) {
         if (temperature <= BOILING_POINT) {
             steamRemainder = 0;
             return;
         }
-        steamRemainder += MAX_STEAM_RATE * (temperature - BOILING_POINT);
-        int produced = steamRemainder / STEAM_DIVISOR;
-        steamRemainder %= STEAM_DIVISOR;
-        produced = Math.min(produced, Math.min(water, TANK_CAPACITY - steam));
+        int divisor = tier.maxTemperature() - BOILING_POINT;
+        steamRemainder += tier.maxSteamRate() * (temperature - BOILING_POINT);
+        int produced = steamRemainder / divisor;
+        steamRemainder %= divisor;
+        produced = Math.min(produced, Math.min(water, tier.tankCapacity() - steam));
         water -= produced;
         steam += produced;
     }
@@ -231,7 +233,7 @@ public class BoilerBlockEntity extends PlantControllerBlockEntity {
     private void fillFromContainer() {
         ItemStack input = inventory.get(SLOT_CONTAINER_IN);
         FluidStack liquid = LiquidContainers.getLiquidForFilledItem(input);
-        if (!liquid.is(Fluids.WATER) || TANK_CAPACITY - water < liquid.getAmount()) {
+        if (!liquid.is(Fluids.WATER) || getTier().tankCapacity() - water < liquid.getAmount()) {
             return;
         }
         ItemStack empty = LiquidContainers.emptyContainer(input);
@@ -276,20 +278,21 @@ public class BoilerBlockEntity extends PlantControllerBlockEntity {
         pushIndex = (pushIndex + 1) % size;
     }
 
-    /** Destroys every boiler block (and the contents) and explodes with power 6 at the core. */
+    /** Destroys every boiler block (and the contents) and explodes at the core (power 6, high-pressure 10). */
     private void explode() {
         ServerLevel serverLevel = (ServerLevel) level;
+        BoilerTier tier = getTier();
         BlockPos core = getCore();
+        int half = tier.size() / 2;
         for (int slot = 0; slot < inventory.getSlots(); slot++) {
             inventory.set(slot, ItemStack.EMPTY);
         }
-        for (BlockPos pos : BlockPos.betweenClosed(core.offset(-1, -1, -1), core.offset(1, 1, 1))) {
-            BlockState state = serverLevel.getBlockState(pos);
-            if (state.is(PpBlocks.BOILER_CASING.get()) || state.is(PpBlocks.BOILER_FIREBOX.get())) {
+        for (BlockPos pos : BlockPos.betweenClosed(core.offset(-half, -half, -half), core.offset(half, half, half))) {
+            if (tier.isPart(serverLevel.getBlockState(pos).getBlock())) {
                 serverLevel.setBlock(pos, Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL);
             }
         }
-        new Ic2Explosion(serverLevel, core.getX() + 0.5, core.getY() + 0.5, core.getZ() + 0.5, EXPLOSION_POWER,
+        new Ic2Explosion(serverLevel, core.getX() + 0.5, core.getY() + 0.5, core.getZ() + 0.5, tier.explosionPower(),
                 Ic2Explosion.MACHINE_DROP_RATE, Ic2Explosion.MACHINE_ENTITY_DAMAGE).explode();
     }
 
@@ -360,7 +363,7 @@ public class BoilerBlockEntity extends PlantControllerBlockEntity {
 
         @Override
         public int getTankCapacity(int index) {
-            return TANK_CAPACITY;
+            return getTier().tankCapacity();
         }
 
         @Override
@@ -373,7 +376,7 @@ public class BoilerBlockEntity extends PlantControllerBlockEntity {
             if (resource.isEmpty() || !resource.is(Fluids.WATER)) {
                 return 0;
             }
-            int filled = Math.min(resource.getAmount(), TANK_CAPACITY - water);
+            int filled = Math.min(resource.getAmount(), getTier().tankCapacity() - water);
             if (action.execute() && filled > 0) {
                 water += filled;
                 setChanged();

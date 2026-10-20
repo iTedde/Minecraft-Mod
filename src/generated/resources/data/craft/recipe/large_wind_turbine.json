@@ -1,0 +1,26 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "A": {
+      "item": "craft:advanced_machine_casing"
+    },
+    "G": {
+      "item": "craft:generator"
+    },
+    "H": {
+      "item": "craft:hv_transformer"
+    },
+    "W": {
+      "item": "craft:wind_mill"
+    }
+  },
+  "pattern": [
+    "WAW",
+    "GHG",
+    "WAW"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:large_wind_turbine"
+  }
+}

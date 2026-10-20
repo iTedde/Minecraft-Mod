@@ -7,11 +7,9 @@ import dev.craft.core.energy.EnergySource;
 import dev.craft.core.energy.EnergyTile;
 import dev.craft.core.energy.OutputMeter;
 import dev.craft.core.energy.OutputReadout;
-import dev.craft.core.multiblock.BlockMatcher;
 import dev.craft.core.multiblock.MultiblockPattern;
 import dev.craft.ic2.machine.MachineBlock;
 import dev.craft.powerplants.PpBlockEntityTypes;
-import dev.craft.powerplants.PpBlocks;
 import dev.craft.powerplants.block.PlantControllerBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -23,6 +21,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
@@ -32,10 +31,11 @@ import org.jetbrains.annotations.Nullable;
  * {@link #AREA_RADIUS} blocks out from every side face and from the bottom layer up to {@link #AREA_HEIGHT} blocks
  * above the top layer, the cube itself excluded – and produces 0.25 EU/t per flowing block from {@link #MIN_FLOWING} blocks on (× 1.5 in river biomes, at most 32 EU/t),
  * emitted from the controller and every casing block in packets of up to 32 EU (LV). No menu; right-clicking
- * reports the state in chat.
+ * reports the state in chat. The large turbine only changes the values ({@link WaterTurbineTier}).
  */
 public class WaterTurbineBlockEntity extends PlantControllerBlockEntity implements EnergySource, OutputReadout {
     public static final int COUNT_INTERVAL = 128;
+    // values of the small turbine; see WaterTurbineTier for the large one
     public static final int MIN_FLOWING = 16;
     /** Horizontal reach of the counted area beyond the cube's side faces. */
     public static final int AREA_RADIUS = 5;
@@ -47,14 +47,6 @@ public class WaterTurbineBlockEntity extends PlantControllerBlockEntity implemen
     /** Accumulated EU are capped here so fractions carry over without piling up. */
     public static final int BUFFER_CAPACITY = 2 * MAX_OUTPUT;
 
-    private static final MultiblockPattern PATTERN = MultiblockPattern.builder()
-            .layer("HHH", "HHH", "HHH")
-            .layer("HCH", "HHH", "HHH")
-            .layer("HHH", "HHH", "HHH")
-            .where('H', BlockMatcher.blocks(PpBlocks.WATER_TURBINE_CASING.get()))
-            .controller('C', BlockMatcher.blocks(PpBlocks.WATER_TURBINE.get()))
-            .build();
-
     private int ticker = -1;
     private int flowing;
     /** EU/t from the last water count. */
@@ -63,15 +55,21 @@ public class WaterTurbineBlockEntity extends PlantControllerBlockEntity implemen
     private final OutputMeter outputMeter = new OutputMeter();
 
     public WaterTurbineBlockEntity(BlockPos pos, BlockState state) {
-        super(PpBlockEntityTypes.WATER_TURBINE.get(), pos, state, 0);
+        this(PpBlockEntityTypes.WATER_TURBINE.get(), pos, state);
     }
 
-    /** EU/t for the given number of counted flowing water blocks. */
+    protected WaterTurbineBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+        super(type, pos, state, 0);
+    }
+
+    /** Size and values of this turbine; constant per class (it is needed before the constructor finishes). */
+    public WaterTurbineTier getTier() {
+        return WaterTurbineTier.SMALL;
+    }
+
+    /** EU/t of the small turbine for the given number of counted flowing water blocks. */
     public static double output(int flowing, boolean river) {
-        if (flowing < MIN_FLOWING) {
-            return 0.0;
-        }
-        return Math.min(YIELD_PER_BLOCK * flowing * (river ? RIVER_FACTOR : 1.0), MAX_OUTPUT);
+        return WaterTurbineTier.SMALL.output(flowing, river);
     }
 
     public int getFlowing() {
@@ -93,13 +91,15 @@ public class WaterTurbineBlockEntity extends PlantControllerBlockEntity implemen
     /** Recounts the flowing water around and above the cube and restarts the count interval. */
     public void updateWaterCount() {
         ticker = 0;
-        BlockPos center = worldPosition.relative(getBlockState().getValue(MachineBlock.FACING).getOpposite());
+        WaterTurbineTier tier = getTier();
+        int half = tier.size() / 2;
+        BlockPos center = worldPosition.relative(getBlockState().getValue(MachineBlock.FACING).getOpposite(), half);
         int count = 0;
-        int reach = 1 + AREA_RADIUS;
-        for (BlockPos pos : BlockPos.betweenClosed(center.offset(-reach, -1, -reach),
-                center.offset(reach, 1 + AREA_HEIGHT, reach))) {
-            if (Math.abs(pos.getX() - center.getX()) <= 1 && Math.abs(pos.getY() - center.getY()) <= 1
-                    && Math.abs(pos.getZ() - center.getZ()) <= 1) {
+        int reach = half + tier.areaRadius();
+        for (BlockPos pos : BlockPos.betweenClosed(center.offset(-reach, -half, -reach),
+                center.offset(reach, half + tier.areaHeight(), reach))) {
+            if (Math.abs(pos.getX() - center.getX()) <= half && Math.abs(pos.getY() - center.getY()) <= half
+                    && Math.abs(pos.getZ() - center.getZ()) <= half) {
                 continue;
             }
             if (!level.isLoaded(pos)) {
@@ -111,13 +111,13 @@ public class WaterTurbineBlockEntity extends PlantControllerBlockEntity implemen
             }
         }
         flowing = count;
-        flow = output(count, isInRiver());
+        flow = tier.output(count, isInRiver());
         setChanged();
     }
 
     @Override
     protected MultiblockPattern getPattern() {
-        return PATTERN;
+        return getTier().pattern();
     }
 
     @Override
@@ -129,10 +129,11 @@ public class WaterTurbineBlockEntity extends PlantControllerBlockEntity implemen
         if (++ticker >= COUNT_INTERVAL) {
             updateWaterCount();
         }
+        WaterTurbineTier tier = getTier();
         double bufferBefore = buffer;
-        buffer = Math.min(buffer + flow, BUFFER_CAPACITY);
+        buffer = Math.min(buffer + flow, tier.bufferCapacity());
         outputMeter.record(level, buffer - bufferBefore);
-        int output = Math.min((int) buffer, MAX_OUTPUT);
+        int output = Math.min((int) buffer, tier.maxOutput());
         if (output > 0) {
             buffer += EnergyNets.emit(level, this, output) - output;
         }
@@ -197,7 +198,7 @@ public class WaterTurbineBlockEntity extends PlantControllerBlockEntity implemen
 
     @Override
     public int getMaxEnergyOutput() {
-        return MAX_OUTPUT;
+        return getTier().maxOutput();
     }
 
     @Override

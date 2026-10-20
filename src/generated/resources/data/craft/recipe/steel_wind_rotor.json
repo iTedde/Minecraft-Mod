@@ -1,0 +1,23 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "P": {
+      "tag": "c:plates/steel"
+    },
+    "R": {
+      "item": "craft:iron_wind_rotor"
+    },
+    "S": {
+      "tag": "c:ingots/steel"
+    }
+  },
+  "pattern": [
+    "PSP",
+    "SRS",
+    "PSP"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:steel_wind_rotor"
+  }
+}

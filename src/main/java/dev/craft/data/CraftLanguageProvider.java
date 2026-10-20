@@ -384,6 +384,38 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
                 : "Water turbine: solid 3×3×3 cube of 26 water turbine casings, the water turbine in the middle of a "
                 + "side face. Flowing water up to 5 blocks around the cube and up to 20 blocks above it counts: from "
                 + "16 blocks 0.25 EU/t per block, ×1.5 in river biomes, at most 32 EU/t.");
+        add("emi.craft.info.high_pressure_boiler", german
+                ? "Hochdruckkessel: Würfel 5×5×5 aus 97 Hochdruck-Kesselgehäusen, innen 3×3×3 Luft. Die "
+                + "Hochdruck-Kesselfeuerung sitzt in der Mitte einer Seitenfläche. Bis 1500 °C, dann 160 mB/t Dampf "
+                + "(braucht 160 mB/t Wasser). Wasser auf einen trockenen, heißen Kessel: Explosion der Stärke 10."
+                : "High-pressure boiler: 5×5×5 cube of 97 high-pressure boiler casings with 3×3×3 air inside. The "
+                + "high-pressure boiler firebox sits in the middle of a side face. Up to 1500 °C, then 160 mB/t steam "
+                + "(needs 160 mB/t water). Water on a dry, hot boiler: explosion of power 10.");
+        add("emi.craft.info.large_steam_turbine", german
+                ? "Große Dampfturbine: Quader 5×5 × 9 lang. Die Große Dampfturbine sitzt in der Mitte einer "
+                + "5×5-Stirnseite, dahinter sieben Große Turbinenrotoren in einer Reihe mit Luft drumherum, die Hülle "
+                + "sind 161 Große Turbinengehäuse. Bis 512 mB/t Dampf → 512 EU/t (HV); 3 Hochdruckkessel werden "
+                + "voll genutzt."
+                : "Large steam turbine: 5×5 × 9 long. The large steam turbine sits in the middle of a 5×5 end face, "
+                + "seven large turbine rotors in a row behind it with air around them, the shell is 161 large turbine "
+                + "casings. Up to 512 mB/t steam → 512 EU/t (HV); 3 high-pressure boilers are used fully.");
+        add("emi.craft.info.large_water_turbine", german
+                ? "Große Wasserturbine: massiver Würfel 5×5×5 aus 124 Großen Wasserturbinengehäusen, die Große "
+                + "Wasserturbine in der Mitte einer Seitenfläche. Gezählt wird fließendes Wasser bis 7 Blöcke um den "
+                + "Würfel und bis 24 Blöcke darüber: ab 64 Blöcken 1 EU/t je Block, im Fluss-Biom ×1,5, höchstens "
+                + "256 EU/t (HV)."
+                : "Large water turbine: solid 5×5×5 cube of 124 large water turbine casings, the large water turbine "
+                + "in the middle of a side face. Flowing water up to 7 blocks around the cube and up to 24 blocks "
+                + "above it counts: from 64 blocks 1 EU/t per block, ×1.5 in river biomes, at most 256 EU/t (HV).");
+        add("emi.craft.info.large_wind_turbine", german
+                ? "Große Windturbine: die Große Windturbine auf 8 Windturbinenmasten übereinander. Rotor per "
+                + "Rechtsklick einsetzen (Schleichen + leere Hand nimmt ihn heraus). Leistung 20× Windmühle × "
+                + "Rotorfaktor (Eisen 50 %, Stahl 75 %, Carbon 100 %), höchstens 384 EU/t (HV): y 128 ≈ 64 EU/t, "
+                + "y 200 ≈ 136 EU/t, Gewitter ×3. Blöcke im Bereich ±5 um die Gondel senken die Leistung."
+                : "Large wind turbine: the large wind turbine on top of 8 wind turbine masts. Right-click to insert "
+                + "a rotor (sneak with an empty hand to take it out). Output 20× wind mill × rotor factor (iron 50 %, "
+                + "steel 75 %, carbon 100 %), at most 384 EU/t (HV): y 128 ≈ 64 EU/t, y 200 ≈ 136 EU/t, thunder ×3. "
+                + "Blocks within ±5 of the nacelle lower the output.");
         add("emi.craft.info.industrial_blast_furnace", german
                 ? "Hochofen: Quader 3×3, 4 hoch, direkt hinter dem Controller (dieser sitzt vor der Mitte der unteren "
                 + "Lage). Die zwei Mittelblöcke der Lagen 2 und 3 sind Luft oder Lava, die übrigen 34 "
@@ -552,6 +584,24 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
         add("message.craft.water_turbine.status", german ? "Fließendes Wasser: %s, Leistung %s EU/t"
                 : "Flowing water: %s, output %s EU/t");
         add("message.craft.water_turbine.incomplete", german ? "Struktur unvollständig" : "Structure incomplete");
+        block(PpBlocks.HIGH_PRESSURE_BOILER_CASING, german ? "Hochdruck-Kesselgehäuse" : "High-Pressure Boiler Casing");
+        block(PpBlocks.HIGH_PRESSURE_BOILER_FIREBOX, german ? "Hochdruck-Kesselfeuerung"
+                : "High-Pressure Boiler Firebox");
+        block(PpBlocks.LARGE_TURBINE_CASING, german ? "Großes Turbinengehäuse" : "Large Turbine Casing");
+        block(PpBlocks.LARGE_TURBINE_ROTOR, german ? "Großer Turbinenrotor" : "Large Turbine Rotor");
+        block(PpBlocks.LARGE_STEAM_TURBINE, german ? "Große Dampfturbine" : "Large Steam Turbine");
+        block(PpBlocks.LARGE_WATER_TURBINE_CASING, german ? "Großes Wasserturbinengehäuse"
+                : "Large Water Turbine Casing");
+        block(PpBlocks.LARGE_WATER_TURBINE, german ? "Große Wasserturbine" : "Large Water Turbine");
+        block(PpBlocks.WIND_TURBINE_MAST, german ? "Windturbinenmast" : "Wind Turbine Mast");
+        block(PpBlocks.LARGE_WIND_TURBINE, german ? "Große Windturbine" : "Large Wind Turbine");
+        item(PpItems.IRON_WIND_ROTOR, german ? "Eisen-Windrotor" : "Iron Wind Rotor");
+        item(PpItems.STEEL_WIND_ROTOR, german ? "Stahl-Windrotor" : "Steel Wind Rotor");
+        item(PpItems.CARBON_WIND_ROTOR, german ? "Carbon-Windrotor" : "Carbon Wind Rotor");
+        add("tooltip.craft.wind_rotor.factor", german ? "Leistung %s %%" : "Output %s %%");
+        add("message.craft.large_wind_turbine.status", german ? "Hindernisse: %s, Leistung %s EU/t"
+                : "Obstructions: %s, output %s EU/t");
+        add("message.craft.large_wind_turbine.no_rotor", german ? "Kein Rotor eingesetzt" : "No rotor inserted");
     }
 
     /** Compact Solars names ({@code CompactSolarType.friendlyName}, English only). */

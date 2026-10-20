@@ -1,0 +1,50 @@
+{
+  "variants": {
+    "active=false,facing=down": {
+      "model": "craft:block/large_wind_turbine",
+      "y": 90
+    },
+    "active=false,facing=east": {
+      "model": "craft:block/large_wind_turbine",
+      "y": 90
+    },
+    "active=false,facing=north": {
+      "model": "craft:block/large_wind_turbine"
+    },
+    "active=false,facing=south": {
+      "model": "craft:block/large_wind_turbine",
+      "y": 180
+    },
+    "active=false,facing=up": {
+      "model": "craft:block/large_wind_turbine",
+      "y": 90
+    },
+    "active=false,facing=west": {
+      "model": "craft:block/large_wind_turbine",
+      "y": 270
+    },
+    "active=true,facing=down": {
+      "model": "craft:block/large_wind_turbine_active",
+      "y": 90
+    },
+    "active=true,facing=east": {
+      "model": "craft:block/large_wind_turbine_active",
+      "y": 90
+    },
+    "active=true,facing=north": {
+      "model": "craft:block/large_wind_turbine_active"
+    },
+    "active=true,facing=south": {
+      "model": "craft:block/large_wind_turbine_active",
+      "y": 180
+    },
+    "active=true,facing=up": {
+      "model": "craft:block/large_wind_turbine_active",
+      "y": 90
+    },
+    "active=true,facing=west": {
+      "model": "craft:block/large_wind_turbine_active",
+      "y": 270
+    }
+  }
+}

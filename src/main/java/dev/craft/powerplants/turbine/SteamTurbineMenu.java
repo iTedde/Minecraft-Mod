@@ -13,14 +13,17 @@ public class SteamTurbineMenu extends MachineMenu<SteamTurbineBlockEntity> {
     private static final int BUFFER = 1;
     private static final int PRODUCTION = 2;
     private static final int FORMED = 3;
+    private static final int TANK_CAPACITY = 4;
+    private static final int BUFFER_CAPACITY = 5;
 
     public SteamTurbineMenu(int id, Inventory inventory, SteamTurbineBlockEntity turbine) {
         this(id, inventory, turbine, turbine.getBlockPos(), new SyncedInts(turbine::getSteam, turbine::getBuffer,
-                turbine::getProduction, () -> turbine.isFormed() ? 1 : 0));
+                turbine::getProduction, () -> turbine.isFormed() ? 1 : 0, () -> turbine.getTier().tankCapacity(),
+                () -> turbine.getTier().bufferCapacity()));
     }
 
     public SteamTurbineMenu(int id, Inventory inventory, BlockPos pos) {
-        this(id, inventory, null, pos, new SyncedInts(4));
+        this(id, inventory, null, pos, new SyncedInts(6));
     }
 
     private SteamTurbineMenu(int id, Inventory inventory, @Nullable SteamTurbineBlockEntity turbine, BlockPos pos,
@@ -43,5 +46,14 @@ public class SteamTurbineMenu extends MachineMenu<SteamTurbineBlockEntity> {
 
     public boolean isFormed() {
         return data.getInt(FORMED) != 0;
+    }
+
+    /** Steam tank capacity of this turbine size (at least 1 until the first sync). */
+    public int getTankCapacity() {
+        return Math.max(data.getInt(TANK_CAPACITY), 1);
+    }
+
+    public int getBufferCapacity() {
+        return Math.max(data.getInt(BUFFER_CAPACITY), 1);
     }
 }

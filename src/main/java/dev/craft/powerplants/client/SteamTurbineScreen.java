@@ -37,11 +37,11 @@ public class SteamTurbineScreen extends AbstractContainerScreen<SteamTurbineMenu
         int y = mouseY - topPos;
         if (x >= TANK_X && x < TANK_X + 16 && y >= TANK_Y && y < TANK_Y + TANK_HEIGHT) {
             graphics.renderComponentTooltip(font, List.of(PpFluids.STEAM_TYPE.get().getDescription(),
-                    Component.literal(menu.getSteam() + " / " + SteamTurbineBlockEntity.TANK_CAPACITY + " mB")),
+                    Component.literal(menu.getSteam() + " / " + menu.getTankCapacity() + " mB")),
                     mouseX, mouseY);
         } else if (x >= BUFFER_X && x < BUFFER_X + 6 && y >= BUFFER_Y && y < BUFFER_Y + BUFFER_HEIGHT) {
             graphics.renderTooltip(font, Component.literal(menu.getBuffer() + " / "
-                    + SteamTurbineBlockEntity.BUFFER_CAPACITY + " EU"), mouseX, mouseY);
+                    + menu.getBufferCapacity() + " EU"), mouseX, mouseY);
         }
         renderTooltip(graphics, mouseX, mouseY);
     }
@@ -63,7 +63,7 @@ public class SteamTurbineScreen extends AbstractContainerScreen<SteamTurbineMenu
         int x = leftPos;
         int y = topPos;
         graphics.blit(TEXTURE, x, y, 0, 0, imageWidth, imageHeight);
-        int scaled = menu.getSteam() * TANK_HEIGHT / SteamTurbineBlockEntity.TANK_CAPACITY;
+        int scaled = Math.min(menu.getSteam() * TANK_HEIGHT / menu.getTankCapacity(), TANK_HEIGHT);
         if (scaled > 0) {
             IClientFluidTypeExtensions extensions = IClientFluidTypeExtensions.of(PpFluids.STEAM.get());
             TextureAtlasSprite sprite = minecraft.getTextureAtlas(InventoryMenu.BLOCK_ATLAS)
@@ -76,7 +76,7 @@ public class SteamTurbineScreen extends AbstractContainerScreen<SteamTurbineMenu
             graphics.disableScissor();
         }
         graphics.blit(TEXTURE, x + TANK_X, y + TANK_Y, 176, 0, 16, TANK_HEIGHT);
-        int buffer = menu.getBuffer() * BUFFER_HEIGHT / SteamTurbineBlockEntity.BUFFER_CAPACITY;
+        int buffer = Math.min(menu.getBuffer() * BUFFER_HEIGHT / menu.getBufferCapacity(), BUFFER_HEIGHT);
         if (buffer > 0) {
             graphics.blit(TEXTURE, x + BUFFER_X, y + BUFFER_Y + BUFFER_HEIGHT - buffer, 176,
                     47 + BUFFER_HEIGHT - buffer, 6, buffer);

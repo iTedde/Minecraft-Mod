@@ -12,8 +12,8 @@ import net.minecraft.world.level.block.state.BlockState;
 
 /** Casing block of a power plant multiblock; placing or removing it makes nearby controllers re-check at once. */
 public class PlantPartBlock extends BaseEntityBlock {
-    /** Largest distance between a part and its controller (3×3×5 turbine). */
-    public static final int NOTIFY_RANGE = 4;
+    /** Largest distance between a part and its controller (5×5×9 large turbine, 8-block wind turbine mast). */
+    public static final int NOTIFY_RANGE = 8;
 
     private final BiFunction<BlockPos, BlockState, ? extends PlantPartBlockEntity> factory;
 

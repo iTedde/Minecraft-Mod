@@ -680,6 +680,26 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
         simpleBlockWithItem(PpBlocks.WATER_TURBINE_CASING.get(), models().cubeAll("water_turbine_casing",
                 waterTurbine));
         plantController(PpBlocks.WATER_TURBINE.get(), "water_turbine", waterTurbine, waterTurbine);
+        // large stages (spec 23)
+        ResourceLocation hpBoiler = modLoc("block/powerplants/high_pressure_boiler_casing");
+        simpleBlockWithItem(PpBlocks.HIGH_PRESSURE_BOILER_CASING.get(), models().cubeAll("high_pressure_boiler_casing",
+                hpBoiler));
+        plantController(PpBlocks.HIGH_PRESSURE_BOILER_FIREBOX.get(), "high_pressure_boiler_firebox", hpBoiler,
+                hpBoiler);
+        ResourceLocation largeTurbine = modLoc("block/powerplants/large_turbine_casing");
+        simpleBlockWithItem(PpBlocks.LARGE_TURBINE_CASING.get(), models().cubeAll("large_turbine_casing",
+                largeTurbine));
+        simpleBlockWithItem(PpBlocks.LARGE_TURBINE_ROTOR.get(), models().cubeAll("large_turbine_rotor",
+                modLoc("block/powerplants/large_turbine_rotor")));
+        plantController(PpBlocks.LARGE_STEAM_TURBINE.get(), "large_steam_turbine", largeTurbine, largeTurbine);
+        ResourceLocation largeWater = modLoc("block/powerplants/large_water_turbine_casing");
+        simpleBlockWithItem(PpBlocks.LARGE_WATER_TURBINE_CASING.get(), models().cubeAll("large_water_turbine_casing",
+                largeWater));
+        plantController(PpBlocks.LARGE_WATER_TURBINE.get(), "large_water_turbine", largeWater, largeWater);
+        simpleBlockWithItem(PpBlocks.WIND_TURBINE_MAST.get(), models().cubeAll("wind_turbine_mast",
+                modLoc("block/powerplants/wind_turbine_mast")));
+        ResourceLocation nacelle = modLoc("block/powerplants/large_wind_turbine_side");
+        plantController(PpBlocks.LARGE_WIND_TURBINE.get(), "large_wind_turbine", nacelle, nacelle);
     }
 
     /** Power plant controller: front texture {@code <name>_front(_active)}, rotated by the horizontal facing. */

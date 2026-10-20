@@ -21,15 +21,18 @@ public class BoilerMenu extends MachineMenu<BoilerBlockEntity> {
     private static final int BURN_TIME = 3;
     private static final int MAX_BURN_TIME = 4;
     private static final int FORMED = 5;
+    private static final int TANK_CAPACITY = 6;
+    private static final int MAX_TEMPERATURE = 7;
 
     public BoilerMenu(int id, Inventory inventory, BoilerBlockEntity boiler) {
         this(id, inventory, boiler, boiler.getBlockPos(), new SyncedInts(boiler::getWater, boiler::getSteam,
                 boiler::getTemperature, boiler::getBurnTime, boiler::getMaxBurnTime,
-                () -> boiler.isFormed() ? 1 : 0));
+                () -> boiler.isFormed() ? 1 : 0, () -> boiler.getTier().tankCapacity(),
+                () -> boiler.getTier().maxTemperature()));
     }
 
     public BoilerMenu(int id, Inventory inventory, BlockPos pos) {
-        this(id, inventory, null, pos, new SyncedInts(6));
+        this(id, inventory, null, pos, new SyncedInts(8));
     }
 
     private BoilerMenu(int id, Inventory inventory, @Nullable BoilerBlockEntity boiler, BlockPos pos,
@@ -68,6 +71,15 @@ public class BoilerMenu extends MachineMenu<BoilerBlockEntity> {
 
     public boolean isFormed() {
         return data.getInt(FORMED) != 0;
+    }
+
+    /** Capacity of each tank of this boiler size (at least 1 until the first sync). */
+    public int getTankCapacity() {
+        return Math.max(data.getInt(TANK_CAPACITY), 1);
+    }
+
+    public int getMaxTemperature() {
+        return Math.max(data.getInt(MAX_TEMPERATURE), BoilerBlockEntity.MIN_TEMPERATURE + 1);
     }
 
     @Override

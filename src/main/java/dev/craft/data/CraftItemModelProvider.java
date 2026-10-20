@@ -36,6 +36,9 @@ public final class CraftItemModelProvider extends ItemModelProvider {
     @Override
     protected void registerModels() {
         basicItem(PpItems.COKE.get());
+        basicItem(PpItems.IRON_WIND_ROTOR.get());
+        basicItem(PpItems.STEEL_WIND_ROTOR.get());
+        basicItem(PpItems.CARBON_WIND_ROTOR.get());
         RpItems.tools().forEach(tool -> handheldItem(tool.get()));
         basicItem(RpItems.BLANK_PLAN.get());
         basicItem(RpItems.PLAN.get());

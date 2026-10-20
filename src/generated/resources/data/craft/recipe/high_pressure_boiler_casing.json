@@ -1,0 +1,23 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "B": {
+      "item": "craft:boiler_casing"
+    },
+    "K": {
+      "item": "minecraft:bricks"
+    },
+    "S": {
+      "tag": "c:plates/steel"
+    }
+  },
+  "pattern": [
+    "SBS",
+    "BKB",
+    "SBS"
+  ],
+  "result": {
+    "count": 8,
+    "id": "craft:high_pressure_boiler_casing"
+  }
+}

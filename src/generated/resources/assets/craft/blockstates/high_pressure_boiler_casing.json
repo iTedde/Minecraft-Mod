@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "craft:block/high_pressure_boiler_casing"
+    }
+  }
+}

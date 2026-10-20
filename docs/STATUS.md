@@ -1900,3 +1900,18 @@ Reihenfolge (Nutzer): **erst Iron Chests (20.3/20.4) fertig, dann Phase 21.**
 2. 21.1 Hochdruckkessel + große Dampfturbine (Kessel-/Turbinenlogik parametrisieren statt kopieren).
 3. 21.2 Große Wasserturbine.
 4. 21.3 Große Windturbine.
+
+## Zwischenstand Phase 21 (2026-10-20, WIP – Sitzung unterbrochen)
+- [x] 21.0 Spezifikation `docs/spec/23-grosskraftwerke.md` (Werte nach `balancing.md` §3.8, Bauformen/Rezepte festgelegt).
+- [x] Code (kompiliert bis auf den letzten Schritt ungeprüft): Kessel/Dampfturbine/Wasserturbine über Stufen
+  (`BoilerTier`, `SteamTurbineTier`, `WaterTurbineTier`, `PlantShapes`) parametrisiert; Hochdruckkessel, Große
+  Dampfturbine, Große Wasserturbine, Große Windturbine (Gondel + 8 Masten, Rotor-Items Eisen/Stahl/Carbon,
+  `WindRotorRenderer`); Registrierung, Capabilities, Menüs synchronisieren Tank-/Temperaturgrenzen.
+- [x] Datagen-Quellen (Blockstates, Item-Modelle, Rezepte, Lang de/en, EMI-Info/-Kategorien), Texturen,
+  Test-Vorlage `empty_16x16x16.nbt`, GameTests `powerplants/LargePlantGameTests`.
+
+## Nächste Schritte
+1. `gradlew compileJava`, `runData` (generierte Dateien noch nicht erzeugt!), `gradlew build` mit GameTests, Fehler beheben.
+2. `runClient`-Smoketest; `abweichungen.md` (keine Pack-Vorlage – nur Hinweis), `testplan.md`, `architektur.md`,
+   `balancing.md` §4 (Vergleichstabelle), Wiki-Texte (`py` mit Pillow ist auf diesem Rechner vorhanden).
+3. CLAUDE.md-Phasentabelle (21.0–21.3 erledigt), Version 0.4.1, CurseForge-Paket.

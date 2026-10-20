@@ -31,6 +31,14 @@ final class MultiblockEmiInfo {
         info(registry, "steam_turbine", PpItems.STEAM_TURBINE.get(), PpItems.TURBINE_CASING.get(),
                 PpItems.TURBINE_ROTOR.get());
         info(registry, "water_turbine", PpItems.WATER_TURBINE.get(), PpItems.WATER_TURBINE_CASING.get());
+        info(registry, "high_pressure_boiler", PpItems.HIGH_PRESSURE_BOILER_FIREBOX.get(),
+                PpItems.HIGH_PRESSURE_BOILER_CASING.get());
+        info(registry, "large_steam_turbine", PpItems.LARGE_STEAM_TURBINE.get(), PpItems.LARGE_TURBINE_CASING.get(),
+                PpItems.LARGE_TURBINE_ROTOR.get());
+        info(registry, "large_water_turbine", PpItems.LARGE_WATER_TURBINE.get(),
+                PpItems.LARGE_WATER_TURBINE_CASING.get());
+        info(registry, "large_wind_turbine", PpItems.LARGE_WIND_TURBINE.get(), PpItems.WIND_TURBINE_MAST.get(),
+                PpItems.IRON_WIND_ROTOR.get(), PpItems.STEEL_WIND_ROTOR.get(), PpItems.CARBON_WIND_ROTOR.get());
         info(registry, "industrial_blast_furnace", GtItems.machine(GtMachine.INDUSTRIAL_BLAST_FURNACE).get(),
                 casing(GtCasingBlock.Type.STANDARD), casing(GtCasingBlock.Type.REINFORCED),
                 casing(GtCasingBlock.Type.ADVANCED), GtItems.KANTHAL_HEATING_COIL.get(),

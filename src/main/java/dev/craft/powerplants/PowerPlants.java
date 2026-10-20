@@ -8,7 +8,7 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 
-/** Entry point of the new power plants (spec 14): coke oven, coal power plant, water turbine. */
+/** Entry point of the new power plants (spec 14) and their large stages (spec 23). */
 public final class PowerPlants {
     private PowerPlants() {
     }
@@ -35,6 +35,12 @@ public final class PowerPlants {
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, PpBlockEntityTypes.BOILER.get(),
                 BoilerBlockEntity::getPartFluidHandler);
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, PpBlockEntityTypes.STEAM_TURBINE.get(),
+                SteamTurbineBlockEntity::getPartFluidHandler);
+        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, PpBlockEntityTypes.HIGH_PRESSURE_BOILER.get(),
+                BoilerBlockEntity::getItemHandler);
+        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, PpBlockEntityTypes.HIGH_PRESSURE_BOILER.get(),
+                BoilerBlockEntity::getPartFluidHandler);
+        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, PpBlockEntityTypes.LARGE_STEAM_TURBINE.get(),
                 SteamTurbineBlockEntity::getPartFluidHandler);
     }
 }

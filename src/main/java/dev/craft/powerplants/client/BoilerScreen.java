@@ -66,7 +66,7 @@ public class BoilerScreen extends AbstractContainerScreen<BoilerMenu> {
 
     private void tankTooltip(GuiGraphics graphics, Fluid fluid, int amount, int mouseX, int mouseY) {
         graphics.renderComponentTooltip(font, List.of(fluid.getFluidType().getDescription(),
-                Component.literal(amount + " / " + BoilerBlockEntity.TANK_CAPACITY + " mB")), mouseX, mouseY);
+                Component.literal(amount + " / " + menu.getTankCapacity() + " mB")), mouseX, mouseY);
     }
 
     @Override
@@ -88,7 +88,7 @@ public class BoilerScreen extends AbstractContainerScreen<BoilerMenu> {
         drawTank(graphics, x + WATER_X, y + TANK_Y, Fluids.WATER, menu.getWater());
         drawTank(graphics, x + STEAM_X, y + TANK_Y, PpFluids.STEAM.get(), menu.getSteam());
         int heat = (menu.getTemperature() - BoilerBlockEntity.MIN_TEMPERATURE) * HEAT_HEIGHT
-                / (BoilerBlockEntity.MAX_TEMPERATURE - BoilerBlockEntity.MIN_TEMPERATURE);
+                / (menu.getMaxTemperature() - BoilerBlockEntity.MIN_TEMPERATURE);
         if (heat > 0) {
             graphics.blit(TEXTURE, x + HEAT_X, y + HEAT_Y + HEAT_HEIGHT - heat, 176, 61 + HEAT_HEIGHT - heat, 6,
                     heat);
@@ -101,7 +101,7 @@ public class BoilerScreen extends AbstractContainerScreen<BoilerMenu> {
 
     /** Fills the tank bottom-up with the fluid's still texture, then draws the scale over it. */
     private void drawTank(GuiGraphics graphics, int left, int top, Fluid fluid, int amount) {
-        int scaled = amount * TANK_HEIGHT / BoilerBlockEntity.TANK_CAPACITY;
+        int scaled = Math.min(amount * TANK_HEIGHT / menu.getTankCapacity(), TANK_HEIGHT);
         if (scaled > 0) {
             IClientFluidTypeExtensions extensions = IClientFluidTypeExtensions.of(fluid);
             TextureAtlasSprite sprite = minecraft.getTextureAtlas(InventoryMenu.BLOCK_ATLAS)

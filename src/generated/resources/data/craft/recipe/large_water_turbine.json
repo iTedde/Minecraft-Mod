@@ -1,0 +1,23 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "C": {
+      "item": "craft:large_water_turbine_casing"
+    },
+    "H": {
+      "item": "craft:hv_transformer"
+    },
+    "W": {
+      "item": "craft:water_turbine"
+    }
+  },
+  "pattern": [
+    "WCW",
+    "CHC",
+    "WCW"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:large_water_turbine"
+  }
+}

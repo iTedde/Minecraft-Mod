@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/orientable",
+  "textures": {
+    "front": "craft:block/powerplants/large_water_turbine_front_active",
+    "side": "craft:block/powerplants/large_water_turbine_casing",
+    "top": "craft:block/powerplants/large_water_turbine_casing"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "C": {
+      "item": "craft:large_turbine_casing"
+    },
+    "G": {
+      "item": "craft:steam_turbine"
+    },
+    "H": {
+      "item": "craft:hv_transformer"
+    },
+    "R": {
+      "item": "craft:large_turbine_rotor"
+    }
+  },
+  "pattern": [
+    "CRC",
+    "GHG",
+    "CRC"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:large_steam_turbine"
+  }
+}

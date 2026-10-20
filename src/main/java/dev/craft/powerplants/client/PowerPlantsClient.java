@@ -1,12 +1,14 @@
 package dev.craft.powerplants.client;
 
 import dev.craft.Craft;
+import dev.craft.powerplants.PpBlockEntityTypes;
 import dev.craft.powerplants.PpFluids;
 import dev.craft.powerplants.PpMenus;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
@@ -21,6 +23,11 @@ public final class PowerPlantsClient {
         event.register(PpMenus.COKE_OVEN.get(), CokeOvenScreen::new);
         event.register(PpMenus.BOILER.get(), BoilerScreen::new);
         event.register(PpMenus.STEAM_TURBINE.get(), SteamTurbineScreen::new);
+    }
+
+    @SubscribeEvent
+    public static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
+        event.registerBlockEntityRenderer(PpBlockEntityTypes.LARGE_WIND_TURBINE.get(), WindRotorRenderer::new);
     }
 
     @SubscribeEvent

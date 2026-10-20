@@ -5,10 +5,8 @@ import dev.craft.core.energy.EnergySource;
 import dev.craft.core.energy.EnergyTile;
 import dev.craft.core.energy.OutputMeter;
 import dev.craft.core.energy.OutputReadout;
-import dev.craft.core.multiblock.BlockMatcher;
 import dev.craft.core.multiblock.MultiblockPattern;
 import dev.craft.powerplants.PpBlockEntityTypes;
-import dev.craft.powerplants.PpBlocks;
 import dev.craft.powerplants.PpFluids;
 import dev.craft.powerplants.block.PlantControllerBlockEntity;
 import net.minecraft.core.BlockPos;
@@ -18,6 +16,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
@@ -26,22 +25,15 @@ import org.jetbrains.annotations.Nullable;
 /**
  * Steam turbine of the coal power plant (spec 14 §4): 3×3×5 of turbine casings around an axis of three rotors, the
  * controller in the middle of one 3×3 end face. Turns up to 64 mB steam per tick into as many EU (1 mB = 1 EU) and
- * emits them from the controller and every casing block in packets of up to 64 EU (MV).
+ * emits them from the controller and every casing block in packets of up to 64 EU (MV). The large turbine only
+ * changes the values ({@link SteamTurbineTier}).
  */
 public class SteamTurbineBlockEntity extends PlantControllerBlockEntity implements EnergySource, OutputReadout {
+    // values of the small turbine; see SteamTurbineTier for the large one
     public static final int TANK_CAPACITY = 16000;
     public static final int MAX_STEAM_PER_TICK = 64;
     public static final int MAX_OUTPUT = 64;
     public static final int BUFFER_CAPACITY = 128;
-
-    private static final MultiblockPattern PATTERN = MultiblockPattern.builder()
-            .layer("HHH", "HHH", "HHH", "HHH", "HHH")
-            .layer("HCH", "HRH", "HRH", "HRH", "HHH")
-            .layer("HHH", "HHH", "HHH", "HHH", "HHH")
-            .where('H', BlockMatcher.blocks(PpBlocks.TURBINE_CASING.get()))
-            .where('R', BlockMatcher.blocks(PpBlocks.TURBINE_ROTOR.get()))
-            .controller('C', BlockMatcher.blocks(PpBlocks.STEAM_TURBINE.get()))
-            .build();
 
     private final IFluidHandler tank = new SteamTank();
     private final OutputMeter outputMeter = new OutputMeter();
@@ -51,7 +43,16 @@ public class SteamTurbineBlockEntity extends PlantControllerBlockEntity implemen
     private int production;
 
     public SteamTurbineBlockEntity(BlockPos pos, BlockState state) {
-        super(PpBlockEntityTypes.STEAM_TURBINE.get(), pos, state, 0);
+        this(PpBlockEntityTypes.STEAM_TURBINE.get(), pos, state);
+    }
+
+    protected SteamTurbineBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+        super(type, pos, state, 0);
+    }
+
+    /** Size and values of this turbine; constant per class (it is needed before the constructor finishes). */
+    public SteamTurbineTier getTier() {
+        return SteamTurbineTier.SMALL;
     }
 
     public int getSteam() {
@@ -72,16 +73,17 @@ public class SteamTurbineBlockEntity extends PlantControllerBlockEntity implemen
 
     @Override
     protected MultiblockPattern getPattern() {
-        return PATTERN;
+        return getTier().pattern();
     }
 
     @Override
     protected void tickFormed() {
-        production = Math.min(steam, Math.min(MAX_STEAM_PER_TICK, BUFFER_CAPACITY - buffer));
+        SteamTurbineTier tier = getTier();
+        production = Math.min(steam, Math.min(tier.maxSteamPerTick(), tier.bufferCapacity() - buffer));
         steam -= production;
         outputMeter.record(level, production);
         buffer += production;
-        int output = Math.min(buffer, MAX_OUTPUT);
+        int output = Math.min(buffer, tier.maxOutput());
         if (output > 0) {
             buffer += EnergyNets.emit(level, this, output) - output;
         }
@@ -138,7 +140,7 @@ public class SteamTurbineBlockEntity extends PlantControllerBlockEntity implemen
 
     @Override
     public int getMaxEnergyOutput() {
-        return MAX_OUTPUT;
+        return getTier().maxOutput();
     }
 
     @Override
@@ -169,7 +171,7 @@ public class SteamTurbineBlockEntity extends PlantControllerBlockEntity implemen
 
         @Override
         public int getTankCapacity(int index) {
-            return TANK_CAPACITY;
+            return getTier().tankCapacity();
         }
 
         @Override
@@ -182,7 +184,7 @@ public class SteamTurbineBlockEntity extends PlantControllerBlockEntity implemen
             if (resource.isEmpty() || !resource.is(PpFluids.STEAM.get())) {
                 return 0;
             }
-            int filled = Math.min(resource.getAmount(), TANK_CAPACITY - steam);
+            int filled = Math.min(resource.getAmount(), getTier().tankCapacity() - steam);
             if (action.execute() && filled > 0) {
                 steam += filled;
                 setChanged();
