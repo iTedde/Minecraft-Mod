@@ -72,7 +72,9 @@ Fertige Maschinen, Werkzeuge und Rüstung bekommen **keinen** Herkunftstext (ihr
 | 23.2 | Stäube und kleine Stäube |
 | 23.3 | Barren, Platten, Edelsteine, Nuggets |
 | 23.4 | Zellen und Sonstiges |
-| 23.5 | Wiki-Seite „Rohstoffe & Erze“, Durchsicht der Anleitungsseiten, Client-Test, Version + CurseForge-Paket |
+| 23.5 | Wiki-Seite „Rohstoffe & Erze“, Durchsicht der Anleitungsseiten |
+| 23.6 | Energie-Steckbrief aller Geräte im Wiki (Nutzer, 2026-10-20): Energieart (EU, MJ, Dampf, Brennstoff …), maximale sichere Eingangsspannung/Paketgröße und Stufe (LV 32 / MV 128 / HV 512 / EV 2048), was bei mehr passiert (Explosion), Verbrauch bzw. Ausgabe je Tick, Speicher; Werte aus dem Code (`getMaxSafeInput`, `getMaxEnergyOutput` …) bzw. `spec/` |
+| 23.7 | Client-Test, Version + CurseForge-Paket |
 
 Jede Teilphase: Texte aus `spec/07`, `spec/12`, `spec/13`, `STATUS.md` (Rezeptlisten) belegen; GameTest, der prüft,
 dass jedes Item der Gruppe einen Herkunftstext in DE und EN hat; `gradlew build`; Wiki neu erzeugen.

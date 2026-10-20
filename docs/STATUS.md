@@ -2008,5 +2008,14 @@ Spezifikation: `docs/spec/24-herkunft.md`.
 - [x] JUnit `SourceTextsTest` (IDs bekannt, DE+EN erzeugt, alle Erze + Liste abgedeckt); `gradlew test build` grün;
   Wiki neu erzeugt. Kein Client-Test (Nutzer spielt gerade) – mit 23.5 nachholen.
 
+## Erledigt (23.2 Stäube, 2026-10-20)
+- [x] Herkunftstexte für alle 54 Stäube und 31 kleinen Stäube (Wege aus den erzeugten Rezepten, Schrottbox-Liste
+  `ScrapBoxDrops`, Crop Ferru); keiner ist unerreichbar (Titan nur über Bauxit-Elektrolyse/UU-Materie).
+- [x] `SourceTextsTest`: jedes `*_dust` muss einen Text haben. `gradlew test build` grün, Wiki neu erzeugt.
+- [x] Nutzerwunsch (2026-10-20): Energie-Steckbrief aller Geräte im Wiki → neue Teilphase 23.6 (`spec/24` §4);
+  Client-Test/Paket rückt auf 23.7.
+- Frage des Nutzers: Rotary Macerator (Advanced Machines) und Pulverizer (Thermal Expansion) gibt es in Craft nicht
+  (nicht im Umfang); ggf. als eigene Phase nach 23 entscheiden.
+
 ## Nächste Schritte
-1. 23.2: Stäube und kleine Stäube (`REQUIRED` in `SourceTextsTest` erweitern).
+1. 23.3: Barren, Platten, Edelsteine, Nuggets (nicht erreichbare kennzeichnen).

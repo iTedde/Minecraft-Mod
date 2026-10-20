@@ -77,8 +77,10 @@ class SourceTextsTest {
         Set<String> ids = ids();
         List<String> missing = new ArrayList<>();
         for (String key : lang("de_de").keySet()) {
-            if (key.startsWith("block.craft.") && (key.endsWith("_ore") || key.endsWith("_ore_block"))) {
-                String id = "craft:" + key.substring(12);
+            boolean ore = key.startsWith("block.craft.") && (key.endsWith("_ore") || key.endsWith("_ore_block"));
+            boolean dust = key.startsWith("item.craft.") && key.endsWith("_dust");
+            if (ore || dust) {
+                String id = "craft:" + key.substring(key.indexOf(".craft.") + 7);
                 if (!ids.contains(id)) {
                     missing.add(id);
                 }
