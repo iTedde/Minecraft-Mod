@@ -1910,8 +1910,14 @@ Reihenfolge (Nutzer): **erst Iron Chests (20.3/20.4) fertig, dann Phase 21.**
 - [x] Datagen-Quellen (Blockstates, Item-Modelle, Rezepte, Lang de/en, EMI-Info/-Kategorien), Texturen,
   Test-Vorlage `empty_16x16x16.nbt`, GameTests `powerplants/LargePlantGameTests`.
 
+## Erledigt (Abschluss Phase 21, 2026-10-20)
+- [x] `compileJava`, `runData` (keine Änderung gegenüber dem WIP-Commit), alle 394 GameTests grün (11 neue in
+  `LargePlantGameTests`), `gradlew build` grün, `runClient` bis Hauptmenü ohne Fehler.
+- [x] `abweichungen.md` (1 Zeile), `testplan.md` 8.7–8.10, `architektur.md` (Stufen, Windturbine), `balancing.md`
+  §3.8 (y 200 ≈ 136) und §4 (3 Zeilen), `spec/README.md`, CLAUDE.md, Wiki-Seite „Großkraftwerke“ + Energievergleich,
+  Wiki-HTML neu erzeugt.
+- [x] Version 0.4.1, CurseForge-Paket `releases/Craft-0.4.1-curseforge.zip`.
+
 ## Nächste Schritte
-1. `gradlew compileJava`, `runData` (generierte Dateien noch nicht erzeugt!), `gradlew build` mit GameTests, Fehler beheben.
-2. `runClient`-Smoketest; `abweichungen.md` (keine Pack-Vorlage – nur Hinweis), `testplan.md`, `architektur.md`,
-   `balancing.md` §4 (Vergleichstabelle), Wiki-Texte (`py` mit Pillow ist auf diesem Rechner vorhanden).
-3. CLAUDE.md-Phasentabelle (21.0–21.3 erledigt), Version 0.4.1, CurseForge-Paket.
+1. Abnahme im Client: Solar-Felder (Testplan 8.1), Phase 18 + 19, 3.37, 9.6, Iron Chests (§10), Großkraftwerke
+   (8.7–8.10).

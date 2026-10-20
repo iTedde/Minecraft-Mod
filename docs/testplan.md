@@ -153,6 +153,10 @@ Testwelt. Sprache einmal Deutsch, einmal Englisch prüfen. EMI und Xaero's Minim
 | 8.4 | Kessel: Wasser per Eimer/IC2-Pumpe, Kohle/Koks nachlegen, Temperaturbalken und Tanks in der GUI, Dampf in BC-Tank daneben; Explosion (Wasser auf trockenen heißen Kessel) aus sicherer Entfernung | 9.3a | |
 | 8.5 | Dampfturbine: Kraftwerk aus Kessel + Turbine, MFE/Kabel am Controller und an beliebigem Gehäuseblock, GUI (Dampftank, EU/t, Puffer), bis zu 3 Kessel an einer Turbine | 9.3b | |
 | 8.6 | Wasserturbine mit fließendem Wasser rundherum und darüber (z. B. Eimer auf dem Deckel), Rechtsklick-Meldung, Kabel/BatBox am Controller und an beliebigem Gehäuseblock | 9.4 | |
+| 8.7 | Hochdruckkessel (5×5×5 hohl): Rezepte, Wasser per Pumpe/Rohr, Kohle/Koks, GUI-Balken bis 1500 °C und 64 000 mB, Feuerung leuchtet; Explosion (Stärke 10) nur aus großer Entfernung | 21 | |
+| 8.8 | Große Dampfturbine (5×5×9, 7 Große Turbinenrotoren): Dampf von 1–3 Hochdruckkesseln, GUI, HV-Kabel/MFSU am Controller und an einem Gehäuseblock, bis 512 EU/t | 21 | |
+| 8.9 | Große Wasserturbine (5×5×5 massiv) im Fluss: Rechtsklick-Meldung (ab 64 fließenden Blöcken), Leistung bis 256 EU/t, Abgabe über jedes Gehäuse | 21 | |
+| 8.10 | Große Windturbine: Gondel auf 8 Masten, Rotor einsetzen/tauschen/mit Schleichen herausnehmen, Rotor dreht sich (5×5) mit richtiger Textur, Rechtsklick-Meldung, Leistung in y 128/y 200/bei Gewitter, Kabel am Mastfuß, Abbau droppt den Rotor; EMI-Info-Seiten der vier Großanlagen | 21 | |
 
 ## 9. EMI (Phase 11)
 

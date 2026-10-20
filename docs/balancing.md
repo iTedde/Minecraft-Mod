@@ -145,7 +145,7 @@ eine Großanlage ≈ ⅓–⅔ eines HV-Felds, dafür Tag und Nacht. Vorschlagsw
 - **Hochdruckkessel** 5×5×5 (Stahl), bis 1500 °C, 160 mB/t Dampf; Koks 48 000 EU (statt 32 000); Explosion Stärke 10.
 - **Große Dampfturbine** 5×5×9 (Titan-/Wolframstahl-Rotoren), Deckel 512 EU/t (HV), bis 3 Hochdruckkessel.
 - **Große Wasserturbine** 5×5×5, Deckel 256 EU/t, ≈ 64 fließende Wasserblöcke nötig.
-- **Große Windturbine** Mast + 5×5-Rotor, Rotorstufen Eisen/Stahl/Carbon; y 128 ≈ 64, y 200 ≈ 128, Gewitter bis 384 EU/t.
+- **Große Windturbine** Mast + 5×5-Rotor, Rotorstufen Eisen/Stahl/Carbon; y 128 ≈ 64, y 200 ≈ 136, Gewitter bis 384 EU/t (Carbon-Rotor). **Umgesetzt in Phase 21.**
 - Reaktor, Öl/Treibstoff und Umwandler bleiben 1:1.
 
 ## 4. Vergleichstabelle (Vorschlag, gerundet)
@@ -164,9 +164,13 @@ eine Großanlage ≈ ⅓–⅔ eines HV-Felds, dafür Tag und Nacht. Vorschlagsw
 | Combustion + PC (Treibstoff) | 14,6 je Engine | ≈ 6 | 1 458 000 / Eimer | hoch (wenn Raffinerie) |
 | Stirling + PC | 2,4 | ≈ 1 | 3 888 / Kohle | mittel (Explosionsgefahr) |
 | Kernreaktor | 60–400+ | 10–50+ | ≈ 1–12 Mio. / Zelle | hoch bei korrekter Kühlung, Risiko |
+| Hochdruckkessel + Große Dampfturbine (Phase 21) | 160 je Kessel (bis 480, Turbine bis 512) | ≈ 2,3–4 (Grundfläche Kessel + Turbine) | 24 000 / Kohle, 48 000 / Koks | hoch (Aufheizen ≈ 70 s, Asche, 160 mB/t Wasser je Kessel) |
+| Große Wasserturbine (Phase 21) | 64–256 | ≈ 0,2–0,7 (inkl. Wasserfläche 19×19) | – | **hoch** |
+| Große Windturbine (Phase 21, Carbon) | y 128 ≈ 64, y 200 ≈ 136, Gewitter bis 384 | ≈ 0,5–1,1 (Freiraum 11×11) | – | mittel (Wetter, Wind) |
 
 Ergebnis: Solar ist wartungsfrei und kompakt, aber teuer und nur am Tag (bis 2026-10-20: pro Fläche am schwächsten), Wasser die zuverlässige Mittelklasse, Wind wetterabhängig mit
-Gewitterspitzen, Kohle hat einen sinnvollen Ausbaupfad, Öl ist die lagerbare Hochenergie, Atom die Spitze.
+Gewitterspitzen, Kohle hat einen sinnvollen Ausbaupfad, Öl ist die lagerbare Hochenergie, Atom die Spitze. Seit Phase 21
+erreicht jede Nicht-Solar-Quelle mit ihrer großen Ausbaustufe ⅙–⅓ eines HV-Solarfelds je Anlage, dafür Tag und Nacht.
 
 ## 5. Zu bestätigen
 
