@@ -11,6 +11,7 @@ import dev.craft.forestry.FrBlocks;
 import dev.craft.compactsolars.CsBlocks;
 import dev.craft.powerplants.PpBlocks;
 import dev.craft.ironchest.IronChestBlocks;
+import dev.craft.thermalexpansion.TeBlocks;
 import dev.craft.redpower.RpBlocks;
 import dev.craft.gregtech.GtBlocks;
 import dev.craft.gregtech.GtItems;
@@ -28,6 +29,7 @@ import dev.craft.ic2.block.ScaffoldBlock;
 import dev.craft.ic2.cable.CableType;
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Item;
@@ -68,6 +70,15 @@ public final class CraftBlockLoot extends BlockLootSubProvider {
         dropSelf(GtBlocks.HIGHLY_ADVANCED_MACHINE_BLOCK.get());
         dropSelf(RpBlocks.PROJECT_TABLE.get());
         IronChestBlocks.BLOCKS.getEntries().forEach(chest -> dropSelf(chest.get()));
+        // Thermal Expansion (spec 26): ores and rockwool drop themselves, hardened glass only with silk touch.
+        for (Block ore : List.of(TeBlocks.SILVER_ORE.get(), TeBlocks.DEEPSLATE_SILVER_ORE.get(), TeBlocks.LEAD_ORE.get(),
+                TeBlocks.DEEPSLATE_LEAD_ORE.get(), TeBlocks.NICKEL_ORE.get(), TeBlocks.DEEPSLATE_NICKEL_ORE.get())) {
+            dropSelf(ore);
+        }
+        dropWhenSilkTouch(TeBlocks.HARDENED_GLASS.get());
+        for (DyeColor color : DyeColor.values()) {
+            dropSelf(TeBlocks.rockwool(color).get());
+        }
         dropSelf(GtBlocks.STEEL_BLOCK.get());
         for (GtOre ore : GtOre.values()) {
             gtOre(ore, GtBlocks.ore(ore).get());
@@ -228,7 +239,8 @@ public final class CraftBlockLoot extends BlockLootSubProvider {
     @Override
     protected Iterable<Block> getKnownBlocks() {
         return Stream.of(Ic2Blocks.BLOCKS, BcBlocks.BLOCKS, FrBlocks.BLOCKS, PcBlocks.BLOCKS,
-                        CsBlocks.BLOCKS, GtBlocks.BLOCKS, PpBlocks.BLOCKS, RpBlocks.BLOCKS, IronChestBlocks.BLOCKS)
+                        CsBlocks.BLOCKS, GtBlocks.BLOCKS, PpBlocks.BLOCKS, RpBlocks.BLOCKS, IronChestBlocks.BLOCKS,
+                        TeBlocks.BLOCKS)
                 .flatMap(blocks -> blocks.getEntries().stream())
                 .map(holder -> (Block) holder.get()).toList();
     }

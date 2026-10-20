@@ -83,7 +83,7 @@ class SourceTextsTest {
         for (String key : lang("de_de").keySet()) {
             boolean ore = key.startsWith("block.craft.") && (key.endsWith("_ore") || key.endsWith("_ore_block"));
             boolean material = key.startsWith("item.craft.") && (key.endsWith("_dust") || key.endsWith("_ingot")
-                    || key.endsWith("_plate") || key.endsWith("_nugget") || key.contains("_cell"));
+                    || key.endsWith("_plate") || key.endsWith("_nugget") || key.matches(".*_cell(_[0-9]+k)?"));
             if (ore || material) {
                 String id = "craft:" + key.substring(key.indexOf(".craft.") + 7);
                 if (!ids.contains(id)) {

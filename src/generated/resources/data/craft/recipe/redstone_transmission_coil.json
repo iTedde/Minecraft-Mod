@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "G": {
+      "tag": "c:ingots/silver"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    }
+  },
+  "pattern": [
+    "  R",
+    " G ",
+    "R  "
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:redstone_transmission_coil"
+  }
+}

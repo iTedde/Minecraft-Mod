@@ -45,6 +45,27 @@ public final class SourceTexts {
 
     /** Ores (spec 07 §1 and §6, phase 23.1). */
     private static void ores() {
+        add("Oberwelt und Mining-Dimension, y 5–29, 3 Adern (Größe 8) je Chunk, zu 10 % mit Bleierz gemischt "
+                        + "(Thermal Expansion). Ab Eisenspitzhacke, droppt sich selbst. Ofen → Silberbarren; Macerator → 2 "
+                        + "Silberstaub; Industrial Grinder → 2 Silberstaub + 2 kl. Bleistaub (Quecksilberzelle: 3).",
+                "Overworld and mining dimension, y 5–29, 3 veins (size 8) per chunk, mixed with 10 % lead ore (Thermal "
+                        + "Expansion). Iron pickaxe or better, drops itself. Furnace → silver ingot; macerator → 2 silver "
+                        + "dust; industrial grinder → 2 silver dust + 2 tiny lead dust (mercury cell: 3).",
+                "silver_ore", "deepslate_silver_ore");
+        add("Oberwelt und Mining-Dimension, y 10–34, 4 Adern (Größe 8) je Chunk, zu 20 % mit Silbererz gemischt "
+                        + "(Thermal Expansion). Ab Eisenspitzhacke, droppt sich selbst. Ofen → Bleibarren; Macerator → 2 "
+                        + "Bleistaub; Industrial Grinder → 2 Bleistaub + kl. Silberstaub (Quecksilberzelle: + Silberstaub).",
+                "Overworld and mining dimension, y 10–34, 4 veins (size 8) per chunk, mixed with 20 % silver ore (Thermal "
+                        + "Expansion). Iron pickaxe or better, drops itself. Furnace → lead ingot; macerator → 2 lead dust; "
+                        + "industrial grinder → 2 lead dust + tiny silver dust (mercury cell: + silver dust).",
+                "lead_ore", "deepslate_lead_ore");
+        add("„Ferrous Ore“ (Thermal Expansion): Oberwelt und Mining-Dimension, y 5–19, 2 kleine Adern (Größe 4) je "
+                        + "Chunk. Ab Eisenspitzhacke, droppt sich selbst. Ofen → Nickelbarren; Macerator → 2 Nickelstaub; "
+                        + "Industrial Grinder → 3 Nickelstaub + kl. Platin- und kl. Kupferstaub (Quecksilberzelle: + Platinstaub).",
+                "Ferrous ore (Thermal Expansion): overworld and mining dimension, y 5–19, 2 small veins (size 4) per chunk. "
+                        + "Iron pickaxe or better, drops itself. Furnace → nickel ingot; macerator → 2 nickel dust; industrial "
+                        + "grinder → 3 nickel dust + tiny platinum and tiny copper dust (mercury cell: + platinum dust).",
+                "nickel_ore", "deepslate_nickel_ore");
         add("Oberwelt und Mining-Dimension, y 0–39, sehr häufig (etwa 25 kleine Adern je Chunk). Ab "
                         + "Steinspitzhacke, droppt sich selbst. Ofen → Zinnbarren; Macerator → 2 Zinnstaub; Industrial "
                         + "Grinder → 2 Zinnstaub + kl. Eisen- und kl. Zinkstaub.",
@@ -283,24 +304,26 @@ public final class SourceTexts {
                 "Macerator: steel ingot/plate → 1, steel block → 9. Steel itself comes from the industrial blast "
                         + "furnace (refined iron + 2 coal dust). Also scrap box (rare).",
                 "steel_dust");
-        add("Industrial Grinder: Galenaerz + Quecksilberzelle → 1 (+ Galena- und Schwefelstaub). Elektrolyseur: 2 "
+        add("Silbererz (Thermal Expansion): Macerator → 2, Industrial Grinder → 2 (Quecksilber 3) + 2 kl. Bleistaub. Industrial Grinder: Galenaerz + Quecksilberzelle → 1 (+ Galena- und Schwefelstaub). Elektrolyseur: 2 "
                         + "Galenastaub → 3 kl. Silberstaub (+ kl. Blei-, kl. Schwefelstaub). 4 kl. Silberstaub → 1. Auch "
                         + "UU-Materie (14), Macerator aus Barren und Schrottbox.",
-                "Industrial grinder: galena ore + mercury cell → 1 (+ galena and sulfur dust). Electrolyzer: 2 galena "
+                "Silver ore (Thermal Expansion): macerator → 2, industrial grinder → 2 (mercury 3) + 2 tiny lead dust. Industrial grinder: galena ore + mercury cell → 1 (+ galena and sulfur dust). Electrolyzer: 2 galena "
                         + "dust → 3 tiny silver dust (+ tiny lead, tiny sulfur dust). 4 tiny silver dust → 1. Also "
                         + "UU-matter (14), macerator from ingots and scrap box.",
                 "silver_dust");
-        add("Elektrolyseur: 2 Galenastaub → 3 kl. Bleistaub (+ kl. Silber-, kl. Schwefelstaub); Zentrifuge: 2 "
+        add("Bleierz (Thermal Expansion): Macerator → 2, Industrial Grinder → 2 + kl. Silberstaub. Elektrolyseur: 2 Galenastaub → 3 kl. Bleistaub (+ kl. Silber-, kl. Schwefelstaub); Zentrifuge: 2 "
                         + "Silberstaub → 1 kl. Bleistaub. 4 kl. Bleistaub → 1. Auch UU-Materie (14), Macerator aus "
                         + "Barren und Schrottbox.",
-                "Electrolyzer: 2 galena dust → 3 tiny lead dust (+ tiny silver, tiny sulfur dust); centrifuge: 2 silver "
+                "Lead ore (Thermal Expansion): macerator → 2, industrial grinder → 2 + tiny silver dust. Electrolyzer: 2 galena dust → 3 tiny lead dust (+ tiny silver, tiny sulfur dust); centrifuge: 2 silver "
                         + "dust → 1 tiny lead dust. 4 tiny lead dust → 1. Also UU-matter (14), macerator from ingots and "
                         + "scrap box.",
                 "lead_dust");
-        add("Nur als Nebenprodukt: Industrial Grinder: Sheldoniterz → 1 Nickelstaub; Eisen-, Gold- oder Kupfererz → "
+        add("Nickelerz (Thermal Expansion, y 5–19): Macerator → 2, Industrial Grinder → 3 (+ kl. Platin-, kl. "
+                        + "Kupferstaub). Sonst als Nebenprodukt: Industrial Grinder: Sheldoniterz → 1 Nickelstaub; Eisen-, Gold- oder Kupfererz → "
                         + "1 kl. Nickelstaub. Zentrifuge: 2 Eisen-, 3 Gold-, 3 Kupferstaub oder 1 Platinstaub → 1 kl. "
                         + "Nickelstaub. 4 kl. Nickelstaub → 1. Sonst UU-Materie (10) und Schrottbox.",
-                "Only as a by-product: industrial grinder: sheldonite ore → 1 nickel dust; iron, gold or copper ore → "
+                "Ferrous (nickel) ore (Thermal Expansion, y 5–19): macerator → 2, industrial grinder → 3 (+ tiny "
+                        + "platinum, tiny copper dust). Otherwise as a by-product: industrial grinder: sheldonite ore → 1 nickel dust; iron, gold or copper ore → "
                         + "1 tiny nickel dust. Centrifuge: 2 iron, 3 gold, 3 copper or 1 platinum dust → 1 tiny nickel "
                         + "dust. 4 tiny nickel dust → 1. Otherwise UU-matter (10) and scrap box.",
                 "nickel_dust");
@@ -637,6 +660,12 @@ public final class SourceTexts {
                 "Rotary macerator (Advanced Machines): grind iron (ore, ingot, raw metal) with coal or charcoal in the "
                         + "supplement slot – 1 coal lasts 128 operations. Furnace → refined iron.",
                 "refined_iron_dust");
+        add("Werkbank: 2 Eisen- + 1 Nickelstaub → 3 (Thermal Expansion). Ofen → Invarbarren.",
+                "Crafting: 2 iron + 1 nickel dust → 3 (Thermal Expansion). Furnace → invar ingot.",
+                "invar_dust");
+        add("Ofen: Invarstaub → 1 (Invarstaub: 2 Eisen- + 1 Nickelstaub).",
+                "Furnace: invar dust → 1 (invar dust: 2 iron + 1 nickel dust).",
+                "invar_ingot");
         add("Industrieller Hochofen (1000 K): raff. Eisen + 2 Kohlestaub → 1 (+ 2 dunkle Asche), Stahlstaub → 1. Ofen: "
                         + "Platte → 1, Stahlblock → 9.",
                 "Industrial blast furnace (1000 K): refined iron + 2 coal dust → 1 (+ 2 dark ashes), steel dust → 1. "
@@ -664,14 +693,14 @@ public final class SourceTexts {
         add("Vakuumgefrierer: heißer Wolframstahlbarren → 1 (450 Ticks, 128 EU/t). Ofen: Platte → 1.",
                 "Vacuum freezer: hot tungstensteel ingot → 1 (450 ticks, 128 EU/t). Furnace: plate → 1.",
                 "tungstensteel_ingot");
-        add("Ofen: Silberstaub → 1. Industrieller Hochofen (1500 K): 2 Galenastaub → 1 Silber- + 1 Bleibarren.",
-                "Furnace: silver dust → 1. Industrial blast furnace (1500 K): 2 galena dust → 1 silver + 1 lead ingot.",
+        add("Ofen: Silbererz → 1. Ofen: Silberstaub → 1. Industrieller Hochofen (1500 K): 2 Galenastaub → 1 Silber- + 1 Bleibarren.",
+                "Furnace: silver ore → 1. Furnace: silver dust → 1. Industrial blast furnace (1500 K): 2 galena dust → 1 silver + 1 lead ingot.",
                 "silver_ingot");
-        add("Ofen: Bleistaub → 1. Industrieller Hochofen (1500 K): 2 Galenastaub → 1 Blei- + 1 Silberbarren.",
-                "Furnace: lead dust → 1. Industrial blast furnace (1500 K): 2 galena dust → 1 lead + 1 silver ingot.",
+        add("Ofen: Bleierz → 1. Ofen: Bleistaub → 1. Industrieller Hochofen (1500 K): 2 Galenastaub → 1 Blei- + 1 Silberbarren.",
+                "Furnace: lead ore → 1. Furnace: lead dust → 1. Industrial blast furnace (1500 K): 2 galena dust → 1 lead + 1 silver ingot.",
                 "lead_ingot");
-        add("Ofen: Nickelstaub → 1 (Nickelstaub nur als Nebenprodukt, siehe dort). Ofen: Platte → 1.",
-                "Furnace: nickel dust → 1 (nickel dust only as a by-product, see there). Furnace: plate → 1.",
+        add("Ofen: Nickelerz → 1. Ofen: Nickelstaub → 1 (siehe Nickelstaub). Ofen: Platte → 1.",
+                "Furnace: ferrous (nickel) ore → 1. Furnace: nickel dust → 1 (see nickel dust). Furnace: plate → 1.",
                 "nickel_ingot");
         add("Ofen: Zinkstaub → 1 (aus Sphalerit, Nether). Ofen: Platte → 1.",
                 "Furnace: zinc dust → 1 (from sphalerite, Nether). Furnace: plate → 1.",

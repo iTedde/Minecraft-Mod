@@ -6,6 +6,9 @@
     "craft:sapphire_ore",
     "craft:bauxite_ore",
     "craft:tin_ore",
-    "craft:uranium_ore"
+    "craft:uranium_ore",
+    "craft:silver_ore",
+    "craft:lead_ore",
+    "craft:nickel_ore"
   ]
 }

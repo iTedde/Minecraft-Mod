@@ -2078,6 +2078,20 @@ Quelltexte). Ebenso `thermalexpansion` und `CoFHCore` für Phase 25.
 - Befund beim Bauen: die Rezeptsuche für den Zusatz verkleinert die Kopie auf 0 – im Original zählt nur die Item-ID,
   daher sucht Craft auf einer eigenen Kopie.
 
+# Phase 25 – Thermal Expansion (Nutzer, 2026-10-20)
+
+Spezifikation: `docs/spec/26-thermal-expansion.md`.
+
+## Erledigt (25.0 Spezifikation, 25.1 Grundlagen, 2026-10-21)
+- [x] Paket `dev.craft.thermalexpansion`: Silber-/Blei-/Nickelerz (+ Tiefenschiefer), Gehärtetes Glas, 16 Steinwolle,
+  Invarstaub/-barren, Holzschnitzel, Sägemehl, Schlacke, Servo, drei Spulen, Kupfer-/Invarzahnrad (Zinn = Forestry),
+  Maschinenrahmen, Rahmen/Leitungen/Tesserakt-Vorprodukte, Crescent Hammer, Multimeter (Funktion in 25.6), Geschmolzenes
+  Redstone/Ender (ohne Block/Eimer).
+- [x] Weltgen `TeOreFeature` (CoFH-Mischadern, `GtVein` mit Auswahl je Block), auch Mining-Dimension (doppelt).
+- [x] Rezepte §5 (Teile, Schießpulver, Papier, Holzkohle, Invar, Steinwolle), Ofen Erz → Barren, GT-Regeln für die Erze
+  (Macerator, Grinder, Erzwerte), Platinbarren-Kistenloot.
+- [x] Herkunftstexte (Erze, Invar; Silber/Blei/Nickel ergänzt). 2 GameTests, alle 403 grün; `gradlew test build` grün.
+
 ## Nächste Schritte
-1. Phase 25: Thermal Expansion (Spezifikation + Umsetzung). Entschieden (Nutzer, 2026-10-20): vorhandene Craft-Items
+1. 25.2: TE-Maschinenbasis + Elektrischer Ofen, Pulverisierer, Sägewerk. Entschieden (Nutzer, 2026-10-20): vorhandene Craft-Items
    statt TE-Duplikaten, nur Silber-, Blei- und Nickelerz (Ferrous) generieren, kompletter Umfang inkl. Tesserakte.

@@ -1,0 +1,10 @@
+{
+  "type": "neoforge:add_features",
+  "biomes": "#minecraft:is_overworld",
+  "features": [
+    "craft:te_silver_ore",
+    "craft:te_lead_ore",
+    "craft:te_nickel_ore"
+  ],
+  "step": "underground_ores"
+}

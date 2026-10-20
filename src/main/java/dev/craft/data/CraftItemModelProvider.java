@@ -3,6 +3,7 @@ package dev.craft.data;
 import java.util.List;
 
 import dev.craft.Craft;
+import dev.craft.thermalexpansion.TeItems;
 import dev.craft.advancedmachines.AdvancedMachinesItems;
 import dev.craft.buildcraft.BcItems;
 import dev.craft.buildcraft.engine.EngineType;
@@ -38,6 +39,22 @@ public final class CraftItemModelProvider extends ItemModelProvider {
     protected void registerModels() {
         basicItem(PpItems.COKE.get());
         basicItem(AdvancedMachinesItems.REFINED_IRON_DUST.get());
+        for (DeferredItem<? extends Item> item : List.of(TeItems.INVAR_DUST, TeItems.INVAR_INGOT, TeItems.WOOD_CHIPS,
+                TeItems.SAWDUST, TeItems.COMPRESSED_SAWDUST, TeItems.SLAG, TeItems.RICH_SLAG, TeItems.PNEUMATIC_SERVO,
+                TeItems.REDSTONE_RECEPTION_COIL, TeItems.REDSTONE_TRANSMISSION_COIL, TeItems.REDSTONE_CONDUCTANCE_COIL,
+                TeItems.COPPER_GEAR, TeItems.INVAR_GEAR, TeItems.MACHINE_FRAME, TeItems.CRESCENT_HAMMER,
+                TeItems.MULTIMETER)) {
+            basicItem(item.get());
+        }
+        // Frames and the empty conduit are drawn by TE's item renderers; until their sub-phases they reuse the
+        // machine frame and the hardened glass.
+        for (DeferredItem<? extends Item> item : List.of(TeItems.ENERGY_CELL_FRAME, TeItems.FULL_ENERGY_CELL_FRAME,
+                TeItems.TESSERACT_FRAME, TeItems.UNATTUNED_TESSERACT)) {
+            withExistingParent(item.getId().getPath(), mcLoc("item/generated")).texture("layer0",
+                    modLoc("item/machine_frame"));
+        }
+        withExistingParent(TeItems.EMPTY_ENERGY_CONDUIT.getId().getPath(), mcLoc("item/generated"))
+                .texture("layer0", modLoc("block/hardened_glass"));
         basicItem(PpItems.IRON_WIND_ROTOR.get());
         basicItem(PpItems.STEEL_WIND_ROTOR.get());
         basicItem(PpItems.CARBON_WIND_ROTOR.get());

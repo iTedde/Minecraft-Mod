@@ -1,6 +1,7 @@
 package dev.craft.data;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.EnumMap;
 import java.util.LinkedHashMap;
@@ -11,6 +12,8 @@ import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
 import dev.craft.Craft;
+import dev.craft.thermalexpansion.TeBlocks;
+import dev.craft.thermalexpansion.TeItems;
 import dev.craft.advancedmachines.AdvancedMachinesItems;
 import dev.craft.buildcraft.BcItems;
 import dev.craft.buildcraft.transport.PipeType;
@@ -65,6 +68,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.food.FoodProperties;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.DyeItem;
 import net.minecraft.world.item.Item;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.minecraft.world.item.ItemStack;
@@ -120,6 +125,7 @@ public final class CraftRecipeProvider extends RecipeProvider {
         longFallBoots();
         ironChests();
         advancedMachines();
+        thermalExpansion();
         gregTechCircuitBoards();
         gregTechBrass();
         gregTechMortars();
@@ -2133,6 +2139,91 @@ public final class CraftRecipeProvider extends RecipeProvider {
      * Iron Chests (spec 22 §4): chest recipes of {@code IronChestType} and upgrade recipes of {@code ChestChangerType}.
      * Iron is the iron or the refined iron ingot (the original adds every recipe once per material).
      */
+    /** Thermal Expansion basics (spec 26 §5, GT_OreDictHandler rules for the new ores). */
+    private void thermalExpansion() {
+        Ingredient ironIngot = Ingredient.of(Items.IRON_INGOT);
+        Ingredient redstone = Ingredient.of(Items.REDSTONE);
+        // Vanilla shaped recipes (ShapedOreRecipe mirrors): BC/Forestry style builders.
+        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, TeItems.CRESCENT_HAMMER.get())
+                .pattern("I I").pattern(" S ").pattern(" I ").define('I', ironIngot)
+                .define('S', CraftItemTagsProvider.INGOTS_SILVER).unlockedBy("has_silver", has(CraftItemTagsProvider.INGOTS_SILVER))
+                .save(output, id("crescent_hammer"));
+        for (ItemLike coal : List.of(Items.COAL, Items.CHARCOAL)) {
+            ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, Items.GUNPOWDER)
+                    .requires(GtItems.SALTPETER_DUST.get()).requires(GtItems.SULFUR_DUST.get())
+                    .requires(coal).unlockedBy("has_sulfur", has(GtItems.SULFUR_DUST.get()))
+                    .save(output, id("gunpowder_from_saltpeter_and_" + BuiltInRegistries.ITEM.getKey(coal.asItem()).getPath()));
+        }
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, Items.PAPER, 3).pattern("###")
+                .define('#', TeItems.WOOD_CHIPS.get()).unlockedBy("has_chips", has(TeItems.WOOD_CHIPS.get()))
+                .save(output, id("paper_from_wood_chips"));
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, TeItems.COMPRESSED_SAWDUST.get()).pattern("###").pattern("# #")
+                .pattern("###").define('#', TeItems.SAWDUST.get()).unlockedBy("has_sawdust", has(TeItems.SAWDUST.get()))
+                .save(output, id("compressed_sawdust"));
+        smelt("charcoal_from_compressed_sawdust", Ingredient.of(TeItems.COMPRESSED_SAWDUST), Items.CHARCOAL, 1, 0.0F);
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, TeItems.PNEUMATIC_SERVO.get()).pattern(" I ").pattern("GRG")
+                .pattern(" I ").define('R', redstone).define('G', Items.GLASS).define('I', ironIngot)
+                .unlockedBy("has_redstone", has(Items.REDSTONE)).save(output, id("pneumatic_servo"));
+        coil(TeItems.REDSTONE_RECEPTION_COIL.get(), Ingredient.of(Items.GOLD_INGOT), "redstone_reception_coil");
+        coil(TeItems.REDSTONE_TRANSMISSION_COIL.get(), Ingredient.of(CraftItemTagsProvider.INGOTS_SILVER),
+                "redstone_transmission_coil");
+        coil(TeItems.REDSTONE_CONDUCTANCE_COIL.get(), Ingredient.of(CraftItemTagsProvider.INGOTS_ELECTRUM),
+                "redstone_conductance_coil");
+        gear(TeItems.COPPER_GEAR.get(), Ingredient.of(ingotsCopper()), "copper_gear");
+        gear(FrItems.TIN_GEAR.get(), Ingredient.of(CraftItemTagsProvider.INGOTS_TIN), "tin_gear_te");
+        gear(TeItems.INVAR_GEAR.get(), Ingredient.of(CraftItemTagsProvider.INGOTS_INVAR), "invar_gear");
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, TeItems.INVAR_DUST.get(), 3)
+                .requires(CraftItemTagsProvider.DUSTS_IRON).requires(CraftItemTagsProvider.DUSTS_IRON)
+                .requires(CraftItemTagsProvider.DUSTS_NICKEL).unlockedBy("has_nickel", has(CraftItemTagsProvider.DUSTS_NICKEL))
+                .save(output, id("invar_dust"));
+        smelt("invar_ingot_from_dust", Ingredient.of(CraftItemTagsProvider.DUSTS_INVAR), TeItems.INVAR_INGOT, 1, 0.0F);
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, TeItems.MACHINE_FRAME.get()).pattern("IGI").pattern("GXG")
+                .pattern("IGI").define('I', ironIngot).define('G', Items.GLASS).define('X', Items.GOLD_INGOT)
+                .unlockedBy("has_gold", has(Items.GOLD_INGOT)).save(output, id("machine_frame"));
+        // Ores: TE smelting XP; GT_OreDictHandler adds macerator and industrial grinder recipes.
+        Ingredient silverOre = Ingredient.of(TeItems.SILVER_ORE, TeItems.DEEPSLATE_SILVER_ORE);
+        Ingredient leadOre = Ingredient.of(TeItems.LEAD_ORE, TeItems.DEEPSLATE_LEAD_ORE);
+        Ingredient nickelOre = Ingredient.of(TeItems.NICKEL_ORE, TeItems.DEEPSLATE_NICKEL_ORE);
+        smelt("silver_ingot_from_ore", silverOre, GtItems.SILVER_INGOT, 1, 0.9F);
+        smelt("lead_ingot_from_ore", leadOre, GtItems.LEAD_INGOT, 1, 0.8F);
+        smelt("nickel_ingot_from_ore", nickelOre, GtItems.NICKEL_INGOT, 1, 1.0F);
+        machine(MachineRecipe.Kind.MACERATOR, "silver_ore", silverOre, 1, Ic2Items.SILVER_DUST, 2);
+        machine(MachineRecipe.Kind.MACERATOR, "lead_ore", leadOre, 1, GtItems.LEAD_DUST, 2);
+        machine(MachineRecipe.Kind.MACERATOR, "nickel_ore", nickelOre, 1, GtItems.NICKEL_DUST, 2);
+        grind("silver_ore", silverOre, 1, stack(Ic2Items.SILVER_DUST, 2), stack(GtItems.SMALL_LEAD_DUST, 2));
+        grindMercury("silver_ore", silverOre, 1, stack(Ic2Items.SILVER_DUST, 3), stack(GtItems.SMALL_LEAD_DUST, 2));
+        grind("lead_ore", leadOre, 1, stack(GtItems.LEAD_DUST, 2), stack(GtItems.SMALL_SILVER_DUST, 1));
+        grindMercury("lead_ore", leadOre, 1, stack(GtItems.LEAD_DUST, 2), stack(Ic2Items.SILVER_DUST, 1));
+        grind("nickel_ore", nickelOre, 1, stack(GtItems.NICKEL_DUST, 3), stack(GtItems.SMALL_PLATINUM_DUST, 1),
+                stack(GtItems.SMALL_COPPER_DUST, 1));
+        grindMercury("nickel_ore", nickelOre, 1, stack(GtItems.NICKEL_DUST, 3), stack(GtItems.PLATINUM_DUST, 1));
+        // Rockwool: slag in the furnace, then dyed (8 around a dye).
+        smelt("light_gray_rockwool_from_slag", Ingredient.of(TeItems.SLAG), TeBlocks.rockwool(DyeColor.LIGHT_GRAY), 1,
+                0.0F);
+        Ingredient anyRockwool = Ingredient.of(Arrays.stream(DyeColor.values())
+                .map(color -> TeBlocks.rockwool(color).get()).toArray(ItemLike[]::new));
+        for (DyeColor color : DyeColor.values()) {
+            ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, TeBlocks.rockwool(color).get(), 8)
+                    .pattern("###").pattern("#D#").pattern("###").define('#', anyRockwool)
+                    .define('D', DyeItem.byColor(color)).unlockedBy("has_rockwool", has(TeBlocks.rockwool(DyeColor.LIGHT_GRAY).get()))
+                    .save(output, id(color.getSerializedName() + "_rockwool"));
+        }
+    }
+
+    /** {@code powerCoil*}: {@code "  R", " G ", "R  "}. */
+    private void coil(ItemLike result, Ingredient metal, String name) {
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, result).pattern("  R").pattern(" G ").pattern("R  ")
+                .define('R', Items.REDSTONE).define('G', metal).unlockedBy("has_redstone", has(Items.REDSTONE))
+                .save(output, id(name));
+    }
+
+    /** TE gears: {@code " X ", "XIX", " X "} around an iron ingot. */
+    private void gear(ItemLike result, Ingredient metal, String name) {
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, result).pattern(" X ").pattern("XIX").pattern(" X ")
+                .define('X', metal).define('I', Items.IRON_INGOT).unlockedBy("has_iron", has(Items.IRON_INGOT))
+                .save(output, id(name));
+    }
+
     /** Advanced Machines (spec 25 §2). */
     private void advancedMachines() {
         shaped(machine(Ic2Machine.ROTARY_MACERATOR), 1, "rotary_macerator").pattern("RRR", "RMR", "RAR")

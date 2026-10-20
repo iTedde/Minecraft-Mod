@@ -4,6 +4,8 @@ import java.util.Arrays;
 import java.util.function.Supplier;
 
 import dev.craft.Craft;
+import dev.craft.thermalexpansion.TeBlocks;
+import dev.craft.thermalexpansion.TeItems;
 import dev.craft.advancedmachines.AdvancedMachinesItems;
 import dev.craft.buildcraft.BcBlocks;
 import dev.craft.mining.MiningBlocks;
@@ -48,6 +50,7 @@ import dev.craft.ic2.cable.CableType;
 import dev.craft.ic2.item.FilledTinCanItem;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.data.LanguageProvider;
@@ -186,6 +189,50 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             }
         }
     }
+
+    /** Thermal Expansion (spec 26): basics of phase 25.1. */
+    protected void thermalExpansion(boolean german) {
+        add("itemGroup.craft.thermal_expansion", "Craft: Thermal Expansion");
+        block(TeBlocks.SILVER_ORE, german ? "Silbererz" : "Silver Ore");
+        block(TeBlocks.DEEPSLATE_SILVER_ORE, german ? "Tiefenschiefer-Silbererz" : "Deepslate Silver Ore");
+        block(TeBlocks.LEAD_ORE, german ? "Bleierz" : "Lead Ore");
+        block(TeBlocks.DEEPSLATE_LEAD_ORE, german ? "Tiefenschiefer-Bleierz" : "Deepslate Lead Ore");
+        block(TeBlocks.NICKEL_ORE, german ? "Nickelerz" : "Ferrous Ore");
+        block(TeBlocks.DEEPSLATE_NICKEL_ORE, german ? "Tiefenschiefer-Nickelerz" : "Deepslate Ferrous Ore");
+        block(TeBlocks.HARDENED_GLASS, german ? "Gehärtetes Glas" : "Hardened Glass");
+        item(TeItems.INVAR_DUST, german ? "Invarstaub" : "Invar Blend");
+        item(TeItems.INVAR_INGOT, german ? "Invarbarren" : "Invar Ingot");
+        item(TeItems.WOOD_CHIPS, german ? "Holzschnitzel" : "Wood Chips");
+        item(TeItems.SAWDUST, german ? "Sägemehl" : "Sawdust");
+        item(TeItems.COMPRESSED_SAWDUST, german ? "Gepresstes Sägemehl" : "Compressed Sawdust");
+        item(TeItems.SLAG, german ? "Schlacke" : "Slag");
+        item(TeItems.RICH_SLAG, german ? "Reiche Schlacke" : "Rich Slag");
+        item(TeItems.PNEUMATIC_SERVO, german ? "Pneumatischer Servo" : "Pneumatic Servo");
+        item(TeItems.REDSTONE_RECEPTION_COIL, german ? "Redstone-Empfangsspule" : "Redstone Reception Coil");
+        item(TeItems.REDSTONE_TRANSMISSION_COIL, german ? "Redstone-Übertragungsspule" : "Redstone Transmission Coil");
+        item(TeItems.REDSTONE_CONDUCTANCE_COIL, german ? "Redstone-Leitspule" : "Redstone Conductance Coil");
+        item(TeItems.COPPER_GEAR, german ? "Kupferzahnrad" : "Copper Gear");
+        item(TeItems.INVAR_GEAR, german ? "Invarzahnrad" : "Invar Gear");
+        item(TeItems.MACHINE_FRAME, german ? "Maschinenrahmen" : "Machine Frame");
+        item(TeItems.ENERGY_CELL_FRAME, german ? "Energiezellenrahmen (leer)" : "Energy Cell Frame (Empty)");
+        item(TeItems.FULL_ENERGY_CELL_FRAME, german ? "Energiezellenrahmen (voll)" : "Energy Cell Frame (Full)");
+        item(TeItems.EMPTY_ENERGY_CONDUIT, german ? "Energieleitung (leer)" : "Energy Conduit (Empty)");
+        item(TeItems.TESSERACT_FRAME, german ? "Tesserakt-Rahmen" : "Tesseract Frame");
+        item(TeItems.UNATTUNED_TESSERACT, german ? "Unabgestimmter Tesserakt" : "Unattuned Tesseract");
+        item(TeItems.CRESCENT_HAMMER, german ? "Crescent Hammer" : "Crescent Hammer");
+        item(TeItems.MULTIMETER, german ? "Multimeter" : "Multimeter");
+        String[] english = {"White", "Orange", "Magenta", "Light Blue", "Yellow", "Lime", "Pink", "Gray", "Light Gray",
+                "Cyan", "Purple", "Blue", "Brown", "Green", "Red", "Black"};
+        String[] germanNames = {"Weiße", "Orange", "Magenta", "Hellblaue", "Gelbe", "Hellgrüne", "Rosa", "Graue",
+                "Hellgraue", "Türkise", "Violette", "Blaue", "Braune", "Grüne", "Rote", "Schwarze"};
+        for (DyeColor color : DyeColor.values()) {
+            add(TeBlocks.rockwool(color).get().getDescriptionId(), german
+                    ? germanNames[color.getId()] + " Steinwolle" : english[color.getId()] + " Rockwool");
+        }
+        add("fluid_type.craft.molten_redstone", german ? "Geschmolzenes Redstone" : "Molten Redstone");
+        add("fluid_type.craft.molten_ender", german ? "Geschmolzenes Ender" : "Molten Ender");
+    }
+
 
     /** Advanced Machines (spec 25): machines, refined iron dust, tab, GUI and EMI texts. */
     protected void advancedMachines(boolean german) {
@@ -1315,6 +1362,7 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             portalGun(false);
             ironChests(false);
             advancedMachines(false);
+            thermalExpansion(false);
         }
     }
 
@@ -1718,6 +1766,7 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             portalGun(true);
             ironChests(true);
             advancedMachines(true);
+            thermalExpansion(true);
         }
     }
 }

@@ -45,7 +45,7 @@ Restrictor, Painter, Turtle-Upgrades (CC-Modul; CC: Tweaked hat andere Turtle-AP
 Pneumatischer Servo, Redstone-Empfangs-/Übertragungs-/Leitspule (Gold/Silber/Elektrum), Kupfer-/Zinn-/Invar-Zahnrad,
 Maschinenrahmen, Energiezellenrahmen (leer/voll), Energieleitung (leer), Tesserakt-Rahmen, Unabgestimmter Tesserakt,
 Crescent Hammer (Schraubenschlüssel), Multimeter. Flüssigkeiten **Geschmolzenes Redstone** und **Geschmolzenes Ender**
-(mit Eimern; im Original nur als Flüssigkeits-Items).
+(wie im Original ohne Weltblock und ohne Behälter – nur in Tanks, Umfüller und Liquiducts).
 
 ## 2. Materialzuordnung (E1)
 
@@ -74,7 +74,12 @@ gewürfelt** aus der Liste:
 | Blei | 4 | 8 | 10–34 | 80 % Blei, 20 % Silber | Ofen → Bleibarren (0,8 XP) |
 | Nickel (Ferrous) | 2 | 4 | 5–19 | 100 % | Ofen → Nickelbarren (1,0 XP) |
 
-Erz-Blockwerte aus `core/block/BlockOre.java` (Härte, Werkzeugstufe) in Teilphase 25.1 nachtragen.
+Erzblöcke (`BlockOre`): Härte 3, `setResistance(5)` (= 3), Eisenspitzhacke (Stufe 2), droppen sich selbst, keine
+Erfahrung. Tiefenschiefer-Varianten wie bei Zinn/Uran (+1,5 Härte, Muster auf Vanilla-Tiefenschiefer). GregTech
+(`GT_OreDictHandler`) ergänzt: Macerator 2 Staub; Industrial Grinder Silber 2 + 2 kl. Blei (Quecksilber 3), Blei 2 +
+kl. Silber (Quecksilber + Silberstaub), Nickel 3 + kl. Platin + kl. Kupfer (Quecksilber + Platinstaub); Erzwerte für
+Miner/Scanner Silber 3, Blei 3, Nickel 4. Gehärtetes Glas: Härte 3, Widerstand 93, kein Drop (Behutsamkeit oder
+Schleichen + Schraubenschlüssel). Steinwolle: Härte 0,8, Widerstand 6, brennt nicht, Vanilla-Wolltexturen.
 
 ## 4. Gemeinsame Maschinenlogik (`TileMachineRoot` + `TileMachinePower`)
 

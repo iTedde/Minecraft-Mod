@@ -1,0 +1,15 @@
+{
+  "type": "craft:macerator",
+  "ingredient": [
+    {
+      "item": "craft:silver_ore"
+    },
+    {
+      "item": "craft:deepslate_silver_ore"
+    }
+  ],
+  "result": {
+    "count": 2,
+    "id": "craft:silver_dust"
+  }
+}

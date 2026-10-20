@@ -120,6 +120,13 @@
     "craft:tungstate_ore",
     "craft:sheldonite_ore",
     "craft:olivine_ore",
-    "craft:sodalite_ore"
+    "craft:sodalite_ore",
+    "craft:silver_ore",
+    "craft:deepslate_silver_ore",
+    "craft:lead_ore",
+    "craft:deepslate_lead_ore",
+    "craft:nickel_ore",
+    "craft:deepslate_nickel_ore",
+    "craft:hardened_glass"
   ]
 }

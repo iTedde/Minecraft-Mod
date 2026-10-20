@@ -1,0 +1,68 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "#": [
+      {
+        "item": "craft:white_rockwool"
+      },
+      {
+        "item": "craft:orange_rockwool"
+      },
+      {
+        "item": "craft:magenta_rockwool"
+      },
+      {
+        "item": "craft:light_blue_rockwool"
+      },
+      {
+        "item": "craft:yellow_rockwool"
+      },
+      {
+        "item": "craft:lime_rockwool"
+      },
+      {
+        "item": "craft:pink_rockwool"
+      },
+      {
+        "item": "craft:gray_rockwool"
+      },
+      {
+        "item": "craft:light_gray_rockwool"
+      },
+      {
+        "item": "craft:cyan_rockwool"
+      },
+      {
+        "item": "craft:purple_rockwool"
+      },
+      {
+        "item": "craft:blue_rockwool"
+      },
+      {
+        "item": "craft:brown_rockwool"
+      },
+      {
+        "item": "craft:green_rockwool"
+      },
+      {
+        "item": "craft:red_rockwool"
+      },
+      {
+        "item": "craft:black_rockwool"
+      }
+    ],
+    "D": {
+      "item": "minecraft:light_gray_dye"
+    }
+  },
+  "pattern": [
+    "###",
+    "#D#",
+    "###"
+  ],
+  "result": {
+    "count": 8,
+    "id": "craft:light_gray_rockwool"
+  }
+}

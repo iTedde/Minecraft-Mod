@@ -29,6 +29,7 @@ import dev.craft.powerconverters.PcItems;
 import dev.craft.powerplants.PpItems;
 import dev.craft.redpower.RpGem;
 import dev.craft.redpower.RpItems;
+import dev.craft.thermalexpansion.TeItems;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -237,6 +238,15 @@ public final class CraftCreativeTabs {
                         }
                         output.accept(AdvancedMachinesItems.REFINED_IRON_DUST);
                     })
+                    .build());
+
+    public static final Supplier<CreativeModeTab> THERMAL_EXPANSION = TABS.register("thermal_expansion", () ->
+            CreativeModeTab.builder()
+                    .title(Component.translatable("itemGroup.craft.thermal_expansion"))
+                    .icon(() -> TeItems.MACHINE_FRAME.toStack())
+                    .withTabsBefore(ResourceLocation.fromNamespaceAndPath(Craft.MODID, "advanced_machines"))
+                    .displayItems((parameters, output) -> TeItems.ITEMS.getEntries()
+                            .forEach(item -> output.accept(item.get())))
                     .build());
 
     private CraftCreativeTabs() {

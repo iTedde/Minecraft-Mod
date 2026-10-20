@@ -44,7 +44,10 @@
       "craft:mining/gt_iridium_ore",
       "craft:mining/gt_ruby_ore",
       "craft:mining/gt_sapphire_ore",
-      "craft:mining/gt_bauxite_ore"
+      "craft:mining/gt_bauxite_ore",
+      "craft:mining/te_silver_ore",
+      "craft:mining/te_lead_ore",
+      "craft:mining/te_nickel_ore"
     ]
   ],
   "has_precipitation": false,

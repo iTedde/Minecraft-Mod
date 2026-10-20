@@ -12,6 +12,7 @@ import dev.craft.powerplants.PowerPlants;
 import dev.craft.ironchest.IronChests;
 import dev.craft.portalgun.PortalGun;
 import dev.craft.redpower.RedPower;
+import dev.craft.thermalexpansion.ThermalExpansion;
 import dev.craft.ic2.Ic2;
 import dev.craft.mining.Mining;
 import net.neoforged.bus.api.IEventBus;
@@ -37,6 +38,7 @@ public final class Craft {
         PortalGun.init(modBus);
         IronChests.init(modBus);
         AdvancedMachines.init(modBus);
+        ThermalExpansion.init(modBus);
         CraftCreativeTabs.TABS.register(modBus);
     }
 }

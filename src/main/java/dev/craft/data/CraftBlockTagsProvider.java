@@ -1,8 +1,11 @@
 package dev.craft.data;
 
+import java.util.List;
+import net.minecraft.core.registries.BuiltInRegistries;
 import java.util.concurrent.CompletableFuture;
 
 import dev.craft.Craft;
+import dev.craft.thermalexpansion.TeBlocks;
 import dev.craft.compactsolars.CsBlocks;
 import dev.craft.compactsolars.SolarArrayType;
 import dev.craft.powerplants.PpBlocks;
@@ -154,6 +157,21 @@ public final class CraftBlockTagsProvider extends BlockTagsProvider {
         tag(STORAGE_BLOCKS_STEEL).add(GtBlocks.STEEL_BLOCK.get());
         tag(Tags.Blocks.STORAGE_BLOCKS).addTag(STORAGE_BLOCKS_TIN).addTag(STORAGE_BLOCKS_BRONZE)
                 .addTag(STORAGE_BLOCKS_STEEL);
+        // Thermal Expansion ores (BlockOre harvest level 2 = iron) and hardened glass.
+        for (String metal : List.of("silver", "lead", "nickel")) {
+            TagKey<Block> tag = TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath("c", "ores/" + metal));
+            Block ore = BuiltInRegistries.BLOCK.get(ResourceLocation.fromNamespaceAndPath(Craft.MODID, metal + "_ore"));
+            Block deepslate = BuiltInRegistries.BLOCK.get(
+                    ResourceLocation.fromNamespaceAndPath(Craft.MODID, "deepslate_" + metal + "_ore"));
+            tag(tag).add(ore, deepslate);
+            tag(Tags.Blocks.ORES).addTag(tag);
+            tag(Tags.Blocks.ORES_IN_GROUND_STONE).add(ore);
+            tag(Tags.Blocks.ORES_IN_GROUND_DEEPSLATE).add(deepslate);
+            tag(BlockTags.MINEABLE_WITH_PICKAXE).add(ore, deepslate);
+            tag(BlockTags.NEEDS_IRON_TOOL).add(ore, deepslate);
+        }
+        tag(BlockTags.MINEABLE_WITH_PICKAXE).add(TeBlocks.HARDENED_GLASS.get());
+        tag(Tags.Blocks.GLASS_BLOCKS).add(TeBlocks.HARDENED_GLASS.get());
         addElectricToolTags();
     }
 

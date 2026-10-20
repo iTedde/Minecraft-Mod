@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Set;
 
 import dev.craft.Craft;
+import dev.craft.thermalexpansion.world.TeWorldGen;
 import dev.craft.buildcraft.world.BcFeatures;
 import dev.craft.gregtech.GtBlocks;
 import dev.craft.gregtech.world.ChunkBiomeFilter;
@@ -81,6 +82,13 @@ public final class CraftWorldGen {
     public static final ResourceKey<PlacedFeature> GT_NETHER_ORES = placedKey("gt_nether_ores");
     public static final ResourceKey<PlacedFeature> GT_END_ORES = placedKey("gt_end_ores");
     public static final ResourceKey<BiomeModifier> ADD_GT_ORES = modifierKey("add_gt_ores");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> TE_SILVER_CONFIGURED = configuredKey("te_silver_ore");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> TE_LEAD_CONFIGURED = configuredKey("te_lead_ore");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> TE_NICKEL_CONFIGURED = configuredKey("te_nickel_ore");
+    public static final ResourceKey<PlacedFeature> TE_SILVER = placedKey("te_silver_ore");
+    public static final ResourceKey<PlacedFeature> TE_LEAD = placedKey("te_lead_ore");
+    public static final ResourceKey<PlacedFeature> TE_NICKEL = placedKey("te_nickel_ore");
+    public static final ResourceKey<BiomeModifier> ADD_TE_ORES = modifierKey("add_te_ores");
     public static final ResourceKey<BiomeModifier> ADD_GT_NETHER_ORES = modifierKey("add_gt_nether_ores");
     public static final ResourceKey<BiomeModifier> ADD_GT_END_ORES = modifierKey("add_gt_end_ores");
 
@@ -129,6 +137,9 @@ public final class CraftWorldGen {
         register(context, GT_BAUXITE_CONFIGURED, Feature.ORE, new OreConfiguration(gtTargets(GtOre.BAUXITE), 16));
         register(context, GT_NETHER_ORES_CONFIGURED, GtWorldGen.NETHER_ORES.get(), NoneFeatureConfiguration.INSTANCE);
         register(context, GT_END_ORES_CONFIGURED, GtWorldGen.END_ORES.get(), NoneFeatureConfiguration.INSTANCE);
+        register(context, TE_SILVER_CONFIGURED, TeWorldGen.SILVER_ORE.get(), NoneFeatureConfiguration.INSTANCE);
+        register(context, TE_LEAD_CONFIGURED, TeWorldGen.LEAD_ORE.get(), NoneFeatureConfiguration.INSTANCE);
+        register(context, TE_NICKEL_CONFIGURED, TeWorldGen.NICKEL_ORE.get(), NoneFeatureConfiguration.INSTANCE);
     }
 
     /** Overworld GT ore in stone, its deepslate variant (if any) in deepslate. */
@@ -183,6 +194,16 @@ public final class CraftWorldGen {
         context.register(GT_NETHER_ORES, new PlacedFeature(configured.getOrThrow(GT_NETHER_ORES_CONFIGURED),
                 List.of()));
         context.register(GT_END_ORES, new PlacedFeature(configured.getOrThrow(GT_END_ORES_CONFIGURED), List.of()));
+        // CoFH WorldHandler: numClusters veins at x/z + rand(16), y = minY + rand(maxY - minY).
+        registerOre(context, TE_SILVER, configured.getOrThrow(TE_SILVER_CONFIGURED), List.of(
+                CountPlacement.of(TeWorldGen.SILVER_CLUSTERS), InSquarePlacement.spread(),
+                uniformHeight(TeWorldGen.SILVER_MIN_Y, TeWorldGen.SILVER_MAX_Y - 1), BiomeFilter.biome()));
+        registerOre(context, TE_LEAD, configured.getOrThrow(TE_LEAD_CONFIGURED), List.of(
+                CountPlacement.of(TeWorldGen.LEAD_CLUSTERS), InSquarePlacement.spread(),
+                uniformHeight(TeWorldGen.LEAD_MIN_Y, TeWorldGen.LEAD_MAX_Y - 1), BiomeFilter.biome()));
+        registerOre(context, TE_NICKEL, configured.getOrThrow(TE_NICKEL_CONFIGURED), List.of(
+                CountPlacement.of(TeWorldGen.NICKEL_CLUSTERS), InSquarePlacement.spread(),
+                uniformHeight(TeWorldGen.NICKEL_MIN_Y, TeWorldGen.NICKEL_MAX_Y - 1), BiomeFilter.biome()));
         MiningDimension.bootstrapVanillaOres(context);
     }
 
@@ -228,6 +249,9 @@ public final class CraftWorldGen {
         context.register(ADD_GT_ORES, new BiomeModifiers.AddFeaturesBiomeModifier(overworld,
                 HolderSet.direct(placed.getOrThrow(GT_GALENA), placed.getOrThrow(GT_IRIDIUM), placed.getOrThrow(GT_RUBY),
                         placed.getOrThrow(GT_SAPPHIRE), placed.getOrThrow(GT_BAUXITE)),
+                GenerationStep.Decoration.UNDERGROUND_ORES));
+        context.register(ADD_TE_ORES, new BiomeModifiers.AddFeaturesBiomeModifier(overworld,
+                HolderSet.direct(placed.getOrThrow(TE_SILVER), placed.getOrThrow(TE_LEAD), placed.getOrThrow(TE_NICKEL)),
                 GenerationStep.Decoration.UNDERGROUND_ORES));
         context.register(ADD_GT_NETHER_ORES, new BiomeModifiers.AddFeaturesBiomeModifier(
                 biomes.getOrThrow(BiomeTags.IS_NETHER), HolderSet.direct(placed.getOrThrow(GT_NETHER_ORES)),

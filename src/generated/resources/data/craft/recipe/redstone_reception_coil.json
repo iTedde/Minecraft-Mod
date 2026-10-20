@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "G": {
+      "item": "minecraft:gold_ingot"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    }
+  },
+  "pattern": [
+    "  R",
+    " G ",
+    "R  "
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:redstone_reception_coil"
+  }
+}

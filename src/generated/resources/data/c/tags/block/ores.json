@@ -17,6 +17,9 @@
     "#c:ores/olivine",
     "#c:ores/sodalite",
     "#c:ores/tin",
-    "#c:ores/uranium"
+    "#c:ores/uranium",
+    "#c:ores/silver",
+    "#c:ores/lead",
+    "#c:ores/nickel"
   ]
 }

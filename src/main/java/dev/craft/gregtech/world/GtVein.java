@@ -1,5 +1,6 @@
 package dev.craft.gregtech.world;
 
+import java.util.function.BiFunction;
 import java.util.function.Predicate;
 
 import net.minecraft.core.BlockPos;
@@ -20,6 +21,15 @@ public final class GtVein {
 
     public static void place(WorldGenLevel level, RandomSource random, int x, int y, int z, int size, BlockState ore,
                              Predicate<BlockState> replaceable) {
+        place(level, random, x, y, z, size, (rand, existing) -> replaceable.test(existing) ? ore : null);
+    }
+
+    /**
+     * The same vein with a per-block choice: {@code ore} returns the block for a replaceable {@code existing} state
+     * (CoFH {@code WorldGenMulti} picks a weighted ore per block), or {@code null} to keep it.
+     */
+    public static void place(WorldGenLevel level, RandomSource random, int x, int y, int z, int size,
+                             BiFunction<RandomSource, BlockState, BlockState> ore) {
         float angle = random.nextFloat() * Mth.PI;
         double startX = x + 8 + Mth.sin(angle) * size / 8.0F;
         double endX = x + 8 - Mth.sin(angle) * size / 8.0F;
@@ -57,9 +67,11 @@ public final class GtVein {
                             continue;
                         }
                         pos.set(bx, by, bz);
-                        if (!level.isOutsideBuildHeight(pos) && level.ensureCanWrite(pos)
-                                && replaceable.test(level.getBlockState(pos))) {
-                            level.setBlock(pos, ore, 2);
+                        if (!level.isOutsideBuildHeight(pos) && level.ensureCanWrite(pos)) {
+                            BlockState chosen = ore.apply(random, level.getBlockState(pos));
+                            if (chosen != null) {
+                                level.setBlock(pos, chosen, 2);
+                            }
                         }
                     }
                 }

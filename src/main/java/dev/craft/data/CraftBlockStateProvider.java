@@ -1,5 +1,6 @@
 package dev.craft.data;
 
+import java.util.List;
 import dev.craft.ic2.crop.CropBlock;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -8,6 +9,7 @@ import java.util.stream.Collectors;
 
 import com.google.gson.JsonObject;
 import dev.craft.Craft;
+import dev.craft.thermalexpansion.TeBlocks;
 import dev.craft.buildcraft.BcBlocks;
 import dev.craft.buildcraft.builders.MarkerBlock;
 import dev.craft.buildcraft.engine.EngineType;
@@ -43,6 +45,7 @@ import dev.craft.ironchest.IronChestBlocks;
 import dev.craft.ironchest.IronChestType;
 import dev.craft.redpower.RpBlocks;
 import net.minecraft.core.Direction;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
@@ -98,6 +101,7 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
         simpleBlockWithItem(Ic2Blocks.MACHINE_CASING.get(), cubeAll(Ic2Blocks.MACHINE_CASING.get()));
         simpleBlockWithItem(Ic2Blocks.ADVANCED_MACHINE_CASING.get(), cubeAll(Ic2Blocks.ADVANCED_MACHINE_CASING.get()));
         simpleBlockWithItem(Ic2Blocks.TIN_ORE.get(), cubeAll(Ic2Blocks.TIN_ORE.get()));
+        thermalExpansion();
         simpleBlockWithItem(Ic2Blocks.DEEPSLATE_TIN_ORE.get(), cubeAll(Ic2Blocks.DEEPSLATE_TIN_ORE.get()));
         simpleBlockWithItem(Ic2Blocks.TIN_BLOCK.get(), cubeAll(Ic2Blocks.TIN_BLOCK.get()));
         simpleBlockWithItem(Ic2Blocks.URANIUM_ORE.get(), cubeAll(Ic2Blocks.URANIUM_ORE.get()));
@@ -475,6 +479,21 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
         fenceBlock(Ic2Blocks.IRON_FENCE.get(), modLoc("block/iron_fence"));
         simpleBlockItem(Ic2Blocks.IRON_FENCE.get(), models().fenceInventory("iron_fence_inventory",
                 modLoc("block/iron_fence")));
+    }
+
+    /** Thermal Expansion basics (spec 26): ores, hardened glass, rockwool with the vanilla wool textures. */
+    private void thermalExpansion() {
+        for (Block ore : List.of(TeBlocks.SILVER_ORE.get(), TeBlocks.DEEPSLATE_SILVER_ORE.get(), TeBlocks.LEAD_ORE.get(),
+                TeBlocks.DEEPSLATE_LEAD_ORE.get(), TeBlocks.NICKEL_ORE.get(), TeBlocks.DEEPSLATE_NICKEL_ORE.get())) {
+            simpleBlockWithItem(ore, cubeAll(ore));
+        }
+        simpleBlockWithItem(TeBlocks.HARDENED_GLASS.get(), models().cubeAll("hardened_glass",
+                modLoc("block/hardened_glass")).renderType("translucent"));
+        for (DyeColor color : DyeColor.values()) {
+            Block block = TeBlocks.rockwool(color).get();
+            simpleBlockWithItem(block, models().cubeAll(color.getSerializedName() + "_rockwool",
+                    mcLoc("block/" + color.getSerializedName() + "_wool")));
+        }
     }
 
     /** One model per facing and active state, with IC2's face-to-sprite mapping (no rotations). */

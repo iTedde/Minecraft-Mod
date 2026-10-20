@@ -39,6 +39,10 @@ public final class OreValues {
         for (GtOre ore : GtOre.values()) {
             values.add(Map.entry(common("ores/" + ore.getMaterial()), ore.getOreValue()));
         }
+        // GT_OreDictHandler: oreSilver 3, oreLead 3, oreNickel 4 (Thermal Expansion ores).
+        values.add(Map.entry(common("ores/silver"), 3));
+        values.add(Map.entry(common("ores/lead"), 3));
+        values.add(Map.entry(common("ores/nickel"), 4));
         values.add(Map.entry(Tags.Blocks.ORES, 1));
         return List.copyOf(values);
     }

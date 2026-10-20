@@ -61,6 +61,7 @@ WIKI_NOTES = {
 }
 
 GROUPS = [
+    ('thermalexpansion', 'Thermal Expansion'),
     ('advancedmachines', 'Advanced Machines'),
     ('ironchest', 'Iron Chests'),
     ('powerplants', 'Kraftwerke (neu)'),
@@ -74,6 +75,7 @@ GROUPS = [
 ]
 GROUP_ORDER = ['IndustrialCraft 2', 'GregTech', 'BuildCraft', 'Forestry', 'Power Converters',
                'Compact Solars', 'Kraftwerke (neu)', 'Mining-Dimension (neu)', 'Iron Chests', 'Advanced Machines',
+               'Thermal Expansion',
                'Sonstiges']
 
 # items whose behaviour was changed on purpose or which are new content

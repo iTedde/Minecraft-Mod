@@ -5,6 +5,9 @@
     "craft:deepslate_ruby_ore",
     "craft:deepslate_sapphire_ore",
     "craft:deepslate_tin_ore",
-    "craft:deepslate_uranium_ore"
+    "craft:deepslate_uranium_ore",
+    "craft:deepslate_silver_ore",
+    "craft:deepslate_lead_ore",
+    "craft:deepslate_nickel_ore"
   ]
 }

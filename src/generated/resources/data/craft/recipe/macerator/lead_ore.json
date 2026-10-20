@@ -1,0 +1,15 @@
+{
+  "type": "craft:macerator",
+  "ingredient": [
+    {
+      "item": "craft:lead_ore"
+    },
+    {
+      "item": "craft:deepslate_lead_ore"
+    }
+  ],
+  "result": {
+    "count": 2,
+    "id": "craft:lead_dust"
+  }
+}

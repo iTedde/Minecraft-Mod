@@ -1,8 +1,11 @@
 package dev.craft.data;
 
+import java.util.List;
+import dev.craft.forestry.FrItems;
 import java.util.concurrent.CompletableFuture;
 
 import dev.craft.Craft;
+import dev.craft.thermalexpansion.TeItems;
 import dev.craft.gregtech.GtItems;
 import dev.craft.gregtech.world.GtOre;
 import dev.craft.ic2.Ic2Items;
@@ -36,6 +39,11 @@ public final class CraftItemTagsProvider extends ItemTagsProvider {
     public static final TagKey<Item> INGOTS_BRONZE = commonTag("ingots/bronze");
     public static final TagKey<Item> INGOTS_REFINED_IRON = commonTag("ingots/refined_iron");
     public static final TagKey<Item> INGOTS_NICKEL = commonTag("ingots/nickel");
+    public static final TagKey<Item> INGOTS_INVAR = commonTag("ingots/invar");
+    public static final TagKey<Item> DUSTS_INVAR = commonTag("dusts/invar");
+    public static final TagKey<Item> GEARS_COPPER = commonTag("gears/copper");
+    public static final TagKey<Item> GEARS_TIN = commonTag("gears/tin");
+    public static final TagKey<Item> GEARS_INVAR = commonTag("gears/invar");
     public static final TagKey<Item> INGOTS_ALUMINIUM = commonTag("ingots/aluminium");
     public static final TagKey<Item> INGOTS_STEEL = commonTag("ingots/steel");
     public static final TagKey<Item> INGOTS_LEAD = commonTag("ingots/lead");
@@ -175,6 +183,19 @@ public final class CraftItemTagsProvider extends ItemTagsProvider {
         tag(PLATES_SILICON).add(GtItems.SILICON_PLATE.get());
         tag(PLATES_LEAD).add(GtItems.LEAD_PLATE.get());
         tag(INGOTS_NICKEL).add(GtItems.NICKEL_INGOT.get());
+        // Thermal Expansion (spec 26 §2): new invar and gears; the tin gear is Forestry's (oredict gearTin).
+        tag(INGOTS_INVAR).add(TeItems.INVAR_INGOT.get());
+        tag(DUSTS_INVAR).add(TeItems.INVAR_DUST.get());
+        tag(Tags.Items.INGOTS).addTag(INGOTS_INVAR);
+        tag(Tags.Items.DUSTS).addTag(DUSTS_INVAR);
+        tag(GEARS_COPPER).add(TeItems.COPPER_GEAR.get());
+        tag(GEARS_TIN).add(FrItems.TIN_GEAR.get());
+        tag(GEARS_INVAR).add(TeItems.INVAR_GEAR.get());
+        tag(Tags.Items.GLASS_BLOCKS).add(TeItems.HARDENED_GLASS.get());
+        for (String metal : List.of("silver", "lead", "nickel")) {
+            copy(TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath("c", "ores/" + metal)),
+                    commonTag("ores/" + metal));
+        }
         tag(INGOTS_ALUMINIUM).add(GtItems.ALUMINIUM_INGOT.get());
         tag(INGOTS_STEEL).add(GtItems.STEEL_INGOT.get());
         tag(INGOTS_LEAD).add(GtItems.LEAD_INGOT.get());
