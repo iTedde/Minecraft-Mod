@@ -1,0 +1,23 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "G": {
+      "item": "minecraft:glass"
+    },
+    "m": {
+      "item": "minecraft:diamond"
+    },
+    "s": {
+      "item": "minecraft:gold_ingot"
+    }
+  },
+  "pattern": [
+    "GGG",
+    "msm",
+    "GGG"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:gold_diamond_upgrade"
+  }
+}

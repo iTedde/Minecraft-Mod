@@ -1,0 +1,28 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "G": {
+      "item": "minecraft:glass"
+    },
+    "P": {
+      "item": "craft:copper_chest"
+    },
+    "m": [
+      {
+        "item": "minecraft:iron_ingot"
+      },
+      {
+        "tag": "c:ingots/refined_iron"
+      }
+    ]
+  },
+  "pattern": [
+    "mGm",
+    "GPG",
+    "mGm"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:iron_chest"
+  }
+}

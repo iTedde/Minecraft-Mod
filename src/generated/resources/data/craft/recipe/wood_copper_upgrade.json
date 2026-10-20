@@ -1,0 +1,20 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "m": {
+      "tag": "c:ingots/copper"
+    },
+    "s": {
+      "tag": "minecraft:planks"
+    }
+  },
+  "pattern": [
+    "mmm",
+    "msm",
+    "mmm"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:wood_copper_upgrade"
+  }
+}

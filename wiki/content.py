@@ -647,6 +647,13 @@ braucht vieles früh GT-Materialien (Platten, Stahl).</p>
             '1 MJ = 2,43 EU, Producer geben nur volle Pakete ab. Dazu der Universal Charger.',
             [('Umrechnung', '1 MJ = 2,43 EU'), ('IC2-Stufen', 'LV, MV, HV, EV')],
             [('spec-10', '10 – Energieumwandlung (Teil B: Power Converters)')])
+    modpage('mod-ironchests', 'Iron Chests', 'craft:iron_chest',
+            'Größere Kisten: <b>Kupfer</b> (45 Slots), <b>Eisen</b> (54), <b>Silber</b> (72), <b>Gold</b> (81) und <b>Diamant</b> (108). '
+            'Die <b>Kristallkiste</b> ist durchsichtig und zeigt die acht häufigsten Items drehend im Inneren, die <b>Obsidiankiste</b> übersteht Explosionen. '
+            'Mit <b>Upgrades</b> wird eine Kiste samt Inhalt direkt aufgewertet, auch die normale Holzkiste. Wo Eisen gebraucht wird, geht auch Raffiniertes Eisen. '
+            'Zahme Katzen setzen sich auch auf diese Kisten; Komparatoren lesen den Füllstand (in 1.4.7 gab es noch keine).',
+            [('Kisten', '7'), ('Upgrades', '9'), ('Paket', 'Kreativ-Tab „Iron Chests“')],
+            [('spec-22', '22 – Iron Chests')])
 
     # ------------------------------------------------------------------ Items
     page('items', 'Gegenstände & Blöcke', 'Allgemein', f'''<h1>Gegenstände & Blöcke</h1>

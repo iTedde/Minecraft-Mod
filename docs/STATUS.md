@@ -1869,10 +1869,22 @@ Pack** (alle 7 Kisten + Upgrade-Items, `ftb ultimate/mods/IronChest.zip`, noch n
   Darstellung), 9 Upgrades inkl. Vanilla-Kiste/Doppelkiste, 11 + 9 Rezepte (Eisen auch Raffiniertes Eisen), Katzen
   statt Ozelots, kein Komparator (wie Original), Tests.
 
+## Erledigt (20.4 Umsetzung Iron Chests, 2026-10-20)
+- [x] Paket `dev.craft.ironchest`: 7 Kisten (ein Block je Kiste, ein Blockentity-Typ), Menü/Screen mit Original-GUIs,
+  Renderer mit dem 1.4.7-`ModelChest` (Original-Texturen unverändert), Kristallkiste mit Top-8-Anzeige, 9 Upgrades
+  (auch Vanilla-Kiste/Doppelkiste), Item-Capability, **Komparator** (Nutzer: „machs rein, wenn's sinnvoll ist“), Katzen.
+- [x] Datagen (Blockstates, Item-Modelle, Loot, Tags, Lang de/en, 20 Rezepte), eigener Kreativ-Tab, Texturen aus
+  `IronChest.zip` (Modelle, GUIs, Upgrade-Icons, Partikel).
+- [x] 9 GameTests (Größen, Upgrades, Doppelkiste, Explosion, Drops, Kristall, Capability/Komparator, Katze,
+  Rezepte ohne Kollision). Alle 383 GameTests grün, `gradlew build` grün, `runClient` bis Hauptmenü ohne Fehler.
+- [x] `spec/22`, `abweichungen.md` (4 Zeilen), `testplan.md` §10, `architektur.md`, Wiki-Text + Gruppe „Iron Chests“
+  (**HTML nicht neu erzeugt** – kein Python auf diesem Rechner). Version 0.4.0, CurseForge-Paket
+  `releases/Craft-0.4.0-curseforge.zip`.
+
 ## Nächste Schritte
-1. 20.4 Umsetzung Iron Chests nach `spec/22` (Paket `…ironchest`); dabei Rezeptkollisionen prüfen.
+1. Phase 21 (Großkraftwerke), zuerst 21.0 Spezifikation.
 2. Wiki-HTML auf dem Rechner mit Python neu erzeugen.
-3. Abnahme im Client: Solar-Felder (Testplan 8.1), Phase 18 + 19, 3.37, 9.6.
+3. Abnahme im Client: Solar-Felder (Testplan 8.1), Phase 18 + 19, 3.37, 9.6, Iron Chests (§10).
 
 # Phase 21 – Großkraftwerke (Nutzer, 2026-10-20, geplant nach Phase 20)
 

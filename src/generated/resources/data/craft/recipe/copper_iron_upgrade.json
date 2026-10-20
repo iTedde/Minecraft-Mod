@@ -1,0 +1,28 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "G": {
+      "item": "minecraft:glass"
+    },
+    "m": [
+      {
+        "item": "minecraft:iron_ingot"
+      },
+      {
+        "tag": "c:ingots/refined_iron"
+      }
+    ],
+    "s": {
+      "tag": "c:ingots/copper"
+    }
+  },
+  "pattern": [
+    "mGm",
+    "GsG",
+    "mGm"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:copper_iron_upgrade"
+  }
+}

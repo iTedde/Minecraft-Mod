@@ -1,0 +1,23 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "G": {
+      "item": "minecraft:glass"
+    },
+    "m": {
+      "item": "minecraft:gold_ingot"
+    },
+    "s": {
+      "tag": "c:ingots/silver"
+    }
+  },
+  "pattern": [
+    "mGm",
+    "GsG",
+    "mGm"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:silver_gold_upgrade"
+  }
+}

@@ -39,6 +39,8 @@ import dev.craft.powerconverters.PcBlocks;
 import dev.craft.powerplants.PpBlocks;
 import dev.craft.powerplants.block.PlantControllerBlock;
 import dev.craft.powerconverters.block.PowerConverterBlock;
+import dev.craft.ironchest.IronChestBlocks;
+import dev.craft.ironchest.IronChestType;
 import dev.craft.redpower.RpBlocks;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -167,6 +169,11 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
                 modLoc("block/project_table_top"));
         horizontalBlock(RpBlocks.PROJECT_TABLE.get(), model);
         simpleBlockItem(RpBlocks.PROJECT_TABLE.get(), model);
+        // Iron chests are drawn by their block entity renderer; the item model is builtin/entity.
+        for (IronChestType type : IronChestType.values()) {
+            simpleBlock(IronChestBlocks.chest(type).get(), models().getBuilder(type.getName() + "_chest")
+                    .texture("particle", modLoc("block/ironchest/" + type.getName())));
+        }
     }
 
     private void quarry() {

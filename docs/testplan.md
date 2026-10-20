@@ -165,6 +165,15 @@ Testwelt. Sprache einmal Deutsch, einmal Englisch prüfen. EMI und Xaero's Minim
 | 9.5 | `craft:water`/`craft:lava` nicht im Index | 11.2 | |
 | 9.6 | EMI-„+“ im Projekttisch (Zutaten aus Vorrat und Inventar, Shift-+ für viele) und in der Automatischen Werkbank; nur Werkbank-Rezepte | 20.1 | |
 
+## 10. Iron Chests (Phase 20)
+
+| Nr | Test | Herkunft | OK |
+|---|---|---|---|
+| 10.1 | Alle 7 Kisten herstellen (auch Eisenkiste aus Raffiniertem Eisen), platzieren: Front zum Spieler, Modell und Textur richtig herum, Deckel öffnet mit Geräusch; GUI-Größe und Slots (Kupfer 45 … Diamant 108), Shift-Klick in beide Richtungen; Block darüber verhindert das Öffnen | 20.4 | |
+| 10.2 | Kristallkiste: durchsichtig, die häufigsten Items drehen sich darin (ein Item groß in der Mitte) | 20.4 | |
+| 10.3 | Upgrades: Holzkiste (auch eine Hälfte einer Doppelkiste) → Eisen/Kupfer, Eisen → Gold → Diamant → Kristall/Obsidian; Inhalt und Blickrichtung bleiben, Upgrade verbraucht; falsches Upgrade öffnet nur die Kiste | 20.4 | |
+| 10.4 | Obsidiankiste neben TNT bleibt stehen; Abbau mit Spitzhacke droppt Kiste und Inhalt; Trichter/BC-Rohr füllt und leert; Komparator zeigt den Füllstand; zahme Katze setzt sich auf eine Iron Chest; Items im Inventar/in der Hand als Kiste dargestellt | 20.4 | |
+
 ## Befunde
 
 | Nr | Datum | Befund | Status |

@@ -1,0 +1,25 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "m": [
+      {
+        "item": "minecraft:iron_ingot"
+      },
+      {
+        "tag": "c:ingots/refined_iron"
+      }
+    ],
+    "s": {
+      "tag": "minecraft:planks"
+    }
+  },
+  "pattern": [
+    "mmm",
+    "msm",
+    "mmm"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:wood_iron_upgrade"
+  }
+}

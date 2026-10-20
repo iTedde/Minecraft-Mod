@@ -1,0 +1,20 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "P": {
+      "item": "minecraft:chest"
+    },
+    "m": {
+      "tag": "c:ingots/copper"
+    }
+  },
+  "pattern": [
+    "mmm",
+    "mPm",
+    "mmm"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:copper_chest"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "G": {
+      "item": "minecraft:glass"
+    },
+    "m": {
+      "item": "minecraft:obsidian"
+    }
+  },
+  "pattern": [
+    "mmm",
+    "mGm",
+    "mmm"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:diamond_obsidian_upgrade"
+  }
+}

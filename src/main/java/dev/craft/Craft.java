@@ -8,6 +8,7 @@ import dev.craft.core.CraftCreativeTabs;
 import dev.craft.forestry.Forestry;
 import dev.craft.powerconverters.PowerConverters;
 import dev.craft.powerplants.PowerPlants;
+import dev.craft.ironchest.IronChests;
 import dev.craft.portalgun.PortalGun;
 import dev.craft.redpower.RedPower;
 import dev.craft.ic2.Ic2;
@@ -33,6 +34,7 @@ public final class Craft {
         Mining.init(modBus);
         RedPower.init(modBus);
         PortalGun.init(modBus);
+        IronChests.init(modBus);
         CraftCreativeTabs.TABS.register(modBus);
     }
 }

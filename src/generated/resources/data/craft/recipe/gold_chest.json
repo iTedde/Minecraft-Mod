@@ -1,0 +1,20 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "P": {
+      "item": "craft:iron_chest"
+    },
+    "m": {
+      "item": "minecraft:gold_ingot"
+    }
+  },
+  "pattern": [
+    "mmm",
+    "mPm",
+    "mmm"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:gold_chest"
+  }
+}

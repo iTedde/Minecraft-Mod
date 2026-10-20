@@ -34,6 +34,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import dev.craft.ironchest.IronChestItems;
+import dev.craft.ironchest.IronChestType;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -207,6 +209,15 @@ public final class CraftCreativeTabs {
                     .withTabsBefore(ResourceLocation.fromNamespaceAndPath(Craft.MODID, "power_plants"))
                     .displayItems((parameters, output) -> RpItems.ITEMS.getEntries().stream()
                             .filter(item -> item != RpItems.PLAN)
+                            .forEach(item -> output.accept(item.get())))
+                    .build());
+
+    public static final Supplier<CreativeModeTab> IRON_CHESTS = TABS.register("iron_chests", () ->
+            CreativeModeTab.builder()
+                    .title(Component.translatable("itemGroup.craft.iron_chests"))
+                    .icon(() -> IronChestItems.chest(IronChestType.IRON).toStack())
+                    .withTabsBefore(ResourceLocation.fromNamespaceAndPath(Craft.MODID, "redpower"))
+                    .displayItems((parameters, output) -> IronChestItems.ITEMS.getEntries()
                             .forEach(item -> output.accept(item.get())))
                     .build());
 

@@ -1,0 +1,25 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "m": {
+      "item": "minecraft:gold_ingot"
+    },
+    "s": [
+      {
+        "item": "minecraft:iron_ingot"
+      },
+      {
+        "tag": "c:ingots/refined_iron"
+      }
+    ]
+  },
+  "pattern": [
+    "mmm",
+    "msm",
+    "mmm"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:iron_gold_upgrade"
+  }
+}

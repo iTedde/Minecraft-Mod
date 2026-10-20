@@ -15,6 +15,9 @@ import dev.craft.ic2.cable.CableType;
 import dev.craft.ic2.client.Ic2Client;
 import dev.craft.powerplants.PpItems;
 import dev.craft.portalgun.PgItems;
+import dev.craft.ironchest.ChestUpgradeType;
+import dev.craft.ironchest.IronChestItems;
+import dev.craft.ironchest.IronChestType;
 import dev.craft.redpower.RpItems;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.item.Item;
@@ -38,6 +41,9 @@ public final class CraftItemModelProvider extends ItemModelProvider {
         basicItem(RpItems.PLAN.get());
         basicItem(PgItems.LONG_FALL_BOOT.get());
         basicItem(PgItems.LONG_FALL_BOOTS.get());
+        for (ChestUpgradeType type : ChestUpgradeType.values()) {
+            basicItem(IronChestItems.upgrade(type).get());
+        }
         for (CableType type : CableType.values()) {
             basicItem(Ic2Items.cable(type).get());
         }
@@ -103,6 +109,9 @@ public final class CraftItemModelProvider extends ItemModelProvider {
         // RenderMachine/RenderBlock.inventoryRender, drawn by ForestryMachineItemRenderer.
         engine(FrItems.CARPENTER);
         engine(Ic2Items.machine(Ic2Machine.PERSONAL_SAFE));
+        for (IronChestType type : IronChestType.values()) {
+            engine(IronChestItems.chest(type));
+        }
         engine(FrItems.THERMIONIC_FABRICATOR);
         engine(FrItems.ELECTRICAL_ENGINE);
         basicItem(FrItems.TIN_GEAR.get());

@@ -36,18 +36,20 @@ Im Original ein Block mit Metadaten (`IronChest`, ID 975); in 1.21 ein eigener B
   nichts (1.21: `isFaceSturdy(DOWN)`). Ein Ozelot bzw. eine Katze blockiert **nicht** (anders als bei Vanilla).
 - Abbauen: der Inhalt fällt verstreut heraus (Vanilla-Streuung: Stapel 10–30, Bewegung 0,05 Gauß, Y +0,2). Die Kiste
   droppt sich selbst, **ohne** Inhalt.
-- Kreativ: Tab „Dekoration“, Reihenfolge Eisen, Gold, Diamant, Kupfer, Silber, Kristall, Obsidian (Ordinalzahl).
+- Kreativ: eigener Tab „Craft: Iron Chests“ (ein Tab je Ursprungs-Mod; Original: Kisten unter „Dekoration“, Upgrades
+  unter „Verschiedenes“). Reihenfolge Eisen, Gold, Diamant, Kupfer, Silber, Kristall, Obsidian (Ordinalzahl), danach
+  die Upgrades.
 
 **Blockentity (`TileEntityIronChest`):**
 - Stapelgrenze 64. Benutzbar bis 8 Blöcke Abstand (`distSq ≤ 64`) und nur, solange die Blockentity noch dieselbe ist.
 - Deckel: Vanilla-Animation (Schritt 0,1 pro Tick). Öffnungsgeräusch `random.chestopen` bei Deckel 0, Schließgeräusch
   `random.chestclosed` beim Unterschreiten von 0,5, jeweils Lautstärke 0,5 und Tonhöhe 0,9–1,0. Die Zahl der Nutzer
-  wird alle 200 Ticks über Spieler im Umkreis von 5 Blöcken mit offenem Kistenmenü neu gezählt (1.21:
-  `ContainerOpenersCounter`).
+  wird alle 200 Ticks über Spieler im Umkreis von 5 Blöcken mit offenem Kistenmenü neu gezählt.
 - Automatisierung: Das Original ist ein schlichtes `IInventory` (kein `ISidedInventory`). Alle Slots sind von allen
   Seiten erreichbar, Ein- und Ausgabe frei → 1.21: `Capabilities.ItemHandler.BLOCK` auf allen Seiten (Trichter,
   BC-Rohre).
-- **Kein Komparator-Signal** – Komparatoren gab es erst in 1.5 (siehe §6).
+- **Komparator-Signal** wie bei der Vanilla-Kiste (Füllstand). Das ist eine bewusste Erweiterung, weil es Komparatoren
+  erst ab 1.5 gab (Nutzer, 2026-10-20: „machs rein, wenn's sinnvoll ist“).
 
 **Menü (`ContainerIronChestBase`, `GUIChest`):**
 - Kistenslots ab (12, 8), Raster 18 px. Spielerinventar mittig: `links = (B − 162)/2 + 1`, Reihen bei
@@ -68,8 +70,7 @@ Im Original ein Block mit Metadaten (`IronChest`, ID 975); in 1.21 ein eigener B
 
 ## 3 Upgrade-Items
 
-Werden mit Rechtsklick (`onItemUseFirst`, nur Server) auf die passende Kiste angewendet. Stapelgröße 1, Kreativ-Tab
-„Verschiedenes“.
+Werden mit Rechtsklick (`onItemUseFirst`, nur Server) auf die passende Kiste angewendet. Stapelgröße 1.
 
 | Item | ID | von → nach |
 |---|---|---|
@@ -148,13 +149,17 @@ zusätzlich alle sieben Kisten als gültiges Ziel akzeptiert. Wie im Original ve
 
 ## 6 Abweichungen 1.21 (→ `abweichungen.md`)
 
-- Ein Block je Kiste statt Metadaten; Blockentity-Typen je Kiste.
+- Ein Block je Kiste statt Metadaten; ein gemeinsamer Blockentity-Typ, die Kistenart kommt vom Block.
 - Ozelot → Katze (§5).
-- Kistenmodelle: Die 1.4.7-Texturen (`*chest.png`, altes Layout) werden in das 1.15+-Kistenlayout umsortiert, als
-  `textures/entity/chest/<art>.png`. Item-Darstellung über die Blockentity (wie die Vanilla-Kiste).
-- Item-Texturen der Upgrades aus `item_textures.png` (Icon = Ordinalzahl) geschnitten.
-- Kein Komparator-Signal (wie im Original, s. §1). Falls gewünscht, wäre es eine bewusste Erweiterung.
+- Kistenmodelle: Das 1.4.7-`ModelChest` wird mit derselben Spiegelung wie 1.4.7 gezeichnet (`scale(1, −1, −1)`), so
+  passen die Original-Texturen (`*chest.png`, 64 × 64) unverändert (`textures/entity/ironchest/<art>.png`). Die
+  Kristallkiste ist durchscheinend (`entityTranslucent`). Item-Darstellung über die Blockentity (geschlossen, Front
+  nach Süden).
+- Item-Texturen der Upgrades aus `item_textures.png` (Icon = Ordinalzahl) geschnitten, Partikel aus
+  `block_textures.png` (Zeile = Kistenart).
+- Komparator-Signal ergänzt (§1).
 - Rezepte für Eisen nicht doppelt, sondern eine Zutat aus Eisen oder Raffiniertem Eisen (gleiche Wirkung).
+- Eigener Kreativ-Tab statt „Dekoration“/„Verschiedenes“.
 
 ## 7 Tests (GameTest)
 
@@ -167,8 +172,10 @@ zusätzlich alle sieben Kisten als gültiges Ziel akzeptiert. Wie im Original ve
 - Obsidiankiste übersteht eine TNT-Explosion, die Eisenkiste nicht.
 - Abbauen droppt Kiste + Inhalt.
 - Kristallkiste: Top-Stapel sortiert nach Menge, höchstens 8, gleiche Items zusammengezählt.
-- Item-Capability: Ein Trichter füllt die Kiste.
-- Rezepte: alle 11 Kisten- und 9 Upgrade-Rezepte vorhanden, Eisenkiste auch mit Raffiniertem Eisen.
+- Item-Capability: alle Slots von jeder Seite; Komparator zeigt den Füllstand.
+- Katzen bekommen das Sitzziel für Iron Chests.
+- Rezepte: alle 11 Kisten- und 9 Upgrade-Rezepte vorhanden und ohne Kollision (jedes Muster findet sein eigenes
+  Rezept), Eisenkiste auch mit Raffiniertem Eisen.
 
 ## 8 Teilpakete
 

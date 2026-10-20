@@ -16,6 +16,7 @@ ergänzen. Basispaket `dev.craft`, Einstieg `Craft` → `Ic2.init`, `BuildCraft.
 | GregTech | `GtBlocks`, `GtItems` (`simpleItems` = Platten/Komponenten mit Textur unter `item/gt/`), `GtBlockEntityTypes`, `GtMenus`, `GtRecipes`, `GtMachine` (Enum aller GT-Maschinen: Name, GUI, Vorderseiten-Textur, Beschreibung, Fabrik) |
 | Kraftwerke (neu) | `PpBlocks`, `PpItems`, `PpBlockEntityTypes`, `PpMenus`, `PpFluids` (Dampf) |
 | RedPower | `RpItems` (`tool(gem, Tool)`, `tools()`, Enum `Tool` mit GT-Staubmenge; Baupläne, Projekttisch-Item), `RpGem` (Material/Tier, Edelstein-Tag, Staub), `SickleItem`, `RpBlocks`, `RpBlockEntityTypes`, `RpMenus`, `RpDataComponents` (`craft:plan`); Projekttisch in `redpower/table` (`ProjectTableCrafting` = Regeln aus spec 20 §1.3 auf dem 28-Slot-Inventar, Ergebnis-Slot `ProjectTableResultSlot`), Screen `redpower/client/ProjectTableScreen` |
+| Iron Chests | `IronChestBlocks`/`IronChestItems` (je `IronChestType` bzw. `ChestUpgradeType`), `IronChestBlockEntityTypes` (ein Typ für alle Kisten), `IronChestMenus` (Kistenart als VarInt im Buffer), `IronChestBlock`/`IronChestBlockEntity` (Deckel, Nutzerzählung, Kristall-Top-Stapel per Update-Tag), `ChestUpgradeItem` (`onItemUseFirst`), `IronChestCatSitGoal`; Client `ironchest/client` (`IronChestRenderer` = 1.4.7-`ModelChest` gespiegelt wie 1.4.7, auch als BEWLR) |
 
 - Capabilities werden in der jeweiligen Init-Klasse (`registerCapabilities`) registriert.
 - Creative-Tabs: `core/CraftCreativeTabs` (ein Tab je Mod).
@@ -174,8 +175,8 @@ ergänzen. Basispaket `dev.craft`, Einstieg `Craft` → `Ic2.init`, `BuildCraft.
 - Befehle (Bash, `export JAVA_HOME="/c/Program Files/Java/jdk-21"`): `./gradlew compileJava -q`, `runData -q`,
   `runGameTestServer -q | grep "tests passed\|failed"`, `build -q`, `runClient` im Hintergrund (Log auf
   „Sound engine started“ prüfen, danach Prozess beenden).
-- Texturen aus Original-Jars schneiden (`ftb ultimate/mods/*.jar|zip`): `tools/` fehlt seit dem Umzug – Python 3.12 + Pillow (`%LOCALAPPDATA%/Programs/Python/Python312/python.exe`, nicht im PATH) oder kleines Java-Skript mit ImageIO (Index = Zeile · 16 + Spalte); früher `SliceSprites.java`, `BcLiquidTextures.java`,
-  `ForestryTextures.java` (mit `tools/jdk…/bin/java <Skript>.java` ausführen).
+- Texturen aus Original-Jars schneiden (`ftb ultimate/mods/*.jar|zip`): `tools/` ist vorhanden (SpecialSource, Vineflower, MCP, JDK); Python 3.12 + Pillow (`%LOCALAPPDATA%/Programs/Python/Python312/python.exe`, nicht im PATH) oder kleines Java-Skript mit ImageIO (Index = Zeile · 16 + Spalte); früher `SliceSprites.java`, `BcLiquidTextures.java`,
+  `ForestryTextures.java` (mit `tools/jdk…/bin/java <Skript>.java` ausführen; liegen in `tools/scripts/`).
   GT-Sprites: `ftb ultimate/mods/GregTech.zip` (`terrain.png` für Maschinen, `metaitems/*.png` für Items; Index = Zeile · 16 + Spalte).
 
 ## Tokensparend arbeiten

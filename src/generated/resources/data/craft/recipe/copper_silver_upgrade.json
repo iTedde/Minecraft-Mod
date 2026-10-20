@@ -1,0 +1,20 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "m": {
+      "tag": "c:ingots/silver"
+    },
+    "s": {
+      "tag": "c:ingots/copper"
+    }
+  },
+  "pattern": [
+    "mmm",
+    "msm",
+    "mmm"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:copper_silver_upgrade"
+  }
+}

@@ -31,6 +31,9 @@ import dev.craft.powerplants.PpBlocks;
 import dev.craft.powerplants.PpFluids;
 import dev.craft.powerplants.PpItems;
 import dev.craft.portalgun.PgItems;
+import dev.craft.ironchest.ChestUpgradeType;
+import dev.craft.ironchest.IronChestItems;
+import dev.craft.ironchest.IronChestType;
 import dev.craft.redpower.RpBlocks;
 import dev.craft.redpower.RpGem;
 import dev.craft.redpower.RpItems;
@@ -179,6 +182,30 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
                 String[] toolName = tools[tool.ordinal()];
                 item(RpItems.tool(gem, tool), german ? gemName[1] + "-" + toolName[1] : gemName[0] + " " + toolName[0]);
             }
+        }
+    }
+
+    /** Iron Chests (spec 22): chests and upgrades. */
+    protected void ironChests(boolean german) {
+        add("itemGroup.craft.iron_chests", "Craft: Iron Chests");
+        String[][] chests = {{"Iron Chest", "Eisenkiste"}, {"Gold Chest", "Goldkiste"}, {"Diamond Chest", "Diamantkiste"},
+                {"Copper Chest", "Kupferkiste"}, {"Silver Chest", "Silberkiste"}, {"Crystal Chest", "Kristallkiste"},
+                {"Obsidian Chest", "Obsidiankiste"}};
+        for (IronChestType type : IronChestType.values()) {
+            item(IronChestItems.chest(type), chests[type.ordinal()][german ? 1 : 0]);
+        }
+        String[][] upgrades = {
+                {"Iron to Gold Chest Upgrade", "Kisten-Upgrade Eisen → Gold"},
+                {"Gold to Diamond Chest Upgrade", "Kisten-Upgrade Gold → Diamant"},
+                {"Copper to Silver Chest Upgrade", "Kisten-Upgrade Kupfer → Silber"},
+                {"Silver to Gold Chest Upgrade", "Kisten-Upgrade Silber → Gold"},
+                {"Copper to Iron Chest Upgrade", "Kisten-Upgrade Kupfer → Eisen"},
+                {"Diamond to Crystal Chest Upgrade", "Kisten-Upgrade Diamant → Kristall"},
+                {"Normal chest to Iron Chest Upgrade", "Kisten-Upgrade Holz → Eisen"},
+                {"Normal chest to Copper Chest Upgrade", "Kisten-Upgrade Holz → Kupfer"},
+                {"Diamond to Obsidian Chest Upgrade", "Kisten-Upgrade Diamant → Obsidian"}};
+        for (ChestUpgradeType type : ChestUpgradeType.values()) {
+            item(IronChestItems.upgrade(type), upgrades[type.ordinal()][german ? 1 : 0]);
         }
     }
 
@@ -1195,6 +1222,7 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             mining(false);
             redPower(false);
             portalGun(false);
+            ironChests(false);
         }
     }
 
@@ -1596,6 +1624,7 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             mining(true);
             redPower(true);
             portalGun(true);
+            ironChests(true);
         }
     }
 }

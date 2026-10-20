@@ -41,6 +41,7 @@ LANG_DE = json.loads(read(os.path.join(ASSETS_GEN, 'lang', 'de_de.json')))
 LANG_EN = json.loads(read(os.path.join(ASSETS_GEN, 'lang', 'en_us.json')))
 
 GROUPS = [
+    ('ironchest', 'Iron Chests'),
     ('powerplants', 'Kraftwerke (neu)'),
     ('mining', 'Mining-Dimension (neu)'),
     ('compactsolars', 'Compact Solars'),
@@ -51,7 +52,7 @@ GROUPS = [
     ('ic2', 'IndustrialCraft 2'),
 ]
 GROUP_ORDER = ['IndustrialCraft 2', 'GregTech', 'BuildCraft', 'Forestry', 'Power Converters',
-               'Compact Solars', 'Kraftwerke (neu)', 'Mining-Dimension (neu)', 'Sonstiges']
+               'Compact Solars', 'Kraftwerke (neu)', 'Mining-Dimension (neu)', 'Iron Chests', 'Sonstiges']
 
 # items whose behaviour was changed on purpose or which are new content
 CHANGED = {
@@ -108,6 +109,7 @@ def registry_texts():
 
 
 SUFFIX_GROUPS = [
+    (r'_chest$|^(iron|gold|copper|silver|wood|diamond)_[a-z]+_upgrade$', 'Iron Chests'),
     (r'_electron_tube$|circuit_board$|^soldering|^sturdy', 'Forestry'),
     (r'_pipe$|^pipe_|engine$|^landmark|_gear$', 'BuildCraft'),
     (r'_cable$|^painter|^crop|_cell$|_upgrade$|_o_mat$', 'IndustrialCraft 2'),

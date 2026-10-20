@@ -1,0 +1,23 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "G": {
+      "item": "minecraft:glass"
+    },
+    "P": {
+      "item": "craft:silver_chest"
+    },
+    "m": {
+      "item": "minecraft:gold_ingot"
+    }
+  },
+  "pattern": [
+    "mGm",
+    "GPG",
+    "mGm"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:gold_chest"
+  }
+}

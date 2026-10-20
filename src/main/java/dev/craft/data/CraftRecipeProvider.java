@@ -44,6 +44,9 @@ import dev.craft.ic2.recipe.MachineRecipe;
 import dev.craft.powerconverters.ConverterType;
 import dev.craft.powerconverters.PcItems;
 import dev.craft.powerplants.PpItems;
+import dev.craft.ironchest.ChestUpgradeType;
+import dev.craft.ironchest.IronChestItems;
+import dev.craft.ironchest.IronChestType;
 import dev.craft.portalgun.PgItems;
 import dev.craft.redpower.RpGem;
 import dev.craft.redpower.RpItems;
@@ -72,6 +75,7 @@ import net.minecraft.world.item.crafting.SmeltingRecipe;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.material.Fluids;
 import net.neoforged.neoforge.common.Tags;
+import net.neoforged.neoforge.common.crafting.CompoundIngredient;
 import net.neoforged.neoforge.common.crafting.DifferenceIngredient;
 import net.neoforged.neoforge.common.crafting.DataComponentIngredient;
 import net.neoforged.neoforge.common.crafting.SizedIngredient;
@@ -113,6 +117,7 @@ public final class CraftRecipeProvider extends RecipeProvider {
         redPowerTools();
         redPowerTable();
         longFallBoots();
+        ironChests();
         gregTechCircuitBoards();
         gregTechBrass();
         gregTechMortars();
@@ -2086,6 +2091,84 @@ public final class CraftRecipeProvider extends RecipeProvider {
                 Ingredient.of(PgItems.LONG_FALL_BOOT));
         shapeless(PgItems.LONG_FALL_BOOT, 2, "long_fall_boot_from_long_fall_boots",
                 Ingredient.of(PgItems.LONG_FALL_BOOTS));
+    }
+
+    /**
+     * Iron Chests (spec 22 §4): chest recipes of {@code IronChestType} and upgrade recipes of {@code ChestChangerType}.
+     * Iron is the iron or the refined iron ingot (the original adds every recipe once per material).
+     */
+    private void ironChests() {
+        Ingredient iron = CompoundIngredient.of(Ingredient.of(Items.IRON_INGOT),
+                Ingredient.of(CraftItemTagsProvider.INGOTS_REFINED_IRON));
+        Ingredient gold = Ingredient.of(Items.GOLD_INGOT);
+        Ingredient diamond = Ingredient.of(Items.DIAMOND);
+        Ingredient copper = Ingredient.of(ingotsCopper());
+        Ingredient silver = Ingredient.of(CraftItemTagsProvider.INGOTS_SILVER);
+        Ingredient obsidian = Ingredient.of(Items.OBSIDIAN);
+        Ingredient glass = Ingredient.of(Items.GLASS);
+        Ingredient planks = Ingredient.of(ItemTags.PLANKS);
+        Ingredient chest = Ingredient.of(Items.CHEST);
+        chestRecipe(IronChestType.IRON, "", "mmm", "mPm", "mmm", iron, chest);
+        chestRecipe(IronChestType.IRON, "_from_copper_chest", "mGm", "GPG", "mGm", iron, ironChest(IronChestType.COPPER));
+        chestRecipe(IronChestType.GOLD, "", "mmm", "mPm", "mmm", gold, ironChest(IronChestType.IRON));
+        chestRecipe(IronChestType.GOLD, "_from_silver_chest", "mGm", "GPG", "mGm", gold, ironChest(IronChestType.SILVER));
+        chestRecipe(IronChestType.DIAMOND, "", "GGG", "mPm", "GGG", diamond, ironChest(IronChestType.GOLD));
+        chestRecipe(IronChestType.DIAMOND, "_from_silver_chest", "GGG", "GPG", "mmm", diamond,
+                ironChest(IronChestType.SILVER));
+        chestRecipe(IronChestType.COPPER, "", "mmm", "mPm", "mmm", copper, chest);
+        chestRecipe(IronChestType.SILVER, "", "mmm", "mPm", "mmm", silver, ironChest(IronChestType.COPPER));
+        chestRecipe(IronChestType.SILVER, "_from_iron_chest", "mGm", "GPG", "mGm", silver, ironChest(IronChestType.IRON));
+        chestRecipe(IronChestType.CRYSTAL, "", "GGG", "GPG", "GGG", glass, ironChest(IronChestType.DIAMOND));
+        chestRecipe(IronChestType.OBSIDIAN, "", "mmm", "mPm", "mmm", obsidian, ironChest(IronChestType.DIAMOND));
+
+        upgradeRecipe(ChestUpgradeType.IRON_GOLD, gold, iron, "mmm", "msm", "mmm");
+        upgradeRecipe(ChestUpgradeType.GOLD_DIAMOND, diamond, gold, "GGG", "msm", "GGG");
+        upgradeRecipe(ChestUpgradeType.COPPER_SILVER, silver, copper, "mmm", "msm", "mmm");
+        upgradeRecipe(ChestUpgradeType.SILVER_GOLD, gold, silver, "mGm", "GsG", "mGm");
+        upgradeRecipe(ChestUpgradeType.COPPER_IRON, iron, copper, "mGm", "GsG", "mGm");
+        upgradeRecipe(ChestUpgradeType.DIAMOND_CRYSTAL, glass, diamond, "GGG", "GOG", "GGG");
+        upgradeRecipe(ChestUpgradeType.WOOD_IRON, iron, planks, "mmm", "msm", "mmm");
+        upgradeRecipe(ChestUpgradeType.WOOD_COPPER, copper, planks, "mmm", "msm", "mmm");
+        upgradeRecipe(ChestUpgradeType.DIAMOND_OBSIDIAN, obsidian, diamond, "mmm", "mGm", "mmm");
+    }
+
+    private static Ingredient ironChest(IronChestType type) {
+        return Ingredient.of(IronChestItems.chest(type));
+    }
+
+    /** {@code m} material, {@code P} previous chest, {@code G} glass. */
+    private void chestRecipe(IronChestType type, String suffix, String top, String middle, String bottom,
+                             Ingredient material, Ingredient previous) {
+        String all = top + middle + bottom;
+        ShapedBuilder builder = shaped(IronChestItems.chest(type), 1, type.getName() + "_chest" + suffix)
+                .pattern(top, middle, bottom).define('P', previous);
+        if (all.indexOf('m') >= 0) {
+            builder.define('m', material);
+        }
+        if (all.indexOf('G') >= 0) {
+            builder.define('G', Items.GLASS);
+        }
+        builder.save();
+    }
+
+    /** {@code m} target material, {@code s} source material, {@code G} glass, {@code O} obsidian. */
+    private void upgradeRecipe(ChestUpgradeType type, Ingredient target, Ingredient source, String top, String middle,
+                               String bottom) {
+        String all = top + middle + bottom;
+        ShapedBuilder builder = shaped(IronChestItems.upgrade(type), 1, type.getName()).pattern(top, middle, bottom);
+        if (all.indexOf('m') >= 0) {
+            builder.define('m', target);
+        }
+        if (all.indexOf('s') >= 0) {
+            builder.define('s', source);
+        }
+        if (all.indexOf('G') >= 0) {
+            builder.define('G', Items.GLASS);
+        }
+        if (all.indexOf('O') >= 0) {
+            builder.define('O', Items.OBSIDIAN);
+        }
+        builder.save();
     }
 
     private void gregTechRecycling() {
