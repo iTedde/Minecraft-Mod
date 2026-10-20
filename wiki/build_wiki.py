@@ -41,6 +41,24 @@ LANG_DE = json.loads(read(os.path.join(ASSETS_GEN, 'lang', 'de_de.json')))
 LANG_EN = json.loads(read(os.path.join(ASSETS_GEN, 'lang', 'en_us.json')))
 # where the raw materials come from (spec 24): 'source.<ns>.<path>' -> text, keyed by item ref
 SOURCES = {k[7:].replace('.', ':', 1): v for k, v in LANG_DE.items() if k.startswith('source.')}
+# items without recipe and without a source text (no raw materials: placed blocks, holo items …); wiki only
+WIKI_NOTES = {
+    'craft:booze_mug': 'Steinkrug per Rechtsklick an einem Fass mit fertigem Bier oder Rum füllen.',
+    'craft:crop_seed_bag': 'Gewachsene Pflanze auf einem Crop-Stab pflücken (Linksklick) → mit etwas Glück ein Saatbeutel; '
+                           'im Cropnalyzer auswerten. Nicht im Kreativ-Inventar (wie IC2).',
+    'craft:construction_foam_wall': 'Entsteht, wenn gesetzter Bauschaum aushärtet; lässt sich mit Farbstoff einfärben. Kein Item.',
+    'craft:dynamite_stick': 'Gesetztes Dynamit (Block). Das Item heißt Dynamit und wird in der Werkbank hergestellt.',
+    'craft:dynamite_stick_with_remote': 'Gesetztes Dynamit, das mit einem Fernzünder verbunden ist (Block).',
+    'craft:frame': 'Rahmen der Quarry: setzt sie selbst um das Abbaufeld; droppt nichts.',
+    'craft:ic2_mining_tip': 'Spitze des Bergbaurohrs, die Miner und IC2-Pumpe setzen; droppt ein Bergbaurohr. Kein Item.',
+    'craft:mining_pipe': 'Rohr der Mining Well und der BuildCraft-Pumpe; wird von ihnen gesetzt und droppt nichts.',
+    'craft:mining_portal': 'Portalfläche: Rahmen aus Glattem Stein bauen und mit dem Feuerzeug zünden.',
+    'craft:nightvision_goggles': 'Kein Rezept – auch im Pack nicht (IC2 1.115 hat keins). Nur im Kreativmodus.',
+    'craft:plan': 'Projekttisch: Rezept auslegen, leeren Bauplan einlegen und den Bauplan entnehmen.',
+    'craft:resin_sheet': 'Harz per Rechtsklick auf die Oberseite eines festen Blocks setzen. Kein eigenes Item.',
+    'craft:water': 'Anzeige-Item für Wasser im Tank des Elektrolyseurs; nicht erhältlich.',
+    'craft:lava': 'Anzeige-Item für Lava im Tank der Zentrifuge; nicht erhältlich.',
+}
 
 GROUPS = [
     ('ironchest', 'Iron Chests'),
@@ -549,6 +567,8 @@ def main():
     hand[pos:pos] = list(guides.values())
     import content_guides2
     hand += content_guides2.pages(sys.modules[__name__], stats)
+    import content_rohstoffe
+    hand += content_rohstoffe.pages(sys.modules[__name__], stats)
     strom = next(p for p in hand if p['id'] == 'strom')
     hand.remove(strom)
     strom['group'] = 'Anleitungen'
@@ -601,7 +621,7 @@ def main():
               .replace('{{GROUPS}}', json.dumps(GROUP_ORDER, ensure_ascii=False))
               .replace('{{RECIPES}}', json.dumps(recipe_list, ensure_ascii=False, separators=(',', ':')).replace('</', '<\\/'))
               .replace('{{REFS}}', json.dumps(refs, ensure_ascii=False, separators=(',', ':')).replace('</', '<\\/'))
-              .replace('{{SOURCES}}', json.dumps(SOURCES, ensure_ascii=False, separators=(',', ':')).replace('</', '<\\/'))
+              .replace('{{SOURCES}}', json.dumps({**SOURCES, **WIKI_NOTES}, ensure_ascii=False, separators=(',', ':')).replace('</', '<\\/'))
               .replace('{{LOGO}}', logo)
               .replace('{{BUILD}}', esc(f'Stand {glast} · Craft 0.3.0')))
     with open(OUT, 'w', encoding='utf-8') as f:

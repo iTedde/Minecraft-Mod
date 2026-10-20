@@ -171,7 +171,7 @@ Jeder Puls = <b>5 EU/t</b>.</li>
           'F': ('craft:industrial_blast_furnace', 'Industrial Blast Furnace (Controller)', 'ctrl'), '_': (None, 'davor: Controller-Ebene', 'ground')}
     gt = f'''<h1>GregTech-Maschinen & Hochofen</h1>
 <p class="lead">GregTech-Maschinen machen die Materialien, die die Pack-Rezepte verlangen: Platten, Stahl, Aluminium, Silizium, Titan, Wolfram …
-Sie verhalten sich in wichtigen Punkten <b>anders</b> als IC2-Maschinen – wer das nicht weiß, verliert Maschinen.</p>
+Sie verhalten sich in wichtigen Punkten <b>anders</b> als IC2-Maschinen – wer das nicht weiß, verliert Maschinen. Welcher Rohstoff aus welcher Maschine kommt: <a href="#/rohstoffe">Rohstoffe & Erze</a>.</p>
 <div class="tocpos"></div>
 <h2 id="gt--regeln">Die wichtigsten Regeln</h2>
 {h.note('warn', '<b>Immer mit dem Schraubenschlüssel abbauen!</b> Ohne Schraubenschlüssel droppt eine GT-Maschine nur <b>Maschinenteile</b> (Machine Parts) statt sich selbst – und kann dabei explodieren, wenn sie viel Energie gespeichert hat. Auch eingebaute Upgrades sind dann verloren.')}

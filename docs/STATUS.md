@@ -2031,5 +2031,15 @@ Spezifikation: `docs/spec/24-herkunft.md`.
   Pflanzen, hydrierte Kohle, Gummi, fortgeschrittene Legierung, Treibstoffeimer (Kohleplatte und Mischmetall schon in 23.3).
 - [x] `SourceTextsTest`: jedes `*_cell` plus die Sonstiges-Liste. `gradlew test build` grün, Wiki neu.
 
+## Erledigt (23.5 Wiki „Rohstoffe & Erze“, 2026-10-20)
+- [x] Neue Seite `rohstoffe` (`wiki/content_rohstoffe.py`, Gruppe Anleitungen): Erztabellen Oberwelt/Nether/End
+  (Höhe, Menge, Werkzeug, Drop, Mining-Dimension), weitere Weltquellen, „Welche Maschine schaltet was frei?“, schwer zu
+  findende Materialien und alle Herkunftstexte gruppiert zum Aufklappen (aus den `source.*`-Schlüsseln).
+- [x] Die letzten 14 Gegenstände ohne Rezept und ohne Herkunftstext (gesetzte Blöcke, Anzeige-Items, Saatbeutel,
+  Krug, Bauplan, Nachtsichtbrille) haben im Wiki eigene Hinweise (`WIKI_NOTES` in `build_wiki.py`); der vage
+  Sammeltext „Mögliche Quellen …“ ist ersetzt durch einen Verweis auf EMI und die neue Seite.
+- [x] Durchsicht: Hauptseite (Karte), Spielfortschritt (GT-Metalle ohne Erz, Tipp zu EMI-„Herkunft“/Shift) und
+  GT-Anleitung verlinken die Seite. Wiki neu erzeugt (59 Seiten).
+
 ## Nächste Schritte
-1. 23.5: Wiki-Seite „Rohstoffe & Erze“, Durchsicht der Anleitungsseiten.
+1. 23.6: Energie-Steckbrief aller Geräte im Wiki.

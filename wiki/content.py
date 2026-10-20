@@ -56,6 +56,7 @@ dazu kommen <a href="#/aenderungen">neue Kraftwerke und eine Mining-Dimension</a
 
 <h2 id="home--anl">Anleitungen</h2>
 <div class="cards">
+{card('rohstoffe', 'craft:tin_ore', 'Rohstoffe & Erze', 'Wo jedes Erz liegt und woher Nickel, Zink, Titan & Co. kommen.')}
 {card('strom', 'craft:insulated_copper_cable', 'Strom anschließen', 'Spannung, Kabel, Speicher, Trafos – und wie man nichts sprengt.')}
 {card('ic2-maschinen', 'craft:overclocker_upgrade', 'IC2-Maschinen & Upgrades', 'Seiten, Automatisierung, Overclocker-Rechnung.')}
 {card('gregtech-maschinen', 'craft:industrial_blast_furnace', 'GregTech & Hochofen', 'Nur mit Schraubenschlüssel abbauen! Hochofen-Bau und Hitze.')}
@@ -645,6 +646,7 @@ braucht vieles früh GT-Materialien (Platten, Stahl).</p>
 <ul>
 <li>{c('plate_bending_machine')} für Platten, {c('industrial_electrolyzer')}, später der {c('industrial_blast_furnace')} (Multiblock mit Heizspulen) für Stahl & Co.</li>
 <li>Damit freigeschaltet: {c('solar_panel')}, {c('water_mill')}, {c('wind_mill')} und viele weitere Rezepte, die im Pack GT-Material verlangen.</li>
+<li>Viele GT-Metalle (Nickel, Zink, Silber, Platin, Titan …) haben kein eigenes Erz und entstehen als Nebenprodukt von {c('industrial_grinder')}, Elektrolyseur und Zentrifuge – Übersicht: <a href="#/rohstoffe">Rohstoffe & Erze</a>.</li>
 </ul>
 <h2 id="fo--3">3. Mehr Strom</h2>
 <ul>
@@ -664,7 +666,7 @@ braucht vieles früh GT-Materialien (Platten, Stahl).</p>
 <li>{c('mfsu')} (10 Mio. EU, HV 512), <a href="#/solar-arrays">Solar Arrays</a>, Nano- und Quantenrüstung, Bergbaulaser.</li>
 <li>{c('nuclear_reactor')} (60–400+ EU/t), Massefabrikator, Teleporter, Terraformer, Iridium.</li>
 </ul>
-{h.note('tip', 'Mit EMI siehst du im Spiel jedes Rezept: über einem Gegenstand <b>R</b> drücken.')}
+{h.note('tip', 'Mit EMI siehst du im Spiel jedes Rezept: über einem Gegenstand <b>R</b> drücken. Bei Rohstoffen zeigt EMI zuerst die Seite „Herkunft“, im Tooltip hilft <b>Shift</b>.')}
 '''
     page('fortschritt', 'Spielfortschritt', 'Allgemein', fort)
 

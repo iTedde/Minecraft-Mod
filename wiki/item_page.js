@@ -77,7 +77,7 @@ function renderItem(key){
   h += '<p style="font-size:13px;color:var(--muted)">Zutaten anklicken führt zu deren Seite. Felder mit <b>#</b> akzeptieren mehrere Gegenstände (Tag) und wechseln ihr Bild durch; mit der Maus darüber siehst du alle.</p>';
   if (SOURCES[ref]) h += `<h2 id="item--source">Herkunft</h2><p class="lead">${esc(SOURCES[ref])}</p>`;
   h += recipeBlock('Herstellung', made, 'made', 24);
-  if (!made && it && !SOURCES[ref]) h += '<h2 id="item--made">Herstellung</h2><p style="color:var(--muted)">Kein Rezept in den Datenpaketen. Mögliche Quellen: Weltgenerierung, Drops, Maschinen mit fest eingebauten Tabellen (Recycler, Schrottbox, Massefabrikator, IC2-Canning, Fass, Crops …) oder Flüssigkeiten. Im Spiel zeigt EMI mit <b>R</b> alle Wege.</p>';
+  if (!made && it && !SOURCES[ref]) h += '<h2 id="item--made">Herstellung</h2><p style="color:var(--muted)">Kein Rezept in den Datenpaketen. Im Spiel zeigt EMI mit <b>R</b> alle Wege; Erze und Rohstoffe: <a href="#/rohstoffe">Rohstoffe &amp; Erze</a>.</p>';
   h += recipeBlock('In dieser Maschine', ws, 'ws', 12);
   h += recipeBlock('Verwendung', used, 'used', 12);
   if (ment) h += `<h2 id="item--ment">Erwähnt in</h2><ul>${ment}</ul>`;
