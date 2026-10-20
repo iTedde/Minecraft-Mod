@@ -1862,13 +1862,17 @@ Pack** (alle 7 Kisten + Upgrade-Items, `ftb ultimate/mods/IronChest.zip`, noch n
   auf diesem Rechner kein Python 3.12). `runData` ausgeführt, `gradlew build` grün, `runClient` startet (Hauptmenü).
 - [x] Version 0.3.9, CurseForge-Paket `releases/Craft-0.3.9-curseforge.zip`.
 
+## Erledigt (20.3 Spezifikation Iron Chests, 2026-10-20)
+- [x] Nur `IronChest.zip` remappt und dekompiliert (`reference/remapped/IronChest-mcp.jar`,
+  `reference/decompiled/ironchest/`; Werkzeuge in `tools/` sind doch vorhanden).
+- [x] `docs/spec/22-iron-chests.md`: 7 Kisten (Slots, GUI-Maße, Härte 3, Obsidian 10 000), Kristallkiste (Top-8,
+  Darstellung), 9 Upgrades inkl. Vanilla-Kiste/Doppelkiste, 11 + 9 Rezepte (Eisen auch Raffiniertes Eisen), Katzen
+  statt Ozelots, kein Komparator (wie Original), Tests.
+
 ## Nächste Schritte
-1. 20.3 Iron Chests: `IronChest.zip` dekompilieren (`tools/decompile.sh`, Ausgabe `reference/decompiled/ironchest/`),
-   Spezifikation `docs/spec/22-iron-chests.md` (Kisten, Größen, Rezepte, Upgrades, Kristallkiste, Obsidian,
-   Ozelot-Verhalten, Kupfer/Silber-Rezepte über `c:ingots/…`); neues Paket `…ironchest`.
-2. 20.4 Umsetzung Iron Chests.
-3. Wiki-HTML auf dem Rechner mit Python neu erzeugen.
-4. Abnahme im Client: Solar-Felder (Testplan 8.1), Phase 18 + 19, 3.37, 9.6.
+1. 20.4 Umsetzung Iron Chests nach `spec/22` (Paket `…ironchest`); dabei Rezeptkollisionen prüfen.
+2. Wiki-HTML auf dem Rechner mit Python neu erzeugen.
+3. Abnahme im Client: Solar-Felder (Testplan 8.1), Phase 18 + 19, 3.37, 9.6.
 
 # Phase 21 – Großkraftwerke (Nutzer, 2026-10-20, geplant nach Phase 20)
 

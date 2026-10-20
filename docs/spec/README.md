@@ -37,6 +37,7 @@ Vanilla-Klassen/-Felder tragen lesbare Namen (`Block.cobblestone`, `Item.redston
 | `19-redpower-werkzeuge.md` | RedPower-World-Edelsteinwerkzeuge (Rubin, Grüner Saphir, Saphir: Spitzhacke, Schaufel, Axt, Schwert, Hacke, Sichel, Handsäge) und ihre GT-Rückgewinnung (Phase 17.2) |
 | `20-werkbaenke.md` | Projekttisch (RedPower) mit Bauplänen und Automatische Werkbank (BuildCraft); Liste weiterer Werkbank-Blöcke im Pack (Phase 18) |
 | `21-long-fall-boots.md` | Long Fall Boots aus Portal Gun: Einzelstiefel, Stiefel, Rezepte, kein Fallschaden für Spieler und Zombies (Phase 19) |
+| `22-iron-chests.md` | Iron Chests: 7 Kisten (Kupfer bis Obsidian, Kristallkiste mit Inhaltsanzeige), 9 Upgrade-Items, Rezepte, Katzen (Phase 20.3/20.4) |
 
 Ergänzend: `docs/balancing.md` (Vorschlag, nicht freigegeben), `docs/abweichungen.md`.
 

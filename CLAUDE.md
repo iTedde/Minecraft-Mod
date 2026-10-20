@@ -7,7 +7,7 @@ ein überarbeitetes Energiebalancing und neue Kraftwerke. Wird nicht veröffentl
 ## Zielplattform
 
 - Minecraft **1.21.1**, NeoForge **21.1.259** (ModDevGradle 2.0.148, Gradle 9.2.1), Java **21**.
-- Build: Gradle mit NeoForge ModDevGradle. JDK 21: `C:/Program Files/Java/jdk-21` (in `gradle.properties`; Projekt liegt seit 2026-10-15 unter `X:/Craft`, `tools/` ist dabei verloren gegangen; Python 3.12 + Pillow für Texturen: `%LOCALAPPDATA%/Programs/Python/Python312/python.exe`).
+- Build: Gradle mit NeoForge ModDevGradle. JDK 21: `C:/Program Files/Java/jdk-21` (in `gradle.properties`; `tools/` mit SpecialSource, Vineflower und MCP-Mappings ist vorhanden; Python 3.12 + Pillow für Texturen: `%LOCALAPPDATA%/Programs/Python/Python312/python.exe`).
 - Mod-ID `craft`, Basispaket `dev.craft`. Repo: https://github.com/iTedde/Minecraft-Mod (`main` und `phase3-wip` gepusht).
 
 ## Grundregeln
@@ -94,7 +94,7 @@ MJ und EU bleiben getrennte Systeme; Verbindung nur über Electrical Engine (EU�
 | 17 | Nachträge (Nutzer, 2026-10-17; `docs/STATUS.md`): 17.1 Mining-Dimension mit doppelter Erzmenge (erledigt) · 17.2 RedPower-World-Edelsteinwerkzeuge (Rubin, Saphir, Grüner Saphir; komplettes Set; `docs/spec/19-redpower-werkzeuge.md`) (erledigt) | **erledigt** |
 | 18 | Projekttisch (RedPower) + Automatische Werkbank (BuildCraft) (Nutzer, 2026-10-17; `docs/spec/20-werkbaenke.md`): 18.0 Spezifikation + Liste weiterer Werkbank-Blöcke (erledigt) · 18.1 Projekttisch + Baupläne (erledigt) · 18.2 Automatische Werkbank (erledigt) | **erledigt** (Client-Abnahme offen) |
 | 19 | Long Fall Boots aus Portal Gun (Nutzer, 2026-10-18; `docs/spec/21-long-fall-boots.md`; nur die Stiefel): 19.1 Einzelstiefel + Stiefel, Rezepte, Fallschaden-Aufhebung (erledigt, Client offen) | **erledigt** (Client-Abnahme offen) |
-| 20 | Nutzerwünsche (2026-10-20; `docs/STATUS.md`): 20.1 EMI-„+“ für Projekttisch/Automatische Werkbank (erledigt) · 20.2 Ladeanzeige Tooltip + HUD (erledigt) · 20.3 Spezifikation Iron Chests (komplett wie im Pack) · 20.4 Umsetzung Iron Chests (Paket `…ironchest`) | **in Arbeit** |
+| 20 | Nutzerwünsche (2026-10-20; `docs/STATUS.md`): 20.1 EMI-„+“ für Projekttisch/Automatische Werkbank (erledigt) · 20.2 Ladeanzeige Tooltip + HUD (erledigt) · 20.3 Spezifikation Iron Chests (komplett wie im Pack; `docs/spec/22-iron-chests.md`) (erledigt) · 20.4 Umsetzung Iron Chests (Paket `…ironchest`) | **in Arbeit** |
 | 21 | Großkraftwerke (Nutzer, 2026-10-20; `docs/balancing.md` §3.8; **erst nach Phase 20**): 21.0 Spezifikation `docs/spec/23-grosskraftwerke.md` · 21.1 Hochdruckkessel + große Dampfturbine · 21.2 große Wasserturbine · 21.3 große Windturbine | geplant |
 
 Phasen-Umnummerierung (Nutzer, 2026-10-16): Phase 8 „GT-Nachträge“ eingeschoben; die bisherigen Phasen 8/9/10
