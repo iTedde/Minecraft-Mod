@@ -20,6 +20,9 @@ public final class SourceTexts {
         worldAndDrops();
         dusts();
         smallDusts();
+        ingots();
+        plates();
+        gems();
     }
 
     private SourceTexts() {
@@ -605,6 +608,175 @@ public final class SourceTexts {
                 "Crafting: 1 glowstone dust → 4. Industrial grinder: redstone ore → 2, cinnabar ore → 1. 4 tiny → 1 "
                         + "glowstone dust.",
                 "small_glowstone_dust");
+    }
+
+    /** Ingots and nuggets (generated recipes; blast furnace heat spec 13; phase 23.3). */
+    private static void ingots() {
+        add("Ofen: Zinnerz oder Zinnstaub → 1, Platte → 1, Zinndose/leere Brennstoffdose. Zentrifuge: 16 Lava → 2 "
+                        + "(16 Lavazellen → 10). Auch UU-Materie über Zinnstaub.",
+                "Furnace: tin ore or tin dust → 1, plate → 1, tin can/empty fuel can. Centrifuge: 16 lava → 2 (16 lava "
+                        + "cells → 10). Also UU-matter via tin dust.",
+                "tin_ingot");
+        add("Werkbank: 3 Kupfer- + 1 Zinnbarren → 1 (GregTech). Ofen: Bronzestaub → 1 (3 Kupfer- + 1 Zinnstaub → 2 "
+                        + "Staub, also günstiger).",
+                "Crafting: 3 copper + 1 tin ingot → 1 (GregTech). Furnace: bronze dust → 1 (3 copper + 1 tin dust → 2 "
+                        + "dust, so cheaper).",
+                "bronze_ingot");
+        add("Ofen: Eisenbarren → 1. Industrieller Hochofen (1000 K): Eisenerz + Calciumcarbonatzelle → 3, Pyriterz + "
+                        + "Calciumcarbonatzelle → 2 (1500 K). Werkbank/Ofen: Maschinengehäuse → 8.",
+                "Furnace: iron ingot → 1. Industrial blast furnace (1000 K): iron ore + calcium carbonate cell → 3, "
+                        + "pyrite ore + calcium carbonate cell → 2 (1500 K). Crafting/furnace: machine casing → 8.",
+                "refined_iron_ingot");
+        add("Industrieller Hochofen (1000 K): raff. Eisen + 2 Kohlestaub → 1 (+ 2 dunkle Asche), Stahlstaub → 1. Ofen: "
+                        + "Platte → 1, Stahlblock → 9.",
+                "Industrial blast furnace (1000 K): refined iron + 2 coal dust → 1 (+ 2 dark ashes), steel dust → 1. "
+                        + "Furnace: plate → 1, steel block → 9.",
+                "steel_ingot");
+        add("Industrieller Hochofen (1700 K, z. B. 34 verstärkte Gehäuse): Aluminiumstaub → 1. Ofen: Platte → 1.",
+                "Industrial blast furnace (1700 K, e.g. 34 reinforced casings): aluminium dust → 1. Furnace: plate → 1.",
+                "aluminium_ingot");
+        add("Industrieller Hochofen (1700 K): Chromstaub → 1 (800 Ticks). Ofen: Platte → 1.",
+                "Industrial blast furnace (1700 K): chrome dust → 1 (800 ticks). Furnace: plate → 1.",
+                "chrome_ingot");
+        add("Industrieller Hochofen (1500 K): Titanstaub → 1 (1000 Ticks). Ofen: Platte → 1.",
+                "Industrial blast furnace (1500 K): titanium dust → 1 (1000 ticks). Furnace: plate → 1.",
+                "titanium_ingot");
+        add("Industrieller Hochofen (2500 K, fortgeschrittene Gehäuse + Heizspulen): Wolframstaub → 1 (2000 Ticks). "
+                        + "Ofen: Platte → 1.",
+                "Industrial blast furnace (2500 K, advanced casings + heating coils): tungsten dust → 1 (2000 ticks). "
+                        + "Furnace: plate → 1.",
+                "tungsten_ingot");
+        add("Industrieller Hochofen (3000 K): Wolfram- + Stahlbarren → 2 (2000 Ticks). Muss im Vakuumgefrierer zu "
+                        + "Wolframstahl abgekühlt werden.",
+                "Industrial blast furnace (3000 K): tungsten + steel ingot → 2 (2000 ticks). Must be cooled into "
+                        + "tungstensteel in the vacuum freezer.",
+                "hot_tungstensteel_ingot");
+        add("Vakuumgefrierer: heißer Wolframstahlbarren → 1 (450 Ticks, 128 EU/t). Ofen: Platte → 1.",
+                "Vacuum freezer: hot tungstensteel ingot → 1 (450 ticks, 128 EU/t). Furnace: plate → 1.",
+                "tungstensteel_ingot");
+        add("Ofen: Silberstaub → 1. Industrieller Hochofen (1500 K): 2 Galenastaub → 1 Silber- + 1 Bleibarren.",
+                "Furnace: silver dust → 1. Industrial blast furnace (1500 K): 2 galena dust → 1 silver + 1 lead ingot.",
+                "silver_ingot");
+        add("Ofen: Bleistaub → 1. Industrieller Hochofen (1500 K): 2 Galenastaub → 1 Blei- + 1 Silberbarren.",
+                "Furnace: lead dust → 1. Industrial blast furnace (1500 K): 2 galena dust → 1 lead + 1 silver ingot.",
+                "lead_ingot");
+        add("Ofen: Nickelstaub → 1 (Nickelstaub nur als Nebenprodukt, siehe dort). Ofen: Platte → 1.",
+                "Furnace: nickel dust → 1 (nickel dust only as a by-product, see there). Furnace: plate → 1.",
+                "nickel_ingot");
+        add("Ofen: Zinkstaub → 1 (aus Sphalerit, Nether). Ofen: Platte → 1.",
+                "Furnace: zinc dust → 1 (from sphalerite, Nether). Furnace: plate → 1.",
+                "zinc_ingot");
+        add("Ofen: Messingstaub → 1 (3 Kupfer- + 1 Zinkstaub → 4). Ofen: Platte → 1.",
+                "Furnace: brass dust → 1 (3 copper + 1 zinc dust → 4). Furnace: plate → 1.",
+                "brass_ingot");
+        add("Ofen: Elektrumstaub → 1 (Silber- + Goldstaub). Zentrifuge: 16 Lava → 1. Ofen: Platte → 1.",
+                "Furnace: electrum dust → 1 (silver + gold dust). Centrifuge: 16 lava → 1. Furnace: plate → 1.",
+                "electrum_ingot");
+        add("Ofen: Platinstaub oder Sheldoniterz (nur End) → 1. Ofen: Platte → 1.",
+                "Furnace: platinum dust or sheldonite ore (End only) → 1. Furnace: plate → 1.",
+                "platinum_ingot");
+        add("Kompressor: Uranerz, Uranerz-Brocken oder Uranstaub → 1. Ofen: Uranblock → 9.",
+                "Compressor: uranium ore, uranium drop or uranium dust → 1. Furnace: uranium block → 9.",
+                "uranium_ingot");
+        add("Kompressor: Plutoniumstaub → 1 (Plutonium aus Uran, siehe Plutoniumstaub).",
+                "Compressor: plutonium dust → 1 (plutonium from uranium, see plutonium dust).",
+                "plutonium_ingot");
+        add("Kompressor: Thoriumstaub → 1 (Thorium aus der Zentrifuge, siehe Thoriumstaub).",
+                "Compressor: thorium dust → 1 (thorium from the centrifuge, see thorium dust).",
+                "thorium_ingot");
+        add("Kompressor: Iridiumerz → 1 oder 9 Iridiumnuggets → 1 (auch Werkbank). Iridiumerz: sehr seltenes "
+                        + "GT-Iridiumerz oder UU-Materie; Nuggets aus Sheldonit (End).",
+                "Compressor: iridium ore → 1 or 9 iridium nuggets → 1 (also crafting). Iridium ore: very rare GT "
+                        + "iridium ore or UU-matter; nuggets from sheldonite (End).",
+                "iridium_ingot");
+        add("Industrial Grinder: Sheldoniterz → 2. Zentrifuge: 1 Platinstaub → 1 (+ kl. Nickelstaub). 1 Iridiumbarren "
+                        + "→ 9.",
+                "Industrial grinder: sheldonite ore → 2. Centrifuge: 1 platinum dust → 1 (+ tiny nickel dust). 1 iridium "
+                        + "ingot → 9.",
+                "iridium_nugget");
+        add("Werkbank: 4 Iridiumbarren, 4 fortgeschrittene Legierung, 1 Diamantstaub (IAI/ADA/IAI) → 1. "
+                        + "Implosionskompressor → Iridiumplatte.",
+                "Crafting: 4 iridium ingots, 4 advanced alloys, 1 diamond dust (IAI/ADA/IAI) → 1. Implosion compressor "
+                        + "→ iridium plate.",
+                "iridium_alloy_ingot");
+        add("Werkbank, drei Platten senkrecht: oben raff. Eisen/Nickel (1), Stahl (2–3), Titan/Wolfram (3–4) oder "
+                        + "Wolframstahl (5–6), Mitte Bronze oder Messing, unten Zinn/Zink oder Aluminium (mehr Barren).",
+                "Crafting, three plates stacked: top refined iron/nickel (1), steel (2–3), titanium/tungsten (3–4) or "
+                        + "tungstensteel (5–6), middle bronze or brass, bottom tin/zinc or aluminium (more ingots).",
+                "mixed_metal_ingot");
+    }
+
+    /** Plates: plate bending machine from ingots, special plates (phase 23.3). */
+    private static void plates() {
+        for (String metal : List.of("copper", "tin", "bronze", "iron", "gold", "steel", "aluminium", "brass",
+                "chrome", "electrum", "lead", "nickel", "platinum", "silver", "titanium", "tungsten", "zinc")) {
+            add("Plattenbieger: 1 Barren → 1 Platte (50 Ticks, 20 EU/t). Zurück: Ofen → Barren, Macerator → 1 Staub.",
+                    "Plate bending machine: 1 ingot → 1 plate (50 ticks, 20 EU/t). Back: furnace → ingot, macerator → "
+                            + "1 dust.",
+                    metal + "_plate");
+        }
+        add("Plattenbieger: 1 Barren → 1 Platte (50 Ticks, 20 EU/t). Zurück: Ofen → Barren.",
+                "Plate bending machine: 1 ingot → 1 plate (50 ticks, 20 EU/t). Back: furnace → ingot.",
+                "refined_iron_plate", "tungstensteel_plate");
+        add("Kompressor: 8 Kupferplatten → 1 (Plattenbieger aus Kupferbarren). Macerator → 8 Kupferstaub.",
+                "Compressor: 8 copper plates → 1 (plate bending machine from copper ingots). Macerator → 8 copper dust.",
+                "dense_copper_plate");
+        add("Kompressor: rohes Kohlenetz → 1 (Kohlenetz aus Kohlefasern, diese aus Kohlestaub).",
+                "Compressor: raw carbon mesh → 1 (mesh from carbon fibres, these from coal dust).",
+                "carbon_plate");
+        add("Implosionskompressor: 1 Iridium-Legierungsbarren + 8 Industrie-TNT → 1 (+ 4 dunkle Asche).",
+                "Implosion compressor: 1 iridium alloy ingot + 8 industrial TNT → 1 (+ 4 dark ashes).",
+                "iridium_plate");
+        add("Werkbank: 6 Aluminiumplatten + 3 Magnesiumstaub (AAA/MMM/AAA) → 3.",
+                "Crafting: 6 aluminium plates + 3 magnesium dust (AAA/MMM/AAA) → 3.",
+                "magnalium_plate");
+        add("Industrieller Hochofen (1500 K): 2 Siliziumzellen → 1 (1000 Ticks). Siliziumzellen aus dem Elektrolyseur "
+                        + "(Sand, Ton, Granatstäube …) oder der Zentrifuge (Redstone).",
+                "Industrial blast furnace (1500 K): 2 silicon cells → 1 (1000 ticks). Silicon cells from the "
+                        + "electrolyzer (sand, clay, garnet dusts …) or the centrifuge (redstone).",
+                "silicon_plate");
+        add("Kompressor: 8 Holzschliff → 1 (Holzschliff: Macerator aus Brettern, Holztüren, Kisten …).",
+                "Compressor: 8 wood pulp → 1 (wood pulp: macerator from planks, wooden doors, chests …).",
+                "wood_plate");
+    }
+
+    /** Gems (ore drops, implosion compressor, UU-matter; phase 23.3). */
+    private static void gems() {
+        add("Rubinerz (Oberwelt: Wüste, Tafelberg, Savanne; Mining-Dimension) droppt 1 (mit Glück mehr); Industrial "
+                        + "Grinder → 1. Implosionskompressor: 4 Rubinstaub + 24 Industrie-TNT → 3. UU-Materie → 2.",
+                "Ruby ore (overworld: desert, badlands, savanna; mining dimension) drops 1 (more with fortune); "
+                        + "industrial grinder → 1. Implosion compressor: 4 ruby dust + 24 industrial TNT → 3. UU-matter → 2.",
+                "ruby");
+        add("Saphirerz (Oberwelt: Ozean, Strand, Mangrovensumpf; Mining-Dimension) droppt 1 (mit Glück mehr); "
+                        + "Industrial Grinder → 1. Implosionskompressor: 4 Saphirstaub + 24 Industrie-TNT → 3. "
+                        + "UU-Materie → 2.",
+                "Sapphire ore (overworld: ocean, beach, mangrove swamp; mining dimension) drops 1 (more with fortune); "
+                        + "industrial grinder → 1. Implosion compressor: 4 sapphire dust + 24 industrial TNT → 3. "
+                        + "UU-matter → 2.",
+                "sapphire");
+        add("Seltener Zusatzdrop von Saphirerz. Implosionskompressor: 4 grüner Saphirstaub + 24 Industrie-TNT → 3. "
+                        + "UU-Materie → 2.",
+                "Rare extra drop of sapphire ore. Implosion compressor: 4 green sapphire dust + 24 industrial TNT → 3. "
+                        + "UU-matter → 2.",
+                "green_sapphire");
+        add("Olivinerz (nur End) droppt 1 (mit Glück mehr); Industrial Grinder → 1. Implosionskompressor: 4 "
+                        + "Olivinstaub + 24 Industrie-TNT → 3. UU-Materie → 2.",
+                "Olivine ore (End only) drops 1 (more with fortune); industrial grinder → 1. Implosion compressor: 4 "
+                        + "olivine dust + 24 industrial TNT → 3. UU-matter → 2.",
+                "olivine");
+        add("Seltener Zusatzdrop von Rubinerz. Implosionskompressor: 4 roter Granatstaub + 16 Industrie-TNT → 3.",
+                "Rare extra drop of ruby ore. Implosion compressor: 4 red garnet dust + 16 industrial TNT → 3.",
+                "red_garnet");
+        add("Seltener Zusatzdrop von Sphaleriterz (Nether). Implosionskompressor: 4 gelber Granatstaub + 16 "
+                        + "Industrie-TNT → 3.",
+                "Rare extra drop of sphalerite ore (Nether). Implosion compressor: 4 yellow garnet dust + 16 industrial "
+                        + "TNT → 3.",
+                "yellow_garnet");
+        add("Kompressor: Kohleklumpen → 1 (Kohleball → komprimierter Kohleball → 8 davon um Obsidian, Ziegel oder einen Eisenblock → Kohleklumpen). "
+                        + "Implosionskompressor: 4 Diamantstaub + 32 Industrie-TNT → 3. Werkbank: → Diamant.",
+                "Compressor: coal chunk → 1 (coal ball → compressed coal ball → 8 of them around obsidian, bricks or an iron block → coal chunk). "
+                        + "Implosion compressor: 4 diamond dust + 32 industrial TNT → 3. Crafting: → diamond.",
+                "industrial_diamond");
     }
 
     /** Tiny pile of {@code material}: 4 make one dust, one dust makes 4; {@code from} lists the by-product sources. */

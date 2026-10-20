@@ -2014,8 +2014,14 @@ Spezifikation: `docs/spec/24-herkunft.md`.
 - [x] `SourceTextsTest`: jedes `*_dust` muss einen Text haben. `gradlew test build` grün, Wiki neu erzeugt.
 - [x] Nutzerwunsch (2026-10-20): Energie-Steckbrief aller Geräte im Wiki → neue Teilphase 23.6 (`spec/24` §4);
   Client-Test/Paket rückt auf 23.7.
-- Frage des Nutzers: Rotary Macerator (Advanced Machines) und Pulverizer (Thermal Expansion) gibt es in Craft nicht
-  (nicht im Umfang); ggf. als eigene Phase nach 23 entscheiden.
+- Rotary Macerator (Advanced Machines) und Pulverizer (Thermal Expansion) gibt es bisher nicht. **Entschieden
+  (Nutzer, 2026-10-20):** beide Mods kommen dazu – Phase 24 Advanced Machines, Phase 25 Thermal Expansion, erst nach
+  Phase 23. Danach die Herkunftstexte um die neuen Wege ergänzen.
+
+## Erledigt (23.3 Barren/Platten/Edelsteine, 2026-10-20)
+- [x] Herkunftstexte für 23 Barren, Iridiumnugget, 25 Platten, 7 Edelsteine (Hochofen-Hitze, Plattenbieger,
+  Implosionskompressor, Kompressor, UU-Materie); alle erreichbar.
+- [x] `SourceTextsTest`: jedes `*_ingot`, `*_plate`, `*_nugget` und die Edelsteine. `gradlew test build` grün, Wiki neu.
 
 ## Nächste Schritte
-1. 23.3: Barren, Platten, Edelsteine, Nuggets (nicht erreichbare kennzeichnen).
+1. 23.4: Zellen und Sonstiges.

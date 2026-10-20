@@ -23,7 +23,8 @@ class SourceTextsTest {
     private static final List<String> REQUIRED = List.of(
             "rubber_wood", "rubber_leaves", "rubber_sapling", "resin", "uranium_drop", "iridium_ore", "scrap",
             "uu_matter", "coffee_beans", "hops", "terra_wart", "oil", "oil_bucket",
-            "minecraft:copper_ore", "minecraft:deepslate_copper_ore", "minecraft:raw_copper");
+            "minecraft:copper_ore", "minecraft:deepslate_copper_ore", "minecraft:raw_copper",
+            "ruby", "sapphire", "green_sapphire", "olivine", "red_garnet", "yellow_garnet", "industrial_diamond");
 
     /** The unit tests may run in a run directory below the project; walk up to the project root. */
     private static Path projectDir() {
@@ -78,8 +79,9 @@ class SourceTextsTest {
         List<String> missing = new ArrayList<>();
         for (String key : lang("de_de").keySet()) {
             boolean ore = key.startsWith("block.craft.") && (key.endsWith("_ore") || key.endsWith("_ore_block"));
-            boolean dust = key.startsWith("item.craft.") && key.endsWith("_dust");
-            if (ore || dust) {
+            boolean material = key.startsWith("item.craft.") && (key.endsWith("_dust") || key.endsWith("_ingot")
+                    || key.endsWith("_plate") || key.endsWith("_nugget"));
+            if (ore || material) {
                 String id = "craft:" + key.substring(key.indexOf(".craft.") + 7);
                 if (!ids.contains(id)) {
                     missing.add(id);
