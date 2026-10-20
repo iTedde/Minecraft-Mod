@@ -40,6 +40,7 @@ Vanilla-Klassen/-Felder tragen lesbare Namen (`Block.cobblestone`, `Item.redston
 | `22-iron-chests.md` | Iron Chests: 7 Kisten (Kupfer bis Obsidian, Kristallkiste mit Inhaltsanzeige), 9 Upgrade-Items, Rezepte, Katzen (Phase 20.3/20.4) |
 | `23-grosskraftwerke.md` | Großkraftwerke (neu, Balancing §3.8): Hochdruckkessel, Große Dampfturbine, Große Wasserturbine, Große Windturbine mit Rotoren (Phase 21) |
 | `24-herkunft.md` | Herkunft aller Rohstoffe erklären: Herkunftstexte (EMI-Info, Tooltip, Wiki), Umfang, Teilphasen (Phase 23) |
+| `25-advanced-machines.md` | Advanced Machines 4.7b: Rotations-Macerator, Singularitätskompressor, Zentrifugalextraktor, Raffinierter Eisenstaub (Phase 24) |
 
 Ergänzend: `docs/balancing.md` (Vorschlag, nicht freigegeben), `docs/abweichungen.md`.
 

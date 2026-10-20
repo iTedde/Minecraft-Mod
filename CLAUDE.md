@@ -24,7 +24,7 @@ ein überarbeitetes Energiebalancing und neue Kraftwerke. Wird nicht veröffentl
 5. Nach **jeder Phase** muss der Mod bauen (`gradlew build`) und im Client starten (`gradlew runClient`).
 6. Offene Entscheidungen nicht eigenmächtig treffen – nachfragen (Liste unten).
 7. Dokumentation auf Deutsch; Code, Bezeichner und Commit-Messages auf Englisch.
-8. `reference/decompiled/` ist vollständig dekompiliert. **Nicht erneut dekompilieren.**
+8. `reference/decompiled/` ist vollständig dekompiliert (seit Phase 24 auch `advancedmachines`, `thermalexpansion`, `CoFHCore`; ohne MCP-Remapping, Minecraft-Namen verschleiert). **Nicht erneut dekompilieren.**
 9. **Niemals ganze Ordner oder große Klassen komplett lesen.** Gezielt mit Grep nach Klassen-, Methoden- oder
    Feldnamen suchen und nur die relevanten Stellen lesen.
 10. Ab Phase 2 ist **`docs/spec/` die Quelle der Wahrheit**. `reference/` nur öffnen, wenn in der Spezifikation etwas
@@ -48,6 +48,8 @@ ein überarbeitetes Energiebalancing und neue Kraftwerke. Wird nicht veröffentl
 | `…redpower` | RedPower-World-Edelsteinwerkzeuge (Phase 17.2), Projekttisch (Phase 18) |
 | `…portalgun` | Long Fall Boots aus Portal Gun (Phase 19) |
 | `…ironchest` | Iron Chests (Phase 20) |
+| `…advancedmachines` | Advanced Machines (Phase 24) |
+| `…thermalexpansion` | Thermal Expansion (Phase 25) |
 
 MJ und EU bleiben getrennte Systeme; Verbindung nur über Electrical Engine (EU→MJ) und Power Converters.
 
@@ -98,7 +100,7 @@ MJ und EU bleiben getrennte Systeme; Verbindung nur über Electrical Engine (EU�
 | 21 | Großkraftwerke (Nutzer, 2026-10-20; `docs/balancing.md` §3.8; **erst nach Phase 20**): 21.0 Spezifikation `docs/spec/23-grosskraftwerke.md` (erledigt) · 21.1 Hochdruckkessel + große Dampfturbine (erledigt) · 21.2 große Wasserturbine (erledigt) · 21.3 große Windturbine (erledigt) | **erledigt** (Client-Test 2026-10-20 bestanden) |
 | 22 | Komfort-Mods mitinstalliert (Nutzer, 2026-10-20; `docs/STATUS.md`): 22.1 Inventory Profiles Next, Right Click Harvest, Trading Post + Bibliotheken im CurseForge-Paket 0.4.3 (erledigt; Jade fügt der Nutzer selbst hinzu) | **erledigt** (Abnahme im Spiel offen) |
 | 23 | Herkunft aller Rohstoffe erklären (Nutzer, 2026-10-20; `docs/spec/24-herkunft.md`): 23.0 Spezifikation (erledigt) · 23.1 Mechanismus + Erze/Weltgen-Rohstoffe (erledigt, Client offen) · 23.2 Stäube (erledigt) · 23.3 Barren/Platten/Edelsteine (erledigt) · 23.4 Zellen/Sonstiges (erledigt) · 23.5 Wiki-Übersicht, Durchsicht (erledigt) · 23.6 Energie-Steckbrief aller Geräte im Wiki (erledigt) · 23.7 Client-Test, Paket (erledigt) | **erledigt** (Client-Test 2026-10-20 bestanden) |
-| 24 | Advanced Machines (IC2-Addon aus dem Pack; Nutzer, 2026-10-20; **erst nach Phase 23**): Spezifikation + Umsetzung (u. a. Rotary Macerator) | offen |
+| 24 | Advanced Machines (IC2-Addon aus dem Pack; Nutzer, 2026-10-20; `docs/spec/25-advanced-machines.md`, Paket `…advancedmachines`): 24.0 Spezifikation (erledigt) · 24.1 Umsetzung | in Arbeit |
 | 25 | Thermal Expansion (aus dem Pack; Nutzer, 2026-10-20; **erst nach Phase 24**): Spezifikation + Umsetzung (u. a. Pulverizer) | offen |
 
 Phasen-Umnummerierung (Nutzer, 2026-10-16): Phase 8 „GT-Nachträge“ eingeschoben; die bisherigen Phasen 8/9/10
