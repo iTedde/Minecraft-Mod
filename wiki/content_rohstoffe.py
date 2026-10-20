@@ -83,7 +83,7 @@ def pages(h, stats):
 <p class="lead">Wo kommt was her? Diese Seite listet alle Erze mit Fundort und alle Rohstoffe mit ihrem besten Weg. Viele
 GregTech-Metalle (Nickel, Zink, Silber, Platin, Titan …) haben <b>kein eigenes Erz</b> und entstehen nur als Nebenprodukt
 von Industrial Grinder, Elektrolyseur oder Zentrifuge – oft erst als <b>kleiner Staub</b> (4 kleine → 1 Staub).</p>
-{h.note('tip', 'Im Spiel: über einem Rohstoff <b>R</b> drücken – EMI zeigt zuerst die Seite <b>„Herkunft“</b>, danach die Rezepte. '
+{h.note('tip', 'Im Spiel: über einem Rohstoff <b>R</b> drücken – EMI zeigt neben den Rezepten den Tab <b>„Info“</b> mit dem Text „Herkunft“. '
                'Im Tooltip zeigt <b>Shift</b> denselben Text. Jede Gegenstandsseite dieses Wikis hat den Abschnitt „Herkunft“.')}
 <div class="tocpos"></div>
 

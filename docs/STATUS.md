@@ -2050,5 +2050,13 @@ Spezifikation: `docs/spec/24-herkunft.md`.
   MJ-Verbraucher, Geräte ohne Strom, elektrische Gegenstände; Karte auf der Hauptseite.
 - [x] `EnergyProfileTest` (JUnit) prüft den Bericht gegen Spezifikationswerte. `gradlew test build` grün, Wiki neu.
 
+## Erledigt (23.7 Client-Test und Paket, 2026-10-20)
+- [x] Client-Test (Welt ClaudeTest, ohne `quickPlay` wegen IPN): Shift-Tooltip „Where to get it“ an der
+  Wasserstoffzelle zeigt den 23.4-Text; EMI **R** am Kohleball: Tab „Info“ mit dem Herkunftstext. Keine Fehler im Log.
+- [x] Befund: EMI zeigt die Info-Seite als zweiten Tab hinter „Crafting“, nicht davor (spec 24 §2.2) – EMI legt die
+  Reihenfolge fest; als Abweichung dokumentiert, Wiki-Texte angepasst.
+- [x] Version 0.4.5, CurseForge-Paket `releases/Craft-0.4.5-curseforge.zip` bzw. `X:/Craft/Craft-0.4.5-curseforge.zip`
+  (16,2 MB, Mods wie 0.4.4). Phase 23 damit erledigt.
+
 ## Nächste Schritte
-1. 23.7: Client-Test, Version + CurseForge-Paket.
+1. Phase 24: Advanced Machines (Spezifikation + Umsetzung).

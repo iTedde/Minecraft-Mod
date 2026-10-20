@@ -286,3 +286,4 @@ Siehe `docs/balancing.md`. Wird hier eingetragen, sobald freigegeben.
 | Iron Chests: Ozelots | gezähmte Ozelots setzen sich auf Iron Chests (`ocelotsSitOnChests=true`) | gezähmte **Katzen** (Ozelots sind in 1.21 nicht zähmbar) | 1.21 | **umgesetzt** (20.4) |
 | Iron Chests: Blöcke und Kreativ-Tab | ein Metadaten-Block, Kisten unter „Dekoration“, Upgrades unter „Verschiedenes“ | ein Block je Kiste, eigener Tab „Craft: Iron Chests“ | 1.21 / ein Tab je Ursprungs-Mod | **umgesetzt** (20.4) |
 | Iron Chests: Eisen-Rezepte | jedes Rezept einmal mit Eisen, einmal mit Raffiniertem Eisen | ein Rezept, Zutat „Eisenbarren oder Raffiniertes Eisen“ | gleiche Wirkung, weniger Einträge in EMI | **umgesetzt** (20.4) |
+| Herkunft in EMI | – (Craft-Erweiterung, spec 24) | Info-Seite „Herkunft“ als EMI-Tab „Info“ **hinter** den Rezeptkategorien statt davor | EMI legt die Reihenfolge seiner eingebauten Info-Kategorie fest | **umgesetzt** (23.7) |

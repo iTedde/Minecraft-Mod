@@ -38,7 +38,8 @@ Kurz halten (Ziel ≤ 4 Zeilen à ~40 Zeichen im Tooltip); ausführliche Tabelle
 ### 2.2 Anzeige im Spiel
 
 - **EMI-Info-Seite** je Rohstoff (`EmiInfoRecipe`, Kategorie „Herkunft“): erscheint bei **R** (Rezepte) auf dem Item
-  vor den Rezepten. Für Erze zusätzlich die Weltgenerierungs-Werte.
+  als Tab „Info“ neben den Rezepten (EMI sortiert seine eingebaute Info-Kategorie hinter die Rezeptkategorien;
+  Client-Test 23.7, `abweichungen.md`). Für Erze zusätzlich die Weltgenerierungs-Werte.
 - **Tooltip** (Entscheidung E1): Zeile „[Shift] Herkunft“; mit gedrückter Umschalttaste der Herkunftstext,
   umgebrochen. Nur für Items mit Herkunftstext.
 

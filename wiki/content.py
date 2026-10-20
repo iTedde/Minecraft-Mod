@@ -667,7 +667,7 @@ braucht vieles früh GT-Materialien (Platten, Stahl).</p>
 <li>{c('mfsu')} (10 Mio. EU, HV 512), <a href="#/solar-arrays">Solar Arrays</a>, Nano- und Quantenrüstung, Bergbaulaser.</li>
 <li>{c('nuclear_reactor')} (60–400+ EU/t), Massefabrikator, Teleporter, Terraformer, Iridium.</li>
 </ul>
-{h.note('tip', 'Mit EMI siehst du im Spiel jedes Rezept: über einem Gegenstand <b>R</b> drücken. Bei Rohstoffen zeigt EMI zuerst die Seite „Herkunft“, im Tooltip hilft <b>Shift</b>.')}
+{h.note('tip', 'Mit EMI siehst du im Spiel jedes Rezept: über einem Gegenstand <b>R</b> drücken. Bei Rohstoffen steht die Herkunft im Tab „Info“ neben den Rezepten, im Tooltip hilft <b>Shift</b>.')}
 '''
     page('fortschritt', 'Spielfortschritt', 'Allgemein', fort)
 
