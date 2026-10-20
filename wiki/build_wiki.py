@@ -569,6 +569,8 @@ def main():
     hand += content_guides2.pages(sys.modules[__name__], stats)
     import content_rohstoffe
     hand += content_rohstoffe.pages(sys.modules[__name__], stats)
+    import content_energie
+    hand += content_energie.pages(sys.modules[__name__], stats)
     strom = next(p for p in hand if p['id'] == 'strom')
     hand.remove(strom)
     strom['group'] = 'Anleitungen'

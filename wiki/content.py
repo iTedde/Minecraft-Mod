@@ -57,6 +57,7 @@ dazu kommen <a href="#/aenderungen">neue Kraftwerke und eine Mining-Dimension</a
 <h2 id="home--anl">Anleitungen</h2>
 <div class="cards">
 {card('rohstoffe', 'craft:tin_ore', 'Rohstoffe & Erze', 'Wo jedes Erz liegt und woher Nickel, Zink, Titan & Co. kommen.')}
+{card('energie-steckbrief', 'craft:mfsu', 'Energie-Steckbrief', 'Spannung, Verbrauch, Leistung und Speicher jedes Geräts – und was bei Überspannung passiert.')}
 {card('strom', 'craft:insulated_copper_cable', 'Strom anschließen', 'Spannung, Kabel, Speicher, Trafos – und wie man nichts sprengt.')}
 {card('ic2-maschinen', 'craft:overclocker_upgrade', 'IC2-Maschinen & Upgrades', 'Seiten, Automatisierung, Overclocker-Rechnung.')}
 {card('gregtech-maschinen', 'craft:industrial_blast_furnace', 'GregTech & Hochofen', 'Nur mit Schraubenschlüssel abbauen! Hochofen-Bau und Hitze.')}

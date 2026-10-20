@@ -127,6 +127,10 @@ ergänzen. Basispaket `dev.craft`, Einstieg `Craft` → `Ic2.init`, `BuildCraft.
   `source.<namespace>.<path>`; jedes Item mit diesem Schlüssel bekommt automatisch die EMI-Info-Seite
   (`compat/emi/SourceEmiInfo`), den Shift-Tooltip (`core/client/SourceTooltip`) und im Wiki den Abschnitt „Herkunft“.
   Abdeckung prüft `SourceTextsTest` (JUnit; Liste `REQUIRED` je Teilphase erweitern).
+- Energie-Steckbrief (Wiki): `data/EnergyProfileProvider` liest beim `runData` per Interfaces/Reflection die Energiewerte
+  aller Blockentities und elektrischen Items (Getter-Liste `GETTERS`, Konstanten `CONSTANTS`) nach
+  `reports/craft/energy_profile.json`; `wiki/content_energie.py` ergänzt nur Erklärungen. Neue Geräte erscheinen
+  automatisch, sofern sie die Interfaces bzw. üblichen Getter haben.
 - Forestry-Ledger: `forestry/client/ledger` (`LedgerManager` in `ForestryScreen.ledgers`, Ledger im Konstruktor des
   Screens hinzufügen; Werte kommen über die `SyncedInts` des Menüs). Fehlerzustand `forestry/machine/ErrorState`
   (in `ForestryMachineBlockEntity.errorState` bzw. der Electrical Engine).

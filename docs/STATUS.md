@@ -2041,5 +2041,14 @@ Spezifikation: `docs/spec/24-herkunft.md`.
 - [x] Durchsicht: Hauptseite (Karte), Spielfortschritt (GT-Metalle ohne Erz, Tipp zu EMI-„Herkunft“/Shift) und
   GT-Anleitung verlinken die Seite. Wiki neu erzeugt (59 Seiten).
 
+## Erledigt (23.6 Energie-Steckbrief, 2026-10-20)
+- [x] Datagen-Bericht `EnergyProfileProvider` → `src/generated/resources/reports/craft/energy_profile.json` (nicht im Jar,
+  `build.gradle` schließt `reports/**` aus): je Blockentity max. sichere Eingabe, Paketgröße, Speicher, Verbrauch,
+  Kabelwerte, MJ-Werte und alle elektrischen Items, direkt aus dem Code gelesen.
+- [x] Wiki-Seite `energie-steckbrief` (`wiki/content_energie.py`): Spannungsstufen, EU-Verbraucher (Stufe, sichere Eingabe,
+  was bei mehr passiert, Verbrauch, Speicher), Erzeuger, Speicher/Trafos, Power Converters, Kabel, Motoren und
+  MJ-Verbraucher, Geräte ohne Strom, elektrische Gegenstände; Karte auf der Hauptseite.
+- [x] `EnergyProfileTest` (JUnit) prüft den Bericht gegen Spezifikationswerte. `gradlew test build` grün, Wiki neu.
+
 ## Nächste Schritte
-1. 23.6: Energie-Steckbrief aller Geräte im Wiki.
+1. 23.7: Client-Test, Version + CurseForge-Paket.

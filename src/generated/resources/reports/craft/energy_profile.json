@@ -1,0 +1,1649 @@
+{
+  "blocks": [
+    {
+      "classes": [
+        "CableBlockEntity"
+      ],
+      "conductionLoss": 0.2,
+      "conductorBreakdown": 33,
+      "id": "insulated_copper_cable",
+      "insulationAbsorption": 32,
+      "insulationBreakdown": 9001,
+      "kinds": [
+        "eu_conductor"
+      ],
+      "values": {}
+    },
+    {
+      "classes": [
+        "CableBlockEntity"
+      ],
+      "conductionLoss": 0.3,
+      "conductorBreakdown": 33,
+      "id": "copper_cable",
+      "insulationAbsorption": 8,
+      "insulationBreakdown": 9001,
+      "kinds": [
+        "eu_conductor"
+      ],
+      "values": {}
+    },
+    {
+      "classes": [
+        "CableBlockEntity"
+      ],
+      "conductionLoss": 0.5,
+      "conductorBreakdown": 129,
+      "id": "gold_cable",
+      "insulationAbsorption": 8,
+      "insulationBreakdown": 9001,
+      "kinds": [
+        "eu_conductor"
+      ],
+      "values": {}
+    },
+    {
+      "classes": [
+        "CableBlockEntity"
+      ],
+      "conductionLoss": 0.45,
+      "conductorBreakdown": 129,
+      "id": "insulated_gold_cable",
+      "insulationAbsorption": 32,
+      "insulationBreakdown": 9001,
+      "kinds": [
+        "eu_conductor"
+      ],
+      "values": {}
+    },
+    {
+      "classes": [
+        "CableBlockEntity"
+      ],
+      "conductionLoss": 0.4,
+      "conductorBreakdown": 129,
+      "id": "double_insulated_gold_cable",
+      "insulationAbsorption": 128,
+      "insulationBreakdown": 9001,
+      "kinds": [
+        "eu_conductor"
+      ],
+      "values": {}
+    },
+    {
+      "classes": [
+        "CableBlockEntity"
+      ],
+      "conductionLoss": 1.0,
+      "conductorBreakdown": 2049,
+      "id": "hv_cable",
+      "insulationAbsorption": 0,
+      "insulationBreakdown": 9001,
+      "kinds": [
+        "eu_conductor"
+      ],
+      "values": {}
+    },
+    {
+      "classes": [
+        "CableBlockEntity"
+      ],
+      "conductionLoss": 0.95,
+      "conductorBreakdown": 2049,
+      "id": "insulated_hv_cable",
+      "insulationAbsorption": 128,
+      "insulationBreakdown": 9001,
+      "kinds": [
+        "eu_conductor"
+      ],
+      "values": {}
+    },
+    {
+      "classes": [
+        "CableBlockEntity"
+      ],
+      "conductionLoss": 0.9,
+      "conductorBreakdown": 2049,
+      "id": "double_insulated_hv_cable",
+      "insulationAbsorption": 512,
+      "insulationBreakdown": 9001,
+      "kinds": [
+        "eu_conductor"
+      ],
+      "values": {}
+    },
+    {
+      "classes": [
+        "CableBlockEntity"
+      ],
+      "conductionLoss": 0.8,
+      "conductorBreakdown": 2049,
+      "id": "quadruple_insulated_hv_cable",
+      "insulationAbsorption": 9001,
+      "insulationBreakdown": 9001,
+      "kinds": [
+        "eu_conductor"
+      ],
+      "values": {}
+    },
+    {
+      "classes": [
+        "CableBlockEntity"
+      ],
+      "conductionLoss": 0.025,
+      "conductorBreakdown": 513,
+      "id": "glass_fibre_cable",
+      "insulationAbsorption": 9001,
+      "insulationBreakdown": 9001,
+      "kinds": [
+        "eu_conductor"
+      ],
+      "values": {}
+    },
+    {
+      "classes": [
+        "CableBlockEntity"
+      ],
+      "conductionLoss": 0.025,
+      "conductorBreakdown": 6,
+      "id": "tin_cable",
+      "insulationAbsorption": 3,
+      "insulationBreakdown": 9001,
+      "kinds": [
+        "eu_conductor"
+      ],
+      "values": {}
+    },
+    {
+      "classes": [
+        "CableBlockEntity"
+      ],
+      "conductionLoss": 0.5,
+      "conductorBreakdown": 2049,
+      "id": "detector_cable",
+      "insulationAbsorption": 9001,
+      "insulationBreakdown": 9001,
+      "kinds": [
+        "eu_conductor"
+      ],
+      "values": {}
+    },
+    {
+      "classes": [
+        "CableBlockEntity"
+      ],
+      "conductionLoss": 0.5,
+      "conductorBreakdown": 2049,
+      "id": "splitter_cable",
+      "insulationAbsorption": 9001,
+      "insulationBreakdown": 9001,
+      "kinds": [
+        "eu_conductor"
+      ],
+      "values": {}
+    },
+    {
+      "classes": [
+        "GeneratorBlockEntity",
+        "BaseGeneratorBlockEntity",
+        "MachineBlockEntity"
+      ],
+      "id": "generator",
+      "kinds": [
+        "eu_source"
+      ],
+      "maxEnergyOutput": 10,
+      "values": {
+        "TIER": 1,
+        "getMaxStorage": 4000,
+        "getProduction": 10
+      }
+    },
+    {
+      "classes": [
+        "GeothermalGeneratorBlockEntity",
+        "BaseGeneratorBlockEntity",
+        "MachineBlockEntity"
+      ],
+      "id": "geothermal_generator",
+      "kinds": [
+        "eu_source"
+      ],
+      "maxEnergyOutput": 20,
+      "values": {
+        "TIER": 1,
+        "getMaxStorage": 32,
+        "getProduction": 20
+      }
+    },
+    {
+      "classes": [
+        "WaterMillBlockEntity",
+        "BaseGeneratorBlockEntity",
+        "MachineBlockEntity"
+      ],
+      "id": "water_mill",
+      "kinds": [
+        "eu_source"
+      ],
+      "maxEnergyOutput": 2,
+      "values": {
+        "TIER": 1,
+        "getMaxStorage": 4,
+        "getProduction": 2
+      }
+    },
+    {
+      "classes": [
+        "SolarPanelBlockEntity",
+        "BaseGeneratorBlockEntity",
+        "MachineBlockEntity"
+      ],
+      "id": "solar_panel",
+      "kinds": [
+        "eu_source"
+      ],
+      "maxEnergyOutput": 1,
+      "values": {
+        "TIER": 1,
+        "getMaxStorage": 1,
+        "getProduction": 1
+      }
+    },
+    {
+      "classes": [
+        "WindMillBlockEntity",
+        "BaseGeneratorBlockEntity",
+        "MachineBlockEntity"
+      ],
+      "id": "wind_mill",
+      "kinds": [
+        "eu_source"
+      ],
+      "maxEnergyOutput": 16,
+      "values": {
+        "TIER": 1,
+        "getMaxStorage": 16,
+        "getProduction": 4
+      }
+    },
+    {
+      "classes": [
+        "NuclearReactorBlockEntity",
+        "MachineBlockEntity"
+      ],
+      "id": "nuclear_reactor",
+      "kinds": [
+        "eu_source"
+      ],
+      "maxEnergyOutput": 7560,
+      "values": {
+        "getOutput": 0
+      }
+    },
+    {
+      "classes": [
+        "IronFurnaceBlockEntity",
+        "MachineBlockEntity"
+      ],
+      "id": "iron_furnace",
+      "kinds": [],
+      "values": {
+        "OPERATION_LENGTH": 160
+      }
+    },
+    {
+      "classes": [
+        "ElectricFurnaceBlockEntity",
+        "ElectricMachineBlockEntity",
+        "MachineBlockEntity"
+      ],
+      "id": "electric_furnace",
+      "kinds": [
+        "eu_sink"
+      ],
+      "maxSafeInput": 32,
+      "values": {
+        "ENERGY_PER_TICK": 3,
+        "OPERATION_LENGTH": 130,
+        "getEnergyConsume": 3,
+        "getMaxEnergy": 421,
+        "getOperationLength": 130,
+        "getTier": 1
+      }
+    },
+    {
+      "classes": [
+        "RecipeMachineBlockEntity",
+        "ElectricMachineBlockEntity",
+        "MachineBlockEntity"
+      ],
+      "id": "macerator",
+      "kinds": [
+        "eu_sink"
+      ],
+      "maxSafeInput": 32,
+      "values": {
+        "ENERGY_PER_TICK": 2,
+        "OPERATION_LENGTH": 400,
+        "getEnergyConsume": 2,
+        "getMaxEnergy": 831,
+        "getOperationLength": 400,
+        "getTier": 1
+      }
+    },
+    {
+      "classes": [
+        "RecipeMachineBlockEntity",
+        "ElectricMachineBlockEntity",
+        "MachineBlockEntity"
+      ],
+      "id": "extractor",
+      "kinds": [
+        "eu_sink"
+      ],
+      "maxSafeInput": 32,
+      "values": {
+        "ENERGY_PER_TICK": 2,
+        "OPERATION_LENGTH": 400,
+        "getEnergyConsume": 2,
+        "getMaxEnergy": 831,
+        "getOperationLength": 400,
+        "getTier": 1
+      }
+    },
+    {
+      "classes": [
+        "RecipeMachineBlockEntity",
+        "ElectricMachineBlockEntity",
+        "MachineBlockEntity"
+      ],
+      "id": "compressor",
+      "kinds": [
+        "eu_sink"
+      ],
+      "maxSafeInput": 32,
+      "values": {
+        "ENERGY_PER_TICK": 2,
+        "OPERATION_LENGTH": 400,
+        "getEnergyConsume": 2,
+        "getMaxEnergy": 831,
+        "getOperationLength": 400,
+        "getTier": 1
+      }
+    },
+    {
+      "classes": [
+        "CanningMachineBlockEntity",
+        "MachineBlockEntity"
+      ],
+      "id": "canning_machine",
+      "kinds": [
+        "eu_sink"
+      ],
+      "maxSafeInput": 32,
+      "values": {
+        "ENERGY_PER_TICK": 1,
+        "MAX_ENERGY": 631,
+        "OPERATION_LENGTH": 600,
+        "TIER": 1
+      }
+    },
+    {
+      "classes": [
+        "MinerBlockEntity",
+        "MachineBlockEntity"
+      ],
+      "id": "miner",
+      "kinds": [
+        "eu_sink"
+      ],
+      "maxSafeInput": 32,
+      "values": {
+        "MAX_ENERGY": 1000,
+        "TIER": 1
+      }
+    },
+    {
+      "classes": [
+        "PumpBlockEntity",
+        "MachineBlockEntity"
+      ],
+      "id": "ic2_pump",
+      "kinds": [
+        "eu_sink"
+      ],
+      "maxSafeInput": 32,
+      "values": {
+        "MAX_ENERGY": 200,
+        "TIER": 1
+      }
+    },
+    {
+      "classes": [
+        "RecyclerBlockEntity",
+        "ElectricMachineBlockEntity",
+        "MachineBlockEntity"
+      ],
+      "id": "recycler",
+      "kinds": [
+        "eu_sink"
+      ],
+      "maxSafeInput": 32,
+      "values": {
+        "ENERGY_PER_TICK": 1,
+        "OPERATION_LENGTH": 45,
+        "getEnergyConsume": 1,
+        "getMaxEnergy": 76,
+        "getOperationLength": 45,
+        "getTier": 1
+      }
+    },
+    {
+      "classes": [
+        "MagnetizerBlockEntity",
+        "MachineBlockEntity"
+      ],
+      "id": "magnetizer",
+      "kinds": [
+        "eu_sink"
+      ],
+      "maxSafeInput": 32,
+      "values": {
+        "MAX_ENERGY": 100
+      }
+    },
+    {
+      "classes": [
+        "InductionFurnaceBlockEntity",
+        "MachineBlockEntity"
+      ],
+      "id": "induction_furnace",
+      "kinds": [
+        "eu_sink"
+      ],
+      "maxSafeInput": 128,
+      "values": {
+        "ENERGY_PER_TICK": 15,
+        "MAX_ENERGY": 10000,
+        "OPERATION_PROGRESS": 4000,
+        "TIER": 2
+      }
+    },
+    {
+      "classes": [
+        "MassFabricatorBlockEntity",
+        "MachineBlockEntity"
+      ],
+      "id": "mass_fabricator",
+      "kinds": [
+        "eu_sink"
+      ],
+      "maxSafeInput": 512,
+      "values": {
+        "ENERGY_PER_MATTER": 1000000,
+        "MAX_ENERGY": 1100000
+      }
+    },
+    {
+      "classes": [
+        "EnergyOMatBlockEntity",
+        "PersonalBlockEntity",
+        "MachineBlockEntity"
+      ],
+      "id": "energy_o_mat",
+      "kinds": [
+        "eu_sink",
+        "eu_source"
+      ],
+      "maxEnergyOutput": 32,
+      "maxSafeInput": 2147483647,
+      "values": {}
+    },
+    {
+      "classes": [
+        "TerraformerBlockEntity",
+        "MachineBlockEntity"
+      ],
+      "id": "terraformer",
+      "kinds": [
+        "eu_sink"
+      ],
+      "maxSafeInput": 512,
+      "values": {
+        "MAX_ENERGY": 100000
+      }
+    },
+    {
+      "classes": [
+        "ElectricStorageBlockEntity",
+        "MachineBlockEntity"
+      ],
+      "id": "batbox",
+      "kinds": [
+        "eu_sink",
+        "eu_source"
+      ],
+      "maxEnergyOutput": 32,
+      "maxSafeInput": 32,
+      "values": {
+        "getMaxStorage": 40000,
+        "getOutput": 32,
+        "getTier": 1
+      }
+    },
+    {
+      "classes": [
+        "ElectricStorageBlockEntity",
+        "MachineBlockEntity"
+      ],
+      "id": "mfe",
+      "kinds": [
+        "eu_sink",
+        "eu_source"
+      ],
+      "maxEnergyOutput": 128,
+      "maxSafeInput": 128,
+      "values": {
+        "getMaxStorage": 600000,
+        "getOutput": 128,
+        "getTier": 2
+      }
+    },
+    {
+      "classes": [
+        "ElectricStorageBlockEntity",
+        "MachineBlockEntity"
+      ],
+      "id": "mfsu",
+      "kinds": [
+        "eu_sink",
+        "eu_source"
+      ],
+      "maxEnergyOutput": 512,
+      "maxSafeInput": 512,
+      "values": {
+        "getMaxStorage": 10000000,
+        "getOutput": 512,
+        "getTier": 3
+      }
+    },
+    {
+      "classes": [
+        "TransformerBlockEntity",
+        "MachineBlockEntity"
+      ],
+      "id": "lv_transformer",
+      "kinds": [
+        "eu_sink",
+        "eu_source"
+      ],
+      "maxEnergyOutput": 32,
+      "maxSafeInput": 128,
+      "values": {}
+    },
+    {
+      "classes": [
+        "TransformerBlockEntity",
+        "MachineBlockEntity"
+      ],
+      "id": "mv_transformer",
+      "kinds": [
+        "eu_sink",
+        "eu_source"
+      ],
+      "maxEnergyOutput": 128,
+      "maxSafeInput": 512,
+      "values": {}
+    },
+    {
+      "classes": [
+        "TransformerBlockEntity",
+        "MachineBlockEntity"
+      ],
+      "id": "hv_transformer",
+      "kinds": [
+        "eu_sink",
+        "eu_source"
+      ],
+      "maxEnergyOutput": 512,
+      "maxSafeInput": 2147483647,
+      "values": {}
+    },
+    {
+      "classes": [
+        "TeslaCoilBlockEntity",
+        "MachineBlockEntity"
+      ],
+      "id": "tesla_coil",
+      "kinds": [
+        "eu_sink"
+      ],
+      "maxSafeInput": 128,
+      "values": {
+        "COST": 400,
+        "MAX_ENERGY": 10000
+      }
+    },
+    {
+      "classes": [
+        "CropMatronBlockEntity",
+        "MachineBlockEntity"
+      ],
+      "id": "crop_matron",
+      "kinds": [
+        "eu_sink"
+      ],
+      "maxSafeInput": 32,
+      "values": {
+        "APPLY_COST": 10,
+        "MAX_ENERGY": 1000
+      }
+    },
+    {
+      "classes": [
+        "ReactorChamberBlockEntity"
+      ],
+      "id": "reactor_chamber",
+      "kinds": [
+        "eu_source"
+      ],
+      "maxEnergyOutput": 1200,
+      "values": {}
+    },
+    {
+      "classes": [
+        "LuminatorBlockEntity"
+      ],
+      "id": "luminator",
+      "kinds": [
+        "eu_sink"
+      ],
+      "maxSafeInput": 32,
+      "values": {
+        "MAX_ENERGY": 10000
+      }
+    },
+    {
+      "classes": [
+        "RedstoneEngineBlockEntity",
+        "EngineBlockEntity"
+      ],
+      "id": "redstone_engine",
+      "kinds": [
+        "mj_receiver"
+      ],
+      "mjActivation": 0,
+      "mjMaxReceived": 0,
+      "mjMaxStored": 0,
+      "mjMinReceived": 0,
+      "values": {
+        "explosionRange": 1,
+        "getMaxEnergy": 1000,
+        "maxEnergyReceived": 50,
+        "minEnergyReceived": 1
+      }
+    },
+    {
+      "classes": [
+        "StirlingEngineBlockEntity",
+        "EngineBlockEntity"
+      ],
+      "id": "stirling_engine",
+      "kinds": [
+        "mj_receiver"
+      ],
+      "mjActivation": 0,
+      "mjMaxReceived": 0,
+      "mjMaxStored": 0,
+      "mjMinReceived": 0,
+      "values": {
+        "explosionRange": 4,
+        "getMaxEnergy": 10000,
+        "maxEnergyReceived": 200,
+        "minEnergyReceived": 2
+      }
+    },
+    {
+      "classes": [
+        "CombustionEngineBlockEntity",
+        "EngineBlockEntity"
+      ],
+      "id": "combustion_engine",
+      "kinds": [
+        "mj_receiver"
+      ],
+      "mjActivation": 0,
+      "mjMaxReceived": 0,
+      "mjMaxStored": 0,
+      "mjMinReceived": 0,
+      "values": {
+        "explosionRange": 8,
+        "getMaxEnergy": 100000,
+        "maxEnergyReceived": 2000,
+        "minEnergyReceived": 2
+      }
+    },
+    {
+      "classes": [
+        "ItemPipeBlockEntity",
+        "PipeBlockEntity"
+      ],
+      "id": "wooden_transport_pipe",
+      "kinds": [
+        "mj_receiver"
+      ],
+      "mjActivation": 1,
+      "mjMaxReceived": 64,
+      "mjMaxStored": 64,
+      "mjMinReceived": 1,
+      "values": {}
+    },
+    {
+      "classes": [
+        "ItemPipeBlockEntity",
+        "PipeBlockEntity"
+      ],
+      "id": "obsidian_transport_pipe",
+      "kinds": [
+        "mj_receiver"
+      ],
+      "mjActivation": 1,
+      "mjMaxReceived": 64,
+      "mjMaxStored": 256,
+      "mjMinReceived": 1,
+      "values": {}
+    },
+    {
+      "classes": [
+        "ItemPipeBlockEntity",
+        "PipeBlockEntity"
+      ],
+      "id": "emerald_transport_pipe",
+      "kinds": [
+        "mj_receiver"
+      ],
+      "mjActivation": 1,
+      "mjMaxReceived": 64,
+      "mjMaxStored": 64,
+      "mjMinReceived": 1,
+      "values": {}
+    },
+    {
+      "classes": [
+        "FluidPipeBlockEntity",
+        "PipeBlockEntity"
+      ],
+      "id": "wooden_fluid_pipe",
+      "kinds": [
+        "mj_receiver"
+      ],
+      "mjActivation": 1,
+      "mjMaxReceived": 100,
+      "mjMaxStored": 250,
+      "mjMinReceived": 1,
+      "values": {}
+    },
+    {
+      "classes": [
+        "FluidPipeBlockEntity",
+        "PipeBlockEntity"
+      ],
+      "id": "emerald_fluid_pipe",
+      "kinds": [
+        "mj_receiver"
+      ],
+      "mjActivation": 1,
+      "mjMaxReceived": 100,
+      "mjMaxStored": 250,
+      "mjMinReceived": 1,
+      "values": {}
+    },
+    {
+      "classes": [
+        "PowerPipeBlockEntity",
+        "PipeBlockEntity"
+      ],
+      "id": "wooden_power_pipe",
+      "kinds": [
+        "mj_receiver"
+      ],
+      "mjActivation": 1,
+      "mjMaxReceived": 1000,
+      "mjMaxStored": 1000,
+      "mjMinReceived": 2,
+      "values": {}
+    },
+    {
+      "classes": [
+        "QuarryBlockEntity"
+      ],
+      "id": "quarry",
+      "kinds": [
+        "mj_receiver"
+      ],
+      "mjActivation": 25,
+      "mjMaxReceived": 100,
+      "mjMaxStored": 15000,
+      "mjMinReceived": 25,
+      "values": {
+        "MAX_ENERGY": 15000
+      }
+    },
+    {
+      "classes": [
+        "PumpBlockEntity"
+      ],
+      "id": "pump",
+      "kinds": [
+        "mj_receiver"
+      ],
+      "mjActivation": 10,
+      "mjMaxReceived": 10,
+      "mjMaxStored": 100,
+      "mjMinReceived": 1,
+      "values": {}
+    },
+    {
+      "classes": [
+        "RefineryBlockEntity"
+      ],
+      "id": "refinery",
+      "kinds": [
+        "mj_receiver"
+      ],
+      "mjActivation": 25,
+      "mjMaxReceived": 100,
+      "mjMaxStored": 1000,
+      "mjMinReceived": 25,
+      "values": {}
+    },
+    {
+      "classes": [
+        "MiningWellBlockEntity"
+      ],
+      "id": "mining_well",
+      "kinds": [
+        "mj_receiver"
+      ],
+      "mjActivation": 25,
+      "mjMaxReceived": 25,
+      "mjMaxStored": 1000,
+      "mjMinReceived": 1,
+      "values": {}
+    },
+    {
+      "classes": [
+        "FabricatorBlockEntity",
+        "ForestryMachineBlockEntity"
+      ],
+      "id": "thermionic_fabricator",
+      "kinds": [
+        "mj_receiver"
+      ],
+      "mjActivation": 25,
+      "mjMaxReceived": 110,
+      "mjMaxStored": 250,
+      "mjMinReceived": 5,
+      "values": {}
+    },
+    {
+      "classes": [
+        "CarpenterBlockEntity",
+        "ForestryMachineBlockEntity"
+      ],
+      "id": "carpenter",
+      "kinds": [
+        "mj_receiver"
+      ],
+      "mjActivation": 25,
+      "mjMaxReceived": 110,
+      "mjMaxStored": 400,
+      "mjMinReceived": 1,
+      "values": {}
+    },
+    {
+      "classes": [
+        "ElectricalEngineBlockEntity"
+      ],
+      "id": "electrical_engine",
+      "kinds": [
+        "eu_sink",
+        "mj_receiver"
+      ],
+      "maxSafeInput": 2147483647,
+      "mjActivation": 10,
+      "mjMaxReceived": 200,
+      "mjMaxStored": 100000,
+      "mjMinReceived": 10,
+      "values": {
+        "MAX_ENERGY": 10000
+      }
+    },
+    {
+      "classes": [
+        "EnergyBridgeBlockEntity"
+      ],
+      "id": "energy_bridge",
+      "kinds": [],
+      "values": {
+        "MAX_ENERGY": 16000000
+      }
+    },
+    {
+      "classes": [
+        "BcConsumerBlockEntity",
+        "EnergyConsumerBlockEntity",
+        "BridgeComponentBlockEntity"
+      ],
+      "id": "bc_consumer",
+      "kinds": [
+        "mj_receiver"
+      ],
+      "mjActivation": 1,
+      "mjMaxReceived": 100,
+      "mjMaxStored": 1000,
+      "mjMinReceived": 2,
+      "values": {}
+    },
+    {
+      "classes": [
+        "BcProducerBlockEntity",
+        "EnergyProducerBlockEntity",
+        "BridgeComponentBlockEntity"
+      ],
+      "id": "bc_producer",
+      "kinds": [
+        "mj_receiver"
+      ],
+      "mjActivation": 0,
+      "mjMaxReceived": 0,
+      "mjMaxStored": 0,
+      "mjMinReceived": 0,
+      "values": {}
+    },
+    {
+      "classes": [
+        "Ic2ConsumerBlockEntity",
+        "EnergyConsumerBlockEntity",
+        "BridgeComponentBlockEntity"
+      ],
+      "id": "ic2_lv_consumer",
+      "kinds": [
+        "eu_sink"
+      ],
+      "maxSafeInput": 32,
+      "values": {}
+    },
+    {
+      "classes": [
+        "Ic2ProducerBlockEntity",
+        "EnergyProducerBlockEntity",
+        "BridgeComponentBlockEntity"
+      ],
+      "id": "ic2_lv_producer",
+      "kinds": [
+        "eu_source"
+      ],
+      "maxEnergyOutput": 32,
+      "values": {}
+    },
+    {
+      "classes": [
+        "Ic2ConsumerBlockEntity",
+        "EnergyConsumerBlockEntity",
+        "BridgeComponentBlockEntity"
+      ],
+      "id": "ic2_mv_consumer",
+      "kinds": [
+        "eu_sink"
+      ],
+      "maxSafeInput": 128,
+      "values": {}
+    },
+    {
+      "classes": [
+        "Ic2ProducerBlockEntity",
+        "EnergyProducerBlockEntity",
+        "BridgeComponentBlockEntity"
+      ],
+      "id": "ic2_mv_producer",
+      "kinds": [
+        "eu_source"
+      ],
+      "maxEnergyOutput": 128,
+      "values": {}
+    },
+    {
+      "classes": [
+        "Ic2ConsumerBlockEntity",
+        "EnergyConsumerBlockEntity",
+        "BridgeComponentBlockEntity"
+      ],
+      "id": "ic2_hv_consumer",
+      "kinds": [
+        "eu_sink"
+      ],
+      "maxSafeInput": 512,
+      "values": {}
+    },
+    {
+      "classes": [
+        "Ic2ProducerBlockEntity",
+        "EnergyProducerBlockEntity",
+        "BridgeComponentBlockEntity"
+      ],
+      "id": "ic2_hv_producer",
+      "kinds": [
+        "eu_source"
+      ],
+      "maxEnergyOutput": 512,
+      "values": {}
+    },
+    {
+      "classes": [
+        "Ic2ConsumerBlockEntity",
+        "EnergyConsumerBlockEntity",
+        "BridgeComponentBlockEntity"
+      ],
+      "id": "ic2_ev_consumer",
+      "kinds": [
+        "eu_sink"
+      ],
+      "maxSafeInput": 2147483647,
+      "values": {}
+    },
+    {
+      "classes": [
+        "Ic2ProducerBlockEntity",
+        "EnergyProducerBlockEntity",
+        "BridgeComponentBlockEntity"
+      ],
+      "id": "ic2_ev_producer",
+      "kinds": [
+        "eu_source"
+      ],
+      "maxEnergyOutput": 2048,
+      "values": {}
+    },
+    {
+      "classes": [
+        "SolarArrayBlockEntity",
+        "MachineBlockEntity"
+      ],
+      "id": "lv_solar_array",
+      "kinds": [
+        "eu_source"
+      ],
+      "maxEnergyOutput": 8,
+      "values": {}
+    },
+    {
+      "classes": [
+        "SolarArrayBlockEntity",
+        "MachineBlockEntity"
+      ],
+      "id": "mv_solar_array",
+      "kinds": [
+        "eu_source"
+      ],
+      "maxEnergyOutput": 64,
+      "values": {}
+    },
+    {
+      "classes": [
+        "SolarArrayBlockEntity",
+        "MachineBlockEntity"
+      ],
+      "id": "hv_solar_array",
+      "kinds": [
+        "eu_source"
+      ],
+      "maxEnergyOutput": 512,
+      "values": {}
+    },
+    {
+      "classes": [
+        "BenderBlockEntity",
+        "GtBasicMachineBlockEntity",
+        "GtMachineBlockEntity",
+        "MachineBlockEntity"
+      ],
+      "id": "plate_bending_machine",
+      "kinds": [
+        "eu_sink",
+        "eu_source"
+      ],
+      "maxEnergyOutput": 0,
+      "maxSafeInput": 32,
+      "values": {
+        "getOutput": 0,
+        "maxEUInput": 32,
+        "maxEUOutput": 0,
+        "maxEUStore": 2000,
+        "maxMJStore": 2000
+      }
+    },
+    {
+      "classes": [
+        "ElectrolyzerBlockEntity",
+        "GtTankMachineBlockEntity",
+        "GtMachineBlockEntity",
+        "MachineBlockEntity"
+      ],
+      "id": "industrial_electrolyzer",
+      "kinds": [
+        "eu_sink",
+        "eu_source"
+      ],
+      "maxEnergyOutput": 0,
+      "maxSafeInput": 128,
+      "values": {
+        "getOutput": 0,
+        "maxEUInput": 128,
+        "maxEUOutput": 0,
+        "maxEUStore": 10000,
+        "maxMJStore": 10000
+      }
+    },
+    {
+      "classes": [
+        "BlastFurnaceBlockEntity",
+        "GtMachineBlockEntity",
+        "MachineBlockEntity"
+      ],
+      "id": "industrial_blast_furnace",
+      "kinds": [
+        "eu_sink",
+        "eu_source"
+      ],
+      "maxEnergyOutput": 0,
+      "maxSafeInput": 128,
+      "values": {
+        "getOutput": 0,
+        "maxEUInput": 128,
+        "maxEUOutput": 0,
+        "maxEUStore": 10000,
+        "maxMJStore": 10000
+      }
+    },
+    {
+      "classes": [
+        "AssemblerBlockEntity",
+        "GtBasicMachineBlockEntity",
+        "GtMachineBlockEntity",
+        "MachineBlockEntity"
+      ],
+      "id": "assembling_machine",
+      "kinds": [
+        "eu_sink",
+        "eu_source"
+      ],
+      "maxEnergyOutput": 0,
+      "maxSafeInput": 32,
+      "values": {
+        "getOutput": 0,
+        "maxEUInput": 32,
+        "maxEUOutput": 0,
+        "maxEUStore": 2000,
+        "maxMJStore": 2000
+      }
+    },
+    {
+      "classes": [
+        "CannerBlockEntity",
+        "GtBasicMachineBlockEntity",
+        "GtMachineBlockEntity",
+        "MachineBlockEntity"
+      ],
+      "id": "automatic_canning_machine",
+      "kinds": [
+        "eu_sink",
+        "eu_source"
+      ],
+      "maxEnergyOutput": 0,
+      "maxSafeInput": 32,
+      "values": {
+        "getOutput": 0,
+        "maxEUInput": 32,
+        "maxEUOutput": 0,
+        "maxEUStore": 2000,
+        "maxMJStore": 2000
+      }
+    },
+    {
+      "classes": [
+        "ImplosionCompressorBlockEntity",
+        "GtMachineBlockEntity",
+        "MachineBlockEntity"
+      ],
+      "id": "implosion_compressor",
+      "kinds": [
+        "eu_sink",
+        "eu_source"
+      ],
+      "maxEnergyOutput": 0,
+      "maxSafeInput": 32,
+      "values": {
+        "getOutput": 0,
+        "maxEUInput": 32,
+        "maxEUOutput": 0,
+        "maxEUStore": 10000,
+        "maxMJStore": 10000
+      }
+    },
+    {
+      "classes": [
+        "CentrifugeBlockEntity",
+        "GtTankMachineBlockEntity",
+        "GtMachineBlockEntity",
+        "MachineBlockEntity"
+      ],
+      "id": "industrial_centrifuge",
+      "kinds": [
+        "eu_sink",
+        "eu_source"
+      ],
+      "maxEnergyOutput": 0,
+      "maxSafeInput": 32,
+      "values": {
+        "getOutput": 0,
+        "maxEUInput": 32,
+        "maxEUOutput": 0,
+        "maxEUStore": 10000,
+        "maxMJStore": 10000
+      }
+    },
+    {
+      "classes": [
+        "GrinderBlockEntity",
+        "GtMachineBlockEntity",
+        "MachineBlockEntity"
+      ],
+      "id": "industrial_grinder",
+      "kinds": [
+        "eu_sink",
+        "eu_source"
+      ],
+      "maxEnergyOutput": 0,
+      "maxSafeInput": 128,
+      "values": {
+        "getOutput": 0,
+        "maxEUInput": 128,
+        "maxEUOutput": 0,
+        "maxEUStore": 10000,
+        "maxMJStore": 10000
+      }
+    },
+    {
+      "classes": [
+        "VacuumFreezerBlockEntity",
+        "GtMachineBlockEntity",
+        "MachineBlockEntity"
+      ],
+      "id": "vacuum_freezer",
+      "kinds": [
+        "eu_sink",
+        "eu_source"
+      ],
+      "maxEnergyOutput": 0,
+      "maxSafeInput": 128,
+      "values": {
+        "getOutput": 0,
+        "maxEUInput": 128,
+        "maxEUOutput": 0,
+        "maxEUStore": 10000,
+        "maxMJStore": 10000
+      }
+    },
+    {
+      "classes": [
+        "CokeOvenBlockEntity",
+        "PlantControllerBlockEntity",
+        "MachineBlockEntity"
+      ],
+      "id": "coke_oven",
+      "kinds": [],
+      "values": {
+        "OPERATION_LENGTH": 900
+      }
+    },
+    {
+      "classes": [
+        "ConductingPartBlockEntity",
+        "PlantPartBlockEntity"
+      ],
+      "conductionLoss": 0.0,
+      "conductorBreakdown": 2147483647,
+      "id": "turbine_casing",
+      "insulationAbsorption": 2147483647,
+      "insulationBreakdown": 2147483647,
+      "kinds": [
+        "eu_conductor"
+      ],
+      "values": {}
+    },
+    {
+      "classes": [
+        "SteamTurbineBlockEntity",
+        "PlantControllerBlockEntity",
+        "MachineBlockEntity"
+      ],
+      "id": "steam_turbine",
+      "kinds": [
+        "eu_source"
+      ],
+      "maxEnergyOutput": 64,
+      "values": {
+        "getProduction": 0
+      }
+    },
+    {
+      "classes": [
+        "ConductingPartBlockEntity",
+        "PlantPartBlockEntity"
+      ],
+      "conductionLoss": 0.0,
+      "conductorBreakdown": 2147483647,
+      "id": "water_turbine_casing",
+      "insulationAbsorption": 2147483647,
+      "insulationBreakdown": 2147483647,
+      "kinds": [
+        "eu_conductor"
+      ],
+      "values": {}
+    },
+    {
+      "classes": [
+        "WaterTurbineBlockEntity",
+        "PlantControllerBlockEntity",
+        "MachineBlockEntity"
+      ],
+      "id": "water_turbine",
+      "kinds": [
+        "eu_source"
+      ],
+      "maxEnergyOutput": 32,
+      "values": {}
+    },
+    {
+      "classes": [
+        "ConductingPartBlockEntity",
+        "PlantPartBlockEntity"
+      ],
+      "conductionLoss": 0.0,
+      "conductorBreakdown": 2147483647,
+      "id": "large_turbine_casing",
+      "insulationAbsorption": 2147483647,
+      "insulationBreakdown": 2147483647,
+      "kinds": [
+        "eu_conductor"
+      ],
+      "values": {}
+    },
+    {
+      "classes": [
+        "LargeSteamTurbineBlockEntity",
+        "SteamTurbineBlockEntity",
+        "PlantControllerBlockEntity",
+        "MachineBlockEntity"
+      ],
+      "id": "large_steam_turbine",
+      "kinds": [
+        "eu_source"
+      ],
+      "maxEnergyOutput": 512,
+      "values": {
+        "getProduction": 0
+      }
+    },
+    {
+      "classes": [
+        "ConductingPartBlockEntity",
+        "PlantPartBlockEntity"
+      ],
+      "conductionLoss": 0.0,
+      "conductorBreakdown": 2147483647,
+      "id": "large_water_turbine_casing",
+      "insulationAbsorption": 2147483647,
+      "insulationBreakdown": 2147483647,
+      "kinds": [
+        "eu_conductor"
+      ],
+      "values": {}
+    },
+    {
+      "classes": [
+        "LargeWaterTurbineBlockEntity",
+        "WaterTurbineBlockEntity",
+        "PlantControllerBlockEntity",
+        "MachineBlockEntity"
+      ],
+      "id": "large_water_turbine",
+      "kinds": [
+        "eu_source"
+      ],
+      "maxEnergyOutput": 256,
+      "values": {}
+    },
+    {
+      "classes": [
+        "ConductingPartBlockEntity",
+        "PlantPartBlockEntity"
+      ],
+      "conductionLoss": 0.0,
+      "conductorBreakdown": 2147483647,
+      "id": "wind_turbine_mast",
+      "insulationAbsorption": 2147483647,
+      "insulationBreakdown": 2147483647,
+      "kinds": [
+        "eu_conductor"
+      ],
+      "values": {}
+    },
+    {
+      "classes": [
+        "LargeWindTurbineBlockEntity",
+        "PlantControllerBlockEntity",
+        "MachineBlockEntity"
+      ],
+      "id": "large_wind_turbine",
+      "kinds": [
+        "eu_source"
+      ],
+      "maxEnergyOutput": 384,
+      "values": {}
+    }
+  ],
+  "items": [
+    {
+      "canProvideEnergy": true,
+      "id": "re_battery",
+      "maxCharge": 10000,
+      "tier": 1,
+      "transferLimit": 100
+    },
+    {
+      "canProvideEnergy": true,
+      "id": "energy_crystal",
+      "maxCharge": 100000,
+      "tier": 2,
+      "transferLimit": 250
+    },
+    {
+      "canProvideEnergy": true,
+      "id": "lapotron_crystal",
+      "maxCharge": 1000000,
+      "tier": 3,
+      "transferLimit": 600
+    },
+    {
+      "canProvideEnergy": false,
+      "id": "mining_drill",
+      "maxCharge": 10000,
+      "tier": 1,
+      "transferLimit": 100
+    },
+    {
+      "canProvideEnergy": false,
+      "id": "diamond_drill",
+      "maxCharge": 10000,
+      "tier": 1,
+      "transferLimit": 100
+    },
+    {
+      "canProvideEnergy": false,
+      "id": "chainsaw",
+      "maxCharge": 10000,
+      "tier": 1,
+      "transferLimit": 100
+    },
+    {
+      "canProvideEnergy": false,
+      "id": "electric_hoe",
+      "maxCharge": 10000,
+      "tier": 1,
+      "transferLimit": 100
+    },
+    {
+      "canProvideEnergy": false,
+      "id": "electric_treetap",
+      "maxCharge": 10000,
+      "tier": 1,
+      "transferLimit": 100
+    },
+    {
+      "canProvideEnergy": false,
+      "id": "electric_wrench",
+      "maxCharge": 12000,
+      "tier": 1,
+      "transferLimit": 250
+    },
+    {
+      "canProvideEnergy": false,
+      "id": "mining_laser",
+      "maxCharge": 200000,
+      "tier": 2,
+      "transferLimit": 120
+    },
+    {
+      "canProvideEnergy": false,
+      "id": "nano_saber",
+      "maxCharge": 40000,
+      "tier": 2,
+      "transferLimit": 128
+    },
+    {
+      "canProvideEnergy": false,
+      "id": "od_scanner",
+      "maxCharge": 10000,
+      "tier": 1,
+      "transferLimit": 50
+    },
+    {
+      "canProvideEnergy": false,
+      "id": "ov_scanner",
+      "maxCharge": 10000,
+      "tier": 2,
+      "transferLimit": 50
+    },
+    {
+      "canProvideEnergy": false,
+      "id": "nano_helmet",
+      "maxCharge": 100000,
+      "tier": 2,
+      "transferLimit": 160
+    },
+    {
+      "canProvideEnergy": false,
+      "id": "nano_chestplate",
+      "maxCharge": 100000,
+      "tier": 2,
+      "transferLimit": 160
+    },
+    {
+      "canProvideEnergy": false,
+      "id": "nano_leggings",
+      "maxCharge": 100000,
+      "tier": 2,
+      "transferLimit": 160
+    },
+    {
+      "canProvideEnergy": false,
+      "id": "nano_boots",
+      "maxCharge": 100000,
+      "tier": 2,
+      "transferLimit": 160
+    },
+    {
+      "canProvideEnergy": false,
+      "id": "quantum_helmet",
+      "maxCharge": 1000000,
+      "tier": 3,
+      "transferLimit": 1000
+    },
+    {
+      "canProvideEnergy": false,
+      "id": "quantum_chestplate",
+      "maxCharge": 1000000,
+      "tier": 3,
+      "transferLimit": 1000
+    },
+    {
+      "canProvideEnergy": false,
+      "id": "quantum_leggings",
+      "maxCharge": 1000000,
+      "tier": 3,
+      "transferLimit": 1000
+    },
+    {
+      "canProvideEnergy": false,
+      "id": "quantum_boots",
+      "maxCharge": 1000000,
+      "tier": 3,
+      "transferLimit": 1000
+    },
+    {
+      "canProvideEnergy": false,
+      "id": "electric_jetpack",
+      "maxCharge": 30000,
+      "tier": 1,
+      "transferLimit": 60
+    },
+    {
+      "canProvideEnergy": true,
+      "id": "batpack",
+      "maxCharge": 60000,
+      "tier": 1,
+      "transferLimit": 100
+    },
+    {
+      "canProvideEnergy": true,
+      "id": "lappack",
+      "maxCharge": 300000,
+      "tier": 2,
+      "transferLimit": 250
+    },
+    {
+      "canProvideEnergy": false,
+      "id": "nightvision_goggles",
+      "maxCharge": 20000,
+      "tier": 1,
+      "transferLimit": 200
+    },
+    {
+      "canProvideEnergy": true,
+      "id": "lithium_battery",
+      "maxCharge": 100000,
+      "tier": 1,
+      "transferLimit": 128
+    },
+    {
+      "canProvideEnergy": true,
+      "id": "lithium_batpack",
+      "maxCharge": 600000,
+      "tier": 1,
+      "transferLimit": 128
+    }
+  ]
+}
