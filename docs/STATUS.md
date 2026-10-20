@@ -1812,3 +1812,19 @@ Nutzer). Arrays wieder mit Originalrezept `SSS/SXS/SSS`. Ersetzt 3×3/9×9/27×2
 
 ## Nächste Schritte
 1. Abnahme im Client: Solar-Felder (Testplan 8.1), Phase 18 + 19 (Projekttisch, Automatische Werkbank, Long Fall Boots).
+
+# Nachtrag – Solar-Felder: nur die eigenen 9 Blöcke (Nutzer, 2026-10-20)
+
+Nutzerwunsch: „nur diese insgesamt 9 Blöcke zusammen arbeiten, sonst wäre das ja op“. Bisher lief ein Feld, das einen
+Randblock mit einem anderen teilt, mit den übrigen Blöcken weiter. Jetzt liefert es **nichts**, bis das andere Feld
+wegfällt (`spec/11` §4).
+
+- [x] `MultiblockLease.canClaim`; `SolarArrayBlockEntity.claimParts` prüft erst alle Ringblöcke und beansprucht nur,
+  wenn keiner einem fremden Feld gehört.
+- [x] GameTest `fieldSharingABlockWithAnotherDeliversNothing` (ersetzt `overlappingArraysCountSharedPanelsOnce`).
+- [x] Nebenbei: `Ic2GameTests.scrapBoxDropsMostlyScrap` war wackelig (Fenster 600–720 für einen Erwartungswert von
+  62,4 % seit den GT-Drops) – Fenster ±4σ (563–685). Alle 374 GameTests grün, `gradlew build` grün.
+- [x] `abweichungen.md`, `testplan.md` 8.1, Wiki; Version 0.3.7, CurseForge-Paket `releases/Craft-0.3.7-curseforge.zip`.
+
+## Nächste Schritte
+1. Abnahme im Client: Solar-Felder (Testplan 8.1), Phase 18 + 19 (Projekttisch, Automatische Werkbank, Long Fall Boots).

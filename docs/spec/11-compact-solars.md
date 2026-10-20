@@ -88,14 +88,16 @@ MV-Arrays, aber kein HV-Array). Fehlt ein Ringblock oder steht dort etwas andere
 - Einzeln aufgestellt oder ohne vollständigen Ring liefert ein Array **nichts**. Panels und Arrays im Ring eines
   geformten Felds erzeugen selbst nichts (Panels auch nicht für ihren Lade-Slot); nur die Mitte liefert. Die
   Zugehörigkeit wird als Lease gehalten (alle 20 Ticks erneuert, verfällt nach 40 Ticks) und nicht gespeichert.
-- Felder dürfen sich Ränder teilen; ein Teil zählt nur für ein Feld (wer es zuerst hält).
+- **Nur die 9 Blöcke eines Felds arbeiten zusammen** (Nutzer, 2026-10-20): gehört auch nur ein Ringblock schon einem
+  anderen Feld, liefert dieses Feld **nichts** und hält auch keinen seiner Blöcke. Erst wenn das andere Feld wegfällt
+  (Lease verfallen), übernimmt es. Ausnahme ist die Übernahme eines Arrays im eigenen Ring samt dessen Teilen im Feld.
 - Aufbau-Prüfung nur, wenn das 3×3-Feld geladen ist; sonst ruht das Array.
 - GUI wie IC2-Solarpanel (`GUISolarGenerator`): ein Lade-Slot, Sonnensymbol, solange das Array Energie liefert.
 
 - Umsetzungsdetails: Prüfung über `MultiblockController` mit fester Ausrichtung (Muster symmetrisch, Ringsymbol `R`).
   Reihenfolge beim Prüfen: erst die Arrays im Ring (höchste Stufe zuerst), dann die Panels; ein Teil darf übernommen
   werden, wenn sein Lease frei/abgelaufen ist oder einem Array gehört, das diese Mitte gerade selbst hält. Teile eines
-  fremden Felds werden übersprungen (zählen nicht). Ein verbautes Panel setzt seinen Puffer auf 0 und prüft weiter
+  fremden Felds sperren das ganze Feld (erst alle prüfen, dann alle beanspruchen; `MultiblockLease.canClaim`). Ein verbautes Panel setzt seinen Puffer auf 0 und prüft weiter
   selbst die Sonne (aktive Textur bleibt). Abgerundet wird erst nach der Multiplikation.
 - Texturen: `block_textures.png` aus Compact Solars v4.0, Zeile = Stufe (LV 0, MV 1, HV 2), Spalte 0 Seite, 1 oben,
   2 unten. Namen „Low/Medium/High Voltage Solar Array“ (nur englisch registriert).

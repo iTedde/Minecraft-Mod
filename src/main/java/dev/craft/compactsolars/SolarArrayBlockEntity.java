@@ -129,8 +129,9 @@ public class SolarArrayBlockEntity extends MachineBlockEntity implements EnergyS
 
     /**
      * Renews the leases on the arrays of the ring (highest tier first, so this array may take over the parts of the
-     * arrays it has just claimed) and on its panels; returns the summed base values of itself and of the claimed
-     * parts that see the sun. Parts leased by a foreign array are skipped.
+     * arrays it is about to claim) and on its panels; returns the summed base values of itself and of the parts that
+     * see the sun. Only the 9 blocks of one field work together (user, 2026-10-20): if any part of the ring is held
+     * by a foreign field, nothing is claimed and the field delivers nothing.
      */
     private int claimParts(MultiblockPattern.Match match) {
         long now = level.getGameTime();
@@ -139,21 +140,34 @@ public class SolarArrayBlockEntity extends MachineBlockEntity implements EnergyS
                 ? -array.type.ordinal() : 1));
         Set<BlockPos> owners = new HashSet<>();
         owners.add(worldPosition);
+        List<MultiblockLease> leases = new ArrayList<>();
         int sunny = sunVisible(worldPosition) ? type.getBaseValue() : 0;
         for (BlockPos pos : ring) {
             BlockEntity part = level.getBlockEntity(pos);
+            MultiblockLease partLease;
             if (part instanceof SolarArrayBlockEntity array) {
-                if (array.lease.claim(worldPosition, owners, now, LEASE_DURATION)) {
-                    owners.add(pos);
-                    if (sunVisible(pos)) {
-                        sunny += array.type.getBaseValue();
-                    }
+                partLease = array.lease;
+                if (sunVisible(pos)) {
+                    sunny += array.type.getBaseValue();
                 }
-            } else if (part instanceof SolarPanelBlockEntity panel
-                    && panel.getArrayLease().claim(worldPosition, owners, now, LEASE_DURATION)
-                    && panel.isSunVisible()) {
-                sunny++;
+            } else if (part instanceof SolarPanelBlockEntity panel) {
+                partLease = panel.getArrayLease();
+                if (panel.isSunVisible()) {
+                    sunny++;
+                }
+            } else {
+                return 0;
             }
+            if (!partLease.canClaim(owners, now)) {
+                return 0;
+            }
+            if (part instanceof SolarArrayBlockEntity) {
+                owners.add(pos);
+            }
+            leases.add(partLease);
+        }
+        for (MultiblockLease partLease : leases) {
+            partLease.claim(worldPosition, owners, now, LEASE_DURATION);
         }
         return sunny;
     }

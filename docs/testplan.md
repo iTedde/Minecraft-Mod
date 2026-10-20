@@ -146,7 +146,7 @@ Testwelt. Sprache einmal Deutsch, einmal Englisch prüfen. EMI und Xaero's Minim
 
 | Nr | Test | Herkunft | OK |
 |---|---|---|---|
-| 8.1 | Solar Arrays (3×3, 2026-10-20): Rezepte SSS/SXS/SSS; LV + 8 Panels: Sonnensymbol am Tag, BatBox lädt mit 19 EU/t, Panel abdecken → weniger; einzelnes Array liefert nichts; MV mit 8 LV-Arrays 179 EU/t (Ring-Arrays liefern selbst nichts), HV mit 8 MV-Arrays 1536 EU/t (Glasfaser/MFSU); HV-Array im MV-Ring → nicht geformt; Lade-Slot; Abbau droppt das Array; Texturen | 6.4b, Nachtrag 2026-10-20 | |
+| 8.1 | Solar Arrays (3×3, 2026-10-20): Rezepte SSS/SXS/SSS; LV + 8 Panels: Sonnensymbol am Tag, BatBox lädt mit 19 EU/t, Panel abdecken → weniger; einzelnes Array liefert nichts; MV mit 8 LV-Arrays 179 EU/t (Ring-Arrays liefern selbst nichts), HV mit 8 MV-Arrays 1536 EU/t (Glasfaser/MFSU); HV-Array im MV-Ring → nicht geformt; zweites Feld, das einen Randblock mit einem ersten teilt, liefert nichts (nach Abbau des ersten schon); Lade-Slot; Abbau droppt das Array; Texturen | 6.4b, Nachtrag 2026-10-20 | |
 | 8.2 | Wassermühle an fließendem Wasser/im Fluss, zwei Mühlen nebeneinander; Windmühle in großer Höhe bei Gewitter (zerfällt nie) | 9.1 | |
 | 8.3 | Koksofen bauen, Kohle per Trichter einspeisen, Koks unten abziehen | 9.2 | |
 | 8.4 | Kessel: Wasser per Eimer/IC2-Pumpe, Kohle/Koks nachlegen, Temperaturbalken und Tanks in der GUI, Dampf in BC-Tank daneben; Explosion (Wasser auf trockenen heißen Kessel) aus sicherer Entfernung | 9.3a | |

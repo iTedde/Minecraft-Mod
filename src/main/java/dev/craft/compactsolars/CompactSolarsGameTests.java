@@ -233,8 +233,9 @@ public final class CompactSolarsGameTests {
                 });
     }
 
-    @GameTest(template = EMPTY, batch = BATCH, timeoutTicks = 80)
-    public static void overlappingArraysCountSharedPanelsOnce(GameTestHelper helper) {
+    /** Only the 9 blocks of one field work together: a field sharing a block with another one delivers nothing. */
+    @GameTest(template = EMPTY, batch = BATCH, timeoutTicks = 160)
+    public static void fieldSharingABlockWithAnotherDeliversNothing(GameTestHelper helper) {
         sunshine(helper);
         BlockPos first = new BlockPos(3, 1, 3);
         SolarArrayBlockEntity a = build(helper, SolarArrayType.LV, first, panel());
@@ -243,10 +244,18 @@ public final class CompactSolarsGameTests {
             SolarArrayBlockEntity b = build(helper, SolarArrayType.LV, first.east(2), panel());
             refreshPanels(helper, first, 3);
             helper.runAfterDelay(25, () -> {
-                helper.assertTrue(a.isFormed() && b.isFormed(), "both arrays formed");
-                // two centres of 8 and 13 panels
-                helper.assertValueEqual(a.getSunnyValue() + b.getSunnyValue(), 29, "panels counted once");
-                helper.succeed();
+                helper.assertValueEqual(a.getSunnyValue(), 16, "first field");
+                helper.assertValueEqual(b.getSunnyValue(), 0, "second field");
+                helper.assertFalse(b.isDelivering(), "second field delivers");
+                SolarPanelBlockEntity own = helper.getBlockEntity(first.east(3));
+                helper.assertFalse(own.getArrayLease().isHeld(now(helper)), "blocked field holds its own panels");
+                // Without the first field the shared panels lapse and the second one takes over.
+                helper.setBlock(first, Blocks.AIR);
+                helper.runAfterDelay(SolarArrayBlockEntity.LEASE_DURATION + SolarArrayBlockEntity.CHECK_INTERVAL + 1,
+                        () -> {
+                            helper.assertValueEqual(b.getSunnyValue(), 16, "second field after the first is gone");
+                            helper.succeed();
+                        });
             });
         });
     }

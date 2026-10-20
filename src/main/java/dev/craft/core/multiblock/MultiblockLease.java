@@ -20,12 +20,17 @@ public final class MultiblockLease {
      * lapsed, or is held by one of {@code takeOverFrom} (which should include {@code owner} itself).
      */
     public boolean claim(BlockPos owner, Set<BlockPos> takeOverFrom, long now, int duration) {
-        if (isHeld(now) && !takeOverFrom.contains(this.owner)) {
+        if (!canClaim(takeOverFrom, now)) {
             return false;
         }
         this.owner = owner;
         this.expiry = now + duration;
         return true;
+    }
+
+    /** Whether {@link #claim} would succeed, without claiming. */
+    public boolean canClaim(Set<BlockPos> takeOverFrom, long now) {
+        return !isHeld(now) || takeOverFrom.contains(owner);
     }
 
     public boolean isHeld(long now) {
