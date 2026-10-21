@@ -1,6 +1,7 @@
 package dev.craft.thermalexpansion;
 
 import dev.craft.Craft;
+import dev.craft.thermalexpansion.energy.EnergyCellItem;
 import dev.craft.thermalexpansion.item.CrescentHammerItem;
 import dev.craft.thermalexpansion.item.PortableTankItem;
 import net.minecraft.world.item.BlockItem;
@@ -41,6 +42,13 @@ public final class TeItems {
             ITEMS.registerSimpleBlockItem(TeBlocks.IGNEOUS_EXTRUDER);
     public static final DeferredItem<BlockItem> AQUEOUS_ACCUMULATOR =
             ITEMS.registerSimpleBlockItem(TeBlocks.AQUEOUS_ACCUMULATOR);
+    public static final DeferredItem<BlockItem> STEAM_ENGINE = ITEMS.registerSimpleBlockItem(TeBlocks.STEAM_ENGINE);
+    public static final DeferredItem<BlockItem> MAGMATIC_ENGINE =
+            ITEMS.registerSimpleBlockItem(TeBlocks.MAGMATIC_ENGINE);
+    /** {@code ItemBlockEnergyCell}: stack size 1, uncommon. */
+    public static final DeferredItem<EnergyCellItem> ENERGY_CELL = ITEMS.registerItem("redstone_energy_cell",
+            properties -> new EnergyCellItem(TeBlocks.ENERGY_CELL.get(), properties),
+            new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON));
     public static final DeferredItem<PortableTankItem> PORTABLE_TANK = ITEMS.registerItem("portable_tank",
             properties -> new PortableTankItem(TeBlocks.PORTABLE_TANK.get(), properties),
             new Item.Properties().stacksTo(1));

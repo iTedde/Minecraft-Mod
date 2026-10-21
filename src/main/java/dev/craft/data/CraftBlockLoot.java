@@ -87,6 +87,10 @@ public final class CraftBlockLoot extends BlockLootSubProvider {
         dropSelf(TeBlocks.AQUEOUS_ACCUMULATOR.get());
         // BlockTank: broken normally the tank drops empty; the wrench keeps the liquid.
         dropSelf(TeBlocks.PORTABLE_TANK.get());
+        dropSelf(TeBlocks.STEAM_ENGINE.get());
+        dropSelf(TeBlocks.MAGMATIC_ENGINE.get());
+        // BlockEnergyCell: broken normally the cell drops empty; the wrench keeps the charge.
+        dropSelf(TeBlocks.ENERGY_CELL.get());
         for (DyeColor color : DyeColor.values()) {
             dropSelf(TeBlocks.rockwool(color).get());
         }

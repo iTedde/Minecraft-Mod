@@ -494,6 +494,14 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
         // Drawn by its block entity renderer; the item model is builtin/entity.
         simpleBlock(TeBlocks.PORTABLE_TANK.get(), models().getBuilder("portable_tank")
                 .texture("particle", modLoc("block/hardened_glass")));
+        // Engines and energy cell: block entity renderers too; particles from the TE machine side.
+        for (DeferredBlock<? extends Block> holder : List.of(TeBlocks.STEAM_ENGINE, TeBlocks.MAGMATIC_ENGINE,
+                TeBlocks.ENERGY_CELL)) {
+            ModelFile particle = models().getBuilder(holder.getId().getPath())
+                    .texture("particle", TeMachineModel.sideTexture(Direction.NORTH, 0));
+            getVariantBuilder(holder.get()).forAllStates(state -> ConfiguredModel.builder().modelFile(particle)
+                    .build());
+        }
         simpleBlockWithItem(TeBlocks.HARDENED_GLASS.get(), models().cubeAll("hardened_glass",
                 modLoc("block/hardened_glass")).renderType("translucent"));
         for (DyeColor color : DyeColor.values()) {

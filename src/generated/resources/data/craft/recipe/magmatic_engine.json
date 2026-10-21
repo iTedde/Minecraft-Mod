@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "craft:redstone_transmission_coil"
+    },
+    "G": {
+      "tag": "c:gears/invar"
+    },
+    "I": {
+      "tag": "c:ingots/invar"
+    },
+    "P": {
+      "item": "minecraft:piston"
+    }
+  },
+  "pattern": [
+    "III",
+    " C ",
+    "GPG"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:magmatic_engine"
+  }
+}

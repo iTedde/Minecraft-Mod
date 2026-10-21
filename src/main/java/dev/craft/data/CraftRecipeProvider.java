@@ -2231,6 +2231,16 @@ public final class CraftRecipeProvider extends RecipeProvider {
         teMachine(TeItems.IGNEOUS_EXTRUDER.get(), Ingredient.of(Items.PISTON), Ingredient.of(Items.GLASS), tin, servo);
         teMachine(TeItems.AQUEOUS_ACCUMULATOR.get(), Ingredient.of(Items.BUCKET), Ingredient.of(Items.GLASS), tin,
                 servo);
+        // ThermalExpansionEnergy: engines III/ C /GPG, energy cell X/YCY/IPI from the filled frame.
+        teEngine(TeItems.STEAM_ENGINE.get(), Ingredient.of(ingotsCopper()), CraftItemTagsProvider.GEARS_COPPER);
+        teEngine(TeItems.MAGMATIC_ENGINE.get(), Ingredient.of(CraftItemTagsProvider.INGOTS_INVAR),
+                CraftItemTagsProvider.GEARS_INVAR);
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, TeItems.ENERGY_CELL.get()).pattern(" X ").pattern("YCY")
+                .pattern("IPI").define('X', CraftItemTagsProvider.INGOTS_ELECTRUM)
+                .define('Y', CraftItemTagsProvider.INGOTS_ELECTRUM).define('C', TeItems.FULL_ENERGY_CELL_FRAME.get())
+                .define('I', CraftItemTagsProvider.INGOTS_LEAD).define('P', TeItems.REDSTONE_CONDUCTANCE_COIL.get())
+                .unlockedBy("has_frame", has(TeItems.FULL_ENERGY_CELL_FRAME.get()))
+                .save(output, id("redstone_energy_cell"));
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, TeItems.PORTABLE_TANK.get()).pattern(" G ").pattern("GTG")
                 .pattern(" G ").define('G', TeItems.HARDENED_GLASS.get()).define('T', tin)
                 .unlockedBy("has_hardened_glass", has(TeItems.HARDENED_GLASS.get())).save(output, id("portable_tank"));
@@ -2468,6 +2478,13 @@ public final class CraftRecipeProvider extends RecipeProvider {
     }
 
     /** TE machines: {@code " X ", "YCY", "IPI"} with machine frame, copper and a redstone reception coil. */
+    private void teEngine(ItemLike result, Ingredient ingot, TagKey<Item> gear) {
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, result).pattern("III").pattern(" C ").pattern("GPG")
+                .define('I', ingot).define('C', TeItems.REDSTONE_TRANSMISSION_COIL.get()).define('G', gear)
+                .define('P', Items.PISTON).unlockedBy("has_coil", has(TeItems.REDSTONE_TRANSMISSION_COIL.get()))
+                .save(output, id(path(result)));
+    }
+
     private void teMachine(ItemLike result, Ingredient x, Ingredient y) {
         teMachine(result, x, y, Ingredient.of(ingotsCopper()), Ingredient.of(TeItems.REDSTONE_RECEPTION_COIL.get()));
     }

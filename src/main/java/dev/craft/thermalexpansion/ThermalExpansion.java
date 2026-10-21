@@ -6,6 +6,7 @@ import java.util.Set;
 import dev.craft.buildcraft.power.BcCapabilities;
 import dev.craft.gregtech.GtItems;
 import dev.craft.thermalexpansion.block.PortableTankBlockEntity;
+import dev.craft.thermalexpansion.energy.TeEngineBlockEntity;
 import dev.craft.thermalexpansion.machine.TeMachineBlockEntity;
 import dev.craft.thermalexpansion.recipe.TeRecipes;
 import dev.craft.thermalexpansion.world.TeWorldGen;
@@ -62,6 +63,16 @@ public final class ThermalExpansion {
         }
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, TeBlockEntityTypes.PORTABLE_TANK.get(),
                 PortableTankBlockEntity::getFluidHandler);
+        for (BlockEntityType<? extends TeEngineBlockEntity> type : List.of(TeBlockEntityTypes.STEAM_ENGINE.get(),
+                TeBlockEntityTypes.MAGMATIC_ENGINE.get())) {
+            event.registerBlockEntity(BcCapabilities.POWER_RECEPTOR, type, (engine, side) -> engine);
+            event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, type, TeEngineBlockEntity::getFluidHandler);
+        }
+        // TileEngineSteam is a plain IInventory: the fuel slot from every side.
+        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, TeBlockEntityTypes.STEAM_ENGINE.get(),
+                (engine, side) -> engine.getInventory());
+        event.registerBlockEntity(BcCapabilities.POWER_RECEPTOR, TeBlockEntityTypes.ENERGY_CELL.get(),
+                (cell, side) -> cell);
     }
 
     /**

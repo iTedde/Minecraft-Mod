@@ -6,6 +6,12 @@ import java.util.Map;
 import dev.craft.Craft;
 import dev.craft.thermalexpansion.block.HardenedGlassBlock;
 import dev.craft.thermalexpansion.block.PortableTankBlock;
+import dev.craft.thermalexpansion.energy.EnergyCellBlock;
+import dev.craft.thermalexpansion.energy.MagmaticEngineBlockEntity;
+import dev.craft.thermalexpansion.energy.SteamEngineBlockEntity;
+import dev.craft.thermalexpansion.energy.TeEngineBlock;
+import dev.craft.thermalexpansion.energy.TeEngineBlockEntity;
+import dev.craft.thermalexpansion.energy.TeEngineType;
 import dev.craft.thermalexpansion.machine.AqueousAccumulatorBlockEntity;
 import dev.craft.thermalexpansion.machine.GlacialPrecipitatorBlockEntity;
 import dev.craft.thermalexpansion.machine.IgneousExtruderBlockEntity;
@@ -66,6 +72,15 @@ public final class TeBlocks {
             IgneousExtruderBlockEntity::new);
     public static final DeferredBlock<TeMachineBlock> AQUEOUS_ACCUMULATOR = machine(TeMachineType.AQUEOUS_ACCUMULATOR,
             AqueousAccumulatorBlockEntity::new);
+    /** {@code BlockEngine}: Material.iron (pickaxe), hardness 0.5. */
+    public static final DeferredBlock<TeEngineBlock> STEAM_ENGINE = engine(TeEngineType.STEAM,
+            SteamEngineBlockEntity::new);
+    public static final DeferredBlock<TeEngineBlock> MAGMATIC_ENGINE = engine(TeEngineType.MAGMATIC,
+            MagmaticEngineBlockEntity::new);
+    /** {@code BlockEnergyCell}: Material.iron (pickaxe), hardness 20, {@code setResistance(150)} = 90. */
+    public static final DeferredBlock<EnergyCellBlock> ENERGY_CELL = BLOCKS.register("redstone_energy_cell",
+            () -> new EnergyCellBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL)
+                    .requiresCorrectToolForDrops().strength(20.0F, 90.0F).sound(SoundType.METAL).noOcclusion()));
     /** {@code BlockTank}: Material.glass (no tool needed), hardness 3, {@code setResistance(150)} = 90. */
     public static final DeferredBlock<PortableTankBlock> PORTABLE_TANK = BLOCKS.register("portable_tank",
             () -> new PortableTankBlock(BlockBehaviour.Properties.of().mapColor(MapColor.NONE)
@@ -97,6 +112,13 @@ public final class TeBlocks {
         return BLOCKS.register(type.getName(), () -> new TeMachineBlock(BlockBehaviour.Properties.of()
                 .mapColor(MapColor.METAL).requiresCorrectToolForDrops().strength(15.0F, 15.0F).sound(SoundType.METAL),
                 type, factory));
+    }
+
+    private static DeferredBlock<TeEngineBlock> engine(TeEngineType type,
+                                                       BiFunction<BlockPos, BlockState, ? extends TeEngineBlockEntity> factory) {
+        return BLOCKS.register(type.getName(), () -> new TeEngineBlock(BlockBehaviour.Properties.of()
+                .mapColor(MapColor.METAL).requiresCorrectToolForDrops().strength(0.5F).sound(SoundType.METAL)
+                .noOcclusion(), type, factory));
     }
 
     private static DeferredBlock<Block> ore(String name) {

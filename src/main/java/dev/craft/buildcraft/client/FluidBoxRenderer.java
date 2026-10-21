@@ -36,7 +36,7 @@ public final class FluidBoxRenderer {
     }
 
     /** One box with a block-atlas sprite, the texture cut to the box bounds. */
-    static void render(PoseStack pose, MultiBufferSource buffers, TextureAtlasSprite sprite, int color, float x0,
+    public static void render(PoseStack pose, MultiBufferSource buffers, TextureAtlasSprite sprite, int color, float x0,
                        float y0, float z0, float x1, float y1, float z1, int light) {
         VertexConsumer c = buffers.getBuffer(RenderType.entityTranslucent(InventoryMenu.BLOCK_ATLAS));
         PoseStack.Pose last = pose.last();

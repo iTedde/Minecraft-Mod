@@ -278,8 +278,46 @@ sonst 160 MJ).
 ## 6. Energie und Transport
 
 - **Motoren** (`energy/tileentity/TileEngine*.java`): Dampfmotor (Brennstoff/Wasser), Magmamotor (Lava), MJ-Ausgabe
-  wie BC-Motoren; Werte in 25.5.
-- **Redstone-Energiezelle** (`TileEnergyCell`): MJ-Speicher mit einstellbarer Ein-/Ausgabe je Seite; Werte in 25.5.
+  wie BC-Motoren; Werte §6.1.
+- **Redstone-Energiezelle** (`TileEnergyCell`): MJ-Speicher mit einstellbarer Ein-/Ausgabe (für alle Seiten gemeinsam); Werte §6.1.
+
+### 6.1 Motoren und Energiezelle (25.5)
+
+**Motoren** (`TileEngineRoot`, `Engines.defaultConfigs`): Material Eisen, Härte 0,5, Licht 7 aktiv; beim Platzieren
+nach oben ausgerichtet, dann zur ersten Nachbarseite mit MJ-Empfänger gedreht (Reihenfolge ab „oben“ + 1).
+
+| Motor | min/max MJ/t | Puffer (MJ) | MJ je Hub | Brennstoff |
+|---|---|---:|---:|---|
+| Dampfmotor | 0,2 / 2 | 2000 | 200 | feste Brennstoffe + Wasser (Tank 4000 mB) |
+| Magmamotor | 0,4 / 4 | 4000 | 400 | Lava (Tank 4000 mB): 50 mB → 900 MJ (= `core.lava.mj` · 90 / 2000) |
+
+- Leistung je Tick: Puffer < 10 % → max, > 90 % → min, dazwischen `(Puffergröße − Inhalt) / Rampe` (0,1-Stufen,
+  Rampe = 90 % · Puffer / max).
+- Läuft nur mit MJ-Empfänger vor der Front und erfüllter Redstone-Bedingung (Vorgabe: ohne Signal); Hub 25 Ticks
+  (+0,04 je Tick), bei halbem Hub bis zu „MJ je Hub“ an den Empfänger (höchstens dessen freier Platz). Untätig:
+  −min MJ/t aus dem Puffer, alle 40 Ticks −10 MJ angebrannter Brennstoff.
+- **Kaputt** (`shutdownEngine`), wenn der Puffer voll ist (Dampfmotor auch unter 20 mB Wasser): Brennstoff weg, Puffer
+  −20 %, dann −min MJ/t; raucht; Schraubenschlüssel repariert. Sonst dreht der Schraubenschlüssel den Motor, Schleichen +
+  Schraubenschlüssel baut ab, gefüllter Behälter füllt den Tank (nicht von der Front).
+- Dampfmotor: Start mit Brennstoff und ≥ 20 mB Wasser; alle 40 Ticks `Leistung · 10` mB Wasser. Brennwerte
+  (`getItemEnergyValue`, MJ): Kohle 4800, Holzkohle 3200, Holzblöcke (Material Holz) 450, Stock/Setzling 150, sonst
+  Fuel-Handler der Mods · 3/2 – **nicht** die Vanilla-Brennwerte: IC2 (Gummisetzling 80, Zuckerrohr/Kaktus 50, Schrott
+  350, Schrottbox 3150, Lavazelle 20 000), GT (Schild 600, Holzschliff 100, Holzplatte 1600); dazu Craft-Koks 1600 /
+  Koksblock 16 000. Lavaeimer, Lohenrute, Holztür usw. brennen nicht. Ein verbranntes Item gibt keinen Behälter zurück.
+- GUI: Brennstoff-Flamme (Rest des aktuellen Brennstoffs), Tankanzeige; Reiter Motor (Leistung, max. Leistung,
+  gespeichert) und Redstone rechts, Information/Anleitung links. Magmamotor ohne nutzbaren Slot.
+
+**Redstone-Energiezelle** (`TileEnergyCell`): Material Eisen, Härte 20, Widerstand 90, Stapel 1, selten; 600 000 MJ
+ohne Verlust. Jeden Tick (Redstone-Bedingung) bekommt jeder angrenzende MJ-Empfänger außer anderen Zellen, der Energie
+anfordert, bis `Senden` MJ (reihum ab einer wandernden Startseite). Anforderung an Rohre: bis `Empfangen` MJ; Motoren
+füllen sie unabhängig davon. Grenzen 0–100 im GUI (Klick 5, Rechtsklick 1, mit Shift 100 bzw. 10), beim Platzieren
+ohne Daten 50/100. Licht 0–10 mit der Ladung; Modell: Rahmen + Kern in 16 Ladestufen (animiertes Geschmolzenes
+Redstone, `TextureRedstoneFX`). Schleichen + Schraubenschlüssel baut sie mit Ladung, Grenzen und Redstone-Modus ab
+(Ladebalken am Item, Tooltip Ladung/Senden/Empfangen/Signal); normal abgebaut droppt sie leer. Kreativ-Tab: leer und
+voll. Rezepte: Motoren `III/ C /GPG` (Dampf: Kupfer, Übertragungsspule, Kupferzahnrad, Kolben; Magma: Invar,
+Übertragungsspule, Invarzahnrad, Kolben); Zelle ` X /YCY/IPI` (X/Y Elektrum, C voller Energiezellenrahmen, I Blei,
+P Leitspule).
+
 - **Redstone-Energieleitung** (`TileConduitEnergy`, `GridEnergy`, `PowerProviderGrid`): Netz mit 5 % Verlust
   (`transport.conduit.energy.loss = 5`).
 - **Liquiduct** (`TileConduitLiquid`, `GridLiquid`): Flüssigkeitsnetz.

@@ -1613,6 +1613,50 @@
       "mjMaxStored": 2400,
       "mjMinReceived": 0,
       "values": {}
+    },
+    {
+      "classes": [
+        "SteamEngineBlockEntity",
+        "TeEngineBlockEntity"
+      ],
+      "id": "steam_engine",
+      "kinds": [
+        "mj_receiver"
+      ],
+      "mjActivation": 0,
+      "mjMaxReceived": 100,
+      "mjMaxStored": 2000,
+      "mjMinReceived": 0,
+      "values": {}
+    },
+    {
+      "classes": [
+        "MagmaticEngineBlockEntity",
+        "TeEngineBlockEntity"
+      ],
+      "id": "magmatic_engine",
+      "kinds": [
+        "mj_receiver"
+      ],
+      "mjActivation": 0,
+      "mjMaxReceived": 200,
+      "mjMaxStored": 4000,
+      "mjMinReceived": 0,
+      "values": {}
+    },
+    {
+      "classes": [
+        "EnergyCellBlockEntity"
+      ],
+      "id": "redstone_energy_cell",
+      "kinds": [
+        "mj_receiver"
+      ],
+      "mjActivation": 0,
+      "mjMaxReceived": 100,
+      "mjMaxStored": 600000,
+      "mjMinReceived": 2,
+      "values": {}
     }
   ],
   "items": [

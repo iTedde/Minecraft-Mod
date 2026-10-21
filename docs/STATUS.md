@@ -2123,9 +2123,20 @@ Spezifikation: `docs/spec/26-thermal-expansion.md`.
 - [x] 4 neue GameTests, alle 417 grün; `gradlew test build` grün.
 - [ ] Client-Test (Tank-Modell, GUIs) – noch offen.
 
+## Erledigt (25.5 Dampf- und Magmamotor, Redstone-Energiezelle, 2026-10-21)
+- [x] Paket `energy/`: `TeEngineType`, `TeEngineBlock`/`TeEngineBlockEntity` (Leistungsrampe, Hub, Abgabe, Defekt + Reparatur,
+  Drehen), `SteamEngineBlockEntity` (Brennwerte inkl. Fuel-Handler-Liste), `MagmaticEngineBlockEntity`, `TeEngineMenu`;
+  `EnergyCellBlock`/`EnergyCellBlockEntity` (600 000 MJ, Senden/Empfangen, Licht), `EnergyCellItem` (Ladebalken, Tooltip),
+  `EnergyCellMenu`, Datenkomponente `craft:energy_cell`, Kreativ-Tab leer + voll.
+- [x] Client: `TeEngineRenderer` (Originalmodell mit Kolben/Ringen), `EnergyCellRenderer` (Rahmen + Ladekern, 16 animierte
+  Texturen aus `tools/te_redstone_fx.py`), Item-Renderer, `TeEngineScreen`, `EnergyCellScreen`; gemeinsame Reiter-Basis
+  `TeTabScreen` (aus `TeMachineScreen` herausgezogen), `TeRedstoneControl`.
+- [x] Rezepte, Loot, Spitzhacke, Lang en/de; 4 neue GameTests, alle 421 grün; `gradlew test build` grün.
+- [ ] Client-Test (Modelle, Animation, GUIs) – noch offen.
+
 ## Nächste Schritte
-1. Client-Tests 25.2 + 25.3 + 25.4 (Nutzer, 2026-10-21: „Tests später“).
+1. Client-Tests 25.2–25.5 (Nutzer, 2026-10-21: „Tests später“).
 2. Prüfen: GT `addPulverisationRecipe` mit Nebenprodukten (Feuerstein, Enderperle, Enderauge, Weizen, Pflanzenkugel,
    Dichte Kupferplatte, Crop) – der Macerator-Rückfall in 25.2 liefert nur das Hauptprodukt.
-3. 25.5: Dampf- und Magmamotor, Redstone-Energiezelle. Entschieden (Nutzer, 2026-10-20): vorhandene Craft-Items statt
-   TE-Duplikaten, nur Silber-, Blei- und Nickelerz, kompletter Umfang inkl. Tesserakte.
+3. 25.6: Redstone-Energieleitung (5 % Verlust; dabei den Motor-Sonderzweig für verlustbehaftete Empfänger nachziehen)
+   und Liquiduct; Multimeter-Funktion.

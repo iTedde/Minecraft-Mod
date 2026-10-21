@@ -241,6 +241,32 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
         block(TeBlocks.IGNEOUS_EXTRUDER, german ? "Gesteinsextruder" : "Igneous Extruder");
         block(TeBlocks.AQUEOUS_ACCUMULATOR, german ? "Wassersammler" : "Aqueous Accumulator");
         block(TeBlocks.PORTABLE_TANK, german ? "Tragbarer Tank" : "Portable Tank");
+        block(TeBlocks.STEAM_ENGINE, german ? "Dampfmotor" : "Steam Engine");
+        block(TeBlocks.MAGMATIC_ENGINE, german ? "Magmamotor" : "Magmatic Engine");
+        block(TeBlocks.ENERGY_CELL, german ? "Redstone-Energiezelle" : "Redstone Energy Cell");
+        add("gui.craft.te.power_output", german ? "Leistung" : "Power Output");
+        add("gui.craft.te.in", german ? "Ein" : "In");
+        add("gui.craft.te.out", german ? "Aus" : "Out");
+        add("gui.craft.te.info.steam_engine", german
+                ? "Erzeugt MJ aus festem Brennstoff und Wasser.\n\nGeht kaputt, wenn die Energie nicht abgegeben"
+                        + " werden kann.\n\nMit dem Schraubenschlüssel reparieren."
+                : "Generates MJ using solid fuel and water.\n\nWill break if the energy cannot be transferred."
+                        + "\n\nWrench to repair.");
+        add("gui.craft.te.info.magmatic_engine", german
+                ? "Erzeugt MJ aus viel Lava.\n\nGeht kaputt, wenn die Energie nicht abgegeben werden kann."
+                        + "\n\nMit dem Schraubenschlüssel reparieren."
+                : "Generates MJ using a lot of lava.\n\nWill break if the energy cannot be transferred."
+                        + "\n\nWrench to repair.");
+        add("gui.craft.te.info.redstone_energy_cell", german
+                ? "Speichert MJ. Rechtsklick ändert die Ein-/Ausgabegrenzen um 1.\n\nSchleichen + Schraubenschlüssel"
+                        + " baut die Zelle ab."
+                : "Stores MJ. Right click to change input/output limits by 1.\n\nWrench while sneaking to"
+                        + " dismantle.");
+        add("tooltip.craft.te.cell.charge", german ? "Ladung: %s MJ" : "Charge: %s MJ");
+        add("tooltip.craft.te.cell.send_receive", german ? "Senden/Empfangen: %s/%s" : "Send/Receive: %s/%s");
+        add("tooltip.craft.te.cell.signal_disabled", german ? "Signal: Aus" : "Signal: Disabled");
+        add("tooltip.craft.te.cell.signal_low", german ? "Signal: Ein, Aus" : "Signal: Enabled, Low");
+        add("tooltip.craft.te.cell.signal_high", german ? "Signal: Ein, An" : "Signal: Enabled, High");
         add("tooltip.craft.te.tank.liquid", german ? "Flüssigkeit: %s" : "Liquid: %s");
         add("tooltip.craft.te.tank.empty", german ? "Leer" : "Empty");
         add("tooltip.craft.te.tank.level", german ? "Füllstand: %s / %s mB" : "Level: %s / %s mB");

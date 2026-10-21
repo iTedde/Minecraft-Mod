@@ -6,6 +6,10 @@ import dev.craft.buildcraft.BcBlocks;
 import dev.craft.gregtech.GtItems;
 import dev.craft.buildcraft.power.BcCapabilities;
 import dev.craft.thermalexpansion.block.PortableTankBlockEntity;
+import dev.craft.thermalexpansion.energy.EnergyCellBlockEntity;
+import dev.craft.thermalexpansion.energy.EnergyCellData;
+import dev.craft.thermalexpansion.energy.MagmaticEngineBlockEntity;
+import dev.craft.thermalexpansion.energy.SteamEngineBlockEntity;
 import dev.craft.thermalexpansion.machine.CrucibleBlockEntity;
 import dev.craft.thermalexpansion.machine.GlacialPrecipitatorBlockEntity;
 import dev.craft.thermalexpansion.machine.IgneousExtruderBlockEntity;
@@ -271,6 +275,96 @@ public final class ThermalExpansionGameTests {
             IFluidHandler tank = helper.getLevel().getCapability(Capabilities.FluidHandler.BLOCK,
                     helper.absolutePos(POS.above()), Direction.DOWN);
             helper.assertTrue(tank != null && tank.getFluidInTank(0).getAmount() >= 1000, "1000 mB in the tank");
+        });
+    }
+
+    /** Steam engine fuel values ({@code getItemEnergyValue}): only mod fuel handlers count besides wood and coal. */
+    @GameTest(template = EMPTY)
+    public static void steamEngineFuelValues(GameTestHelper helper) {
+        helper.assertTrue(SteamEngineBlockEntity.getItemEnergyValue(new ItemStack(Items.COAL)) == 4800, "coal");
+        helper.assertTrue(SteamEngineBlockEntity.getItemEnergyValue(new ItemStack(Items.CHARCOAL)) == 3200,
+                "charcoal");
+        helper.assertTrue(SteamEngineBlockEntity.getItemEnergyValue(new ItemStack(Items.OAK_PLANKS)) == 450,
+                "planks");
+        helper.assertTrue(SteamEngineBlockEntity.getItemEnergyValue(new ItemStack(Items.OAK_LOG)) == 450, "log");
+        helper.assertTrue(SteamEngineBlockEntity.getItemEnergyValue(new ItemStack(Items.STICK)) == 150, "stick");
+        helper.assertTrue(SteamEngineBlockEntity.getItemEnergyValue(new ItemStack(Items.OAK_SAPLING)) == 150,
+                "sapling");
+        helper.assertTrue(SteamEngineBlockEntity.getItemEnergyValue(new ItemStack(Items.OAK_SIGN)) == 900, "sign");
+        helper.assertTrue(SteamEngineBlockEntity.getItemEnergyValue(new ItemStack(Items.OAK_DOOR)) == 0, "door");
+        helper.assertTrue(SteamEngineBlockEntity.getItemEnergyValue(new ItemStack(Items.LAVA_BUCKET)) == 0,
+                "lava bucket");
+        helper.assertTrue(SteamEngineBlockEntity.getItemEnergyValue(new ItemStack(Ic2Items.SCRAP.get())) == 525,
+                "scrap");
+        helper.succeed();
+    }
+
+    /** Steam engine: coal and water power an energy cell above it. */
+    @GameTest(template = EMPTY, timeoutTicks = 300)
+    public static void steamEngineChargesCell(GameTestHelper helper) {
+        helper.setBlock(POS, TeBlocks.STEAM_ENGINE.get());
+        helper.setBlock(POS.above(), TeBlocks.ENERGY_CELL.get());
+        SteamEngineBlockEntity engine = helper.getBlockEntity(POS);
+        EnergyCellBlockEntity cell = helper.getBlockEntity(POS.above());
+        engine.getFluidHandler(Direction.NORTH).fill(new FluidStack(Fluids.WATER, 1000),
+                IFluidHandler.FluidAction.EXECUTE);
+        engine.getInventory().set(0, new ItemStack(Items.COAL));
+        helper.succeedWhen(() -> {
+            helper.assertTrue(engine.isActive(), "engine runs");
+            helper.assertTrue(engine.getInventory().get(0).isEmpty(), "coal burnt");
+            helper.assertTrue(cell.getEnergy() >= 100.0F, "energy in the cell");
+        });
+    }
+
+    /** Magmatic engine: with a full cell in front its buffer fills up and it breaks; the wrench repairs it. */
+    @GameTest(template = EMPTY, timeoutTicks = 100)
+    public static void magmaticEngineBreaksWhenFull(GameTestHelper helper) {
+        helper.setBlock(POS, TeBlocks.MAGMATIC_ENGINE.get());
+        helper.setBlock(POS.above(), TeBlocks.ENERGY_CELL.get());
+        MagmaticEngineBlockEntity engine = helper.getBlockEntity(POS);
+        EnergyCellBlockEntity cell = helper.getBlockEntity(POS.above());
+        cell.setEnergy(EnergyCellBlockEntity.STORAGE);
+        engine.getFluidHandler(null).fill(new FluidStack(Fluids.LAVA, 1000), IFluidHandler.FluidAction.EXECUTE);
+        engine.getPowerProvider().setEnergyStored(3999.9F);
+        helper.runAfterDelay(10, () -> {
+            helper.assertTrue(engine.isShutdown(), "engine broke");
+            helper.assertTrue(engine.getEnergy() < 3300.0F, "buffer −20 %");
+            Player player = helper.makeMockPlayer(GameType.SURVIVAL);
+            player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(TeItems.CRESCENT_HAMMER.get()));
+            helper.useBlock(POS, player);
+            helper.assertFalse(engine.isShutdown(), "repaired");
+            helper.succeed();
+        });
+    }
+
+    /** Energy cell: sends up to its limit to a machine that asks (40 MJ/t), keeps its data when dismantled. */
+    @GameTest(template = EMPTY, timeoutTicks = 100)
+    public static void energyCellPowersMachine(GameTestHelper helper) {
+        TeMachineBlockEntity machine = machine(helper, TeBlocks.PULVERIZER.get());
+        helper.setBlock(POS.above(), TeBlocks.ENERGY_CELL.get());
+        EnergyCellBlockEntity cell = helper.getBlockEntity(POS.above());
+        cell.load(new EnergyCellData(10000.0F, 50, 100, false, false));
+        float[] received = new float[1];
+        helper.runAfterDelay(3, () -> {
+            received[0] = machine.getEnergy();
+            helper.assertTrue(received[0] >= 40.0F && received[0] % 40.0F < 0.01F, "40 MJ per tick");
+            helper.assertTrue(Math.abs(cell.getEnergy() + received[0] - 10000.0F) < 0.01F, "taken from the cell");
+            cell.setLimits(0, 100);
+        });
+        helper.runAfterDelay(8, () -> {
+            helper.assertTrue(Math.abs(machine.getEnergy() - received[0]) < 0.01F, "send limit 0 stops it");
+            Player player = helper.makeMockPlayer(GameType.SURVIVAL);
+            player.setShiftKeyDown(true);
+            player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(TeItems.CRESCENT_HAMMER.get()));
+            helper.useBlock(POS.above(), player);
+            helper.assertBlockNotPresent(TeBlocks.ENERGY_CELL.get(), POS.above());
+            ItemEntity drop = helper.getLevel().getEntitiesOfClass(ItemEntity.class,
+                    new AABB(helper.absolutePos(POS.above())).inflate(1.0)).stream().findFirst().orElseThrow();
+            EnergyCellData data = drop.getItem().get(TeDataComponents.ENERGY_CELL.get());
+            helper.assertTrue(data != null && data.send() == 0
+                            && Math.abs(data.energy() + received[0] - 10000.0F) < 0.01F,
+                    "dismantled with its charge and limits");
+            helper.succeed();
         });
     }
 

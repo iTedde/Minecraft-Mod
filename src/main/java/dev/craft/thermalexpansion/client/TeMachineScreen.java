@@ -1,8 +1,8 @@
 package dev.craft.thermalexpansion.client;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import dev.craft.thermalexpansion.TeRedstoneControl;
 import dev.craft.thermalexpansion.machine.AqueousAccumulatorBlockEntity;
 import dev.craft.thermalexpansion.machine.SelectionMachineBlockEntity;
 import dev.craft.thermalexpansion.machine.TankMachineBlockEntity;
@@ -15,22 +15,16 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
-import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
 import org.jetbrains.annotations.Nullable;
 
 /**
@@ -38,21 +32,11 @@ import org.jetbrains.annotations.Nullable;
  * side groups in use (slot borders on, as in the pack config), the energy, redstone and configuration tabs on the
  * right and the information and tutorial tabs on the left.
  */
-public class TeMachineScreen extends AbstractContainerScreen<TeMachineMenu> {
+public class TeMachineScreen extends TeTabScreen<TeMachineMenu> {
     private static final ResourceLocation COMMON = TeTab.texture("common");
-    private static final int SCALE_ENERGY = 42;
     private static final int SCALE_PROGRESS = 24;
-    private static final int SCALE_SPEED = 16;
-    private static final int SCALE_LIQUID = 60;
-    /** {@code SessionVars}: the tab classes that stay open for the next GUI. */
-    @Nullable
-    private static Class<?> openedLeftTab;
-    @Nullable
-    private static Class<?> openedRightTab;
 
     private final ResourceLocation texture;
-    private final List<TeTab> leftTabs = new ArrayList<>();
-    private final List<TeTab> rightTabs = new ArrayList<>();
 
     public TeMachineScreen(TeMachineMenu menu, Inventory inventory, Component title) {
         super(menu, inventory, title);
@@ -84,65 +68,38 @@ public class TeMachineScreen extends AbstractContainerScreen<TeMachineMenu> {
         addTab(new TextTab(true, 0x5A09BB, 1, "gui.craft.te.tutorial", tutorial));
     }
 
-    private void addTab(TeTab tab) {
-        if (tab.leftSide) {
-            leftTabs.add(tab);
-            if (tab.getClass() == openedLeftTab) {
-                tab.setFullyOpen();
-            }
-        } else {
-            rightTabs.add(tab);
-            if (tab.getClass() == openedRightTab) {
-                tab.setFullyOpen();
-            }
-        }
-    }
-
     @Nullable
     private TeMachineBlockEntity machine() {
         return minecraft != null && minecraft.level != null
                 && minecraft.level.getBlockEntity(menu.getPos()) instanceof TeMachineBlockEntity machine ? machine : null;
     }
 
+    @Nullable
     @Override
-    protected void init() {
-        super.init();
-        titleLabelX = (imageWidth - font.width(title)) / 2;
+    protected TeRedstoneControl redstoneControl() {
+        return machine();
     }
 
     @Override
-    public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
-        super.render(graphics, mouseX, mouseY, partialTick);
-        TeTab tab = tabAt(mouseX - leftPos, mouseY - topPos);
-        Component tooltip = tab != null ? tab.getTooltip() : null;
-        if (tooltip != null) {
-            graphics.renderTooltip(font, tooltip, mouseX, mouseY);
-        } else if (tab == null) {
-            renderTooltip(graphics, mouseX, mouseY);
-            int x = mouseX - leftPos;
-            int y = mouseY - topPos;
-            TeMachineType type = menu.getMachineType();
-            if (!menu.getCarried().isEmpty()) {
-                return;
-            }
-            if (type.isPowered() && x >= 10 && x < 22 && y >= 9 && y < 49) {
-                graphics.renderTooltip(font, Component.literal((int) menu.getEnergy() + " / "
-                        + type.getMaxEnergy() + " MJ"), mouseX, mouseY);
-            }
-            int capacity = tankCapacity(type);
-            if (capacity > 0 && x >= 152 && x < 168 && y >= 9 && y < 69) {
-                graphics.renderTooltip(font, Component.literal(menu.getFluidAmount() + " / " + capacity + " mB"),
-                        mouseX, mouseY);
-            }
-            if (type == TeMachineType.IGNEOUS_EXTRUDER && x >= 8 && x < 24 && y >= 9 && y < 69) {
-                graphics.renderTooltip(font, Component.literal(menu.getFluid2Amount() + " / " + capacity + " mB"),
-                        mouseX, mouseY);
-            }
-            int selection = selectionAt(x, y);
-            if (selection >= 0) {
-                graphics.renderTooltip(font, SelectionMachineBlockEntity.products(type).get(selection), mouseX,
-                        mouseY);
-            }
+    protected void renderGaugeTooltips(GuiGraphics graphics, int mouseX, int mouseY, int x, int y) {
+        TeMachineType type = menu.getMachineType();
+        if (type.isPowered() && x >= 10 && x < 22 && y >= 9 && y < 49) {
+            graphics.renderTooltip(font, Component.literal((int) menu.getEnergy() + " / "
+                    + type.getMaxEnergy() + " MJ"), mouseX, mouseY);
+        }
+        int capacity = tankCapacity(type);
+        if (capacity > 0 && x >= 152 && x < 168 && y >= 9 && y < 69) {
+            graphics.renderTooltip(font, Component.literal(menu.getFluidAmount() + " / " + capacity + " mB"),
+                    mouseX, mouseY);
+        }
+        if (type == TeMachineType.IGNEOUS_EXTRUDER && x >= 8 && x < 24 && y >= 9 && y < 69) {
+            graphics.renderTooltip(font, Component.literal(menu.getFluid2Amount() + " / " + capacity + " mB"),
+                    mouseX, mouseY);
+        }
+        int selection = selectionAt(x, y);
+        if (selection >= 0) {
+            graphics.renderTooltip(font, SelectionMachineBlockEntity.products(type).get(selection), mouseX,
+                    mouseY);
         }
     }
 
@@ -346,27 +303,6 @@ public class TeMachineScreen extends AbstractContainerScreen<TeMachineMenu> {
         }
     }
 
-    /** {@code drawLiquid}: the still texture of {@code fluid}, tiled in 16 px pieces over the area. */
-    private void drawLiquid(GuiGraphics graphics, Fluid fluid, int x, int y, int width, int height) {
-        if (fluid == Fluids.EMPTY || minecraft == null) {
-            return;
-        }
-        IClientFluidTypeExtensions extensions = IClientFluidTypeExtensions.of(fluid);
-        TextureAtlasSprite sprite = minecraft.getTextureAtlas(InventoryMenu.BLOCK_ATLAS)
-                .apply(extensions.getStillTexture());
-        int tint = extensions.getTintColor();
-        float red = (tint >> 16 & 0xFF) / 255.0F;
-        float green = (tint >> 8 & 0xFF) / 255.0F;
-        float blue = (tint & 0xFF) / 255.0F;
-        graphics.enableScissor(x, y, x + width, y + height);
-        for (int dx = 0; dx < width; dx += 16) {
-            for (int dy = 0; dy < height; dy += 16) {
-                graphics.blit(x + dx, y + dy, 0, 16, 16, sprite, red, green, blue, 1.0F);
-            }
-        }
-        graphics.disableScissor();
-    }
-
     /** {@code drawColoredLiquidSlotWithBorder}. */
     private static void coloredLiquidSlot(GuiGraphics graphics, int x, int y, SlotColor color) {
         graphics.blit(COMMON, x - 8, y - 2, color.ordinal() * 32, 96, 32, 64);
@@ -445,98 +381,21 @@ public class TeMachineScreen extends AbstractContainerScreen<TeMachineMenu> {
     }
 
     @Override
-    protected void renderLabels(GuiGraphics graphics, int mouseX, int mouseY) {
-        super.renderLabels(graphics, mouseX, mouseY);
-        int y = 4;
-        for (TeTab tab : leftTabs) {
-            tab.update();
-            tab.shiftX = 0;
-            tab.shiftY = y;
-            tab.draw(graphics, font, 0, y);
-            y += tab.currentHeight;
-        }
-        y = 4;
-        for (TeTab tab : rightTabs) {
-            tab.update();
-            tab.shiftX = imageWidth;
-            tab.shiftY = y;
-            tab.draw(graphics, font, imageWidth, y);
-            y += tab.currentHeight;
-        }
-    }
-
-    @Nullable
-    private TeTab tabAt(int x, int y) {
-        for (TeTab tab : leftTabs) {
-            if (tab.intersects(x, y)) {
-                return tab;
+    protected boolean clickBackground(int x, int y, int button) {
+        if (menu.getMachineType() == TeMachineType.LIQUID_TRANSPOSER && x >= 116 && x < 132 && y >= 49 && y < 65) {
+            // GuiTransposer: only while no mode change is pending.
+            if (menu.isReverse() == menu.getReverseFlag()) {
+                pressButton(TeMachineMenu.BUTTON_MODE, menu.isReverse() ? 0.8F : 0.6F);
             }
+            return true;
         }
-        for (TeTab tab : rightTabs) {
-            if (tab.intersects(x, y)) {
-                return tab;
-            }
+        int selection = selectionAt(x, y);
+        if (selection >= 0) {
+            // GuiIceGen.mouseClicked: no click sound.
+            sendButton(TeMachineMenu.BUTTON_SELECTION + selection);
+            return true;
         }
-        return null;
-    }
-
-    @Override
-    public boolean mouseClicked(double mouseX, double mouseY, int button) {
-        TeTab tab = tabAt((int) mouseX - leftPos, (int) mouseY - topPos);
-        if (tab == null) {
-            int x = (int) mouseX - leftPos;
-            int y = (int) mouseY - topPos;
-            if (menu.getMachineType() == TeMachineType.LIQUID_TRANSPOSER && x >= 116 && x < 132 && y >= 49
-                    && y < 65) {
-                // GuiTransposer: only while no mode change is pending.
-                if (menu.isReverse() == menu.getReverseFlag()) {
-                    pressButton(TeMachineMenu.BUTTON_MODE, menu.isReverse() ? 0.8F : 0.6F);
-                }
-                return true;
-            }
-            int selection = selectionAt(x, y);
-            if (selection >= 0) {
-                // GuiIceGen.mouseClicked: no click sound.
-                if (minecraft != null && minecraft.gameMode != null) {
-                    minecraft.gameMode.handleInventoryButtonClick(menu.containerId,
-                            TeMachineMenu.BUTTON_SELECTION + selection);
-                }
-                return true;
-            }
-            return super.mouseClicked(mouseX, mouseY, button);
-        }
-        if (!tab.mouseClicked((int) mouseX - leftPos - tab.shiftX, (int) mouseY - topPos - tab.shiftY, button)) {
-            for (TeTab other : tab.leftSide ? leftTabs : rightTabs) {
-                if (other != tab && other.open) {
-                    other.open = false;
-                }
-            }
-            tab.open = !tab.open;
-            Class<?> opened = tab.open ? tab.getClass() : null;
-            if (tab.leftSide) {
-                openedLeftTab = opened;
-            } else {
-                openedRightTab = opened;
-            }
-        }
-        return true;
-    }
-
-    @Override
-    protected boolean hasClickedOutside(double mouseX, double mouseY, int left, int top, int button) {
-        return tabAt((int) mouseX - left, (int) mouseY - top) == null
-                && super.hasClickedOutside(mouseX, mouseY, left, top, button);
-    }
-
-    private void pressButton(int id, float pitch) {
-        if (minecraft != null && minecraft.gameMode != null) {
-            minecraft.gameMode.handleInventoryButtonClick(menu.containerId, id);
-            minecraft.getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_BUTTON_CLICK, pitch));
-        }
-    }
-
-    private static String format(float value) {
-        return String.format("%.1f", value);
+        return false;
     }
 
     private enum SlotColor { BLUE, RED, YELLOW, ORANGE, GREEN, PURPLE }
@@ -575,92 +434,6 @@ public class TeMachineScreen extends AbstractContainerScreen<TeMachineMenu> {
         @Override
         public Component getTooltip() {
             return isFullyOpened() ? null : Component.literal(format(menu.getPower()) + " MJ/t");
-        }
-    }
-
-    /** {@code TabRedstone}. */
-    private final class RedstoneTab extends TeTab {
-        RedstoneTab() {
-            super(false, 0xD0230A);
-            maxHeight = 92;
-            maxWidth = 112;
-        }
-
-        @Override
-        public void draw(GuiGraphics graphics, Font font, int x, int y) {
-            drawBackground(graphics, x, y);
-            if (isFullyOpened()) {
-                drawPanel(graphics, x + 24, y + 16, 64, 24);
-            }
-            drawIcon(graphics, 2, x + 2, y + 2);
-            TeMachineBlockEntity machine = machine();
-            if (!isFullyOpened() || machine == null) {
-                return;
-            }
-            graphics.drawString(font, Component.translatable("gui.craft.te.redstone_control"), x + 20, y + 6,
-                    HEADER_COLOR);
-            graphics.drawString(font, Component.translatable("gui.craft.te.control_status").append(":"), x + 16,
-                    y + 42, SUBHEADER_COLOR);
-            String state;
-            if (machine.getRedstoneDisable()) {
-                drawIcon(graphics, 80, x + 28, y + 20);
-                drawIcon(graphics, 65, x + 48, y + 20);
-                drawIcon(graphics, 66, x + 68, y + 20);
-                state = "gui.craft.te.redstone_state_ignored";
-            } else if (machine.getRedstoneState()) {
-                drawIcon(graphics, 64, x + 28, y + 20);
-                drawIcon(graphics, 65, x + 48, y + 20);
-                drawIcon(graphics, 82, x + 68, y + 20);
-                state = "gui.craft.te.redstone_state_high";
-            } else {
-                drawIcon(graphics, 64, x + 28, y + 20);
-                drawIcon(graphics, 81, x + 48, y + 20);
-                drawIcon(graphics, 66, x + 68, y + 20);
-                state = "gui.craft.te.redstone_state_low";
-            }
-            graphics.drawString(font, Component.translatable(machine.getRedstoneDisable()
-                    ? "gui.craft.te.redstone_control_off" : "gui.craft.te.redstone_control_on"), x + 24, y + 54,
-                    TEXT_COLOR, false);
-            graphics.drawString(font, Component.translatable("gui.craft.te.signal_required").append(":"), x + 16,
-                    y + 66, SUBHEADER_COLOR);
-            graphics.drawString(font, Component.translatable(state), x + 24, y + 78, TEXT_COLOR, false);
-        }
-
-        @Override
-        public Component getTooltip() {
-            TeMachineBlockEntity machine = machine();
-            if (isFullyOpened() || machine == null) {
-                return null;
-            }
-            if (machine.getRedstoneDisable()) {
-                return Component.translatable("gui.craft.te.redstone_control_off");
-            }
-            return Component.translatable("gui.craft.te.redstone_control_on").append(", ").append(
-                    Component.translatable(machine.getRedstoneState() ? "gui.craft.te.redstone_state_high"
-                            : "gui.craft.te.redstone_state_low"));
-        }
-
-        @Override
-        public boolean mouseClicked(int x, int y, int button) {
-            TeMachineBlockEntity machine = machine();
-            if (!isFullyOpened() || machine == null) {
-                return false;
-            }
-            if (x < 24 || x > 88 || y < 16 || y > 40) {
-                return false;
-            }
-            if (y >= 20 && y < 36) {
-                boolean disable = machine.getRedstoneDisable();
-                boolean state = machine.getRedstoneState();
-                if (x >= 28 && x < 44 && !disable) {
-                    pressButton(TeMachineMenu.BUTTON_REDSTONE_IGNORED, 0.4F);
-                } else if (x >= 48 && x < 64 && (disable || state)) {
-                    pressButton(TeMachineMenu.BUTTON_REDSTONE_LOW, 0.6F);
-                } else if (x >= 68 && x < 84 && (disable || !state)) {
-                    pressButton(TeMachineMenu.BUTTON_REDSTONE_HIGH, 0.8F);
-                }
-            }
-            return true;
         }
     }
 
@@ -755,45 +528,6 @@ public class TeMachineScreen extends AbstractContainerScreen<TeMachineMenu> {
                 }
             }
             return true;
-        }
-    }
-
-    /** {@code TabInfo} and {@code TabTutorial}: a left tab with wrapped white text. */
-    private static final class TextTab extends TeTab {
-        private final int icon;
-        private final String header;
-        private final Component text;
-        private List<FormattedCharSequence> lines = List.of();
-
-        TextTab(boolean left, int color, int icon, String header, Component text) {
-            super(left, color);
-            this.icon = icon;
-            this.header = header;
-            this.text = text;
-        }
-
-        @Override
-        public void draw(GuiGraphics graphics, Font font, int x, int y) {
-            if (lines.isEmpty()) {
-                lines = font.split(text, maxWidth - 8);
-                maxHeight = 22 + 4 + lines.size() * font.lineHeight;
-            }
-            drawBackground(graphics, x, y);
-            drawIcon(graphics, icon, x + 4 - currentWidth, y + 3);
-            if (isFullyOpened()) {
-                graphics.drawString(font, Component.translatable(header), x - currentWidth + 22, y + 6,
-                        HEADER_COLOR);
-                int lineY = y + 20;
-                for (FormattedCharSequence line : lines) {
-                    graphics.drawString(font, line, x + 8 - currentWidth, lineY, 0xFFFFFF, false);
-                    lineY += font.lineHeight;
-                }
-            }
-        }
-
-        @Override
-        public Component getTooltip() {
-            return isFullyOpened() ? null : Component.translatable(header);
         }
     }
 }

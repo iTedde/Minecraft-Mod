@@ -29,7 +29,9 @@ import dev.craft.powerconverters.PcItems;
 import dev.craft.powerplants.PpItems;
 import dev.craft.redpower.RpGem;
 import dev.craft.redpower.RpItems;
+import dev.craft.thermalexpansion.TeDataComponents;
 import dev.craft.thermalexpansion.TeItems;
+import dev.craft.thermalexpansion.energy.EnergyCellData;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -245,8 +247,15 @@ public final class CraftCreativeTabs {
                     .title(Component.translatable("itemGroup.craft.thermal_expansion"))
                     .icon(() -> TeItems.MACHINE_FRAME.toStack())
                     .withTabsBefore(ResourceLocation.fromNamespaceAndPath(Craft.MODID, "advanced_machines"))
-                    .displayItems((parameters, output) -> TeItems.ITEMS.getEntries()
-                            .forEach(item -> output.accept(item.get())))
+                    .displayItems((parameters, output) -> TeItems.ITEMS.getEntries().forEach(item -> {
+                        output.accept(item.get());
+                        // BlockEnergyCell.getSubBlocks: an empty and a full cell.
+                        if (item == TeItems.ENERGY_CELL) {
+                            ItemStack full = new ItemStack(TeItems.ENERGY_CELL.get());
+                            full.set(TeDataComponents.ENERGY_CELL.get(), EnergyCellData.FULL);
+                            output.accept(full);
+                        }
+                    }))
                     .build());
 
     private CraftCreativeTabs() {

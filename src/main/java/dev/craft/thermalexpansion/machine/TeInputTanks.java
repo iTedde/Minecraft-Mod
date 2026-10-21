@@ -9,11 +9,11 @@ import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
  * tank that takes the liquid, nothing can be drained ({@code drain} returns {@code null} in the original). The
  * accumulator only shows its tank ({@code fill} returns 0).
  */
-final class TeInputTanks implements IFluidHandler {
+public final class TeInputTanks implements IFluidHandler {
     private final boolean fillable;
     private final FluidTank[] tanks;
 
-    TeInputTanks(boolean fillable, FluidTank... tanks) {
+    public TeInputTanks(boolean fillable, FluidTank... tanks) {
         this.fillable = fillable;
         this.tanks = tanks;
     }

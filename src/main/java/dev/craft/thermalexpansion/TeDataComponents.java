@@ -1,6 +1,7 @@
 package dev.craft.thermalexpansion;
 
 import dev.craft.Craft;
+import dev.craft.thermalexpansion.energy.EnergyCellData;
 import net.minecraft.core.component.DataComponentType;
 import net.neoforged.neoforge.fluids.SimpleFluidContent;
 import net.neoforged.neoforge.registries.DeferredHolder;
@@ -15,6 +16,12 @@ public final class TeDataComponents {
             COMPONENTS.registerComponentType("tank_liquid", builder -> builder
                     .persistent(SimpleFluidContent.CODEC)
                     .networkSynchronized(SimpleFluidContent.STREAM_CODEC));
+
+    /** Charge, limits and redstone mode of a dismantled energy cell. */
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<EnergyCellData>> ENERGY_CELL =
+            COMPONENTS.registerComponentType("energy_cell", builder -> builder
+                    .persistent(EnergyCellData.CODEC)
+                    .networkSynchronized(EnergyCellData.STREAM_CODEC));
 
     private TeDataComponents() {
     }

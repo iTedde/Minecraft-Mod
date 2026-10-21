@@ -6,6 +6,7 @@ import dev.craft.buildcraft.transport.ItemPipeBlockEntity;
 import dev.craft.buildcraft.transport.PipeConnections;
 import dev.craft.buildcraft.transport.TravelingItem;
 import dev.craft.ic2.machine.MachineInventory;
+import dev.craft.thermalexpansion.TeRedstoneControl;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -40,7 +41,8 @@ import org.jetbrains.annotations.Nullable;
  * the MJ buffer ({@code PowerProviderAdv}) and the process loop. Subclasses implement the recipe hooks. Machines
  * without power (extruder, accumulator) override {@link #serverTick()}.
  */
-public abstract class TeMachineBlockEntity extends BlockEntity implements MenuProvider, PowerReceptor {
+public abstract class TeMachineBlockEntity extends BlockEntity implements MenuProvider, PowerReceptor,
+        TeRedstoneControl {
     /** Side groups for the model: one byte per direction, packed. */
     public static final ModelProperty<Long> SIDES = new ModelProperty<>();
     /** {@code TileMachineRoot.updateIfChanged}: the client sees "inactive" only 200 ticks after the machine stopped. */

@@ -1,5 +1,7 @@
 package dev.craft.thermalexpansion.client;
 
+import java.util.function.Supplier;
+
 import dev.craft.Craft;
 import dev.craft.thermalexpansion.TeBlockEntityTypes;
 import dev.craft.thermalexpansion.TeFluids;
@@ -17,7 +19,7 @@ import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 
-/** Client side of Thermal Expansion (spec 26): machine screens and model, liquid textures. */
+/** Client side of Thermal Expansion (spec 26): screens, machine model, renderers, liquid textures. */
 @EventBusSubscriber(modid = Craft.MODID, value = Dist.CLIENT)
 public final class ThermalExpansionClient {
     private ThermalExpansionClient() {
@@ -26,6 +28,8 @@ public final class ThermalExpansionClient {
     @SubscribeEvent
     public static void registerScreens(RegisterMenuScreensEvent event) {
         event.register(TeMenus.MACHINE.get(), TeMachineScreen::new);
+        event.register(TeMenus.ENGINE.get(), TeEngineScreen::new);
+        event.register(TeMenus.ENERGY_CELL.get(), EnergyCellScreen::new);
     }
 
     @SubscribeEvent
@@ -36,28 +40,41 @@ public final class ThermalExpansionClient {
     @SubscribeEvent
     public static void registerLayers(EntityRenderersEvent.RegisterLayerDefinitions event) {
         event.registerLayerDefinition(PortableTankRenderer.LAYER, PortableTankRenderer::createLayer);
+        event.registerLayerDefinition(TeEngineRenderer.LAYER, TeEngineRenderer::createLayer);
+        event.registerLayerDefinition(EnergyCellRenderer.LAYER, EnergyCellRenderer::createLayer);
     }
 
     @SubscribeEvent
     public static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerBlockEntityRenderer(TeBlockEntityTypes.PORTABLE_TANK.get(), PortableTankRenderer::new);
+        event.registerBlockEntityRenderer(TeBlockEntityTypes.STEAM_ENGINE.get(), TeEngineRenderer::new);
+        event.registerBlockEntityRenderer(TeBlockEntityTypes.MAGMATIC_ENGINE.get(), TeEngineRenderer::new);
+        event.registerBlockEntityRenderer(TeBlockEntityTypes.ENERGY_CELL.get(), EnergyCellRenderer::new);
     }
 
     @SubscribeEvent
     public static void registerClientExtensions(RegisterClientExtensionsEvent event) {
-        event.registerItem(new IClientItemExtensions() {
+        event.registerItem(itemRenderer(PortableTankItemRenderer::new), TeItems.PORTABLE_TANK.get());
+        event.registerItem(itemRenderer(TeEngineItemRenderer::new), TeItems.STEAM_ENGINE.get(),
+                TeItems.MAGMATIC_ENGINE.get());
+        event.registerItem(itemRenderer(EnergyCellItemRenderer::new), TeItems.ENERGY_CELL.get());
+        event.registerFluidType(liquid("molten_redstone"), TeFluids.MOLTEN_REDSTONE_TYPE.get());
+        event.registerFluidType(liquid("molten_ender"), TeFluids.MOLTEN_ENDER_TYPE.get());
+    }
+
+    /** An item drawn by a block-entity-style renderer, created on first use. */
+    private static IClientItemExtensions itemRenderer(Supplier<BlockEntityWithoutLevelRenderer> factory) {
+        return new IClientItemExtensions() {
             private BlockEntityWithoutLevelRenderer renderer;
 
             @Override
             public BlockEntityWithoutLevelRenderer getCustomRenderer() {
                 if (renderer == null) {
-                    renderer = new PortableTankItemRenderer();
+                    renderer = factory.get();
                 }
                 return renderer;
             }
-        }, TeItems.PORTABLE_TANK.get());
-        event.registerFluidType(liquid("molten_redstone"), TeFluids.MOLTEN_REDSTONE_TYPE.get());
-        event.registerFluidType(liquid("molten_ender"), TeFluids.MOLTEN_ENDER_TYPE.get());
+        };
     }
 
     /** The 1.4.7 liquid icon is a still 16×16 sprite; it serves as still and flowing texture. */

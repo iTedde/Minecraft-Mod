@@ -136,6 +136,9 @@
     "craft:liquid_transposer",
     "craft:glacial_precipitator",
     "craft:igneous_extruder",
-    "craft:aqueous_accumulator"
+    "craft:aqueous_accumulator",
+    "craft:steam_engine",
+    "craft:magmatic_engine",
+    "craft:redstone_energy_cell"
   ]
 }
