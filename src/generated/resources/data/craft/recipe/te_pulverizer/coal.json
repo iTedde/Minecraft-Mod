@@ -1,0 +1,15 @@
+{
+  "type": "craft:te_pulverizer",
+  "chance": 0,
+  "energy": 160,
+  "inputs": [
+    {
+      "count": 1,
+      "item": "minecraft:coal"
+    }
+  ],
+  "primary": {
+    "count": 1,
+    "id": "craft:coal_dust"
+  }
+}

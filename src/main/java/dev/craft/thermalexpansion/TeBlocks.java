@@ -5,6 +5,14 @@ import java.util.Map;
 
 import dev.craft.Craft;
 import dev.craft.thermalexpansion.block.HardenedGlassBlock;
+import dev.craft.thermalexpansion.machine.PoweredFurnaceBlockEntity;
+import dev.craft.thermalexpansion.machine.SecondaryOutputMachineBlockEntity;
+import dev.craft.thermalexpansion.machine.TeMachineBlock;
+import dev.craft.thermalexpansion.machine.TeMachineBlockEntity;
+import dev.craft.thermalexpansion.machine.TeMachineType;
+import java.util.function.BiFunction;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
@@ -33,6 +41,13 @@ public final class TeBlocks {
                     .isValidSpawn((state, level, pos, type) -> false).isRedstoneConductor((s, l, p) -> false)
                     .isSuffocating((s, l, p) -> false).isViewBlocking((s, l, p) -> false)));
 
+    public static final DeferredBlock<TeMachineBlock> POWERED_FURNACE = machine(TeMachineType.POWERED_FURNACE,
+            PoweredFurnaceBlockEntity::new);
+    public static final DeferredBlock<TeMachineBlock> PULVERIZER = machine(TeMachineType.PULVERIZER,
+            SecondaryOutputMachineBlockEntity::pulverizer);
+    public static final DeferredBlock<TeMachineBlock> SAWMILL = machine(TeMachineType.SAWMILL,
+            SecondaryOutputMachineBlockEntity::sawmill);
+
     private static final Map<DyeColor, DeferredBlock<Block>> ROCKWOOL = new EnumMap<>(DyeColor.class);
 
     static {
@@ -49,6 +64,14 @@ public final class TeBlocks {
 
     public static DeferredBlock<Block> rockwool(DyeColor color) {
         return ROCKWOOL.get(color);
+    }
+
+    /** {@code BlockMachine}: Material.iron (any pickaxe), hardness 15, {@code setResistance(25)} = 15. */
+    private static DeferredBlock<TeMachineBlock> machine(TeMachineType type,
+                                                         BiFunction<BlockPos, BlockState, ? extends TeMachineBlockEntity> factory) {
+        return BLOCKS.register(type.getName(), () -> new TeMachineBlock(BlockBehaviour.Properties.of()
+                .mapColor(MapColor.METAL).requiresCorrectToolForDrops().strength(15.0F, 15.0F).sound(SoundType.METAL),
+                type, factory));
     }
 
     private static DeferredBlock<Block> ore(String name) {

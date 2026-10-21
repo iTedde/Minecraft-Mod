@@ -1,0 +1,23 @@
+{
+  "type": "craft:te_pulverizer",
+  "chance": 0,
+  "energy": 80,
+  "inputs": [
+    {
+      "type": "neoforge:compound",
+      "children": [
+        {
+          "item": "minecraft:emerald_ore"
+        },
+        {
+          "item": "minecraft:deepslate_emerald_ore"
+        }
+      ],
+      "count": 1
+    }
+  ],
+  "primary": {
+    "count": 1,
+    "id": "minecraft:emerald"
+  }
+}

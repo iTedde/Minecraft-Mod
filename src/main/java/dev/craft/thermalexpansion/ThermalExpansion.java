@@ -1,9 +1,16 @@
 package dev.craft.thermalexpansion;
 
+import java.util.List;
 import java.util.Set;
 
+import dev.craft.buildcraft.power.BcCapabilities;
 import dev.craft.gregtech.GtItems;
+import dev.craft.thermalexpansion.machine.TeMachineBlockEntity;
+import dev.craft.thermalexpansion.recipe.TeRecipes;
 import dev.craft.thermalexpansion.world.TeWorldGen;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.entries.EmptyLootItem;
@@ -32,7 +39,20 @@ public final class ThermalExpansion {
         TeFluids.FLUID_TYPES.register(modBus);
         TeFluids.FLUIDS.register(modBus);
         TeWorldGen.FEATURES.register(modBus);
+        TeBlockEntityTypes.BLOCK_ENTITY_TYPES.register(modBus);
+        TeMenus.MENUS.register(modBus);
+        TeRecipes.TYPES.register(modBus);
+        TeRecipes.SERIALIZERS.register(modBus);
+        modBus.addListener(ThermalExpansion::registerCapabilities);
         NeoForge.EVENT_BUS.addListener(ThermalExpansion::onLootTableLoad);
+    }
+
+    private static void registerCapabilities(RegisterCapabilitiesEvent event) {
+        for (BlockEntityType<? extends TeMachineBlockEntity> type : List.of(TeBlockEntityTypes.POWERED_FURNACE.get(),
+                TeBlockEntityTypes.PULVERIZER.get(), TeBlockEntityTypes.SAWMILL.get())) {
+            event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, type, TeMachineBlockEntity::getItemHandler);
+            event.registerBlockEntity(BcCapabilities.POWER_RECEPTOR, type, (machine, side) -> machine);
+        }
     }
 
     /**

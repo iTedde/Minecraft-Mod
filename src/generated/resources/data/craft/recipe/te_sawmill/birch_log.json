@@ -1,0 +1,18 @@
+{
+  "type": "craft:te_sawmill",
+  "energy": 80,
+  "inputs": [
+    {
+      "count": 1,
+      "item": "minecraft:birch_log"
+    }
+  ],
+  "primary": {
+    "count": 6,
+    "id": "minecraft:birch_planks"
+  },
+  "secondary": {
+    "count": 1,
+    "id": "craft:sawdust"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "type": "craft:te_sawmill",
+  "chance": 0,
+  "energy": 240,
+  "inputs": [
+    {
+      "count": 1,
+      "item": "minecraft:oak_pressure_plate"
+    }
+  ],
+  "primary": {
+    "count": 2,
+    "id": "minecraft:oak_planks"
+  }
+}

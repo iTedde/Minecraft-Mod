@@ -112,6 +112,66 @@ Barren→Staub, Sandstein, Netherrack, Zuckerrohr, Knochen, Lohenrute (Wolle aus
 Lava 2/Wasser 1000, Obsidian 1000/1000 mB; Wassersammler 25 mB/Tick-Stufe; Netherrack im Magmatiegel 12 000 MJ →
 1000 mB Lava; Lava = 20 000 MJ (`core.lava.mj`).
 
+### 4.1 Elektrischer Ofen, Pulverisierer, Sägewerk (25.2)
+
+Ablauf je Maschine (`TileFurnace`, `TilePulverizer`, `TileSawmill`): Start nur mit Rezept, Energie ≥ Rezeptenergie und
+Platz für die Ausgabe; der Ofen nimmt immer **ein** Item, Pulverisierer/Sägewerk die Rezeptmenge. Hauptausgabe
+Pulverisierer/Sägewerk über zwei Slots verteilt, Nebenprodukt (Slot 4) mit Chance in %. Auswurf im Leerlauf alle
+40 Ticks bis zu 4 Items je Slot in ein Rohr oder Inventar an einer Ausgabeseite (reihum über die Seiten).
+Seitengruppen: Ofen 0 keine · 1 Eingabe · 2 Ausgabe · 3 offen; Pulverisierer/Sägewerk 0 keine · 1 Eingabe ·
+2 Haupt- · 3 Nebenausgabe · 4 beide Ausgaben (Auswurf) · 5 offen. Beim Platzieren: Front 0, links und hinten 1, Rest
+Vorgabe (Ofen unten/oben 1, Seiten 2; Pulverisierer/Sägewerk unten/oben 3, Seiten 2). Redstone-Vorgabe: läuft nur
+**ohne** Signal. GUI: Reiter Energie/Redstone/Konfiguration rechts, Information/Anleitung links (Pack-Config
+`tabs.info`/`tabs.tutorial` = an, Slot-Rahmen an); Konfiguration: Klick weiter, Rechtsklick zurück, Shift-Klick
+setzt die Seite auf 0 (auf der Front: alle Seiten zurücksetzen).
+
+Rückfall-Rezepte: Ofen jedes Ofenrezept (160 MJ); Pulverisierer jedes Macerator-Rezept (400 MJ, GT
+`addPulverisationRecipe`), Sägewerk Macerator-Rezepte mit Holzschliff als Ergebnis (80 MJ). Eigene Rezepte haben Vorrang.
+
+**Elektrischer Ofen** (`FurnaceManager`): Kaktus → grüner Farbstoff 80; roher Schweinebraten/Kabeljau/Rindfleisch/
+Hähnchen/Kartoffel → gegart 40 MJ.
+
+**Pulverisierer** (`PulverizerManager`, Pack-Config: Barren→Staub, Sandstein, Netherrack, Zuckerrohr, Knochen,
+Lohenrute an, Wolle aus) – Eingabe → Ausgabe (+ Nebenprodukt Chance), MJ:
+
+| Eingabe | Ausgabe | MJ | | Eingabe | Ausgabe | MJ |
+|---|---|---:|---|---|---|---:|
+| Stein | Bruchstein | 320 | | Eisenerz | 2 Eisenstaub + Nickelstaub 10 % | 400 |
+| Bruchstein | Sand + Kies 10 % | 320 | | Golderz | 2 Goldstaub | 400 |
+| Kies | Feuerstein | 320 | | Kupfererz | 2 Kupferstaub + Goldstaub 10 % | 400 |
+| Glas | Sand | 320 | | Zinnerz | 2 Zinnstaub + Eisenstaub 10 % | 400 |
+| Steinziegel | rissige Steinziegel | 80 | | Silbererz | 2 Silberstaub + Bleistaub 10 % | 400 |
+| Sandstein (3 Arten) | 2 Sand + Salpeter 10 % | 320 | | Bleierz | 2 Bleistaub + Silberstaub 10 % | 400 |
+| Obsidian | Obsidianstaub | 400 | | Nickelerz | 2 Nickelstaub + Platinstaub 10 % | 400 |
+| Netherrack | Bruchstein + Schwefel 10 % | 320 | | Eisen-/Goldbarren | Staub | 240 |
+| Kohle-/Diamant-/Smaragderz | Kohle/Diamant/Smaragd | 80 | | Barren Kupfer, Zinn, Silber, Blei, Nickel, Platin, Elektrum, Invar, Bronze | Staub | 240 |
+| Glowstone | 4 Glowstonestaub | 80 | | Kohle / Holzkohle | Kohle-/Holzkohlestaub | 160 |
+| Lapis-/Redstone-Erz | 8 Lapis / 8 Redstone | 240 | | Zuckerrohr | 2 Zucker | 80 |
+| Stamm (Eiche, Fichte, Birke, Tropen) | Holzschnitzel | 160 | | Knochen | 6 Knochenmehl | 160 |
+| Lohenrute | 4 Lohenstaub + Schwefel 50 % | 160 | | | | |
+
+Erze jeweils auch als Tiefenschiefer; Rohmetall (Eisen/Gold/Kupfer) zählt wie das Erz (wie im Macerator).
+Schwefel-/Salpeter-/Zink-/Platinerz-Rezepte entfallen (diese Oredict-Erze gibt es in Craft nicht; GT-Erze laufen über
+den Macerator-Rückfall).
+
+**Sägewerk** (`SawmillManager`) – Nebenprodukt ohne Angabe 100 %:
+
+| Eingabe | Ausgabe | MJ |
+|---|---|---:|
+| Stamm Eiche/Fichte/Birke/Tropen | 6 passende Bretter + Sägemehl | 80 |
+| Notenblock | 8 Bretter + Redstone | 240 |
+| Bett (jede Farbe) | 3 Bretter + 3 weiße Wolle | 240 |
+| Bücherregal | 6 Bretter + 3 Bücher | 240 |
+| Truhe / Werkbank | 8 / 4 Bretter | 240 |
+| Schild, Druckplatte, Tür | 2 Bretter (Tür s. Abweichungen) | 240 |
+| Plattenspieler | 8 Bretter + Diamant | 240 |
+| Falltür / Boot | 3 / 5 Bretter | 240 |
+| Zauntor | 2 Bretter + Sägemehl | 240 |
+| Holzschwert/-schaufel/-spitzhacke/-axt/-hacke | 2/1/3/3/2 Bretter + Sägemehl | 160 |
+| Gummiholz (IC2) | 4 Tropenholzbretter + Harz 33 % | 120 |
+
+Bretter ohne Angabe = Eiche; Eingaben Schild/Tür/Druckplatte/Falltür/Zauntor/Boot = Eiche (1.4.7 kannte nur diese).
+
 ## 5. Rezepte (Werkbank)
 
 Maschinenrahmen `IGI/GXG/IGI` (Eisen, Glas, Gold). Maschinen `" X "/"YCY"/"IPI"` mit C Rahmen, I Kupferbarren,

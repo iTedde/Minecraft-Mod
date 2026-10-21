@@ -1,0 +1,15 @@
+{
+  "type": "craft:te_furnace",
+  "chance": 0,
+  "energy": 40,
+  "inputs": [
+    {
+      "count": 1,
+      "item": "minecraft:chicken"
+    }
+  ],
+  "primary": {
+    "count": 1,
+    "id": "minecraft:cooked_chicken"
+  }
+}

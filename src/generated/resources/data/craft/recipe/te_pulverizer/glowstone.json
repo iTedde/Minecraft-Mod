@@ -1,0 +1,15 @@
+{
+  "type": "craft:te_pulverizer",
+  "chance": 0,
+  "energy": 80,
+  "inputs": [
+    {
+      "count": 1,
+      "item": "minecraft:glowstone"
+    }
+  ],
+  "primary": {
+    "count": 4,
+    "id": "minecraft:glowstone_dust"
+  }
+}

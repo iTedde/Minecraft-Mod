@@ -1,0 +1,15 @@
+{
+  "type": "craft:te_pulverizer",
+  "chance": 0,
+  "energy": 160,
+  "inputs": [
+    {
+      "count": 1,
+      "item": "minecraft:bone"
+    }
+  ],
+  "primary": {
+    "count": 6,
+    "id": "minecraft:bone_meal"
+  }
+}

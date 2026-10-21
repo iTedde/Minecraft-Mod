@@ -1,0 +1,30 @@
+{
+  "type": "craft:te_pulverizer",
+  "chance": 10,
+  "energy": 320,
+  "inputs": [
+    {
+      "type": "neoforge:compound",
+      "children": [
+        {
+          "item": "minecraft:sandstone"
+        },
+        {
+          "item": "minecraft:chiseled_sandstone"
+        },
+        {
+          "item": "minecraft:cut_sandstone"
+        }
+      ],
+      "count": 1
+    }
+  ],
+  "primary": {
+    "count": 2,
+    "id": "minecraft:sand"
+  },
+  "secondary": {
+    "count": 1,
+    "id": "craft:saltpeter_dust"
+  }
+}

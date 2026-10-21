@@ -1505,6 +1505,51 @@
       ],
       "maxEnergyOutput": 384,
       "values": {}
+    },
+    {
+      "classes": [
+        "PoweredFurnaceBlockEntity",
+        "TeMachineBlockEntity"
+      ],
+      "id": "powered_furnace",
+      "kinds": [
+        "mj_receiver"
+      ],
+      "mjActivation": 0,
+      "mjMaxReceived": 20,
+      "mjMaxStored": 2400,
+      "mjMinReceived": 0,
+      "values": {}
+    },
+    {
+      "classes": [
+        "SecondaryOutputMachineBlockEntity",
+        "TeMachineBlockEntity"
+      ],
+      "id": "pulverizer",
+      "kinds": [
+        "mj_receiver"
+      ],
+      "mjActivation": 0,
+      "mjMaxReceived": 40,
+      "mjMaxStored": 4800,
+      "mjMinReceived": 0,
+      "values": {}
+    },
+    {
+      "classes": [
+        "SecondaryOutputMachineBlockEntity",
+        "TeMachineBlockEntity"
+      ],
+      "id": "sawmill",
+      "kinds": [
+        "mj_receiver"
+      ],
+      "mjActivation": 0,
+      "mjMaxReceived": 20,
+      "mjMaxStored": 2400,
+      "mjMinReceived": 0,
+      "values": {}
     }
   ],
   "items": [

@@ -1,0 +1,29 @@
+{
+  "type": "craft:te_pulverizer",
+  "chance": 0,
+  "energy": 160,
+  "inputs": [
+    {
+      "type": "neoforge:compound",
+      "children": [
+        {
+          "item": "minecraft:oak_log"
+        },
+        {
+          "item": "minecraft:spruce_log"
+        },
+        {
+          "item": "minecraft:birch_log"
+        },
+        {
+          "item": "minecraft:jungle_log"
+        }
+      ],
+      "count": 1
+    }
+  ],
+  "primary": {
+    "count": 1,
+    "id": "craft:wood_chips"
+  }
+}

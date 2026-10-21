@@ -1,0 +1,18 @@
+{
+  "type": "craft:te_sawmill",
+  "energy": 240,
+  "inputs": [
+    {
+      "count": 1,
+      "item": "minecraft:oak_fence_gate"
+    }
+  ],
+  "primary": {
+    "count": 2,
+    "id": "minecraft:oak_planks"
+  },
+  "secondary": {
+    "count": 1,
+    "id": "craft:sawdust"
+  }
+}

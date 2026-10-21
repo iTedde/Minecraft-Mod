@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/orientable_with_bottom",
+  "textures": {
+    "bottom": "craft:block/te/machine/bottom_0",
+    "front": "craft:block/te/machine/powered_furnace_front",
+    "side": "craft:block/te/machine/side_0",
+    "top": "craft:block/te/machine/top_0"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "type": "craft:te_pulverizer",
+  "chance": 10,
+  "energy": 320,
+  "inputs": [
+    {
+      "count": 1,
+      "item": "minecraft:netherrack"
+    }
+  ],
+  "primary": {
+    "count": 1,
+    "id": "minecraft:cobblestone"
+  },
+  "secondary": {
+    "count": 1,
+    "id": "craft:sulfur_dust"
+  }
+}

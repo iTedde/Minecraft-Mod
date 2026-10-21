@@ -1,0 +1,15 @@
+{
+  "type": "craft:te_furnace",
+  "chance": 0,
+  "energy": 80,
+  "inputs": [
+    {
+      "count": 1,
+      "item": "minecraft:cactus"
+    }
+  ],
+  "primary": {
+    "count": 1,
+    "id": "minecraft:green_dye"
+  }
+}

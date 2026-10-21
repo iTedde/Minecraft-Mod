@@ -1,0 +1,15 @@
+{
+  "type": "craft:te_sawmill",
+  "chance": 0,
+  "energy": 240,
+  "inputs": [
+    {
+      "count": 1,
+      "item": "minecraft:oak_trapdoor"
+    }
+  ],
+  "primary": {
+    "count": 3,
+    "id": "minecraft:oak_planks"
+  }
+}

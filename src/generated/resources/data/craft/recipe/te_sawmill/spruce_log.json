@@ -1,0 +1,18 @@
+{
+  "type": "craft:te_sawmill",
+  "energy": 80,
+  "inputs": [
+    {
+      "count": 1,
+      "item": "minecraft:spruce_log"
+    }
+  ],
+  "primary": {
+    "count": 6,
+    "id": "minecraft:spruce_planks"
+  },
+  "secondary": {
+    "count": 1,
+    "id": "craft:sawdust"
+  }
+}

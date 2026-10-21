@@ -1,0 +1,18 @@
+{
+  "type": "craft:te_sawmill",
+  "energy": 240,
+  "inputs": [
+    {
+      "count": 1,
+      "item": "minecraft:bookshelf"
+    }
+  ],
+  "primary": {
+    "count": 6,
+    "id": "minecraft:oak_planks"
+  },
+  "secondary": {
+    "count": 3,
+    "id": "minecraft:book"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "type": "craft:te_pulverizer",
+  "chance": 0,
+  "energy": 240,
+  "inputs": [
+    {
+      "count": 1,
+      "tag": "c:ingots/platinum"
+    }
+  ],
+  "primary": {
+    "count": 1,
+    "id": "craft:platinum_dust"
+  }
+}

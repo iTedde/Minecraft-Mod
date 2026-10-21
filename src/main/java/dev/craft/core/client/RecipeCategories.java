@@ -46,6 +46,11 @@ public final class RecipeCategories {
     public static final ResourceLocation BOILER = id("boiler");
     public static final ResourceLocation STEAM_TURBINE = id("steam_turbine");
 
+    // Thermal Expansion (ids of the machine blocks)
+    public static final ResourceLocation TE_FURNACE = id("powered_furnace");
+    public static final ResourceLocation TE_PULVERIZER = id("pulverizer");
+    public static final ResourceLocation TE_SAWMILL = id("sawmill");
+
     /**
      * Category of every recipe type the mod registers (path of the type id). A GameTest checks that no recipe type
      * is missing here, so new machines also get a recipe viewer category.
@@ -63,6 +68,9 @@ public final class RecipeCategories {
             Map.entry("gt_centrifuge", GT_CENTRIFUGE),
             Map.entry("gt_grinder", GT_GRINDER),
             Map.entry("gt_vacuum_freezer", GT_VACUUM_FREEZER),
+            Map.entry("te_furnace", TE_FURNACE),
+            Map.entry("te_pulverizer", TE_PULVERIZER),
+            Map.entry("te_sawmill", TE_SAWMILL),
             Map.entry("fabricator", FABRICATOR),
             Map.entry("carpenter", CARPENTER));
 

@@ -1,0 +1,18 @@
+{
+  "type": "craft:te_sawmill",
+  "energy": 160,
+  "inputs": [
+    {
+      "count": 1,
+      "item": "minecraft:wooden_hoe"
+    }
+  ],
+  "primary": {
+    "count": 2,
+    "id": "minecraft:oak_planks"
+  },
+  "secondary": {
+    "count": 1,
+    "id": "craft:sawdust"
+  }
+}

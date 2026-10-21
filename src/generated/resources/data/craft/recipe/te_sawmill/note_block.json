@@ -1,0 +1,18 @@
+{
+  "type": "craft:te_sawmill",
+  "energy": 240,
+  "inputs": [
+    {
+      "count": 1,
+      "item": "minecraft:note_block"
+    }
+  ],
+  "primary": {
+    "count": 8,
+    "id": "minecraft:oak_planks"
+  },
+  "secondary": {
+    "count": 1,
+    "id": "minecraft:redstone"
+  }
+}

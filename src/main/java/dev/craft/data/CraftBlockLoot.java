@@ -76,6 +76,9 @@ public final class CraftBlockLoot extends BlockLootSubProvider {
             dropSelf(ore);
         }
         dropWhenSilkTouch(TeBlocks.HARDENED_GLASS.get());
+        dropSelf(TeBlocks.POWERED_FURNACE.get());
+        dropSelf(TeBlocks.PULVERIZER.get());
+        dropSelf(TeBlocks.SAWMILL.get());
         for (DyeColor color : DyeColor.values()) {
             dropSelf(TeBlocks.rockwool(color).get());
         }

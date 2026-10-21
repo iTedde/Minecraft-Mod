@@ -231,6 +231,45 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
         }
         add("fluid_type.craft.molten_redstone", german ? "Geschmolzenes Redstone" : "Molten Redstone");
         add("fluid_type.craft.molten_ender", german ? "Geschmolzenes Ender" : "Molten Ender");
+        block(TeBlocks.POWERED_FURNACE, german ? "Elektrischer Ofen" : "Powered Furnace");
+        block(TeBlocks.PULVERIZER, german ? "Pulverisierer" : "Pulverizer");
+        block(TeBlocks.SAWMILL, german ? "Sägewerk" : "Sawmill");
+        add("gui.craft.te.energy", german ? "Energie" : "Energy");
+        add("gui.craft.te.power_usage", german ? "Verbrauch" : "Power Usage");
+        add("gui.craft.te.max_power", german ? "Maximale Leistung" : "Maximum Power");
+        add("gui.craft.te.energy_stored", german ? "Gespeichert" : "Energy Stored");
+        add("gui.craft.te.redstone_control", german ? "Redstone-Steuerung" : "Redstone Control");
+        add("gui.craft.te.control_status", german ? "Steuerung" : "Control Status");
+        add("gui.craft.te.redstone_control_off", german ? "Aus" : "Disabled");
+        add("gui.craft.te.redstone_control_on", german ? "Ein" : "Enabled");
+        add("gui.craft.te.signal_required", german ? "Benötigtes Signal" : "Signal Required");
+        add("gui.craft.te.redstone_state_ignored", german ? "Egal" : "Ignored");
+        add("gui.craft.te.redstone_state_high", german ? "An" : "High");
+        add("gui.craft.te.redstone_state_low", german ? "Aus" : "Low");
+        add("gui.craft.te.configuration", german ? "Konfiguration" : "Configuration");
+        add("gui.craft.te.information", german ? "Information" : "Information");
+        add("gui.craft.te.tutorial", german ? "Anleitung" : "Tutorial");
+        add("gui.craft.te.info.powered_furnace", german
+                ? "Schmilzt Dinge mit MJ.\n\nBraucht sehr wenig Energie, um Essen zu garen.\n\nMampf."
+                : "Smelt things using MJ.\n\nUses very little energy to cook food.\n\nOm nom nom.");
+        add("gui.craft.te.info.pulverizer", german
+                ? "Zerschlägt Dinge zu anderen Dingen.\n\nNützlich, um Erze zu verarbeiten oder Items umzuwandeln."
+                        + "\n\nMeist nicht umkehrbar."
+                : "Smashes things into other things.\n\nUseful for processing ores or converting items."
+                        + "\n\nThis is typically not reversible.");
+        add("gui.craft.te.info.sawmill", german
+                ? "Sägt Stämme zu Brettern und verwertet Dinge aus Holz.\n\nHolt das Meiste aus einem Baum heraus."
+                        + "\n\nVorsicht mit den Fingern."
+                : "Cuts logs into planks and reprocesses wooden things.\n\nVery useful for making the most out of a"
+                        + " tree.\n\nWatch your hands.");
+        add("gui.craft.te.tutorial.redstone", german
+                ? "Der Reiter Redstone-Steuerung legt fest, wie dieses Gerät auf Redstone-Signale reagiert."
+                : "The Redstone Control tab configures how this device reacts to redstone signals.");
+        add("gui.craft.te.tutorial.config", german
+                ? "Der Reiter Konfiguration legt fest, wie Items in dieses Gerät hinein- und herausgelangen."
+                : "The Configuration tab determines how items enter and leave this device.");
+        add("gui.craft.te.tutorial.powered", german ? "Benötigt Minecraft Joules (MJ)."
+                : "Requires Minecraft Joules to operate.");
     }
 
 

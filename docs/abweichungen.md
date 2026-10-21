@@ -296,3 +296,7 @@ Siehe `docs/balancing.md`. Wird hier eingetragen, sobald freigegeben.
 | Thermal Expansion: Crescent Hammer drehen | Tabelle `BlockUtils.rotateType` für Vanilla-Blöcke | Vanilla-`BlockState.rotate` (Uhrzeigersinn, Schleichen gegen) für alle Vanilla-Blöcke mit Ausrichtung | 1.21-Blockzustände | **umgesetzt** (25.1) |
 | Thermal Expansion: Platinbarren in Kisten | Gewicht 5 in den Listen „dungeonChest“, „pyramidDesertyChest“, „pyramidJungleChest“ | eigener Pool: 35 % je Kiste 1–3 Barren (gleicher Erwartungswert) | 1.21 hat keine gemeinsame Kistenliste | **umgesetzt** (25.1) |
 | Thermal Expansion: Tiefenschiefer-Erze | gibt es nicht | Tiefenschiefer-Silber/-Blei/-Nickelerz (Härte 4,5) | Tiefenschiefer ab 1.17 | **umgesetzt** (25.1) |
+| Thermal Expansion: Rohmetall im Pulverisierer | gibt es nicht (Erz droppt sich selbst) | Roheisen/-gold/-kupfer wie das Erz (2 Staub + Nebenprodukt) | wie beim Macerator (Phase 3) | **umgesetzt** (25.2) |
+| Thermal Expansion: Holztür im Sägewerk | 1 Tür (6 Bretter) → 6 Bretter | Eichentür → 2 Bretter | 1.21 macht 3 Türen aus 6 Brettern; sonst Bretter-Vermehrung | **umgesetzt** (25.2) |
+| Thermal Expansion: Holzsorten | Stämme/Bretter Meta 0–3, Holzgegenstände ohne Sorte | nur Eiche/Fichte/Birke/Tropen-Stamm; Holzgegenstände nur Eiche (Bett jede Farbe) | 1.21-Holzarten gab es nicht | **umgesetzt** (25.2) |
+| Thermal Expansion: Maschinenmodell | Block-Icons je Seite aus `getBlockTexture` | dynamisches Modell `craft:te_machine` (Seitengruppen als ModelData) | 1.21-Blockmodelle | **umgesetzt** (25.2) |

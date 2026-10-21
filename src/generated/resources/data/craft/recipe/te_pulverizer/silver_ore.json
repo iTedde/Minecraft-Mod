@@ -1,0 +1,27 @@
+{
+  "type": "craft:te_pulverizer",
+  "chance": 10,
+  "energy": 400,
+  "inputs": [
+    {
+      "type": "neoforge:compound",
+      "children": [
+        {
+          "item": "craft:silver_ore"
+        },
+        {
+          "item": "craft:deepslate_silver_ore"
+        }
+      ],
+      "count": 1
+    }
+  ],
+  "primary": {
+    "count": 2,
+    "id": "craft:silver_dust"
+  },
+  "secondary": {
+    "count": 1,
+    "id": "craft:lead_dust"
+  }
+}

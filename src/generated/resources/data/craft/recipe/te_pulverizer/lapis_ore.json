@@ -1,0 +1,23 @@
+{
+  "type": "craft:te_pulverizer",
+  "chance": 0,
+  "energy": 240,
+  "inputs": [
+    {
+      "type": "neoforge:compound",
+      "children": [
+        {
+          "item": "minecraft:lapis_ore"
+        },
+        {
+          "item": "minecraft:deepslate_lapis_ore"
+        }
+      ],
+      "count": 1
+    }
+  ],
+  "primary": {
+    "count": 8,
+    "id": "minecraft:lapis_lazuli"
+  }
+}

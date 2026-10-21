@@ -1,0 +1,19 @@
+{
+  "type": "craft:te_sawmill",
+  "chance": 33,
+  "energy": 120,
+  "inputs": [
+    {
+      "count": 1,
+      "item": "craft:rubber_wood"
+    }
+  ],
+  "primary": {
+    "count": 4,
+    "id": "minecraft:jungle_planks"
+  },
+  "secondary": {
+    "count": 1,
+    "id": "craft:resin"
+  }
+}

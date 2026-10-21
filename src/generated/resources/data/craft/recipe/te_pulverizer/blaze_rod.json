@@ -1,0 +1,19 @@
+{
+  "type": "craft:te_pulverizer",
+  "chance": 50,
+  "energy": 160,
+  "inputs": [
+    {
+      "count": 1,
+      "item": "minecraft:blaze_rod"
+    }
+  ],
+  "primary": {
+    "count": 4,
+    "id": "minecraft:blaze_powder"
+  },
+  "secondary": {
+    "count": 1,
+    "id": "craft:sulfur_dust"
+  }
+}

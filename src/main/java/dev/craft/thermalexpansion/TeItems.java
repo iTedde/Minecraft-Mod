@@ -26,6 +26,9 @@ public final class TeItems {
     public static final DeferredItem<BlockItem> DEEPSLATE_NICKEL_ORE =
             ITEMS.registerSimpleBlockItem(TeBlocks.DEEPSLATE_NICKEL_ORE);
     public static final DeferredItem<BlockItem> HARDENED_GLASS = ITEMS.registerSimpleBlockItem(TeBlocks.HARDENED_GLASS);
+    public static final DeferredItem<BlockItem> POWERED_FURNACE = ITEMS.registerSimpleBlockItem(TeBlocks.POWERED_FURNACE);
+    public static final DeferredItem<BlockItem> PULVERIZER = ITEMS.registerSimpleBlockItem(TeBlocks.PULVERIZER);
+    public static final DeferredItem<BlockItem> SAWMILL = ITEMS.registerSimpleBlockItem(TeBlocks.SAWMILL);
 
     public static final DeferredItem<Item> INVAR_DUST = ITEMS.registerSimpleItem("invar_dust");
     public static final DeferredItem<Item> INVAR_INGOT = ITEMS.registerSimpleItem("invar_ingot");

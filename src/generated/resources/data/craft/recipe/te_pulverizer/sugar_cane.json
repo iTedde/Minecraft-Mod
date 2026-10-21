@@ -1,0 +1,15 @@
+{
+  "type": "craft:te_pulverizer",
+  "chance": 0,
+  "energy": 80,
+  "inputs": [
+    {
+      "count": 1,
+      "item": "minecraft:sugar_cane"
+    }
+  ],
+  "primary": {
+    "count": 2,
+    "id": "minecraft:sugar"
+  }
+}

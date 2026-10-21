@@ -170,7 +170,8 @@ public final class CraftBlockTagsProvider extends BlockTagsProvider {
             tag(BlockTags.MINEABLE_WITH_PICKAXE).add(ore, deepslate);
             tag(BlockTags.NEEDS_IRON_TOOL).add(ore, deepslate);
         }
-        tag(BlockTags.MINEABLE_WITH_PICKAXE).add(TeBlocks.HARDENED_GLASS.get());
+        tag(BlockTags.MINEABLE_WITH_PICKAXE).add(TeBlocks.HARDENED_GLASS.get(), TeBlocks.POWERED_FURNACE.get(),
+                TeBlocks.PULVERIZER.get(), TeBlocks.SAWMILL.get());
         tag(Tags.Blocks.GLASS_BLOCKS).add(TeBlocks.HARDENED_GLASS.get());
         addElectricToolTags();
     }

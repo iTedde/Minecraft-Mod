@@ -14,6 +14,7 @@ import java.util.concurrent.CompletableFuture;
 import dev.craft.Craft;
 import dev.craft.thermalexpansion.TeBlocks;
 import dev.craft.thermalexpansion.TeItems;
+import dev.craft.thermalexpansion.recipe.TeRecipe;
 import dev.craft.advancedmachines.AdvancedMachinesItems;
 import dev.craft.buildcraft.BcItems;
 import dev.craft.buildcraft.transport.PipeType;
@@ -2208,6 +2209,140 @@ public final class CraftRecipeProvider extends RecipeProvider {
                     .define('D', DyeItem.byColor(color)).unlockedBy("has_rockwool", has(TeBlocks.rockwool(DyeColor.LIGHT_GRAY).get()))
                     .save(output, id(color.getSerializedName() + "_rockwool"));
         }
+        teMachines();
+    }
+
+    /** TE machines (spec 26 §5) and the recipes of {@code FurnaceManager}, {@code PulverizerManager}, {@code SawmillManager}. */
+    private void teMachines() {
+        teMachine(TeItems.POWERED_FURNACE.get(), Ingredient.of(Items.REDSTONE), Ingredient.of(Items.BRICKS));
+        teMachine(TeItems.PULVERIZER.get(), Ingredient.of(Items.PISTON), Ingredient.of(Items.FLINT));
+        teMachine(TeItems.SAWMILL.get(), Ingredient.of(Items.IRON_AXE), Ingredient.of(ItemTags.PLANKS));
+
+        // Powered Furnace: own recipes; everything else smelts at 160 MJ (TeRecipes.find).
+        te(TeRecipe.Kind.FURNACE, "cactus", Ingredient.of(Items.CACTUS), stack(Items.GREEN_DYE, 1), 80);
+        for (ItemLike[] food : new ItemLike[][]{{Items.PORKCHOP, Items.COOKED_PORKCHOP}, {Items.COD, Items.COOKED_COD},
+                {Items.BEEF, Items.COOKED_BEEF}, {Items.CHICKEN, Items.COOKED_CHICKEN},
+                {Items.POTATO, Items.BAKED_POTATO}}) {
+            te(TeRecipe.Kind.FURNACE, path(food[0]), Ingredient.of(food[0]), stack(food[1], 1), 40);
+        }
+
+        TeRecipe.Kind pulverizer = TeRecipe.Kind.PULVERIZER;
+        te(pulverizer, "stone", Ingredient.of(Items.STONE), stack(Items.COBBLESTONE, 1), 320);
+        te(pulverizer, "cobblestone", Ingredient.of(Items.COBBLESTONE), stack(Items.SAND, 1), stack(Items.GRAVEL, 1),
+                10, 320);
+        te(pulverizer, "gravel", Ingredient.of(Items.GRAVEL), stack(Items.FLINT, 1), 320);
+        te(pulverizer, "glass", Ingredient.of(Items.GLASS), stack(Items.SAND, 1), 320);
+        te(pulverizer, "stone_bricks", Ingredient.of(Items.STONE_BRICKS), stack(Items.CRACKED_STONE_BRICKS, 1), 80);
+        te(pulverizer, "sandstone", Ingredient.of(Items.SANDSTONE, Items.CHISELED_SANDSTONE, Items.CUT_SANDSTONE),
+                stack(Items.SAND, 2), stack(GtItems.SALTPETER_DUST, 1), 10, 320);
+        te(pulverizer, "obsidian", Ingredient.of(Items.OBSIDIAN), stack(GtItems.OBSIDIAN_DUST, 1), 400);
+        te(pulverizer, "netherrack", Ingredient.of(Items.NETHERRACK), stack(Items.COBBLESTONE, 1),
+                stack(GtItems.SULFUR_DUST, 1), 10, 320);
+        te(pulverizer, "coal_ore", Ingredient.of(Items.COAL_ORE, Items.DEEPSLATE_COAL_ORE), stack(Items.COAL, 1), 80);
+        te(pulverizer, "diamond_ore", Ingredient.of(Items.DIAMOND_ORE, Items.DEEPSLATE_DIAMOND_ORE),
+                stack(Items.DIAMOND, 1), 80);
+        te(pulverizer, "emerald_ore", Ingredient.of(Items.EMERALD_ORE, Items.DEEPSLATE_EMERALD_ORE),
+                stack(Items.EMERALD, 1), 80);
+        te(pulverizer, "glowstone", Ingredient.of(Items.GLOWSTONE), stack(Items.GLOWSTONE_DUST, 4), 80);
+        te(pulverizer, "lapis_ore", Ingredient.of(Items.LAPIS_ORE, Items.DEEPSLATE_LAPIS_ORE),
+                stack(Items.LAPIS_LAZULI, 8), 240);
+        te(pulverizer, "redstone_ore", Ingredient.of(Items.REDSTONE_ORE, Items.DEEPSLATE_REDSTONE_ORE),
+                stack(Items.REDSTONE, 8), 240);
+        te(pulverizer, "logs", Ingredient.of(Items.OAK_LOG, Items.SPRUCE_LOG, Items.BIRCH_LOG, Items.JUNGLE_LOG),
+                stack(TeItems.WOOD_CHIPS, 1), 160);
+        te(pulverizer, "sugar_cane", Ingredient.of(Items.SUGAR_CANE), stack(Items.SUGAR, 2), 80);
+        te(pulverizer, "bone", Ingredient.of(Items.BONE), stack(Items.BONE_MEAL, 6), 160);
+        te(pulverizer, "blaze_rod", Ingredient.of(Items.BLAZE_ROD), stack(Items.BLAZE_POWDER, 4),
+                stack(GtItems.SULFUR_DUST, 1), 50, 160);
+        // Ores (raw metal counts as ore, as in the macerator): 2 dust and a 10 % by-product.
+        te(pulverizer, "iron_ore", Ingredient.of(Items.IRON_ORE, Items.DEEPSLATE_IRON_ORE, Items.RAW_IRON),
+                stack(Ic2Items.IRON_DUST, 2), stack(GtItems.NICKEL_DUST, 1), 10, 400);
+        te(pulverizer, "gold_ore", Ingredient.of(Items.GOLD_ORE, Items.DEEPSLATE_GOLD_ORE, Items.RAW_GOLD),
+                stack(Ic2Items.GOLD_DUST, 2), 400);
+        te(pulverizer, "copper_ore", Ingredient.of(Items.COPPER_ORE, Items.DEEPSLATE_COPPER_ORE, Items.RAW_COPPER),
+                stack(Ic2Items.COPPER_DUST, 2), stack(Ic2Items.GOLD_DUST, 1), 10, 400);
+        te(pulverizer, "tin_ore", Ingredient.of(Ic2Items.TIN_ORE, Ic2Items.DEEPSLATE_TIN_ORE),
+                stack(Ic2Items.TIN_DUST, 2), stack(Ic2Items.IRON_DUST, 1), 10, 400);
+        te(pulverizer, "silver_ore", Ingredient.of(TeItems.SILVER_ORE, TeItems.DEEPSLATE_SILVER_ORE),
+                stack(Ic2Items.SILVER_DUST, 2), stack(GtItems.LEAD_DUST, 1), 10, 400);
+        te(pulverizer, "lead_ore", Ingredient.of(TeItems.LEAD_ORE, TeItems.DEEPSLATE_LEAD_ORE),
+                stack(GtItems.LEAD_DUST, 2), stack(Ic2Items.SILVER_DUST, 1), 10, 400);
+        te(pulverizer, "nickel_ore", Ingredient.of(TeItems.NICKEL_ORE, TeItems.DEEPSLATE_NICKEL_ORE),
+                stack(GtItems.NICKEL_DUST, 2), stack(GtItems.PLATINUM_DUST, 1), 10, 400);
+        te(pulverizer, "iron_ingot", Ingredient.of(Items.IRON_INGOT), stack(Ic2Items.IRON_DUST, 1), 240);
+        te(pulverizer, "gold_ingot", Ingredient.of(Items.GOLD_INGOT), stack(Ic2Items.GOLD_DUST, 1), 240);
+        te(pulverizer, "copper_ingot", Ingredient.of(ingotsCopper()), stack(Ic2Items.COPPER_DUST, 1), 240);
+        te(pulverizer, "tin_ingot", Ingredient.of(CraftItemTagsProvider.INGOTS_TIN), stack(Ic2Items.TIN_DUST, 1), 240);
+        te(pulverizer, "silver_ingot", Ingredient.of(CraftItemTagsProvider.INGOTS_SILVER),
+                stack(Ic2Items.SILVER_DUST, 1), 240);
+        te(pulverizer, "lead_ingot", Ingredient.of(CraftItemTagsProvider.INGOTS_LEAD), stack(GtItems.LEAD_DUST, 1), 240);
+        te(pulverizer, "nickel_ingot", Ingredient.of(CraftItemTagsProvider.INGOTS_NICKEL),
+                stack(GtItems.NICKEL_DUST, 1), 240);
+        te(pulverizer, "platinum_ingot", Ingredient.of(CraftItemTagsProvider.INGOTS_PLATINUM),
+                stack(GtItems.PLATINUM_DUST, 1), 240);
+        te(pulverizer, "electrum_ingot", Ingredient.of(CraftItemTagsProvider.INGOTS_ELECTRUM),
+                stack(GtItems.ELECTRUM_DUST, 1), 240);
+        te(pulverizer, "invar_ingot", Ingredient.of(CraftItemTagsProvider.INGOTS_INVAR), stack(TeItems.INVAR_DUST, 1),
+                240);
+        te(pulverizer, "bronze_ingot", Ingredient.of(CraftItemTagsProvider.INGOTS_BRONZE),
+                stack(Ic2Items.BRONZE_DUST, 1), 240);
+        te(pulverizer, "coal", Ingredient.of(Items.COAL), stack(Ic2Items.COAL_DUST, 1), 160);
+        te(pulverizer, "charcoal", Ingredient.of(Items.CHARCOAL), stack(GtItems.CHARCOAL_DUST, 1), 160);
+
+        TeRecipe.Kind sawmill = TeRecipe.Kind.SAWMILL;
+        ItemStack sawdust = stack(TeItems.SAWDUST, 1);
+        for (ItemLike[] log : new ItemLike[][]{{Items.OAK_LOG, Items.OAK_PLANKS}, {Items.SPRUCE_LOG, Items.SPRUCE_PLANKS},
+                {Items.BIRCH_LOG, Items.BIRCH_PLANKS}, {Items.JUNGLE_LOG, Items.JUNGLE_PLANKS}}) {
+            te(sawmill, path(log[0]), Ingredient.of(log[0]), stack(log[1], 6), sawdust, 100, 80);
+        }
+        te(sawmill, "note_block", Ingredient.of(Items.NOTE_BLOCK), stack(Items.OAK_PLANKS, 8), stack(Items.REDSTONE, 1),
+                100, 240);
+        te(sawmill, "bed", Ingredient.of(ItemTags.BEDS), stack(Items.OAK_PLANKS, 3), stack(Items.WHITE_WOOL, 3), 100,
+                240);
+        te(sawmill, "bookshelf", Ingredient.of(Items.BOOKSHELF), stack(Items.OAK_PLANKS, 6), stack(Items.BOOK, 3), 100,
+                240);
+        te(sawmill, "chest", Ingredient.of(Items.CHEST), stack(Items.OAK_PLANKS, 8), 240);
+        te(sawmill, "crafting_table", Ingredient.of(Items.CRAFTING_TABLE), stack(Items.OAK_PLANKS, 4), 240);
+        te(sawmill, "sign", Ingredient.of(Items.OAK_SIGN), stack(Items.OAK_PLANKS, 2), 240);
+        // 1.4.7: one door from 6 planks gave 6; 1.21 crafts three doors from 6 planks (abweichungen.md).
+        te(sawmill, "door", Ingredient.of(Items.OAK_DOOR), stack(Items.OAK_PLANKS, 2), 240);
+        te(sawmill, "pressure_plate", Ingredient.of(Items.OAK_PRESSURE_PLATE), stack(Items.OAK_PLANKS, 2), 240);
+        te(sawmill, "jukebox", Ingredient.of(Items.JUKEBOX), stack(Items.OAK_PLANKS, 8), stack(Items.DIAMOND, 1), 100,
+                240);
+        te(sawmill, "trapdoor", Ingredient.of(Items.OAK_TRAPDOOR), stack(Items.OAK_PLANKS, 3), 240);
+        te(sawmill, "fence_gate", Ingredient.of(Items.OAK_FENCE_GATE), stack(Items.OAK_PLANKS, 2), sawdust, 100, 240);
+        te(sawmill, "boat", Ingredient.of(Items.OAK_BOAT), stack(Items.OAK_PLANKS, 5), 240);
+        te(sawmill, "wooden_sword", Ingredient.of(Items.WOODEN_SWORD), stack(Items.OAK_PLANKS, 2), sawdust, 100, 160);
+        te(sawmill, "wooden_shovel", Ingredient.of(Items.WOODEN_SHOVEL), stack(Items.OAK_PLANKS, 1), sawdust, 100, 160);
+        te(sawmill, "wooden_pickaxe", Ingredient.of(Items.WOODEN_PICKAXE), stack(Items.OAK_PLANKS, 3), sawdust, 100,
+                160);
+        te(sawmill, "wooden_axe", Ingredient.of(Items.WOODEN_AXE), stack(Items.OAK_PLANKS, 3), sawdust, 100, 160);
+        te(sawmill, "wooden_hoe", Ingredient.of(Items.WOODEN_HOE), stack(Items.OAK_PLANKS, 2), sawdust, 100, 160);
+        te(sawmill, "rubber_wood", Ingredient.of(Ic2Items.RUBBER_WOOD), stack(Items.JUNGLE_PLANKS, 4),
+                stack(Ic2Items.RESIN, 1), 33, 120);
+    }
+
+    /** TE machines: {@code " X ", "YCY", "IPI"} with machine frame, copper and a redstone reception coil. */
+    private void teMachine(ItemLike result, Ingredient x, Ingredient y) {
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, result).pattern(" X ").pattern("YCY").pattern("IPI")
+                .define('X', x).define('Y', y).define('C', TeItems.MACHINE_FRAME.get()).define('I', ingotsCopper())
+                .define('P', TeItems.REDSTONE_RECEPTION_COIL.get())
+                .unlockedBy("has_frame", has(TeItems.MACHINE_FRAME.get()))
+                .save(output, id(path(result)));
+    }
+
+    private void te(TeRecipe.Kind kind, String name, Ingredient input, ItemStack primary, int energy) {
+        te(kind, name, input, primary, ItemStack.EMPTY, 0, energy);
+    }
+
+    private void te(TeRecipe.Kind kind, String name, Ingredient input, ItemStack primary, ItemStack secondary,
+                    int chance, int energy) {
+        output.accept(id("te_" + kind.getName() + "/" + name), new TeRecipe(kind,
+                List.of(new SizedIngredient(input, 1)), primary, secondary, chance, energy), null);
+    }
+
+    private static String path(ItemLike item) {
+        return BuiltInRegistries.ITEM.getKey(item.asItem()).getPath();
     }
 
     /** {@code powerCoil*}: {@code "  R", " G ", "R  "}. */

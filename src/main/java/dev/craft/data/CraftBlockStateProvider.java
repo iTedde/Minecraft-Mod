@@ -10,6 +10,9 @@ import java.util.stream.Collectors;
 import com.google.gson.JsonObject;
 import dev.craft.Craft;
 import dev.craft.thermalexpansion.TeBlocks;
+import dev.craft.thermalexpansion.client.TeMachineModel;
+import dev.craft.thermalexpansion.machine.TeMachineBlock;
+import dev.craft.thermalexpansion.machine.TeMachineType;
 import dev.craft.buildcraft.BcBlocks;
 import dev.craft.buildcraft.builders.MarkerBlock;
 import dev.craft.buildcraft.engine.EngineType;
@@ -62,6 +65,7 @@ import net.neoforged.neoforge.client.model.generators.CustomLoaderBuilder;
 import net.neoforged.neoforge.client.model.generators.ModelFile;
 import net.neoforged.neoforge.client.model.generators.MultiPartBlockStateBuilder;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.registries.DeferredBlock;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
 
@@ -493,6 +497,35 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
             Block block = TeBlocks.rockwool(color).get();
             simpleBlockWithItem(block, models().cubeAll(color.getSerializedName() + "_rockwool",
                     mcLoc("block/" + color.getSerializedName() + "_wool")));
+        }
+        for (DeferredBlock<TeMachineBlock> holder : List.of(TeBlocks.POWERED_FURNACE, TeBlocks.PULVERIZER,
+                TeBlocks.SAWMILL)) {
+            TeMachineType type = holder.get().getMachineType();
+            // The block model picks the face textures from the side groups (TeMachineModel); the item shows group 0.
+            simpleBlock(holder.get(), models().getBuilder("block/te/" + type.getName())
+                    .texture("particle", TeMachineModel.sideTexture(Direction.NORTH, 0))
+                    .customLoader((parent, files) -> new TeMachineLoaderBuilder(parent, files, type)).end());
+            itemModels().withExistingParent(type.getName(), mcLoc("block/orientable_with_bottom"))
+                    .texture("front", TeMachineModel.frontTexture(type, false))
+                    .texture("side", TeMachineModel.sideTexture(Direction.NORTH, 0))
+                    .texture("top", TeMachineModel.sideTexture(Direction.UP, 0))
+                    .texture("bottom", TeMachineModel.sideTexture(Direction.DOWN, 0));
+        }
+    }
+
+    private static final class TeMachineLoaderBuilder extends CustomLoaderBuilder<BlockModelBuilder> {
+        private final TeMachineType type;
+
+        TeMachineLoaderBuilder(BlockModelBuilder parent, ExistingFileHelper files, TeMachineType type) {
+            super(TeMachineModel.LOADER_ID, parent, files, false);
+            this.type = type;
+        }
+
+        @Override
+        public JsonObject toJson(JsonObject json) {
+            json = super.toJson(json);
+            json.addProperty("machine", type.getName());
+            return json;
         }
     }
 

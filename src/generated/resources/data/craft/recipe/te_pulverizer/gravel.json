@@ -1,0 +1,15 @@
+{
+  "type": "craft:te_pulverizer",
+  "chance": 0,
+  "energy": 320,
+  "inputs": [
+    {
+      "count": 1,
+      "item": "minecraft:gravel"
+    }
+  ],
+  "primary": {
+    "count": 1,
+    "id": "minecraft:flint"
+  }
+}

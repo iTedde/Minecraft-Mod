@@ -2092,6 +2092,21 @@ Spezifikation: `docs/spec/26-thermal-expansion.md`.
   (Macerator, Grinder, Erzwerte), Platinbarren-Kistenloot.
 - [x] Herkunftstexte (Erze, Invar; Silber/Blei/Nickel ergänzt). 2 GameTests, alle 403 grün; `gradlew test build` grün.
 
+## Erledigt (25.2 Maschinenbasis + Ofen/Pulverisierer/Sägewerk, 2026-10-21)
+- [x] `machine/`: `TeMachineBlockEntity` (MJ-Puffer `PowerProviderAdv`, Leistungsrampe 20/80 %, Prozessschleife, Restenergie
+  zurück, Leerlauf-Auswurf alle 40 Ticks, Seitengruppen, Redstone-Modus, Drehen mit Crescent Hammer, Abbauen mit
+  Shift), `TeMachineType` (`sideData`/`powerData`), `PoweredFurnaceBlockEntity`, `SecondaryOutputMachineBlockEntity`
+  (Pulverisierer/Sägewerk), `TeMachineBlock` (leuchtet aktiv, Ofen 14), `TeMachineMenu`.
+- [x] Rezepte als Datapack-Typen `craft:te_furnace|te_pulverizer|te_sawmill` (Listen in spec 26 §4.1) mit Rückfällen
+  (Ofenrezepte 160 MJ, Macerator 400 MJ, Holzschliff 80 MJ); Werkbankrezepte der drei Maschinen.
+- [x] Client: dynamisches Modell `TeMachineModel` (Seitentexturen je Gruppe), `TeMachineScreen` mit CoFH-Reitern
+  (Energie, Redstone, Konfiguration, Information, Anleitung), farbige Slot-Rahmen.
+- [x] Capabilities (Items je Seite, MJ-Empfänger), Loot, Spitzhacke, Lang en/de, Rezeptkategorien-IDs (EMI selbst in 25.8).
+- [x] 6 neue GameTests (Pulverisierer, Sägewerk, Ofen-Rückfall, Seiten, Auswurf, Redstone), alle 409 grün; `gradlew test build` grün.
+- [ ] Client-Test (Modell, GUI-Reiter, Seitenkonfiguration) – noch offen.
+
 ## Nächste Schritte
-1. 25.2: TE-Maschinenbasis + Elektrischer Ofen, Pulverisierer, Sägewerk. Entschieden (Nutzer, 2026-10-20): vorhandene Craft-Items
-   statt TE-Duplikaten, nur Silber-, Blei- und Nickelerz (Ferrous) generieren, kompletter Umfang inkl. Tesserakte.
+1. Client-Test 25.2 (Nutzer fragen, ob der Client gestartet werden darf).
+2. 25.3: Induktionsschmelze, Magmatiegel, Flüssigkeitsumfüller (Rezepttyp `SMELTER` dann wieder in `TeRecipe.Kind`).
+   Entschieden (Nutzer, 2026-10-20): vorhandene Craft-Items statt TE-Duplikaten, nur Silber-, Blei- und Nickelerz,
+   kompletter Umfang inkl. Tesserakte.
