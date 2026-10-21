@@ -281,6 +281,12 @@ sonst 160 MJ).
   wie BC-Motoren; Werte §6.1.
 - **Redstone-Energiezelle** (`TileEnergyCell`): MJ-Speicher mit einstellbarer Ein-/Ausgabe (für alle Seiten gemeinsam); Werte §6.1.
 
+- **Redstone-Energieleitung** (`TileConduitEnergy`, `GridEnergy`, `PowerProviderGrid`): Netz mit 5 % Verlust
+  (`transport.conduit.energy.loss = 5`).
+- **Liquiduct** (`TileConduitLiquid`, `GridLiquid`): Flüssigkeitsnetz.
+- **Tesserakte** (`TileTeleport*`, `TeleportRegistry`): Frequenz (Name) je Besitzer/öffentlich; Energie mit 25 %
+  Verlust, max. 100 MJ/t Übertragung; Items und Flüssigkeiten sofort; Namen in `<Welt>/cofh/tesseracts.cfg`.
+
 ### 6.1 Motoren und Energiezelle (25.5)
 
 **Motoren** (`TileEngineRoot`, `Engines.defaultConfigs`): Material Eisen, Härte 0,5, Licht 7 aktiv; beim Platzieren
@@ -317,12 +323,6 @@ Redstone, `TextureRedstoneFX`). Schleichen + Schraubenschlüssel baut sie mit La
 voll. Rezepte: Motoren `III/ C /GPG` (Dampf: Kupfer, Übertragungsspule, Kupferzahnrad, Kolben; Magma: Invar,
 Übertragungsspule, Invarzahnrad, Kolben); Zelle ` X /YCY/IPI` (X/Y Elektrum, C voller Energiezellenrahmen, I Blei,
 P Leitspule).
-
-- **Redstone-Energieleitung** (`TileConduitEnergy`, `GridEnergy`, `PowerProviderGrid`): Netz mit 5 % Verlust
-  (`transport.conduit.energy.loss = 5`).
-- **Liquiduct** (`TileConduitLiquid`, `GridLiquid`): Flüssigkeitsnetz.
-- **Tesserakte** (`TileTeleport*`, `TeleportRegistry`): Frequenz (Name) je Besitzer/öffentlich; Energie mit 25 %
-  Verlust, max. 100 MJ/t Übertragung; Items und Flüssigkeiten sofort; Namen in `<Welt>/cofh/tesseracts.cfg`.
 
 ## 7. Teilphasen
 
