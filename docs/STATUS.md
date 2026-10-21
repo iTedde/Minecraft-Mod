@@ -2103,7 +2103,7 @@ Spezifikation: `docs/spec/26-thermal-expansion.md`.
   (Energie, Redstone, Konfiguration, Information, Anleitung), farbige Slot-Rahmen.
 - [x] Capabilities (Items je Seite, MJ-Empfänger), Loot, Spitzhacke, Lang en/de, Rezeptkategorien-IDs (EMI selbst in 25.8).
 - [x] 6 neue GameTests (Pulverisierer, Sägewerk, Ofen-Rückfall, Seiten, Auswurf, Redstone), alle 409 grün; `gradlew test build` grün.
-- [ ] Client-Test (Modell, GUI-Reiter, Seitenkonfiguration) – noch offen.
+- [x] Client-Test 2026-10-21 bestanden (siehe Abnahme 25.2–25.6).
 
 ## Erledigt (25.3 Induktionsschmelze, Magmatiegel, Flüssigkeitsumfüller, 2026-10-21)
 - [x] `SmelterBlockEntity`, `TankMachineBlockEntity` (Tank, Abgabe an Nachbartanks), `CrucibleBlockEntity`,
@@ -2121,7 +2121,7 @@ Spezifikation: `docs/spec/26-thermal-expansion.md`.
 - [x] GUI: Produktauswahl mit Rahmen/Markierung, Lava-/Wasseranzeigen, Reiter ohne Energie für Extruder/Sammler; Lang en/de,
   Rezepte (spec 26 §5), Loot, Spitzhacke; Energie-Steckbrief (nur der Eisbereiter nimmt MJ).
 - [x] 4 neue GameTests, alle 417 grün; `gradlew test build` grün.
-- [ ] Client-Test (Tank-Modell, GUIs) – noch offen.
+- [x] Client-Test 2026-10-21 bestanden (siehe Abnahme 25.2–25.6).
 
 ## Erledigt (25.5 Dampf- und Magmamotor, Redstone-Energiezelle, 2026-10-21)
 - [x] Paket `energy/`: `TeEngineType`, `TeEngineBlock`/`TeEngineBlockEntity` (Leistungsrampe, Hub, Abgabe, Defekt + Reparatur,
@@ -2132,7 +2132,7 @@ Spezifikation: `docs/spec/26-thermal-expansion.md`.
   Texturen aus `tools/te_redstone_fx.py`), Item-Renderer, `TeEngineScreen`, `EnergyCellScreen`; gemeinsame Reiter-Basis
   `TeTabScreen` (aus `TeMachineScreen` herausgezogen), `TeRedstoneControl`.
 - [x] Rezepte, Loot, Spitzhacke, Lang en/de; 4 neue GameTests, alle 421 grün; `gradlew test build` grün.
-- [ ] Client-Test (Modelle, Animation, GUIs) – noch offen.
+- [x] Client-Test 2026-10-21 bestanden (siehe Abnahme 25.2–25.6).
 
 ## Erledigt (25.6 Redstone-Energieleitung, Liquiduct, Multimeter, 2026-10-21)
 - [x] Paket `transport/`: `ConduitBlock` (Form aus Verbindungen, Licht), `ConduitBlockEntity` (Seiten, Modus, Auflösen bei
@@ -2144,10 +2144,24 @@ Spezifikation: `docs/spec/26-thermal-expansion.md`.
 - [x] Client `ConduitRenderer` (Originalmodell, Flüssigkeit in 6 Stufen) + Item-Renderer; Rezepte inkl. der aus 25.1
   fehlenden (Energiezellenrahmen, leere Energieleitung, Multimeter), Umfüller-Füllrezept; Lang en/de.
 - [x] 4 neue GameTests, alle 425 grün; `gradlew test build` grün.
-- [ ] Client-Test (Modell, Verbindungen, Flüssigkeitsanzeige) – noch offen.
+- [x] Client-Test 2026-10-21 bestanden (siehe Abnahme 25.2–25.6).
+
+## Abnahme 25.2–25.6 im Client (2026-10-21)
+- [x] Aufbau `ClaudeTest/datapacks/abnahme/.../te.mcfunction`: alle neun Maschinen auf vollen Energiezellen, beide Motoren
+  in leere Zellen, Energieleitungen Zelle → Pulverisierer, Wassersammler → Liquiduct → Tragbarer Tank, gestapelte Lava-Tanks.
+- [x] Ergebnisse: Ofen 16 Eisenbarren, Pulverisierer 32 Eisenstaub + Nickelstaub, Sägewerk 96 Bretter + Sägemehl,
+  Induktionsschmelze 32 Eisenbarren + Reiche Schlacke, Magmatiegel Lava, Umfüller Wassereimer, Eisbereiter 4 Eis,
+  Extruder 4 Obsidian, Wassersammler füllt den Tank (8000 mB), oberer Lava-Tank leert sich nach unten; Leitungsnetz
+  versorgt den Pulverisierer; Dampfmotor 17 702 MJ aus 4000 mB Wasser, dann korrekt defekt; Magmamotor ≈ 4 MJ/t,
+  Bilanz Lava ↔ MJ stimmt.
+- [x] Modelle/Renderer (Maschinen, Motoren, Zellen, Leitungen mit Platten, Flüssigkeit im Liquiduct, Tanks) und GUIs
+  (Eisbereiter-Auswahl, Dampfmotor, Energiezelle), Multimeter (Auslastung, 20-Tick-Messung, Liquiduct-Daten).
+- [x] Gefunden und behoben: Energiezelle mit Ladung aus NBT (`/setblock`) setzte Licht/Ladezustand nie
+  (`energyTracker` startet jetzt bei −1).
+- Hinweis: QuickPlay stürzt ab, solange Xaero beim Start den Update-Dialog zeigt (Absturz in Inventory Profiles Next
+  beim Rendern dieses Bildschirms); über das Hauptmenü läuft es.
 
 ## Nächste Schritte
-1. Client-Tests 25.2–25.6 (Nutzer, 2026-10-21: „Tests später“).
-2. Prüfen: GT `addPulverisationRecipe` mit Nebenprodukten (Feuerstein, Enderperle, Enderauge, Weizen, Pflanzenkugel,
+1. Prüfen: GT `addPulverisationRecipe` mit Nebenprodukten (Feuerstein, Enderperle, Enderauge, Weizen, Pflanzenkugel,
    Dichte Kupferplatte, Crop) – der Macerator-Rückfall in 25.2 liefert nur das Hauptprodukt.
-3. 25.7: Tesserakte (Energie/Flüssigkeit/Item, Frequenzen, Tesserakt-Rahmen-Rezept).
+2. 25.7: Tesserakte (Energie/Flüssigkeit/Item, Frequenzen, Tesserakt-Rahmen-Rezept).

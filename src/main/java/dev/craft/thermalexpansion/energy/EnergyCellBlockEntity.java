@@ -39,7 +39,8 @@ public class EnergyCellBlockEntity extends BlockEntity implements MenuProvider, 
     private final PowerProvider provider = new PowerProvider();
     private int energySend;
     private int energyReceive;
-    private int energyTracker;
+    /** Last light step sent; -1 after loading, so the block state is checked once. */
+    private int energyTracker = -1;
     private int outputTracker;
     private boolean redstoneDisable;
     private boolean redstoneState;
@@ -206,7 +207,6 @@ public class EnergyCellBlockEntity extends BlockEntity implements MenuProvider, 
         super.loadAdditional(tag, registries);
         loadClientData(tag);
         outputTracker = tag.getInt("output") % 6;
-        energyTracker = lightLevel();
     }
 
     private void loadClientData(CompoundTag tag) {
