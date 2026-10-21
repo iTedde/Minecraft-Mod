@@ -1,0 +1,23 @@
+{
+  "type": "craft:te_smelter",
+  "chance": 25,
+  "energy": 80,
+  "inputs": [
+    {
+      "count": 2,
+      "tag": "c:dusts/tin"
+    },
+    {
+      "count": 1,
+      "item": "minecraft:sand"
+    }
+  ],
+  "primary": {
+    "count": 2,
+    "id": "craft:tin_ingot"
+  },
+  "secondary": {
+    "count": 1,
+    "id": "craft:slag"
+  }
+}

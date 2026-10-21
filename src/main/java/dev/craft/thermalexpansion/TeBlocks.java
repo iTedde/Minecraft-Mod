@@ -5,7 +5,10 @@ import java.util.Map;
 
 import dev.craft.Craft;
 import dev.craft.thermalexpansion.block.HardenedGlassBlock;
+import dev.craft.thermalexpansion.machine.CrucibleBlockEntity;
 import dev.craft.thermalexpansion.machine.PoweredFurnaceBlockEntity;
+import dev.craft.thermalexpansion.machine.SmelterBlockEntity;
+import dev.craft.thermalexpansion.machine.TransposerBlockEntity;
 import dev.craft.thermalexpansion.machine.SecondaryOutputMachineBlockEntity;
 import dev.craft.thermalexpansion.machine.TeMachineBlock;
 import dev.craft.thermalexpansion.machine.TeMachineBlockEntity;
@@ -47,6 +50,12 @@ public final class TeBlocks {
             SecondaryOutputMachineBlockEntity::pulverizer);
     public static final DeferredBlock<TeMachineBlock> SAWMILL = machine(TeMachineType.SAWMILL,
             SecondaryOutputMachineBlockEntity::sawmill);
+    public static final DeferredBlock<TeMachineBlock> INDUCTION_SMELTER = machine(TeMachineType.INDUCTION_SMELTER,
+            SmelterBlockEntity::new);
+    public static final DeferredBlock<TeMachineBlock> MAGMA_CRUCIBLE = machine(TeMachineType.MAGMA_CRUCIBLE,
+            CrucibleBlockEntity::new);
+    public static final DeferredBlock<TeMachineBlock> LIQUID_TRANSPOSER = machine(TeMachineType.LIQUID_TRANSPOSER,
+            TransposerBlockEntity::new);
 
     private static final Map<DyeColor, DeferredBlock<Block>> ROCKWOOL = new EnumMap<>(DyeColor.class);
 

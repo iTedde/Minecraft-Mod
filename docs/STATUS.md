@@ -2105,8 +2105,16 @@ Spezifikation: `docs/spec/26-thermal-expansion.md`.
 - [x] 6 neue GameTests (Pulverisierer, Sägewerk, Ofen-Rückfall, Seiten, Auswurf, Redstone), alle 409 grün; `gradlew test build` grün.
 - [ ] Client-Test (Modell, GUI-Reiter, Seitenkonfiguration) – noch offen.
 
+## Erledigt (25.3 Induktionsschmelze, Magmatiegel, Flüssigkeitsumfüller, 2026-10-21)
+- [x] `SmelterBlockEntity`, `TankMachineBlockEntity` (Tank, Abgabe an Nachbartanks), `CrucibleBlockEntity`,
+  `TransposerBlockEntity` (Füll-/Entleermodus, Modusknopf); Menü/Screen erweitert (Tankanzeige, Modusknopf, Slotfarben).
+- [x] Rezepttypen `te_smelter`, `te_crucible`, `te_transposer_fill`, `te_transposer_extract` (Listen spec 26 §4.2, inkl.
+  GT-Zusätzen); Werkbankrezepte; Kategorie-IDs; Lang, Loot, Spitzhacke.
+- [x] 4 neue GameTests, alle 413 grün; `gradlew test build` grün.
+
 ## Nächste Schritte
-1. Client-Test 25.2 (Nutzer fragen, ob der Client gestartet werden darf).
-2. 25.3: Induktionsschmelze, Magmatiegel, Flüssigkeitsumfüller (Rezepttyp `SMELTER` dann wieder in `TeRecipe.Kind`).
-   Entschieden (Nutzer, 2026-10-20): vorhandene Craft-Items statt TE-Duplikaten, nur Silber-, Blei- und Nickelerz,
+1. Client-Tests 25.2 + 25.3 (Nutzer, 2026-10-21: „Tests später“).
+2. Prüfen: GT `addPulverisationRecipe` mit Nebenprodukten (Feuerstein, Enderperle, Enderauge, Weizen, Pflanzenkugel,
+   Dichte Kupferplatte, Crop) – der Macerator-Rückfall in 25.2 liefert nur das Hauptprodukt.
+3. 25.4: Eisbereiter, Gesteinsextruder, Wassersammler, Tragbarer Tank. Entschieden (Nutzer, 2026-10-20): vorhandene Craft-Items statt TE-Duplikaten, nur Silber-, Blei- und Nickelerz,
    kompletter Umfang inkl. Tesserakte.

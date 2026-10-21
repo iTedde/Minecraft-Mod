@@ -1,0 +1,19 @@
+{
+  "type": "craft:te_smelter",
+  "chance": 0,
+  "energy": 400,
+  "inputs": [
+    {
+      "count": 1,
+      "tag": "c:dusts/lead"
+    },
+    {
+      "count": 2,
+      "item": "craft:obsidian_dust"
+    }
+  ],
+  "primary": {
+    "count": 2,
+    "id": "craft:hardened_glass"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "type": "craft:te_transposer_fill",
+  "energy": 1600,
+  "fluid": {
+    "amount": 1000,
+    "id": "craft:molten_ender"
+  },
+  "input": {
+    "count": 1,
+    "item": "craft:tesseract_frame"
+  },
+  "output": {
+    "count": 1,
+    "id": "craft:unattuned_tesseract"
+  }
+}

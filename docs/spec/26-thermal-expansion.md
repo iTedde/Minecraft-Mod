@@ -172,6 +172,44 @@ den Macerator-Rückfall).
 
 Bretter ohne Angabe = Eiche; Eingaben Schild/Tür/Druckplatte/Falltür/Zauntor/Boot = Eiche (1.4.7 kannte nur diese).
 
+### 4.2 Induktionsschmelze, Magmatiegel, Flüssigkeitsumfüller (25.3)
+
+**Induktionsschmelze** (`TileSmelter`): Eingaben Slot 1/2 in beliebiger Reihenfolge (Suche nach Item, Mengen prüft die
+Maschine), Hauptausgabe über zwei Slots, Nebenprodukt mit Chance. Seitengruppen 0 keine · 1 beide Eingaben · 2 Haupt- ·
+3 Nebenausgabe · 4 beide Ausgaben · 5 Eingabe 1 · 6 Eingabe 2 · 7 offen; beim Platzieren links 5, hinten 6.
+
+| Eingaben | Ausgabe | MJ |
+|---|---|---:|
+| Erz (Eisen, Gold, Kupfer, Zinn, Silber, Blei, Nickel; auch Tiefenschiefer, Rohmetall) + Sand | 2 Barren + Reiche Schlacke 5 % | 320 |
+| dasselbe Erz + Reiche Schlacke | 3 Barren + Schlacke 75 % | 400 |
+| 2 Staub (Eisen, Gold, Kupfer, Zinn, Silber, Blei, Nickel, Platin, Elektrum, Invar, Bronze, Messing, Zink) + Sand | 2 Barren + Schlacke 25 % | 80 |
+| Silberbarren + Goldbarren | 2 Elektrum | 240 |
+| Nickelbarren + 2 Eisenbarren | 3 Invar | 240 |
+| 3 Kupfer + 1 Zinn | 2 Bronze | 240 |
+| Bleibarren oder Bleistaub + 2 Obsidianstaub | 2 Gehärtetes Glas | 400 |
+| 4 Netherrack + Seelensand | 2 Netherziegel(-blöcke) + Schwefel 25 % | 400 |
+| GT: Pyriterz + Sand / + Reiche Schlacke | 1 Eisen + Reiche Schlacke 10 % / 2 Eisen + Schlacke 95 % | 300 |
+| GT: 2 Eisenbarren + Sand | 2 Raffiniertes Eisen + Schlacke 25 % | 400 |
+| GT: 3 Kupfer + 1 Zink | 4 Messing | 400 |
+
+**Magmatiegel** (`TileCrucible`): Tank 10 000 mB, gibt an Ausgabeseiten (Gruppe 2) bis 100 mB/Tick in angrenzende
+Tanks ab und lässt sich dort leeren (nicht befüllen). Gruppen 0 keine · 1 Eingabe · 2 Flüssigkeitsausgabe.
+Rezepte: Bruchstein/Stein/Obsidian → 1000 mB Lava (24 000 MJ = 6/5 · `core.lava.mj`), Netherrack → 1000 mB Lava
+(12 000, Pack-Config), 4 Schneebälle → 500 mB Wasser (60), Schneeblock → 500 mB (60), Eis → 1000 mB (120), Redstone →
+25 mB Geschmolzenes Redstone (1200), Enderperle → 250 mB Geschmolzenes Ender (2400). Originaleigenheit: die Suche
+geht nur nach dem Item – auch 1–3 Schneebälle schmelzen zu 500 mB.
+
+**Flüssigkeitsumfüller** (`TileTransposer`): Füllmodus füllt das Item in Slot 1 aus dem Tank, Entleermodus (Knopf)
+leert es in den Tank; der Moduswechsel greift erst nach dem laufenden Vorgang. Tank 10 000 mB; Füllmodus: befüllbar an
+Eingabeseiten (Gruppe 1); Entleermodus: leerbar an Gruppe 3 und Abgabe 100 mB/Tick dorthin. Gruppen 0 keine ·
+1 Eingabe · 2 Ausgabe · 3 Flüssigkeitsausgabe · 4 offen. Rezepte (Füllen; „umkehrbar“ = auch Entleeren):
+IC2-Modul leere Zelle ↔ Wasser-/Lavazelle 1000 mB (80 MJ); danach jeder registrierte Behälter (`LiquidContainers`:
+Eimer Wasser/Lava/Öl/Treibstoff 80 MJ, Kühlmittelzelle 10k 160 MJ; ein schon vorhandenes Paar Behälter/Flüssigkeit
+bleibt, daher keine 30k/60k-Zellen), umkehrbar. Energiezellenrahmen + 1000 mB Redstone → voll (1600), Tesserakt-Rahmen
++ 1000 mB Ender → Unabgestimmter Tesserakt (1600), nicht umkehrbar. GT: Kohlestaub + 125 mB Wasser → Hydrierter
+Kohlestaub (125), Entleeren: Hydrierter Kohlestaub → Kohlestaub + 100 mB Wasser (125). Energieleitung + 50 mB Redstone
+(80 MJ) folgt mit 25.6.
+
 ## 5. Rezepte (Werkbank)
 
 Maschinenrahmen `IGI/GXG/IGI` (Eisen, Glas, Gold). Maschinen `" X "/"YCY"/"IPI"` mit C Rahmen, I Kupferbarren,

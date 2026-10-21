@@ -1,0 +1,12 @@
+{
+  "type": "craft:te_crucible",
+  "energy": 24000,
+  "fluid": {
+    "amount": 1000,
+    "id": "minecraft:lava"
+  },
+  "input": {
+    "count": 1,
+    "item": "minecraft:cobblestone"
+  }
+}

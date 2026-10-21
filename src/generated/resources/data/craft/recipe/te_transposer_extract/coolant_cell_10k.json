@@ -1,0 +1,16 @@
+{
+  "type": "craft:te_transposer_extract",
+  "energy": 160,
+  "fluid": {
+    "amount": 1000,
+    "id": "craft:coolant"
+  },
+  "input": {
+    "count": 1,
+    "item": "craft:coolant_cell_10k"
+  },
+  "output": {
+    "count": 1,
+    "id": "craft:empty_cell"
+  }
+}

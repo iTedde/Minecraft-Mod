@@ -29,6 +29,11 @@ public final class TeItems {
     public static final DeferredItem<BlockItem> POWERED_FURNACE = ITEMS.registerSimpleBlockItem(TeBlocks.POWERED_FURNACE);
     public static final DeferredItem<BlockItem> PULVERIZER = ITEMS.registerSimpleBlockItem(TeBlocks.PULVERIZER);
     public static final DeferredItem<BlockItem> SAWMILL = ITEMS.registerSimpleBlockItem(TeBlocks.SAWMILL);
+    public static final DeferredItem<BlockItem> INDUCTION_SMELTER =
+            ITEMS.registerSimpleBlockItem(TeBlocks.INDUCTION_SMELTER);
+    public static final DeferredItem<BlockItem> MAGMA_CRUCIBLE = ITEMS.registerSimpleBlockItem(TeBlocks.MAGMA_CRUCIBLE);
+    public static final DeferredItem<BlockItem> LIQUID_TRANSPOSER =
+            ITEMS.registerSimpleBlockItem(TeBlocks.LIQUID_TRANSPOSER);
 
     public static final DeferredItem<Item> INVAR_DUST = ITEMS.registerSimpleItem("invar_dust");
     public static final DeferredItem<Item> INVAR_INGOT = ITEMS.registerSimpleItem("invar_ingot");

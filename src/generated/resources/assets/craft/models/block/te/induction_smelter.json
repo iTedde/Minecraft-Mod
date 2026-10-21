@@ -1,0 +1,7 @@
+{
+  "loader": "craft:te_machine",
+  "machine": "induction_smelter",
+  "textures": {
+    "particle": "craft:block/te/machine/side_0"
+  }
+}

@@ -499,7 +499,7 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
                     mcLoc("block/" + color.getSerializedName() + "_wool")));
         }
         for (DeferredBlock<TeMachineBlock> holder : List.of(TeBlocks.POWERED_FURNACE, TeBlocks.PULVERIZER,
-                TeBlocks.SAWMILL)) {
+                TeBlocks.SAWMILL, TeBlocks.INDUCTION_SMELTER, TeBlocks.MAGMA_CRUCIBLE, TeBlocks.LIQUID_TRANSPOSER)) {
             TeMachineType type = holder.get().getMachineType();
             // The block model picks the face textures from the side groups (TeMachineModel); the item shows group 0.
             simpleBlock(holder.get(), models().getBuilder("block/te/" + type.getName())

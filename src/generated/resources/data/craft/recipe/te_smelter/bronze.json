@@ -1,0 +1,19 @@
+{
+  "type": "craft:te_smelter",
+  "chance": 0,
+  "energy": 240,
+  "inputs": [
+    {
+      "count": 3,
+      "tag": "c:ingots/copper"
+    },
+    {
+      "count": 1,
+      "tag": "c:ingots/tin"
+    }
+  ],
+  "primary": {
+    "count": 2,
+    "id": "craft:bronze_ingot"
+  }
+}

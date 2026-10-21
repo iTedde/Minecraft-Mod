@@ -3,7 +3,10 @@ package dev.craft.thermalexpansion;
 import java.util.function.Supplier;
 
 import dev.craft.Craft;
+import dev.craft.thermalexpansion.machine.CrucibleBlockEntity;
 import dev.craft.thermalexpansion.machine.PoweredFurnaceBlockEntity;
+import dev.craft.thermalexpansion.machine.SmelterBlockEntity;
+import dev.craft.thermalexpansion.machine.TransposerBlockEntity;
 import dev.craft.thermalexpansion.machine.SecondaryOutputMachineBlockEntity;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -23,6 +26,15 @@ public final class TeBlockEntityTypes {
     public static final Supplier<BlockEntityType<SecondaryOutputMachineBlockEntity>> SAWMILL =
             BLOCK_ENTITY_TYPES.register("sawmill", () -> BlockEntityType.Builder.of(
                     SecondaryOutputMachineBlockEntity::sawmill, TeBlocks.SAWMILL.get()).build(null));
+    public static final Supplier<BlockEntityType<SmelterBlockEntity>> INDUCTION_SMELTER =
+            BLOCK_ENTITY_TYPES.register("induction_smelter", () -> BlockEntityType.Builder.of(
+                    SmelterBlockEntity::new, TeBlocks.INDUCTION_SMELTER.get()).build(null));
+    public static final Supplier<BlockEntityType<CrucibleBlockEntity>> MAGMA_CRUCIBLE =
+            BLOCK_ENTITY_TYPES.register("magma_crucible", () -> BlockEntityType.Builder.of(
+                    CrucibleBlockEntity::new, TeBlocks.MAGMA_CRUCIBLE.get()).build(null));
+    public static final Supplier<BlockEntityType<TransposerBlockEntity>> LIQUID_TRANSPOSER =
+            BLOCK_ENTITY_TYPES.register("liquid_transposer", () -> BlockEntityType.Builder.of(
+                    TransposerBlockEntity::new, TeBlocks.LIQUID_TRANSPOSER.get()).build(null));
 
     private TeBlockEntityTypes() {
     }

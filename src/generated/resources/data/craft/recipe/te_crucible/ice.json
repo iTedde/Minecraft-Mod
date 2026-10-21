@@ -1,0 +1,12 @@
+{
+  "type": "craft:te_crucible",
+  "energy": 120,
+  "fluid": {
+    "amount": 1000,
+    "id": "minecraft:water"
+  },
+  "input": {
+    "count": 1,
+    "item": "minecraft:ice"
+  }
+}

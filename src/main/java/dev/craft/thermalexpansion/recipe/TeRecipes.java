@@ -16,6 +16,7 @@ import net.minecraft.world.item.crafting.SingleRecipeInput;
 import net.minecraft.world.item.crafting.SmeltingRecipe;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.common.crafting.SizedIngredient;
+import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import org.jetbrains.annotations.Nullable;
 
@@ -26,6 +27,7 @@ import org.jetbrains.annotations.Nullable;
  * <li>Pulverizer: own recipes, otherwise every IC2 macerator recipe at 400 MJ – GregTech's
  * {@code addPulverisationRecipe} puts each of its macerator recipes into the pulverizer as well.</li>
  * <li>Sawmill: own recipes, otherwise macerator recipes giving wood pulp at 80 MJ (GT's branch for wood).</li>
+ * <li>Induction Smelter, Magma Crucible, Liquid Transposer: own recipes only.</li>
  * </ul>
  */
 public final class TeRecipes {
@@ -45,6 +47,11 @@ public final class TeRecipes {
             String name = "te_" + kind.getName();
             kind.bind(TYPES.register(name, () -> RecipeType.simple(ResourceLocation.fromNamespaceAndPath(Craft.MODID,
                     name))), SERIALIZERS.register(name, () -> new TeRecipe.Serializer(kind)));
+        }
+        for (TeFluidRecipe.Kind kind : TeFluidRecipe.Kind.values()) {
+            String name = "te_" + kind.getName();
+            kind.bind(TYPES.register(name, () -> RecipeType.simple(ResourceLocation.fromNamespaceAndPath(Craft.MODID,
+                    name))), SERIALIZERS.register(name, () -> new TeFluidRecipe.Serializer(kind)));
         }
     }
 
@@ -66,7 +73,76 @@ public final class TeRecipes {
             case FURNACE -> furnaceFallback(level, stack);
             case PULVERIZER -> maceratorFallback(level, stack, false);
             case SAWMILL -> maceratorFallback(level, stack, true);
+            case SMELTER -> null;
         };
+    }
+
+    /** {@code SmelterManager.getRecipe}: both inputs by item, in either order. */
+    @Nullable
+    public static TeRecipe findSmelter(Level level, ItemStack first, ItemStack second) {
+        if (first.isEmpty() || second.isEmpty()) {
+            return null;
+        }
+        for (RecipeHolder<TeRecipe> holder : level.getRecipeManager().getAllRecipesFor(TeRecipe.Kind.SMELTER.type())) {
+            List<SizedIngredient> inputs = holder.value().getInputs();
+            if (inputs.size() == 2 && (inputs.get(0).ingredient().test(first) && inputs.get(1).ingredient().test(second)
+                    || inputs.get(0).ingredient().test(second) && inputs.get(1).ingredient().test(first))) {
+                return holder.value();
+            }
+        }
+        return null;
+    }
+
+    /** {@code SmelterManager.isItemValid}: the item is part of any alloy recipe. */
+    public static boolean isSmelterInput(Level level, ItemStack stack) {
+        for (RecipeHolder<TeRecipe> holder : level.getRecipeManager().getAllRecipesFor(TeRecipe.Kind.SMELTER.type())) {
+            for (SizedIngredient input : holder.value().getInputs()) {
+                if (input.ingredient().test(stack)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /** Crucible or extraction recipe of {@code stack} (item match only), or {@code null}. */
+    @Nullable
+    public static TeFluidRecipe find(Level level, TeFluidRecipe.Kind kind, ItemStack stack) {
+        if (stack.isEmpty()) {
+            return null;
+        }
+        for (RecipeHolder<TeFluidRecipe> holder : level.getRecipeManager().getAllRecipesFor(kind.type())) {
+            if (holder.value().matchesItem(stack)) {
+                return holder.value();
+            }
+        }
+        return null;
+    }
+
+    /** {@code TransposerManager.getFillRecipe}: by item and liquid type. */
+    @Nullable
+    public static TeFluidRecipe findFill(Level level, ItemStack stack, FluidStack fluid) {
+        if (stack.isEmpty() || fluid.isEmpty()) {
+            return null;
+        }
+        for (RecipeHolder<TeFluidRecipe> holder : level.getRecipeManager()
+                .getAllRecipesFor(TeFluidRecipe.Kind.FILL.type())) {
+            if (holder.value().matchesItem(stack) && FluidStack.isSameFluidSameComponents(holder.value().getFluid(),
+                    fluid)) {
+                return holder.value();
+            }
+        }
+        return null;
+    }
+
+    /** {@code TransposerManager.isItemValid}: input of any fill or extraction recipe. */
+    public static boolean isTransposerInput(Level level, ItemStack stack) {
+        for (TeFluidRecipe.Kind kind : new TeFluidRecipe.Kind[]{TeFluidRecipe.Kind.FILL, TeFluidRecipe.Kind.EXTRACT}) {
+            if (find(level, kind, stack) != null) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Nullable

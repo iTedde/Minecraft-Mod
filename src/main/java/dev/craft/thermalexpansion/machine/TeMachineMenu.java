@@ -4,15 +4,19 @@ import dev.craft.ic2.menu.MachineSlot;
 import dev.craft.ic2.menu.OutputSlot;
 import dev.craft.ic2.menu.SyncedInts;
 import dev.craft.thermalexpansion.TeMenus;
+import dev.craft.thermalexpansion.recipe.TeFluidRecipe;
 import dev.craft.thermalexpansion.recipe.TeRecipe;
 import dev.craft.thermalexpansion.recipe.TeRecipes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.material.Fluid;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.Nullable;
@@ -20,7 +24,7 @@ import org.jetbrains.annotations.Nullable;
 /**
  * Container of the Thermal Expansion machines ({@code ContainerFurnace}, {@code ContainerPulverizer} …). The GUI tabs
  * talk to the server through {@link #clickMenuButton}: redstone modes 0–2, side changes 10 + 2·side (+1 backwards),
- * 22 + side sets a side to group 0, 30 resets all sides.
+ * 22 + side sets a side to group 0, 30 resets all sides, 40 toggles the transposer mode.
  */
 public class TeMachineMenu extends AbstractContainerMenu {
     public static final int BUTTON_REDSTONE_IGNORED = 0;
@@ -29,6 +33,7 @@ public class TeMachineMenu extends AbstractContainerMenu {
     public static final int BUTTON_SIDE = 10;
     public static final int BUTTON_CLEAR_SIDE = 22;
     public static final int BUTTON_RESET_SIDES = 30;
+    public static final int BUTTON_MODE = 40;
     /** Synced values ×100 where fractions matter (MJ and process progress are floats). */
     private static final int ACTIVE = 0;
     private static final int PROCESS_CUR = 1;
@@ -36,6 +41,10 @@ public class TeMachineMenu extends AbstractContainerMenu {
     private static final int ENERGY = 3;
     private static final int SPEED = 4;
     private static final int POWER = 5;
+    private static final int FLUID = 6;
+    private static final int FLUID_AMOUNT = 7;
+    /** Transposer: bit 0 {@code reverse}, bit 1 {@code reverseFlag}. */
+    private static final int MODE = 8;
 
     @Nullable
     private final TeMachineBlockEntity machine;
@@ -51,11 +60,16 @@ public class TeMachineMenu extends AbstractContainerMenu {
                 () -> Math.round(machine.getProcessEnd() * 100),
                 () -> Math.round(machine.getEnergy() * 100),
                 () -> Math.round(machine.getSpeedLevel() * 1000),
-                () -> Math.round(machine.getPower() * 100)));
+                () -> Math.round(machine.getPower() * 100),
+                () -> machine instanceof TankMachineBlockEntity tank
+                        ? BuiltInRegistries.FLUID.getId(tank.getTankFluid().getFluid()) : 0,
+                () -> machine instanceof TankMachineBlockEntity tank ? tank.getTankFluid().getAmount() : 0,
+                () -> machine instanceof TransposerBlockEntity transposer
+                        ? (transposer.isReverse() ? 1 : 0) | (transposer.getReverseFlag() ? 2 : 0) : 0));
     }
 
     public TeMachineMenu(int id, Inventory inventory, TeMachineType type, BlockPos pos) {
-        this(id, inventory, null, type, pos, new SyncedInts(6));
+        this(id, inventory, null, type, pos, new SyncedInts(9));
     }
 
     private TeMachineMenu(int id, Inventory inventory, @Nullable TeMachineBlockEntity machine, TeMachineType type,
@@ -78,6 +92,18 @@ public class TeMachineMenu extends AbstractContainerMenu {
                 addSlot(new OutputSlot(items, 1, 116, 26, player, false));
                 addSlot(new OutputSlot(items, 2, 134, 26, player, false));
                 addSlot(new OutputSlot(items, 3, 116, 53, player, false));
+            }
+            case INDUCTION_SMELTER -> {
+                addSlot(new MachineSlot(items, 0, 32, 26));
+                addSlot(new MachineSlot(items, 1, 56, 26));
+                addSlot(new OutputSlot(items, 2, 116, 26, player, false));
+                addSlot(new OutputSlot(items, 3, 134, 26, player, false));
+                addSlot(new OutputSlot(items, 4, 116, 53, player, false));
+            }
+            case MAGMA_CRUCIBLE -> addSlot(new MachineSlot(items, 0, 56, 26));
+            case LIQUID_TRANSPOSER -> {
+                addSlot(new MachineSlot(items, 0, 80, 19));
+                addSlot(new OutputSlot(items, 1, 80, 49, player, false));
             }
         }
         machineSlots = slots.size();
@@ -120,6 +146,23 @@ public class TeMachineMenu extends AbstractContainerMenu {
         return data.getInt(POWER) / 100.0F;
     }
 
+    /** Tank of the crucible and the transposer. */
+    public Fluid getFluid() {
+        return BuiltInRegistries.FLUID.byId(data.getInt(FLUID));
+    }
+
+    public int getFluidAmount() {
+        return data.getInt(FLUID_AMOUNT);
+    }
+
+    public boolean isReverse() {
+        return (data.getInt(MODE) & 1) != 0;
+    }
+
+    public boolean getReverseFlag() {
+        return (data.getInt(MODE) & 2) != 0;
+    }
+
     @Override
     public boolean clickMenuButton(Player player, int id) {
         if (machine == null) {
@@ -130,6 +173,13 @@ public class TeMachineMenu extends AbstractContainerMenu {
             case BUTTON_REDSTONE_LOW -> machine.setRedstone(false, false);
             case BUTTON_REDSTONE_HIGH -> machine.setRedstone(false, true);
             case BUTTON_RESET_SIDES -> machine.resetSides();
+            case BUTTON_MODE -> {
+                if (!(machine instanceof TransposerBlockEntity transposer)
+                        || transposer.isReverse() != transposer.getReverseFlag()) {
+                    return false;
+                }
+                transposer.setMode(!transposer.isReverse());
+            }
             default -> {
                 if (id >= BUTTON_SIDE && id < BUTTON_SIDE + 12) {
                     int side = (id - BUTTON_SIDE) / 2;
@@ -161,7 +211,7 @@ public class TeMachineMenu extends AbstractContainerMenu {
                 return ItemStack.EMPTY;
             }
         } else if (hasRecipe(player, stack)) {
-            if (!moveItemStackTo(stack, 0, 1, false)) {
+            if (!moveItemStackTo(stack, 0, type == TeMachineType.INDUCTION_SMELTER ? 2 : 1, false)) {
                 return ItemStack.EMPTY;
             }
         } else if (index < hotbarStart) {
@@ -184,12 +234,15 @@ public class TeMachineMenu extends AbstractContainerMenu {
     }
 
     private boolean hasRecipe(Player player, ItemStack stack) {
-        TeRecipe.Kind kind = switch (type) {
-            case POWERED_FURNACE -> TeRecipe.Kind.FURNACE;
-            case PULVERIZER -> TeRecipe.Kind.PULVERIZER;
-            case SAWMILL -> TeRecipe.Kind.SAWMILL;
+        Level level = player.level();
+        return switch (type) {
+            case POWERED_FURNACE -> TeRecipes.find(level, TeRecipe.Kind.FURNACE, stack) != null;
+            case PULVERIZER -> TeRecipes.find(level, TeRecipe.Kind.PULVERIZER, stack) != null;
+            case SAWMILL -> TeRecipes.find(level, TeRecipe.Kind.SAWMILL, stack) != null;
+            case INDUCTION_SMELTER -> TeRecipes.isSmelterInput(level, stack);
+            case MAGMA_CRUCIBLE -> TeRecipes.find(level, TeFluidRecipe.Kind.CRUCIBLE, stack) != null;
+            case LIQUID_TRANSPOSER -> TeRecipes.isTransposerInput(level, stack);
         };
-        return TeRecipes.find(player.level(), kind, stack) != null;
     }
 
     @Override

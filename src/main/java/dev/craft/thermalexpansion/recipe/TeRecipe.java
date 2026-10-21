@@ -22,7 +22,7 @@ import net.neoforged.neoforge.common.crafting.SizedIngredient;
 
 /**
  * A Thermal Expansion machine recipe ({@code FurnaceManager}, {@code PulverizerManager}, {@code SawmillManager},
- * later {@code SmelterManager}): one or two sized inputs, a primary and an optional secondary output with a chance in percent,
+ * {@code SmelterManager}): one or two sized inputs, a primary and an optional secondary output with a chance in percent,
  * and the energy in MJ per operation.
  */
 public class TeRecipe implements Recipe<TeRecipe.Input> {
@@ -132,7 +132,8 @@ public class TeRecipe implements Recipe<TeRecipe.Input> {
     public enum Kind {
         FURNACE("furnace"),
         PULVERIZER("pulverizer"),
-        SAWMILL("sawmill");
+        SAWMILL("sawmill"),
+        SMELTER("smelter");
 
         private final String name;
         private Supplier<RecipeType<TeRecipe>> type;

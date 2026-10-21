@@ -1,0 +1,16 @@
+{
+  "type": "craft:te_transposer_fill",
+  "energy": 125,
+  "fluid": {
+    "amount": 125,
+    "id": "minecraft:water"
+  },
+  "input": {
+    "count": 1,
+    "item": "craft:coal_dust"
+  },
+  "output": {
+    "count": 1,
+    "id": "craft:hydrated_coal_dust"
+  }
+}

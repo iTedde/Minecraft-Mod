@@ -1,0 +1,12 @@
+{
+  "type": "craft:te_crucible",
+  "energy": 60,
+  "fluid": {
+    "amount": 500,
+    "id": "minecraft:water"
+  },
+  "input": {
+    "count": 1,
+    "item": "minecraft:snow_block"
+  }
+}

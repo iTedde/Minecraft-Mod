@@ -1,0 +1,23 @@
+{
+  "type": "craft:te_smelter",
+  "chance": 95,
+  "energy": 300,
+  "inputs": [
+    {
+      "count": 1,
+      "item": "craft:pyrite_ore"
+    },
+    {
+      "count": 1,
+      "item": "craft:rich_slag"
+    }
+  ],
+  "primary": {
+    "count": 2,
+    "id": "minecraft:iron_ingot"
+  },
+  "secondary": {
+    "count": 1,
+    "id": "craft:slag"
+  }
+}

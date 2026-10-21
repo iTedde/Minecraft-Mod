@@ -6,6 +6,7 @@ import java.util.Comparator;
 import java.util.EnumMap;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
@@ -14,7 +15,10 @@ import java.util.concurrent.CompletableFuture;
 import dev.craft.Craft;
 import dev.craft.thermalexpansion.TeBlocks;
 import dev.craft.thermalexpansion.TeItems;
+import dev.craft.thermalexpansion.TeFluids;
+import dev.craft.thermalexpansion.recipe.TeFluidRecipe;
 import dev.craft.thermalexpansion.recipe.TeRecipe;
+import dev.craft.buildcraft.fluid.LiquidContainers;
 import dev.craft.advancedmachines.AdvancedMachinesItems;
 import dev.craft.buildcraft.BcItems;
 import dev.craft.buildcraft.transport.PipeType;
@@ -2217,6 +2221,10 @@ public final class CraftRecipeProvider extends RecipeProvider {
         teMachine(TeItems.POWERED_FURNACE.get(), Ingredient.of(Items.REDSTONE), Ingredient.of(Items.BRICKS));
         teMachine(TeItems.PULVERIZER.get(), Ingredient.of(Items.PISTON), Ingredient.of(Items.FLINT));
         teMachine(TeItems.SAWMILL.get(), Ingredient.of(Items.IRON_AXE), Ingredient.of(ItemTags.PLANKS));
+        teMachine(TeItems.INDUCTION_SMELTER.get(), Ingredient.of(Items.BUCKET),
+                Ingredient.of(CraftItemTagsProvider.INGOTS_INVAR));
+        teMachine(TeItems.MAGMA_CRUCIBLE.get(), Ingredient.of(Items.BUCKET), Ingredient.of(Items.NETHER_BRICKS));
+        teMachine(TeItems.LIQUID_TRANSPOSER.get(), Ingredient.of(Items.BUCKET), Ingredient.of(Items.GLASS));
 
         // Powered Furnace: own recipes; everything else smelts at 160 MJ (TeRecipes.find).
         te(TeRecipe.Kind.FURNACE, "cactus", Ingredient.of(Items.CACTUS), stack(Items.GREEN_DYE, 1), 80);
@@ -2320,6 +2328,134 @@ public final class CraftRecipeProvider extends RecipeProvider {
         te(sawmill, "wooden_hoe", Ingredient.of(Items.WOODEN_HOE), stack(Items.OAK_PLANKS, 2), sawdust, 100, 160);
         te(sawmill, "rubber_wood", Ingredient.of(Ic2Items.RUBBER_WOOD), stack(Items.JUNGLE_PLANKS, 4),
                 stack(Ic2Items.RESIN, 1), 33, 120);
+        teLiquidMachines();
+    }
+
+    /** {@code SmelterManager} with the GregTech additions, {@code CrucibleManager}, {@code TransposerManager}. */
+    private void teLiquidMachines() {
+        Ingredient sand = Ingredient.of(Items.SAND);
+        Ingredient richSlag = Ingredient.of(TeItems.RICH_SLAG);
+        ItemStack slag = stack(TeItems.SLAG, 1);
+        // Ores (+ raw metal as in the pulverizer): with sand 2 ingots, with rich slag 3 ingots.
+        Object[][] ores = {
+                {"iron", Ingredient.of(Items.IRON_ORE, Items.DEEPSLATE_IRON_ORE, Items.RAW_IRON), Items.IRON_INGOT},
+                {"gold", Ingredient.of(Items.GOLD_ORE, Items.DEEPSLATE_GOLD_ORE, Items.RAW_GOLD), Items.GOLD_INGOT},
+                {"copper", Ingredient.of(Items.COPPER_ORE, Items.DEEPSLATE_COPPER_ORE, Items.RAW_COPPER),
+                        Items.COPPER_INGOT},
+                {"tin", Ingredient.of(Ic2Items.TIN_ORE, Ic2Items.DEEPSLATE_TIN_ORE), Ic2Items.TIN_INGOT.get()},
+                {"silver", Ingredient.of(TeItems.SILVER_ORE, TeItems.DEEPSLATE_SILVER_ORE), GtItems.SILVER_INGOT.get()},
+                {"lead", Ingredient.of(TeItems.LEAD_ORE, TeItems.DEEPSLATE_LEAD_ORE), GtItems.LEAD_INGOT.get()},
+                {"nickel", Ingredient.of(TeItems.NICKEL_ORE, TeItems.DEEPSLATE_NICKEL_ORE), GtItems.NICKEL_INGOT.get()}};
+        for (Object[] ore : ores) {
+            Ingredient input = (Ingredient) ore[1];
+            ItemLike ingot = (ItemLike) ore[2];
+            smelter(ore[0] + "_ore_sand", input, 1, sand, 1, stack(ingot, 2), stack(TeItems.RICH_SLAG, 1), 5, 320);
+            smelter(ore[0] + "_ore_rich_slag", input, 1, richSlag, 1, stack(ingot, 3), slag, 75, 400);
+        }
+        // Dusts: 2 dust + sand → 2 ingots.
+        Object[][] dusts = {
+                {"iron", Ingredient.of(CraftItemTagsProvider.DUSTS_IRON), Items.IRON_INGOT},
+                {"gold", Ingredient.of(CraftItemTagsProvider.DUSTS_GOLD), Items.GOLD_INGOT},
+                {"copper", Ingredient.of(CraftItemTagsProvider.DUSTS_COPPER), Items.COPPER_INGOT},
+                {"tin", Ingredient.of(CraftItemTagsProvider.DUSTS_TIN), Ic2Items.TIN_INGOT.get()},
+                {"silver", Ingredient.of(CraftItemTagsProvider.DUSTS_SILVER), GtItems.SILVER_INGOT.get()},
+                {"lead", Ingredient.of(CraftItemTagsProvider.DUSTS_LEAD), GtItems.LEAD_INGOT.get()},
+                {"nickel", Ingredient.of(CraftItemTagsProvider.DUSTS_NICKEL), GtItems.NICKEL_INGOT.get()},
+                {"platinum", Ingredient.of(CraftItemTagsProvider.DUSTS_PLATINUM), GtItems.PLATINUM_INGOT.get()},
+                {"electrum", Ingredient.of(GtItems.ELECTRUM_DUST), GtItems.ELECTRUM_INGOT.get()},
+                {"invar", Ingredient.of(CraftItemTagsProvider.DUSTS_INVAR), TeItems.INVAR_INGOT.get()},
+                {"bronze", Ingredient.of(CraftItemTagsProvider.DUSTS_BRONZE), Ic2Items.BRONZE_INGOT.get()},
+                {"brass", Ingredient.of(CraftItemTagsProvider.DUSTS_BRASS), GtItems.BRASS_INGOT.get()},
+                {"zinc", Ingredient.of(CraftItemTagsProvider.DUSTS_ZINC), GtItems.ZINC_INGOT.get()}};
+        for (Object[] dust : dusts) {
+            smelter(dust[0] + "_dust", (Ingredient) dust[1], 2, sand, 1, stack((ItemLike) dust[2], 2), slag, 25, 80);
+        }
+        // GregTech (GT_OreDictHandler): pyrite ore, refined iron, brass.
+        smelter("pyrite_ore_sand", gtOre(GtOre.PYRITE), 1, sand, 1, stack(Items.IRON_INGOT, 1),
+                stack(TeItems.RICH_SLAG, 1), 10, 300);
+        smelter("pyrite_ore_rich_slag", gtOre(GtOre.PYRITE), 1, richSlag, 1, stack(Items.IRON_INGOT, 2), slag, 95, 300);
+        smelter("refined_iron", Ingredient.of(Items.IRON_INGOT), 2, sand, 1, stack(Ic2Items.REFINED_IRON_INGOT, 2), slag,
+                25, 400);
+        smelter("brass", Ingredient.of(ingotsCopper()), 3, Ingredient.of(CraftItemTagsProvider.INGOTS_ZINC), 1,
+                stack(GtItems.BRASS_INGOT, 4), ItemStack.EMPTY, 0, 400);
+        // Alloys and the rest of SmelterManager.
+        smelter("electrum", Ingredient.of(CraftItemTagsProvider.INGOTS_SILVER), 1, Ingredient.of(Items.GOLD_INGOT), 1,
+                stack(GtItems.ELECTRUM_INGOT, 2), ItemStack.EMPTY, 0, 240);
+        smelter("invar", Ingredient.of(CraftItemTagsProvider.INGOTS_NICKEL), 1, Ingredient.of(Items.IRON_INGOT), 2,
+                stack(TeItems.INVAR_INGOT, 3), ItemStack.EMPTY, 0, 240);
+        smelter("bronze", Ingredient.of(ingotsCopper()), 3, Ingredient.of(CraftItemTagsProvider.INGOTS_TIN), 1,
+                stack(Ic2Items.BRONZE_INGOT, 2), ItemStack.EMPTY, 0, 240);
+        Ingredient obsidianDust = Ingredient.of(GtItems.OBSIDIAN_DUST);
+        smelter("hardened_glass_from_lead_ingot", Ingredient.of(CraftItemTagsProvider.INGOTS_LEAD), 1, obsidianDust, 2,
+                stack(TeItems.HARDENED_GLASS, 2), ItemStack.EMPTY, 0, 400);
+        smelter("hardened_glass_from_lead_dust", Ingredient.of(CraftItemTagsProvider.DUSTS_LEAD), 1, obsidianDust, 2,
+                stack(TeItems.HARDENED_GLASS, 2), ItemStack.EMPTY, 0, 400);
+        smelter("nether_bricks", Ingredient.of(Items.NETHERRACK), 4, Ingredient.of(Items.SOUL_SAND), 1,
+                stack(Items.NETHER_BRICKS, 2), stack(GtItems.SULFUR_DUST, 1), 25, 400);
+
+        // Magma Crucible: lava 20 000 MJ (core.lava.mj) × 6/5; netherrack from the pack config.
+        TeFluidRecipe.Kind crucible = TeFluidRecipe.Kind.CRUCIBLE;
+        for (ItemLike rock : List.of(Items.COBBLESTONE, Items.STONE, Items.OBSIDIAN)) {
+            teFluid(crucible, path(rock), Ingredient.of(rock), 1, ItemStack.EMPTY, new FluidStack(Fluids.LAVA, 1000), 24000);
+        }
+        teFluid(crucible, "netherrack", Ingredient.of(Items.NETHERRACK), 1, ItemStack.EMPTY,
+                new FluidStack(Fluids.LAVA, 1000), 12000);
+        teFluid(crucible, "snowball", Ingredient.of(Items.SNOWBALL), 4, ItemStack.EMPTY,
+                new FluidStack(Fluids.WATER, 500), 60);
+        teFluid(crucible, "snow_block", Ingredient.of(Items.SNOW_BLOCK), 1, ItemStack.EMPTY,
+                new FluidStack(Fluids.WATER, 500), 60);
+        teFluid(crucible, "ice", Ingredient.of(Items.ICE), 1, ItemStack.EMPTY, new FluidStack(Fluids.WATER, 1000), 120);
+        teFluid(crucible, "redstone", Ingredient.of(Items.REDSTONE), 1, ItemStack.EMPTY,
+                new FluidStack(TeFluids.MOLTEN_REDSTONE.get(), 25), 1200);
+        teFluid(crucible, "ender_pearl", Ingredient.of(Items.ENDER_PEARL), 1, ItemStack.EMPTY,
+                new FluidStack(TeFluids.MOLTEN_ENDER.get(), 250), 2400);
+
+        // Liquid Transposer: IC2 module (cells, 80 MJ), then every registered container (bucket 80, else 160 MJ);
+        // a fill already present for the same container and liquid keeps the first one (no extraction added).
+        Set<String> fills = new HashSet<>();
+        transpose(fills, new LiquidContainers.Entry(Fluids.WATER, 1000, Ic2Items.WATER_CELL.get(),
+                Ic2Items.EMPTY_CELL.get()), 80);
+        transpose(fills, new LiquidContainers.Entry(Fluids.LAVA, 1000, Ic2Items.LAVA_CELL.get(),
+                Ic2Items.EMPTY_CELL.get()), 80);
+        for (LiquidContainers.Entry entry : LiquidContainers.entries()) {
+            transpose(fills, entry, entry.empty() == Items.BUCKET ? 80 : 160);
+        }
+        TeFluidRecipe.Kind fill = TeFluidRecipe.Kind.FILL;
+        teFluid(fill, "full_energy_cell_frame", Ingredient.of(TeItems.ENERGY_CELL_FRAME), 1,
+                stack(TeItems.FULL_ENERGY_CELL_FRAME, 1), new FluidStack(TeFluids.MOLTEN_REDSTONE.get(), 1000), 1600);
+        teFluid(fill, "unattuned_tesseract", Ingredient.of(TeItems.TESSERACT_FRAME), 1,
+                stack(TeItems.UNATTUNED_TESSERACT, 1), new FluidStack(TeFluids.MOLTEN_ENDER.get(), 1000), 1600);
+        // GregTech: hydrated coal dust.
+        teFluid(fill, "hydrated_coal_dust", Ingredient.of(Ic2Items.COAL_DUST), 1, stack(Ic2Items.HYDRATED_COAL_DUST, 1),
+                new FluidStack(Fluids.WATER, 125), 125);
+        teFluid(TeFluidRecipe.Kind.EXTRACT, "hydrated_coal_dust", Ingredient.of(Ic2Items.HYDRATED_COAL_DUST), 1,
+                stack(Ic2Items.COAL_DUST, 1), new FluidStack(Fluids.WATER, 100), 125);
+    }
+
+    /** {@code addFillRecipe(energy, data, reversible = true)}: fill plus the extraction back. */
+    private void transpose(Set<String> fills, LiquidContainers.Entry entry, int energy) {
+        String key = path(entry.empty()) + "|" + BuiltInRegistries.FLUID.getKey(entry.fluid());
+        if (!fills.add(key)) {
+            return;
+        }
+        FluidStack fluid = new FluidStack(entry.fluid(), entry.amount());
+        teFluid(TeFluidRecipe.Kind.FILL, path(entry.filled()), Ingredient.of(entry.empty()), 1,
+                stack(entry.filled(), 1), fluid, energy);
+        teFluid(TeFluidRecipe.Kind.EXTRACT, path(entry.filled()), Ingredient.of(entry.filled()), 1,
+                stack(entry.empty(), 1), fluid, energy);
+    }
+
+    private void smelter(String name, Ingredient first, int firstCount, Ingredient second, int secondCount,
+                         ItemStack primary, ItemStack secondary, int chance, int energy) {
+        output.accept(id("te_smelter/" + name), new TeRecipe(TeRecipe.Kind.SMELTER,
+                List.of(new SizedIngredient(first, firstCount), new SizedIngredient(second, secondCount)), primary,
+                secondary, chance, energy), null);
+    }
+
+    private void teFluid(TeFluidRecipe.Kind kind, String name, Ingredient input, int count, ItemStack itemOutput,
+                         FluidStack fluid, int energy) {
+        output.accept(id("te_" + kind.getName() + "/" + name), new TeFluidRecipe(kind,
+                new SizedIngredient(input, count), itemOutput, fluid, 100, energy), null);
     }
 
     /** TE machines: {@code " X ", "YCY", "IPI"} with machine frame, copper and a redstone reception coil. */

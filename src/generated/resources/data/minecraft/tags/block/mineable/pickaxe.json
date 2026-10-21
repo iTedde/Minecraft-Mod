@@ -130,6 +130,9 @@
     "craft:hardened_glass",
     "craft:powered_furnace",
     "craft:pulverizer",
-    "craft:sawmill"
+    "craft:sawmill",
+    "craft:induction_smelter",
+    "craft:magma_crucible",
+    "craft:liquid_transposer"
   ]
 }

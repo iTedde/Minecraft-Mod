@@ -234,6 +234,24 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
         block(TeBlocks.POWERED_FURNACE, german ? "Elektrischer Ofen" : "Powered Furnace");
         block(TeBlocks.PULVERIZER, german ? "Pulverisierer" : "Pulverizer");
         block(TeBlocks.SAWMILL, german ? "Sägewerk" : "Sawmill");
+        block(TeBlocks.INDUCTION_SMELTER, german ? "Induktionsschmelze" : "Induction Smelter");
+        block(TeBlocks.MAGMA_CRUCIBLE, german ? "Magmatiegel" : "Magma Crucible");
+        block(TeBlocks.LIQUID_TRANSPOSER, german ? "Flüssigkeitsumfüller" : "Liquid Transposer");
+        add("gui.craft.te.info.induction_smelter", german
+                ? "Schmilzt Metalle und Dinge, die hohe Temperaturen brauchen.\n\nNützlich, um Erze zu verarbeiten und"
+                        + " fortgeschrittene Geräte zu bauen.\n\nGart ganz bestimmt kein Essen."
+                : "Smelts metals and things that require high temperatures.\n\nUseful for processing ores and building"
+                        + " advanced devices.\n\nWill absolutely not cook food.");
+        add("gui.craft.te.info.magma_crucible", german
+                ? "Macht aus festen Stoffen Flüssigkeiten!\n\nSehr nützlich für fortgeschrittene Geräte."
+                        + "\n\nVon kleinen Kindern und Haustieren fernhalten."
+                : "Turns solid material into liquids!\n\nVery useful for building advanced devices."
+                        + "\n\nKeep away from small children and pets.");
+        add("gui.craft.te.info.liquid_transposer", german
+                ? "Füllt oder leert Dinge, die Flüssigkeiten fassen.\n\nMit dem Knopf zwischen Füllen und Entleeren"
+                        + " wechseln.\n\nMeist umkehrbar."
+                : "Fills or empties things that hold liquids.\n\nPress the button to change between Fill and Extract."
+                        + "\n\nTypically reversible.");
         add("gui.craft.te.energy", german ? "Energie" : "Energy");
         add("gui.craft.te.power_usage", german ? "Verbrauch" : "Power Usage");
         add("gui.craft.te.max_power", german ? "Maximale Leistung" : "Maximum Power");

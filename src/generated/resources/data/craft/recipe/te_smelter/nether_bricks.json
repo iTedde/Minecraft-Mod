@@ -1,0 +1,23 @@
+{
+  "type": "craft:te_smelter",
+  "chance": 25,
+  "energy": 400,
+  "inputs": [
+    {
+      "count": 4,
+      "item": "minecraft:netherrack"
+    },
+    {
+      "count": 1,
+      "item": "minecraft:soul_sand"
+    }
+  ],
+  "primary": {
+    "count": 2,
+    "id": "minecraft:nether_bricks"
+  },
+  "secondary": {
+    "count": 1,
+    "id": "craft:sulfur_dust"
+  }
+}

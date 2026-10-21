@@ -1,0 +1,12 @@
+{
+  "type": "craft:te_crucible",
+  "energy": 1200,
+  "fluid": {
+    "amount": 25,
+    "id": "craft:molten_redstone"
+  },
+  "input": {
+    "count": 1,
+    "item": "minecraft:redstone"
+  }
+}

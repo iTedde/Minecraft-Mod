@@ -1,0 +1,19 @@
+{
+  "type": "craft:te_smelter",
+  "chance": 0,
+  "energy": 240,
+  "inputs": [
+    {
+      "count": 1,
+      "tag": "c:ingots/silver"
+    },
+    {
+      "count": 1,
+      "item": "minecraft:gold_ingot"
+    }
+  ],
+  "primary": {
+    "count": 2,
+    "id": "craft:electrum_ingot"
+  }
+}

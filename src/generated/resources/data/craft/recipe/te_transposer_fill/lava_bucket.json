@@ -1,0 +1,16 @@
+{
+  "type": "craft:te_transposer_fill",
+  "energy": 80,
+  "fluid": {
+    "amount": 1000,
+    "id": "minecraft:lava"
+  },
+  "input": {
+    "count": 1,
+    "item": "minecraft:bucket"
+  },
+  "output": {
+    "count": 1,
+    "id": "minecraft:lava_bucket"
+  }
+}

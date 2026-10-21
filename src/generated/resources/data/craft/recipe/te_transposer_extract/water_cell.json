@@ -1,0 +1,16 @@
+{
+  "type": "craft:te_transposer_extract",
+  "energy": 80,
+  "fluid": {
+    "amount": 1000,
+    "id": "minecraft:water"
+  },
+  "input": {
+    "count": 1,
+    "item": "craft:water_cell"
+  },
+  "output": {
+    "count": 1,
+    "id": "craft:empty_cell"
+  }
+}

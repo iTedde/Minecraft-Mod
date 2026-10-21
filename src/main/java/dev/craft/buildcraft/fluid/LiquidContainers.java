@@ -20,13 +20,15 @@ import net.neoforged.neoforge.fluids.FluidUtil;
  * 1000/3000/6000 mB coolant). The registry keys on item and damage, so only undamaged (unheated) coolant cells count.
  */
 public final class LiquidContainers {
-    private record Entry(Fluid fluid, int amount, Item filled, Item empty) {
+    /** One registered container: {@code amount} mB of {@code fluid} in {@code filled}, leaving {@code empty}. */
+    public record Entry(Fluid fluid, int amount, Item filled, Item empty) {
     }
 
     private LiquidContainers() {
     }
 
-    private static List<Entry> entries() {
+    /** All registered containers in registration order (Thermal Expansion builds its transposer recipes from it). */
+    public static List<Entry> entries() {
         int bucket = FluidType.BUCKET_VOLUME;
         Item cell = Ic2Items.EMPTY_CELL.get();
         Fluid coolant = Ic2Fluids.COOLANT.get();

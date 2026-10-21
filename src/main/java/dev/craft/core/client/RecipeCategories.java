@@ -50,6 +50,10 @@ public final class RecipeCategories {
     public static final ResourceLocation TE_FURNACE = id("powered_furnace");
     public static final ResourceLocation TE_PULVERIZER = id("pulverizer");
     public static final ResourceLocation TE_SAWMILL = id("sawmill");
+    public static final ResourceLocation TE_SMELTER = id("induction_smelter");
+    public static final ResourceLocation TE_CRUCIBLE = id("magma_crucible");
+    public static final ResourceLocation TE_TRANSPOSER_FILL = id("liquid_transposer_fill");
+    public static final ResourceLocation TE_TRANSPOSER_EXTRACT = id("liquid_transposer_extract");
 
     /**
      * Category of every recipe type the mod registers (path of the type id). A GameTest checks that no recipe type
@@ -71,6 +75,10 @@ public final class RecipeCategories {
             Map.entry("te_furnace", TE_FURNACE),
             Map.entry("te_pulverizer", TE_PULVERIZER),
             Map.entry("te_sawmill", TE_SAWMILL),
+            Map.entry("te_smelter", TE_SMELTER),
+            Map.entry("te_crucible", TE_CRUCIBLE),
+            Map.entry("te_transposer_fill", TE_TRANSPOSER_FILL),
+            Map.entry("te_transposer_extract", TE_TRANSPOSER_EXTRACT),
             Map.entry("fabricator", FABRICATOR),
             Map.entry("carpenter", CARPENTER));
 

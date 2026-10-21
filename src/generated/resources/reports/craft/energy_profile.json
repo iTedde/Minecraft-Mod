@@ -1550,6 +1550,53 @@
       "mjMaxStored": 2400,
       "mjMinReceived": 0,
       "values": {}
+    },
+    {
+      "classes": [
+        "SmelterBlockEntity",
+        "TeMachineBlockEntity"
+      ],
+      "id": "induction_smelter",
+      "kinds": [
+        "mj_receiver"
+      ],
+      "mjActivation": 0,
+      "mjMaxReceived": 40,
+      "mjMaxStored": 4800,
+      "mjMinReceived": 0,
+      "values": {}
+    },
+    {
+      "classes": [
+        "CrucibleBlockEntity",
+        "TankMachineBlockEntity",
+        "TeMachineBlockEntity"
+      ],
+      "id": "magma_crucible",
+      "kinds": [
+        "mj_receiver"
+      ],
+      "mjActivation": 0,
+      "mjMaxReceived": 300,
+      "mjMaxStored": 36000,
+      "mjMinReceived": 0,
+      "values": {}
+    },
+    {
+      "classes": [
+        "TransposerBlockEntity",
+        "TankMachineBlockEntity",
+        "TeMachineBlockEntity"
+      ],
+      "id": "liquid_transposer",
+      "kinds": [
+        "mj_receiver"
+      ],
+      "mjActivation": 0,
+      "mjMaxReceived": 40,
+      "mjMaxStored": 4800,
+      "mjMinReceived": 0,
+      "values": {}
     }
   ],
   "items": [

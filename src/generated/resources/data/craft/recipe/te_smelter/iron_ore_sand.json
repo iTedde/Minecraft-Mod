@@ -1,0 +1,34 @@
+{
+  "type": "craft:te_smelter",
+  "chance": 5,
+  "energy": 320,
+  "inputs": [
+    {
+      "type": "neoforge:compound",
+      "children": [
+        {
+          "item": "minecraft:iron_ore"
+        },
+        {
+          "item": "minecraft:deepslate_iron_ore"
+        },
+        {
+          "item": "minecraft:raw_iron"
+        }
+      ],
+      "count": 1
+    },
+    {
+      "count": 1,
+      "item": "minecraft:sand"
+    }
+  ],
+  "primary": {
+    "count": 2,
+    "id": "minecraft:iron_ingot"
+  },
+  "secondary": {
+    "count": 1,
+    "id": "craft:rich_slag"
+  }
+}

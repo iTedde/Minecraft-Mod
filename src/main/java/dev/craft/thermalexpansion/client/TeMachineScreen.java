@@ -3,6 +3,7 @@ package dev.craft.thermalexpansion.client;
 import java.util.ArrayList;
 import java.util.List;
 
+import dev.craft.thermalexpansion.machine.TankMachineBlockEntity;
 import dev.craft.thermalexpansion.machine.TeMachineBlock;
 import dev.craft.thermalexpansion.machine.TeMachineBlockEntity;
 import dev.craft.thermalexpansion.machine.TeMachineMenu;
@@ -22,6 +23,10 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.InventoryMenu;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.material.Fluids;
+import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
 import org.jetbrains.annotations.Nullable;
 
 /**
@@ -34,6 +39,7 @@ public class TeMachineScreen extends AbstractContainerScreen<TeMachineMenu> {
     private static final int SCALE_ENERGY = 42;
     private static final int SCALE_PROGRESS = 24;
     private static final int SCALE_SPEED = 16;
+    private static final int SCALE_LIQUID = 60;
     /** {@code SessionVars}: the tab classes that stay open for the next GUI. */
     @Nullable
     private static Class<?> openedLeftTab;
@@ -51,6 +57,9 @@ public class TeMachineScreen extends AbstractContainerScreen<TeMachineMenu> {
             case POWERED_FURNACE -> "furnace";
             case PULVERIZER -> "pulverizer";
             case SAWMILL -> "sawmill";
+            case INDUCTION_SMELTER -> "smelter";
+            case MAGMA_CRUCIBLE -> "crucible";
+            case LIQUID_TRANSPOSER -> "transposer";
         });
         addTab(new EnergyTab());
         addTab(new RedstoneTab());
@@ -104,6 +113,12 @@ public class TeMachineScreen extends AbstractContainerScreen<TeMachineMenu> {
                 graphics.renderTooltip(font, Component.literal((int) menu.getEnergy() + " / "
                         + menu.getMachineType().getMaxEnergy() + " MJ"), mouseX, mouseY);
             }
+            boolean tank = menu.getMachineType() == TeMachineType.MAGMA_CRUCIBLE
+                    || menu.getMachineType() == TeMachineType.LIQUID_TRANSPOSER;
+            if (tank && x >= 152 && x < 168 && y >= 9 && y < 69 && menu.getCarried().isEmpty()) {
+                graphics.renderTooltip(font, Component.literal(menu.getFluidAmount() + " / "
+                        + TankMachineBlockEntity.MAX_LIQUID + " mB"), mouseX, mouseY);
+            }
         }
     }
 
@@ -112,26 +127,145 @@ public class TeMachineScreen extends AbstractContainerScreen<TeMachineMenu> {
         int x = leftPos;
         int y = topPos;
         graphics.blit(texture, x, y, 0, 0, imageWidth, imageHeight);
-        int l = Math.round(menu.getSpeedLevel() * SCALE_SPEED);
-        if (l > 0 && menu.isActive()) {
-            graphics.blit(texture, x + 56, y + 44 + SCALE_SPEED - l, 176, SCALE_SPEED - l, 16, l);
-        }
-        l = (int) (menu.getProgressLevel() * SCALE_PROGRESS);
-        if (l > 0) {
-            graphics.blit(texture, x + 79, y + 34, 176, 16, l, 16);
-        }
-        l = Math.round(menu.getEnergy() * SCALE_ENERGY / menu.getMachineType().getMaxEnergy());
-        if (l > 0) {
-            graphics.blit(texture, x + 8, y + 8 + SCALE_ENERGY - l, 176, 32 + SCALE_ENERGY - l, 16, l);
-        }
         TeMachineBlockEntity machine = machine();
-        if (machine != null) {
-            drawSlotOverlays(graphics, machine, x, y);
+        switch (menu.getMachineType()) {
+            case MAGMA_CRUCIBLE -> renderCrucible(graphics, machine, x, y);
+            case LIQUID_TRANSPOSER -> renderTransposer(graphics, machine, x, y, mouseX - x, mouseY - y);
+            default -> {
+                int flameX = menu.getMachineType() == TeMachineType.INDUCTION_SMELTER ? 44 : 56;
+                drawSpeed(graphics, x + flameX, y + 44);
+                int l = scaledProgress();
+                if (l > 0) {
+                    graphics.blit(texture, x + 79, y + 34, 176, 16, l, 16);
+                }
+                drawEnergy(graphics, x, y);
+                if (machine != null) {
+                    drawSlotOverlays(graphics, machine, x, y);
+                }
+            }
         }
     }
 
+    private int scaledProgress() {
+        return (int) (menu.getProgressLevel() * SCALE_PROGRESS);
+    }
+
+    private void drawSpeed(GuiGraphics graphics, int x, int y) {
+        int l = Math.round(menu.getSpeedLevel() * SCALE_SPEED);
+        if (l > 0 && menu.isActive()) {
+            graphics.blit(texture, x, y + SCALE_SPEED - l, 176, SCALE_SPEED - l, 16, l);
+        }
+    }
+
+    private void drawEnergy(GuiGraphics graphics, int x, int y) {
+        int l = Math.round(menu.getEnergy() * SCALE_ENERGY / menu.getMachineType().getMaxEnergy());
+        if (l > 0) {
+            graphics.blit(texture, x + 8, y + 8 + SCALE_ENERGY - l, 176, 32 + SCALE_ENERGY - l, 16, l);
+        }
+    }
+
+    /** {@code GuiCrucible}: tank gauge, the progress arrow filled with the liquid. */
+    private void renderCrucible(GuiGraphics graphics, @Nullable TeMachineBlockEntity machine, int x, int y) {
+        if (machine != null && machine.hasSide(1)) {
+            coloredSlot(graphics, x + 56, y + 26, SlotColor.BLUE, SlotType.SINGLE, SlotRender.FULL);
+        }
+        if (machine != null && machine.hasSide(2)) {
+            coloredLiquidSlot(graphics, x + 152, y + 9, SlotColor.ORANGE);
+        }
+        drawTank(graphics, x, y);
+        int l = scaledProgress();
+        if (l > 0 && menu.getFluidAmount() > 0) {
+            drawLiquid(graphics, menu.getFluid(), x + 103, y + 34, l, 16);
+            graphics.blit(texture, x + 103, y + 34, 192, 96, l, 16);
+        }
+        graphics.blit(texture, x + 152, y + 9, 176, 98, 16, SCALE_LIQUID);
+        drawSpeed(graphics, x + 56, y + 44);
+        drawEnergy(graphics, x, y);
+    }
+
+    /** {@code GuiTransposer}: mode button, tank gauge, the progress arrow pointing into or out of the item. */
+    private void renderTransposer(GuiGraphics graphics, @Nullable TeMachineBlockEntity machine, int x, int y,
+                                  int mouseX, int mouseY) {
+        boolean reverse = menu.isReverse();
+        boolean overButton = mouseX >= 116 && mouseX < 132 && mouseY >= 49 && mouseY < 65;
+        if (reverse) {
+            graphics.blit(texture, x + 112, y + 19, 216, 96, SCALE_PROGRESS, 16);
+            graphics.blit(texture, x + 116, y + 49, 208, overButton ? 160 : 144, 16, 16);
+        } else if (overButton) {
+            graphics.blit(texture, x + 116, y + 49, 224, 160, 16, 16);
+        }
+        if (menu.getReverseFlag() && !reverse) {
+            graphics.blit(texture, x + 116, y + 49, 208, 176, 16, 16);
+        } else if (!menu.getReverseFlag() && reverse) {
+            graphics.blit(texture, x + 116, y + 49, 224, 176, 16, 16);
+        }
+        if (machine != null && machine.hasSide(1)) {
+            coloredSlot(graphics, x + 80, y + 19, SlotColor.BLUE, SlotType.SINGLE, SlotRender.FULL);
+            if (!reverse) {
+                coloredLiquidSlot(graphics, x + 152, y + 9, SlotColor.BLUE);
+            }
+        }
+        if (machine != null && machine.hasSide(2)) {
+            coloredSlot(graphics, x + 76, y + 45, SlotColor.RED, SlotType.OUTPUT, SlotRender.FULL);
+        }
+        if (machine != null && machine.hasSide(3) && reverse) {
+            coloredLiquidSlot(graphics, x + 152, y + 9, SlotColor.YELLOW);
+        }
+        drawTank(graphics, x, y);
+        int l = scaledProgress();
+        if (l > 0 && menu.getFluidAmount() > 0) {
+            if (!reverse) {
+                drawLiquid(graphics, menu.getFluid(), x + 112 + SCALE_PROGRESS - l, y + 19, l, 16);
+                graphics.blit(texture, x + 112 + SCALE_PROGRESS - l, y + 19, 192 + SCALE_PROGRESS - l, 112, l, 16);
+            } else {
+                drawLiquid(graphics, menu.getFluid(), x + 112, y + 19, l, 16);
+                graphics.blit(texture, x + 112, y + 19, 192, 96, l, 16);
+            }
+        }
+        graphics.blit(texture, x + 152, y + 9, 176, 98, 16, SCALE_LIQUID);
+        drawSpeed(graphics, x + 44, y + 49);
+        drawEnergy(graphics, x, y);
+    }
+
+    /** The tank gauge at (152, 9), 60 px for 10 000 mB. */
+    private void drawTank(GuiGraphics graphics, int x, int y) {
+        int l = menu.getFluidAmount() * SCALE_LIQUID / TankMachineBlockEntity.MAX_LIQUID;
+        if (l > 0) {
+            drawLiquid(graphics, menu.getFluid(), x + 152, y + 9 + SCALE_LIQUID - l, 16, l);
+        }
+    }
+
+    /** {@code drawLiquid}: the still texture of {@code fluid}, tiled in 16 px pieces over the area. */
+    private void drawLiquid(GuiGraphics graphics, Fluid fluid, int x, int y, int width, int height) {
+        if (fluid == Fluids.EMPTY || minecraft == null) {
+            return;
+        }
+        IClientFluidTypeExtensions extensions = IClientFluidTypeExtensions.of(fluid);
+        TextureAtlasSprite sprite = minecraft.getTextureAtlas(InventoryMenu.BLOCK_ATLAS)
+                .apply(extensions.getStillTexture());
+        int tint = extensions.getTintColor();
+        float red = (tint >> 16 & 0xFF) / 255.0F;
+        float green = (tint >> 8 & 0xFF) / 255.0F;
+        float blue = (tint & 0xFF) / 255.0F;
+        graphics.enableScissor(x, y, x + width, y + height);
+        for (int dx = 0; dx < width; dx += 16) {
+            for (int dy = 0; dy < height; dy += 16) {
+                graphics.blit(x + dx, y + dy, 0, 16, 16, sprite, red, green, blue, 1.0F);
+            }
+        }
+        graphics.disableScissor();
+    }
+
+    /** {@code drawColoredLiquidSlotWithBorder}. */
+    private static void coloredLiquidSlot(GuiGraphics graphics, int x, int y, SlotColor color) {
+        graphics.blit(COMMON, x - 8, y - 2, color.ordinal() * 32, 96, 32, 64);
+    }
+
     private void drawSlotOverlays(GuiGraphics graphics, TeMachineBlockEntity machine, int x, int y) {
-        if (machine.hasSide(1)) {
+        if (menu.getMachineType() == TeMachineType.INDUCTION_SMELTER) {
+            inputOverlay(graphics, machine, x + 32, y + 26, 5, SlotColor.GREEN);
+            inputOverlay(graphics, machine, x + 56, y + 26, 6, SlotColor.PURPLE);
+        } else if (machine.hasSide(1)) {
             coloredSlot(graphics, x + 56, y + 26, SlotColor.BLUE, SlotType.SINGLE, SlotRender.FULL);
         }
         if (menu.getMachineType() == TeMachineType.POWERED_FURNACE) {
@@ -155,6 +289,19 @@ public class TeMachineScreen extends AbstractContainerScreen<TeMachineMenu> {
             }
         } else if (machine.hasSide(4)) {
             coloredSlot(graphics, x + 116, y + 53, SlotColor.ORANGE, SlotType.SINGLE, SlotRender.FULL);
+        }
+    }
+
+    /** Smelter input slot: its own group colour, the upper half blue if group 1 (both inputs) is in use too. */
+    private static void inputOverlay(GuiGraphics graphics, TeMachineBlockEntity machine, int x, int y, int group,
+                                     SlotColor color) {
+        if (machine.hasSide(group)) {
+            coloredSlot(graphics, x, y, color, SlotType.SINGLE, SlotRender.FULL);
+            if (machine.hasSide(1)) {
+                coloredSlot(graphics, x, y, SlotColor.BLUE, SlotType.SINGLE, SlotRender.TOP);
+            }
+        } else if (machine.hasSide(1)) {
+            coloredSlot(graphics, x, y, SlotColor.BLUE, SlotType.SINGLE, SlotRender.FULL);
         }
     }
 
@@ -226,6 +373,16 @@ public class TeMachineScreen extends AbstractContainerScreen<TeMachineMenu> {
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
         TeTab tab = tabAt((int) mouseX - leftPos, (int) mouseY - topPos);
         if (tab == null) {
+            int x = (int) mouseX - leftPos;
+            int y = (int) mouseY - topPos;
+            if (menu.getMachineType() == TeMachineType.LIQUID_TRANSPOSER && x >= 116 && x < 132 && y >= 49
+                    && y < 65) {
+                // GuiTransposer: only while no mode change is pending.
+                if (menu.isReverse() == menu.getReverseFlag()) {
+                    pressButton(TeMachineMenu.BUTTON_MODE, menu.isReverse() ? 0.8F : 0.6F);
+                }
+                return true;
+            }
             return super.mouseClicked(mouseX, mouseY, button);
         }
         if (!tab.mouseClicked((int) mouseX - leftPos - tab.shiftX, (int) mouseY - topPos - tab.shiftY, button)) {
@@ -262,7 +419,7 @@ public class TeMachineScreen extends AbstractContainerScreen<TeMachineMenu> {
         return String.format("%.1f", value);
     }
 
-    private enum SlotColor { BLUE, RED, YELLOW, ORANGE }
+    private enum SlotColor { BLUE, RED, YELLOW, ORANGE, GREEN, PURPLE }
 
     private enum SlotType { SINGLE, OUTPUT, DOUBLE_OUTPUT }
 

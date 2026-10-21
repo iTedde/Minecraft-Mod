@@ -356,12 +356,12 @@ public abstract class TeMachineBlockEntity extends BlockEntity implements MenuPr
         return update;
     }
 
-    /** {@code setFacing} on placement: front group 0, its left and back group 1, the rest the defaults. */
+    /** {@code setFacing} on placement: front group 0, left and back input groups (1, smelter 5/6), rest the defaults. */
     public void initFacing(Direction facing) {
         int f = facing.get3DDataValue();
         sides[f] = 0;
-        sides[TeSides.LEFT[f]] = 1;
-        sides[TeSides.OPPOSITE[f]] = 1;
+        sides[TeSides.LEFT[f]] = type.getLeftGroup();
+        sides[TeSides.OPPOSITE[f]] = type.getBackGroup();
         sync();
     }
 

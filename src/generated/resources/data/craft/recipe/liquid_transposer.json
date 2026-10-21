@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "craft:machine_frame"
+    },
+    "I": {
+      "tag": "c:ingots/copper"
+    },
+    "P": {
+      "item": "craft:redstone_reception_coil"
+    },
+    "X": {
+      "item": "minecraft:bucket"
+    },
+    "Y": {
+      "item": "minecraft:glass"
+    }
+  },
+  "pattern": [
+    " X ",
+    "YCY",
+    "IPI"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:liquid_transposer"
+  }
+}

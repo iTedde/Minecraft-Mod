@@ -79,6 +79,9 @@ public final class CraftBlockLoot extends BlockLootSubProvider {
         dropSelf(TeBlocks.POWERED_FURNACE.get());
         dropSelf(TeBlocks.PULVERIZER.get());
         dropSelf(TeBlocks.SAWMILL.get());
+        dropSelf(TeBlocks.INDUCTION_SMELTER.get());
+        dropSelf(TeBlocks.MAGMA_CRUCIBLE.get());
+        dropSelf(TeBlocks.LIQUID_TRANSPOSER.get());
         for (DyeColor color : DyeColor.values()) {
             dropSelf(TeBlocks.rockwool(color).get());
         }
