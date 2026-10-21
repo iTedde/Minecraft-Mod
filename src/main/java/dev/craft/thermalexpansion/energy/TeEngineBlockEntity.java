@@ -5,6 +5,7 @@ import dev.craft.buildcraft.power.PowerProvider;
 import dev.craft.buildcraft.power.PowerReceptor;
 import dev.craft.ic2.machine.MachineInventory;
 import dev.craft.thermalexpansion.TeRedstoneControl;
+import dev.craft.thermalexpansion.transport.GridPowerProvider;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -156,11 +157,20 @@ public abstract class TeEngineBlockEntity extends BlockEntity implements MenuPro
         return canCycle;
     }
 
-    /** {@code transferEnergy}: fill the receiver in front, at most {@code maxCycleEnergy}. */
+    /**
+     * {@code transferEnergy}: fill the receiver in front, at most {@code maxCycleEnergy}. An energy conduit network
+     * ({@code isPoweredTileLoss}) gets what it asks for, but at least {@code 25 · minPower}, whatever fits.
+     */
     private void transferEnergy() {
         PowerReceptor receptor = receptorInFront();
         PowerProvider target = receptor != null ? receptor.getPowerProvider() : null;
         if (target == null) {
+            return;
+        }
+        if (target instanceof GridPowerProvider) {
+            float adjustedEnergyRequest = Math.max(receptor.powerRequest(), 25.0F * type.getMinPower());
+            float energy = provider.useEnergy(0.0F, Math.min(adjustedEnergyRequest, type.getMaxCycleEnergy()), true);
+            target.receiveEnergy(energy, getFacing().getOpposite());
             return;
         }
         float energyMax = Math.min(target.getMaxEnergyStored() - target.getEnergyStored(), type.getMaxCycleEnergy());

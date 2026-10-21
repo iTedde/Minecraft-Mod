@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "C": {
+      "tag": "c:ingots/copper"
+    },
+    "G": {
+      "tag": "c:gears/tin"
+    },
+    "L": {
+      "tag": "c:ingots/lead"
+    },
+    "P": {
+      "item": "craft:redstone_conductance_coil"
+    }
+  },
+  "pattern": [
+    "C C",
+    "LPL",
+    " G "
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:multimeter"
+  }
+}

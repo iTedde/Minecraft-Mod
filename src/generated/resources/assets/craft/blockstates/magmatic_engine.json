@@ -1,39 +1,6 @@
 {
   "variants": {
-    "active=false,facing=down": {
-      "model": "craft:block/magmatic_engine"
-    },
-    "active=false,facing=east": {
-      "model": "craft:block/magmatic_engine"
-    },
-    "active=false,facing=north": {
-      "model": "craft:block/magmatic_engine"
-    },
-    "active=false,facing=south": {
-      "model": "craft:block/magmatic_engine"
-    },
-    "active=false,facing=up": {
-      "model": "craft:block/magmatic_engine"
-    },
-    "active=false,facing=west": {
-      "model": "craft:block/magmatic_engine"
-    },
-    "active=true,facing=down": {
-      "model": "craft:block/magmatic_engine"
-    },
-    "active=true,facing=east": {
-      "model": "craft:block/magmatic_engine"
-    },
-    "active=true,facing=north": {
-      "model": "craft:block/magmatic_engine"
-    },
-    "active=true,facing=south": {
-      "model": "craft:block/magmatic_engine"
-    },
-    "active=true,facing=up": {
-      "model": "craft:block/magmatic_engine"
-    },
-    "active=true,facing=west": {
+    "": {
       "model": "craft:block/magmatic_engine"
     }
   }

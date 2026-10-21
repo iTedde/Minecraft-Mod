@@ -221,6 +221,16 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
         item(TeItems.UNATTUNED_TESSERACT, german ? "Unabgestimmter Tesserakt" : "Unattuned Tesseract");
         item(TeItems.CRESCENT_HAMMER, german ? "Crescent Hammer" : "Crescent Hammer");
         item(TeItems.MULTIMETER, german ? "Multimeter" : "Multimeter");
+        block(TeBlocks.ENERGY_CONDUIT, german ? "Redstone-Energieleitung" : "Redstone Energy Conduit");
+        block(TeBlocks.LIQUIDUCT, german ? "Flüssigkeitsleitung" : "Liquiduct");
+        add("chat.craft.multimeter.saturation", german ? "Netzauslastung: %s %%" : "Network Saturation: %s%%");
+        add("chat.craft.multimeter.monitoring", german ? "Messe 20 Ticks lang …" : "Monitoring for 20 ticks...");
+        add("chat.craft.multimeter.average", german ? "Mittlere Abgabe (%s Ticks): %s" : "Average Distribution (%s ticks): %s");
+        add("chat.craft.multimeter.liquid_empty", german ? "Flüssigkeit: leer" : "Liquid: Empty");
+        add("chat.craft.multimeter.liquid", german ? "Flüssigkeit: %s" : "Liquid: %s");
+        add("chat.craft.multimeter.amount", german ? "Menge: %s/%s mB" : "Amount: %s/%s mB");
+        add("chat.craft.multimeter.throughput", german ? "Durchsatz: %s mB/t" : "Throughput: %smB/t");
+        add("chat.craft.multimeter.requested", german ? "Angeforderte Energie: %s" : "Energy Requested: %s");
         String[] english = {"White", "Orange", "Magenta", "Light Blue", "Yellow", "Lime", "Pink", "Gray", "Light Gray",
                 "Cyan", "Purple", "Blue", "Brown", "Green", "Red", "Black"};
         String[] germanNames = {"Weiße", "Orange", "Magenta", "Hellblaue", "Gelbe", "Hellgrüne", "Rosa", "Graue",

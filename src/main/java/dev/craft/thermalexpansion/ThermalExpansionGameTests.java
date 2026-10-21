@@ -10,6 +10,9 @@ import dev.craft.thermalexpansion.energy.EnergyCellBlockEntity;
 import dev.craft.thermalexpansion.energy.EnergyCellData;
 import dev.craft.thermalexpansion.energy.MagmaticEngineBlockEntity;
 import dev.craft.thermalexpansion.energy.SteamEngineBlockEntity;
+import dev.craft.thermalexpansion.transport.EnergyConduitBlockEntity;
+import dev.craft.thermalexpansion.transport.GridPowerProvider;
+import dev.craft.thermalexpansion.transport.LiquiductBlockEntity;
 import dev.craft.thermalexpansion.machine.CrucibleBlockEntity;
 import dev.craft.thermalexpansion.machine.GlacialPrecipitatorBlockEntity;
 import dev.craft.thermalexpansion.machine.IgneousExtruderBlockEntity;
@@ -364,6 +367,99 @@ public final class ThermalExpansionGameTests {
             helper.assertTrue(data != null && data.send() == 0
                             && Math.abs(data.energy() + received[0] - 10000.0F) < 0.01F,
                     "dismantled with its charge and limits");
+            helper.succeed();
+        });
+    }
+
+    /** Energy conduits: cell → input node → output node → pulverizer, 5 % lost on the way in. */
+    @GameTest(template = EMPTY, timeoutTicks = 200)
+    public static void energyConduitCarriesEnergy(GameTestHelper helper) {
+        BlockPos machinePos = POS.east(2);
+        helper.setBlock(machinePos, TeBlocks.PULVERIZER.get().defaultBlockState()
+                .setValue(TeMachineBlock.FACING, Direction.NORTH));
+        TeMachineBlockEntity machine = helper.getBlockEntity(machinePos);
+        helper.setBlock(POS.west(), TeBlocks.ENERGY_CELL.get());
+        EnergyCellBlockEntity cell = helper.getBlockEntity(POS.west());
+        cell.load(new EnergyCellData(100000.0F, 50, 100, false, false));
+        helper.setBlock(POS, TeBlocks.ENERGY_CONDUIT.get());
+        helper.setBlock(POS.east(), TeBlocks.ENERGY_CONDUIT.get());
+        EnergyConduitBlockEntity input = helper.getBlockEntity(POS);
+        helper.runAfterDelay(3, () -> {
+            helper.assertTrue(input.isNode() && input.getGrid() != null && input.getGrid().getNodeCount() == 2,
+                    "two nodes in one network");
+            helper.assertTrue(input.getPowerProvider().getMaxEnergyStored() == 1000, "500 MJ per node");
+            input.changeMode();
+        });
+        helper.runAfterDelay(60, () -> {
+            float sent = 100000.0F - cell.getEnergy();
+            float stored = input.getPowerProvider().getEnergyStored();
+            helper.assertTrue(sent > 0.0F, "the cell feeds the input node");
+            helper.assertTrue(machine.getEnergy() > 0.0F, "the output node feeds the pulverizer");
+            helper.assertTrue(Math.abs(machine.getEnergy() + stored - sent * GridPowerProvider.CONDUIT_ENERGY_LOSS)
+                    < 0.1F, "5 % loss");
+            helper.succeed();
+        });
+    }
+
+    /** Magmatic engine into an energy conduit that asks for nothing: still 25 · 0.4 MJ per stroke, minus 5 %. */
+    @GameTest(template = EMPTY, timeoutTicks = 200)
+    public static void engineFeedsConduitMinimum(GameTestHelper helper) {
+        helper.setBlock(POS, TeBlocks.MAGMATIC_ENGINE.get());
+        helper.setBlock(POS.above(), TeBlocks.ENERGY_CONDUIT.get());
+        MagmaticEngineBlockEntity engine = helper.getBlockEntity(POS);
+        EnergyConduitBlockEntity conduit = helper.getBlockEntity(POS.above());
+        engine.getFluidHandler(null).fill(new FluidStack(Fluids.LAVA, 1000), IFluidHandler.FluidAction.EXECUTE);
+        helper.succeedWhen(() -> {
+            float stored = conduit.getPowerProvider().getEnergyStored();
+            helper.assertTrue(stored > 0.0F, "energy in the network");
+            float strokes = stored / (10.0F * GridPowerProvider.CONDUIT_ENERGY_LOSS);
+            helper.assertTrue(Math.abs(strokes - Math.round(strokes)) < 0.01F, "9.5 MJ per stroke");
+        });
+    }
+
+    /** Liquiducts: an input node with redstone pulls from a tank, the output node fills the other tank. */
+    @GameTest(template = EMPTY, timeoutTicks = 200)
+    public static void liquiductMovesWater(GameTestHelper helper) {
+        helper.setBlock(POS.west(), BcBlocks.TANK.get());
+        helper.setBlock(POS.east(2), BcBlocks.TANK.get());
+        IFluidHandler source = helper.getLevel().getCapability(Capabilities.FluidHandler.BLOCK,
+                helper.absolutePos(POS.west()), Direction.EAST);
+        source.fill(new FluidStack(Fluids.WATER, 4000), IFluidHandler.FluidAction.EXECUTE);
+        helper.setBlock(POS, TeBlocks.LIQUIDUCT.get());
+        helper.setBlock(POS.east(), TeBlocks.LIQUIDUCT.get());
+        LiquiductBlockEntity input = helper.getBlockEntity(POS);
+        helper.runAfterDelay(3, () -> {
+            helper.assertTrue(input.getGrid() != null && input.getGrid().getCapacity() == 1000, "500 mB per conduit");
+            input.changeMode();
+            helper.setBlock(POS.below(), Blocks.REDSTONE_BLOCK);
+        });
+        helper.succeedWhen(() -> {
+            IFluidHandler target = helper.getLevel().getCapability(Capabilities.FluidHandler.BLOCK,
+                    helper.absolutePos(POS.east(2)), Direction.WEST);
+            helper.assertTrue(target != null && target.getFluidInTank(0).getAmount() >= 1000, "water arrives");
+        });
+    }
+
+    /** Liquiducts with different liquids do not join. */
+    @GameTest(template = EMPTY, timeoutTicks = 100)
+    public static void liquiductsKeepLiquidsApart(GameTestHelper helper) {
+        helper.setBlock(POS.west(), TeBlocks.LIQUIDUCT.get());
+        helper.setBlock(POS.east(), TeBlocks.LIQUIDUCT.get());
+        LiquiductBlockEntity water = helper.getBlockEntity(POS.west());
+        LiquiductBlockEntity lava = helper.getBlockEntity(POS.east());
+        helper.runAfterDelay(2, () -> {
+            water.getFluidHandler(null).fill(new FluidStack(Fluids.WATER, 200), IFluidHandler.FluidAction.EXECUTE);
+            lava.getFluidHandler(null).fill(new FluidStack(Fluids.LAVA, 200), IFluidHandler.FluidAction.EXECUTE);
+            helper.setBlock(POS, TeBlocks.LIQUIDUCT.get());
+        });
+        helper.runAfterDelay(6, () -> {
+            LiquiductBlockEntity middle = helper.getBlockEntity(POS);
+            helper.assertTrue(water.getGrid() != null && lava.getGrid() != null && water.getGrid() != lava.getGrid(),
+                    "two networks");
+            helper.assertTrue(middle.getGrid() == water.getGrid() || middle.getGrid() == lava.getGrid(),
+                    "the new liquiduct joins one of them");
+            helper.assertTrue(water.getGrid().getLiquidAmount() + lava.getGrid().getLiquidAmount() == 400,
+                    "nothing lost");
             helper.succeed();
         });
     }

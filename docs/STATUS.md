@@ -2134,9 +2134,20 @@ Spezifikation: `docs/spec/26-thermal-expansion.md`.
 - [x] Rezepte, Loot, Spitzhacke, Lang en/de; 4 neue GameTests, alle 421 grün; `gradlew test build` grün.
 - [ ] Client-Test (Modelle, Animation, GUIs) – noch offen.
 
+## Erledigt (25.6 Redstone-Energieleitung, Liquiduct, Multimeter, 2026-10-21)
+- [x] Paket `transport/`: `ConduitBlock` (Form aus Verbindungen, Licht), `ConduitBlockEntity` (Seiten, Modus, Auflösen bei
+  Abbau/Entladen), `EnergyConduitBlockEntity` + `EnergyGrid` + `GridPowerProvider` (500 MJ/Knoten, 5 % Verlust),
+  `LiquiductBlockEntity` + `LiquidGrid` (Viskosität, Durchsatz, Redstone-Eingabe, Flüssigkeiten getrennt); Netzaufbau per
+  Flutfüllung, Anteile bleiben beim Auflösen erhalten. `PowerProvider` ist dafür nicht mehr `final`.
+- [x] Motor → Leitung: Sonderzweig `25 · minPower` je Hub; `MultimeterItem` (Auslastung, 20-Tick-Messung, Liquiduct-Daten,
+  angeforderte Energie).
+- [x] Client `ConduitRenderer` (Originalmodell, Flüssigkeit in 6 Stufen) + Item-Renderer; Rezepte inkl. der aus 25.1
+  fehlenden (Energiezellenrahmen, leere Energieleitung, Multimeter), Umfüller-Füllrezept; Lang en/de.
+- [x] 4 neue GameTests, alle 425 grün; `gradlew test build` grün.
+- [ ] Client-Test (Modell, Verbindungen, Flüssigkeitsanzeige) – noch offen.
+
 ## Nächste Schritte
-1. Client-Tests 25.2–25.5 (Nutzer, 2026-10-21: „Tests später“).
+1. Client-Tests 25.2–25.6 (Nutzer, 2026-10-21: „Tests später“).
 2. Prüfen: GT `addPulverisationRecipe` mit Nebenprodukten (Feuerstein, Enderperle, Enderauge, Weizen, Pflanzenkugel,
    Dichte Kupferplatte, Crop) – der Macerator-Rückfall in 25.2 liefert nur das Hauptprodukt.
-3. 25.6: Redstone-Energieleitung (5 % Verlust; dabei den Motor-Sonderzweig für verlustbehaftete Empfänger nachziehen)
-   und Liquiduct; Multimeter-Funktion.
+3. 25.7: Tesserakte (Energie/Flüssigkeit/Item, Frequenzen, Tesserakt-Rahmen-Rezept).

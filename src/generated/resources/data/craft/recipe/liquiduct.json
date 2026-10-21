@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "G": {
+      "item": "craft:hardened_glass"
+    },
+    "I": {
+      "tag": "c:ingots/copper"
+    }
+  },
+  "pattern": [
+    "IGI"
+  ],
+  "result": {
+    "count": 4,
+    "id": "craft:liquiduct"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "type": "craft:te_transposer_fill",
+  "energy": 80,
+  "fluid": {
+    "amount": 50,
+    "id": "craft:molten_redstone"
+  },
+  "input": {
+    "count": 1,
+    "item": "craft:empty_energy_conduit"
+  },
+  "output": {
+    "count": 1,
+    "id": "craft:redstone_energy_conduit"
+  }
+}

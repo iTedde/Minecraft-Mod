@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "craft:block/redstone_energy_conduit"
+    }
+  }
+}

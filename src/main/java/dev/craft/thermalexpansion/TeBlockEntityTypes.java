@@ -4,6 +4,8 @@ import java.util.function.Supplier;
 
 import dev.craft.Craft;
 import dev.craft.thermalexpansion.block.PortableTankBlockEntity;
+import dev.craft.thermalexpansion.transport.EnergyConduitBlockEntity;
+import dev.craft.thermalexpansion.transport.LiquiductBlockEntity;
 import dev.craft.thermalexpansion.energy.EnergyCellBlockEntity;
 import dev.craft.thermalexpansion.energy.MagmaticEngineBlockEntity;
 import dev.craft.thermalexpansion.energy.SteamEngineBlockEntity;
@@ -60,6 +62,12 @@ public final class TeBlockEntityTypes {
     public static final Supplier<BlockEntityType<EnergyCellBlockEntity>> ENERGY_CELL =
             BLOCK_ENTITY_TYPES.register("redstone_energy_cell", () -> BlockEntityType.Builder.of(
                     EnergyCellBlockEntity::new, TeBlocks.ENERGY_CELL.get()).build(null));
+    public static final Supplier<BlockEntityType<EnergyConduitBlockEntity>> ENERGY_CONDUIT =
+            BLOCK_ENTITY_TYPES.register("redstone_energy_conduit", () -> BlockEntityType.Builder.of(
+                    EnergyConduitBlockEntity::new, TeBlocks.ENERGY_CONDUIT.get()).build(null));
+    public static final Supplier<BlockEntityType<LiquiductBlockEntity>> LIQUIDUCT =
+            BLOCK_ENTITY_TYPES.register("liquiduct", () -> BlockEntityType.Builder.of(
+                    LiquiductBlockEntity::new, TeBlocks.LIQUIDUCT.get()).build(null));
     public static final Supplier<BlockEntityType<PortableTankBlockEntity>> PORTABLE_TANK =
             BLOCK_ENTITY_TYPES.register("portable_tank", () -> BlockEntityType.Builder.of(
                     PortableTankBlockEntity::new, TeBlocks.PORTABLE_TANK.get()).build(null));

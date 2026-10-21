@@ -2235,6 +2235,27 @@ public final class CraftRecipeProvider extends RecipeProvider {
         teEngine(TeItems.STEAM_ENGINE.get(), Ingredient.of(ingotsCopper()), CraftItemTagsProvider.GEARS_COPPER);
         teEngine(TeItems.MAGMATIC_ENGINE.get(), Ingredient.of(CraftItemTagsProvider.INGOTS_INVAR),
                 CraftItemTagsProvider.GEARS_INVAR);
+        // ThermalExpansionEnergy/-Transport: frame, conduits (4), multimeter.
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, TeItems.ENERGY_CELL_FRAME.get()).pattern("IGI").pattern("GXG")
+                .pattern("IGI").define('I', CraftItemTagsProvider.INGOTS_ELECTRUM)
+                .define('G', TeItems.HARDENED_GLASS.get()).define('X', Items.DIAMOND)
+                .unlockedBy("has_hardened_glass", has(TeItems.HARDENED_GLASS.get()))
+                .save(output, id("energy_cell_frame"));
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, TeItems.EMPTY_ENERGY_CONDUIT.get(), 4).pattern("IGI")
+                .define('I', CraftItemTagsProvider.INGOTS_ELECTRUM).define('G', TeItems.HARDENED_GLASS.get())
+                .unlockedBy("has_hardened_glass", has(TeItems.HARDENED_GLASS.get()))
+                .save(output, id("empty_energy_conduit"));
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, TeItems.LIQUIDUCT.get(), 4).pattern("IGI")
+                .define('I', ingotsCopper()).define('G', TeItems.HARDENED_GLASS.get())
+                .unlockedBy("has_hardened_glass", has(TeItems.HARDENED_GLASS.get()))
+                .save(output, id("liquiduct"));
+        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, TeItems.MULTIMETER.get()).pattern("C C").pattern("LPL")
+                .pattern(" G ").define('C', ingotsCopper()).define('L', CraftItemTagsProvider.INGOTS_LEAD)
+                .define('P', TeItems.REDSTONE_CONDUCTANCE_COIL.get()).define('G', CraftItemTagsProvider.GEARS_TIN)
+                .unlockedBy("has_coil", has(TeItems.REDSTONE_CONDUCTANCE_COIL.get()))
+                .save(output, id("multimeter"));
+        teFluid(TeFluidRecipe.Kind.FILL, "redstone_energy_conduit", Ingredient.of(TeItems.EMPTY_ENERGY_CONDUIT), 1,
+                stack(TeItems.ENERGY_CONDUIT, 1), new FluidStack(TeFluids.MOLTEN_REDSTONE.get(), 50), 80);
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, TeItems.ENERGY_CELL.get()).pattern(" X ").pattern("YCY")
                 .pattern("IPI").define('X', CraftItemTagsProvider.INGOTS_ELECTRUM)
                 .define('Y', CraftItemTagsProvider.INGOTS_ELECTRUM).define('C', TeItems.FULL_ENERGY_CELL_FRAME.get())

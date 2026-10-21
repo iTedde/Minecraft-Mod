@@ -42,6 +42,7 @@ public final class ThermalExpansionClient {
         event.registerLayerDefinition(PortableTankRenderer.LAYER, PortableTankRenderer::createLayer);
         event.registerLayerDefinition(TeEngineRenderer.LAYER, TeEngineRenderer::createLayer);
         event.registerLayerDefinition(EnergyCellRenderer.LAYER, EnergyCellRenderer::createLayer);
+        event.registerLayerDefinition(ConduitRenderer.LAYER, ConduitRenderer::createLayer);
     }
 
     @SubscribeEvent
@@ -50,6 +51,8 @@ public final class ThermalExpansionClient {
         event.registerBlockEntityRenderer(TeBlockEntityTypes.STEAM_ENGINE.get(), TeEngineRenderer::new);
         event.registerBlockEntityRenderer(TeBlockEntityTypes.MAGMATIC_ENGINE.get(), TeEngineRenderer::new);
         event.registerBlockEntityRenderer(TeBlockEntityTypes.ENERGY_CELL.get(), EnergyCellRenderer::new);
+        event.registerBlockEntityRenderer(TeBlockEntityTypes.ENERGY_CONDUIT.get(), ConduitRenderer::new);
+        event.registerBlockEntityRenderer(TeBlockEntityTypes.LIQUIDUCT.get(), ConduitRenderer::new);
     }
 
     @SubscribeEvent
@@ -58,6 +61,8 @@ public final class ThermalExpansionClient {
         event.registerItem(itemRenderer(TeEngineItemRenderer::new), TeItems.STEAM_ENGINE.get(),
                 TeItems.MAGMATIC_ENGINE.get());
         event.registerItem(itemRenderer(EnergyCellItemRenderer::new), TeItems.ENERGY_CELL.get());
+        event.registerItem(itemRenderer(ConduitItemRenderer::new), TeItems.ENERGY_CONDUIT.get(),
+                TeItems.LIQUIDUCT.get());
         event.registerFluidType(liquid("molten_redstone"), TeFluids.MOLTEN_REDSTONE_TYPE.get());
         event.registerFluidType(liquid("molten_ender"), TeFluids.MOLTEN_ENDER_TYPE.get());
     }

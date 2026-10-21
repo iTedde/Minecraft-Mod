@@ -7,6 +7,7 @@ import dev.craft.buildcraft.power.BcCapabilities;
 import dev.craft.gregtech.GtItems;
 import dev.craft.thermalexpansion.block.PortableTankBlockEntity;
 import dev.craft.thermalexpansion.energy.TeEngineBlockEntity;
+import dev.craft.thermalexpansion.transport.LiquiductBlockEntity;
 import dev.craft.thermalexpansion.machine.TeMachineBlockEntity;
 import dev.craft.thermalexpansion.recipe.TeRecipes;
 import dev.craft.thermalexpansion.world.TeWorldGen;
@@ -73,6 +74,10 @@ public final class ThermalExpansion {
                 (engine, side) -> engine.getInventory());
         event.registerBlockEntity(BcCapabilities.POWER_RECEPTOR, TeBlockEntityTypes.ENERGY_CELL.get(),
                 (cell, side) -> cell);
+        event.registerBlockEntity(BcCapabilities.POWER_RECEPTOR, TeBlockEntityTypes.ENERGY_CONDUIT.get(),
+                (conduit, side) -> conduit);
+        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, TeBlockEntityTypes.LIQUIDUCT.get(),
+                LiquiductBlockEntity::getFluidHandler);
     }
 
     /**

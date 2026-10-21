@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "G": {
+      "item": "craft:hardened_glass"
+    },
+    "I": {
+      "tag": "c:ingots/electrum"
+    }
+  },
+  "pattern": [
+    "IGI"
+  ],
+  "result": {
+    "count": 4,
+    "id": "craft:empty_energy_conduit"
+  }
+}

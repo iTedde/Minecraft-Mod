@@ -91,6 +91,8 @@ public final class CraftBlockLoot extends BlockLootSubProvider {
         dropSelf(TeBlocks.MAGMATIC_ENGINE.get());
         // BlockEnergyCell: broken normally the cell drops empty; the wrench keeps the charge.
         dropSelf(TeBlocks.ENERGY_CELL.get());
+        dropSelf(TeBlocks.ENERGY_CONDUIT.get());
+        dropSelf(TeBlocks.LIQUIDUCT.get());
         for (DyeColor color : DyeColor.values()) {
             dropSelf(TeBlocks.rockwool(color).get());
         }

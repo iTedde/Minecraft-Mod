@@ -3,6 +3,7 @@ package dev.craft.thermalexpansion;
 import dev.craft.Craft;
 import dev.craft.thermalexpansion.energy.EnergyCellItem;
 import dev.craft.thermalexpansion.item.CrescentHammerItem;
+import dev.craft.thermalexpansion.item.MultimeterItem;
 import dev.craft.thermalexpansion.item.PortableTankItem;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.DyeColor;
@@ -82,8 +83,12 @@ public final class TeItems {
     /** {@code ItemWrench}: stack size 1. */
     public static final DeferredItem<CrescentHammerItem> CRESCENT_HAMMER = ITEMS.registerItem("crescent_hammer",
             CrescentHammerItem::new, new Item.Properties().stacksTo(1));
-    public static final DeferredItem<Item> MULTIMETER = ITEMS.registerSimpleItem("multimeter",
-            new Item.Properties().stacksTo(1));
+    public static final DeferredItem<MultimeterItem> MULTIMETER = ITEMS.registerItem("multimeter",
+            MultimeterItem::new, new Item.Properties().stacksTo(1));
+    /** {@code ItemBlockConduit}: the energy conduit is uncommon. */
+    public static final DeferredItem<BlockItem> ENERGY_CONDUIT = ITEMS.registerSimpleBlockItem(TeBlocks.ENERGY_CONDUIT,
+            new Item.Properties().rarity(Rarity.UNCOMMON));
+    public static final DeferredItem<BlockItem> LIQUIDUCT = ITEMS.registerSimpleBlockItem(TeBlocks.LIQUIDUCT);
 
     static {
         for (DyeColor color : DyeColor.values()) {

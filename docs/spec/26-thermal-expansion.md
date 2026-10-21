@@ -324,6 +324,35 @@ voll. Rezepte: Motoren `III/ C /GPG` (Dampf: Kupfer, Übertragungsspule, Kupferz
 Übertragungsspule, Invarzahnrad, Kolben); Zelle ` X /YCY/IPI` (X/Y Elektrum, C voller Energiezellenrahmen, I Blei,
 P Leitspule).
 
+### 6.2 Redstone-Energieleitung, Liquiduct, Multimeter (25.6)
+
+Gemeinsam (`BlockConduit`, `TileConduitRoot`): Glas, Härte 3, Widerstand 90, 8-px-Kern mit Arm je Verbindung. Jede Seite
+ist keine Verbindung, eine Leitung desselben Netzes oder ein **Knoten**-Anschluss (MJ-Empfänger bzw. Tank). Leitungen
+mit Anschluss sind Knoten, Modus **Ausgabe** (Vorgabe) oder **Eingabe** – der Schraubenschlüssel schaltet um (nur
+Knoten), Schleichen + Schraubenschlüssel baut ab. Ausgabeknoten bedienen ihre Anschlüsse reihum (Startseite wandert).
+Rezepte: Energieleitung (leer) `IGI` ×4 (Elektrum, Gehärtetes Glas) → Umfüller mit 50 mB Geschmolzenem Redstone
+(80 MJ); Liquiduct `IGI` ×4 (Kupfer, Gehärtetes Glas). Modell aus `conduit_energy.png`/`conduit_liquid.png` (Arm,
+Stummel + Platte Ausgabe/Eingabe), Flüssigkeit in sechs Stufen (Energieleitung immer voll Geschmolzenes Redstone).
+
+**Redstone-Energieleitung** (`TileConduitEnergy`, `GridEnergy`, `PowerProviderGrid`): Licht 7, selten. Ein Netz hat
+einen Puffer von 500 MJ je Knoten; alles, was hineinkommt (Rohre, Zellen, Motoren), verliert 5 %. BuildCraft-Rohre
+machen keinen Knoten. Eingabeknoten fordern bis 500 MJ an (`powerRequest`), Ausgabeknoten fordern nichts. Je Tick gibt
+jeder Ausgabeknoten bis zum Knotenanteil (`Puffer / Knoten`, erst ab 1 MJ) an seine Empfänger, so viel diese anfordern.
+Motoren speisen auch einen Ausgabeknoten: mindestens `25 · minPower` je Hub.
+
+**Liquiduct** (`TileConduitLiquid`, `GridLiquid`): ein Tank fürs Netz, `5 · Viskosität` mB je Leitung (Lava 80 →
+400 mB, sonst 100 → 500 mB). Leitungen mit verschiedenen Flüssigkeiten verbinden sich nicht; der Schraubenschlüssel
+auf eine Seite verbindet zwei Netze, wenn die Flüssigkeiten passen (eins leer). Von außen befüllbar außer über
+Eingabeknoten, überall leerbar. Ausgabe je Tick: `min(Menge / Ausgabeknoten, Durchsatz)` je Knoten; Durchsatz =
+Viskosität ab 75 % Füllung, halbe Viskosität bis 25 %, linear dazwischen (bei weniger als 1 mB je Knoten der Rest an
+zufällige Knoten). Eingabeknoten saugen **nur mit Redstone-Signal** bis zur Viskosität je Seite aus ihren Tanks. Licht
+wie die Flüssigkeit (Lava 15).
+
+**Multimeter** (`ItemMultimeter`, Stapel 1, ` C C/LPL/ G `: Kupfer, Blei, Leitspule, Zinnzahnrad): Liquiduct →
+Flüssigkeit, Menge/Kapazität, Durchsatz; Energieleitung → Netzauslastung, an einem Ausgabeknoten stattdessen 1. Klick
+„Messe 20 Ticks“, 2. Klick mittlere Abgabe; anderer MJ-Empfänger → angeforderte Energie. Energiezellenrahmen
+`IGI/GXG/IGI` (Elektrum, Gehärtetes Glas, Diamant).
+
 ## 7. Teilphasen
 
 | Teilphase | Inhalt |

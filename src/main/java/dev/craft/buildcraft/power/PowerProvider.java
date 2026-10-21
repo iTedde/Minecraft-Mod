@@ -9,7 +9,7 @@ import net.minecraft.world.level.Level;
  * {@code PneumaticPowerFramework}: the latency is always 0, so {@link PowerReceptor#doWork()} runs every tick while
  * the stored energy reaches the activation energy. Every 100 ticks 1 MJ is lost.
  */
-public final class PowerProvider {
+public class PowerProvider {
     private int minEnergyReceived;
     private int maxEnergyReceived;
     private int maxEnergyStored;

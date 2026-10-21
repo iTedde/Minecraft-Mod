@@ -1657,6 +1657,21 @@
       "mjMaxStored": 600000,
       "mjMinReceived": 2,
       "values": {}
+    },
+    {
+      "classes": [
+        "EnergyConduitBlockEntity",
+        "ConduitBlockEntity"
+      ],
+      "id": "redstone_energy_conduit",
+      "kinds": [
+        "mj_receiver"
+      ],
+      "mjActivation": 0,
+      "mjMaxReceived": 500,
+      "mjMaxStored": 0,
+      "mjMinReceived": 2,
+      "values": {}
     }
   ],
   "items": [

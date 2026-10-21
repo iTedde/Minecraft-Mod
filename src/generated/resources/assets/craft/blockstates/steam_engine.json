@@ -1,39 +1,6 @@
 {
   "variants": {
-    "active=false,facing=down": {
-      "model": "craft:block/steam_engine"
-    },
-    "active=false,facing=east": {
-      "model": "craft:block/steam_engine"
-    },
-    "active=false,facing=north": {
-      "model": "craft:block/steam_engine"
-    },
-    "active=false,facing=south": {
-      "model": "craft:block/steam_engine"
-    },
-    "active=false,facing=up": {
-      "model": "craft:block/steam_engine"
-    },
-    "active=false,facing=west": {
-      "model": "craft:block/steam_engine"
-    },
-    "active=true,facing=down": {
-      "model": "craft:block/steam_engine"
-    },
-    "active=true,facing=east": {
-      "model": "craft:block/steam_engine"
-    },
-    "active=true,facing=north": {
-      "model": "craft:block/steam_engine"
-    },
-    "active=true,facing=south": {
-      "model": "craft:block/steam_engine"
-    },
-    "active=true,facing=up": {
-      "model": "craft:block/steam_engine"
-    },
-    "active=true,facing=west": {
+    "": {
       "model": "craft:block/steam_engine"
     }
   }
