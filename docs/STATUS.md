@@ -2164,4 +2164,5 @@ Spezifikation: `docs/spec/26-thermal-expansion.md`.
 ## Nächste Schritte
 1. Prüfen: GT `addPulverisationRecipe` mit Nebenprodukten (Feuerstein, Enderperle, Enderauge, Weizen, Pflanzenkugel,
    Dichte Kupferplatte, Crop) – der Macerator-Rückfall in 25.2 liefert nur das Hauptprodukt.
-2. 25.7: Tesserakte (Energie/Flüssigkeit/Item, Frequenzen, Tesserakt-Rahmen-Rezept).
+2. 25.7: Tesserakte umsetzen – Originalverhalten recherchiert in spec 26 §6.3 (Registry, Energie/Flüssigkeit/Item, GUI mit
+   Frequenzliste, Namen in `cofh/tesseracts.cfg`); Tesserakt-Rahmen-Rezept fehlt noch.

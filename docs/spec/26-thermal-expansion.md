@@ -353,6 +353,30 @@ Flüssigkeit, Menge/Kapazität, Durchsatz; Energieleitung → Netzauslastung, an
 „Messe 20 Ticks“, 2. Klick mittlere Abgabe; anderer MJ-Empfänger → angeforderte Energie. Energiezellenrahmen
 `IGI/GXG/IGI` (Elektrum, Gehärtetes Glas, Diamant).
 
+### 6.3 Tesserakte (25.7, Recherche – Umsetzung offen)
+
+`TileTeleportRoot`: Frequenz (−1 = inaktiv, Licht 7 wenn aktiv), Besitzer, Modus 0 Senden · 1 Empfangen · 2 beides
+(Vorgabe), Zugriff 0 öffentlich (Vorgabe) · 1 Freunde · 2 privat (nur der Besitzer ändert ihn; Änderung setzt die
+Frequenz auf −1). Fremde privat → Meldung „This Tesseract is private and belongs to …“. Registry global (auch über
+Dimensionen) je Typ: Schlüssel (Besitzer bzw. `_public_`, Frequenz) → Sender-/Empfängerlisten; beim Entladen raus.
+Partner = gleiche Liste ohne sich selbst, nur mit erfüllter Redstone-Bedingung (beide Seiten). Namen der Frequenzen
+je (Besitzer/`_public_`).Typ in `<Welt>/cofh/tesseracts.cfg`; GUI: Frequenzfeld (3 Ziffern), Name (20 Zeichen),
+Setzen/Deaktivieren/Speichern/Löschen, Namensliste (10 Zeilen, Auswahl mit Ender-Hintergrund), Reiter Redstone +
+Konfiguration (Zugriff, Modus).
+
+- **Energie** (`TileTeleportEnergy`, `PowerProviderTeleport`, verlustbehaftet wie die Leitungen – Motoren nutzen den
+  Sonderzweig): Puffer und Annahme 100 MJ, Eingang × 0,75 (`transport.teleport.energy.loss = 25`). `powerRequest` nur
+  mit Frequenz, Redstone, Senden und mindestens einem Empfänger. Je Tick gibt ein Sender seinen Puffer reihum an die
+  Empfänger; jeder Empfänger höchstens 100 MJ/Tick (`tickEnergyLimit`, beim Empfangen-Modus je Tick neu), verteilt an
+  angrenzende MJ-Empfänger (keine Tesserakte) nach deren Anforderung.
+- **Flüssigkeit** (`TileTeleportLiquid`): kein Tank; `fill` (nur Sender mit Frequenz und Redstone) reicht direkt reihum
+  an die angrenzenden Tanks der Empfänger weiter (auch beim Simulieren werden die Zähler weitergedreht); nicht leerbar.
+- **Item** (`TileTeleportItem`): ein Slot, nur befüllbar mit Frequenz, Senden, Redstone und leerem Puffer; ein
+  eingefügter Stapel geht sofort an die Empfänger (angrenzendes Rohr nimmt den ganzen Stapel, sonst Inventar; Öfen nur
+  oben/unten), der Rest bleibt im Puffer und wird alle 40 Ticks erneut versucht.
+- Rezepte: Tesserakt-Rahmen `IGI/GXG/IGI` (Zinn, Gehärtetes Glas, Diamant) → Umfüller + 1000 mB Geschmolzenes Ender
+  (vorhanden); Tesserakte siehe §5.
+
 ## 7. Teilphasen
 
 | Teilphase | Inhalt |
