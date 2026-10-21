@@ -128,6 +128,7 @@ public final class CraftItemModelProvider extends ItemModelProvider {
         }
         // RenderRefinery.inventoryRender, drawn by RefineryItemRenderer with the same block transforms.
         engine(BcItems.REFINERY);
+        engine(TeItems.PORTABLE_TANK);
         // RenderMachine/RenderBlock.inventoryRender, drawn by ForestryMachineItemRenderer.
         engine(FrItems.CARPENTER);
         engine(Ic2Items.machine(Ic2Machine.PERSONAL_SAFE));

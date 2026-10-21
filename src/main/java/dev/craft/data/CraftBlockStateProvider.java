@@ -491,6 +491,9 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
                 TeBlocks.DEEPSLATE_LEAD_ORE.get(), TeBlocks.NICKEL_ORE.get(), TeBlocks.DEEPSLATE_NICKEL_ORE.get())) {
             simpleBlockWithItem(ore, cubeAll(ore));
         }
+        // Drawn by its block entity renderer; the item model is builtin/entity.
+        simpleBlock(TeBlocks.PORTABLE_TANK.get(), models().getBuilder("portable_tank")
+                .texture("particle", modLoc("block/hardened_glass")));
         simpleBlockWithItem(TeBlocks.HARDENED_GLASS.get(), models().cubeAll("hardened_glass",
                 modLoc("block/hardened_glass")).renderType("translucent"));
         for (DyeColor color : DyeColor.values()) {
@@ -499,7 +502,8 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
                     mcLoc("block/" + color.getSerializedName() + "_wool")));
         }
         for (DeferredBlock<TeMachineBlock> holder : List.of(TeBlocks.POWERED_FURNACE, TeBlocks.PULVERIZER,
-                TeBlocks.SAWMILL, TeBlocks.INDUCTION_SMELTER, TeBlocks.MAGMA_CRUCIBLE, TeBlocks.LIQUID_TRANSPOSER)) {
+                TeBlocks.SAWMILL, TeBlocks.INDUCTION_SMELTER, TeBlocks.MAGMA_CRUCIBLE, TeBlocks.LIQUID_TRANSPOSER,
+                TeBlocks.GLACIAL_PRECIPITATOR, TeBlocks.IGNEOUS_EXTRUDER, TeBlocks.AQUEOUS_ACCUMULATOR)) {
             TeMachineType type = holder.get().getMachineType();
             // The block model picks the face textures from the side groups (TeMachineModel); the item shows group 0.
             simpleBlock(holder.get(), models().getBuilder("block/te/" + type.getName())

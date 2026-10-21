@@ -15,16 +15,16 @@ import net.neoforged.neoforge.fluids.FluidStack;
  * Liquid boxes of {@code RenderTank} and {@code RenderRefinery}: one box with the still texture of the liquid, the
  * texture cut to the box bounds like a 1.4.7 block face, drawn without shading.
  */
-final class FluidBoxRenderer {
+public final class FluidBoxRenderer {
     private FluidBoxRenderer() {
     }
 
     /** Liquid level of the 100 display lists: {@code (int)(amount / capacity * 99) / 100}. */
-    static float level(int amount, int capacity) {
+    public static float level(int amount, int capacity) {
         return (int) ((float) amount / capacity * 99.0F) / 100.0F;
     }
 
-    static void render(PoseStack pose, MultiBufferSource buffers, FluidStack fluid, float x0, float y0, float z0,
+    public static void render(PoseStack pose, MultiBufferSource buffers, FluidStack fluid, float x0, float y0, float z0,
                        float x1, float y1, float z1, int light) {
         if (fluid.isEmpty() || y1 <= y0) {
             return;

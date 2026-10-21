@@ -5,7 +5,7 @@ import java.util.Set;
 
 import dev.craft.buildcraft.power.BcCapabilities;
 import dev.craft.gregtech.GtItems;
-import dev.craft.thermalexpansion.machine.TankMachineBlockEntity;
+import dev.craft.thermalexpansion.block.PortableTankBlockEntity;
 import dev.craft.thermalexpansion.machine.TeMachineBlockEntity;
 import dev.craft.thermalexpansion.recipe.TeRecipes;
 import dev.craft.thermalexpansion.world.TeWorldGen;
@@ -37,6 +37,7 @@ public final class ThermalExpansion {
     public static void init(IEventBus modBus) {
         TeBlocks.BLOCKS.register(modBus);
         TeItems.ITEMS.register(modBus);
+        TeDataComponents.COMPONENTS.register(modBus);
         TeFluids.FLUID_TYPES.register(modBus);
         TeFluids.FLUIDS.register(modBus);
         TeWorldGen.FEATURES.register(modBus);
@@ -52,14 +53,15 @@ public final class ThermalExpansion {
         for (BlockEntityType<? extends TeMachineBlockEntity> type : List.of(TeBlockEntityTypes.POWERED_FURNACE.get(),
                 TeBlockEntityTypes.PULVERIZER.get(), TeBlockEntityTypes.SAWMILL.get(),
                 TeBlockEntityTypes.INDUCTION_SMELTER.get(), TeBlockEntityTypes.MAGMA_CRUCIBLE.get(),
-                TeBlockEntityTypes.LIQUID_TRANSPOSER.get())) {
+                TeBlockEntityTypes.LIQUID_TRANSPOSER.get(), TeBlockEntityTypes.GLACIAL_PRECIPITATOR.get(),
+                TeBlockEntityTypes.IGNEOUS_EXTRUDER.get(), TeBlockEntityTypes.AQUEOUS_ACCUMULATOR.get())) {
             event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, type, TeMachineBlockEntity::getItemHandler);
-            event.registerBlockEntity(BcCapabilities.POWER_RECEPTOR, type, (machine, side) -> machine);
+            event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, type, TeMachineBlockEntity::getFluidHandler);
+            event.registerBlockEntity(BcCapabilities.POWER_RECEPTOR, type,
+                    (machine, side) -> machine.getMachineType().isPowered() ? machine : null);
         }
-        for (BlockEntityType<? extends TankMachineBlockEntity> type : List.of(TeBlockEntityTypes.MAGMA_CRUCIBLE.get(),
-                TeBlockEntityTypes.LIQUID_TRANSPOSER.get())) {
-            event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, type, TankMachineBlockEntity::getFluidHandler);
-        }
+        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, TeBlockEntityTypes.PORTABLE_TANK.get(),
+                PortableTankBlockEntity::getFluidHandler);
     }
 
     /**

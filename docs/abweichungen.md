@@ -302,3 +302,8 @@ Siehe `docs/balancing.md`. Wird hier eingetragen, sobald freigegeben.
 | Thermal Expansion: Tankdruck | `LiquidTankAdv.setTankPressure` (BC-Rohre) | entfällt; Tanks über die Fluid-Capability | 1.21 kennt keinen Rohrdruck | **umgesetzt** (25.3) |
 | Thermal Expansion: Tank mit Typ ohne Inhalt | Tank merkt sich die Flüssigkeit bei 0 mB während einer Entleerung | leerer Tank ohne Typ | NeoForge-`FluidTank`; gleiche Wirkung, da im Entleermodus nichts eingefüllt wird | **umgesetzt** (25.3) |
 | Thermal Expansion: Maschinenmodell | Block-Icons je Seite aus `getBlockTexture` | dynamisches Modell `craft:te_machine` (Seitengruppen als ModelData) | 1.21-Blockmodelle | **umgesetzt** (25.2) |
+| Thermal Expansion: Wasser am Wassersammler | zählt Nachbarn mit Block-ID 9 (stehendes Wasser, auch ruhende Fließstücke) | jede Wasser-Flüssigkeit im Nachbarblock (auch fließend und wassergeflutete Blöcke) | 1.21 unterscheidet nicht zwischen stehendem und fließendem Wasserblock | **umgesetzt** (25.4) |
+| Thermal Expansion: Wassersammler im Nether | Biom `hell` | Biom-Tag `is_nether` | 1.21 hat mehrere Nether-Biome | **umgesetzt** (25.4) |
+| Thermal Expansion: Produktauswahl | Produkte als gesperrte Inventar-Slots 1–3 (`SlotLocked`) | vom GUI gezeichnet (mit Tooltip), Maschineninventar nur Slot 0 | gleiche Anzeige, keine Schein-Slots im Inventar | **umgesetzt** (25.4) |
+| Thermal Expansion: Behälter an Tank/Maschinen | `LiquidContainerRegistry` (Eimer, IC2-Zellen …) | NeoForge-Fluid-Capability der Items (`FluidUtil`) | 1.21 | **umgesetzt** (25.4) |
+| Thermal Expansion: Inhalt des Tragbaren Tanks | NBT `liquid.itemID`/`amount`/`itemMeta` | Datenkomponente `craft:tank_liquid` | 1.21-Datenkomponenten | **umgesetzt** (25.4) |

@@ -5,6 +5,10 @@ import java.util.Map;
 
 import dev.craft.Craft;
 import dev.craft.thermalexpansion.block.HardenedGlassBlock;
+import dev.craft.thermalexpansion.block.PortableTankBlock;
+import dev.craft.thermalexpansion.machine.AqueousAccumulatorBlockEntity;
+import dev.craft.thermalexpansion.machine.GlacialPrecipitatorBlockEntity;
+import dev.craft.thermalexpansion.machine.IgneousExtruderBlockEntity;
 import dev.craft.thermalexpansion.machine.CrucibleBlockEntity;
 import dev.craft.thermalexpansion.machine.PoweredFurnaceBlockEntity;
 import dev.craft.thermalexpansion.machine.SmelterBlockEntity;
@@ -56,6 +60,18 @@ public final class TeBlocks {
             CrucibleBlockEntity::new);
     public static final DeferredBlock<TeMachineBlock> LIQUID_TRANSPOSER = machine(TeMachineType.LIQUID_TRANSPOSER,
             TransposerBlockEntity::new);
+    public static final DeferredBlock<TeMachineBlock> GLACIAL_PRECIPITATOR =
+            machine(TeMachineType.GLACIAL_PRECIPITATOR, GlacialPrecipitatorBlockEntity::new);
+    public static final DeferredBlock<TeMachineBlock> IGNEOUS_EXTRUDER = machine(TeMachineType.IGNEOUS_EXTRUDER,
+            IgneousExtruderBlockEntity::new);
+    public static final DeferredBlock<TeMachineBlock> AQUEOUS_ACCUMULATOR = machine(TeMachineType.AQUEOUS_ACCUMULATOR,
+            AqueousAccumulatorBlockEntity::new);
+    /** {@code BlockTank}: Material.glass (no tool needed), hardness 3, {@code setResistance(150)} = 90. */
+    public static final DeferredBlock<PortableTankBlock> PORTABLE_TANK = BLOCKS.register("portable_tank",
+            () -> new PortableTankBlock(BlockBehaviour.Properties.of().mapColor(MapColor.NONE)
+                    .instrument(NoteBlockInstrument.HAT).strength(3.0F, 90.0F).sound(SoundType.GLASS).noOcclusion()
+                    .isRedstoneConductor((s, l, p) -> false).isSuffocating((s, l, p) -> false)
+                    .isViewBlocking((s, l, p) -> false)));
 
     private static final Map<DyeColor, DeferredBlock<Block>> ROCKWOOL = new EnumMap<>(DyeColor.class);
 

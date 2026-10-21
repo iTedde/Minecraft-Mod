@@ -3,6 +3,10 @@ package dev.craft.thermalexpansion;
 import java.util.function.Supplier;
 
 import dev.craft.Craft;
+import dev.craft.thermalexpansion.block.PortableTankBlockEntity;
+import dev.craft.thermalexpansion.machine.AqueousAccumulatorBlockEntity;
+import dev.craft.thermalexpansion.machine.GlacialPrecipitatorBlockEntity;
+import dev.craft.thermalexpansion.machine.IgneousExtruderBlockEntity;
 import dev.craft.thermalexpansion.machine.CrucibleBlockEntity;
 import dev.craft.thermalexpansion.machine.PoweredFurnaceBlockEntity;
 import dev.craft.thermalexpansion.machine.SmelterBlockEntity;
@@ -35,6 +39,18 @@ public final class TeBlockEntityTypes {
     public static final Supplier<BlockEntityType<TransposerBlockEntity>> LIQUID_TRANSPOSER =
             BLOCK_ENTITY_TYPES.register("liquid_transposer", () -> BlockEntityType.Builder.of(
                     TransposerBlockEntity::new, TeBlocks.LIQUID_TRANSPOSER.get()).build(null));
+    public static final Supplier<BlockEntityType<GlacialPrecipitatorBlockEntity>> GLACIAL_PRECIPITATOR =
+            BLOCK_ENTITY_TYPES.register("glacial_precipitator", () -> BlockEntityType.Builder.of(
+                    GlacialPrecipitatorBlockEntity::new, TeBlocks.GLACIAL_PRECIPITATOR.get()).build(null));
+    public static final Supplier<BlockEntityType<IgneousExtruderBlockEntity>> IGNEOUS_EXTRUDER =
+            BLOCK_ENTITY_TYPES.register("igneous_extruder", () -> BlockEntityType.Builder.of(
+                    IgneousExtruderBlockEntity::new, TeBlocks.IGNEOUS_EXTRUDER.get()).build(null));
+    public static final Supplier<BlockEntityType<AqueousAccumulatorBlockEntity>> AQUEOUS_ACCUMULATOR =
+            BLOCK_ENTITY_TYPES.register("aqueous_accumulator", () -> BlockEntityType.Builder.of(
+                    AqueousAccumulatorBlockEntity::new, TeBlocks.AQUEOUS_ACCUMULATOR.get()).build(null));
+    public static final Supplier<BlockEntityType<PortableTankBlockEntity>> PORTABLE_TANK =
+            BLOCK_ENTITY_TYPES.register("portable_tank", () -> BlockEntityType.Builder.of(
+                    PortableTankBlockEntity::new, TeBlocks.PORTABLE_TANK.get()).build(null));
 
     private TeBlockEntityTypes() {
     }

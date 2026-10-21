@@ -4,7 +4,14 @@ import dev.craft.Craft;
 import dev.craft.ic2.Ic2Items;
 import dev.craft.buildcraft.BcBlocks;
 import dev.craft.gregtech.GtItems;
+import dev.craft.buildcraft.power.BcCapabilities;
+import dev.craft.thermalexpansion.block.PortableTankBlockEntity;
 import dev.craft.thermalexpansion.machine.CrucibleBlockEntity;
+import dev.craft.thermalexpansion.machine.GlacialPrecipitatorBlockEntity;
+import dev.craft.thermalexpansion.machine.IgneousExtruderBlockEntity;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.phys.AABB;
+import net.neoforged.neoforge.fluids.SimpleFluidContent;
 import dev.craft.thermalexpansion.machine.TeMachineBlock;
 import dev.craft.thermalexpansion.machine.TransposerBlockEntity;
 import dev.craft.thermalexpansion.machine.TeMachineBlockEntity;
@@ -212,6 +219,90 @@ public final class ThermalExpansionGameTests {
         helper.runAfterDelay(140, () -> {
             helper.assertTrue(machine.getInventory().get(1).is(Items.BUCKET), "bucket emptied");
             helper.assertTrue(machine.getTankFluid().getAmount() == 1000, "water back in the tank");
+            helper.succeed();
+        });
+    }
+
+    /** Glacial Precipitator: 1000 mB water through an input side become one ice block (160 MJ). */
+    @GameTest(template = EMPTY, timeoutTicks = 200)
+    public static void precipitatorFreezesIce(GameTestHelper helper) {
+        GlacialPrecipitatorBlockEntity machine = machine(helper, TeBlocks.GLACIAL_PRECIPITATOR.get());
+        IFluidHandler input = machine.getFluidHandler(Direction.EAST);
+        helper.assertTrue(input != null && input.fill(new FluidStack(Fluids.WATER, 1000),
+                IFluidHandler.FluidAction.EXECUTE) == 1000, "input side takes water");
+        helper.assertTrue(input.fill(new FluidStack(Fluids.LAVA, 1000), IFluidHandler.FluidAction.SIMULATE) == 0,
+                "no lava");
+        machine.setSelection(2);
+        helper.onEachTick(() -> machine.getPowerProvider().setEnergyStored(2400.0F));
+        helper.succeedWhen(() -> {
+            helper.assertTrue(machine.getInventory().get(0).is(Items.ICE), "ice made");
+            helper.assertTrue(machine.getDisplayFluid(0).isEmpty(), "water used");
+        });
+    }
+
+    /** Igneous Extruder: stone uses 2 mB lava; with 998 mB left (below 1000) it does not start again. */
+    @GameTest(template = EMPTY, timeoutTicks = 300)
+    public static void extruderNeedsFullTanksToStart(GameTestHelper helper) {
+        IgneousExtruderBlockEntity machine = machine(helper, TeBlocks.IGNEOUS_EXTRUDER.get());
+        helper.assertTrue(helper.getLevel().getCapability(BcCapabilities.POWER_RECEPTOR, helper.absolutePos(POS),
+                Direction.EAST) == null, "no MJ input");
+        IFluidHandler input = machine.getFluidHandler(Direction.EAST);
+        input.fill(new FluidStack(Fluids.LAVA, 1000), IFluidHandler.FluidAction.EXECUTE);
+        input.fill(new FluidStack(Fluids.WATER, 3000), IFluidHandler.FluidAction.EXECUTE);
+        machine.setSelection(1);
+        helper.runAfterDelay(200, () -> {
+            helper.assertTrue(machine.getInventory().get(0).is(Items.STONE)
+                    && machine.getInventory().get(0).getCount() == 1, "one stone");
+            helper.assertTrue(machine.getDisplayFluid(1).getAmount() == 998, "2 mB lava used");
+            helper.assertTrue(machine.getDisplayFluid(0).getAmount() == 2000, "1000 mB water used");
+            helper.assertFalse(machine.isActive(), "stopped below 1000 mB lava");
+            helper.succeed();
+        });
+    }
+
+    /** Aqueous Accumulator: two adjacent water blocks give 1000 mB per 40 ticks, pushed into a tank above. */
+    @GameTest(template = EMPTY, timeoutTicks = 200)
+    public static void accumulatorFillsTankAbove(GameTestHelper helper) {
+        machine(helper, TeBlocks.AQUEOUS_ACCUMULATOR.get());
+        helper.setBlock(POS.west(), Blocks.WATER);
+        helper.setBlock(POS.east(), Blocks.WATER);
+        helper.setBlock(POS.above(), BcBlocks.TANK.get());
+        helper.succeedWhen(() -> {
+            IFluidHandler tank = helper.getLevel().getCapability(Capabilities.FluidHandler.BLOCK,
+                    helper.absolutePos(POS.above()), Direction.DOWN);
+            helper.assertTrue(tank != null && tank.getFluidInTank(0).getAmount() >= 1000, "1000 mB in the tank");
+        });
+    }
+
+    /** Portable Tank: a fill overflows into the tank above, which (output mode) refills the one below. */
+    @GameTest(template = EMPTY, timeoutTicks = 100)
+    public static void portableTanksStack(GameTestHelper helper) {
+        helper.setBlock(POS, TeBlocks.PORTABLE_TANK.get());
+        helper.setBlock(POS.above(), TeBlocks.PORTABLE_TANK.get());
+        PortableTankBlockEntity bottom = helper.getBlockEntity(POS);
+        PortableTankBlockEntity top = helper.getBlockEntity(POS.above());
+        bottom.placeBlock();
+        top.placeBlock();
+        helper.assertTrue(top.getMode() && !bottom.getMode(), "upper tank starts in output mode");
+        helper.assertTrue(bottom.getFluidHandler(Direction.NORTH) == null, "no access from the sides");
+        IFluidHandler handler = bottom.getFluidHandler(null);
+        helper.assertTrue(handler.fill(new FluidStack(Fluids.WATER, 10000), IFluidHandler.FluidAction.EXECUTE) == 10000,
+                "10000 mB taken");
+        helper.assertTrue(bottom.getTank().getFluidAmount() == 8000 && top.getTank().getFluidAmount() == 2000,
+                "overflow into the upper tank");
+        handler.drain(4000, IFluidHandler.FluidAction.EXECUTE);
+        helper.runAfterDelay(20, () -> {
+            helper.assertTrue(top.getTank().isEmpty() && bottom.getTank().getFluidAmount() == 6000,
+                    "upper tank emptied downwards");
+            Player player = helper.makeMockPlayer(GameType.SURVIVAL);
+            player.setShiftKeyDown(true);
+            player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(TeItems.CRESCENT_HAMMER.get()));
+            helper.useBlock(POS, player);
+            helper.assertBlockNotPresent(TeBlocks.PORTABLE_TANK.get(), POS);
+            ItemEntity drop = helper.getLevel().getEntitiesOfClass(ItemEntity.class,
+                    new AABB(helper.absolutePos(POS)).inflate(1.0)).stream().findFirst().orElseThrow();
+            SimpleFluidContent content = drop.getItem().get(TeDataComponents.TANK_LIQUID.get());
+            helper.assertTrue(content != null && content.getAmount() == 6000, "dismantled with its water");
             helper.succeed();
         });
     }

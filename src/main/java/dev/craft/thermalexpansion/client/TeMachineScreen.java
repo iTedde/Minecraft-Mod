@@ -3,6 +3,8 @@ package dev.craft.thermalexpansion.client;
 import java.util.ArrayList;
 import java.util.List;
 
+import dev.craft.thermalexpansion.machine.AqueousAccumulatorBlockEntity;
+import dev.craft.thermalexpansion.machine.SelectionMachineBlockEntity;
 import dev.craft.thermalexpansion.machine.TankMachineBlockEntity;
 import dev.craft.thermalexpansion.machine.TeMachineBlock;
 import dev.craft.thermalexpansion.machine.TeMachineBlockEntity;
@@ -19,11 +21,13 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.InventoryMenu;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
 import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
@@ -60,16 +64,24 @@ public class TeMachineScreen extends AbstractContainerScreen<TeMachineMenu> {
             case INDUCTION_SMELTER -> "smelter";
             case MAGMA_CRUCIBLE -> "crucible";
             case LIQUID_TRANSPOSER -> "transposer";
+            case GLACIAL_PRECIPITATOR -> "ice_gen";
+            case IGNEOUS_EXTRUDER -> "rock_gen";
+            case AQUEOUS_ACCUMULATOR -> "water_gen";
         });
-        addTab(new EnergyTab());
+        // GuiRockGen/GuiWaterGen: no energy tab, the tutorial without the MJ line.
+        if (type.isPowered()) {
+            addTab(new EnergyTab());
+        }
         addTab(new RedstoneTab());
         addTab(new ConfigTab());
         addTab(new TextTab(true, 0x555555, 0, "gui.craft.te.information",
                 Component.translatable("gui.craft.te.info." + type.getName())));
-        addTab(new TextTab(true, 0x5A09BB, 1, "gui.craft.te.tutorial", Component.translatable(
-                "gui.craft.te.tutorial.redstone").append("\n\n")
-                .append(Component.translatable("gui.craft.te.tutorial.config")).append("\n\n")
-                .append(Component.translatable("gui.craft.te.tutorial.powered"))));
+        MutableComponent tutorial = Component.translatable("gui.craft.te.tutorial.redstone").append("\n\n")
+                .append(Component.translatable("gui.craft.te.tutorial.config"));
+        if (type.isPowered()) {
+            tutorial.append("\n\n").append(Component.translatable("gui.craft.te.tutorial.powered"));
+        }
+        addTab(new TextTab(true, 0x5A09BB, 1, "gui.craft.te.tutorial", tutorial));
     }
 
     private void addTab(TeTab tab) {
@@ -109,17 +121,54 @@ public class TeMachineScreen extends AbstractContainerScreen<TeMachineMenu> {
             renderTooltip(graphics, mouseX, mouseY);
             int x = mouseX - leftPos;
             int y = mouseY - topPos;
-            if (x >= 10 && x < 22 && y >= 9 && y < 49 && menu.getCarried().isEmpty()) {
-                graphics.renderTooltip(font, Component.literal((int) menu.getEnergy() + " / "
-                        + menu.getMachineType().getMaxEnergy() + " MJ"), mouseX, mouseY);
+            TeMachineType type = menu.getMachineType();
+            if (!menu.getCarried().isEmpty()) {
+                return;
             }
-            boolean tank = menu.getMachineType() == TeMachineType.MAGMA_CRUCIBLE
-                    || menu.getMachineType() == TeMachineType.LIQUID_TRANSPOSER;
-            if (tank && x >= 152 && x < 168 && y >= 9 && y < 69 && menu.getCarried().isEmpty()) {
-                graphics.renderTooltip(font, Component.literal(menu.getFluidAmount() + " / "
-                        + TankMachineBlockEntity.MAX_LIQUID + " mB"), mouseX, mouseY);
+            if (type.isPowered() && x >= 10 && x < 22 && y >= 9 && y < 49) {
+                graphics.renderTooltip(font, Component.literal((int) menu.getEnergy() + " / "
+                        + type.getMaxEnergy() + " MJ"), mouseX, mouseY);
+            }
+            int capacity = tankCapacity(type);
+            if (capacity > 0 && x >= 152 && x < 168 && y >= 9 && y < 69) {
+                graphics.renderTooltip(font, Component.literal(menu.getFluidAmount() + " / " + capacity + " mB"),
+                        mouseX, mouseY);
+            }
+            if (type == TeMachineType.IGNEOUS_EXTRUDER && x >= 8 && x < 24 && y >= 9 && y < 69) {
+                graphics.renderTooltip(font, Component.literal(menu.getFluid2Amount() + " / " + capacity + " mB"),
+                        mouseX, mouseY);
+            }
+            int selection = selectionAt(x, y);
+            if (selection >= 0) {
+                graphics.renderTooltip(font, SelectionMachineBlockEntity.products(type).get(selection), mouseX,
+                        mouseY);
             }
         }
+    }
+
+    /** Tank size of the gauge on the right, 0 without one. */
+    private static int tankCapacity(TeMachineType type) {
+        return switch (type) {
+            case MAGMA_CRUCIBLE, LIQUID_TRANSPOSER -> TankMachineBlockEntity.MAX_LIQUID;
+            case GLACIAL_PRECIPITATOR, IGNEOUS_EXTRUDER -> SelectionMachineBlockEntity.CAPACITY;
+            case AQUEOUS_ACCUMULATOR -> AqueousAccumulatorBlockEntity.CAPACITY;
+            default -> 0;
+        };
+    }
+
+    /** The product buttons of {@code GuiIceGen}/{@code GuiRockGen} (x 49/79/109, 18 wide), or -1. */
+    private int selectionAt(int x, int y) {
+        TeMachineType type = menu.getMachineType();
+        if (type != TeMachineType.GLACIAL_PRECIPITATOR && type != TeMachineType.IGNEOUS_EXTRUDER
+                || y < 18 || y >= 36) {
+            return -1;
+        }
+        for (int i = 0; i < 3; i++) {
+            if (x >= 49 + 30 * i && x < 67 + 30 * i) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     @Override
@@ -131,6 +180,14 @@ public class TeMachineScreen extends AbstractContainerScreen<TeMachineMenu> {
         switch (menu.getMachineType()) {
             case MAGMA_CRUCIBLE -> renderCrucible(graphics, machine, x, y);
             case LIQUID_TRANSPOSER -> renderTransposer(graphics, machine, x, y, mouseX - x, mouseY - y);
+            case GLACIAL_PRECIPITATOR, IGNEOUS_EXTRUDER -> renderSelection(graphics, machine, x, y);
+            case AQUEOUS_ACCUMULATOR -> {
+                if (machine != null && machine.hasSide(1)) {
+                    coloredLiquidSlot(graphics, x + 152, y + 9, SlotColor.ORANGE);
+                }
+                drawTank(graphics, menu.getFluid(), menu.getFluidAmount(), x + 152, y);
+                graphics.blit(texture, x + 152, y + 9, 176, 98, 16, SCALE_LIQUID);
+            }
             default -> {
                 int flameX = menu.getMachineType() == TeMachineType.INDUCTION_SMELTER ? 44 : 56;
                 drawSpeed(graphics, x + flameX, y + 44);
@@ -229,9 +286,63 @@ public class TeMachineScreen extends AbstractContainerScreen<TeMachineMenu> {
 
     /** The tank gauge at (152, 9), 60 px for 10 000 mB. */
     private void drawTank(GuiGraphics graphics, int x, int y) {
-        int l = menu.getFluidAmount() * SCALE_LIQUID / TankMachineBlockEntity.MAX_LIQUID;
+        drawTank(graphics, menu.getFluid(), menu.getFluidAmount(), x + 152, y);
+    }
+
+    /** A tank gauge at ({@code x}, 9) for the tank size of the machine type. */
+    private void drawTank(GuiGraphics graphics, Fluid fluid, int amount, int x, int y) {
+        int capacity = tankCapacity(menu.getMachineType());
+        int l = amount >= capacity ? SCALE_LIQUID : amount * SCALE_LIQUID / capacity;
         if (l > 0) {
-            drawLiquid(graphics, menu.getFluid(), x + 152, y + 9 + SCALE_LIQUID - l, 16, l);
+            drawLiquid(graphics, fluid, x, y + 9 + SCALE_LIQUID - l, 16, l);
+        }
+    }
+
+    /**
+     * {@code GuiIceGen}/{@code GuiRockGen}: the three products with the chosen one framed (highlighted while it runs)
+     * and the running one marked, the tanks, the progress arrow(s) filled with the liquid(s).
+     */
+    private void renderSelection(GuiGraphics graphics, @Nullable TeMachineBlockEntity machine, int x, int y) {
+        boolean extruder = menu.getMachineType() == TeMachineType.IGNEOUS_EXTRUDER;
+        int cur = menu.getCurSelection();
+        int prev = menu.getPrevSelection();
+        graphics.blit(texture, x + 42 + 30 * cur, y + 11, 192, prev == cur && menu.isActive() ? 64 : 32, 32, 32);
+        graphics.blit(texture, x + 42 + 30 * prev, y + 11, 224, 32, 32, 32);
+        if (machine != null && machine.hasSide(1)) {
+            if (extruder) {
+                coloredLiquidSlot(graphics, x + 8, y + 9, SlotColor.BLUE);
+            }
+            coloredLiquidSlot(graphics, x + 152, y + 9, SlotColor.BLUE);
+        }
+        if (machine != null && machine.hasSide(2)) {
+            coloredSlot(graphics, x + 76, y + 45, SlotColor.ORANGE, SlotType.OUTPUT, SlotRender.FULL);
+        }
+        if (extruder) {
+            drawTank(graphics, Fluids.LAVA, menu.getFluid2Amount(), x + 8, y);
+        }
+        drawTank(graphics, Fluids.WATER, menu.getFluidAmount(), x + 152, y);
+        int l = scaledProgress();
+        if (l > 0) {
+            if (extruder) {
+                drawLiquid(graphics, Fluids.LAVA, x + 40, y + 49, l, 16);
+                graphics.blit(texture, x + 40, y + 49, 192, 96, l, 16);
+            }
+            drawLiquid(graphics, Fluids.WATER, x + 112 + SCALE_PROGRESS - l, y + 49, l, 16);
+            graphics.blit(texture, x + 112 + SCALE_PROGRESS - l, y + 49, 192 + SCALE_PROGRESS - l, 112, l, 16);
+        }
+        if (extruder) {
+            graphics.blit(texture, x + 8, y + 9, 176, 98, 16, SCALE_LIQUID);
+        }
+        graphics.blit(texture, x + 152, y + 9, 176, 98, 16, SCALE_LIQUID);
+        if (!extruder) {
+            drawSpeed(graphics, x + 44, y + 49);
+            drawEnergy(graphics, x, y);
+        }
+        // ContainerIceGen/ContainerRockGen: the products sit in locked slots at (50|80|110, 19).
+        List<ItemStack> products = SelectionMachineBlockEntity.products(menu.getMachineType());
+        for (int i = 0; i < 3; i++) {
+            graphics.renderItem(products.get(i), x + 50 + 30 * i, y + 19);
+            graphics.renderItemDecorations(font, products.get(i), x + 50 + 30 * i, y + 19);
         }
     }
 
@@ -380,6 +491,15 @@ public class TeMachineScreen extends AbstractContainerScreen<TeMachineMenu> {
                 // GuiTransposer: only while no mode change is pending.
                 if (menu.isReverse() == menu.getReverseFlag()) {
                     pressButton(TeMachineMenu.BUTTON_MODE, menu.isReverse() ? 0.8F : 0.6F);
+                }
+                return true;
+            }
+            int selection = selectionAt(x, y);
+            if (selection >= 0) {
+                // GuiIceGen.mouseClicked: no click sound.
+                if (minecraft != null && minecraft.gameMode != null) {
+                    minecraft.gameMode.handleInventoryButtonClick(menu.containerId,
+                            TeMachineMenu.BUTTON_SELECTION + selection);
                 }
                 return true;
             }

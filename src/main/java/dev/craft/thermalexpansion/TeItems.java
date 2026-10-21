@@ -2,6 +2,7 @@ package dev.craft.thermalexpansion;
 
 import dev.craft.Craft;
 import dev.craft.thermalexpansion.item.CrescentHammerItem;
+import dev.craft.thermalexpansion.item.PortableTankItem;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
@@ -34,6 +35,15 @@ public final class TeItems {
     public static final DeferredItem<BlockItem> MAGMA_CRUCIBLE = ITEMS.registerSimpleBlockItem(TeBlocks.MAGMA_CRUCIBLE);
     public static final DeferredItem<BlockItem> LIQUID_TRANSPOSER =
             ITEMS.registerSimpleBlockItem(TeBlocks.LIQUID_TRANSPOSER);
+    public static final DeferredItem<BlockItem> GLACIAL_PRECIPITATOR =
+            ITEMS.registerSimpleBlockItem(TeBlocks.GLACIAL_PRECIPITATOR);
+    public static final DeferredItem<BlockItem> IGNEOUS_EXTRUDER =
+            ITEMS.registerSimpleBlockItem(TeBlocks.IGNEOUS_EXTRUDER);
+    public static final DeferredItem<BlockItem> AQUEOUS_ACCUMULATOR =
+            ITEMS.registerSimpleBlockItem(TeBlocks.AQUEOUS_ACCUMULATOR);
+    public static final DeferredItem<PortableTankItem> PORTABLE_TANK = ITEMS.registerItem("portable_tank",
+            properties -> new PortableTankItem(TeBlocks.PORTABLE_TANK.get(), properties),
+            new Item.Properties().stacksTo(1));
 
     public static final DeferredItem<Item> INVAR_DUST = ITEMS.registerSimpleItem("invar_dust");
     public static final DeferredItem<Item> INVAR_INGOT = ITEMS.registerSimpleItem("invar_ingot");

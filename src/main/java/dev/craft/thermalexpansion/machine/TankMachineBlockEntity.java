@@ -38,8 +38,13 @@ public abstract class TankMachineBlockEntity extends TeMachineBlockEntity {
         return tank.getFluid();
     }
 
-    /** The fluid capability on {@code side}, or {@code null}. */
+    @Override
+    public FluidStack getDisplayFluid(int index) {
+        return index == 0 ? tank.getFluid() : FluidStack.EMPTY;
+    }
+
     @Nullable
+    @Override
     public abstract IFluidHandler getFluidHandler(@Nullable Direction side);
 
     /** {@code transferLiquid}: up to 100 mB into the first adjacent tank on a side of {@code group}. */

@@ -172,7 +172,8 @@ public final class CraftBlockTagsProvider extends BlockTagsProvider {
         }
         tag(BlockTags.MINEABLE_WITH_PICKAXE).add(TeBlocks.HARDENED_GLASS.get(), TeBlocks.POWERED_FURNACE.get(),
                 TeBlocks.PULVERIZER.get(), TeBlocks.SAWMILL.get(), TeBlocks.INDUCTION_SMELTER.get(),
-                TeBlocks.MAGMA_CRUCIBLE.get(), TeBlocks.LIQUID_TRANSPOSER.get());
+                TeBlocks.MAGMA_CRUCIBLE.get(), TeBlocks.LIQUID_TRANSPOSER.get(), TeBlocks.GLACIAL_PRECIPITATOR.get(),
+                TeBlocks.IGNEOUS_EXTRUDER.get(), TeBlocks.AQUEOUS_ACCUMULATOR.get());
         tag(Tags.Blocks.GLASS_BLOCKS).add(TeBlocks.HARDENED_GLASS.get());
         addElectricToolTags();
     }

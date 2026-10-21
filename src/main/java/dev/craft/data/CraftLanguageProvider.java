@@ -237,6 +237,28 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
         block(TeBlocks.INDUCTION_SMELTER, german ? "Induktionsschmelze" : "Induction Smelter");
         block(TeBlocks.MAGMA_CRUCIBLE, german ? "Magmatiegel" : "Magma Crucible");
         block(TeBlocks.LIQUID_TRANSPOSER, german ? "Flüssigkeitsumfüller" : "Liquid Transposer");
+        block(TeBlocks.GLACIAL_PRECIPITATOR, german ? "Eisbereiter" : "Glacial Precipitator");
+        block(TeBlocks.IGNEOUS_EXTRUDER, german ? "Gesteinsextruder" : "Igneous Extruder");
+        block(TeBlocks.AQUEOUS_ACCUMULATOR, german ? "Wassersammler" : "Aqueous Accumulator");
+        block(TeBlocks.PORTABLE_TANK, german ? "Tragbarer Tank" : "Portable Tank");
+        add("tooltip.craft.te.tank.liquid", german ? "Flüssigkeit: %s" : "Liquid: %s");
+        add("tooltip.craft.te.tank.empty", german ? "Leer" : "Empty");
+        add("tooltip.craft.te.tank.level", german ? "Füllstand: %s / %s mB" : "Level: %s / %s mB");
+        add("gui.craft.te.info.glacial_precipitator", german
+                ? "Gefriert Wasser mit MJ.\n\nDu bekommst das gewählte Item, wenn genug Wasser im Tank ist."
+                        + "\n\nMach eine Schneeballschlacht."
+                : "Uses MJ to freeze water.\n\nThe selected item is what you'll get, if there is enough water in the"
+                        + " tank.\n\nHave a snowball fight.");
+        add("gui.craft.te.info.igneous_extruder", german
+                ? "Mischt Wasser und Lava zu verschiedenen Arten von Erstarrungsgestein.\n\nDu bekommst das gewählte"
+                        + " Item, wenn genug Wasser und Lava in den Tanks sind.\n\nMC-Physik macht Spaß!"
+                : "Mixes water and lava to make different types of igneous rock.\n\nThe selected item is what you'll"
+                        + " get, if there is enough water and lava in the tanks.\n\nMC physics is fun!");
+        add("gui.craft.te.info.aqueous_accumulator", german
+                ? "Gewinnt Wasser aus seiner Umgebung.\n\nIn einem Wasserbecken geht es schneller."
+                        + "\n\nNicht ertrinken."
+                : "Extracts water from its surroundings.\n\nPlace in a pool of water to speed this up."
+                        + "\n\nDon't drown.");
         add("gui.craft.te.info.induction_smelter", german
                 ? "Schmilzt Metalle und Dinge, die hohe Temperaturen brauchen.\n\nNützlich, um Erze zu verarbeiten und"
                         + " fortgeschrittene Geräte zu bauen.\n\nGart ganz bestimmt kein Essen."

@@ -210,6 +210,39 @@ bleibt, daher keine 30k/60k-Zellen), umkehrbar. Energiezellenrahmen + 1000 mB Re
 Kohlestaub (125), Entleeren: Hydrierter Kohlestaub → Kohlestaub + 100 mB Wasser (125). Energieleitung + 50 mB Redstone
 (80 MJ) folgt mit 25.6.
 
+### 4.3 Eisbereiter, Gesteinsextruder, Wassersammler, Tragbarer Tank (25.4)
+
+**Eisbereiter / Gesteinsextruder** (`TileIceGen` mit MJ, `TileRockGen` ohne Strom): im GUI eines von drei Produkten
+wählen (`curSelection`); ein laufender Vorgang endet mit dem Produkt, mit dem er begann (`prevSelection`), die neue Wahl
+greift sofort nur ohne laufenden Vorgang. Ausgabe Slot 0, Auswurf an Gruppe 2 (4 Items, reihum); Gruppen 0 keine ·
+1 Flüssigkeitseingabe (Items nicht zugänglich) · 2 Ausgabe · 3 offen (Slot 0); beim Platzieren Front 0, links/hinten 1,
+sonst unten/oben 2, Seiten 1. Tanks je 4000 mB, nur befüllbar (Eingabeseiten, Rechtsklick mit gefülltem Behälter),
+nicht leerbar.
+
+| Maschine | Auswahl 0 | Auswahl 1 | Auswahl 2 |
+|---|---|---|---|
+| Eisbereiter (min 0,5 / max 2 MJ/t, 2400 MJ) | 4 Schneebälle: 500 mB Wasser, 80 MJ | Schneeblock: 500 mB, 80 MJ | Eis: 1000 mB, 160 MJ |
+| Gesteinsextruder (1 Fortschritt je Tick, leuchtet aktiv 14) | Bruchstein: 0/0 mB, 40 Ticks | Stein: 2 mB Lava + 1000 mB Wasser, 80 Ticks | Obsidian: 1000/1000 mB, 120 Ticks |
+
+Originaleigenheiten: Der Extruder startet nur mit je **mindestens 1000 mB** Lava und Wasser, gleich welche Auswahl. Der
+Eisbereiter prüft den Platz im Ausgabeslot gegen die Stapelgröße des Produkts der **vorigen** Auswahl.
+
+**Wassersammler** (`TileWaterGen`, ohne Strom, kein Item-Inventar): Tank 4000 mB; alle 40 Ticks +1000 mB, wenn mindestens
+zwei der vier waagerechten Nachbarn Wasser sind, sonst +1 mB (Pack-Config `factory.waterGen.rate = 25` → 25 · 40);
+startet nicht im Nether-Biom. Gibt je Tick 25 mB an den nächsten angrenzenden Tank auf einer Seite der Gruppe 1 ab
+(reihum; der erste gefundene Tank zählt, auch wenn er nichts nimmt). Gruppen 0 keine · 1 Ausgabe; alle Seiten außer der
+Front starten in Gruppe 1. Sein Tank lässt sich weder befüllen noch leeren.
+
+**Tragbarer Tank** (`BlockTank`/`TilePortableTank`): Glas, Härte 3, Widerstand 90, Maße 2–14 px, stapelt 1; 8000 mB einer
+beliebigen Flüssigkeit, nur von oben und unten zugänglich. Rechtsklick mit Behälter füllt bzw. leert ihn, Schraubenschlüssel
+schaltet den Ausgabemodus, Schleichen + Schraubenschlüssel baut ihn **mit** Inhalt ab (Tooltip „Flüssigkeit“/„Füllstand
+x / 8000 mB“); normal abgebaut droppt er leer. Ausgabemodus: gibt nach unten ab – 500 mB/Tick in einen Tragbaren Tank
+darunter, sonst 100 mB/Tick in jeden Tank; unten dann nicht zugänglich (außer auf einem Tragbaren Tank). Auf einen
+Tragbaren Tank gesetzt startet er im Ausgabemodus. Was nicht passt, läuft in einen Tragbaren Tank darüber über.
+Originalfehler: Lichtwert immer 0. Modell aus `liquid_tank.png` (Deckel, vier Wände, Boden; Wände/Boden im Ausgabemodus
+anders), Flüssigkeit 0,1975–0,8025 breit von 0,0725 bis 0,99 in 100 Stufen. Rezept ` G /GTG/ G ` (Gehärtetes Glas,
+Zinnbarren).
+
 ## 5. Rezepte (Werkbank)
 
 Maschinenrahmen `IGI/GXG/IGI` (Eisen, Glas, Gold). Maschinen `" X "/"YCY"/"IPI"` mit C Rahmen, I Kupferbarren,

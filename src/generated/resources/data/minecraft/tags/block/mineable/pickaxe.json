@@ -133,6 +133,9 @@
     "craft:sawmill",
     "craft:induction_smelter",
     "craft:magma_crucible",
-    "craft:liquid_transposer"
+    "craft:liquid_transposer",
+    "craft:glacial_precipitator",
+    "craft:igneous_extruder",
+    "craft:aqueous_accumulator"
   ]
 }

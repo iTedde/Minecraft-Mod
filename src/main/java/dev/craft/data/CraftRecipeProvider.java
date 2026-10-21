@@ -2225,6 +2225,15 @@ public final class CraftRecipeProvider extends RecipeProvider {
                 Ingredient.of(CraftItemTagsProvider.INGOTS_INVAR));
         teMachine(TeItems.MAGMA_CRUCIBLE.get(), Ingredient.of(Items.BUCKET), Ingredient.of(Items.NETHER_BRICKS));
         teMachine(TeItems.LIQUID_TRANSPOSER.get(), Ingredient.of(Items.BUCKET), Ingredient.of(Items.GLASS));
+        teMachine(TeItems.GLACIAL_PRECIPITATOR.get(), Ingredient.of(Items.PISTON), Ingredient.of(Items.SNOW_BLOCK));
+        Ingredient tin = Ingredient.of(CraftItemTagsProvider.INGOTS_TIN);
+        Ingredient servo = Ingredient.of(TeItems.PNEUMATIC_SERVO.get());
+        teMachine(TeItems.IGNEOUS_EXTRUDER.get(), Ingredient.of(Items.PISTON), Ingredient.of(Items.GLASS), tin, servo);
+        teMachine(TeItems.AQUEOUS_ACCUMULATOR.get(), Ingredient.of(Items.BUCKET), Ingredient.of(Items.GLASS), tin,
+                servo);
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, TeItems.PORTABLE_TANK.get()).pattern(" G ").pattern("GTG")
+                .pattern(" G ").define('G', TeItems.HARDENED_GLASS.get()).define('T', tin)
+                .unlockedBy("has_hardened_glass", has(TeItems.HARDENED_GLASS.get())).save(output, id("portable_tank"));
 
         // Powered Furnace: own recipes; everything else smelts at 160 MJ (TeRecipes.find).
         te(TeRecipe.Kind.FURNACE, "cactus", Ingredient.of(Items.CACTUS), stack(Items.GREEN_DYE, 1), 80);
@@ -2460,9 +2469,13 @@ public final class CraftRecipeProvider extends RecipeProvider {
 
     /** TE machines: {@code " X ", "YCY", "IPI"} with machine frame, copper and a redstone reception coil. */
     private void teMachine(ItemLike result, Ingredient x, Ingredient y) {
+        teMachine(result, x, y, Ingredient.of(ingotsCopper()), Ingredient.of(TeItems.REDSTONE_RECEPTION_COIL.get()));
+    }
+
+    private void teMachine(ItemLike result, Ingredient x, Ingredient y, Ingredient i, Ingredient p) {
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, result).pattern(" X ").pattern("YCY").pattern("IPI")
-                .define('X', x).define('Y', y).define('C', TeItems.MACHINE_FRAME.get()).define('I', ingotsCopper())
-                .define('P', TeItems.REDSTONE_RECEPTION_COIL.get())
+                .define('X', x).define('Y', y).define('C', TeItems.MACHINE_FRAME.get()).define('I', i)
+                .define('P', p)
                 .unlockedBy("has_frame", has(TeItems.MACHINE_FRAME.get()))
                 .save(output, id(path(result)));
     }

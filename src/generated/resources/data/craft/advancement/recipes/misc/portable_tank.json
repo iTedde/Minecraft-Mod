@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_hardened_glass": {
+      "conditions": {
+        "items": [
+          {
+            "items": "craft:hardened_glass"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "craft:portable_tank"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_hardened_glass"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "craft:portable_tank"
+    ]
+  }
+}

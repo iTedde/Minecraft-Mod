@@ -2112,9 +2112,20 @@ Spezifikation: `docs/spec/26-thermal-expansion.md`.
   GT-Zusätzen); Werkbankrezepte; Kategorie-IDs; Lang, Loot, Spitzhacke.
 - [x] 4 neue GameTests, alle 413 grün; `gradlew test build` grün.
 
+## Erledigt (25.4 Eisbereiter, Gesteinsextruder, Wassersammler, Tragbarer Tank, 2026-10-21)
+- [x] `SelectionMachineBlockEntity` (Produktwahl cur/prev, Auswurf), `GlacialPrecipitatorBlockEntity` (MJ),
+  `IgneousExtruderBlockEntity` (ohne Strom, Tick-Fortschritt), `AqueousAccumulatorBlockEntity` (Wassernachbarn, 25 mB/t
+  Abgabe), `TeInputTanks`; Eimer/Zellen per Rechtsklick in Eisbereiter/Extruder; MJ-Capability nur für betriebene Typen.
+- [x] `PortableTankBlock`/`PortableTankBlockEntity` (8000 mB, Ausgabemodus, Überlauf nach oben, Abbau mit Inhalt über
+  Datenkomponente `craft:tank_liquid`), `PortableTankItem` (Tooltip), `PortableTankRenderer` + Item-Renderer (Originalmodell).
+- [x] GUI: Produktauswahl mit Rahmen/Markierung, Lava-/Wasseranzeigen, Reiter ohne Energie für Extruder/Sammler; Lang en/de,
+  Rezepte (spec 26 §5), Loot, Spitzhacke; Energie-Steckbrief (nur der Eisbereiter nimmt MJ).
+- [x] 4 neue GameTests, alle 417 grün; `gradlew test build` grün.
+- [ ] Client-Test (Tank-Modell, GUIs) – noch offen.
+
 ## Nächste Schritte
-1. Client-Tests 25.2 + 25.3 (Nutzer, 2026-10-21: „Tests später“).
+1. Client-Tests 25.2 + 25.3 + 25.4 (Nutzer, 2026-10-21: „Tests später“).
 2. Prüfen: GT `addPulverisationRecipe` mit Nebenprodukten (Feuerstein, Enderperle, Enderauge, Weizen, Pflanzenkugel,
    Dichte Kupferplatte, Crop) – der Macerator-Rückfall in 25.2 liefert nur das Hauptprodukt.
-3. 25.4: Eisbereiter, Gesteinsextruder, Wassersammler, Tragbarer Tank. Entschieden (Nutzer, 2026-10-20): vorhandene Craft-Items statt TE-Duplikaten, nur Silber-, Blei- und Nickelerz,
-   kompletter Umfang inkl. Tesserakte.
+3. 25.5: Dampf- und Magmamotor, Redstone-Energiezelle. Entschieden (Nutzer, 2026-10-20): vorhandene Craft-Items statt
+   TE-Duplikaten, nur Silber-, Blei- und Nickelerz, kompletter Umfang inkl. Tesserakte.

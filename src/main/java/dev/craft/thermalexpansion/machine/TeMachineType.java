@@ -20,7 +20,15 @@ public enum TeMachineType {
             new boolean[]{false, true, false}, new byte[]{1, 1, 2, 2, 2, 2}, 7.5F, 30, 1),
     LIQUID_TRANSPOSER("liquid_transposer", 0, new int[]{0, 0, 1, 0, 1}, new int[]{0, 1, 1, 0, 1},
             new int[]{0, 1, 2, 3, 7}, new boolean[]{false, true, false, false, true}, new byte[]{3, 3, 2, 2, 2, 2},
-            1.0F, 4, 2);
+            1.0F, 4, 2),
+    GLACIAL_PRECIPITATOR("glacial_precipitator", 0, new int[]{0, 0, 0, 0}, new int[]{0, 0, 1, 1},
+            new int[]{0, 1, 4, 7}, new boolean[]{false, false, false, true}, new byte[]{2, 2, 1, 1, 1, 1}, 0.5F, 2, 1),
+    /** Not powered ({@code TileMachineRoot}). */
+    IGNEOUS_EXTRUDER("igneous_extruder", 14, new int[]{0, 0, 0, 0}, new int[]{0, 0, 1, 1}, new int[]{0, 1, 4, 7},
+            new boolean[]{false, false, false, true}, new byte[]{2, 2, 1, 1, 1, 1}, 0.0F, 0, 1),
+    /** Not powered; group 1 is the liquid output. */
+    AQUEOUS_ACCUMULATOR("aqueous_accumulator", 0, new int[]{0, 0}, new int[]{0, 0}, new int[]{0, 4},
+            new boolean[]{false, true}, new byte[]{1, 1, 1, 1, 1, 1}, 0.0F, 0, 0);
 
     private final String name;
     private final int lightValue;
@@ -101,6 +109,11 @@ public enum TeMachineType {
 
     public int getMaxPower() {
         return maxPower;
+    }
+
+    /** {@code TileMachinePower}; the extruder and the accumulator take no MJ. */
+    public boolean isPowered() {
+        return maxPower > 0;
     }
 
     public int getMaxEnergy() {

@@ -27,6 +27,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.client.model.data.ModelData;
 import net.neoforged.neoforge.client.model.data.ModelProperty;
+import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
 import net.neoforged.neoforge.items.wrapper.EmptyItemHandler;
@@ -141,9 +143,10 @@ public abstract class TeMachineBlockEntity extends BlockEntity implements MenuPr
         return power / type.getMaxPower();
     }
 
+    /** {@code null} for the extruder and the accumulator ({@code TileMachineRoot} has no provider). */
     @Override
     public PowerProvider getPowerProvider() {
-        return provider;
+        return type.isPowered() ? provider : null;
     }
 
     @Override
@@ -204,9 +207,7 @@ public abstract class TeMachineBlockEntity extends BlockEntity implements MenuPr
                     processCur += provider.useEnergy(0.0F, getPower(), true);
                 } else {
                     processCur = 0.0F;
-                    active = false;
-                    wasActive = true;
-                    inactiveSince = level.getGameTime();
+                    markInactive();
                 }
             }
         } else if (redstoneControlOrDisable()) {
@@ -223,7 +224,14 @@ public abstract class TeMachineBlockEntity extends BlockEntity implements MenuPr
         setChanged();
     }
 
-    private void updateIfChanged(boolean curActive) {
+    /** The process stopped: {@code isActive = false; wasActive = true; tracker.markTime}. */
+    protected void markInactive() {
+        active = false;
+        wasActive = true;
+        inactiveSince = level.getGameTime();
+    }
+
+    protected void updateIfChanged(boolean curActive) {
         if (curActive != active && active) {
             setActiveState(true);
         } else if (wasActive && level.getGameTime() - inactiveSince >= INACTIVE_DELAY) {
@@ -242,6 +250,29 @@ public abstract class TeMachineBlockEntity extends BlockEntity implements MenuPr
     /** {@code getScaledProgress}. */
     public float getProgressLevel() {
         return processEnd == 0.0F ? 0.0F : processCur / processEnd;
+    }
+
+    // --- liquids and GUI data of the subclasses ---
+
+    /** The fluid capability on {@code side} ({@code null} = unknown side, e.g. a bucket), or {@code null}. */
+    @Nullable
+    public IFluidHandler getFluidHandler(@Nullable Direction side) {
+        return null;
+    }
+
+    /** {@code BlockMachine.onBlockActivated}: extruder and precipitator take liquid from a held container. */
+    public boolean acceptsContainers() {
+        return false;
+    }
+
+    /** Tank {@code index} for the GUI (0 = the gauge on the right). */
+    public FluidStack getDisplayFluid(int index) {
+        return FluidStack.EMPTY;
+    }
+
+    /** Machine-specific GUI state (transposer mode, selected product), synced as one int. */
+    public int getModeBits() {
+        return 0;
     }
 
     // --- output ({@code TileInventory.ejectItem}) ---

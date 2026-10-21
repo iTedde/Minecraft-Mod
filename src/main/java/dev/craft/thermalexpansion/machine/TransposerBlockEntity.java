@@ -44,6 +44,12 @@ public class TransposerBlockEntity extends TankMachineBlockEntity {
         return reverseFlag;
     }
 
+    /** Bit 0 {@code reverse}, bit 1 {@code reverseFlag}. */
+    @Override
+    public int getModeBits() {
+        return (reverse ? 1 : 0) | (reverseFlag ? 2 : 0);
+    }
+
     /** The mode packet: applies at once when no operation is running. */
     public void setMode(boolean mode) {
         reverseFlag = mode;

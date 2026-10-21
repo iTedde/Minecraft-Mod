@@ -24,7 +24,8 @@ import org.jetbrains.annotations.Nullable;
 /**
  * Container of the Thermal Expansion machines ({@code ContainerFurnace}, {@code ContainerPulverizer} …). The GUI tabs
  * talk to the server through {@link #clickMenuButton}: redstone modes 0–2, side changes 10 + 2·side (+1 backwards),
- * 22 + side sets a side to group 0, 30 resets all sides, 40 toggles the transposer mode.
+ * 22 + side sets a side to group 0, 30 resets all sides, 40 toggles the transposer mode, 41–43 choose the product
+ * of the precipitator and the extruder.
  */
 public class TeMachineMenu extends AbstractContainerMenu {
     public static final int BUTTON_REDSTONE_IGNORED = 0;
@@ -34,6 +35,7 @@ public class TeMachineMenu extends AbstractContainerMenu {
     public static final int BUTTON_CLEAR_SIDE = 22;
     public static final int BUTTON_RESET_SIDES = 30;
     public static final int BUTTON_MODE = 40;
+    public static final int BUTTON_SELECTION = 41;
     /** Synced values ×100 where fractions matter (MJ and process progress are floats). */
     private static final int ACTIVE = 0;
     private static final int PROCESS_CUR = 1;
@@ -43,8 +45,10 @@ public class TeMachineMenu extends AbstractContainerMenu {
     private static final int POWER = 5;
     private static final int FLUID = 6;
     private static final int FLUID_AMOUNT = 7;
-    /** Transposer: bit 0 {@code reverse}, bit 1 {@code reverseFlag}. */
+    /** {@link TeMachineBlockEntity#getModeBits()}. */
     private static final int MODE = 8;
+    /** Second tank (extruder lava). */
+    private static final int FLUID2_AMOUNT = 9;
 
     @Nullable
     private final TeMachineBlockEntity machine;
@@ -61,15 +65,14 @@ public class TeMachineMenu extends AbstractContainerMenu {
                 () -> Math.round(machine.getEnergy() * 100),
                 () -> Math.round(machine.getSpeedLevel() * 1000),
                 () -> Math.round(machine.getPower() * 100),
-                () -> machine instanceof TankMachineBlockEntity tank
-                        ? BuiltInRegistries.FLUID.getId(tank.getTankFluid().getFluid()) : 0,
-                () -> machine instanceof TankMachineBlockEntity tank ? tank.getTankFluid().getAmount() : 0,
-                () -> machine instanceof TransposerBlockEntity transposer
-                        ? (transposer.isReverse() ? 1 : 0) | (transposer.getReverseFlag() ? 2 : 0) : 0));
+                () -> BuiltInRegistries.FLUID.getId(machine.getDisplayFluid(0).getFluid()),
+                () -> machine.getDisplayFluid(0).getAmount(),
+                machine::getModeBits,
+                () -> machine.getDisplayFluid(1).getAmount()));
     }
 
     public TeMachineMenu(int id, Inventory inventory, TeMachineType type, BlockPos pos) {
-        this(id, inventory, null, type, pos, new SyncedInts(9));
+        this(id, inventory, null, type, pos, new SyncedInts(10));
     }
 
     private TeMachineMenu(int id, Inventory inventory, @Nullable TeMachineBlockEntity machine, TeMachineType type,
@@ -104,6 +107,10 @@ public class TeMachineMenu extends AbstractContainerMenu {
             case LIQUID_TRANSPOSER -> {
                 addSlot(new MachineSlot(items, 0, 80, 19));
                 addSlot(new OutputSlot(items, 1, 80, 49, player, false));
+            }
+            // ContainerIceGen/ContainerRockGen: a plain slot; the three products are drawn by the screen.
+            case GLACIAL_PRECIPITATOR, IGNEOUS_EXTRUDER -> addSlot(new MachineSlot(items, 0, 80, 49));
+            case AQUEOUS_ACCUMULATOR -> {
             }
         }
         machineSlots = slots.size();
@@ -163,6 +170,19 @@ public class TeMachineMenu extends AbstractContainerMenu {
         return (data.getInt(MODE) & 2) != 0;
     }
 
+    public int getCurSelection() {
+        return data.getInt(MODE) & 3;
+    }
+
+    public int getPrevSelection() {
+        return data.getInt(MODE) >> 2 & 3;
+    }
+
+    /** Extruder lava tank. */
+    public int getFluid2Amount() {
+        return data.getInt(FLUID2_AMOUNT);
+    }
+
     @Override
     public boolean clickMenuButton(Player player, int id) {
         if (machine == null) {
@@ -179,6 +199,12 @@ public class TeMachineMenu extends AbstractContainerMenu {
                     return false;
                 }
                 transposer.setMode(!transposer.isReverse());
+            }
+            case BUTTON_SELECTION, BUTTON_SELECTION + 1, BUTTON_SELECTION + 2 -> {
+                if (!(machine instanceof SelectionMachineBlockEntity selection)) {
+                    return false;
+                }
+                selection.setSelection(id - BUTTON_SELECTION);
             }
             default -> {
                 if (id >= BUTTON_SIDE && id < BUTTON_SIDE + 12) {
@@ -242,6 +268,7 @@ public class TeMachineMenu extends AbstractContainerMenu {
             case INDUCTION_SMELTER -> TeRecipes.isSmelterInput(level, stack);
             case MAGMA_CRUCIBLE -> TeRecipes.find(level, TeFluidRecipe.Kind.CRUCIBLE, stack) != null;
             case LIQUID_TRANSPOSER -> TeRecipes.isTransposerInput(level, stack);
+            case GLACIAL_PRECIPITATOR, IGNEOUS_EXTRUDER, AQUEOUS_ACCUMULATOR -> false;
         };
     }
 

@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "craft:block/te/igneous_extruder"
+    }
+  }
+}

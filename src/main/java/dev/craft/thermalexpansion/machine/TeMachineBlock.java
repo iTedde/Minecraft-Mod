@@ -29,6 +29,8 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.BlockHitResult;
+import net.neoforged.neoforge.fluids.FluidUtil;
+import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import org.jetbrains.annotations.Nullable;
 
 /**
@@ -108,6 +110,14 @@ public class TeMachineBlock extends BaseEntityBlock {
     protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos,
                                               Player player, InteractionHand hand, BlockHitResult hit) {
         if (!CrescentHammerItem.isWrench(stack)) {
+            // Utils.fillTankWithContainer: a filled container goes into the tank if it fits (creative: always).
+            if (level.getBlockEntity(pos) instanceof TeMachineBlockEntity machine && machine.acceptsContainers()
+                    && FluidUtil.getFluidContained(stack).isPresent()) {
+                IFluidHandler handler = machine.getFluidHandler(null);
+                if (handler != null && FluidUtil.interactWithFluidHandler(player, hand, handler)) {
+                    return ItemInteractionResult.sidedSuccess(level.isClientSide());
+                }
+            }
             return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
         }
         if (!level.isClientSide() && level.getBlockEntity(pos) instanceof TeMachineBlockEntity machine) {

@@ -1597,6 +1597,22 @@
       "mjMaxStored": 4800,
       "mjMinReceived": 0,
       "values": {}
+    },
+    {
+      "classes": [
+        "GlacialPrecipitatorBlockEntity",
+        "SelectionMachineBlockEntity",
+        "TeMachineBlockEntity"
+      ],
+      "id": "glacial_precipitator",
+      "kinds": [
+        "mj_receiver"
+      ],
+      "mjActivation": 0,
+      "mjMaxReceived": 20,
+      "mjMaxStored": 2400,
+      "mjMinReceived": 0,
+      "values": {}
     }
   ],
   "items": [
