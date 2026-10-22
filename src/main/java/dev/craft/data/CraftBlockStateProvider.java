@@ -496,7 +496,8 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
                 .texture("particle", modLoc("block/hardened_glass")));
         // Engines, energy cell, conduits: block entity renderers too; particles from the TE machine side.
         for (DeferredBlock<? extends Block> holder : List.of(TeBlocks.STEAM_ENGINE, TeBlocks.MAGMATIC_ENGINE,
-                TeBlocks.ENERGY_CELL, TeBlocks.ENERGY_CONDUIT, TeBlocks.LIQUIDUCT)) {
+                TeBlocks.ENERGY_CELL, TeBlocks.ENERGY_CONDUIT, TeBlocks.LIQUIDUCT, TeBlocks.ENERGY_TESSERACT,
+                TeBlocks.LIQUID_TESSERACT, TeBlocks.ITEM_TESSERACT)) {
             ModelFile particle = models().getBuilder(holder.getId().getPath())
                     .texture("particle", TeMachineModel.sideTexture(Direction.NORTH, 0));
             // One variant for every state (the conduits alone have 1024).

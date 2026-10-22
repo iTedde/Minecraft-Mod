@@ -8,6 +8,10 @@ import dev.craft.gregtech.GtItems;
 import dev.craft.thermalexpansion.block.PortableTankBlockEntity;
 import dev.craft.thermalexpansion.energy.TeEngineBlockEntity;
 import dev.craft.thermalexpansion.transport.LiquiductBlockEntity;
+import dev.craft.thermalexpansion.transport.ItemTesseractBlockEntity;
+import dev.craft.thermalexpansion.transport.LiquidTesseractBlockEntity;
+import dev.craft.thermalexpansion.transport.TesseractPayloads;
+import dev.craft.thermalexpansion.transport.TesseractRegistry;
 import dev.craft.thermalexpansion.machine.TeMachineBlockEntity;
 import dev.craft.thermalexpansion.recipe.TeRecipes;
 import dev.craft.thermalexpansion.world.TeWorldGen;
@@ -24,6 +28,7 @@ import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.LootTableLoadEvent;
+import net.neoforged.neoforge.event.server.ServerStoppedEvent;
 
 /** Entry point of Thermal Expansion 2.2.2.2 (spec 26). */
 public final class ThermalExpansion {
@@ -48,7 +53,9 @@ public final class ThermalExpansion {
         TeRecipes.TYPES.register(modBus);
         TeRecipes.SERIALIZERS.register(modBus);
         modBus.addListener(ThermalExpansion::registerCapabilities);
+        modBus.addListener(TesseractPayloads::register);
         NeoForge.EVENT_BUS.addListener(ThermalExpansion::onLootTableLoad);
+        NeoForge.EVENT_BUS.addListener((ServerStoppedEvent event) -> TesseractRegistry.clear());
     }
 
     private static void registerCapabilities(RegisterCapabilitiesEvent event) {
@@ -78,6 +85,12 @@ public final class ThermalExpansion {
                 (conduit, side) -> conduit);
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, TeBlockEntityTypes.LIQUIDUCT.get(),
                 LiquiductBlockEntity::getFluidHandler);
+        event.registerBlockEntity(BcCapabilities.POWER_RECEPTOR, TeBlockEntityTypes.ENERGY_TESSERACT.get(),
+                (tesseract, side) -> tesseract);
+        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, TeBlockEntityTypes.LIQUID_TESSERACT.get(),
+                LiquidTesseractBlockEntity::getFluidHandler);
+        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, TeBlockEntityTypes.ITEM_TESSERACT.get(),
+                ItemTesseractBlockEntity::getItemHandler);
     }
 
     /**

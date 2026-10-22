@@ -30,6 +30,7 @@ public final class ThermalExpansionClient {
         event.register(TeMenus.MACHINE.get(), TeMachineScreen::new);
         event.register(TeMenus.ENGINE.get(), TeEngineScreen::new);
         event.register(TeMenus.ENERGY_CELL.get(), EnergyCellScreen::new);
+        event.register(TeMenus.TESSERACT.get(), TesseractScreen::new);
     }
 
     @SubscribeEvent
@@ -53,6 +54,9 @@ public final class ThermalExpansionClient {
         event.registerBlockEntityRenderer(TeBlockEntityTypes.ENERGY_CELL.get(), EnergyCellRenderer::new);
         event.registerBlockEntityRenderer(TeBlockEntityTypes.ENERGY_CONDUIT.get(), ConduitRenderer::new);
         event.registerBlockEntityRenderer(TeBlockEntityTypes.LIQUIDUCT.get(), ConduitRenderer::new);
+        event.registerBlockEntityRenderer(TeBlockEntityTypes.ENERGY_TESSERACT.get(), TesseractRenderer::new);
+        event.registerBlockEntityRenderer(TeBlockEntityTypes.LIQUID_TESSERACT.get(), TesseractRenderer::new);
+        event.registerBlockEntityRenderer(TeBlockEntityTypes.ITEM_TESSERACT.get(), TesseractRenderer::new);
     }
 
     @SubscribeEvent
@@ -63,6 +67,8 @@ public final class ThermalExpansionClient {
         event.registerItem(itemRenderer(EnergyCellItemRenderer::new), TeItems.ENERGY_CELL.get());
         event.registerItem(itemRenderer(ConduitItemRenderer::new), TeItems.ENERGY_CONDUIT.get(),
                 TeItems.LIQUIDUCT.get());
+        event.registerItem(itemRenderer(TesseractItemRenderer::new), TeItems.ENERGY_TESSERACT.get(),
+                TeItems.LIQUID_TESSERACT.get(), TeItems.ITEM_TESSERACT.get());
         event.registerFluidType(liquid("molten_redstone"), TeFluids.MOLTEN_REDSTONE_TYPE.get());
         event.registerFluidType(liquid("molten_ender"), TeFluids.MOLTEN_ENDER_TYPE.get());
     }

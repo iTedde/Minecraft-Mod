@@ -2262,6 +2262,17 @@ public final class CraftRecipeProvider extends RecipeProvider {
                 .define('I', CraftItemTagsProvider.INGOTS_LEAD).define('P', TeItems.REDSTONE_CONDUCTANCE_COIL.get())
                 .unlockedBy("has_frame", has(TeItems.FULL_ENERGY_CELL_FRAME.get()))
                 .save(output, id("redstone_energy_cell"));
+        // ThermalExpansionTransport: tesseract frame IGI/GXG/IGI, tesseracts X/YCY/IPI from the attuned frame.
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, TeItems.TESSERACT_FRAME.get()).pattern("IGI").pattern("GXG")
+                .pattern("IGI").define('I', CraftItemTagsProvider.INGOTS_TIN)
+                .define('G', TeItems.HARDENED_GLASS.get()).define('X', Items.DIAMOND)
+                .unlockedBy("has_hardened_glass", has(TeItems.HARDENED_GLASS.get()))
+                .save(output, id("tesseract_frame"));
+        tesseract(TeItems.ENERGY_TESSERACT.get(), CraftItemTagsProvider.INGOTS_ELECTRUM,
+                CraftItemTagsProvider.INGOTS_LEAD, Ingredient.of(TeItems.REDSTONE_CONDUCTANCE_COIL.get()));
+        tesseract(TeItems.LIQUID_TESSERACT.get(), ingotsCopper(), CraftItemTagsProvider.INGOTS_TIN, servo);
+        tesseract(TeItems.ITEM_TESSERACT.get(), CraftItemTagsProvider.INGOTS_TIN, CraftItemTagsProvider.INGOTS_TIN,
+                servo);
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, TeItems.PORTABLE_TANK.get()).pattern(" G ").pattern("GTG")
                 .pattern(" G ").define('G', TeItems.HARDENED_GLASS.get()).define('T', tin)
                 .unlockedBy("has_hardened_glass", has(TeItems.HARDENED_GLASS.get())).save(output, id("portable_tank"));
@@ -2503,6 +2514,15 @@ public final class CraftRecipeProvider extends RecipeProvider {
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, result).pattern("III").pattern(" C ").pattern("GPG")
                 .define('I', ingot).define('C', TeItems.REDSTONE_TRANSMISSION_COIL.get()).define('G', gear)
                 .define('P', Items.PISTON).unlockedBy("has_coil", has(TeItems.REDSTONE_TRANSMISSION_COIL.get()))
+                .save(output, id(path(result)));
+    }
+
+    /** {@code ThermalExpansionTransport}: " X "/"YCY"/"IPI" with Y silver and C the unattuned tesseract. */
+    private void tesseract(ItemLike result, TagKey<Item> x, TagKey<Item> i, Ingredient p) {
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, result).pattern(" X ").pattern("YCY").pattern("IPI")
+                .define('X', x).define('Y', CraftItemTagsProvider.INGOTS_SILVER)
+                .define('C', TeItems.UNATTUNED_TESSERACT.get()).define('I', i).define('P', p)
+                .unlockedBy("has_tesseract", has(TeItems.UNATTUNED_TESSERACT.get()))
                 .save(output, id(path(result)));
     }
 

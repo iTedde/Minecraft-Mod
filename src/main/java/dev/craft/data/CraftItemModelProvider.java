@@ -134,6 +134,9 @@ public final class CraftItemModelProvider extends ItemModelProvider {
         engine(TeItems.ENERGY_CELL);
         engine(TeItems.ENERGY_CONDUIT);
         engine(TeItems.LIQUIDUCT);
+        engine(TeItems.ENERGY_TESSERACT);
+        engine(TeItems.LIQUID_TESSERACT);
+        engine(TeItems.ITEM_TESSERACT);
         // RenderMachine/RenderBlock.inventoryRender, drawn by ForestryMachineItemRenderer.
         engine(FrItems.CARPENTER);
         engine(Ic2Items.machine(Ic2Machine.PERSONAL_SAFE));

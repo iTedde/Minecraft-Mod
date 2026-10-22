@@ -254,6 +254,45 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
         block(TeBlocks.STEAM_ENGINE, german ? "Dampfmotor" : "Steam Engine");
         block(TeBlocks.MAGMATIC_ENGINE, german ? "Magmamotor" : "Magmatic Engine");
         block(TeBlocks.ENERGY_CELL, german ? "Redstone-Energiezelle" : "Redstone Energy Cell");
+        block(TeBlocks.ENERGY_TESSERACT, german ? "Energie-Tesserakt" : "Energy Tesseract");
+        block(TeBlocks.LIQUID_TESSERACT, german ? "Flüssigkeits-Tesserakt" : "Liquid Tesseract");
+        block(TeBlocks.ITEM_TESSERACT, german ? "Item-Tesserakt" : "Item Tesseract");
+        add("gui.craft.te.tesseract.inactive", german ? "Gerät inaktiv" : "Device Inactive");
+        add("gui.craft.te.tesseract.frequency", german ? "Frequenz: %s" : "Frequency: %s");
+        add("gui.craft.te.tesseract.set", german ? "Frequenz setzen" : "Set Frequency");
+        add("gui.craft.te.tesseract.disable", german ? "Deaktivieren" : "Disable");
+        add("gui.craft.te.tesseract.save", german ? "Frequenz speichern" : "Save Frequency");
+        add("gui.craft.te.tesseract.delete", german ? "Frequenz löschen" : "Delete Frequency");
+        add("gui.craft.te.access", german ? "Zugriff" : "Access");
+        add("gui.craft.te.access_public", german ? "Öffentlich" : "Public");
+        add("gui.craft.te.access_friends", german ? "Freunde" : "Friends");
+        add("gui.craft.te.access_private", german ? "Privat" : "Private");
+        add("gui.craft.te.mode", german ? "Modus" : "Mode");
+        add("gui.craft.te.mode_send", german ? "Senden" : "Send");
+        add("gui.craft.te.mode_receive", german ? "Empfangen" : "Receive");
+        add("gui.craft.te.mode_both", german ? "Senden/Empfangen" : "Send/Receive");
+        add("gui.craft.te.info.tesseract", german
+                ? "Transportiert Dinge schnell über große Entfernungen.\n\nDie Ender-Frequenz bestimmt die Verbindungen."
+                : "Use these to quickly transport things across vast distances.\n\nTune the Ender Frequency to"
+                        + " determine links.");
+        add("gui.craft.te.tutorial.tesseract", german
+                ? "Der Reiter Konfiguration legt Zugriff und Betriebsart dieses Geräts fest."
+                : "The Configuration tab determines the privacy settings and operation mode for this device.");
+        add("message.craft.tesseract.private", german
+                ? "Dieser Tesserakt ist privat und gehört %s! Fast hättest du deine Hand verloren!"
+                : "This Tesseract is private and belongs to %s! You could have lost your hand!");
+        add("message.craft.tesseract.disabled", german ? "Gerät deaktiviert – Besitzer: %s"
+                : "Device Disabled - Owner: %s");
+        add("message.craft.tesseract.frequency_private", german ? "Frequenz (privat): %s – Besitzer: %s"
+                : "Frequency (Private): %s - Owner: %s");
+        add("message.craft.tesseract.frequency", german ? "Frequenz: %s – Besitzer: %s"
+                : "Frequency: %s - Owner: %s");
+        add("message.craft.tesseract.mode_send", german ? "Modus: Senden – Ausgänge: %s"
+                : "Mode: Send - Outputs: %s");
+        add("message.craft.tesseract.mode_receive", german ? "Modus: Empfangen – Eingänge: %s"
+                : "Mode: Receive - Inputs: %s");
+        add("message.craft.tesseract.mode_both", german ? "Modus: Senden/Empfangen – Eingänge: %s – Ausgänge: %s"
+                : "Mode: Send/Receive - Inputs: %s - Outputs: %s");
         add("gui.craft.te.power_output", german ? "Leistung" : "Power Output");
         add("gui.craft.te.in", german ? "Ein" : "In");
         add("gui.craft.te.out", german ? "Aus" : "Out");

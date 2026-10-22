@@ -13,6 +13,12 @@ import dev.craft.thermalexpansion.energy.SteamEngineBlockEntity;
 import dev.craft.thermalexpansion.transport.EnergyConduitBlockEntity;
 import dev.craft.thermalexpansion.transport.GridPowerProvider;
 import dev.craft.thermalexpansion.transport.LiquiductBlockEntity;
+import dev.craft.thermalexpansion.transport.EnergyTesseractBlockEntity;
+import dev.craft.thermalexpansion.transport.ItemTesseractBlockEntity;
+import dev.craft.thermalexpansion.transport.LiquidTesseractBlockEntity;
+import dev.craft.thermalexpansion.transport.TesseractBlock;
+import dev.craft.thermalexpansion.transport.TesseractBlockEntity;
+import dev.craft.thermalexpansion.transport.TesseractPowerProvider;
 import dev.craft.thermalexpansion.machine.CrucibleBlockEntity;
 import dev.craft.thermalexpansion.machine.GlacialPrecipitatorBlockEntity;
 import dev.craft.thermalexpansion.machine.IgneousExtruderBlockEntity;
@@ -494,6 +500,88 @@ public final class ThermalExpansionGameTests {
             SimpleFluidContent content = drop.getItem().get(TeDataComponents.TANK_LIQUID.get());
             helper.assertTrue(content != null && content.getAmount() == 6000, "dismantled with its water");
             helper.succeed();
+        });
+    }
+
+    /** A tesseract tuned to {@code frequency} in {@code mode}; every test uses its own public frequency. */
+    private static <T extends TesseractBlockEntity> T tesseract(GameTestHelper helper, BlockPos pos,
+                                                                TesseractBlock block, int frequency, byte mode) {
+        helper.setBlock(pos, block);
+        T tesseract = helper.getBlockEntity(pos);
+        tesseract.setTileInfo(frequency, mode, TesseractBlockEntity.ACCESS_PUBLIC);
+        return tesseract;
+    }
+
+    /** Energy tesseracts: cell → sender → receiver → pulverizer; 25 % lost on the way in. */
+    @GameTest(template = EMPTY, timeoutTicks = 100)
+    public static void energyTesseractCarriesEnergy(GameTestHelper helper) {
+        EnergyTesseractBlockEntity receiver = tesseract(helper, POS.east(3), TeBlocks.ENERGY_TESSERACT.get(), 901,
+                TesseractBlockEntity.MODE_RECEIVE);
+        EnergyTesseractBlockEntity sender = tesseract(helper, POS, TeBlocks.ENERGY_TESSERACT.get(), 901,
+                TesseractBlockEntity.MODE_SEND);
+        helper.assertTrue(helper.getBlockState(POS).getValue(TesseractBlock.ACTIVE), "tuned tesseract is active");
+        helper.setBlock(POS.east(4), TeBlocks.PULVERIZER.get().defaultBlockState()
+                .setValue(TeMachineBlock.FACING, Direction.NORTH));
+        TeMachineBlockEntity machine = helper.getBlockEntity(POS.east(4));
+        helper.setBlock(POS.west(), TeBlocks.ENERGY_CELL.get());
+        EnergyCellBlockEntity cell = helper.getBlockEntity(POS.west());
+        cell.load(new EnergyCellData(100000.0F, 20, 100, false, false));
+        helper.assertTrue(sender.getValidOutputs().contains(receiver) && receiver.getValidOutputs().isEmpty(),
+                "the sender sees the receiver");
+        helper.runAfterDelay(20, () -> {
+            float sent = 100000.0F - cell.getEnergy();
+            helper.assertTrue(sent > 0.0F, "the cell feeds the sender");
+            helper.assertTrue(machine.getEnergy() > 0.0F, "the receiver feeds the pulverizer");
+            helper.assertTrue(Math.abs(machine.getEnergy() + sender.getEnergy() + receiver.getEnergy()
+                    - sent * TesseractPowerProvider.TELEPORT_ENERGY_LOSS) < 0.1F, "25 % loss");
+            sender.setTileInfo(-1, TesseractBlockEntity.MODE_SEND, TesseractBlockEntity.ACCESS_PUBLIC);
+            helper.assertTrue(sender.powerRequest() == 0, "a disabled tesseract asks for nothing");
+            helper.assertFalse(helper.getBlockState(POS).getValue(TesseractBlock.ACTIVE), "disabled");
+            helper.succeed();
+        });
+    }
+
+    /** Liquid tesseracts: a fill goes straight into the tank next to the receiver; private ones are not linked. */
+    @GameTest(template = EMPTY, timeoutTicks = 100)
+    public static void liquidTesseractFillsRemoteTank(GameTestHelper helper) {
+        tesseract(helper, POS.east(3), TeBlocks.LIQUID_TESSERACT.get(), 902, TesseractBlockEntity.MODE_BOTH);
+        helper.setBlock(POS.east(4), BcBlocks.TANK.get());
+        LiquidTesseractBlockEntity sender = tesseract(helper, POS, TeBlocks.LIQUID_TESSERACT.get(), 902,
+                TesseractBlockEntity.MODE_SEND);
+        IFluidHandler handler = sender.getFluidHandler(Direction.WEST);
+        helper.assertTrue(handler.fill(new FluidStack(Fluids.WATER, 1000), IFluidHandler.FluidAction.EXECUTE) == 1000,
+                "1000 mB sent");
+        IFluidHandler tank = helper.getLevel().getCapability(Capabilities.FluidHandler.BLOCK,
+                helper.absolutePos(POS.east(4)), Direction.WEST);
+        helper.assertTrue(tank.getFluidInTank(0).getAmount() == 1000, "water in the remote tank");
+        helper.assertTrue(handler.drain(100, IFluidHandler.FluidAction.EXECUTE).isEmpty(), "nothing to drain");
+        sender.setTileInfo(902, TesseractBlockEntity.MODE_SEND, TesseractBlockEntity.ACCESS_PRIVATE);
+        helper.assertTrue(handler.fill(new FluidStack(Fluids.WATER, 1000), IFluidHandler.FluidAction.EXECUTE) == 0,
+                "a private tesseract has its own channel");
+        helper.succeed();
+    }
+
+    /** Item tesseracts: an inserted stack lands in the chest next to the receiver; without one it waits. */
+    @GameTest(template = EMPTY, timeoutTicks = 100)
+    public static void itemTesseractSendsToChest(GameTestHelper helper) {
+        ItemTesseractBlockEntity receiver = tesseract(helper, POS.east(3), TeBlocks.ITEM_TESSERACT.get(), 903,
+                TesseractBlockEntity.MODE_RECEIVE);
+        helper.setBlock(POS.east(4), Blocks.CHEST);
+        ItemTesseractBlockEntity sender = tesseract(helper, POS, TeBlocks.ITEM_TESSERACT.get(), 903,
+                TesseractBlockEntity.MODE_SEND);
+        var handler = sender.getItemHandler(Direction.WEST);
+        helper.assertTrue(handler.insertItem(0, new ItemStack(Items.COBBLESTONE, 16), false).isEmpty(), "taken");
+        ChestBlockEntity chest = helper.getBlockEntity(POS.east(4));
+        helper.assertTrue(chest.countItem(Items.COBBLESTONE) == 16, "cobblestone in the remote chest");
+        receiver.setTileInfo(-1, TesseractBlockEntity.MODE_RECEIVE, TesseractBlockEntity.ACCESS_PUBLIC);
+        helper.assertTrue(handler.insertItem(0, new ItemStack(Items.DIRT, 8), false).isEmpty(), "buffered");
+        helper.assertTrue(sender.getBuffer().getCount() == 8, "no receiver: the stack waits in the buffer");
+        helper.assertFalse(handler.insertItem(0, new ItemStack(Items.DIRT, 1), false).isEmpty(),
+                "full buffer takes nothing");
+        receiver.setTileInfo(903, TesseractBlockEntity.MODE_RECEIVE, TesseractBlockEntity.ACCESS_PUBLIC);
+        helper.succeedWhen(() -> {
+            helper.assertTrue(chest.countItem(Items.DIRT) == 8, "the buffer is retried every 40 ticks");
+            helper.assertTrue(sender.getBuffer().isEmpty(), "buffer empty");
         });
     }
 }

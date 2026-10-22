@@ -353,7 +353,16 @@ Flüssigkeit, Menge/Kapazität, Durchsatz; Energieleitung → Netzauslastung, an
 „Messe 20 Ticks“, 2. Klick mittlere Abgabe; anderer MJ-Empfänger → angeforderte Energie. Energiezellenrahmen
 `IGI/GXG/IGI` (Elektrum, Gehärtetes Glas, Diamant).
 
-### 6.3 Tesserakte (25.7, Recherche – Umsetzung offen)
+### 6.3 Tesserakte (25.7)
+
+**Block** (`BlockTeleport`, Nachtrag 25.7): Material Eisen, Härte 15, Widerstand 200 (`setResistance` · 3/5 = 120),
+Metallklang, kein voller Würfel; Modell (`RenderBlockTeleport`): auf jeder Seite eine 3-px-Platte aus
+`tesseract_<typ>.png` (128 × 64, wie die Energiezelle) und ein Kern 0,15–0,85 aus animiertem Geschmolzenem Ender,
+auch im Inventar. `ItemBlockTeleport`: Stapel 64, selten (uncommon), Name „Energy/Liquid/Item Tesseract“. Platzieren setzt den Besitzer. Abbauen entfernt ihn aus der Registry; der
+Item-Puffer geht dabei verloren (kein `TileInventory`). Schleichen + Schraubenschlüssel baut ihn ab (nur Besitzer oder
+OP), Rechtsklick mit Multimeter schreibt „Device Disabled - Owner: …“ bzw. „Frequency (Private): …/Frequency: … -
+Owner: …“ und „Mode: Send - Outputs: n“ / „Mode: Receive - Inputs: n“ / „Mode: Send/Receive - Inputs: n - Outputs: n“
+(gültige Partner), sonst öffnet Rechtsklick das GUI.
 
 `TileTeleportRoot`: Frequenz (−1 = inaktiv, Licht 7 wenn aktiv), Besitzer, Modus 0 Senden · 1 Empfangen · 2 beides
 (Vorgabe), Zugriff 0 öffentlich (Vorgabe) · 1 Freunde · 2 privat (nur der Besitzer ändert ihn; Änderung setzt die
@@ -375,7 +384,47 @@ Konfiguration (Zugriff, Modus).
   eingefügter Stapel geht sofort an die Empfänger (angrenzendes Rohr nimmt den ganzen Stapel, sonst Inventar; Öfen nur
   oben/unten), der Rest bleibt im Puffer und wird alle 40 Ticks erneut versucht.
 - Rezepte: Tesserakt-Rahmen `IGI/GXG/IGI` (Zinn, Gehärtetes Glas, Diamant) → Umfüller + 1000 mB Geschmolzenes Ender
-  (vorhanden); Tesserakte siehe §5.
+  (vorhanden); Tesserakte siehe §5 (C = Unabgestimmter Tesserakt).
+
+**Details (Nachtrag 25.7, aus `TileTeleport*`, `GuiTeleport`, `TabTeleportConfig`):**
+
+- Registry-Schlüssel ist `getOwner()`: öffentlich `_public_`, sonst der Besitzer (auch bei „Freunde“ – eine
+  Freundesliste gibt es in 2.2.2.2 nicht). Ein Tesserakt mit Frequenz −1 ist nicht eingetragen. Senden-Modus trägt
+  in die Sender-, Empfangen-Modus in die Empfängerliste ein, „beides“ in beide. Partner eines Senders = Empfängerliste
+  derselben Frequenz ohne sich selbst, nur wenn beide ihre Redstone-Bedingung erfüllen. Beim Verlassen der Welt wird
+  die Registry geleert.
+- Das GUI öffnen dürfen bei nicht öffentlichem Zugriff nur Besitzer und OPs (sonst die Meldung „This Tesseract is
+  private and belongs to …! You could have lost your hand!“).
+- Senden reihum: ein Sender beginnt bei seinem Fernzähler (`outputTrackerRemote`, danach +1, Umlauf über die
+  Partnerzahl); ein Empfänger verteilt reihum ab seinem Seitenzähler über die sechs Nachbarn und springt danach zur
+  nächsten Seite mit passendem Nachbarn. Nachbarn, die selbst Tesserakte desselben Typs sind, bekommen nichts.
+- Energie: Puffer 100 MJ, Annahme 100 MJ je Lieferung, alles Ankommende × 0,75. Sender geben jeden Tick (Frequenz egal,
+  Redstone erfüllt, Puffer > 0) den ganzen Puffer reihum an die Partner. Ein Empfänger hat je Tick 100 MJ Kontingent
+  (nur im Empfangen-/Beides-Modus neu gesetzt) und gibt an Nachbarn mit MJ-Bedarf: `min(Bedarf, freier Platz, Rest)`,
+  ohne Verlust außer dem des Empfängers (Leitungen/Tesserakte rechnen ihren eigenen Verlust). Anforderung an Rohre und
+  Leitungen: `ceil(min(100, frei))`, nur mit Frequenz, Redstone, Senden-Modus und mindestens einem Partner. Motoren
+  speisen ihn wie eine Leitung (`IPowerProviderLoss`: mindestens `25 · minPower` je Hub).
+- Flüssigkeit: `fill` von jeder Seite nur bei Sendern mit Frequenz und Redstone; die Menge geht reihum an die
+  Tanks neben den Partnern; nichts zu entleeren, kein eigener Tank.
+- Item: ein Puffer-Slot, von außen nur einfügbar bei Frequenz, Senden-Modus, Redstone und leerem Puffer; das Einfügen
+  schickt den Stapel sofort weiter: je Partner reihum über dessen Nachbarseiten – ein Item-Rohr nimmt den ganzen
+  Stapel, sonst das Inventar (seitenbezogen). Rest in den Puffer; alle 40 Ticks (Weltzeit) neuer Versuch.
+- GUI (`tesseract.png`, 176 × 166, ohne Spielerinventar): Titel, „Device Inactive“ bzw. „Frequency: n“ (8, 28);
+  Frequenzfeld (106, 28; 3 Ziffern), Knöpfe Setzen (131, 18) und Deaktivieren (151, 18; nur wenn aktiv), Namensfeld
+  (12, 44; 20 Zeichen, 128 breit), Speichern (139, 40; Name nicht leer und nicht schon für eine andere Frequenz
+  vergeben) und Löschen (155, 40; Name gehört zu dieser Frequenz), Namensliste (8, 58; 128 breit, 10 Zeilen à 10 px,
+  Mausrad, Pfeile 147/65 und 147/137); ausgewählt ist der Name der aktuellen Frequenz, hinterlegt mit Geschmolzenem
+  Ender. Klick auf einen Namen setzt Name und Frequenzfeld; Eingabe einer bekannten Frequenz setzt den Namen; Enter im
+  Frequenzfeld = Setzen, Enter im Namensfeld = Speichern. Tooltips „Set Frequency“, „Disable“, „Save Frequency“,
+  „Delete Frequency“. Klickgeräusche 0,8/0,6/0,7/0,5.
+- Namen: je Kategorie `(<Besitzer klein> | _public_).<energy|liquid|item>` eine nach Frequenz-Text sortierte Liste
+  Frequenz → Name; Löschen entfernt die Frequenz; leere Namen werden nicht angezeigt.
+- Reiter rechts: Redstone und Konfiguration (Farbe 0x089E4C, 100 × 92): Zugriff (Symbol 67 öffentlich, 68 Freunde,
+  69 privat, mit Schloss 63, wenn man nicht Besitzer ist) – Linksklick +2, Rechtsklick −2 (mod 3; nur der Besitzer;
+  setzt die Frequenz auf −1), Modus (70 Senden, 71 Empfangen, 72 beides) – Linksklick +1, Rechtsklick −1; links
+  Information („Use these to quickly transport things across vast distances. Tune the Ender Frequency to determine
+  links.“) und Anleitung (Redstone + „The Configuration tab determines the privacy settings and operation mode for
+  this device.“).
 
 ## 7. Teilphasen
 

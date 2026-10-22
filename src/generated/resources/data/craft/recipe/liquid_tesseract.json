@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "craft:unattuned_tesseract"
+    },
+    "I": {
+      "tag": "c:ingots/tin"
+    },
+    "P": {
+      "item": "craft:pneumatic_servo"
+    },
+    "X": {
+      "tag": "c:ingots/copper"
+    },
+    "Y": {
+      "tag": "c:ingots/silver"
+    }
+  },
+  "pattern": [
+    " X ",
+    "YCY",
+    "IPI"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:liquid_tesseract"
+  }
+}

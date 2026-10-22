@@ -174,7 +174,8 @@ public final class CraftBlockTagsProvider extends BlockTagsProvider {
                 TeBlocks.PULVERIZER.get(), TeBlocks.SAWMILL.get(), TeBlocks.INDUCTION_SMELTER.get(),
                 TeBlocks.MAGMA_CRUCIBLE.get(), TeBlocks.LIQUID_TRANSPOSER.get(), TeBlocks.GLACIAL_PRECIPITATOR.get(),
                 TeBlocks.IGNEOUS_EXTRUDER.get(), TeBlocks.AQUEOUS_ACCUMULATOR.get(), TeBlocks.STEAM_ENGINE.get(),
-                TeBlocks.MAGMATIC_ENGINE.get(), TeBlocks.ENERGY_CELL.get());
+                TeBlocks.MAGMATIC_ENGINE.get(), TeBlocks.ENERGY_CELL.get(), TeBlocks.ENERGY_TESSERACT.get(),
+                TeBlocks.LIQUID_TESSERACT.get(), TeBlocks.ITEM_TESSERACT.get());
         tag(Tags.Blocks.GLASS_BLOCKS).add(TeBlocks.HARDENED_GLASS.get());
         addElectricToolTags();
     }

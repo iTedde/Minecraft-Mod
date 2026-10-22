@@ -2161,8 +2161,24 @@ Spezifikation: `docs/spec/26-thermal-expansion.md`.
 - Hinweis: QuickPlay stürzt ab, solange Xaero beim Start den Update-Dialog zeigt (Absturz in Inventory Profiles Next
   beim Rendern dieses Bildschirms); über das Hauptmenü läuft es.
 
+## Erledigt (25.7 Tesserakte, 2026-10-22)
+- [x] Spec 26 §6.3 ergänzt (Block, Modell, Multimeter, Abbau, Registry-Schlüssel, Reihum-Verteilung, GUI-Lagen, Namen,
+  Konfigurationsreiter). Die TE-Dekompilate fehlen auf diesem Rechner; die Tesserakt-Klassen wurden dafür einmalig
+  in den Scratchpad dekompiliert (nicht ins Repo).
+- [x] `transport/`: `TesseractBlock` (Licht 7 aktiv, Abbau mit Schraubenschlüssel nur Besitzer/OP, Multimeter-Meldungen),
+  `TesseractBlockEntity` + Energie (`TesseractPowerProvider`, 100 MJ, × 0,75; Motoren speisen über `LossPowerProvider`
+  wie bei Leitungen), Flüssigkeit, Item (Puffer, alle 40 Ticks neu); `TesseractRegistry` (global, beim Server-Stopp
+  geleert), `TesseractNames` (Weltdaten), `TesseractMenu`, `TesseractPayloads`.
+- [x] Client: `TesseractScreen` (Frequenz/Name, Setzen/Deaktivieren/Speichern/Löschen, Namensliste mit Ender-Markierung,
+  Reiter Redstone/Konfiguration/Information/Anleitung), `TesseractRenderer` + Item-Renderer, Texturen `tesseract_*.png`.
+- [x] Rezepte Tesserakt-Rahmen und drei Tesserakte, Loot, Spitzhacke, Lang en/de; Abweichungen (UUID-Besitzer,
+  Weltdaten statt `tesseracts.cfg`, Paketprüfung, keine Gate-Trigger).
+- [x] 3 neue GameTests (Energie mit 25 % Verlust, Flüssigkeit inkl. privatem Kanal, Item inkl. Puffer), alle 428 grün;
+  `gradlew test build` grün. Client-Test offen (mit 25.8).
+
 ## Nächste Schritte
 1. Prüfen: GT `addPulverisationRecipe` mit Nebenprodukten (Feuerstein, Enderperle, Enderauge, Weizen, Pflanzenkugel,
    Dichte Kupferplatte, Crop) – der Macerator-Rückfall in 25.2 liefert nur das Hauptprodukt.
-2. 25.7: Tesserakte umsetzen – Originalverhalten recherchiert in spec 26 §6.3 (Registry, Energie/Flüssigkeit/Item, GUI mit
-   Frequenzliste, Namen in `cofh/tesseracts.cfg`); Tesserakt-Rahmen-Rezept fehlt noch.
+2. 25.8: EMI (TE-Rezeptkategorien), Herkunftstexte, Wiki, Client-Test 25.7/25.8 (Tesserakte: GUI, Namen speichern/
+   löschen, Zugriff privat mit zweitem Spieler, Multimeter, Modell/Kern, Energie/Flüssigkeit/Item über Dimensionen),
+   Version + Paket.

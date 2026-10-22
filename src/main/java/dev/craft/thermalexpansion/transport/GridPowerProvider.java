@@ -8,7 +8,7 @@ import net.minecraft.core.Direction;
  * node; everything received loses 5 % ({@code transport.conduit.energy.loss}). Engines recognise it and push at least
  * {@code 25 · minPower} per stroke into it.
  */
-public class GridPowerProvider extends PowerProvider {
+public class GridPowerProvider extends PowerProvider implements LossPowerProvider {
     public static final float CONDUIT_ENERGY_LOSS = 0.95F;
     public static final int MAX_NODE_STORAGE = 500;
 

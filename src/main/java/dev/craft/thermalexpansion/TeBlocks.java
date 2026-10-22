@@ -10,6 +10,12 @@ import dev.craft.thermalexpansion.transport.ConduitBlock;
 import dev.craft.thermalexpansion.transport.ConduitBlockEntity;
 import dev.craft.thermalexpansion.transport.EnergyConduitBlockEntity;
 import dev.craft.thermalexpansion.transport.LiquiductBlockEntity;
+import dev.craft.thermalexpansion.transport.EnergyTesseractBlockEntity;
+import dev.craft.thermalexpansion.transport.ItemTesseractBlockEntity;
+import dev.craft.thermalexpansion.transport.LiquidTesseractBlockEntity;
+import dev.craft.thermalexpansion.transport.TesseractBlock;
+import dev.craft.thermalexpansion.transport.TesseractBlockEntity;
+import dev.craft.thermalexpansion.transport.TesseractType;
 import dev.craft.thermalexpansion.energy.EnergyCellBlock;
 import dev.craft.thermalexpansion.energy.MagmaticEngineBlockEntity;
 import dev.craft.thermalexpansion.energy.SteamEngineBlockEntity;
@@ -90,6 +96,13 @@ public final class TeBlocks {
             EnergyConduitBlockEntity::new);
     public static final DeferredBlock<ConduitBlock> LIQUIDUCT = conduit("liquiduct", false,
             LiquiductBlockEntity::new);
+    /** {@code BlockTeleport}: Material.iron (pickaxe), hardness 15, {@code setResistance(200)} = 120. */
+    public static final DeferredBlock<TesseractBlock> ENERGY_TESSERACT = tesseract(TesseractType.ENERGY,
+            EnergyTesseractBlockEntity::new);
+    public static final DeferredBlock<TesseractBlock> LIQUID_TESSERACT = tesseract(TesseractType.LIQUID,
+            LiquidTesseractBlockEntity::new);
+    public static final DeferredBlock<TesseractBlock> ITEM_TESSERACT = tesseract(TesseractType.ITEM,
+            ItemTesseractBlockEntity::new);
     /** {@code BlockTank}: Material.glass (no tool needed), hardness 3, {@code setResistance(150)} = 90. */
     public static final DeferredBlock<PortableTankBlock> PORTABLE_TANK = BLOCKS.register("portable_tank",
             () -> new PortableTankBlock(BlockBehaviour.Properties.of().mapColor(MapColor.NONE)
@@ -136,6 +149,13 @@ public final class TeBlocks {
                 .instrument(NoteBlockInstrument.HAT).strength(3.0F, 90.0F).sound(SoundType.GLASS).noOcclusion()
                 .isRedstoneConductor((s, l, p) -> false).isSuffocating((s, l, p) -> false)
                 .isViewBlocking((s, l, p) -> false), energy, factory));
+    }
+
+    private static DeferredBlock<TesseractBlock> tesseract(TesseractType type,
+                                                           BiFunction<BlockPos, BlockState, ? extends TesseractBlockEntity> factory) {
+        return BLOCKS.register(type.getBlockName(), () -> new TesseractBlock(BlockBehaviour.Properties.of()
+                .mapColor(MapColor.METAL).requiresCorrectToolForDrops().strength(15.0F, 120.0F).sound(SoundType.METAL)
+                .noOcclusion(), type, factory));
     }
 
     private static DeferredBlock<Block> ore(String name) {

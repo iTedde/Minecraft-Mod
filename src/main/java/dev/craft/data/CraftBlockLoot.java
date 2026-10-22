@@ -93,6 +93,10 @@ public final class CraftBlockLoot extends BlockLootSubProvider {
         dropSelf(TeBlocks.ENERGY_CELL.get());
         dropSelf(TeBlocks.ENERGY_CONDUIT.get());
         dropSelf(TeBlocks.LIQUIDUCT.get());
+        // BlockTeleport: the item buffer is lost with the block.
+        dropSelf(TeBlocks.ENERGY_TESSERACT.get());
+        dropSelf(TeBlocks.LIQUID_TESSERACT.get());
+        dropSelf(TeBlocks.ITEM_TESSERACT.get());
         for (DyeColor color : DyeColor.values()) {
             dropSelf(TeBlocks.rockwool(color).get());
         }

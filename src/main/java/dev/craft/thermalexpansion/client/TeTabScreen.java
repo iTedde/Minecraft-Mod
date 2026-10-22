@@ -89,7 +89,7 @@ public abstract class TeTabScreen<M extends AbstractContainerMenu> extends Abstr
 
     @Override
     protected void renderLabels(GuiGraphics graphics, int mouseX, int mouseY) {
-        super.renderLabels(graphics, mouseX, mouseY);
+        renderTitles(graphics, mouseX, mouseY);
         int y = 4;
         for (TeTab tab : leftTabs) {
             tab.update();
@@ -106,6 +106,11 @@ public abstract class TeTabScreen<M extends AbstractContainerMenu> extends Abstr
             tab.draw(graphics, font, imageWidth, y);
             y += tab.currentHeight;
         }
+    }
+
+    /** Title and inventory label; screens without the player inventory draw their own. */
+    protected void renderTitles(GuiGraphics graphics, int mouseX, int mouseY) {
+        super.renderLabels(graphics, mouseX, mouseY);
     }
 
     @Nullable

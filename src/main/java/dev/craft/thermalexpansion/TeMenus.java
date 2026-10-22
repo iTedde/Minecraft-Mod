@@ -8,6 +8,7 @@ import dev.craft.thermalexpansion.energy.TeEngineMenu;
 import dev.craft.thermalexpansion.energy.TeEngineType;
 import dev.craft.thermalexpansion.machine.TeMachineMenu;
 import dev.craft.thermalexpansion.machine.TeMachineType;
+import dev.craft.thermalexpansion.transport.TesseractMenu;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.inventory.MenuType;
 import net.neoforged.neoforge.common.extensions.IMenuTypeExtension;
@@ -26,6 +27,9 @@ public final class TeMenus {
                     TeEngineType.values()[buf.readVarInt()], buf.readBlockPos())));
     public static final Supplier<MenuType<EnergyCellMenu>> ENERGY_CELL = MENUS.register("te_energy_cell",
             () -> IMenuTypeExtension.create((id, inventory, buf) -> new EnergyCellMenu(id, inventory,
+                    buf.readBlockPos())));
+    public static final Supplier<MenuType<TesseractMenu>> TESSERACT = MENUS.register("te_tesseract",
+            () -> IMenuTypeExtension.create((id, inventory, buf) -> new TesseractMenu(id, inventory,
                     buf.readBlockPos())));
 
     private TeMenus() {

@@ -89,6 +89,13 @@ public final class TeItems {
     public static final DeferredItem<BlockItem> ENERGY_CONDUIT = ITEMS.registerSimpleBlockItem(TeBlocks.ENERGY_CONDUIT,
             new Item.Properties().rarity(Rarity.UNCOMMON));
     public static final DeferredItem<BlockItem> LIQUIDUCT = ITEMS.registerSimpleBlockItem(TeBlocks.LIQUIDUCT);
+    /** {@code ItemBlockTeleport}: uncommon. */
+    public static final DeferredItem<BlockItem> ENERGY_TESSERACT = ITEMS.registerSimpleBlockItem(
+            TeBlocks.ENERGY_TESSERACT, new Item.Properties().rarity(Rarity.UNCOMMON));
+    public static final DeferredItem<BlockItem> LIQUID_TESSERACT = ITEMS.registerSimpleBlockItem(
+            TeBlocks.LIQUID_TESSERACT, new Item.Properties().rarity(Rarity.UNCOMMON));
+    public static final DeferredItem<BlockItem> ITEM_TESSERACT = ITEMS.registerSimpleBlockItem(
+            TeBlocks.ITEM_TESSERACT, new Item.Properties().rarity(Rarity.UNCOMMON));
 
     static {
         for (DyeColor color : DyeColor.values()) {
