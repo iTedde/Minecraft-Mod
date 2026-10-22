@@ -2,7 +2,8 @@
 
 Sources: Minecraft-Mod/docs (Markdown), CLAUDE.md, lang files, item models/textures,
 vanilla textures from the NeoForge client-extra jar, plus hand-written pages in content.py.
-Run:  python build_wiki.py
+Run:  python build_wiki.py            (German names)
+      python build_wiki.py --en-names (German text, English names of items/blocks -> Craft-Wiki-EN.html)
 """
 import base64
 import html
@@ -25,7 +26,8 @@ ASSETS_GEN = os.path.join(MOD, 'src', 'generated', 'resources', 'assets', 'craft
 JAVA = os.path.join(MOD, 'src', 'main', 'java', 'dev', 'craft')
 VANILLA_JAR = os.path.join(MOD, 'build', 'moddev', 'artifacts',
                            'neoforge-21.1.259-client-extra-aka-minecraft-resources.jar')
-OUT = os.path.join(HERE, 'Craft-Wiki.html')
+EN_NAMES = '--en-names' in sys.argv
+OUT = os.path.join(HERE, 'Craft-Wiki-EN.html' if EN_NAMES else 'Craft-Wiki.html')
 
 sys.path.insert(0, HERE)
 
@@ -543,6 +545,14 @@ def count_java():
 def main():
     global ITEMS
     ITEMS.update(collect_items())
+    terms = None
+    if EN_NAMES:
+        import en_names
+        import recipes as recipes_mod
+        vlang_de = recipes_mod.Collector(MOD, lambda ref: '', LANG_DE).vlang
+        terms = en_names.Terms(LANG_DE, LANG_EN, vlang_de, en_names.vanilla_en(VANILLA_JAR))
+        for it in ITEMS.values():  # 'de' is the displayed name, 'en' the second one
+            it['de'], it['en'] = it['en'], it['de']
     import content
 
     pages = []  # dicts: id, title, group, html
@@ -584,6 +594,11 @@ def main():
     for pid, (nav, group, body, title) in doc_meta.items():
         pages.append({'id': pid, 'title': nav, 'group': group, 'html': f'<h1>{esc(title)}</h1>' + body})
 
+    if terms:
+        for p in pages:
+            p['html'] = terms.html(p['html'])
+            p['title'] = terms.text(p['title'])
+
     # mentions from hand pages
     for p in hand:
         for iid in set(re.findall(r'#/item/([a-z0-9_]+)', p['html'])):
@@ -604,6 +619,9 @@ def main():
     recipe_list = col.collect()
     refs = {r: v for r, v in col.ref_table().items() if not (r.startswith('craft:') and r[6:] in ITEMS)}
     tags = {t: v for t, v in col.tags.items()}
+    sources = {**SOURCES, **WIKI_NOTES}
+    if terms:
+        recipe_list, refs, sources = terms.deep(recipe_list), terms.deep(refs), terms.deep(sources)
     print(f'recipes: {len(recipe_list)}, foreign refs: {len(refs)}, tags: {len(tags)}')
 
     nav_groups = []
@@ -620,6 +638,8 @@ def main():
                        f'data-group="{esc(p["group"])}" hidden>{p["html"]}</section>' for p in pages)
 
     tpl = read(os.path.join(HERE, 'template.html')).replace('{{ITEMJS}}', read(os.path.join(HERE, 'item_page.js')))
+    if EN_NAMES:
+        tpl = tpl.replace('<th>Englisch</th>', '<th>Deutsch</th>')
     logo = icon('craft:macerator') or ''
     out = (tpl.replace('{{NAV}}', ''.join(nav))
               .replace('{{PAGES}}', sections)
@@ -627,9 +647,9 @@ def main():
               .replace('{{GROUPS}}', json.dumps(GROUP_ORDER, ensure_ascii=False))
               .replace('{{RECIPES}}', json.dumps(recipe_list, ensure_ascii=False, separators=(',', ':')).replace('</', '<\\/'))
               .replace('{{REFS}}', json.dumps(refs, ensure_ascii=False, separators=(',', ':')).replace('</', '<\\/'))
-              .replace('{{SOURCES}}', json.dumps({**SOURCES, **WIKI_NOTES}, ensure_ascii=False, separators=(',', ':')).replace('</', '<\\/'))
+              .replace('{{SOURCES}}', json.dumps(sources, ensure_ascii=False, separators=(',', ':')).replace('</', '<\\/'))
               .replace('{{LOGO}}', logo)
-              .replace('{{BUILD}}', esc(f'Stand {glast} · Craft 0.3.0')))
+              .replace('{{BUILD}}', esc(f'Stand {glast} · Craft 0.3.0' + (' · englische Namen' if EN_NAMES else ''))))
     with open(OUT, 'w', encoding='utf-8') as f:
         f.write(out)
     print(f'written {OUT}: {len(out) / 1024 / 1024:.2f} MB, {len(pages)} pages, {len(ITEMS)} items, '

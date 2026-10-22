@@ -65,7 +65,8 @@ MJ und EU bleiben getrennte Systeme; Verbindung nur über Electrical Engine (EU�
 - Externe Quellen sind freigegeben (z. B. BuildCraft-Quellcode 3.4.3). Compact Solars 4.0: `reference/source/compactsolars/v4.0/` (nicht im Pack-Download, von GitHub).
 
 - Wiki: `wiki/` (Generator `build_wiki.py`, Python 3.12) erzeugt `wiki/Craft-Wiki.html` aus `docs/`, Lang-Dateien und
-  Texturen; nach Balancing-/Inhaltsänderungen die Texte in `wiki/content*.py` anpassen und neu erzeugen.
+  Texturen; nach Balancing-/Inhaltsänderungen die Texte in `wiki/content*.py` anpassen und neu erzeugen. `build_wiki.py --en-names`
+  erzeugt `wiki/Craft-Wiki-EN.html` (deutsche Texte, englische Item-/Blocknamen; Begriffstabelle `wiki/en_names.py`).
 - CurseForge-Pakete: `releases/Craft-<Version>-curseforge.zip` (Mod + EMI + Xaero + CC: Tweaked + ab 0.4.3 Inventory Profiles Next, Right Click Harvest, Trading Post samt Bibliotheken, ab 1.0.0 Simple Voice Chat und Leaves Be Gone in `overrides/mods`; Kotlin for Forge per `manifest.json` `files` (CurseForge-ID), damit das Zip unter 20 MB bleibt; Jade fügt der Nutzer selbst hinzu).
 
 ## Spezifikation
