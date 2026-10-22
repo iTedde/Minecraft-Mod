@@ -490,47 +490,187 @@ Seitenfläche, 26 Wasserturbinengehäuse. Gezählt wird fließendes Wasser bis 5
 <p class="lead">Die zweite Ausbaustufe für Kohle, Wasser und Wind. Ein HV-Solarfeld liefert 1536 EU/t – aber nur am Tag. Die
 Großanlagen schaffen je ⅙–⅓ davon, <b>rund um die Uhr</b>. Die kleinen Anlagen bleiben unverändert.</p>
 
+<h2 id="gk--ueberblick">Welche Anlage wofür?</h2>
+{h.table(['Anlage', 'Leistung', 'braucht dauerhaft', 'Aufwand', 'gut, wenn …'], [
+    ['<a href="#/grosskraftwerke/gk--dampf">Hochdruckkessel + Große Dampfturbine</a>', 'bis <b>480 EU/t</b> (3 Kessel)', 'Kohle oder Koks, viel Wasser', 'hoch (Stahl, Titan, Wolframstahl)', 'du Kohle/Koks automatisch nachliefern kannst'],
+    ['<a href="#/grosskraftwerke/gk--wasser">Große Wasserturbine</a>', 'bis <b>256 EU/t</b>', 'nichts (fließendes Wasser bleibt)', 'mittel (Stahl, raff. Eisen)', 'du einmal baust und nie wieder hinschauen willst'],
+    ['<a href="#/grosskraftwerke/gk--wind">Große Windturbine</a>', 'meist 60–250, bei Gewitter bis <b>384 EU/t</b>', 'nichts', 'mittel (Carbon-Rotor)', 'du hoch bauen kannst (Berg, Turm)'],
+])}
+<p>Alle drei geben <b>HV</b>-Pakete ab (bis 512 EU). Das heißt für den Anschluss: {c('glass_fibre_cable')} oder
+{c('insulated_hv_cable')}, als Speicher eine {c('mfsu')}, und vor normalen LV-Maschinen (32 EU) Transformatoren
+(HV → MV → LV). Ein LV-Gerät direkt am Großkraftwerk explodiert. Siehe <a href="#/strom">Strom anschließen</a>.</p>
+
 <h2 id="gk--kessel">Hochdruckkessel</h2>
-<p>Würfel 5×5×5, innen 3×3×3 <b>Luft</b>, die Hochdruck-Kesselfeuerung (Controller) in der Mitte einer Seitenfläche, 97 Gehäuse.
-Ablauf wie beim <a href="#/kohlekraftwerk">Kessel</a>, nur mit anderen Zahlen:</p>
+<p>Der Hochdruckkessel macht aus Wasser und Kohle (oder Koks) <b>Dampf</b>. Strom erzeugt er selbst nicht – dafür ist die
+<a href="#/grosskraftwerke/gk--dampf">Große Dampfturbine</a> da. Im Prinzip ist er der <a href="#/kohlekraftwerk">Kessel des Kohlekraftwerks</a>
+in groß: achtmal mehr Dampf, aber auch achtmal mehr Wasserbedarf.</p>
+<h3>Aufbau</h3>
+<p>Ein hohler Würfel 5×5×5: außen <b>97 Hochdruck-Kesselgehäuse</b>, innen 3×3×3 <b>Luft</b> (dort darf nichts stehen, auch keine
+Fackel), und genau in der Mitte einer Seitenfläche die <b>Hochdruck-Kesselfeuerung</b>. Die Feuerung ist der Controller:
+Rechtsklick darauf öffnet die GUI. Die Struktur wird beim Setzen/Abbauen und alle 100 Ticks geprüft. Fehlt ein Block, steht
+der Kessel still, behält aber Temperatur, Wasser und Dampf.</p>
 <div class="layers">{h.layer(full5, hk, 'Ebene 1 und 5', 22)}{h.layer(hollow5, hk, 'Ebene 2 und 4', 22)}{h.layer(['KKKKK', 'K...K', 'K...K', 'K...K', 'KKFKK'], hk, 'Ebene 3 (Mitte)', 22)}<div>{h.legend(hk)}</div></div>
-{h.table(['Wert', 'Kessel', 'Hochdruckkessel'], [
+<h3>So läuft er</h3>
+<ol>
+<li><b>Wasser rein.</b> Der Kessel nimmt Wasser an <b>jedem</b> seiner Blöcke an (Rohre, Wassersammler, Tanks), oder über den
+Eimer-/Zellen-Slot in der GUI. Ohne Wasser legt er keinen Brennstoff nach.</li>
+<li><b>Brennstoff rein.</b> Nur <b>Kohle</b> oder <b>{c('coke')}</b> (keine Holzkohle, keine Blöcke). Ein Trichter oben oder an der Seite
+füllt den Brennstoff-Slot; jedes Stück brennt sofort mit voller Rate, egal wie heiß der Kessel ist.</li>
+<li><b>Aufheizen.</b> Start bei 20 °C, solange etwas brennt +1 °C pro Tick, sonst −1 °C pro Tick. Ab <b>100 °C</b> entsteht Dampf,
+bei <b>1500 °C</b> volle 160 mB/t. Bis zur Volllast dauert es rund <b>70 Sekunden</b> (1 400 Ticks) – der Brennstoff in dieser
+Zeit ist teilweise verschenkt, das ist gewollt. Darum: durchlaufen lassen statt oft an- und ausschalten.</li>
+<li><b>Dampf raus.</b> Jeden Tick schiebt der Kessel bis zu 1 000 mB Dampf in alles, was direkt an ihm anliegt und Dampf nimmt –
+am besten direkt in die Große Dampfturbine. Ist der Dampftank voll (Turbine nimmt nichts mehr ab), legt er keinen neuen
+Brennstoff nach und verbraucht auch kein Wasser; das ist ungefährlich.</li>
+<li><b>Asche raus.</b> Je 4 Kohle (bzw. 2 Koks) entsteht 1 Asche. Ist der Asche-Slot voll (64), legt der Kessel <b>nichts mehr nach</b>
+und geht aus – bei Volllast mit Kohle nach gut einer halben Stunde. Ein Trichter <b>unter</b> dem Kessel zieht die Asche ab.</li>
+</ol>
+{h.table(['Wert', 'Kessel (klein)', 'Hochdruckkessel'], [
     ['Wasser-/Dampftank', '16 000 mB', '64 000 mB'], ['Höchsttemperatur', '1000 °C', '<b>1500 °C</b>'],
     ['Dampf bei Höchsttemperatur', '20 mB/t', '<b>160 mB/t</b> (<code>160 · (T − 100) / 1400</code>)'],
-    ['Kohle', '800 Ticks = 16 000 EU', '<b>150 Ticks = 24 000 EU</b>'], ['Koks', '1 600 Ticks = 32 000 EU', '<b>300 Ticks = 48 000 EU</b>'],
+    ['Wasserbedarf bei Volllast', '20 mB/t', '<b>160 mB/t</b> = 3,2 Eimer pro Sekunde'],
+    ['Kohle', '800 Ticks = 16 000 EU', '<b>150 Ticks = 24 000 EU</b> → 8 Kohle pro Minute'],
+    ['Koks', '1 600 Ticks = 32 000 EU', '<b>300 Ticks = 48 000 EU</b> → 4 Koks pro Minute'],
     ['Explosion', 'Stärke 6', '<b>Stärke 10</b>'],
 ])}
-{h.note('warn', 'Bei Volllast braucht ein Hochdruckkessel <b>160 mB Wasser pro Tick</b> (3,2 Eimer pro Sekunde) – nur mit Pumpe und Rohren. Die Überhitzungsregel ist dieselbe wie beim kleinen Kessel, die Explosion aber deutlich größer.')}
+<h3 id="gk--explosion">Die eine Regel, die man kennen muss</h3>
+{h.note('warn', 'Läuft der Wassertank <b>leer</b>, während der Kessel über 100 °C heiß ist, wird er „trocken“. Kommt dann auch nur ein '
+'Tropfen Wasser hinein, <b>explodiert er sofort</b> (Stärke 10, alle Kesselblöcke sind weg). Ebenso, wenn er trocken weiter bis 1500 °C heizt. '
+'Erst unter 100 °C ist er wieder sicher.')}
+<p>Das passiert nicht nur, wenn das Wasser ganz ausfällt, sondern <b>auch schleichend</b>: Liefert die Wasserversorgung z. B. nur
+150 mB/t, der Kessel verdampft aber 160 mB/t, sinkt der Tank um 10 mB pro Tick. Nach gut 5 Minuten ist er leer – und die nächste
+Wasserlieferung lässt ihn explodieren. Darum:</p>
+<ul>
+<li>Die Wasserzufuhr muss <b>mindestens 160 mB/t</b> schaffen, lieber mehr. Den Wasserstand in der GUI im Blick behalten: Er
+muss bei Volllast voll bleiben oder steigen.</li>
+<li>Ist der Kessel doch trocken: <b>Wasser abklemmen</b> (Rohr abbauen, Sammler weg), keinen Brennstoff mehr nachlegen und warten, bis
+die GUI unter 100 °C zeigt. Danach wieder Wasser anschließen.</li>
+<li>Keine Gefahr besteht, wenn nur der Dampf nicht abgenommen wird oder der Brennstoff ausgeht.</li>
+</ul>
+<h3 id="gk--wasserversorgung">Woher 160 mB Wasser pro Tick?</h3>
+{h.table(['Quelle', 'Wasser', 'reicht für einen Hochdruckkessel'], [
+    [c('aqueous_accumulator'), '<b>25 mB/t</b>, ohne Strom, endlos', '<b>7 Stück</b> (175 mB/t)'],
+    ['Wasserdichtes Holz-/Stein-/Eisenrohr …', '10 mB/t pro Rohrstrang', 'nein (16 Stränge)'],
+    [c('golden_fluid_pipe') + ' / Smaragdrohr', '40 mB/t pro Rohrstrang', '4 parallele Stränge'],
+    [c('liquiduct'), 'bis 100 mB/t pro Ausgabestelle', '2 Ausgabestellen am Kessel'],
+    ['IC2-Pumpe', '5 mB/t', 'nein'],
+])}
+<p>Am einfachsten: <b>Wassersammler direkt an den Kessel</b>. Ein Wassersammler braucht <b>zwei Wasserblöcke</b> waagerecht neben sich
+und gibt sein Wasser selbst an den Kessel ab. Ein Hochdruckkessel braucht <b>mindestens 7</b> davon. So passen sie an eine
+5 Blöcke breite Kesselseite:</p>
+<ul>
+<li>Kesselebene 1, 3 und 5: <code>Wasser – Sammler – Wasser – Sammler – Wasser</code> (je 2 Sammler)</li>
+<li>Kesselebene 2 und 4: eine Reihe aus 5 beliebigen festen Blöcken (z. B. Stein) als Trennschicht</li>
+</ul>
+<p>Das sind 6 Sammler pro Seite (150 mB/t). <b>Zwei</b> Seiten so bestückt ergeben 12 Sammler = 300 mB/t – genug Reserve. Eine Seite
+allein reicht <b>nicht</b>. Die Trennschicht ist wichtig: Ohne sie stünden Sammler direkt übereinander (siehe Tipp). Das Wasser
+oben darf nach hinten herauslaufen; der Sammler verbraucht es nicht, auch fließendes Wasser zählt.</p>
+{h.note('tip', 'Sammler nicht direkt aneinander oder übereinander setzen: Ein Sammler beliefert reihum seine Nachbarn – grenzt er an einen anderen '
+'Sammler, verschenkt er dort jeden zweiten Takt und liefert nur noch die Hälfte. Jeder Sammler soll als einzigen „Tank“ den Kessel berühren – auch nicht die Turbine.')}
 
 <h2 id="gk--dampf">Große Dampfturbine</h2>
-<p>Quader 5×5×9 mit liegender Längsachse, die Große Dampfturbine (Controller) in der Mitte einer Stirnseite, innen eine Achse aus
-<b>7 Großen Turbinenrotoren</b>, der Rest des Innenraums Luft, 161 Gehäuse. Querschnitte von vorne nach hinten:</p>
+<p>Die Turbine macht aus Dampf Strom: <b>1 mB Dampf = 1 EU</b>, bis zu <b>512 mB pro Tick</b>. Ein Hochdruckkessel liefert 160 mB/t,
+also passen <b>drei Kessel</b> an eine Turbine (480 EU/t). Die Turbine selbst braucht weder Wasser noch Brennstoff, kann nicht
+explodieren und nutzt sich nicht ab.</p>
+<h3>Aufbau</h3>
+<p>Ein liegender Quader 5×5×9. Innen läuft eine Achse aus <b>7 Großen Turbinenrotoren</b> genau durch die Mitte, der restliche
+Innenraum ist Luft. Die Hülle besteht aus <b>161 Großen Turbinengehäusen</b>, und in der Mitte einer der beiden 5×5-Stirnseiten sitzt
+die <b>Große Dampfturbine</b> (Controller, Rechtsklick = GUI). Querschnitte von vorne nach hinten:</p>
 <div class="layers">{h.layer(['TTTTT'] * 2 + ['TTSTT'] + ['TTTTT'] * 2, gk, 'Scheibe 1 (Stirnseite)', 22)}{h.layer(['TTTTT', 'T...T', 'T.R.T', 'T...T', 'TTTTT'], gk, 'Scheiben 2–8', 22)}{h.layer(['TTTTT'] * 5, gk, 'Scheibe 9 (hinten)', 22)}<div>{h.legend(gk)}</div></div>
+<h3>Kessel anschließen</h3>
 <ul>
-<li>Dampftank 64 000 mB, pro Tick bis zu <b>512 mB → 512 EU</b>. Drei Hochdruckkessel (480 mB/t) sind voll nutzbar.</li>
-<li>EU am Controller und an jedem Gehäuse, Pakete bis 512 (<b>HV</b>), Puffer 1 024 EU. Keine Explosion, kein Verschleiß.</li>
+<li>Die Kessel einfach <b>direkt an die Turbine bauen</b> – Fläche an Fläche, egal welche Blöcke sich berühren. Der Kessel schiebt den
+Dampf selbst hinein (bis 1 000 mB/t), Rohre sind nicht nötig.</li>
+<li>Drei Kessel passen z. B. so: einer an die linke Längsseite, einer an die rechte, einer oben drauf oder an die hintere Stirnseite.</li>
+<li>Über Rohre geht es auch, aber ein wasserdichtes Goldrohr schafft nur 40 mB/t – für einen Hochdruckkessel bräuchte man vier.</li>
+</ul>
+<h3>Strom abnehmen</h3>
+<ul>
+<li>Strom kommt am Controller <b>und an jedem Großen Turbinengehäuse</b> heraus – das Kabel kann irgendwo an der Turbine sitzen.</li>
+<li>Pakete bis 512 EU (<b>HV</b>), interner Puffer 1 024 EU. Nimmt niemand den Strom ab, ist der Puffer voll, die Turbine nimmt keinen
+Dampf mehr, der Dampf staut sich im Kessel, und der Kessel hört auf nachzulegen. Nichts geht kaputt, es wird nur kein Brennstoff verbraucht.</li>
+</ul>
+<h3>Beispiel: volles Dampfkraftwerk</h3>
+<ul>
+<li>1 Große Dampfturbine + 3 Hochdruckkessel + 36 Wassersammler (12 je Kessel, zwei Seiten bestückt) = <b>480 EU/t</b>, Tag und Nacht.
+Plane den Platz so, dass jeder Kessel eine Seite an der Turbine hat und zwei andere Seiten für die Sammler frei bleiben.</li>
+<li>Verbrauch: <b>24 Kohle</b> oder <b>12 Koks pro Minute</b> (1 440 Kohle bzw. 720 Koks pro Stunde). Eine volle Truhe Kohle
+(1 728 Stück) über einen Trichter reicht einem einzelnen Kessel rund 3½ Stunden.</li>
+<li>Koks ist doppelt so ergiebig: Er kommt ohne Strom aus dem <a href="#/koksofen">Koksofen</a> (1 Kohle → 1 Koks).</li>
+<li>Anschluss: Glasfaserkabel zur MFSU, von dort über HV-/MV-/LV-Transformatoren zu den Maschinen.</li>
 </ul>
 
 <h2 id="gk--wasser">Große Wasserturbine</h2>
-<p>Voller Würfel 5×5×5, der Controller in der Mitte einer Seitenfläche, 124 Gehäuse. Gezählt wird fließendes Wasser bis
-7 Blöcke um den Würfel (19×19) und bis 24 Blöcke über dem Deckel.</p>
-<div class="layers">{h.layer(['WWWWW'] * 4 + ['WWCWW'], wk2, 'Draufsicht mittlere Ebene', 22)}<div>{h.legend(wk2)}</div></div>
+<p>Die Große Wasserturbine macht Strom aus <b>fließendem Wasser</b> in ihrer Umgebung – ohne Brennstoff, ohne Wartung, ohne Gefahr.
+Sie ist die große Schwester der <a href="#/wasserturbine">Wasserturbine</a>.</p>
+<h3>Aufbau</h3>
+<p>Ein <b>voller</b> Würfel 5×5×5 (auch innen nur Gehäuse): <b>124 Große Wasserturbinengehäuse</b> und in der Mitte einer Seitenfläche die
+<b>Große Wasserturbine</b> (Controller). Eine GUI gibt es nicht.</p>
+<div class="layers">{h.layer(['WWWWW'] * 4 + ['WWCWW'], wk2, 'jede Ebene (Controller nur in Ebene 3)', 22)}<div>{h.legend(wk2)}</div></div>
+<h3>So läuft sie</h3>
 <ul>
-<li>Unter <b>64</b> fließenden Blöcken 0 EU/t, sonst <b>1 EU/t je fließendem Block</b>, im Fluss-Biom ×1,5.</li>
-<li>Deckel <b>256 EU/t</b> ab 256 fließenden Blöcken (im Fluss ab 171). Abgabe an jedem Gehäuse, Stufe HV.</li>
-<li>Rechtsklick zeigt „Fließendes Wasser: n, Leistung x EU/t“.</li>
+<li>Alle 128 Ticks (gut 6 Sekunden) zählt sie die <b>fließenden</b> Wasserblöcke um sich herum: 7 Blöcke über jede Seite hinaus
+(zusammen 19×19), von der untersten Ebene des Würfels bis 24 Blöcke über seinem Deckel. <b>Quellblöcke zählen nicht</b>, nur
+fließendes Wasser (auch fallendes, z. B. Wasserfälle).</li>
+<li>Unter <b>64</b> fließenden Blöcken: gar nichts. Ab 64: <b>1 EU/t je fließendem Block</b>, in einem Fluss-Biom ×1,5.</li>
+<li>Höchstens <b>256 EU/t</b> – erreicht ab 256 fließenden Blöcken (im Fluss-Biom ab 171).</li>
+<li><b>Rechtsklick</b> auf den Controller zeigt „Fließendes Wasser: n, Leistung x EU/t“ (oder „Struktur unvollständig“). So siehst du sofort,
+ob noch Wasser fehlt.</li>
+<li>Strom kommt an jedem Gehäuseblock heraus, Pakete bis 256 EU (HV).</li>
 </ul>
+<h3>Wie bekomme ich 256 fließende Blöcke?</h3>
+<p>Ein einzelner Quellblock auf einer ebenen Fläche fließt 7 Blöcke weit in alle Richtungen und erzeugt dabei bis zu gut 100
+fließende Blöcke. Daraus ergibt sich der einfachste Aufbau:</p>
+<ol>
+<li>Rund um die Turbine eine <b>ebene Fläche</b> (z. B. Stein) auf Höhe der untersten Würfelebene bauen, 7 Blöcke breit nach jeder Seite.
+Den Rand mit einer Mauer abschließen, sonst läuft das Wasser über den Rand und fehlt in der Zählung.</li>
+<li>Einige <b>Quellblöcke mit Abstand</b> verteilen (z. B. vor jede Seite der Turbine einen und in die vier Ecken). Liegen Quellen zu nah
+beieinander, entstehen neue Quellblöcke statt fließendem Wasser.</li>
+<li>Mit Rechtsklick nachzählen. Fehlt noch etwas: eine <b>zweite Ebene</b> darüber bauen oder Wasser von oben herabfallen lassen – alles bis
+24 Blöcke über dem Deckel zählt mit.</li>
+</ol>
+{h.note('tip', 'In einem Fluss-Biom (der Controller muss im Biom stehen) reichen schon 171 fließende Blöcke für die vollen 256 EU/t.')}
 
 <h2 id="gk--wind">Große Windturbine</h2>
-<p>Die <b>Große Windturbine</b> (Gondel) sitzt auf <b>8 Windturbinenmasten</b>. Der Rotor ist ein Item: Rechtsklick mit einem Rotor setzt ihn
-ein (oder tauscht ihn), Schleichen + Rechtsklick mit leerer Hand nimmt ihn heraus. Er dreht sich als 5×5-Rad vor der Gondel und nutzt sich nicht ab.</p>
-{h.table(['Rotor', 'Faktor'], [[c('iron_wind_rotor'), '0,5'], [c('steel_wind_rotor'), '0,75'], [c('carbon_wind_rotor'), '1,0']])}
+<p>Die Große Windturbine macht Strom aus <b>Wind</b>: je höher, desto mehr. Kein Brennstoff, kein Verschleiß, sie geht auch nie kaputt.</p>
+<h3>Aufbau</h3>
+<ol>
+<li><b>8 Windturbinenmasten</b> senkrecht übereinander setzen.</li>
+<li>Oben drauf die <b>Große Windturbine</b> (Gondel). Die Seite, in die sie beim Setzen schaut, ist die Rotorseite.</li>
+<li>Mit einem <b>Windrotor</b> in der Hand auf die Gondel rechtsklicken – der Rotor wird eingesetzt und dreht sich als großes 5×5-Rad vor der
+Gondel (er kollidiert mit nichts). Schleichen + Rechtsklick mit leerer Hand nimmt ihn wieder heraus; mit einem anderen Rotor
+in der Hand wird getauscht.</li>
+<li>Das Kabel kommt einfach an den <b>Mastfuß</b> – jeder Mast leitet den Strom verlustfrei. Pakete bis 384 EU (HV).</li>
+</ol>
+{h.table(['Rotor', 'Faktor', 'Material'], [[c('iron_wind_rotor'), '0,5', 'Eisen'], [c('steel_wind_rotor'), '0,75', 'Stahl'], [c('carbon_wind_rotor'), '1,0', 'Carbonplatten + Fortgeschrittene Legierung']])}
+<h3>Was die Leistung bestimmt</h3>
 <ul>
-<li>Leistung <code>20 · Windmühlenwert · Faktor</code>, höchstens <b>384 EU/t</b>; Windmühlenwert wie bei der <a href="#/windmuehle">Windmühle</a> (Höhe, Hindernisse, Regen ×1,5, Gewitter ×3).</li>
-<li>Hindernisse: alle Blöcke 5 Blöcke um die Gondel, 3 darunter bis 5 darüber (ohne die eigenen Teile).</li>
-<li>Beispiele mit Carbon-Rotor, frei: y 128 ≈ 64 EU/t, y 200 ≈ 136 EU/t, y 200 bei Gewitter 384 EU/t.</li>
-<li>EU an der Gondel und an jedem Mast – das Kabel kommt einfach an den Mastfuß.</li>
+<li><b>Höhe der Gondel:</b> unter y 64 kommt nichts. Bei normalem Wind und Carbon-Rotor gilt ungefähr <b>Leistung ≈ Höhe − 64</b> EU/t.</li>
+<li><b>Hindernisse:</b> Jeder Block in einem Kasten von 5 Blöcken um die Gondel (11×11, von 3 unter bis 5 über der Gondel) kostet Leistung –
+die eigenen Masten und die Gondel zählen nicht. Den Bereich also komplett frei halten: keine Bäume, kein Dach, keine Plattform direkt
+unter der Gondel. Mit 8 Masten ist der Boden weit genug weg.</li>
+<li><b>Wind:</b> Die Windstärke schwankt langsam im ganzen Spiel (meist 10–20, Mittel 15); bei Regen ×1,5, bei Gewitter ×3.</li>
+<li>Rechtsklick auf die Gondel zeigt „Hindernisse: n, Leistung x EU/t“ (oder „Kein Rotor“ / „Struktur unvollständig“). Neu gezählt
+wird alle 128 Ticks, die Hindernisse alle 1 024 Ticks.</li>
 </ul>
+{h.table(['Gondel auf Höhe', 'Carbon, normaler Wind', 'bei Regen', 'bei Gewitter'], [
+    ['y 100', '≈ 36 EU/t', '≈ 54 EU/t', '≈ 108 EU/t'],
+    ['y 128', '≈ 64 EU/t', '≈ 96 EU/t', '≈ 192 EU/t'],
+    ['y 200', '≈ 136 EU/t', '≈ 204 EU/t', '<b>384 EU/t</b> (Deckel)'],
+    ['y 300', '≈ 236 EU/t', '≈ 354 EU/t', '<b>384 EU/t</b>'],
+])}
+<p>Stahlrotor: Werte × 0,75, Eisenrotor: × 0,5. Höchstwert immer 384 EU/t. Weil der Wind schwankt, lohnt sich eine
+{c('mfsu')} als Puffer dahinter.</p>
+
+<h2 id="gk--fehler">Es kommt kein Strom – woran liegt es?</h2>
+{h.table(['Anlage', 'prüfen'], [
+    ['alle', 'Struktur vollständig? Ein falscher oder fehlender Block (oder etwas im Luft-Innenraum) stoppt alles. Wasser-/Windturbine: Rechtsklick zeigt „Struktur unvollständig“.'],
+    ['alle', 'Kabel: HV-taugliches Kabel (Glasfaser, isoliertes HV-Kabel). Ein Kupfer- oder Goldkabel schmilzt bei HV-Paketen.'],
+    ['Hochdruckkessel', 'Wasser im Tank? Ohne Wasser wird kein Brennstoff nachgelegt. Asche-Slot voll? Dann geht er aus. Temperatur unter 100 °C? Dann noch kein Dampf.'],
+    ['Große Dampfturbine', 'Berührt der Kessel die Turbine direkt? Dampftank in der GUI leer → kein Dampf kommt an.'],
+    ['Große Wasserturbine', 'Unter 64 fließenden Blöcken gibt es 0 EU/t. Quellblöcke und stehendes Wasser zählen nicht.'],
+    ['Große Windturbine', 'Rotor eingesetzt? Gondel über y 64? Hindernisse (Rechtsklick) möglichst 0.'],
+])}
 
 <h2 id="gk--rezepte">Rezepte</h2>
 <div class="recipes">
