@@ -2199,6 +2199,9 @@ Spezifikation: `docs/spec/26-thermal-expansion.md`.
    Dichte Kupferplatte, Crop) – der Macerator-Rückfall in 25.2 liefert nur das Hauptprodukt.
 2. Client-Test 25.7/25.8 durch den Nutzer (Tesserakte: GUI, Namen speichern/löschen, Zugriff privat mit zweitem
    Spieler, Multimeter, Modell/Kern, Energie/Flüssigkeit/Item über Dimensionen; EMI-Kategorien und Pfeile der TE-GUIs).
+3. Prüfen (Nutzer, 2026-10-22): BuildCraft-Rohre verbinden sich **teilweise nicht** mit den Maschinen der
+   1.0-Erweiterung (Thermal Expansion, Phase 25). Klären, welche Blöcke/Seiten/Rohrtypen betroffen sind (Item-,
+   Flüssigkeits-, Leistungsrohre), und die fehlenden Capabilities bzw. die Verbindungsprüfung der Rohre nachziehen.
 
 ## Erledigt (Nutzerwunsch, 2026-10-22)
 - [x] BatBox/MFE/MFSU: Rüstungsslots des Spielers links in der GUI (`ic2/menu/ArmorSlot`, `docs/abweichungen.md`).
