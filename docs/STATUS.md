@@ -2188,6 +2188,8 @@ Spezifikation: `docs/spec/26-thermal-expansion.md`.
 - [x] Wiki: Seite „Thermal Expansion“ (Ursprungs-Mods), TE-Motoren im Energie-Steckbrief; neu erzeugt.
 - [x] `gradlew runData test build` grün, alle 428 GameTests grün.
 - [x] Version 0.4.6, CurseForge-Paket `releases/Craft-0.4.6-curseforge.zip` (16,5 MB, Mods wie 0.4.5).
+- [x] Nutzer, 2026-10-22: **Version 1.0.0**; `releases/craft-1.0.0.jar` und `releases/Craft-1.0.0-curseforge.zip` (Mods wie
+  0.4.6); `phase3-wip` nach `main` gemergt.
 - Client-Smoke-Test: Client startete ohne Fehler, wurde aber vor dem Weltbeitritt beendet – EMI im Spiel noch ungeprüft.
 
 ## Nächste Schritte
