@@ -2190,6 +2190,8 @@ Spezifikation: `docs/spec/26-thermal-expansion.md`.
 - [x] Version 0.4.6, CurseForge-Paket `releases/Craft-0.4.6-curseforge.zip` (16,5 MB, Mods wie 0.4.5).
 - [x] Nutzer, 2026-10-22: **Version 1.0.0**; `releases/craft-1.0.0.jar` und `releases/Craft-1.0.0-curseforge.zip` (Mods wie
   0.4.6); `phase3-wip` nach `main` gemergt.
+- [x] Nutzer, 2026-10-22: Simple Voice Chat (`voicechat-neoforge-1.21.1-2.6.22.jar`) in `overrides/mods` des
+  1.0.0-Pakets ergänzt (21,3 MB); Kopie auch unter `X:/Craft/Craft-1.0.0-curseforge.zip`.
 - Client-Smoke-Test: Client startete ohne Fehler, wurde aber vor dem Weltbeitritt beendet – EMI im Spiel noch ungeprüft.
 
 ## Nächste Schritte
