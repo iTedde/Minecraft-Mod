@@ -2199,3 +2199,12 @@ Spezifikation: `docs/spec/26-thermal-expansion.md`.
    Dichte Kupferplatte, Crop) – der Macerator-Rückfall in 25.2 liefert nur das Hauptprodukt.
 2. Client-Test 25.7/25.8 durch den Nutzer (Tesserakte: GUI, Namen speichern/löschen, Zugriff privat mit zweitem
    Spieler, Multimeter, Modell/Kern, Energie/Flüssigkeit/Item über Dimensionen; EMI-Kategorien und Pfeile der TE-GUIs).
+
+## Erledigt (Nutzerwunsch, 2026-10-22)
+- [x] BatBox/MFE/MFSU: Rüstungsslots des Spielers links in der GUI (`ic2/menu/ArmorSlot`, `docs/abweichungen.md`).
+  Build grün, Client-Test offen.
+
+## Ausstehend (Nutzerwünsche)
+- [ ] **Industrial Foregoing** (Nutzer, 2026-10-22): bisher weder im Mod noch im CurseForge-Paket; nicht Teil von
+  FTB Ultimate 1.4.7. Zu entscheiden: (a) Original-Mod für 1.21.1/NeoForge + Titanium nur mitinstallieren (FE, nicht
+  am EU-Netz) oder (b) ausgewählte Maschinen als eigene Phase mit EU nachbauen (Umfang klären).
