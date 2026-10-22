@@ -2214,3 +2214,5 @@ Spezifikation: `docs/spec/26-thermal-expansion.md`.
 - [x] Nutzer, 2026-10-22: **Leaves Be Gone** (`LeavesBeGone-v21.1.1-1.21.1-NeoForge.jar`, Modrinth, SHA-1 geprüft;
   schnellerer Blätterzerfall, braucht Puzzles Lib ≥ 21.1.7 – im Paket 21.1.64) in `overrides/mods` des 1.0.0-Pakets
   ergänzt (21,3 MB); Kopie unter `X:/Craft/Craft-1.0.0-curseforge.zip`. Im Spiel noch ungeprüft.
+- [x] Nutzer, 2026-10-22: Solarpanel wieder mit dem IC2-Rezept `CgC/gCg/cGc` (Kohlestaub, Glas, Schaltkreis,
+  Generator); das GT-Rezept mit Siliziumplatten bleibt zusätzlich (`docs/abweichungen.md`).
