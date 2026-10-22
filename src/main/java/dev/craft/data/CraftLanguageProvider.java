@@ -385,6 +385,35 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
                 : "The Configuration tab determines how items enter and leave this device.");
         add("gui.craft.te.tutorial.powered", german ? "Benötigt Minecraft Joules (MJ)."
                 : "Requires Minecraft Joules to operate.");
+        add("emi.category.craft.powered_furnace", german ? "Elektrischer Ofen (TE)" : "Powered Furnace");
+        add("emi.category.craft.pulverizer", german ? "Pulverisierer" : "Pulverizer");
+        add("emi.category.craft.sawmill", german ? "Sägewerk" : "Sawmill");
+        add("emi.category.craft.induction_smelter", german ? "Induktionsschmelze" : "Induction Smelter");
+        add("emi.category.craft.magma_crucible", german ? "Magmatiegel" : "Magma Crucible");
+        add("emi.category.craft.liquid_transposer_fill", german ? "Flüssigkeitsumfüller: Füllen"
+                : "Liquid Transposer: Fill");
+        add("emi.category.craft.liquid_transposer_extract", german ? "Flüssigkeitsumfüller: Entleeren"
+                : "Liquid Transposer: Extract");
+        add("emi.category.craft.glacial_precipitator", german ? "Eisbereiter" : "Glacial Precipitator");
+        add("emi.category.craft.igneous_extruder", german ? "Gesteinsextruder" : "Igneous Extruder");
+        add("emi.category.craft.te_steam_engine", german ? "Dampfmotor (TE)" : "Steam Engine (TE)");
+        add("emi.category.craft.magmatic_engine", german ? "Magmamotor" : "Magmatic Engine");
+        add("emi.craft.te.energy", german ? "%1$s MJ · %2$s s bei %3$s MJ/t" : "%1$s MJ · %2$s s at %3$s MJ/t");
+        add("emi.craft.te_igneous_extruder.time", german ? "%1$s s, ohne Strom" : "%1$s s, no power");
+        add("emi.craft.te_igneous_extruder.start", german ? "Startet erst mit je %1$s mB Lava und Wasser"
+                : "Starts only with %1$s mB each of lava and water");
+        add("emi.craft.te_steam_engine.fuel", german ? "%1$s MJ" : "%1$s MJ");
+        add("emi.craft.te_steam_engine.water", german ? "Dazu Wasser: Leistung · 10 mB je 40 Ticks"
+                : "Plus water: power · 10 mB per 40 ticks");
+        add("emi.craft.te_magmatic_engine.lava", german ? "%1$s MJ je 1000 mB (%2$s MJ je %3$s mB)"
+                : "%1$s MJ per 1000 mB (%2$s MJ per %3$s mB)");
+        add("emi.info.craft.te_fallback", german
+                ? "Der Elektrische Ofen schmilzt auch alle Ofenrezepte (160 MJ). Pulverisierer und Sägewerk "
+                + "übernehmen jedes Macerator-Rezept ohne eigenes TE-Rezept (GregTech): Holzschliff im Sägewerk "
+                + "(80 MJ), alles andere im Pulverisierer (400 MJ), ohne Nebenprodukt."
+                : "The powered furnace also smelts every furnace recipe (160 MJ). The pulverizer and sawmill take "
+                + "every macerator recipe without an own TE recipe (GregTech): wood pulp in the sawmill (80 MJ), "
+                + "everything else in the pulverizer (400 MJ), without a secondary output.");
     }
 
 

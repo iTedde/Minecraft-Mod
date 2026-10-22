@@ -54,6 +54,10 @@ public final class RecipeCategories {
     public static final ResourceLocation TE_CRUCIBLE = id("magma_crucible");
     public static final ResourceLocation TE_TRANSPOSER_FILL = id("liquid_transposer_fill");
     public static final ResourceLocation TE_TRANSPOSER_EXTRACT = id("liquid_transposer_extract");
+    public static final ResourceLocation TE_GLACIAL_PRECIPITATOR = id("glacial_precipitator");
+    public static final ResourceLocation TE_IGNEOUS_EXTRUDER = id("igneous_extruder");
+    public static final ResourceLocation TE_STEAM_ENGINE = id("te_steam_engine");
+    public static final ResourceLocation TE_MAGMATIC_ENGINE = id("magmatic_engine");
 
     /**
      * Category of every recipe type the mod registers (path of the type id). A GameTest checks that no recipe type

@@ -19,8 +19,8 @@ import org.jetbrains.annotations.Nullable;
  */
 public class MagmaticEngineBlockEntity extends TeEngineBlockEntity {
     public static final int CAPACITY = 4000;
-    private static final int LAVA_PER_PROCESS = 50;
-    private static final int ENERGY_PER_PROCESS = 20000 * 90 / 2000;
+    public static final int LAVA_PER_PROCESS = 50;
+    public static final int ENERGY_PER_PROCESS = 20000 * 90 / 2000;
 
     private final FluidTank tank = new FluidTank(CAPACITY, stack -> stack.getFluid().isSame(Fluids.LAVA)) {
         @Override

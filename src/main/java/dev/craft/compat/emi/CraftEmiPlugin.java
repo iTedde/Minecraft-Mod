@@ -36,6 +36,7 @@ public class CraftEmiPlugin implements EmiPlugin {
         BcEmiRecipes.register(registry, CATEGORIES);
         ForestryEmiRecipes.register(registry, CATEGORIES);
         PowerPlantEmiRecipes.register(registry, CATEGORIES);
+        TeEmiRecipes.register(registry, CATEGORIES);
         registry.addWorkstation(VanillaEmiRecipeCategories.CRAFTING, EmiStack.of(RpItems.PROJECT_TABLE.get()));
         CraftingTableEmiHandlers.register(registry);
         MultiblockEmiInfo.register(registry);

@@ -2,11 +2,15 @@ package dev.craft.thermalexpansion.client;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
+import dev.craft.core.client.ExtraAreas;
+import dev.craft.core.client.RecipeArea;
 import dev.craft.thermalexpansion.TeRedstoneControl;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.renderer.Rect2i;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.network.chat.Component;
@@ -23,9 +27,11 @@ import org.jetbrains.annotations.Nullable;
 /**
  * CoFH {@code GuiAdv}: the sliding tabs (right: energy, redstone, configuration; left: information, tutorial), their
  * tooltips and clicks, the open tab remembered for the next GUI ({@code SessionVars}), and the liquid gauges. The
- * redstone buttons are menu buttons 0–2 (ignored, low, high) in every TE menu.
+ * redstone buttons are menu buttons 0–2 (ignored, low, high) in every TE menu. The tabs are kept clear of the recipe
+ * viewer; recipe areas open its categories.
  */
-public abstract class TeTabScreen<M extends AbstractContainerMenu> extends AbstractContainerScreen<M> {
+public abstract class TeTabScreen<M extends AbstractContainerMenu> extends AbstractContainerScreen<M>
+        implements ExtraAreas {
     public static final int BUTTON_REDSTONE_IGNORED = 0;
     public static final int BUTTON_REDSTONE_LOW = 1;
     public static final int BUTTON_REDSTONE_HIGH = 2;
@@ -79,7 +85,27 @@ public abstract class TeTabScreen<M extends AbstractContainerMenu> extends Abstr
             renderTooltip(graphics, mouseX, mouseY);
             if (menu.getCarried().isEmpty()) {
                 renderGaugeTooltips(graphics, mouseX, mouseY, mouseX - leftPos, mouseY - topPos);
+                if (hoveredSlot == null) {
+                    RecipeArea.renderTooltip(getRecipeAreas(), graphics, font, leftPos, topPos, mouseX, mouseY);
+                }
             }
+        }
+    }
+
+    /** Areas that open the recipe viewer; none by default. */
+    protected List<RecipeArea> getRecipeAreas() {
+        return List.of();
+    }
+
+    @Override
+    public void addExtraAreas(Consumer<Rect2i> consumer) {
+        for (TeTab tab : leftTabs) {
+            consumer.accept(new Rect2i(leftPos + tab.shiftX - tab.currentWidth, topPos + tab.shiftY,
+                    tab.currentWidth, tab.currentHeight));
+        }
+        for (TeTab tab : rightTabs) {
+            consumer.accept(new Rect2i(leftPos + tab.shiftX, topPos + tab.shiftY, tab.currentWidth,
+                    tab.currentHeight));
         }
     }
 
@@ -137,6 +163,9 @@ public abstract class TeTabScreen<M extends AbstractContainerMenu> extends Abstr
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
         TeTab tab = tabAt((int) mouseX - leftPos, (int) mouseY - topPos);
         if (tab == null) {
+            if (button == 0 && RecipeArea.click(getRecipeAreas(), leftPos, topPos, mouseX, mouseY)) {
+                return true;
+            }
             if (clickBackground((int) mouseX - leftPos, (int) mouseY - topPos, button)) {
                 return true;
             }

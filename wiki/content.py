@@ -765,6 +765,37 @@ braucht vieles früh GT-Materialien (Platten, Stahl).</p>
 <p>Abbau ohne Schraubenschlüssel gibt nur ein Fortgeschrittenes Maschinengehäuse zurück; mit Schraubenschlüssel immer die Maschine.
 Redstone im Energieslot füllt den ganzen Speicher auf einmal.</p>''')
 
+    modpage('mod-thermalexpansion', 'Thermal Expansion', 'craft:pulverizer',
+            'Thermal Expansion 2.2.2.2 aus dem Pack, komplett mit <b>MJ</b> betrieben: neun Maschinen, zwei Motoren, die '
+            '<b>Redstone-Energiezelle</b> (600 000 MJ), Energieleitungen, Liquiducts, der Tragbare Tank und die <b>Tesserakte</b>, '
+            'die Energie, Flüssigkeiten und Items über beliebige Entfernungen und Dimensionen schicken. Wo TE eigene Materialien '
+            'hätte (Kupfer, Zinn, Silber, Blei, Elektrum …), werden die vorhandenen Craft-Items verwendet; neu sind nur Silber-, '
+            'Blei- und Nickelerz (Ferrous Ore), Invar, Holzschnitzel, Sägemehl und Schlacke.',
+            [('Version (Vorlage)', '2.2.2.2'), ('Energie', 'MJ (BuildCraft)'), ('Erze', 'Silber, Blei, Nickel'),
+             ('Paket', 'Kreativ-Tab „Thermal Expansion“')],
+            [('spec-26', '26 – Thermal Expansion')],
+            f'''<h2 id="mod-thermalexpansion--maschinen">Maschinen</h2>
+<p>Alle Maschinen haben dieselbe Basis: ein MJ-Speicher (1 200 × Höchstleistung), seitlich farbig einstellbare Ein- und Ausgänge
+(Reiter „Konfiguration“, Crescent Hammer dreht), Redstone-Steuerung und automatischen Auswurf. Die Rezepte zeigt EMI
+(Klick auf den Fortschrittspfeil öffnet die passende Kategorie).</p>
+{h.table(['Maschine', 'Macht', 'Energie'], [
+    [c('powered_furnace'), 'Ofenrezepte (eigene Liste, sonst jedes Ofenrezept für 160 MJ)', 'MJ'],
+    [c('pulverizer'), 'Erze → 2 Staub (+ Nebenprodukt), sonst jedes Macerator-Rezept (400 MJ)', 'MJ'],
+    [c('sawmill'), 'Stämme → 6 Bretter + Sägemehl, zerlegt Holzgegenstände', 'MJ'],
+    [c('induction_smelter'), 'Legierungen, Erz + Sand → 2 Barren, Erz + Reiche Schlacke → 3 Barren', 'MJ'],
+    [c('magma_crucible'), 'schmilzt Stein/Bruchstein/Obsidian/Netherrack zu Lava, Schnee/Eis zu Wasser, Redstone, Enderperlen', 'MJ'],
+    [c('liquid_transposer'), 'füllt und leert Behälter (Modusknopf)', 'MJ'],
+    [c('glacial_precipitator'), 'Wasser → Schneebälle, Schnee, Eis', 'MJ'],
+    [c('igneous_extruder'), 'Lava + Wasser → Bruchstein, Stein, Obsidian', 'kein Strom'],
+    [c('aqueous_accumulator'), 'sammelt Wasser (1 000 mB je 40 Ticks bei 2 Wasser-Nachbarn)', 'kein Strom'],
+])}
+<h2 id="mod-thermalexpansion--energie">Energie und Transport</h2>
+<ul><li>{c('steam_engine')} (0,2–2 MJ/t, feste Brennstoffe + Wasser) und {c('magmatic_engine')} (0,4–4 MJ/t, Lava): explodieren nicht,
+gehen aber bei vollem Puffer kaputt – der Schraubenschlüssel repariert sie. Brennwerte zeigt EMI.</li>
+<li>{c('redstone_energy_cell')}: 600 000 MJ, Senden/Empfangen je 0–100 MJ/t einstellbar; mit Schleichen + Schraubenschlüssel samt Ladung abbauen.</li>
+<li>Redstone-Energieleitung (500 MJ je Knoten, 5 % Verlust), Liquiduct, {c('multimeter')} zum Messen.</li>
+<li>Tesserakte (Energie, Flüssigkeit, Item): gleiche <b>Frequenz</b> verbindet sie, auch über Dimensionen; öffentlich oder privat. Energie kommt mit 25 % Verlust an.</li></ul>''')
+
     # ------------------------------------------------------------------ Items
     page('items', 'Gegenstände & Blöcke', 'Allgemein', f'''<h1>Gegenstände & Blöcke</h1>
 <p class="lead">Alle {stats['items']} registrierten Blöcke und Items von Craft mit deutschem und englischem Namen. Jeder Eintrag hat eine eigene Seite

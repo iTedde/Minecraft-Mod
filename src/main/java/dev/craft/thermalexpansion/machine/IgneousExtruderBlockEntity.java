@@ -27,13 +27,28 @@ public class IgneousExtruderBlockEntity extends SelectionMachineBlockEntity {
     private static final int[] PROCESS_LAVA = {0, 2, 1000};
     private static final int[] PROCESS_WATER = {0, 1000, 1000};
     private static final int[] PROCESS_TIME = {40, 80, 120};
-    private static final int START_LIQUID = 1000;
+    public static final int START_LIQUID = 1000;
 
     private final FluidTank lavaTank = tank(Fluids.LAVA, this::setChanged);
     private final FluidTank waterTank = tank(Fluids.WATER, this::setChanged);
 
     public IgneousExtruderBlockEntity(BlockPos pos, BlockState state) {
         super(TeBlockEntityTypes.IGNEOUS_EXTRUDER.get(), TeMachineType.IGNEOUS_EXTRUDER, pos, state);
+    }
+
+    /** Lava in mB used for product {@code selection}. */
+    public static int processLava(int selection) {
+        return PROCESS_LAVA[selection];
+    }
+
+    /** Water in mB used for product {@code selection}. */
+    public static int processWater(int selection) {
+        return PROCESS_WATER[selection];
+    }
+
+    /** Ticks for product {@code selection}. */
+    public static int processTime(int selection) {
+        return PROCESS_TIME[selection];
     }
 
     @Override

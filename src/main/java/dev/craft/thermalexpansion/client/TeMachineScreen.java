@@ -2,6 +2,8 @@ package dev.craft.thermalexpansion.client;
 
 import java.util.List;
 
+import dev.craft.core.client.RecipeArea;
+import dev.craft.core.client.RecipeCategories;
 import dev.craft.thermalexpansion.TeRedstoneControl;
 import dev.craft.thermalexpansion.machine.AqueousAccumulatorBlockEntity;
 import dev.craft.thermalexpansion.machine.SelectionMachineBlockEntity;
@@ -78,6 +80,28 @@ public class TeMachineScreen extends TeTabScreen<TeMachineMenu> {
     @Override
     protected TeRedstoneControl redstoneControl() {
         return machine();
+    }
+
+    /** The progress arrows open the machine's recipe category (the transposer's by its mode). */
+    @Override
+    protected List<RecipeArea> getRecipeAreas() {
+        return switch (menu.getMachineType()) {
+            case POWERED_FURNACE -> List.of(arrow(79, 34, RecipeCategories.TE_FURNACE));
+            case PULVERIZER -> List.of(arrow(79, 34, RecipeCategories.TE_PULVERIZER));
+            case SAWMILL -> List.of(arrow(79, 34, RecipeCategories.TE_SAWMILL));
+            case INDUCTION_SMELTER -> List.of(arrow(79, 34, RecipeCategories.TE_SMELTER));
+            case MAGMA_CRUCIBLE -> List.of(arrow(103, 34, RecipeCategories.TE_CRUCIBLE));
+            case LIQUID_TRANSPOSER -> List.of(arrow(112, 19, menu.isReverse()
+                    ? RecipeCategories.TE_TRANSPOSER_EXTRACT : RecipeCategories.TE_TRANSPOSER_FILL));
+            case GLACIAL_PRECIPITATOR -> List.of(arrow(112, 49, RecipeCategories.TE_GLACIAL_PRECIPITATOR));
+            case IGNEOUS_EXTRUDER -> List.of(arrow(40, 49, RecipeCategories.TE_IGNEOUS_EXTRUDER),
+                    arrow(112, 49, RecipeCategories.TE_IGNEOUS_EXTRUDER));
+            case AQUEOUS_ACCUMULATOR -> List.of();
+        };
+    }
+
+    private static RecipeArea arrow(int x, int y, ResourceLocation category) {
+        return new RecipeArea(x, y, SCALE_PROGRESS, 16, category);
     }
 
     @Override

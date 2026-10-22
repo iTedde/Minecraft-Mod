@@ -26,6 +26,7 @@ public final class SourceTexts {
         cells();
         fuelRods();
         misc();
+        thermalExpansion();
     }
 
     private SourceTexts() {
@@ -1063,5 +1064,38 @@ public final class SourceTexts {
                 "4 tiny piles → 1 " + englishDust + " (crafting), 1 " + englishDust + " → 4. Comes as a by-product: "
                         + fromEnglish + ".",
                 "small_" + material + "_dust");
+    }
+
+    /** By-products of the Thermal Expansion machines (spec 26 §4.1, §4.2, §5; phase 25.8). */
+    private static void thermalExpansion() {
+        add("Pulverisierer (Thermal Expansion): Eichen-, Fichten-, Birken- oder Tropenstamm → 1 (160 MJ). "
+                        + "3 Holzschnitzel → 3 Papier.",
+                "Pulverizer (Thermal Expansion): oak, spruce, birch or jungle log → 1 (160 MJ). 3 wood chips → 3 "
+                        + "paper.",
+                "wood_chips");
+        add("Sägewerk (Thermal Expansion), immer als Nebenprodukt: Stämme (Eiche, Fichte, Birke, Tropen → 6 "
+                        + "Bretter), Zauntor, Holzschwert/-schaufel/-spitzhacke/-axt/-hacke. 8 um ein freies Feld → "
+                        + "Gepresstes Sägemehl.",
+                "Sawmill (Thermal Expansion), always as a by-product: logs (oak, spruce, birch, jungle → 6 planks), "
+                        + "fence gate, wooden sword/shovel/pickaxe/axe/hoe. 8 around an empty slot → compressed "
+                        + "sawdust.",
+                "sawdust");
+        add("Werkbank: 8 Sägemehl um ein freies Feld → 1. Ofen → Holzkohle.",
+                "Crafting: 8 sawdust around an empty slot → 1. Furnace → charcoal.",
+                "compressed_sawdust");
+        add("Induktionsschmelze (Thermal Expansion), Nebenprodukt: Erz + Reiche Schlacke → 3 Barren + Schlacke "
+                        + "(75 %); 2 Staub + Sand → 2 Barren + Schlacke (25 %); 2 Eisenbarren + Sand → 2 Raffiniertes "
+                        + "Eisen + Schlacke (25 %); Pyriterz + Reiche Schlacke (95 %). Ofen → Steinwolle.",
+                "Induction smelter (Thermal Expansion), by-product: ore + rich slag → 3 ingots + slag (75 %); 2 dust "
+                        + "+ sand → 2 ingots + slag (25 %); 2 iron ingots + sand → 2 refined iron + slag (25 %); pyrite "
+                        + "ore + rich slag (95 %). Furnace → rockwool.",
+                "slag");
+        add("Induktionsschmelze (Thermal Expansion), Nebenprodukt: Erz (Eisen, Gold, Kupfer, Zinn, Silber, Blei, "
+                        + "Nickel, auch Rohmetall) + Sand → 2 Barren + Reiche Schlacke (5 %); Pyriterz + Sand (10 %). "
+                        + "Statt Sand zum Erz gegeben: 3 Barren + Schlacke.",
+                "Induction smelter (Thermal Expansion), by-product: ore (iron, gold, copper, tin, silver, lead, nickel, "
+                        + "also raw metal) + sand → 2 ingots + rich slag (5 %); pyrite ore + sand (10 %). Added to ore instead "
+                        + "of sand: 3 ingots + slag.",
+                "rich_slag");
     }
 }

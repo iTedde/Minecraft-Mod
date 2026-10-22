@@ -2176,9 +2176,22 @@ Spezifikation: `docs/spec/26-thermal-expansion.md`.
 - [x] 3 neue GameTests (Energie mit 25 % Verlust, Flüssigkeit inkl. privatem Kanal, Item inkl. Puffer), alle 428 grün;
   `gradlew test build` grün. Client-Test offen (mit 25.8).
 
+## Erledigt (25.8 EMI, Herkunft, Wiki, Paket, 2026-10-22)
+- [x] `compat/emi/TeEmiRecipes`: Kategorien Elektrischer Ofen, Pulverisierer, Sägewerk, Induktionsschmelze, Magmatiegel,
+  Umfüller Füllen/Entleeren (Nebenprodukte mit Chance), dazu Eisbereiter, Gesteinsextruder, Dampfmotor (Brennwerte nach
+  MJ gruppiert) und Magmamotor; Anzeige „x MJ · y s bei z MJ/t“. Macerator-Rückfall (GT `addPulverisationRecipe`) als
+  eigene Pulverisierer-/Sägewerk-Einträge, sofern es kein TE-Rezept gibt; Elektrischer Ofen als Werkstation der
+  Vanilla-Ofenkategorie; Info-Seite zu den Rückfällen. Neue Kategorie-IDs in `RecipeCategories`.
+- [x] TE-GUIs: Fortschrittspfeile öffnen die EMI-Kategorie (Umfüller je nach Modus), die Reiter sind EMI-
+  Ausschlussbereiche (`TeTabScreen implements ExtraAreas`).
+- [x] Herkunftstexte: Holzschnitzel, Sägemehl, Gepresstes Sägemehl, Schlacke, Reiche Schlacke (`SourceTextsTest`).
+- [x] Wiki: Seite „Thermal Expansion“ (Ursprungs-Mods), TE-Motoren im Energie-Steckbrief; neu erzeugt.
+- [x] `gradlew runData test build` grün, alle 428 GameTests grün.
+- [x] Version 0.4.6, CurseForge-Paket `releases/Craft-0.4.6-curseforge.zip` (16,5 MB, Mods wie 0.4.5).
+- Client-Smoke-Test: Client startete ohne Fehler, wurde aber vor dem Weltbeitritt beendet – EMI im Spiel noch ungeprüft.
+
 ## Nächste Schritte
 1. Prüfen: GT `addPulverisationRecipe` mit Nebenprodukten (Feuerstein, Enderperle, Enderauge, Weizen, Pflanzenkugel,
    Dichte Kupferplatte, Crop) – der Macerator-Rückfall in 25.2 liefert nur das Hauptprodukt.
-2. 25.8: EMI (TE-Rezeptkategorien), Herkunftstexte, Wiki, Client-Test 25.7/25.8 (Tesserakte: GUI, Namen speichern/
-   löschen, Zugriff privat mit zweitem Spieler, Multimeter, Modell/Kern, Energie/Flüssigkeit/Item über Dimensionen),
-   Version + Paket.
+2. Client-Test 25.7/25.8 durch den Nutzer (Tesserakte: GUI, Namen speichern/löschen, Zugriff privat mit zweitem
+   Spieler, Multimeter, Modell/Kern, Energie/Flüssigkeit/Item über Dimensionen; EMI-Kategorien und Pfeile der TE-GUIs).

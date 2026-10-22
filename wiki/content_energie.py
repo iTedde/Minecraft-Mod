@@ -182,6 +182,12 @@ def pages(h, stats):
     if 'electrical_engine' in blocks:
         engines.append([chip('electrical_engine'), '2 MJ/t aus 6 EU (mit Platinen bis 10 MJ/t)', 'EU (jede Spannung)',
                         num(blocks['electrical_engine']['mjMaxStored']) + ' MJ', 'keine Explosion, kühlt zwangsweise ab'])
+    # Thermal Expansion engines (spec 26 §6.1): no explosion, they break when the buffer is full
+    for iid, power, fuel, buffer in (('steam_engine', '0,2–2 MJ/t', 'feste Brennstoffe + Wasser', 2000),
+                                     ('magmatic_engine', '0,4–4 MJ/t', 'Lava (18 000 MJ je Eimer)', 4000)):
+        if iid in h.ITEMS:
+            engines.append([chip(iid), power, fuel, num(buffer) + ' MJ',
+                            'keine Explosion; bei vollem Puffer kaputt (Schraubenschlüssel repariert)'])
     mj = []
     for iid, b in blocks.items():
         if 'mj_receiver' not in b['kinds'] or b.get('mjMaxReceived', 0) <= 0 or 'transport_pipe' in iid \

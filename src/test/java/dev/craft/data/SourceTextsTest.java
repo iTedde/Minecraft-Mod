@@ -27,7 +27,7 @@ class SourceTextsTest {
             "ruby", "sapphire", "green_sapphire", "olivine", "red_garnet", "yellow_garnet", "industrial_diamond",
             "empty_cell", "coal_ball", "compressed_coal_ball", "coal_chunk", "carbon_fiber", "carbon_mesh", "coke",
             "coke_block", "ash", "dark_ash", "plant_ball", "compressed_plant_ball", "hydrated_coal_clump", "rubber",
-            "advanced_alloy", "fuel_bucket");
+            "advanced_alloy", "fuel_bucket", "wood_chips", "sawdust", "compressed_sawdust", "slag", "rich_slag");
 
     /** The unit tests may run in a run directory below the project; walk up to the project root. */
     private static Path projectDir() {

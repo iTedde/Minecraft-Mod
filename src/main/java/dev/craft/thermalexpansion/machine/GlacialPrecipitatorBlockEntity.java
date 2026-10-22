@@ -32,6 +32,16 @@ public class GlacialPrecipitatorBlockEntity extends SelectionMachineBlockEntity 
         super(TeBlockEntityTypes.GLACIAL_PRECIPITATOR.get(), TeMachineType.GLACIAL_PRECIPITATOR, pos, state);
     }
 
+    /** Water in mB used for product {@code selection}. */
+    public static int processWater(int selection) {
+        return PROCESS_WATER[selection];
+    }
+
+    /** Energy in MJ used for product {@code selection}. */
+    public static int processEnergy(int selection) {
+        return PROCESS_ENERGY[selection];
+    }
+
     /**
      * Room for the product: slot limit 64 and – an original quirk – the stack size of the product of the
      * <em>previous</em> selection.
