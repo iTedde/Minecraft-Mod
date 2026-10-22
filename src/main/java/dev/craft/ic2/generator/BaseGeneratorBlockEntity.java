@@ -20,6 +20,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.neoforge.items.IItemHandler;
 import org.jetbrains.annotations.Nullable;
 
 /**
@@ -203,6 +204,50 @@ public abstract class BaseGeneratorBlockEntity extends MachineBlockEntity implem
     @Override
     protected int getSlotForSide(Direction side) {
         return side == Direction.DOWN && inventory.getSlots() > 1 ? 1 : 0;
+    }
+
+    /**
+     * Top and sides of fuel generators sort inserted items: electric items into the charge slot, everything else into
+     * the fuel slot (deviation, see {@code abweichungen.md}). Extraction there stays limited to the charge slot.
+     */
+    @Override
+    public IItemHandler getItemHandler(@Nullable Direction side) {
+        if (side == null || side == Direction.DOWN || inventory.getSlots() < 2) {
+            return super.getItemHandler(side);
+        }
+        return new SortingHandler();
+    }
+
+    private class SortingHandler implements IItemHandler {
+        @Override
+        public int getSlots() {
+            return 2;
+        }
+
+        @Override
+        public ItemStack getStackInSlot(int slot) {
+            return inventory.getStackInSlot(slot);
+        }
+
+        @Override
+        public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
+            return isItemValid(slot, stack) ? inventory.insertItem(slot, stack, simulate) : stack;
+        }
+
+        @Override
+        public ItemStack extractItem(int slot, int amount, boolean simulate) {
+            return slot == 0 ? inventory.extractItem(0, amount, simulate) : ItemStack.EMPTY;
+        }
+
+        @Override
+        public int getSlotLimit(int slot) {
+            return inventory.getSlotLimit(slot);
+        }
+
+        @Override
+        public boolean isItemValid(int slot, ItemStack stack) {
+            return (slot == 0) == ElectricItems.isElectric(stack);
+        }
     }
 
     @Override
