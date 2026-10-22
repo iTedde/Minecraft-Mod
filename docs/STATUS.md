@@ -2211,3 +2211,6 @@ Spezifikation: `docs/spec/26-thermal-expansion.md`.
 - [ ] **Industrial Foregoing** (Nutzer, 2026-10-22): bisher weder im Mod noch im CurseForge-Paket; nicht Teil von
   FTB Ultimate 1.4.7. Zu entscheiden: (a) Original-Mod für 1.21.1/NeoForge + Titanium nur mitinstallieren (FE, nicht
   am EU-Netz) oder (b) ausgewählte Maschinen als eigene Phase mit EU nachbauen (Umfang klären).
+- [x] Nutzer, 2026-10-22: **Leaves Be Gone** (`LeavesBeGone-v21.1.1-1.21.1-NeoForge.jar`, Modrinth, SHA-1 geprüft;
+  schnellerer Blätterzerfall, braucht Puzzles Lib ≥ 21.1.7 – im Paket 21.1.64) in `overrides/mods` des 1.0.0-Pakets
+  ergänzt (21,3 MB); Kopie unter `X:/Craft/Craft-1.0.0-curseforge.zip`. Im Spiel noch ungeprüft.
