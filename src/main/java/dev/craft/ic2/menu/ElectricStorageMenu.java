@@ -10,8 +10,8 @@ import net.neoforged.neoforge.items.IItemHandler;
 import org.jetbrains.annotations.Nullable;
 
 /**
- * BatBox, MFE and MFSU (IC2 {@code ContainerElectricBlock}): charge and discharge slot. Button 0 cycles the
- * redstone mode (sent with the vanilla container button packet).
+ * BatBox, MFE and MFSU (IC2 {@code ContainerElectricBlock}): charge and discharge slot plus the player's armor slots.
+ * Button 0 cycles the redstone mode (sent with the vanilla container button packet).
  */
 public class ElectricStorageMenu extends MachineMenu<ElectricStorageBlockEntity> {
     public static final int BUTTON_REDSTONE_MODE = 0;
@@ -37,6 +37,10 @@ public class ElectricStorageMenu extends MachineMenu<ElectricStorageBlockEntity>
         IItemHandler items = items(storage, 2);
         addMachineSlot(new FilteredSlot(items, 0, 56, 17, SlotFilters.charge(tier)));
         addMachineSlot(new FilteredSlot(items, 1, 56, 53, SlotFilters.discharge(tier)));
+        // Not in IC2 1.4.7: the player's armor slots, so worn armor can be swapped with the charge slot directly.
+        for (int i = 0; i < ArmorSlot.ORDER.length; i++) {
+            addMachineSlot(new ArmorSlot(inventory.player, ArmorSlot.ORDER[i], 8, 8 + i * 18));
+        }
         addPlayerInventory(inventory);
     }
 
