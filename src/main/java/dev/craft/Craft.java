@@ -16,9 +16,15 @@ import dev.craft.redpower.RedPower;
 import dev.craft.thermalexpansion.ThermalExpansion;
 import dev.craft.ic2.Ic2;
 import dev.craft.mining.Mining;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.PackType;
+import net.minecraft.server.packs.repository.Pack;
+import net.minecraft.server.packs.repository.PackSource;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
+import net.neoforged.neoforge.event.AddPackFindersEvent;
 import org.slf4j.Logger;
 
 @Mod(Craft.MODID)
@@ -42,5 +48,18 @@ public final class Craft {
         ThermalExpansion.init(modBus);
         EnderStorage.init(modBus);
         CraftCreativeTabs.TABS.register(modBus);
+        modBus.addListener(Craft::addPackFinders);
+    }
+
+    /**
+     * Built-in data pack that replaces Create Encased's wooden shaft/cogwheel recipes, which clash with Create's
+     * cogwheel recipes (pack fix, user 2026-10-23); its recipes only load with Create Encased installed.
+     */
+    private static void addPackFinders(AddPackFindersEvent event) {
+        if (event.getPackType() == PackType.SERVER_DATA) {
+            event.addPackFinders(ResourceLocation.fromNamespaceAndPath(MODID, "packs/createcasing_fix"),
+                    PackType.SERVER_DATA, Component.literal("Craft: Create Encased recipe fix"), PackSource.BUILT_IN,
+                    true, Pack.Position.TOP);
+        }
     }
 }

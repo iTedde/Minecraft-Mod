@@ -2329,3 +2329,17 @@ Maschinenrezepte (Pressen, Mixen, Mahlen, Waschen, Sequenced Assembly, mechanisc
 - [x] Wiki: Hinweis + FAQ auf „Create – Überblick“.
 - **Client-Test offen:** Paket 1.0.3 in CurseForge importieren, Create-Item (z. B. Messingbarren, Eisenblech) in EMI → Rezept
   aus dem Mixer/der Presse muss erscheinen; nur eine Itemliste (EMI) sichtbar.
+
+## Erledigt (Paket 1.0.4: Rezeptkonflikte Create Encased ↔ Create, Nutzer, 2026-10-23)
+Befund (Nutzer): Zahnrad und Welle haben dasselbe Rezept. Automatischer Abgleich aller Werkbankrezepte der Instanz:
+**22 Konflikte**, alle Holzvarianten von Create Encased 1.10.0 – Welle + Brett (11 Holzarten) gegen Create
+`kinetics/cogwheel` (Welle + beliebiges Brett), Zahnrad + Brett gegen `kinetics/large_cogwheel_from_little`.
+Metallvarianten und große Zahnräder ohne Konflikt.
+- [x] Entscheidung Nutzer: **8 Wellen/Zahnräder um 1 Brett → 8 Stück**; Auslieferung im Craft-Mod.
+- [x] Craft 1.0.2: eingebautes, immer aktives Datenpaket `src/main/resources/packs/createcasing_fix` (Position oben,
+  `AddPackFindersEvent` in `Craft.java`) ersetzt die 22 Rezepte `createcasing:crafting/{shafts,cogwheels}/<holz>_manual_only`
+  (gleiche Zutaten/Ergebnisse, nur Form und Menge; Bedingung `mod_loaded createcasing`). Abgleich danach: 0 Konflikte.
+  GameTest `createEncasedFixPackIsActive`; alle 446 grün, `gradlew build` grün.
+- [x] `releases/craft-1.0.2.jar`, `releases/Craft-1.0.4-curseforge.zip` (wie 1.0.3, Craft 1.0.2 statt 1.0.1 – enthält damit
+  auch die Seitenregeln für Rohre/Trichter und die farbige Ender-Truhe aus 26.1). Wiki-Hinweis auf „Addons“.
+- **Client-Test offen** (Paket 1.0.4 importieren; 8 Wellen um ein Birkenbrett → 8 Birken-Wellen; Welle + Brett → Zahnrad).

@@ -141,6 +141,9 @@ Munition (Kugeln, Granaten, Pulverladungen) wird hergestellt und geladen. Achtun
 <h2 id="ca--bau">Bauteile und Deko</h2>
 <ul>
 <li><b>Create: Connected</b> – zusätzliche Getriebe-, Kupplungs- und Steuerblöcke. <b>Create Encased</b> – Wellen und Zahnräder in vielen Verkleidungen.</li>
+<li><b>Holz-Wellen und Holz-Zahnräder von Create Encased</b> (ab Paket 1.0.4): <b>8 Wellen bzw. 8 Zahnräder um 1 Brett</b> der Holzart →
+8 Stück. Das Original-Rezept (Welle + Brett) überschnitt sich mit Create (Welle + Brett = Zahnrad, Zahnrad + Brett = großes Zahnrad);
+Craft ersetzt es deshalb. Mit dem Einsetzer (Brett auf die Welle) geht es weiterhin einzeln.</li>
 <li><b>Copycats+</b> – Kopierblöcke: Block in der Hand auf den Kopierblock → er sieht aus wie dieser Block.</li>
 <li><b>New Furnitures</b> – Möbel im Create-Stil.</li>
 </ul>
