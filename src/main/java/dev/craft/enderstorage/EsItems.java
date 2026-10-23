@@ -11,6 +11,8 @@ public final class EsItems {
             properties -> new EnderStorageItem(EsBlocks.ENDER_CHEST.get(), properties));
     public static final DeferredItem<EnderPouchItem> ENDER_POUCH = ITEMS.registerItem("ender_pouch",
             EnderPouchItem::new);
+    public static final DeferredItem<EnderStorageItem> ENDER_TANK = ITEMS.registerItem("ender_storage_tank",
+            properties -> new EnderStorageItem(EsBlocks.ENDER_TANK.get(), properties));
 
     private EsItems() {
     }

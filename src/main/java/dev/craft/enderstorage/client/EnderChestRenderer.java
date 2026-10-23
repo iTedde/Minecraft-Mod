@@ -144,7 +144,7 @@ public class EnderChestRenderer implements BlockEntityRenderer<EnderChestBlockEn
     }
 
     /** A box with one texture area on every face. */
-    private static void box(PoseStack.Pose pose, VertexConsumer buffer, float x0, float y0, float z0, float x1,
+    static void box(PoseStack.Pose pose, VertexConsumer buffer, float x0, float y0, float z0, float x1,
                             float y1, float z1, float u0, float v0, float u1, float v1, int light, int overlay) {
         quad(pose, buffer, x0, y1, z0, x0, y1, z1, x1, y1, z1, x1, y1, z0, u0, v0, u1, v1, 0, 1, 0, light, overlay);
         quad(pose, buffer, x0, y0, z1, x0, y0, z0, x1, y0, z0, x1, y0, z1, u0, v0, u1, v1, 0, -1, 0, light, overlay);

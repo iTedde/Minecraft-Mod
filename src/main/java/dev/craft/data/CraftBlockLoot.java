@@ -74,12 +74,13 @@ public final class CraftBlockLoot extends BlockLootSubProvider {
         dropSelf(RpBlocks.PROJECT_TABLE.get());
         IronChestBlocks.BLOCKS.getEntries().forEach(chest -> dropSelf(chest.get()));
         // EnderStorage getBlockDropped: always itself with frequency and owner (spec 27 §2).
-        add(EsBlocks.ENDER_CHEST.get(), LootTable.lootTable().withPool(applyExplosionCondition(
-                EsBlocks.ENDER_CHEST.get(), LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
-                        .add(LootItem.lootTableItem(EsBlocks.ENDER_CHEST.get())
-                                .apply(CopyComponentsFunction.copyComponents(
-                                                CopyComponentsFunction.Source.BLOCK_ENTITY)
-                                        .include(EsDataComponents.FREQUENCY.get()))))));
+        for (Block ender : List.of(EsBlocks.ENDER_CHEST.get(), EsBlocks.ENDER_TANK.get())) {
+            add(ender, LootTable.lootTable().withPool(applyExplosionCondition(ender, LootPool.lootPool()
+                    .setRolls(ConstantValue.exactly(1.0F))
+                    .add(LootItem.lootTableItem(ender).apply(CopyComponentsFunction.copyComponents(
+                                    CopyComponentsFunction.Source.BLOCK_ENTITY)
+                            .include(EsDataComponents.FREQUENCY.get()))))));
+        }
         // Thermal Expansion (spec 26): ores and rockwool drop themselves, hardened glass only with silk touch.
         for (Block ore : List.of(TeBlocks.SILVER_ORE.get(), TeBlocks.DEEPSLATE_SILVER_ORE.get(), TeBlocks.LEAD_ORE.get(),
                 TeBlocks.DEEPSLATE_LEAD_ORE.get(), TeBlocks.NICKEL_ORE.get(), TeBlocks.DEEPSLATE_NICKEL_ORE.get())) {

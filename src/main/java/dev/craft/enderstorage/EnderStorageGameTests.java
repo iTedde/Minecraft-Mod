@@ -20,15 +20,19 @@ import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import net.neoforged.neoforge.gametest.GameTestHolder;
 import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
 import net.neoforged.neoforge.items.IItemHandler;
 
-/** EnderStorage ender chest (spec 27 §8). */
+/** EnderStorage ender chest, pouch and tank (spec 27 §8). */
 @GameTestHolder(Craft.MODID)
 @PrefixGameTestTemplate(false)
 public final class EnderStorageGameTests {
@@ -198,6 +202,143 @@ public final class EnderStorageGameTests {
                 "green/green/green");
         helper.assertTrue(craft(level, 1, 2, List.of(new ItemStack(Items.RED_DYE), pouch)).isEmpty(),
                 "no recolouring of pouches");
+        helper.succeed();
+    }
+
+    /** A tank facing north (valve towards -z) with {@code frequency}. */
+    private static EnderTankBlockEntity tank(GameTestHelper helper, BlockPos pos, Frequency frequency) {
+        helper.setBlock(pos, EsBlocks.ENDER_TANK.get().defaultBlockState()
+                .setValue(EnderTankBlock.FACING, Direction.NORTH));
+        EnderTankBlockEntity tank = helper.getBlockEntity(pos);
+        tank.setFrequency(frequency);
+        return tank;
+    }
+
+    private static IFluidHandler fluids(GameTestHelper helper, BlockPos pos) {
+        return helper.getLevel().getCapability(Capabilities.FluidHandler.BLOCK, helper.absolutePos(pos), Direction.UP);
+    }
+
+    private static void emptyStorage(GameTestHelper helper, Frequency frequency) {
+        EnderStorageData.get(helper.getLevel().getServer()).liquid(frequency).setFluid(FluidStack.EMPTY);
+    }
+
+    @GameTest(template = EMPTY)
+    public static void tanksShareLiquidOfTheirFrequency(GameTestHelper helper) {
+        Frequency frequency = Frequency.of(14, 4, 13);
+        emptyStorage(helper, frequency);
+        tank(helper, A, frequency);
+        tank(helper, B, frequency);
+        tank(helper, new BlockPos(5, 1, 1), Frequency.of(14, 4, 12));
+        chest(helper, new BlockPos(1, 1, 5), frequency);
+        int filled = fluids(helper, A).fill(new FluidStack(Fluids.WATER, 20_000), IFluidHandler.FluidAction.EXECUTE);
+        helper.assertValueEqual(filled, EnderLiquidStorage.CAPACITY, "16 buckets");
+        helper.assertValueEqual(fluids(helper, B).getFluidInTank(0).getAmount(), 16_000, "same colours share");
+        helper.assertTrue(fluids(helper, new BlockPos(5, 1, 1)).getFluidInTank(0).isEmpty(), "other colours not");
+        helper.assertValueEqual(fluids(helper, B).fill(new FluidStack(Fluids.LAVA, 1000),
+                IFluidHandler.FluidAction.EXECUTE), 0, "one liquid at a time");
+        helper.assertTrue(handler(helper, new BlockPos(1, 1, 5)).getStackInSlot(0).isEmpty(), "chests apart");
+        emptyStorage(helper, frequency);
+        helper.succeed();
+    }
+
+    @GameTest(template = EMPTY)
+    public static void bucketsFillAndEmptyTheTank(GameTestHelper helper) {
+        Frequency frequency = Frequency.of(2, 4, 6);
+        emptyStorage(helper, frequency);
+        tank(helper, A, frequency);
+        Player player = helper.makeMockPlayer(GameType.SURVIVAL);
+        player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.LAVA_BUCKET));
+        click(helper, A, player, 0.2, 0.5, 0.85);
+        helper.assertValueEqual(fluids(helper, A).getFluidInTank(0).getAmount(), 1000, "bucket emptied into the tank");
+        helper.assertTrue(player.getMainHandItem().is(Items.BUCKET), "empty bucket back");
+        click(helper, A, player, 0.2, 0.5, 0.85);
+        helper.assertTrue(fluids(helper, A).getFluidInTank(0).isEmpty(), "tank emptied into the bucket");
+        helper.assertTrue(player.getMainHandItem().is(Items.LAVA_BUCKET), "lava bucket");
+        helper.succeed();
+    }
+
+    @GameTest(template = EMPTY)
+    public static void redstonePressurePushesLiquid(GameTestHelper helper) {
+        Frequency source = Frequency.of(3, 6, 9);
+        Frequency target = Frequency.of(9, 6, 3);
+        emptyStorage(helper, source);
+        emptyStorage(helper, target);
+        tank(helper, new BlockPos(2, 1, 2), source);
+        tank(helper, new BlockPos(3, 1, 2), target);
+        fluids(helper, new BlockPos(2, 1, 2)).fill(new FluidStack(Fluids.WATER, 5000),
+                IFluidHandler.FluidAction.EXECUTE);
+        helper.setBlock(new BlockPos(1, 1, 2), Blocks.REDSTONE_BLOCK);
+        helper.runAfterDelay(5, () -> {
+            int moved = fluids(helper, new BlockPos(3, 1, 2)).getFluidInTank(0).getAmount();
+            helper.assertTrue(moved >= 300 && moved <= 600 && moved % 100 == 0, "100 mB per tick, got " + moved);
+            helper.assertValueEqual(moved + fluids(helper, new BlockPos(2, 1, 2)).getFluidInTank(0).getAmount(),
+                    5000, "nothing lost");
+            emptyStorage(helper, source);
+            emptyStorage(helper, target);
+            helper.succeed();
+        });
+    }
+
+    @GameTest(template = EMPTY)
+    public static void valveInvertsAndDiamondMakesTankPersonal(GameTestHelper helper) {
+        EnderTankBlockEntity tank = tank(helper, A, Frequency.of(7, 0, 7));
+        Player player = helper.makeMockPlayer(GameType.SURVIVAL);
+        click(helper, A, player, 0.49, 0.4, 0.9);
+        helper.assertTrue(tank.isInverted(), "valve knob inverts");
+        player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.DIAMOND));
+        click(helper, A, player, 0.49, 0.4, 0.9);
+        helper.assertTrue(tank.getFrequency().isPersonal(), "diamond on the valve");
+        helper.assertTrue(tank.isInverted(), "diamond does not turn the valve");
+        player.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
+        player.setShiftKeyDown(true);
+        click(helper, A, player, 0.49, 0.4, 0.9);
+        helper.assertFalse(tank.getFrequency().isPersonal(), "sneaking makes it global");
+        helper.assertTrue(player.getInventory().contains(new ItemStack(Items.DIAMOND)), "diamond back");
+        player.setShiftKeyDown(false);
+        player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.ORANGE_DYE));
+        // Left button: x 0.30–0.40 on top.
+        click(helper, A, player, 0.35, 0.96, 0.5);
+        helper.assertValueEqual(tank.getFrequency().colour(0), 1, "left button orange");
+        helper.assertValueEqual(tank.getFrequency().colour(2), 7, "right button unchanged");
+        helper.runAfterDelay(2, () -> {
+            helper.assertTrue(tank.hasPressure(), "inverted without redstone: pressure");
+            helper.succeed();
+        });
+    }
+
+    @GameTest(template = EMPTY)
+    public static void tankGlowsWithLavaAndDropsWithFrequency(GameTestHelper helper) {
+        Frequency frequency = Frequency.of(1, 14, 1);
+        emptyStorage(helper, frequency);
+        EnderTankBlockEntity tank = tank(helper, A, frequency);
+        fluids(helper, A).fill(new FluidStack(Fluids.LAVA, 1000), IFluidHandler.FluidAction.EXECUTE);
+        helper.runAfterDelay(2, () -> {
+            helper.assertValueEqual(helper.getBlockState(A).getValue(EnderTankBlock.LIGHT), 15, "lava light");
+            ServerLevel level = helper.getLevel();
+            BlockPos absolute = helper.absolutePos(A);
+            List<ItemStack> drops = Block.getDrops(level.getBlockState(absolute), level, absolute, tank, null,
+                    ItemStack.EMPTY);
+            helper.assertTrue(drops.size() == 1 && drops.get(0).is(EsItems.ENDER_TANK.get())
+                    && frequency.equals(drops.get(0).get(EsDataComponents.FREQUENCY.get())), "drops itself");
+            emptyStorage(helper, frequency);
+            helper.succeed();
+        });
+    }
+
+    @GameTest(template = EMPTY)
+    public static void tankRecipes(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        ItemStack tank = craft(level, 3, 3, List.of(
+                new ItemStack(Items.BLAZE_ROD), new ItemStack(Items.CYAN_WOOL), new ItemStack(Items.BLAZE_ROD),
+                new ItemStack(Items.OBSIDIAN), new ItemStack(Items.CAULDRON), new ItemStack(Items.OBSIDIAN),
+                new ItemStack(Items.BLAZE_ROD), new ItemStack(Items.ENDER_PEARL), new ItemStack(Items.BLAZE_ROD)));
+        helper.assertTrue(tank.is(EsItems.ENDER_TANK.get()), "base recipe");
+        helper.assertValueEqual(tank.get(EsDataComponents.FREQUENCY.get()).colours(), Frequency.of(9, 9, 9).colours(),
+                "cyan/cyan/cyan");
+        ItemStack recoloured = craft(level, 1, 2, List.of(new ItemStack(Items.BLACK_DYE), tank));
+        helper.assertTrue(recoloured.is(EsItems.ENDER_TANK.get()), "still a tank");
+        helper.assertValueEqual(recoloured.get(EsDataComponents.FREQUENCY.get()).colours(),
+                Frequency.of(9, 15, 9).colours(), "middle black");
         helper.succeed();
     }
 

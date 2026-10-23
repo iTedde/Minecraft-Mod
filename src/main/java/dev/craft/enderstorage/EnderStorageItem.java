@@ -10,7 +10,7 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.block.Block;
 
 /**
- * EnderStorage {@code ItemEnderStorage}: the chest (and later the tank) with its frequency. Tooltip: the owner as in
+ * EnderStorage {@code ItemEnderStorage}: the chest or the tank with its frequency. Tooltip: the owner as in
  * the original, plus the three colours so it can be told apart from the vanilla ender chest (user, 2026-10-23).
  */
 public class EnderStorageItem extends BlockItem {

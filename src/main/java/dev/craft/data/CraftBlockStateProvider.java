@@ -186,6 +186,8 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
         // Ender chest: block entity renderer, obsidian particles (BlockEnderStorage blockIndexInTexture).
         simpleBlock(EsBlocks.ENDER_CHEST.get(), models().getBuilder("ender_storage_chest")
                 .texture("particle", mcLoc("block/obsidian")));
+        simpleBlock(EsBlocks.ENDER_TANK.get(), models().getBuilder("ender_storage_tank")
+                .texture("particle", mcLoc("block/obsidian")));
     }
 
     private void quarry() {

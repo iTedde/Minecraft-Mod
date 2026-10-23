@@ -6,6 +6,8 @@ import dev.craft.enderstorage.EsDataComponents;
 import dev.craft.enderstorage.EsItems;
 import dev.craft.enderstorage.EsMenus;
 import dev.craft.enderstorage.Frequency;
+import dev.craft.enderstorage.TankSynchroniser;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
@@ -14,6 +16,8 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.neoforge.client.event.ClientPlayerNetworkEvent;
+import net.neoforged.neoforge.client.event.ClientTickEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
@@ -57,6 +61,7 @@ public final class EnderStorageClient {
     @SubscribeEvent
     public static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerBlockEntityRenderer(EsBlockEntityTypes.ENDER_CHEST.get(), EnderChestRenderer::new);
+        event.registerBlockEntityRenderer(EsBlockEntityTypes.ENDER_TANK.get(), EnderTankRenderer::new);
     }
 
     @SubscribeEvent
@@ -72,5 +77,35 @@ public final class EnderStorageClient {
                 return renderer;
             }
         }, EsItems.ENDER_CHEST.get());
+        event.registerItem(new IClientItemExtensions() {
+            private BlockEntityWithoutLevelRenderer renderer;
+
+            @Override
+            public BlockEntityWithoutLevelRenderer getCustomRenderer() {
+                if (renderer == null) {
+                    renderer = new EnderTankRenderer.ItemRenderer();
+                }
+                return renderer;
+            }
+        }, EsItems.ENDER_TANK.get());
+    }
+
+    /** {@code TankSynchroniser} client side: liquids of tank items glide, visible frequencies go to the server. */
+    @EventBusSubscriber(modid = Craft.MODID, value = Dist.CLIENT)
+    public static final class GameEvents {
+        private GameEvents() {
+        }
+
+        @SubscribeEvent
+        public static void clientTick(ClientTickEvent.Post event) {
+            if (Minecraft.getInstance().getConnection() != null && Minecraft.getInstance().level != null) {
+                TankSynchroniser.clientTick();
+            }
+        }
+
+        @SubscribeEvent
+        public static void loggingOut(ClientPlayerNetworkEvent.LoggingOut event) {
+            TankSynchroniser.clientReset();
+        }
     }
 }

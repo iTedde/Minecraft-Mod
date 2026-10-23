@@ -2352,6 +2352,13 @@ Metallvarianten und große Zahnräder ohne Konflikt.
 - [x] 16 Rezepte (`blb/lpl/bWb`: Lohenstaub, Leder, Enderperle, Wolle i → i/i/i); kein Umfärbe-Rezept (wie Original).
 - [x] GameTests `pouchTakesChestFrequencyAndOpensItsStorage`, `pouchRecipe`; alle 448 grün. **Client-Test offen.**
 
+## Erledigt (26.3 Ender Tank, 2026-10-23)
+- [x] Block/Block-Entity `craft:ender_storage_tank` (Härte 20, droppt sich mit Frequenz, Blockstate `level` = Licht der Flüssigkeit), Speicher `EnderLiquidStorage` (16 000 mB, Schlüssel `…|liquid` in `EnderStorageData`), Fluid-Capability jede Seite. Klicks: Behälter füllen/leeren (Korpus, Knöpfe ohne Farbstoff), Farbstoff auf Knopf, Ventilknauf invertiert, Diamant/Schleichen auf dem Knauf wie das Truhenschloss.
+- [x] Druckventil: Redstone XOR invertiert → je Tick bis 100 mB an jede Nachbarseite mit Fluid-Handler.
+- [x] Darstellung: Original-OBJ + Textur, Knöpfe, Ventil dreht sich, Endportal-Boden, Perle, gleitende Flüssigkeit; Item zeigt die Flüssigkeit seines Speichers (`TankSynchroniser` mit Payloads).
+- [x] 16 Rezepte (`bWb/OCO/bpb` mit Kessel), Umfärben über das bestehende Rezept; Lang „Ender-Tank“.
+- [x] GameTests (6 neu, u. a. Teilen, Eimer, Druck 100 mB/Tick, Ventil/Diamant/Farbstoff, Licht/Drop, Rezepte); alle 454 grün, `gradlew build` grün. **Client-Test offen** (Modell/Ausrichtung, Ventil-Klick, Flüssigkeit im Block und in der Hand, Leuchten mit Lava).
+
 ## Erledigt (Turbinengehäuse ×6, Nutzer, 2026-10-23)
 Nutzerwunsch: „Bei Turbine Casing mach, dass man wenigstens 6 Stück sofort draus kriegt. Ist sonst sehr teuer.“
 - [x] Rezept Turbinengehäuse (Dampfturbine) `PPP/PMP/PPP` ergibt **6** statt 4 (`spec/14` §Rezepte, Wiki).

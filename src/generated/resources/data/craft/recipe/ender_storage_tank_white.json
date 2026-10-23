@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "minecraft:cauldron"
+    },
+    "O": {
+      "item": "minecraft:obsidian"
+    },
+    "W": {
+      "item": "minecraft:white_wool"
+    },
+    "b": {
+      "item": "minecraft:blaze_rod"
+    },
+    "p": {
+      "item": "minecraft:ender_pearl"
+    }
+  },
+  "pattern": [
+    "bWb",
+    "OCO",
+    "bpb"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:ender_storage_tank"
+  }
+}

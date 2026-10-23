@@ -146,6 +146,7 @@ public final class CraftItemModelProvider extends ItemModelProvider {
             engine(IronChestItems.chest(type));
         }
         engine(EsItems.ENDER_CHEST);
+        engine(EsItems.ENDER_TANK);
         // Ender pouch: base (global/personal) plus three tinted colour bands.
         ItemModelBuilder pouchPersonal = pouch("ender_pouch_personal", "ender_pouch_personal");
         pouch(EsItems.ENDER_POUCH.getId().getPath(), "ender_pouch").override()

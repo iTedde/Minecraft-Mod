@@ -81,14 +81,14 @@ public class EnderChestBlock extends BaseEntityBlock {
         return facing.get2DDataValue();
     }
 
-    private static AABB toWorld(AABB box, Direction facing) {
+    static AABB toWorld(AABB box, Direction facing) {
         Vec3 a = turn(new Vec3(box.minX, box.minY, box.minZ), rotation(facing));
         Vec3 b = turn(new Vec3(box.maxX, box.maxY, box.maxZ), rotation(facing));
         return new AABB(a, b);
     }
 
     /** {@code rotateMeta}: {@code turns} quarter turns of -90° around the block's vertical axis. */
-    private static Vec3 turn(Vec3 point, int turns) {
+    static Vec3 turn(Vec3 point, int turns) {
         double x = point.x - 0.5;
         double z = point.z - 0.5;
         for (int i = 0; i < turns; i++) {

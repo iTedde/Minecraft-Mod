@@ -14,9 +14,11 @@ import net.minecraft.world.level.saveddata.SavedData;
  */
 public class EnderStorageData extends SavedData {
     public static final String ITEM = "item";
+    public static final String LIQUID = "liquid";
     private static final String ID = "craft_enderstorage";
 
     private final Map<String, EnderItemStorage> items = new HashMap<>();
+    private final Map<String, EnderLiquidStorage> liquids = new HashMap<>();
     /** Saved storages not asked for yet; loaded on first access, since the registries come with the tag. */
     private final CompoundTag pending = new CompoundTag();
     private HolderLookup.Provider registries;
@@ -31,12 +33,34 @@ public class EnderStorageData extends SavedData {
         String key = frequency.key(ITEM);
         return items.computeIfAbsent(key, k -> {
             EnderItemStorage storage = new EnderItemStorage(this);
-            if (pending.contains(k) && registries != null) {
-                storage.load(pending.getCompound(k), registries);
-                pending.remove(k);
+            CompoundTag saved = takePending(k);
+            if (saved != null) {
+                storage.load(saved, registries);
             }
             return storage;
         });
+    }
+
+    /** {@code getStorage(owner, freq, "liquid")}: created on first use. */
+    public EnderLiquidStorage liquid(Frequency frequency) {
+        String key = frequency.key(LIQUID);
+        return liquids.computeIfAbsent(key, k -> {
+            EnderLiquidStorage storage = new EnderLiquidStorage(this);
+            CompoundTag saved = takePending(k);
+            if (saved != null) {
+                storage.readFromNBT(registries, saved.getCompound("tank"));
+            }
+            return storage;
+        });
+    }
+
+    private CompoundTag takePending(String key) {
+        if (!pending.contains(key) || registries == null) {
+            return null;
+        }
+        CompoundTag saved = pending.getCompound(key);
+        pending.remove(key);
+        return saved;
     }
 
     private static EnderStorageData load(CompoundTag tag, HolderLookup.Provider registries) {
@@ -56,6 +80,13 @@ public class EnderStorageData extends SavedData {
         items.forEach((key, storage) -> {
             if (!storage.isEmpty()) {
                 tag.put(key, storage.save(registries));
+            }
+        });
+        liquids.forEach((key, storage) -> {
+            if (!storage.isEmpty()) {
+                CompoundTag compound = new CompoundTag();
+                compound.put("tank", storage.writeToNBT(registries, new CompoundTag()));
+                tag.put(key, compound);
             }
         });
         return tag;

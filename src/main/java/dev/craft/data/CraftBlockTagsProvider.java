@@ -81,7 +81,7 @@ public final class CraftBlockTagsProvider extends BlockTagsProvider {
         }
         tag(BlockTags.MINEABLE_WITH_PICKAXE).add(RpBlocks.PROJECT_TABLE.get());
         IronChestBlocks.BLOCKS.getEntries().forEach(chest -> tag(BlockTags.MINEABLE_WITH_PICKAXE).add(chest.get()));
-        tag(BlockTags.MINEABLE_WITH_PICKAXE).add(EsBlocks.ENDER_CHEST.get());
+        tag(BlockTags.MINEABLE_WITH_PICKAXE).add(EsBlocks.ENDER_CHEST.get(), EsBlocks.ENDER_TANK.get());
         tag(BlockTags.MINEABLE_WITH_PICKAXE).add(Ic2Blocks.MACHINE_CASING.get(),
                 Ic2Blocks.ADVANCED_MACHINE_CASING.get(), Ic2Blocks.TIN_ORE.get(), Ic2Blocks.DEEPSLATE_TIN_ORE.get(), Ic2Blocks.TIN_BLOCK.get(), Ic2Blocks.BRONZE_BLOCK.get(),
                 Ic2Blocks.IRON_FENCE.get());

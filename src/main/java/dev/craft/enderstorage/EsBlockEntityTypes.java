@@ -15,6 +15,10 @@ public final class EsBlockEntityTypes {
     public static final Supplier<BlockEntityType<EnderChestBlockEntity>> ENDER_CHEST =
             BLOCK_ENTITY_TYPES.register("ender_storage_chest", () -> BlockEntityType.Builder.of(
                     EnderChestBlockEntity::new, EsBlocks.ENDER_CHEST.get()).build(null));
+    @SuppressWarnings("DataFlowIssue")
+    public static final Supplier<BlockEntityType<EnderTankBlockEntity>> ENDER_TANK =
+            BLOCK_ENTITY_TYPES.register("ender_storage_tank", () -> BlockEntityType.Builder.of(
+                    EnderTankBlockEntity::new, EsBlocks.ENDER_TANK.get()).build(null));
 
     private EsBlockEntityTypes() {
     }

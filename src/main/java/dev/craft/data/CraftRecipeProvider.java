@@ -2697,6 +2697,14 @@ public final class CraftRecipeProvider extends RecipeProvider {
                     .define('C', Items.CHEST).define('p', Items.ENDER_PEARL)
                     .unlockedBy("has_ender_pearl", has(Items.ENDER_PEARL))
                     .save(output, id("ender_storage_chest_" + colour.getName()));
+            ItemStack tank = new ItemStack(EsItems.ENDER_TANK.get());
+            tank.set(EsDataComponents.FREQUENCY.get(), Frequency.of(i, i, i));
+            ShapedRecipeBuilder.shaped(RecipeCategory.MISC, tank)
+                    .pattern("bWb").pattern("OCO").pattern("bpb")
+                    .define('b', Items.BLAZE_ROD).define('W', woolOf(colour)).define('O', Items.OBSIDIAN)
+                    .define('C', Items.CAULDRON).define('p', Items.ENDER_PEARL)
+                    .unlockedBy("has_ender_pearl", has(Items.ENDER_PEARL))
+                    .save(output, id("ender_storage_tank_" + colour.getName()));
             ItemStack pouch = new ItemStack(EsItems.ENDER_POUCH.get());
             pouch.set(EsDataComponents.FREQUENCY.get(), Frequency.of(i, i, i));
             ShapedRecipeBuilder.shaped(RecipeCategory.MISC, pouch)

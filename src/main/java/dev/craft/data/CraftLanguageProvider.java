@@ -474,6 +474,7 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
         add("container.craft.ender_chest", german ? "Ender-Truhe" : "Ender Chest");
         item(EsItems.ENDER_POUCH, german ? "Enderbeutel" : "Ender Pouch");
         add("container.craft.ender_pouch", german ? "Enderbeutel" : "Ender Pouch");
+        item(EsItems.ENDER_TANK, german ? "Ender-Tank" : "Ender Tank");
         add("tooltip.craft.ender_frequency", german ? "Farben: %s / %s / %s" : "Colours: %s / %s / %s");
     }
 

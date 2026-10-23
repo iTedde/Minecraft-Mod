@@ -107,6 +107,9 @@ Ein Rechtsklick wird auf Teil-Hitboxen ausgewertet (`addTraceableCuboids`, `subH
 - NBT des Block-Entitys: `freq`, `owner`, `rot`, `ir`.
 - Modell: `endertank.obj` mit `endertanktex.png` (Glaskörper, Flüssigkeit sichtbar, drei Farbknöpfe oben, Knauf
   vorne); `hedronmap.png` = Textur des schwebenden Ender-Kerns im Tank.
+- Auswahlquader (Original, Ventil vorne wie gezeichnet): Korpus (0,15; 0; 0,15)–(0,85; 0,916; 0,85), Knöpfe `selection_button` × 0,8 bei x 0,35/0,5/0,65, y 0,91–0,96, z 0,4–0,6 (Knopf 1 links vom Ventil aus gesehen), Ventilknauf (0,358; 0,268)–(0,662; 0,565), Tiefe 0,1 an der Vorderseite. Behälter wirken auch auf den Knöpfen, wenn kein Farbstoff in der Hand ist (`activate` mit subHit 1–3).
+- Darstellung (`EnderTankRenderer`): OBJ mit `SwapYZ`, verschoben um (−0,5099; 0; −0,5027), gedreht um −90°·(rot + 2); Ventil dreht um die z-Achse durch y 0,4165 (Druck −90°, sonst 90°, `approachExp` 0,5/Tick, max. 20°), persönlich: Textur-v + 0,203125; Endportal-Boden y 0,1205 (0,24–0,76); Perle y 0,45 + 2·Wippen; Flüssigkeit (0,22; 0,12; 0,22)–(0,78; 0,121 + 0,63·Füllung; 0,78).
+- Synchronisation (`TankState`): Server sendet bei anderer Flüssigkeit, leerem Tank oder > 250 mB Abweichung; Client nähert sich mit 10 %/Tick an, bei Sortenwechsel läuft die alte Flüssigkeit erst aus.
 - `TankSynchroniser`: hält die Füllanzeige der Tank-Blöcke und der Tank-Items in Spielerhand beim Client aktuell
   (nur Darstellung).
 

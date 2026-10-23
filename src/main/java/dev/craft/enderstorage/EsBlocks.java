@@ -15,6 +15,9 @@ public final class EsBlocks {
     public static final DeferredBlock<EnderChestBlock> ENDER_CHEST = BLOCKS.register("ender_storage_chest",
             () -> new EnderChestBlock(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).strength(20.0F, 60.0F)
                     .sound(SoundType.STONE).noOcclusion()));
+    public static final DeferredBlock<EnderTankBlock> ENDER_TANK = BLOCKS.register("ender_storage_tank",
+            () -> new EnderTankBlock(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).strength(20.0F, 60.0F)
+                    .sound(SoundType.STONE).noOcclusion()));
 
     private EsBlocks() {
     }

@@ -1,0 +1,35 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "minecraft:cauldron"
+    },
+    "O": {
+      "item": "minecraft:obsidian"
+    },
+    "W": {
+      "item": "minecraft:magenta_wool"
+    },
+    "b": {
+      "item": "minecraft:blaze_rod"
+    },
+    "p": {
+      "item": "minecraft:ender_pearl"
+    }
+  },
+  "pattern": [
+    "bWb",
+    "OCO",
+    "bpb"
+  ],
+  "result": {
+    "components": {
+      "craft:ender_frequency": {
+        "colours": 546
+      }
+    },
+    "count": 1,
+    "id": "craft:ender_storage_tank"
+  }
+}
