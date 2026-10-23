@@ -2305,3 +2305,16 @@ Besitzerprüfung).
 - [x] Rezepte: 16 Grundrezepte (Wollfarbe i → i/i/i), Umfärbe-Rezept `craft:ender_storage_recolour`; Kreativtab
   „Craft: EnderStorage“; Texturen aus dem Jar.
 - [x] GameTests `EnderStorageGameTests` (6); alle 445 grün. **Client-Test offen.**
+
+## Erledigt (Wiki: Create & Paket-Mods, Nutzer, 2026-10-23)
+Nutzerwunsch: Wiki für Create aktualisieren, Create soll im Spiel laufen. Entscheidung: Überblick + Einstieg je
+Mod-Gruppe, Details über Ponder/EMI im Spiel.
+- [x] Neue Wiki-Gruppe „Create & Paket-Mods“ (`wiki/content_create.py`): Überblick (Mods im Paket, Zusammenspiel mit
+  Craft, Leistung/Grafik, FAQ), Erste Schritte (Create-Grundlagen bis Messing/Dampfmaschine, Automatisierung),
+  Addons (Aeronautics/Sable, Steam 'n' Rails, Big Cannons, Crafts & Additions, Diesel Generators, Bauteile,
+  Extruder/Ore Excavation, AE2/Applied Kinetics, Ad Astra, Industrial Foregoing). Wiki neu erzeugt (68 Seiten).
+- [x] Log der CurseForge-Instanz „Craft (1)“ (Paket 1.0.2, Sitzung 2026-10-23 16:04–20:05) geprüft: Client läuft
+  stabil mit Create & Addons. Einzige Fehler: Copycats+-EMI-Anbindung (`UnsupportedOperationException` beim
+  Aktualisieren der Item-Liste, harmlos), Sable-Tag für `copycats:copycat_catwalk`, fehlende Blockstate-Varianten von
+  Propulsion. **Flywheel fällt mit aktiven Iris-Shadern auf „off“ zurück** (langsamere Create-Darstellung) – im Wiki
+  erklärt (Shader für große Anlagen aus).
