@@ -2219,9 +2219,11 @@ merkten Rohre ein Umstellen der Seitenkonfiguration nicht (keine Nachbaränderun
   Build grün, Client-Test offen.
 
 ## Ausstehend (Nutzerwünsche)
-- [ ] **Industrial Foregoing** (Nutzer, 2026-10-22): bisher weder im Mod noch im CurseForge-Paket; nicht Teil von
-  FTB Ultimate 1.4.7. Zu entscheiden: (a) Original-Mod für 1.21.1/NeoForge + Titanium nur mitinstallieren (FE, nicht
-  am EU-Netz) oder (b) ausgewählte Maschinen als eigene Phase mit EU nachbauen (Umfang klären).
+- [x] **Industrial Foregoing** (Nutzer, 2026-10-22; entschieden 2026-10-23: **(a) nur mitinstallieren**, FE, nicht am
+  EU-Netz, keine eigene Integration): Industrial Foregoing 3.6.38 (CurseForge 266515, Datei 7600395) + Titanium 4.0.43
+  (287342, Datei 7951516) per `manifest.json` `files` ab dem nächsten Paket. Mit Craft im Dev-Server geprüft: lädt
+  ohne Fehler, 429 von 430 GameTests grün – `safebelongstofirstuser` scheitert nur, weil Titanium beim Login des
+  Test-Spielers (ohne Verbindung) ein Paket sendet; im normalen Dev-Lauf ohne Titanium unverändert grün.
 - [x] Nutzer, 2026-10-22: **Leaves Be Gone** (`LeavesBeGone-v21.1.1-1.21.1-NeoForge.jar`, Modrinth, SHA-1 geprüft;
   schnellerer Blätterzerfall, braucht Puzzles Lib ≥ 21.1.7 – im Paket 21.1.64) in `overrides/mods` des 1.0.0-Pakets
   ergänzt (21,3 MB); Kopie unter `X:/Craft/Craft-1.0.0-curseforge.zip`. Im Spiel noch ungeprüft.
