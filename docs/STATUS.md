@@ -2285,3 +2285,12 @@ Befund: Ein Item-Rohr an der Seite des Recyclers füllte den Ausgabe-Slot – IC
   (`abweichungen.md`).
 - [x] GameTests `SideAccessGameTests` (7) + `openSideDoesNotFillOutput`; alle 439 grün. Client-Test offen.
 - Automatische Werkbank geprüft: wie im Original ohne Strom, craftet nur beim Herausziehen durch ein Holz-/Smaragdrohr.
+
+## Erledigt (26.0 Spezifikation EnderStorage, Nutzer, 2026-10-23)
+Nutzerwunsch: farbig markierbare Endertruhen, damit man mehrere getrennte nutzen kann. EnderStorage 1.4.1.5 ist im Pack
+(`ftb ultimate/mods/EnderStorage.jar`); dekompiliert nach `reference/decompiled/enderstorage/` (Vineflower).
+Entschieden: kompletter Umfang wie im Pack, Vanilla-Endertruhe bleibt nutzbar.
+- [x] `docs/spec/27-enderstorage.md` (Frequenz/Besitzer, Block, Truhe, Beutel, Tank, Rezepte, Abweichungen, Tests,
+  Teilphasen 26.1–26.4).
+- Offen zur Freigabe (§9): Namen neben der Vanilla-Endertruhe; Entsperren persönlicher Truhen ohne Besitzerprüfung
+  (Original) übernehmen?

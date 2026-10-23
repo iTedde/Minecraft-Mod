@@ -42,6 +42,7 @@ Vanilla-Klassen/-Felder tragen lesbare Namen (`Block.cobblestone`, `Item.redston
 | `24-herkunft.md` | Herkunft aller Rohstoffe erklären: Herkunftstexte (EMI-Info, Tooltip, Wiki), Umfang, Teilphasen (Phase 23) |
 | `25-advanced-machines.md` | Advanced Machines 4.7b: Rotations-Macerator, Singularitätskompressor, Zentrifugalextraktor, Raffinierter Eisenstaub (Phase 24) |
 | `26-thermal-expansion.md` | Thermal Expansion 2.2.2.2: Entscheidungen, Inhalt, Materialzuordnung, Silber-/Blei-/Nickelerz, Maschinenbasis (MJ), Rezepte, Energie/Transport, Teilphasen (Phase 25) |
+| `27-enderstorage.md` | EnderStorage 1.4.1.5: Ender Chest, Ender Pouch, Ender Tank mit 3-Farben-Frequenz und persönlichem Schloss, Rezepte, Teilphasen (Phase 26) |
 
 Ergänzend: `docs/balancing.md` (Vorschlag, nicht freigegeben), `docs/abweichungen.md`.
 
