@@ -2359,6 +2359,14 @@ Metallvarianten und große Zahnräder ohne Konflikt.
 - [x] 16 Rezepte (`bWb/OCO/bpb` mit Kessel), Umfärben über das bestehende Rezept; Lang „Ender-Tank“.
 - [x] GameTests (6 neu, u. a. Teilen, Eimer, Druck 100 mB/Tick, Ventil/Diamant/Farbstoff, Licht/Drop, Rezepte); alle 454 grün, `gradlew build` grün. **Client-Test offen** (Modell/Ausrichtung, Ventil-Klick, Flüssigkeit im Block und in der Hand, Leuchten mit Lava).
 
+## Erledigt (26.4 EMI, Herkunft, Wiki, Paket, 2026-10-23)
+- [x] `compat/emi/EnderStorageEmiRecipes`: Umfärbe-Rezept als Beispiel-Werkbankrezept für Truhe und Tank (EMI listet Spezialrezepte nicht), Info-Seiten Ender-Truhe/-Tank/-Beutel (Knöpfe, Diamantschloss, Druckventil); die 16 Grundrezepte je Item zeigt EMI ohnehin.
+- [x] Herkunft: keine neuen Rohstoffe (alle EnderStorage-Items haben Rezepte aus Vanilla-Zutaten).
+- [x] Wiki: Gruppe „EnderStorage“, Seite „EnderStorage“ (Ursprungs-Mods: Farben, persönlich, Tank/Druckventil); neu erzeugt (DE + EN-Namen).
+- [x] `gradlew runData test build` grün, alle 454 GameTests grün.
+- [x] Craft **1.0.3** (`releases/craft-1.0.3.jar`), Paket `releases/Craft-1.0.5-curseforge.zip` (wie 1.0.4, Craft 1.0.3 statt 1.0.2; 8,6 MB).
+- **Client-Test offen** (26.1–26.4 gesammelt): Ender-Truhe (Farbknöpfe, Deckel öffnet bei allen Truhen derselben Farben, Diamantschloss), Enderbeutel (Darstellung der Bänder, Farben übernehmen), Ender-Tank (Modell/Ausrichtung, Ventil-Klick und -Drehung, Füllstand im Block und in der Hand, Leuchten mit Lava, Druck mit Redstone), EMI (Umfärbe-Beispiel, Info-Seiten).
+
 ## Erledigt (Turbinengehäuse ×6, Nutzer, 2026-10-23)
 Nutzerwunsch: „Bei Turbine Casing mach, dass man wenigstens 6 Stück sofort draus kriegt. Ist sonst sehr teuer.“
 - [x] Rezept Turbinengehäuse (Dampfturbine) `PPP/PMP/PPP` ergibt **6** statt 4 (`spec/14` §Rezepte, Wiki).

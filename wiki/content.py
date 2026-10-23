@@ -936,6 +936,33 @@ gehen aber bei vollem Puffer kaputt – der Schraubenschlüssel repariert sie. B
 <li>Redstone-Energieleitung (500 MJ je Knoten, 5 % Verlust), Liquiduct, {c('multimeter')} zum Messen.</li>
 <li>Tesserakte (Energie, Flüssigkeit, Item): gleiche <b>Frequenz</b> verbindet sie, auch über Dimensionen; öffentlich oder privat. Energie kommt mit 25 % Verlust an.</li></ul>''')
 
+    modpage('mod-enderstorage', 'EnderStorage', 'craft:ender_pouch',
+            'EnderStorage 1.4.1.5 aus dem Pack: <b>Ender-Truhe</b>, <b>Enderbeutel</b> und <b>Ender-Tank</b> mit einer '
+            '<b>Frequenz aus drei Farben</b>. Alles mit denselben drei Farben teilt sich einen Speicher – über beliebige '
+            'Entfernungen und Dimensionen. Truhen und Beutel teilen 27 Plätze, Tanks 16 000 mB einer Flüssigkeit; Truhen und '
+            'Tanks gleicher Farbe sind getrennt. Die Vanilla-Endertruhe bleibt daneben normal nutzbar (deutsch heißt die neue '
+            '„Ender-Truhe (farbig)“).',
+            [('Version (Vorlage)', '1.4.1.5'), ('Frequenzen', '16 × 16 × 16 = 4 096, je global oder persönlich'),
+             ('Truhe', '27 Plätze'), ('Tank', '16 000 mB'), ('Paket', 'Kreativ-Tab „Craft: EnderStorage“')],
+            [('spec-27', '27 – EnderStorage')],
+            f'''<h2 id="mod-enderstorage--farben">Farben einstellen</h2>
+<ul><li>Das Grundrezept gibt drei gleiche Farben (Farbe der Wolle in der Mitte oben): Truhe mit {v('minecraft:chest', 'Truhe')},
+Tank mit {v('minecraft:cauldron', 'Kessel')} (jeweils Lohenruten, Obsidian, Enderperle); Beutel aus Lohenstaub, Leder, Enderperle und Wolle.</li>
+<li><b>Farbstoff auf einen der drei Knöpfe</b> (auf dem Deckel bzw. oben auf dem Tank) ändert genau diese Farbe; Knopf 1 ist links,
+von vorne gesehen. In der Werkbank: Farbstoffe in die Zeile über die Truhe/den Tank legen, jede Spalte setzt ihre Farbe.</li>
+<li>Der <b>Enderbeutel</b> übernimmt per Schleichen + Rechtsklick die Farben einer Ender-Truhe (nicht vom Tank) und öffnet dann
+deren Inhalt von überall.</li></ul>
+<h2 id="mod-enderstorage--persoenlich">Persönlich</h2>
+<p>Ein <b>Diamant</b> auf das Schloss der Truhe (beim Tank: Ventilknauf vorne) macht sie persönlich – eigener Speicher nur für
+dich, das Schloss wird zum Diamantschloss. Schleichen + Rechtsklick mit leerer Hand macht sie wieder global und gibt den Diamanten
+zurück.</p>
+{h.note('warn', 'Wie im Original prüft das Entsperren nicht, wem die Truhe gehört: jeder kann eine persönliche Truhe so wieder global machen (und an den Diamanten kommen).')}
+<h2 id="mod-enderstorage--tank">Ender-Tank</h2>
+<ul><li>Eimer und Zellen per Rechtsklick füllen/leeren; Rohre und Maschinen an jeder Seite.</li>
+<li><b>Druckventil:</b> Mit Redstone-Signal gibt der Tank je Tick bis zu <b>100 mB an jeden angrenzenden</b> Tank, jedes
+Rohr und jede Maschine ab. Klick auf den Ventilknauf kehrt das um (dann Druck ohne Signal). Der Knauf zeigt den Zustand.</li>
+<li>Mit Lava oder anderen leuchtenden Flüssigkeiten leuchtet der Tank. Abbauen behält Farben – der Inhalt bleibt im Speicher.</li></ul>''')
+
     # ------------------------------------------------------------------ Items
     page('items', 'Gegenstände & Blöcke', 'Allgemein', f'''<h1>Gegenstände & Blöcke</h1>
 <p class="lead">Alle {stats['items']} registrierten Blöcke und Items von Craft mit deutschem und englischem Namen. Jeder Eintrag hat eine eigene Seite

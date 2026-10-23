@@ -476,6 +476,33 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
         add("container.craft.ender_pouch", german ? "Enderbeutel" : "Ender Pouch");
         item(EsItems.ENDER_TANK, german ? "Ender-Tank" : "Ender Tank");
         add("tooltip.craft.ender_frequency", german ? "Farben: %s / %s / %s" : "Colours: %s / %s / %s");
+        add("emi.craft.info.ender_chest", german
+                ? "Alle Ender-Truhen und Enderbeutel mit denselben drei Farben teilen sich 27 Plätze – überall, auch in "
+                + "anderen Dimensionen. Farbstoff auf einen der drei Knöpfe auf dem Deckel ändert diese Farbe (oder "
+                + "Farbstoffe über die Truhe in die Werkbank legen). Diamant auf das Schloss: persönlich, nur für dich "
+                + "(eigener Speicher). Schleichen + Rechtsklick auf das Schloss mit leerer Hand: wieder global, der "
+                + "Diamant kommt zurück. Abbauen behält Farben und Inhalt."
+                : "All ender chests and ender pouches with the same three colours share 27 slots – anywhere, also in "
+                + "other dimensions. Dye on one of the three buttons on the lid changes that colour (or put dyes above "
+                + "the chest in a crafting grid). Diamond on the latch: personal, just for you (own storage). Sneak + "
+                + "right click the latch with an empty hand: global again, the diamond comes back. Breaking keeps "
+                + "colours and contents.");
+        add("emi.craft.info.ender_tank", german
+                ? "Alle Ender-Tanks mit denselben drei Farben teilen sich 16 000 mB einer Flüssigkeit (getrennt von "
+                + "den Truhen). Eimer/Zellen per Rechtsklick füllen oder leeren; Rohre an jeder Seite. Farbknöpfe oben "
+                + "und Diamant wie bei der Truhe, aber auf dem Ventilknauf vorne. Klick auf den Knauf dreht das Ventil: "
+                + "bei Druck (Redstone-Signal, bzw. ohne Signal wenn gedreht) gibt der Tank je Tick bis 100 mB an jeden "
+                + "angrenzenden Tank/jede Maschine ab. Leuchtet mit leuchtenden Flüssigkeiten."
+                : "All ender tanks with the same three colours share 16,000 mB of one liquid (apart from the chests). "
+                + "Fill or empty buckets/cells with a right click; pipes on every side. Colour buttons on top and "
+                + "diamond as on the chest, but on the valve knob at the front. Clicking the knob turns the valve: "
+                + "with pressure (redstone signal, or no signal when turned) the tank pushes up to 100 mB per tick "
+                + "into every adjacent tank/machine. Glows with glowing liquids.");
+        add("emi.craft.info.ender_pouch", german
+                ? "Öffnet per Rechtsklick den Speicher der Ender-Truhen mit seinen Farben. Schleichen + Rechtsklick auf "
+                + "eine Ender-Truhe übernimmt deren Farben und Besitzer."
+                : "Right click opens the storage of the ender chests with its colours. Sneak + right click an ender "
+                + "chest to take over its colours and owner.");
     }
 
     /** Portal Gun long fall boots (spec 21). */
