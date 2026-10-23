@@ -553,7 +553,7 @@ die GUI unter 100 °C zeigt. Danach wieder Wasser anschließen.</li>
     ['Wasserdichtes Holz-/Stein-/Eisenrohr …', '10 mB/t pro Rohrstrang', 'nein (16 Stränge)'],
     [c('golden_fluid_pipe') + ' / Smaragdrohr', '40 mB/t pro Rohrstrang', '4 parallele Stränge'],
     [c('liquiduct'), 'bis 100 mB/t pro Ausgabestelle', '2 Ausgabestellen am Kessel'],
-    ['IC2-Pumpe', '5 mB/t', 'nein'],
+    ['IC2-Pumpe (gibt direkt an Kessel, Tank oder Rohr ab)', '5 mB/t', 'nein'],
 ])}
 <p>Am einfachsten: <b>Wassersammler direkt an den Kessel</b>. Ein Wassersammler braucht <b>zwei Wasserblöcke</b> waagerecht neben sich
 und gibt sein Wasser selbst an den Kessel ab. Ein Hochdruckkessel braucht <b>mindestens 7</b> davon. So passen sie an eine

@@ -1,5 +1,10 @@
 package dev.craft.ic2.machine;
 
+import dev.craft.buildcraft.BcBlocks;
+import dev.craft.buildcraft.factory.TankBlockEntity;
+import dev.craft.buildcraft.transport.FluidPipeBlockEntity;
+import dev.craft.buildcraft.transport.PipeType;
+import net.minecraft.world.level.material.Fluids;
 import dev.craft.Craft;
 import dev.craft.ic2.Ic2Blocks;
 import dev.craft.ic2.Ic2Items;
@@ -47,6 +52,59 @@ public final class PumpGameTests {
             helper.assertValueEqual(pump.getInventory().get(PumpBlockEntity.SLOT_CONTAINER).getCount(), 1,
                     "cells left");
             helper.assertValueEqual(pump.getPumpCharge(), 0, "charge reset");
+        });
+    }
+
+    /** Addition: without containers the source goes into the buffer and on into the adjacent tank. */
+    @GameTest(template = EMPTY, timeoutTicks = 20)
+    public static void pumpFillsAdjacentTank(GameTestHelper helper) {
+        helper.setBlock(FLUID, Blocks.WATER);
+        PumpBlockEntity pump = place(helper);
+        helper.setBlock(PUMP.east(), BcBlocks.TANK.get());
+        pump.setPumpChargeForTest(200);
+        helper.succeedWhen(() -> {
+            TankBlockEntity tank = helper.getBlockEntity(PUMP.east());
+            helper.assertValueEqual(tank.getTank().getFluidAmount(), 1000, "one bucket in the tank");
+            helper.assertBlockPresent(Blocks.AIR, FLUID);
+            helper.assertTrue(pump.getBufferedFluid().isEmpty(), "buffer passed on");
+        });
+    }
+
+    /** Addition: a wooden fluid pipe with energy drains the pump's buffer. */
+    @GameTest(template = EMPTY, timeoutTicks = 200)
+    public static void woodenFluidPipeDrainsPump(GameTestHelper helper) {
+        helper.setBlock(FLUID, Blocks.LAVA);
+        PumpBlockEntity pump = place(helper);
+        BlockPos wood = PUMP.east();
+        helper.setBlock(wood, BcBlocks.pipe(PipeType.WOODEN_FLUID).get());
+        helper.setBlock(wood.east(), BcBlocks.pipe(PipeType.COBBLESTONE_FLUID).get());
+        helper.setBlock(wood.east(2), BcBlocks.TANK.get());
+        pump.setPumpChargeForTest(200);
+        helper.onEachTick(() -> {
+            if (helper.getBlockEntity(wood) instanceof FluidPipeBlockEntity pipe && pipe.getPowerProvider() != null) {
+                pipe.getPowerProvider().setEnergyStored(1.0F);
+            }
+        });
+        helper.succeedWhen(() -> {
+            TankBlockEntity tank = helper.getBlockEntity(wood.east(2));
+            helper.assertValueEqual(tank.getTank().getFluidAmount(), 1000, "lava through the pipes");
+            helper.assertTrue(tank.getTank().getFluid().is(Fluids.LAVA), "lava");
+        });
+    }
+
+    /** Cells keep priority over the buffer. */
+    @GameTest(template = EMPTY, timeoutTicks = 10)
+    public static void cellsBeforeBuffer(GameTestHelper helper) {
+        helper.setBlock(FLUID, Blocks.WATER);
+        PumpBlockEntity pump = place(helper);
+        helper.setBlock(PUMP.east(), BcBlocks.TANK.get());
+        pump.getInventory().set(PumpBlockEntity.SLOT_CONTAINER, new ItemStack(Ic2Items.EMPTY_CELL.get()));
+        pump.setPumpChargeForTest(200);
+        helper.runAfterDelay(3, () -> {
+            TankBlockEntity tank = helper.getBlockEntity(PUMP.east());
+            helper.assertTrue(tank.getTank().isEmpty(), "tank stays empty");
+            helper.assertTrue(pump.getInventory().get(PumpBlockEntity.SLOT_CONTAINER).isEmpty(), "cell used");
+            helper.succeed();
         });
     }
 

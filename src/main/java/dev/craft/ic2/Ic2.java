@@ -8,6 +8,7 @@ import dev.craft.ic2.item.armor.Ic2ArmorMaterials;
 import dev.craft.ic2.item.tool.ElectricToolItem;
 import dev.craft.ic2.keyboard.Ic2Keyboard;
 import dev.craft.ic2.machine.MachineBlockEntity;
+import dev.craft.ic2.machine.PumpBlockEntity;
 import dev.craft.ic2.world.Ic2Features;
 import net.minecraft.world.level.block.DispenserBlock;
 import net.neoforged.bus.api.IEventBus;
@@ -71,5 +72,8 @@ public final class Ic2 {
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK,
                 Ic2BlockEntityTypes.get(Ic2Machine.GEOTHERMAL_GENERATOR),
                 (be, side) -> ((GeothermalGeneratorBlockEntity) be).getFluidHandler());
+        // Addition: the pump's one-bucket buffer, drain only.
+        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, Ic2BlockEntityTypes.get(Ic2Machine.PUMP),
+                (be, side) -> ((PumpBlockEntity) be).getFluidHandler());
     }
 }

@@ -17,6 +17,7 @@ import dev.craft.ic2.item.ElectricItems;
 import dev.craft.ic2.menu.PumpMenu;
 import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.Nullable;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -34,10 +35,18 @@ import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.material.Fluids;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.FluidType;
+import net.neoforged.neoforge.fluids.capability.IFluidHandler;
+import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
 
 /**
  * IC2 {@code TileEntityPump}: charges for 200 ticks (1 EU each), then takes the water or lava source block below
- * into a cell, a bucket or an adjacent geothermal generator (spec 04, pump).
+ * into a cell, a bucket or an adjacent geothermal generator (spec 04, pump). Addition (user, 2026-10-23): when none of
+ * these takes it and a liquid handler is adjacent, the source goes into a one-bucket buffer that is pushed into
+ * adjacent tanks, pipes and machines and can be drained (wooden pipes).
  */
 public class PumpBlockEntity extends MachineBlockEntity implements EnergySink, ConsumptionReadout {
     public static final int SLOT_CONTAINER = 0;
@@ -50,7 +59,16 @@ public class PumpBlockEntity extends MachineBlockEntity implements EnergySink, C
     private static final Direction[] NEIGHBOURS = {Direction.UP, Direction.DOWN, Direction.EAST, Direction.WEST,
             Direction.SOUTH, Direction.NORTH};
 
+    public static final int BUFFER = FluidType.BUCKET_VOLUME;
+
     private final OutputMeter consumptionMeter = new OutputMeter();
+    private final FluidTank buffer = new FluidTank(BUFFER) {
+        @Override
+        protected void onContentsChanged() {
+            setChanged();
+        }
+    };
+    private final IFluidHandler fluidHandler = new BufferHandler();
     private int energy;
     /** IC2 keeps the charge in a {@code short}. */
     private short pumpCharge;
@@ -91,6 +109,7 @@ public class PumpBlockEntity extends MachineBlockEntity implements EnergySink, C
         if (isPumpReady()) {
             needsInvUpdate = pump();
         }
+        pushBuffer();
         if (isActive() == isPumpReady() && energy > 0) {
             setActive(!isActive());
         }
@@ -154,12 +173,18 @@ public class PumpBlockEntity extends MachineBlockEntity implements EnergySink, C
      */
     private boolean pumpOtherFluid(BlockPos below) {
         ItemStack container = inventory.get(SLOT_CONTAINER);
-        if (!container.is(Items.BUCKET)) {
-            return false;
-        }
         BlockState state = level.getBlockState(below);
         if (!(state.getBlock() instanceof LiquidBlock liquid) || !state.getFluidState().isSource()) {
             return false;
+        }
+        if (!container.is(Items.BUCKET)) {
+            if (!canFillBuffer()) {
+                return false;
+            }
+            buffer.fill(new FluidStack(state.getFluidState().getType(), BUFFER), IFluidHandler.FluidAction.EXECUTE);
+            level.setBlock(below, Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL);
+            pumpCharge = 0;
+            return true;
         }
         ItemStack filled = liquid.pickupBlock(null, level, below, state);
         if (filled.isEmpty() || filled.is(Items.BUCKET)) {
@@ -201,7 +226,59 @@ public class PumpBlockEntity extends MachineBlockEntity implements EnergySink, C
             return true;
         }
         pumpCharge = 0;
-        return putInChestBucket(water);
+        if (putInChestBucket(water)) {
+            return true;
+        }
+        if (canFillBuffer()) {
+            buffer.fill(new FluidStack(water ? Fluids.WATER : Fluids.LAVA, BUFFER), IFluidHandler.FluidAction.EXECUTE);
+            return true;
+        }
+        return false;
+    }
+
+    // --- liquid buffer (addition) ---
+
+    /** The buffer is empty and something next to the pump takes liquids. */
+    private boolean canFillBuffer() {
+        return buffer.isEmpty() && level != null && hasLiquidNeighbour();
+    }
+
+    private boolean hasLiquidNeighbour() {
+        for (Direction direction : NEIGHBOURS) {
+            if (neighbourHandler(direction) != null) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Nullable
+    private IFluidHandler neighbourHandler(Direction direction) {
+        return level.getCapability(Capabilities.FluidHandler.BLOCK, worldPosition.relative(direction),
+                direction.getOpposite());
+    }
+
+    /** Pushes the buffer into the neighbours in IC2's side order, like the BuildCraft pump. */
+    private void pushBuffer() {
+        for (Direction direction : NEIGHBOURS) {
+            if (buffer.isEmpty()) {
+                return;
+            }
+            IFluidHandler handler = neighbourHandler(direction);
+            if (handler != null) {
+                int moved = handler.fill(buffer.getFluid().copy(), IFluidHandler.FluidAction.EXECUTE);
+                buffer.drain(moved, IFluidHandler.FluidAction.EXECUTE);
+            }
+        }
+    }
+
+    /** Capability: drain only. */
+    public IFluidHandler getFluidHandler() {
+        return fluidHandler;
+    }
+
+    public FluidStack getBufferedFluid() {
+        return buffer.getFluid();
     }
 
     /**
@@ -249,7 +326,8 @@ public class PumpBlockEntity extends MachineBlockEntity implements EnergySink, C
             return false;
         }
         ItemStack container = inventory.get(SLOT_CONTAINER);
-        return container.is(Ic2Items.EMPTY_CELL.get()) || container.is(Items.BUCKET) || isBucketInChestAvailable();
+        return container.is(Ic2Items.EMPTY_CELL.get()) || container.is(Items.BUCKET) || isBucketInChestAvailable()
+                || canFillBuffer();
     }
 
     /** Note: IC2 stops at the first adjacent chest only in {@code putInChestBucket}, not here. */
@@ -360,6 +438,7 @@ public class PumpBlockEntity extends MachineBlockEntity implements EnergySink, C
         super.loadAdditional(tag, registries);
         energy = tag.getInt("energy");
         pumpCharge = tag.getShort("pumpCharge");
+        buffer.readFromNBT(registries, tag.getCompound("buffer"));
     }
 
     @Override
@@ -367,6 +446,7 @@ public class PumpBlockEntity extends MachineBlockEntity implements EnergySink, C
         super.saveAdditional(tag, registries);
         tag.putInt("energy", energy);
         tag.putShort("pumpCharge", pumpCharge);
+        tag.put("buffer", buffer.writeToNBT(registries, new CompoundTag()));
     }
 
     /** Test hooks. */
@@ -381,5 +461,42 @@ public class PumpBlockEntity extends MachineBlockEntity implements EnergySink, C
     @Override
     public OutputReading getConsumptionReading() {
         return consumptionMeter.read(level, OutputReading.Unit.EU);
+    }
+
+    private final class BufferHandler implements IFluidHandler {
+        @Override
+        public int getTanks() {
+            return 1;
+        }
+
+        @Override
+        public FluidStack getFluidInTank(int tank) {
+            return buffer.getFluid();
+        }
+
+        @Override
+        public int getTankCapacity(int tank) {
+            return BUFFER;
+        }
+
+        @Override
+        public boolean isFluidValid(int tank, FluidStack stack) {
+            return true;
+        }
+
+        @Override
+        public int fill(FluidStack resource, FluidAction action) {
+            return 0;
+        }
+
+        @Override
+        public FluidStack drain(FluidStack resource, FluidAction action) {
+            return buffer.drain(resource, action);
+        }
+
+        @Override
+        public FluidStack drain(int maxDrain, FluidAction action) {
+            return buffer.drain(maxDrain, action);
+        }
     }
 }

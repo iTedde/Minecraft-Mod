@@ -2359,6 +2359,13 @@ Metallvarianten und große Zahnräder ohne Konflikt.
 - [x] 16 Rezepte (`bWb/OCO/bpb` mit Kessel), Umfärben über das bestehende Rezept; Lang „Ender-Tank“.
 - [x] GameTests (6 neu, u. a. Teilen, Eimer, Druck 100 mB/Tick, Ventil/Diamant/Farbstoff, Licht/Drop, Rezepte); alle 454 grün, `gradlew build` grün. **Client-Test offen** (Modell/Ausrichtung, Ventil-Klick, Flüssigkeit im Block und in der Hand, Leuchten mit Lava).
 
+## Erledigt (IC2-Pumpe mit Flüssigkeitsausgang, Nutzer, 2026-10-23)
+Befund (Nutzer): „Die Waterproof Pipes … können z. B. nicht aus der Pump Wasser abpumpen.“ Ursache: gemeint war die IC2-Pumpe (deutsch heißen IC2- und BC-Pumpe beide „Pumpe“); sie hat im Original keinen Flüssigkeitsausgang. Die BC-Pumpe gibt korrekt an Rohre ab (neue GameTests `pumpPushesIntoFluidPipe`, `woodenFluidPipeExtractsFromPump`).
+- [x] Entscheidung Nutzer: IC2-Pumpe bekommt einen Ausgang (Abweichung): Puffer 1 000 mB, nur wenn Geothermie/Eimer/Zelle/Truhe nicht abnehmen und ein Flüssigkeitsempfänger angrenzt; Abgabe an Nachbarn jeden Tick, Fluid-Capability zum Entnehmen (Holzrohr). Damit stimmt auch `spec/14` (Kessel-Wasser über die IC2-Pumpe).
+- [x] GameTests `pumpFillsAdjacentTank`, `woodenFluidPipeDrainsPump`, `cellsBeforeBuffer`; alle 459 grün.
+- [x] Craft **1.0.4**, Paket `releases/Craft-1.0.6-curseforge.zip` (wie 1.0.5 mit Craft 1.0.4).
+- **Client-Test offen:** IC2-Pumpe über Wasser + Rohr/Tank/Kessel daneben; Rohr verbindet sich sichtbar.
+
 ## Erledigt (26.4 EMI, Herkunft, Wiki, Paket, 2026-10-23)
 - [x] `compat/emi/EnderStorageEmiRecipes`: Umfärbe-Rezept als Beispiel-Werkbankrezept für Truhe und Tank (EMI listet Spezialrezepte nicht), Info-Seiten Ender-Truhe/-Tank/-Beutel (Knöpfe, Diamantschloss, Druckventil); die 16 Grundrezepte je Item zeigt EMI ohnehin.
 - [x] Herkunft: keine neuen Rohstoffe (alle EnderStorage-Items haben Rezepte aus Vanilla-Zutaten).

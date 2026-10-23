@@ -334,6 +334,11 @@ Bergbaurohr/-spitze: Härte 6,0, Resistenz 10.
   - Kein Quellblock: Forge-`FillBucketEvent` für Fremd-Flüssigkeiten mit leerem Eimer.
 - Mit Miner (angrenzend) und Compressor (s. o.) kombinierbar.
 - Sound `Machines/PumpOp.ogg`. Sided: unten → 1, sonst → 0.
+- **Ergänzung (Nutzer, 2026-10-23, nicht im Original):** Flüssigkeitspuffer 1 000 mB. Erntefähig zusätzlich, wenn der
+  Puffer leer ist und an einer der sechs Seiten ein Flüssigkeitsempfänger (Fluid-Capability) liegt. Reihenfolge beim
+  Abfüllen unverändert (Geothermie, Eimer, Zelle, Truhe), erst danach geht der Quellblock in den Puffer – Wasser, Lava
+  und andere Flüssigkeiten (dann ohne Eimer). Der Puffer wird jeden Tick in IC2-Seitenreihenfolge an die Nachbarn
+  abgegeben (Tanks, Rohre, Kessel …); Fluid-Capability jeder Seite nur zum Entnehmen (Holzrohr).
 
 ### Details aus `TileEntityPump` (nachgetragen Phase 8d.1)
 

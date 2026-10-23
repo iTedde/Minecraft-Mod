@@ -7,6 +7,8 @@ import dev.craft.buildcraft.factory.RefineryBlockEntity;
 import dev.craft.buildcraft.factory.TankBlock;
 import dev.craft.buildcraft.factory.TankBlockEntity;
 import dev.craft.buildcraft.fluid.BcFluids;
+import dev.craft.buildcraft.transport.FluidPipeBlockEntity;
+import dev.craft.buildcraft.transport.PipeType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
@@ -86,6 +88,50 @@ public final class FactoryGameTests {
             }
             helper.assertValueEqual(sources + tank.getTank().getFluidAmount() / 1000, 9, "sources removed");
         });
+    }
+
+    /** A 3×3 water pool at y 2 with the pump two blocks above its middle. */
+    private static PumpBlockEntity pumpOverWater(GameTestHelper helper, BlockPos pumpPos) {
+        for (int x = 3; x <= 7; x++) {
+            for (int z = 3; z <= 7; z++) {
+                helper.setBlock(new BlockPos(x, 1, z), Blocks.STONE);
+                boolean inner = x >= 4 && x <= 6 && z >= 4 && z <= 6;
+                helper.setBlock(new BlockPos(x, 2, z), inner ? Blocks.WATER : Blocks.STONE);
+            }
+        }
+        helper.setBlock(pumpPos, BcBlocks.PUMP.get());
+        PumpBlockEntity pump = helper.getBlockEntity(pumpPos);
+        helper.onEachTick(() -> pump.getPowerProvider().setEnergyStored(100.0F));
+        return pump;
+    }
+
+    @GameTest(template = LARGE, timeoutTicks = 1200)
+    public static void pumpPushesIntoFluidPipe(GameTestHelper helper) {
+        BlockPos pumpPos = new BlockPos(5, 4, 5);
+        pumpOverWater(helper, pumpPos);
+        helper.setBlock(pumpPos.above(), BcBlocks.pipe(PipeType.COBBLESTONE_FLUID).get());
+        helper.setBlock(pumpPos.above(2), BcBlocks.TANK.get());
+        TankBlockEntity tank = helper.getBlockEntity(pumpPos.above(2));
+        helper.succeedWhen(() -> helper.assertTrue(tank.getTank().getFluidAmount() >= 2000,
+                "water through the pipe, got " + tank.getTank().getFluidAmount()));
+    }
+
+    @GameTest(template = LARGE, timeoutTicks = 1200)
+    public static void woodenFluidPipeExtractsFromPump(GameTestHelper helper) {
+        BlockPos pumpPos = new BlockPos(5, 4, 5);
+        pumpOverWater(helper, pumpPos);
+        BlockPos wood = pumpPos.east();
+        helper.setBlock(wood, BcBlocks.pipe(PipeType.WOODEN_FLUID).get());
+        helper.setBlock(wood.east(), BcBlocks.pipe(PipeType.COBBLESTONE_FLUID).get());
+        helper.setBlock(wood.east(2), BcBlocks.TANK.get());
+        TankBlockEntity tank = helper.getBlockEntity(wood.east(2));
+        helper.onEachTick(() -> {
+            if (helper.getBlockEntity(wood) instanceof FluidPipeBlockEntity pipe && pipe.getPowerProvider() != null) {
+                pipe.getPowerProvider().setEnergyStored(1.0F);
+            }
+        });
+        helper.succeedWhen(() -> helper.assertTrue(tank.getTank().getFluidAmount() >= 2000,
+                "water through the wooden pipe, got " + tank.getTank().getFluidAmount()));
     }
 
     @GameTest(template = EMPTY)
