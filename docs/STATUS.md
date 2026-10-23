@@ -2266,3 +2266,10 @@ geändert). `releases/Craft-1.0.2-curseforge.zip` (21,4 MB; Craft-Jar unverände
   Neoforge“ 0.2.1 (CurseForge 1414670, Datei 8243336), im Server mitgeprüft.
 - [x] Geprüft: dedizierter NeoForge-21.1.259-Server mit allen Paket-Mods + Craft startet („Done“); nur Lootable-/Tag-
   Fehler für optionale Fremdmod-Inhalte. Client (Sodium, Create Better FPS) ungeprüft.
+- [x] Nutzer, 2026-10-23: zusätzlich **alle Mods/Shader des bisherigen CurseForge-Profils** „IC3-Version 1.3“ (aus dessen
+  `minecraftinstance.json`: FTB Chunks/Teams/Library + Xaero-Compat, Xaero's World Map, Jade + Addons, Iris + 3
+  Shaderpacks, Essential, LambDynamicLights, Mouse Tweaks, Easy Magic, Enchantment Descriptions, Bookshelf, Prickle,
+  Better Farming Right Click). Auch die bisherigen `overrides/mods` (EMI, Xaero, IPN, Trading Post, Voice Chat, Leaves
+  Be Gone, Bibliotheken) jetzt per Manifest; in `overrides/mods` bleiben nur Craft und CC: Tweaked (CurseForge hat nur
+  bis 1.113.1). Sodium 0.8.12 wie im Profil (passend zu dessen Iris). 62 Manifest-Einträge, Zip 8,8 MB; Server mit
+  den serverfähigen Mods geprüft („Done“).
