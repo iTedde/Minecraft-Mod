@@ -2273,3 +2273,5 @@ geändert). `releases/Craft-1.0.2-curseforge.zip` (21,4 MB; Craft-Jar unverände
   Be Gone, Bibliotheken) jetzt per Manifest; in `overrides/mods` bleiben nur Craft und CC: Tweaked (CurseForge hat nur
   bis 1.113.1). Sodium 0.8.12 wie im Profil (passend zu dessen Iris). 62 Manifest-Einträge, Zip 8,8 MB; Server mit
   den serverfähigen Mods geprüft („Done“).
+- [x] Nutzer, 2026-10-23: `config` des Profils als `overrides/config` im Paket (48 Dateien, ohne das
+  rechnerspezifische `sodium-fingerprint.json`). Craft liegt in `overrides/mods` – nicht mehr von Hand kopieren.
