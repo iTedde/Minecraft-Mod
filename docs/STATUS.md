@@ -2262,6 +2262,7 @@ geändert). `releases/Craft-1.0.2-curseforge.zip` (21,4 MB; Craft-Jar unverände
   1.6.8, Applied Kinetics 1.5.3 (braucht – undeklariert – **AE2** 19.2.18 + GuideME), Aeroworks 1.5.0, Create:
   Connected 1.3.3, Yori3o's Grappling Hooks 5.2.1 (+ YACL, undeklariert), Ad Astra 1.16.26 (+ Resourceful Lib/Config,
   Common Storage Lib).
-- **Nicht aufgenommen:** Create: Steam 'n' Rails – offiziell nur für 1.20.1.
+- [x] Create: Steam 'n' Rails: offiziell nur 1.20.1 – stattdessen die inoffizielle Portierung „Steam 'n' Rails
+  Neoforge“ 0.2.1 (CurseForge 1414670, Datei 8243336), im Server mitgeprüft.
 - [x] Geprüft: dedizierter NeoForge-21.1.259-Server mit allen Paket-Mods + Craft startet („Done“); nur Lootable-/Tag-
   Fehler für optionale Fremdmod-Inhalte. Client (Sodium, Create Better FPS) ungeprüft.
