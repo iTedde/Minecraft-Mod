@@ -2195,9 +2195,8 @@ Spezifikation: `docs/spec/26-thermal-expansion.md`.
 - Client-Smoke-Test: Client startete ohne Fehler, wurde aber vor dem Weltbeitritt beendet – EMI im Spiel noch ungeprüft.
 
 ## Nächste Schritte
-1. Prüfen: GT `addPulverisationRecipe` mit Nebenprodukten (Feuerstein, Enderperle, Enderauge, Weizen, Pflanzenkugel,
-   Dichte Kupferplatte, Crop) – der Macerator-Rückfall in 25.2 liefert nur das Hauptprodukt.
-2. Client-Test 25.7/25.8 durch den Nutzer (Tesserakte: GUI, Namen speichern/löschen, Zugriff privat mit zweitem
+1. ~~Erledigt 2026-10-23 (siehe unten)~~ Prüfen: GT `addPulverisationRecipe` mit Nebenprodukten.
+2. ~~Abgenommen (Nutzer, 2026-10-23)~~ Client-Test 25.7/25.8 durch den Nutzer (Tesserakte: GUI, Namen speichern/löschen, Zugriff privat mit zweitem
    Spieler, Multimeter, Modell/Kern, Energie/Flüssigkeit/Item über Dimensionen; EMI-Kategorien und Pfeile der TE-GUIs).
 3. ~~Erledigt 2026-10-23 (siehe unten)~~ Prüfen (Nutzer, 2026-10-22): BuildCraft-Rohre verbinden sich **teilweise nicht** mit den Maschinen der
    1.0-Erweiterung (Thermal Expansion, Phase 25). Klären, welche Blöcke/Seiten/Rohrtypen betroffen sind (Item-,
@@ -2231,3 +2230,18 @@ merkten Rohre ein Umstellen der Seitenkonfiguration nicht (keine Nachbaränderun
   Generator); das GT-Rezept mit Siliziumplatten bleibt zusätzlich (`docs/abweichungen.md`).
 - [x] Nutzer, 2026-10-23: Solarpanel **nur** mit dem IC2-Rezept – das GT-Rezept mit Siliziumplatten ist entfernt
   (Rezept-ID wieder `craft:solar_panel`). Noch nicht in der 1.0.0-Jar.
+
+## Abnahme (Nutzer, 2026-10-23)
+- Alle offenen Client-Tests gelten als abgenommen (24, 25.7, 25.8, Rohre an TE-Maschinen, Rüstungsslots, Phase 22,
+  Leaves Be Gone).
+
+## Erledigt (GT-Nebenprodukte im Pulverisierer/Sägewerk, 2026-10-23)
+Befund: GT gibt bei gut 70 `addPulverisationRecipe`-Aufrufen ein Nebenprodukt nur an TE weiter (Erze, Vanilla-
+Rückgewinnung, Werkzeuge mit Stöcken); die Liste im alten Nächsten Schritt 1 war ungenau. Außerdem gehen Ergebnisse
+mit kleinem Holzschliff ins Sägewerk, nicht in den Pulverisierer.
+- [x] `CraftRecipeProvider.gregTechPulverisationByProducts`: TE-Rezepte mit Nebenprodukt für alle Eingaben, die es in
+  Craft als Macerator-Rezept gibt; Kohle-/Lapis-/Redstone-Erz durch GT überschrieben (`aOverwrite`); Werkzeug-
+  Rückgewinnung (Eisen/Gold/Diamant/RP-Edelsteine) mit Holzschliff 100 % bzw. 50 % (Schwert, Sichel).
+- [x] `TeRecipes.isWoodPulp`: kleiner Holzschliff → Sägewerk (Rückfall und EMI).
+- [x] Spec 26 §4.1 (Tabelle GT-Nebenprodukte), GameTest `gregTechPulverisationByProducts`; alle 431 grün,
+  `gradlew runData test build` grün.

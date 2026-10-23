@@ -1,0 +1,19 @@
+{
+  "type": "craft:te_pulverizer",
+  "chance": 50,
+  "energy": 400,
+  "inputs": [
+    {
+      "count": 1,
+      "tag": "minecraft:wool"
+    }
+  ],
+  "primary": {
+    "count": 2,
+    "id": "minecraft:string"
+  },
+  "secondary": {
+    "count": 1,
+    "id": "minecraft:string"
+  }
+}

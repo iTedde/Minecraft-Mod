@@ -1,0 +1,19 @@
+{
+  "type": "craft:te_pulverizer",
+  "chance": 95,
+  "energy": 400,
+  "inputs": [
+    {
+      "count": 1,
+      "item": "minecraft:lever"
+    }
+  ],
+  "primary": {
+    "count": 1,
+    "id": "minecraft:sand"
+  },
+  "secondary": {
+    "count": 2,
+    "id": "craft:small_wood_pulp"
+  }
+}

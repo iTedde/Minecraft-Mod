@@ -126,7 +126,37 @@ Vorgabe (Ofen unten/oben 1, Seiten 2; Pulverisierer/Sägewerk unten/oben 3, Seit
 setzt die Seite auf 0 (auf der Front: alle Seiten zurücksetzen).
 
 Rückfall-Rezepte: Ofen jedes Ofenrezept (160 MJ); Pulverisierer jedes Macerator-Rezept (400 MJ, GT
-`addPulverisationRecipe`), Sägewerk Macerator-Rezepte mit Holzschliff als Ergebnis (80 MJ). Eigene Rezepte haben Vorrang.
+`addPulverisationRecipe`), Sägewerk Macerator-Rezepte mit Holzschliff oder kleinem Holzschliff als Ergebnis (80 MJ;
+GT prüft `dustWood` und `dustSmallWood`, z. B. Stock, Setzling, Holzstufe, Holzwerkzeuge). Eigene Rezepte haben Vorrang.
+
+**GT-Nebenprodukte** (`addPulverisationRecipe` mit `aOutput2`; der Macerator bekommt nur das Hauptprodukt, TE das
+Nebenprodukt; Chance 0 = 10 %). GT lädt nach TE (`after:ThermalExpansion`); mit `aOverwrite = true` ersetzt GT ein
+TE-Rezept (Kohle-, Lapis-, Redstone-Erz), sonst bleibt das TE-Rezept (Eisen, Gold, Kupfer, Zinn, Silber, Blei, Nickel).
+Nur Eingaben, die es in Craft als Macerator-Rezept gibt:
+
+| Eingabe | Ausgabe | Nebenprodukt | MJ |
+|---|---|---|---:|
+| Kohleerz | 2 Kohlestaub | Thoriumstaub 10 % | 400 |
+| Lapiserz | 12 Lapis | Lasuritstaub 10 % | 400 |
+| Redstone-Erz | 10 Redstone | Glowstonestaub 10 % | 400 |
+| Sodalitherz | 12 Sodalithstaub | Aluminiumstaub 10 % | 400 |
+| Bleiglanzerz | 2 Bleiglanzstaub | Schwefelstaub 50 % | 400 |
+| Rubin-/Saphir-/Olivinerz | 2 Rubin-/Saphir-/Olivinstaub | Roter-Granat-/Grüner-Saphir-/Smaragdstaub 10 % | 400 |
+| Iridiumerz | 2 Iridiumerz (Item) | Platinstaub 10 % | 400 |
+| Sheldonit | 2 Platinstaub | Iridiumerz 10 % | 400 |
+| Pyrit-/Zinnober-/Zinkblendeerz | 5 Pyrit-/3 Zinnober-/4 Zinkblendestaub | Eisenstaub / Redstone / Zinkstaub 10 % | 400 |
+| Wolframiterz / Bauxiterz | 2 Wolframstaub / 4 Bauxitstaub | Manganstaub / Aluminiumstaub 10 % | 400 |
+| Feuerstein | 2 kl. Feuersteinstaub | kl. Feuersteinstaub 10 % | 400 |
+| Melone (Block) | 8 Melonenscheiben | Melonenkerne 80 % | 400 |
+| Wolle | 2 Faden | Faden 50 % | 400 |
+| Uhr / Kompass | 4 Gold-/Eisenstaub | Redstone 95 % | 400 |
+| Zaubertisch | 2 Diamantstaub | 4 Obsidianstaub 95 % | 400 |
+| Hebel | Sand | 2 kl. Holzschliff 95 % | 400 |
+| Redstone-Fackel (Sägewerk) | 2 kl. Holzschliff | Redstone 95 % | 80 |
+| Werkzeuge aus Eisen/Gold/Diamant/Rubin/Saphir/Grünem Saphir (unbeschädigt) | Staub wie im Macerator | Holzschliff 100 %, Schwert und Sichel 50 % | 400 |
+
+Nicht übernommen: GT-Maschinengehäuse-Rückgewinnung (4 Eisenstaub + Goldstaub) – in Craft gibt der Macerator 8
+Eisenstaub, das GT-Rezept greift nicht; Diamant-/Smaragderz haben in Craft kein Macerator-Rezept (TE-Rezept bleibt).
 
 **Elektrischer Ofen** (`FurnaceManager`): Kaktus → grüner Farbstoff 80; roher Schweinebraten/Kabeljau/Rindfleisch/
 Hähnchen/Kartoffel → gegart 40 MJ.
@@ -144,9 +174,9 @@ Lohenrute an, Wolle aus) – Eingabe → Ausgabe (+ Nebenprodukt Chance), MJ:
 | Sandstein (3 Arten) | 2 Sand + Salpeter 10 % | 320 | | Bleierz | 2 Bleistaub + Silberstaub 10 % | 400 |
 | Obsidian | Obsidianstaub | 400 | | Nickelerz | 2 Nickelstaub + Platinstaub 10 % | 400 |
 | Netherrack | Bruchstein + Schwefel 10 % | 320 | | Eisen-/Goldbarren | Staub | 240 |
-| Kohle-/Diamant-/Smaragderz | Kohle/Diamant/Smaragd | 80 | | Barren Kupfer, Zinn, Silber, Blei, Nickel, Platin, Elektrum, Invar, Bronze | Staub | 240 |
+| Diamant-/Smaragderz | Diamant/Smaragd | 80 | | Barren Kupfer, Zinn, Silber, Blei, Nickel, Platin, Elektrum, Invar, Bronze | Staub | 240 |
 | Glowstone | 4 Glowstonestaub | 80 | | Kohle / Holzkohle | Kohle-/Holzkohlestaub | 160 |
-| Lapis-/Redstone-Erz | 8 Lapis / 8 Redstone | 240 | | Zuckerrohr | 2 Zucker | 80 |
+| Lapis-/Redstone-Erz, Kohleerz | s. GT-Nebenprodukte | 400 | | Zuckerrohr | 2 Zucker | 80 |
 | Stamm (Eiche, Fichte, Birke, Tropen) | Holzschnitzel | 160 | | Knochen | 6 Knochenmehl | 160 |
 | Lohenrute | 4 Lohenstaub + Schwefel 50 % | 160 | | | | |
 

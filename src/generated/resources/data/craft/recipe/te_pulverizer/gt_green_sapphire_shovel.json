@@ -1,0 +1,22 @@
+{
+  "type": "craft:te_pulverizer",
+  "energy": 400,
+  "inputs": [
+    {
+      "type": "neoforge:components",
+      "components": {
+        "minecraft:damage": 0
+      },
+      "count": 1,
+      "items": "craft:green_sapphire_shovel"
+    }
+  ],
+  "primary": {
+    "count": 1,
+    "id": "craft:green_sapphire_dust"
+  },
+  "secondary": {
+    "count": 1,
+    "id": "craft:wood_pulp"
+  }
+}

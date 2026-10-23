@@ -1,0 +1,19 @@
+{
+  "type": "craft:te_sawmill",
+  "chance": 95,
+  "energy": 80,
+  "inputs": [
+    {
+      "count": 1,
+      "item": "minecraft:redstone_torch"
+    }
+  ],
+  "primary": {
+    "count": 2,
+    "id": "craft:small_wood_pulp"
+  },
+  "secondary": {
+    "count": 1,
+    "id": "minecraft:redstone"
+  }
+}

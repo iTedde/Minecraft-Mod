@@ -1,7 +1,7 @@
 {
   "type": "craft:te_pulverizer",
-  "chance": 0,
-  "energy": 240,
+  "chance": 10,
+  "energy": 400,
   "inputs": [
     {
       "type": "neoforge:compound",
@@ -17,7 +17,11 @@
     }
   ],
   "primary": {
-    "count": 8,
+    "count": 12,
     "id": "minecraft:lapis_lazuli"
+  },
+  "secondary": {
+    "count": 1,
+    "id": "craft:lazurite_dust"
   }
 }

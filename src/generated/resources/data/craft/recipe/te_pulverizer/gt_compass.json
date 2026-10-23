@@ -1,0 +1,19 @@
+{
+  "type": "craft:te_pulverizer",
+  "chance": 95,
+  "energy": 400,
+  "inputs": [
+    {
+      "count": 1,
+      "item": "minecraft:compass"
+    }
+  ],
+  "primary": {
+    "count": 4,
+    "id": "craft:iron_dust"
+  },
+  "secondary": {
+    "count": 1,
+    "id": "minecraft:redstone"
+  }
+}

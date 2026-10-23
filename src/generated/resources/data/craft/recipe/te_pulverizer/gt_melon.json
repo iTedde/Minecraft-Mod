@@ -1,0 +1,19 @@
+{
+  "type": "craft:te_pulverizer",
+  "chance": 80,
+  "energy": 400,
+  "inputs": [
+    {
+      "count": 1,
+      "item": "minecraft:melon"
+    }
+  ],
+  "primary": {
+    "count": 8,
+    "id": "minecraft:melon_slice"
+  },
+  "secondary": {
+    "count": 1,
+    "id": "minecraft:melon_seeds"
+  }
+}

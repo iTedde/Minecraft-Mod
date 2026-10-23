@@ -1,7 +1,7 @@
 {
   "type": "craft:te_pulverizer",
-  "chance": 0,
-  "energy": 240,
+  "chance": 10,
+  "energy": 400,
   "inputs": [
     {
       "type": "neoforge:compound",
@@ -17,7 +17,11 @@
     }
   ],
   "primary": {
-    "count": 8,
+    "count": 10,
     "id": "minecraft:redstone"
+  },
+  "secondary": {
+    "count": 1,
+    "id": "minecraft:glowstone_dust"
   }
 }

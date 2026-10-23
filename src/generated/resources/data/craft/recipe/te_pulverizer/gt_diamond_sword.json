@@ -1,0 +1,23 @@
+{
+  "type": "craft:te_pulverizer",
+  "chance": 50,
+  "energy": 400,
+  "inputs": [
+    {
+      "type": "neoforge:components",
+      "components": {
+        "minecraft:damage": 0
+      },
+      "count": 1,
+      "items": "minecraft:diamond_sword"
+    }
+  ],
+  "primary": {
+    "count": 2,
+    "id": "craft:diamond_dust"
+  },
+  "secondary": {
+    "count": 1,
+    "id": "craft:wood_pulp"
+  }
+}

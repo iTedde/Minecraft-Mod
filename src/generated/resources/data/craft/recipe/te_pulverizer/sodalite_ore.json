@@ -1,0 +1,19 @@
+{
+  "type": "craft:te_pulverizer",
+  "chance": 10,
+  "energy": 400,
+  "inputs": [
+    {
+      "count": 1,
+      "item": "craft:sodalite_ore"
+    }
+  ],
+  "primary": {
+    "count": 12,
+    "id": "craft:sodalite_dust"
+  },
+  "secondary": {
+    "count": 1,
+    "id": "craft:aluminium_dust"
+  }
+}

@@ -18,6 +18,7 @@ import dev.craft.thermalexpansion.TeItems;
 import dev.craft.thermalexpansion.TeFluids;
 import dev.craft.thermalexpansion.recipe.TeFluidRecipe;
 import dev.craft.thermalexpansion.recipe.TeRecipe;
+import dev.craft.thermalexpansion.recipe.TeRecipes;
 import dev.craft.buildcraft.fluid.LiquidContainers;
 import dev.craft.advancedmachines.AdvancedMachinesItems;
 import dev.craft.buildcraft.BcItems;
@@ -2215,9 +2216,67 @@ public final class CraftRecipeProvider extends RecipeProvider {
                     .save(output, id(color.getSerializedName() + "_rockwool"));
         }
         teMachines();
+        gregTechPulverisationByProducts();
     }
 
     /** TE machines (spec 26 §5) and the recipes of {@code FurnaceManager}, {@code PulverizerManager}, {@code SawmillManager}. */
+    /**
+     * {@code GT_ModHandler.addPulverisationRecipe} with a by-product (spec 26 §4.1): GT gives the macerator only the
+     * main output and puts the by-product into the pulverizer (400 MJ) or, for (tiny) wood pulp, the sawmill (80 MJ);
+     * chance 0 means 10 %. With overwrite GT replaces TE's own recipe (coal, lapis and redstone ore). Tool recycling
+     * adds wood pulp in {@link #gregTechRecycling()}.
+     */
+    private void gregTechPulverisationByProducts() {
+        TeRecipe.Kind pulverizer = TeRecipe.Kind.PULVERIZER;
+        // GT_OreDictHandler: vanilla ores (overwrite) and the GT ores that exist in Craft.
+        te(pulverizer, "coal_ore", Ingredient.of(Items.COAL_ORE, Items.DEEPSLATE_COAL_ORE), stack(Ic2Items.COAL_DUST, 2),
+                stack(GtItems.THORIUM_DUST, 1), 10, TeRecipes.GT_PULVERIZER_ENERGY);
+        te(pulverizer, "lapis_ore", Ingredient.of(Items.LAPIS_ORE, Items.DEEPSLATE_LAPIS_ORE),
+                stack(Items.LAPIS_LAZULI, 12), stack(GtItems.LAZURITE_DUST, 1), 10, TeRecipes.GT_PULVERIZER_ENERGY);
+        te(pulverizer, "redstone_ore", Ingredient.of(Items.REDSTONE_ORE, Items.DEEPSLATE_REDSTONE_ORE),
+                stack(Items.REDSTONE, 10), stack(Items.GLOWSTONE_DUST, 1), 10, TeRecipes.GT_PULVERIZER_ENERGY);
+        gtOrePulverisation(GtOre.SODALITE, GtItems.SODALITE_DUST, 12, GtItems.ALUMINIUM_DUST, 10);
+        gtOrePulverisation(GtOre.GALENA, GtItems.GALENA_DUST, 2, GtItems.SULFUR_DUST, 50);
+        gtOrePulverisation(GtOre.RUBY, GtItems.RUBY_DUST, 2, GtItems.RED_GARNET_DUST, 10);
+        gtOrePulverisation(GtOre.SAPPHIRE, GtItems.SAPPHIRE_DUST, 2, GtItems.GREEN_SAPPHIRE_DUST, 10);
+        gtOrePulverisation(GtOre.OLIVINE, GtItems.OLIVINE_DUST, 2, GtItems.EMERALD_DUST, 10);
+        gtOrePulverisation(GtOre.IRIDIUM, Ic2Items.IRIDIUM_ORE, 2, GtItems.PLATINUM_DUST, 10);
+        gtOrePulverisation(GtOre.SHELDONITE, GtItems.PLATINUM_DUST, 2, Ic2Items.IRIDIUM_ORE, 10);
+        gtOrePulverisation(GtOre.PYRITE, GtItems.PYRITE_DUST, 5, Ic2Items.IRON_DUST, 10);
+        gtOrePulverisation(GtOre.CINNABAR, GtItems.CINNABAR_DUST, 3, Items.REDSTONE, 10);
+        gtOrePulverisation(GtOre.SPHALERITE, GtItems.SPHALERITE_DUST, 4, GtItems.ZINC_DUST, 10);
+        gtOrePulverisation(GtOre.TUNGSTATE, GtItems.TUNGSTEN_DUST, 2, GtItems.MANGANESE_DUST, 10);
+        gtOrePulverisation(GtOre.BAUXITE, GtItems.BAUXITE_DUST, 4, GtItems.ALUMINIUM_DUST, 10);
+        // GT_Mod: flint, melon, wool and the vanilla recycling.
+        te(pulverizer, "gt_flint", Ingredient.of(Items.FLINT), stack(GtItems.SMALL_FLINT_DUST, 2),
+                stack(GtItems.SMALL_FLINT_DUST, 1), 10, TeRecipes.GT_PULVERIZER_ENERGY);
+        te(pulverizer, "gt_melon", Ingredient.of(Items.MELON), stack(Items.MELON_SLICE, 8), stack(Items.MELON_SEEDS, 1),
+                80, TeRecipes.GT_PULVERIZER_ENERGY);
+        te(pulverizer, "gt_wool", Ingredient.of(ItemTags.WOOL), stack(Items.STRING, 2), stack(Items.STRING, 1), 50,
+                TeRecipes.GT_PULVERIZER_ENERGY);
+        te(pulverizer, "gt_clock", Ingredient.of(Items.CLOCK), stack(Ic2Items.GOLD_DUST, 4), stack(Items.REDSTONE, 1),
+                95, TeRecipes.GT_PULVERIZER_ENERGY);
+        te(pulverizer, "gt_compass", Ingredient.of(Items.COMPASS), stack(Ic2Items.IRON_DUST, 4),
+                stack(Items.REDSTONE, 1), 95, TeRecipes.GT_PULVERIZER_ENERGY);
+        te(pulverizer, "gt_enchanting_table", Ingredient.of(Items.ENCHANTING_TABLE), stack(GtItems.DIAMOND_DUST, 2),
+                stack(GtItems.OBSIDIAN_DUST, 4), 95, TeRecipes.GT_PULVERIZER_ENERGY);
+        te(pulverizer, "gt_lever", Ingredient.of(Items.LEVER), stack(Items.SAND, 1), stack(GtItems.SMALL_WOOD_PULP, 2),
+                95, TeRecipes.GT_PULVERIZER_ENERGY);
+        te(TeRecipe.Kind.SAWMILL, "gt_redstone_torch", Ingredient.of(Items.REDSTONE_TORCH),
+                stack(GtItems.SMALL_WOOD_PULP, 2), stack(Items.REDSTONE, 1), 95, TeRecipes.GT_SAWMILL_ENERGY);
+    }
+
+    /** {@code GT_Utility.applyUsagesForMaterials}: tools with sticks give wood pulp, 50 % for sword and sickle. */
+    private void toolPulverisation(String name, Ingredient tool, ItemLike dust, int count, boolean half) {
+        te(TeRecipe.Kind.PULVERIZER, "gt_" + name, tool, stack(dust, count), stack(GtItems.WOOD_PULP, 1),
+                half ? 50 : 100, TeRecipes.GT_PULVERIZER_ENERGY);
+    }
+
+    private void gtOrePulverisation(GtOre ore, ItemLike result, int count, ItemLike byProduct, int chance) {
+        te(TeRecipe.Kind.PULVERIZER, ore.getBlockName(), gtOre(ore), stack(result, count), stack(byProduct, 1), chance,
+                TeRecipes.GT_PULVERIZER_ENERGY);
+    }
+
     private void teMachines() {
         teMachine(TeItems.POWERED_FURNACE.get(), Ingredient.of(Items.REDSTONE), Ingredient.of(Items.BRICKS));
         teMachine(TeItems.PULVERIZER.get(), Ingredient.of(Items.PISTON), Ingredient.of(Items.FLINT));
@@ -2298,16 +2357,11 @@ public final class CraftRecipeProvider extends RecipeProvider {
         te(pulverizer, "obsidian", Ingredient.of(Items.OBSIDIAN), stack(GtItems.OBSIDIAN_DUST, 1), 400);
         te(pulverizer, "netherrack", Ingredient.of(Items.NETHERRACK), stack(Items.COBBLESTONE, 1),
                 stack(GtItems.SULFUR_DUST, 1), 10, 320);
-        te(pulverizer, "coal_ore", Ingredient.of(Items.COAL_ORE, Items.DEEPSLATE_COAL_ORE), stack(Items.COAL, 1), 80);
         te(pulverizer, "diamond_ore", Ingredient.of(Items.DIAMOND_ORE, Items.DEEPSLATE_DIAMOND_ORE),
                 stack(Items.DIAMOND, 1), 80);
         te(pulverizer, "emerald_ore", Ingredient.of(Items.EMERALD_ORE, Items.DEEPSLATE_EMERALD_ORE),
                 stack(Items.EMERALD, 1), 80);
         te(pulverizer, "glowstone", Ingredient.of(Items.GLOWSTONE), stack(Items.GLOWSTONE_DUST, 4), 80);
-        te(pulverizer, "lapis_ore", Ingredient.of(Items.LAPIS_ORE, Items.DEEPSLATE_LAPIS_ORE),
-                stack(Items.LAPIS_LAZULI, 8), 240);
-        te(pulverizer, "redstone_ore", Ingredient.of(Items.REDSTONE_ORE, Items.DEEPSLATE_REDSTONE_ORE),
-                stack(Items.REDSTONE, 8), 240);
         te(pulverizer, "logs", Ingredient.of(Items.OAK_LOG, Items.SPRUCE_LOG, Items.BIRCH_LOG, Items.JUNGLE_LOG),
                 stack(TeItems.WOOD_CHIPS, 1), 160);
         te(pulverizer, "sugar_cane", Ingredient.of(Items.SUGAR_CANE), stack(Items.SUGAR, 2), 80);
@@ -2675,6 +2729,9 @@ public final class CraftRecipeProvider extends RecipeProvider {
                 Ingredient undamaged = DataComponentIngredient.of(false, DataComponents.DAMAGE, 0, item);
                 String name = material.prefix() + "_" + piece.name();
                 machine(MachineRecipe.Kind.MACERATOR, name, undamaged, 1, material.dust(), piece.count());
+                if (tools.contains(piece)) {
+                    toolPulverisation(name, undamaged, material.dust(), piece.count(), piece.name().equals("sword"));
+                }
                 if (material.ingot() != null) {
                     smelt(material.ingot() == Items.IRON_INGOT ? "iron_ingots_from_" + name : "gold_ingots_from_" + name,
                             undamaged, material.ingot(), piece.count(), 0.0F);
@@ -2694,9 +2751,11 @@ public final class CraftRecipeProvider extends RecipeProvider {
             for (RpItems.Tool tool : RpItems.Tool.values()) {
                 if (tool.getRecoveredDust() > 0) {
                     DeferredItem<Item> item = RpItems.tool(gem, tool);
-                    machine(MachineRecipe.Kind.MACERATOR, item.getId().getPath(),
-                            DataComponentIngredient.of(false, DataComponents.DAMAGE, 0, item.get()), 1, gem.getDust(),
+                    Ingredient undamaged = DataComponentIngredient.of(false, DataComponents.DAMAGE, 0, item.get());
+                    machine(MachineRecipe.Kind.MACERATOR, item.getId().getPath(), undamaged, 1, gem.getDust(),
                             tool.getRecoveredDust());
+                    toolPulverisation(item.getId().getPath(), undamaged, gem.getDust(), tool.getRecoveredDust(),
+                            tool == RpItems.Tool.SWORD || tool == RpItems.Tool.SICKLE);
                 }
             }
         }

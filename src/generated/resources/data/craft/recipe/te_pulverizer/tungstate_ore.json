@@ -1,0 +1,19 @@
+{
+  "type": "craft:te_pulverizer",
+  "chance": 10,
+  "energy": 400,
+  "inputs": [
+    {
+      "count": 1,
+      "item": "craft:tungstate_ore"
+    }
+  ],
+  "primary": {
+    "count": 2,
+    "id": "craft:tungsten_dust"
+  },
+  "secondary": {
+    "count": 1,
+    "id": "craft:manganese_dust"
+  }
+}

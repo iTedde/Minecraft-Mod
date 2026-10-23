@@ -26,7 +26,8 @@ import org.jetbrains.annotations.Nullable;
  * <li>Powered Furnace: own recipes, otherwise every furnace recipe at 160 MJ ({@code FurnaceManager.getOutput}).</li>
  * <li>Pulverizer: own recipes, otherwise every IC2 macerator recipe at 400 MJ – GregTech's
  * {@code addPulverisationRecipe} puts each of its macerator recipes into the pulverizer as well.</li>
- * <li>Sawmill: own recipes, otherwise macerator recipes giving wood pulp at 80 MJ (GT's branch for wood).</li>
+ * <li>Sawmill: own recipes, otherwise macerator recipes giving wood pulp or tiny wood pulp at 80 MJ (GT's branch
+ * for wood).</li>
  * <li>Induction Smelter, Magma Crucible, Liquid Transposer: own recipes only.</li>
  * </ul>
  */
@@ -157,6 +158,11 @@ public final class TeRecipes {
                 smelting.get().value().getIngredients().get(0), 1)), result, ItemStack.EMPTY, 0, FURNACE_DEFAULT_ENERGY);
     }
 
+    /** {@code addPulverisationRecipe} sends wood pulp and tiny wood pulp results to the sawmill. */
+    public static boolean isWoodPulp(ItemStack result) {
+        return result.is(GtItems.WOOD_PULP.get()) || result.is(GtItems.SMALL_WOOD_PULP.get());
+    }
+
     /** GregTech routes wood-pulp results to the sawmill and everything else to the pulverizer. */
     @Nullable
     private static TeRecipe maceratorFallback(Level level, ItemStack stack, boolean wood) {
@@ -166,7 +172,7 @@ public final class TeRecipes {
             return null;
         }
         MachineRecipe recipe = macerator.get().value();
-        if (recipe.getResult().is(GtItems.WOOD_PULP.get()) != wood) {
+        if (isWoodPulp(recipe.getResult()) != wood) {
             return null;
         }
         return new TeRecipe(wood ? TeRecipe.Kind.SAWMILL : TeRecipe.Kind.PULVERIZER,

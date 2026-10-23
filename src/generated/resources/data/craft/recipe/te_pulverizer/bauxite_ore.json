@@ -1,0 +1,19 @@
+{
+  "type": "craft:te_pulverizer",
+  "chance": 10,
+  "energy": 400,
+  "inputs": [
+    {
+      "count": 1,
+      "item": "craft:bauxite_ore"
+    }
+  ],
+  "primary": {
+    "count": 4,
+    "id": "craft:bauxite_dust"
+  },
+  "secondary": {
+    "count": 1,
+    "id": "craft:aluminium_dust"
+  }
+}

@@ -6,6 +6,7 @@ import dev.craft.buildcraft.BcBlocks;
 import dev.craft.buildcraft.transport.PipeType;
 import net.minecraft.world.level.block.PipeBlock;
 import dev.craft.gregtech.GtItems;
+import dev.craft.gregtech.world.GtOre;
 import dev.craft.buildcraft.power.BcCapabilities;
 import dev.craft.thermalexpansion.block.PortableTankBlockEntity;
 import dev.craft.thermalexpansion.energy.EnergyCellBlockEntity;
@@ -30,6 +31,8 @@ import net.neoforged.neoforge.fluids.SimpleFluidContent;
 import dev.craft.thermalexpansion.machine.TeMachineBlock;
 import dev.craft.thermalexpansion.machine.TransposerBlockEntity;
 import dev.craft.thermalexpansion.machine.TeMachineBlockEntity;
+import dev.craft.thermalexpansion.recipe.TeRecipe;
+import dev.craft.thermalexpansion.recipe.TeRecipes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.gametest.framework.GameTest;
@@ -107,6 +110,33 @@ public final class ThermalExpansionGameTests {
                     && machine.getInventory().get(1).getCount() == 2, "two iron dust");
             helper.assertTrue(machine.getInventory().get(0).isEmpty(), "ore used");
         });
+    }
+
+    /**
+     * GT {@code addPulverisationRecipe} by-products: GT ores, overwritten TE ores and tool recycling in the pulverizer,
+     * tiny wood pulp results (own recipe and macerator fall-back) in the sawmill.
+     */
+    @GameTest(template = EMPTY)
+    public static void gregTechPulverisationByProducts(GameTestHelper helper) {
+        TeRecipe bauxite = TeRecipes.find(helper.getLevel(), TeRecipe.Kind.PULVERIZER,
+                new ItemStack(GtItems.ore(GtOre.BAUXITE).get()));
+        helper.assertTrue(bauxite != null && bauxite.getPrimary().is(GtItems.BAUXITE_DUST.get())
+                && bauxite.getPrimary().getCount() == 4 && bauxite.getSecondary().is(GtItems.ALUMINIUM_DUST.get())
+                && bauxite.getChance() == 10 && bauxite.getEnergy() == 400, "bauxite ore");
+        TeRecipe lapis = TeRecipes.find(helper.getLevel(), TeRecipe.Kind.PULVERIZER, new ItemStack(Items.LAPIS_ORE));
+        helper.assertTrue(lapis != null && lapis.getPrimary().getCount() == 12
+                && lapis.getSecondary().is(GtItems.LAZURITE_DUST.get()), "lapis ore overwritten by GT");
+        TeRecipe sword = TeRecipes.find(helper.getLevel(), TeRecipe.Kind.PULVERIZER, new ItemStack(Items.IRON_SWORD));
+        helper.assertTrue(sword != null && sword.getSecondary().is(GtItems.WOOD_PULP.get()) && sword.getChance() == 50,
+                "iron sword gives wood pulp");
+        TeRecipe torch = TeRecipes.find(helper.getLevel(), TeRecipe.Kind.SAWMILL, new ItemStack(Items.REDSTONE_TORCH));
+        helper.assertTrue(torch != null && torch.getSecondary().is(Items.REDSTONE) && torch.getEnergy() == 80,
+                "redstone torch in the sawmill");
+        TeRecipe stick = TeRecipes.find(helper.getLevel(), TeRecipe.Kind.SAWMILL, new ItemStack(Items.STICK));
+        helper.assertTrue(stick != null && stick.getPrimary().is(GtItems.SMALL_WOOD_PULP.get()), "stick in the sawmill");
+        helper.assertTrue(TeRecipes.find(helper.getLevel(), TeRecipe.Kind.PULVERIZER, new ItemStack(Items.STICK)) == null,
+                "stick not in the pulverizer");
+        helper.succeed();
     }
 
     /** Sawmill: an oak log gives six planks and always sawdust. */

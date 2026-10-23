@@ -6,7 +6,6 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import dev.craft.core.client.RecipeCategories;
-import dev.craft.gregtech.GtItems;
 import dev.craft.ic2.recipe.MachineRecipe;
 import dev.craft.thermalexpansion.TeItems;
 import dev.craft.thermalexpansion.energy.MagmaticEngineBlockEntity;
@@ -129,7 +128,7 @@ final class TeEmiRecipes {
     }
 
     /**
-     * GregTech's {@code addPulverisationRecipe}: every macerator recipe without an own TE recipe – wood pulp results in
+     * GregTech's {@code addPulverisationRecipe}: every macerator recipe without an own TE recipe – (tiny) wood pulp results in
      * the sawmill (80 MJ), everything else in the pulverizer (400 MJ).
      */
     private static void maceratorFallback(EmiRegistry registry) {
@@ -140,7 +139,7 @@ final class TeEmiRecipes {
             if (items.length == 0) {
                 continue;
             }
-            boolean wood = recipe.getResult().is(GtItems.WOOD_PULP.get());
+            boolean wood = TeRecipes.isWoodPulp(recipe.getResult());
             TeRecipe.Kind kind = wood ? TeRecipe.Kind.SAWMILL : TeRecipe.Kind.PULVERIZER;
             if (hasOwnRecipe(registry, kind, items[0])) {
                 continue;

@@ -1,0 +1,27 @@
+{
+  "type": "craft:te_pulverizer",
+  "chance": 10,
+  "energy": 400,
+  "inputs": [
+    {
+      "type": "neoforge:compound",
+      "children": [
+        {
+          "item": "craft:ruby_ore"
+        },
+        {
+          "item": "craft:deepslate_ruby_ore"
+        }
+      ],
+      "count": 1
+    }
+  ],
+  "primary": {
+    "count": 2,
+    "id": "craft:ruby_dust"
+  },
+  "secondary": {
+    "count": 1,
+    "id": "craft:red_garnet_dust"
+  }
+}
