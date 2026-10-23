@@ -1,10 +1,12 @@
 package dev.craft.ic2.item;
 
 import dev.craft.ic2.Ic2DataComponents;
+import dev.craft.ic2.Ic2Items;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import org.jetbrains.annotations.Nullable;
 
 /** Charge handling of electric items, 1:1 with IC2 {@code ElectricItem}. */
@@ -21,6 +23,15 @@ public final class ElectricItems {
 
     public static boolean isElectric(ItemStack stack) {
         return stack.getItem() instanceof ElectricItem;
+    }
+
+    /**
+     * What a machine battery slot can use ({@code TileEntityElecMachine.provideEnergy}): dischargeable electric items,
+     * redstone and single-use batteries.
+     */
+    public static boolean isMachineEnergySource(ItemStack stack) {
+        return stack.getItem() instanceof ElectricItem item && item.canProvideEnergy()
+                || stack.is(Items.REDSTONE) || stack.is(Ic2Items.SU_BATTERY.get());
     }
 
     public static int getCharge(ItemStack stack) {

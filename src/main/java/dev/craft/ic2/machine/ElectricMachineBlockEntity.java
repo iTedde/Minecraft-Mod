@@ -21,6 +21,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.neoforge.items.IItemHandler;
 import org.jetbrains.annotations.Nullable;
 
 /**
@@ -276,6 +277,28 @@ public abstract class ElectricMachineBlockEntity extends MachineBlockEntity
      */
     @Nullable
     public abstract ItemStack getResultFor(ItemStack input, boolean adjustInput);
+
+    /** Whether automation may put {@code stack} into the input slot: the machine has a recipe for it. */
+    protected boolean acceptsInput(ItemStack stack) {
+        return getResultFor(stack.copyWithCount(stack.getMaxStackSize()), false) != null;
+    }
+
+    // --- inventory ---
+
+    /**
+     * The sides, output-only in IC2, also sort inserted items: energy items into the battery slot, recipe inputs into
+     * the input slot (deviation, see {@code abweichungen.md}). Top and bottom stay as in IC2.
+     */
+    @Override
+    public IItemHandler getItemHandler(@Nullable Direction side) {
+        if (side == null || side.getAxis().isVertical()) {
+            return super.getItemHandler(side);
+        }
+        return new SideAccess(inventory)
+                .input(SLOT_INPUT, stack -> !ElectricItems.isMachineEnergySource(stack) && acceptsInput(stack))
+                .input(SLOT_BATTERY, ElectricItems::isMachineEnergySource)
+                .outputs(SLOT_OUTPUT, SLOT_OUTPUT);
+    }
 
     // --- energy net ---
 

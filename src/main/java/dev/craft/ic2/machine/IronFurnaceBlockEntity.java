@@ -5,6 +5,7 @@ import dev.craft.ic2.Ic2Machine;
 import dev.craft.ic2.generator.FuelValues;
 import dev.craft.ic2.menu.IronFurnaceMenu;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.player.Inventory;
@@ -12,6 +13,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.neoforge.items.IItemHandler;
+import org.jetbrains.annotations.Nullable;
 
 /** Iron furnace, 1:1 with IC2 {@code TileEntityIronFurnace}: 160 ticks per item, burns only while it can smelt. */
 public class IronFurnaceBlockEntity extends MachineBlockEntity {
@@ -113,6 +116,25 @@ public class IronFurnaceBlockEntity extends MachineBlockEntity {
         }
         return ItemStack.isSameItemSameComponents(output, result)
                 && output.getCount() + result.getCount() <= output.getMaxStackSize();
+    }
+
+    /**
+     * The sides, output-only in IC2, also sort inserted items: smeltables into the input slot, other fuels into the
+     * fuel slot (deviation, see {@code abweichungen.md}). Top and bottom stay as in IC2.
+     */
+    @Override
+    public IItemHandler getItemHandler(@Nullable Direction side) {
+        if (side == null || side.getAxis().isVertical()) {
+            return super.getItemHandler(side);
+        }
+        return new SideAccess(inventory)
+                .input(0, this::isSmeltable)
+                .input(1, stack -> !isSmeltable(stack) && FuelValues.getFuelValueFor(stack) > 0)
+                .outputs(2, 2);
+    }
+
+    private boolean isSmeltable(ItemStack stack) {
+        return !ElectricFurnaceBlockEntity.getSmeltingResult(level, stack).isEmpty();
     }
 
     @Override

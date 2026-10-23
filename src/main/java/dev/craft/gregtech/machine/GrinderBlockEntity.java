@@ -8,6 +8,7 @@ import dev.craft.gregtech.block.GtCasingBlock;
 import dev.craft.gregtech.menu.GtGrinderMenu;
 import dev.craft.gregtech.recipe.GtRecipe;
 import dev.craft.ic2.Ic2Items;
+import dev.craft.ic2.machine.SideAccess;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -247,7 +248,10 @@ public class GrinderBlockEntity extends GtMachineBlockEntity {
 
     // --- inventory and tank ---
 
-    /** {@code getInvSideIndex}/{@code getInvSideLength}: top → slot 0, bottom → slot 1, sides → outputs. */
+    /**
+     * {@code getInvSideIndex}/{@code getInvSideLength}: top → slot 0, bottom → slot 1, sides → outputs.
+     * The output sides also put recipe inputs into the input slots (deviation, see {@code abweichungen.md}).
+     */
     @Override
     public IItemHandler getItemHandler(@Nullable Direction side) {
         if (side == null) {
@@ -256,7 +260,11 @@ public class GrinderBlockEntity extends GtMachineBlockEntity {
         return switch (side) {
             case UP -> new RangedWrapper(inventory, SLOT_INPUT, SLOT_INPUT + 1);
             case DOWN -> new RangedWrapper(inventory, SLOT_CELL, SLOT_CELL + 1);
-            default -> new RangedWrapper(inventory, SLOT_OUTPUT_1, SLOT_OUTPUT_1 + OUTPUTS);
+            default -> new SideAccess(inventory)
+                    .input(SLOT_INPUT, stack -> GtRecipe.isInput(level, GtRecipe.Kind.GRINDER, 0, stack))
+                    .input(SLOT_CELL, stack -> !GtRecipe.isInput(level, GtRecipe.Kind.GRINDER, 0, stack)
+                            && GtRecipe.isInput(level, GtRecipe.Kind.GRINDER, 1, stack))
+                    .outputs(SLOT_OUTPUT_1, SLOT_OUTPUT_1 + OUTPUTS - 1);
         };
     }
 

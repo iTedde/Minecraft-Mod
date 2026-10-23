@@ -4,6 +4,7 @@ import dev.craft.gregtech.GtBlockEntityTypes;
 import dev.craft.gregtech.GtMachine;
 import dev.craft.gregtech.menu.GtTankMachineMenu;
 import dev.craft.gregtech.recipe.GtRecipe;
+import dev.craft.ic2.machine.SideAccess;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -206,7 +207,10 @@ public abstract class GtTankMachineBlockEntity extends GtMachineBlockEntity {
 
     // --- inventory and tank ---
 
-    /** {@code getInvSideIndex}/{@code getInvSideLength}: top → slot 0, bottom → slot 1, sides → outputs. */
+    /**
+     * {@code getInvSideIndex}/{@code getInvSideLength}: top → slot 0, bottom → slot 1, sides → outputs.
+     * The output sides also put recipe inputs into the input slots (deviation, see {@code abweichungen.md}).
+     */
     @Override
     public IItemHandler getItemHandler(@Nullable Direction side) {
         if (side == null) {
@@ -215,7 +219,11 @@ public abstract class GtTankMachineBlockEntity extends GtMachineBlockEntity {
         return switch (side) {
             case UP -> new RangedWrapper(inventory, SLOT_INPUT, SLOT_INPUT + 1);
             case DOWN -> new RangedWrapper(inventory, SLOT_CELLS, SLOT_CELLS + 1);
-            default -> new RangedWrapper(inventory, SLOT_OUTPUT_1, SLOT_OUTPUT_1 + OUTPUTS);
+            default -> new SideAccess(inventory)
+                    .input(SLOT_INPUT, stack -> GtRecipe.isInput(level, recipeKind(), 0, stack))
+                    .input(SLOT_CELLS, stack -> !GtRecipe.isInput(level, recipeKind(), 0, stack)
+                            && GtRecipe.isInput(level, recipeKind(), 1, stack))
+                    .outputs(SLOT_OUTPUT_1, SLOT_OUTPUT_1 + OUTPUTS - 1);
         };
     }
 

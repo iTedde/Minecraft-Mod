@@ -66,6 +66,12 @@ public class RecyclerBlockEntity extends ElectricMachineBlockEntity {
         return null;
     }
 
+    /** The recycler takes any item. */
+    @Override
+    protected boolean acceptsInput(ItemStack stack) {
+        return true;
+    }
+
     @Override
     public SoundEvent getStartSound() {
         return Ic2Sounds.RECYCLER_OP.get();

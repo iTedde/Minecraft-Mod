@@ -180,6 +180,20 @@ public final class ThermalExpansionGameTests {
         helper.succeed();
     }
 
+    /** An open side (group 3 = output slot) can be emptied but not filled (deviation, abweichungen.md). */
+    @GameTest(template = EMPTY)
+    public static void openSideDoesNotFillOutput(GameTestHelper helper) {
+        TeMachineBlockEntity machine = machine(helper, TeBlocks.POWERED_FURNACE.get());
+        machine.changeSide(Direction.WEST, true);
+        helper.assertTrue(machine.getSide(Direction.WEST) == 3, "open side");
+        var open = machine.getItemHandler(Direction.WEST);
+        ItemStack rest = open.insertItem(0, new ItemStack(Items.SAND), false);
+        helper.assertTrue(rest.getCount() == 1 && machine.getInventory().get(1).isEmpty(), "output not filled");
+        machine.getInventory().set(1, new ItemStack(Items.GLASS, 2));
+        helper.assertTrue(open.extractItem(0, 64, false).getCount() == 2, "output emptied");
+        helper.succeed();
+    }
+
     /** Output sides push into an adjacent chest while idle (every 40 ticks, 4 items). */
     @GameTest(template = EMPTY, timeoutTicks = 100)
     public static void machineEjectsToOutputSide(GameTestHelper helper) {

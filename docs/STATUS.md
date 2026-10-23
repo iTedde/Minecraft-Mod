@@ -2275,3 +2275,13 @@ geändert). `releases/Craft-1.0.2-curseforge.zip` (21,4 MB; Craft-Jar unverände
   den serverfähigen Mods geprüft („Done“).
 - [x] Nutzer, 2026-10-23: `config` des Profils als `overrides/config` im Paket (48 Dateien, ohne das
   rechnerspezifische `sodium-fingerprint.json`). Craft liegt in `overrides/mods` – nicht mehr von Hand kopieren.
+
+## Erledigt (Rohre/Trichter in Ausgabe-Slots, Nutzer, 2026-10-23)
+Befund: Ein Item-Rohr an der Seite des Recyclers füllte den Ausgabe-Slot – IC2 gibt an den Seiten nur die Ausgabe frei
+(wie im Original, auch bei weiteren Maschinen). Freigabe Nutzer: Ausgabeseiten sortieren wie bei den Generatoren.
+- [x] Neuer Seiten-Handler `ic2/machine/SideAccess` (Eingabe mit Filter, Ausgabe nur entnehmen); umgestellt: IC2
+  Elektromaschinen + Recycler, Eisenofen, Induktionsofen, Canning Machine, Mass Fabricator, Advanced Machines,
+  GT-Hochofen/Grinder/Tankmaschinen/Implosionskompressor/Vakuumgefrierer/Basismaschinen (Rückseite), TE-Maschinen
+  (`abweichungen.md`).
+- [x] GameTests `SideAccessGameTests` (7) + `openSideDoesNotFillOutput`; alle 439 grün. Client-Test offen.
+- Automatische Werkbank geprüft: wie im Original ohne Strom, craftet nur beim Herausziehen durch ein Holz-/Smaragdrohr.

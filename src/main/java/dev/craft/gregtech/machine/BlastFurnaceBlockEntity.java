@@ -10,6 +10,7 @@ import dev.craft.gregtech.GtMachine;
 import dev.craft.gregtech.block.GtCasingBlock;
 import dev.craft.gregtech.menu.GtBlastFurnaceMenu;
 import dev.craft.gregtech.recipe.GtRecipe;
+import dev.craft.ic2.machine.SideAccess;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -264,7 +265,10 @@ public class BlastFurnaceBlockEntity extends GtMachineBlockEntity {
 
     // --- inventory ---
 
-    /** {@code getInvSideIndex}/{@code getInvSideLength}: top → slot 0, bottom → slot 1, sides → outputs. */
+    /**
+     * {@code getInvSideIndex}/{@code getInvSideLength}: top → slot 0, bottom → slot 1, sides → outputs.
+     * The output sides also put recipe inputs into the input slots (deviation, see {@code abweichungen.md}).
+     */
     @Override
     public IItemHandler getItemHandler(@Nullable Direction side) {
         if (side == null) {
@@ -273,7 +277,10 @@ public class BlastFurnaceBlockEntity extends GtMachineBlockEntity {
         return switch (side) {
             case UP -> new RangedWrapper(inventory, SLOT_INPUT_1, SLOT_INPUT_1 + 1);
             case DOWN -> new RangedWrapper(inventory, SLOT_INPUT_2, SLOT_INPUT_2 + 1);
-            default -> new RangedWrapper(inventory, SLOT_OUTPUT_1, SLOT_OUTPUT_2 + 1);
+            default -> new SideAccess(inventory)
+                    .inputs(SLOT_INPUT_1, SLOT_INPUT_2,
+                            stack -> GtRecipe.isInput(level, GtRecipe.Kind.BLAST_FURNACE, 0, stack))
+                    .outputs(SLOT_OUTPUT_1, SLOT_OUTPUT_2);
         };
     }
 

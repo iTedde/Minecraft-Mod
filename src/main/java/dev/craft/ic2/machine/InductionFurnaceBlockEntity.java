@@ -201,7 +201,11 @@ public class InductionFurnaceBlockEntity extends MachineBlockEntity implements E
 
     // --- inventory ---
 
-    /** IC2 {@code getStartInventorySide}/{@code getSizeInventorySide}: top → inputs, bottom → battery, sides → outputs. */
+    /**
+     * IC2 {@code getStartInventorySide}/{@code getSizeInventorySide}: top → inputs, bottom → battery, sides → outputs.
+     * The sides also sort inserted items: energy items into the battery slot, smeltables into the inputs (deviation,
+     * see {@code abweichungen.md}).
+     */
     @Override
     public IItemHandler getItemHandler(@Nullable Direction side) {
         if (side == null) {
@@ -210,7 +214,11 @@ public class InductionFurnaceBlockEntity extends MachineBlockEntity implements E
         return switch (side) {
             case UP -> new RangedWrapper(inventory, SLOT_INPUT_1, SLOT_INPUT_2 + 1);
             case DOWN -> new RangedWrapper(inventory, SLOT_BATTERY, SLOT_BATTERY + 1);
-            default -> new RangedWrapper(inventory, SLOT_OUTPUT_1, SLOT_OUTPUT_2 + 1);
+            default -> new SideAccess(inventory)
+                    .inputs(SLOT_INPUT_1, SLOT_INPUT_2, stack -> !ElectricItems.isMachineEnergySource(stack)
+                            && !ElectricFurnaceBlockEntity.getSmeltingResult(level, stack).isEmpty())
+                    .input(SLOT_BATTERY, ElectricItems::isMachineEnergySource)
+                    .outputs(SLOT_OUTPUT_1, SLOT_OUTPUT_2);
         };
     }
 

@@ -105,6 +105,22 @@ public class GtRecipe implements Recipe<GtRecipe.Input> {
         return null;
     }
 
+    /**
+     * Whether a recipe of {@code kind} takes {@code stack} as input {@code index} (either input for shapeless kinds);
+     * the amount is not checked. Used to sort automation input into the right slot.
+     */
+    public static boolean isInput(Level level, Kind kind, int index, ItemStack stack) {
+        for (RecipeHolder<GtRecipe> holder : level.getRecipeManager().getAllRecipesFor(kind.type())) {
+            List<SizedIngredient> inputs = holder.value().inputs;
+            for (int i = 0; i < inputs.size(); i++) {
+                if ((i == index || kind.shapeless) && inputs.get(i).ingredient().test(stack)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     @Override
     public boolean matches(Input input, Level level) {
         return isInputEqual(kind.shapeless, false, input.input1(), input.input2());

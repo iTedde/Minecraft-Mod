@@ -7,6 +7,7 @@ import dev.craft.gregtech.GtMachine;
 import dev.craft.gregtech.block.GtCasingBlock;
 import dev.craft.gregtech.menu.GtImplosionCompressorMenu;
 import dev.craft.gregtech.recipe.GtRecipe;
+import dev.craft.ic2.machine.SideAccess;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -205,7 +206,10 @@ public class ImplosionCompressorBlockEntity extends GtMachineBlockEntity {
 
     // --- inventory ---
 
-    /** {@code getInvSideIndex}/{@code getInvSideLength} on absolute sides: top → 0, east/west → outputs, rest → 1. */
+    /**
+     * {@code getInvSideIndex}/{@code getInvSideLength} on absolute sides: top → 0, east/west → outputs, rest → 1.
+     * The output sides also put recipe inputs into the input slots (deviation, see {@code abweichungen.md}).
+     */
     @Override
     public IItemHandler getItemHandler(@Nullable Direction side) {
         if (side == null) {
@@ -213,7 +217,11 @@ public class ImplosionCompressorBlockEntity extends GtMachineBlockEntity {
         }
         return switch (side) {
             case UP -> new RangedWrapper(inventory, SLOT_INPUT_1, SLOT_INPUT_1 + 1);
-            case EAST, WEST -> new RangedWrapper(inventory, SLOT_OUTPUT_1, SLOT_OUTPUT_2 + 1);
+            case EAST, WEST -> new SideAccess(inventory)
+                    .input(SLOT_INPUT_1, stack -> GtRecipe.isInput(level, GtRecipe.Kind.IMPLOSION, 0, stack))
+                    .input(SLOT_INPUT_2, stack -> !GtRecipe.isInput(level, GtRecipe.Kind.IMPLOSION, 0, stack)
+                            && GtRecipe.isInput(level, GtRecipe.Kind.IMPLOSION, 1, stack))
+                    .outputs(SLOT_OUTPUT_1, SLOT_OUTPUT_2);
             default -> new RangedWrapper(inventory, SLOT_INPUT_2, SLOT_INPUT_2 + 1);
         };
     }

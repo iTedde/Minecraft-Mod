@@ -15,6 +15,7 @@ import dev.craft.ic2.item.ElectricItems;
 import dev.craft.ic2.item.UpgradeModuleItem;
 import dev.craft.ic2.machine.MachineBlockEntity;
 import dev.craft.ic2.machine.MachineSoundHooks;
+import dev.craft.ic2.machine.SideAccess;
 import dev.craft.ic2.recipe.MachineRecipe;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -359,7 +360,11 @@ public class AdvancedMachineBlockEntity extends MachineBlockEntity implements En
 
     // --- sides ---
 
-    /** {@code getStartInventorySide}/{@code getSizeInventorySide}: bottom energy slot, top input, sides outputs. */
+    /**
+     * {@code getStartInventorySide}/{@code getSizeInventorySide}: bottom energy slot, top input, sides outputs. The
+     * sides also sort inserted items: energy items into the energy slot, recipe inputs into the input slot (deviation,
+     * see {@code abweichungen.md}).
+     */
     @Override
     public IItemHandler getItemHandler(@Nullable Direction side) {
         if (side == null) {
@@ -369,7 +374,12 @@ public class AdvancedMachineBlockEntity extends MachineBlockEntity implements En
         return switch (side) {
             case DOWN -> new RangedWrapper(inventory, AdvancedMachineType.SLOT_ENERGY, AdvancedMachineType.SLOT_ENERGY + 1);
             case UP -> new RangedWrapper(inventory, AdvancedMachineType.SLOT_INPUT, AdvancedMachineType.SLOT_INPUT + 1);
-            default -> new RangedWrapper(inventory, outputs[0], outputs[0] + outputs.length);
+            default -> new SideAccess(inventory)
+                    .input(AdvancedMachineType.SLOT_INPUT, stack -> !ElectricItems.isMachineEnergySource(stack)
+                            && !MachineRecipe.getOutputFor(level, type.getKind(),
+                            stack.copyWithCount(stack.getMaxStackSize()), false).isEmpty())
+                    .input(AdvancedMachineType.SLOT_ENERGY, ElectricItems::isMachineEnergySource)
+                    .outputs(outputs[0], outputs[outputs.length - 1]);
         };
     }
 

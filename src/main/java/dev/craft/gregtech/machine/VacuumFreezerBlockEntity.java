@@ -7,6 +7,7 @@ import dev.craft.gregtech.GtMachine;
 import dev.craft.gregtech.block.GtCasingBlock;
 import dev.craft.gregtech.menu.GtVacuumFreezerMenu;
 import dev.craft.gregtech.recipe.GtRecipe;
+import dev.craft.ic2.machine.SideAccess;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -202,14 +203,19 @@ public class VacuumFreezerBlockEntity extends GtMachineBlockEntity {
 
     // --- inventory ---
 
-    /** {@code getInvSideIndex}/{@code getInvSideLength} on absolute sides: top → input, everything else → output. */
+    /**
+     * {@code getInvSideIndex}/{@code getInvSideLength} on absolute sides: top → input, everything else → output.
+     * The output sides also put recipe inputs into the input slots (deviation, see {@code abweichungen.md}).
+     */
     @Override
     public IItemHandler getItemHandler(@Nullable Direction side) {
         if (side == null) {
             return inventory;
         }
         return side == Direction.UP ? new RangedWrapper(inventory, SLOT_INPUT, SLOT_INPUT + 1)
-                : new RangedWrapper(inventory, SLOT_OUTPUT, SLOT_OUTPUT + 1);
+                : new SideAccess(inventory)
+                        .input(SLOT_INPUT, stack -> GtRecipe.isInput(level, GtRecipe.Kind.VACUUM_FREEZER, 0, stack))
+                        .outputs(SLOT_OUTPUT, SLOT_OUTPUT);
     }
 
     @Override

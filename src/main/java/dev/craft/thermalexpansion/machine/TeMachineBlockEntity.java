@@ -6,6 +6,7 @@ import dev.craft.buildcraft.transport.ItemPipeBlockEntity;
 import dev.craft.buildcraft.transport.PipeConnections;
 import dev.craft.buildcraft.transport.TravelingItem;
 import dev.craft.ic2.machine.MachineInventory;
+import dev.craft.ic2.machine.SideAccess;
 import dev.craft.thermalexpansion.TeRedstoneControl;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -339,7 +340,21 @@ public abstract class TeMachineBlockEntity extends BlockEntity implements MenuPr
             return EmptyItemHandler.INSTANCE;
         }
         int start = type.getStart(group);
-        return new RangedWrapper(inventory, start, start + size);
+        int inputStart = type.getStart(1);
+        int inputEnd = inputStart + type.getAccessSize(1);
+        if (start >= inputStart && start + size <= inputEnd) {
+            return new RangedWrapper(inventory, start, start + size);
+        }
+        // Groups with output slots: those can only be emptied (deviation, see abweichungen.md).
+        SideAccess access = new SideAccess(inventory);
+        for (int slot = start; slot < start + size; slot++) {
+            if (slot >= inputStart && slot < inputEnd) {
+                access.input(slot, stack -> true);
+            } else {
+                access.outputs(slot, slot);
+            }
+        }
+        return access;
     }
 
     public boolean hasSide(int group) {

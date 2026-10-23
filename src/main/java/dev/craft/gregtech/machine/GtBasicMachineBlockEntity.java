@@ -1,6 +1,7 @@
 package dev.craft.gregtech.machine;
 
 import dev.craft.gregtech.menu.GtBasicMachineMenu;
+import dev.craft.ic2.machine.SideAccess;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -260,7 +261,10 @@ public abstract class GtBasicMachineBlockEntity extends GtMachineBlockEntity {
 
     // --- inventory ---
 
-    /** Sided access (spec 13 §1.7); the front has none. */
+    /**
+     * Sided access (spec 13 §1.7); the front has none. The back also takes items into the inputs like the other
+     * sides (deviation, see {@code abweichungen.md}).
+     */
     @Override
     public IItemHandler getItemHandler(@Nullable Direction side) {
         if (side == null) {
@@ -270,7 +274,9 @@ public abstract class GtBasicMachineBlockEntity extends GtMachineBlockEntity {
             return EmptyItemHandler.INSTANCE;
         }
         if (side == getFacing().getOpposite()) {
-            return new RangedWrapper(inventory, SLOT_OUTPUT_1, SLOT_OUTPUT_2 + 1);
+            return new SideAccess(inventory)
+                    .inputs(SLOT_INPUT_1, separatedInputs ? SLOT_INPUT_1 : SLOT_INPUT_2, stack -> true)
+                    .outputs(SLOT_OUTPUT_1, SLOT_OUTPUT_2);
         }
         if (separatedInputs && side.getAxis().isVertical()) {
             return new RangedWrapper(inventory, SLOT_INPUT_2, SLOT_INPUT_2 + 1);

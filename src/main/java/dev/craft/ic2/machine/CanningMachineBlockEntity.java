@@ -30,6 +30,8 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.neoforge.items.IItemHandler;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * IC2 {@code TileEntityCanner}: cans food into tin cans, fills fuel cans and jetpacks with fuel cells (spec 04, canning
@@ -321,6 +323,30 @@ public class CanningMachineBlockEntity extends MachineBlockEntity implements Ene
             case UP -> SLOT_INPUT;
             default -> SLOT_OUTPUT;
         };
+    }
+
+    /**
+     * The output sides also sort inserted items: containers into the container slot, energy items into the battery
+     * slot, food, fuels and foam pellets into the input slot (deviation, see {@code abweichungen.md}).
+     */
+    @Override
+    public IItemHandler getItemHandler(@Nullable Direction side) {
+        if (side == null || getSlotForSide(side) != SLOT_OUTPUT) {
+            return super.getItemHandler(side);
+        }
+        return new SideAccess(inventory)
+                .input(SLOT_INPUT, stack -> !isContainer(stack) && !ElectricItems.isMachineEnergySource(stack)
+                        && (getFoodValue(stack) > 0 || getFuelValue(stack) > 0
+                        || stack.is(Ic2Items.CONSTRUCTION_FOAM_PELLET.get())))
+                .input(SLOT_CONTAINER, CanningMachineBlockEntity::isContainer)
+                .input(SLOT_BATTERY, stack -> !isContainer(stack) && ElectricItems.isMachineEnergySource(stack))
+                .outputs(SLOT_OUTPUT, SLOT_OUTPUT);
+    }
+
+    /** Items {@link #getMode} recognises in the container slot. */
+    private static boolean isContainer(ItemStack stack) {
+        return stack.is(Ic2Items.TIN_CAN.get()) || stack.is(Ic2Items.EMPTY_FUEL_CAN.get())
+                || stack.is(Ic2Items.JETPACK.get()) || stack.is(Ic2Items.CF_PACK.get());
     }
 
     @Override

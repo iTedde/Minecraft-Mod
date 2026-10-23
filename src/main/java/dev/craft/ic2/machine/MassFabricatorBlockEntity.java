@@ -29,6 +29,8 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.neoforge.items.IItemHandler;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Mass fabricator, 1:1 with IC2 {@code TileEntityMatter}: 1 000 000 EU per UU matter; amplifiers add a scrap value
@@ -239,6 +241,17 @@ public class MassFabricatorBlockEntity extends MachineBlockEntity implements Ene
     @Override
     protected int getSlotForSide(Direction side) {
         return side == Direction.DOWN ? SLOT_AMPLIFIER : SLOT_OUTPUT;
+    }
+
+    /** The output sides also put amplifiers into the amplifier slot (deviation, see {@code abweichungen.md}). */
+    @Override
+    public IItemHandler getItemHandler(@Nullable Direction side) {
+        if (side == null || side == Direction.DOWN) {
+            return super.getItemHandler(side);
+        }
+        return new SideAccess(inventory)
+                .input(SLOT_AMPLIFIER, stack -> getAmplifierValue(stack) > 0)
+                .outputs(SLOT_OUTPUT, SLOT_OUTPUT);
     }
 
     @Override
