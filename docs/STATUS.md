@@ -2227,3 +2227,5 @@ merkten Rohre ein Umstellen der Seitenkonfiguration nicht (keine Nachbaränderun
   ergänzt (21,3 MB); Kopie unter `X:/Craft/Craft-1.0.0-curseforge.zip`. Im Spiel noch ungeprüft.
 - [x] Nutzer, 2026-10-22: Solarpanel wieder mit dem IC2-Rezept `CgC/gCg/cGc` (Kohlestaub, Glas, Schaltkreis,
   Generator); das GT-Rezept mit Siliziumplatten bleibt zusätzlich (`docs/abweichungen.md`).
+- [x] Nutzer, 2026-10-23: Solarpanel **nur** mit dem IC2-Rezept – das GT-Rezept mit Siliziumplatten ist entfernt
+  (Rezept-ID wieder `craft:solar_panel`). Noch nicht in der 1.0.0-Jar.

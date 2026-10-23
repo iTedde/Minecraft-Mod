@@ -498,13 +498,9 @@ public final class CraftRecipeProvider extends RecipeProvider {
         }
 
         // GT replacements of IC2 recipes that need the new materials (08-rezepte.md).
-        shaped(machine(Ic2Machine.SOLAR_PANEL), 1, "solar_panel").pattern("GGG", "SPS", "CHC")
-                .define('G', Items.GLASS_PANE).define('S', CraftItemTagsProvider.PLATES_SILICON)
-                .define('P', Ic2Items.CARBON_PLATE).define('C', Ic2Items.ELECTRONIC_CIRCUIT)
-                .define('H', machine(Ic2Machine.GENERATOR)).save();
-        // User request (2026-10-22): IC2's own solar panel recipe back, which GregTech replaced, so the basic
-        // panel no longer needs silicon from the blast furnace.
-        shaped(machine(Ic2Machine.SOLAR_PANEL), 1, "solar_panel_from_coal_dust").pattern("CgC", "gCg", "cGc")
+        // User request (2026-10-23): only IC2's own solar panel recipe, not GregTech's silicon one, so the
+        // basic panel needs no blast furnace.
+        shaped(machine(Ic2Machine.SOLAR_PANEL), 1, "solar_panel").pattern("CgC", "gCg", "cGc")
                 .define('C', CraftItemTagsProvider.DUSTS_COAL).define('g', Items.GLASS)
                 .define('c', Ic2Items.ELECTRONIC_CIRCUIT).define('G', machine(Ic2Machine.GENERATOR)).save();
         steelTool(Ic2Items.MINING_DRILL, "mining_drill", " S ", "SCS", "SBS");

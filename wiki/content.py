@@ -786,7 +786,7 @@ braucht vieles früh GT-Materialien (Platten, Stahl).</p>
 <h2 id="fo--2">2. GregTech-Materialien</h2>
 <ul>
 <li>{c('plate_bending_machine')} für Platten, {c('industrial_electrolyzer')}, später der {c('industrial_blast_furnace')} (Multiblock mit Heizspulen) für Stahl & Co.</li>
-<li>Damit freigeschaltet: {c('solar_panel')}, {c('water_mill')}, {c('wind_mill')} und viele weitere Rezepte, die im Pack GT-Material verlangen.</li>
+<li>Damit freigeschaltet: {c('water_mill')}, {c('wind_mill')} und viele weitere Rezepte, die im Pack GT-Material verlangen.</li>
 <li>Viele GT-Metalle (Nickel, Zink, Silber, Platin, Titan …) haben kein eigenes Erz und entstehen als Nebenprodukt von {c('industrial_grinder')}, Elektrolyseur und Zentrifuge – Übersicht: <a href="#/rohstoffe">Rohstoffe & Erze</a>.</li>
 </ul>
 <h2 id="fo--3">3. Mehr Strom</h2>

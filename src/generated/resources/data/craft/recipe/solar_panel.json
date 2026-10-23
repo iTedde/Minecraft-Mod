@@ -2,25 +2,22 @@
   "type": "craft:ic2_shaped",
   "key": {
     "C": {
-      "item": "craft:electronic_circuit"
+      "tag": "c:dusts/coal"
     },
     "G": {
-      "item": "minecraft:glass_pane"
-    },
-    "H": {
       "item": "craft:generator"
     },
-    "P": {
-      "item": "craft:carbon_plate"
+    "c": {
+      "item": "craft:electronic_circuit"
     },
-    "S": {
-      "tag": "c:plates/silicon"
+    "g": {
+      "item": "minecraft:glass"
     }
   },
   "pattern": [
-    "GGG",
-    "SPS",
-    "CHC"
+    "CgC",
+    "gCg",
+    "cGc"
   ],
   "result": {
     "count": 1,

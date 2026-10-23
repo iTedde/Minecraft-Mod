@@ -15,7 +15,7 @@ Quelle: `reference/decompiled/gregtech/` (`GT_Mod.java`, `common/GT_OreDictHandl
 | Mischmetallbarren | Platten: raff. Eisen (oder Nickel/Invar/Stahl/Titan/Wolfram/Wolframstahl) + Bronze (oder Messing) + Zinn (oder Zink/Aluminium) | Werkbank senkrecht `X/Y/Z` → 1–6 Barren je nach Metallen |
 | Dichte Kupferplatte | 8 Kupferplatten | Compressor |
 | Iridiumplatte | Iridium-Legierungsbarren ← (Iridiumbarren + Diamantstaub + fortg. Legierung) | Werkbank/Walzmaschine `IAI/ADA/IAI` → Implosionskompressor (8 Industrie-TNT) → Iridiumplatte + 4 dunkle Asche (`13-gregtech-maschinen.md` §8) |
-| Solarpanel | Siliziumplatte | `GGG/SPS/CHC` |
+| Solarpanel | Siliziumplatte | `GGG/SPS/CHC` – in Craft entfallen, nur IC2-Rezept (Nutzer, 2026-10-23) |
 | Windmühle | – (Kohleplatten = IC2) | Assembler: Generator + 4 Kohleplatten |
 | Wassermühle (×2) | 4 Aluminiumplatten | Assembler: Generator + 4 Aluminiumplatten |
 | Bergbaubohrer, Kettensäge, el. Hacke, el. Baumzapfer, el. Schraubenschlüssel | Stahlplatten (`ElectricSteelTools=true`) | Werkbank |
