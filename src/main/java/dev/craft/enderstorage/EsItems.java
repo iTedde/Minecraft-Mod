@@ -9,6 +9,8 @@ public final class EsItems {
 
     public static final DeferredItem<EnderStorageItem> ENDER_CHEST = ITEMS.registerItem("ender_storage_chest",
             properties -> new EnderStorageItem(EsBlocks.ENDER_CHEST.get(), properties));
+    public static final DeferredItem<EnderPouchItem> ENDER_POUCH = ITEMS.registerItem("ender_pouch",
+            EnderPouchItem::new);
 
     private EsItems() {
     }

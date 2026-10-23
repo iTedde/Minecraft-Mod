@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "craft:item/enderstorage/ender_pouch_personal",
+    "layer1": "craft:item/enderstorage/ender_pouch_band_1",
+    "layer2": "craft:item/enderstorage/ender_pouch_band_2",
+    "layer3": "craft:item/enderstorage/ender_pouch_band_3"
+  }
+}

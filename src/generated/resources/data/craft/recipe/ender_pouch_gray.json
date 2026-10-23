@@ -1,0 +1,32 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "W": {
+      "item": "minecraft:gray_wool"
+    },
+    "b": {
+      "item": "minecraft:blaze_powder"
+    },
+    "l": {
+      "item": "minecraft:leather"
+    },
+    "p": {
+      "item": "minecraft:ender_pearl"
+    }
+  },
+  "pattern": [
+    "blb",
+    "lpl",
+    "bWb"
+  ],
+  "result": {
+    "components": {
+      "craft:ender_frequency": {
+        "colours": 1911
+      }
+    },
+    "count": 1,
+    "id": "craft:ender_pouch"
+  }
+}

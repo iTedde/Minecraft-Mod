@@ -115,7 +115,7 @@ geht der Inhalt der Feuerung verloren (Drop-Rate/Entity-Schaden wie `explodeMach
 **GUI:** Railcraft `gui_engine_steam.png`-Stil: Dampftank, aktuelle Leistung in EU/t, Pufferanzeige.
 
 **Rezepte:**
-- Turbinengehäuse ×4: `PPP/PMP/PPP` – P Stahlplatte, M Maschinengehäuse.
+- Turbinengehäuse ×6 (Nutzer, 2026-10-23; vorher ×4): `PPP/PMP/PPP` – P Stahlplatte, M Maschinengehäuse.
 - Turbinenrotor: `PSP/SIS/PSP` – P Stahlplatte, S Stahlbarren, I Eisenblock.
 - Dampfturbine: `CRC/GMG/CRC` – C Turbinengehäuse, R Turbinenrotor, G Generator (IC2), M MV-Transformator.
 

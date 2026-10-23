@@ -10,10 +10,12 @@ import net.minecraft.core.Direction;
 import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.GameType;
@@ -158,6 +160,44 @@ public final class EnderStorageGameTests {
         helper.assertValueEqual(middle.get(EsDataComponents.FREQUENCY.get()).colours(),
                 Frequency.of(14, 5, 14).colours(), "dye straight above sets the middle colour");
         helper.assertTrue(craft(level, 1, 2, List.of(red, new ItemStack(Items.LIME_DYE))).isEmpty(), "dye below");
+        helper.succeed();
+    }
+
+    @GameTest(template = EMPTY)
+    public static void pouchTakesChestFrequencyAndOpensItsStorage(GameTestHelper helper) {
+        Player owner = helper.makeMockPlayer(GameType.SURVIVAL);
+        Frequency frequency = Frequency.of(9, 9, 2).withOwner(owner);
+        chest(helper, A, frequency);
+        ServerPlayer player = helper.makeMockServerPlayerInLevel();
+        ItemStack pouch = new ItemStack(EsItems.ENDER_POUCH.get());
+        player.setItemInHand(InteractionHand.MAIN_HAND, pouch);
+        player.setShiftKeyDown(true);
+        BlockPos absolute = helper.absolutePos(A);
+        pouch.onItemUseFirst(new UseOnContext(player, InteractionHand.MAIN_HAND,
+                new BlockHitResult(Vec3.atCenterOf(absolute), Direction.UP, absolute, false)));
+        helper.assertTrue(frequency.equals(pouch.get(EsDataComponents.FREQUENCY.get())), "frequency and owner copied");
+        player.setShiftKeyDown(false);
+        EnderItemStorage storage = EnderStorageData.get(helper.getLevel().getServer()).item(frequency);
+        // The menu itself (mock players cannot receive the open-screen payload): opening counts on the storage.
+        EnderStorageMenu menu = new EnderStorageMenu(0, player.getInventory(), storage, frequency.ownerName());
+        helper.assertValueEqual(storage.getOpenCount(), 1, "open storage counts for the chest lids");
+        menu.removed(player);
+        helper.assertValueEqual(storage.getOpenCount(), 0, "closed again");
+        helper.succeed();
+    }
+
+    @GameTest(template = EMPTY)
+    public static void pouchRecipe(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        ItemStack pouch = craft(level, 3, 3, List.of(
+                new ItemStack(Items.BLAZE_POWDER), new ItemStack(Items.LEATHER), new ItemStack(Items.BLAZE_POWDER),
+                new ItemStack(Items.LEATHER), new ItemStack(Items.ENDER_PEARL), new ItemStack(Items.LEATHER),
+                new ItemStack(Items.BLAZE_POWDER), new ItemStack(Items.GREEN_WOOL), new ItemStack(Items.BLAZE_POWDER)));
+        helper.assertTrue(pouch.is(EsItems.ENDER_POUCH.get()), "pouch");
+        helper.assertValueEqual(pouch.get(EsDataComponents.FREQUENCY.get()).colours(), Frequency.of(13, 13, 13).colours(),
+                "green/green/green");
+        helper.assertTrue(craft(level, 1, 2, List.of(new ItemStack(Items.RED_DYE), pouch)).isEmpty(),
+                "no recolouring of pouches");
         helper.succeed();
     }
 

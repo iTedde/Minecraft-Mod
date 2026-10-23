@@ -18,6 +18,7 @@ import dev.craft.ic2.client.Ic2Client;
 import dev.craft.powerplants.PpItems;
 import dev.craft.portalgun.PgItems;
 import dev.craft.enderstorage.EsItems;
+import dev.craft.enderstorage.client.EnderStorageClient;
 import dev.craft.ironchest.ChestUpgradeType;
 import dev.craft.ironchest.IronChestItems;
 import dev.craft.ironchest.IronChestType;
@@ -145,6 +146,10 @@ public final class CraftItemModelProvider extends ItemModelProvider {
             engine(IronChestItems.chest(type));
         }
         engine(EsItems.ENDER_CHEST);
+        // Ender pouch: base (global/personal) plus three tinted colour bands.
+        ItemModelBuilder pouchPersonal = pouch("ender_pouch_personal", "ender_pouch_personal");
+        pouch(EsItems.ENDER_POUCH.getId().getPath(), "ender_pouch").override()
+                .predicate(EnderStorageClient.PERSONAL_PROPERTY, 1.0F).model(pouchPersonal).end();
         engine(FrItems.THERMIONIC_FABRICATOR);
         engine(FrItems.ELECTRICAL_ENGINE);
         basicItem(FrItems.TIN_GEAR.get());
@@ -160,6 +165,14 @@ public final class CraftItemModelProvider extends ItemModelProvider {
     }
 
     /** Engine (and refinery) item drawn by its item renderer, with the transforms of a vanilla block model. */
+    private ItemModelBuilder pouch(String name, String base) {
+        return withExistingParent(name, mcLoc("item/generated"))
+                .texture("layer0", modLoc("item/enderstorage/" + base))
+                .texture("layer1", modLoc("item/enderstorage/ender_pouch_band_1"))
+                .texture("layer2", modLoc("item/enderstorage/ender_pouch_band_2"))
+                .texture("layer3", modLoc("item/enderstorage/ender_pouch_band_3"));
+    }
+
     private void engine(DeferredItem<? extends Item> item) {
         getBuilder(item.getId().getPath()).parent(new ModelFile.UncheckedModelFile("builtin/entity"))
                 .transforms()

@@ -726,7 +726,7 @@ public final class CraftRecipeProvider extends RecipeProvider {
                 .save();
         shaped(PpItems.BOILER_FIREBOX, 1, "boiler_firebox").pattern("CCC", "CIC", "CCC")
                 .define('C', PpItems.BOILER_CASING).define('I', machine(Ic2Machine.IRON_FURNACE)).save();
-        shaped(PpItems.TURBINE_CASING, 4, "turbine_casing").pattern("PPP", "PMP", "PPP")
+        shaped(PpItems.TURBINE_CASING, 6, "turbine_casing").pattern("PPP", "PMP", "PPP")
                 .define('P', CraftItemTagsProvider.PLATES_STEEL).define('M', Ic2Items.MACHINE_CASING).save();
         shaped(PpItems.TURBINE_ROTOR, 1, "turbine_rotor").pattern("PSP", "SIS", "PSP")
                 .define('P', CraftItemTagsProvider.PLATES_STEEL).define('S', CraftItemTagsProvider.INGOTS_STEEL)
@@ -2697,6 +2697,14 @@ public final class CraftRecipeProvider extends RecipeProvider {
                     .define('C', Items.CHEST).define('p', Items.ENDER_PEARL)
                     .unlockedBy("has_ender_pearl", has(Items.ENDER_PEARL))
                     .save(output, id("ender_storage_chest_" + colour.getName()));
+            ItemStack pouch = new ItemStack(EsItems.ENDER_POUCH.get());
+            pouch.set(EsDataComponents.FREQUENCY.get(), Frequency.of(i, i, i));
+            ShapedRecipeBuilder.shaped(RecipeCategory.MISC, pouch)
+                    .pattern("blb").pattern("lpl").pattern("bWb")
+                    .define('b', Items.BLAZE_POWDER).define('l', Items.LEATHER).define('p', Items.ENDER_PEARL)
+                    .define('W', woolOf(colour))
+                    .unlockedBy("has_ender_pearl", has(Items.ENDER_PEARL))
+                    .save(output, id("ender_pouch_" + colour.getName()));
         }
         SpecialRecipeBuilder.special(EnderStorageRecolourRecipe::new).save(output, id("ender_storage_recolour"));
     }

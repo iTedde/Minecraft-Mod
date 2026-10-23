@@ -430,7 +430,7 @@ Je 1 mB Dampf wird 1 mB Wasser verbraucht. Tanks: je 16 000 mB Wasser und Dampf.
 <div class="recipes">
 {h.recipe(['PBP', 'BFB', 'PBP'], {'P': ('craft:iron_plate', None), 'B': ('minecraft:bricks', 'Ziegelsteine'), 'F': ('minecraft:furnace', 'Ofen')}, ('craft:boiler_casing', None), 4)}
 {h.recipe(['CCC', 'CIC', 'CCC'], {'C': ('craft:boiler_casing', None), 'I': ('craft:iron_furnace', None)}, ('craft:boiler_firebox', None))}
-{h.recipe(['PPP', 'PMP', 'PPP'], {'P': ('craft:steel_plate', None), 'M': ('craft:machine_casing', None)}, ('craft:turbine_casing', None), 4)}
+{h.recipe(['PPP', 'PMP', 'PPP'], {'P': ('craft:steel_plate', None), 'M': ('craft:machine_casing', None)}, ('craft:turbine_casing', None), 6)}
 {h.recipe(['PSP', 'SIS', 'PSP'], {'P': ('craft:steel_plate', None), 'S': ('craft:steel_ingot', None), 'I': ('minecraft:iron_block', 'Eisenblock')}, ('craft:turbine_rotor', None))}
 {h.recipe(['CRC', 'GMG', 'CRC'], {'C': ('craft:turbine_casing', None), 'R': ('craft:turbine_rotor', None), 'G': ('craft:generator', None), 'M': ('craft:mv_transformer', None)}, ('craft:steam_turbine', None))}
 </div>

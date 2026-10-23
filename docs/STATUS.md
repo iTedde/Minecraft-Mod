@@ -2343,3 +2343,15 @@ Metallvarianten und große Zahnräder ohne Konflikt.
 - [x] `releases/craft-1.0.2.jar`, `releases/Craft-1.0.4-curseforge.zip` (wie 1.0.3, Craft 1.0.2 statt 1.0.1 – enthält damit
   auch die Seitenregeln für Rohre/Trichter und die farbige Ender-Truhe aus 26.1). Wiki-Hinweis auf „Addons“.
 - **Client-Test offen** (Paket 1.0.4 importieren; 8 Wellen um ein Birkenbrett → 8 Birken-Wellen; Welle + Brett → Zahnrad).
+
+## Erledigt (26.2 Ender Pouch, 2026-10-23)
+- [x] Item `craft:ender_pouch` (Stapel 1, Frequenz-Komponente): Rechtsklick öffnet den Item-Speicher seiner Frequenz
+  („Enderbeutel“, zählt für die Truhendeckel), Schleichen + Rechtsklick auf eine Ender-Truhe übernimmt Farben und Besitzer
+  (nicht vom Tank). Tooltip Farben/Besitzer. Darstellung: Grundform global/persönlich + drei eingefärbte Bänder
+  (Texturen aus `enderpouch.png`, `abweichungen.md`).
+- [x] 16 Rezepte (`blb/lpl/bWb`: Lohenstaub, Leder, Enderperle, Wolle i → i/i/i); kein Umfärbe-Rezept (wie Original).
+- [x] GameTests `pouchTakesChestFrequencyAndOpensItsStorage`, `pouchRecipe`; alle 448 grün. **Client-Test offen.**
+
+## Erledigt (Turbinengehäuse ×6, Nutzer, 2026-10-23)
+Nutzerwunsch: „Bei Turbine Casing mach, dass man wenigstens 6 Stück sofort draus kriegt. Ist sonst sehr teuer.“
+- [x] Rezept Turbinengehäuse (Dampfturbine) `PPP/PMP/PPP` ergibt **6** statt 4 (`spec/14` §Rezepte, Wiki).

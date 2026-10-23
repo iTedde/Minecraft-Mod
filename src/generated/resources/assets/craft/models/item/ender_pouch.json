@@ -1,0 +1,17 @@
+{
+  "parent": "minecraft:item/generated",
+  "overrides": [
+    {
+      "model": "craft:item/ender_pouch_personal",
+      "predicate": {
+        "craft:personal": 1.0
+      }
+    }
+  ],
+  "textures": {
+    "layer0": "craft:item/enderstorage/ender_pouch",
+    "layer1": "craft:item/enderstorage/ender_pouch_band_1",
+    "layer2": "craft:item/enderstorage/ender_pouch_band_2",
+    "layer3": "craft:item/enderstorage/ender_pouch_band_3"
+  }
+}
