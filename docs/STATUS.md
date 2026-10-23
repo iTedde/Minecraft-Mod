@@ -2250,4 +2250,4 @@ mit kleinem Holzschliff ins Sägewerk, nicht in den Pulverisierer.
 - [x] `mod_version` 1.0.1; `releases/craft-1.0.1.jar`, `releases/Craft-1.0.1-curseforge.zip` (21,3 MB): Mods wie 1.0.0,
   dazu Industrial Foregoing 3.6.38 + Titanium 4.0.43 per `manifest.json` `files` (lädt die CurseForge-App beim Import).
   Enthält Rohr-Fix für TE-Maschinen, Solarpanel nur mit IC2-Rezept, GT-Nebenprodukte. `phase3-wip` nach `main` gemergt.
-- Kopie nach `X:/Craft/` steht aus (Laufwerk auf diesem Rechner nicht verfügbar).
+- Keine Kopie nach `X:/Craft/` nötig (Nutzer: Laufwerk liegt auf anderem PC, maßgeblich ist das Repo).
