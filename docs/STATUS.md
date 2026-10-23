@@ -2251,3 +2251,17 @@ mit kleinem Holzschliff ins Sägewerk, nicht in den Pulverisierer.
   dazu Industrial Foregoing 3.6.38 + Titanium 4.0.43 per `manifest.json` `files` (lädt die CurseForge-App beim Import).
   Enthält Rohr-Fix für TE-Maschinen, Solarpanel nur mit IC2-Rezept, GT-Nebenprodukte. `phase3-wip` nach `main` gemergt.
 - Keine Kopie nach `X:/Craft/` nötig (Nutzer: Laufwerk liegt auf anderem PC, maßgeblich ist das Repo).
+
+## Erledigt (Create & Co. im CurseForge-Paket, Nutzer, 2026-10-23)
+Wunschliste eines Mitspielers; nur mitinstalliert per `manifest.json` `files` (keine Integration, nichts am Mod
+geändert). `releases/Craft-1.0.2-curseforge.zip` (21,4 MB; Craft-Jar unverändert 1.0.1, empfohlener RAM 8 GB).
+- [x] Create 6.0.10, Create Aeronautics 1.3.2 (bundled: Aeronautics + Simulated + Offroad) + Sable 2.0.6, Aeronautics:
+  Automated Logistics 0.7.0, Propulsion: Simulated 1.1.5, Diesel Generators 1.3.15, Copycats+ 3.0.9, New Furnitures
+  1.1.2, Create Better FPS 1.1.5 (braucht **Sodium** 0.8.13), Big Cannons 5.11.7 (+ Ritchie's Projectile Library),
+  Crafts & Additions 1.6.0, Mechanical Extruder 2.2.2 (+ Mechanicals Lib), Create Encased 1.10.0, Ore Excavation
+  1.6.8, Applied Kinetics 1.5.3 (braucht – undeklariert – **AE2** 19.2.18 + GuideME), Aeroworks 1.5.0, Create:
+  Connected 1.3.3, Yori3o's Grappling Hooks 5.2.1 (+ YACL, undeklariert), Ad Astra 1.16.26 (+ Resourceful Lib/Config,
+  Common Storage Lib).
+- **Nicht aufgenommen:** Create: Steam 'n' Rails – offiziell nur für 1.20.1.
+- [x] Geprüft: dedizierter NeoForge-21.1.259-Server mit allen Paket-Mods + Craft startet („Done“); nur Lootable-/Tag-
+  Fehler für optionale Fremdmod-Inhalte. Client (Sodium, Create Better FPS) ungeprüft.
