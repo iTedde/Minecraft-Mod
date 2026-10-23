@@ -3,6 +3,8 @@ package dev.craft.thermalexpansion;
 import dev.craft.Craft;
 import dev.craft.ic2.Ic2Items;
 import dev.craft.buildcraft.BcBlocks;
+import dev.craft.buildcraft.transport.PipeType;
+import net.minecraft.world.level.block.PipeBlock;
 import dev.craft.gregtech.GtItems;
 import dev.craft.buildcraft.power.BcCapabilities;
 import dev.craft.thermalexpansion.block.PortableTankBlockEntity;
@@ -582,6 +584,36 @@ public final class ThermalExpansionGameTests {
         helper.succeedWhen(() -> {
             helper.assertTrue(chest.countItem(Items.DIRT) == 8, "the buffer is retried every 40 ticks");
             helper.assertTrue(sender.getBuffer().isEmpty(), "buffer empty");
+        });
+    }
+
+    /** Item pipes connect to every side of a machine, also to closed ones ({@code IInventory} with slots). */
+    @GameTest(template = EMPTY)
+    public static void itemPipesConnectToClosedSides(GameTestHelper helper) {
+        machine(helper, TeBlocks.POWERED_FURNACE.get());
+        helper.setBlock(POS.north(), BcBlocks.pipe(PipeType.COBBLESTONE_TRANSPORT).get());
+        helper.setBlock(POS.above(), BcBlocks.pipe(PipeType.COBBLESTONE_TRANSPORT).get());
+        helper.runAfterDelay(3, () -> {
+            helper.assertBlockProperty(POS.north(), PipeBlock.SOUTH, true);
+            helper.assertBlockProperty(POS.above(), PipeBlock.DOWN, true);
+            helper.succeed();
+        });
+    }
+
+    /** Changing a side in the configuration tab updates the connection of an adjacent fluid pipe. */
+    @GameTest(template = EMPTY, timeoutTicks = 40)
+    public static void fluidPipeFollowsSideChange(GameTestHelper helper) {
+        CrucibleBlockEntity crucible = machine(helper, TeBlocks.MAGMA_CRUCIBLE.get());
+        crucible.clearSide(Direction.UP);
+        helper.setBlock(POS.above(), BcBlocks.pipe(PipeType.COBBLESTONE_FLUID).get());
+        helper.runAfterDelay(3, () -> {
+            helper.assertBlockProperty(POS.above(), PipeBlock.DOWN, false);
+            crucible.changeSide(Direction.UP, true);
+            crucible.changeSide(Direction.UP, true);
+            helper.runAfterDelay(3, () -> {
+                helper.assertBlockProperty(POS.above(), PipeBlock.DOWN, true);
+                helper.succeed();
+            });
         });
     }
 }

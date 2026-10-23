@@ -101,8 +101,9 @@ beteiligte Rohr der Verbindung zustimmt. Ein Rohr stimmt einer Nachbar-Block-Ent
    - Sandstein: verbindet sich **nur mit Rohren** (keine Inventare/Tanks/Maschinen).
    - Gold, Eisen, Diamant, Leere: keine Einschränkung.
 4. **Transport gegenüber Nicht-Rohren:**
-   - Items: Item-Inventar mit ≥ 1 Slot auf dieser Seite (1.21: `Capabilities.ItemHandler.BLOCK` der Seite), Quarry,
-     Mining Well (`IMachine.manageSolids`).
+   - Items: Item-Inventar mit ≥ 1 Slot (`IInventory.getSizeInventory() > 0`, **unabhängig von der Seite** – auch an
+     einer TE-Seite ohne Slots; 1.21: `Capabilities.ItemHandler.BLOCK` der Seite oder ohne Seite), Quarry,
+     Mining Well (`IMachine.manageSolids`). Items laufen nur in Seiten, die etwas aufnehmen (`canReceivePipeObjects`).
    - Flüssigkeit: Fluid-Handler auf dieser Seite mit ≥ 1 Tank (1.21: `Capabilities.FluidHandler.BLOCK`), Pumpe,
      Raffinerie (`IMachine.manageLiquids`).
    - Leistung: jede BC-Maschine (`IMachine`: Quarry, Mining Well, Pumpe, Raffinerie) und jeder MJ-Empfänger

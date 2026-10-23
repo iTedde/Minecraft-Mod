@@ -45,6 +45,7 @@ import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.IItemHandlerModifiable;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
@@ -119,8 +120,13 @@ public class ItemPipeBlockEntity extends PipeBlockEntity implements MenuProvider
         if (other instanceof QuarryBlockEntity || other instanceof MiningWellBlockEntity) {
             return true;
         }
+        // IInventory.getSizeInventory() > 0: any slot counts, also when the facing side exposes none (sided TE machines)
         IItemHandler handler = PipeConnections.itemHandler(level, worldPosition, side);
-        return handler != null && handler.getSlots() > 0;
+        if (handler != null && handler.getSlots() > 0) {
+            return true;
+        }
+        IItemHandler whole = level.getCapability(Capabilities.ItemHandler.BLOCK, other.getBlockPos(), null);
+        return whole != null && whole.getSlots() > 0;
     }
 
     // --- entering ---

@@ -2199,9 +2199,20 @@ Spezifikation: `docs/spec/26-thermal-expansion.md`.
    Dichte Kupferplatte, Crop) – der Macerator-Rückfall in 25.2 liefert nur das Hauptprodukt.
 2. Client-Test 25.7/25.8 durch den Nutzer (Tesserakte: GUI, Namen speichern/löschen, Zugriff privat mit zweitem
    Spieler, Multimeter, Modell/Kern, Energie/Flüssigkeit/Item über Dimensionen; EMI-Kategorien und Pfeile der TE-GUIs).
-3. Prüfen (Nutzer, 2026-10-22): BuildCraft-Rohre verbinden sich **teilweise nicht** mit den Maschinen der
+3. ~~Erledigt 2026-10-23 (siehe unten)~~ Prüfen (Nutzer, 2026-10-22): BuildCraft-Rohre verbinden sich **teilweise nicht** mit den Maschinen der
    1.0-Erweiterung (Thermal Expansion, Phase 25). Klären, welche Blöcke/Seiten/Rohrtypen betroffen sind (Item-,
    Flüssigkeits-, Leistungsrohre), und die fehlenden Capabilities bzw. die Verbindungsprüfung der Rohre nachziehen.
+
+## Erledigt (Rohre an TE-Maschinen, 2026-10-23)
+Befund zu Nächster Schritt 3: Item-Rohre verbanden sich nur mit Seiten, deren Seitengruppe Slots freigibt (Front und
+„keine“-Seiten blieben offen); BC 3.4.3 verbindet sich mit jedem `IInventory` mit Slots, egal welche Seite. Außerdem
+merkten Rohre ein Umstellen der Seitenkonfiguration nicht (keine Nachbaränderung).
+- [x] `ItemPipeBlockEntity.acceptsNonPipe`: zusätzlich Item-Capability ohne Seite (`spec/15` §3.2 korrigiert).
+- [x] `TeMachineBlockEntity`: Seitenänderung/-reset benachrichtigt die Nachbarn (`abweichungen.md`).
+- Flüssigkeitsrohre bleiben seitenabhängig (`getTanks(side)` wie im Original), Leistungsrohre unverändert
+  (Extruder/Wassersammler nehmen kein MJ).
+- [x] GameTests `itemPipesConnectToClosedSides`, `fluidPipeFollowsSideChange`; alle 430 grün, `gradlew test build` grün.
+  Client-Test offen.
 
 ## Erledigt (Nutzerwunsch, 2026-10-22)
 - [x] BatBox/MFE/MFSU: Rüstungsslots des Spielers links in der GUI (`ic2/menu/ArmorSlot`, `docs/abweichungen.md`).

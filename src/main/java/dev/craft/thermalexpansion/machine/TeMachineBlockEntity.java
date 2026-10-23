@@ -359,7 +359,7 @@ public abstract class TeMachineBlockEntity extends BlockEntity implements MenuPr
         int n = type.getNumGroups();
         int index = side.get3DDataValue();
         sides[index] = (byte) ((sides[index] + (increment ? 1 : n - 1)) % n);
-        sync();
+        sidesChanged();
         return true;
     }
 
@@ -370,8 +370,16 @@ public abstract class TeMachineBlockEntity extends BlockEntity implements MenuPr
             return false;
         }
         sides[index] = 0;
-        sync();
+        sidesChanged();
         return true;
+    }
+
+    /** Syncs the new side groups and lets adjacent pipes recompute their connections. */
+    private void sidesChanged() {
+        sync();
+        if (level != null && !level.isClientSide()) {
+            level.updateNeighborsAt(worldPosition, getBlockState().getBlock());
+        }
     }
 
     /** {@code resetSides}: every side back to group 0. */
@@ -384,7 +392,7 @@ public abstract class TeMachineBlockEntity extends BlockEntity implements MenuPr
             }
         }
         if (update) {
-            sync();
+            sidesChanged();
         }
         return update;
     }
