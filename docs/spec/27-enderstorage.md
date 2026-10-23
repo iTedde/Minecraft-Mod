@@ -140,7 +140,7 @@ Ein Rechtsklick wird auf Teil-Hitboxen ausgewertet (`addTraceableCuboids`, `subH
 | Farbstoff-Ore-Dict | `dyeRed` … | Tags `c:dyes/*` |
 | Flüssigkeit | Forge `LiquidStack` | `FluidStack`, Fluid-Capability (jede Seite) |
 | Tank-Modell | eigenes OBJ-Renderer | NeoForge-OBJ-Modell bzw. Block-Entity-Renderer mit derselben Datei |
-| Namen | „Ender Chest“ wie Vanilla | **offen** (§9) |
+| Namen | „Ender Chest“ wie Vanilla | deutsch „Ender-Truhe (farbig)“, Farb-Tooltip (§9) |
 
 ## 8 Tests (GameTest)
 
@@ -153,12 +153,11 @@ Ein Rechtsklick wird auf Teil-Hitboxen ausgewertet (`addTraceableCuboids`, `subH
 - Tank: 16 000 mB, Füllen/Leeren per Eimer, Druck mit Redstone gibt 100 mB/Tick an Nachbartanks ab, Knauf invertiert.
 - Trichter/Rohr an Truhe und Tank.
 
-## 9 Offene Punkte (zur Freigabe)
+## 9 Entscheidungen (Nutzer, 2026-10-23)
 
-1. **Namen:** Die Original-Truhe heißt wie die Vanilla-Endertruhe „Ender Chest“. Vorschlag: englisch „Ender Chest“
-   beibehalten, deutsch „Ender-Truhe (farbig)“ bzw. Kennzeichnung über den Frequenz-Tooltip (z. B. „Weiß / Rot /
-   Blau“), damit beide in EMI unterscheidbar sind.
-2. **Persönlich entsperren ohne Besitzerprüfung** (§2.1): 1:1 übernehmen (Vorschlag) oder nur der Besitzer darf?
+1. **Namen:** englisch „Ender Chest“, deutsch „Ender-Truhe (farbig)“; der Tooltip zeigt die drei Farben
+   („Farben: Weiß / Rot / Blau“) und bei persönlichen den Besitzer.
+2. **Persönlich entsperren ohne Besitzerprüfung** (§2.1): 1:1 wie im Original.
 
 ## 10 Teilpakete (Phase 26)
 

@@ -1,0 +1,35 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "minecraft:chest"
+    },
+    "O": {
+      "item": "minecraft:obsidian"
+    },
+    "W": {
+      "item": "minecraft:orange_wool"
+    },
+    "b": {
+      "item": "minecraft:blaze_rod"
+    },
+    "p": {
+      "item": "minecraft:ender_pearl"
+    }
+  },
+  "pattern": [
+    "bWb",
+    "OCO",
+    "bpb"
+  ],
+  "result": {
+    "components": {
+      "craft:ender_frequency": {
+        "colours": 273
+      }
+    },
+    "count": 1,
+    "id": "craft:ender_storage_chest"
+  }
+}

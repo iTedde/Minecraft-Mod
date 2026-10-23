@@ -38,6 +38,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import dev.craft.enderstorage.EsItems;
 import dev.craft.ironchest.IronChestItems;
 import dev.craft.ironchest.IronChestType;
 import net.neoforged.neoforge.registries.DeferredHolder;
@@ -256,6 +257,16 @@ public final class CraftCreativeTabs {
                             output.accept(full);
                         }
                     }))
+                    .build());
+
+    /** {@code BlockEnderStorage.getSubBlocks}: the chest with frequency 0, global. */
+    public static final Supplier<CreativeModeTab> ENDER_STORAGE = TABS.register("ender_storage", () ->
+            CreativeModeTab.builder()
+                    .title(Component.translatable("itemGroup.craft.ender_storage"))
+                    .icon(() -> EsItems.ENDER_CHEST.toStack())
+                    .withTabsBefore(ResourceLocation.fromNamespaceAndPath(Craft.MODID, "thermal_expansion"))
+                    .displayItems((parameters, output) -> EsItems.ITEMS.getEntries()
+                            .forEach(item -> output.accept(item.get())))
                     .build());
 
     private CraftCreativeTabs() {

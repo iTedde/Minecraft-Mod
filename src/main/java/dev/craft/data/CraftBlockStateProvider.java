@@ -44,6 +44,7 @@ import dev.craft.powerconverters.PcBlocks;
 import dev.craft.powerplants.PpBlocks;
 import dev.craft.powerplants.block.PlantControllerBlock;
 import dev.craft.powerconverters.block.PowerConverterBlock;
+import dev.craft.enderstorage.EsBlocks;
 import dev.craft.ironchest.IronChestBlocks;
 import dev.craft.ironchest.IronChestType;
 import dev.craft.redpower.RpBlocks;
@@ -182,6 +183,9 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
             simpleBlock(IronChestBlocks.chest(type).get(), models().getBuilder(type.getName() + "_chest")
                     .texture("particle", modLoc("block/ironchest/" + type.getName())));
         }
+        // Ender chest: block entity renderer, obsidian particles (BlockEnderStorage blockIndexInTexture).
+        simpleBlock(EsBlocks.ENDER_CHEST.get(), models().getBuilder("ender_storage_chest")
+                .texture("particle", mcLoc("block/obsidian")));
     }
 
     private void quarry() {

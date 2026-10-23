@@ -54,6 +54,10 @@ import dev.craft.ic2.recipe.MachineRecipe;
 import dev.craft.powerconverters.ConverterType;
 import dev.craft.powerconverters.PcItems;
 import dev.craft.powerplants.PpItems;
+import dev.craft.enderstorage.EnderStorageRecolourRecipe;
+import dev.craft.enderstorage.EsDataComponents;
+import dev.craft.enderstorage.EsItems;
+import dev.craft.enderstorage.Frequency;
 import dev.craft.ironchest.ChestUpgradeType;
 import dev.craft.ironchest.IronChestItems;
 import dev.craft.ironchest.IronChestType;
@@ -70,6 +74,7 @@ import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
+import net.minecraft.data.recipes.SpecialRecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
@@ -130,6 +135,7 @@ public final class CraftRecipeProvider extends RecipeProvider {
         redPowerTable();
         longFallBoots();
         ironChests();
+        enderStorage();
         advancedMachines();
         thermalExpansion();
         gregTechCircuitBoards();
@@ -2676,6 +2682,29 @@ public final class CraftRecipeProvider extends RecipeProvider {
     }
 
     /** {@code m} material, {@code P} previous chest, {@code G} glass. */
+    /**
+     * EnderStorage (spec 27 §6): per wool colour i the ender chest i/i/i (blaze rods, wool, obsidian, chest, ender
+     * pearl), and the recolour recipe.
+     */
+    private void enderStorage() {
+        for (DyeColor colour : DyeColor.values()) {
+            int i = colour.getId();
+            ItemStack chest = new ItemStack(EsItems.ENDER_CHEST.get());
+            chest.set(EsDataComponents.FREQUENCY.get(), Frequency.of(i, i, i));
+            ShapedRecipeBuilder.shaped(RecipeCategory.MISC, chest)
+                    .pattern("bWb").pattern("OCO").pattern("bpb")
+                    .define('b', Items.BLAZE_ROD).define('W', woolOf(colour)).define('O', Items.OBSIDIAN)
+                    .define('C', Items.CHEST).define('p', Items.ENDER_PEARL)
+                    .unlockedBy("has_ender_pearl", has(Items.ENDER_PEARL))
+                    .save(output, id("ender_storage_chest_" + colour.getName()));
+        }
+        SpecialRecipeBuilder.special(EnderStorageRecolourRecipe::new).save(output, id("ender_storage_recolour"));
+    }
+
+    private static Item woolOf(DyeColor colour) {
+        return BuiltInRegistries.ITEM.get(ResourceLocation.withDefaultNamespace(colour.getName() + "_wool"));
+    }
+
     private void chestRecipe(IronChestType type, String suffix, String top, String middle, String bottom,
                              Ingredient material, Ingredient previous) {
         String all = top + middle + bottom;

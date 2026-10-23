@@ -4,6 +4,7 @@ import com.mojang.logging.LogUtils;
 import dev.craft.advancedmachines.AdvancedMachines;
 import dev.craft.buildcraft.BuildCraft;
 import dev.craft.compactsolars.CompactSolars;
+import dev.craft.enderstorage.EnderStorage;
 import dev.craft.gregtech.GregTech;
 import dev.craft.core.CraftCreativeTabs;
 import dev.craft.forestry.Forestry;
@@ -39,6 +40,7 @@ public final class Craft {
         IronChests.init(modBus);
         AdvancedMachines.init(modBus);
         ThermalExpansion.init(modBus);
+        EnderStorage.init(modBus);
         CraftCreativeTabs.TABS.register(modBus);
     }
 }

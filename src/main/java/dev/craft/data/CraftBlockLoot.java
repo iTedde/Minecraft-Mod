@@ -10,6 +10,8 @@ import dev.craft.buildcraft.engine.EngineType;
 import dev.craft.forestry.FrBlocks;
 import dev.craft.compactsolars.CsBlocks;
 import dev.craft.powerplants.PpBlocks;
+import dev.craft.enderstorage.EsBlocks;
+import dev.craft.enderstorage.EsDataComponents;
 import dev.craft.ironchest.IronChestBlocks;
 import dev.craft.thermalexpansion.TeBlocks;
 import dev.craft.redpower.RpBlocks;
@@ -39,6 +41,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.functions.CopyComponentsFunction;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCondition;
@@ -70,6 +73,13 @@ public final class CraftBlockLoot extends BlockLootSubProvider {
         dropSelf(GtBlocks.HIGHLY_ADVANCED_MACHINE_BLOCK.get());
         dropSelf(RpBlocks.PROJECT_TABLE.get());
         IronChestBlocks.BLOCKS.getEntries().forEach(chest -> dropSelf(chest.get()));
+        // EnderStorage getBlockDropped: always itself with frequency and owner (spec 27 §2).
+        add(EsBlocks.ENDER_CHEST.get(), LootTable.lootTable().withPool(applyExplosionCondition(
+                EsBlocks.ENDER_CHEST.get(), LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+                        .add(LootItem.lootTableItem(EsBlocks.ENDER_CHEST.get())
+                                .apply(CopyComponentsFunction.copyComponents(
+                                                CopyComponentsFunction.Source.BLOCK_ENTITY)
+                                        .include(EsDataComponents.FREQUENCY.get()))))));
         // Thermal Expansion (spec 26): ores and rockwool drop themselves, hardened glass only with silk touch.
         for (Block ore : List.of(TeBlocks.SILVER_ORE.get(), TeBlocks.DEEPSLATE_SILVER_ORE.get(), TeBlocks.LEAD_ORE.get(),
                 TeBlocks.DEEPSLATE_LEAD_ORE.get(), TeBlocks.NICKEL_ORE.get(), TeBlocks.DEEPSLATE_NICKEL_ORE.get())) {
@@ -261,7 +271,7 @@ public final class CraftBlockLoot extends BlockLootSubProvider {
     protected Iterable<Block> getKnownBlocks() {
         return Stream.of(Ic2Blocks.BLOCKS, BcBlocks.BLOCKS, FrBlocks.BLOCKS, PcBlocks.BLOCKS,
                         CsBlocks.BLOCKS, GtBlocks.BLOCKS, PpBlocks.BLOCKS, RpBlocks.BLOCKS, IronChestBlocks.BLOCKS,
-                        TeBlocks.BLOCKS)
+                        TeBlocks.BLOCKS, EsBlocks.BLOCKS)
                 .flatMap(blocks -> blocks.getEntries().stream())
                 .map(holder -> (Block) holder.get()).toList();
     }

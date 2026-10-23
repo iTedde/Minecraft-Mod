@@ -2294,3 +2294,14 @@ Entschieden: kompletter Umfang wie im Pack, Vanilla-Endertruhe bleibt nutzbar.
   Teilphasen 26.1–26.4).
 - Offen zur Freigabe (§9): Namen neben der Vanilla-Endertruhe; Entsperren persönlicher Truhen ohne Besitzerprüfung
   (Original) übernehmen?
+
+## Erledigt (26.1 Frequenzsystem + Ender Chest, 2026-10-23)
+Entscheidungen Nutzer: Name „Ender-Truhe (farbig)“ mit Farb-Tooltip; Entsperren persönlicher Truhen 1:1 (ohne
+Besitzerprüfung).
+- [x] Paket `dev.craft.enderstorage`: `Frequency` (Data Component `craft:ender_frequency`), `EnderStorageData`
+  (`SavedData`), `EnderItemStorage` (27 Slots, Öffnungszähler), Block/Block-Entity `ender_storage_chest` (Härte 20,
+  droppt immer sich selbst mit Frequenz, Farbknöpfe/Schloss über Teilflächen, Deckel folgt dem Speicher),
+  Menü/Screen (Vanilla-Truhe, Besitzer rechts), Renderer (Truhe, Knöpfe, Endportal-Boden, Perle), Item-Capability.
+- [x] Rezepte: 16 Grundrezepte (Wollfarbe i → i/i/i), Umfärbe-Rezept `craft:ender_storage_recolour`; Kreativtab
+  „Craft: EnderStorage“; Texturen aus dem Jar.
+- [x] GameTests `EnderStorageGameTests` (6); alle 445 grün. **Client-Test offen.**

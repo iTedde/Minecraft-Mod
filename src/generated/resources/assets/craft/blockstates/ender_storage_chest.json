@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "craft:block/ender_storage_chest"
+    }
+  }
+}

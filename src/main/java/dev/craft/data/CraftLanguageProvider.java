@@ -34,6 +34,7 @@ import dev.craft.powerplants.PpBlocks;
 import dev.craft.powerplants.PpFluids;
 import dev.craft.powerplants.PpItems;
 import dev.craft.portalgun.PgItems;
+import dev.craft.enderstorage.EsItems;
 import dev.craft.ironchest.ChestUpgradeType;
 import dev.craft.ironchest.IronChestItems;
 import dev.craft.ironchest.IronChestType;
@@ -464,6 +465,14 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
         for (ChestUpgradeType type : ChestUpgradeType.values()) {
             item(IronChestItems.upgrade(type), upgrades[type.ordinal()][german ? 1 : 0]);
         }
+    }
+
+    /** EnderStorage (spec 27); the chest keeps the original name, German marks it apart from the vanilla one. */
+    protected void enderStorage(boolean german) {
+        add("itemGroup.craft.ender_storage", "Craft: EnderStorage");
+        item(EsItems.ENDER_CHEST, german ? "Ender-Truhe (farbig)" : "Ender Chest");
+        add("container.craft.ender_chest", german ? "Ender-Truhe" : "Ender Chest");
+        add("tooltip.craft.ender_frequency", german ? "Farben: %s / %s / %s" : "Colours: %s / %s / %s");
     }
 
     /** Portal Gun long fall boots (spec 21). */
@@ -1544,6 +1553,7 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             redPower(false);
             portalGun(false);
             ironChests(false);
+            enderStorage(false);
             advancedMachines(false);
             thermalExpansion(false);
         }
@@ -1948,6 +1958,7 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             redPower(true);
             portalGun(true);
             ironChests(true);
+            enderStorage(true);
             advancedMachines(true);
             thermalExpansion(true);
         }

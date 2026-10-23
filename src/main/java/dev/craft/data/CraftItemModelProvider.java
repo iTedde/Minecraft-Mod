@@ -17,6 +17,7 @@ import dev.craft.ic2.cable.CableType;
 import dev.craft.ic2.client.Ic2Client;
 import dev.craft.powerplants.PpItems;
 import dev.craft.portalgun.PgItems;
+import dev.craft.enderstorage.EsItems;
 import dev.craft.ironchest.ChestUpgradeType;
 import dev.craft.ironchest.IronChestItems;
 import dev.craft.ironchest.IronChestType;
@@ -143,6 +144,7 @@ public final class CraftItemModelProvider extends ItemModelProvider {
         for (IronChestType type : IronChestType.values()) {
             engine(IronChestItems.chest(type));
         }
+        engine(EsItems.ENDER_CHEST);
         engine(FrItems.THERMIONIC_FABRICATOR);
         engine(FrItems.ELECTRICAL_ENGINE);
         basicItem(FrItems.TIN_GEAR.get());
