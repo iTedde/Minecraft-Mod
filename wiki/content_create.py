@@ -30,7 +30,9 @@ man anfängt und wo sie mit Craft zusammenspielen.</p>
 <h2 id="cr--ingame">Die beste Anleitung steckt im Spiel: Ponder</h2>
 <p>Create bringt zu fast jedem Block eine animierte 3D-Anleitung mit. <b>Maus über ein Create-Item im Inventar oder in EMI halten
 und <kbd>W</kbd> gedrückt halten</b> – es öffnet sich eine Szene, die Aufbau und Funktion zeigt. Viele Addons haben ebenfalls Ponder-Szenen.
-Rezepte zeigt wie gewohnt EMI (<kbd>R</kbd> Rezept, <kbd>U</kbd> Verwendung).</p>
+Rezepte zeigt wie gewohnt EMI (<kbd>R</kbd> Rezept, <kbd>U</kbd> Verwendung) – auch die der Create-Maschinen (Pressen, Mixen,
+Mahlen, Waschen, Fertigungsketten …).</p>
+{h.note('info', 'Create und mehrere Addons bringen ihre Rezepte nur für <b>JEI</b> mit. Ab Paket <b>1.0.3</b> ist JEI deshalb mitinstalliert: EMI liest die JEI-Rezepte mit und blendet JEI selbst aus. Fehlen bei Create-Items die Rezepte, ist noch Paket 1.0.2 installiert.')}
 {h.note('tip', 'Die <b>Ingenieursbrille</b> (Engineer\'s Goggles) zeigt beim Anschauen von Maschinen Drehzahl, Belastung und Füllstände an. Eines der ersten Dinge, die man bauen sollte.')}
 <h2 id="cr--mods">Was ist dabei?</h2>
 {h.table(['Mod', 'Wofür'], [
@@ -75,6 +77,7 @@ für große Fabriken oder Luftschiffe die Shader ausschalten (<kbd>K</kbd> bzw. 
 {faq([
     ('Create-Maschine dreht sich nicht / „überlastet“', 'Die Quelle liefert zu wenig Belastbarkeit (SU). Mit der Ingenieursbrille nachsehen; mehr Wasserräder/Windmühlenflügel oder eine stärkere Quelle anschließen, oder die Drehzahl senken.'),
     ('Kann ich Craft-Maschinen mit Create betreiben?', 'Nicht direkt – EU/MJ und Drehkraft sind getrennt. Create kann aber die Items liefern und abholen.'),
+    ('Create-Item hat in EMI kein Rezept', 'Paket 1.0.3 oder neuer installieren (bringt JEI mit, dessen Create-Rezepte EMI anzeigt). Manche Items haben wirklich kein Rezept, z. B. Kreativ-Teile.'),
     ('Fehlermeldungen im Log zu Copycats/EMI', 'Harmlos: Copycats+ meldet beim Umschalten seiner Blöcke einen Fehler in seiner EMI-Anbindung. Das Spiel läuft normal weiter.'),
 ])}
 '''

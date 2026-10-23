@@ -2318,3 +2318,14 @@ Mod-Gruppe, Details über Ponder/EMI im Spiel.
   Aktualisieren der Item-Liste, harmlos), Sable-Tag für `copycats:copycat_catwalk`, fehlende Blockstate-Varianten von
   Propulsion. **Flywheel fällt mit aktiven Iris-Shadern auf „off“ zurück** (langsamere Create-Darstellung) – im Wiki
   erklärt (Shader für große Anlagen aus).
+
+## Erledigt (Paket 1.0.3: JEI für Create-Rezepte in EMI, Nutzer, 2026-10-23)
+Befund: Bei Create-Items fehlen in EMI Rezepte. Create 6.0.10 bringt nur eine JEI-Anbindung (`compat/jei/CreateJEI`)
+mit; EMI lud laut Log nur die Plugins von emi, craft, copycats, industrialforegoing, ae2, ftblibrary, computercraft.
+Maschinenrezepte (Pressen, Mixen, Mahlen, Waschen, Sequenced Assembly, mechanische Werkbank …) und die JEI-only-Addons
+(Big Cannons, Diesel Generators, Crafts & Additions u. a.) fehlten daher.
+- [x] `releases/Craft-1.0.3-curseforge.zip`: wie 1.0.2, zusätzlich **JEI 19.64.0.455** (CurseForge 238222, Datei 9205121)
+  im Manifest; EMI liest JEI-Plugins mit (JEMI) und blendet JEI aus. Craft-Jar unverändert 1.0.1.
+- [x] Wiki: Hinweis + FAQ auf „Create – Überblick“.
+- **Client-Test offen:** Paket 1.0.3 in CurseForge importieren, Create-Item (z. B. Messingbarren, Eisenblech) in EMI → Rezept
+  aus dem Mixer/der Presse muss erscheinen; nur eine Itemliste (EMI) sichtbar.
