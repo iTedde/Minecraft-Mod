@@ -2527,7 +2527,21 @@ alle, z. B. ×1,2.“ Entscheidungen Nutzer: Bonus für Panels in einem **lücke
 - Doku: `abweichungen.md` (Solarhelm-Zustand je Spieler), `architektur.md` (GraviSuite, `ToolWrench`).
 - **Phase 27 erledigt, Client-Test offen** (Testplan 11.1–11.6).
 
+## Erledigt (28.0 Spezifikation Modular Powersuits, 2026-10-24)
+- [x] `ftb ultimate/mods/ModularPowersuits.jar` (MPS 0.3.2-199) nach `reference/decompiled/modularpowersuits/`
+  dekompiliert (Vineflower ohne Remapping, mitgelieferte API-Pakete entfernt).
+- [x] `docs/spec/29-modular-powersuits.md`: 5 modulare Items + Tinker Table, 18 Bauteile, 35 Module mit Pack-Config-
+  Werten (Config schlägt Code: z. B. Solar 100/10 J, Werkzeuge 100+900 J / 8+17×, Plasma ×18), Energie in J
+  (50 J/EU, gemeinsamer Vorrat, Ladebonus beim Einbau), Ein-/Ausbau (90 %, Kondensatoren verloren), Rüstungsformel
+  (min 6 je Teil, 0,04 × Schutz), Bewegung/Umwelt/Werkzeug-Mechanik, Tasten (Mausrad, Z, K-GUI), Tests,
+  Abweichungen, Teilphasen 28.1–28.5.
+- [x] Befund Rezepte: Pack registriert Vanilla- und GT-Satz; die meisten GT-Rezepte nutzen nicht registrierte
+  Ore-Namen (`circuitTier04` statt `craftingCircuitTier04`, `plateIridium` …) und sind unbaubar.
+- [x] Entscheidungen Nutzer: alle Module außer Aurameter/Multimeter/Strahlenschutz; Rezepte wie im Pack baubar
+  (Vanilla-Satz + Verdrahtung/Fallschirm/Hologrammemitter/Magnetspule aus GT); Fallhöhen-Neuberechnung nur mit
+  getragenem MPS-Teil.
+
 ## Nächste Schritte
+- Phase 28.1 Modular Powersuits: Grundgerüst, Energie, Bauteile, Modulsystem, Tinker Table, Rezepte.
 - Client-Test GraviSuite (Testplan 11) – nur nach Rückfrage (Nutzer spielt evtl. selbst).
-- Phase 28 Modular Powersuits: 28.0 Spezifikation.
 - Phase 30 Elektrischer Leuchtschild: 30.0 Spezifikation (Werte/Rezept/Reihenfolge zur Freigabe).
