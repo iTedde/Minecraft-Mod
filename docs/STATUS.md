@@ -2669,10 +2669,26 @@ alle, z. B. ×1,2.“ Entscheidungen Nutzer: Bonus für Panels in einem **lücke
   Wände blockieren), Mobs spawnen weiter, LDL ins CurseForge-Paket. Spec `30-leuchtschild.md` §3a, §8; alter §3 als
   Historie, `craft:shield_light` bleibt als sich selbst entfernende Altlast.
 
+## Erledigt (30.4 Leuchtschild: Lichtkegel, Umsetzung, 2026-10-24)
+- [x] `LightCone`: Kegelwerte (14 bis 4 Blöcke, linear auf 0 bei 16; voll bis 10°, Randabfall bis 15°), Schein
+  7 − Abstand; Tabelle beleuchteter Blöcke per Strahlenfächer (Abstand 0,5 an der Basis, `COLLIDER`, Flüssigkeiten
+  durchlässig, getroffener Block hell) und Schein per Flutfüllung durch kollisionsfreie Blöcke (Spec §3a ergänzt).
+- [x] LambDynamicLights: API `compileOnly` (`dev.lambdaurora.lambdynamiclights:lambdynamiclights-api:4.8.11+1.21.1:mojmap`,
+  maven.gegy.dev), Yumi-Entrypoint `lambdynlights:initializer` → `lightshield/client/compat/LightShieldDynamicLights`
+  (geprüft: Yumi akzeptiert Klassennamen mit Standardkonstruktor); je Spieler mit leuchtendem Schild ein
+  `LightConeBehavior` (neu rechnen bei ≥ 0,25 Block / ≥ 2° / alle 10 Ticks, Hülle aus der Tabelle, `isRemoved` beim
+  Weglegen/Leerlaufen/Weltwechsel). LDL ist nicht in den eigenen Läufen (`localRuntime`) – Test nur in der Nutzer-Instanz.
+- [x] Server setzt keine Lichtblöcke mehr: `ShieldLights` nur noch `litShield` + Verbrauch, Abmelde-/Serverende-Aufräumen
+  entfernt; `craft:shield_light` entfernt sich beim nächsten geplanten oder zufälligen Tick.
+- [x] GameTests: 5 Lichtblock-Tests ersetzt durch Kegelwerte, Kegel vorn, Wand, Wasser, Halten (13 statt 12). Alle 533
+  grün, `gradlew runData build` grün.
+- [x] Befund nebenbei: `run-gametest/world` bleibt zwischen Läufen bestehen; nach dem Verschieben der Testplätze störte
+  ein alter Tesserakt (Frequenz 902) `liquidTesseractFillsRemoteTank`. Welt gelöscht, danach grün – bei solchen
+  Ausreißern zuerst die Testwelt löschen.
+- Doku: Spec §3a/§7, `balancing.md` §3.9, `architektur.md`, CLAUDE.md.
+
 ## Nächste Schritte
-- 30.4 Umsetzung: `LightCone` (Kegelrechnung + Wandprüfung), LDL-Anbindung (`compileOnly` API, Initializer,
-  Behavior je Spieler), Lichtblock-Setzen entfernen, Verbrauch serverseitig behalten, GameTests anpassen.
-- 30.5 Wiki-/EMI-Texte (Licht ist jetzt nur optisch), Testplan 13.2, Paket 1.0.12 mit LambDynamicLights (CurseForge-ID
-  ermitteln), Craft 1.0.9.
-- Client-Test Leuchtschild, MPS (Testplan 12) und GraviSuite (Testplan 11) – nur nach Rückfrage (Nutzer spielt evtl.
-  selbst).
+- 30.5 Wiki-/EMI-Texte (Licht ist jetzt nur optisch, Kegel nur mit LambDynamicLights), Testplan 13.2, Paket 1.0.12 mit
+  LambDynamicLights (CurseForge-ID ermitteln), Craft 1.0.9.
+- Client-Test Leuchtschild (mit LDL in der Nutzer-Instanz), MPS (Testplan 12) und GraviSuite (Testplan 11) – nur nach
+  Rückfrage (Nutzer spielt evtl. selbst).

@@ -83,7 +83,7 @@ Craft hat keine harte Abhängigkeit (API nur `compileOnly`). LDL kommt ins Curse
 | Größe | Wert |
 |---|---|
 | Spitze | Augenposition des Trägers |
-| Achse | Blickrichtung (Gier + Neigung, mit Teilticks geglättet) |
+| Achse | Blickrichtung (Gier + Neigung) zum Zeitpunkt der Rechnung (je Tick, LDL baut Chunks ohnehin nur je Tick neu) |
 | Öffnung | 30° (halber Winkel 15°); in den äußersten 5° fällt die Helligkeit linear auf 0 |
 | Reichweite | 16 Blöcke; bis 4 Blöcke Helligkeit 14, danach linear auf 0 bei 16 |
 | Schein um den Träger | Helligkeit 7 am Augenpunkt, −1 je Block (Radius 7), damit die Füße nicht im Dunkeln stehen |
@@ -91,7 +91,9 @@ Craft hat keine harte Abhängigkeit (API nur `compileOnly`). LDL kommt ins Curse
 
 - **Wände blockieren:** Ein Block erhält Kegellicht nur, wenn die Sichtlinie vom Augenpunkt zur Blockmitte frei ist
   (`ClipContext.Block.COLLIDER`, Flüssigkeiten durchlässig); der getroffene Block selbst wird beleuchtet (Wandfläche
-  hell, dahinter dunkel). Der Schein um den Träger wird ebenso geprüft.
+  hell, dahinter dunkel). Der Schein um den Träger breitet sich vom Augenblock aus nur durch Blöcke ohne Kollision
+  aus (Flutfüllung, Wert nach Luftlinie); kollidierende Blöcke werden beschienen, halten ihn aber auf (umgesetzt in
+  30.4 statt einzelner Sichtlinien – gleiche Wirkung, weit weniger Rechenaufwand).
 - **Rechnung:** nicht in `lightAtPos` je Block, sondern einmal bei jeder Änderung: Strahlenfächer über den Kegel
   (Abstand ≤ 0,5 Block an der Kegelbasis), getroffene und durchlaufene Blöcke mit ihrer Helligkeit in einer Tabelle;
   `lightAtPos` liest nur nach. `getBoundingBox` = Hülle aus Kegel und Schein.
@@ -151,9 +153,10 @@ ASA
 - Herkunft (`spec/24`): keine neuen Rohstoffe.
 - Wiki: Seite „Elektrischer Leuchtschild“ in der Gruppe „Neue Inhalte“, Energie-Steckbrief.
 - `abweichungen.md`: nicht nötig (kein Original), Eintrag nur in `balancing.md` §3 als neuer Inhalt.
-- GameTests `LightShieldGameTests`: Licht folgt dem Spieler (Augen-/Fußblock, Wasser), Aufräumen nach Weglegen/
-  Abmelden, Verbrauch 1 EU/4 Ticks, leer kein Licht, Blockkosten 100 EU/Punkt, Haltbarkeit/Reparatur, Umschalten,
-  Rezept.
+- GameTests `LightShieldGameTests`: ab 30.4 Kegelwerte, Kegel vorn/Schein hinten, Wand blockiert, Wasser durchlässig,
+  Leuchten nur in der Hand mit Ladung (nicht als Zuschauer), Altlast-Block entfernt sich, Verbrauch 1 EU/4 Ticks, leer
+  kein Licht, Blockkosten 100 EU/Punkt, Haltbarkeit/Reparatur, Umschalten, Rezept (bis 30.3: Lichtblock folgt dem
+  Spieler, Aufräumen).
 
 ## 8 Entscheidungen (Nutzer, 2026-10-24)
 

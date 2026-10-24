@@ -23,8 +23,9 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 /**
- * Invisible light source placed at a light shield holder (spec 30 §3). It checks itself every second and removes
- * itself once no holder claims it, so nothing is left behind after crashes, log-outs or dimension changes.
+ * Invisible light source the light shield placed at its holder up to Craft 1.0.8 (spec 30 §3). Nothing places it any
+ * more (the light is a client side cone since §3a); it stays registered so old worlds load, and removes itself on its
+ * next scheduled or random tick.
  */
 public class ShieldLightBlock extends Block implements SimpleWaterloggedBlock {
     public static final MapCodec<ShieldLightBlock> CODEC = simpleCodec(ShieldLightBlock::new);
@@ -85,11 +86,18 @@ public class ShieldLightBlock extends Block implements SimpleWaterloggedBlock {
 
     @Override
     protected void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
-        if (ShieldLights.isClaimed(level, pos)) {
-            level.scheduleTick(pos, this, CHECK_INTERVAL);
-        } else {
-            clear(level, pos, state);
-        }
+        clear(level, pos, state);
+    }
+
+    /** Fallback for a light whose scheduled tick got lost. */
+    @Override
+    protected boolean isRandomlyTicking(BlockState state) {
+        return true;
+    }
+
+    @Override
+    protected void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+        clear(level, pos, state);
     }
 
     /** Removes the light, giving back the water it replaced. */

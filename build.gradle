@@ -37,6 +37,11 @@ repositories {
         url = 'https://api.modrinth.com/maven'
         content { includeGroup 'maven.modrinth' }
     }
+    maven {
+        name = 'Gegy'
+        url = 'https://maven.gegy.dev/releases/'
+        content { includeGroup 'dev.lambdaurora.lambdynamiclights' }
+    }
 }
 
 base {
@@ -144,6 +149,10 @@ dependencies {
     // EMI recipe viewer: API at compile time, full mod only in our own runs (optional dependency)
     compileOnly "dev.emi:emi-neoforge:${emi_version}:api"
     localRuntime "dev.emi:emi-neoforge:${emi_version}"
+    // LambDynamicLights: API only, light shield cone as optional dynamic light (spec 30 §3a)
+    compileOnly("dev.lambdaurora.lambdynamiclights:lambdynamiclights-api:${lambdynamiclights_version}:mojmap") {
+        transitive = false
+    }
     // Xaero's Minimap: only installed alongside in our own runs, no integration
     localRuntime "maven.modrinth:xaeros-minimap:${xaeros_minimap_version}"
     // CC: Tweaked (computers and turtles): only installed alongside in our own runs, no integration (spec 18 §5)

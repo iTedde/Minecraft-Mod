@@ -9,8 +9,6 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.entity.living.LivingShieldBlockEvent;
-import net.neoforged.neoforge.event.entity.player.PlayerEvent;
-import net.neoforged.neoforge.event.server.ServerStoppedEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 
 /** Entry point of the electric light shield (spec 30, new content without pack original). */
@@ -25,8 +23,6 @@ public final class LightShield {
         modBus.addListener(LightShield::addToCreativeTab);
         NeoForge.EVENT_BUS.addListener(LightShield::playerTick);
         NeoForge.EVENT_BUS.addListener(LightShield::shieldBlock);
-        NeoForge.EVENT_BUS.addListener(LightShield::loggedOut);
-        NeoForge.EVENT_BUS.addListener((ServerStoppedEvent event) -> ShieldLights.clear());
     }
 
     /** Next to the other IC2 electric tools, empty and charged. */
@@ -51,9 +47,5 @@ public final class LightShield {
                 && player.getUseItem().getItem() instanceof ElectricLightShieldItem) {
             ElectricLightShieldItem.chargeForBlock(player.getUseItem(), event.shieldDamage(), level, player);
         }
-    }
-
-    private static void loggedOut(PlayerEvent.PlayerLoggedOutEvent event) {
-        ShieldLights.remove(event.getEntity());
     }
 }
