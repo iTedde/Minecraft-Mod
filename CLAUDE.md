@@ -24,7 +24,7 @@ ein überarbeitetes Energiebalancing und neue Kraftwerke. Wird nicht veröffentl
 5. Nach **jeder Phase** muss der Mod bauen (`gradlew build`) und im Client starten (`gradlew runClient`).
 6. Offene Entscheidungen nicht eigenmächtig treffen – nachfragen (Liste unten).
 7. Dokumentation auf Deutsch; Code, Bezeichner und Commit-Messages auf Englisch.
-8. `reference/decompiled/` ist vollständig dekompiliert (seit Phase 24 auch `advancedmachines`, `thermalexpansion`, `CoFHCore`; ohne MCP-Remapping, Minecraft-Namen verschleiert). **Nicht erneut dekompilieren.**
+8. `reference/decompiled/` ist vollständig dekompiliert (seit Phase 24 auch `advancedmachines`, `thermalexpansion`, `CoFHCore`, seit Phase 27 `gravisuite`; ohne MCP-Remapping, Minecraft-Namen verschleiert). **Nicht erneut dekompilieren.**
 9. **Niemals ganze Ordner oder große Klassen komplett lesen.** Gezielt mit Grep nach Klassen-, Methoden- oder
    Feldnamen suchen und nur die relevanten Stellen lesen.
 10. Ab Phase 2 ist **`docs/spec/` die Quelle der Wahrheit**. `reference/` nur öffnen, wenn in der Spezifikation etwas
@@ -51,6 +51,7 @@ ein überarbeitetes Energiebalancing und neue Kraftwerke. Wird nicht veröffentl
 | `…advancedmachines` | Advanced Machines (Phase 24) |
 | `…thermalexpansion` | Thermal Expansion (Phase 25) |
 | `…enderstorage` | EnderStorage (Phase 26) |
+| `…gravisuite` | GraviSuite (Phase 27) |
 
 MJ und EU bleiben getrennte Systeme; Verbindung nur über Electrical Engine (EU→MJ) und Power Converters.
 
@@ -105,7 +106,7 @@ MJ und EU bleiben getrennte Systeme; Verbindung nur über Electrical Engine (EU�
 | 24 | Advanced Machines (IC2-Addon aus dem Pack; Nutzer, 2026-10-20; `docs/spec/25-advanced-machines.md`, Paket `…advancedmachines`): 24.0 Spezifikation (erledigt) · 24.1 Umsetzung (erledigt) | **erledigt** (abgenommen 2026-10-23) |
 | 25 | Thermal Expansion 2.2.2.2 (aus dem Pack; Nutzer, 2026-10-20; Paket `…thermalexpansion`): Entschieden: Craft-Items statt TE-Duplikaten, nur Silber-/Blei-/Nickelerz, kompletter Umfang inkl. Tesserakte; `docs/spec/26-thermal-expansion.md`: 25.0 Spezifikation (erledigt) · 25.1 Grundlagen (erledigt) · 25.2 Maschinenbasis + Ofen/Pulverisierer/Sägewerk (erledigt, Client-Test 2026-10-21 bestanden) · 25.3 Schmelze/Tiegel/Umfüller (erledigt, Client-Test 2026-10-21 bestanden) · 25.4 Eisbereiter/Extruder/Wassersammler/Tank (erledigt, Client-Test 2026-10-21 bestanden) · 25.5 Motoren/Energiezelle (erledigt, Client-Test 2026-10-21 bestanden) · 25.6 Leitungen (erledigt, Client-Test 2026-10-21 bestanden) · 25.7 Tesserakte (erledigt) · 25.8 EMI/Herkunft/Wiki/Paket (erledigt); Version 1.0.0 (Nutzer, 2026-10-22) | **erledigt** (abgenommen 2026-10-23) |
 | 26 | EnderStorage (aus dem Pack; Nutzer, 2026-10-23; Paket `…enderstorage`; `docs/spec/27-enderstorage.md`): Entschieden: kompletter Umfang (Ender Chest, Ender Pouch, Ender Tank), Vanilla-Endertruhe bleibt. 26.0 Spezifikation (erledigt) · 26.1 Frequenzsystem + Ender Chest (erledigt, Client offen) · 26.2 Ender Pouch (erledigt, Client offen) · 26.3 Ender Tank (erledigt, Client offen) · 26.4 EMI/Herkunft/Wiki/Paket (erledigt, Craft 1.0.3 / Paket 1.0.5) | **erledigt** (Client-Test offen) |
-| 27 | GraviSuite (aus dem Pack, `ftb ultimate/mods/gravisuite.zip`; Nutzer, 2026-10-24): Entschieden: kompletter Umfang (Advanced Jetpack, Advanced Nano-Brustplatte, Gravitations-Brustplatte, Ultimate Lappack, Advanced Drill/Kettensäge, Vajra, GraviTool …). 27.0 Spezifikation (offen) | offen |
+| 27 | GraviSuite (aus dem Pack, `ftb ultimate/mods/gravisuite.zip`; Nutzer, 2026-10-24): Entschieden: kompletter Umfang (Advanced Jetpack, Advanced Nano-Brustplatte, Gravitations-Brustplatte, Ultimate Lappack, Advanced Drill/Kettensäge, Vajra, GraviTool …); `docs/spec/28-gravisuite.md`. Entschieden: Ultimativer Solarhelm wie im Pack (nur Kreativ), HUD oben rechts. 27.0 Spezifikation (erledigt) · 27.1 Bauteile/LapPacks/Rezepte (offen) · 27.2 Fortg. Jetpack + Nano-Brustplatte (offen) · 27.3 Gravitations-Brustplatte (offen) · 27.4 Bohrer/Kettensäge/Vajra (offen) · 27.5 GraviTool (offen) · 27.6 Solarhelm, EMI/Herkunft/Wiki/Paket (offen) | in Arbeit |
 | 28 | Modular Powersuits (aus dem Pack, `ftb ultimate/mods/ModularPowersuits.jar`; Nutzer, 2026-10-24; „Tech-Rüstung“): 28.0 Spezifikation (offen) | offen, nach Phase 27 |
 | 29 | Solar-Umbau (Nutzer, 2026-10-24; `docs/balancing.md` §3.1, `spec/11` §4): nur Solarpanels, jedes liefert; ×1,2 im lückenlosen 9×9-Quadrat (eine Stufe); LV/MV/HV-Arrays stillgelegt (kein Rezept, keine Leistung, zerlegbar in 8 der Stufe darunter). 29.1 Umsetzung (erledigt, Client offen) | **erledigt** (Client-Test offen) |
 

@@ -2410,3 +2410,17 @@ alle, z. B. ×1,2.“ Entscheidungen Nutzer: Bonus für Panels in einem **lücke
   Testserver mit Create + neuen Paket-Mods startet („Done“).
 - Folge: Die Großkraftwerke (gegen ein HV-Feld mit 1536 EU/t ausgelegt) liegen jetzt weit über Solar (9×9 = 97 EU/t).
 - **Client-Test offen** (Testplan 8.1b).
+
+## Erledigt (27.0 Spezifikation GraviSuite, 2026-10-24)
+- [x] `ftb ultimate/mods/gravisuite.zip` (GraviSuite 1.8) nach `reference/decompiled/gravisuite/` dekompiliert
+  (Vineflower ohne Remapping); Vanilla-Namen über `minecraft.jar` aufgelöst.
+- [x] `docs/spec/28-gravisuite.md`: 10 Ausrüstungsteile + 7 Bauteile mit allen Werten, Schutzformeln (inkl. zwei
+  fehlender ×25), Jetpack-/Gravi-Flug, Solarhelm, Werkzeuge (Bohrer 35/160 EU, Kettensäge, Vajra mit
+  Präzisionsmodus, GraviTool mit vier Modi), Tasten/HUD, 17 Rezepte, Originalfehler, Abweichungen 1.21, Tests,
+  Teilphasen 27.1–27.6.
+- [x] Entscheidungen Nutzer: Ultimativer Solarhelm wie im Pack (kein Rezept, nur Kreativ, 512/64 EU/t); HUD oben
+  rechts (Xaero sitzt oben links).
+- Eigenmächtig gewählt (in der Spec als Abweichung): Flug-Taste Standard G statt F (F = Hand wechseln).
+
+## Nächste Schritte
+- 27.1 Paket `…gravisuite`, Bauteile, Fortg./Ultimatives LapPack, Rezepte, `chargeFromArmor`, Texturen, HUD-Grundgerüst.
