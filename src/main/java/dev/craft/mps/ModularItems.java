@@ -139,6 +139,24 @@ public final class ModularItems {
         return value;
     }
 
+    /**
+     * {@code getColorFromItemStack} (spec 29 §5): ARGB from the Custom Colour tints, white without the module; each
+     * channel is 1 + own tint − the other two, clamped to 0…1.
+     */
+    public static int getTintColour(ItemStack stack) {
+        double red = computeProperty(stack, "Red Tint");
+        double green = computeProperty(stack, "Green Tint");
+        double blue = computeProperty(stack, "Blue Tint");
+        int r = channel(1.0 + red - (blue + green));
+        int g = channel(1.0 + green - (blue + red));
+        int b = channel(1.0 + blue - (red + green));
+        return 0xFF000000 | r << 16 | g << 8 | b;
+    }
+
+    private static int channel(double value) {
+        return (int) (Math.min(1.0, Math.max(0.0, value)) * 255.0);
+    }
+
     /** The worn and held items in {@code itemsEquipped} order, empty slots skipped. */
     public static List<ItemStack> equipped(Player player) {
         List<ItemStack> stacks = new ArrayList<>(EQUIPPED.length);

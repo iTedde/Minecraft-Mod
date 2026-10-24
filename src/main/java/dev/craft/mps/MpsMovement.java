@@ -98,7 +98,6 @@ public final class MpsMovement {
         ItemStack boots = modular(player, EquipmentSlot.FEET);
         double totalEnergy = MpsEnergy.getPlayerEnergy(player);
         double totalWeight = ModularItems.getPlayerWeight(player);
-        double totalEnergyDrain = 0.0;
         Vec3 horzFacing = new Vec3(player.getLookAngle().x, 0.0, player.getLookAngle().z).normalize();
         Float airSpeed = null;
 
@@ -115,6 +114,7 @@ public final class MpsMovement {
             airSpeed = landSpeed(player) * 0.5F;
         }
 
+        double totalEnergyDrain = MpsEnvironment.potionEffects(player, helmet, torso, totalEnergy);
         boolean hasFlightControl = active(helmet, MpsModules.FLIGHT_CONTROL);
         boolean hasJumpAssist = active(pants, MpsModules.JUMP_ASSIST);
         boolean hasSwimAssist = active(pants, MpsModules.SWIM_BOOST);
@@ -271,6 +271,7 @@ public final class MpsMovement {
             }
         }
 
+        totalEnergyDrain = MpsEnvironment.generators(player, helmet, pants, totalEnergy, totalEnergyDrain);
         if (totalEnergyDrain > 0.0) {
             drain(player, totalEnergyDrain);
         }

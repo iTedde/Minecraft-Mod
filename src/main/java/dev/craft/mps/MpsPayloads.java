@@ -48,6 +48,18 @@ public final class MpsPayloads {
         }
     }
 
+    /** {@code MusePacketToggleRequest}: a keybinding switches a module on all equipped modular items. */
+    public record Toggle(String module, boolean active) implements CustomPacketPayload {
+        public static final Type<Toggle> TYPE = payloadType("mps_toggle");
+        public static final StreamCodec<ByteBuf, Toggle> STREAM_CODEC = StreamCodec.composite(
+                ByteBufCodecs.stringUtf8(64), Toggle::module, ByteBufCodecs.BOOL, Toggle::active, Toggle::new);
+
+        @Override
+        public Type<Toggle> type() {
+            return TYPE;
+        }
+    }
+
     /** {@code MusePacketPlayerUpdate}: the movement keys and the client's motion, sent every client tick. */
     public record Input(MpsInput input, double motionX, double motionY, double motionZ)
             implements CustomPacketPayload {
@@ -75,7 +87,9 @@ public final class MpsPayloads {
                         (payload, context) -> TinkerActions.salvage(context.player(), payload.slot(),
                                 payload.module(), context.player().getRandom()))
                 .playToServer(Tweak.TYPE, Tweak.STREAM_CODEC, MpsPayloads::tweak)
-                .playToServer(Input.TYPE, Input.STREAM_CODEC, MpsPayloads::input);
+                .playToServer(Input.TYPE, Input.STREAM_CODEC, MpsPayloads::input)
+                .playToServer(Toggle.TYPE, Toggle.STREAM_CODEC, (payload, context) ->
+                        MpsEnvironment.toggleForPlayer(context.player(), payload.module(), payload.active()));
     }
 
     /** The server takes over the client's motion like the original, so costs follow the real movement. */

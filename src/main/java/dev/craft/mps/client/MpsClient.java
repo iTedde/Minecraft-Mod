@@ -15,14 +15,19 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ArmorMaterial;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
+import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
+import net.neoforged.neoforge.registries.DeferredItem;
 
 /** Client registration of Modular Powersuits: Tinker Table renderer and the modular item tooltip. */
 @EventBusSubscriber(modid = Craft.MODID, value = Dist.CLIENT, bus = EventBusSubscriber.Bus.MOD)
@@ -48,6 +53,24 @@ public final class MpsClient {
                 return renderer;
             }
         }, MpsItems.TINKER_TABLE.get());
+        event.registerItem(new IClientItemExtensions() {
+            /** The worn armor is tinted like the icon (spec 29 §5). */
+            @Override
+            public int getArmorLayerTintColor(ItemStack stack, LivingEntity entity, ArmorMaterial.Layer layer,
+                                              int layerIdx, int fallbackColor) {
+                return ModularItems.getTintColour(stack);
+            }
+        }, MpsItems.armor().stream().map(DeferredItem::get).toArray(Item[]::new));
+    }
+
+    /** {@code getColorFromItemStack} on the armor and tool icons. */
+    @SubscribeEvent
+    public static void registerItemColors(RegisterColorHandlersEvent.Item event) {
+        List<Item> items = new ArrayList<>();
+        MpsItems.armor().forEach(item -> items.add(item.get()));
+        items.add(MpsItems.POWER_TOOL.get());
+        event.register((stack, tintIndex) -> tintIndex == 0 ? ModularItems.getTintColour(stack) : -1,
+                items.toArray(Item[]::new));
     }
 
     @EventBusSubscriber(modid = Craft.MODID, value = Dist.CLIENT)

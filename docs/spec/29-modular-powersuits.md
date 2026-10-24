@@ -264,7 +264,8 @@ Aufsummierung global (z. B. wird Fallschaden nach Bremsen durch Jetpack/Gleiter/
 ## 7 Umwelt und Spezial (Helm, Brust)
 
 - **Night Vision** (Helm): fehlt der eigene Effekt oder hat er < 210 Ticks Rest → Nachtsicht 500 Ticks (Kennung
-  Verstärkung −337), 5 J. Aus/zu wenig Energie → eigener Effekt wird entfernt. (Schleifenfehler: Suche bricht beim
+  Verstärkung −337), 5 J. Effekt-Reihenfolge der 1.4.7-`HashMap` (Schlüssel = Effekt-ID, 16 Buckets): Nachtsicht
+  (16 → Bucket 0) vor Unsichtbarkeit (14) – daher trifft der Schleifenfehler die Tarnung. Aus/zu wenig Energie → eigener Effekt wird entfernt. (Schleifenfehler: Suche bricht beim
   ersten eigenen Effekt ab – bei Nachtsicht + Tarnung wird die Tarnung jede Tick neu gesetzt bzw. nicht entfernt;
   übernehmen.)
 - **Active Camouflage** (Brust): wie oben, Unsichtbarkeit 500 Ticks (Kennung 81), 50 J.
@@ -278,8 +279,9 @@ Aufsummierung global (z. B. wird Fallschaden nach Bremsen durch Jetpack/Gleiter/
 - **Solar Generator** (Helm, Server, nicht in Welten ohne Himmel): alle 80 Welt-Ticks; Himmel über Kopf+1 sichtbar
   und kein Regen (Regenprüfung nur alle 20 Ticks, sonst „kann regnen“) → Tag 100 J, Nacht 10 J Gutschrift.
 - **Kinetic Generator** (Hose): Merkt x/z (ganzzahlig); bei Reiten/Wasser jedes Tick neu gesetzt; ab ≥ 5 Blöcken
-  horizontaler Entfernung neu setzen und Energy Generation Per 5 Blocks gutschreiben. Nur wenn das verschleierte
-  Entity-Feld `am` falsch ist (vermutlich `isAirBorne`; in 28.3 gegen `minecraft.jar` prüfen).
+  horizontaler Entfernung neu setzen und Energy Generation Per 5 Blocks gutschreiben. Nur wenn das Entity-Feld `am`
+  falsch ist – geprüft (28.3, `javap` auf `lq` in `minecraft.jar`: `al` ignoreFrustumCheck, `am` **isAirBorne**,
+  `an` timeUntilPortal) → 1.21 `hasImpulse`. Koordinaten ganzzahlig abgeschnitten (`(int)`).
 
 ## 8 Power Tool
 
@@ -323,7 +325,12 @@ wirkt im Original nur der Anteil über dem ersten Treffer (Grundschaden 1) – �
 - **Z** („Runter“ für Flight Control) fest; Craft: `KeyMapping` mit Standard Z (Kategorie „Craft“).
 - **K** öffnet die **Tastenbelegungs-GUI**: Spieler legen beliebige Tasten an und ziehen schaltbare Module darauf;
   Tastendruck schaltet alle gebundenen Module auf **allen getragenen Teilen** abwechselnd an/aus (erster Druck
-  „an“), Chat „Toggled <Modul> on/off“. Belegungen clientseitig in einer Datei gespeichert.
+  „aus“ – `toggleval` startet mit `false`, Module sind beim Einbau an; korrigiert in 28.3), Chat „Toggled <Modul>
+  on/off“. Belegungen clientseitig in einer Datei gespeichert (`powersuits-keybinds.cfg`: `taste:x:y`, darunter
+  `modul~x~y`). GUI 256×226: „New“ wartet auf eine freie Taste („Taken!“ 1 s), Module (nur schaltbare der
+  getragenen Teile, links aufgereiht) per Ziehen bis 32 px an eine Taste binden, Tasten auf „Trash“ löschen;
+  gebundene Module sammeln sich im Abstand 16 px (+3 je Modul über 6) um die Taste, Module stoßen sich auf 16 px
+  ab, zu weit gezogene (> 2 × Abstand) werden gelöst. Tasten wirken nur ohne offenen Bildschirm.
 - 1.21: K als `KeyMapping` (Kategorie „Craft“); die freien Belegungen über eigene Tasten-Erfassung in der GUI,
   gespeichert in `config/craft-mps-keybinds.txt`; Umschalten per Payload.
 

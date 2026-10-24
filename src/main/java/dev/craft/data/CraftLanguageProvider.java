@@ -565,6 +565,7 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
         add("key.categories.craft", "Craft");
         add("key.craft.gravi_fly", german ? "Gravi-Flugtaste" : "Gravi Fly Key");
         add("key.craft.mps_down", german ? "Power-Rüstung: Runter (Flugsteuerung)" : "Power Armor: Down (Flight Control)");
+        add("key.craft.mps_keybinds", german ? "Power-Rüstung: Tastenbelegung" : "Power Armor: Keybindings");
     }
 
     /** Modular Powersuits (spec 29); English texts as in the pack, module names in German translated. */
@@ -688,6 +689,17 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             add("mps.property." + PowerModule.key(property[0]), german ? property[1] : property[0]);
         }
         add("gui.craft.mps.install", german ? "Einbauen" : "Install");
+        add("gui.craft.mps.keybinds", german ? "Power-Rüstung: Tastenbelegung" : "Power Armor Keybindings");
+        add("gui.craft.mps.keybinds.new", german ? "Neu" : "New");
+        add("gui.craft.mps.keybinds.trash", german ? "Müll" : "Trash");
+        add("gui.craft.mps.keybinds.press_key", german ? "Taste drücken" : "Press Key");
+        add("gui.craft.mps.keybinds.taken", german ? "Belegt!" : "Taken!");
+        add("gui.craft.mps.keybinds.help.0", german ? "Mit „Neu“ neue Tasten belegen." : "Use 'new' to bind new keys.");
+        add("gui.craft.mps.keybinds.help.1", german ? "Module per Ziehen auf Tasten legen." : "Drag and drop modules to bind them to keys.");
+        add("gui.craft.mps.keybinds.help.2", german ? "Tasten auf „Müll“ ziehen zum Löschen." : "Drop keys on 'trash' to unbind them.");
+        add("message.craft.mps.toggled_on", german ? "%s eingeschaltet" : "Toggled %s on");
+        add("message.craft.mps.toggled_off", german ? "%s ausgeschaltet" : "Toggled %s off");
+        add("message.craft.mps.feeder_ate", german ? "Auto-Feeder: %s gegessen" : "Feeder module: Ate a %s");
         add("gui.craft.mps.salvage", german ? "Ausbauen" : "Salvage");
         add("gui.craft.mps.tinker", german ? "Einstellen" : "Tinker");
         add("gui.craft.mps.summary", german ? "Übersicht" : "Detailed Summary");

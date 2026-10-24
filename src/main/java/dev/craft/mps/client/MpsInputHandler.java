@@ -26,6 +26,9 @@ import org.lwjgl.glfw.GLFW;
 public final class MpsInputHandler {
     public static final KeyMapping DOWN = new KeyMapping("key.craft.mps_down", InputConstants.Type.KEYSYM,
             GLFW.GLFW_KEY_Z, "key.categories.craft");
+    /** {@code KeybindKeyHandler.openKeybindGUI}: the keybinding GUI (spec 29 §9). */
+    public static final KeyMapping KEYBINDS = new KeyMapping("key.craft.mps_keybinds", InputConstants.Type.KEYSYM,
+            GLFW.GLFW_KEY_K, "key.categories.craft");
 
     private MpsInputHandler() {
     }
@@ -38,6 +41,7 @@ public final class MpsInputHandler {
         @SubscribeEvent
         public static void registerKeyMappings(RegisterKeyMappingsEvent event) {
             event.register(DOWN);
+            event.register(KEYBINDS);
         }
     }
 
@@ -45,7 +49,16 @@ public final class MpsInputHandler {
     public static void onClientTick(ClientTickEvent.Post event) {
         Minecraft minecraft = Minecraft.getInstance();
         LocalPlayer player = minecraft.player;
-        if (player == null || minecraft.getConnection() == null || !ModularItems.usesPowersuit(player)) {
+        if (player == null || minecraft.getConnection() == null) {
+            return;
+        }
+        while (KEYBINDS.consumeClick()) {
+            if (minecraft.screen == null) {
+                minecraft.setScreen(new MpsKeybindScreen());
+            }
+        }
+        MpsKeybinds.tick(minecraft);
+        if (!ModularItems.usesPowersuit(player)) {
             return;
         }
         MpsInput input = new MpsInput(player.input.forwardImpulse, player.input.leftImpulse, player.input.jumping,

@@ -1,5 +1,6 @@
 package dev.craft.mps.item;
 
+import dev.craft.Craft;
 import dev.craft.ic2.item.armor.ArmorProperties;
 import dev.craft.ic2.item.armor.Ic2ArmorItem;
 import dev.craft.mps.ModularItems;
@@ -9,6 +10,8 @@ import dev.craft.mps.module.MpsModules;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
@@ -38,6 +41,24 @@ public class PowerArmorItem extends Ic2ArmorItem implements ModularItem {
     @Override
     public ModuleTarget getTarget() {
         return target;
+    }
+
+    /**
+     * {@code getArmorTextureFile}: blank while Transparent Armor is active, Citizen Joe style when installed, else
+     * {@code sebkarmor}; the leggings use the pants texture of each style.
+     */
+    @Override
+    public ResourceLocation getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot,
+                                            ArmorMaterial.Layer layer, boolean innerModel) {
+        String name;
+        if (ModularItems.hasActiveModule(stack, MpsModules.TRANSPARENT_ARMOR)) {
+            name = "power_armor_blank";
+        } else {
+            String style = ModularItems.hasModule(stack, MpsModules.CITIZEN_JOE_STYLE) ? "power_armor_joe"
+                    : "power_armor";
+            name = style + (type == Type.LEGGINGS ? "_layer_2" : "_layer_1");
+        }
+        return ResourceLocation.fromNamespaceAndPath(Craft.MODID, "textures/models/armor/" + name + ".png");
     }
 
     /** {@code getArmorDouble}: plating plus, while the pool holds more than a hit costs, the energy shield; max 6. */

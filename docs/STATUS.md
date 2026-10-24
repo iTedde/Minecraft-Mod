@@ -2578,8 +2578,26 @@ alle, z. B. ×1,2.“ Entscheidungen Nutzer: Bonus für Panels in einem **lücke
 - [ ] Client-Test (Flug, Schweben, Sprint, Sprung) – nur nach Rückfrage.
 - Doku: `abweichungen.md` (5 MPS-Zeilen), `architektur.md`, Spec §6/§9/§11.
 
+## Erledigt (28.3 Modular Powersuits: Umwelt, Tasten, Kosmetik, 2026-10-24)
+- [x] `MpsEnvironment`: Nachtsicht (5 J) und Tarnung (50 J) als eigene Effekte (500 Ticks, ohne Partikel, erneuert
+  unter 210) samt Schleifenfehler (mit beiden Effekten wird die Tarnung jeden Tick erneuert), Auto-Feeder (Puffer
+  `craft:mps_food`, isst aus dem Inventar, Originalformel), Wasser-Elektrolyseur (Luft < 10 → 300 für 1 000 J),
+  Solar (alle 80 Ticks, Himmel + kein Regen, Tag 100/Nacht 10 J), Kinetik (250 J je 5 Blöcke, `craft:mps_kinetic`).
+- [x] Befund: Entity-Feld `am` = `isAirBorne` (javap auf `minecraft.jar`) → `hasImpulse`; erster Tastendruck
+  schaltet **aus** (Spec §9 korrigiert).
+- [x] Tastenbelegungs-GUI (Taste K, „Power-Rüstung: Tastenbelegung“): neue Taste, Module per Ziehen binden, Müll,
+  Anziehen/Abstoßen wie im Original; Datei `config/craft-mps-keybinds.txt`; Umschalten lokal + Payload `mps_toggle`
+  (Server schaltet nur schaltbare Module), Chat „… eingeschaltet/ausgeschaltet“.
+- [x] Kosmetik: Färbung (Farbmodul) für Rüstungs-/Werkzeug-Icon und getragene Rüstung, Durchsichtige Rüstung
+  (`power_armor_blank`), Citizen-Joe-Texturen (`tools/scripts/mps_textures.py`).
+- [x] GameTests `MpsEnvironmentGameTests` (7: Nachtsicht/Tarnung, Auto-Feeder, Elektrolyseur, Solar, Kinetik,
+  Umschalten, Kosmetik). Alle 512 grün, `gradlew runData build` grün.
+- [ ] Client-Test (Effekte, Feeder-Meldung, Tasten-GUI, Färbung/Texturen) – nur nach Rückfrage.
+- Doku: `abweichungen.md` (5 MPS-Zeilen), `architektur.md`, Spec §7/§9.
+
 ## Nächste Schritte
-- Phase 28.3 Modular Powersuits: Umwelt/Spezial/Kosmetik (Nachtsicht, Tarnung, Auto-Feeder, Elektrolyseur, Solar,
-  Kinetik; Tastenbelegungs-GUI K + Umschalten; Färbung, Transparent, Citizen Joe).
-- Client-Test MPS-Bewegung und GraviSuite (Testplan 11) – nur nach Rückfrage (Nutzer spielt evtl. selbst).
+- Phase 28.4 Modular Powersuits: Power Tool (Abbau Spitzhacke/Schaufel/Axt/Diamant/Aqua Affinity, Nahkampf, Modi
+  per Mausrad, Railgun, Blink Drive, Plasmakanone, In-Place Assembler).
+- Client-Test MPS-Bewegung/-Umwelt/-Tasten und GraviSuite (Testplan 11) – nur nach Rückfrage (Nutzer spielt evtl.
+  selbst).
 - Phase 30 Elektrischer Leuchtschild: 30.0 Spezifikation (Werte/Rezept/Reihenfolge zur Freigabe).
