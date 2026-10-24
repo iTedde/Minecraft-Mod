@@ -1883,6 +1883,13 @@
       "maxCharge": 1000000,
       "tier": 2,
       "transferLimit": 10000
+    },
+    {
+      "canProvideEnergy": false,
+      "id": "gravitool",
+      "maxCharge": 100000,
+      "tier": 2,
+      "transferLimit": 10000
     }
   ]
 }

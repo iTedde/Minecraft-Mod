@@ -1,0 +1,26 @@
+{
+  "parent": "minecraft:item/handheld",
+  "overrides": [
+    {
+      "model": "craft:item/gravitool_treetap",
+      "predicate": {
+        "craft:tool_mode": 0.5
+      }
+    },
+    {
+      "model": "craft:item/gravitool_wrench",
+      "predicate": {
+        "craft:tool_mode": 0.75
+      }
+    },
+    {
+      "model": "craft:item/gravitool_screwdriver",
+      "predicate": {
+        "craft:tool_mode": 1.0
+      }
+    }
+  ],
+  "textures": {
+    "layer0": "craft:item/gravisuite/gravitool_hoe"
+  }
+}

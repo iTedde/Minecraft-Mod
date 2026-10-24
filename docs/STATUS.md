@@ -2490,5 +2490,23 @@ alle, z. B. ×1,2.“ Entscheidungen Nutzer: Bonus für Panels in einem **lücke
 - Entschieden (Nutzer): kein Pack-Vorbild (neuer Inhalt), leuchtet wie eine Fackel (echtes Licht), elektrisch mit EU,
   verzauberbar, eigene Phase. Offen: Werte, Rezept, Einordnung (vor/nach Phase 28) – Vorschlag an den Nutzer.
 
+## Erledigt (27.5 GraviTool, 2026-10-24)
+- [x] `gravisuite/item/GraviToolItem` (100 000 EU, Transfer 10 000, Tier 2, uncommon, kein Abbau-/Treffer-Verbrauch):
+  Modus-Taste + Rechtsklick Hacke → Baumzapfer → Schraubenschlüssel → Schraubendreher (Meldung, `toolChange.ogg`),
+  Modus als Data Component `craft:tool_mode` (ungültig → Hacke), Name „GraviTool (…)“ erst mit gespeichertem Modus,
+  Modell je Modus über Item-Property.
+- [x] Hacke 50 EU (Erde immer, auch von unten/mit Block darüber – Originalfehler), Baumzapfer 50 EU je Erfolg
+  (Fass ohne Wirkung, Trockenloch-Fehler mit 2 Harz), Schraubenschlüssel 50/500 EU und immer verlustfrei
+  (10 000 EU, sonst Meldung), Schraubendreher 500 EU (Verstärker, Werfer, Kolben; ausgefahrene Kolben nicht).
+- [x] BuildCraft-`IToolWrench` als `buildcraft/item/ToolWrench`: GraviTool nur im Schraubenschlüssel-Modus mit
+  500 EU (je Nutzung 500 EU); BC-Blöcke nutzen `canWrench`/`wrenchUsed`, Forestry/TE `isWrench`; Schleich-Klick geht
+  an den Block.
+- [x] Rezept `ABA/CDC/EFG`, Lang DE/EN, Sound `gravisuite/tool_change` (`GsSounds`).
+- [x] GameTests `GraviSuiteGraviToolGameTests` (7: Moduswechsel, Hacke, Baumzapfer, Schraubenschlüssel, BC-Schlüssel,
+  Schraubendreher, Rezept). Alle 487 grün, `gradlew runData build` grün.
+- Doku: `abweichungen.md` (Name/Textur, Meldungen/Sounds, Hacken-Event, Schraubendreher, `IToolWrench`), Spec §12.7
+  (Werfer senkrecht: unten → Nord, oben → Süd laut Formel).
+- **Client-Test offen** (auch 27.1–27.4).
+
 ## Nächste Schritte
-- 27.5 GraviTool (vier Modi, Modell je Modus, BC-Schraubenschlüssel).
+- 27.6 Ultimativer Solarhelm; EMI (Info-Seiten), Herkunft, Wiki, Version/Paket.

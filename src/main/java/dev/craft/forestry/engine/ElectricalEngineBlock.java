@@ -1,7 +1,7 @@
 package dev.craft.forestry.engine;
 
 import com.mojang.serialization.MapCodec;
-import dev.craft.buildcraft.item.BcWrenchItem;
+import dev.craft.buildcraft.item.ToolWrench;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.DustParticleOptions;
@@ -75,7 +75,7 @@ public class ElectricalEngineBlock extends BaseEntityBlock {
     @Override
     protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos,
                                               Player player, InteractionHand hand, BlockHitResult hit) {
-        if (!player.isShiftKeyDown() && stack.getItem() instanceof BcWrenchItem) {
+        if (!player.isShiftKeyDown() && ToolWrench.isWrench(stack)) {
             if (!level.isClientSide() && level.getBlockEntity(pos) instanceof ElectricalEngineBlockEntity engine) {
                 engine.rotateEngine();
             }

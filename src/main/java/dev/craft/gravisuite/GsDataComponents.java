@@ -17,6 +17,12 @@ public final class GsDataComponents {
                     .persistent(Codec.BOOL)
                     .networkSynchronized(ByteBufCodecs.BOOL));
 
+    /** GraviTool NBT {@code toolMode} 1–4; absent means hoe without the mode name (see {@code GraviToolItem}). */
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> TOOL_MODE =
+            COMPONENTS.registerComponentType("tool_mode", builder -> builder
+                    .persistent(Codec.INT)
+                    .networkSynchronized(ByteBufCodecs.VAR_INT));
+
     private GsDataComponents() {
     }
 }

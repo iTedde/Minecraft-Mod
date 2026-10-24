@@ -3,7 +3,7 @@ package dev.craft.buildcraft.factory;
 import com.mojang.serialization.MapCodec;
 import dev.craft.buildcraft.BcBlockEntityTypes;
 import dev.craft.buildcraft.fluid.LiquidContainers;
-import dev.craft.buildcraft.item.BcWrenchItem;
+import dev.craft.buildcraft.item.ToolWrench;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
@@ -77,10 +77,11 @@ public class RefineryBlock extends BaseEntityBlock {
         if (player.isShiftKeyDown()) {
             return ItemInteractionResult.SKIP_DEFAULT_BLOCK_INTERACTION;
         }
-        if (stack.getItem() instanceof BcWrenchItem) {
+        if (ToolWrench.canWrenchWith(stack, player, pos)) {
             if (!level.isClientSide()) {
                 level.setBlock(pos, state.setValue(FACING, rotate(state.getValue(FACING))), 3);
             }
+            ToolWrench.wrenchUsedWith(stack, player, pos);
             return ItemInteractionResult.sidedSuccess(level.isClientSide());
         }
         FluidStack liquid = LiquidContainers.getLiquidForFilledItem(stack);

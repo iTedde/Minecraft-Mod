@@ -18,6 +18,7 @@ public final class GraviSuite {
 
     public static void init(IEventBus modBus) {
         GsDataComponents.COMPONENTS.register(modBus);
+        GsSounds.SOUNDS.register(modBus);
         GsItems.MATERIALS.register(modBus);
         GsItems.ITEMS.register(modBus);
         GraviChestplateItem.ATTACHMENT_TYPES.register(modBus);

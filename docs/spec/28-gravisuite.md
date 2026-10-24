@@ -286,8 +286,8 @@ LapPack, begrenzt auf 10 000 000.
   (Härte < 0: Barriere, Licht, Befehls-/Struktur-/Verbundblöcke, Endtransitportal); Abbau feuert das NeoForge-
   `BlockEvent.BreakEvent` (Schutz-Mods greifen).
 7. **Schraubendreher**: ausgefahrene Kolben werden nicht gedreht (1.4.7 hätte das Ausgefahren-Bit verworfen und
-  einen losen Kolbenkopf hinterlassen); Werfer, die nach oben/unten zeigen (in 1.4.7 nicht möglich): oben → Nord,
-  unten → Süd (ergibt sich aus der Formel).
+  einen losen Kolbenkopf hinterlassen); Werfer, die nach oben/unten zeigen (in 1.4.7 nicht möglich): unten → Nord,
+  oben → Süd (ergibt sich aus der Formel; korrigiert 27.5).
 8. **Hacke**: nur Gras und Erde wie im Pack (keine 1.21-Erweiterungen wie Grobe Erde/Wurzelerde/Trampelpfad).
 9. **Fortg. Diamantbohrer**: die leere obere Zeile entfällt (1.21 kürzt Muster), das Rezept ist also verschiebbar.
 10. Ladung als Data Component wie bei allen elektrischen Items im Mod.

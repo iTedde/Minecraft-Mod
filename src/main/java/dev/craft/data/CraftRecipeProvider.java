@@ -2742,6 +2742,10 @@ public final class CraftRecipeProvider extends RecipeProvider {
         shaped(GsItems.VAJRA, 1, "vajra").pattern("ABA", "CDC", "FGF").define('A', Ic2Items.REFINED_IRON_INGOT)
                 .define('B', Ic2Items.ENERGY_CRYSTAL).define('C', Ic2Items.CARBON_PLATE).define('D', GsItems.VAJRA_CORE)
                 .define('F', Ic2Items.ADVANCED_ALLOY).define('G', Ic2Items.LAPOTRON_CRYSTAL).save();
+        shaped(GsItems.GRAVITOOL, 1, "gravitool").pattern("ABA", "CDC", "EFG").define('A', Ic2Items.CARBON_PLATE)
+                .define('B', Ic2Items.ELECTRIC_HOE).define('C', Ic2Items.ADVANCED_ALLOY)
+                .define('D', Ic2Items.ENERGY_CRYSTAL).define('E', Ic2Items.ELECTRIC_WRENCH)
+                .define('F', Ic2Items.ADVANCED_CIRCUIT).define('G', Ic2Items.ELECTRIC_TREETAP).save();
     }
 
     /**

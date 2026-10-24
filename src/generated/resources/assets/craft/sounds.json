@@ -49,6 +49,11 @@
       "craft:generators/windgen_loop"
     ]
   },
+  "gravisuite/tool_change": {
+    "sounds": [
+      "craft:gravisuite/tool_change"
+    ]
+  },
   "machines/compressor_op": {
     "sounds": [
       "craft:machines/compressor_op"

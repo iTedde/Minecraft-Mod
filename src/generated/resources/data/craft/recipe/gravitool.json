@@ -1,0 +1,35 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "A": {
+      "item": "craft:carbon_plate"
+    },
+    "B": {
+      "item": "craft:electric_hoe"
+    },
+    "C": {
+      "item": "craft:advanced_alloy"
+    },
+    "D": {
+      "item": "craft:energy_crystal"
+    },
+    "E": {
+      "item": "craft:electric_wrench"
+    },
+    "F": {
+      "item": "craft:advanced_circuit"
+    },
+    "G": {
+      "item": "craft:electric_treetap"
+    }
+  },
+  "pattern": [
+    "ABA",
+    "CDC",
+    "EFG"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:gravitool"
+  }
+}

@@ -485,6 +485,24 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
         item(GsItems.ADVANCED_CHAINSAW, german ? "Fortgeschrittene Kettensäge" : "Advanced Chainsaw");
         item(GsItems.VAJRA, "Vajra");
         item(GsItems.GRAVI_CHESTPLATE, german ? "Gravitations-Brustplatte" : "GraviChestPlate");
+        item(GsItems.GRAVITOOL, "GraviTool");
+        String tool = GsItems.GRAVITOOL.get().getDescriptionId();
+        add(tool + ".hoe", german ? "GraviTool (Hacke)" : "GraviTool (Hoe)");
+        add(tool + ".treetap", german ? "GraviTool (Baumzapfer)" : "GraviTool (TreeTap)");
+        add(tool + ".wrench", german ? "GraviTool (Schraubenschlüssel)" : "GraviTool (Wrench)");
+        add(tool + ".screwdriver", german ? "GraviTool (Schraubendreher)" : "GraviTool (Screwdriver)");
+        String gt = "message.craft.gravisuite.gravitool.";
+        add(gt + "hoe_activated", german ? "§2Hacke §aaktiviert" : "§2Hoe §ftool §aactivated");
+        // "TreeTrap" (sic) as in the pack.
+        add(gt + "treetap_activated", german ? "§6Baumzapfer §aaktiviert" : "§6TreeTrap §ftool §aactivated");
+        add(gt + "wrench_activated", german ? "§bSchraubenschlüssel §aaktiviert" : "§bWrench §ftool §aactivated");
+        add(gt + "screwdriver_activated", german ? "§dSchraubendreher §aaktiviert" : "§dScrewdriver §ftool §aactivated");
+        add(gt + "no_energy", german ? "Nicht genug Energie für diesen Vorgang!"
+                : "Not enough energy for this operation !");
+        add(gt + "no_energy_operation", german ? "Nicht genug Energie für diesen Vorgang"
+                : "Not enough energy for this operation");
+        add(gt + "no_energy_lossless", german ? "Nicht genug Energie für verlustfreies Abbauen"
+                : "Not enough energy for lossless wrench operation");
         add("hud.craft.gravisuite.gravi_on", german ? "§aGravitationsantrieb AN" : "§aGravitation engine ON");
         add("message.craft.gravisuite.gravi_on", german ? "§aGravitationsantrieb AN" : "§aGravitation engine ON");
         add("message.craft.gravisuite.gravi_off", german ? "§cGravitationsantrieb AUS" : "§cGravitation engine OFF");

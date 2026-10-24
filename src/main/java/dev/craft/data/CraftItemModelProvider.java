@@ -19,6 +19,7 @@ import dev.craft.powerplants.PpItems;
 import dev.craft.portalgun.PgItems;
 import dev.craft.enderstorage.EsItems;
 import dev.craft.gravisuite.GsItems;
+import dev.craft.gravisuite.client.GraviSuiteClient;
 import dev.craft.enderstorage.client.EnderStorageClient;
 import dev.craft.ironchest.ChestUpgradeType;
 import dev.craft.ironchest.IronChestItems;
@@ -157,6 +158,16 @@ public final class CraftItemModelProvider extends ItemModelProvider {
         for (DeferredItem<? extends Item> tool : GsItems.toolItems()) {
             String name = tool.getId().getPath();
             withExistingParent(name, mcLoc("item/handheld")).texture("layer0", modLoc("item/gravisuite/" + name));
+        }
+        // GraviTool: one model per mode, the hoe is the base.
+        ItemModelBuilder graviTool = withExistingParent(GsItems.GRAVITOOL.getId().getPath(), mcLoc("item/handheld"))
+                .texture("layer0", modLoc("item/gravisuite/gravitool_hoe"));
+        String[] graviToolModes = {"treetap", "wrench", "screwdriver"};
+        for (int i = 0; i < graviToolModes.length; i++) {
+            String name = "gravitool_" + graviToolModes[i];
+            graviTool.override().predicate(GraviSuiteClient.TOOL_MODE_PROPERTY, (i + 2) / 4.0F)
+                    .model(withExistingParent(name, mcLoc("item/handheld"))
+                            .texture("layer0", modLoc("item/gravisuite/" + name))).end();
         }
         // Ender pouch: base (global/personal) plus three tinted colour bands.
         ItemModelBuilder pouchPersonal = pouch("ender_pouch_personal", "ender_pouch_personal");

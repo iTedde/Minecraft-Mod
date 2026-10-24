@@ -4,7 +4,7 @@ import javax.annotation.Nullable;
 
 import com.mojang.serialization.MapCodec;
 
-import dev.craft.buildcraft.item.BcWrenchItem;
+import dev.craft.buildcraft.item.ToolWrench;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
@@ -176,8 +176,9 @@ public class GenericPipeBlock extends BaseEntityBlock {
                 || stack.canPerformAction(ItemAbilities.SHIELD_BLOCK)) {
             return ItemInteractionResult.SKIP_DEFAULT_BLOCK_INTERACTION;
         }
-        if (stack.getItem() instanceof BcWrenchItem && onWrench(state, level, pos)) {
+        if (ToolWrench.canWrenchWith(stack, player, pos) && onWrench(state, level, pos)) {
             level.updateNeighborsAt(pos, this);
+            ToolWrench.wrenchUsedWith(stack, player, pos);
             return ItemInteractionResult.sidedSuccess(level.isClientSide());
         }
         return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;

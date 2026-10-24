@@ -11,6 +11,7 @@ import dev.craft.gravisuite.item.AdvancedDrillItem;
 import dev.craft.gravisuite.item.AdvancedJetpackItem;
 import dev.craft.gravisuite.item.AdvancedNanoChestplateItem;
 import dev.craft.gravisuite.item.GraviChestplateItem;
+import dev.craft.gravisuite.item.GraviToolItem;
 import dev.craft.gravisuite.item.VajraItem;
 import dev.craft.ic2.item.armor.EnergyPackItem;
 import net.minecraft.core.Holder;
@@ -72,6 +73,9 @@ public final class GsItems {
             properties -> new AdvancedChainsawItem(properties.rarity(Rarity.UNCOMMON)));
     public static final DeferredItem<VajraItem> VAJRA = tool("vajra",
             properties -> new VajraItem(properties.rarity(Rarity.EPIC)));
+    /** One model per mode, so not among the handheld {@link #toolItems()}. */
+    public static final DeferredItem<GraviToolItem> GRAVITOOL = ITEMS.registerItem("gravitool",
+            properties -> new GraviToolItem(properties.rarity(Rarity.UNCOMMON)));
 
     private GsItems() {
     }
