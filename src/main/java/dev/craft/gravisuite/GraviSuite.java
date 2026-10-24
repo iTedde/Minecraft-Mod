@@ -16,9 +16,11 @@ public final class GraviSuite {
     }
 
     public static void init(IEventBus modBus) {
+        GsDataComponents.COMPONENTS.register(modBus);
         GsItems.MATERIALS.register(modBus);
         GsItems.ITEMS.register(modBus);
         modBus.addListener(GraviSuite::addToCreativeTab);
+        modBus.addListener(GsKeyPayload::register);
     }
 
     /** Like the original everything sits in the IC2 tab, electric items charged and empty. */

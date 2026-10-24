@@ -2439,5 +2439,21 @@ alle, z. B. ×1,2.“ Entscheidungen Nutzer: Bonus für Panels in einem **lücke
 - Ore-Dict `itemSuperconductor` nicht als Tag nachgebaut (kein Rezept im Mod nutzt es).
 - **Client-Test offen.**
 
+## Erledigt (27.2 Fortg. Jetpack + Fortg. Nano-Brustplatte, 2026-10-24)
+- [x] `gravisuite/item/AdvancedJetpackItem` (1 000 000 EU, Transfer 1 000, Tier 2, liefert Energie): Triebwerk an/aus
+  (Datenkomponente `craft:fly_active`), Schwebemodus (IC2-Komponenten `hover_mode`/`toggle_timer`), Schub 12 EU/Tick,
+  Boost +60 EU, Leistungsabfall ≤ 1 000 EU (Originalfehler), Höhengrenze `maxBuildHeight`, Fallhöhe/Schrittweg 0;
+  Sound über den IC2-Jetpack-Loop (bytegleiche Datei).
+- [x] `AdvancedNanoChestplateItem` erbt das Jetpack, Schutz 0,4 × 0,9, 800 EU je Schaden, AbsorbMax `ladung/800`
+  (Originalfehler ohne ×25), Anzeige 7 ab 800 EU.
+- [x] Tasten: „Gravi-Flugtaste“ (Standard G, Kategorie „Craft“) und Flanke der IC2-Modus-Taste als Payload
+  `craft:gravisuite_key` (`GsKeyPayload`, Server prüft Brustteil bzw. gehaltenen Sprung); Client `GsKeyMappings`.
+- [x] HUD: „§eJetpack §aengine ON“ (+ „(Hover mode)“) über der Energiezeile; Meldungen DE/EN.
+- [x] Rezepte Fortg. Jetpack (Ladung aus Fortg. LapPack) und Fortg. Nano-Brustplatte; Rüstungstexturen aus 27.1.
+- [x] GameTests `GraviSuiteJetpackGameTests` (7: ohne Triebwerk nichts, Schub/Boost/Fallhöhe, Schweben, Leistungsabfall
+  und < 12 EU, Tasten, Schutzwerte, Rezepte mit Ladung). Alle 467 grün, `gradlew runData build` grün.
+- Doku: `abweichungen.md` (Flug-Taste G, Höhengrenze, Zustand je Spieler, Meldungen übersetzbar).
+- **Client-Test offen** (auch 27.1).
+
 ## Nächste Schritte
-- 27.2 Fortg. Jetpack + Fortg. Nano-Brustplatte (Triebwerk, Schweben, Boost, Flug-Taste, Payloads, Sound, HUD-Status).
+- 27.3 Gravitations-Brustplatte (Flug, Verbrauch, Boost, Kreativ-/Ablege-/Welt-lade-Logik, Höhengrenze).

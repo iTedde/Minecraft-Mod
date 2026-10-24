@@ -341,3 +341,7 @@ Siehe `docs/balancing.md`. Wird hier eingetragen, sobald freigegeben.
 | Thermal Expansion: Tesserakt-Pakete | Server übernimmt `TILE_INFO` ungeprüft vom Client | Server prüft offenes GUI, Wertebereiche und Besitz (Zugriff nur durch den Besitzer, wie im GUI) | Schutz gegen manipulierte Pakete; im normalen Spiel gleiche Wirkung | **umgesetzt** (25.7) |
 | Thermal Expansion: Frequenzfeld eines inaktiven Tesserakts | zeigt „-1“ | leer | gleiche Wirkung (Setzen in beiden Fällen gesperrt) | **umgesetzt** (25.7) |
 | Thermal Expansion: Gate-Trigger der Tesserakte | `TriggerTeleport` (BC-Gates) | entfällt | Gates nicht im Umfang (Phase 10) | **umgesetzt** (25.7) |
+| GraviSuite: Flug-Taste | „Gravi Fly Key“ Standard F | Standard **G**, Kategorie „Craft“ (frei belegbar) | F ist in 1.21 „Hand wechseln“ | **umgesetzt** (27.2) |
+| GraviSuite: Jetpack-Höhengrenze | Welthöhe `getHeight()` (256) | `maxBuildHeight` der Dimension (wie das IC2-Jetpack im Mod) | 1.21-Weltgrenzen je Dimension | **umgesetzt** (27.2) |
+| GraviSuite: Jetpack-Zustand | statische Felder (Sound-Status, `toggleTimer`) für alle Spieler gemeinsam | Sound über den IC2-Jetpack-Loop des eigenen Spielers (gleiche Datei `JetpackLoop.ogg`), `toggleTimer` je Item | statischer Zustand war nur im Einzelspieler eindeutig | **umgesetzt** (27.2) |
+| GraviSuite: Meldungen | englische Klartexte mit Farbcodes | übersetzbar (DE/EN), Farbcodes wie im Pack | Sprachdateien | **umgesetzt** (27.2) |

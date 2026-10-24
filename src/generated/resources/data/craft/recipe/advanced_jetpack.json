@@ -1,0 +1,32 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "A": {
+      "item": "craft:carbon_plate"
+    },
+    "B": {
+      "item": "craft:electric_jetpack"
+    },
+    "C": {
+      "item": "craft:engine_booster"
+    },
+    "D": {
+      "item": "craft:advanced_lappack"
+    },
+    "E": {
+      "item": "craft:glass_fibre_cable"
+    },
+    "F": {
+      "item": "craft:advanced_circuit"
+    }
+  },
+  "pattern": [
+    "ABA",
+    "CDC",
+    "EFE"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:advanced_jetpack"
+  }
+}

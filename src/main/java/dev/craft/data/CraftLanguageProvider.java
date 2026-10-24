@@ -479,7 +479,18 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
         item(GsItems.ENGINE_BOOSTER, german ? "Triebwerksverstärker" : "Engine Booster");
         item(GsItems.ADVANCED_LAPPACK, german ? "Fortgeschrittenes LapPack" : "Advanced Lappack");
         item(GsItems.ULTIMATE_LAPPACK, german ? "Ultimatives LapPack" : "Ultimate Lappack");
+        item(GsItems.ADVANCED_JETPACK, german ? "Fortgeschrittenes elektrisches Jetpack" : "Advanced Electric Jetpack");
+        item(GsItems.ADVANCED_NANO_CHESTPLATE, german ? "Fortgeschrittene Nano-Brustplatte" : "Advanced NanoChestPlate");
         add("hud.craft.gravisuite.energy_level", german ? "Energiestand: %s" : "Energy level: %s");
+        add("hud.craft.gravisuite.jetpack_on", german ? "§eJetpack §aTriebwerk AN" : "§eJetpack §aengine ON");
+        add("hud.craft.gravisuite.hover_mode", german ? " §e(Schwebemodus)" : " §e(Hover mode)");
+        add("message.craft.gravisuite.jetpack_on", german ? "§eJetpack §aTriebwerk AN" : "§eJetpack §aengine ON");
+        add("message.craft.gravisuite.jetpack_off", german ? "§eJetpack §cTriebwerk AUS" : "§eJetpack §cengine OFF");
+        add("message.craft.gravisuite.hover_enabled", german ? "§eSchwebemodus §aaktiviert." : "§eHover Mode §aenabled.");
+        add("message.craft.gravisuite.hover_disabled",
+                german ? "§eSchwebemodus §cdeaktiviert." : "§eHover Mode §cdisabled.");
+        add("key.categories.craft", "Craft");
+        add("key.craft.gravi_fly", german ? "Gravi-Flugtaste" : "Gravi Fly Key");
     }
 
     /** EnderStorage (spec 27); the chest keeps the original name, German marks it apart from the vanilla one. */

@@ -2720,6 +2720,14 @@ public final class CraftRecipeProvider extends RecipeProvider {
                 .define('A', Items.GLOWSTONE_DUST).define('B', Ic2Items.ADVANCED_ALLOY)
                 .define('C', Ic2Items.ADVANCED_CIRCUIT).define('D', Ic2Items.OVERCLOCKER_UPGRADE)
                 .define('F', fresh(Ic2Items.ADVANCED_HEAT_VENT)).save();
+        shaped(GsItems.ADVANCED_JETPACK, 1, "advanced_jetpack").pattern("ABA", "CDC", "EFE")
+                .define('A', Ic2Items.CARBON_PLATE).define('B', Ic2Items.ELECTRIC_JETPACK)
+                .define('C', GsItems.ENGINE_BOOSTER).define('D', GsItems.ADVANCED_LAPPACK)
+                .define('E', Ic2Items.cable(CableType.GLASS_FIBRE)).define('F', Ic2Items.ADVANCED_CIRCUIT).save();
+        shaped(GsItems.ADVANCED_NANO_CHESTPLATE, 1, "advanced_nano_chestplate").pattern("ABA", "ACA", "DFD")
+                .define('A', Ic2Items.CARBON_PLATE).define('B', GsItems.ADVANCED_JETPACK)
+                .define('C', Ic2Items.NANO_CHESTPLATE).define('D', Ic2Items.cable(CableType.GLASS_FIBRE))
+                .define('F', Ic2Items.ADVANCED_CIRCUIT).save();
     }
 
     /**

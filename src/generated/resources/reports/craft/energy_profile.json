@@ -1841,6 +1841,20 @@
       "maxCharge": 10000000,
       "tier": 2,
       "transferLimit": 20000
+    },
+    {
+      "canProvideEnergy": true,
+      "id": "advanced_jetpack",
+      "maxCharge": 1000000,
+      "tier": 2,
+      "transferLimit": 1000
+    },
+    {
+      "canProvideEnergy": true,
+      "id": "advanced_nano_chestplate",
+      "maxCharge": 1000000,
+      "tier": 2,
+      "transferLimit": 1000
     }
   ]
 }

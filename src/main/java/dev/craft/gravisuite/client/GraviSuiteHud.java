@@ -5,6 +5,7 @@ import java.util.List;
 
 import dev.craft.Craft;
 import dev.craft.gravisuite.GsItems;
+import dev.craft.gravisuite.item.AdvancedJetpackItem;
 import dev.craft.ic2.item.ElectricItem;
 import dev.craft.ic2.item.ElectricItems;
 import net.minecraft.ChatFormatting;
@@ -13,6 +14,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
@@ -55,7 +57,16 @@ public final class GraviSuiteHud {
     /** The lines for a worn chest piece; empty if it is no GraviSuite pack. */
     static List<Component> lines(ItemStack chest) {
         List<Component> lines = new ArrayList<>();
-        if (chest.is(GsItems.ULTIMATE_LAPPACK.get()) || chest.is(GsItems.ADVANCED_LAPPACK.get())) {
+        if (chest.getItem() instanceof AdvancedJetpackItem) {
+            if (AdvancedJetpackItem.isEngineOn(chest)) {
+                MutableComponent status = Component.translatable("hud.craft.gravisuite.jetpack_on");
+                if (AdvancedJetpackItem.isHoverMode(chest)) {
+                    status.append(Component.translatable("hud.craft.gravisuite.hover_mode"));
+                }
+                lines.add(status);
+            }
+            lines.add(energyLevel(chest));
+        } else if (chest.is(GsItems.ULTIMATE_LAPPACK.get()) || chest.is(GsItems.ADVANCED_LAPPACK.get())) {
             lines.add(energyLevel(chest));
         }
         return lines;
