@@ -52,6 +52,9 @@ Mahlen, Waschen, Fertigungsketten …).</p>
     ['Create Better FPS (+ Sodium)', 'Leistung: schnellere Darstellung von Create-Anlagen'],
     ['<b>Ad Astra</b>', 'Raumfahrt: Raketen, Mond, Mars und weitere Planeten, Sauerstoff, Raumanzüge (läuft mit FE-Strom)'],
     ['Industrial Foregoing (+ Titanium)', 'Automatisierung mit FE: Farmen, Mob-Verarbeitung, Laserbohrer'],
+    ['<b>Create: Integrated Farming</b> (+ Create: Dragons Plus)', 'Farm-Automatisierung mit Create: Pflanzen, Tiere und Fischerei in Maschinen'],
+    ['<b>Create: Protection Pixel</b>', 'Rüstungen im Steampunk-/Create-Stil aus Messing und Legierungen, einige mit Sonderfunktionen'],
+    ['GraveStone Mod', 'Unabhängig von Create: beim Tod landet das Inventar in einem Grabstein statt am Boden'],
 ])}
 <h2 id="cr--craft">Zusammenspiel mit Craft</h2>
 <ul>
@@ -160,6 +163,14 @@ AE2-Teile mit Create-Drehkraft zu versorgen. Das Ingame-Handbuch von AE2 (GuideM
 Maschinen laufen mit FE. Neue Erze und Metalle (z. B. Desh, Ostrum, Calorite) gibt es nur dort.</p>
 <h2 id="ca--if">Industrial Foregoing</h2>
 <p>Automatisierung mit FE: Pflanzen- und Baumfarmen, Mob-Verarbeitung, Laserbohrer für Erze, Flüssigkeitsverarbeitung. Unabhängig von Create.</p>
+<h2 id="ca--farming">Create: Integrated Farming</h2>
+<p>Farmen mit Create-Mitteln automatisieren: Pflanzen, Tierhaltung und Fischerei in Maschinen. Ab Paket <b>1.0.7</b>; braucht die
+Bibliothek Create: Dragons Plus (mitinstalliert). Aufbau zeigen Ponder und EMI.</p>
+<h2 id="ca--pixel">Create: Protection Pixel</h2>
+<p>Rüstungsteile im Steampunk-Stil (Helme, Brustplatten mit Sonderfunktionen wie Jetpack oder Schild), hergestellt aus Messing und
+Legierungen. Ab Paket <b>1.0.7</b>. Rezepte in EMI.</p>
+<h2 id="ca--grave">GraveStone Mod</h2>
+<p>Stirbt man, erscheint an der Stelle ein Grabstein mit dem gesamten Inventar; Rechtsklick holt die Sachen zurück. Ab Paket <b>1.0.7</b>.</p>
 '''
     page('create-addons', 'Addons', addons)
     return P

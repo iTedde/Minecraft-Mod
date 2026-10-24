@@ -2377,3 +2377,16 @@ Befund (Nutzer): „Die Waterproof Pipes … können z. B. nicht aus der Pump Wa
 ## Erledigt (Turbinengehäuse ×6, Nutzer, 2026-10-23)
 Nutzerwunsch: „Bei Turbine Casing mach, dass man wenigstens 6 Stück sofort draus kriegt. Ist sonst sehr teuer.“
 - [x] Rezept Turbinengehäuse (Dampfturbine) `PPP/PMP/PPP` ergibt **6** statt 4 (`spec/14` §Rezepte, Wiki).
+
+## Erledigt (Paket 1.0.7: GraveStone, Integrated Farming, Protection Pixel, Nutzer, 2026-10-24)
+Nutzerwunsch; nur mitinstalliert per `manifest.json` `files` (keine Integration, Craft-Jar unverändert 1.0.4).
+- [x] `releases/Craft-1.0.7-curseforge.zip` (wie 1.0.6, 67 Manifest-Einträge, 8,6 MB): GraveStone Mod 1.0.40 (CurseForge
+  238551, Datei 8671622), Create: Integrated Farming 1.4.3 (1249131, 8937623) mit der Pflicht-Abhängigkeit Create: Dragons
+  Plus 1.11.9 (1216624, 8900055; braucht Create ≥ 6.0.10), Create: Protection Pixel 2.2.1 (1023409, 7549821; Create nur
+  optional).
+- [x] Geprüft: dedizierter NeoForge-21.1.259-Server mit Craft 1.0.4 + Create 6.0.10 + den vier Mods startet („Done“),
+  keine Fehler. Rezeptkonflikte mit den übrigen Paket-Mods nicht geprüft.
+- [x] Wiki „Create & Paket-Mods“: Tabelle und Abschnitte auf „Addons“ ergänzt, neu erzeugt (DE + EN-Namen).
+- **Client-Test offen** (Paket 1.0.7 importieren).
+- Neu geplant: „Advanced Jetpack“ = GraviSuite aus dem Pack → **Phase 27** (kompletter Umfang); „Tech-Rüstung“ =
+  Modular Powersuits aus dem Pack → **Phase 28**. Beide zuerst Spezifikation.
