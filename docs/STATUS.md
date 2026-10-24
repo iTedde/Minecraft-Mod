@@ -2562,8 +2562,24 @@ alle, z. B. ×1,2.“ Entscheidungen Nutzer: Bonus für Panels in einem **lücke
   erneut geprüft.
 - Doku: `abweichungen.md` (7 MPS-Zeilen), `architektur.md`, Spec §4/§14.
 
+## Erledigt (28.2 Modular Powersuits: Bewegung, 2026-10-24)
+- [x] `MpsMovement` (MPS `PlayerTickHandler`/`MovementManager`): Spieler-Tick (Pre) auf Client und Server mit der
+  letzten Eingabe; Sammelkosten am Tick-Ende, Energie/Erschöpfung nur serverseitig.
+- [x] Eingabe `MpsInput` (vor/seit/springen/schleichen/runter) + Bewegung per Payload `mps_input` (nur mit MPS-Teil),
+  Server übernimmt die Client-Bewegung wie im Original; Taste „Power-Rüstung: Runter (Flugsteuerung)“ (Standard Z).
+- [x] Gewicht (Tragkraft 25 kg, Bremse horizontal), Sprint/Gehen-Assist (Modifikator auf `movement_speed`, sofort
+  bezahlt), Luftbeschleunigung per Mixin `PlayerFlyingSpeedMixin`, Jump Assist (Sprung-Event, Zähler, Kompensation),
+  Uphill Step Assist (`step_height` 1,001), Jetpack/Jet Boots mit/ohne Flight Control (inkl. Original-Fehler beim
+  Bremsen), Gleiter, Fallschirm, Swim Boost, Shock Absorber (Fall-Event), Fallhöhe aus der Fallgeschwindigkeit nur mit
+  MPS-Teil; Flug-Kick-Zähler wird mit Schub zurückgesetzt.
+- [x] Befund: MPS 0.3.2 spielt keinen seiner Sounds ab → keine Bewegungs-Sounds (Spec §11 korrigiert).
+- [x] GameTests `MpsMovementGameTests` (8: Jetpack-Schub, Flight-Control-Schweben, Gleiter/Fallschirm, Jump Assist,
+  Sprint Assist, Stufenhöhe, Stoßdämpfer, Fallhöhe/Gewicht). Alle 505 grün, `gradlew runData build` grün.
+- [ ] Client-Test (Flug, Schweben, Sprint, Sprung) – nur nach Rückfrage.
+- Doku: `abweichungen.md` (5 MPS-Zeilen), `architektur.md`, Spec §6/§9/§11.
+
 ## Nächste Schritte
-- Phase 28.2 Modular Powersuits: Bewegung (Eingabe-Payload, Gewicht, Sprint/Sprung/Stufe, Jetpack/Düsenstiefel/
-  Flugsteuerung, Gleiter, Fallschirm, Schwimmen, Stoßdämpfer, Fallhöhe, Sounds).
-- Client-Test GraviSuite (Testplan 11) – nur nach Rückfrage (Nutzer spielt evtl. selbst).
+- Phase 28.3 Modular Powersuits: Umwelt/Spezial/Kosmetik (Nachtsicht, Tarnung, Auto-Feeder, Elektrolyseur, Solar,
+  Kinetik; Tastenbelegungs-GUI K + Umschalten; Färbung, Transparent, Citizen Joe).
+- Client-Test MPS-Bewegung und GraviSuite (Testplan 11) – nur nach Rückfrage (Nutzer spielt evtl. selbst).
 - Phase 30 Elektrischer Leuchtschild: 30.0 Spezifikation (Werte/Rezept/Reihenfolge zur Freigabe).

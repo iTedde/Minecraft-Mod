@@ -1109,6 +1109,7 @@
   "key.craft.boost": "Boost Key",
   "key.craft.gravi_fly": "Gravi Fly Key",
   "key.craft.mode_switch": "Mode Switch Key",
+  "key.craft.mps_down": "Power Armor: Down (Flight Control)",
   "key.craft.side_inventory": "Side Inventory Key",
   "layout.craft.engine_tin": "Electric Engine",
   "message.craft.crop.scanned": "%s - Gr: %s Ga: %s Re: %s",

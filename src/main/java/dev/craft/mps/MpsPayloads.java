@@ -9,7 +9,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
-/** Client → server requests of the Tinker Table GUI (spec 29 §12); slot = player inventory index. */
+/** Client → server requests of the Tinker Table GUI and the movement input (spec 29 §12); slot = inventory index. */
 public final class MpsPayloads {
     private MpsPayloads() {
     }
@@ -48,6 +48,20 @@ public final class MpsPayloads {
         }
     }
 
+    /** {@code MusePacketPlayerUpdate}: the movement keys and the client's motion, sent every client tick. */
+    public record Input(MpsInput input, double motionX, double motionY, double motionZ)
+            implements CustomPacketPayload {
+        public static final Type<Input> TYPE = payloadType("mps_input");
+        public static final StreamCodec<ByteBuf, Input> STREAM_CODEC = StreamCodec.composite(
+                MpsInput.STREAM_CODEC, Input::input, ByteBufCodecs.DOUBLE, Input::motionX,
+                ByteBufCodecs.DOUBLE, Input::motionY, ByteBufCodecs.DOUBLE, Input::motionZ, Input::new);
+
+        @Override
+        public Type<Input> type() {
+            return TYPE;
+        }
+    }
+
     private static <T extends CustomPacketPayload> CustomPacketPayload.Type<T> payloadType(String name) {
         return new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(Craft.MODID, name));
     }
@@ -60,7 +74,14 @@ public final class MpsPayloads {
                 .playToServer(Salvage.TYPE, Salvage.STREAM_CODEC,
                         (payload, context) -> TinkerActions.salvage(context.player(), payload.slot(),
                                 payload.module(), context.player().getRandom()))
-                .playToServer(Tweak.TYPE, Tweak.STREAM_CODEC, MpsPayloads::tweak);
+                .playToServer(Tweak.TYPE, Tweak.STREAM_CODEC, MpsPayloads::tweak)
+                .playToServer(Input.TYPE, Input.STREAM_CODEC, MpsPayloads::input);
+    }
+
+    /** The server takes over the client's motion like the original, so costs follow the real movement. */
+    private static void input(Input payload, IPayloadContext context) {
+        MpsMovement.setInput(context.player(), payload.input());
+        context.player().setDeltaMovement(payload.motionX(), payload.motionY(), payload.motionZ());
     }
 
     private static void tweak(Tweak payload, IPayloadContext context) {

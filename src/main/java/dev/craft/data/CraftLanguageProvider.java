@@ -564,6 +564,7 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
                 + "dispensers, pistons, 500 EU).");
         add("key.categories.craft", "Craft");
         add("key.craft.gravi_fly", german ? "Gravi-Flugtaste" : "Gravi Fly Key");
+        add("key.craft.mps_down", german ? "Power-Rüstung: Runter (Flugsteuerung)" : "Power Armor: Down (Flight Control)");
     }
 
     /** Modular Powersuits (spec 29); English texts as in the pack, module names in German translated. */

@@ -1109,6 +1109,7 @@
   "key.craft.boost": "Boost-Taste",
   "key.craft.gravi_fly": "Gravi-Flugtaste",
   "key.craft.mode_switch": "Modus-Taste",
+  "key.craft.mps_down": "Power-Rüstung: Runter (Flugsteuerung)",
   "key.craft.side_inventory": "Seiteninventar-Taste",
   "layout.craft.engine_tin": "Electric Engine",
   "message.craft.crop.scanned": "%s - Gr: %s Ga: %s Re: %s",

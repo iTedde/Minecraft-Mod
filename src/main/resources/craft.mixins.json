@@ -4,7 +4,8 @@
   "package": "dev.craft.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "CraftingInputMixin"
+    "CraftingInputMixin",
+    "PlayerFlyingSpeedMixin"
   ],
   "injectors": {
     "defaultRequire": 1

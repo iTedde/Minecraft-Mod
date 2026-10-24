@@ -174,12 +174,11 @@ Werkzeug `craft:mps_mode` (String), Helm `craft:mps_food` (Puffer Nahrung/Sätti
   **Modulauswahl** nach Kategorie (alle für das Item gültigen Module, installierte markiert), **Einbauen/Ausbauen**
   (Kostenliste mit vorhandenen Mengen, Knopf „Install“ bzw. „Salvage“), **Regler** (je Regler 0–100 %).
 - **Einbauen** (Server): Modul erlaubt, noch nicht eingebaut und alle Kosten im Spielerinventar (Kreativ: kostenlos)
-  → Modul mit Standardwerten (aktiv, Regler 0), Ladebonus (§2), Kosten abziehen. Sound `GUIInstall`.
+  → Modul mit Standardwerten (aktiv, Regler 0), Ladebonus (§2), Kosten abziehen.
 - **Ausbauen**: Modul entfernen, **jedes Kostenteil einzeln mit 90 % Chance** zurück (`Salvage Ratio` 0,9, erst auf
   passende Stapel, dann freie Slots, Rest gedroppt); **NS-/MS-/HS-Kondensatoren gehen immer verloren**. Regler gehen
   verloren.
 - **Regler**: Server klemmt auf 0…1 und speichert nur bei eingebautem Modul.
-- Sound `GUISelect` beim Anklicken.
 
 ## 5 Rüstung
 
@@ -220,11 +219,11 @@ Geschwindigkeit mit 25 000/Gewicht multipliziert.
   Jump Boost × 2; Erschöpfung −0,8 × Kompensation (sprintend) bzw. −0,2 × Kompensation.
 - Je Tick, solange Springen gehalten und nicht im Wasser: Zähler > 0 → motionY += 0,15 × min(Zähler, 1) ×
   Gewichtsfaktor, Zähler −1; Luftbeschleunigung = Boden × 0,7. Springen losgelassen → Zähler 0.
-- Sound `JumpAssist`.
 
 ### 6.3 Uphill Step Assist (Hose)
 Aktiv: Stufenhöhe 1,001; inaktiv und Stufenhöhe = 1,001 → 0,5001 (1.4.7-Standard 0,5). In 1.21 über das
-Attribut `step_height` (Modifikator +0,401 auf 0,6, vgl. §14).
+Attribut `step_height` (Modifikator +0,401 auf 0,6, vgl. §14). Original: Ablegen der Hose setzt die Stufenhöhe nicht
+zurück (nur das inaktive Modul auf getragener Hose) – bleibt so.
 
 ### 6.4 Jetpack (Brust) und Jet Boots (Füße)
 - Schub/Verbrauch beider Module addiert; Bedingung Verbrauch + Sammelkosten < Vorrat; Schub × Gewichtsfaktor.
@@ -235,18 +234,20 @@ Attribut `step_height` (Modifikator +0,401 auf 0,6, vgl. §14).
   und Wunsch nicht nach unten), Fall unter −1 kappen, horizontale Drift abbauen, wenn keine Wunschrichtung (Länge 0),
   dann Restschub in Wunschrichtung; Kosten = Verbrauch × jeweils verbrauchter Geschwindigkeitsanteil (Bremsen) bzw.
   × (vx²+vy²+vz²) (Schub). Damit Schweben ohne Taste.
-- Sounds `Jetpack`/`JetBoots` (Schleife solange Schub).
+- Original-Fehler (bleibt): `thrust -= motionY` beim Bremsen erhöht den Schub um die gebremste Fallgeschwindigkeit;
+  das Kappen unter −1 macht den Restschub negativ, sodass „Runter“ dann nach oben drückt.
+- Mit Schub setzt der Server den Flug-Kick-Zähler zurück (Abweichung, wie IC2-Jetpack).
 
 ### 6.5 Glider und Parachute (Brust)
 - **Glider** (Schleichen, motionY < −0,1, ohne Fallschirm oder mit Vorwärts): Δ = min(0,08, −0,1 − motionY);
-  motionY += Δ, horizontal += Δ in Blickrichtung, Luftbeschleunigung +0,03. Sound `Glider`. Kostet keine Energie.
+  motionY += Δ, horizontal += Δ in Blickrichtung, Luftbeschleunigung +0,03. Kostet keine Energie.
 - **Parachute** (Schleichen, motionY < −0,1, ohne Gleiter oder ohne Vorwärts): Gesamtgeschwindigkeit ×
   Gewichtsfaktor = g; jede Achse × 0,1/g. Kostenlos.
 
 ### 6.6 Swim Boost (Hose)
 Im Wasser bei Bewegungstaste: Rate = Underwater Movement Boost × 0,05; Kosten Swim Boost Energy Consumption je
 Tick; Geschwindigkeit += Blick × Rate × vor / moveRatio (moveRatio = vor² + seit² + 0,04 bei Springen/Schleichen);
-Springen +Rate × 0,2/moveRatio, Schleichen −…. Sound `SwimAssist`. (Seitwärts allein: Division durch moveRatio
+Springen +Rate × 0,2/moveRatio, Schleichen −…. (Seitwärts allein: Division durch moveRatio
 ohne Vorwärtsanteil → kein Schub, nur Kosten – Originalverhalten.)
 
 ### 6.7 Shock Absorber (Füße)
@@ -273,8 +274,7 @@ Aufsummierung global (z. B. wird Fallschaden nach Bremsen durch Jetpack/Gleiter/
   Consumption × Restvorrat) (Originalformel – multipliziert statt dividiert, praktisch min(Bedarf, Puffer) sobald
   Energie > 0); Nahrung + gegessen, Sättigungsmodifikator 1,0 wenn Sättigungspuffer ≥ 1 (dann −1), sonst 0;
   Kosten = Bedarf × Eating Energy Consumption × gegessen J (gesammelt).
-- **Water Electrolyzer** (Helm, LivingUpdate): Luft < 10 und Vorrat > Jolt Energy → 1 000 J, Luft = 300. Sound
-  `WaterElectrolyzer`.
+- **Water Electrolyzer** (Helm, LivingUpdate): Luft < 10 und Vorrat > Jolt Energy → 1 000 J, Luft = 300.
 - **Solar Generator** (Helm, Server, nicht in Welten ohne Himmel): alle 80 Welt-Ticks; Himmel über Kopf+1 sichtbar
   und kein Regen (Regenprüfung nur alle 20 Ticks, sonst „kann regnen“) → Tag 100 J, Nacht 10 J Gutschrift.
 - **Kinetic Generator** (Hose): Merkt x/z (ganzzahlig); bei Reiten/Wasser jedes Tick neu gesetzt; ab ≥ 5 Blöcken
@@ -320,7 +320,7 @@ wirkt im Original nur der Anteil über dem ersten Treffer (Grundschaden 1) – �
 ## 9 Tasten
 
 - **Mausrad + Schleichen**: Werkzeugmodus (§8.3).
-- **Z** („Runter“ für Flight Control) fest.
+- **Z** („Runter“ für Flight Control) fest; Craft: `KeyMapping` mit Standard Z (Kategorie „Craft“).
 - **K** öffnet die **Tastenbelegungs-GUI**: Spieler legen beliebige Tasten an und ziehen schaltbare Module darauf;
   Tastendruck schaltet alle gebundenen Module auf **allen getragenen Teilen** abwechselnd an/aus (erster Druck
   „an“), Chat „Toggled <Modul> on/off“. Belegungen clientseitig in einer Datei gespeichert.
@@ -394,7 +394,9 @@ Iridiumplatte, Energiefluss-Schaltung); Rückgewinnung Panzerung → 5 Stahl / 5
 - Werkzeug in der Hand: eigenes 3D-Modell (`ToolModel`, Textur `tool.png`) mit Färbung; in 1.21 flaches Item-Icon
   (Vorschlag, §14). Tinker Table: `TinkerTableModel` → JSON-Modell aus Quadern mit `tinkertable_tx.png`.
 - Plasma-Geschoss: leuchtende Kugel nach Größe (`RenderPlasmaBolt`); Blink-Drive-Geschoss-Klasse ist ungenutzt.
-- Sounds aus dem Jar unter `craft:mps/<name>`.
+- **Sounds:** MPS 0.3.2 registriert `Glider`, `GUIInstall`, `GUISelect`, `JetBoots`, `Jetpack`, `JumpAssist`,
+  `SwimAssist`, `WaterElectrolyzer`, spielt sie aber **nirgends** ab (Befund 28.2: keine Verwendung der
+  `SOUND_*`-Konstanten) – daher 1:1 keine MPS-Sounds.
 
 ## 12 Netzwerk (1.21-Payloads)
 
@@ -451,7 +453,7 @@ Spawn-Paket. Bewegung läuft wie im Pack auf beiden Seiten; Energie wird vom Ser
 | Teil | Inhalt |
 |---|---|
 | 28.1 | Paket `…mps`, Energie (J, IC2-Laden), Bauteile, Rüstung + Werkzeug als Items, Modulsystem (Data Components, Rechnung, Config-Werte), Batterien, Panzerungen/Energieschild in der Rüstungsrechnung, Tinker Table (Block, GUI: Auswahl, Info, Einbau/Ausbau/Regler, Payloads), Rezepte, Texturen, Lang |
-| 28.2 | Bewegung: Eingabe-Payload, Gewicht, Sprint/Gehen, Sprung, Stufe, Jetpack/Jet Boots/Flight Control, Gleiter, Fallschirm, Schwimmen, Stoßdämpfer, Fallhöhe, Sounds |
+| 28.2 | Bewegung: Eingabe-Payload, Gewicht, Sprint/Gehen, Sprung, Stufe, Jetpack/Jet Boots/Flight Control, Gleiter, Fallschirm, Schwimmen, Stoßdämpfer, Fallhöhe (keine Sounds, §11) |
 | 28.3 | Umwelt/Spezial/Kosmetik: Nachtsicht, Tarnung, Auto-Feeder, Elektrolyseur, Solar, Kinetik; Tastenbelegungs-GUI (K) + Umschalten; Färbung, Transparent, Citizen Joe |
 | 28.4 | Power Tool: Abbau (Spitzhacke/Schaufel/Axt/Diamant/Aqua Affinity), Nahkampf, Modi (Mausrad), Railgun, Blink Drive, Plasmakanone (Entity, Renderer), In-Place Assembler |
 | 28.5 | EMI (Info-Seiten), Herkunft, Wiki, Testplan, Version/Paket |
