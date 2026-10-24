@@ -20,6 +20,7 @@ import dev.craft.gregtech.GtBlocks;
 import dev.craft.gregtech.GtMachine;
 import dev.craft.gregtech.block.GtCasingBlock;
 import dev.craft.gregtech.world.GtOre;
+import dev.craft.gravisuite.item.AdvancedChainsawItem;
 import dev.craft.ic2.Ic2Blocks;
 import dev.craft.ic2.Ic2Machine;
 import dev.craft.ic2.reactor.NuclearReactorBlockEntity;
@@ -194,6 +195,9 @@ public final class CraftBlockTagsProvider extends BlockTagsProvider {
         tag(ChainsawItem.MINEABLE).addTag(BlockTags.MINEABLE_WITH_AXE).addTag(BlockTags.LEAVES).add(Blocks.COBWEB);
         tag(ChainsawItem.SHEARABLE).addTag(BlockTags.LEAVES).add(Blocks.SHORT_GRASS, Blocks.FERN, Blocks.VINE,
                 Blocks.DEAD_BUSH);
+        // GraviSuite advanced chainsaw: the chainsaw's blocks plus wool, pumpkin, melon, cactus, snow layer.
+        tag(AdvancedChainsawItem.MINEABLE).addTag(ChainsawItem.MINEABLE).addTag(BlockTags.WOOL).add(Blocks.PUMPKIN,
+                Blocks.MELON, Blocks.CACTUS, Blocks.SNOW);
         tag(ElectricHoeItem.MINEABLE).add(Blocks.DIRT, Blocks.COARSE_DIRT, Blocks.PODZOL, Blocks.ROOTED_DIRT,
                 Blocks.GRASS_BLOCK, Blocks.MYCELIUM);
     }

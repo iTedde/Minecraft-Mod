@@ -154,6 +154,10 @@ public final class CraftItemModelProvider extends ItemModelProvider {
                 withExistingParent(name, mcLoc("item/generated")).texture("layer0", modLoc("item/gravisuite/" + name));
             }
         }
+        for (DeferredItem<? extends Item> tool : GsItems.toolItems()) {
+            String name = tool.getId().getPath();
+            withExistingParent(name, mcLoc("item/handheld")).texture("layer0", modLoc("item/gravisuite/" + name));
+        }
         // Ender pouch: base (global/personal) plus three tinted colour bands.
         ItemModelBuilder pouchPersonal = pouch("ender_pouch_personal", "ender_pouch_personal");
         pouch(EsItems.ENDER_POUCH.getId().getPath(), "ender_pouch").override()

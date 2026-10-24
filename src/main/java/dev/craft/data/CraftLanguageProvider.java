@@ -481,6 +481,9 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
         item(GsItems.ULTIMATE_LAPPACK, german ? "Ultimatives LapPack" : "Ultimate Lappack");
         item(GsItems.ADVANCED_JETPACK, german ? "Fortgeschrittenes elektrisches Jetpack" : "Advanced Electric Jetpack");
         item(GsItems.ADVANCED_NANO_CHESTPLATE, german ? "Fortgeschrittene Nano-Brustplatte" : "Advanced NanoChestPlate");
+        item(GsItems.ADVANCED_DIAMOND_DRILL, german ? "Fortgeschrittener Diamantbohrer" : "Advanced Diamond Drill");
+        item(GsItems.ADVANCED_CHAINSAW, german ? "Fortgeschrittene Kettensäge" : "Advanced Chainsaw");
+        item(GsItems.VAJRA, "Vajra");
         item(GsItems.GRAVI_CHESTPLATE, german ? "Gravitations-Brustplatte" : "GraviChestPlate");
         add("hud.craft.gravisuite.gravi_on", german ? "§aGravitationsantrieb AN" : "§aGravitation engine ON");
         add("message.craft.gravisuite.gravi_on", german ? "§aGravitationsantrieb AN" : "§aGravitation engine ON");

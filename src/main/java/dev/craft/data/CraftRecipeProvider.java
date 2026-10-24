@@ -2732,6 +2732,16 @@ public final class CraftRecipeProvider extends RecipeProvider {
                 .define('R', GsItems.SUPERCONDUCTOR).define('A', Ic2Items.QUANTUM_CHESTPLATE)
                 .define('D', GsItems.GRAVITATION_ENGINE).define('B', machine(Ic2Machine.HV_TRANSFORMER))
                 .define('C', GsItems.ULTIMATE_LAPPACK).save();
+        // The empty top row of the advanced diamond drill is dropped (1.21 trims patterns).
+        shaped(GsItems.ADVANCED_DIAMOND_DRILL, 1, "advanced_diamond_drill").pattern("ABA", "CAC")
+                .define('A', Ic2Items.OVERCLOCKER_UPGRADE).define('B', Ic2Items.DIAMOND_DRILL)
+                .define('C', Ic2Items.ADVANCED_CIRCUIT).save();
+        shaped(GsItems.ADVANCED_CHAINSAW, 1, "advanced_chainsaw").pattern(" F ", "ABA", "CAC")
+                .define('F', Items.DIAMOND).define('A', Ic2Items.OVERCLOCKER_UPGRADE).define('B', Ic2Items.CHAINSAW)
+                .define('C', Ic2Items.ADVANCED_CIRCUIT).save();
+        shaped(GsItems.VAJRA, 1, "vajra").pattern("ABA", "CDC", "FGF").define('A', Ic2Items.REFINED_IRON_INGOT)
+                .define('B', Ic2Items.ENERGY_CRYSTAL).define('C', Ic2Items.CARBON_PLATE).define('D', GsItems.VAJRA_CORE)
+                .define('F', Ic2Items.ADVANCED_ALLOY).define('G', Ic2Items.LAPOTRON_CRYSTAL).save();
     }
 
     /**

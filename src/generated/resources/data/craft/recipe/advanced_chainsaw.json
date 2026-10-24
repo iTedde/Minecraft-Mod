@@ -1,0 +1,26 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "A": {
+      "item": "craft:overclocker_upgrade"
+    },
+    "B": {
+      "item": "craft:chainsaw"
+    },
+    "C": {
+      "item": "craft:advanced_circuit"
+    },
+    "F": {
+      "item": "minecraft:diamond"
+    }
+  },
+  "pattern": [
+    " F ",
+    "ABA",
+    "CAC"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:advanced_chainsaw"
+  }
+}

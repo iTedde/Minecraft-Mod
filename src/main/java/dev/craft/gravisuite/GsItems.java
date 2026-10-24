@@ -6,9 +6,12 @@ import java.util.EnumMap;
 import java.util.List;
 
 import dev.craft.Craft;
+import dev.craft.gravisuite.item.AdvancedChainsawItem;
+import dev.craft.gravisuite.item.AdvancedDrillItem;
 import dev.craft.gravisuite.item.AdvancedJetpackItem;
 import dev.craft.gravisuite.item.AdvancedNanoChestplateItem;
 import dev.craft.gravisuite.item.GraviChestplateItem;
+import dev.craft.gravisuite.item.VajraItem;
 import dev.craft.ic2.item.armor.EnergyPackItem;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
@@ -30,6 +33,7 @@ public final class GsItems {
 
     private static final List<DeferredItem<Item>> SIMPLE = new ArrayList<>();
     private static final List<DeferredItem<? extends Item>> ARMOR = new ArrayList<>();
+    private static final List<DeferredItem<? extends Item>> TOOLS = new ArrayList<>();
 
     public static final Holder<ArmorMaterial> ADVANCED_LAPPACK_MATERIAL = material("advanced_lappack");
     public static final Holder<ArmorMaterial> ULTIMATE_LAPPACK_MATERIAL = material("ultimate_lappack");
@@ -62,6 +66,13 @@ public final class GsItems {
     public static final DeferredItem<GraviChestplateItem> GRAVI_CHESTPLATE = armor("gravi_chestplate",
             properties -> new GraviChestplateItem(GRAVI_CHESTPLATE_MATERIAL, properties.rarity(Rarity.EPIC)));
 
+    public static final DeferredItem<AdvancedDrillItem> ADVANCED_DIAMOND_DRILL = tool("advanced_diamond_drill",
+            properties -> new AdvancedDrillItem(properties.rarity(Rarity.UNCOMMON)));
+    public static final DeferredItem<AdvancedChainsawItem> ADVANCED_CHAINSAW = tool("advanced_chainsaw",
+            properties -> new AdvancedChainsawItem(properties.rarity(Rarity.UNCOMMON)));
+    public static final DeferredItem<VajraItem> VAJRA = tool("vajra",
+            properties -> new VajraItem(properties.rarity(Rarity.EPIC)));
+
     private GsItems() {
     }
 
@@ -71,6 +82,17 @@ public final class GsItems {
 
     public static List<DeferredItem<? extends Item>> armorItems() {
         return Collections.unmodifiableList(ARMOR);
+    }
+
+    public static List<DeferredItem<? extends Item>> toolItems() {
+        return Collections.unmodifiableList(TOOLS);
+    }
+
+    private static <T extends Item> DeferredItem<T> tool(String name,
+                                                         java.util.function.Function<Item.Properties, T> factory) {
+        DeferredItem<T> item = ITEMS.registerItem(name, factory);
+        TOOLS.add(item);
+        return item;
     }
 
     private static DeferredItem<Item> simple(String name) {

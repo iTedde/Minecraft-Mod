@@ -2471,5 +2471,20 @@ alle, z. B. ×1,2.“ Entscheidungen Nutzer: Bonus für Panels in einem **lücke
   Spec §5 (Originalfehler `mayfly` nach Welt-Laden).
 - **Client-Test offen** (auch 27.1/27.2).
 
+## Erledigt (27.4 Fortg. Diamantbohrer, Fortg. Kettensäge, Vajra, 2026-10-24)
+- [x] `gravisuite/item/AdvancedDrillItem` (15 000 EU, Transfer 500, Tier 2, Effizienz 35, 160 EU/Block, Abbauliste
+  des Diamantbohrers), `AdvancedChainsawItem` (15 000 EU, Effizienz 35, 100 EU/Block, Tag
+  `craft:mineable/advanced_chainsaw` = Kettensäge + Wolle/Kürbis/Melone/Kaktus/Schneedecke; Schlag 2 × 100 EU → 13,
+  Blöcke scheren 2 × 100 EU ohne Rüstungs-Nachladen, Entities 200 EU vor der Prüfung), `VajraItem` (1 000 000 EU,
+  Transfer 10 000, Effizienz 20 000 auf alles, ohne 3 333 EU 0,5; 3 333 EU je Block auch bei Härte 0; Schlag
+  6 666 EU → 25; Präzisionsmodus per Rechtsklick mit Drops, Schrittgeräusch, Break-Event).
+- [x] `GsDrops.dropAsEntity` (für GraviTool in 27.5 wiederverwendbar), Handheld-Modelle, Lang DE/EN, Rezepte
+  (Ladungsübertrag von Diamantbohrer/Kettensäge).
+- [x] GameTests `GraviSuiteToolGameTests` (5: Bohrer, Kettensäge inkl. Treffer, Vajra Abbau/Treffer,
+  Präzisionsmodus mit Grundgestein/Barriere, Rezepte). Alle 479 grün (im ersten Lauf schlug einmal der zufallsabhängige
+  `harvestandpickwheat` fehl, im zweiten grün), `gradlew runData build` grün.
+- Doku: `abweichungen.md` (Präzisionsmodus-Ausnahmen, Bohrer-Muster, Scheren über Tag).
+- **Client-Test offen** (auch 27.1–27.3).
+
 ## Nächste Schritte
-- 27.4 Fortg. Diamantbohrer, Fortg. Kettensäge, Vajra (inkl. Präzisionsmodus).
+- 27.5 GraviTool (vier Modi, Modell je Modus, BC-Schraubenschlüssel).

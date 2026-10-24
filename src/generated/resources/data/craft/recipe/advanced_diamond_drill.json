@@ -1,0 +1,22 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "A": {
+      "item": "craft:overclocker_upgrade"
+    },
+    "B": {
+      "item": "craft:diamond_drill"
+    },
+    "C": {
+      "item": "craft:advanced_circuit"
+    }
+  },
+  "pattern": [
+    "ABA",
+    "CAC"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:advanced_diamond_drill"
+  }
+}

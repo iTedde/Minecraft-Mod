@@ -1,0 +1,32 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "A": {
+      "item": "craft:refined_iron_ingot"
+    },
+    "B": {
+      "item": "craft:energy_crystal"
+    },
+    "C": {
+      "item": "craft:carbon_plate"
+    },
+    "D": {
+      "item": "craft:vajra_core"
+    },
+    "F": {
+      "item": "craft:advanced_alloy"
+    },
+    "G": {
+      "item": "craft:lapotron_crystal"
+    }
+  },
+  "pattern": [
+    "ABA",
+    "CDC",
+    "FGF"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:vajra"
+  }
+}

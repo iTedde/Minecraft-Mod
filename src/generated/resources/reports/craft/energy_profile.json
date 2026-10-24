@@ -1862,6 +1862,27 @@
       "maxCharge": 10000000,
       "tier": 2,
       "transferLimit": 20000
+    },
+    {
+      "canProvideEnergy": false,
+      "id": "advanced_diamond_drill",
+      "maxCharge": 15000,
+      "tier": 2,
+      "transferLimit": 500
+    },
+    {
+      "canProvideEnergy": false,
+      "id": "advanced_chainsaw",
+      "maxCharge": 15000,
+      "tier": 2,
+      "transferLimit": 500
+    },
+    {
+      "canProvideEnergy": false,
+      "id": "vajra",
+      "maxCharge": 1000000,
+      "tier": 2,
+      "transferLimit": 10000
     }
   ]
 }
