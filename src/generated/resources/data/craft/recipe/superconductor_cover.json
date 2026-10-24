@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "craft:iridium_plate"
+    },
+    "C": {
+      "item": "craft:carbon_plate"
+    },
+    "R": {
+      "item": "craft:advanced_alloy"
+    }
+  },
+  "pattern": [
+    "RBR",
+    "CCC",
+    "RBR"
+  ],
+  "result": {
+    "count": 3,
+    "id": "craft:superconductor_cover"
+  }
+}

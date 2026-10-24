@@ -1,0 +1,29 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "A": {
+      "item": "craft:magnetron"
+    },
+    "B": {
+      "item": "craft:iridium_plate"
+    },
+    "C": {
+      "item": "craft:tesla_coil"
+    },
+    "D": {
+      "item": "craft:hv_transformer"
+    },
+    "F": {
+      "item": "craft:superconductor"
+    }
+  },
+  "pattern": [
+    " A ",
+    "BCB",
+    "FDF"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:vajra_core"
+  }
+}

@@ -57,6 +57,7 @@ import dev.craft.powerplants.PpItems;
 import dev.craft.enderstorage.EnderStorageRecolourRecipe;
 import dev.craft.enderstorage.EsDataComponents;
 import dev.craft.enderstorage.EsItems;
+import dev.craft.gravisuite.GsItems;
 import dev.craft.enderstorage.Frequency;
 import dev.craft.ironchest.ChestUpgradeType;
 import dev.craft.ironchest.IronChestItems;
@@ -136,6 +137,7 @@ public final class CraftRecipeProvider extends RecipeProvider {
         longFallBoots();
         ironChests();
         enderStorage();
+        graviSuite();
         advancedMachines();
         thermalExpansion();
         gregTechCircuitBoards();
@@ -2681,6 +2683,45 @@ public final class CraftRecipeProvider extends RecipeProvider {
     }
 
     /** {@code m} material, {@code P} previous chest, {@code G} glass. */
+    /**
+     * GraviSuite (spec 28 §10): IC2 {@code AdvRecipe}s (charge transfer, IC2 parts undamaged only), except the
+     * superconductor (cover), which are vanilla recipes, and the magnetron (ore recipe).
+     */
+    private void graviSuite() {
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, GsItems.SUPERCONDUCTOR_COVER, 3)
+                .pattern("RBR").pattern("CCC").pattern("RBR").define('R', Ic2Items.ADVANCED_ALLOY)
+                .define('B', Ic2Items.IRIDIUM_PLATE).define('C', Ic2Items.CARBON_PLATE)
+                .unlockedBy("has_iridium_plate", has(Ic2Items.IRIDIUM_PLATE)).save(output, id("superconductor_cover"));
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, GsItems.SUPERCONDUCTOR, 3)
+                .pattern("RRR").pattern("CBC").pattern("RRR").define('R', GsItems.SUPERCONDUCTOR_COVER)
+                .define('B', Items.GOLD_INGOT).define('C', Ic2Items.cable(CableType.GLASS_FIBRE))
+                .unlockedBy("has_superconductor_cover", has(GsItems.SUPERCONDUCTOR_COVER))
+                .save(output, id("superconductor"));
+        shaped(GsItems.COOLING_CORE, 1, "cooling_core").pattern("RBR", "CDC", "RBR")
+                .define('R', fresh(Ic2Items.COOLANT_CELL_60K)).define('B', fresh(Ic2Items.ADVANCED_HEAT_EXCHANGER))
+                .define('C', Ic2Items.HEAT_CAPACITY_REACTOR_PLATING).define('D', Ic2Items.IRIDIUM_PLATE).save();
+        shaped(GsItems.GRAVITATION_ENGINE, 1, "gravitation_engine").pattern("RBR", "CDC", "RBR")
+                .define('R', machine(Ic2Machine.TESLA_COIL)).define('B', GsItems.SUPERCONDUCTOR)
+                .define('C', GsItems.COOLING_CORE).define('D', machine(Ic2Machine.HV_TRANSFORMER)).save();
+        shaped(GsItems.ULTIMATE_LAPPACK, 1, "ultimate_lappack").pattern("RBR", "RDR", "RAR")
+                .define('R', Ic2Items.LAPOTRON_CRYSTAL).define('B', Ic2Items.IRIDIUM_PLATE)
+                .define('D', Ingredient.of(Ic2Items.LAPPACK, GsItems.ADVANCED_LAPPACK))
+                .define('A', GsItems.SUPERCONDUCTOR).save();
+        shaped(GsItems.ADVANCED_LAPPACK, 1, "advanced_lappack").pattern("A", "B", "C").define('A', Ic2Items.LAPPACK)
+                .define('B', Ic2Items.ADVANCED_CIRCUIT).define('C', Ic2Items.LAPOTRON_CRYSTAL).save();
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, GsItems.MAGNETRON)
+                .pattern("ABA").pattern("BCB").pattern("ABA").define('A', CraftItemTagsProvider.INGOTS_REFINED_IRON)
+                .define('B', Tags.Items.INGOTS_COPPER).define('C', GsItems.SUPERCONDUCTOR)
+                .unlockedBy("has_superconductor", has(GsItems.SUPERCONDUCTOR)).save(output, id("magnetron"));
+        shaped(GsItems.VAJRA_CORE, 1, "vajra_core").pattern(" A ", "BCB", "FDF").define('A', GsItems.MAGNETRON)
+                .define('B', Ic2Items.IRIDIUM_PLATE).define('C', machine(Ic2Machine.TESLA_COIL))
+                .define('F', GsItems.SUPERCONDUCTOR).define('D', machine(Ic2Machine.HV_TRANSFORMER)).save();
+        shaped(GsItems.ENGINE_BOOSTER, 1, "engine_booster").pattern("ABA", "CDC", "BFB")
+                .define('A', Items.GLOWSTONE_DUST).define('B', Ic2Items.ADVANCED_ALLOY)
+                .define('C', Ic2Items.ADVANCED_CIRCUIT).define('D', Ic2Items.OVERCLOCKER_UPGRADE)
+                .define('F', fresh(Ic2Items.ADVANCED_HEAT_VENT)).save();
+    }
+
     /**
      * EnderStorage (spec 27 §6): per wool colour i the ender chest i/i/i (blaze rods, wool, obsidian, chest, ender
      * pearl), and the recolour recipe.

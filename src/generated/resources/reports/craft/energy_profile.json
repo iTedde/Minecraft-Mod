@@ -1827,6 +1827,20 @@
       "maxCharge": 600000,
       "tier": 1,
       "transferLimit": 128
+    },
+    {
+      "canProvideEnergy": true,
+      "id": "advanced_lappack",
+      "maxCharge": 1000000,
+      "tier": 2,
+      "transferLimit": 1000
+    },
+    {
+      "canProvideEnergy": true,
+      "id": "ultimate_lappack",
+      "maxCharge": 10000000,
+      "tier": 2,
+      "transferLimit": 20000
     }
   ]
 }

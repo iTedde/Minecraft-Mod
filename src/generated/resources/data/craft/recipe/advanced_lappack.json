@@ -1,0 +1,23 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "A": {
+      "item": "craft:lappack"
+    },
+    "B": {
+      "item": "craft:advanced_circuit"
+    },
+    "C": {
+      "item": "craft:lapotron_crystal"
+    }
+  },
+  "pattern": [
+    "A",
+    "B",
+    "C"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:advanced_lappack"
+  }
+}

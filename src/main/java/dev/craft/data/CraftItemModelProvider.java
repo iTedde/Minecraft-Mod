@@ -18,6 +18,7 @@ import dev.craft.ic2.client.Ic2Client;
 import dev.craft.powerplants.PpItems;
 import dev.craft.portalgun.PgItems;
 import dev.craft.enderstorage.EsItems;
+import dev.craft.gravisuite.GsItems;
 import dev.craft.enderstorage.client.EnderStorageClient;
 import dev.craft.ironchest.ChestUpgradeType;
 import dev.craft.ironchest.IronChestItems;
@@ -147,6 +148,12 @@ public final class CraftItemModelProvider extends ItemModelProvider {
         }
         engine(EsItems.ENDER_CHEST);
         engine(EsItems.ENDER_TANK);
+        for (List<? extends DeferredItem<? extends Item>> items : List.of(GsItems.simpleItems(), GsItems.armorItems())) {
+            for (DeferredItem<? extends Item> item : items) {
+                String name = item.getId().getPath();
+                withExistingParent(name, mcLoc("item/generated")).texture("layer0", modLoc("item/gravisuite/" + name));
+            }
+        }
         // Ender pouch: base (global/personal) plus three tinted colour bands.
         ItemModelBuilder pouchPersonal = pouch("ender_pouch_personal", "ender_pouch_personal");
         pouch(EsItems.ENDER_POUCH.getId().getPath(), "ender_pouch").override()

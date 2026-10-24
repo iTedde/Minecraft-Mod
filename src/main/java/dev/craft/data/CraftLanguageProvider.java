@@ -35,6 +35,7 @@ import dev.craft.powerplants.PpFluids;
 import dev.craft.powerplants.PpItems;
 import dev.craft.portalgun.PgItems;
 import dev.craft.enderstorage.EsItems;
+import dev.craft.gravisuite.GsItems;
 import dev.craft.ironchest.ChestUpgradeType;
 import dev.craft.ironchest.IronChestItems;
 import dev.craft.ironchest.IronChestType;
@@ -465,6 +466,20 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
         for (ChestUpgradeType type : ChestUpgradeType.values()) {
             item(IronChestItems.upgrade(type), upgrades[type.ordinal()][german ? 1 : 0]);
         }
+    }
+
+    /** GraviSuite (spec 28 §1); English names as in the pack. */
+    protected void graviSuite(boolean german) {
+        item(GsItems.SUPERCONDUCTOR_COVER, german ? "Supraleiter-Hülle" : "Superconductor Cover");
+        item(GsItems.SUPERCONDUCTOR, german ? "Supraleiter" : "Superconductor");
+        item(GsItems.COOLING_CORE, german ? "Kühlkern" : "Cooling Core");
+        item(GsItems.GRAVITATION_ENGINE, german ? "Gravitationsantrieb" : "Gravitation Engine");
+        item(GsItems.MAGNETRON, "Magnetron");
+        item(GsItems.VAJRA_CORE, german ? "Vajra-Kern" : "Vajra Core");
+        item(GsItems.ENGINE_BOOSTER, german ? "Triebwerksverstärker" : "Engine Booster");
+        item(GsItems.ADVANCED_LAPPACK, german ? "Fortgeschrittenes LapPack" : "Advanced Lappack");
+        item(GsItems.ULTIMATE_LAPPACK, german ? "Ultimatives LapPack" : "Ultimate Lappack");
+        add("hud.craft.gravisuite.energy_level", german ? "Energiestand: %s" : "Energy level: %s");
     }
 
     /** EnderStorage (spec 27); the chest keeps the original name, German marks it apart from the vanilla one. */
@@ -1571,6 +1586,7 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             portalGun(false);
             ironChests(false);
             enderStorage(false);
+            graviSuite(false);
             advancedMachines(false);
             thermalExpansion(false);
         }
@@ -1976,6 +1992,7 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             portalGun(true);
             ironChests(true);
             enderStorage(true);
+            graviSuite(true);
             advancedMachines(true);
             thermalExpansion(true);
         }

@@ -5,6 +5,7 @@ import dev.craft.advancedmachines.AdvancedMachines;
 import dev.craft.buildcraft.BuildCraft;
 import dev.craft.compactsolars.CompactSolars;
 import dev.craft.enderstorage.EnderStorage;
+import dev.craft.gravisuite.GraviSuite;
 import dev.craft.gregtech.GregTech;
 import dev.craft.core.CraftCreativeTabs;
 import dev.craft.forestry.Forestry;
@@ -47,6 +48,7 @@ public final class Craft {
         AdvancedMachines.init(modBus);
         ThermalExpansion.init(modBus);
         EnderStorage.init(modBus);
+        GraviSuite.init(modBus);
         CraftCreativeTabs.TABS.register(modBus);
         modBus.addListener(Craft::addPackFinders);
     }
