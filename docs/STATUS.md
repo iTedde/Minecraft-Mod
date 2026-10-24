@@ -2719,5 +2719,5 @@ Dev-Client mit LambDynamicLights 4.8.11 (Jar nur für den Test in `run/mods`), W
 ## Nächste Schritte
 - B7: Tag-Übersetzungen nachtragen.
 - Rest Client-Test Leuchtschild (13.1, Teile von 13.2–13.4), MPS (Testplan 12) und GraviSuite (Testplan 11) – nur nach
-  Rückfrage. Nach dem Test: `run/mods/lambdynamiclights-*.jar` entfernen, `run/options.txt` aus der Sicherung
-  zurückspielen (pauseOnLostFocus).
+  Rückfrage. Für den Lichtkegel-Test LambDynamicLights vorübergehend nach `run/mods` legen (nach dem Test von
+  2026-10-24 wieder entfernt, `run/options.txt` zurückgespielt).
