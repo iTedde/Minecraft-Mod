@@ -206,9 +206,9 @@ Testwelt. Sprache einmal Deutsch, einmal Englisch prüfen. EMI und Xaero's Minim
 | Nr | Test | Herkunft | OK |
 |---|---|---|---|
 | 13.1 | IC2-Tab (leer + voll), Rezept und Info-Seite in EMI; Modell im Inventar, in Haupt-/Nebenhand (1./3. Person), Blocken-Pose, Leuchtfläche bei Licht an hell, bei aus normal; Ladebalken, Tooltip „Licht an/aus“ | 30.1, 30.2 | |
-| 13.2 | Lichtkegel (mit LambDynamicLights): nachts/in einer Höhle Kegel in Blickrichtung (~16 Blöcke, weicher Rand), Schein um die Füße, Wand hell und dahinter dunkel, unter Wasser; folgt beim Laufen und Umsehen flüssig, kein Ruckeln; zweiter Spieler sieht den Kegel; Schild weglegen/leer/Modus-Taste + Rechtsklick (Meldung) → Kegel weg; Mobs spawnen weiter; alte Welt mit Lichtblock aus 1.0.8 → Rest verschwindet | 30.1, 30.4 | |
-| 13.3 | Blocken: Zombie-/Skelett-Treffer kosten EU, leer lässt er sich nicht heben, beim Leerlaufen senkt er sich; Axt sperrt ihn | 30.1 | |
-| 13.4 | Zaubertisch bietet Haltbarkeit an; Amboss mit Reparatur-Buch, Erfahrung lädt den Schild; BatBox/Ladegerät lädt | 30.1 | |
+| 13.2 | Lichtkegel (mit LambDynamicLights): nachts/in einer Höhle Kegel in Blickrichtung (~16 Blöcke, weicher Rand), Schein um die Füße, Wand hell und dahinter dunkel, unter Wasser; folgt beim Laufen und Umsehen flüssig, kein Ruckeln; zweiter Spieler sieht den Kegel; Schild weglegen/leer/Modus-Taste + Rechtsklick (Meldung) → Kegel weg; Mobs spawnen weiter; alte Welt mit Lichtblock aus 1.0.8 → Rest verschwindet | 30.1, 30.4 | teilweise 2026-10-24: Kegel, Wand, Wasser/unter Wasser, Drehen (118 fps), Weglegen, Umschalten, Altlast-Block ok; zweiter Spieler/Mob-Spawns offen |
+| 13.3 | Blocken: Zombie-/Skelett-Treffer kosten EU, leer lässt er sich nicht heben, beim Leerlaufen senkt er sich; Axt sperrt ihn | 30.1 | x 2026-10-24 (Zombie: 10 000 → 7 544 EU, keine Herzen; leer nicht hebbar, trifft durch); Axt/Skelett offen |
+| 13.4 | Zaubertisch bietet Haltbarkeit an; Amboss mit Reparatur-Buch, Erfahrung lädt den Schild; BatBox/Ladegerät lädt | 30.1 | teilweise 2026-10-24: Zaubertisch bietet Haltbarkeit I, /enchant Haltbarkeit III + Reparatur ok, Schärfe abgelehnt; Amboss/XP-Laden/BatBox offen |
 
 ## Befunde
 
@@ -219,6 +219,7 @@ Testwelt. Sprache einmal Deutsch, einmal Englisch prüfen. EMI und Xaero's Minim
 | B4 | 2026-10-20 | Zahme Katzen setzten sich nicht auf Iron Chests, sondern blieben davor stehen: `IronChestBlock` meldete der Wegfindung „begehbar“ (Standard für nicht volle Blöcke), die Katze plante den Weg durch die Kiste. Vanilla-Truhe: `isPathfindable` = false | behoben (0.4.2, `isPathfindable` = false, GameTest `catsSitOnIronChests` prüft die Wegfindung) |
 | B5 | 2026-10-20 | Ladeanzeige (HUD oben links) liegt über der Xaero-Minimap, die ebenfalls oben links sitzt | behoben 2026-10-20: HUD links neben die Hotbar verschoben (Nutzer); Client-Prüfung offen |
 | B6 | 2026-10-20 | Shift-„+“ in EMI leert ein Raster, in dem schon ein Rezept liegt, statt es aufzufüllen (Projekttisch, Automatische Werkbank) | kein Mod-Fehler: Vanilla-Werkbank verhält sich in EMI 1.1.22 genauso; bei leerem Raster füllt Shift-„+“ korrekt |
+| B7 | 2026-10-24 | EMI meldet 8 unübersetzte Tags: `c:dusts/invar`, `c:gears/copper`, `c:gears/invar`, `c:gears/tin`, `c:ingots/invar`, `c:ores/lead`, `c:ores/nickel`, `c:ores/silver` (Thermal-Expansion-Materialien) | offen (Tag-Namen im Sprach-Datagen nachtragen) |
 | B3 | 2026-10-17 | Nachtsichtbrille: Icon ist eine lila Fläche – im Pack identisch (`item_0.png` Index 232 ist dort Platzhalter) | behoben: eigenes Icon (Nutzerwunsch 2026-10-17, `abweichungen.md`) |
 
 ## Durchlauf 2026-10-17 (automatisiert im echten Client)

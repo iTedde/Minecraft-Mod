@@ -2702,6 +2702,22 @@ alle, z. B. ×1,2.“ Entscheidungen Nutzer: Bonus für Panels in einem **lücke
   1.0.9; 67 Manifest-Einträge, 9,0 MB).
 - **Phase 30 erledigt, Client-Test offen** (Testplan 13.1–13.4; 13.2 nur mit LDL).
 
+## Erledigt (Client-Test Leuchtschild, teilweise, 2026-10-24)
+Dev-Client mit LambDynamicLights 4.8.11 (Jar nur für den Test in `run/mods`), Welt ClaudeTest, Raum bei 5000/150/5000
+(`t:shield`, `t:shieldblock`, `t:killmobs` im Datapack `abnahme`).
+- [x] 13.2: Kegel hell auf der Wand in Blickrichtung, Umgebung dunkel; Wasseroberfläche und unter Wasser beleuchtet;
+  folgt beim Drehen sofort, 118 fps (vsync 120) auch beim Drehen; Schilde weg → dunkel; Modus-Taste + Rechtsklick
+  „Light: off/on“, Leuchtfläche aus/an; alter `craft:shield_light` nach ≤ 1,5 s weg. Offen: zweiter Spieler, Mob-Spawns.
+- [x] 13.3: Zombie-Treffer geblockt, 10 000 → 7 544 EU in ~7 s, keine Herzen verloren; leerer Schild hebt sich nicht,
+  Zombie trifft. Offen: Axt, Skelett.
+- [x] 13.4: Zaubertisch bietet Haltbarkeit I an; `/enchant` Haltbarkeit III + Reparatur ok, Schärfe abgelehnt. Offen:
+  Amboss, Laden per Erfahrung/BatBox. 13.1 (Tab, EMI, Modell) noch offen.
+- Nebenbei: Nutzerwunsch – alle Monster/Tiere in den geladenen Bereichen der Testwelt getötet (`t:killmobs`); dabei ist
+  die Testfigur „Dev“ nach einem Teleport ins Meer ertrunken (nur Testwelt).
+- Befund B7 (Testplan): 8 unübersetzte EMI-Tags der TE-Materialien.
+
 ## Nächste Schritte
-- Client-Test Leuchtschild (Paket 1.0.12 bzw. Craft 1.0.9 in die Instanz mit LDL), MPS (Testplan 12) und GraviSuite
-  (Testplan 11) – nur nach Rückfrage (Nutzer spielt evtl. selbst).
+- B7: Tag-Übersetzungen nachtragen.
+- Rest Client-Test Leuchtschild (13.1, Teile von 13.2–13.4), MPS (Testplan 12) und GraviSuite (Testplan 11) – nur nach
+  Rückfrage. Nach dem Test: `run/mods/lambdynamiclights-*.jar` entfernen, `run/options.txt` aus der Sicherung
+  zurückspielen (pauseOnLostFocus).
