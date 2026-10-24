@@ -2728,6 +2728,10 @@ public final class CraftRecipeProvider extends RecipeProvider {
                 .define('A', Ic2Items.CARBON_PLATE).define('B', GsItems.ADVANCED_JETPACK)
                 .define('C', Ic2Items.NANO_CHESTPLATE).define('D', Ic2Items.cable(CableType.GLASS_FIBRE))
                 .define('F', Ic2Items.ADVANCED_CIRCUIT).save();
+        shaped(GsItems.GRAVI_CHESTPLATE, 1, "gravi_chestplate").pattern("RAR", "DBD", "RCR")
+                .define('R', GsItems.SUPERCONDUCTOR).define('A', Ic2Items.QUANTUM_CHESTPLATE)
+                .define('D', GsItems.GRAVITATION_ENGINE).define('B', machine(Ic2Machine.HV_TRANSFORMER))
+                .define('C', GsItems.ULTIMATE_LAPPACK).save();
     }
 
     /**

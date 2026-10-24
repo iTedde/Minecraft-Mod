@@ -4,6 +4,7 @@ import com.mojang.blaze3d.platform.InputConstants;
 import dev.craft.Craft;
 import dev.craft.gravisuite.GsKeyPayload;
 import dev.craft.gravisuite.item.AdvancedJetpackItem;
+import dev.craft.gravisuite.item.GraviChestplateItem;
 import dev.craft.ic2.client.Ic2KeyMappings;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
@@ -52,7 +53,8 @@ public final class GsKeyMappings {
         }
         while (FLY.consumeClick()) {
             ItemStack chest = player.getItemBySlot(EquipmentSlot.CHEST);
-            if (minecraft.screen == null && chest.getItem() instanceof AdvancedJetpackItem) {
+            if (minecraft.screen == null && (chest.getItem() instanceof AdvancedJetpackItem
+                    || chest.getItem() instanceof GraviChestplateItem)) {
                 PacketDistributor.sendToServer(new GsKeyPayload(GsKeyPayload.FLY));
             }
         }

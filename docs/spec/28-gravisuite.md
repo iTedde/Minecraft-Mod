@@ -129,6 +129,10 @@ NBT `isFlyActive`. Schutz wie Quantum-Brustplatte (§2), aber keine sonstigen Qu
   ausgezogen“.
 - **Welt laden**: Client meldet „worldLoad“ beim ersten Tick mit Platte; Server: `isFlyActive` → ausschalten und
   sofort wieder einschalten (Prüfung Mindestladung), dann Paket „setFlyStatus“ an den Client, der dasselbe tut.
+  **Originalfehler:** scheitert das Wiedereinschalten (< 80 000 EU), bleibt das mit dem Spieler gespeicherte `mayfly`
+  stehen (der Mod-Flugstatus ist nach dem Laden leer, Ablegen nimmt es also nicht weg).
+- Umsetzung (27.3): Server maßgeblich, Client nur Boost-Bewegung (`moveRelative` mit `xxa`/`zza`, ±0,14 vertikal)
+  und Höhenklemme; Welt-Laden über `PlayerLoggedInEvent` (Abweichungen in `abweichungen.md`).
 
 ## 6 Tasten und Netzwerk
 

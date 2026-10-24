@@ -2,6 +2,7 @@ package dev.craft.gravisuite;
 
 import dev.craft.Craft;
 import dev.craft.gravisuite.item.AdvancedJetpackItem;
+import dev.craft.gravisuite.item.GraviChestplateItem;
 import dev.craft.ic2.keyboard.Ic2Keyboard;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
@@ -36,6 +37,12 @@ public record GsKeyPayload(int key) implements CustomPacketPayload {
     /** {@code ServerPacketHandler}: acts on the worn chest piece. */
     public static void handle(Player player, int key) {
         ItemStack chest = player.getItemBySlot(EquipmentSlot.CHEST);
+        if (chest.getItem() instanceof GraviChestplateItem) {
+            if (key == FLY) {
+                GraviChestplateItem.switchFlyMode(player, chest);
+            }
+            return;
+        }
         if (!(chest.getItem() instanceof AdvancedJetpackItem)) {
             return;
         }

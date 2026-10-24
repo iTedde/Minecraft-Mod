@@ -2455,5 +2455,21 @@ alle, z. B. ×1,2.“ Entscheidungen Nutzer: Bonus für Panels in einem **lücke
 - Doku: `abweichungen.md` (Flug-Taste G, Höhengrenze, Zustand je Spieler, Meldungen übersetzbar).
 - **Client-Test offen** (auch 27.1).
 
+## Erledigt (27.3 Gravitations-Brustplatte, 2026-10-24)
+- [x] `gravisuite/item/GraviChestplateItem` (10 000 000 EU, Transfer 20 000, Tier 2, liefert Energie, epic): Flug-Taste
+  schaltet ab 80 000 EU ein (`mayfly`/`flying`), 416 EU/Tick auch am Boden (Tier 3, ohne Transferlimit), Abschalten
+  unter 416 EU mit Warnung, Fallhöhe 0, Boost in der Luft 2 × 1 248 EU (Originalfehler) mit Bewegung 0,11 und
+  ±0,14 vertikal auf dem Client, Höhengrenze `maxBuildHeight + 6`.
+- [x] Kreativ-Wechsel, Ablegen („zuletzt ausgezogen“), Welt-Laden (Aus/Ein mit Mindestladung beim Einloggen) über
+  einen nicht gespeicherten Datenanhang je Spieler; Fähigkeiten jeden Tick an den Client wie im Pack.
+- [x] Schutz 0,4 × 1,1, 900 EU je Schaden, AbsorbMax `25·ladung/900`, Rüstungsanzeige immer 9.
+- [x] Rezept `RAR/DBD/RCR` (Ladung aus Quanten-Brustplatte + Ultimativem LapPack), Lang DE/EN, Modell/Rüstungstextur
+  aus 27.1, HUD „§aGravitation engine ON“ + Energiezeile, Flug-Taste auch für die Platte.
+- [x] GameTests `GraviSuiteGraviGameTests` (7: Mindestladung, Verbrauch/Abschalten, Boost-Kosten, Ablegen/Kreativ,
+  Höhengrenze/Welt-Laden, Schutz/Werkzeug laden, Rezept). Alle 474 grün, `gradlew runData build` grün.
+- Doku: `abweichungen.md` (Höhengrenze, Zustand je Spieler, Server maßgeblich, Boost-Meldung in der Aktionsleiste),
+  Spec §5 (Originalfehler `mayfly` nach Welt-Laden).
+- **Client-Test offen** (auch 27.1/27.2).
+
 ## Nächste Schritte
-- 27.3 Gravitations-Brustplatte (Flug, Verbrauch, Boost, Kreativ-/Ablege-/Welt-lade-Logik, Höhengrenze).
+- 27.4 Fortg. Diamantbohrer, Fortg. Kettensäge, Vajra (inkl. Präzisionsmodus).

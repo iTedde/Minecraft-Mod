@@ -8,6 +8,7 @@ import java.util.List;
 import dev.craft.Craft;
 import dev.craft.gravisuite.item.AdvancedJetpackItem;
 import dev.craft.gravisuite.item.AdvancedNanoChestplateItem;
+import dev.craft.gravisuite.item.GraviChestplateItem;
 import dev.craft.ic2.item.armor.EnergyPackItem;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
@@ -34,6 +35,7 @@ public final class GsItems {
     public static final Holder<ArmorMaterial> ULTIMATE_LAPPACK_MATERIAL = material("ultimate_lappack");
     public static final Holder<ArmorMaterial> ADVANCED_JETPACK_MATERIAL = material("advanced_jetpack");
     public static final Holder<ArmorMaterial> ADVANCED_NANO_CHESTPLATE_MATERIAL = material("advanced_nano_chestplate");
+    public static final Holder<ArmorMaterial> GRAVI_CHESTPLATE_MATERIAL = material("gravi_chestplate");
 
     /** {@code ItemSimpleItems}, stack size 64. */
     public static final DeferredItem<Item> SUPERCONDUCTOR_COVER = simple("superconductor_cover");
@@ -57,6 +59,8 @@ public final class GsItems {
     public static final DeferredItem<AdvancedNanoChestplateItem> ADVANCED_NANO_CHESTPLATE = armor(
             "advanced_nano_chestplate", properties -> new AdvancedNanoChestplateItem(ADVANCED_NANO_CHESTPLATE_MATERIAL,
                     properties.rarity(Rarity.UNCOMMON)));
+    public static final DeferredItem<GraviChestplateItem> GRAVI_CHESTPLATE = armor("gravi_chestplate",
+            properties -> new GraviChestplateItem(GRAVI_CHESTPLATE_MATERIAL, properties.rarity(Rarity.EPIC)));
 
     private GsItems() {
     }

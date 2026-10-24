@@ -1855,6 +1855,13 @@
       "maxCharge": 1000000,
       "tier": 2,
       "transferLimit": 1000
+    },
+    {
+      "canProvideEnergy": true,
+      "id": "gravi_chestplate",
+      "maxCharge": 10000000,
+      "tier": 2,
+      "transferLimit": 20000
     }
   ]
 }

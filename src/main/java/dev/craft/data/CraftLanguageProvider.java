@@ -481,6 +481,17 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
         item(GsItems.ULTIMATE_LAPPACK, german ? "Ultimatives LapPack" : "Ultimate Lappack");
         item(GsItems.ADVANCED_JETPACK, german ? "Fortgeschrittenes elektrisches Jetpack" : "Advanced Electric Jetpack");
         item(GsItems.ADVANCED_NANO_CHESTPLATE, german ? "Fortgeschrittene Nano-Brustplatte" : "Advanced NanoChestPlate");
+        item(GsItems.GRAVI_CHESTPLATE, german ? "Gravitations-Brustplatte" : "GraviChestPlate");
+        add("hud.craft.gravisuite.gravi_on", german ? "§aGravitationsantrieb AN" : "§aGravitation engine ON");
+        add("message.craft.gravisuite.gravi_on", german ? "§aGravitationsantrieb AN" : "§aGravitation engine ON");
+        add("message.craft.gravisuite.gravi_off", german ? "§cGravitationsantrieb AUS" : "§cGravitation engine OFF");
+        add("message.craft.gravisuite.gravi_no_energy", german ? "Nicht genug Energie für den Gravitationsantrieb!"
+                : "Not enough energy to run Gravitation engine !");
+        add("message.craft.gravisuite.gravi_depleted", german
+                ? "§cWarnung! Die Energiezelle ist leer! Gravitationsantrieb abgeschaltet!"
+                : "§cWarning ! Your's energy cell is depleted ! Gravitation engine shutdown !");
+        add("message.craft.gravisuite.gravi_no_boost", german ? "Nicht genug Energie für den Boost!"
+                : "Not enough energy to boost !");
         add("hud.craft.gravisuite.energy_level", german ? "Energiestand: %s" : "Energy level: %s");
         add("hud.craft.gravisuite.jetpack_on", german ? "§eJetpack §aTriebwerk AN" : "§eJetpack §aengine ON");
         add("hud.craft.gravisuite.hover_mode", german ? " §e(Schwebemodus)" : " §e(Hover mode)");

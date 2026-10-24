@@ -6,6 +6,7 @@ import java.util.List;
 import dev.craft.Craft;
 import dev.craft.gravisuite.GsItems;
 import dev.craft.gravisuite.item.AdvancedJetpackItem;
+import dev.craft.gravisuite.item.GraviChestplateItem;
 import dev.craft.ic2.item.ElectricItem;
 import dev.craft.ic2.item.ElectricItems;
 import net.minecraft.ChatFormatting;
@@ -57,7 +58,12 @@ public final class GraviSuiteHud {
     /** The lines for a worn chest piece; empty if it is no GraviSuite pack. */
     static List<Component> lines(ItemStack chest) {
         List<Component> lines = new ArrayList<>();
-        if (chest.getItem() instanceof AdvancedJetpackItem) {
+        if (chest.getItem() instanceof GraviChestplateItem) {
+            if (GraviChestplateItem.isFlyActive(chest)) {
+                lines.add(Component.translatable("hud.craft.gravisuite.gravi_on"));
+            }
+            lines.add(energyLevel(chest));
+        } else if (chest.getItem() instanceof AdvancedJetpackItem) {
             if (AdvancedJetpackItem.isEngineOn(chest)) {
                 MutableComponent status = Component.translatable("hud.craft.gravisuite.jetpack_on");
                 if (AdvancedJetpackItem.isHoverMode(chest)) {
