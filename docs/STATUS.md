@@ -2486,5 +2486,9 @@ alle, z. B. ×1,2.“ Entscheidungen Nutzer: Bonus für Panels in einem **lücke
 - Doku: `abweichungen.md` (Präzisionsmodus-Ausnahmen, Bohrer-Muster, Scheren über Tag).
 - **Client-Test offen** (auch 27.1–27.3).
 
+## Nutzerwunsch (2026-10-24): Phase 30 Elektrischer Leuchtschild
+- Entschieden (Nutzer): kein Pack-Vorbild (neuer Inhalt), leuchtet wie eine Fackel (echtes Licht), elektrisch mit EU,
+  verzauberbar, eigene Phase. Offen: Werte, Rezept, Einordnung (vor/nach Phase 28) – Vorschlag an den Nutzer.
+
 ## Nächste Schritte
 - 27.5 GraviTool (vier Modi, Modell je Modus, BC-Schraubenschlüssel).
