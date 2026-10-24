@@ -260,5 +260,7 @@ Maschinen aus dem Batterie-Slot; die Akkupacks (BatPack, LapPack, Lithium-Batpac
 Werkzeuge in der Hand. Power-Rüstung und Power-Werkzeug (Modular Powersuits) rechnen in Joule (50 J = 1 EU); ihre
 Kapazität kommt aus den eingebauten Batteriemodulen, geladen werden sie wie Stufe-1-Gegenstände
 (<a href="#/mod-mps">Modular Powersuits</a>).</p>
+<p>Der <a href="#/leuchtschild">Elektrische Leuchtschild</a> verbraucht 1 EU je 4 Ticks Licht und 100 EU je geblocktem
+Haltbarkeitspunkt.</p>
 '''
     return [{'id': 'energie-steckbrief', 'title': 'Energie-Steckbrief', 'group': 'Anleitungen', 'html': body}]

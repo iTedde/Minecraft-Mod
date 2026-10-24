@@ -72,6 +72,7 @@ GROUPS = [
     ('thermalexpansion', 'Thermal Expansion'),
     ('advancedmachines', 'Advanced Machines'),
     ('ironchest', 'Iron Chests'),
+    ('lightshield', 'Leuchtschild (neu)'),
     ('powerplants', 'Kraftwerke (neu)'),
     ('mining', 'Mining-Dimension (neu)'),
     ('compactsolars', 'Compact Solars'),
@@ -82,7 +83,7 @@ GROUPS = [
     ('ic2', 'IndustrialCraft 2'),
 ]
 GROUP_ORDER = ['IndustrialCraft 2', 'GregTech', 'BuildCraft', 'Forestry', 'Power Converters',
-               'Compact Solars', 'Kraftwerke (neu)', 'Mining-Dimension (neu)', 'Iron Chests', 'Advanced Machines',
+               'Compact Solars', 'Kraftwerke (neu)', 'Mining-Dimension (neu)', 'Leuchtschild (neu)', 'Iron Chests', 'Advanced Machines',
                'Thermal Expansion', 'EnderStorage', 'GraviSuite', 'Modular Powersuits',
                'Sonstiges']
 
@@ -97,6 +98,7 @@ NEW_PAGES = {
     'turbine_casing': 'kohlekraftwerk', 'turbine_rotor': 'kohlekraftwerk',
     'water_turbine': 'wasserturbine', 'water_turbine_casing': 'wasserturbine',
     'mining_portal': 'mining-dimension',
+    'electric_light_shield': 'leuchtschild',
 }
 
 
@@ -266,9 +268,33 @@ def png_data_uri(ns, tpath):
     return 'data:image/png;base64,' + base64.b64encode(buf.getvalue()).decode()
 
 
+# items rendered from an entity model (builtin/entity): (texture, crop box of the front face)
+ENTITY_ICONS = {
+    'craft:electric_light_shield': ('entity/electric_light_shield', (1, 1, 13, 23)),  # vanilla shield plate
+}
+
+
+def entity_icon(ref):
+    tpath, box = ENTITY_ICONS[ref]
+    data = load_res('craft', 'textures', tpath)
+    if data is None:
+        return None
+    face = Image.open(io.BytesIO(data)).convert('RGBA').crop(box)
+    side = max(face.size)
+    img = Image.new('RGBA', (side, side))
+    img.paste(face, ((side - face.size[0]) // 2, (side - face.size[1]) // 2))
+    img = img.resize((32, 32), Image.NEAREST)
+    buf = io.BytesIO()
+    img.save(buf, 'PNG', optimize=True)
+    return 'data:image/png;base64,' + base64.b64encode(buf.getvalue()).decode()
+
+
 def icon(ref):
     """ref like 'craft:coke' or 'minecraft:brick' -> data uri or None."""
     if ref in ICON_CACHE:
+        return ICON_CACHE[ref]
+    if ref in ENTITY_ICONS:
+        ICON_CACHE[ref] = entity_icon(ref)
         return ICON_CACHE[ref]
     ns, p = split_ref(ref, 'craft')
     uri = None

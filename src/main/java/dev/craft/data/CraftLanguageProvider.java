@@ -804,6 +804,15 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
                 : "Light on (mode key + right click)");
         add("tooltip.craft.light_shield.off", german ? "Licht aus (Modus-Taste + Rechtsklick)"
                 : "Light off (mode key + right click)");
+        add("emi.craft.info.electric_light_shield", german
+                ? "Elektrischer Schild (10 000 EU, Stufe 1), lädt wie LV-Werkzeuge. Leuchtet in Haupt- oder Nebenhand "
+                + "wie eine Fackel (Licht 14, auch unter Wasser) für 1 EU je 4 Ticks; Modus-Taste + Rechtsklick schaltet "
+                + "das Licht. Geblockte Treffer kosten 100 EU je Haltbarkeitspunkt statt Haltbarkeit; leer lässt er "
+                + "sich nicht heben. Haltbarkeit spart EU, Reparatur lädt mit Erfahrung (1 XP = 200 EU)."
+                : "Electric shield (10,000 EU, tier 1), charges like LV tools. Glows in main or off hand like a torch "
+                + "(light 14, also under water) for 1 EU per 4 ticks; mode key + right click toggles the light. Blocked "
+                + "hits cost 100 EU per durability point instead of durability; empty it cannot be raised. Unbreaking "
+                + "saves EU, Mending charges it with experience (1 XP = 200 EU).");
     }
 
     protected void mining(boolean german) {

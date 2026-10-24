@@ -2647,7 +2647,20 @@ alle, z. B. ×1,2.“ Entscheidungen Nutzer: Bonus für Panels in einem **lücke
 - [ ] Client-Test (Modell/Halten/Blocken-Pose, Licht in der Welt, Leuchtfläche, Zaubertisch/Amboss) – nur nach Rückfrage.
 - Doku: Spec §1/§5/§8, `balancing.md` §3.9, `architektur.md`, CLAUDE.md.
 
+## Erledigt (30.2 Elektrischer Leuchtschild: EMI, Wiki, Paket, 2026-10-24)
+- [x] EMI: `compat/emi/LightShieldEmiRecipes` – Info-Seite (Energie, Licht, Modus-Taste, Blocken, Verzauberungen); Rezept
+  zeigt EMI ohnehin, `craft:shield_light` hat kein Item (nichts auszublenden).
+- [x] Herkunft: keine neuen Rohstoffe.
+- [x] Wiki: Seite „Elektrischer Leuchtschild“ (Neu & geändert, Karte auf der Startseite), Item-Gruppe „Leuchtschild (neu)“,
+  Hinweis im Energie-Steckbrief (der Schild steht dort schon automatisch); Icon aus der Vorderseite der Entity-Textur
+  (`ENTITY_ICONS` in `build_wiki.py`, weil das Item-Modell `builtin/entity` ist). Neu erzeugt (DE + EN-Namen).
+- [x] `testplan.md` Abschnitt 13 (Leuchtschild-Client-Test).
+- [x] Alle 532 GameTests grün, `gradlew runData build` grün.
+- [x] Craft **1.0.8** (`releases/craft-1.0.8.jar`), Paket `releases/Craft-1.0.11-curseforge.zip` (wie 1.0.10 mit Craft
+  1.0.8; 9,0 MB).
+- **Phase 30 erledigt, Client-Test offen** (Testplan 13.1–13.4).
+
 ## Nächste Schritte
-- 30.2 EMI-Info-Seite, Wiki-Seite „Elektrischer Leuchtschild“ (Gruppe „Neue Inhalte“, Energie-Steckbrief),
-  `testplan.md`, Craft 1.0.8 / Paket 1.0.11.
-- Client-Test Leuchtschild, MPS (Testplan 12) und GraviSuite (Testplan 11) – nur nach Rückfrage (Nutzer spielt evtl. selbst).
+- Client-Test Leuchtschild (Testplan 13), MPS (Testplan 12) und GraviSuite (Testplan 11) – nur nach Rückfrage (Nutzer
+  spielt evtl. selbst).
+- Neue Wünsche des Nutzers abwarten.

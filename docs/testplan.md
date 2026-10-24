@@ -201,6 +201,15 @@ Testwelt. Sprache einmal Deutsch, einmal Englisch prüfen. EMI und Xaero's Minim
 | 12.5 | Kosmetik: Farbmodul färbt Icon und getragene Rüstung, Durchsichtig blendet aus, Citizen-Joe-Textur | 28.3 | |
 | 12.6 | Power-Werkzeug: Stein/Erde/Holz/Obsidian abbauen (Tempo, Energie je Block), Nahkampfhilfe; Schleichen + Mausrad wechselt Modus (Icons über der Hotbar, Hotbar bleibt), Railgun (Partikelspur, Rückstoß), Blink Drive, Plasmakanone (aufladen, Kugel, Explosion), In-Place Assembler (Werkbank bleibt offen) | 28.4 | |
 
+## 13. Elektrischer Leuchtschild (Phase 30)
+
+| Nr | Test | Herkunft | OK |
+|---|---|---|---|
+| 13.1 | IC2-Tab (leer + voll), Rezept und Info-Seite in EMI; Modell im Inventar, in Haupt-/Nebenhand (1./3. Person), Blocken-Pose, Leuchtfläche bei Licht an hell, bei aus normal; Ladebalken, Tooltip „Licht an/aus“ | 30.1, 30.2 | |
+| 13.2 | Licht in der Welt: nachts/in einer Höhle hell, folgt beim Laufen ohne Reste, unter Wasser, Schild weglegen/in die Truhe/Abmelden → Licht weg; Modus-Taste + Rechtsklick schaltet (Meldung) | 30.1 | |
+| 13.3 | Blocken: Zombie-/Skelett-Treffer kosten EU, leer lässt er sich nicht heben, beim Leerlaufen senkt er sich; Axt sperrt ihn | 30.1 | |
+| 13.4 | Zaubertisch bietet Haltbarkeit an; Amboss mit Reparatur-Buch, Erfahrung lädt den Schild; BatBox/Ladegerät lädt | 30.1 | |
+
 ## Befunde
 
 | Nr | Datum | Befund | Status |

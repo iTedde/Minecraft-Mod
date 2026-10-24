@@ -76,6 +76,7 @@ dazu kommen <a href="#/aenderungen">neue Kraftwerke und eine Mining-Dimension</a
 {card('wasserturbine', 'craft:water_turbine', 'Wasserturbine', 'Bis 32 EU/t Grundlast aus einem Fluss.', NEW)}
 {card('grosskraftwerke', 'craft:large_steam_turbine', 'Großkraftwerke', 'Hochdruckkessel, große Dampf-, Wasser- und Windturbine: 256–512 EU/t.', NEW)}
 {card('mining-dimension', 'craft:mining_portal', 'Mining-Dimension', 'Flache Steinwelt voller Erze, Portal aus Glattem Stein.', NEW)}
+{card('leuchtschild', 'craft:electric_light_shield', 'Elektrischer Leuchtschild', 'Schild mit EU statt Haltbarkeit, leuchtet wie eine Fackel.', NEW)}
 {card('zusatzmods', 'craft:cropnalyzer', 'EMI, Xaero & CC: Tweaked', 'Rezeptanzeige, Minimap und Turtles im Paket.', TECH)}
 </div>
 
@@ -743,6 +744,53 @@ bauen sie nicht ab. Turtles brauchen Treibstoff (wie im Pack).</p>
 <p>Spezifikation: <a href="#/spec-18">18 – Mining-Dimension</a>.</p>
 '''
     page('mining-dimension', 'Mining-Dimension', 'Neu & geändert', mining)
+
+    # ------------------------------------------------------------------ Leuchtschild
+    shield = f'''<h1>Elektrischer Leuchtschild</h1>
+{h.infobox('Elektrischer Leuchtschild', 'craft:electric_light_shield', [
+    ('Herkunft', NEW + ' Craft (kein Pack-Vorbild)'), ('ID', '<code>craft:electric_light_shield</code>'),
+    ('Speicher', '10 000 EU'), ('Stufe', '1 (LV), Laden max. 100 EU/t'), ('Licht', '14 (wie eine Fackel)'),
+    ('Verbrauch', '1 EU je 4 Ticks Licht,<br>100 EU je Blockpunkt'), ('Kreativ-Tab', 'IC2 (leer und voll)'),
+])}
+<p class="lead">Ein Schild, der statt Haltbarkeit <b>EU</b> verbraucht und in der Hand <b>wie eine Fackel leuchtet</b> – echtes Licht in
+der Welt, das auch andere Spieler sehen und das Mob-Spawns verhindert. Die Werte orientieren sich am Luminator und an den
+LV-Elektrowerkzeugen.</p>
+
+<h2 id="ls--rezept">Rezept</h2>
+{h.recipe(['ALA', 'ASA', ' R '], {'A': ('craft:advanced_alloy', None), 'L': ('craft:luminator', None), 'S': ('minecraft:shield', 'Schild'), 'R': ('craft:re_battery', None)}, ('craft:electric_light_shield', None))}
+<p>Der Schild kommt <b>leer</b> aus der Werkbank (die RE-Batterie darf beliebig geladen sein). Laden wie alle LV-Werkzeuge: BatBox,
+Ladegerät, Batterie-Slot der Maschinen oder BatPack/LapPack auf dem Rücken.</p>
+
+<h2 id="ls--licht">Licht</h2>
+<ul>
+<li>Leuchtet in <b>Haupt- oder Nebenhand</b>, solange das Licht eingeschaltet und Ladung vorhanden ist (nicht im Zuschauermodus).</li>
+<li>Das Licht sitzt auf Augenhöhe, sonst am Fußblock; es ersetzt nur Luft oder Wasser – <b>unter Wasser</b> leuchtet es also auch.</li>
+<li>Kosten: <b>1 EU je 4 Ticks</b> (5 EU/s) – voll geladen reicht das für rund 33 Minuten.</li>
+<li><b>Modus-Taste + Rechtsklick</b> schaltet das Licht an/aus („Licht: an/aus“); der Tooltip zeigt den Zustand. Rechtsklick allein blockt.</li>
+<li>Technisch ist das Licht ein unsichtbarer Block, der dem Spieler folgt. Nach Weglegen, Abmelden, Tod oder Absturz verschwindet er
+spätestens nach einer Sekunde von selbst.</li>
+</ul>
+
+<h2 id="ls--blocken">Blocken</h2>
+<ul>
+<li>Blockt wie ein Vanilla-Schild (5 Ticks Anlauf, Axt-Treffer sperren ihn 5 Sekunden).</li>
+<li>Ein geblockter Treffer ab 3 Schaden kostet <b>100 EU je Haltbarkeitspunkt</b>, den ein normaler Schild verloren hätte
+(1 + Schaden abgerundet). Der Schild selbst nimmt nie Schaden.</li>
+<li>Reicht die Ladung nicht, wird der Treffer noch geblockt und der Schild ist danach leer.</li>
+<li><b>Leer</b> lässt er sich nicht heben und senkt sich, sobald die Ladung ausgeht – kein Licht, kein Blocken.</li>
+</ul>
+
+<h2 id="ls--zauber">Verzauberungen</h2>
+{h.table(['Verzauberung', 'Wirkung'], [
+    ['Haltbarkeit I–III', 'je Blockpunkt Chance 1/(Stufe+1), dass er EU kostet; Licht kostet gleich viel'],
+    ['Reparatur', 'Erfahrungskugeln laden den Schild: 1 XP = 200 EU (nimmt die XP vor anderen Items)'],
+    ['Fluch des Verschwindens', 'wie Vanilla'],
+])}
+<p>Anders als der Vanilla-Schild auch am <b>Zaubertisch</b> verzauberbar (Verzauberbarkeit 10, dort nur Haltbarkeit); Reparatur und
+Fluch kommen wie gewohnt über Bücher am Amboss.</p>
+<p>Spezifikation: <a href="#/spec-30">30 – Elektrischer Leuchtschild</a>.</p>
+'''
+    page('leuchtschild', 'Elektrischer Leuchtschild', 'Neu & geändert', shield)
 
     # ------------------------------------------------------------------ Zusatzmods
     zus = f'''<h1>EMI, Xaero's Minimap & CC: Tweaked</h1>
