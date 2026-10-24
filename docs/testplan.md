@@ -179,6 +179,17 @@ Testwelt. Sprache einmal Deutsch, einmal Englisch prüfen. EMI und Xaero's Minim
 | 10.3 | Upgrades: Holzkiste (auch eine Hälfte einer Doppelkiste) → Eisen/Kupfer, Eisen → Gold → Diamant → Kristall/Obsidian; Inhalt und Blickrichtung bleiben, Upgrade verbraucht; falsches Upgrade öffnet nur die Kiste | 20.4 | x |
 | 10.4 | Obsidiankiste neben TNT bleibt stehen; Abbau mit Spitzhacke droppt Kiste und Inhalt; Trichter/BC-Rohr füllt und leert; Komparator zeigt den Füllstand; zahme Katze setzt sich auf eine Iron Chest; Items im Inventar/in der Hand als Kiste dargestellt | 20.4 | x |
 
+## 11. GraviSuite (Phase 27)
+
+| Nr | Test | Herkunft | OK |
+|---|---|---|---|
+| 11.1 | Alle Items im IC2-Tab (geladen + leer), Texturen, Rüstungsmodelle (Jetpack, Nano-, Gravitations-Brustplatte, LapPacks, Solarhelm); HUD oben rechts neben Xaero | 27.1–27.3 | |
+| 11.2 | Fortg. Jetpack/Nano-Brustplatte: G schaltet Triebwerk (Meldung), Springen hebt mit Loop-Sound, Strg-Boost, M beim Springen = Schwebemodus | 27.2 | |
+| 11.3 | Gravitations-Brustplatte: G ab 80 000 EU Flug (Meldung), Boost mit Strg/Leertaste/Schleichen, Abschalten bei leerer Ladung, Ablegen nimmt den Flug, Welt neu laden | 27.3 | |
+| 11.4 | Fortg. Bohrer/Kettensäge (Tempo, Wolle), Vajra: Sofortabbau, Rechtsklick entfernt Block mit Drops und Geräusch, Grundgestein bleibt | 27.4 | |
+| 11.5 | GraviTool: M + Rechtsklick wechselt Modus (Meldung, Sound, Modell und Name wechseln); Hacke, Baumzapfer am Gummibaum, Schraubenschlüssel an IC2-Maschine (verlustfrei) und BC-Motor (dreht, 500 EU), Schraubendreher an Verstärker/Werfer/Kolben | 27.5 | |
+| 11.6 | Ultimativer Solarhelm (Kreativ): lädt am Tag unter freiem Himmel schnell, nachts langsam, unter Dach nicht; EMI-Info-Seiten aller GraviSuite-Items | 27.6 | |
+
 ## Befunde
 
 | Nr | Datum | Befund | Status |

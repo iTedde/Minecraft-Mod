@@ -2,6 +2,7 @@ package dev.craft.gravisuite;
 
 import dev.craft.core.CraftCreativeTabs;
 import dev.craft.gravisuite.item.GraviChestplateItem;
+import dev.craft.gravisuite.item.UltimateSolarHelmetItem;
 import dev.craft.ic2.item.ElectricItem;
 import dev.craft.ic2.item.ElectricItems;
 import net.minecraft.world.item.CreativeModeTab;
@@ -22,6 +23,7 @@ public final class GraviSuite {
         GsItems.MATERIALS.register(modBus);
         GsItems.ITEMS.register(modBus);
         GraviChestplateItem.ATTACHMENT_TYPES.register(modBus);
+        UltimateSolarHelmetItem.ATTACHMENT_TYPES.register(modBus);
         modBus.addListener(GraviSuite::addToCreativeTab);
         modBus.addListener(GsKeyPayload::register);
     }

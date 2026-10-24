@@ -12,6 +12,7 @@ import dev.craft.gravisuite.item.AdvancedJetpackItem;
 import dev.craft.gravisuite.item.AdvancedNanoChestplateItem;
 import dev.craft.gravisuite.item.GraviChestplateItem;
 import dev.craft.gravisuite.item.GraviToolItem;
+import dev.craft.gravisuite.item.UltimateSolarHelmetItem;
 import dev.craft.gravisuite.item.VajraItem;
 import dev.craft.ic2.item.armor.EnergyPackItem;
 import net.minecraft.core.Holder;
@@ -41,6 +42,7 @@ public final class GsItems {
     public static final Holder<ArmorMaterial> ADVANCED_JETPACK_MATERIAL = material("advanced_jetpack");
     public static final Holder<ArmorMaterial> ADVANCED_NANO_CHESTPLATE_MATERIAL = material("advanced_nano_chestplate");
     public static final Holder<ArmorMaterial> GRAVI_CHESTPLATE_MATERIAL = material("gravi_chestplate");
+    public static final Holder<ArmorMaterial> ULTIMATE_SOLAR_HELMET_MATERIAL = material("ultimate_solar_helmet");
 
     /** {@code ItemSimpleItems}, stack size 64. */
     public static final DeferredItem<Item> SUPERCONDUCTOR_COVER = simple("superconductor_cover");
@@ -66,6 +68,9 @@ public final class GsItems {
                     properties.rarity(Rarity.UNCOMMON)));
     public static final DeferredItem<GraviChestplateItem> GRAVI_CHESTPLATE = armor("gravi_chestplate",
             properties -> new GraviChestplateItem(GRAVI_CHESTPLATE_MATERIAL, properties.rarity(Rarity.EPIC)));
+    /** No recipe in the pack, creative tab only. */
+    public static final DeferredItem<UltimateSolarHelmetItem> ULTIMATE_SOLAR_HELMET = armor("ultimate_solar_helmet",
+            properties -> new UltimateSolarHelmetItem(ULTIMATE_SOLAR_HELMET_MATERIAL, properties.rarity(Rarity.EPIC)));
 
     public static final DeferredItem<AdvancedDrillItem> ADVANCED_DIAMOND_DRILL = tool("advanced_diamond_drill",
             properties -> new AdvancedDrillItem(properties.rarity(Rarity.UNCOMMON)));

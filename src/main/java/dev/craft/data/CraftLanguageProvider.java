@@ -485,6 +485,7 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
         item(GsItems.ADVANCED_CHAINSAW, german ? "Fortgeschrittene Kettensäge" : "Advanced Chainsaw");
         item(GsItems.VAJRA, "Vajra");
         item(GsItems.GRAVI_CHESTPLATE, german ? "Gravitations-Brustplatte" : "GraviChestPlate");
+        item(GsItems.ULTIMATE_SOLAR_HELMET, german ? "Ultimativer Solarhelm" : "Ultimate Solar Helmet");
         item(GsItems.GRAVITOOL, "GraviTool");
         String tool = GsItems.GRAVITOOL.get().getDescriptionId();
         add(tool + ".hoe", german ? "GraviTool (Hacke)" : "GraviTool (Hoe)");
@@ -521,6 +522,43 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
         add("message.craft.gravisuite.hover_enabled", german ? "§eSchwebemodus §aaktiviert." : "§eHover Mode §aenabled.");
         add("message.craft.gravisuite.hover_disabled",
                 german ? "§eSchwebemodus §cdeaktiviert." : "§eHover Mode §cdisabled.");
+        add("emi.craft.info.gravi_chestplate", german
+                ? "Gravi-Flugtaste (Standard G) schaltet den Flug ein, ab 80 000 EU. Verbraucht 416 EU/t, auch am "
+                + "Boden; unter 416 EU schaltet sie ab. Boost-Taste (Strg) im Flug: schneller, 2 × 1 248 EU/t. Kein "
+                + "Fallschaden. Schützt wie die Quanten-Brustplatte (900 EU je Schaden) und lädt Werkzeuge."
+                : "Gravi Fly Key (default G) turns flight on, from 80,000 EU. Uses 416 EU/t, also on the ground; below "
+                + "416 EU it shuts down. Boost key (Ctrl) while flying: faster, 2 × 1,248 EU/t. No fall damage. "
+                + "Protects like the quantum chestplate (900 EU per damage) and charges tools.");
+        add("emi.craft.info.advanced_jetpack", german
+                ? "Gravi-Flugtaste (Standard G) schaltet das Triebwerk ein/aus, Springen gibt Schub (12 EU/t), "
+                + "Boost-Taste (Strg) +60 EU/t. Modus-Taste (M) beim Springen: Schwebemodus (langsames Sinken). Lädt "
+                + "Werkzeuge wie ein LapPack. Die Nano-Brustplatte schützt zusätzlich (800 EU je Schaden)."
+                : "Gravi Fly Key (default G) switches the engine, jumping thrusts (12 EU/t), boost key (Ctrl) +60 EU/t. "
+                + "Mode key (M) while jumping: hover mode (slow descent). Charges tools like a lappack. The nano "
+                + "chestplate also protects (800 EU per damage).");
+        add("emi.craft.info.gravisuite_lappack", german
+                ? "Energiespeicher für den Rücken: lädt gehaltene elektrische Werkzeuge bis Stufe 2 nach. "
+                + "Fortgeschritten 1 000 000 EU, Ultimativ 10 000 000 EU."
+                : "Energy storage for the back: recharges held electric tools up to tier 2. Advanced 1,000,000 EU, "
+                + "ultimate 10,000,000 EU.");
+        add("emi.craft.info.ultimate_solar_helmet", german
+                ? "Nur im Kreativmodus (kein Rezept, wie im Pack). Erzeugt getragen 512 EU/t bei Sonne und 64 EU/t "
+                + "unter freiem Himmel; lädt zuerst die Rüstung (auch sich selbst), dann das Inventar. Rüstungswert 3."
+                : "Creative only (no recipe, as in the pack). Worn it makes 512 EU/t in the sun and 64 EU/t under open "
+                + "sky; charges the armor first (itself too), then the inventory. Armor value 3.");
+        add("emi.craft.info.vajra", german
+                ? "Baut jeden Block sofort mit Drops ab, 3 333 EU je Block. Rechtsklick auf einen Block "
+                + "(Präzisionsmodus): Block wird entfernt und droppt, auch Endportalrahmen – nicht Grundgestein. "
+                + "Schlag: 25 Schaden für 6 666 EU."
+                : "Mines every block instantly with drops, 3,333 EU per block. Right click on a block (precision "
+                + "mode): removes it with its drops, also end portal frames – not bedrock. Hit: 25 damage for 6,666 EU.");
+        add("emi.craft.info.gravitool", german
+                ? "Modus-Taste (M) + Rechtsklick wechselt: Hacke (50 EU), Baumzapfer (50 EU), Schraubenschlüssel "
+                + "(drehen 50 EU, abbauen 500 EU, immer verlustfrei, bei Maschinen mit Verlust 10 000 EU; auch BuildCraft-Schlüssel für "
+                + "500 EU), Schraubendreher (Verstärker, Werfer, Kolben drehen, 500 EU)."
+                : "Mode key (M) + right click switches: hoe (50 EU), treetap (50 EU), wrench (turn 50 EU, remove 500 EU, "
+                + "always lossless, 10,000 EU for machines that would lose; also a BuildCraft wrench for 500 EU), screwdriver (turns repeaters, "
+                + "dispensers, pistons, 500 EU).");
         add("key.categories.craft", "Craft");
         add("key.craft.gravi_fly", german ? "Gravi-Flugtaste" : "Gravi Fly Key");
     }

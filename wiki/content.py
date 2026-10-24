@@ -961,6 +961,31 @@ zurück.</p>
 Rohr und jede Maschine ab. Klick auf den Ventilknauf kehrt das um (dann Druck ohne Signal). Der Knauf zeigt den Zustand.</li>
 <li>Mit Lava oder anderen leuchtenden Flüssigkeiten leuchtet der Tank. Abbauen behält Farben – der Inhalt bleibt im Speicher.</li></ul>''')
 
+    modpage('mod-gravisuite', 'GraviSuite', 'craft:gravi_chestplate',
+            'Gravitation Suite 1.8 aus dem Pack: Endgame-Ausrüstung auf IC2-Basis – <b>Gravitations-Brustplatte</b> (Flug wie '
+            'im Kreativmodus), <b>Fortgeschrittenes Jetpack</b> und <b>Nano-Brustplatte</b>, <b>Fortgeschrittenes</b> und '
+            '<b>Ultimatives LapPack</b>, <b>Fortgeschrittener Bohrer</b> und <b>Kettensäge</b>, <b>Vajra</b>, <b>GraviTool</b> und '
+            'der <b>Ultimative Solarhelm</b> (nur Kreativ). Alles läuft mit EU; Rezepte übertragen die Ladung der Zutaten.',
+            [('Version (Vorlage)', '1.8'), ('Flug-Taste', 'G (Pack: F)'), ('Gravi-Brustplatte', '10 Mio. EU, 416 EU/t'),
+             ('Paket', 'Kreativ-Tab „IndustrialCraft 2“')],
+            [('spec-28', '28 – GraviSuite')],
+            f'''<h2 id="mod-gravisuite--flug">Fliegen</h2>
+<ul><li>{c('gravi_chestplate')}: <b>G</b> schaltet den Flug ein (ab 80 000 EU), 416 EU/t auch am Boden, Boost mit Strg
+(2 × 1 248 EU/t). Kein Fallschaden; schützt wie die Quanten-Brustplatte. HUD oben rechts zeigt Status und Ladung.</li>
+<li>{c('advanced_jetpack')} / {c('advanced_nano_chestplate')}: <b>G</b> schaltet das Triebwerk, Springen gibt Schub (12 EU/t),
+<b>M</b> beim Springen den Schwebemodus. Unter 1 000 EU bricht der Schub stark ein (wie im Original).</li>
+<li>Alle Brustteile laden wie ein LapPack gehaltene Werkzeuge bis Stufe 2 nach.</li></ul>
+<h2 id="mod-gravisuite--werkzeuge">Werkzeuge</h2>
+{h.table(['Werkzeug', 'Wirkung', 'Kosten'], [
+    [c('advanced_diamond_drill'), 'wie der Diamantbohrer, Effizienz 35', '160 EU/Block'],
+    [c('advanced_chainsaw'), 'wie die Kettensäge, Effizienz 35, auch Wolle/Melone/Kaktus', '100 EU/Block'],
+    [c('vajra'), 'baut alles sofort ab; Rechtsklick entfernt einen Block mit Drops (nicht Grundgestein)', '3 333 EU/Block'],
+    [c('gravitool'), 'M + Rechtsklick: Hacke, Baumzapfer, Schraubenschlüssel (immer verlustfrei, auch BuildCraft), Schraubendreher', '50–10 000 EU'],
+])}
+<h2 id="mod-gravisuite--solarhelm">Ultimativer Solarhelm</h2>
+<p>{c('ultimate_solar_helmet')} hat wie im Pack kein Rezept. Getragen erzeugt er 512 EU/t bei Sonne und 64 EU/t unter freiem
+Himmel und lädt erst die Rüstung, dann das Inventar.</p>''')
+
     # ------------------------------------------------------------------ Items
     page('items', 'Gegenstände & Blöcke', 'Allgemein', f'''<h1>Gegenstände & Blöcke</h1>
 <p class="lead">Alle {stats['items']} registrierten Blöcke und Items von Craft mit deutschem und englischem Namen. Jeder Eintrag hat eine eigene Seite

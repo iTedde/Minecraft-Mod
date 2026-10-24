@@ -56,6 +56,7 @@ WIKI_NOTES = {
     'craft:mining_pipe': 'Rohr der Mining Well und der BuildCraft-Pumpe; wird von ihnen gesetzt und droppt nichts.',
     'craft:mining_portal': 'Portalfläche: Rahmen aus Glattem Stein bauen und mit dem Feuerzeug zünden.',
     'craft:nightvision_goggles': 'Kein Rezept – auch im Pack nicht (IC2 1.115 hat keins). Nur im Kreativmodus.',
+    'craft:ultimate_solar_helmet': 'Kein Rezept – auch im Pack nicht (GraviSuite 1.8). Nur im Kreativmodus.',
     'craft:plan': 'Projekttisch: Rezept auslegen, leeren Bauplan einlegen und den Bauplan entnehmen.',
     'craft:resin_sheet': 'Harz per Rechtsklick auf die Oberseite eines festen Blocks setzen. Kein eigenes Item.',
     'craft:water': 'Anzeige-Item für Wasser im Tank des Elektrolyseurs; nicht erhältlich.',
@@ -63,6 +64,7 @@ WIKI_NOTES = {
 }
 
 GROUPS = [
+    ('gravisuite', 'GraviSuite'),
     ('enderstorage', 'EnderStorage'),
     ('thermalexpansion', 'Thermal Expansion'),
     ('advancedmachines', 'Advanced Machines'),
@@ -78,7 +80,7 @@ GROUPS = [
 ]
 GROUP_ORDER = ['IndustrialCraft 2', 'GregTech', 'BuildCraft', 'Forestry', 'Power Converters',
                'Compact Solars', 'Kraftwerke (neu)', 'Mining-Dimension (neu)', 'Iron Chests', 'Advanced Machines',
-               'Thermal Expansion', 'EnderStorage',
+               'Thermal Expansion', 'EnderStorage', 'GraviSuite',
                'Sonstiges']
 
 # items whose behaviour was changed on purpose or which are new content

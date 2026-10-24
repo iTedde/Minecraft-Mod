@@ -2508,5 +2508,26 @@ alle, z. B. ×1,2.“ Entscheidungen Nutzer: Bonus für Panels in einem **lücke
   (Werfer senkrecht: unten → Nord, oben → Süd laut Formel).
 - **Client-Test offen** (auch 27.1–27.4).
 
+## Erledigt (27.6 Solarhelm, EMI, Herkunft, Wiki, Paket, 2026-10-24)
+- [x] `gravisuite/item/UltimateSolarHelmetItem` (1 000 000 EU, Transfer 20 000, Tier 2, epic, kein Rezept, nur
+  IC2-Kreativtab): 512 EU/t bei Sonne + Himmel, 64 EU/t nur Himmel, sonst 0; Sichtprüfung alle 128 Ticks (Zustand je
+  Spieler); Verteilung Rüstung Füße → Kopf (auch der Helm selbst), dann Hauptinventar, Tier 3 mit Transferlimit, Rest
+  verfällt. Schutz 0,15 mit AbsorbMax `ladung/900` (Originalfehler ohne ×25), Rüstungsanzeige immer 3, liefert keine
+  Energie.
+- [x] EMI: `compat/emi/GraviSuiteEmiRecipes` – Info-Seiten Gravitations-Brustplatte, Fortg. Jetpack/Nano-Brustplatte,
+  LapPacks, Solarhelm, Vajra, GraviTool (Tasten, Verbrauch, Modi).
+- [x] Herkunft: keine neuen Rohstoffe (alle GraviSuite-Items aus Craft-Zutaten; Solarhelm nur Kreativ, Hinweis auf der
+  EMI-Seite und im Wiki).
+- [x] Wiki: Gruppe „GraviSuite“, Seite „GraviSuite“ (Fliegen, Werkzeuge, Solarhelm), Hinweis „kein Rezept“ am
+  Solarhelm; neu erzeugt (DE + EN-Namen). `testplan.md` Abschnitt 11 (GraviSuite-Client-Test).
+- [x] GameTests `GraviSuiteSolarHelmetGameTests` (3: Erzeugung inkl. Dach, Verteilung, Schutz/kein Rezept). Alle 490
+  grün, `gradlew runData build` grün.
+- [x] Craft **1.0.6** (`releases/craft-1.0.6.jar`), Paket `releases/Craft-1.0.9-curseforge.zip` (wie 1.0.8 mit Craft
+  1.0.6; 8,7 MB).
+- Doku: `abweichungen.md` (Solarhelm-Zustand je Spieler), `architektur.md` (GraviSuite, `ToolWrench`).
+- **Phase 27 erledigt, Client-Test offen** (Testplan 11.1–11.6).
+
 ## Nächste Schritte
-- 27.6 Ultimativer Solarhelm; EMI (Info-Seiten), Herkunft, Wiki, Version/Paket.
+- Client-Test GraviSuite (Testplan 11) – nur nach Rückfrage (Nutzer spielt evtl. selbst).
+- Phase 28 Modular Powersuits: 28.0 Spezifikation.
+- Phase 30 Elektrischer Leuchtschild: 30.0 Spezifikation (Werte/Rezept/Reihenfolge zur Freigabe).
