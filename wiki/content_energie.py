@@ -46,14 +46,14 @@ GT_USE = 'je Rezept (EU/t steht im Rezept, EMI)'
 OUT = {
     'generator': '10 EU/t (4 000 EU je Kohle)',
     'geothermal_generator': '20 EU/t (20 000 EU je Lava-Eimer)',
-    'solar_panel': '1 EU/t bei Tag, kein Regen',
+    'solar_panel': '1 EU/t bei Tag, kein Regen; 1,2 EU/t im 9×9-Feld',
     'water_mill': 'bis 2 EU/t (Tag und Nacht)',
     'wind_mill': '≈ 3–7 EU/t je nach Höhe, Gewitter mehr',
     'nuclear_reactor': 'je Design 60–400+ EU/t (5 EU/t je Puls), siehe Kernreaktor',
     'reactor_chamber': 'gibt den Rest der Reaktor-Ausgabe ab',
-    'lv_solar_array': '19 EU/t (3×3-Feld, Tag)',
-    'mv_solar_array': '179 EU/t (3×3-Feld, Tag)',
-    'hv_solar_array': '1 536 EU/t (3 Pakete à 512, Tag)',
+    'lv_solar_array': 'stillgelegt (liefert nichts, zerlegbar)',
+    'mv_solar_array': 'stillgelegt (liefert nichts, zerlegbar)',
+    'hv_solar_array': 'stillgelegt (liefert nichts, zerlegbar)',
     'steam_turbine': '20 EU/t je Kessel, bis 64',
     'large_steam_turbine': '160 EU/t je Hochdruckkessel, bis 480',
     'water_turbine': '16–32 EU/t (Wasserfluss)',
@@ -212,7 +212,7 @@ liefert und wie viel es speichert. Die Zahlen stammen direkt aus dem Code (beim 
 {h.table(['Stufe', 'max. Paket', 'typische Quelle', 'Speicher / Trafo'], [
     ['LV (1)', '32 EU', 'Generator, Solar, Wasser, Wind, BatBox', c('batbox') + ', ' + c('lv_transformer')],
     ['MV (2)', '128 EU', 'MFE, LV→MV-Trafo, Dampfturbine (64)', c('mfe') + ', ' + c('mv_transformer')],
-    ['HV (3)', '512 EU', 'MFSU, Großkraftwerke, HV Solar Array', c('mfsu') + ', ' + c('hv_transformer')],
+    ['HV (3)', '512 EU', 'MFSU, Großkraftwerke', c('mfsu') + ', ' + c('hv_transformer')],
     ['EV (4)', '2 048 EU', 'HV-Trafo hochgeschaltet, EV-Producer', '–'],
 ])}
 {h.note('warn', 'Ein Paket <b>größer</b> als die maximale sichere Eingabe lässt die meisten IC2- und GT-Maschinen <b>explodieren</b>. '

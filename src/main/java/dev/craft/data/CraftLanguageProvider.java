@@ -750,27 +750,15 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
                 + "Flächenmitten fortgeschrittene Gehäuse, die übrigen 20 Blöcke verstärkte Gehäuse."
                 : "Vacuum freezer: 3×3×3 cube below the controller (centred on top). Centre air, the 6 face centres "
                 + "advanced casings, the other 20 blocks reinforced casings.");
-        add("emi.craft.info.lv_solar_array", german
-                ? "LV-Solar-Array: Fläche 3×3 auf einer Ebene, das LV-Array in der Mitte, im Ring 8 Solarpanels oder "
-                + "LV-Arrays (gemischt). Leistung: besonnte Teile (Panel 1, LV 8 EU/t) × 1,2 – mit 8 Panels 19 EU/t. "
-                + "Einzeln liefert ein Array nichts."
-                : "LV solar array: 3×3 area on one level, the LV array in the centre, a ring of 8 solar panels or LV "
-                + "arrays (mixed). Output: sunny parts (panel 1, LV 8 EU/t) × 1.2 – with 8 panels 19 EU/t. A single "
-                + "array delivers nothing.");
-        add("emi.craft.info.mv_solar_array", german
-                ? "MV-Solar-Array: Fläche 3×3 auf einer Ebene, das MV-Array in der Mitte, im Ring 8 Solarpanels, LV- "
-                + "oder MV-Arrays (gemischt). Leistung: besonnte Teile (Panel 1, LV 8, MV 64 EU/t) × 1,4 – mit 8 "
-                + "LV-Arrays 179 EU/t. Einzeln liefert ein Array nichts."
-                : "MV solar array: 3×3 area on one level, the MV array in the centre, a ring of 8 solar panels, LV or "
-                + "MV arrays (mixed). Output: sunny parts (panel 1, LV 8, MV 64 EU/t) × 1.4 – with 8 LV arrays 179 "
-                + "EU/t. A single array delivers nothing.");
-        add("emi.craft.info.hv_solar_array", german
-                ? "HV-Solar-Array: Fläche 3×3 auf einer Ebene, das HV-Array in der Mitte, im Ring 8 Solarpanels oder "
-                + "Arrays bis HV (gemischt). Leistung: besonnte Teile (Panel 1, LV 8, MV 64, HV 512 EU/t) × 1,5 – mit "
-                + "8 MV-Arrays 1536 EU/t. Einzeln liefert ein Array nichts."
-                : "HV solar array: 3×3 area on one level, the HV array in the centre, a ring of 8 solar panels or "
-                + "arrays up to HV (mixed). Output: sunny parts (panel 1, LV 8, MV 64, HV 512 EU/t) × 1.5 – with 8 MV "
-                + "arrays 1536 EU/t. A single array delivers nothing.");
+        add("emi.craft.info.solar_field", german
+                ? "Solarfeld: Jedes Solarpanel liefert bei Sonne 1 EU/t. Liegt es in einem lückenlosen Quadrat aus "
+                + "9×9 Solarpanels auf derselben Höhe, liefert es 1,2 EU/t (alle 5 Ticks 1 EU extra). Ein 9×9-Feld "
+                + "bringt so rund 97 EU/t statt 81. Die alten LV/MV/HV-Solar-Arrays liefern nichts mehr; in der Werkbank "
+                + "zerfallen sie in 8 Teile der Stufe darunter."
+                : "Solar field: every solar panel delivers 1 EU/t in sunlight. If it lies in a complete square of "
+                + "9×9 solar panels on the same level, it delivers 1.2 EU/t (1 extra EU every 5 ticks). A 9×9 field "
+                + "thus yields about 97 EU/t instead of 81. The old LV/MV/HV solar arrays no longer deliver anything; at "
+                + "the crafting table they come apart into 8 of the tier below.");
     }
 
     /** IC2 crops (spec 05 §9): blocks, items, crop names, Cropnalyzer texts. */
@@ -916,7 +904,6 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
 
     /** Compact Solars names ({@code CompactSolarType.friendlyName}, English only). */
     protected void compactSolars() {
-        add("itemGroup.craft.compact_solars", "Compact Solars");
         block(CsBlocks.array(SolarArrayType.LV), "Low Voltage Solar Array");
         block(CsBlocks.array(SolarArrayType.MV), "Medium Voltage Solar Array");
         block(CsBlocks.array(SolarArrayType.HV), "High Voltage Solar Array");

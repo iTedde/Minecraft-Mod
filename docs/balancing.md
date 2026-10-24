@@ -50,88 +50,15 @@ Platzbedarf**. Solar wird nicht pauschal geschwächt, die anderen Quellen werden
 ### 3.1 Solar (Rolle: wartungsfrei, teuer, kompakt)
 
 - **IC2-Solarpanel bleibt 1:1** (1 EU/t bei Sonne, 1 Block).
-- **Compact Solar Arrays: 3×3-Felder mit Bonus** (Nutzer, 2026-10-20; ersetzt „Fläche der Panels“ 3×3/9×9/27×27 vom
-  2026-10-15/17 – die riesigen Flächen waren unhandlich). Arrays wieder mit Originalrezept (8 der Stufe darunter +
-  Trafo); ein Array liefert nur in der Mitte eines 3×3-Felds, dessen Ring aus Solarpanels und Arrays bis zur Stufe der
-  Mitte besteht. Leistung = Summe der besonnten Grundwerte (Panel 1, LV 8, MV 64, HV 512) × Bonus der Mitte.
-
-| Mitte | Bonus | Beispiel-Ring | Leistung (Tag) | EU/t pro Block |
-|---|---:|---|---:|---:|
-| LV Solar Array | ×1,2 | 8 Solarpanels | 19 EU/t | 2,1 |
-| MV Solar Array | ×1,4 | 8 LV-Arrays | 179 EU/t | 19,9 |
-| HV Solar Array | ×1,5 | 8 MV-Arrays | 1536 EU/t | 170,7 |
-
-- Der Bonus ist der Ertrag je verbautem Panel (1,2 / 1,4 / 1,5 EU/t); eine höhere Mitte lohnt sich immer. Gebremst wird
-  nur über die Kosten (HV-Feld mit MV-Ring = 1024 Panels), nicht mehr über die Fläche.
-- Folge (bewusst, Nutzer 2026-10-20): Solar ist nicht mehr die pro Fläche schwächste Quelle, sondern die stärkste
-  wartungsfreie – dafür nur am Tag, ohne Regen und sehr teuer.
-- Bedingungen pro Block wie Solarpanel (Himmelssicht, Tag, kein Regen); abgedeckte Blöcke zählen 0. Details
-  `spec/11-compact-solars.md` §4.
-
-### 3.2 Wasserkraft (Rolle: zuverlässig, mittelstark, Tag und Nacht)
-
-**IC2-Wassermühle (neu)**, Rezept unverändert:
-- Zählt Wasserblöcke im 5×5×3-Bereich um die Mühle (max. 74).
-- Ertrag pro Wasserblock: Quelle 0,02 EU/t, **fließendes Wasser 0,04 EU/t**.
-- Biom-Faktor: Fluss ×1,5, Ozean ×1,25, sonst ×1,0.
-- Deckel: **2 EU/t** pro Mühle (LV), mindestens 4 Blöcke Abstand zwischen Mühlen (sonst teilen sie sich das Wasser).
-- Wassereimer/-zellen-Betrieb wie Original (Kompatibilität), aber unwichtig.
-→ Gute Mühle im Fluss: 2 EU/t konstant = 4× ein Solarpanel im Tagesmittel, auf ≈ 25 Blöcken Wasserfläche.
-
-**Wasserturbine (neuer Multiblock)**:
-- Gehäuse 3×3×3 (Turbinengehäuse-Blöcke), Front mit Turbinenrotor, muss vollständig **in fließendem Wasser** stehen
-  (mindestens 16 fließende Wasserblöcke im Messbereich: 5 Blöcke rund um das Gehäuse, von der unteren Lage bis
-  20 Blöcke über dem Deckel – Nutzer, 2026-10-18; vorher 7×7-Ring).
-- Leistung: 0,25 EU/t je fließendem Wasserblock im Messbereich, Deckel **32 EU/t** (LV-Paket), Fluss ×1,5 → Deckel bleibt 32.
-- Kosten-Richtwert: 4 Wassermühlen + 1 Generator + Maschinenblöcke/raff. Eisen (wie IC2-Mittelklasse).
-- Rolle: zuverlässige 16–32 EU/t Grundlast, benötigt einen echten Fluss.
-
-### 3.3 Wind (Rolle: höhen- und wetterabhängig, bei Gewitter stark)
-
-Formel bleibt, Faktoren werden erhöht:
-- `sub = windStrength · (y − 64 − Hindernisse) / 750 · 2,5`
-- Regen ×1,5 (statt 1,2), Gewitter ×3,0 (statt 1,5).
-- ~~Bruchgefahr erst ab `sub > 12,5`~~ **Kein Zerfall mehr** (Nutzer, 2026-10-17).
-- Puffer/Ausgabe auf 16 EU/t Paket (LV) angehoben.
-→ y 128, Wind 15: ≈ 3,2 EU/t; Gewitter ≈ 9,6 EU/t; y 200: ≈ 6,8 EU/t (Gewitter ≈ 20).
-Platzbedarf (Hindernis-Würfel) bleibt – Wind braucht Höhe und Abstand.
-
-### 3.4 Kohle (Rolle: Early Game einfach, später effizientes Kraftwerk)
-
-- **IC2-Generator bleibt 1:1** (10 EU/t, 4 000 EU/Kohle).
-- **Koksofen (neuer Multiblock 3×3×3, Ziegel-ähnliche Blöcke)**: 1 Kohle → 1 Koks in 900 Ticks, kein Strom;
-  Nebenprodukt Asche wird hier nicht erzeugt (nur im Kessel). Holzkohle wird nicht verkokt.
-- **Kohlekraftwerk**:
-  - *Kessel* (Multiblock 3×3×3): Brennstoff Kohle oder Koks; bei Volllast brennt Kohle 800 Ticks, Koks 1 600 Ticks.
-    Temperatur 20 → 1000 °C, +1 °C/Tick beim Heizen, −1 °C/Tick sonst. Dampf erst ab 100 °C:
-    `Dampf/t = 20 mB · (T − 100)/900` (max 20 mB/t). Wasserverbrauch 1 mB Wasser je 1 mB Dampf.
-    **Überhitzung**: Wasser leer und T > 100 °C → beim nächsten Wasserkontakt (oder T ≥ 1000 °C ohne Wasser)
-    Explosion `ExplosionIC2(Stärke 6)`.
-    Asche: je 4 verbrannte Kohle (bzw. 2 Koks) 1 Asche in einen Asche-Slot; voller Slot → Kessel stoppt (muss
-    abgeführt werden, z. B. per Rohr/Trichter).
-  - *Dampfturbine* (Multiblock 3×3×5): 1 mB Dampf → 1 EU; ein Kessel liefert bis **20 EU/t**; bis zu 3 Kessel pro
-    Turbine (Deckel 64 EU/t, MV-Paket).
-  - Effizienz: 1 Kohle = 800 Ticks × 20 mB = 16 000 mB Dampf → **16 000 EU/Kohle (4× Generator)**;
-    Koks (1 Kohle → 1 Koks im Koksofen) 32 000 EU – Verkoken verdoppelt also die Ausbeute; das ist der bewusste Anreiz
-    für den Koksofen (Zeitaufwand 900 Ticks je Koks, Platz für den Ofen). Alternativ 1:1 neutral (Koks = 16 000 EU,
-    nur höhere Lagerdichte) – siehe §5.
-  - Aufheizphase ≈ 900 Ticks bis Volllast (Verlust beim Kaltstart).
-
-### 3.5 Erdöl und Brennstoffe (Rolle: lagerbar, bedarfsgerecht, Infrastruktur)
-
-- BuildCraft-Werte bleiben 1:1 (Öl 3 MJ/t, 60 000 MJ/Eimer; Lava 1 MJ/t).
-- Über Power Converters: 145 800 EU/Ölfass – sinnvoll für Mid-/Late-Game, weil Öl gefunden, gepumpt, gelagert und
-  über Engines + Konverter verstromt werden muss.
-- Treibstoff: BC-Raffinerie, Pumpe und Tank sind im Umfang (Phase 4, 1:1 aus BC 3.4.3). Raffinieren kostet 12 MJ
-  pro mB (12 000 MJ pro Eimer), der Treibstoff liefert 600 000 MJ pro Eimer – bleibt 1:1.
-- Geothermie bleibt 1:1 (20 000 EU/Lava-Eimer) – lagerbar, mittlere Leistung.
-
-### 3.6 Atomkraft (Rolle: höchste Leistung, Aufwand und Risiko)
-
-- **Unverändert 1:1** (Reaktorlogik ist explizit 1:1 gefordert). Durch die Solar-Änderung wird der Reaktor wieder die
-  stärkste Quelle pro Fläche und pro Ressource.
-
-### 3.7 Umwandler
+- **Nur noch Solarpanels, Feldbonus ×1,2** (Nutzer, 2026-10-24; ersetzt die 3×3-Felder mit LV/MV/HV-Array-Mitte vom
+  2026-10-20). Jedes Panel liefert selbst 1 EU/t; liegt es in einem lückenlosen **9×9-Quadrat** aus Panels auf
+  derselben Höhe, 1,2 EU/t. Eine Stufe, kein Deckel. Ein 9×9-Feld liefert 97 EU/t, ein 10×10-Feld 120 EU/t.
+- Die Compact-Solars-Arrays sind stillgelegt: kein Rezept, keine Leistung, in der Werkbank zerlegbar in 8 der Stufe
+  darunter (`spec/11-compact-solars.md` §4).
+- Folge (bewusst): Solar skaliert nur noch linear mit der Fläche (≈ 1,2 EU/t je Block) und ist damit wieder die
+  pro Fläche schwache, wartungsfreie Quelle – nur am Tag, ohne Regen. Die Großkraftwerke (§3.8) waren gegen ein
+  HV-Feld (1536 EU/t) gerechnet und liegen jetzt deutlich über Solar.
+- Vorher (2026-10-20 bis 2026-10-24): 3×3-Felder, LV ×1,2 / MV ×1,4 / HV ×1,5, bis 1536 EU/t mit 8 MV-Arrays.
 
 - Electrical Engine und Power Converters bleiben 1:1 (bewusste Verluste und Rundungen erhalten).
 
@@ -153,7 +80,7 @@ eine Großanlage ≈ ⅓–⅔ eines HV-Felds, dafür Tag und Nacht. Vorschlagsw
 | Quelle | Leistung typ. | EU/t pro Block Fläche | EU pro Ressource | Zuverlässigkeit |
 |---|---:|---:|---:|---|
 | Solarpanel | 1 (Tag) | 1,0 Spitze / 0,5 Mittel | – (wartungsfrei) | niedrig (nur Tag, kein Regen) |
-| LV/MV/HV Solar Array (3×3) | 19 / 179 / 1536 (Tag, Beispiel-Ring) | 2 / 20 / 171 Spitze | – | niedrig (nur Tag), sehr teuer |
+| Solarfeld 9×9 (seit 2026-10-24) | 97 (Tag, 81 Panels) | 1,2 Spitze / 0,6 Mittel | – (wartungsfrei) | niedrig (nur Tag, kein Regen) |
 | Wassermühle (neu) | bis 2 | ≈ 0,08 (inkl. Wasserfläche) | – | **hoch** (Tag & Nacht) |
 | Wasserturbine | 16–32 | ≈ 0,2–0,65 (inkl. Wasserfläche) | – | **hoch** |
 | Windmühle (neu) | 3–7, Gewitter bis 20 | ≈ 0,04–0,25 (Freiraum 9×9) | – | mittel (Wetter, Wind) |

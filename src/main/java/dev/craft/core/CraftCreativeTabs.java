@@ -6,8 +6,6 @@ import dev.craft.Craft;
 import dev.craft.advancedmachines.AdvancedMachinesItems;
 import dev.craft.buildcraft.BcItems;
 import dev.craft.buildcraft.transport.PipeType;
-import dev.craft.compactsolars.CsItems;
-import dev.craft.compactsolars.SolarArrayType;
 import dev.craft.buildcraft.engine.EngineType;
 import dev.craft.forestry.FrItems;
 import dev.craft.forestry.circuit.CircuitBoardType;
@@ -160,18 +158,6 @@ public final class CraftCreativeTabs {
                     })
                     .build());
 
-    public static final Supplier<CreativeModeTab> COMPACT_SOLARS = TABS.register("compact_solars", () ->
-            CreativeModeTab.builder()
-                    .title(Component.translatable("itemGroup.craft.compact_solars"))
-                    .icon(() -> CsItems.array(SolarArrayType.LV).toStack())
-                    .withTabsBefore(ResourceLocation.fromNamespaceAndPath(Craft.MODID, "power_converters"))
-                    .displayItems((parameters, output) -> {
-                        for (SolarArrayType type : SolarArrayType.values()) {
-                            output.accept(CsItems.array(type));
-                        }
-                    })
-                    .build());
-
     public static final Supplier<CreativeModeTab> POWER_PLANTS = TABS.register("power_plants", () ->
             CreativeModeTab.builder()
                     .title(Component.translatable("itemGroup.craft.power_plants"))
@@ -185,7 +171,7 @@ public final class CraftCreativeTabs {
             CreativeModeTab.builder()
                     .title(Component.translatable("itemGroup.craft.gregtech"))
                     .icon(() -> GtItems.machine(GtMachine.PLATE_BENDING_MACHINE).toStack())
-                    .withTabsBefore(ResourceLocation.fromNamespaceAndPath(Craft.MODID, "compact_solars"))
+                    .withTabsBefore(ResourceLocation.fromNamespaceAndPath(Craft.MODID, "power_converters"))
                     .displayItems((parameters, output) -> {
                         for (GtMachine machine : GtMachine.values()) {
                             output.accept(GtItems.machine(machine));

@@ -1,21 +1,28 @@
 package dev.craft.compactsolars;
 
+import java.util.List;
+
 import dev.craft.Craft;
 import dev.craft.ic2.Ic2Blocks;
+import dev.craft.ic2.Ic2Items;
 import dev.craft.ic2.Ic2Machine;
 import dev.craft.ic2.generator.SolarPanelBlockEntity;
 import dev.craft.ic2.storage.ElectricStorageBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.CraftingInput;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.neoforged.neoforge.gametest.GameTestHolder;
 import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
 
 /**
- * In-world tests for the 3×3 solar array multiblocks (user, 2026-10-20). Arrays are built on the floor (y 1);
- * storage blocks sit below the centre so they do not shade it.
+ * In-world tests for solar power since 2026-10-24 (user): only solar panels, ×1.2 for panels in a complete 9×9 square,
+ * arrays are leftovers. Panels are built on the floor (y 1); storage blocks replace the floor below a panel so they
+ * do not shade it.
  */
 @GameTestHolder(Craft.MODID)
 @PrefixGameTestTemplate(false)
@@ -30,19 +37,17 @@ public final class CompactSolarsGameTests {
         return Ic2Blocks.machine(Ic2Machine.SOLAR_PANEL).get();
     }
 
-    private static Block array(SolarArrayType type) {
-        return CsBlocks.array(type).get();
-    }
-
-    /** Places an array of {@code type} at {@code centre} (relative) and fills its ring with {@code ring}. */
-    private static SolarArrayBlockEntity build(GameTestHelper helper, SolarArrayType type, BlockPos centre,
-                                               Block ring) {
-        for (int x = -1; x <= 1; x++) {
-            for (int z = -1; z <= 1; z++) {
-                helper.setBlock(centre.offset(x, 0, z), x == 0 && z == 0 ? array(type) : ring);
+    /** Fills the {@code size}×{@code size} square with corner {@code corner} (relative) with panels. */
+    private static void square(GameTestHelper helper, BlockPos corner, int size) {
+        for (int x = 0; x < size; x++) {
+            for (int z = 0; z < size; z++) {
+                helper.setBlock(corner.offset(x, 0, z), panel());
             }
         }
-        return helper.getBlockEntity(centre);
+    }
+
+    private static boolean inField(GameTestHelper helper, BlockPos pos) {
+        return SolarPanelBlockEntity.isInField(helper.getLevel(), helper.absolutePos(pos));
     }
 
     /** Clear noon, so parts with open sky see the sun. */
@@ -51,217 +56,109 @@ public final class CompactSolarsGameTests {
         helper.getLevel().setWeatherParameters(24000, 0, false, false);
     }
 
-    /** Re-runs the sun check of all panels within {@code radius} of {@code centre}. */
-    private static void refreshPanels(GameTestHelper helper, BlockPos centre, int radius) {
-        for (int x = -radius; x <= radius; x++) {
-            for (int z = -radius; z <= radius; z++) {
-                if (helper.getLevel().getBlockEntity(helper.absolutePos(centre.offset(x, 0, z)))
-                        instanceof SolarPanelBlockEntity panel) {
-                    panel.updateSunVisibility();
-                }
+    @GameTest(template = EMPTY, batch = BATCH)
+    public static void fullSquareOfPanelsIsAField(GameTestHelper helper) {
+        BlockPos corner = new BlockPos(1, 1, 1);
+        square(helper, corner, 9);
+        // a tenth column and a loose panel next to the square
+        helper.setBlock(corner.offset(9, 0, 0), panel());
+        helper.setBlock(new BlockPos(14, 1, 14), panel());
+        helper.assertTrue(inField(helper, corner), "corner in field");
+        helper.assertTrue(inField(helper, corner.offset(4, 0, 4)), "centre in field");
+        helper.assertTrue(inField(helper, corner.offset(8, 0, 8)), "opposite corner in field");
+        helper.assertFalse(inField(helper, corner.offset(9, 0, 0)), "tenth column without a full square");
+        helper.assertFalse(inField(helper, new BlockPos(14, 1, 14)), "loose panel");
+        helper.succeed();
+    }
+
+    @GameTest(template = EMPTY, batch = BATCH)
+    public static void squareWithAGapIsNoField(GameTestHelper helper) {
+        BlockPos corner = new BlockPos(1, 1, 1);
+        square(helper, corner, 9);
+        helper.destroyBlock(corner.offset(4, 0, 4));
+        helper.assertFalse(inField(helper, corner), "corner");
+        helper.assertFalse(inField(helper, corner.offset(8, 0, 8)), "opposite corner");
+        // a 10×10 square stays a field around one missing corner
+        BlockPos big = new BlockPos(1, 2, 1);
+        square(helper, big, 10);
+        helper.destroyBlock(big);
+        helper.assertTrue(inField(helper, big.offset(9, 0, 9)), "10×10 without a corner");
+        helper.succeed();
+    }
+
+    @GameTest(template = EMPTY, batch = BATCH, timeoutTicks = 120)
+    public static void panelInFieldDeliversOneAndAFifth(GameTestHelper helper) {
+        sunshine(helper);
+        BlockPos corner = new BlockPos(1, 1, 1);
+        square(helper, corner, 9);
+        BlockPos fieldPanel = corner.offset(4, 0, 4);
+        BlockPos loosePanel = new BlockPos(13, 1, 13);
+        helper.setBlock(loosePanel, panel());
+        helper.setBlock(fieldPanel.below(), Ic2Blocks.machine(Ic2Machine.BATBOX).get());
+        helper.setBlock(loosePanel.below(), Ic2Blocks.machine(Ic2Machine.BATBOX).get());
+        helper.runAfterDelay(10, () -> {
+            SolarPanelBlockEntity panel = helper.getBlockEntity(fieldPanel);
+            helper.assertTrue(panel.isInField(), "panel in field");
+            helper.assertTrue(panel.isSunVisible(), "sun");
+            ElectricStorageBlockEntity fieldBox = helper.getBlockEntity(fieldPanel.below());
+            ElectricStorageBlockEntity looseBox = helper.getBlockEntity(loosePanel.below());
+            int fieldBefore = fieldBox.getEnergy();
+            int looseBefore = looseBox.getEnergy();
+            helper.runAfterDelay(50, () -> {
+                helper.assertValueEqual(fieldBox.getEnergy() - fieldBefore, 60, "field panel over 50 ticks");
+                helper.assertValueEqual(looseBox.getEnergy() - looseBefore, 50, "loose panel over 50 ticks");
+                helper.succeed();
+            });
+        });
+    }
+
+    @GameTest(template = EMPTY, batch = BATCH, timeoutTicks = 80)
+    public static void leftoverArrayDeliversNothing(GameTestHelper helper) {
+        sunshine(helper);
+        BlockPos centre = new BlockPos(3, 1, 3);
+        for (int x = -1; x <= 1; x++) {
+            for (int z = -1; z <= 1; z++) {
+                helper.setBlock(centre.offset(x, 0, z), x == 0 && z == 0
+                        ? CsBlocks.array(SolarArrayType.LV).get() : panel());
             }
         }
-    }
-
-    private static long now(GameTestHelper helper) {
-        return helper.getLevel().getGameTime();
-    }
-
-    @GameTest(template = EMPTY, batch = BATCH, timeoutTicks = 60)
-    public static void lvArrayFormsAndLeasesPanels(GameTestHelper helper) {
-        BlockPos centre = new BlockPos(3, 1, 3);
-        SolarArrayBlockEntity array = build(helper, SolarArrayType.LV, centre, panel());
-        helper.succeedWhen(() -> {
-            helper.assertTrue(array.isFormed(), "LV array not formed");
-            SolarPanelBlockEntity panel = helper.getBlockEntity(centre.east());
-            helper.assertValueEqual(panel.getArrayLease().getOwner(now(helper)), array.getBlockPos(), "panel owner");
-        });
-    }
-
-    @GameTest(template = EMPTY, batch = BATCH, timeoutTicks = 80)
-    public static void lvArrayDeliversItsPanelsWithBonus(GameTestHelper helper) {
-        sunshine(helper);
-        BlockPos centre = new BlockPos(3, 1, 3);
-        SolarArrayBlockEntity array = build(helper, SolarArrayType.LV, centre, panel());
-        // A loose panel keeps producing itself (storage 1 without a consumer); leased panels produce nothing.
-        BlockPos loose = new BlockPos(10, 1, 10);
-        helper.setBlock(loose, panel());
-        BlockPos batboxPos = centre.below();
-        helper.setBlock(batboxPos, Ic2Blocks.machine(Ic2Machine.BATBOX).get());
-        helper.runAfterDelay(1, () -> {
-            refreshPanels(helper, centre, 1);
-            refreshPanels(helper, loose, 0);
-        });
-        helper.runAfterDelay(30, () -> {
-            helper.assertValueEqual(array.getSunnyValue(), 16, "sunny value");
-            helper.assertTrue(array.isDelivering(), "array not delivering");
-            SolarPanelBlockEntity leased = helper.getBlockEntity(centre.north());
-            helper.assertValueEqual(leased.getStorage(), 0, "leased panel storage");
-            SolarPanelBlockEntity free = helper.getBlockEntity(loose);
-            helper.assertValueEqual(free.getStorage(), 1, "loose panel storage");
-            ElectricStorageBlockEntity batbox = helper.getBlockEntity(batboxPos);
-            int before = batbox.getEnergy();
-            // (8 + 8) · 1.2 = 19 EU/t in packets of 8
-            helper.runAfterDelay(10, () -> {
-                helper.assertValueEqual(batbox.getEnergy() - before, 190, "BatBox gain over 10 ticks");
-                helper.succeed();
-            });
-        });
-    }
-
-    @GameTest(template = EMPTY, batch = BATCH, timeoutTicks = 80)
-    public static void mvArrayLeasesLvArraysOfItsRing(GameTestHelper helper) {
-        sunshine(helper);
-        BlockPos centre = new BlockPos(5, 1, 5);
-        SolarArrayBlockEntity mv = build(helper, SolarArrayType.MV, centre, array(SolarArrayType.LV));
-        BlockPos mfePos = centre.below();
-        helper.setBlock(mfePos, Ic2Blocks.machine(Ic2Machine.MFE).get());
-        helper.runAfterDelay(50, () -> {
-            helper.assertTrue(mv.isFormed(), "MV array not formed");
-            helper.assertValueEqual(mv.getSunnyValue(), 128, "sunny value");
-            helper.assertTrue(mv.isDelivering(), "MV array not delivering");
-            SolarArrayBlockEntity lv = helper.getBlockEntity(centre.offset(-1, 0, -1));
-            helper.assertValueEqual(lv.getLease().getOwner(now(helper)), mv.getBlockPos(), "LV array owner");
-            helper.assertFalse(lv.isDelivering(), "LV array in the ring delivers");
-            ElectricStorageBlockEntity mfe = helper.getBlockEntity(mfePos);
-            int before = mfe.getEnergy();
-            // (64 + 8 · 8) · 1.4 = 179 EU/t
-            helper.runAfterDelay(10, () -> {
-                helper.assertValueEqual(mfe.getEnergy() - before, 1790, "MFE gain over 10 ticks");
-                helper.succeed();
-            });
-        });
-    }
-
-    @GameTest(template = EMPTY, batch = BATCH, timeoutTicks = 80)
-    public static void hvArrayWithMvRingDeliversInHvPackets(GameTestHelper helper) {
-        sunshine(helper);
-        BlockPos centre = new BlockPos(5, 1, 5);
-        SolarArrayBlockEntity hv = build(helper, SolarArrayType.HV, centre, array(SolarArrayType.MV));
-        BlockPos mfsuPos = centre.below();
-        helper.setBlock(mfsuPos, Ic2Blocks.machine(Ic2Machine.MFSU).get());
-        helper.runAfterDelay(50, () -> {
-            helper.assertTrue(hv.isFormed(), "HV array not formed");
-            helper.assertValueEqual(hv.getSunnyValue(), 1024, "sunny value");
-            ElectricStorageBlockEntity mfsu = helper.getBlockEntity(mfsuPos);
-            int before = mfsu.getEnergy();
-            // (512 + 8 · 64) · 1.5 = 1536 EU/t in three packets of 512
-            helper.runAfterDelay(10, () -> {
-                helper.assertValueEqual(mfsu.getEnergy() - before, 15360, "MFSU gain over 10 ticks");
-                helper.succeed();
-            });
-        });
-    }
-
-    @GameTest(template = EMPTY, batch = BATCH, timeoutTicks = 80)
-    public static void ringMixesPanelsAndArraysUpToTheCentresTier(GameTestHelper helper) {
-        sunshine(helper);
-        BlockPos centre = new BlockPos(5, 1, 5);
-        SolarArrayBlockEntity mv = build(helper, SolarArrayType.MV, centre, panel());
-        helper.setBlock(centre.north(), array(SolarArrayType.MV));
-        helper.setBlock(centre.south(), array(SolarArrayType.MV));
-        helper.setBlock(centre.east(), array(SolarArrayType.LV));
-        helper.setBlock(centre.west(), array(SolarArrayType.LV));
-        helper.runAfterDelay(1, () -> refreshPanels(helper, centre, 1));
-        helper.runAfterDelay(50, () -> {
-            helper.assertTrue(mv.isFormed(), "MV array not formed");
-            // 64 + 2 · 64 + 2 · 8 + 4 · 1
-            helper.assertValueEqual(mv.getSunnyValue(), 212, "sunny value");
-            helper.setBlock(centre.east(), array(SolarArrayType.HV));
-            helper.runAfterDelay(SolarArrayBlockEntity.CHECK_INTERVAL + 1, () -> {
-                helper.assertFalse(mv.isFormed(), "MV array formed with an HV array in its ring");
-                helper.assertFalse(mv.isDelivering(), "MV array delivers");
-                helper.succeed();
-            });
-        });
-    }
-
-    @GameTest(template = EMPTY, batch = BATCH, timeoutTicks = 80)
-    public static void shadedPartsCountNothing(GameTestHelper helper) {
-        sunshine(helper);
-        BlockPos centre = new BlockPos(5, 1, 5);
-        SolarArrayBlockEntity mv = build(helper, SolarArrayType.MV, centre, array(SolarArrayType.LV));
-        helper.setBlock(centre.above(), Blocks.STONE);
-        helper.setBlock(centre.north().above(), Blocks.STONE);
-        helper.runAfterDelay(50, () -> {
-            helper.assertValueEqual(mv.getSunnyValue(), 7 * 8, "sunny value");
+        helper.setBlock(centre.below(), Ic2Blocks.machine(Ic2Machine.BATBOX).get());
+        helper.runAfterDelay(40, () -> {
+            ElectricStorageBlockEntity batbox = helper.getBlockEntity(centre.below());
+            helper.assertValueEqual(batbox.getEnergy(), 0, "BatBox under the array");
+            SolarPanelBlockEntity ringPanel = helper.getBlockEntity(centre.east());
+            helper.assertTrue(ringPanel.getStorage() > 0, "panels next to an array produce themselves");
             helper.succeed();
         });
     }
 
-    /**
-     * Every field is a unit of its own 9 blocks: the centre of a running field never becomes part of another one. The
-     * new array placed into its ring cannot form a field of its own and ends up as a part of the running field.
-     */
-    @GameTest(template = EMPTY, batch = BATCH, timeoutTicks = 140)
-    public static void runningFieldIsNeverTakenOver(GameTestHelper helper) {
-        sunshine(helper);
-        BlockPos centre = new BlockPos(5, 1, 5);
-        BlockPos firstPos = centre.east();
-        SolarArrayBlockEntity first = build(helper, SolarArrayType.MV, firstPos, panel());
-        for (int z = -1; z <= 1; z++) {
-            helper.setBlock(centre.offset(-1, 0, z), panel());
+    @GameTest(template = EMPTY, batch = BATCH)
+    public static void arraysComeApartIntoTheTierBelow(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        ItemStack panels = craft(level, new ItemStack(CsItems.array(SolarArrayType.LV).get()));
+        helper.assertTrue(panels.is(Ic2Items.machine(Ic2Machine.SOLAR_PANEL).get()) && panels.getCount() == 8,
+                "LV → 8 panels");
+        ItemStack lv = craft(level, new ItemStack(CsItems.array(SolarArrayType.MV).get()));
+        helper.assertTrue(lv.is(CsItems.array(SolarArrayType.LV).get()) && lv.getCount() == 8, "MV → 8 LV");
+        ItemStack mv = craft(level, new ItemStack(CsItems.array(SolarArrayType.HV).get()));
+        helper.assertTrue(mv.is(CsItems.array(SolarArrayType.MV).get()) && mv.getCount() == 8, "HV → 8 MV");
+        ItemStack[] ring = new ItemStack[9];
+        for (int i = 0; i < 9; i++) {
+            ring[i] = new ItemStack(Ic2Items.machine(Ic2Machine.SOLAR_PANEL).get());
         }
-        helper.runAfterDelay(1, () -> refreshPanels(helper, centre, 2));
-        helper.runAfterDelay(40, () -> {
-            helper.assertTrue(first.isCentre() && first.isDelivering(), "first field not running");
-            // An MV array in the ring of the first field, itself surrounded by panels and the first array.
-            helper.setBlock(centre, array(SolarArrayType.MV));
-            helper.runAfterDelay(50, () -> {
-                SolarArrayBlockEntity second = helper.getBlockEntity(centre);
-                helper.assertFalse(second.isCentre(), "second array became a centre");
-                helper.assertFalse(second.isDelivering(), "second array delivers");
-                helper.assertFalse(first.getLease().isHeld(now(helper)), "first array taken over");
-                helper.assertTrue(first.isCentre() && first.isDelivering(), "first field stopped");
-                helper.assertValueEqual(second.getLease().getOwner(now(helper)), first.getBlockPos(), "second owner");
-                // 64 + 64 for the new MV array + 7 panels
-                helper.assertValueEqual(first.getSunnyValue(), 135, "first field");
-                helper.succeed();
-            });
-        });
+        ring[4] = new ItemStack(Ic2Items.machine(Ic2Machine.LV_TRANSFORMER).get());
+        helper.assertTrue(craft(level, 3, 3, List.of(ring)).isEmpty(), "no recipe for arrays");
+        helper.succeed();
     }
 
-    @GameTest(template = EMPTY, batch = BATCH, timeoutTicks = 120)
-    public static void brokenArrayReleasesItsPanels(GameTestHelper helper) {
-        BlockPos centre = new BlockPos(3, 1, 3);
-        SolarArrayBlockEntity array = build(helper, SolarArrayType.LV, centre, panel());
-        helper.runAfterDelay(25, () -> {
-            helper.assertTrue(array.isFormed(), "LV array not formed");
-            helper.setBlock(centre.west(), Blocks.AIR);
-        });
-        helper.runAfterDelay(25 + SolarArrayBlockEntity.CHECK_INTERVAL + SolarArrayBlockEntity.LEASE_DURATION + 1,
-                () -> {
-                    helper.assertFalse(array.isFormed(), "array still formed");
-                    SolarPanelBlockEntity panel = helper.getBlockEntity(centre.east());
-                    helper.assertFalse(panel.getArrayLease().isHeld(now(helper)), "panel still leased");
-                    helper.succeed();
-                });
+    private static ItemStack craft(ServerLevel level, ItemStack single) {
+        return craft(level, 1, 1, List.of(single));
     }
 
-    /** Only the 9 blocks of one field work together: a field sharing a block with another one delivers nothing. */
-    @GameTest(template = EMPTY, batch = BATCH, timeoutTicks = 160)
-    public static void fieldSharingABlockWithAnotherDeliversNothing(GameTestHelper helper) {
-        sunshine(helper);
-        BlockPos first = new BlockPos(3, 1, 3);
-        SolarArrayBlockEntity a = build(helper, SolarArrayType.LV, first, panel());
-        helper.runAfterDelay(25, () -> {
-            // Second array two blocks east: shares the east column of the first one.
-            SolarArrayBlockEntity b = build(helper, SolarArrayType.LV, first.east(2), panel());
-            refreshPanels(helper, first, 3);
-            helper.runAfterDelay(25, () -> {
-                helper.assertValueEqual(a.getSunnyValue(), 16, "first field");
-                helper.assertValueEqual(b.getSunnyValue(), 0, "second field");
-                helper.assertFalse(b.isDelivering(), "second field delivers");
-                SolarPanelBlockEntity own = helper.getBlockEntity(first.east(3));
-                helper.assertFalse(own.getArrayLease().isHeld(now(helper)), "blocked field holds its own panels");
-                // Without the first field the shared panels lapse and the second one takes over.
-                helper.setBlock(first, Blocks.AIR);
-                helper.runAfterDelay(SolarArrayBlockEntity.LEASE_DURATION + SolarArrayBlockEntity.CHECK_INTERVAL + 1,
-                        () -> {
-                            helper.assertValueEqual(b.getSunnyValue(), 16, "second field after the first is gone");
-                            helper.succeed();
-                        });
-            });
-        });
+    private static ItemStack craft(ServerLevel level, int width, int height, List<ItemStack> items) {
+        CraftingInput input = CraftingInput.of(width, height, items);
+        return level.getRecipeManager().getRecipeFor(RecipeType.CRAFTING, input, level)
+                .map(recipe -> recipe.value().assemble(input, level.registryAccess()))
+                .orElse(ItemStack.EMPTY);
     }
 }

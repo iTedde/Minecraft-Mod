@@ -775,15 +775,14 @@ public final class CraftRecipeProvider extends RecipeProvider {
                 .define('R', PpItems.STEEL_WIND_ROTOR).save();
     }
 
-    // --- Compact Solars (multiblock variant, spec 11 §4): shapeless transformer → controller ---
+    // --- Compact Solars (spec 11 §4): arrays are leftovers, only taken apart ---
 
     private void compactSolars() {
-        // Original Compact Solars recipes: 8 of the tier below around its transformer (user, 2026-10-20)
+        // No more arrays (user, 2026-10-24): each one gives back the 8 of the tier below it was made of
         for (SolarArrayType type : SolarArrayType.values()) {
             ItemLike lower = type.ordinal() == 0 ? machine(Ic2Machine.SOLAR_PANEL)
                     : CsItems.array(SolarArrayType.values()[type.ordinal() - 1]);
-            shaped(CsItems.array(type), 1, type.getName()).pattern("SSS", "SXS", "SSS").define('S', lower)
-                    .define('X', machine(type.getTransformer())).save();
+            shapeless(lower, 8, type.getName() + "_disassembly", Ingredient.of(CsItems.array(type)));
         }
     }
 

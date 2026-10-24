@@ -3,6 +3,8 @@ package dev.craft.compat.emi;
 import java.util.HashMap;
 import java.util.Map;
 
+import dev.craft.compactsolars.CsItems;
+import dev.craft.compactsolars.SolarArrayType;
 import dev.craft.core.client.ExtraAreas;
 import dev.craft.core.client.RecipeArea;
 import dev.craft.core.client.RecipeCategories;
@@ -48,6 +50,10 @@ public class CraftEmiPlugin implements EmiPlugin {
         // block items only shown in holo slots of the GT electrolyzer and centrifuge
         registry.removeEmiStacks(EmiStack.of(GtItems.WATER.get()));
         registry.removeEmiStacks(EmiStack.of(GtItems.LAVA.get()));
+        // leftover solar arrays (spec 11 §4): only their disassembly recipe remains
+        for (SolarArrayType type : SolarArrayType.values()) {
+            registry.removeEmiStacks(EmiStack.of(CsItems.array(type).get()));
+        }
 
         // Forestry ledgers to the right of the GUI
         registry.addGenericExclusionArea((screen, consumer) -> {

@@ -68,7 +68,7 @@ dazu kommen <a href="#/aenderungen">neue Kraftwerke und eine Mining-Dimension</a
 
 <h2 id="home--neu">Neu und geändert</h2>
 <div class="cards">
-{card('solar-arrays', 'craft:lv_solar_array', 'Solar Arrays', 'Compact Solars als 3×3-Felder mit Bonus für die Mitte.', CHG)}
+{card('solar-arrays', 'craft:solar_panel', 'Solar', 'Nur noch Solarpanels: jedes liefert 1 EU/t, im 9×9-Feld 1,2 EU/t.', CHG)}
 {card('wassermuehle', 'craft:water_mill', 'Wassermühle', 'Bis 2 EU/t aus fließendem Wasser statt 0,26 EU/t.', CHG)}
 {card('windmuehle', 'craft:wind_mill', 'Windmühle', 'Faktor 2,5, Gewitter ×3, geht nie kaputt.', CHG)}
 {card('koksofen', 'craft:coke_oven', 'Koksofen', '3×3×3-Multiblock: Kohle → Koks ohne Strom.', NEW)}
@@ -86,7 +86,7 @@ dazu kommen <a href="#/aenderungen">neue Kraftwerke und eine Mining-Dimension</a
 {card('mod-buildcraft', 'craft:quarry', 'BuildCraft', f"MJ, Engines, Quarry, Öl, Raffinerie, Rohre · {groups.get('BuildCraft', 0)} Einträge")}
 {card('mod-forestry', 'craft:electrical_engine', 'Forestry', f"Electrical Engine, Röhren, Platinen, Fabricator, Carpenter · {groups.get('Forestry', 0)} Einträge")}
 {card('mod-powerconverters', 'craft:energy_bridge', 'Power Converters', f"MJ ↔ EU über die Energy Bridge · {groups.get('Power Converters', 0)} Einträge")}
-{card('solar-arrays', 'craft:hv_solar_array', 'Compact Solars', f"Solar Arrays (als Multiblocks) · {groups.get('Compact Solars', 0)} Einträge")}
+{card('solar-arrays', 'craft:hv_solar_array', 'Compact Solars', f"Solar Arrays (stillgelegt, zerlegbar) · {groups.get('Compact Solars', 0)} Einträge")}
 </div>
 
 <h2 id="home--prinzip">Das Grundprinzip in drei Sätzen</h2>
@@ -158,12 +158,12 @@ nach Art der Änderung. Jede Zeile verlinkt auf eine ausführliche Seite; die vo
 <b>Rezepte und Kosten bleiben, gebalanct wird über Leistung, Effizienz und Platzbedarf.</b>
 Details und Begründung: <a href="#/energie">Energiequellen im Vergleich</a>.</p>
 {h.table(['Thema', 'Original', 'Craft'], [
-    row('Compact Solar Arrays', 'ein Block je Stufe: 8 / 64 / 512 EU/t', 'Rezepte wie im Original; ein Array liefert nur als Mitte eines 3×3-Felds (Ring aus Panels/Arrays bis zur eigenen Stufe), Leistung = (Mitte + Ring) × 1,2 / 1,4 / 1,5', 'solar-arrays', CHG),
+    row('Solar', 'Solarpanel 1 EU/t; Compact Solar Arrays: ein Block je Stufe 8 / 64 / 512 EU/t', 'nur noch Solarpanels: 1 EU/t, im lückenlosen 9×9-Feld 1,2 EU/t; Arrays ohne Rezept und Leistung, in der Werkbank zerlegbar', 'solar-arrays', CHG),
     row('Wassermühle', '3×3×3 Wasserblöcke zählen, max. 0,26 EU/t', '5×5×3-Bereich, fließendes Wasser 0,04 EU/t je Block, Biom-Bonus, bis 2 EU/t', 'wassermuehle', CHG),
     row('Windmühle', 'Faktor 1, Regen ×1,2, Gewitter ×1,5, Bruch ab 5 EU/t, Puffer 4', 'Faktor 2,5, Regen ×1,5, Gewitter ×3, kein Zerfall, Puffer 16', 'windmuehle', CHG),
     row('Koks', '– (im Pack nur über Railcraft, das nicht nachgebaut wird)', 'neues Item: im Generator wie Kohle, im Kohlekraftwerk doppelt so viel', 'koksofen', NEW),
 ])}
-<p>Unverändert 1:1 bleiben: IC2-Generator, Geothermie, Solarpanel, alle BuildCraft-Engines, Öl und Treibstoff, Electrical
+<p>Unverändert 1:1 bleiben: IC2-Generator, Geothermie, alle BuildCraft-Engines, Öl und Treibstoff, Electrical
 Engine, Power Converters und der Kernreaktor.</p>
 
 <h2 id="chg--neu">2. Komplett neue Inhalte (kein Vorbild im Pack)</h2>
@@ -217,32 +217,30 @@ Diese hier bemerkt man im Spiel:</p>
         ('Wassermühle (neu)', 2, 'bis 2 EU/t, Tag und Nacht'),
         ('Windmühle (neu, y 128)', 3.2, 'Gewitter bis ≈ 9,6 EU/t'),
         ('IC2-Generator', 10, '4 000 EU je Kohle'),
-        ('LV Solar Array', 19, '3×3, 8 Solarpanels im Ring'),
         ('Kessel + Dampfturbine', 20, 'je Kessel; bis 64 mit 3 Kesseln'),
         ('Geothermiegenerator', 20, '20 000 EU je Lava-Eimer'),
         ('Wasserturbine', 32, 'Deckel, braucht Fluss'),
         ('Große Windturbine (y 200)', 136, 'Carbon-Rotor; Gewitter bis 384'),
-        ('MV Solar Array', 179, '3×3, 8 LV-Arrays im Ring'),
+        ('Solarfeld 9×9', 97.2, '81 Solarpanels × 1,2, nur am Tag'),
         ('Große Wasserturbine', 256, 'Deckel, ab 256 fließenden Blöcken'),
         ('Hochdruckkraftwerk', 480, '3 Hochdruckkessel + Große Dampfturbine'),
         ('Kernreaktor (typisch)', 400, '60–400+ EU/t je nach Design'),
-        ('HV Solar Array', 1536, '3×3, 8 MV-Arrays im Ring, 3 Pakete à 512'),
     ]
     mx = max(b[1] for b in bars)
     bar_html = ''.join(
         f'<div class="brow" data-tip="{h.esc(t)}"><span class="bl">{h.esc(n)}</span><span class="bt"><span class="bf" style="display:block;width:{v_ / mx * 100:.2f}%"></span></span>'
         f'<span class="bv">{str(v_).replace(".", ",")} EU/t</span></div>' for n, v_, t in bars)
     energie = f'''<h1>Energiequellen im Vergleich</h1>
-<p class="lead">Das Ziel des Balancings: <b>Solar ist wartungsfrei und kompakt, aber teuer und nur am Tag, Wasser die zuverlässige Mittelklasse, Wind
+<p class="lead">Das Ziel des Balancings: <b>Solar ist wartungsfrei, braucht aber viel Fläche und liefert nur am Tag, Wasser die zuverlässige Mittelklasse, Wind
 wetterabhängig mit Gewitterspitzen, Kohle hat einen Ausbaupfad, Öl ist die lagerbare Hochenergie, Atom die Spitze.</b></p>
 <h2 id="en--leistung">Typische Leistung je Anlage (Craft)</h2>
 <div class="bars" role="img" aria-label="Typische Leistung je Anlage in EU pro Tick">{bar_html}</div>
 <p style="font-size:12px;color:var(--muted)">Spitzenleistung; Solar liefert im Tagesmittel nur etwa die Hälfte (nur bei Tag, kein Regen).
-Die Solar-Felder sind 3×3 groß, aber teuer: in den Beispielen stecken 16 / 128 / 1024 Solarpanels.</p>
+Solar wächst nur mit der Fläche: rund 1,2 EU/t je Block im 9×9-Feld.</p>
 <h2 id="en--tabelle">Vergleichstabelle</h2>
 {h.table(['Quelle', 'Leistung typ.', 'EU/t pro Block Fläche', 'EU pro Ressource', 'Zuverlässigkeit'], [
     ['Solarpanel', '1 (Tag)', '1,0 Spitze / 0,5 Mittel', '– (wartungsfrei)', 'niedrig (nur Tag, kein Regen)'],
-    [f'LV/MV/HV Solar Array {CHG}', '19 / 179 / 1536 (Tag, 3×3-Feld)', '2 / 20 / 171 Spitze', '– (sehr teuer)', 'niedrig (nur Tag, kein Regen)'],
+    [f'Solarfeld 9×9 {CHG}', '97 (Tag, 81 Panels)', '1,2 Spitze / 0,6 Mittel', '– (wartungsfrei)', 'niedrig (nur Tag, kein Regen)'],
     [f'Wassermühle {CHG}', 'bis 2', '≈ 0,08 (inkl. Wasserfläche)', '–', '<b>hoch</b> (Tag & Nacht)'],
     [f'Wasserturbine {NEW}', '16–32', '≈ 0,5–0,65 (inkl. Wasserring)', '–', '<b>hoch</b>'],
     [f'Windmühle {CHG}', '3–7, Gewitter bis 20', '≈ 0,04–0,25 (Freiraum 9×9)', '–', 'mittel (Wetter, Wind)'],
@@ -487,8 +485,8 @@ Seitenfläche, 26 Wasserturbinengehäuse. Gezählt wird fließendes Wasser bis 5
     ('Herkunft', NEW + ' Craft (Kraftwerke, Phase 21)'), ('Anlagen', 'Hochdruckkessel, Große Dampf-, Wasser- und Windturbine'),
     ('Stufe', '<b>HV</b> (Pakete bis 512)'), ('Leistung', 'Dampf bis 512, Wasser bis 256, Wind bis 384 EU/t'),
 ])}
-<p class="lead">Die zweite Ausbaustufe für Kohle, Wasser und Wind. Ein HV-Solarfeld liefert 1536 EU/t – aber nur am Tag. Die
-Großanlagen schaffen je ⅙–⅓ davon, <b>rund um die Uhr</b>. Die kleinen Anlagen bleiben unverändert.</p>
+<p class="lead">Die zweite Ausbaustufe für Kohle, Wasser und Wind: 256 bis 512 EU/t je Anlage, <b>rund um die Uhr</b>. Zum Vergleich: Ein
+9×9-Solarfeld liefert 97 EU/t, und das nur am Tag. Die kleinen Anlagen bleiben unverändert.</p>
 
 <h2 id="gk--ueberblick">Welche Anlage wofür?</h2>
 {h.table(['Anlage', 'Leistung', 'braucht dauerhaft', 'Aufwand', 'gut, wenn …'], [
@@ -804,7 +802,7 @@ braucht vieles früh GT-Materialien (Platten, Stahl).</p>
 </ul>
 <h2 id="fo--5">5. Late Game</h2>
 <ul>
-<li>{c('mfsu')} (10 Mio. EU, HV 512), <a href="#/solar-arrays">Solar Arrays</a>, Nano- und Quantenrüstung, Bergbaulaser.</li>
+<li>{c('mfsu')} (10 Mio. EU, HV 512), große <a href="#/solar-arrays">Solarfelder</a>, Nano- und Quantenrüstung, Bergbaulaser.</li>
 <li>{c('nuclear_reactor')} (60–400+ EU/t), Massefabrikator, Teleporter, Terraformer, Iridium.</li>
 </ul>
 {h.note('tip', 'Mit EMI siehst du im Spiel jedes Rezept: über einem Gegenstand <b>R</b> drücken. Bei Rohstoffen steht die Herkunft im Tab „Info“ neben den Rezepten, im Tooltip hilft <b>Shift</b>.')}

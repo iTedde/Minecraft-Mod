@@ -2390,3 +2390,23 @@ Nutzerwunsch; nur mitinstalliert per `manifest.json` `files` (keine Integration,
 - **Client-Test offen** (Paket 1.0.7 importieren).
 - Neu geplant: „Advanced Jetpack“ = GraviSuite aus dem Pack → **Phase 27** (kompletter Umfang); „Tech-Rüstung“ =
   Modular Powersuits aus dem Pack → **Phase 28**. Beide zuerst Spezifikation.
+
+## Erledigt (Phase 29.1 Solar-Umbau, Nutzer, 2026-10-24)
+Nutzerwunsch: „Es soll nur Solarpanels geben … Die sollen auch alle liefern … ab z. B. 9×9 Felder ein kleiner Bonus für
+alle, z. B. ×1,2.“ Entscheidungen Nutzer: Bonus für Panels in einem **lückenlosen 9×9-Quadrat** auf derselben Höhe, nur
+**eine Stufe** (×1,2); alte Arrays **zurückbauen** statt löschen.
+- [x] `SolarPanelBlockEntity`: jedes Panel liefert selbst (Lease der Arrays entfernt); `isInField` prüft alle 128 Ticks
+  (mit der Sonne, dazu beim ersten Tick) per Präfixsummen über die 17×17-Umgebung; im Feld jeden 5. besonnten Tick
+  2 EU statt 1, Paketgröße 1/2, Puffer 2.
+- [x] Arrays stillgelegt: Block-Entity nur noch mit Lade-Slot/GUI (keine Leistung, kein Netz), `SolarArrayPatterns`
+  entfernt, kein Rezept, Kreativtab „Compact Solars“ entfällt, in EMI ausgeblendet; Zerlege-Rezepte
+  `craft:<lv|mv|hv>_solar_array_disassembly` (1 → 8 der Stufe darunter). EMI-Info „Solarfeld“ am Solarpanel.
+- [x] Doku: `balancing.md` §3.1/§4, `spec/11` §4 neu, `abweichungen.md`, `architektur.md`, `testplan.md` 8.1b; Wiki-Seite
+  „Solar“ (Regel, Bauanleitung, Rechner Breite × Länge, alte Arrays), Vergleichstabellen, Energie-Steckbrief.
+- [x] GameTests `CompactSolarsGameTests` neu (5: Feld, Lücke/10×10, 60 EU in 50 Ticks im Feld gegen 50 einzeln,
+  Array liefert nichts, Zerlegen/kein Array-Rezept); Unit-Test `SolarArrayPatternsTest` entfernt. Alle 455 grün,
+  `gradlew runData build` grün.
+- [x] Craft **1.0.5** (`releases/craft-1.0.5.jar`), Paket `releases/Craft-1.0.8-curseforge.zip` (wie 1.0.7 mit Craft 1.0.5);
+  Testserver mit Create + neuen Paket-Mods startet („Done“).
+- Folge: Die Großkraftwerke (gegen ein HV-Feld mit 1536 EU/t ausgelegt) liegen jetzt weit über Solar (9×9 = 97 EU/t).
+- **Client-Test offen** (Testplan 8.1b).

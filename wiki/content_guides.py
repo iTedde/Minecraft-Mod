@@ -3,8 +3,8 @@
 Every statement was checked against docs/spec and the code in dev.craft.powerplants / compactsolars / ic2:
 - controllers face the player when placed (opposite of the horizontal look direction), the structure lies behind
   them; the IC2 wrench cannot turn them (wrenchCanSetFacing = false)
-- turbine/water turbine/solar array controllers emit EU to every side; turbine casings of a formed turbine conduct
-  EU losslessly (only from their own turbine), solar array panels do not
+- turbine/water turbine controllers emit EU to every side; turbine casings of a formed turbine conduct
+  EU losslessly (only from their own turbine); every solar panel emits itself (solar arrays are leftovers since 2026-10-24)
 - the boiler pushes up to 1000 mB steam per tick into every fluid handler next to its outer faces (round robin);
   all boiler blocks accept only water and give only steam; all turbine blocks accept only steam
 - item access: top/sides = input, bottom = output (coke oven: coke, boiler: ash)
@@ -55,7 +55,7 @@ aufgeteilt – das Paket kommt um den Kabelverlust kleiner an.</li>
 <li>Die Energie sucht sich automatisch den Weg zu allen Verbrauchern, die Strom wollen. Verbraucher, die nichts brauchen, bekommen nichts.</li>
 </ul>
 {h.table(['Stufe', 'Paket bis', 'typische Quellen', 'sichere Empfänger', 'passende Kabel'], [
-    ['<b>LV</b>', '32 EU', 'Generator, Geothermie, Wasser-/Windmühle, Solarpanel, LV-Array (8), Wasserturbine (32)', f"{c('batbox')}, alle Standardmaschinen", f"{c('insulated_copper_cable')} (0,2 EU Verlust/Block), {c('tin_cable')} nur bis 5 EU"],
+    ['<b>LV</b>', '32 EU', 'Generator, Geothermie, Wasser-/Windmühle, Solarpanel (1, im 9×9-Feld 2er Pakete), Wasserturbine (32)', f"{c('batbox')}, alle Standardmaschinen", f"{c('insulated_copper_cable')} (0,2 EU Verlust/Block), {c('tin_cable')} nur bis 5 EU"],
     ['<b>MV</b>', '128 EU', 'MFE, <b>Dampfturbine (bis 64)</b>, MV-Array (64)', f"{c('mfe')}, LV-Transformator (Eingang)", f"{c('insulated_gold_cable')}, {c('double_insulated_gold_cable')}"],
     ['<b>HV</b>', '512 EU', 'MFSU, HV-Array (2 × 512 je Tick)', f"{c('mfsu')}, MV-Transformator (Eingang)", f"{c('glass_fibre_cable')} (0,025 EU/Block)"],
     ['<b>EV</b>', '2048 EU', 'HV-Transformator (hohe Seite)', 'HV-Transformator (Eingang)', f"{c('hv_cable')} und isolierte Varianten"],
@@ -410,95 +410,69 @@ breitet sich am Boden rund um die Turbine aus – alles davon liegt im Messberei
 '''
     page('wasserturbine', 'Wasserturbine', 'Neu & geändert', wt)
 
-    # ================================================================== Solar arrays
-    P_ = ('craft:solar_panel', 'Solarpanel', 'pan')
-    LV_ = ('craft:lv_solar_array', 'LV Solar Array', 'ctrl')
-    MV_ = ('craft:mv_solar_array', 'MV Solar Array', 'ctrl')
-    HV_ = ('craft:hv_solar_array', 'HV Solar Array', 'ctrl')
-    key_lv = {'P': P_, 'L': LV_}
-    key_mv = {'L': LV_, 'M': MV_}
-    key_hv = {'M': MV_, 'H': HV_}
-    key_mix = {'P': P_, 'L': LV_, 'M': MV_}
-    solar = f'''<h1>Solar Arrays (Compact Solars)</h1>
-{h.infobox('Solar Arrays', 'craft:hv_solar_array', [
-    ('Herkunft', 'Compact Solars 4.0'), ('Status', CHG + ' Balancing'), ('Stufen', 'LV · MV · HV'), ('Fläche', 'immer 3×3'),
-    ('Grundwert', 'Panel 1 · LV 8 · MV 64 · HV 512 EU/t'), ('Bonus der Mitte', 'LV ×1,2 · MV ×1,4 · HV ×1,5'),
-    ('Paket', '8 · 64 · 512 EU (LV · MV · HV), so viele wie nötig'),
-    ('Rezept', 'wie im Original: 8 der Stufe darunter + Trafo'), ('Abbau', 'Schraubenschlüssel oder Spitzhacke, droppt sich selbst'),
+    # ================================================================== Solar (since 2026-10-24: panels only)
+    P_ = ('craft:solar_panel', 'Solarpanel mit Bonus', 'pan')
+    p_ = ('craft:solar_panel', 'Solarpanel ohne Bonus', 'flow')
+    key_field = {'P': P_, 'p': p_}
+    solar = f'''<h1>Solar: Solarpanels und Solarfelder</h1>
+{h.infobox('Solarpanel', 'craft:solar_panel', [
+    ('Herkunft', 'IndustrialCraft 2'), ('Status', CHG + ' Balancing (2026-10-24)'), ('Leistung', '1 EU/t bei Sonne'),
+    ('Feldbonus', '<b>×1,2</b> im lückenlosen 9×9-Quadrat'), ('Paket', 'LV (1 bzw. 2 EU)'),
+    ('Solar Arrays', 'stillgelegt, nur noch zerlegbar'),
 ])}
-<p class="lead">Im Original war ein Solar Array <b>ein einzelner Block</b> mit 8, 64 oder 512 EU/t. In Craft liefert ein Array nur, wenn es
-in der <b>Mitte eines 3×3-Felds</b> steht – umringt von Solarpanels oder anderen Arrays. Für diese Aufstellung gibt es einen <b>Bonus</b>.</p>
-{h.compare('<ul><li>1 Block = 8 / 64 / 512 EU/t, einzeln aufstellbar</li><li>Rezept: 8 Panels (+ Trafo) → LV, 8 LV → MV, 8 MV → HV</li><li>dazu Solar-Hüte als Rüstung</li></ul>',
-           '<ul><li>gleiche Rezepte</li><li>Array liefert nur in der Mitte eines 3×3-Felds</li><li>Leistung = <b>(Mitte + Ring) × Bonus</b></li><li>Solar-Hüte entfallen</li></ul>')}
+<p class="lead">Solarstrom kommt in Craft nur noch aus dem <b>IC2-Solarpanel</b>. Jedes Panel liefert selbst 1 EU/t, solange es
+die Sonne sieht. Wer viele Panels zu einem großen Feld zusammenstellt, bekommt einen kleinen <b>Bonus von ×1,2</b>.</p>
+{h.compare('<ul><li>Solarpanel 1 EU/t</li><li>Compact Solar Arrays: 1 Block = 8 / 64 / 512 EU/t</li><li>dazu Solar-Hüte als Rüstung</li></ul>',
+           '<ul><li>Solarpanel 1 EU/t, im 9×9-Feld <b>1,2 EU/t</b></li><li>Solar Arrays ohne Funktion, zerlegbar</li><li>Solar-Hüte entfallen</li></ul>')}
 <div class="tocpos"></div>
 <h2 id="sol--regel">Die Regel</h2>
 <ul>
-<li>Jedes Feld ist <b>3×3</b> groß und liegt auf einer Ebene: ein Array in der Mitte, 8 Blöcke außen herum (Ecken mitgezählt).</li>
-<li>Im Ring dürfen <b>Solarpanels und Arrays bis zur Stufe der Mitte</b> stehen, auch gemischt. Um ein MV-Array also Panels, LV- und
-MV-Arrays – aber kein HV-Array.</li>
-<li>Jeder Block bringt seinen <b>Grundwert</b> mit, also die Panels, die in ihm stecken: Solarpanel 1, LV 8, MV 64, HV 512 EU/t.</li>
-<li><b>Leistung = (Grundwerte aller besonnten Blöcke, Mitte eingeschlossen) × Bonus der Mitte</b>, abgerundet. Bonus LV ×1,2, MV ×1,4, HV ×1,5 –
-das ist zugleich der Ertrag je verbautem Panel. Eine höhere Mitte lohnt sich also immer.</li>
-<li>Einzeln aufgestellt oder mit unvollständigem Ring liefert ein Array <b>nichts</b>. Die Arrays und Panels im Ring liefern selbst auch nichts –
-das Kabel kommt an die Mitte.</li>
+<li>Jedes Solarpanel liefert bei Sonne <b>1 EU/t</b>: Himmelssicht direkt darüber, Tag, kein Regen (in Wüsten auch bei Regen).</li>
+<li>Liegt ein Panel in einem <b>lückenlosen Quadrat aus 9×9 Solarpanels auf derselben Höhe</b>, liefert es <b>1,2 EU/t</b>
+(jeden 5. Tick 2 EU statt 1).</li>
+<li>Das Quadrat darf beliebig liegen. Ein 10×10-Feld oder eine 9×20-Fläche bekommt den Bonus also komplett. Nur Panels, die in
+keinem vollen 9×9 liegen (z. B. eine einzelne zehnte Reihe), bleiben bei 1 EU/t.</li>
+<li>Für das Quadrat zählen alle Panels, auch abgedeckte. Den Bonus selbst bekommt aber nur ein Panel, das Sonne hat.</li>
+<li>Es gibt nur diese eine Stufe, keinen Deckel: Je größer das Feld, desto mehr Strom.</li>
 </ul>
-{h.table(['Mitte', 'Ring', 'Rechnung', 'Leistung (Tag)', 'Panels verbaut'], [
-    ['LV', '8 Solarpanels', '16 × 1,2', '<b>19 EU/t</b>', '16'],
-    ['LV', '8 LV-Arrays', '72 × 1,2', '86 EU/t', '72'],
-    ['MV', '8 LV-Arrays', '128 × 1,4', '<b>179 EU/t</b>', '128'],
-    ['MV', '8 MV-Arrays', '576 × 1,4', '806 EU/t', '576'],
-    ['HV', '8 MV-Arrays', '1024 × 1,5', '<b>1536 EU/t</b>', '1024'],
-    ['HV', '8 HV-Arrays', '4608 × 1,5', '6912 EU/t', '4608'],
+{h.table(['Aufbau', 'Panels', 'Leistung (Tag)'], [
+    ['einzelnes Panel', '1', '1 EU/t'],
+    ['8×8', '64', '64 EU/t'],
+    ['<b>9×9</b>', '81', '<b>97,2 EU/t</b>'],
+    ['9×9 mit einer Lücke', '80', '80 EU/t'],
+    ['10×10', '100', '120 EU/t'],
+    ['18×18', '324', '388,8 EU/t'],
 ])}
-<h2 id="sol--lv">Schritt für Schritt: LV-Feld</h2>
-<div class="layers">{h.layer(['PPP', 'PLP', 'PPP'], key_lv, 'LV-Feld – 3×3 von oben', 40)}<div>{h.legend(key_lv)}</div></div>
+<h2 id="sol--bau">Schritt für Schritt: Solarfeld</h2>
+<div class="layers">{h.layer(['PPPPPPPPPp', 'PPPPPPPPPp', 'PPPPPPPPPp', 'PPPPPPPPPp', 'PPPPPPPPPp', 'PPPPPPPPPp', 'PPPPPPPPPp', 'PPPPPPPPPp', 'PPPPPPPPPp'], key_field, '9×9 von oben, dazu eine zehnte Spalte', 22)}<div>{h.legend(key_field)}</div></div>
 {steps([
-    'Eine ebene Fläche mit freiem Himmel suchen – über jedem Block darf nichts den Himmel verdecken. Glas stört nicht, Blätter, Wasser und feste Blöcke schon.',
-    'Das <b>LV Solar Array</b> setzen. Alles liegt auf <b>einer Ebene</b>; die Drehung ist egal.',
-    'Die 8 Felder rundherum (auch die Ecken) mit {0} belegen.'.format(c('solar_panel')),
-    '<b>Kabel unter das Array</b> legen (oben würde es die Sonne verdecken). Das Array gibt Strom in alle Richtungen ab.',
-    'Rechtsklick auf das Array: Die GUI zeigt ein Sonnensymbol, solange es liefert, und hat einen Lade-Slot für Batterien.',
+    'Eine ebene Fläche mit freiem Himmel suchen. Glas über den Panels stört nicht, Blätter, Wasser und feste Blöcke schon.',
+    'Mindestens <b>9×9 = 81</b> {0} lückenlos auf <b>einer Höhe</b> verlegen.'.format(c('solar_panel')),
+    '<b>Kabel unter den Panels</b> verlegen (oben würden sie die Sonne verdecken). Jedes Panel gibt seinen Strom selbst ab, also braucht jedes Panel Kontakt zum Kabelnetz, etwa über ein Kabelraster in der Ebene darunter.',
+    'Den Bonus erkennt ein Panel spätestens nach 128 Ticks (≈ 6 s) nach dem Bauen.',
 ])}
-<h2 id="sol--mv">MV- und HV-Feld</h2>
-<div class="layers">{h.layer(['LLL', 'LML', 'LLL'], key_mv, 'MV-Feld mit 8 LV-Arrays', 40)}{h.layer(['MMM', 'MHM', 'MMM'], key_hv, 'HV-Feld mit 8 MV-Arrays', 40)}
-{h.layer(['PMP', 'LML', 'PMP'], key_mix, 'Gemischter Ring um ein MV-Array', 40)}<div>{h.legend(key_mix | key_hv)}</div></div>
-{steps([
-    '<b>MV:</b> Das MV Solar Array in die Mitte, darum 8 LV-Arrays (oder Panels, oder MV-Arrays) – 179 EU/t mit 8 LV-Arrays.',
-    '<b>HV:</b> Das HV Solar Array in die Mitte, darum 8 MV-Arrays – 1536 EU/t.',
-    'Die Arrays im Ring sind normale Arrays aus der Werkbank; sie brauchen keinen eigenen Ring.',
-])}
-{h.note('warn', '<b>Spannung beachten:</b> Das MV-Feld liefert <b>64er Pakete</b> (MV), das HV-Feld <b>512er Pakete</b> (HV, drei pro Tick bei 1536 EU/t). Ein Kupferkabel oder eine BatBox direkt dran schmilzt bzw. explodiert. MV: Goldkabel + MFE oder LV-Trafo. HV: Glasfaser + MFSU oder MV-Trafo. Siehe <a href="#/strom">Strom anschließen</a>.')}
-<h2 id="sol--funktion">So rechnet das Array</h2>
-<ul>
-<li>Die Mitte prüft ihr Feld <b>alle 20 Ticks</b> – nur wenn das 3×3-Feld geladen ist.</li>
-<li>Sonne: Panels prüfen alle 128 Ticks selbst, Arrays beim Prüfen des Felds – jeweils wie ein IC2-Solarpanel: Himmelssicht darüber, Tag, kein Regen (in Wüsten auch bei Regen). Ein abgedeckter Block zählt 0.</li>
-<li>Abgabe: zuerst in den Lade-Slot, der Rest in alle Richtungen ins Netz, in Paketen von höchstens 8 / 64 / 512 EU – so viele wie nötig (19 EU/t am LV-Feld = 8 + 8 + 3). Was niemand abnimmt, geht verloren – kein Puffer.
-Ein Speicher (BatBox/MFE/MFSU) gehört also dazu, wenn du den Strom nachts nutzen willst.</li>
-<li>Im Tagesmittel liefert Solar etwa die Hälfte der Spitzenleistung (nachts nichts).</li>
-<li><b>Nur die 9 Blöcke eines Felds arbeiten zusammen.</b> Teilt ein Feld auch nur einen Block mit einem anderen Feld, liefert es <b>nichts</b> – Felder also nicht überlappen lassen. Ein Array, das selbst Mitte eines laufenden Felds ist, kann nie Teil eines anderen Felds werden – jedes Feld ist eine eigene Einheit. Fällt das erste Feld weg, übernimmt das zweite nach spätestens 3 Sekunden (Lease, alle 20 Ticks erneuert, verfällt nach 40 Ticks).</li>
-</ul>
-<div class="calc" data-calc="solar"><h4>Rechner: Solar-Feld</h4><div class="row">
-<label>Mitte <select name="tier"><option value="lv">LV</option><option value="mv" selected>MV</option><option value="hv">HV</option></select></label>
-<label>Ring <select name="ring"><option value="p">Solarpanels</option><option value="lv" selected>LV-Arrays</option><option value="mv">MV-Arrays</option><option value="hv">HV-Arrays</option></select></label>
-<label>Ringblöcke mit Sonne <input type="range" name="sun" min="0" max="8" value="8"></label></div><div class="out"></div><div class="msg"></div></div>
+{h.note('tip', 'Ein Speicher (BatBox, MFE, MFSU) gehört dazu: Solar liefert nur am Tag. Im Tagesmittel bleibt etwa die Hälfte der Spitzenleistung übrig.')}
+<div class="calc" data-calc="solar"><h4>Rechner: Solarfeld</h4><div class="row">
+<label>Breite <input type="range" name="w" min="1" max="32" value="9"></label>
+<label>Länge <input type="range" name="l" min="1" max="32" value="9"></label></div><div class="out"></div><div class="msg"></div></div>
+<h2 id="sol--alt">Alte Solar Arrays (LV/MV/HV)</h2>
+<p>Die Compact Solar Arrays gibt es nur noch als Altbestand: Sie haben <b>kein Rezept</b> mehr, <b>liefern nichts</b> und tauchen nicht
+mehr in EMI oder im Kreativmenü auf. Bereits gebaute Arrays bleiben erhalten; Batterien im Lade-Slot lassen sich herausnehmen.
+In der Werkbank zerfällt jedes Array in <b>8 Teile der Stufe darunter</b>. Der Transformator aus dem alten Rezept geht dabei verloren.</p>
+<div class="recipes">
+{h.recipe(['A'], {'A': ('craft:lv_solar_array', None)}, ('craft:solar_panel', None), 8, shapeless=True)}
+{h.recipe(['A'], {'A': ('craft:mv_solar_array', None)}, ('craft:lv_solar_array', None), 8, shapeless=True)}
+{h.recipe(['A'], {'A': ('craft:hv_solar_array', None)}, ('craft:mv_solar_array', None), 8, shapeless=True)}
+</div>
 <h2 id="sol--fehler">Fehlersuche</h2>
 {faq([
-    ('Kein Sonnensymbol / keine Leistung', 'Nicht geformt: Fehlt ein Ringblock oder steht dort etwas Falsches (z. B. ein HV-Array um ein MV-Array)? Ist es Nacht oder regnet es? Hat die Mitte freien Himmel? Teilt sich das Feld einen Block mit einem Nachbarfeld?'),
-    ('Am Array im Ring kommt nichts heraus', 'Richtig so – nur die Mitte liefert.'),
-    ('Ein einzelnes Array liefert nichts', 'Richtig so – Arrays arbeiten nur als Mitte eines vollständigen 3×3-Felds.'),
-    ('Kabel geschmolzen', 'MV-/HV-Felder liefern MV-/HV-Pakete. Passendes Kabel und Speicher bzw. Trafo verwenden.'),
-    ('Weniger als erwartet', 'Abgedeckte Blöcke zählen 0 – auch die Mitte selbst braucht Himmel, also das Kabel unten anschließen.'),
+    ('Kein Bonus', 'Liegt das Panel in einem vollen 9×9 auf derselben Höhe? Eine einzige Lücke oder ein Panel eine Ebene höher bricht das Quadrat. Nach dem Bauen bis zu 6 Sekunden warten.'),
+    ('Ein Panel liefert nichts', 'Nacht, Regen oder kein freier Himmel direkt darüber? Hat es Kontakt zu einem Kabel oder Speicher?'),
+    ('Mein altes Solar Array liefert nichts mehr', 'Richtig so: Seit dem Solar-Umbau liefern nur noch Solarpanels. Das Array in der Werkbank zerlegen und die Panels als Feld verlegen.'),
 ])}
-<h2 id="sol--rezepte">Rezepte</h2>
-<p>Wie im Original: 8 Teile der Stufe darunter um den Transformator gleicher Stufe.</p>
-<div class="recipes">
-{h.recipe(['SSS', 'SXS', 'SSS'], {'S': ('craft:solar_panel', None), 'X': ('craft:lv_transformer', None)}, ('craft:lv_solar_array', None))}
-{h.recipe(['SSS', 'SXS', 'SSS'], {'S': ('craft:lv_solar_array', None), 'X': ('craft:mv_transformer', None)}, ('craft:mv_solar_array', None))}
-{h.recipe(['SSS', 'SXS', 'SSS'], {'S': ('craft:mv_solar_array', None), 'X': ('craft:hv_transformer', None)}, ('craft:hv_solar_array', None))}
-</div>
-<p>Spezifikation: <a href="#/spec-11">11 – Compact Solars</a> §4.</p>
+<p>Spezifikation: <a href="#/spec-11">11 – Compact Solars</a> §4, <a href="#/balancing">Energiebalancing</a> §3.1.</p>
 '''
-    page('solar-arrays', 'Solar Arrays', 'Neu & geändert', solar)
+    page('solar-arrays', 'Solar', 'Neu & geändert', solar)
 
     # ================================================================== Wassermühle
     wm_rows = ['fffff', 'fWWWf', 'fWMWf', 'fWWWf', 'fffff']
@@ -659,7 +633,7 @@ unterschiedlichen Zielen führen – praktisch für mehrere Abbaugebiete.</li>
 Die Quarry hält ihre Chunks selbst geladen (max. 25 Chunks).</li>
 <li><b>IC2-Miner:</b> funktioniert ohne Sonderbehandlung; Scanner zeigen die Erze wie gewohnt.</li>
 <li><b>Turtles</b> (<a href="#/zusatzmods">CC: Tweaked</a>): graben mit Treibstoff, können über das Item-Inventar direkt in Craft-Maschinen und Kisten abladen. Unzerstörbare Blöcke (z. B. Personal-Safe) bauen sie nicht ab.</li>
-<li>Strom dort: Solar läuft rund um die Uhr (es ist immer Tag) – ein Solar Array neben der Quarry ist eine gute Idee. Windmühlen funktionieren dort auch – die Windstärke gilt überall und ändert sich nur durch die Oberwelt; es gibt dort aber kein Gewitter.</li>
+<li>Strom dort: Solar läuft rund um die Uhr (es ist immer Tag) – ein Solarfeld neben der Quarry ist eine gute Idee. Windmühlen funktionieren dort auch – die Windstärke gilt überall und ändert sich nur durch die Oberwelt; es gibt dort aber kein Gewitter.</li>
 </ul>
 <p>Spezifikation: <a href="#/spec-18">18 – Mining-Dimension</a>.</p>
 '''

@@ -4,7 +4,7 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 
-/** Entry point of the Compact Solars part: LV/MV/HV solar arrays as flat multiblocks (spec 11 §4). */
+/** Entry point of the Compact Solars part: the LV/MV/HV solar arrays, leftovers since 2026-10-24 (spec 11 §4). */
 public final class CompactSolars {
     private CompactSolars() {
     }

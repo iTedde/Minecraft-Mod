@@ -246,7 +246,7 @@
       "maxEnergyOutput": 1,
       "values": {
         "TIER": 1,
-        "getMaxStorage": 1,
+        "getMaxStorage": 2,
         "getProduction": 1
       }
     },
@@ -1116,42 +1116,6 @@
         "eu_source"
       ],
       "maxEnergyOutput": 2048,
-      "values": {}
-    },
-    {
-      "classes": [
-        "SolarArrayBlockEntity",
-        "MachineBlockEntity"
-      ],
-      "id": "lv_solar_array",
-      "kinds": [
-        "eu_source"
-      ],
-      "maxEnergyOutput": 8,
-      "values": {}
-    },
-    {
-      "classes": [
-        "SolarArrayBlockEntity",
-        "MachineBlockEntity"
-      ],
-      "id": "mv_solar_array",
-      "kinds": [
-        "eu_source"
-      ],
-      "maxEnergyOutput": 64,
-      "values": {}
-    },
-    {
-      "classes": [
-        "SolarArrayBlockEntity",
-        "MachineBlockEntity"
-      ],
-      "id": "hv_solar_array",
-      "kinds": [
-        "eu_source"
-      ],
-      "maxEnergyOutput": 512,
       "values": {}
     },
     {

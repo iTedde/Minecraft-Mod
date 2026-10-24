@@ -2,10 +2,7 @@ package dev.craft.compat.emi;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
-import dev.craft.compactsolars.CsItems;
-import dev.craft.compactsolars.SolarArrayType;
 import dev.craft.gregtech.GtItems;
 import dev.craft.gregtech.GtMachine;
 import dev.craft.gregtech.block.GtCasingBlock;
@@ -49,15 +46,7 @@ final class MultiblockEmiInfo {
                 casing(GtCasingBlock.Type.STANDARD), casing(GtCasingBlock.Type.REINFORCED));
         info(registry, "vacuum_freezer", GtItems.machine(GtMachine.VACUUM_FREEZER).get(),
                 casing(GtCasingBlock.Type.REINFORCED), casing(GtCasingBlock.Type.ADVANCED));
-        for (SolarArrayType type : SolarArrayType.values()) {
-            List<ItemLike> items = new ArrayList<>();
-            items.add(CsItems.array(type).get());
-            items.add(Ic2Items.machine(Ic2Machine.SOLAR_PANEL).get());
-            for (int i = 0; i < type.ordinal(); i++) {
-                items.add(CsItems.array(SolarArrayType.values()[i]).get());
-            }
-            info(registry, type.name().toLowerCase(Locale.ROOT) + "_solar_array", items.toArray(ItemLike[]::new));
-        }
+        info(registry, "solar_field", Ic2Items.machine(Ic2Machine.SOLAR_PANEL).get());
     }
 
     /** Info pages of the terraformer blueprints (spec 17 §4), text in {@code emi.craft.info.<blueprint>}. */

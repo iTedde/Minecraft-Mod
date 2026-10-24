@@ -41,7 +41,7 @@ ein überarbeitetes Energiebalancing und neue Kraftwerke. Wird nicht veröffentl
 | `…buildcraft` | MJ-System, Engines, Landmarks, Quarry, Öl, Pumpe, Tank, Raffinerie Rohre |
 | `…forestry` | Electrical Engine, Electron Tubes, Platinen, Lötkolben, Thermionic Fabricator, Carpenter |
 | `…powerconverters` | Energy Bridge, Charger, BC-/IC2-Konverter |
-| `…compactsolars` | Solar Arrays (als Multiblocks laut Balancing) |
+| `…compactsolars` | Solar Arrays – seit 2026-10-24 stillgelegt (nur Zerlegen); Solarstrom nur aus IC2-Solarpanels mit 9×9-Bonus |
 | `…gregtech` | nur die für Pack-Rezepte nötigen GT-Materialien (und ggf. deren Herstellung, offen) |
 | `…powerplants` (neue Inhalte) | Wasserturbine, Kohlekraftwerk (Kessel, Dampfturbine), Koksofen, Großkraftwerke (Phase 21) |
 | `…mining` (neue Inhalte) | Mining-Dimension, Mining-Portal |
@@ -68,7 +68,7 @@ MJ und EU bleiben getrennte Systeme; Verbindung nur über Electrical Engine (EU�
 - Wiki: `wiki/` (Generator `build_wiki.py`, Python 3.12) erzeugt `wiki/Craft-Wiki.html` aus `docs/`, Lang-Dateien und
   Texturen; nach Balancing-/Inhaltsänderungen die Texte in `wiki/content*.py` anpassen und neu erzeugen. `build_wiki.py --en-names`
   erzeugt `wiki/Craft-Wiki-EN.html` (deutsche Texte, englische Item-/Blocknamen; Begriffstabelle `wiki/en_names.py`).
-- CurseForge-Pakete: `releases/Craft-<Version>-curseforge.zip` (Mod + EMI + Xaero + CC: Tweaked + ab 0.4.3 Inventory Profiles Next, Right Click Harvest, Trading Post samt Bibliotheken, ab 1.0.0 Simple Voice Chat und Leaves Be Gone in `overrides/mods`; Kotlin for Forge und ab 1.0.1 Industrial Foregoing + Titanium, ab 1.0.2 **alle** Mods außer Craft und CC: Tweaked, ab 1.0.3 zusätzlich JEI für die Create-Rezepte in EMI; ab 1.0.4 Craft 1.0.2 mit eingebautem Datenpaket `packs/createcasing_fix` gegen Rezeptkonflikte Create Encased ↔ Create, ab 1.0.5 Craft 1.0.3 mit EnderStorage, ab 1.0.6 Craft 1.0.4 mit Flüssigkeitsausgang der IC2-Pumpe, ab 1.0.7 zusätzlich GraveStone, Create: Integrated Farming (+ Dragons Plus) und Create: Protection Pixel (Create samt Addons, AE2, Ad Astra, Profil-Mods; `docs/STATUS.md`) per `manifest.json` `files` (CurseForge-ID), damit das Zip unter 20 MB bleibt; Jade fügt der Nutzer selbst hinzu).
+- CurseForge-Pakete: `releases/Craft-<Version>-curseforge.zip` (Mod + EMI + Xaero + CC: Tweaked + ab 0.4.3 Inventory Profiles Next, Right Click Harvest, Trading Post samt Bibliotheken, ab 1.0.0 Simple Voice Chat und Leaves Be Gone in `overrides/mods`; Kotlin for Forge und ab 1.0.1 Industrial Foregoing + Titanium, ab 1.0.2 **alle** Mods außer Craft und CC: Tweaked, ab 1.0.3 zusätzlich JEI für die Create-Rezepte in EMI; ab 1.0.4 Craft 1.0.2 mit eingebautem Datenpaket `packs/createcasing_fix` gegen Rezeptkonflikte Create Encased ↔ Create, ab 1.0.5 Craft 1.0.3 mit EnderStorage, ab 1.0.6 Craft 1.0.4 mit Flüssigkeitsausgang der IC2-Pumpe, ab 1.0.7 zusätzlich GraveStone, Create: Integrated Farming (+ Dragons Plus) und Create: Protection Pixel, ab 1.0.8 Craft 1.0.5 mit Solar-Umbau (Create samt Addons, AE2, Ad Astra, Profil-Mods; `docs/STATUS.md`) per `manifest.json` `files` (CurseForge-ID), damit das Zip unter 20 MB bleibt; Jade fügt der Nutzer selbst hinzu).
 
 ## Spezifikation
 
@@ -107,6 +107,7 @@ MJ und EU bleiben getrennte Systeme; Verbindung nur über Electrical Engine (EU�
 | 26 | EnderStorage (aus dem Pack; Nutzer, 2026-10-23; Paket `…enderstorage`; `docs/spec/27-enderstorage.md`): Entschieden: kompletter Umfang (Ender Chest, Ender Pouch, Ender Tank), Vanilla-Endertruhe bleibt. 26.0 Spezifikation (erledigt) · 26.1 Frequenzsystem + Ender Chest (erledigt, Client offen) · 26.2 Ender Pouch (erledigt, Client offen) · 26.3 Ender Tank (erledigt, Client offen) · 26.4 EMI/Herkunft/Wiki/Paket (erledigt, Craft 1.0.3 / Paket 1.0.5) | **erledigt** (Client-Test offen) |
 | 27 | GraviSuite (aus dem Pack, `ftb ultimate/mods/gravisuite.zip`; Nutzer, 2026-10-24): Entschieden: kompletter Umfang (Advanced Jetpack, Advanced Nano-Brustplatte, Gravitations-Brustplatte, Ultimate Lappack, Advanced Drill/Kettensäge, Vajra, GraviTool …). 27.0 Spezifikation (offen) | offen |
 | 28 | Modular Powersuits (aus dem Pack, `ftb ultimate/mods/ModularPowersuits.jar`; Nutzer, 2026-10-24; „Tech-Rüstung“): 28.0 Spezifikation (offen) | offen, nach Phase 27 |
+| 29 | Solar-Umbau (Nutzer, 2026-10-24; `docs/balancing.md` §3.1, `spec/11` §4): nur Solarpanels, jedes liefert; ×1,2 im lückenlosen 9×9-Quadrat (eine Stufe); LV/MV/HV-Arrays stillgelegt (kein Rezept, keine Leistung, zerlegbar in 8 der Stufe darunter). 29.1 Umsetzung (erledigt, Client offen) | **erledigt** (Client-Test offen) |
 
 Phasen-Umnummerierung (Nutzer, 2026-10-16): Phase 8 „GT-Nachträge“ eingeschoben; die bisherigen Phasen 8/9/10
 (Kraftwerke, Rohre, Feinschliff) heißen jetzt 9/10/11. Ältere Einträge in `docs/STATUS.md` sind entsprechend
@@ -121,7 +122,7 @@ Personal-Blöcke, Luminator, Sprengstoffe (Industrie-TNT erledigt in 6b.5b, Nuke
 1. ~~GT-Erze~~ **Entschieden (2026-10-16):** **alle** GT-Erze wie im Pack werden in Phase 8 generiert.
    Der Herstellungsweg selbst ist entschieden (s. u.).
 2. ~~Massefabrikator~~ **Entschieden:** IC2-Massefabrikator 1:1 mit IC2-Rezept (kein GT Matter Fabricator).
-3. ~~Balancing-Vorschlag~~ **Freigegeben:** Solar (2026-10-15), Wasser, Wind, Kohlekraftwerk mit Koks 32 000 EU (2026-10-16) – `docs/balancing.md` §5. Nachträge 2026-10-17 (Phase 16): HV-Array 1024 EU/t, Turbinengehäuse leiten, Windmühle ohne Zerfall. Nachtrag 2026-10-20: Solar Arrays als 3×3-Felder mit Bonus (LV ×1,2 / MV ×1,4 / HV ×1,5), Originalrezepte.
+3. ~~Balancing-Vorschlag~~ **Freigegeben:** Solar (2026-10-15), Wasser, Wind, Kohlekraftwerk mit Koks 32 000 EU (2026-10-16) – `docs/balancing.md` §5. Nachträge 2026-10-17 (Phase 16): HV-Array 1024 EU/t, Turbinengehäuse leiten, Windmühle ohne Zerfall. Nachtrag 2026-10-20: Solar Arrays als 3×3-Felder mit Bonus (LV ×1,2 / MV ×1,4 / HV ×1,5), Originalrezepte. **Nachtrag 2026-10-24 (Phase 29):** nur noch Solarpanels, ×1,2 im lückenlosen 9×9-Quadrat; Arrays stillgelegt, zerlegbar.
 4. ~~GT-Nicht-Rezept-Änderungen~~ **Entschieden (2026-10-17):** Upgrade-Stack 4, GT-Recycler-Blacklist und Miner-Lava wie im Pack (Phase 12.10); Solar-Hüte entfallen. **Entschieden:** Schrottbox-Drops wie im Pack – GT ersetzt die IC2-Liste (Schrott 200 + GT-Liste; GT-Items erst, wenn es sie gibt).
 5. ~~Iridiumerz-Generierung (GT)~~ **Entschieden:** wie im Pack (Teil der GT-Erze, Phase 8).
 6. Rezeptanzeige und Minimap (Nutzerwunsch 2026-10-15): **Entschieden:** **EMI** (statt NEI, das es für 1.21 nicht gibt) mit eigener Integration (Rezeptkategorien für IC2-/GT-/BC-/Forestry-Maschinen, Phase 11); Minimap **Xaero's Minimap**, nur mitinstalliert (keine eigene Integration).

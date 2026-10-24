@@ -83,7 +83,7 @@ GROUP_ORDER = ['IndustrialCraft 2', 'GregTech', 'BuildCraft', 'Forestry', 'Power
 
 # items whose behaviour was changed on purpose or which are new content
 CHANGED = {
-    'lv_solar_array': 'solar-arrays', 'mv_solar_array': 'solar-arrays', 'hv_solar_array': 'solar-arrays',
+    'solar_panel': 'solar-arrays', 'lv_solar_array': 'solar-arrays', 'mv_solar_array': 'solar-arrays', 'hv_solar_array': 'solar-arrays',
     'water_mill': 'wassermuehle', 'wind_mill': 'windmuehle',
 }
 NEW_PAGES = {
