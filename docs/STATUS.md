@@ -2687,8 +2687,21 @@ alle, z. B. ×1,2.“ Entscheidungen Nutzer: Bonus für Panels in einem **lücke
   Ausreißern zuerst die Testwelt löschen.
 - Doku: Spec §3a/§7, `balancing.md` §3.9, `architektur.md`, CLAUDE.md.
 
+## Erledigt (30.5 Leuchtschild: Texte, Testplan, Paket, 2026-10-24)
+- [x] EMI-Info-Seite (de/en): Taschenlampen-Kegel, nur mit LambDynamicLights sichtbar, rein optisch.
+- [x] Wiki: Seite „Elektrischer Leuchtschild“ (Infobox, Einleitung, Abschnitt Licht), Startseiten-Karte, „Create &
+  Paket-Mods“ → Tabelle + Abschnitt LambDynamicLights. Neu erzeugt (DE + EN-Namen).
+- [x] `testplan.md` 13.2 auf den Lichtkegel umgeschrieben (Wand, Wasser, zweiter Spieler, Mobs, Altlast-Block).
+- [x] Befund: LambDynamicLights (CurseForge 393442, Datei 8780227 = 4.8.11+1.21.1) steht schon seit Paket 1.0.2 im
+  Manifest (alle Mods der Nutzer-Instanz) – nichts nachzutragen; das Skript prüft den Eintrag.
+- [x] Testwelt: `runGameTestServer -PgameTestDir=…` löscht jetzt vor jedem Lauf `<gameTestDir>/world` (`build.gradle`,
+  nie `run/`). Grund: Tesserakt-Frequenzen sind global, Aufbauten des vorigen Laufs ließen
+  `liquidTesseractFillsRemoteTank` bei jedem zweiten Lauf scheitern. Zwei Läufe hintereinander grün.
+- [x] Alle 533 GameTests grün, `gradlew runData build` grün.
+- [x] Craft **1.0.9** (`releases/craft-1.0.9.jar`), Paket `releases/Craft-1.0.12-curseforge.zip` (wie 1.0.11 mit Craft
+  1.0.9; 67 Manifest-Einträge, 9,0 MB).
+- **Phase 30 erledigt, Client-Test offen** (Testplan 13.1–13.4; 13.2 nur mit LDL).
+
 ## Nächste Schritte
-- 30.5 Wiki-/EMI-Texte (Licht ist jetzt nur optisch, Kegel nur mit LambDynamicLights), Testplan 13.2, Paket 1.0.12 mit
-  LambDynamicLights (CurseForge-ID ermitteln), Craft 1.0.9.
-- Client-Test Leuchtschild (mit LDL in der Nutzer-Instanz), MPS (Testplan 12) und GraviSuite (Testplan 11) – nur nach
-  Rückfrage (Nutzer spielt evtl. selbst).
+- Client-Test Leuchtschild (Paket 1.0.12 bzw. Craft 1.0.9 in die Instanz mit LDL), MPS (Testplan 12) und GraviSuite
+  (Testplan 11) – nur nach Rückfrage (Nutzer spielt evtl. selbst).

@@ -230,3 +230,12 @@ idea {
         downloadJavadoc = true
     }
 }
+
+// Fresh world for every test run in an own game directory: tests share global state such as tesseract frequencies,
+// and set-ups left over from the previous run would interfere. Never touches run/.
+tasks.named('runGameTestServer') {
+    File testWorld = project.hasProperty('gameTestDir') ? file("${project.property('gameTestDir')}/world") : null
+    doFirst {
+        testWorld?.deleteDir()
+    }
+}

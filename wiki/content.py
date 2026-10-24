@@ -76,7 +76,7 @@ dazu kommen <a href="#/aenderungen">neue Kraftwerke und eine Mining-Dimension</a
 {card('wasserturbine', 'craft:water_turbine', 'Wasserturbine', 'Bis 32 EU/t Grundlast aus einem Fluss.', NEW)}
 {card('grosskraftwerke', 'craft:large_steam_turbine', 'Großkraftwerke', 'Hochdruckkessel, große Dampf-, Wasser- und Windturbine: 256–512 EU/t.', NEW)}
 {card('mining-dimension', 'craft:mining_portal', 'Mining-Dimension', 'Flache Steinwelt voller Erze, Portal aus Glattem Stein.', NEW)}
-{card('leuchtschild', 'craft:electric_light_shield', 'Elektrischer Leuchtschild', 'Schild mit EU statt Haltbarkeit, leuchtet wie eine Fackel.', NEW)}
+{card('leuchtschild', 'craft:electric_light_shield', 'Elektrischer Leuchtschild', 'Schild mit EU statt Haltbarkeit, leuchtet wie eine Taschenlampe.', NEW)}
 {card('zusatzmods', 'craft:cropnalyzer', 'EMI, Xaero & CC: Tweaked', 'Rezeptanzeige, Minimap und Turtles im Paket.', TECH)}
 </div>
 
@@ -749,11 +749,12 @@ bauen sie nicht ab. Turtles brauchen Treibstoff (wie im Pack).</p>
     shield = f'''<h1>Elektrischer Leuchtschild</h1>
 {h.infobox('Elektrischer Leuchtschild', 'craft:electric_light_shield', [
     ('Herkunft', NEW + ' Craft (kein Pack-Vorbild)'), ('ID', '<code>craft:electric_light_shield</code>'),
-    ('Speicher', '10 000 EU'), ('Stufe', '1 (LV), Laden max. 100 EU/t'), ('Licht', '14 (wie eine Fackel)'),
+    ('Speicher', '10 000 EU'), ('Stufe', '1 (LV), Laden max. 100 EU/t'), ('Licht', 'Kegel 16 Blöcke / 30°, Schein 7<br>(mit LambDynamicLights)'),
     ('Verbrauch', '1 EU je 4 Ticks Licht,<br>100 EU je Blockpunkt'), ('Kreativ-Tab', 'IC2 (leer und voll)'),
 ])}
-<p class="lead">Ein Schild, der statt Haltbarkeit <b>EU</b> verbraucht und in der Hand <b>wie eine Fackel leuchtet</b> – echtes Licht in
-der Welt, das auch andere Spieler sehen und das Mob-Spawns verhindert. Die Werte orientieren sich am Luminator und an den
+<p class="lead">Ein Schild, der statt Haltbarkeit <b>EU</b> verbraucht und in der Hand <b>wie eine Taschenlampe leuchtet</b> – ein
+Lichtkegel in Blickrichtung, den auch andere Spieler sehen. Das Licht ist rein optisch (dynamisches Licht über
+LambDynamicLights), Mobs spawnen also weiter. Die Werte orientieren sich am Luminator und an den
 LV-Elektrowerkzeugen.</p>
 
 <h2 id="ls--rezept">Rezept</h2>
@@ -764,11 +765,15 @@ Ladegerät, Batterie-Slot der Maschinen oder BatPack/LapPack auf dem Rücken.</p
 <h2 id="ls--licht">Licht</h2>
 <ul>
 <li>Leuchtet in <b>Haupt- oder Nebenhand</b>, solange das Licht eingeschaltet und Ladung vorhanden ist (nicht im Zuschauermodus).</li>
-<li>Das Licht sitzt auf Augenhöhe, sonst am Fußblock; es ersetzt nur Luft oder Wasser – <b>unter Wasser</b> leuchtet es also auch.</li>
+<li><b>Lichtkegel</b> von den Augen in Blickrichtung: 30° weit (die äußeren 5° werden weich dunkler), bis 4 Blöcke voll hell
+(14), danach schwächer bis 16 Blöcke. Dazu ein <b>Schein</b> rund um den Träger (7 an den Augen, −1 je Block), damit man
+die eigenen Füße sieht.</li>
+<li><b>Wände</b> halten das Licht auf: die getroffene Fläche ist hell, dahinter bleibt es dunkel. Wasser lässt es durch.</li>
+<li>Das Licht ist <b>dynamisches Licht</b> und braucht die Mod <b>LambDynamicLights</b> (ab Paket 1.0.12 mitinstalliert). Ohne sie
+leuchtet nur die Fläche am Schild. Es ändert das Licht der Welt nicht: <b>Mobs spawnen weiter</b>, Pflanzen wachsen nicht davon.</li>
 <li>Kosten: <b>1 EU je 4 Ticks</b> (5 EU/s) – voll geladen reicht das für rund 33 Minuten.</li>
 <li><b>Modus-Taste + Rechtsklick</b> schaltet das Licht an/aus („Licht: an/aus“); der Tooltip zeigt den Zustand. Rechtsklick allein blockt.</li>
-<li>Technisch ist das Licht ein unsichtbarer Block, der dem Spieler folgt. Nach Weglegen, Abmelden, Tod oder Absturz verschwindet er
-spätestens nach einer Sekunde von selbst.</li>
+<li>Bis Craft 1.0.8 war das Licht ein unsichtbarer Block am Spieler. Solche Reste in alten Welten verschwinden von selbst.</li>
 </ul>
 
 <h2 id="ls--blocken">Blocken</h2>

@@ -206,7 +206,7 @@ Testwelt. Sprache einmal Deutsch, einmal Englisch prüfen. EMI und Xaero's Minim
 | Nr | Test | Herkunft | OK |
 |---|---|---|---|
 | 13.1 | IC2-Tab (leer + voll), Rezept und Info-Seite in EMI; Modell im Inventar, in Haupt-/Nebenhand (1./3. Person), Blocken-Pose, Leuchtfläche bei Licht an hell, bei aus normal; Ladebalken, Tooltip „Licht an/aus“ | 30.1, 30.2 | |
-| 13.2 | Licht in der Welt: nachts/in einer Höhle hell, folgt beim Laufen ohne Reste, unter Wasser, Schild weglegen/in die Truhe/Abmelden → Licht weg; Modus-Taste + Rechtsklick schaltet (Meldung) | 30.1 | |
+| 13.2 | Lichtkegel (mit LambDynamicLights): nachts/in einer Höhle Kegel in Blickrichtung (~16 Blöcke, weicher Rand), Schein um die Füße, Wand hell und dahinter dunkel, unter Wasser; folgt beim Laufen und Umsehen flüssig, kein Ruckeln; zweiter Spieler sieht den Kegel; Schild weglegen/leer/Modus-Taste + Rechtsklick (Meldung) → Kegel weg; Mobs spawnen weiter; alte Welt mit Lichtblock aus 1.0.8 → Rest verschwindet | 30.1, 30.4 | |
 | 13.3 | Blocken: Zombie-/Skelett-Treffer kosten EU, leer lässt er sich nicht heben, beim Leerlaufen senkt er sich; Axt sperrt ihn | 30.1 | |
 | 13.4 | Zaubertisch bietet Haltbarkeit an; Amboss mit Reparatur-Buch, Erfahrung lädt den Schild; BatBox/Ladegerät lädt | 30.1 | |
 

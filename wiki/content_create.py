@@ -55,6 +55,7 @@ Mahlen, Waschen, Fertigungsketten …).</p>
     ['<b>Create: Integrated Farming</b> (+ Create: Dragons Plus)', 'Farm-Automatisierung mit Create: Pflanzen, Tiere und Fischerei in Maschinen'],
     ['<b>Create: Protection Pixel</b>', 'Rüstungen im Steampunk-/Create-Stil aus Messing und Legierungen, einige mit Sonderfunktionen'],
     ['GraveStone Mod', 'Unabhängig von Create: beim Tod landet das Inventar in einem Grabstein statt am Boden'],
+    ['LambDynamicLights', 'Unabhängig von Create: dynamisches Licht (Fackel in der Hand, brennende Mobs …) und der Lichtkegel des Elektrischen Leuchtschilds'],
 ])}
 <h2 id="cr--craft">Zusammenspiel mit Craft</h2>
 <ul>
@@ -171,6 +172,10 @@ Bibliothek Create: Dragons Plus (mitinstalliert). Aufbau zeigen Ponder und EMI.<
 Legierungen. Ab Paket <b>1.0.7</b>. Rezepte in EMI.</p>
 <h2 id="ca--grave">GraveStone Mod</h2>
 <p>Stirbt man, erscheint an der Stelle ein Grabstein mit dem gesamten Inventar; Rechtsklick holt die Sachen zurück. Ab Paket <b>1.0.7</b>.</p>
+<h2 id="ca--ldl">LambDynamicLights</h2>
+<p>Dynamisches Licht: Fackeln und andere leuchtende Items in der Hand, brennende Mobs und Ähnliches erhellen die Umgebung, ohne
+das Licht der Welt zu ändern. Craft nutzt es für den Lichtkegel des <a href="#/leuchtschild">Elektrischen Leuchtschilds</a>.
+Ab Paket <b>1.0.12</b>; Einstellungen unter Optionen → Grafik (mit Sodium in dessen Menü).</p>
 '''
     page('create-addons', 'Addons', addons)
     return P

@@ -70,7 +70,8 @@ Befund vorher: Jade (15.10.6) zeigt den alten Lichtblock nicht an (Strahl mit `C
 **Grundlage: LambDynamicLights (LDL) 4.8.11+1.21.1** (NeoForge), optional. Craft meldet sich als LDL-Initializer an
 (`neoforge.mods.toml`: `[[modproperties.craft."yumi:entrypoints"."lambdynlights:initializer"]]`, Klasse in
 `lightshield/client/compat`) und registriert eigene `DynamicLightBehavior`-Objekte. Ohne LDL wird der Eintrag ignoriert;
-Craft hat keine harte Abhängigkeit (API nur `compileOnly`). LDL kommt ins CurseForge-Paket (`manifest.json`).
+Craft hat keine harte Abhängigkeit (API nur `compileOnly`). LDL steht schon seit Paket 1.0.2 im CurseForge-Manifest
+(CurseForge 393442, Datei 8780227 = 4.8.11+1.21.1; Befund 30.5).
 
 - **Rein clientseitig und optisch:** Blöcke, Mobs und Items im Kegel werden hell gezeichnet, das Licht der Welt ändert
   sich nicht – **Mobs spawnen weiter** (bewusst, Nutzer). Ohne LDL leuchtet nur die Leuchtfläche am Schild.
