@@ -2660,7 +2660,19 @@ alle, z. B. ×1,2.“ Entscheidungen Nutzer: Bonus für Panels in einem **lücke
   1.0.8; 9,0 MB).
 - **Phase 30 erledigt, Client-Test offen** (Testplan 13.1–13.4).
 
+## Erledigt (30.3 Leuchtschild: Lichtkegel, Spezifikation, 2026-10-24)
+- [x] Befund: Jade 15.10.6 zeigt den Lichtblock nicht (Strahl mit `ClipContext.Block.OUTLINE`, Umriss leer).
+- [x] Befund: LambDynamicLights 4.8.11+1.21.1 (NeoForge, in der Nutzer-Instanz mit Sodium/Iris) hat mit
+  `DynamicLightBehavior` eine API für eigene Lichtformen; Anmeldung per `modproperties` `yumi:entrypoints`
+  `lambdynlights:initializer` in `neoforge.mods.toml`, ohne LDL wirkungslos.
+- [x] Entscheidung Nutzer: nur dynamisches Licht als Taschenlampen-Kegel (16 Blöcke, 30°, Schein 7 um den Träger,
+  Wände blockieren), Mobs spawnen weiter, LDL ins CurseForge-Paket. Spec `30-leuchtschild.md` §3a, §8; alter §3 als
+  Historie, `craft:shield_light` bleibt als sich selbst entfernende Altlast.
+
 ## Nächste Schritte
-- Client-Test Leuchtschild (Testplan 13), MPS (Testplan 12) und GraviSuite (Testplan 11) – nur nach Rückfrage (Nutzer
-  spielt evtl. selbst).
-- Neue Wünsche des Nutzers abwarten.
+- 30.4 Umsetzung: `LightCone` (Kegelrechnung + Wandprüfung), LDL-Anbindung (`compileOnly` API, Initializer,
+  Behavior je Spieler), Lichtblock-Setzen entfernen, Verbrauch serverseitig behalten, GameTests anpassen.
+- 30.5 Wiki-/EMI-Texte (Licht ist jetzt nur optisch), Testplan 13.2, Paket 1.0.12 mit LambDynamicLights (CurseForge-ID
+  ermitteln), Craft 1.0.9.
+- Client-Test Leuchtschild, MPS (Testplan 12) und GraviSuite (Testplan 11) – nur nach Rückfrage (Nutzer spielt evtl.
+  selbst).

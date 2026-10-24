@@ -42,6 +42,10 @@ Stufe 1, Transfer 100).
 
 ## 3 Licht
 
+> **Ersetzt durch §3a (Nutzer, 2026-10-24, Phase 30.3).** Der folgende Abschnitt beschreibt die Umsetzung aus 30.1
+> (unsichtbarer Lichtblock) und gilt nur noch als Historie; der Block `craft:shield_light` bleibt registriert, damit
+> alte Welten ihn laden und er sich selbst entfernt.
+
 „Echtes Licht“ heißt: Blöcke und Mobs in der Umgebung werden wirklich hell (auch für andere Spieler, Mob-Spawning wird
 unterdrückt). Vanilla 1.21.1 hat kein bewegliches Licht; deshalb ein unsichtbarer Lichtblock, der dem Träger folgt.
 
@@ -57,6 +61,52 @@ unterdrückt). Vanilla 1.21.1 hat kein bewegliches Licht; deshalb ein unsichtbar
   ihn gesetzt hat (Positionsliste je Spieler) – damit bleiben nach Absturz, Abmelden, Tod, Dimensionswechsel oder
   Weglegen keine Lichtblöcke liegen.
 - Gilt auch für Zombies/Skelette, die den Schild in der Nebenhand halten? → nein, nur Spieler.
+
+## 3a Licht als Lichtkegel (dynamisches Licht, ab 30.3)
+
+Nutzer, 2026-10-24: nur dynamisches Licht, **kegelförmig nach vorne** wie eine Taschenlampe; kein Lichtblock mehr.
+Befund vorher: Jade (15.10.6) zeigt den alten Lichtblock nicht an (Strahl mit `ClipContext.Block.OUTLINE`, Umriss leer).
+
+**Grundlage: LambDynamicLights (LDL) 4.8.11+1.21.1** (NeoForge), optional. Craft meldet sich als LDL-Initializer an
+(`neoforge.mods.toml`: `[[modproperties.craft."yumi:entrypoints"."lambdynlights:initializer"]]`, Klasse in
+`lightshield/client/compat`) und registriert eigene `DynamicLightBehavior`-Objekte. Ohne LDL wird der Eintrag ignoriert;
+Craft hat keine harte Abhängigkeit (API nur `compileOnly`). LDL kommt ins CurseForge-Paket (`manifest.json`).
+
+- **Rein clientseitig und optisch:** Blöcke, Mobs und Items im Kegel werden hell gezeichnet, das Licht der Welt ändert
+  sich nicht – **Mobs spawnen weiter** (bewusst, Nutzer). Ohne LDL leuchtet nur die Leuchtfläche am Schild.
+- **Für alle Spieler:** Jeder Client zeigt die Kegel aller Spieler in Sichtweite, die einen Leuchtschild mit Licht
+  an und Ladung > 0 in Haupt- oder Nebenhand halten (Item-Daten werden ohnehin synchronisiert). Nicht im
+  Zuschauermodus, nicht für Mobs.
+
+**Form (Taschenlampe):**
+
+| Größe | Wert |
+|---|---|
+| Spitze | Augenposition des Trägers |
+| Achse | Blickrichtung (Gier + Neigung, mit Teilticks geglättet) |
+| Öffnung | 30° (halber Winkel 15°); in den äußersten 5° fällt die Helligkeit linear auf 0 |
+| Reichweite | 16 Blöcke; bis 4 Blöcke Helligkeit 14, danach linear auf 0 bei 16 |
+| Schein um den Träger | Helligkeit 7 am Augenpunkt, −1 je Block (Radius 7), damit die Füße nicht im Dunkeln stehen |
+| Ergebnis je Block | Maximum aus Kegel und Schein; LDL mischt es wie üblich mit dem Weltlicht |
+
+- **Wände blockieren:** Ein Block erhält Kegellicht nur, wenn die Sichtlinie vom Augenpunkt zur Blockmitte frei ist
+  (`ClipContext.Block.COLLIDER`, Flüssigkeiten durchlässig); der getroffene Block selbst wird beleuchtet (Wandfläche
+  hell, dahinter dunkel). Der Schein um den Träger wird ebenso geprüft.
+- **Rechnung:** nicht in `lightAtPos` je Block, sondern einmal bei jeder Änderung: Strahlenfächer über den Kegel
+  (Abstand ≤ 0,5 Block an der Kegelbasis), getroffene und durchlaufene Blöcke mit ihrer Helligkeit in einer Tabelle;
+  `lightAtPos` liest nur nach. `getBoundingBox` = Hülle aus Kegel und Schein.
+- **Neu berechnen** (`hasChanged`), wenn sich der Augenpunkt um ≥ 0,25 Block oder die Blickrichtung um ≥ 2° ändert,
+  das Licht umgeschaltet wird oder Ladung/Halten wechselt; sonst höchstens alle 10 Ticks (Blockänderungen im Kegel).
+- Unter Wasser leuchtet der Kegel genauso (Wasser ist durchlässig).
+
+**Energie und Serverseite:** unverändert 1 EU je 4 Ticks, solange Licht an, Ladung > 0 und in der Hand (Server, auch ohne
+LDL – die Energie misst den eingeschalteten Zustand, nicht das sichtbare Licht). Der Server setzt keine Blöcke mehr;
+`ShieldLights` und das Setzen/Nachführen entfallen. `craft:shield_light` bleibt als Altlast registriert und entfernt
+sich wie bisher selbst (≤ 20 Ticks), kein Code setzt ihn mehr.
+
+**Tests:** Kegelrechnung als reine Funktion (`LightCone`: Winkel, Reichweite, Randabfall, Schein) in GameTests; Wand-
+Prüfung mit einer gebauten Wand in der Testwelt; Verbrauch weiterhin serverseitig; Altlast-Block entfernt sich.
+Der LDL-Teil selbst nur im Client-Test (Testplan 13).
 
 ## 4 Ein-/Ausschalten
 
@@ -108,7 +158,14 @@ ASA
 ## 8 Entscheidungen (Nutzer, 2026-10-24)
 
 Freigegeben: 1 LV-Werte wie §1/§2 · 2 **B** (leer kein Blocken) · 3 Licht 14 · 4 Verzauberungen wie §5 · 5 Rezept wie §6 ·
-6 Teilphasen 30.1 + 30.2. Ursprüngliche Fragen:
+6 Teilphasen 30.1 + 30.2.
+
+Nachtrag (Nutzer, 2026-10-24): Licht nur dynamisch als Taschenlampen-Kegel über LambDynamicLights (16 Blöcke, 30°,
+Schein 7, Wände blockieren), Mobs spawnen weiter, LDL ins CurseForge-Paket – §3a. Teilphasen: 30.3 Spezifikation ·
+30.4 Umsetzung (Kegel, LDL-Anbindung, Lichtblock-Code entfernen, Tests) · 30.5 Wiki/EMI-Texte, Paket mit LDL,
+Craft 1.0.9 / Paket 1.0.12.
+
+Ursprüngliche Fragen:
 
 1. Werte: 10 000 EU, Stufe 1, 5 EU/s Licht, 100 EU je Blockpunkt – oder anders (z. B. Stufe 2 / 100 000 EU)?
 2. Leer: **A** blockt weiter wie ein normaler Schild (ohne Licht) · **B** blockt gar nicht mehr.
