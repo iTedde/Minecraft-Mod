@@ -1897,6 +1897,41 @@
       "maxCharge": 100000,
       "tier": 2,
       "transferLimit": 10000
+    },
+    {
+      "canProvideEnergy": true,
+      "id": "power_armor_head",
+      "maxCharge": 1,
+      "tier": 1,
+      "transferLimit": 0
+    },
+    {
+      "canProvideEnergy": true,
+      "id": "power_armor_torso",
+      "maxCharge": 1,
+      "tier": 1,
+      "transferLimit": 0
+    },
+    {
+      "canProvideEnergy": true,
+      "id": "power_armor_legs",
+      "maxCharge": 1,
+      "tier": 1,
+      "transferLimit": 0
+    },
+    {
+      "canProvideEnergy": true,
+      "id": "power_armor_feet",
+      "maxCharge": 1,
+      "tier": 1,
+      "transferLimit": 0
+    },
+    {
+      "canProvideEnergy": true,
+      "id": "power_tool",
+      "maxCharge": 1,
+      "tier": 1,
+      "transferLimit": 0
     }
   ]
 }

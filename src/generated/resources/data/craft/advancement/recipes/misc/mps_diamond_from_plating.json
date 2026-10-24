@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_plating": {
+      "conditions": {
+        "items": [
+          {
+            "items": "craft:component_plating_advanced"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "craft:mps_diamond_from_plating"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_plating"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "craft:mps_diamond_from_plating"
+    ]
+  }
+}

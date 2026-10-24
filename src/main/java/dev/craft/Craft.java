@@ -6,6 +6,7 @@ import dev.craft.buildcraft.BuildCraft;
 import dev.craft.compactsolars.CompactSolars;
 import dev.craft.enderstorage.EnderStorage;
 import dev.craft.gravisuite.GraviSuite;
+import dev.craft.mps.Mps;
 import dev.craft.gregtech.GregTech;
 import dev.craft.core.CraftCreativeTabs;
 import dev.craft.forestry.Forestry;
@@ -49,6 +50,7 @@ public final class Craft {
         ThermalExpansion.init(modBus);
         EnderStorage.init(modBus);
         GraviSuite.init(modBus);
+        Mps.init(modBus);
         CraftCreativeTabs.TABS.register(modBus);
         modBus.addListener(Craft::addPackFinders);
     }

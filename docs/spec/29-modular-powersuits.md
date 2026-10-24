@@ -166,9 +166,9 @@ Werkzeug `craft:mps_mode` (String), Helm `craft:mps_food` (Puffer Nahrung/Sätti
 
 ## 4 Tinker Table
 
-- Block: Material Eisen, Härte 1,5, Explosionswiderstand 1 000 (1.4.7-Wert ×3 = 3 000 intern), Klang Metall,
+- Block: Material Eisen, Härte 1,5, Explosionswiderstand 1 000 (1.4.7, intern ×3/5 → 1.21-Wert **600**), Klang Metall,
   Lichtwert 0,4 (= 6), nicht undurchsichtig, Spitzhacke Stufe 0, Block-Entity ohne Inventar. Eigenes Modell
-  (`TinkerTableModel`) – in 1.21 als JSON-Blockmodell nachgebaut (§14).
+  (`TinkerTableModel`) – in 1.21 als Block-Entity-Renderer mit denselben Quadern (§14).
 - Rechtsklick (nicht schleichend) öffnet die Tinker-GUI; schleichend normales Platzieren.
 - GUI-Rahmen: **Itemauswahl** (alle modularen Items im Spielerinventar), **Iteminfo** (Rüstung, Energie, Gewicht),
   **Modulauswahl** nach Kategorie (alle für das Item gültigen Module, installierte markiert), **Einbauen/Ausbauen**
@@ -428,13 +428,16 @@ Spawn-Paket. Bewegung läuft wie im Pack auf beiden Seiten; Energie wird vom Ser
 3. Bewegungsfaktoren (`landMovementFactor`/`jumpMovementFactor`) → transiente Attribut-Modifikatoren
    (`movement_speed`) bzw. direkte Geschwindigkeitsänderung; Stufenhöhe über `step_height` (1.21-Standard 0,6
    statt 0,5: aktiv 1,001, inaktiv Modifikator weg).
-4. Werkzeug ohne 3D-Modell (flaches Icon, eingefärbt); Tinker Table als JSON-Modell.
+4. Werkzeug ohne 3D-Modell (flaches Icon, eingefärbt); Tinker Table als Block-Entity-Renderer (1:1-Quader).
 5. Tastenbelegungs-GUI: Datei in `config/` statt `.minecraft`-Wurzel.
 6. Meldungen übersetzbar (DE/EN); „Toggled …“ und „Feeder module: Ate a …“ als Systemnachricht.
 7. Unsichtbarkeits-/Nachtsichteffekt ohne negative Verstärkung (1.21 erlaubt 0–255): Kennung über eigene
    Effekt-Instanz-Prüfung (Dauer ≤ 500, ohne Partikel), Verhalten gleich.
 8. Fallhöhen-Neuberechnung (§6.8) nur mit getragenem MPS-Teil bzw. Power Tool in der Hand statt für alle Spieler
    (Entscheidung Nutzer).
+9. Rüstungsanzeige zählt den Energieschild nur mit der eigenen Ladung des Teils (Schaden wie im Pack mit dem
+   ganzen Vorrat); Ausbau-Rückgabe nur ins Hauptinventar (Original füllte auch leere Rüstungsslots); das
+   Entfernen von Verzauberungen entfällt (Teile nicht verzauberbar).
 
 ## 15 Entscheidungen (Nutzer, 2026-10-24)
 

@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "craft:mps_parachute",
+  "key": {
+    "C": {
+      "item": "craft:carbon_plate"
+    },
+    "N": {
+      "item": "craft:nitrogen_cell"
+    },
+    "S": {
+      "item": "minecraft:string"
+    },
+    "W": {
+      "item": "minecraft:white_wool"
+    }
+  },
+  "pattern": [
+    "WWW",
+    "S S",
+    "CNC"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:component_parachute"
+  }
+}

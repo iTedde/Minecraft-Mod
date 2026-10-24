@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "craft:mps_ion_thruster",
+  "key": {
+    "E": {
+      "item": "craft:component_solenoid"
+    },
+    "F": {
+      "item": "craft:component_field_emitter"
+    },
+    "G": {
+      "item": "minecraft:glowstone_dust"
+    },
+    "I": {
+      "item": "minecraft:iron_ingot"
+    }
+  },
+  "pattern": [
+    " FE",
+    "IG ",
+    "IFE"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:component_ion_thruster"
+  }
+}

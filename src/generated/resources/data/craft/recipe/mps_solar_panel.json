@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "craft:mps_solar_panel",
+  "key": {
+    "L": {
+      "item": "minecraft:lapis_lazuli"
+    },
+    "P": {
+      "item": "minecraft:glass_pane"
+    }
+  },
+  "pattern": [
+    "PPP",
+    "PLP",
+    "PPP"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:component_solar_panel"
+  }
+}

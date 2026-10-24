@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "craft:mps_servo",
+  "key": {
+    "E": {
+      "item": "craft:component_solenoid"
+    },
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "W": {
+      "item": "craft:component_wiring"
+    }
+  },
+  "pattern": [
+    " W ",
+    "EIE"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:component_servo"
+  }
+}

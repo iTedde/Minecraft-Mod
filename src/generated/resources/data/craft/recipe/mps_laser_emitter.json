@@ -1,0 +1,34 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "craft:mps_laser_emitter",
+  "key": {
+    "B": {
+      "item": "minecraft:lapis_lazuli"
+    },
+    "G": {
+      "item": "minecraft:green_dye"
+    },
+    "R": {
+      "item": "minecraft:red_dye"
+    },
+    "T": {
+      "item": "minecraft:glass"
+    },
+    "W": {
+      "item": "craft:component_wiring"
+    },
+    "Y": {
+      "item": "minecraft:glowstone_dust"
+    }
+  },
+  "pattern": [
+    "YTG",
+    "TWT",
+    "BTR"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:component_laser_emitter"
+  }
+}

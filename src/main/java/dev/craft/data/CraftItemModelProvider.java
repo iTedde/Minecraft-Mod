@@ -1,5 +1,6 @@
 package dev.craft.data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import dev.craft.Craft;
@@ -19,6 +20,7 @@ import dev.craft.powerplants.PpItems;
 import dev.craft.portalgun.PgItems;
 import dev.craft.enderstorage.EsItems;
 import dev.craft.gravisuite.GsItems;
+import dev.craft.mps.MpsItems;
 import dev.craft.gravisuite.client.GraviSuiteClient;
 import dev.craft.enderstorage.client.EnderStorageClient;
 import dev.craft.ironchest.ChestUpgradeType;
@@ -149,6 +151,15 @@ public final class CraftItemModelProvider extends ItemModelProvider {
         }
         engine(EsItems.ENDER_CHEST);
         engine(EsItems.ENDER_TANK);
+        // Modular Powersuits: components, armor and tool as flat icons; the Tinker Table is its block entity model.
+        List<DeferredItem<? extends Item>> mpsItems = new ArrayList<>(MpsItems.components());
+        mpsItems.addAll(MpsItems.armor());
+        mpsItems.add(MpsItems.POWER_TOOL);
+        for (DeferredItem<? extends Item> item : mpsItems) {
+            String name = item.getId().getPath();
+            withExistingParent(name, mcLoc("item/generated")).texture("layer0", modLoc("item/mps/" + name));
+        }
+        engine(MpsItems.TINKER_TABLE);
         for (List<? extends DeferredItem<? extends Item>> items : List.of(GsItems.simpleItems(), GsItems.armorItems())) {
             for (DeferredItem<? extends Item> item : items) {
                 String name = item.getId().getPath();

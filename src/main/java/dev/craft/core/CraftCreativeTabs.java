@@ -37,6 +37,7 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import dev.craft.enderstorage.EsItems;
+import dev.craft.mps.MpsItems;
 import dev.craft.ironchest.IronChestItems;
 import dev.craft.ironchest.IronChestType;
 import net.neoforged.neoforge.registries.DeferredHolder;
@@ -253,6 +254,20 @@ public final class CraftCreativeTabs {
                     .withTabsBefore(ResourceLocation.fromNamespaceAndPath(Craft.MODID, "thermal_expansion"))
                     .displayItems((parameters, output) -> EsItems.ITEMS.getEntries()
                             .forEach(item -> output.accept(item.get())))
+                    .build());
+
+    /** In 1.4.7 item-ID order: table, the four armor pieces, tool, components; all without modules. */
+    public static final Supplier<CreativeModeTab> MODULAR_POWERSUITS = TABS.register("modular_powersuits", () ->
+            CreativeModeTab.builder()
+                    .title(Component.translatable("itemGroup.craft.modular_powersuits"))
+                    .icon(() -> MpsItems.POWER_ARMOR_HEAD.toStack())
+                    .withTabsBefore(ResourceLocation.fromNamespaceAndPath(Craft.MODID, "ender_storage"))
+                    .displayItems((parameters, output) -> {
+                        output.accept(MpsItems.TINKER_TABLE.get());
+                        MpsItems.armor().forEach(item -> output.accept(item.get()));
+                        output.accept(MpsItems.POWER_TOOL.get());
+                        MpsItems.components().forEach(item -> output.accept(item.get()));
+                    })
                     .build());
 
     private CraftCreativeTabs() {

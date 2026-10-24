@@ -46,6 +46,7 @@ import dev.craft.powerplants.block.PlantControllerBlock;
 import dev.craft.powerconverters.block.PowerConverterBlock;
 import dev.craft.enderstorage.EsBlocks;
 import dev.craft.ironchest.IronChestBlocks;
+import dev.craft.mps.MpsBlocks;
 import dev.craft.ironchest.IronChestType;
 import dev.craft.redpower.RpBlocks;
 import net.minecraft.core.Direction;
@@ -188,6 +189,9 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
                 .texture("particle", mcLoc("block/obsidian")));
         simpleBlock(EsBlocks.ENDER_TANK.get(), models().getBuilder("ender_storage_tank")
                 .texture("particle", mcLoc("block/obsidian")));
+        // Tinker Table: block entity renderer, iron particles.
+        simpleBlock(MpsBlocks.TINKER_TABLE.get(), models().getBuilder("tinker_table")
+                .texture("particle", mcLoc("block/iron_block")));
     }
 
     private void quarry() {

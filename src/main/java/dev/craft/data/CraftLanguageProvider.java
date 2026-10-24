@@ -36,6 +36,9 @@ import dev.craft.powerplants.PpItems;
 import dev.craft.portalgun.PgItems;
 import dev.craft.enderstorage.EsItems;
 import dev.craft.gravisuite.GsItems;
+import dev.craft.mps.MpsBlocks;
+import dev.craft.mps.MpsItems;
+import dev.craft.mps.module.PowerModule;
 import dev.craft.ironchest.ChestUpgradeType;
 import dev.craft.ironchest.IronChestItems;
 import dev.craft.ironchest.IronChestType;
@@ -561,6 +564,148 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
                 + "dispensers, pistons, 500 EU).");
         add("key.categories.craft", "Craft");
         add("key.craft.gravi_fly", german ? "Gravi-Flugtaste" : "Gravi Fly Key");
+    }
+
+    /** Modular Powersuits (spec 29); English texts as in the pack, module names in German translated. */
+    protected void modularPowersuits(boolean german) {
+        add("itemGroup.craft.modular_powersuits", "Craft: Modular Powersuits");
+        String[][] components = {
+                {"wiring", "Wiring", "Verdrahtung", "A special type of wiring with high voltaic capacity and precision, necessary for the sensitive electronics in power armor.", "Eine besondere Verdrahtung mit hoher Spannungsfestigkeit und Präzision, nötig für die empfindliche Elektronik der Power-Rüstung."},
+                {"solenoid", "Solenoid", "Magnetspule", "Wires wound around a ferromagnetic core produces a basic electromagnet.", "Um einen ferromagnetischen Kern gewickelter Draht ergibt einen einfachen Elektromagneten."},
+                {"servo", "Servo Motor", "Servomotor", "A special type of motor which uses a pulse-modulated signal to enact very precise movements.", "Ein besonderer Motor, der mit einem pulsmodulierten Signal sehr präzise Bewegungen ausführt."},
+                {"glider_wing", "Glider Wing", "Gleitflügel", "A lightweight aerodynamic wing with an electromagnet for quick deployment and retraction.", "Ein leichter, aerodynamischer Flügel mit Elektromagnet zum schnellen Aus- und Einfahren."},
+                {"ion_thruster", "Ion Thruster", "Ionentriebwerk", "Essentially a miniature particle accelerator. Accelerates ions to near-light speed to produce thrust.", "Im Grunde ein Miniatur-Teilchenbeschleuniger. Beschleunigt Ionen nahezu auf Lichtgeschwindigkeit, um Schub zu erzeugen."},
+                {"lv_capacitor", "LV Capacitor", "NS-Kondensator", "A simple capacitor can store and discharge small amounts of energy rapidly.", "Ein einfacher Kondensator kann kleine Energiemengen speichern und schnell abgeben."},
+                {"mv_capacitor", "MV Capacitor", "MS-Kondensator", "A more advanced capacitor which can store more energy at higher voltages.", "Ein fortgeschrittener Kondensator, der mehr Energie bei höheren Spannungen speichert."},
+                {"hv_capacitor", "HV Capacitor", "HS-Kondensator", "A synthetic crystal device which can store and release massive amounts of energy.", "Ein synthetischer Kristall, der gewaltige Energiemengen speichern und abgeben kann."},
+                {"parachute", "Parachute", "Fallschirm", "A simple reusable parachute which can be deployed and recovered in midair.", "Ein einfacher, wiederverwendbarer Fallschirm, der in der Luft geöffnet und wieder eingeholt werden kann."},
+                {"plating_basic", "Basic Plating", "Einfache Panzerung", "Some carefully-arranged metal armor plates.", "Sorgfältig angeordnete Panzerplatten aus Metall."},
+                {"plating_advanced", "Advanced Plating", "Fortgeschrittene Panzerung", "Some carefully-arranged armor plates of a rare and stronger material", "Sorgfältig angeordnete Panzerplatten aus einem seltenen, stärkeren Material."},
+                {"field_emitter", "Force Field Emitter", "Kraftfeldemitter", "An advanced device which directly manipulates electromagnetic and gravitational fields in an area.", "Ein fortgeschrittenes Gerät, das elektromagnetische und Gravitationsfelder in einem Bereich direkt beeinflusst."},
+                {"laser_emitter", "Hologram Emitter", "Hologrammemitter", "A multicoloured laser array which can cheaply alter the appearance of something.", "Eine mehrfarbige Laseranordnung, die das Aussehen von etwas günstig verändern kann."},
+                {"carbon_myofiber", "Carbon Myofiber", "Kohlenstoff-Myofaser", "A small bundle of carbon fibers, refined for use in artificial muscles.", "Ein kleines Bündel Kohlenstofffasern, veredelt für künstliche Muskeln."},
+                {"control_circuit", "Control Circuit", "Steuerschaltung", "A simple networkable microcontroller for coordinating an individual component.", "Ein einfacher, vernetzbarer Mikrocontroller zur Steuerung eines einzelnen Bauteils."},
+                {"myofiber_gel", "Myofiber Gel", "Myofaser-Gel", "A thick, conductive paste, perfect for fitting between myofibers in an artificial muscle.", "Eine dicke, leitfähige Paste, ideal zwischen den Myofasern eines künstlichen Muskels."},
+                {"artificial_muscle", "Artificial Muscle", "Künstlicher Muskel", "An electrical, artificial muscle, with less range of movement than human muscle but orders of magnitude more strength.", "Ein elektrischer, künstlicher Muskel mit weniger Bewegungsumfang als ein menschlicher, aber um Größenordnungen mehr Kraft."},
+                {"solar_panel", "Solar Panel", "Solarzelle", "A light sensitive device that will generate electricity from the sun.", "Ein lichtempfindliches Bauteil, das aus Sonnenlicht Strom erzeugt."},
+        };
+        for (String[] component : components) {
+            add("item.craft.component_" + component[0], german ? component[2] : component[1]);
+            add("item.craft.component_" + component[0] + ".desc", german ? component[4] : component[3]);
+        }
+        item(MpsItems.POWER_ARMOR_HEAD, german ? "Power-Rüstungshelm" : "Power Armor Head");
+        item(MpsItems.POWER_ARMOR_TORSO, german ? "Power-Rüstungsbrustteil" : "Power Armor Torso");
+        item(MpsItems.POWER_ARMOR_LEGS, german ? "Power-Rüstungshose" : "Power Armor Legs");
+        item(MpsItems.POWER_ARMOR_FEET, german ? "Power-Rüstungsstiefel" : "Power Armor Feet");
+        item(MpsItems.POWER_TOOL, german ? "Power-Werkzeug" : "Power Tool");
+        block(MpsBlocks.TINKER_TABLE, german ? "Power-Rüstungs-Werkbank" : "Power Armor Tinker Table");
+        String[][] modules = {
+                {"Night Vision", "Nachtsicht", "A pair of augmented vision goggles to help you see at night and underwater.", "Eine Brille mit erweiterter Sicht, mit der du nachts und unter Wasser siehst."},
+                {"Active Camouflage", "Aktive Tarnung", "Emit a hologram of your surroundings to make yourself almost imperceptible.", "Projiziert ein Hologramm der Umgebung und macht dich fast unsichtbar."},
+                {"Flight Control", "Flugsteuerung", "An integrated control circuit to help you fly better. Press Z to go down.", "Eine eingebaute Steuerschaltung für besseres Fliegen. Z drücken, um zu sinken."},
+                {"Plasma Cannon", "Plasmakanone", "Use electrical arcs in a containment field to superheat air to a plasma and launch it at enemies.", "Lichtbögen in einem Eindämmungsfeld erhitzen Luft zu Plasma, das auf Gegner geschleudert wird."},
+                {"Melee Assist", "Nahkampfhilfe", "A much simpler addon, makes your powertool punches hit harder.", "Eine viel einfachere Erweiterung: Schläge mit dem Power-Werkzeug treffen härter."},
+                {"Railgun", "Railgun", "An assembly which accelerates a projectile to supersonic speeds using magnetic force. Heavy recoil.", "Beschleunigt ein Geschoss mit Magnetkraft auf Überschall. Starker Rückstoß."},
+                {"In-Place Assembler", "Mobile Werkbank", "A larger crafting grid, on the go.", "Ein größeres Handwerksraster für unterwegs."},
+                {"Blink Drive", "Blink-Antrieb", "Get from point A to point C via point B, where point B is a fold in space & time.", "Von Punkt A über Punkt B nach Punkt C, wobei Punkt B eine Falte in Raum und Zeit ist."},
+                {"Kinetic Generator", "Kinetischer Generator", "Generate power with your movement.", "Erzeugt Strom aus deiner Bewegung."},
+                {"Solar Generator", "Solargenerator", "Let the sun power your adventures.", "Lass die Sonne deine Abenteuer antreiben."},
+                {"Auto-Feeder", "Auto-Fütterer", "Whenever you're hungry, this module will grab the bottom-left-most food item from your inventory and feed it to you, storing the rest for later.", "Wenn du hungrig bist, nimmt dieses Modul Nahrung aus deinem Inventar, füttert dich damit und speichert den Rest für später."},
+                {"Iron Plating", "Eisenpanzerung", "Basic plating is heavy but protective.", "Einfache Panzerung ist schwer, schützt aber."},
+                {"Diamond Plating", "Diamantpanzerung", "Advanced plating is lighter, harder, and more protective than Basic but much harder to make.", "Fortgeschrittene Panzerung ist leichter, härter und schützt besser als die einfache, ist aber viel schwerer herzustellen."},
+                {"Energy Shield", "Energieschild", "Energy shields are much lighter than plating, but consume energy.", "Energieschilde sind viel leichter als Panzerung, verbrauchen aber Energie."},
+                {"Shovel", "Schaufel", "Shovels are good for soft materials like dirt and sand.", "Schaufeln eignen sich für weiche Materialien wie Erde und Sand."},
+                {"Pickaxe", "Spitzhacke", "Picks are good for harder materials like stone and ore.", "Spitzhacken eignen sich für härtere Materialien wie Stein und Erz."},
+                {"Axe", "Axt", "Axes are mostly for chopping trees.", "Äxte sind vor allem zum Bäumefällen."},
+                {"Diamond Drill Upgrade", "Diamantbohrer-Upgrade", "Add diamonds to allow your pickaxe module to mine Obsidian. *REQUIRES PICKAXE MODULE TO WORK*", "Diamanten lassen das Spitzhacken-Modul Obsidian abbauen. *BRAUCHT DAS SPITZHACKEN-MODUL*"},
+                {"Aqua Affinity", "Wasseraffinität", "Reduces the speed penalty for using your tool underwater.", "Verringert die Verlangsamung beim Abbauen unter Wasser."},
+                {"Basic Battery", "Einfache Batterie", "Integrate a battery to allow the item to store energy.", "Eine eingebaute Batterie lässt das Item Energie speichern."},
+                {"Advanced Battery", "Fortgeschrittene Batterie", "Integrate a more advanced battery to store more energy.", "Eine fortgeschrittenere Batterie speichert mehr Energie."},
+                {"Elite Battery", "Elite-Batterie", "Integrate a the most advanced battery to store an extensive amount of energy.", "Die fortschrittlichste Batterie speichert gewaltige Energiemengen."},
+                {"Sprint Assist", "Sprinthilfe", "A set of servo motors to help you sprint (double-tap forward) and walk faster.", "Servomotoren, mit denen du schneller sprintest (zweimal vorwärts) und gehst."},
+                {"Jump Assist", "Sprunghilfe", "Another set of servo motors to help you jump higher.", "Weitere Servomotoren, mit denen du höher springst."},
+                {"Shock Absorber", "Stoßdämpfer", "With some servos, springs, and padding, you should be able to negate a portion of fall damage.", "Mit Servos, Federn und Polstern lässt sich ein Teil des Fallschadens aufheben."},
+                {"Glider", "Gleiter", "Tack on some wings to turn downward into forward momentum. Press sneak+forward while falling to activate.", "Flügel wandeln Fallen in Vorwärtsbewegung um. Im Fallen Schleichen + Vorwärts drücken."},
+                {"Parachute", "Fallschirm", "Add a parachute to slow your descent. Activate by pressing sneak (defaults to Shift) in midair.", "Ein Fallschirm bremst den Fall. In der Luft Schleichen (Standard: Shift) drücken."},
+                {"Jetpack", "Jetpack", "A jetpack should allow you to jump indefinitely, or at least until you run out of power.", "Mit einem Jetpack springst du endlos – oder zumindest, bis die Energie ausgeht."},
+                {"Jet Boots", "Düsenstiefel", "Jet boots are not as strong as a jetpack, but they should at least be strong enough to counteract gravity.", "Düsenstiefel sind schwächer als ein Jetpack, sollten aber wenigstens die Schwerkraft ausgleichen."},
+                {"Water Electrolyzer", "Wasser-Elektrolyseur", "When you run out of air, this module will jolt the water around you, electrolyzing a small bubble to breathe from.", "Geht dir die Luft aus, zerlegt das Modul das Wasser um dich per Stromstoß in eine kleine Atemblase."},
+                {"Swim Boost", "Schwimmhilfe", "By refitting an ion thruster for underwater use, you may be able to add extra forward (or backward) thrust when underwater.", "Ein umgebautes Ionentriebwerk gibt unter Wasser zusätzlichen Schub nach vorn (oder hinten)."},
+                {"Uphill Step Assist", "Stufenhilfe", "A pair of dedicated servos allow you to effortlessly step up 1m-high ledges.", "Zwei Servos lassen dich mühelos 1 m hohe Stufen hinaufsteigen."},
+                {"Custom Colour Module", "Farbmodul", "Give your armor some coloured tinting to customize your armor's appearance.", "Färbt deine Rüstung nach Wunsch ein."},
+                {"Transparent Armor", "Durchsichtige Rüstung", "Make the item transparent, so you can show off your skin without losing armor.", "Macht das Teil durchsichtig, damit dein Skin zu sehen ist, ohne Schutz zu verlieren."},
+                {"Citizen Joe Style", "Citizen-Joe-Stil", "An alternative armor texture, c/o CitizenJoe of IC2 forums.", "Eine andere Rüstungstextur, von CitizenJoe aus den IC2-Foren."},
+        };
+        for (String[] module : modules) {
+            String key = "mps.module." + PowerModule.key(module[0]);
+            add(key, german ? module[1] : module[0]);
+            add(key + ".desc", german ? module[3] : module[2]);
+        }
+        String[][] categories = {{"Armor", "Rüstung"}, {"Energy", "Energie"}, {"Tool", "Werkzeug"}, {"Weapon", "Waffe"},
+                {"Movement", "Bewegung"}, {"Cosmetic", "Kosmetik"}, {"Environment", "Umwelt"}, {"Special", "Spezial"}};
+        for (String[] category : categories) {
+            add("mps.category." + PowerModule.key(category[0]), german ? category[1] : category[0]);
+        }
+        String[][] tweaks = {{"Amperage", "Stromstärke"}, {"Voltage", "Spannung"}, {"Impact", "Wucht"},
+                {"Carry-through", "Durchschlag"}, {"Range", "Reichweite"}, {"Energy Generated", "Erzeugte Energie"},
+                {"Efficiency", "Effizienz"}, {"Plating Thickness", "Panzerungsdicke"}, {"Field Strength", "Feldstärke"},
+                {"Overclock", "Übertaktung"}, {"Power", "Leistung"}, {"Battery Size", "Batteriegröße"},
+                {"Compensation", "Ausgleich"}, {"Walking Assist", "Gehhilfe"}, {"Thrust", "Schub"},
+                {"Red Intensity", "Rotanteil"}, {"Green Intensity", "Grünanteil"}, {"Blue Intensity", "Blauanteil"}};
+        for (String[] tweak : tweaks) {
+            add("mps.tweak." + PowerModule.key(tweak[0]), german ? tweak[1] : tweak[0]);
+        }
+        String[][] properties = {
+                {"Armor (Physical)", "Rüstung (physisch)"}, {"Armor (Energy)", "Rüstung (Energie)"},
+                {"Energy Per Damage", "Energie je Schaden"}, {"Weight", "Gewicht"}, {"Maximum Energy", "Max. Energie"},
+                {"Plasma Energy Per Tick", "Plasma-Energie je Tick"},
+                {"Plasma Damage At Full Charge", "Plasma-Schaden voll geladen"},
+                {"Plasma Explosiveness", "Plasma-Sprengkraft"}, {"Punch Energy Consumption", "Schlag-Energie"},
+                {"Melee Damage", "Nahkampfschaden"}, {"Melee Knockback", "Nahkampf-Rückstoß"},
+                {"Railgun Total Impulse", "Railgun-Impuls"}, {"Railgun Energy Cost", "Railgun-Energie"},
+                {"Blink Drive Energy Consuption", "Blink-Energie"}, {"Blink Drive Range", "Blink-Reichweite"},
+                {"Energy Generation Per 5 Blocks", "Energie je 5 Blöcke"},
+                {"Daytime Solar Energy Generation", "Solarenergie am Tag"},
+                {"Nighttime Solar Energy Generation", "Solarenergie in der Nacht"},
+                {"Eating Energy Consumption", "Energie je Essen"}, {"Auto-Feeder Efficiency", "Fütterer-Effizienz"},
+                {"Shovel Energy Consumption", "Schaufel-Energie"}, {"Shovel Harvest Speed", "Schaufel-Tempo"},
+                {"Pickaxe Energy Consumption", "Spitzhacken-Energie"}, {"Pickaxe Harvest Speed", "Spitzhacken-Tempo"},
+                {"Axe Energy Consumption", "Axt-Energie"}, {"Axe Harvest Speed", "Axt-Tempo"},
+                {"Underwater Energy Consumption", "Energie unter Wasser"},
+                {"Underwater Harvest Speed", "Tempo unter Wasser"},
+                {"Sprint Energy Consumption", "Sprint-Energie"}, {"Sprint Speed Multiplier", "Sprint-Tempo"},
+                {"Sprint Exhaustion Compensation", "Sprint-Erschöpfungsausgleich"},
+                {"Walking Energy Consumption", "Geh-Energie"}, {"Walking Speed Multiplier", "Geh-Tempo"},
+                {"Jump Energy Consumption", "Sprung-Energie"}, {"Jump Boost", "Sprungkraft"},
+                {"Jump Exhaustion Compensation", "Sprung-Erschöpfungsausgleich"},
+                {"Impact Energy consumption", "Aufprall-Energie"}, {"Distance Reduction", "Fallhöhen-Minderung"},
+                {"Jet Energy Consumption", "Düsen-Energie"}, {"Jet Thrust", "Düsenschub"},
+                {"Jolt Energy", "Stromstoß-Energie"}, {"Swim Boost Energy Consumption", "Schwimm-Energie"},
+                {"Underwater Movement Boost", "Schwimmschub"}, {"Red Tint", "Rot"}, {"Green Tint", "Grün"},
+                {"Blue Tint", "Blau"}};
+        for (String[] property : properties) {
+            add("mps.property." + PowerModule.key(property[0]), german ? property[1] : property[0]);
+        }
+        add("gui.craft.mps.install", german ? "Einbauen" : "Install");
+        add("gui.craft.mps.salvage", german ? "Ausbauen" : "Salvage");
+        add("gui.craft.mps.tinker", german ? "Einstellen" : "Tinker");
+        add("gui.craft.mps.summary", german ? "Übersicht" : "Detailed Summary");
+        add("gui.craft.mps.armor", german ? "Rüstung" : "Armor");
+        add("gui.craft.mps.energy_storage", german ? "Energiespeicher" : "Energy Storage");
+        add("gui.craft.mps.weight", german ? "Gewicht" : "Weight");
+        add("gui.craft.mps.no_items.0", german ? "Keine Power-Rüstungsteile" : "No modular powersuit items");
+        add("gui.craft.mps.no_items.1", german ? "im Inventar. Bau welche!" : "found in inventory. Make some!");
+        add("gui.craft.mps.no_items.2", german ? "Wir empfehlen, mit Eisen" : "We recommend experimenting");
+        add("gui.craft.mps.no_items.3", german ? "und Verdrahtung zu experimentieren." : "with steel plates and basic circuits.");
+        add("tooltip.craft.mps.mode", german ? "Modus: %s" : "Mode:%s");
+        add("tooltip.craft.mps.energy", german ? "Energie: %s/%s" : "Energy: %s/%s");
+        add("tooltip.craft.mps.shift", german ? "Shift drücken für mehr Informationen." : "Press SHIFT for more information.");
+        add("tooltip.craft.mps.no_modules", german
+                ? "Keine Module eingebaut! Ohne Module an einer Power-Rüstungs-Werkbank ist dieses Item nutzlos."
+                : "No installed modules! This item is useless until you add some modules at a Tinker Table.");
+        add("tooltip.craft.mps.installed", german ? "Eingebaute Module:" : "Installed Modules:");
+        add("tooltip.craft.mps.for_tinker_table", german ? "Für die Power-Rüstungs-Werkbank." : "For use in Tinker Table.");
+        add("message.craft.mps.module_disallowed", german ? "Der Server hat dieses Modul verboten. Sorry!" : "Server has disallowed this module. Sorry!");
     }
 
     /** EnderStorage (spec 27); the chest keeps the original name, German marks it apart from the vanilla one. */
@@ -1668,6 +1813,7 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             ironChests(false);
             enderStorage(false);
             graviSuite(false);
+            modularPowersuits(false);
             advancedMachines(false);
             thermalExpansion(false);
         }
@@ -2074,6 +2220,7 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             ironChests(true);
             enderStorage(true);
             graviSuite(true);
+            modularPowersuits(true);
             advancedMachines(true);
             thermalExpansion(true);
         }

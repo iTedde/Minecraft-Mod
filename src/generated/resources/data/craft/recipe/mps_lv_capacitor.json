@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "craft:mps_lv_capacitor",
+  "key": {
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "P": {
+      "item": "minecraft:paper"
+    },
+    "W": {
+      "item": "craft:component_wiring"
+    }
+  },
+  "pattern": [
+    "WPI",
+    "W W"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:component_lv_capacitor"
+  }
+}

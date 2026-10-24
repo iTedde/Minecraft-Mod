@@ -58,6 +58,7 @@ import dev.craft.enderstorage.EnderStorageRecolourRecipe;
 import dev.craft.enderstorage.EsDataComponents;
 import dev.craft.enderstorage.EsItems;
 import dev.craft.gravisuite.GsItems;
+import dev.craft.mps.MpsItems;
 import dev.craft.enderstorage.Frequency;
 import dev.craft.ironchest.ChestUpgradeType;
 import dev.craft.ironchest.IronChestItems;
@@ -65,6 +66,7 @@ import dev.craft.ironchest.IronChestType;
 import dev.craft.portalgun.PgItems;
 import dev.craft.redpower.RpGem;
 import dev.craft.redpower.RpItems;
+import net.minecraft.advancements.Criterion;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.component.DataComponents;
@@ -138,6 +140,7 @@ public final class CraftRecipeProvider extends RecipeProvider {
         ironChests();
         enderStorage();
         graviSuite();
+        modularPowersuits();
         advancedMachines();
         thermalExpansion();
         gregTechCircuitBoards();
@@ -2687,6 +2690,93 @@ public final class CraftRecipeProvider extends RecipeProvider {
      * GraviSuite (spec 28 §10): IC2 {@code AdvRecipe}s (charge transfer, IC2 parts undamaged only), except the
      * superconductor (cover), which are vanilla recipes, and the magnetron (ore recipe).
      */
+    /**
+     * Modular Powersuits (spec 29 §10): the vanilla set plus the four GregTech recipes that work in the pack (the
+     * others use ore names GregTech never registers); vanilla shaped recipes may be mirrored as in 1.4.7.
+     */
+    private void modularPowersuits() {
+        mps(MpsItems.WIRING, 8, "wiring", has(Items.REDSTONE), "GRG").define('G', Items.GOLD_NUGGET)
+                .define('R', Items.REDSTONE).save(output, id("mps_wiring"));
+        mps(MpsItems.SOLENOID, 1, "solenoid", has(MpsItems.WIRING), "WIW", "WIW", "WIW")
+                .define('W', MpsItems.WIRING).define('I', Items.IRON_INGOT).save(output, id("mps_solenoid"));
+        mps(MpsItems.SERVO, 1, "servo", has(MpsItems.SOLENOID), " W ", "EIE").define('W', MpsItems.WIRING)
+                .define('E', MpsItems.SOLENOID).define('I', Items.IRON_INGOT).save(output, id("mps_servo"));
+        mps(MpsItems.GLIDER_WING, 1, "glider_wing", has(Items.IRON_INGOT), " II", "II ", "I  ")
+                .define('I', Items.IRON_INGOT).save(output, id("mps_glider_wing"));
+        mps(MpsItems.ION_THRUSTER, 1, "ion_thruster", has(MpsItems.FIELD_EMITTER), " FE", "IG ", "IFE")
+                .define('F', MpsItems.FIELD_EMITTER).define('E', MpsItems.SOLENOID).define('I', Items.IRON_INGOT)
+                .define('G', Items.GLOWSTONE_DUST).save(output, id("mps_ion_thruster"));
+        mps(MpsItems.LV_CAPACITOR, 1, "lv_capacitor", has(MpsItems.WIRING), "WPI", "W W")
+                .define('W', MpsItems.WIRING).define('P', Items.PAPER).define('I', Items.IRON_INGOT)
+                .save(output, id("mps_lv_capacitor"));
+        mps(MpsItems.MV_CAPACITOR, 1, "mv_capacitor", has(MpsItems.WIRING), "GPL", "W W")
+                .define('G', Items.GOLD_NUGGET).define('P', Items.PAPER).define('L', Items.LAPIS_LAZULI)
+                .define('W', MpsItems.WIRING).save(output, id("mps_mv_capacitor"));
+        mps(MpsItems.HV_CAPACITOR, 1, "hv_capacitor", has(MpsItems.WIRING), "EPG", "W W")
+                .define('E', Items.ENDER_PEARL).define('P', Items.GLASS).define('G', Items.GLOWSTONE_DUST)
+                .define('W', MpsItems.WIRING).save(output, id("mps_hv_capacitor"));
+        mps(MpsItems.PARACHUTE, 1, "parachute", has(Items.STRING), "WWW", "S S").define('W', Items.WHITE_WOOL)
+                .define('S', Items.STRING).save(output, id("mps_parachute"));
+        mps(MpsItems.PLATING_BASIC, 1, "plating_basic", has(MpsItems.WIRING), "II", "CI", "II")
+                .define('I', Items.IRON_INGOT).define('C', MpsItems.WIRING).save(output, id("mps_plating_basic"));
+        mps(MpsItems.PLATING_ADVANCED, 1, "plating_advanced", has(MpsItems.SOLENOID), "II", "CI", "II")
+                .define('I', Items.DIAMOND).define('C', MpsItems.SOLENOID).save(output, id("mps_plating_advanced"));
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, Items.IRON_INGOT, 5).pattern("P")
+                .define('P', MpsItems.PLATING_BASIC).unlockedBy("has_plating", has(MpsItems.PLATING_BASIC))
+                .save(output, id("mps_iron_from_plating"));
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, Items.DIAMOND, 5).pattern("P")
+                .define('P', MpsItems.PLATING_ADVANCED).unlockedBy("has_plating", has(MpsItems.PLATING_ADVANCED))
+                .save(output, id("mps_diamond_from_plating"));
+        mps(MpsItems.FIELD_EMITTER, 1, "field_emitter", has(MpsItems.SOLENOID), "SES", "ESE", "SES")
+                .define('S', MpsItems.SOLENOID).define('E', Items.ENDER_PEARL).save(output, id("mps_field_emitter"));
+        mps(MpsItems.LASER_EMITTER, 1, "laser_emitter", has(MpsItems.WIRING), "YTG", "TWT", "BTR")
+                .define('Y', Items.GLOWSTONE_DUST).define('T', Items.GLASS).define('G', Items.GREEN_DYE)
+                .define('W', MpsItems.WIRING).define('B', Items.LAPIS_LAZULI).define('R', Items.RED_DYE)
+                .save(output, id("mps_laser_emitter"));
+        mps(MpsItems.CONTROL_CIRCUIT, 1, "control_circuit", has(MpsItems.WIRING), "WCI", "RGC", "IRW")
+                .define('W', MpsItems.WIRING).define('C', Items.GREEN_DYE).define('I', Items.GOLD_INGOT)
+                .define('R', Items.REDSTONE).define('G', Items.GLOWSTONE_DUST).save(output, id("mps_control_circuit"));
+        mps(MpsItems.SOLAR_PANEL, 1, "solar_panel", has(Items.GLASS_PANE), "PPP", "PLP", "PPP")
+                .define('P', Items.GLASS_PANE).define('L', Items.LAPIS_LAZULI).save(output, id("mps_solar_panel"));
+        mps(MpsItems.TINKER_TABLE, 1, "tinker_table", has(Items.EMERALD), "ILI", "LEL", "ILI")
+                .define('I', Items.IRON_INGOT).define('L', Items.LAPIS_LAZULI).define('E', Items.EMERALD)
+                .save(output, id("mps_tinker_table"));
+        mps(MpsItems.POWER_ARMOR_HEAD, 1, "power_armor", has(MpsItems.WIRING), "III", "C C")
+                .define('I', Items.IRON_INGOT).define('C', MpsItems.WIRING).save(output, id("mps_power_armor_head"));
+        mps(MpsItems.POWER_ARMOR_TORSO, 1, "power_armor", has(MpsItems.WIRING), "I I", "CIC", "III")
+                .define('I', Items.IRON_INGOT).define('C', MpsItems.WIRING).save(output, id("mps_power_armor_torso"));
+        mps(MpsItems.POWER_ARMOR_LEGS, 1, "power_armor", has(MpsItems.WIRING), "III", "C C", "I I")
+                .define('I', Items.IRON_INGOT).define('C', MpsItems.WIRING).save(output, id("mps_power_armor_legs"));
+        mps(MpsItems.POWER_ARMOR_FEET, 1, "power_armor", has(MpsItems.WIRING), "C C", "I I")
+                .define('I', Items.IRON_INGOT).define('C', MpsItems.WIRING).save(output, id("mps_power_armor_feet"));
+        mps(MpsItems.POWER_TOOL, 1, "power_armor", has(MpsItems.WIRING), " C ", "CI ", " IC")
+                .define('I', Items.IRON_INGOT).define('C', MpsItems.WIRING).save(output, id("mps_power_tool"));
+        // GregTech set: only these four resolve in the pack.
+        mps(MpsItems.WIRING, 2, "wiring", has(CraftItemTagsProvider.INGOTS_SILVER), "CCC", "SSS", "CCC")
+                .define('C', Ic2Items.cable(CableType.COPPER)).define('S', CraftItemTagsProvider.INGOTS_SILVER)
+                .save(output, id("mps_wiring_gt"));
+        mps(MpsItems.PARACHUTE, 1, "parachute", has(Ic2Items.CARBON_PLATE), "WWW", "S S", "CNC")
+                .define('W', Items.WHITE_WOOL).define('S', Items.STRING).define('C', Ic2Items.CARBON_PLATE)
+                .define('N', GtItems.NITROGEN_CELL).save(output, id("mps_parachute_gt"));
+        mps(MpsItems.LASER_EMITTER, 1, "laser_emitter", has(Ic2Items.LUMINATOR), "LLL", "RGB", "LLL")
+                .define('L', Ic2Items.LUMINATOR).define('R', CraftItemTagsProvider.GEMS_RUBY)
+                .define('G', CraftItemTagsProvider.GEMS_GREEN_SAPPHIRE).define('B', CraftItemTagsProvider.GEMS_SAPPHIRE)
+                .save(output, id("mps_laser_emitter_gt"));
+        mps(MpsItems.SOLENOID, 1, "solenoid", has(CraftItemTagsProvider.INGOTS_STEEL), "WSW", "WSW", "WSW")
+                .define('W', MpsItems.WIRING).define('S', CraftItemTagsProvider.INGOTS_STEEL)
+                .save(output, id("mps_solenoid_gt"));
+    }
+
+    private static ShapedRecipeBuilder mps(ItemLike result, int count, String group,
+                                           Criterion<?> unlock, String... pattern) {
+        ShapedRecipeBuilder builder = ShapedRecipeBuilder.shaped(RecipeCategory.MISC, result, count)
+                .group("craft:mps_" + group).unlockedBy("has_ingredient", unlock);
+        for (String row : pattern) {
+            builder.pattern(row);
+        }
+        return builder;
+    }
+
     private void graviSuite() {
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, GsItems.SUPERCONDUCTOR_COVER, 3)
                 .pattern("RBR").pattern("CCC").pattern("RBR").define('R', Ic2Items.ADVANCED_ALLOY)

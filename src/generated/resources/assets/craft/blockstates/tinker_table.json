@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "craft:block/tinker_table"
+    }
+  }
+}

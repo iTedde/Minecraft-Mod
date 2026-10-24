@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "P": {
+      "item": "craft:component_plating_advanced"
+    }
+  },
+  "pattern": [
+    "P"
+  ],
+  "result": {
+    "count": 5,
+    "id": "minecraft:diamond"
+  }
+}

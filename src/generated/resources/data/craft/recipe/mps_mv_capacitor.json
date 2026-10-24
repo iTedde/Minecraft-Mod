@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "craft:mps_mv_capacitor",
+  "key": {
+    "G": {
+      "item": "minecraft:gold_nugget"
+    },
+    "L": {
+      "item": "minecraft:lapis_lazuli"
+    },
+    "P": {
+      "item": "minecraft:paper"
+    },
+    "W": {
+      "item": "craft:component_wiring"
+    }
+  },
+  "pattern": [
+    "GPL",
+    "W W"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:component_mv_capacitor"
+  }
+}

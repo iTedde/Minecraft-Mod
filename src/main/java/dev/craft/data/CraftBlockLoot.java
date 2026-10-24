@@ -11,6 +11,7 @@ import dev.craft.forestry.FrBlocks;
 import dev.craft.compactsolars.CsBlocks;
 import dev.craft.powerplants.PpBlocks;
 import dev.craft.enderstorage.EsBlocks;
+import dev.craft.mps.MpsBlocks;
 import dev.craft.enderstorage.EsDataComponents;
 import dev.craft.ironchest.IronChestBlocks;
 import dev.craft.thermalexpansion.TeBlocks;
@@ -72,6 +73,7 @@ public final class CraftBlockLoot extends BlockLootSubProvider {
         }
         dropSelf(GtBlocks.HIGHLY_ADVANCED_MACHINE_BLOCK.get());
         dropSelf(RpBlocks.PROJECT_TABLE.get());
+        dropSelf(MpsBlocks.TINKER_TABLE.get());
         IronChestBlocks.BLOCKS.getEntries().forEach(chest -> dropSelf(chest.get()));
         // EnderStorage getBlockDropped: always itself with frequency and owner (spec 27 §2).
         for (Block ender : List.of(EsBlocks.ENDER_CHEST.get(), EsBlocks.ENDER_TANK.get())) {
@@ -272,7 +274,7 @@ public final class CraftBlockLoot extends BlockLootSubProvider {
     protected Iterable<Block> getKnownBlocks() {
         return Stream.of(Ic2Blocks.BLOCKS, BcBlocks.BLOCKS, FrBlocks.BLOCKS, PcBlocks.BLOCKS,
                         CsBlocks.BLOCKS, GtBlocks.BLOCKS, PpBlocks.BLOCKS, RpBlocks.BLOCKS, IronChestBlocks.BLOCKS,
-                        TeBlocks.BLOCKS, EsBlocks.BLOCKS)
+                        TeBlocks.BLOCKS, EsBlocks.BLOCKS, MpsBlocks.BLOCKS)
                 .flatMap(blocks -> blocks.getEntries().stream())
                 .map(holder -> (Block) holder.get()).toList();
     }

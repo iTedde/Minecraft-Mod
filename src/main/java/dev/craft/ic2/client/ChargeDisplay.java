@@ -3,6 +3,7 @@ package dev.craft.ic2.client;
 import java.util.Locale;
 
 import dev.craft.Craft;
+import dev.craft.ic2.item.CustomElectricItem;
 import dev.craft.ic2.item.ElectricItem;
 import dev.craft.ic2.item.ElectricItems;
 import dev.craft.ic2.item.armor.JetpackItem;
@@ -55,6 +56,10 @@ public final class ChargeDisplay {
         @SubscribeEvent
         public static void tooltip(ItemTooltipEvent event) {
             ItemStack stack = event.getItemStack();
+            if (stack.getItem() instanceof CustomElectricItem) {
+                // Shows its own energy line, like IC2's canShowChargeToolTip = false.
+                return;
+            }
             if (stack.getItem() instanceof ElectricItem item) {
                 event.getToolTip().add(1, Component.translatable("tooltip.craft.charge",
                         group(ElectricItems.getCharge(stack)), group(item.getMaxCharge())).withColor(0xAAAAAA));
@@ -85,7 +90,7 @@ public final class ChargeDisplay {
             ItemStack stack = player.getItemBySlot(ARMOR_SLOTS[i]);
             int percent;
             if (stack.getItem() instanceof ElectricItem item) {
-                percent = percent(ElectricItems.getCharge(stack), item.getMaxCharge());
+                percent = percent(ElectricItems.getCharge(stack), item.getMaxCharge(stack));
             } else if (stack.getItem() instanceof JetpackItem jetpack) {
                 percent = percent(jetpack.getCharge(stack), jetpack.getMaxCharge(stack));
             } else {

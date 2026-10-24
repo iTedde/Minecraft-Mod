@@ -2541,7 +2541,29 @@ alle, z. B. ×1,2.“ Entscheidungen Nutzer: Bonus für Panels in einem **lücke
   (Vanilla-Satz + Verdrahtung/Fallschirm/Hologrammemitter/Magnetspule aus GT); Fallhöhen-Neuberechnung nur mit
   getragenem MPS-Teil.
 
+## Erledigt (28.1 Modular Powersuits: Grundgerüst, Tinker Table, Rezepte, 2026-10-24)
+- [x] Paket `dev.craft.mps`: 18 Bauteile, Power-Rüstung (4 Teile, Textur `sebkarmor`/`sebkarmorpants`), Power-Werkzeug,
+  Tinker Table; eigener Kreativ-Tab „Craft: Modular Powersuits“.
+- [x] Modulsystem: alle 35 Module mit Pack-Config-Werten (`MpsModules`), Rechnung Grundwert + Regler × Multiplikator nur
+  für aktive Module, Rechtsklick-Module nur als Modus; Data Components `craft:mps_modules`/`mps_energy`/`mps_mode`.
+- [x] Energie in Joule: gemeinsamer Vorrat (Füße → Hand), IC2-Laden 50 J/EU (Rüstung max. Kapazität/200 je Aufruf,
+  Werkzeug ohne Grenze) über neuen IC2-Haken `CustomElectricItem`; Lade-HUD zeigt MPS-Teile mit eigener Kapazität.
+- [x] Rüstung: Schutz min(6, Panzerung + Energieschild), Absorption 0,04 × Schutz, AbsorbMax (int)·75, Schaden kostet
+  Energie je Schaden aus dem Vorrat.
+- [x] Tinker Table: Block-Entity-Renderer mit den 1.4.7-Quadern (Bildschirme/Würfel leuchtend, Würfel dreht sich),
+  GUI wie im Original (Itemspalte, Kategorien, Einbauen/Ausbauen mit Kosten, Info, Regler) mit Payloads; Einbau-
+  Ladebonus der Kondensatoren, Ausbau 90 % je Teil, Kondensatoren verloren, Kreativ kostenlos.
+- [x] Rezepte wie im Pack baubar: Vanilla-Satz (23) + 4 GT-Rezepte; Texturen per `tools/scripts/mps_textures.py`;
+  Sprache DE/EN (Module, Kategorien, Regler, Werte, Bauteil-Beschreibungen).
+- [x] GameTests `MpsGameTests` (7: Modulwerte, Energievorrat, IC2-Laden, Ein-/Ausbau, Rückgabe-Chance, Rüstungswerte,
+  Rezepte). Alle 497 grün, `gradlew runData build` grün.
+- [x] Client-Start geprüft (2026-10-24, mit Freigabe): Tisch-Modell, GUI (Werkzeug wählen, Batterie einbauen,
+  Regler → 80,1 kJ / 8,01 kg vom Server), Rüstungstextur am Spieler; Rahmenfarben/Textgröße danach korrigiert und
+  erneut geprüft.
+- Doku: `abweichungen.md` (7 MPS-Zeilen), `architektur.md`, Spec §4/§14.
+
 ## Nächste Schritte
-- Phase 28.1 Modular Powersuits: Grundgerüst, Energie, Bauteile, Modulsystem, Tinker Table, Rezepte.
+- Phase 28.2 Modular Powersuits: Bewegung (Eingabe-Payload, Gewicht, Sprint/Sprung/Stufe, Jetpack/Düsenstiefel/
+  Flugsteuerung, Gleiter, Fallschirm, Schwimmen, Stoßdämpfer, Fallhöhe, Sounds).
 - Client-Test GraviSuite (Testplan 11) – nur nach Rückfrage (Nutzer spielt evtl. selbst).
 - Phase 30 Elektrischer Leuchtschild: 30.0 Spezifikation (Werte/Rezept/Reihenfolge zur Freigabe).

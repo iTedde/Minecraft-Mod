@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "craft:mps_laser_emitter",
+  "key": {
+    "B": {
+      "tag": "c:gems/sapphire"
+    },
+    "G": {
+      "tag": "c:gems/green_sapphire"
+    },
+    "L": {
+      "item": "craft:luminator"
+    },
+    "R": {
+      "tag": "c:gems/ruby"
+    }
+  },
+  "pattern": [
+    "LLL",
+    "RGB",
+    "LLL"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:component_laser_emitter"
+  }
+}

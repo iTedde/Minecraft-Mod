@@ -6,6 +6,11 @@ import net.minecraft.world.item.ItemStack;
 public interface ElectricItem {
     int getMaxCharge();
 
+    /** Capacity of {@code stack} in EU, for displays; differs from {@link #getMaxCharge()} for modular items. */
+    default int getMaxCharge(ItemStack stack) {
+        return getMaxCharge();
+    }
+
     /** EU per call when charging/discharging with transfer limit. */
     int getTransferLimit();
 

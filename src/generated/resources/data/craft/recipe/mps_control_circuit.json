@@ -1,0 +1,31 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "craft:mps_control_circuit",
+  "key": {
+    "C": {
+      "item": "minecraft:green_dye"
+    },
+    "G": {
+      "item": "minecraft:glowstone_dust"
+    },
+    "I": {
+      "item": "minecraft:gold_ingot"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    },
+    "W": {
+      "item": "craft:component_wiring"
+    }
+  },
+  "pattern": [
+    "WCI",
+    "RGC",
+    "IRW"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:component_control_circuit"
+  }
+}
