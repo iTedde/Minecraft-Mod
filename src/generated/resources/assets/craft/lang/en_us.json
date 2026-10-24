@@ -433,6 +433,7 @@
   "entity.craft.industrial_tnt": "Industrial TNT",
   "entity.craft.mining_laser": "Mining Laser",
   "entity.craft.nuke": "Nuke",
+  "entity.craft.plasma_bolt": "Plasma Bolt",
   "entity.craft.sticky_dynamite": "Sticky Dynamite",
   "fluid_type.craft.coolant": "Coolant",
   "fluid_type.craft.fuel": "Fuel",

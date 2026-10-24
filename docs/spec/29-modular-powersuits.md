@@ -290,6 +290,11 @@ Aufsummierung global (z. B. wird Fallschaden nach Bremsen durch Jetpack/Gleiter/
   Material Stein/Eisen/Amboss); **Shovel** wenn Eisenschaufel wirksam oder Material Schnee; **Axe** wenn Eisenaxt
   wirksam oder Material Holz/Pflanzen/Ranken; **Diamond Drill** wenn Diamantspitzhacke wirksam oder Material
   Stein/Eisen/Amboss (also auch Obsidian). Reihenfolge Pickaxe → Shovel → Axe → Diamond.
+- **Befund 28.4** (`javap` auf Forge 6.6.2 `ForgeHooks.isToolEffective`): prüft nur, ob Block/Meta für die
+  Werkzeugklasse registriert ist, **ohne Abbaustufe** – Eisen- und Diamantspitzhacke sind gleichwertig. Damit baut
+  schon das **Pickaxe-Modul Obsidian** ab; das Diamond Drill Upgrade greift nur ohne aktive Spitzhacke und hat dann
+  Tempo 0 (Pickaxe-Werte fehlen) – im Pack praktisch nutzlos, übernommen. 1.21: Typ über die Block-Tags
+  `mineable/pickaxe|shovel|axe`; „Pflanzen/Ranken“ = `BushBlock`, `VineBlock`, `SugarCaneBlock`.
 - **Abbaubarkeit** (HarvestCheck): passender Typ und Vorrat > Verbrauch des Typs.
 - **Tempo** (BreakSpeed): Vanilla-Tempo (Werkzeug selbst 1,0) × Harvest Speed des Typs (Diamond nutzt Pickaxe-
   Werte → ohne Pickaxe-Modul 0, Diamond-Upgrade also nur mit Pickaxe sinnvoll); kein Typ → 1,0. Unter Wasser mit
@@ -425,7 +430,7 @@ Spawn-Paket. Bewegung läuft wie im Pack auf beiden Seiten; Energie wird vom Ser
   Stoßdämpfer-Fallhöhe, Gewichtsbremse, Stufenhöhe, Fallhöhenformel.
 - Umwelt: Nachtsicht/Tarnung-Effekte und Kosten, Auto-Feeder-Puffer, Atemluft 300, Solar alle 80 Ticks, Kinetik je 5
   Blöcke.
-- Werkzeug: Abbaubarkeit/Tempo je Typ, Obsidian nur mit Diamant-Upgrade, Kosten je Block, Aqua Affinity, Nahkampf,
+- Werkzeug: Abbaubarkeit/Tempo je Typ, Obsidian schon mit Pickaxe (Befund 28.4), Kosten je Block, Aqua Affinity, Nahkampf,
   Moduswechsel, Railgun-Schaden, Blink-Teleport, Plasma-Kosten/Explosion, Assembler öffnet Werkbank.
 - Alle Rezepte aus §10.1/§10.2.
 

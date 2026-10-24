@@ -433,6 +433,7 @@
   "entity.craft.industrial_tnt": "Industrie-TNT",
   "entity.craft.mining_laser": "Bergbaulaser",
   "entity.craft.nuke": "Atombombe",
+  "entity.craft.plasma_bolt": "Plasmageschoss",
   "entity.craft.sticky_dynamite": "Klebedynamit",
   "fluid_type.craft.coolant": "Kühlmittel",
   "fluid_type.craft.fuel": "Treibstoff",

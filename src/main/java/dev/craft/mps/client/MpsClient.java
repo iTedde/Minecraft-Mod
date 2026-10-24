@@ -8,6 +8,7 @@ import dev.craft.mps.ModularItems;
 import dev.craft.mps.MpsBlocks;
 import dev.craft.mps.MpsEnergy;
 import dev.craft.mps.MpsItems;
+import dev.craft.mps.entity.MpsEntityTypes;
 import dev.craft.mps.item.ModularItem;
 import dev.craft.mps.module.ModuleTarget;
 import dev.craft.mps.module.PowerModule;
@@ -38,6 +39,7 @@ public final class MpsClient {
     @SubscribeEvent
     public static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerBlockEntityRenderer(MpsBlocks.TINKER_TABLE_ENTITY.get(), TinkerTableRenderer::new);
+        event.registerEntityRenderer(MpsEntityTypes.PLASMA_BOLT.get(), PlasmaBoltRenderer::new);
     }
 
     @SubscribeEvent

@@ -565,6 +565,7 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
         add("key.categories.craft", "Craft");
         add("key.craft.gravi_fly", german ? "Gravi-Flugtaste" : "Gravi Fly Key");
         add("key.craft.mps_down", german ? "Power-Rüstung: Runter (Flugsteuerung)" : "Power Armor: Down (Flight Control)");
+        add("entity.craft.plasma_bolt", german ? "Plasmageschoss" : "Plasma Bolt");
         add("key.craft.mps_keybinds", german ? "Power-Rüstung: Tastenbelegung" : "Power Armor: Keybindings");
     }
 

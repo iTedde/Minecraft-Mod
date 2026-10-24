@@ -59,6 +59,17 @@ public final class ModularItems {
         return modules;
     }
 
+    /** {@code getModes}: installed right-click modules in registration order. */
+    public static List<String> getModes(ItemStack stack) {
+        List<String> modes = new ArrayList<>();
+        for (PowerModule module : getInstalledModules(stack)) {
+            if (module.getKind() == PowerModule.Kind.RIGHT_CLICK) {
+                modes.add(module.getName());
+            }
+        }
+        return modes;
+    }
+
     /** {@code itemAddModule}: a new module, active, all sliders 0. */
     public static void addModule(ItemStack stack, String name) {
         Map<String, ModuleData> modules = new HashMap<>(getModules(stack));

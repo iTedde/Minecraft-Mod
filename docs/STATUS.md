@@ -2595,9 +2595,23 @@ alle, z. B. ×1,2.“ Entscheidungen Nutzer: Bonus für Panels in einem **lücke
 - [ ] Client-Test (Effekte, Feeder-Meldung, Tasten-GUI, Färbung/Texturen) – nur nach Rückfrage.
 - Doku: `abweichungen.md` (5 MPS-Zeilen), `architektur.md`, Spec §7/§9.
 
+## Erledigt (28.4 Modular Powersuits: Power Tool, 2026-10-24)
+- [x] `MpsTool`: Werkzeugtyp Pickaxe → Shovel → Axe → Diamond über Block-Tags, Harvest-Check (Vorrat > Verbrauch),
+  Abbautempo × Harvest Speed (sonst 1), Aqua Affinity unter Wasser, Kosten je abgebautem Block; Nahkampfhilfe
+  (zweiter Treffer + Rückstoß).
+- [x] Befund: Forge 1.4.7 prüft bei `isToolEffective` keine Abbaustufe → schon das Pickaxe-Modul baut Obsidian, das
+  Diamond Drill Upgrade wirkt nur ohne Spitzhacke (Tempo 0) – wie im Pack übernommen, Spec §8.1/§13 korrigiert.
+- [x] Modi: Schleichen + Mausrad (Payload `mps_mode_change`), Modus-Icons über der Hotbar mit Gleitanimation;
+  Railgun (Impuls/100 Schaden, Rückstoß, Partikelspur), Blink Drive (Teleport vor die getroffene Fläche),
+  Plasmakanone (Aufladen wie Bogen, Geschoss `craft:plasma_bolt` mit Explosion, eigener Renderer), In-Place
+  Assembler (3×3-Werkbank).
+- [x] GameTests `MpsToolGameTests` (8: Werkzeugtypen, Tempo/Abbaubarkeit, Kosten, Nahkampf, Modi, Railgun, Blink
+  Drive, Plasmakanone). Alle 520 grün, `gradlew runData build` grün.
+- [ ] Client-Test (Abbau, Mausrad-HUD, Plasma-Renderer, Railgun-Partikel, Werkbank) – nur nach Rückfrage.
+- Doku: `abweichungen.md` (5 MPS-Zeilen), `architektur.md`, Spec §8.1/§13.
+
 ## Nächste Schritte
-- Phase 28.4 Modular Powersuits: Power Tool (Abbau Spitzhacke/Schaufel/Axt/Diamant/Aqua Affinity, Nahkampf, Modi
-  per Mausrad, Railgun, Blink Drive, Plasmakanone, In-Place Assembler).
-- Client-Test MPS-Bewegung/-Umwelt/-Tasten und GraviSuite (Testplan 11) – nur nach Rückfrage (Nutzer spielt evtl.
-  selbst).
+- Phase 28.5 Modular Powersuits: EMI (Info-Seiten), Herkunft, Wiki, Testplan, Version/Paket.
+- Client-Test MPS (Bewegung, Umwelt, Tasten, Power Tool) und GraviSuite (Testplan 11) – nur nach Rückfrage (Nutzer
+  spielt evtl. selbst).
 - Phase 30 Elektrischer Leuchtschild: 30.0 Spezifikation (Werte/Rezept/Reihenfolge zur Freigabe).

@@ -48,6 +48,19 @@ public final class MpsPayloads {
         }
     }
 
+    /** {@code MusePacketModeChangeRequest}: the power tool mode of a hotbar slot. */
+    public record ModeChange(int slot, String mode) implements CustomPacketPayload {
+        public static final Type<ModeChange> TYPE = payloadType("mps_mode_change");
+        public static final StreamCodec<ByteBuf, ModeChange> STREAM_CODEC = StreamCodec.composite(
+                ByteBufCodecs.VAR_INT, ModeChange::slot, ByteBufCodecs.stringUtf8(64), ModeChange::mode,
+                ModeChange::new);
+
+        @Override
+        public Type<ModeChange> type() {
+            return TYPE;
+        }
+    }
+
     /** {@code MusePacketToggleRequest}: a keybinding switches a module on all equipped modular items. */
     public record Toggle(String module, boolean active) implements CustomPacketPayload {
         public static final Type<Toggle> TYPE = payloadType("mps_toggle");
@@ -88,6 +101,8 @@ public final class MpsPayloads {
                                 payload.module(), context.player().getRandom()))
                 .playToServer(Tweak.TYPE, Tweak.STREAM_CODEC, MpsPayloads::tweak)
                 .playToServer(Input.TYPE, Input.STREAM_CODEC, MpsPayloads::input)
+                .playToServer(ModeChange.TYPE, ModeChange.STREAM_CODEC, (payload, context) ->
+                        MpsTool.changeMode(context.player(), payload.slot(), payload.mode()))
                 .playToServer(Toggle.TYPE, Toggle.STREAM_CODEC, (payload, context) ->
                         MpsEnvironment.toggleForPlayer(context.player(), payload.module(), payload.active()));
     }
