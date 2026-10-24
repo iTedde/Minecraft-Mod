@@ -200,7 +200,9 @@ def pages(h, stats):
     mj.sort()
 
     # ---------------------------------------------------------------- items
-    items = sorted(data['items'], key=lambda i: (not i['canProvideEnergy'], i['tier'], i['maxCharge'], i['id']))
+    # Modular Powersuits count in joules from their battery modules; the IC2 view (max charge 1) means nothing
+    items = sorted((i for i in data['items'] if not i['id'].startswith('power_')),
+                   key=lambda i: (not i['canProvideEnergy'], i['tier'], i['maxCharge'], i['id']))
     item_rows = [[chip(i['id']), f"{i['tier']} ({['', 'LV', 'MV', 'HV', 'EV'][i['tier']]})", num(i['maxCharge']) + ' EU',
                   num(i['transferLimit']) + ' EU/t', 'ja' if i['canProvideEnergy'] else 'nein'] for i in items]
 
@@ -255,6 +257,8 @@ Gehäuse der Kraftwerke ({', '.join(casings)}): Sie leiten nur innerhalb der eig
 {h.table(['Gegenstand', 'Stufe', 'Kapazität', 'Laden max.', 'gibt Energie ab'], item_rows)}
 <p>Laden geht nur in Speichern und Maschinen mindestens derselben Stufe. Gegenstände, die Energie abgeben, versorgen
 Maschinen aus dem Batterie-Slot; die Akkupacks (BatPack, LapPack, Lithium-Batpack) laden auf dem Rücken getragen die
-Werkzeuge in der Hand.</p>
+Werkzeuge in der Hand. Power-Rüstung und Power-Werkzeug (Modular Powersuits) rechnen in Joule (50 J = 1 EU); ihre
+Kapazität kommt aus den eingebauten Batteriemodulen, geladen werden sie wie Stufe-1-Gegenstände
+(<a href="#/mod-mps">Modular Powersuits</a>).</p>
 '''
     return [{'id': 'energie-steckbrief', 'title': 'Energie-Steckbrief', 'group': 'Anleitungen', 'html': body}]

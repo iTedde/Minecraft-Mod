@@ -565,6 +565,32 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
         add("key.categories.craft", "Craft");
         add("key.craft.gravi_fly", german ? "Gravi-Flugtaste" : "Gravi Fly Key");
         add("key.craft.mps_down", german ? "Power-Rüstung: Runter (Flugsteuerung)" : "Power Armor: Down (Flight Control)");
+        add("emi.craft.info.tinker_table", german
+                ? "Rechtsklick öffnet die Werkbank für Power-Rüstung und Power-Werkzeug im Inventar. Module kosten "
+                + "Bauteile (Kreativ: kostenlos), Regler stellen ihre Werte ein. Ausbauen gibt jedes Bauteil mit 90 % "
+                + "zurück, Kondensatoren gehen verloren. Ohne Module sind die Teile nutzlos."
+                : "Right click opens the bench for power armor and power tools in the inventory. Modules cost "
+                + "components (creative: free), sliders tune their values. Salvaging returns each component with 90 %, "
+                + "capacitors are lost. Without modules the items are useless.");
+        add("emi.craft.info.power_armor", german
+                ? "Modulare Rüstung: Schutz, Energie und Fähigkeiten kommen aus Modulen (Tinker Table). Energie in Joule "
+                + "(50 J = 1 EU) aus Batteriemodulen, gemeinsamer Vorrat aller getragenen Teile; lädt in IC2-Speichern "
+                + "(Stufe 1). Gewicht über 25 kg bremst. Tasten: Z = runter (Flugsteuerung), K = Tastenbelegung zum "
+                + "Ein-/Ausschalten von Modulen."
+                : "Modular armor: protection, energy and abilities come from modules (Tinker Table). Energy in joules "
+                + "(50 J = 1 EU) from battery modules, one pool for all worn parts; charges in IC2 storage (tier 1). "
+                + "Weight above 25 kg slows you. Keys: Z = down (flight control), K = keybinds to switch modules on/off.");
+        add("emi.craft.info.power_tool", german
+                ? "Spitzhacke/Schaufel/Axt-Module zum Abbauen (Energie je Block; schon die Spitzhacke baut Obsidian). "
+                + "Schleichen + Mausrad wählt den Modus, Rechtsklick führt ihn aus: Railgun, Blink Drive (Teleport), "
+                + "Plasmakanone (aufladen wie ein Bogen) oder In-Place Assembler (Werkbank). Nahkampfhilfe verstärkt "
+                + "Schläge."
+                : "Pickaxe/shovel/axe modules for mining (energy per block; the pickaxe alone mines obsidian). Sneak + "
+                + "mouse wheel selects the mode, right click runs it: railgun, blink drive (teleport), plasma cannon "
+                + "(charge like a bow) or in-place assembler (crafting grid). Melee assist strengthens hits.");
+        add("emi.craft.info.mps_unused_component", german
+                ? "Kein Rezept und keine Verwendung – auch im Pack nicht (Modular Powersuits 0.3.2). Nur im Kreativmodus."
+                : "No recipe and no use – also not in the pack (Modular Powersuits 0.3.2). Creative only.");
         add("entity.craft.plasma_bolt", german ? "Plasmageschoss" : "Plasma Bolt");
         add("key.craft.mps_keybinds", german ? "Power-Rüstung: Tastenbelegung" : "Power Armor: Keybindings");
     }

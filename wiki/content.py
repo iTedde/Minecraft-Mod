@@ -986,6 +986,42 @@ Rohr und jede Maschine ab. Klick auf den Ventilknauf kehrt das um (dann Druck oh
 <p>{c('ultimate_solar_helmet')} hat wie im Pack kein Rezept. Getragen erzeugt er 512 EU/t bei Sonne und 64 EU/t unter freiem
 Himmel und lädt erst die Rüstung, dann das Inventar.</p>''')
 
+    modpage('mod-mps', 'Modular Powersuits', 'craft:power_armor_torso',
+            'Modular Powersuits 0.3.2 aus dem Pack („Tech-Rüstung“): eine <b>Power-Rüstung</b> (4 Teile) und ein '
+            '<b>Power-Werkzeug</b>, die erst durch <b>Module</b> etwas können. Module baut man am <b>Tinker Table</b> ein und '
+            'stellt sie mit Reglern ein – mehr Leistung kostet mehr Energie und Gewicht. Energie wird in Joule gerechnet '
+            '(50 J = 1 EU) und kommt aus Batteriemodulen.',
+            [('Version (Vorlage)', '0.3.2'), ('Energie', 'Joule, 50 J = 1 EU'), ('Tasten', 'Z runter, K Belegung, Schleichen + Mausrad Modus'),
+             ('Kreativ-Tab', 'Craft: Modular Powersuits')],
+            [('spec-29', '29 – Modular Powersuits')],
+            f'''<h2 id="mod-mps--tisch">Tinker Table</h2>
+<ul><li>{c('tinker_table')}: Rechtsklick öffnet die Übersicht aller modularen Teile im Inventar. Modul wählen,
+„Einbauen“ verbraucht die angezeigten Bauteile (Kreativ: kostenlos), Regler stellen die Werte ein.</li>
+<li>„Ausbauen“ gibt jedes Bauteil mit 90 % Chance zurück; NS-/MS-/HS-Kondensatoren gehen verloren. Batteriemodule mit
+Kondensator bringen beim Einbau gleich etwas Ladung mit.</li></ul>
+<h2 id="mod-mps--energie">Energie und Gewicht</h2>
+<ul><li>Batteriemodule (Basis/Fortgeschritten/Elite) geben Kapazität; alle getragenen Teile und das Werkzeug in der Hand
+bilden einen gemeinsamen Vorrat (verbraucht wird von den Stiefeln aufwärts).</li>
+<li>Laden in IC2-Speichern und -Ladegeräten wie ein Stufe-1-Gegenstand; dazu Solar (Helm, alle 4 s) und Kinetik (Hose,
+je 5 Blöcke).</li>
+<li>Über 25 kg Gesamtgewicht wird man langsamer, Jetpack und Sprung werden schwächer.</li></ul>
+<h2 id="mod-mps--module">Module</h2>
+{h.table(['Teil', 'Module'], [
+    ['alle Rüstungsteile', 'Eisen-/Diamantpanzerung, Energieschild (max. Schutz 6 je Teil), Batterien, Farbe, Durchsichtig, Citizen-Joe-Stil'],
+    ['Helm', 'Nachtsicht, Flugsteuerung, Auto-Feeder (isst aus dem Inventar), Wasser-Elektrolyseur (Luft), Solargenerator'],
+    ['Brust', 'Jetpack, Gleiter, Fallschirm, Aktive Tarnung (Unsichtbarkeit)'],
+    ['Hose', 'Sprint-/Sprung-/Schwimmhilfe, Stufenhilfe, Kinetikgenerator'],
+    ['Stiefel', 'Düsenstiefel, Stoßdämpfer'],
+    ['Werkzeug', 'Spitzhacke, Schaufel, Axt, Diamantbohrer-Upgrade, Aqua Affinity, Nahkampfhilfe, Railgun, Blink Drive, Plasmakanone, In-Place Assembler'],
+])}
+{h.note('info', 'Wie im Pack baut schon das Spitzhacken-Modul Obsidian ab; das Diamantbohrer-Upgrade wirkt nur ohne Spitzhacke und ist dann fast nutzlos.')}
+<h2 id="mod-mps--tasten">Tasten</h2>
+<ul><li><b>Z</b>: runter mit Flugsteuerung (Jetpack/Düsenstiefel schweben ohne Tasten).</li>
+<li><b>K</b>: Tastenbelegung – „Neu“, Taste drücken, Module per Ziehen auf die Taste legen; jeder Druck schaltet sie
+abwechselnd aus/an (erster Druck: aus).</li>
+<li><b>Schleichen + Mausrad</b> mit dem Power-Werkzeug: Modus wählen (Symbole über der Hotbar), Rechtsklick führt ihn aus.</li></ul>
+<p>{c('component_carbon_myofiber')} und {c('component_myofiber_gel')} haben wie im Pack weder Rezept noch Verwendung.</p>''')
+
     # ------------------------------------------------------------------ Items
     page('items', 'Gegenstände & Blöcke', 'Allgemein', f'''<h1>Gegenstände & Blöcke</h1>
 <p class="lead">Alle {stats['items']} registrierten Blöcke und Items von Craft mit deutschem und englischem Namen. Jeder Eintrag hat eine eigene Seite

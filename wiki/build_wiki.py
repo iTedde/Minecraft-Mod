@@ -56,6 +56,8 @@ WIKI_NOTES = {
     'craft:mining_pipe': 'Rohr der Mining Well und der BuildCraft-Pumpe; wird von ihnen gesetzt und droppt nichts.',
     'craft:mining_portal': 'Portalfläche: Rahmen aus Glattem Stein bauen und mit dem Feuerzeug zünden.',
     'craft:nightvision_goggles': 'Kein Rezept – auch im Pack nicht (IC2 1.115 hat keins). Nur im Kreativmodus.',
+    'craft:component_carbon_myofiber': 'Kein Rezept und keine Verwendung – auch im Pack nicht (Modular Powersuits 0.3.2). Nur im Kreativmodus.',
+    'craft:component_myofiber_gel': 'Kein Rezept und keine Verwendung – auch im Pack nicht (Modular Powersuits 0.3.2). Nur im Kreativmodus.',
     'craft:ultimate_solar_helmet': 'Kein Rezept – auch im Pack nicht (GraviSuite 1.8). Nur im Kreativmodus.',
     'craft:plan': 'Projekttisch: Rezept auslegen, leeren Bauplan einlegen und den Bauplan entnehmen.',
     'craft:resin_sheet': 'Harz per Rechtsklick auf die Oberseite eines festen Blocks setzen. Kein eigenes Item.',
@@ -64,6 +66,7 @@ WIKI_NOTES = {
 }
 
 GROUPS = [
+    ('mps', 'Modular Powersuits'),
     ('gravisuite', 'GraviSuite'),
     ('enderstorage', 'EnderStorage'),
     ('thermalexpansion', 'Thermal Expansion'),
@@ -80,7 +83,7 @@ GROUPS = [
 ]
 GROUP_ORDER = ['IndustrialCraft 2', 'GregTech', 'BuildCraft', 'Forestry', 'Power Converters',
                'Compact Solars', 'Kraftwerke (neu)', 'Mining-Dimension (neu)', 'Iron Chests', 'Advanced Machines',
-               'Thermal Expansion', 'EnderStorage', 'GraviSuite',
+               'Thermal Expansion', 'EnderStorage', 'GraviSuite', 'Modular Powersuits',
                'Sonstiges']
 
 # items whose behaviour was changed on purpose or which are new content
@@ -138,6 +141,7 @@ def registry_texts():
 
 
 SUFFIX_GROUPS = [
+    (r'^component_', 'Modular Powersuits'),
     (r'_chest$|^(iron|gold|copper|silver|wood|diamond)_[a-z]+_upgrade$', 'Iron Chests'),
     (r'_electron_tube$|circuit_board$|^soldering|^sturdy', 'Forestry'),
     (r'_pipe$|^pipe_|engine$|^landmark|_gear$', 'BuildCraft'),

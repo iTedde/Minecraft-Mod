@@ -2610,8 +2610,19 @@ alle, z. B. ×1,2.“ Entscheidungen Nutzer: Bonus für Panels in einem **lücke
 - [ ] Client-Test (Abbau, Mausrad-HUD, Plasma-Renderer, Railgun-Partikel, Werkbank) – nur nach Rückfrage.
 - Doku: `abweichungen.md` (5 MPS-Zeilen), `architektur.md`, Spec §8.1/§13.
 
+## Erledigt (28.5 Modular Powersuits: EMI, Herkunft, Wiki, Paket, 2026-10-24)
+- [x] EMI: `compat/emi/MpsEmiRecipes` – Info-Seiten Tinker Table, Power-Rüstung (Energie, Gewicht, Tasten),
+  Power-Werkzeug (Abbau, Modi), Kohlenstoff-Myofaser/Myofaser-Gel (kein Rezept, keine Verwendung).
+- [x] Herkunft: keine neuen Rohstoffe (alle Rezepte aus Vanilla-/Craft-Zutaten); die zwei unbenutzten Bauteile mit
+  Hinweis in EMI und Wiki.
+- [x] Wiki: Gruppe „Modular Powersuits“ (auch die `component_*`-Bauteile), Seite „Modular Powersuits“ (Tisch, Energie,
+  Module, Tasten), Energie-Steckbrief ohne die irreführende IC2-Sicht der MPS-Teile (Hinweis auf Joule); neu erzeugt
+  (DE + EN-Namen). `testplan.md` Abschnitt 12 (MPS-Client-Test).
+- [x] Alle 520 GameTests grün, `gradlew runData build` grün.
+- [x] Craft **1.0.7** (`releases/craft-1.0.7.jar`), Paket `releases/Craft-1.0.10-curseforge.zip` (wie 1.0.9 mit Craft
+  1.0.7; 9,0 MB).
+- **Phase 28 erledigt, Client-Test offen** (Testplan 12.1–12.6).
+
 ## Nächste Schritte
-- Phase 28.5 Modular Powersuits: EMI (Info-Seiten), Herkunft, Wiki, Testplan, Version/Paket.
-- Client-Test MPS (Bewegung, Umwelt, Tasten, Power Tool) und GraviSuite (Testplan 11) – nur nach Rückfrage (Nutzer
-  spielt evtl. selbst).
+- Client-Test MPS (Testplan 12) und GraviSuite (Testplan 11) – nur nach Rückfrage (Nutzer spielt evtl. selbst).
 - Phase 30 Elektrischer Leuchtschild: 30.0 Spezifikation (Werte/Rezept/Reihenfolge zur Freigabe).

@@ -41,6 +41,7 @@ public class CraftEmiPlugin implements EmiPlugin {
         TeEmiRecipes.register(registry, CATEGORIES);
         EnderStorageEmiRecipes.register(registry);
         GraviSuiteEmiRecipes.register(registry);
+        MpsEmiRecipes.register(registry);
         registry.addWorkstation(VanillaEmiRecipeCategories.CRAFTING, EmiStack.of(RpItems.PROJECT_TABLE.get()));
         CraftingTableEmiHandlers.register(registry);
         MultiblockEmiInfo.register(registry);

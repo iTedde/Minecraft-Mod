@@ -190,6 +190,17 @@ Testwelt. Sprache einmal Deutsch, einmal Englisch prüfen. EMI und Xaero's Minim
 | 11.5 | GraviTool: M + Rechtsklick wechselt Modus (Meldung, Sound, Modell und Name wechseln); Hacke, Baumzapfer am Gummibaum, Schraubenschlüssel an IC2-Maschine (verlustfrei) und BC-Motor (dreht, 500 EU), Schraubendreher an Verstärker/Werfer/Kolben | 27.5 | |
 | 11.6 | Ultimativer Solarhelm (Kreativ): lädt am Tag unter freiem Himmel schnell, nachts langsam, unter Dach nicht; EMI-Info-Seiten aller GraviSuite-Items | 27.6 | |
 
+## 12. Modular Powersuits (Phase 28)
+
+| Nr | Test | Herkunft | OK |
+|---|---|---|---|
+| 12.1 | Kreativ-Tab „Craft: Modular Powersuits“, Texturen der Bauteile/Teile, Tinker Table (Modell, leuchtender Würfel, Item in der Hand); Rezepte in EMI inkl. der 4 GT-Rezepte, Info-Seiten | 28.1, 28.5 | |
+| 12.2 | Tinker Table: Teil wählen, Batterie einbauen (Bauteile weg, Ladebonus), Regler (Werte im Info-Rahmen), Ausbauen (90 %-Rückgabe, Kondensator weg); Power-Rüstung am IC2-Speicher laden, Tooltip „Energie“ | 28.1 | |
+| 12.3 | Bewegung: Sprint-/Sprunghilfe, Stufenhilfe, Jetpack + Düsenstiefel mit/ohne Flugsteuerung (Schweben, Z runter), Gleiter/Fallschirm beim Schleichen, Schwimmhilfe, Stoßdämpfer, Gewicht > 25 kg bremst | 28.2 | |
+| 12.4 | Umwelt: Nachtsicht, Tarnung (Effekte ohne Partikel), Auto-Feeder isst bei Hunger (Meldung), Elektrolyseur unter Wasser, Solar/Kinetik laden; K-GUI: Taste anlegen, Modul binden, Taste schaltet aus/an (Meldung), Datei bleibt nach Neustart | 28.3 | |
+| 12.5 | Kosmetik: Farbmodul färbt Icon und getragene Rüstung, Durchsichtig blendet aus, Citizen-Joe-Textur | 28.3 | |
+| 12.6 | Power-Werkzeug: Stein/Erde/Holz/Obsidian abbauen (Tempo, Energie je Block), Nahkampfhilfe; Schleichen + Mausrad wechselt Modus (Icons über der Hotbar, Hotbar bleibt), Railgun (Partikelspur, Rückstoß), Blink Drive, Plasmakanone (aufladen, Kugel, Explosion), In-Place Assembler (Werkbank bleibt offen) | 28.4 | |
+
 ## Befunde
 
 | Nr | Datum | Befund | Status |
