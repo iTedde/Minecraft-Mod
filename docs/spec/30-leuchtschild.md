@@ -1,8 +1,8 @@
 # 30 – Elektrischer Leuchtschild
 
 Neuer Inhalt ohne Pack-Vorbild (Nutzer, 2026-10-24): ein **verzauberbarer Schild**, der mit **EU** betrieben wird und
-**wie eine Fackel leuchtet** (echtes Licht in der Welt, nicht nur Optik). Alle Werte unten sind ein **Vorschlag** und
-gelten erst nach Freigabe durch den Nutzer; offene Punkte stehen in §8.
+**wie eine Fackel leuchtet** (echtes Licht in der Welt, nicht nur Optik). Freigegeben vom Nutzer am 2026-10-24 (§8);
+Entscheidungen dort; abweichend vom Vorschlag blockt der leere Schild nicht (§2).
 
 Werte orientieren sich an vorhandenen IC2-Inhalten, damit der Schild ins Balancing passt: Luminator
 (`spec/04` §Luminator: 10 000 EU, 1 EU alle 4 Ticks, Licht 15) und die LV-Elektrowerkzeuge (`spec/05`: 10 000 EU,
@@ -10,7 +10,7 @@ Stufe 1, Transfer 100).
 
 ## 1 Item
 
-| Eigenschaft | Wert (Vorschlag) |
+| Eigenschaft | Wert |
 |---|---|
 | ID | `craft:electric_light_shield` |
 | Name | DE „Elektrischer Leuchtschild“, EN „Electric Light Shield“ |
@@ -20,7 +20,7 @@ Stufe 1, Transfer 100).
 | Stapel | 1, Rarität common |
 | Haltbarkeit | keine (EU statt Haltbarkeit, Ladebalken wie bei allen elektrischen Items) |
 | Verzauberbarkeit | 10 (Zaubertisch möglich, s. §5) |
-| Kreativ-Tab | Craft „Werkzeuge“, zusätzlich voll geladen wie die anderen Elektro-Items |
+| Kreativ-Tab | IC2-Tab (dort liegen alle Elektrowerkzeuge), leer und voll geladen |
 
 - Umsetzung als `ShieldItem` mit `ElectricItem` (`ic2/item/ElectricItems`: Ladebalken, Tooltip-Ladeanzeige und HUD aus
   Phase 20.2 gelten automatisch).
@@ -31,13 +31,13 @@ Stufe 1, Transfer 100).
 
 ## 2 Energie
 
-| Vorgang | Kosten (Vorschlag) |
+| Vorgang | Kosten |
 |---|---|
 | Leuchten | 1 EU alle 4 Ticks (= 5 EU/s, wie der Luminator) → voll geladen ≈ 33 min Licht |
 | Geblockter Treffer | 100 EU je Haltbarkeitspunkt, den ein Vanilla-Schild verloren hätte (`1 + ⌊Schaden⌋`, erst ab 3 Schaden – Vanilla-Regel) |
 
 - Schaden am Schild entsteht nie; statt `hurtAndBreak` wird EU abgezogen (`LivingShieldBlockEvent`).
-- **Leer (0 EU):** kein Licht; der Schild blockt weiter wie ein normaler Schild, aber ohne EU-Abzug (Vorschlag A in §8.2).
+- **Leer (0 EU):** kein Licht und **kein Blocken** – der Schild lässt sich nicht heben, bis er geladen ist (Nutzer: §8.2 B). Reicht die Ladung für einen Treffer nicht, wird der Treffer noch geblockt und die Ladung auf 0 gesetzt.
 - Energie wird nur serverseitig abgezogen; der Client zeigt den synchronisierten Stand.
 
 ## 3 Licht
@@ -56,7 +56,7 @@ unterdrückt). Vanilla 1.21.1 hat kein bewegliches Licht; deshalb ein unsichtbar
 - Aufräumen: Lichtblock plant sich selbst alle 20 Ticks einen Tick ein und entfernt sich, wenn kein berechtigter Träger
   ihn gesetzt hat (Positionsliste je Spieler) – damit bleiben nach Absturz, Abmelden, Tod, Dimensionswechsel oder
   Weglegen keine Lichtblöcke liegen.
-- Gilt auch für Zombies/Skelette, die den Schild in der Nebenhand halten? → nein, nur Spieler (Vorschlag).
+- Gilt auch für Zombies/Skelette, die den Schild in der Nebenhand halten? → nein, nur Spieler.
 
 ## 4 Ein-/Ausschalten
 
@@ -67,16 +67,19 @@ unterdrückt). Vanilla 1.21.1 hat kein bewegliches Licht; deshalb ein unsichtbar
 ## 5 Verzauberungen
 
 Schilde sind in Vanilla nur am Amboss verzauberbar (Haltbarkeit, Reparatur, Fluch des Verschwindens). Weil der
-Leuchtschild keine Haltbarkeit hat, wirken die Verzauberungen auf die Energie (Vorschlag):
+Leuchtschild keine Haltbarkeit hat, wirken die Verzauberungen auf die Energie:
 
 | Verzauberung | Wirkung |
 |---|---|
-| Haltbarkeit I–III | Chance 1/(Stufe+1), die EU-Kosten eines geblockten Treffers zu zahlen (wie Haltbarkeit bei Werkzeugen); Licht unverändert |
+| Haltbarkeit I–III | je Blockpunkt Chance 1/(Stufe+1), dass er EU kostet (Vanilla-Regel `processDurabilityChange` wie bei Werkzeugen); Licht unverändert |
 | Reparatur | Erfahrungskugeln laden den Schild: 1 XP = 2 Punkte = 200 EU (Vanilla-Verhältnis × 100 EU/Punkt), solange nicht voll |
 | Fluch des Verschwindens | wie Vanilla |
 
 - Zusätzlich am **Zaubertisch** verzauberbar (Verzauberbarkeit 10) – dort nur die Verzauberungen oben (Tag
-  `minecraft:enchantable/durability` + eigener Tag, damit der Tisch sie anbietet).
+  `minecraft:enchantable/durability`, dazu `minecraft:enchantable/vanishing` für den Fluch; Reparatur und Fluch
+  sind Schatz-Verzauberungen und kommen wie in Vanilla nur über Bücher am Amboss).
+- Umsetzung Reparatur: Mixin `ExperienceOrbMixin` vor `ExperienceOrb.repairPlayerItems` (Vanilla repariert nur
+  beschädigte Items); ein Schild mit Reparatur in Haupt- oder Nebenhand nimmt die XP zuerst, der Rest geht an Vanilla.
 
 ## 6 Rezept
 
@@ -102,7 +105,10 @@ ASA
   Abmelden, Verbrauch 1 EU/4 Ticks, leer kein Licht, Blockkosten 100 EU/Punkt, Haltbarkeit/Reparatur, Umschalten,
   Rezept.
 
-## 8 Zur Freigabe
+## 8 Entscheidungen (Nutzer, 2026-10-24)
+
+Freigegeben: 1 LV-Werte wie §1/§2 · 2 **B** (leer kein Blocken) · 3 Licht 14 · 4 Verzauberungen wie §5 · 5 Rezept wie §6 ·
+6 Teilphasen 30.1 + 30.2. Ursprüngliche Fragen:
 
 1. Werte: 10 000 EU, Stufe 1, 5 EU/s Licht, 100 EU je Blockpunkt – oder anders (z. B. Stufe 2 / 100 000 EU)?
 2. Leer: **A** blockt weiter wie ein normaler Schild (ohne Licht) · **B** blockt gar nicht mehr.

@@ -2630,6 +2630,24 @@ alle, z. B. ×1,2.“ Entscheidungen Nutzer: Bonus für Panels in einem **lücke
   Rezept `ALA/ASA/ R` (Legierung, Luminator, Schild, RE-Batterie), Paket `…lightshield`.
 - **Wartet auf Freigabe** (Spec §8: Werte, Verhalten leer, Lichtlevel, Verzauberungen, Rezept, Teilphasen).
 
+## Erledigt (30.1 Elektrischer Leuchtschild: Umsetzung, 2026-10-24)
+- [x] Freigabe Spec 30 (Nutzer): LV-Werte wie Vorschlag, **leer kein Blocken** (§8.2 B), Licht 14, Verzauberungen,
+  Rezept und Teilphasen wie Vorschlag; Spec angepasst.
+- [x] Paket `dev.craft.lightshield`: `ElectricLightShieldItem` (10 000 EU, Stufe 1, Transfer 100; Blocken nur mit
+  Ladung, leer lässt er sich nicht heben und senkt sich beim Leerlaufen; 100 EU je Blockpunkt ab 3 Schaden, Kreativ
+  gratis), Licht-Ein/Aus per Modus-Taste + Rechtsklick (`craft:light_on`), Tooltip-Zeile.
+- [x] Licht: unsichtbarer Block `craft:shield_light` (Licht 14, wasserbeständig) am Augen- bzw. Fußblock, folgt dem
+  Spieler jeden Tick, 1 EU je 4 Ticks; Aufräumen beim Weglegen/Abmelden/Serverende, verwaiste Blöcke entfernen sich
+  nach ≤ 20 Ticks selbst.
+- [x] Verzauberungen: Tags `enchantable/durability` + `vanishing`, Verzauberbarkeit 10; Haltbarkeit über
+  `processDurabilityChange`, Reparatur über `mixin/ExperienceOrbMixin` (1 XP = 200 EU).
+- [x] Rezept `ALA/ASA/ R` (Vanilla-Rezept, Schild kommt leer), Textur (`tools/scripts/light_shield_texture.py`),
+  BEWLR mit Vanilla-Schildmodell, Leuchtfläche bei eingeschaltetem Licht voll hell; Modelle mit Vanilla-Transforms.
+- [x] GameTests `LightShieldGameTests` (12). Alle 532 grün, `gradlew runData build` grün.
+- [ ] Client-Test (Modell/Halten/Blocken-Pose, Licht in der Welt, Leuchtfläche, Zaubertisch/Amboss) – nur nach Rückfrage.
+- Doku: Spec §1/§5/§8, `balancing.md` §3.9, `architektur.md`, CLAUDE.md.
+
 ## Nächste Schritte
-- Freigabe Spec 30 (§8), danach 30.1 Umsetzung (Item, Licht, Taste, Verzauberungen, Tests) und 30.2 EMI/Wiki/Paket.
-- Client-Test MPS (Testplan 12) und GraviSuite (Testplan 11) – nur nach Rückfrage (Nutzer spielt evtl. selbst).
+- 30.2 EMI-Info-Seite, Wiki-Seite „Elektrischer Leuchtschild“ (Gruppe „Neue Inhalte“, Energie-Steckbrief),
+  `testplan.md`, Craft 1.0.8 / Paket 1.0.11.
+- Client-Test Leuchtschild, MPS (Testplan 12) und GraviSuite (Testplan 11) – nur nach Rückfrage (Nutzer spielt evtl. selbst).

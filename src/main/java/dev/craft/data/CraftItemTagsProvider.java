@@ -13,6 +13,7 @@ import dev.craft.ic2.cable.CableType;
 import dev.craft.ic2.item.ToolboxItem;
 import dev.craft.ic2.item.reactor.GradualItem;
 import dev.craft.powerplants.PpItems;
+import dev.craft.lightshield.LsItems;
 import dev.craft.portalgun.PgItems;
 import dev.craft.redpower.RpGem;
 import dev.craft.redpower.RpItems;
@@ -250,6 +251,9 @@ public final class CraftItemTagsProvider extends ItemTagsProvider {
             tag(ItemTags.DURABILITY_ENCHANTABLE).add(sickle);
         }
         tag(ItemTags.FOOT_ARMOR).add(PgItems.LONG_FALL_BOOTS.get());
+        // Electric light shield (spec 30 §5): Unbreaking/Mending act on EU; the table offers Unbreaking.
+        tag(ItemTags.DURABILITY_ENCHANTABLE).add(LsItems.ELECTRIC_LIGHT_SHIELD.get());
+        tag(ItemTags.VANISHING_ENCHANTABLE).add(LsItems.ELECTRIC_LIGHT_SHIELD.get());
         tag(Tags.Items.GEMS).addTag(GEMS_RUBY).addTag(GEMS_SAPPHIRE).addTag(GEMS_GREEN_SAPPHIRE).addTag(GEMS_OLIVINE)
                 .addTag(GEMS_RED_GARNET).addTag(GEMS_YELLOW_GARNET);
         tag(RAW_MACHINE_TIER_01).add(Ic2Items.MACHINE_CASING.get(), GtItems.ALUMINIUM_MACHINE_HULL.get(),

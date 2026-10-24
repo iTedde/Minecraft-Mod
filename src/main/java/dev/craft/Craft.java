@@ -13,6 +13,7 @@ import dev.craft.forestry.Forestry;
 import dev.craft.powerconverters.PowerConverters;
 import dev.craft.powerplants.PowerPlants;
 import dev.craft.ironchest.IronChests;
+import dev.craft.lightshield.LightShield;
 import dev.craft.portalgun.PortalGun;
 import dev.craft.redpower.RedPower;
 import dev.craft.thermalexpansion.ThermalExpansion;
@@ -51,6 +52,7 @@ public final class Craft {
         EnderStorage.init(modBus);
         GraviSuite.init(modBus);
         Mps.init(modBus);
+        LightShield.init(modBus);
         CraftCreativeTabs.TABS.register(modBus);
         modBus.addListener(Craft::addPackFinders);
     }

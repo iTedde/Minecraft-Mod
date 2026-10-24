@@ -33,6 +33,8 @@ import dev.craft.powerconverters.PowerSystem;
 import dev.craft.powerplants.PpBlocks;
 import dev.craft.powerplants.PpFluids;
 import dev.craft.powerplants.PpItems;
+import dev.craft.lightshield.LsBlocks;
+import dev.craft.lightshield.LsItems;
 import dev.craft.portalgun.PgItems;
 import dev.craft.enderstorage.EsItems;
 import dev.craft.gravisuite.GsItems;
@@ -790,6 +792,18 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
     protected void portalGun(boolean german) {
         item(PgItems.LONG_FALL_BOOT, german ? "Einzelner Weitfallstiefel" : "Long Fall Boot");
         item(PgItems.LONG_FALL_BOOTS, german ? "Weitfallstiefel" : "Long Fall Boots");
+    }
+
+    /** Electric light shield (spec 30). */
+    protected void lightShield(boolean german) {
+        item(LsItems.ELECTRIC_LIGHT_SHIELD, german ? "Elektrischer Leuchtschild" : "Electric Light Shield");
+        add(LsBlocks.SHIELD_LIGHT.get(), german ? "Schildlicht" : "Shield Light");
+        add("message.craft.light_shield.on", german ? "Licht: an" : "Light: on");
+        add("message.craft.light_shield.off", german ? "Licht: aus" : "Light: off");
+        add("tooltip.craft.light_shield.on", german ? "Licht an (Modus-Taste + Rechtsklick)"
+                : "Light on (mode key + right click)");
+        add("tooltip.craft.light_shield.off", german ? "Licht aus (Modus-Taste + Rechtsklick)"
+                : "Light off (mode key + right click)");
     }
 
     protected void mining(boolean german) {
@@ -1850,6 +1864,7 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             mining(false);
             redPower(false);
             portalGun(false);
+            lightShield(false);
             ironChests(false);
             enderStorage(false);
             graviSuite(false);
@@ -2257,6 +2272,7 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             mining(true);
             redPower(true);
             portalGun(true);
+            lightShield(true);
             ironChests(true);
             enderStorage(true);
             graviSuite(true);

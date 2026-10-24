@@ -1932,6 +1932,13 @@
       "maxCharge": 1,
       "tier": 1,
       "transferLimit": 0
+    },
+    {
+      "canProvideEnergy": false,
+      "id": "electric_light_shield",
+      "maxCharge": 10000,
+      "tier": 1,
+      "transferLimit": 100
     }
   ]
 }

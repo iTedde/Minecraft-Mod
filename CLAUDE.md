@@ -53,6 +53,7 @@ ein überarbeitetes Energiebalancing und neue Kraftwerke. Wird nicht veröffentl
 | `…enderstorage` | EnderStorage (Phase 26) |
 | `…gravisuite` | GraviSuite (Phase 27) |
 | `…mps` | Modular Powersuits (Phase 28) |
+| `…lightshield` (neue Inhalte) | Elektrischer Leuchtschild (Phase 30) |
 
 MJ und EU bleiben getrennte Systeme; Verbindung nur über Electrical Engine (EU→MJ) und Power Converters.
 
@@ -110,7 +111,7 @@ MJ und EU bleiben getrennte Systeme; Verbindung nur über Electrical Engine (EU�
 | 27 | GraviSuite (aus dem Pack, `ftb ultimate/mods/gravisuite.zip`; Nutzer, 2026-10-24): Entschieden: kompletter Umfang (Advanced Jetpack, Advanced Nano-Brustplatte, Gravitations-Brustplatte, Ultimate Lappack, Advanced Drill/Kettensäge, Vajra, GraviTool …); `docs/spec/28-gravisuite.md`. Entschieden: Ultimativer Solarhelm wie im Pack (nur Kreativ), HUD oben rechts. 27.0 Spezifikation (erledigt) · 27.1 Bauteile/LapPacks/Rezepte (erledigt, Client offen) · 27.2 Fortg. Jetpack + Nano-Brustplatte (erledigt, Client offen) · 27.3 Gravitations-Brustplatte (erledigt, Client offen) · 27.4 Bohrer/Kettensäge/Vajra (erledigt, Client offen) · 27.5 GraviTool (erledigt, Client offen) · 27.6 Solarhelm, EMI/Herkunft/Wiki/Paket (erledigt, Craft 1.0.6 / Paket 1.0.9) | **erledigt** (Client-Test offen) |
 | 28 | Modular Powersuits (aus dem Pack, `ftb ultimate/mods/ModularPowersuits.jar`; Nutzer, 2026-10-24; „Tech-Rüstung“; `docs/spec/29-modular-powersuits.md`, Paket `…mps`): Entschieden: alle Module außer Aurameter/Multimeter/Strahlenschutz, Rezepte wie im Pack baubar (Vanilla-Satz + 4 GT-Rezepte), Fallhöhen-Neuberechnung nur mit MPS-Teil. 28.0 Spezifikation (erledigt) · 28.1 Grundgerüst/Tinker Table/Rezepte (erledigt) · 28.2 Bewegung (erledigt, Client offen) · 28.3 Umwelt/Tasten/Kosmetik (erledigt, Client offen) · 28.4 Power Tool (erledigt, Client offen) · 28.5 EMI/Herkunft/Wiki/Paket (erledigt, Craft 1.0.7 / Paket 1.0.10) | **erledigt** (Client-Test offen) |
 | 29 | Solar-Umbau (Nutzer, 2026-10-24; `docs/balancing.md` §3.1, `spec/11` §4): nur Solarpanels, jedes liefert; ×1,2 im lückenlosen 9×9-Quadrat (eine Stufe); LV/MV/HV-Arrays stillgelegt (kein Rezept, keine Leistung, zerlegbar in 8 der Stufe darunter). 29.1 Umsetzung (erledigt, Client offen) | **erledigt** (Client-Test offen) |
-| 30 | Elektrischer Leuchtschild (Nutzer, 2026-10-24; kein Pack-Vorbild, neuer Inhalt): verzauberbarer Schild, elektrisch mit EU, leuchtet wie eine Fackel (echtes Licht). `docs/spec/30-leuchtschild.md`. 30.0 Spezifikation (erledigt, wartet auf Freigabe §8) · 30.1 Umsetzung · 30.2 EMI/Wiki/Paket | offen |
+| 30 | Elektrischer Leuchtschild (Nutzer, 2026-10-24; kein Pack-Vorbild, neuer Inhalt): verzauberbarer Schild, elektrisch mit EU, leuchtet wie eine Fackel (echtes Licht). `docs/spec/30-leuchtschild.md`. 30.0 Spezifikation (erledigt, freigegeben 2026-10-24: LV-Werte, leer kein Blocken, Licht 14) · 30.1 Umsetzung (erledigt, Client offen) · 30.2 EMI/Wiki/Paket | in Arbeit |
 
 Phasen-Umnummerierung (Nutzer, 2026-10-16): Phase 8 „GT-Nachträge“ eingeschoben; die bisherigen Phasen 8/9/10
 (Kraftwerke, Rohre, Feinschliff) heißen jetzt 9/10/11. Ältere Einträge in `docs/STATUS.md` sind entsprechend

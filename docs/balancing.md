@@ -75,6 +75,12 @@ eine Großanlage ≈ ⅓–⅔ eines HV-Felds, dafür Tag und Nacht. Vorschlagsw
 - **Große Windturbine** Mast + 5×5-Rotor, Rotorstufen Eisen/Stahl/Carbon; y 128 ≈ 64, y 200 ≈ 136, Gewitter bis 384 EU/t (Carbon-Rotor). **Umgesetzt in Phase 21.**
 - Reaktor, Öl/Treibstoff und Umwandler bleiben 1:1.
 
+### 3.9 Elektrischer Leuchtschild (Phase 30, freigegeben 2026-10-24)
+
+Neuer Inhalt ohne Pack-Vorbild (`spec/30-leuchtschild.md`): LV-Schild mit 10 000 EU (Transfer 100), Licht 14 für
+1 EU je 4 Ticks wie der Luminator (≈ 33 min je Ladung), geblockter Treffer 100 EU je Haltbarkeitspunkt eines
+Vanilla-Schilds; leer blockt er nicht.
+
 ## 4. Vergleichstabelle (Vorschlag, gerundet)
 
 | Quelle | Leistung typ. | EU/t pro Block Fläche | EU pro Ressource | Zuverlässigkeit |

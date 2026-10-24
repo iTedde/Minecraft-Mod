@@ -17,6 +17,7 @@ import dev.craft.ic2.Ic2Machine;
 import dev.craft.ic2.cable.CableType;
 import dev.craft.ic2.client.Ic2Client;
 import dev.craft.powerplants.PpItems;
+import dev.craft.lightshield.LsItems;
 import dev.craft.portalgun.PgItems;
 import dev.craft.enderstorage.EsItems;
 import dev.craft.gravisuite.GsItems;
@@ -30,6 +31,7 @@ import dev.craft.redpower.RpItems;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemDisplayContext;
+import net.minecraft.client.renderer.block.model.BlockModel;
 import net.neoforged.neoforge.client.model.generators.ModelFile;
 import net.neoforged.neoforge.client.model.generators.ItemModelBuilder;
 import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
@@ -69,6 +71,7 @@ public final class CraftItemModelProvider extends ItemModelProvider {
         basicItem(RpItems.PLAN.get());
         basicItem(PgItems.LONG_FALL_BOOT.get());
         basicItem(PgItems.LONG_FALL_BOOTS.get());
+        lightShield();
         for (ChestUpgradeType type : ChestUpgradeType.values()) {
             basicItem(IronChestItems.upgrade(type).get());
         }
@@ -205,6 +208,39 @@ public final class CraftItemModelProvider extends ItemModelProvider {
                 .texture("layer1", modLoc("item/enderstorage/ender_pouch_band_1"))
                 .texture("layer2", modLoc("item/enderstorage/ender_pouch_band_2"))
                 .texture("layer3", modLoc("item/enderstorage/ender_pouch_band_3"));
+    }
+
+    /** Electric light shield: vanilla shield transforms (models/item/shield*.json), drawn by its BEWLR. */
+    private void lightShield() {
+        String name = LsItems.ELECTRIC_LIGHT_SHIELD.getId().getPath();
+        ModelFile blocking = getBuilder(name + "_blocking").parent(new ModelFile.UncheckedModelFile("builtin/entity"))
+                .guiLight(BlockModel.GuiLight.FRONT).texture("particle", mcLoc("block/iron_block"))
+                .transforms()
+                .transform(ItemDisplayContext.THIRD_PERSON_RIGHT_HAND).rotation(45, 155, 0).translation(-3.49F, 11, -2)
+                .end()
+                .transform(ItemDisplayContext.THIRD_PERSON_LEFT_HAND).rotation(45, 155, 0).translation(11.51F, 7, 2.5F)
+                .end()
+                .transform(ItemDisplayContext.FIRST_PERSON_RIGHT_HAND).rotation(0, 180, -5).translation(-15, 5, -11)
+                .scale(1.25F).end()
+                .transform(ItemDisplayContext.FIRST_PERSON_LEFT_HAND).rotation(0, 180, -5).translation(5, 5, -11)
+                .scale(1.25F).end()
+                .transform(ItemDisplayContext.GUI).rotation(15, -25, -5).translation(2, 3, 0).scale(0.65F).end()
+                .end();
+        getBuilder(name).parent(new ModelFile.UncheckedModelFile("builtin/entity"))
+                .guiLight(BlockModel.GuiLight.FRONT).texture("particle", mcLoc("block/iron_block"))
+                .transforms()
+                .transform(ItemDisplayContext.THIRD_PERSON_RIGHT_HAND).rotation(0, 90, 0).translation(10, 6, -4).end()
+                .transform(ItemDisplayContext.THIRD_PERSON_LEFT_HAND).rotation(0, 90, 0).translation(10, 6, 12).end()
+                .transform(ItemDisplayContext.FIRST_PERSON_RIGHT_HAND).rotation(0, 180, 5).translation(-10, 2, -10)
+                .scale(1.25F).end()
+                .transform(ItemDisplayContext.FIRST_PERSON_LEFT_HAND).rotation(0, 180, 5).translation(10, 0, -10)
+                .scale(1.25F).end()
+                .transform(ItemDisplayContext.GUI).rotation(15, -25, -5).translation(2, 3, 0).scale(0.65F).end()
+                .transform(ItemDisplayContext.FIXED).rotation(0, 180, 0).translation(-4.5F, 4.5F, -5).scale(0.55F)
+                .end()
+                .transform(ItemDisplayContext.GROUND).translation(2, 4, 2).scale(0.25F).end()
+                .end()
+                .override().predicate(mcLoc("blocking"), 1.0F).model(blocking).end();
     }
 
     private void engine(DeferredItem<? extends Item> item) {

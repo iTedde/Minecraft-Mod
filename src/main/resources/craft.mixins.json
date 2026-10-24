@@ -5,6 +5,7 @@
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "CraftingInputMixin",
+    "ExperienceOrbMixin",
     "PlayerFlyingSpeedMixin"
   ],
   "injectors": {

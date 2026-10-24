@@ -63,6 +63,7 @@ import dev.craft.enderstorage.Frequency;
 import dev.craft.ironchest.ChestUpgradeType;
 import dev.craft.ironchest.IronChestItems;
 import dev.craft.ironchest.IronChestType;
+import dev.craft.lightshield.LsItems;
 import dev.craft.portalgun.PgItems;
 import dev.craft.redpower.RpGem;
 import dev.craft.redpower.RpItems;
@@ -137,6 +138,7 @@ public final class CraftRecipeProvider extends RecipeProvider {
         redPowerTools();
         redPowerTable();
         longFallBoots();
+        lightShield();
         ironChests();
         enderStorage();
         graviSuite();
@@ -2150,6 +2152,14 @@ public final class CraftRecipeProvider extends RecipeProvider {
                 Ingredient.of(PgItems.LONG_FALL_BOOT));
         shapeless(PgItems.LONG_FALL_BOOT, 2, "long_fall_boot_from_long_fall_boots",
                 Ingredient.of(PgItems.LONG_FALL_BOOTS));
+    }
+
+    /** Electric light shield (spec 30 §6): vanilla recipe without charge transfer, so the shield comes out empty. */
+    private void lightShield() {
+        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, LsItems.ELECTRIC_LIGHT_SHIELD).pattern("ALA")
+                .pattern("ASA").pattern(" R ").define('A', Ic2Items.ADVANCED_ALLOY).define('L', Ic2Items.LUMINATOR)
+                .define('S', Items.SHIELD).define('R', Ic2Items.RE_BATTERY)
+                .unlockedBy("has_luminator", has(Ic2Items.LUMINATOR)).save(output, id("electric_light_shield"));
     }
 
     /**

@@ -45,6 +45,7 @@ import dev.craft.powerplants.PpBlocks;
 import dev.craft.powerplants.block.PlantControllerBlock;
 import dev.craft.powerconverters.block.PowerConverterBlock;
 import dev.craft.enderstorage.EsBlocks;
+import dev.craft.lightshield.LsBlocks;
 import dev.craft.ironchest.IronChestBlocks;
 import dev.craft.mps.MpsBlocks;
 import dev.craft.ironchest.IronChestType;
@@ -184,6 +185,9 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
             simpleBlock(IronChestBlocks.chest(type).get(), models().getBuilder(type.getName() + "_chest")
                     .texture("particle", modLoc("block/ironchest/" + type.getName())));
         }
+        // Shield light: invisible, glowstone particles.
+        simpleBlock(LsBlocks.SHIELD_LIGHT.get(), models().getBuilder("shield_light")
+                .texture("particle", mcLoc("block/glowstone")));
         // Ender chest: block entity renderer, obsidian particles (BlockEnderStorage blockIndexInTexture).
         simpleBlock(EsBlocks.ENDER_CHEST.get(), models().getBuilder("ender_storage_chest")
                 .texture("particle", mcLoc("block/obsidian")));
