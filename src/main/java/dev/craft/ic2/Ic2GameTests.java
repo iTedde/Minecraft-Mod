@@ -75,6 +75,19 @@ public final class Ic2GameTests {
         });
     }
 
+    /** A hopper on top feeds a bamboo block (vanilla fuel 300 → 75 generator ticks) into the fuel slot. */
+    @GameTest(template = EMPTY, timeoutTicks = 100)
+    public static void generatorTakesBambooBlockFromHopper(GameTestHelper helper) {
+        GeneratorBlockEntity generator = place(helper, new BlockPos(1, 1, 1), Ic2Machine.GENERATOR);
+        helper.setBlock(new BlockPos(1, 2, 1), Blocks.HOPPER);
+        net.minecraft.world.level.block.entity.HopperBlockEntity hopper = helper.getBlockEntity(new BlockPos(1, 2, 1));
+        hopper.setItem(0, new ItemStack(Items.BAMBOO_BLOCK, 4));
+        helper.succeedWhen(() -> {
+            helper.assertTrue(hopper.getItem(0).getCount() < 4, "hopper pushed bamboo blocks");
+            helper.assertValueEqual(generator.getItemFuelTime(), 75, "bamboo block burns");
+        });
+    }
+
     @GameTest(template = EMPTY, timeoutTicks = 100)
     public static void generatorChargesBatBoxThroughCable(GameTestHelper helper) {
         GeneratorBlockEntity generator = place(helper, new BlockPos(1, 1, 1), Ic2Machine.GENERATOR);
