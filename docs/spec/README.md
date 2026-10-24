@@ -45,6 +45,7 @@ Vanilla-Klassen/-Felder tragen lesbare Namen (`Block.cobblestone`, `Item.redston
 | `27-enderstorage.md` | EnderStorage 1.4.1.5: Ender Chest, Ender Pouch, Ender Tank mit 3-Farben-Frequenz und persönlichem Schloss, Rezepte, Teilphasen (Phase 26) |
 | `28-gravisuite.md` | GraviSuite 1.8: Gravitations-Brustplatte, Fortg./Ultimatives LapPack, Fortg. Jetpack, Fortg. Nano-Brustplatte, Ultimativer Solarhelm, Vajra, GraviTool, Fortg. Bohrer/Kettensäge, Bauteile, Rezepte, Teilphasen (Phase 27) |
 | `29-modular-powersuits.md` | Modular Powersuits 0.3.2: Power-Rüstung + Power Tool, Tinker Table, 18 Bauteile, 35 Module mit Pack-Werten, Energie in Joule (50 J/EU), Bewegung/Umwelt/Werkzeug, Rezepte (im Pack baubar), Entscheidungen, Teilphasen (Phase 28) |
+| `30-leuchtschild.md` | Elektrischer Leuchtschild (neuer Inhalt): EU-Schild, folgendes Licht über unsichtbaren Lichtblock, Ein/Aus per Modus-Taste, Verzauberungen auf Energie, Rezept – Vorschlag zur Freigabe (Phase 30) |
 
 Ergänzend: `docs/balancing.md` (Vorschlag, nicht freigegeben), `docs/abweichungen.md`.
 

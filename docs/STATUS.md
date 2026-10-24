@@ -2623,6 +2623,13 @@ alle, z. B. ×1,2.“ Entscheidungen Nutzer: Bonus für Panels in einem **lücke
   1.0.7; 9,0 MB).
 - **Phase 28 erledigt, Client-Test offen** (Testplan 12.1–12.6).
 
+## Erledigt (30.0 Elektrischer Leuchtschild: Spezifikation, 2026-10-24)
+- [x] `docs/spec/30-leuchtschild.md`: Vorschlag 10 000 EU / Stufe 1 / Transfer 100, Licht 1 EU je 4 Ticks (wie
+  Luminator), Block 100 EU je Haltbarkeitspunkt, Licht über unsichtbaren Block `craft:shield_light` (Augen-/Fußblock,
+  auch unter Wasser, Selbst-Aufräumen), Ein/Aus per Modus-Taste + Rechtsklick, Haltbarkeit/Reparatur wirken auf EU,
+  Rezept `ALA/ASA/ R` (Legierung, Luminator, Schild, RE-Batterie), Paket `…lightshield`.
+- **Wartet auf Freigabe** (Spec §8: Werte, Verhalten leer, Lichtlevel, Verzauberungen, Rezept, Teilphasen).
+
 ## Nächste Schritte
+- Freigabe Spec 30 (§8), danach 30.1 Umsetzung (Item, Licht, Taste, Verzauberungen, Tests) und 30.2 EMI/Wiki/Paket.
 - Client-Test MPS (Testplan 12) und GraviSuite (Testplan 11) – nur nach Rückfrage (Nutzer spielt evtl. selbst).
-- Phase 30 Elektrischer Leuchtschild: 30.0 Spezifikation (Werte/Rezept/Reihenfolge zur Freigabe).
