@@ -331,10 +331,10 @@ Mehrere Öfen nebeneinander lassen sich über eine gemeinsame Rohrleitung versor
     wt = f'''<h1>Wasserturbine</h1>
 {h.infobox('Wasserturbine', 'craft:water_turbine', [
     ('Herkunft', NEW + ' Craft (Kraftwerke)'), ('Typ', 'Multiblock 3×3×3, voll'), ('Leistung', '0,25 EU/t je fließendem Wasserblock'),
-    ('Fluss-Biom', '×1,5'), ('Deckel', '<b>32 EU/t</b>'), ('Pakete', 'bis 32 EU (LV)'), ('Mindestens', '16 fließende Blöcke'),
+    ('Fluss-Biom', '×1,5, Deckel 48'), ('Deckel', '<b>32 EU/t</b>'), ('Pakete', 'bis 32 EU (LV)'), ('Mindestens', '16 fließende Blöcke'),
     ('Messung', 'alle 128 Ticks'), ('GUI', 'keine – Rechtsklick zeigt den Zustand im Chat'),
 ])}
-<p class="lead">Die große Schwester der <a href="#/wassermuehle">Wassermühle</a>: zuverlässige <b>bis 32 EU/t</b> rund um die Uhr, ohne Brennstoff.
+<p class="lead">Die große Schwester der <a href="#/wassermuehle">Wassermühle</a>: zuverlässige <b>bis 32 EU/t</b> (im Fluss-Biom bis 48) rund um die Uhr, ohne Brennstoff.
 Entscheidend ist <b>fließendes</b> Wasser rund um und über der Turbine – stilles Wasser (Quellblöcke) zählt nicht.</p>
 <div class="tocpos"></div>
 <h2 id="wt--material">Was du brauchst</h2>
@@ -365,17 +365,17 @@ bis 20 Blöcke über dem Deckel. Auf Höhe der Turbine sind das je Ebene 160 Pos
 <li><b>Was nicht zählt:</b> Quellblöcke (stilles Wasser, Ozean, die meisten natürlichen Flüsse), Wasser unter dem Boden der Turbine,
 Wasser ab 6 Blöcken Abstand oder ab 21 Blöcken über dem Deckel, Seegras/Seetang/Blasensäulen und Blöcke mit Wasser darin (z. B. wassergefüllte Stufen).</li>
 <li>Gezählt wird alle 128 Ticks (≈ 6 s). Das Fluss-Biom (×1,5) wird am Controller-Block geprüft.</li>
-<li>Unter 16 solchen Blöcken: 0 EU/t. Darüber 0,25 EU/t je Block, im Fluss-Biom ×1,5, höchstens 32 EU/t.
-Volllast also ab <b>128</b> fließenden Blöcken, im Fluss-Biom ab 86.</li>
+<li>Unter 16 solchen Blöcken: 0 EU/t. Darüber 0,25 EU/t je Block, höchstens 32 EU/t. Im Fluss-Biom zählt jeder Block ×1,5 und der
+Deckel steigt auf <b>48 EU/t</b>. Volllast in beiden Fällen ab <b>128</b> fließenden Blöcken (im Fluss-Biom sind 32 EU/t schon ab 86 erreicht).</li>
 </ul>
-{h.note('warn', '<b>Natürliche Flüsse bestehen fast nur aus Quellblöcken</b> – die zählen nicht! Eine Turbine einfach in den Fluss zu stellen bringt deshalb oft wenig. Das Fluss-Biom bringt aber den Faktor 1,5, egal woher das fließende Wasser kommt.')}
+{h.note('warn', '<b>Natürliche Flüsse bestehen fast nur aus Quellblöcken</b> – die zählen nicht! Eine Turbine einfach in den Fluss zu stellen bringt deshalb oft wenig. Das Fluss-Biom bringt aber den Faktor 1,5 und den höheren Deckel von 48 EU/t, egal woher das fließende Wasser kommt.')}
 <h3 id="wt--varianten">Was welcher Aufbau bringt</h3>
 {h.table(['Aufbau', 'gezählte Blöcke', 'Leistung', 'Fluss-Biom'], [
     ['Turbine in stillem Wasser / Ozean / natürlichem Fluss (Quellblöcke)', 'meist 0', '0 EU/t', '0 EU/t'],
     ['Bach am Boden nur an <b>einer</b> Seite, 2 breit (13 lang)', '26', '6,5 EU/t', '9,75 EU/t'],
     ['Wasserfall: eine Säule fallendes Wasser von 20 über dem Deckel bis zum Boden neben der Turbine', '23', '5,75 EU/t', '8,6 EU/t'],
-    ['Sechs solcher Wasserfall-Säulen', '138', '<b>32 EU/t</b> (Deckel)', '<b>32 EU/t</b>'],
-    ['<b>Bach am Boden rundherum</b>: die ganze untere Ebene im Messbereich fließt', 'bis 160', '<b>32 EU/t</b> (Deckel)', '<b>32 EU/t</b>'],
+    ['Sechs solcher Wasserfall-Säulen', '138', '<b>32 EU/t</b> (Deckel)', '<b>48 EU/t</b> (Deckel)'],
+    ['<b>Bach am Boden rundherum</b>: die ganze untere Ebene im Messbereich fließt', 'bis 160', '<b>32 EU/t</b> (Deckel)', '<b>48 EU/t</b> (Deckel)'],
 ])}
 <h3 id="wt--deckel">Einfachster Aufbau: Wasser auf den Deckel</h3>
 <p>Eine Wasserquelle mitten auf dem Turbinendeckel reicht oft schon: Das Wasser läuft über den Deckel, fällt an allen Kanten herunter und
@@ -390,7 +390,8 @@ breitet sich am Boden rund um die Turbine aus – alles davon liegt im Messberei
 <p>Blöcke im Messbereich nehmen dem Wasser Platz weg – jede belegte Position fehlt. Bei 3860 Positionen ist meist aber reichlich Luft.</p>
 <h2 id="wt--strom">Strom abnehmen</h2>
 <p>Der Strom kommt am <b>Controller und an jedem Gehäuseblock</b> heraus – am praktischsten ist ein Kabel an der <b>Unterseite</b> oder an einer Seite, wo kein Wasser läuft. Die Pakete sind höchstens
-<b>32 EU (LV)</b>: {c('insulated_copper_cable')}, {c('batbox')} und alle Standardmaschinen vertragen das.</p>
+<b>32 EU (LV)</b>: {c('insulated_copper_cable')}, {c('batbox')} und alle Standardmaschinen vertragen das. Im Fluss-Biom
+kommen über 32 EU/t einfach zwei Pakete pro Tick (32 + Rest) – auch dann bleibt alles LV.</p>
 <div class="calc" data-calc="waterturbine"><h4>Rechner: Wasserturbine</h4><div class="row">
 <label>gezählte fließende Wasserblöcke <input type="number" name="n" min="0" max="3860" value="90"></label>
 <label><input type="checkbox" name="r" checked> Fluss-Biom</label></div><div class="out"></div><div class="msg"></div></div>

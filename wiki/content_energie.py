@@ -56,9 +56,9 @@ OUT = {
     'hv_solar_array': 'stillgelegt (liefert nichts, zerlegbar)',
     'steam_turbine': '20 EU/t je Kessel, bis 64',
     'large_steam_turbine': '160 EU/t je Hochdruckkessel, bis 480',
-    'water_turbine': '16–32 EU/t (Wasserfluss)',
-    'large_water_turbine': '64–256 EU/t (Wasserfluss)',
-    'large_wind_turbine': '64–136 EU/t, Gewitter bis 384',
+    'water_turbine': '16–32 EU/t (Wasserfluss), im Fluss-Biom bis 48',
+    'large_water_turbine': '64–256 EU/t (Wasserfluss), im Fluss-Biom bis 384',
+    'large_wind_turbine': '38–153 EU/t, Regen/Gewitter bis 192',
 }
 ENGINES = {
     'redstone_engine': ('0,05 MJ/t', 'nur Redstone-Signal'),

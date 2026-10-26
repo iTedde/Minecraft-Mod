@@ -481,9 +481,9 @@ const CALCS = {
   waterturbine(el){
     function upd(){
       const n = Math.max(0, Math.min(3860, +el.querySelector('[name=n]').value)), r = el.querySelector('[name=r]').checked;
-      const raw = n < 16 ? 0 : 0.25 * n * (r ? 1.5 : 1), out = Math.min(32, raw);
-      el.querySelector('.out').innerHTML = `<div class="res"><b>${fmt(out)} EU/t</b><span>Leistung (Deckel 32)</span></div><div class="res"><b>${fmt(out * 24000, 0)} EU</b><span>pro Minecraft-Tag</span></div><div class="res"><b>${Math.ceil(32 / 0.25 / (r ? 1.5 : 1))}</b><span>fließende Blöcke für Volllast</span></div>`;
-      el.querySelector('.msg').textContent = n < 16 ? 'Unter 16 fließenden Wasserblöcken liefert die Turbine nichts.' : (raw > 32 ? `Rohwert ${fmt(raw)} EU/t – gedeckelt auf 32.` : '');
+      const cap = r ? 48 : 32, raw = n < 16 ? 0 : 0.25 * n * (r ? 1.5 : 1), out = Math.min(cap, raw);
+      el.querySelector('.out').innerHTML = `<div class="res"><b>${fmt(out)} EU/t</b><span>Leistung (Deckel ${cap})</span></div><div class="res"><b>${fmt(out * 24000, 0)} EU</b><span>pro Minecraft-Tag</span></div><div class="res"><b>128</b><span>fließende Blöcke für Volllast</span></div>`;
+      el.querySelector('.msg').textContent = n < 16 ? 'Unter 16 fließenden Wasserblöcken liefert die Turbine nichts.' : (raw > cap ? `Rohwert ${fmt(raw)} EU/t – gedeckelt auf ${cap}.` : (r && out > 32 ? 'Über 32 EU/t kommen pro Tick zwei LV-Pakete (32 + Rest).' : ''));
     }
     el.addEventListener('input', upd); upd();
   },

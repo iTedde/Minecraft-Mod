@@ -1007,10 +1007,12 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
         add("emi.craft.info.water_turbine", german
                 ? "Wasserturbine: massiver Würfel 3×3×3 aus 26 Wasserturbinengehäusen, die Wasserturbine in der Mitte "
                 + "einer Seitenfläche. Gezählt wird fließendes Wasser bis 5 Blöcke um den Würfel herum und bis 20 "
-                + "Blöcke darüber: ab 16 Blöcken 0,25 EU/t je Block, im Fluss-Biom ×1,5, höchstens 32 EU/t."
+                + "Blöcke darüber: ab 16 Blöcken 0,25 EU/t je Block, höchstens 32 EU/t; im Fluss-Biom ×1,5 "
+                + "und höchstens 48 EU/t (weiter in LV-Paketen bis 32)."
                 : "Water turbine: solid 3×3×3 cube of 26 water turbine casings, the water turbine in the middle of a "
                 + "side face. Flowing water up to 5 blocks around the cube and up to 20 blocks above it counts: from "
-                + "16 blocks 0.25 EU/t per block, ×1.5 in river biomes, at most 32 EU/t.");
+                + "16 blocks 0.25 EU/t per block, at most 32 EU/t; in river biomes ×1.5 and at most 48 EU/t (still "
+                + "in LV packets of up to 32).");
         add("emi.craft.info.high_pressure_boiler", german
                 ? "Hochdruckkessel: Würfel 5×5×5 aus 97 Hochdruck-Kesselgehäusen, innen 3×3×3 Luft. Die "
                 + "Hochdruck-Kesselfeuerung sitzt in der Mitte einer Seitenfläche. Bis 1500 °C, dann 160 mB/t Dampf "
@@ -1029,19 +1031,21 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
         add("emi.craft.info.large_water_turbine", german
                 ? "Große Wasserturbine: massiver Würfel 5×5×5 aus 124 Großen Wasserturbinengehäusen, die Große "
                 + "Wasserturbine in der Mitte einer Seitenfläche. Gezählt wird fließendes Wasser bis 7 Blöcke um den "
-                + "Würfel und bis 24 Blöcke darüber: ab 64 Blöcken 1 EU/t je Block, im Fluss-Biom ×1,5, höchstens "
-                + "256 EU/t (HV)."
+                + "Würfel und bis 24 Blöcke darüber: ab 64 Blöcken 1 EU/t je Block, höchstens 256 EU/t (HV); im "
+                + "Fluss-Biom ×1,5 und höchstens 384 EU/t."
                 : "Large water turbine: solid 5×5×5 cube of 124 large water turbine casings, the large water turbine "
                 + "in the middle of a side face. Flowing water up to 7 blocks around the cube and up to 24 blocks "
-                + "above it counts: from 64 blocks 1 EU/t per block, ×1.5 in river biomes, at most 256 EU/t (HV).");
+                + "above it counts: from 64 blocks 1 EU/t per block, at most 256 EU/t (HV); in river biomes ×1.5 "
+                + "and at most 384 EU/t.");
         add("emi.craft.info.large_wind_turbine", german
-                ? "Große Windturbine: die Große Windturbine auf 8 Windturbinenmasten übereinander. Rotor per "
-                + "Rechtsklick einsetzen (Schleichen + leere Hand nimmt ihn heraus). Leistung 20× Windmühle × "
-                + "Rotorfaktor (Eisen 50 %, Stahl 75 %, Carbon 100 %), höchstens 384 EU/t (HV): y 128 ≈ 64 EU/t, "
-                + "y 200 ≈ 136 EU/t, Gewitter ×3. Blöcke im Bereich ±5 um die Gondel senken die Leistung."
-                : "Large wind turbine: the large wind turbine on top of 8 wind turbine masts. Right-click to insert "
-                + "a rotor (sneak with an empty hand to take it out). Output 20× wind mill × rotor factor (iron 50 %, "
-                + "steel 75 %, carbon 100 %), at most 384 EU/t (HV): y 128 ≈ 64 EU/t, y 200 ≈ 136 EU/t, thunder ×3. "
+                ? "Große Windturbine: die Große Windturbine auf 24 Windturbinenmasten übereinander. Rotor per "
+                + "Rechtsklick einsetzen (Schleichen + leere Hand nimmt ihn heraus). Leistung 12× Windmühle × "
+                + "Rotorfaktor (Eisen 50 %, Stahl 75 %, Carbon 100 %), höchstens 192 EU/t (HV): y 128 ≈ 38 EU/t, "
+                + "y 200 ≈ 82 EU/t, y 319 ≈ 153 EU/t, Gewitter ×3. Blöcke im Bereich ±5 um die Gondel senken die Leistung."
+                : "Large wind turbine: the large wind turbine on top of 24 wind turbine masts. Right-click to insert "
+                + "a rotor (sneak with an empty hand to take it out). Output 12× wind mill × rotor factor (iron 50 %, "
+                + "steel 75 %, carbon 100 %), at most 192 EU/t (HV): y 128 ≈ 38 EU/t, y 200 ≈ 82 EU/t, y 319 ≈ 153 EU/t, "
+                + "thunder ×3. "
                 + "Blocks within ±5 of the nacelle lower the output.");
         add("emi.craft.info.industrial_blast_furnace", german
                 ? "Hochofen: Quader 3×3, 4 hoch, direkt hinter dem Controller (dieser sitzt vor der Mitte der unteren "

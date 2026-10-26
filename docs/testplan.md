@@ -219,6 +219,15 @@ Testwelt. Sprache einmal Deutsch, einmal Englisch prüfen. EMI und Xaero's Minim
 | 14.3 | Holzrohr aus Truhe → Verteilerrohr → drei Truhen bei 50/30/20: 100 Items kommen 50/30/20 an; ein 64er-Stapel 32/19/13 | 31.1 | |
 | 14.4 | 0 % sperrt eine Seite; alle 0 → normales Rohr; volle Zieltruhe → Rest geht an die anderen, nach dem Leeren kein Schwall | 31.1 | |
 
+## 15. Ausgleich Großkraftwerke (Phase 32)
+
+| Nr | Test | Herkunft | OK |
+|---|---|---|---|
+| 15.1 | EMI: neue Rezepte (Mast ×4 aus Stahlplatten, Große Windturbine `WAW/AHA/WAW`, Stahl-Windrotor aus 8 Stahlplatten, Großes Wasserturbinengehäuse ×6, Großes Turbinengehäuse `PIP/IAI/PIP`, Großer Turbinenrotor `STS/SRS/STS`), Info-Seiten mit neuen Werten | 32.1, 32.2 | |
+| 15.2 | Große Windturbine: mit 8 Masten „Struktur unvollständig“, mit 24 Masten vollständig; Carbon-Rotor bei y ≈ 200 ≈ 82 EU/t (Rechtsklick), bei Gewitter höchstens 192; MFE/MFSU am Mastfuß lädt, kein Kabel brennt | 32.1 | |
+| 15.3 | Wasserturbine im Fluss-Biom mit Wasser auf dem Deckel: Rechtsklick zeigt bis 48 EU/t, BatBox und Kupferkabel daran explodieren nicht | 32.1 | |
+| 15.4 | Große Wasserturbine im Fluss-Biom: mit 256 fließenden Blöcken 384 EU/t; außerhalb höchstens 256 | 32.1 | |
+
 ## Befunde
 
 | Nr | Datum | Befund | Status |

@@ -2850,7 +2850,18 @@ Nutzer: „Das ist gut“ (Spec 32 freigegeben).
 - [x] `spec/14` §5, `spec/23` §2–4, `balancing.md` §3.8 nachgezogen.
 - Hinweis für bestehende Welten: Große Windturbinen mit 8 Masten sind unvollständig, bis 16 Masten nachgebaut sind.
 
+## Erledigt (32.2 Ausgleich Großkraftwerke: Texte, Paket, 2026-10-26)
+- [x] EMI-Info-Seiten (de/en): Wasserturbine Fluss-Deckel 48 (LV-Pakete), Große Wasserturbine Fluss-Deckel 384,
+  Große Windturbine 24 Masten, Faktor 12, Deckel 192, Beispielwerte y 128/200/319.
+- [x] Wiki: Wasserturbine (Seite + Anleitung, Rechner mit Fluss-Deckel 48 und Hinweis auf zwei LV-Pakete),
+  Großkraftwerke (Überblick, Wasser-Deckel 384, Wind 24 Masten/192/Werte-Tabelle, alle geänderten Rezepte, Link auf
+  Spec 32), Energievergleich (Balken, Tabelle), Steckbriefe, Startseiten-Karten, Änderungsliste; neu erzeugt (DE + EN-Namen).
+- [x] Testplan 15.1–15.4.
+- [x] Alle 539 GameTests grün, `gradlew runData build` grün.
+- [x] Craft **1.0.13** (`releases/craft-1.0.13.jar`), Paket `releases/Craft-1.0.16-curseforge.zip` (wie 1.0.15 mit Craft
+  1.0.13).
+- **Phase 32 erledigt, Client-Test offen** (Testplan 15).
+
 ## Nächste Schritte
-- 32.2: Wiki (Wasserturbine/Großkraftwerke, Rechner, Steckbriefe, Startseiten-Karten), EMI-Texte, Testplan, Craft 1.0.13 + Paket 1.0.16.
-- Client-Test 31 (Nutzer), 30.6, Extruder-Rezepte, Trichter.
+- Client-Test 32 und 31 (Nutzer), 30.6, Extruder-Rezepte, Trichter.
 - B7: Tag-Übersetzungen nachtragen.

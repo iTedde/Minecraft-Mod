@@ -73,8 +73,8 @@ dazu kommen <a href="#/aenderungen">neue Kraftwerke und eine Mining-Dimension</a
 {card('windmuehle', 'craft:wind_mill', 'Windmühle', 'Faktor 2,5, Gewitter ×3, geht nie kaputt.', CHG)}
 {card('koksofen', 'craft:coke_oven', 'Koksofen', '3×3×3-Multiblock: Kohle → Koks ohne Strom.', NEW)}
 {card('kohlekraftwerk', 'craft:boiler_firebox', 'Kohlekraftwerk', 'Kessel + Dampfturbine: 16 000 EU/Kohle, 32 000 EU/Koks.', NEW)}
-{card('wasserturbine', 'craft:water_turbine', 'Wasserturbine', 'Bis 32 EU/t Grundlast aus einem Fluss.', NEW)}
-{card('grosskraftwerke', 'craft:large_steam_turbine', 'Großkraftwerke', 'Hochdruckkessel, große Dampf-, Wasser- und Windturbine: 256–512 EU/t.', NEW)}
+{card('wasserturbine', 'craft:water_turbine', 'Wasserturbine', 'Bis 32 EU/t Grundlast aus fließendem Wasser, im Fluss-Biom bis 48.', NEW)}
+{card('grosskraftwerke', 'craft:large_steam_turbine', 'Großkraftwerke', 'Hochdruckkessel, große Dampf-, Wasser- und Windturbine: bis 192–512 EU/t.', NEW)}
 {card('mining-dimension', 'craft:mining_portal', 'Mining-Dimension', 'Flache Steinwelt voller Erze, Portal aus Glattem Stein.', NEW)}
 {card('leuchtschild', 'craft:electric_light_shield', 'Elektrischer Leuchtschild', 'Schild mit EU statt Haltbarkeit, leuchtet wie eine Fackel.', NEW)}
 {card('zusatzmods', 'craft:cropnalyzer', 'EMI, Xaero & CC: Tweaked', 'Rezeptanzeige, Minimap und Turtles im Paket.', TECH)}
@@ -171,8 +171,8 @@ Engine, Power Converters und der Kernreaktor.</p>
 {h.table(['Inhalt', 'Was es ist', 'Kurz'], [
     row('Koksofen', 'Multiblock 3×3×3 aus Koksofenziegeln', '1 Kohle → 1 Koks in 900 Ticks, ohne Strom', 'koksofen', NEW),
     row('Kohlekraftwerk', 'Kessel (3×3×3) + Dampfturbine (3×3×5)', 'Kohle/Koks → Dampf → EU; 1 mB Dampf = 1 EU; bis 64 EU/t', 'kohlekraftwerk', NEW),
-    row('Wasserturbine', 'Multiblock 3×3×3 in fließendem Wasser', '0,25 EU/t je fließendem Wasserblock bis 5 Blöcke um und 20 über der Turbine, bis 32 EU/t', 'wasserturbine', NEW),
-    row('Großkraftwerke', 'zweite Ausbaustufe für Kohle, Wasser und Wind', 'Hochdruckkessel + Große Dampfturbine bis 512 EU/t, Große Wasserturbine bis 256 EU/t, Große Windturbine bis 384 EU/t', 'grosskraftwerke', NEW),
+    row('Wasserturbine', 'Multiblock 3×3×3 in fließendem Wasser', '0,25 EU/t je fließendem Wasserblock bis 5 Blöcke um und 20 über der Turbine, bis 32 EU/t (Fluss-Biom 48)', 'wasserturbine', NEW),
+    row('Großkraftwerke', 'zweite Ausbaustufe für Kohle, Wasser und Wind', 'Hochdruckkessel + Große Dampfturbine bis 512 EU/t, Große Wasserturbine bis 256 EU/t (Fluss-Biom 384), Große Windturbine bis 192 EU/t', 'grosskraftwerke', NEW),
     row('Mining-Dimension', 'eigene Dimension, Portal aus Glattem Stein', 'flache Steinwelt bis y 64 mit allen Oberwelt-Erzen, hell, ohne Mobs', 'mining-dimension', NEW),
     row('Dampf', 'Flüssigkeit <code>craft:steam</code>', 'nur in Tanks und Rohren, kein Eimer', 'kohlekraftwerk', NEW),
     row('CC: Tweaked', 'mitinstallierter Mod', 'Computer und Turtles (Ersatz für ComputerCraft 1.5 im Pack)', 'zusatzmods', NEW),
@@ -221,10 +221,10 @@ Diese hier bemerkt man im Spiel:</p>
         ('IC2-Generator', 10, '4 000 EU je Kohle'),
         ('Kessel + Dampfturbine', 20, 'je Kessel; bis 64 mit 3 Kesseln'),
         ('Geothermiegenerator', 20, '20 000 EU je Lava-Eimer'),
-        ('Wasserturbine', 32, 'Deckel, braucht Fluss'),
-        ('Große Windturbine (y 200)', 136, 'Carbon-Rotor; Gewitter bis 384'),
+        ('Wasserturbine', 32, 'Deckel; im Fluss-Biom 48'),
+        ('Große Windturbine (y 319)', 153, 'Carbon-Rotor; Regen/Gewitter bis 192'),
         ('Solarfeld 9×9', 97.2, '81 Solarpanels × 1,2, nur am Tag'),
-        ('Große Wasserturbine', 256, 'Deckel, ab 256 fließenden Blöcken'),
+        ('Große Wasserturbine', 256, 'Deckel, ab 256 fließenden Blöcken; im Fluss-Biom 384'),
         ('Hochdruckkraftwerk', 480, '3 Hochdruckkessel + Große Dampfturbine'),
         ('Kernreaktor (typisch)', 400, '60–400+ EU/t je nach Design'),
     ]
@@ -244,7 +244,7 @@ Solar wächst nur mit der Fläche: rund 1,2 EU/t je Block im 9×9-Feld.</p>
     ['Solarpanel', '1 (Tag)', '1,0 Spitze / 0,5 Mittel', '– (wartungsfrei)', 'niedrig (nur Tag, kein Regen)'],
     [f'Solarfeld 9×9 {CHG}', '97 (Tag, 81 Panels)', '1,2 Spitze / 0,6 Mittel', '– (wartungsfrei)', 'niedrig (nur Tag, kein Regen)'],
     [f'Wassermühle {CHG}', 'bis 2', '≈ 0,08 (inkl. Wasserfläche)', '–', '<b>hoch</b> (Tag & Nacht)'],
-    [f'Wasserturbine {NEW}', '16–32', '≈ 0,5–0,65 (inkl. Wasserring)', '–', '<b>hoch</b>'],
+    [f'Wasserturbine {NEW}', '16–32 (Fluss 48)', '≈ 0,5–0,65 (inkl. Wasserring)', '–', '<b>hoch</b>'],
     [f'Windmühle {CHG}', '3–7, Gewitter bis 20', '≈ 0,04–0,25 (Freiraum 9×9)', '–', 'mittel (Wetter, Wind)'],
     ['IC2-Generator', '10', '10', '4 000 / Kohle', 'hoch, solange befüllt'],
     [f'Kohlekraftwerk {NEW}', '20 je Kessel (bis 64)', '≈ 0,7–1,5', '16 000 / Kohle, 32 000 / Koks', 'hoch (Aufheizen, Asche)'],
@@ -254,8 +254,8 @@ Solar wächst nur mit der Fläche: rund 1,2 EU/t je Block im 9×9-Feld.</p>
     ['Stirling Engine + Konverter', '2,4', '≈ 1', '3 888 / Kohle', 'mittel (Explosionsgefahr)'],
     ['Kernreaktor', '60–400+', '10–50+', '≈ 1–12 Mio. / Zelle', 'hoch bei korrekter Kühlung, Risiko'],
     [f'Hochdruckkessel + Große Dampfturbine {NEW}', '160 je Kessel (bis 480)', '≈ 2,3–4', '24 000 / Kohle, 48 000 / Koks', 'hoch (Aufheizen, viel Wasser)'],
-    [f'Große Wasserturbine {NEW}', '64–256', '≈ 0,2–0,7 (inkl. Wasserfläche)', '–', '<b>hoch</b>'],
-    [f'Große Windturbine {NEW}', '64–136, Gewitter bis 384', '≈ 0,5–1,1 (Freiraum 11×11)', '–', 'mittel (Wetter, Wind)'],
+    [f'Große Wasserturbine {NEW}', '64–256 (Fluss 384)', '≈ 0,2–0,7 (inkl. Wasserfläche)', '–', '<b>hoch</b>'],
+    [f'Große Windturbine {NEW}', '38–153, Regen/Gewitter bis 192', '≈ 0,3–1,3 (Freiraum 11×11)', '–', 'mittel (Wetter, Wind)'],
 ])}
 <h2 id="en--umrechnung">Umrechnung MJ ↔ EU</h2>
 <ul>
@@ -446,10 +446,10 @@ Spezifikation: <a href="#/spec-14">14 – Kraftwerke</a> §3–4.</p>
     wt = f'''<h1>Wasserturbine</h1>
 {h.infobox('Wasserturbine', 'craft:water_turbine', [
     ('Herkunft', NEW + ' Craft (Kraftwerke)'), ('Typ', 'Multiblock 3×3×3, voll'), ('Leistung', '0,25 EU/t je fließendem Block'),
-    ('Fluss-Biom', '×1,5'), ('Deckel', '<b>32 EU/t</b> (LV)'), ('Mindestens', '16 fließende Blöcke'), ('GUI', 'keine – Rechtsklick zeigt den Zustand'),
+    ('Fluss-Biom', '×1,5, Deckel 48'), ('Deckel', '<b>32 EU/t</b> (LV)'), ('Mindestens', '16 fließende Blöcke'), ('GUI', 'keine – Rechtsklick zeigt den Zustand'),
 ])}
-<p class="lead">Die große Schwester der <a href="#/wassermuehle">Wassermühle</a>: zuverlässige <b>16–32 EU/t Grundlast</b> rund um die Uhr –
-sie braucht aber einen echten, fließenden Fluss.</p>
+<p class="lead">Die große Schwester der <a href="#/wassermuehle">Wassermühle</a>: zuverlässige <b>16–32 EU/t Grundlast</b> rund um die Uhr
+(im Fluss-Biom bis 48) – sie braucht aber <b>fließendes</b> Wasser; die Quellblöcke eines natürlichen Flusses zählen nicht.</p>
 
 <h2 id="wt--aufbau">Aufbau</h2>
 <p>Voller Würfel 3×3×3 (auch die Mitte ist ein Gehäuseblock), die Wasserturbine (Controller mit Rotor-Textur) in der Mitte einer
@@ -459,8 +459,8 @@ Seitenfläche, 26 Wasserturbinengehäuse. Gezählt wird fließendes Wasser bis 5
 <ul>
 <li>Alle 128 Ticks zählt die Turbine die <b>fließenden</b> Wasserblöcke im Messbereich (Quellblöcke zählen nicht).</li>
 <li>Unter <b>16</b> fließenden Blöcken: 0 EU/t.</li>
-<li>Leistung <code>0,25 EU/t · fließend</code>, in Fluss-Biomen ×1,5, gedeckelt auf <b>32 EU/t</b>. Volllast also ab 128 fließenden Blöcken (im Fluss ab 86).</li>
-<li>EU kommen am Controller <b>und an jedem Gehäuseblock</b> heraus, Pakete bis 32 (LV), Bruchteile werden gesammelt.</li>
+<li>Leistung <code>0,25 EU/t · fließend</code>, gedeckelt auf <b>32 EU/t</b>. In Fluss-Biomen ×1,5 und Deckel <b>48 EU/t</b>. Volllast in beiden Fällen ab 128 fließenden Blöcken.</li>
+<li>EU kommen am Controller <b>und an jedem Gehäuseblock</b> heraus, Pakete bis 32 (LV), Bruchteile werden gesammelt; im Fluss über 32 EU/t zwei Pakete pro Tick.</li>
 <li>Rechtsklick: Chat-Meldung „Fließendes Wasser: n, Leistung x EU/t“ oder „Struktur unvollständig“.</li>
 </ul>
 <div class="calc" data-calc="waterturbine"><h4>Rechner: Wasserturbine</h4><div class="row">
@@ -485,16 +485,17 @@ Seitenfläche, 26 Wasserturbinengehäuse. Gezählt wird fließendes Wasser bis 5
     gross = f'''<h1>Großkraftwerke</h1>
 {h.infobox('Großkraftwerke', 'craft:large_steam_turbine', [
     ('Herkunft', NEW + ' Craft (Kraftwerke, Phase 21)'), ('Anlagen', 'Hochdruckkessel, Große Dampf-, Wasser- und Windturbine'),
-    ('Stufe', '<b>HV</b> (Pakete bis 512)'), ('Leistung', 'Dampf bis 512, Wasser bis 256, Wind bis 384 EU/t'),
+    ('Stufe', '<b>HV</b> (Pakete bis 512)'), ('Leistung', 'Dampf bis 512, Wasser bis 256 (Fluss 384), Wind bis 192 EU/t'),
 ])}
-<p class="lead">Die zweite Ausbaustufe für Kohle, Wasser und Wind: 256 bis 512 EU/t je Anlage, <b>rund um die Uhr</b>. Zum Vergleich: Ein
+<p class="lead">Die zweite Ausbaustufe für Kohle, Wasser und Wind: rund 150 bis 512 EU/t je Anlage, <b>rund um die Uhr</b>. Alle drei kosten
+je EU/t ungefähr gleich viel Material: Wind ist absolut am billigsten, liefert aber am wenigsten, Dampf am meisten und braucht Brennstoff. Zum Vergleich: Ein
 9×9-Solarfeld liefert 97 EU/t, und das nur am Tag. Die kleinen Anlagen bleiben unverändert.</p>
 
 <h2 id="gk--ueberblick">Welche Anlage wofür?</h2>
 {h.table(['Anlage', 'Leistung', 'braucht dauerhaft', 'Aufwand', 'gut, wenn …'], [
-    ['<a href="#/grosskraftwerke/gk--dampf">Hochdruckkessel + Große Dampfturbine</a>', 'bis <b>480 EU/t</b> (3 Kessel)', 'Kohle oder Koks, viel Wasser', 'hoch (Stahl, Titan, Wolframstahl)', 'du Kohle/Koks automatisch nachliefern kannst'],
-    ['<a href="#/grosskraftwerke/gk--wasser">Große Wasserturbine</a>', 'bis <b>256 EU/t</b>', 'nichts (fließendes Wasser bleibt)', 'mittel (Stahl, raff. Eisen)', 'du einmal baust und nie wieder hinschauen willst'],
-    ['<a href="#/grosskraftwerke/gk--wind">Große Windturbine</a>', 'meist 60–250, bei Gewitter bis <b>384 EU/t</b>', 'nichts', 'mittel (Carbon-Rotor)', 'du hoch bauen kannst (Berg, Turm)'],
+    ['<a href="#/grosskraftwerke/gk--dampf">Hochdruckkessel + Große Dampfturbine</a>', 'bis <b>480 EU/t</b> (3 Kessel)', 'Kohle oder Koks, viel Wasser', 'hoch (Stahl, Titan, raff. Eisen)', 'du Kohle/Koks automatisch nachliefern kannst'],
+    ['<a href="#/grosskraftwerke/gk--wasser">Große Wasserturbine</a>', 'bis <b>256 EU/t</b>, im Fluss-Biom bis 384', 'nichts (fließendes Wasser bleibt)', 'mittel (Stahl, raff. Eisen)', 'du einmal baust und nie wieder hinschauen willst'],
+    ['<a href="#/grosskraftwerke/gk--wind">Große Windturbine</a>', 'meist 80–150, bei Regen/Gewitter bis <b>192 EU/t</b>', 'nichts', 'niedrig (Stahl, Carbon-Rotor)', 'du hoch bauen kannst (Berg, Turm)'],
 ])}
 <p>Alle drei geben <b>HV</b>-Pakete ab (bis 512 EU). Das heißt für den Anschluss: {c('glass_fibre_cable')} oder
 {c('insulated_hv_cable')}, als Speicher eine {c('mfsu')}, und vor normalen LV-Maschinen (32 EU) Transformatoren
@@ -613,10 +614,10 @@ Sie ist die große Schwester der <a href="#/wasserturbine">Wasserturbine</a>.</p
 (zusammen 19×19), von der untersten Ebene des Würfels bis 24 Blöcke über seinem Deckel. <b>Quellblöcke zählen nicht</b>, nur
 fließendes Wasser (auch fallendes, z. B. Wasserfälle).</li>
 <li>Unter <b>64</b> fließenden Blöcken: gar nichts. Ab 64: <b>1 EU/t je fließendem Block</b>, in einem Fluss-Biom ×1,5.</li>
-<li>Höchstens <b>256 EU/t</b> – erreicht ab 256 fließenden Blöcken (im Fluss-Biom ab 171).</li>
+<li>Höchstens <b>256 EU/t</b> – erreicht ab 256 fließenden Blöcken. Im Fluss-Biom steigt der Deckel auf <b>384 EU/t</b> (ebenfalls ab 256 Blöcken; 256 EU/t schon ab 171).</li>
 <li><b>Rechtsklick</b> auf den Controller zeigt „Fließendes Wasser: n, Leistung x EU/t“ (oder „Struktur unvollständig“). So siehst du sofort,
 ob noch Wasser fehlt.</li>
-<li>Strom kommt an jedem Gehäuseblock heraus, Pakete bis 256 EU (HV).</li>
+<li>Strom kommt an jedem Gehäuseblock heraus, Pakete bis 384 EU (HV).</li>
 </ul>
 <h3>Wie bekomme ich 256 fließende Blöcke?</h3>
 <p>Ein einzelner Quellblock auf einer ebenen Fläche fließt 7 Blöcke weit in alle Richtungen und erzeugt dabei bis zu gut 100
@@ -629,37 +630,37 @@ beieinander, entstehen neue Quellblöcke statt fließendem Wasser.</li>
 <li>Mit Rechtsklick nachzählen. Fehlt noch etwas: eine <b>zweite Ebene</b> darüber bauen oder Wasser von oben herabfallen lassen – alles bis
 24 Blöcke über dem Deckel zählt mit.</li>
 </ol>
-{h.note('tip', 'In einem Fluss-Biom (der Controller muss im Biom stehen) reichen schon 171 fließende Blöcke für die vollen 256 EU/t.')}
+{h.note('tip', 'In einem Fluss-Biom (der Controller muss im Biom stehen) zählt jeder Block 1,5-fach und der Deckel liegt bei 384 EU/t: 171 fließende Blöcke bringen 256 EU/t, 256 Blöcke die vollen 384 EU/t.')}
 
 <h2 id="gk--wind">Große Windturbine</h2>
 <p>Die Große Windturbine macht Strom aus <b>Wind</b>: je höher, desto mehr. Kein Brennstoff, kein Verschleiß, sie geht auch nie kaputt.</p>
 <h3>Aufbau</h3>
 <ol>
-<li><b>8 Windturbinenmasten</b> senkrecht übereinander setzen.</li>
+<li><b>24 Windturbinenmasten</b> senkrecht übereinander setzen.</li>
 <li>Oben drauf die <b>Große Windturbine</b> (Gondel). Die Seite, in die sie beim Setzen schaut, ist die Rotorseite.</li>
 <li>Mit einem <b>Windrotor</b> in der Hand auf die Gondel rechtsklicken – der Rotor wird eingesetzt und dreht sich als großes 5×5-Rad vor der
 Gondel (er kollidiert mit nichts). Schleichen + Rechtsklick mit leerer Hand nimmt ihn wieder heraus; mit einem anderen Rotor
 in der Hand wird getauscht.</li>
-<li>Das Kabel kommt einfach an den <b>Mastfuß</b> – jeder Mast leitet den Strom verlustfrei. Pakete bis 384 EU (HV).</li>
+<li>Das Kabel kommt einfach an den <b>Mastfuß</b> – jeder Mast leitet den Strom verlustfrei. Pakete bis 192 EU (HV).</li>
 </ol>
 {h.table(['Rotor', 'Faktor', 'Material'], [[c('iron_wind_rotor'), '0,5', 'Eisen'], [c('steel_wind_rotor'), '0,75', 'Stahl'], [c('carbon_wind_rotor'), '1,0', 'Carbonplatten + Fortgeschrittene Legierung']])}
 <h3>Was die Leistung bestimmt</h3>
 <ul>
-<li><b>Höhe der Gondel:</b> unter y 64 kommt nichts. Bei normalem Wind und Carbon-Rotor gilt ungefähr <b>Leistung ≈ Höhe − 64</b> EU/t.</li>
+<li><b>Höhe der Gondel:</b> unter y 64 kommt nichts. Bei normalem Wind und Carbon-Rotor gilt ungefähr <b>Leistung ≈ 0,6 · (Höhe − 64)</b> EU/t.</li>
 <li><b>Hindernisse:</b> Jeder Block in einem Kasten von 5 Blöcken um die Gondel (11×11, von 3 unter bis 5 über der Gondel) kostet Leistung –
 die eigenen Masten und die Gondel zählen nicht. Den Bereich also komplett frei halten: keine Bäume, kein Dach, keine Plattform direkt
-unter der Gondel. Mit 8 Masten ist der Boden weit genug weg.</li>
+unter der Gondel. Mit 24 Masten ist der Boden weit genug weg.</li>
 <li><b>Wind:</b> Die Windstärke schwankt langsam im ganzen Spiel (meist 10–20, Mittel 15); bei Regen ×1,5, bei Gewitter ×3.</li>
 <li>Rechtsklick auf die Gondel zeigt „Hindernisse: n, Leistung x EU/t“ (oder „Kein Rotor“ / „Struktur unvollständig“). Neu gezählt
 wird alle 128 Ticks, die Hindernisse alle 1 024 Ticks.</li>
 </ul>
 {h.table(['Gondel auf Höhe', 'Carbon, normaler Wind', 'bei Regen', 'bei Gewitter'], [
-    ['y 100', '≈ 36 EU/t', '≈ 54 EU/t', '≈ 108 EU/t'],
-    ['y 128', '≈ 64 EU/t', '≈ 96 EU/t', '≈ 192 EU/t'],
-    ['y 200', '≈ 136 EU/t', '≈ 204 EU/t', '<b>384 EU/t</b> (Deckel)'],
-    ['y 300', '≈ 236 EU/t', '≈ 354 EU/t', '<b>384 EU/t</b>'],
+    ['y 100', '≈ 22 EU/t', '≈ 32 EU/t', '≈ 65 EU/t'],
+    ['y 128', '≈ 38 EU/t', '≈ 58 EU/t', '≈ 115 EU/t'],
+    ['y 200', '≈ 82 EU/t', '≈ 122 EU/t', '<b>192 EU/t</b> (Deckel)'],
+    ['y 319 (Bauhöhe)', '≈ 153 EU/t', '<b>192 EU/t</b>', '<b>192 EU/t</b>'],
 ])}
-<p>Stahlrotor: Werte × 0,75, Eisenrotor: × 0,5. Höchstwert immer 384 EU/t. Weil der Wind schwankt, lohnt sich eine
+<p>Stahlrotor: Werte × 0,75, Eisenrotor: × 0,5. Höchstwert immer 192 EU/t. Weil der Wind schwankt, lohnt sich eine
 {c('mfsu')} als Puffer dahinter.</p>
 
 <h2 id="gk--fehler">Es kommt kein Strom – woran liegt es?</h2>
@@ -676,18 +677,18 @@ wird alle 128 Ticks, die Hindernisse alle 1 024 Ticks.</li>
 <div class="recipes">
 {h.recipe(['SBS', 'BKB', 'SBS'], {'S': ('craft:steel_plate', None), 'B': ('craft:boiler_casing', None), 'K': ('minecraft:bricks', 'Ziegelsteine')}, ('craft:high_pressure_boiler_casing', None), 8)}
 {h.recipe(['CCC', 'CFC', 'CCC'], {'C': ('craft:high_pressure_boiler_casing', None), 'F': ('craft:boiler_firebox', None)}, ('craft:high_pressure_boiler_firebox', None))}
-{h.recipe(['PPP', 'PAP', 'PPP'], {'P': ('craft:steel_plate', None), 'A': ('craft:advanced_machine_casing', None)}, ('craft:large_turbine_casing', None), 8)}
-{h.recipe(['TWT', 'WRW', 'TWT'], {'T': ('craft:titanium_plate', None), 'W': ('craft:tungstensteel_plate', None), 'R': ('craft:turbine_rotor', None)}, ('craft:large_turbine_rotor', None))}
+{h.recipe(['PIP', 'IAI', 'PIP'], {'P': ('craft:steel_plate', None), 'I': ('craft:refined_iron_plate', None), 'A': ('craft:advanced_machine_casing', None)}, ('craft:large_turbine_casing', None), 8)}
+{h.recipe(['STS', 'SRS', 'STS'], {'T': ('craft:titanium_plate', None), 'S': ('craft:steel_plate', None), 'R': ('craft:turbine_rotor', None)}, ('craft:large_turbine_rotor', None))}
 {h.recipe(['CRC', 'GHG', 'CRC'], {'C': ('craft:large_turbine_casing', None), 'R': ('craft:large_turbine_rotor', None), 'G': ('craft:steam_turbine', None), 'H': ('craft:hv_transformer', None)}, ('craft:large_steam_turbine', None))}
-{h.recipe(['SRS', 'RMR', 'SRS'], {'S': ('craft:steel_plate', None), 'R': ('craft:refined_iron_plate', None), 'M': ('craft:machine_casing', None)}, ('craft:large_water_turbine_casing', None), 8)}
+{h.recipe(['SRS', 'RMR', 'SRS'], {'S': ('craft:steel_plate', None), 'R': ('craft:refined_iron_plate', None), 'M': ('craft:machine_casing', None)}, ('craft:large_water_turbine_casing', None), 6)}
 {h.recipe(['WCW', 'CHC', 'WCW'], {'W': ('craft:water_turbine', None), 'C': ('craft:large_water_turbine_casing', None), 'H': ('craft:hv_transformer', None)}, ('craft:large_water_turbine', None))}
-{h.recipe(['R R', 'RRR', 'R R'], {'R': ('craft:refined_iron_ingot', None)}, ('craft:wind_turbine_mast', None), 8)}
-{h.recipe(['WAW', 'GHG', 'WAW'], {'W': ('craft:wind_mill', None), 'A': ('craft:advanced_machine_casing', None), 'G': ('craft:generator', None), 'H': ('craft:hv_transformer', None)}, ('craft:large_wind_turbine', None))}
+{h.recipe(['S S', 'SSS', 'S S'], {'S': ('craft:steel_plate', None)}, ('craft:wind_turbine_mast', None), 4)}
+{h.recipe(['WAW', 'AHA', 'WAW'], {'W': ('craft:wind_mill', None), 'A': ('craft:advanced_machine_casing', None), 'H': ('craft:hv_transformer', None)}, ('craft:large_wind_turbine', None))}
 {h.recipe(['PIP', 'IBI', 'PIP'], {'P': ('craft:iron_plate', None), 'I': ('minecraft:iron_ingot', 'Eisenbarren'), 'B': ('minecraft:iron_block', 'Eisenblock')}, ('craft:iron_wind_rotor', None))}
-{h.recipe(['PSP', 'SRS', 'PSP'], {'P': ('craft:steel_plate', None), 'S': ('craft:steel_ingot', None), 'R': ('craft:iron_wind_rotor', None)}, ('craft:steel_wind_rotor', None))}
+{h.recipe(['PPP', 'PRP', 'PPP'], {'P': ('craft:steel_plate', None), 'R': ('craft:iron_wind_rotor', None)}, ('craft:steel_wind_rotor', None))}
 {h.recipe(['CAC', 'ARA', 'CAC'], {'C': ('craft:carbon_plate', None), 'A': ('craft:advanced_alloy', None), 'R': ('craft:steel_wind_rotor', None)}, ('craft:carbon_wind_rotor', None))}
 </div>
-<p>Spezifikation: <a href="#/spec-23">23 – Großkraftwerke</a>.</p>
+<p>Spezifikation: <a href="#/spec-23">23 – Großkraftwerke</a>, Ausgleich: <a href="#/spec-32">32 – Ausgleich Großkraftwerke</a>.</p>
 '''
     page('grosskraftwerke', 'Großkraftwerke', 'Neu & geändert', gross)
 
