@@ -2899,6 +2899,15 @@ Nutzer: „Weiter gehts“.
   1.1.1).
 - **Phase 33 erledigt, Client-Test offen** (Testplan 16).
 
+## Befund (Induction Furnace, rechter Ausgang, 2026-10-26, Rückfrage offen)
+Nutzer: „Beim Induction Furnace, der Rechte Slot kann mit Pipes nicht rausgezogen werden“ (auch wenn links leer ist).
+- [x] Code geprüft: Seiten geben beide Ausgänge frei (`SideAccess`), Holzrohr nimmt aus jedem entnehmbaren Slot.
+- [x] Neuer GameTest `PipeGameTests.woodenPipeExtractsSecondFurnaceOutput` (Holzrohr an der Seite leert Ausgang 2):
+  grün, alle 543 grün.
+- Rückfrage an den Nutzer: welche Rohre (BC/Create/TE/Trichter), welche Seite, IC2 Induction Furnace oder TE Induction
+  Smelter (Nebenausgang standardmäßig nur oben/unten).
+- [x] Craft 1.1.1 und Paket 1.1.1 neu gebaut (Nutzer: „Mache daraus die Version 1.1.1“), inhaltlich wie zuvor plus Test.
+
 ## Nächste Schritte
 - Client-Test 33 (FE Producer an AE2 Energy Acceptor, Testplan 16).
 - Client-Test 32 und 31 (Nutzer), 30.6, Extruder-Rezepte, Trichter.
