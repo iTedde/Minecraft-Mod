@@ -131,8 +131,10 @@ geht der Inhalt der Feuerung verloren (Drop-Rate/Entity-Schaden wie `explodeMach
   der unteren Lage bis 20 Blöcke über der oberen Lage, außer dem Gehäuse selbst = 3860 Positionen. Gezählt werden nur
   **fließende** Wasserblöcke (keine Quellen), alle 128 Ticks (Zufallsversatz); nicht geladene Positionen zählen nicht.
 - Unter **16** fließenden Blöcken: 0 EU/t.
-- Leistung `0,25 EU/t · fließend`, × 1,5 in Fluss-Biomen (`#minecraft:is_river` am Controller), Deckel **32 EU/t**.
-- EU-Quelle am Controller, Paket bis 32 (LV), Bruchteile akkumuliert (interner Puffer höchstens 64 EU).
+- Leistung `0,25 EU/t · fließend`, × 1,5 in Fluss-Biomen (`#minecraft:is_river` am Controller), Deckel **32 EU/t**,
+  im Fluss-Biom **48 EU/t** (Phase 32, `spec/32` §3: der Faktor gilt auch für den Deckel).
+- EU-Quelle am Controller, Pakete bis 32 (LV) – über 32 EU/t zwei Pakete je Tick (32 + Rest); Bruchteile akkumuliert
+  (interner Puffer höchstens 96 EU).
 - Kabel dürfen an **jedem** Gehäuseblock anliegen (wie Dampfturbine §4).
 
 **GUI:** keine; Rechtsklick zeigt Chat-Meldung „Fließendes Wasser: n, Leistung x EU/t“ bzw. „Struktur

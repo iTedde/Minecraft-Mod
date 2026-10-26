@@ -4,9 +4,6 @@
     "A": {
       "item": "craft:advanced_machine_casing"
     },
-    "G": {
-      "item": "craft:generator"
-    },
     "H": {
       "item": "craft:hv_transformer"
     },
@@ -16,7 +13,7 @@
   },
   "pattern": [
     "WAW",
-    "GHG",
+    "AHA",
     "WAW"
   ],
   "result": {

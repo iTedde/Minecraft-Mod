@@ -33,20 +33,20 @@ import net.neoforged.neoforge.items.IItemHandler;
 import org.jetbrains.annotations.Nullable;
 
 /**
- * Large wind turbine (spec 23 §4): a nacelle on top of {@link #MAST_HEIGHT} wind turbine masts with a rotor item
- * inside. Every {@link #TICK_RATE} ticks it computes {@code 20 · sub · factor} EU/t (at most {@link #MAX_OUTPUT}) from
+ * Large wind turbine (spec 23 §4, values spec 32 §2): a nacelle on top of {@link #MAST_HEIGHT} wind turbine masts with a rotor item
+ * inside. Every {@link #TICK_RATE} ticks it computes {@code 12 · sub · factor} EU/t (at most {@link #MAX_OUTPUT}) from
  * the wind mill formula {@code sub} at the nacelle's height and the rotor's factor; obstructing blocks around the
  * rotor lower the effective height like at the wind mill. Emits from the nacelle and every mast block in packets of up
- * to 384 EU (HV). No menu; right-clicking reports the state in chat.
+ * to 192 EU (HV). No menu; right-clicking reports the state in chat.
  */
 public class LargeWindTurbineBlockEntity extends PlantControllerBlockEntity implements EnergySource, OutputReadout {
     public static final int SLOT_ROTOR = 0;
-    public static final int MAST_HEIGHT = 8;
+    public static final int MAST_HEIGHT = 24;
     public static final int TICK_RATE = 128;
     public static final int OBSTRUCTION_INTERVAL = 8 * TICK_RATE;
     /** Output relative to the wind mill formula. */
-    public static final double SCALE = 20.0;
-    public static final int MAX_OUTPUT = 384;
+    public static final double SCALE = 12.0;
+    public static final int MAX_OUTPUT = 192;
     public static final int BUFFER_CAPACITY = 2 * MAX_OUTPUT;
     /** Obstruction area around the nacelle: ±radius horizontally, from below to above vertically. */
     public static final int AREA_RADIUS = 5;

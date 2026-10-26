@@ -75,6 +75,12 @@ eine Großanlage ≈ ⅓–⅔ eines HV-Felds, dafür Tag und Nacht. Vorschlagsw
 - **Große Windturbine** Mast + 5×5-Rotor, Rotorstufen Eisen/Stahl/Carbon; y 128 ≈ 64, y 200 ≈ 136, Gewitter bis 384 EU/t (Carbon-Rotor). **Umgesetzt in Phase 21.**
 - Reaktor, Öl/Treibstoff und Umwandler bleiben 1:1.
 
+**Ausgleich (Phase 32, freigegeben 2026-10-26, `spec/32-kraftwerke-ausgleich.md`):** gleiche Preis-Leistung aller
+Großanlagen (≈ 2–4 Metall-Einheiten je EU/t statt 0,7 / 2,4 / 4,9). Große Windturbine: Faktor 12, Deckel **192 EU/t**
+(HV, knapp über MV), 24 Stahl-Masten, 4 Fortg. Maschinengehäuse – absolut am billigsten (≈ 1,7). Große Wasserturbine:
+Gehäuse ×6 (≈ 2,8). Große Dampfturbine: Gehäuse halb Raffiniertes Eisen, Rotor 2 Titan + 6 Stahl (≈ 3,8 + Brennstoff).
+Wasserturbinen: Fluss ×1,5 auch auf den Deckel (klein 48 EU/t in LV-Paketen, groß 384 EU/t).
+
 ### 3.9 Elektrischer Leuchtschild (Phase 30, freigegeben 2026-10-24)
 
 Neuer Inhalt ohne Pack-Vorbild (`spec/30-leuchtschild.md`): LV-Schild mit 10 000 EU (Transfer 100), Licht 14 für
@@ -99,8 +105,8 @@ LambDynamicLights, seit 30.6 wie eine Fackel in der Hand (Licht 14 ringsum statt
 | Stirling + PC | 2,4 | ≈ 1 | 3 888 / Kohle | mittel (Explosionsgefahr) |
 | Kernreaktor | 60–400+ | 10–50+ | ≈ 1–12 Mio. / Zelle | hoch bei korrekter Kühlung, Risiko |
 | Hochdruckkessel + Große Dampfturbine (Phase 21) | 160 je Kessel (bis 480, Turbine bis 512) | ≈ 2,3–4 (Grundfläche Kessel + Turbine) | 24 000 / Kohle, 48 000 / Koks | hoch (Aufheizen ≈ 70 s, Asche, 160 mB/t Wasser je Kessel) |
-| Große Wasserturbine (Phase 21) | 64–256 | ≈ 0,2–0,7 (inkl. Wasserfläche 19×19) | – | **hoch** |
-| Große Windturbine (Phase 21, Carbon) | y 128 ≈ 64, y 200 ≈ 136, Gewitter bis 384 | ≈ 0,5–1,1 (Freiraum 11×11) | – | mittel (Wetter, Wind) |
+| Große Wasserturbine (Phase 21/32) | 64–256, Fluss bis 384 | ≈ 0,2–0,7 (inkl. Wasserfläche 19×19) | – | **hoch** |
+| Große Windturbine (Phase 32, Carbon) | y 128 ≈ 38, y 200 ≈ 82, y 319 ≈ 153, Regen/Gewitter bis 192 | ≈ 0,5–1,1 (Freiraum 11×11) | – | mittel (Wetter, Wind) |
 
 Ergebnis: Solar ist wartungsfrei und kompakt, aber teuer und nur am Tag (bis 2026-10-20: pro Fläche am schwächsten), Wasser die zuverlässige Mittelklasse, Wind wetterabhängig mit
 Gewitterspitzen, Kohle hat einen sinnvollen Ausbaupfad, Öl ist die lagerbare Hochenergie, Atom die Spitze. Seit Phase 21

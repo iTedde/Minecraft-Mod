@@ -2838,7 +2838,19 @@ Nutzer: Turbinen „auf gleichem Level vom EU/t-Wert“ (Rückfrage: gleiche Pre
   LV-Paketen, großes Gehäuse ×6 (≈ 2,8); Dampf Gehäuse halb Raffiniertes Eisen, Rotor 2 Titan + 6 Stahl (≈ 3,8).
 - **Freigabe offen** (§5).
 
+## Erledigt (32.1 Ausgleich Großkraftwerke: Umsetzung, 2026-10-26)
+Nutzer: „Das ist gut“ (Spec 32 freigegeben).
+- [x] Große Windturbine: `SCALE` 12, `MAX_OUTPUT` 192, `MAST_HEIGHT` 24. Neue Testvorlage `empty_16x32x16`.
+- [x] Wasserturbinen: `WaterTurbineTier.maxOutput(river)` (×1,5 auch auf den Deckel: 48 / 384), `packetSize()` (klein 32,
+  groß 384); Abgabe in Paketen bis zur Paketgröße (klein im Fluss 32 + 16); Fluss-Flag beim Zählen gemerkt und gespeichert.
+- [x] Rezepte: Mast ×4 aus Stahlplatten, Große Windturbine `WAW/AHA/WAW`, Stahl-Windrotor aus 8 Stahlplatten, Großes
+  Wasserturbinengehäuse ×6, Großes Turbinengehäuse `PIP/IAI/PIP`, Großer Turbinenrotor `STS/SRS/STS`.
+- [x] GameTests angepasst (Windwerte, Wasserdeckel, Paketgröße) und neu `riverOutputStaysLowVoltage` (48 EU/t in eine
+  BatBox, keine Explosion). Alle 539 grün, `gradlew runData` grün.
+- [x] `spec/14` §5, `spec/23` §2–4, `balancing.md` §3.8 nachgezogen.
+- Hinweis für bestehende Welten: Große Windturbinen mit 8 Masten sind unvollständig, bis 16 Masten nachgebaut sind.
+
 ## Nächste Schritte
-- 32.0 freigeben lassen, dann 32.1 Umsetzung und 32.2 Wiki/EMI/Paket.
+- 32.2: Wiki (Wasserturbine/Großkraftwerke, Rechner, Steckbriefe, Startseiten-Karten), EMI-Texte, Testplan, Craft 1.0.13 + Paket 1.0.16.
 - Client-Test 31 (Nutzer), 30.6, Extruder-Rezepte, Trichter.
 - B7: Tag-Übersetzungen nachtragen.

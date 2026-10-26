@@ -1439,7 +1439,7 @@
       "kinds": [
         "eu_source"
       ],
-      "maxEnergyOutput": 256,
+      "maxEnergyOutput": 384,
       "values": {}
     },
     {
@@ -1467,7 +1467,7 @@
       "kinds": [
         "eu_source"
       ],
-      "maxEnergyOutput": 384,
+      "maxEnergyOutput": 192,
       "values": {}
     },
     {

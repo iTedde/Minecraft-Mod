@@ -5,7 +5,7 @@ Nutzer, 2026-10-26: „Windkraft ist zu op. Das Große Windkraftwerk ist nicht t
 als MV, dafür am günstigsten von der Produktion.“ Rückfrage beantwortet: gemeint ist **gleiche Preis-Leistung**
 (Kosten je EU/t), die Leistungen bleiben unterschiedlich. Wasserturbine: „Das mit dem fließenden Wasser ist
 obligatorisch, das müsste aber trotzdem mehr sein im Flussbiom … sogar über 32 EU“ – entschieden: **Fluss ×1,5 auch auf
-den Deckel**. Ergänzt `balancing.md` §3.8 und `spec/23`; Punkte zur Freigabe §5.
+den Deckel**. Ergänzt `balancing.md` §3.8 und `spec/23`; Punkte zur Freigabe §5 – **freigegeben vom Nutzer am 2026-10-26** („Das ist gut“).
 
 ## 1 Bewertungsmaßstab
 

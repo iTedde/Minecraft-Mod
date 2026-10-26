@@ -4,17 +4,17 @@
     "R": {
       "item": "craft:turbine_rotor"
     },
+    "S": {
+      "tag": "c:plates/steel"
+    },
     "T": {
       "tag": "c:plates/titanium"
-    },
-    "W": {
-      "tag": "c:plates/tungstensteel"
     }
   },
   "pattern": [
-    "TWT",
-    "WRW",
-    "TWT"
+    "STS",
+    "SRS",
+    "STS"
   ],
   "result": {
     "count": 1,
