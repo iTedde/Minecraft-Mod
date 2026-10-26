@@ -47,6 +47,7 @@ Vanilla-Klassen/-Felder tragen lesbare Namen (`Block.cobblestone`, `Item.redston
 | `29-modular-powersuits.md` | Modular Powersuits 0.3.2: Power-Rüstung + Power Tool, Tinker Table, 18 Bauteile, 35 Module mit Pack-Werten, Energie in Joule (50 J/EU), Bewegung/Umwelt/Werkzeug, Rezepte (im Pack baubar), Entscheidungen, Teilphasen (Phase 28) |
 | `30-leuchtschild.md` | Elektrischer Leuchtschild (neuer Inhalt): EU-Schild, folgendes Licht über unsichtbaren Lichtblock, Ein/Aus per Modus-Taste, Verzauberungen auf Energie, Rezept – Vorschlag zur Freigabe (Phase 30) |
 | `31-verteilerrohr.md` | Verteiler-Transportrohr (neuer Inhalt): Item-Rohr mit Prozentwert je Seite, exakte Aufteilung, Stapel werden geteilt, GUI, Rezept – freigegeben 2026-10-26 (Phase 31) |
+| `32-kraftwerke-ausgleich.md` | Ausgleich der Großkraftwerke (gleiche Preis-Leistung, Wind knapp über MV und am billigsten) und Fluss-Bonus ×1,5 auf den Deckel der Wasserturbinen – Vorschlag zur Freigabe (Phase 32) |
 
 Ergänzend: `docs/balancing.md` (Vorschlag, nicht freigegeben), `docs/abweichungen.md`.
 

@@ -2828,10 +2828,17 @@ Wasserturbine: natürliches Flusswasser sind Quellblöcke, gezählt wird nur fli
 Fluss-Faktor ×1,5 wirkt nur auf selbst erzeugtes fließendes Wasser. Wiki („braucht einen echten, fließenden Fluss“,
 „Grundlast aus einem Fluss“) ist irreführend.
 
+## Erledigt (32.0 Ausgleich Großkraftwerke: Spezifikation, 2026-10-26)
+Nutzer: Turbinen „auf gleichem Level vom EU/t-Wert“ (Rückfrage: gleiche Preis-Leistung), Große Windturbine bei HV, knapp
+über MV, am billigsten; Wasserturbine im Fluss mehr, auch über 32 EU/t (Rückfrage: ×1,5 auch auf den Deckel).
+- [x] Befund: Wasserturbine rechnet wie im Wiki – der Fluss-Faktor senkte nur die nötigen Blöcke, der Deckel blieb 32/256;
+  am Deckel brachte der Fluss also nichts.
+- [x] `docs/spec/32-kraftwerke-ausgleich.md`: Wind Faktor 12, Deckel 192, 24 Stahl-Masten, Turbine mit 4 Fortg.
+  Maschinengehäusen, Stahl-Rotor aus 8 Stahlplatten (≈ 1,7 je EU/t); Wasser Fluss-Deckel 48/384, kleine Turbine in
+  LV-Paketen, großes Gehäuse ×6 (≈ 2,8); Dampf Gehäuse halb Raffiniertes Eisen, Rotor 2 Titan + 6 Stahl (≈ 3,8).
+- **Freigabe offen** (§5).
+
 ## Nächste Schritte
-- Nutzer (2026-10-26): Windkraft zu stark/zu billig – Kosten-Leistungs-Vergleich der Großkraftwerke und des alten
-  HV-Solar-Arrays, Vorschlag zur Freigabe.
-- Nutzer (2026-10-26): Wasserturbine „klappt nicht wie im Wiki, Flussbiom macht es nicht besser“ – Befund: natürliches
-  Flusswasser besteht aus Quellblöcken, gezählt wird nur fließendes Wasser; Entscheidung offen.
+- 32.0 freigeben lassen, dann 32.1 Umsetzung und 32.2 Wiki/EMI/Paket.
 - Client-Test 31 (Nutzer), 30.6, Extruder-Rezepte, Trichter.
 - B7: Tag-Übersetzungen nachtragen.
