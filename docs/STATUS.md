@@ -2817,6 +2817,17 @@ Nutzer: „jo, ist freigegeben“ (Spec 31 inkl. §7).
   1.0.12).
 - **Phase 31 erledigt, Client-Test offen** (Nutzer testet selbst, Testplan 14).
 
+## Befund (Kosten Großkraftwerke, 2026-10-26, Vorschlag offen)
+Grobe Stückliste in Metall-Einheiten (Barren ≈ 1, Stahl 2, Titan 8, Wolframstahl 12, Diamant 10), je EU/t im Mittel:
+Große Windturbine (y 319, Wind 15 ≈ 255 EU/t, Tag und Nacht, kein Brennstoff) ≈ 190 → **0,7**; Große Wasserturbine
+(256) ≈ 620 → 2,4; Große Dampfturbine + 3 Hochdruckkessel (480) ≈ 2 360 → 4,9 plus ≈ 24 Kohle/min; altes HV-Solar-Array
+(512 Spitze / 256 Mittel, 512 Panels) ≈ 9 700 → 38; Solarfeld 9×9 (97 / 48,5) ≈ 1 500 → 31. Wind: nur 8 Masten
+(7 Raffinierte Eisenbarren), keine große Hülle, Deckel 384 – deutlich zu billig. Rechnung:
+Scratchpad `plant_costs.py` (nicht im Repo).
+Wasserturbine: natürliches Flusswasser sind Quellblöcke, gezählt wird nur fließendes Wasser → im Fluss fast 0; der
+Fluss-Faktor ×1,5 wirkt nur auf selbst erzeugtes fließendes Wasser. Wiki („braucht einen echten, fließenden Fluss“,
+„Grundlast aus einem Fluss“) ist irreführend.
+
 ## Nächste Schritte
 - Nutzer (2026-10-26): Windkraft zu stark/zu billig – Kosten-Leistungs-Vergleich der Großkraftwerke und des alten
   HV-Solar-Arrays, Vorschlag zur Freigabe.
