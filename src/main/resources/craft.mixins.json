@@ -6,6 +6,8 @@
   "mixins": [
     "CraftingInputMixin",
     "ExperienceOrbMixin",
+    "HopperBlockEntityMixin",
+    "HopperBlockMixin",
     "PlayerFlyingSpeedMixin"
   ],
   "injectors": {

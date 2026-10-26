@@ -148,6 +148,7 @@ Munition (Kugeln, Granaten, Pulverladungen) wird hergestellt und geladen. Achtun
 <li><b>Holz-Wellen und Holz-Zahnräder von Create Encased</b> (ab Paket 1.0.4): <b>8 Wellen bzw. 8 Zahnräder um 1 Brett</b> der Holzart →
 8 Stück. Das Original-Rezept (Welle + Brett) überschnitt sich mit Create (Welle + Brett = Zahnrad, Zahnrad + Brett = großes Zahnrad);
 Craft ersetzt es deshalb. Mit dem Einsetzer (Brett auf die Welle) geht es weiterhin einzeln.</li>
+<li><b>Trichter (Vanilla)</b> (ab Paket 1.0.14): lassen sich <b>nicht mehr per Redstone abschalten</b> – sie arbeiten immer, auch neben Redstone-Blöcken, Fackeln oder Create-Signalen. Früher abgeschaltete Trichter laufen sofort wieder. Trichterloren (Aktivierungsschiene) sind nicht betroffen.</li>
 <li><b>Copycats+</b> – Kopierblöcke: Block in der Hand auf den Kopierblock → er sieht aus wie dieser Block.</li>
 <li><b>New Furnitures</b> – Möbel im Create-Stil.</li>
 </ul>

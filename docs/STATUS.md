@@ -2754,9 +2754,34 @@ Nutzer: Rezepte für Andesit/Granit ändern (Katalysator = derselbe Block), Tuff
 - „Forestry“ (Umfang unklar).
 - Vanilla-Trichter sollen sich nicht per Redstone abschalten lassen.
 
+## Entscheidungen Nutzer (2026-10-26)
+„Das klingt alles gut, und ja der ganze Forestry Mod. Aber guck halt ob man den direkt über CurseForge integrieren kann.“
+- Rohr: Item-Rohr mit GUI, Prozentwert je Seite, exakte (nicht zufällige) Aufteilung.
+- Energie-Tesserakt für EU mit Farb-Frequenzen wie die Ender Chest. Verlust/Höchstleistung noch offen (Vorschlag
+  TE-ähnlich vs. verlustfrei – „klingt gut“ war nicht eindeutig).
+- Forestry komplett, möglichst über CurseForge. Befund: **Forestry: Community Edition** (CurseForge 1056828) hat für
+  1.21.1 NeoForge nur Alphas, neueste `forestry-1.21.1-3.0.0-alpha8.jar` (Datei 8782913, 2026-09-01, 8,2 MB);
+  Farmen als Zusatzdatei „Forestry: CE - Farms“ (Datei 8783017, 401 KB) im selben Projekt. Pflicht: Patchouli (nicht im
+  Paket), optional JEI (im Paket). Forestry CE braucht FE (aus Crafts & Additions/Industrial Foregoing, nicht aus EU).
+  Überschneidungen mit Craft-`…forestry` (Thermionic Fabricator, Carpenter, Röhren, Platinen, Lötkolben) und Erzen
+  (Zinn, Kupfer, Apatit) – Rückfrage offen.
+- Trichter ohne Redstone: freigegeben.
+
+## Erledigt (Trichter ignorieren Redstone, 2026-10-26)
+- [x] Mixins `HopperBlockMixin` (`checkPoweredState` sieht nie ein Signal → `enabled` bleibt bzw. wird wieder true) und
+  `HopperBlockEntityMixin` (`tryMoveItems` wertet `enabled` als true, damit früher abgeschaltete Trichter alter Welten
+  ohne Nachbar-Update laufen). Trichterloren unverändert.
+- [x] GameTests `poweredHopperStaysEnabled`, `disabledHopperFromOldWorldStillMoves`. Alle 532 grün, `gradlew build` grün.
+- [x] Wiki „Create & Paket-Mods“ → Bauteile ergänzt, neu erzeugt (DE + EN-Namen).
+- [x] Craft **1.0.11** (`releases/craft-1.0.11.jar`), Paket `releases/Craft-1.0.14-curseforge.zip` (wie 1.0.13 mit
+  Craft 1.0.11).
+- Client-Test offen: Trichter neben Redstone-Block läuft weiter.
+
 ## Nächste Schritte
-- Offene Fragen zu den neuen Wünschen klären, dann je Wunsch eine Phase.
-- Client-Test 30.6 (Leuchtschild mit LDL ≈ Fackel) und Extruder-Rezepte – nur nach Rückfrage.
+- Forestry: Rückfragen (Alpha, Überschneidungen) klären, dann ins Manifest (Forestry CE + Farms + Patchouli).
+- Prozent-Rohr: Spezifikation, Umsetzung.
+- EU-Energie-Tesserakt: Verlust/Leistung klären, Spezifikation, Umsetzung.
+- Client-Test 30.6 (Leuchtschild mit LDL ≈ Fackel), Extruder-Rezepte, Trichter – nur nach Rückfrage.
 - B7: Tag-Übersetzungen nachtragen.
 - Rest Client-Test Leuchtschild (13.1, Teile von 13.2–13.4), MPS (Testplan 12) und GraviSuite (Testplan 11) – nur nach
   Rückfrage.
