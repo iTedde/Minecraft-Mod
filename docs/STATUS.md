@@ -2806,9 +2806,21 @@ Nutzer: „jo, ist freigegeben“ (Spec 31 inkl. §7).
   alle 0 = normal, volle Seite + kein Nachholen (10/0 → 15/5), Rezept. Alle 538 grün, `gradlew runData build` grün.
 - Client-Test offen (GUI, Modell) – nur nach Rückfrage.
 
+## Erledigt (31.2 Verteiler-Transportrohr: Texte, Paket, 2026-10-26)
+- [x] EMI-Info-Seite (de/en) `info/distribution_transport_pipe` in `BcEmiRecipes`.
+- [x] Wiki: BuildCraft-Seite Abschnitt „Verteiler-Transportrohr (neu)“, Änderungsliste „Komplett neue Inhalte“; neu erzeugt
+  (DE + EN-Namen).
+- [x] Testplan 14.1–14.4.
+- [x] Alle 538 GameTests grün (ein Lauf mit Ausreißer `plasmacannon` „zombie killed by the bolt“ – zufallsabhängig, danach
+  zweimal grün), `gradlew runData build` grün.
+- [x] Craft **1.0.12** (`releases/craft-1.0.12.jar`), Paket `releases/Craft-1.0.15-curseforge.zip` (wie 1.0.14 mit Craft
+  1.0.12).
+- **Phase 31 erledigt, Client-Test offen** (Nutzer testet selbst, Testplan 14).
+
 ## Nächste Schritte
-- 31.2: EMI-Info-Seite, Wiki (BC-Rohre + Steckbrief), Testplan, Craft 1.0.12 + Paket 1.0.15.
-- Client-Test 31.1 (GUI/Modell), 30.6 (Leuchtschild mit LDL ≈ Fackel), Extruder-Rezepte, Trichter – nur nach Rückfrage.
+- Nutzer (2026-10-26): Windkraft zu stark/zu billig – Kosten-Leistungs-Vergleich der Großkraftwerke und des alten
+  HV-Solar-Arrays, Vorschlag zur Freigabe.
+- Nutzer (2026-10-26): Wasserturbine „klappt nicht wie im Wiki, Flussbiom macht es nicht besser“ – Befund: natürliches
+  Flusswasser besteht aus Quellblöcken, gezählt wird nur fließendes Wasser; Entscheidung offen.
+- Client-Test 31 (Nutzer), 30.6, Extruder-Rezepte, Trichter.
 - B7: Tag-Übersetzungen nachtragen.
-- Rest Client-Test Leuchtschild (13.1, Teile von 13.2–13.4), MPS (Testplan 12) und GraviSuite (Testplan 11) – nur nach
-  Rückfrage.

@@ -804,6 +804,17 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
                 : "Light on (mode key + right click)");
         add("tooltip.craft.light_shield.off", german ? "Licht aus (Modus-Taste + Rechtsklick)"
                 : "Light off (mode key + right click)");
+        add("emi.craft.info.distribution_transport_pipe", german
+                ? "Item-Rohr, das Items nach Anteilen auf die Seiten verteilt. Rechtsklick: je Seite 0–100 % "
+                + "(Umschalt-Klick: 0 bzw. 100). Die Werte sind Gewichte unter den gerade erreichbaren Seiten, "
+                + "0 % sperrt eine Seite, alle 0 = normales Rohr. Exakt: jedes Item wird gezählt, Stapel werden "
+                + "geteilt (64 bei 50/30/20 → 32/19/13). Volle Ziele werden übersprungen, ohne später nachzuholen; "
+                + "ohne freies Ziel gehen Items zurück."
+                : "Item pipe that splits items between its sides by share. Right click: 0–100 % per side "
+                + "(shift-click: 0 or 100). The values are weights among the sides that can take items right now, "
+                + "0 % closes a side, all 0 = plain pipe. Exact: every item is counted, stacks are split "
+                + "(64 at 50/30/20 → 32/19/13). Full targets are skipped without catching up later; with no free "
+                + "target items go back.");
         add("emi.craft.info.electric_light_shield", german
                 ? "Elektrischer Schild (10 000 EU, Stufe 1), lädt wie LV-Werkzeuge. In Haupt- oder Nebenhand leuchtet er "
                 + "wie eine Fackel in der Hand (Licht 14 ringsum; nur sichtbar mit LambDynamicLights, rein optisch, "

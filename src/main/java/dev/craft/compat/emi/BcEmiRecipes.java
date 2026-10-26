@@ -9,8 +9,10 @@ import dev.craft.buildcraft.engine.CombustionEngineBlockEntity;
 import dev.craft.buildcraft.engine.CombustionFuels;
 import dev.craft.buildcraft.engine.EngineType;
 import dev.craft.buildcraft.factory.RefineryRecipe;
+import dev.craft.buildcraft.transport.PipeType;
 import dev.craft.core.client.RecipeCategories;
 import dev.emi.emi.api.EmiRegistry;
+import dev.emi.emi.api.recipe.EmiInfoRecipe;
 import dev.emi.emi.api.recipe.EmiRecipeCategory;
 import dev.emi.emi.api.recipe.VanillaEmiRecipeCategories;
 import dev.emi.emi.api.stack.EmiIngredient;
@@ -90,5 +92,9 @@ final class BcEmiRecipes {
                 Component.translatable("emi.craft.combustion_engine.coolant", EmiText.decimal(cooling),
                         EmiText.number(CombustionEngineBlockEntity.COOLANT_THRESHOLD)),
                 Component.translatable("emi.craft.combustion_engine.ice")))));
+        // distribution transport pipe (spec 31 §5)
+        registry.addRecipe(new EmiInfoRecipe(List.of(EmiStack.of(BcItems.pipe(PipeType.DISTRIBUTION_TRANSPORT).get())),
+                List.of(Component.translatable("emi.craft.info.distribution_transport_pipe")),
+                Ic2EmiRecipes.id("info/distribution_transport_pipe")));
     }
 }

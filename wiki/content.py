@@ -176,6 +176,7 @@ Engine, Power Converters und der Kernreaktor.</p>
     row('Mining-Dimension', 'eigene Dimension, Portal aus Glattem Stein', 'flache Steinwelt bis y 64 mit allen Oberwelt-Erzen, hell, ohne Mobs', 'mining-dimension', NEW),
     row('Dampf', 'Flüssigkeit <code>craft:steam</code>', 'nur in Tanks und Rohren, kein Eimer', 'kohlekraftwerk', NEW),
     row('CC: Tweaked', 'mitinstallierter Mod', 'Computer und Turtles (Ersatz für ComputerCraft 1.5 im Pack)', 'zusatzmods', NEW),
+    row('Verteiler-Transportrohr', 'Item-Rohr mit Anteil je Seite', 'Diamant-Transportrohr + Komparator; exakte Aufteilung nach eingestellten Prozent', 'mod-buildcraft', NEW),
 ])}
 
 <h2 id="chg--weg">3. Weggelassen oder eingeschränkt</h2>
@@ -911,7 +912,18 @@ braucht vieles früh GT-Materialien (Platten, Stahl).</p>
             h.table(['Engine', 'Leistung', 'Brennstoff'], [
                 ['Redstone-Engine', '0,05 MJ/t', 'Redstone-Signal'], ['Stirling-Engine', '1 MJ/t', 'feste Brennstoffe (1 600 MJ je Kohle)'],
                 ['Combustion-Engine', '1 / 3 / 6 MJ/t', 'Lava / Öl / Treibstoff, braucht Kühlung']]) +
-            '<p>Engines arbeiten nur mit Redstone-Signal, laufen heiß (Blau → Grün → Gelb → Rot) und explodieren bei Überhitzung.</p>')
+            '<p>Engines arbeiten nur mit Redstone-Signal, laufen heiß (Blau → Grün → Gelb → Rot) und explodieren bei Überhitzung.</p>'
+            f'''<h2 id="bc--verteiler">Verteiler-Transportrohr (neu)</h2>
+<p>{c('distribution_transport_pipe')} – kein Original-BuildCraft, sondern ein Craft-Zusatz (Nutzerwunsch 2026-10-26). Rezept:
+<b>Diamant-Transportrohr + Komparator</b> (formlos) → 1.</p>
+<ul>
+<li><b>Rechtsklick</b> öffnet die Einstellung: je Seite (Farbe wie beim Diamantrohr) 0–100 % mit −10/−1/+1/+10, Umschalt-Klick setzt 0 bzw. 100.
+In Klammern steht der tatsächliche Anteil unter den angeschlossenen Seiten.</li>
+<li>Die Werte sind <b>Gewichte</b>: 50/30/20 teilt genau so auf; ist ein Ziel voll oder weg, teilen sich die übrigen Seiten seinen Anteil.</li>
+<li><b>Exakt</b>: Jedes Item wird gezählt, ganze Stapel werden geteilt (64 Items bei 50/30/20 → 32/19/13).</li>
+<li><b>0 %</b> sperrt eine Seite. Stehen <b>alle</b> Seiten auf 0, verhält sich das Rohr wie ein normales Rohr.</li>
+<li>War ein Ziel voll, bekommt es danach wieder seinen Anteil, holt das Verpasste aber nicht nach. Ohne freies Ziel laufen Items zurück.</li>
+</ul>''')
 
     modpage('mod-forestry', 'Forestry', 'craft:electrical_engine',
             'Aus Forestry stammt nur die Technik für die Energieumwandlung: die <b>Electrical Engine</b> (EU → MJ) mit Platinen und Electron Tubes, '

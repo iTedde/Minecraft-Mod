@@ -210,6 +210,15 @@ Testwelt. Sprache einmal Deutsch, einmal Englisch prüfen. EMI und Xaero's Minim
 | 13.3 | Blocken: Zombie-/Skelett-Treffer kosten EU, leer lässt er sich nicht heben, beim Leerlaufen senkt er sich; Axt sperrt ihn | 30.1 | x 2026-10-24 (Zombie: 10 000 → 7 544 EU, keine Herzen; leer nicht hebbar, trifft durch); Axt/Skelett offen |
 | 13.4 | Zaubertisch bietet Haltbarkeit an; Amboss mit Reparatur-Buch, Erfahrung lädt den Schild; BatBox/Ladegerät lädt | 30.1 | teilweise 2026-10-24: Zaubertisch bietet Haltbarkeit I, /enchant Haltbarkeit III + Reparatur ok, Schärfe abgelehnt; Amboss/XP-Laden/BatBox offen |
 
+## 14. Verteiler-Transportrohr (Phase 31)
+
+| Nr | Test | Herkunft | OK |
+|---|---|---|---|
+| 14.1 | BC-Tab, Rezept (Diamant-Transportrohr + Komparator) und Info-Seite in EMI, Tooltip; Modell: Kern mit roten Punkten, Arme in Diamantrohr-Farben | 31.1, 31.2 | |
+| 14.2 | Rechtsklick → GUI: Knöpfe −10/−1/+1/+10, Umschalt-Klick 0/100, Anteil in Klammern nur für angeschlossene Seiten, Summe; Werte bleiben nach Neuladen der Welt | 31.1 | |
+| 14.3 | Holzrohr aus Truhe → Verteilerrohr → drei Truhen bei 50/30/20: 100 Items kommen 50/30/20 an; ein 64er-Stapel 32/19/13 | 31.1 | |
+| 14.4 | 0 % sperrt eine Seite; alle 0 → normales Rohr; volle Zieltruhe → Rest geht an die anderen, nach dem Leeren kein Schwall | 31.1 | |
+
 ## Befunde
 
 | Nr | Datum | Befund | Status |
