@@ -1494,6 +1494,7 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
                         + (type.isConsumer() ? " Consumer" : " Producer"));
             }
         }
+        block(PcBlocks.converter(ConverterType.FE_PRODUCER), "FE Producer");
     }
 
     /** English names as in the pack's {@code IC2.lang}. */
@@ -1854,6 +1855,7 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             add("gui.craft.distribution_pipe.sum", "Sum: %s");
             add("gui.craft.distribution_pipe.hint", "All 0 = split evenly like a plain pipe");
             add("tooltip.craft.distribution_pipe", "Splits items by the share set per side (right-click)");
+            add("tooltip.craft.fe_producer", "Outputs power from an adjacent Energy Bridge as FE (1 EU = 4 FE)");
             item(BcItems.PIPE_WATERPROOF, "Pipe Waterproof");
             block(BcBlocks.pipe(PipeType.WOODEN_FLUID), "Wooden Waterproof Pipe");
             block(BcBlocks.pipe(PipeType.COBBLESTONE_FLUID), "Cobblestone Waterproof Pipe");
@@ -2270,6 +2272,7 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             add("gui.craft.distribution_pipe.sum", "Summe: %s");
             add("gui.craft.distribution_pipe.hint", "Alle 0 = gleichmäßig wie ein normales Rohr");
             add("tooltip.craft.distribution_pipe", "Teilt Items nach eingestellten Anteilen auf (Rechtsklick)");
+            add("tooltip.craft.fe_producer", "Gibt Strom aus einer angrenzenden Energy Bridge als FE ab (1 EU = 4 FE)");
             item(BcItems.PIPE_WATERPROOF, "Rohrdichtmittel");
             block(BcBlocks.pipe(PipeType.WOODEN_FLUID), "Wasserdichtes Holzrohr");
             block(BcBlocks.pipe(PipeType.COBBLESTONE_FLUID), "Wasserdichtes Bruchsteinrohr");

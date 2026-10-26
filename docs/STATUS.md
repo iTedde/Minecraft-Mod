@@ -2875,7 +2875,19 @@ Rückfragen: Bauteil der Power Converters (nicht Einzelblock), nur EU → FE, 1 
   rote Texturen; EU-Netz bleibt ohne FE-Anbindung.
 - **Freigabe offen.**
 
+## Erledigt (33.1 FE Producer: Umsetzung, 2026-10-26)
+Nutzer: „Pass, los gehts“ (Spec 33 freigegeben). Nebenbei gefragt: Nano/Quanten/GraviSuite verzaubern? – Nein, wie im
+Pack (`isEnchantable = false`); Nutzer: „Ne, mach nicht“.
+- [x] `PowerSystem.FE` (450 PCU je FE), `ConverterType.FE_PRODUCER` (ohne Gegenstück, `hasCounterpart()`),
+  `OutputReading.Unit.FE`.
+- [x] `FeProducerBlockEntity`: Push an Nachbarn mit FE-Capability (`canReceive`, jeden Tick neu abgefragt), Empfänger
+  teilen korrekt, Bruchteile bleiben in der Bridge; eigene Nur-Entnahme-Capability (Pull aus den Bridges).
+- [x] Rezept `G G/ R /G G` (Redstone-Block), Name „FE Producer“, Tooltip de/en, Texturen (LV-Producer mit rotem Rahmen).
+- [x] 3 neue GameTests (Aufteilung auf zwei Empfänger, ohne Empfänger nichts verloren, Pull nur ganze FE). Alle 542
+  grün (`-PgameTestDir=run-gametest`), `gradlew runData build` grün.
+
 ## Nächste Schritte
-- Freigabe Spec 33, danach 33.1 Umsetzung.
+- 33.2: EMI-Info, Wiki (Power Converters, Create/AE2: „kein Wandler“ ersetzen), Testplan, Paket.
+- Client-Test 33 (FE Producer an AE2 Energy Acceptor).
 - Client-Test 32 und 31 (Nutzer), 30.6, Extruder-Rezepte, Trichter.
 - B7: Tag-Übersetzungen nachtragen.

@@ -15,7 +15,8 @@ public interface OutputReadout {
     record OutputReading(double rate, Unit unit) {
         public enum Unit {
             EU("EU/t"),
-            MJ("MJ/t");
+            MJ("MJ/t"),
+            FE("FE/t");
 
             private final String symbol;
 

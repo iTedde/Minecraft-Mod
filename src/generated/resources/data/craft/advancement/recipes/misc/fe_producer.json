@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_energy_bridge": {
+      "conditions": {
+        "items": [
+          {
+            "items": "craft:energy_bridge"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "craft:fe_producer"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_energy_bridge"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "craft:fe_producer"
+    ]
+  }
+}

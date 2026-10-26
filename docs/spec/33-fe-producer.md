@@ -91,7 +91,7 @@ Beispiel: 128 EU/t aus dem Netz → 512 FE/t → reicht für rund 256 AE/t in AE
 
 ## 6. Teilphasen
 
-- **33.0** Spezifikation (diese Datei) – zur Freigabe.
+- **33.0** Spezifikation (diese Datei) – freigegeben 2026-10-26 („Pass, los gehts“).
 - **33.1** Umsetzung: `PowerSystem.FE`, `ConverterType.FE_PRODUCER`, `FeProducerBlockEntity`, Capability-Registrierung,
   Bridge-GUI, Rezept, Lang, Texturen, GameTests (Push in einen FE-Speicher, Bruchteile bleiben in der Bridge, zwei
   Empfänger teilen korrekt, Pull über die Capability).

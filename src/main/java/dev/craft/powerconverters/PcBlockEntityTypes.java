@@ -5,6 +5,7 @@ import dev.craft.powerconverters.power.BcConsumerBlockEntity;
 import dev.craft.powerconverters.power.BcProducerBlockEntity;
 import dev.craft.powerconverters.power.ChargerBlockEntity;
 import dev.craft.powerconverters.power.EnergyBridgeBlockEntity;
+import dev.craft.powerconverters.power.FeProducerBlockEntity;
 import dev.craft.powerconverters.power.Ic2ConsumerBlockEntity;
 import dev.craft.powerconverters.power.Ic2ProducerBlockEntity;
 import java.util.Arrays;
@@ -36,6 +37,9 @@ public final class PcBlockEntityTypes {
     public static final Supplier<BlockEntityType<Ic2ProducerBlockEntity>> IC2_PRODUCER = BLOCK_ENTITY_TYPES.register(
             "ic2_producer", () -> BlockEntityType.Builder.of(Ic2ProducerBlockEntity::new, ic2Blocks(false))
                     .build(null));
+    public static final Supplier<BlockEntityType<FeProducerBlockEntity>> FE_PRODUCER = BLOCK_ENTITY_TYPES.register(
+            "fe_producer", () -> BlockEntityType.Builder.of(FeProducerBlockEntity::new,
+                    PcBlocks.converter(ConverterType.FE_PRODUCER).get()).build(null));
 
     private PcBlockEntityTypes() {
     }

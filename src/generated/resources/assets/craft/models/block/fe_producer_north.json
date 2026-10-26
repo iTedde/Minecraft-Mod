@@ -1,0 +1,6 @@
+{
+  "parent": "craft:block/power_converter_north",
+  "textures": {
+    "face": "craft:block/power_converter/fe_producer"
+  }
+}

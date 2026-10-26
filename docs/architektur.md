@@ -68,7 +68,7 @@ ergänzen. Basispaket `dev.craft`, Einstieg `Craft` → `Ic2.init`, `BuildCraft.
 | `buildcraft/engine/EngineBlockEntity` | BC-Engines (Kolben, Übertragung, Hitze) |
 | `forestry/machine/ForestryMachineBlockEntity`, `ForestryMachineBlock` | Forestry-`TileMachine`: MJ, Arbeitsschritt alle 5 Ticks, Ausrichtung zum Spieler, Drops |
 | `forestry/engine/ElectricalEngineBlockEntity` | Forestry-Engine (EU-Senke + MJ-Kolben, Hitze, Platinen-Sockel); eigenständig, nicht von der BC-Engine abgeleitet (int-Werte, anderes `extractEnergy`) |
-| `powerconverters/power/BridgeComponentBlockEntity` | Konverter-Bauteil: Nachbar-Cache, „verbunden“-Seiten als Blockstate (`PowerConverterBlock.property(side)`); Consumer/Producer-Basisklassen, `EnergyBridgeBlockEntity` |
+| `powerconverters/power/BridgeComponentBlockEntity` | Konverter-Bauteil: Nachbar-Cache, „verbunden“-Seiten als Blockstate (`PowerConverterBlock.property(side)`); Consumer/Producer-Basisklassen, `EnergyBridgeBlockEntity`; `FeProducerBlockEntity` (Phase 33) gibt FE per Push an Nachbarn mit `Capabilities.EnergyStorage.BLOCK` und stellt selbst eine Nur-Entnahme-Capability bereit |
 | `core/multiblock/MultiblockPattern`, `MultiblockController` | gemeinsames Multiblock-System; `Listener.onChecked` nach jeder Prüfung; `MultiblockLease` = Zugehörigkeit eines Teils (nicht gespeichert) |
 | `compactsolars/SolarArrayBlockEntity` | stillgelegtes Solar Array (seit 2026-10-24): nur Lade-Slot/GUI, keine Leistung; Feldbonus ×1,2 im 9×9 sitzt in `ic2/generator/SolarPanelBlockEntity.isInField` |
 | `core/explosion/Ic2Explosion` | IC2-Explosion (`explodeMachineAt`) |

@@ -812,7 +812,14 @@ public final class CraftRecipeProvider extends RecipeProvider {
         ic2Consumer(ConverterType.IC2_MV_CONSUMER, Ic2Machine.MV_TRANSFORMER);
         ic2Consumer(ConverterType.IC2_HV_CONSUMER, Ic2Machine.HV_TRANSFORMER);
         ic2Consumer(ConverterType.IC2_EV_CONSUMER, Ic2Machine.MFSU);
+        // new content (spec 33 §3)
+        bcShaped(PcItems.converter(ConverterType.FE_PRODUCER)).pattern("G G").pattern(" R ").pattern("G G")
+                .define('G', Items.GOLD_INGOT).define('R', Items.REDSTONE_BLOCK)
+                .unlockedBy("has_energy_bridge", has(PcItems.ENERGY_BRIDGE)).save(output, id("fe_producer"));
         for (ConverterType type : ConverterType.values()) {
+            if (!type.hasCounterpart()) {
+                continue;
+            }
             ItemLike from = PcItems.converter(type);
             ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, PcItems.converter(type.counterpart()))
                     .requires(from).unlockedBy("has_converter", has(from))

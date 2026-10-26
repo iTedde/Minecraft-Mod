@@ -2,6 +2,7 @@ package dev.craft.powerconverters;
 
 import dev.craft.buildcraft.power.BcCapabilities;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 
 /**
@@ -25,5 +26,7 @@ public final class PowerConverters {
                 (be, side) -> be);
         event.registerBlockEntity(BcCapabilities.POWER_RECEPTOR, PcBlockEntityTypes.BC_PRODUCER.get(),
                 (be, side) -> be);
+        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, PcBlockEntityTypes.FE_PRODUCER.get(),
+                (be, side) -> be.getEnergyStorage());
     }
 }

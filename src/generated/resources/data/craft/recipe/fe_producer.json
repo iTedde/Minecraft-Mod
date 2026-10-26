@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "G": {
+      "item": "minecraft:gold_ingot"
+    },
+    "R": {
+      "item": "minecraft:redstone_block"
+    }
+  },
+  "pattern": [
+    "G G",
+    " R ",
+    "G G"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:fe_producer"
+  }
+}

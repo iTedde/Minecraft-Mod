@@ -8,7 +8,9 @@ import dev.craft.ic2.item.ElectricItems;
 import dev.craft.powerconverters.block.PowerConverterBlock;
 import dev.craft.powerconverters.power.BcConsumerBlockEntity;
 import dev.craft.powerconverters.power.EnergyBridgeBlockEntity;
+import dev.craft.powerconverters.power.FeProducerBlockEntity;
 import dev.craft.powerconverters.power.Ic2ConsumerBlockEntity;
+import java.util.List;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.gametest.framework.GameTest;
@@ -16,6 +18,9 @@ import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.energy.EnergyStorage;
+import net.neoforged.neoforge.energy.IEnergyStorage;
 import net.neoforged.neoforge.gametest.GameTestHolder;
 import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
 
@@ -121,6 +126,50 @@ public final class PowerConvertersGameTests {
             EnergyBridgeBlockEntity.SideData data = bridge.getDataForSide(Direction.EAST);
             helper.assertTrue(data.consumer() && data.connected(), "bridge sees a connected consumer");
             helper.assertValueEqual(data.voltageIndex(), 1, "MV");
+        });
+    }
+
+    @GameTest(template = EMPTY)
+    public static void feProducerSharesBetweenReceivers(GameTestHelper helper) {
+        EnergyStorage first = new EnergyStorage(300);
+        EnergyStorage second = new EnergyStorage(1000);
+        int used = FeProducerBlockEntity.push(1000, List.of(first, second));
+        helper.assertValueEqual(used, 1000, "all FE used");
+        helper.assertValueEqual(first.getEnergyStored(), 300, "first full");
+        helper.assertValueEqual(second.getEnergyStored(), 700, "second gets the rest, not 1000");
+        helper.succeed();
+    }
+
+    @GameTest(template = EMPTY)
+    public static void feProducerKeepsBridgeWithoutReceiver(GameTestHelper helper) {
+        EnergyBridgeBlockEntity bridge = bridge(helper, BRIDGE);
+        bridge.setEnergyStored(1000);
+        helper.setBlock(COMPONENT, PcBlocks.converter(ConverterType.FE_PRODUCER).get());
+        FeProducerBlockEntity producer = helper.getBlockEntity(COMPONENT);
+        helper.assertValueEqual(producer.produceEnergy(10 * 450 + 449), 10 * 450 + 449, "no receiver, all back");
+        helper.runAfterDelay(5, () -> {
+            helper.assertValueEqual(bridge.getEnergyStored(), 1000, "nothing lost");
+            helper.succeed();
+        });
+    }
+
+    @GameTest(template = EMPTY)
+    public static void feProducerCanBePulledAsFe(GameTestHelper helper) {
+        EnergyBridgeBlockEntity bridge = bridge(helper, BRIDGE);
+        // 2 EU = 8 FE = 3600 PCU, plus 449 PCU below one FE
+        bridge.setEnergyStored(2 * 1800 + 449);
+        helper.setBlock(COMPONENT, PcBlocks.converter(ConverterType.FE_PRODUCER).get());
+        helper.runAfterDelay(2, () -> {
+            IEnergyStorage storage = helper.getLevel().getCapability(Capabilities.EnergyStorage.BLOCK,
+                    helper.absolutePos(COMPONENT), Direction.UP);
+            helper.assertTrue(storage != null && storage.canExtract() && !storage.canReceive(), "extract-only FE");
+            helper.assertValueEqual(storage.getEnergyStored(), 8, "1 EU = 4 FE");
+            helper.assertValueEqual(storage.receiveEnergy(100, false), 0, "receives nothing");
+            helper.assertValueEqual(storage.extractEnergy(5, true), 5, "simulated");
+            helper.assertValueEqual(bridge.getEnergyStored(), 2 * 1800 + 449, "simulation keeps the bridge");
+            helper.assertValueEqual(storage.extractEnergy(100, false), 8, "only whole FE");
+            helper.assertValueEqual(bridge.getEnergyStored(), 449, "fraction stays in the bridge");
+            helper.succeed();
         });
     }
 }

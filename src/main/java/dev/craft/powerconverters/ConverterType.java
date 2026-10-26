@@ -11,7 +11,9 @@ public enum ConverterType {
     IC2_HV_CONSUMER("ic2_hv_consumer", PowerSystem.INDUSTRIALCRAFT, 2, true),
     IC2_HV_PRODUCER("ic2_hv_producer", PowerSystem.INDUSTRIALCRAFT, 2, false),
     IC2_EV_CONSUMER("ic2_ev_consumer", PowerSystem.INDUSTRIALCRAFT, 3, true),
-    IC2_EV_PRODUCER("ic2_ev_producer", PowerSystem.INDUSTRIALCRAFT, 3, false);
+    IC2_EV_PRODUCER("ic2_ev_producer", PowerSystem.INDUSTRIALCRAFT, 3, false),
+    /** New content (spec 33): EU/MJ from the bridge as FE; there is no FE consumer. */
+    FE_PRODUCER("fe_producer", PowerSystem.FE, 0, false);
 
     private final String name;
     private final PowerSystem system;
@@ -39,6 +41,11 @@ public enum ConverterType {
 
     public boolean isConsumer() {
         return consumer;
+    }
+
+    /** Whether {@link #counterpart()} exists (all BC and IC2 converters). */
+    public boolean hasCounterpart() {
+        return system != PowerSystem.FE;
     }
 
     /** The consumer/producer of the same system and voltage (shapeless conversion recipe). */
