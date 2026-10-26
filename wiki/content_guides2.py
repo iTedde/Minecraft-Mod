@@ -237,15 +237,17 @@ Sie verhalten sich in wichtigen Punkten <b>anders</b> als IC2-Maschinen – wer 
     # ================================================================== EU <-> MJ
     uk = {'B': ('craft:energy_bridge', 'Energy Bridge', 'ctrl'), 'I': ('craft:ic2_lv_consumer', 'IC2 Consumer', ''), 'P': ('craft:bc_producer', 'BC Producer', ''),
           'b': ('craft:bc_consumer', 'BC Consumer', ''), 'p': ('craft:ic2_mv_producer', 'IC2 Producer', ''), 'E': ('craft:combustion_engine', 'Motor', ''),
-          'Q': ('craft:quarry', 'Quarry', ''), 'c': ('craft:insulated_copper_cable', 'Kabel', ''), '_': (None, 'frei', 'ground')}
+          'Q': ('craft:quarry', 'Quarry', ''), 'c': ('craft:insulated_copper_cable', 'Kabel', ''), '_': (None, 'frei', 'ground'),
+          'F': ('craft:fe_producer', 'FE Producer', ''), 'A': (None, 'AE2 Energy Acceptor', 'ctrl')}
     um = f'''<h1>Energie umwandeln: EU ↔ MJ</h1>
 <p class="lead">EU (IndustrialCraft) und MJ (BuildCraft) sind getrennte Systeme. Es gibt genau zwei Brücken: die <b>Electrical Engine</b> von Forestry
-(EU → MJ) und <b>Power Converters</b> (beide Richtungen).</p>
+(EU → MJ) und <b>Power Converters</b> (beide Richtungen). Für Mods mit <b>FE</b> (AE2, Ad Astra, Industrial Foregoing …) gibt es dazu den <b>FE Producer</b> (nur EU/MJ → FE).</p>
 <div class="tocpos"></div>
 {h.table(['Weg', 'Kurs', 'Besonderheiten'], [
     [c('electrical_engine'), '3 EU → 1 MJ (6 EU → 2 MJ pro Tick)', 'braucht Redstone; mit Platinen bis 36 EU → 10 MJ; nimmt jede Spannung an, explodiert nie'],
     ['Power Converters: IC2 Consumer → Bridge → BC Producer', '1 EU → 0,41 MJ (2,43 EU = 1 MJ)', 'günstiger als die Electrical Engine; jede Spannung wird angenommen'],
     ['Power Converters: BC Consumer → Bridge → IC2 Producer', '1 MJ → 2,43 EU', 'Producer gibt nur <b>volle Pakete</b> der Nennspannung ab'],
+    ['Power Converters: IC2 Consumer → Bridge → FE Producer', '1 EU → 4 FE (1 MJ ≈ 9,7 FE)', 'nur Richtung FE; Reste unter 1 FE bleiben in der Bridge'],
 ])}
 <h2 id="um--engine">Electrical Engine (EU → MJ)</h2>
 {steps([
@@ -278,10 +280,21 @@ Wird der MJ-Puffer nicht abgenommen, heizt sie sich auf und kühlt dann zwangswe
 <li>{c('universal_charger')}: lädt elektrische Gegenstände von Spielern, die darauf stehen, oder in angrenzenden Kisten.</li>
 <li>Consumer und Producer gleicher Stufe lassen sich in der Werkbank ineinander umwandeln.</li>
 </ul>
+<h2 id="um--fe">FE Producer (Craft-Strom → FE)</h2>
+<p>Neues Bauteil ohne Pack-Vorbild (ab Craft 1.1.1): {c('fe_producer')} an die Bridge setzen – er gibt den Strom als <b>FE</b> (Forge Energy) an Geräte anderer Mods ab, z. B. den <b>Energy Acceptor</b> von Applied Energistics 2.</p>
+<div class="layers">{h.layer(['_c_', '_I_', '_B_', '_F_', '_A_'], uk, 'Strom → AE2: Kabel an den IC2 Consumer, Bridge, FE Producer, darunter der Energy Acceptor', 34)}<div>{h.legend(uk)}</div></div>
+<ul>
+<li><b>Kurs 1 EU = 4 FE</b>; über einen BC Consumer auch MJ → FE (1 MJ ≈ 9,7 FE).</li>
+<li>Schiebt jeden Tick an <b>alle</b> angrenzenden FE-Empfänger (sie teilen sich die Menge); FE-Kabel anderer Mods können ihn auch anzapfen. Keine Spannung, nichts explodiert.</li>
+<li>Reste unter 1 FE bleiben in der Bridge, es geht nichts verloren. Ohne Empfänger füllt sich nur die Bridge.</li>
+<li>Kein Rückweg: FE, Create-Drehkraft & Co. kommen <b>nicht</b> ins EU-Netz.</li>
+<li>Rezept: 4 Gold in den Ecken, Redstone-Block in der Mitte (wie die anderen Konverter).</li>
+<li>Beispiel: 128 EU/t (ein MV-Kabel voll) → 512 FE/t ≈ 256 AE/t in AE2.</li>
+</ul>
 {h.note('tip', 'Öl lohnt sich: 1 Eimer Öl im Combustion-Motor = 60 000 MJ ≈ 145 800 EU, 1 Eimer Treibstoff = 600 000 MJ ≈ 1,46 Mio. EU.')}
-<p>Referenz: <a href="#/spec-10">10 – Energieumwandlung</a>.</p>
+<p>Referenz: <a href="#/spec-10">10 – Energieumwandlung</a>, <a href="#/spec-33">33 – FE Producer</a>.</p>
 '''
-    page('umwandlung', 'Energie umwandeln (EU ↔ MJ)', um)
+    page('umwandlung', 'Energie umwandeln (EU ↔ MJ ↔ FE)', um)
 
     # ================================================================== IC2 Maschinen
     rows = []

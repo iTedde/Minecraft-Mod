@@ -43,6 +43,7 @@ public class CraftEmiPlugin implements EmiPlugin {
         GraviSuiteEmiRecipes.register(registry);
         MpsEmiRecipes.register(registry);
         LightShieldEmiRecipes.register(registry);
+        PcEmiRecipes.register(registry);
         registry.addWorkstation(VanillaEmiRecipeCategories.CRAFTING, EmiStack.of(RpItems.PROJECT_TABLE.get()));
         CraftingTableEmiHandlers.register(registry);
         MultiblockEmiInfo.register(registry);

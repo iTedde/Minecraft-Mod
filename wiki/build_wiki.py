@@ -108,7 +108,7 @@ GUIDE_PAGES = {
     'oil': 'quarry', 'oil_bucket': 'quarry', 'fuel_bucket': 'quarry', 'bc_wrench': 'quarry',
     'nuclear_reactor': 'reaktor', 'reactor_chamber': 'reaktor',
     'electrical_engine': 'umwandlung', 'energy_bridge': 'umwandlung', 'universal_charger': 'umwandlung',
-    'bc_consumer': 'umwandlung', 'bc_producer': 'umwandlung',
+    'bc_consumer': 'umwandlung', 'bc_producer': 'umwandlung', 'fe_producer': 'umwandlung',
     'electric_furnace': 'ic2-maschinen', 'macerator': 'ic2-maschinen', 'extractor': 'ic2-maschinen',
     'compressor': 'ic2-maschinen', 'recycler': 'ic2-maschinen', 'overclocker_upgrade': 'ic2-maschinen',
     'transformer_upgrade': 'ic2-maschinen', 'energy_storage_upgrade': 'ic2-maschinen',

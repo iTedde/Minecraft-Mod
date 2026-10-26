@@ -60,8 +60,7 @@ Mahlen, Waschen, Fertigungsketten …).</p>
 <h2 id="cr--craft">Zusammenspiel mit Craft</h2>
 <ul>
 <li><b>Energie ist getrennt.</b> Craft arbeitet mit <b>EU</b> (IC2) und <b>MJ</b> (BuildCraft), Create mit <b>Drehkraft</b> (Stress-Einheiten SU),
-Crafts & Additions, Ad Astra und Industrial Foregoing mit <b>FE</b>. Es gibt <b>keinen Wandler zwischen EU/MJ und Drehkraft oder FE</b> –
-jedes System braucht seine eigene Stromquelle.</li>
+Crafts & Additions, Ad Astra, Industrial Foregoing und AE2 mit <b>FE</b>. <b>Craft-Strom → FE</b> geht über den <a href="#/umwandlung">FE Producer</a> (ab Craft 1.1.1): IC2 Consumer → Energy Bridge → FE Producer, <b>1 EU = 4 FE</b>. Nur diese Richtung – FE und Drehkraft kommen nicht ins EU-/MJ-Netz, und zwischen EU/MJ und Drehkraft gibt es keinen Wandler.</li>
 <li><b>Items fließen frei.</b> Create-Trichter (Funnels), Rutschen (Chutes), Förderbänder und Trichter arbeiten mit allen Craft-Maschinen
 und -Kisten zusammen. Es gelten die Seiten der Maschine (siehe unten), wie bei Rohren und Trichtern.</li>
 <li><b>Craft-Maschinen nehmen Items seitenrichtig an:</b> Ein Create-Trichter an der Seite eines Macerators füllt den Eingabe- bzw.
@@ -139,7 +138,7 @@ Munition (Kugeln, Granaten, Pulverladungen) wird hergestellt und geladen. Achtun
 <h2 id="ca--strom">Crafts & Additions und Diesel Generators – Strom und Treibstoff</h2>
 <ul>
 <li><b>Lichtmaschine</b> (Alternator): Drehkraft → FE. <b>Elektromotor</b>: FE → Drehkraft. Dazu Kabel/Verbinder, Akkus und ein Walzwerk für Drähte.</li>
-<li>FE ist <b>nicht</b> EU – Craft-Maschinen lassen sich damit nicht betreiben. FE nutzen Ad Astra, Industrial Foregoing und AE2-Teile.</li>
+<li>FE ist <b>nicht</b> EU – Craft-Maschinen lassen sich damit nicht betreiben. FE nutzen Ad Astra, Industrial Foregoing und AE2-Teile. Umgekehrt liefert der <a href="#/umwandlung">FE Producer</a> Craft-Strom als FE (1 EU = 4 FE).</li>
 <li><b>Diesel Generators:</b> Motoren verbrennen Treibstoff zu Drehkraft. Pflanzenöl aus Samen pressen, weiter zu Biodiesel verarbeiten; Erdöl über Pumpjack und Destillation.</li>
 </ul>
 <h2 id="ca--bau">Bauteile und Deko</h2>
@@ -161,6 +160,7 @@ Craft ersetzt es deshalb. Mit dem Einsetzer (Brett auf die Welle) geht es weiter
 <h2 id="ca--ae2">Applied Energistics 2 und Applied Kinetics</h2>
 <p>AE2 speichert Items digital in Laufwerken und kann automatisch herstellen. Es braucht normalerweise FE; <b>Applied Kinetics</b> erlaubt,
 AE2-Teile mit Create-Drehkraft zu versorgen. Das Ingame-Handbuch von AE2 (GuideME) erklärt den Einstieg.</p>
+<p><b>Mit Craft-Strom:</b> EU-Kabel → IC2 Consumer → Energy Bridge → <a href="#/umwandlung">FE Producer</a> → AE2 <b>Energy Acceptor</b> (oder Controller) direkt daneben. 128 EU/t ergeben 512 FE/t ≈ 256 AE/t (AE2: 1 AE = 2 FE).</p>
 <h2 id="ca--astra">Ad Astra – Raumfahrt</h2>
 <p>Raketen bauen, betanken und zu Mond, Mars, Venus, Merkur und Glacio fliegen. Auf den Planeten braucht man <b>Raumanzug und Sauerstoff</b>.
 Maschinen laufen mit FE. Neue Erze und Metalle (z. B. Desh, Ostrum, Calorite) gibt es nur dort.</p>

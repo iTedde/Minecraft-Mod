@@ -228,6 +228,15 @@ Testwelt. Sprache einmal Deutsch, einmal Englisch prüfen. EMI und Xaero's Minim
 | 15.3 | Wasserturbine im Fluss-Biom mit Wasser auf dem Deckel: Rechtsklick zeigt bis 48 EU/t, BatBox und Kupferkabel daran explodieren nicht | 32.1 | |
 | 15.4 | Große Wasserturbine im Fluss-Biom: mit 256 fließenden Blöcken 384 EU/t; außerhalb höchstens 256 | 32.1 | |
 
+## 16. FE Producer (Phase 33)
+
+| Nr | Test | Herkunft | OK |
+|---|---|---|---|
+| 16.1 | Power-Converters-Tab, Rezept (4 Gold + Redstone-Block) und Info-Seite in EMI, Tooltip; Textur mit rotem Rahmen, „verbunden“-Seite zum FE-Gerät | 33.1, 33.2 | |
+| 16.2 | EU-Kabel → IC2 Consumer → Energy Bridge → FE Producer → AE2 Energy Acceptor: AE2-Netz läuft, Bridge-GUI zeigt „FE OUT“ mit FE/t (128 EU/t → 512 FE/t) | 33.1 | |
+| 16.3 | Zwei FE-Empfänger (z. B. Energy Acceptor + Ad-Astra-/IF-Gerät) am selben FE Producer bekommen beide Strom; ohne Empfänger füllt sich nur die Bridge | 33.1 | |
+| 16.4 | FE-Kabel eines anderen Mods (z. B. Crafts & Additions) am FE Producer zieht Strom; EU-Kabel/Maschinen nehmen kein FE an | 33.1 | |
+
 ## Befunde
 
 | Nr | Datum | Befund | Status |

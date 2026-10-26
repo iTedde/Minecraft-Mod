@@ -95,4 +95,5 @@ Beispiel: 128 EU/t aus dem Netz → 512 FE/t → reicht für rund 256 AE/t in AE
 - **33.1** Umsetzung: `PowerSystem.FE`, `ConverterType.FE_PRODUCER`, `FeProducerBlockEntity`, Capability-Registrierung,
   Bridge-GUI, Rezept, Lang, Texturen, GameTests (Push in einen FE-Speicher, Bruchteile bleiben in der Bridge, zwei
   Empfänger teilen korrekt, Pull über die Capability).
-- **33.2** EMI-Info, Wiki (Power Converters + Create/AE2-Seite: „kein Wandler“ ersetzen), Testplan, Paket.
+- **33.2** EMI-Info, Wiki (Power Converters + Create/AE2-Seite: „kein Wandler“ ersetzen), Testplan, Paket – erledigt
+  2026-10-26 (Craft 1.1.1, Paket 1.1.1).

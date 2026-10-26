@@ -826,6 +826,17 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
                 + "spawn). Costs 1 EU per 4 ticks; mode key + right click toggles the "
                 + "light. Blocked hits cost 100 EU per durability point instead of durability; empty it cannot be raised. Unbreaking "
                 + "saves EU, Mending charges it with experience (1 XP = 200 EU).");
+        add("emi.craft.info.fe_producer", german
+                ? "Bauteil der Power Converters: gibt Strom aus einer angrenzenden Energy Bridge als FE ab "
+                + "(1 EU = 4 FE, 1 MJ ≈ 9,7 FE). Aufbau: EU-Kabel → IC2 Consumer → Energy Bridge → FE Producer → "
+                + "FE-Gerät (z. B. AE2 Energy Acceptor). Schiebt an alle angrenzenden FE-Empfänger und lässt sich von "
+                + "FE-Kabeln anderer Mods anzapfen; Reste unter 1 FE bleiben in der Bridge. Nur EU → FE, kein Rückweg. "
+                + "Beispiel: 128 EU/t → 512 FE/t."
+                : "Power Converters component: outputs power from an adjacent Energy Bridge as FE "
+                + "(1 EU = 4 FE, 1 MJ ≈ 9.7 FE). Setup: EU cable → IC2 Consumer → Energy Bridge → FE Producer → "
+                + "FE device (e.g. AE2 Energy Acceptor). Pushes into every adjacent FE receiver and can be drained by "
+                + "other mods' FE cables; remainders below 1 FE stay in the bridge. EU → FE only, no way back. "
+                + "Example: 128 EU/t → 512 FE/t.");
     }
 
     protected void mining(boolean german) {

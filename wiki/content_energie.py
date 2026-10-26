@@ -162,6 +162,7 @@ def pages(h, stats):
         else:
             out = b['maxEnergyOutput']
             pc.append([chip(iid), 'Energy Bridge → EU', f'Pakete à {num(out)} ({tier(out)})', '–'])
+    pc.append([chip('fe_producer'), 'Energy Bridge → FE (1 EU = 4 FE)', 'keine (FE)', '–'])
 
     # ---------------------------------------------------------------- cables
     cables = []

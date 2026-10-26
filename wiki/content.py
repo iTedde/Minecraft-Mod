@@ -62,7 +62,7 @@ dazu kommen <a href="#/aenderungen">neue Kraftwerke und eine Mining-Dimension</a
 {card('ic2-maschinen', 'craft:overclocker_upgrade', 'IC2-Maschinen & Upgrades', 'Seiten, Automatisierung, Overclocker-Rechnung.')}
 {card('gregtech-maschinen', 'craft:industrial_blast_furnace', 'GregTech & Hochofen', 'Nur mit Schraubenschlüssel abbauen! Hochofen-Bau und Hitze.')}
 {card('quarry', 'craft:quarry', 'Quarry & BuildCraft', 'Motoren, Landmarken, Öl, Raffinerie, Rohre.')}
-{card('umwandlung', 'craft:energy_bridge', 'EU ↔ MJ', 'Electrical Engine und Power Converters.')}
+{card('umwandlung', 'craft:energy_bridge', 'EU ↔ MJ, EU → FE', 'Electrical Engine, Power Converters und FE Producer.')}
 {card('reaktor', 'craft:nuclear_reactor', 'Kernreaktor', 'Formeln, Hitzestufen und zwei sichere Designs.')}
 </div>
 
@@ -177,6 +177,7 @@ Engine, Power Converters und der Kernreaktor.</p>
     row('Dampf', 'Flüssigkeit <code>craft:steam</code>', 'nur in Tanks und Rohren, kein Eimer', 'kohlekraftwerk', NEW),
     row('CC: Tweaked', 'mitinstallierter Mod', 'Computer und Turtles (Ersatz für ComputerCraft 1.5 im Pack)', 'zusatzmods', NEW),
     row('Verteiler-Transportrohr', 'Item-Rohr mit Anteil je Seite', 'Diamant-Transportrohr + Komparator; exakte Aufteilung nach eingestellten Prozent', 'mod-buildcraft', NEW),
+    row('FE Producer', 'Power-Converters-Bauteil', 'Energy Bridge → FE (1 EU = 4 FE) für AE2, Ad Astra & Co.; nur diese Richtung', 'umwandlung', NEW),
 ])}
 
 <h2 id="chg--weg">3. Weggelassen oder eingeschränkt</h2>
@@ -261,6 +262,7 @@ Solar wächst nur mit der Fläche: rund 1,2 EU/t je Block im 9×9-Feld.</p>
 <ul>
 <li><b>MJ → EU</b> über Power Converters: <b>1 MJ = 2,43 EU</b> (4375/1800 PCU), Producer geben nur volle Pakete ab.</li>
 <li><b>EU → MJ</b> über die Forestry Electrical Engine: <b>3 EU = 1 MJ</b> (6 EU → 2 MJ, mit Upgrades bis 36 EU → 10 MJ).</li>
+<li><b>EU → FE</b> (AE2, Ad Astra …) über den <a href="#/umwandlung">FE Producer</a>: <b>1 EU = 4 FE</b>, kein Rückweg.</li>
 <li>Eine Rundreise EU → MJ → EU verliert ≈ 19 %.</li>
 </ul>
 <p>Herleitung, Originalwerte und der „Problembefund“ stehen im Volltext: <a href="#/balancing">Energiebalancing (Volltext)</a>.</p>
@@ -934,9 +936,10 @@ In Klammern steht der tatsächliche Anteil unter den angeschlossenen Seiten.</li
 
     modpage('mod-powerconverters', 'Power Converters', 'craft:energy_bridge',
             'Die <b>Energy Bridge</b> verbindet MJ und EU: Consumer speisen Energie ein, Producer geben sie in der anderen Form wieder ab. '
-            '1 MJ = 2,43 EU, Producer geben nur volle Pakete ab. Dazu der Universal Charger.',
-            [('Umrechnung', '1 MJ = 2,43 EU'), ('IC2-Stufen', 'LV, MV, HV, EV')],
-            [('spec-10', '10 – Energieumwandlung (Teil B: Power Converters)')])
+            '1 MJ = 2,43 EU, Producer geben nur volle Pakete ab. Dazu der Universal Charger und – neu in Craft – der '
+            '<b>FE Producer</b>, der Strom als FE an AE2 & Co. abgibt (1 EU = 4 FE).',
+            [('Umrechnung', '1 MJ = 2,43 EU · 1 EU = 4 FE'), ('IC2-Stufen', 'LV, MV, HV, EV')],
+            [('spec-10', '10 – Energieumwandlung (Teil B: Power Converters)'), ('spec-33', '33 – FE Producer')])
     modpage('mod-ironchests', 'Iron Chests', 'craft:iron_chest',
             'Größere Kisten: <b>Kupfer</b> (45 Slots), <b>Eisen</b> (54), <b>Silber</b> (72), <b>Gold</b> (81) und <b>Diamant</b> (108). '
             'Die <b>Kristallkiste</b> ist durchsichtig und zeigt die acht häufigsten Items drehend im Inneren, die <b>Obsidiankiste</b> übersteht Explosionen. '

@@ -2886,8 +2886,20 @@ Pack (`isEnchantable = false`); Nutzer: „Ne, mach nicht“.
 - [x] 3 neue GameTests (Aufteilung auf zwei Empfänger, ohne Empfänger nichts verloren, Pull nur ganze FE). Alle 542
   grün (`-PgameTestDir=run-gametest`), `gradlew runData build` grün.
 
+## Erledigt (33.2 FE Producer: Texte, Paket, 2026-10-26)
+Nutzer: „Weiter gehts“.
+- [x] EMI-Info-Seite FE Producer (de/en, `PcEmiRecipes`): Aufbau, Kurs 1 EU = 4 FE / 1 MJ ≈ 9,7 FE, Push und Pull,
+  Reste bleiben in der Bridge, nur EU → FE, Beispiel 128 EU/t → 512 FE/t.
+- [x] Wiki: Umwandlung (Tabellenzeile, neuer Abschnitt „FE Producer“ mit Aufbau-Bild bis zum AE2 Energy Acceptor),
+  Create-Seite („kein Wandler“ ersetzt, AE2 mit Craft-Strom), Energie-Steckbrief, Umrechnung, Power-Converters-Seite,
+  Startseiten-Karte, Änderungsliste; neu erzeugt (DE + EN-Namen).
+- [x] Testplan 16.1–16.4.
+- [x] `gradlew runData build` grün (GameTests nicht erneut, nur Texte/EMI geändert; 542 grün in 33.1).
+- [x] Craft **1.1.1** (`releases/craft-1.1.1.jar`), Paket `releases/Craft-1.1.1-curseforge.zip` (wie 1.1.0 mit Craft
+  1.1.1).
+- **Phase 33 erledigt, Client-Test offen** (Testplan 16).
+
 ## Nächste Schritte
-- 33.2: EMI-Info, Wiki (Power Converters, Create/AE2: „kein Wandler“ ersetzen), Testplan, Paket.
-- Client-Test 33 (FE Producer an AE2 Energy Acceptor).
+- Client-Test 33 (FE Producer an AE2 Energy Acceptor, Testplan 16).
 - Client-Test 32 und 31 (Nutzer), 30.6, Extruder-Rezepte, Trichter.
 - B7: Tag-Übersetzungen nachtragen.
