@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.EnumSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,6 +16,7 @@ import dev.craft.buildcraft.BcBlockEntityTypes;
 import dev.craft.buildcraft.factory.MiningWellBlockEntity;
 import dev.craft.buildcraft.factory.QuarryBlockEntity;
 import dev.craft.buildcraft.factory.SpecialInventory;
+import dev.craft.buildcraft.menu.DistributionPipeMenu;
 import dev.craft.buildcraft.menu.PipeFilterMenu;
 import dev.craft.buildcraft.util.ItemOutput;
 import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
@@ -84,6 +86,9 @@ public class ItemPipeBlockEntity extends PipeBlockEntity implements MenuProvider
     /** {@code PipeItemsObsidian.entitiesDropped}: ids of the last 32 item entities this pipe threw out. */
     private final int[] entitiesDropped = new int[OBSIDIAN_DROPPED_MEMORY];
     private int entitiesDroppedIndex;
+    /** Weights and counters of the distribution pipe (spec 31), {@code null} for the other pipes. */
+    @Nullable
+    private final PipeDistribution distribution;
 
     public ItemPipeBlockEntity(BlockPos pos, BlockState state) {
         super(BcBlockEntityTypes.ITEM_PIPE.get(), pos, state);
@@ -104,6 +109,7 @@ public class ItemPipeBlockEntity extends PipeBlockEntity implements MenuProvider
             }
         };
         Arrays.fill(entitiesDropped, -1);
+        distribution = getPipeType().getMaterial() == PipeMaterial.DISTRIBUTION ? new PipeDistribution() : null;
     }
 
     private PipeMaterial material() {
@@ -146,12 +152,14 @@ public class ItemPipeBlockEntity extends PipeBlockEntity implements MenuProvider
         if (orientation.getAxis() != Direction.Axis.Y) {
             item.y = worldPosition.getY() + PIPE_FLOOR;
         }
+        List<TravelingItem> splits = List.of();
         if (!level.isClientSide()) {
-            item.output = resolveDestination(item);
+            splits = route(item);
         }
         entityEntered(item);
         if (!level.isClientSide()) {
             sendItemPacket(item);
+            splits.forEach(this::sendItemPacket);
             if (items.size() > GROUP_ITEMS_TRIGGER) {
                 groupEntities();
                 if (items.size() > MAX_ITEMS) {
@@ -178,12 +186,58 @@ public class ItemPipeBlockEntity extends PipeBlockEntity implements MenuProvider
         if (item.input.getAxis() != Direction.Axis.Y) {
             item.y = worldPosition.getY() + PIPE_FLOOR;
         }
-        item.output = resolveDestination(item);
+        List<TravelingItem> splits = route(item);
         entityEntered(item);
         sendItemPacket(item);
+        splits.forEach(this::sendItemPacket);
     }
 
     // --- destination ---
+
+    /** Sets the item's destination; the distribution pipe may split it and returns the new parts. */
+    private List<TravelingItem> route(TravelingItem item) {
+        if (distribution == null || !distribution.isConfigured()) {
+            item.output = resolveDestination(item);
+            return List.of();
+        }
+        Set<Direction> candidates = EnumSet.noneOf(Direction.class);
+        for (Direction side : getPossibleMovements(item)) {
+            if (distribution.getWeight(side) > 0) {
+                candidates.add(side);
+            }
+        }
+        if (candidates.isEmpty()) {
+            // spec 31 §3.2: back to where it came from, else it drops like in any pipe
+            Direction back = item.input.getOpposite();
+            item.output = canReceivePipeObjects(back, item.stack) ? back : null;
+            return List.of();
+        }
+        int[] counts = distribution.allocate(candidates, item.stack.getCount());
+        setChanged();
+        List<TravelingItem> splits = new ArrayList<>();
+        item.output = null;
+        for (Direction side : Direction.values()) {
+            int count = counts[side.get3DDataValue()];
+            if (count == 0) {
+                continue;
+            }
+            if (item.output == null) {
+                item.output = side;
+                continue;
+            }
+            TravelingItem split = new TravelingItem(item.stack.copyWithCount(count), item.x, item.y, item.z);
+            split.speed = item.speed;
+            split.input = item.input;
+            split.output = side;
+            split.toCenter = item.toCenter;
+            split.blacklist.addAll(item.blacklist);
+            split.container = this;
+            items.put(split.id, split);
+            splits.add(split);
+        }
+        item.stack.setCount(counts[item.output.get3DDataValue()]);
+        return splits;
+    }
 
     /** {@code resolveDestination}: random pick of the possible movements, {@code null} if there are none. */
     @Nullable
@@ -407,6 +461,7 @@ public class ItemPipeBlockEntity extends PipeBlockEntity implements MenuProvider
                 TravelingItem second = list.get(j);
                 if (!remove.contains(first.id) && !remove.contains(second.id)
                         && ItemStack.isSameItemSameComponents(first.stack, second.stack)
+                        && (distribution == null || first.output == second.output)
                         && first.stack.getCount() + second.stack.getCount() < first.stack.getMaxStackSize()) {
                     first.stack.grow(second.stack.getCount());
                     remove.add(second.id);
@@ -706,15 +761,50 @@ public class ItemPipeBlockEntity extends PipeBlockEntity implements MenuProvider
         return filters;
     }
 
+    @Nullable
+    public PipeDistribution getDistribution() {
+        return distribution;
+    }
+
+    /** Diamond/emerald filters or the weights of the distribution pipe. */
+    public boolean hasMenu() {
+        return filters.getSlots() > 0 || distribution != null;
+    }
+
     @Override
     public Component getDisplayName() {
-        return Component.translatable("container.craft.pipe_filters");
+        return distribution != null ? getBlockState().getBlock().getName()
+                : Component.translatable("container.craft.pipe_filters");
     }
 
     @Nullable
     @Override
     public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
+        if (distribution != null) {
+            return new DistributionPipeMenu(id, this);
+        }
         return filters.getSlots() == 0 ? null : new PipeFilterMenu(id, inventory, this);
+    }
+
+    /** Bit per side: connected to something that takes items (for the GUI). */
+    public int getItemSidesMask() {
+        int mask = 0;
+        for (Direction side : Direction.values()) {
+            if (connectsForItems(side)) {
+                mask |= 1 << side.get3DDataValue();
+            }
+        }
+        return mask;
+    }
+
+    private boolean connectsForItems(Direction side) {
+        if (!PipeConnections.canConnect(level, worldPosition, side)) {
+            return false;
+        }
+        if (level.getBlockEntity(worldPosition.relative(side)) instanceof PipeBlockEntity pipe) {
+            return pipe instanceof ItemPipeBlockEntity;
+        }
+        return PipeConnections.itemHandler(level, worldPosition, side) != null;
     }
 
     // --- sync ---
@@ -762,6 +852,9 @@ public class ItemPipeBlockEntity extends PipeBlockEntity implements MenuProvider
             tag.put("filters", filters.serializeNBT(registries));
             tag.putInt("currentFilter", currentFilter);
         }
+        if (distribution != null) {
+            tag.put("distribution", distribution.save());
+        }
     }
 
     @Override
@@ -782,6 +875,9 @@ public class ItemPipeBlockEntity extends PipeBlockEntity implements MenuProvider
             filterTag.putInt("Size", filters.getSlots());
             filters.deserializeNBT(registries, filterTag);
             currentFilter = tag.getInt("currentFilter");
+        }
+        if (distribution != null) {
+            distribution.load(tag.getCompound("distribution"));
         }
     }
 

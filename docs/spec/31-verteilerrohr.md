@@ -3,7 +3,7 @@
 Neuer Inhalt ohne Pack-Vorbild (Nutzer, 2026-10-26): ein Item-Rohr, in dem man **je Abzweig einstellt, wie viel
 Prozent** der durchlaufenden Items dorthin gehen. Entschieden (Nutzer, 2026-10-26): nur Items, GUI mit Prozentwert je
 Seite, **exakte** (nicht zufällige) Aufteilung. Baut auf den BuildCraft-Rohren aus `spec/15-rohre.md` auf (Paket
-`…buildcraft/transport`). Punkte zur Freigabe: §7.
+`…buildcraft/transport`). Punkte zur Freigabe: §7 – **freigegeben vom Nutzer am 2026-10-26** (alle fünf wie vorgeschlagen).
 
 ## 1 Block
 

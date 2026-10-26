@@ -874,6 +874,8 @@ public final class CraftRecipeProvider extends RecipeProvider {
         pipe(PipeType.OBSIDIAN_TRANSPORT, Ingredient.of(Items.OBSIDIAN), Ingredient.of(Items.OBSIDIAN));
         pipe(PipeType.EMERALD_TRANSPORT, Ingredient.of(Items.EMERALD), Ingredient.of(Items.EMERALD));
         pipe(PipeType.VOID_TRANSPORT, Ingredient.of(Items.INK_SAC), Ingredient.of(Items.REDSTONE));
+        // new content (spec 31)
+        pipe(PipeType.DISTRIBUTION_TRANSPORT, Items.COMPARATOR, PipeType.DIAMOND_TRANSPORT);
         // pipeWaterproof: cactus green (dye meta 2).
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BcItems.PIPE_WATERPROOF).requires(Items.GREEN_DYE)
                 .unlockedBy("has_green_dye", has(Items.GREEN_DYE)).save(output, id("pipe_waterproof"));

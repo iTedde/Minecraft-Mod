@@ -19,6 +19,9 @@ public enum PipeType {
     OBSIDIAN_TRANSPORT("obsidian_transport_pipe", Transport.ITEMS, PipeMaterial.OBSIDIAN, "obsidian", null),
     EMERALD_TRANSPORT("emerald_transport_pipe", Transport.ITEMS, PipeMaterial.EMERALD, "emerald", "emerald_source"),
     VOID_TRANSPORT("void_transport_pipe", Transport.ITEMS, PipeMaterial.VOID, "void", null),
+    /** New content (spec 31): splits items by a weight per side. */
+    DISTRIBUTION_TRANSPORT("distribution_transport_pipe", Transport.ITEMS, PipeMaterial.DISTRIBUTION, "distribution",
+            null),
     WOODEN_FLUID("wooden_fluid_pipe", Transport.FLUIDS, PipeMaterial.WOOD, "wooden_fluid", "wooden_source"),
     COBBLESTONE_FLUID("cobblestone_fluid_pipe", Transport.FLUIDS, PipeMaterial.COBBLESTONE, "cobblestone_fluid", null),
     STONE_FLUID("stone_fluid_pipe", Transport.FLUIDS, PipeMaterial.STONE, "stone_fluid", null),
@@ -74,9 +77,13 @@ public enum PipeType {
         return texture;
     }
 
-    /** Texture of a plain arm: the diamond pipe has one per side ({@code getTextureIndex(direction)}). */
+    /**
+     * Texture of a plain arm: the diamond pipe has one per side ({@code getTextureIndex(direction)}); the distribution
+     * pipe reuses them so the arms match the rows of its GUI.
+     */
     public String getArmTexture(Direction side) {
-        return material == PipeMaterial.DIAMOND ? "diamond_" + side.getName() : plainTexture;
+        return material == PipeMaterial.DIAMOND || material == PipeMaterial.DISTRIBUTION ? "diamond_" + side.getName()
+                : plainTexture;
     }
 
     /** Texture of the source arm (wood, emerald) or the output arm (iron); {@code null} for the other pipes. */

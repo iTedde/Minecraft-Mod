@@ -59,6 +59,7 @@ public final class BuildCraftClient {
         event.register(BcMenus.REFINERY.get(), RefineryScreen::new);
         event.register(BcMenus.AUTO_WORKBENCH.get(), AutoWorkbenchScreen::new);
         event.register(BcMenus.PIPE_FILTERS.get(), PipeFilterScreen::new);
+        event.register(BcMenus.DISTRIBUTION_PIPE.get(), DistributionPipeScreen::new);
     }
 
     @SubscribeEvent

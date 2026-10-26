@@ -2789,9 +2789,26 @@ Nutzer: Rezepte für Andesit/Granit ändern (Katalysator = derselbe Block), Tuff
   Komparator; Tests, Teilpakete 31.1/31.2. Index `spec/README.md`, Phase 31 in CLAUDE.md.
 - **Freigabe offen** (§7: Rezept, Startwert, Stapel teilen, kein Nachholen, ohne Ziel).
 
+## Erledigt (31.1 Verteiler-Transportrohr: Umsetzung, 2026-10-26)
+Nutzer: „jo, ist freigegeben“ (Spec 31 inkl. §7).
+- [x] `PipeType.DISTRIBUTION_TRANSPORT` / `PipeMaterial.DISTRIBUTION` (`craft:distribution_transport_pipe`), Arme mit den
+  Seitentexturen des Diamantrohrs, Kern `distribution.png` (Diamantrahmen + drei Komparator-Fackeln,
+  `tools/scripts/distribution_pipe_texture.py`).
+- [x] `PipeDistribution`: Gewichte 0–100, Zähler je Seite, `allocate` (kleinstes `sent/Gewicht`, Gleichstand unten, oben,
+  N, S, W, O), Wiedereinstieg auf den Stand der anderen, Zähler werden klein gehalten; gespeichert im Rohr.
+- [x] `ItemPipeBlockEntity.route`: alle 0 → normales Rohr; sonst Kandidaten mit Gewicht > 0, Stapel geteilt (neue
+  `TravelingItem`s, an Clients gesendet); ohne Kandidat zurück zur Herkunft bzw. Auswerfen; Zusammenfassen nur bei
+  gleichem Ziel. Gewichtsänderung setzt die Zähler zurück.
+- [x] GUI `DistributionPipeMenu`/`DistributionPipeScreen`: 6 Zeilen mit Farbmarke, −10/−1/+1/+10 (Umschalt: 0/100), Wert,
+  tatsächlicher Anteil der verbundenen Seiten, Summe, Hinweis; ohne Spielerinventar.
+- [x] Rezept formlos Diamant-Transportrohr + Komparator → 1; Tooltip; Lang DE/EN.
+- [x] GameTests `DistributionPipeGameTests` (6): 100 Einzelitems 50/30/20 exakt, Stapel 64 → 32/19/13, 0 % sperrt,
+  alle 0 = normal, volle Seite + kein Nachholen (10/0 → 15/5), Rezept. Alle 538 grün, `gradlew runData build` grün.
+- Client-Test offen (GUI, Modell) – nur nach Rückfrage.
+
 ## Nächste Schritte
-- 31.0 freigeben lassen, dann 31.1 Umsetzung (Block, Logik, GUI, Rezept, Textur, GameTests), 31.2 EMI/Wiki/Paket.
-- Client-Test 30.6 (Leuchtschild mit LDL ≈ Fackel), Extruder-Rezepte, Trichter – nur nach Rückfrage.
+- 31.2: EMI-Info-Seite, Wiki (BC-Rohre + Steckbrief), Testplan, Craft 1.0.12 + Paket 1.0.15.
+- Client-Test 31.1 (GUI/Modell), 30.6 (Leuchtschild mit LDL ≈ Fackel), Extruder-Rezepte, Trichter – nur nach Rückfrage.
 - B7: Tag-Übersetzungen nachtragen.
 - Rest Client-Test Leuchtschild (13.1, Teile von 13.2–13.4), MPS (Testplan 12) und GraviSuite (Testplan 11) – nur nach
   Rückfrage.
