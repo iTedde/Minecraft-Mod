@@ -2716,8 +2716,47 @@ Dev-Client mit LambDynamicLights 4.8.11 (Jar nur für den Test in `run/mods`), W
   die Testfigur „Dev“ nach einem Teleport ins Meer ertrunken (nur Testwelt).
 - Befund B7 (Testplan): 8 unübersetzte EMI-Tags der TE-Materialien.
 
+## Erledigt (30.6 Leuchtschild: Licht wie eine Fackel, 2026-10-25)
+Nutzer: „Das mit dem Lichtschild funktioniert noch gar nicht. Mach das einfach so, als wäre es eine Fackel.“
+- [x] Spec `30-leuchtschild.md` §3b (ersetzt den Kegel aus §3a): Licht 14 rund um den Träger wie eine Fackel in der Hand,
+  nicht wasserempfindlich, Bedingungen und Verbrauch unverändert.
+- [x] `LightShieldDynamicLights`: Spieler-Handler über `DynamicLightHandlers.registerDynamicLightHandler(EntityType.PLAYER, …)`;
+  LDL 4.8.11 wandelt ihn beim Laden in eine Entity-Lichtquelle um und nimmt das Maximum mit Fackel & Co. (im Jar der
+  Nutzer-Instanz geprüft). Eigene `ItemLuminance` geht nicht (versiegelt).
+- [x] Entfernt: `LightCone`, `LightConeBehavior`, 4 Kegel-Tests. EMI-Text, Wiki (DE + EN-Namen), `balancing.md`,
+  `architektur.md`, Testplan 13.2 angepasst.
+- [x] Alle 529 GameTests grün, `gradlew runData build` grün. Client-Test mit LDL offen (nur nach Rückfrage).
+- Hinweis: LDL leuchtet für Spieler nur mit den LDL-Optionen „Entitäten“ und (für das eigene Licht) „Eigenes Licht“ an.
+
+## Erledigt (Paket-Nachtrag Mechanical Extruder, 2026-10-26)
+Nutzer: Rezepte für Andesit/Granit ändern (Katalysator = derselbe Block), Tuff hinzufügen, Ochrum aus Goldblock + Lava;
+„einmal bewerten und dann rein ins Paket“.
+- [x] Befund Mechanical Extruder 2.2.2 (Jar der Nutzer-Instanz): Andesit/Granit/Diorit = Wasser + Lava mit Bedingung
+  Y 0–60, ohne Katalysator; Ochrum ist bereits genau Goldblock + Lava – keine Änderung nötig. Rezeptwahl: alle Rezepte,
+  deren Seitenblöcke, Katalysator (Block unter dem Extruder) und Filter passen; davon das erste mit erfüllten Bedingungen.
+  Ohne Filter kann daher auch Bruchstein kommen (wie bisher) – Filter auf das Ergebnis setzen.
+- [x] Bewertung: Andesit/Granit mit sich selbst als Katalysator (nicht verbraucht) statt Höhenbindung – unkritisch,
+  billige Steine. Tuff: Create-Zerkleinern liefert je Block 25 % Feuerstein und je 10 % Gold-/Kupfer-/Zink-/Eisen-Nugget
+  → unendliche Kleinstmengen Zink/Gold; vergleichbar mit Ochrum (schon im Mod, 20 % zerkl. Rohgold + 20 % Goldnugget),
+  daher vertretbar. Diorit bleibt unverändert.
+- [x] Eingebautes, immer aktives Datenpaket `src/main/resources/packs/extruder_tweaks` (wie `createcasing_fix`,
+  `Craft.java`): `create_mechanical_extruder:extruding/{andesite,granite}` ersetzt, `tuff` neu; Bedingung
+  `mod_loaded create_mechanical_extruder`. GameTest `extruderTweaksPackIsActive`.
+- [x] Wiki „Create & Paket-Mods“ → Rohstoffe ergänzt, neu erzeugt (DE + EN-Namen).
+- [x] Alle 530 GameTests grün, `gradlew build` grün.
+- [x] Craft **1.0.10** (`releases/craft-1.0.10.jar`, enthält auch 30.6), Paket `releases/Craft-1.0.13-curseforge.zip`
+  (wie 1.0.12 mit Craft 1.0.10; 67 Manifest-Einträge, 9,0 MB).
+- Client-Test offen: Extruder mit Andesit/Granit/Tuff darunter und Filter, oberhalb Y 60.
+
+## Neue Nutzerwünsche (2026-10-26, noch zu klären)
+- Rohr mit einstellbarer Prozent-Aufteilung je Abzweig.
+- „Energie-Tesserakt“ wie Ender Chest für Strom (TE-Energy-Tesserakt für MJ gibt es schon, 25.7 – EU gewünscht?).
+- „Forestry“ (Umfang unklar).
+- Vanilla-Trichter sollen sich nicht per Redstone abschalten lassen.
+
 ## Nächste Schritte
+- Offene Fragen zu den neuen Wünschen klären, dann je Wunsch eine Phase.
+- Client-Test 30.6 (Leuchtschild mit LDL ≈ Fackel) und Extruder-Rezepte – nur nach Rückfrage.
 - B7: Tag-Übersetzungen nachtragen.
 - Rest Client-Test Leuchtschild (13.1, Teile von 13.2–13.4), MPS (Testplan 12) und GraviSuite (Testplan 11) – nur nach
-  Rückfrage. Für den Lichtkegel-Test LambDynamicLights vorübergehend nach `run/mods` legen (nach dem Test von
-  2026-10-24 wieder entfernt, `run/options.txt` zurückgespielt).
+  Rückfrage.

@@ -55,7 +55,7 @@ Mahlen, Waschen, Fertigungsketten …).</p>
     ['<b>Create: Integrated Farming</b> (+ Create: Dragons Plus)', 'Farm-Automatisierung mit Create: Pflanzen, Tiere und Fischerei in Maschinen'],
     ['<b>Create: Protection Pixel</b>', 'Rüstungen im Steampunk-/Create-Stil aus Messing und Legierungen, einige mit Sonderfunktionen'],
     ['GraveStone Mod', 'Unabhängig von Create: beim Tod landet das Inventar in einem Grabstein statt am Boden'],
-    ['LambDynamicLights', 'Unabhängig von Create: dynamisches Licht (Fackel in der Hand, brennende Mobs …) und der Lichtkegel des Elektrischen Leuchtschilds'],
+    ['LambDynamicLights', 'Unabhängig von Create: dynamisches Licht (Fackel in der Hand, brennende Mobs …) und das Licht des Elektrischen Leuchtschilds'],
 ])}
 <h2 id="cr--craft">Zusammenspiel mit Craft</h2>
 <ul>
@@ -154,6 +154,7 @@ Craft ersetzt es deshalb. Mit dem Einsetzer (Brett auf die Welle) geht es weiter
 <h2 id="ca--rohstoffe">Rohstoffe: Mechanical Extruder und Ore Excavation</h2>
 <ul>
 <li><b>Mechanical Extruder</b> erzeugt Blöcke aus zwei angrenzenden Flüssigkeiten (z. B. Wasser + Lava → Bruchstein) und schiebt sie aus – ohne Spielerhand.</li>
+<li><b>Andesit, Granit und Tuff</b> (ab Paket 1.0.13): Wasser + Lava an den Seiten und <b>derselbe Block als Katalysator unter dem Extruder</b> – in jeder Höhe (die Mod-Vorgabe Y 0–60 entfällt für Andesit und Granit; Diorit bleibt so). Der Katalysator wird nicht verbraucht. Am besten das gewünschte Ergebnis im Filter des Extruders einstellen, sonst kann er auch Bruchstein liefern. Ochrum: Goldblock + Lava (unverändert).</li>
 <li><b>Ore Excavation</b>: In der Welt gibt es unterirdische Erzvorkommen, die ein Bohrgerät mit Drehkraft dauerhaft abbaut. Vorkommen findet man mit einem Suchgerät aus dem Mod.</li>
 </ul>
 <h2 id="ca--ae2">Applied Energistics 2 und Applied Kinetics</h2>
@@ -174,7 +175,7 @@ Legierungen. Ab Paket <b>1.0.7</b>. Rezepte in EMI.</p>
 <p>Stirbt man, erscheint an der Stelle ein Grabstein mit dem gesamten Inventar; Rechtsklick holt die Sachen zurück. Ab Paket <b>1.0.7</b>.</p>
 <h2 id="ca--ldl">LambDynamicLights</h2>
 <p>Dynamisches Licht: Fackeln und andere leuchtende Items in der Hand, brennende Mobs und Ähnliches erhellen die Umgebung, ohne
-das Licht der Welt zu ändern. Craft nutzt es für den Lichtkegel des <a href="#/leuchtschild">Elektrischen Leuchtschilds</a>.
+das Licht der Welt zu ändern. Craft nutzt es für das Licht des <a href="#/leuchtschild">Elektrischen Leuchtschilds</a>.
 Ab Paket <b>1.0.12</b>; Einstellungen unter Optionen → Grafik (mit Sodium in dessen Menü).</p>
 '''
     page('create-addons', 'Addons', addons)

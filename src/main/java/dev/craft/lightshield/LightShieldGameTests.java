@@ -7,7 +7,6 @@ import dev.craft.Craft;
 import dev.craft.ic2.Ic2Items;
 import dev.craft.ic2.item.ElectricItems;
 import dev.craft.ic2.keyboard.Ic2Keyboard;
-import it.unimi.dsi.fastutil.longs.Long2FloatMap;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
@@ -53,65 +52,6 @@ public final class LightShieldGameTests {
         player.moveTo(helper.absoluteVec(new Vec3(2.5, 1.0, 2.5)));
         player.setItemInHand(InteractionHand.OFF_HAND, shield);
         return player;
-    }
-
-    /** Eye of a holder looking along +X at (1.5, 2.5, 3.5) of the test structure. */
-    private static final Vec3 CONE_EYE = new Vec3(1.5, 2.5, 3.5);
-
-    private static float coneAt(GameTestHelper helper, Long2FloatMap lights, int x, int y, int z) {
-        return lights.get(helper.absolutePos(new BlockPos(x, y, z)).asLong());
-    }
-
-    private static Long2FloatMap cone(GameTestHelper helper) {
-        return LightCone.compute(helper.getLevel(), helper.absoluteVec(CONE_EYE), new Vec3(1.0, 0.0, 0.0));
-    }
-
-    @GameTest(template = EMPTY)
-    public static void coneValues(GameTestHelper helper) {
-        helper.assertTrue(LightCone.coneLight(2.0, 0.0) == 14.0F, "full up to 4 blocks");
-        helper.assertTrue(LightCone.coneLight(10.0, 0.0) == 7.0F, "half way between 4 and 16");
-        helper.assertTrue(LightCone.coneLight(16.0, 0.0) == 0.0F, "ends at 16");
-        helper.assertTrue(LightCone.coneLight(2.0, 10.0) == 14.0F, "full inside 10°");
-        helper.assertTrue(LightCone.coneLight(2.0, 12.5) == 7.0F, "fades in the outer 5°");
-        helper.assertTrue(LightCone.coneLight(2.0, 15.0) == 0.0F, "30° opening");
-        helper.assertTrue(LightCone.glowLight(0.0) == 7.0F, "glow 7 at the eye");
-        helper.assertTrue(LightCone.glowLight(3.0) == 4.0F, "glow -1 per block");
-        helper.assertTrue(LightCone.glowLight(7.0) == 0.0F, "glow radius 7");
-        helper.succeed();
-    }
-
-    @GameTest(template = EMPTY)
-    public static void coneLightsAhead(GameTestHelper helper) {
-        Long2FloatMap lights = cone(helper);
-        helper.assertTrue(coneAt(helper, lights, 4, 2, 3) == 14.0F, "cone ahead");
-        float behind = coneAt(helper, lights, 0, 2, 3);
-        helper.assertTrue(behind > 0.0F && behind < 7.0F, "only the glow behind, got " + behind);
-        float side = coneAt(helper, lights, 1, 2, 7);
-        helper.assertTrue(side > 0.0F && side < 4.0F, "only the glow to the side, got " + side);
-        helper.succeed();
-    }
-
-    @GameTest(template = EMPTY)
-    public static void wallsBlockTheCone(GameTestHelper helper) {
-        for (int y = 1; y <= 3; y++) {
-            for (int z = 0; z < 8; z++) {
-                helper.setBlock(new BlockPos(4, y, z), Blocks.STONE);
-            }
-        }
-        Long2FloatMap lights = cone(helper);
-        helper.assertTrue(coneAt(helper, lights, 4, 2, 3) == 14.0F, "the wall itself is lit");
-        float behind = coneAt(helper, lights, 6, 2, 3);
-        helper.assertTrue(behind < 3.0F, "dark behind the wall, got " + behind);
-        helper.succeed();
-    }
-
-    @GameTest(template = EMPTY)
-    public static void coneShinesThroughWater(GameTestHelper helper) {
-        for (int x = 2; x < 8; x++) {
-            helper.setBlock(new BlockPos(x, 2, 3), Blocks.WATER);
-        }
-        helper.assertTrue(coneAt(helper, cone(helper), 6, 2, 3) > 10.0F, "water lets the light through");
-        helper.succeed();
     }
 
     @GameTest(template = EMPTY)

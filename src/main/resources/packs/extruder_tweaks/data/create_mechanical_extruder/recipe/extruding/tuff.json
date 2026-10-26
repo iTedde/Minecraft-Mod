@@ -1,0 +1,23 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "create_mechanical_extruder"
+    }
+  ],
+  "type": "create_mechanical_extruder:extruding",
+  "blockIngredients": {
+    "first": {
+      "blocks": "minecraft:water"
+    },
+    "second": {
+      "blocks": "minecraft:lava"
+    }
+  },
+  "catalyst": {
+    "blocks": "minecraft:tuff"
+  },
+  "result": {
+    "id": "minecraft:tuff"
+  }
+}

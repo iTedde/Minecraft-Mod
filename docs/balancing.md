@@ -79,8 +79,8 @@ eine Großanlage ≈ ⅓–⅔ eines HV-Felds, dafür Tag und Nacht. Vorschlagsw
 
 Neuer Inhalt ohne Pack-Vorbild (`spec/30-leuchtschild.md`): LV-Schild mit 10 000 EU (Transfer 100), Licht 14 für
 1 EU je 4 Ticks wie der Luminator (≈ 33 min je Ladung), geblockter Treffer 100 EU je Haltbarkeitspunkt eines
-Vanilla-Schilds; leer blockt er nicht. Ab 30.4 ist das Licht ein rein optischer Taschenlampen-Kegel über
-LambDynamicLights (16 Blöcke, 30°, Schein 7), der Verbrauch bleibt.
+Vanilla-Schilds; leer blockt er nicht. Ab 30.4 ist das Licht rein optisch über
+LambDynamicLights, seit 30.6 wie eine Fackel in der Hand (Licht 14 ringsum statt Kegel); der Verbrauch bleibt.
 
 ## 4. Vergleichstabelle (Vorschlag, gerundet)
 

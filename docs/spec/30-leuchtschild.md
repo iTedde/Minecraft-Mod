@@ -62,7 +62,29 @@ unterdrückt). Vanilla 1.21.1 hat kein bewegliches Licht; deshalb ein unsichtbar
   Weglegen keine Lichtblöcke liegen.
 - Gilt auch für Zombies/Skelette, die den Schild in der Nebenhand halten? → nein, nur Spieler.
 
+## 3b Licht wie eine Fackel (ab 30.6)
+
+Nutzer, 2026-10-25: „Das mit dem Lichtschild funktioniert noch gar nicht. Mach das einfach so, als wäre es eine
+Fackel.“ **Ersetzt den Kegel aus §3a** (Form, Wand-Prüfung, Neuberechnung); weiterhin gilt aus §3a: LambDynamicLights
+optional, rein clientseitig und optisch (Mobs spawnen weiter), für alle Spieler in Sichtweite, Energie unverändert.
+
+- Der Träger leuchtet **wie ein Spieler mit Fackel in der Hand**: LDL-Lichtquelle des Spielers mit Helligkeit **14**,
+  LDL verteilt sie wie bei der Fackel (Abfall je Block, Rundum-Licht).
+- Bedingung wie bisher: `ShieldLights.litShield` (Haupt- oder Nebenhand, Licht an, Ladung > 0, nicht Zuschauer).
+- Anders als die Fackel **nicht wasserempfindlich** (elektrisch): leuchtet auch unter Wasser.
+- Hält der Spieler zusätzlich eine Fackel o. Ä., zählt das Maximum.
+- Umsetzung: `DynamicLightHandlers.registerDynamicLightHandler(EntityType.PLAYER, …)` im LDL-Initializer; LDL wandelt
+  diese Handler beim Laden in eine Entity-Lichtquelle um und nimmt das Maximum mit den übrigen Quellen des Spielers
+  (geprüft im LDL-4.8.11-Jar: `DynamicLightHandlersMixin`, Zusammenführen per `Math.max`). Der eigene
+  `ItemLuminance`-Weg geht nicht – das Interface ist versiegelt.
+- Wirkt nur, wenn in den LDL-Einstellungen „Entitäten“ (und für das eigene Licht „Eigenes Licht“) an sind – wie bei
+  der Fackel.
+- Entfallen: `LightCone`, `LightConeBehavior` und die vier Kegel-Tests.
+
 ## 3a Licht als Lichtkegel (dynamisches Licht, ab 30.3)
+
+> **Ersetzt durch §3b (Nutzer, 2026-10-25, Phase 30.6).** Nur noch Historie.
+
 
 Nutzer, 2026-10-24: nur dynamisches Licht, **kegelförmig nach vorne** wie eine Taschenlampe; kein Lichtblock mehr.
 Befund vorher: Jade (15.10.6) zeigt den alten Lichtblock nicht an (Strahl mit `ClipContext.Block.OUTLINE`, Umriss leer).

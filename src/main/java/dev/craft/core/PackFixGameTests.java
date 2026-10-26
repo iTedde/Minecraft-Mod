@@ -22,4 +22,13 @@ public final class PackFixGameTests {
                 "createcasing", "crafting/shafts/birch_manual_only")).isPresent(), "no recipe without Create Encased");
         helper.succeed();
     }
+
+    @GameTest(template = "empty_8x4x8")
+    public static void extruderTweaksPackIsActive(GameTestHelper helper) {
+        helper.assertTrue(helper.getLevel().getServer().getPackRepository().getSelectedIds().stream()
+                .anyMatch(id -> id.contains("extruder_tweaks")), "pack selected");
+        helper.assertFalse(helper.getLevel().getRecipeManager().byKey(ResourceLocation.fromNamespaceAndPath(
+                "create_mechanical_extruder", "extruding/tuff")).isPresent(), "no recipe without the extruder");
+        helper.succeed();
+    }
 }

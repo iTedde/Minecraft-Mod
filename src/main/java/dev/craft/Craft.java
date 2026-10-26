@@ -60,11 +60,16 @@ public final class Craft {
     /**
      * Built-in data pack that replaces Create Encased's wooden shaft/cogwheel recipes, which clash with Create's
      * cogwheel recipes (pack fix, user 2026-10-23); its recipes only load with Create Encased installed.
+     * A second one replaces the Mechanical Extruder's andesite/granite recipes (catalyst instead of height limit) and
+     * adds tuff (user 2026-10-26); only loads with the extruder installed.
      */
     private static void addPackFinders(AddPackFindersEvent event) {
         if (event.getPackType() == PackType.SERVER_DATA) {
             event.addPackFinders(ResourceLocation.fromNamespaceAndPath(MODID, "packs/createcasing_fix"),
                     PackType.SERVER_DATA, Component.literal("Craft: Create Encased recipe fix"), PackSource.BUILT_IN,
+                    true, Pack.Position.TOP);
+            event.addPackFinders(ResourceLocation.fromNamespaceAndPath(MODID, "packs/extruder_tweaks"),
+                    PackType.SERVER_DATA, Component.literal("Craft: Mechanical Extruder recipes"), PackSource.BUILT_IN,
                     true, Pack.Position.TOP);
         }
     }
