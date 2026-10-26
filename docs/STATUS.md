@@ -2862,6 +2862,11 @@ Nutzer: „Das ist gut“ (Spec 32 freigegeben).
   1.0.13).
 - **Phase 32 erledigt, Client-Test offen** (Testplan 15).
 
+## Erledigt (Version 1.1.0, 2026-10-26)
+Nutzer: „Erstelle eine neue Datei. 1.1.0“ (Rückfrage: Paket und Mod).
+- [x] Craft **1.1.0** (`releases/craft-1.1.0.jar`, inhaltlich wie 1.0.13), Paket `releases/Craft-1.1.0-curseforge.zip`
+  (wie 1.0.16 mit Craft 1.1.0).
+
 ## Nächste Schritte
 - Client-Test 32 und 31 (Nutzer), 30.6, Extruder-Rezepte, Trichter.
 - B7: Tag-Übersetzungen nachtragen.
