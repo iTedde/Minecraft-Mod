@@ -48,6 +48,7 @@ Vanilla-Klassen/-Felder tragen lesbare Namen (`Block.cobblestone`, `Item.redston
 | `30-leuchtschild.md` | Elektrischer Leuchtschild (neuer Inhalt): EU-Schild, folgendes Licht über unsichtbaren Lichtblock, Ein/Aus per Modus-Taste, Verzauberungen auf Energie, Rezept – Vorschlag zur Freigabe (Phase 30) |
 | `31-verteilerrohr.md` | Verteiler-Transportrohr (neuer Inhalt): Item-Rohr mit Prozentwert je Seite, exakte Aufteilung, Stapel werden geteilt, GUI, Rezept – freigegeben 2026-10-26 (Phase 31) |
 | `32-kraftwerke-ausgleich.md` | Ausgleich der Großkraftwerke (gleiche Preis-Leistung, Wind knapp über MV und am billigsten) und Fluss-Bonus ×1,5 auf den Deckel der Wasserturbinen – freigegeben 2026-10-26 (Phase 32) |
+| `33-fe-producer.md` | FE Producer (neuer Inhalt): Power-Converters-Bauteil EU → FE (1 EU = 4 FE) für AE2 & Co., Push + Pull über die NeoForge-Capability, Rezept – Vorschlag zur Freigabe (Phase 33) |
 
 Ergänzend: `docs/balancing.md` (Vorschlag, nicht freigegeben), `docs/abweichungen.md`.
 

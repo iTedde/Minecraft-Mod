@@ -2867,6 +2867,15 @@ Nutzer: „Erstelle eine neue Datei. 1.1.0“ (Rückfrage: Paket und Mod).
 - [x] Craft **1.1.0** (`releases/craft-1.1.0.jar`, inhaltlich wie 1.0.13), Paket `releases/Craft-1.1.0-curseforge.zip`
   (wie 1.0.16 mit Craft 1.1.0).
 
+## Erledigt (33.0 FE Producer: Spezifikation, 2026-10-26)
+Nutzer: „ich hätte schon gerne einen EU Converter dafür, das ich das [AE2] mit meinem Strom Powern kann“.
+Rückfragen: Bauteil der Power Converters (nicht Einzelblock), nur EU → FE, 1 EU = 4 FE.
+- [x] `docs/spec/33-fe-producer.md`: Leistungssystem FE (450 PCU je FE), FE Producer mit Push an FE-Nachbarn und
+  Pull über `Capabilities.EnergyStorage.BLOCK`, Bruchteile bleiben in der Bridge, Rezept `G G/ R /G G` (Redstone-Block),
+  rote Texturen; EU-Netz bleibt ohne FE-Anbindung.
+- **Freigabe offen.**
+
 ## Nächste Schritte
+- Freigabe Spec 33, danach 33.1 Umsetzung.
 - Client-Test 32 und 31 (Nutzer), 30.6, Extruder-Rezepte, Trichter.
 - B7: Tag-Übersetzungen nachtragen.
