@@ -2777,10 +2777,20 @@ Nutzer: Rezepte für Andesit/Granit ändern (Katalysator = derselbe Block), Tuff
   Craft 1.0.11).
 - Client-Test offen: Trichter neben Redstone-Block läuft weiter.
 
+## Entscheidungen Nutzer (2026-10-26, Nachtrag)
+„Dann lass Forestry doch weg. Und der Tesserakt mit MJ reicht.“
+- Forestry (CE) entfällt – kein Eintrag im Manifest.
+- Kein EU-Tesserakt; der TE-Energy-Tesserakt (MJ, 25.7) reicht.
+
+## Erledigt (31.0 Verteiler-Transportrohr: Spezifikation, 2026-10-26)
+- [x] `docs/spec/31-verteilerrohr.md`: `craft:distribution_transport_pipe`, Gewichte 0–100 je Seite (0 = gesperrt, alle 0
+  = normales Rohr), exakte Aufteilung per Zähler je Item, Stapel werden geteilt, kein Nachholen nach vollen Zielen,
+  ohne Ziel zurück zur Herkunft; GUI mit −10/−1/+1/+10 und tatsächlichem Anteil; Rezept Diamant-Transportrohr +
+  Komparator; Tests, Teilpakete 31.1/31.2. Index `spec/README.md`, Phase 31 in CLAUDE.md.
+- **Freigabe offen** (§7: Rezept, Startwert, Stapel teilen, kein Nachholen, ohne Ziel).
+
 ## Nächste Schritte
-- Forestry: Rückfragen (Alpha, Überschneidungen) klären, dann ins Manifest (Forestry CE + Farms + Patchouli).
-- Prozent-Rohr: Spezifikation, Umsetzung.
-- EU-Energie-Tesserakt: Verlust/Leistung klären, Spezifikation, Umsetzung.
+- 31.0 freigeben lassen, dann 31.1 Umsetzung (Block, Logik, GUI, Rezept, Textur, GameTests), 31.2 EMI/Wiki/Paket.
 - Client-Test 30.6 (Leuchtschild mit LDL ≈ Fackel), Extruder-Rezepte, Trichter – nur nach Rückfrage.
 - B7: Tag-Übersetzungen nachtragen.
 - Rest Client-Test Leuchtschild (13.1, Teile von 13.2–13.4), MPS (Testplan 12) und GraviSuite (Testplan 11) – nur nach
