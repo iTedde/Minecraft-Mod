@@ -246,7 +246,7 @@ Testwelt. Sprache einmal Deutsch, einmal Englisch prüfen. EMI und Xaero's Minim
 | B4 | 2026-10-20 | Zahme Katzen setzten sich nicht auf Iron Chests, sondern blieben davor stehen: `IronChestBlock` meldete der Wegfindung „begehbar“ (Standard für nicht volle Blöcke), die Katze plante den Weg durch die Kiste. Vanilla-Truhe: `isPathfindable` = false | behoben (0.4.2, `isPathfindable` = false, GameTest `catsSitOnIronChests` prüft die Wegfindung) |
 | B5 | 2026-10-20 | Ladeanzeige (HUD oben links) liegt über der Xaero-Minimap, die ebenfalls oben links sitzt | behoben 2026-10-20: HUD links neben die Hotbar verschoben (Nutzer); Client-Prüfung offen |
 | B6 | 2026-10-20 | Shift-„+“ in EMI leert ein Raster, in dem schon ein Rezept liegt, statt es aufzufüllen (Projekttisch, Automatische Werkbank) | kein Mod-Fehler: Vanilla-Werkbank verhält sich in EMI 1.1.22 genauso; bei leerem Raster füllt Shift-„+“ korrekt |
-| B7 | 2026-10-24 | EMI meldet 8 unübersetzte Tags: `c:dusts/invar`, `c:gears/copper`, `c:gears/invar`, `c:gears/tin`, `c:ingots/invar`, `c:ores/lead`, `c:ores/nickel`, `c:ores/silver` (Thermal-Expansion-Materialien) | offen (Tag-Namen im Sprach-Datagen nachtragen) |
+| B7 | 2026-10-24 | EMI meldet 8 unübersetzte Tags: `c:dusts/invar`, `c:gears/copper`, `c:gears/invar`, `c:gears/tin`, `c:ingots/invar`, `c:ores/lead`, `c:ores/nickel`, `c:ores/silver` (Thermal-Expansion-Materialien) | behoben (2026-10-27, Tag-Namen de/en in `CraftLanguageProvider.itemTags`, Client-Test offen) |
 | B3 | 2026-10-17 | Nachtsichtbrille: Icon ist eine lila Fläche – im Pack identisch (`item_0.png` Index 232 ist dort Platzhalter) | behoben: eigenes Icon (Nutzerwunsch 2026-10-17, `abweichungen.md`) |
 
 ## Durchlauf 2026-10-17 (automatisiert im echten Client)

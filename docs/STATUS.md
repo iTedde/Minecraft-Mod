@@ -2908,7 +2908,14 @@ Nutzer: „Beim Induction Furnace, der Rechte Slot kann mit Pipes nicht rausgezo
   Smelter (Nebenausgang standardmäßig nur oben/unten).
 - [x] Craft 1.1.1 und Paket 1.1.1 neu gebaut (Nutzer: „Mache daraus die Version 1.1.1“), inhaltlich wie zuvor plus Test.
 
+## Erledigt (B7 Tag-Übersetzungen, 2026-10-27)
+Nutzer: „Mach alles, was noch gemacht werden muss“.
+- [x] `CraftLanguageProvider.itemTags`: Kupfer und Invar als Materialien, neue Art `gears` (Zahnräder); Namen für
+  `c:dusts/invar`, `c:gears/copper|invar|tin`, `c:ingots/invar`, `c:ores/lead|nickel|silver` (de/en).
+- [x] `gradlew runData build` grün (GameTests nicht erneut, nur Lang-Datagen geändert; 543 grün zuletzt).
+- Keine neue Version gebaut (Craft 1.1.1 / Paket 1.1.1 unverändert).
+
 ## Nächste Schritte
 - Client-Test 33 (FE Producer an AE2 Energy Acceptor, Testplan 16).
-- Client-Test 32 und 31 (Nutzer), 30.6, Extruder-Rezepte, Trichter.
-- B7: Tag-Übersetzungen nachtragen.
+- Client-Test 32 und 31 (Nutzer), 30.6, Extruder-Rezepte, Trichter, B7 (EMI-Tags übersetzt?).
+- Induction Furnace rechter Ausgang: Rückfrage an den Nutzer offen (welche Rohre/Seite, IC2 oder TE).

@@ -139,15 +139,17 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
                 {"galena", "Galena", "Galena"}, {"iridium", "Iridium", "Iridium"}, {"olivine", "Olivine", "Olivin"},
                 {"pyrite", "Pyrite", "Pyrit"}, {"ruby", "Ruby", "Rubin"}, {"sapphire", "Sapphire", "Saphir"},
                 {"sheldonite", "Sheldonite", "Sheldonit"}, {"sodalite", "Sodalite", "Sodalith"},
-                {"sphalerite", "Sphalerite", "Sphalerit"}, {"tungstate", "Tungstate", "Tungstat"}};
+                {"sphalerite", "Sphalerite", "Sphalerit"}, {"tungstate", "Tungstate", "Tungstat"},
+                {"copper", "Copper", "Kupfer"}, {"invar", "Invar", "Invar"}};
         // tag folder → {English suffix, German suffix, materials with that tag}
         String[][] kinds = {
-                {"dusts", "Dusts", "staub", "aluminium brass bronze calcite chrome clay coal lead magnesium manganese "
-                        + "nickel platinum silver steel tin titanium tungsten zinc"},
-                {"ingots", "Ingots", "barren", "aluminium brass bronze chrome electrum lead nickel platinum refined_iron "
-                        + "silver steel tin titanium tungsten tungstensteel uranium zinc"},
-                {"ores", "Ores", "erze", "bauxite cinnabar galena iridium olivine pyrite ruby sapphire sheldonite "
-                        + "sodalite sphalerite tin tungstate uranium"},
+                {"dusts", "Dusts", "staub", "aluminium brass bronze calcite chrome clay coal invar lead magnesium "
+                        + "manganese nickel platinum silver steel tin titanium tungsten zinc"},
+                {"gears", "Gears", "zahnräder", "copper invar tin"},
+                {"ingots", "Ingots", "barren", "aluminium brass bronze chrome electrum invar lead nickel platinum "
+                        + "refined_iron silver steel tin titanium tungsten tungstensteel uranium zinc"},
+                {"ores", "Ores", "erze", "bauxite cinnabar galena iridium lead nickel olivine pyrite ruby sapphire "
+                        + "sheldonite silver sodalite sphalerite tin tungstate uranium"},
                 {"plates", "Plates", "platten", "aluminium brass bronze electrum chrome lead magnalium nickel platinum "
                         + "refined_iron silicon silver steel tin titanium tungsten tungstensteel zinc"},
                 {"storage_blocks", "Storage Blocks", "blöcke", "bronze steel tin uranium"}};
