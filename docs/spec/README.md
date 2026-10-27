@@ -49,7 +49,7 @@ Vanilla-Klassen/-Felder tragen lesbare Namen (`Block.cobblestone`, `Item.redston
 | `31-verteilerrohr.md` | Verteiler-Transportrohr (neuer Inhalt): Item-Rohr mit Prozentwert je Seite, exakte Aufteilung, Stapel werden geteilt, GUI, Rezept – freigegeben 2026-10-26 (Phase 31) |
 | `32-kraftwerke-ausgleich.md` | Ausgleich der Großkraftwerke (gleiche Preis-Leistung, Wind knapp über MV und am billigsten) und Fluss-Bonus ×1,5 auf den Deckel der Wasserturbinen – freigegeben 2026-10-26 (Phase 32) |
 | `33-fe-producer.md` | FE Producer (neuer Inhalt): Power-Converters-Bauteil EU → FE (1 EU = 4 FE) für AE2 & Co., Push + Pull über die NeoForge-Capability, Rezept – freigegeben 2026-10-26 (Phase 33) |
-| `34-grosser-projekttisch.md` | Großer Projekttisch (neuer Inhalt): teurerer Projekttisch mit 27 Vorratsplätzen wie eine Holztruhe, sonst wie der Projekttisch – Freigabe offen (Phase 34) |
+| `34-grosser-projekttisch.md` | Großer Projekttisch (neuer Inhalt): teurerer Projekttisch mit 27 Vorratsplätzen wie eine Holztruhe, sonst wie der Projekttisch – freigegeben 2026-10-27 (Phase 34) |
 
 Ergänzend: `docs/balancing.md` (Vorschlag, nicht freigegeben), `docs/abweichungen.md`.
 

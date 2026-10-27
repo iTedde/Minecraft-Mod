@@ -2,7 +2,6 @@ package dev.craft.redpower.table;
 
 import static dev.craft.redpower.table.ProjectTableBlockEntity.GRID_SIZE;
 import static dev.craft.redpower.table.ProjectTableBlockEntity.PLAN_SLOT;
-import static dev.craft.redpower.table.ProjectTableBlockEntity.STORAGE_SIZE;
 import static dev.craft.redpower.table.ProjectTableBlockEntity.STORAGE_START;
 
 import java.util.ArrayList;
@@ -27,7 +26,7 @@ import org.jetbrains.annotations.Nullable;
 
 /**
  * Crafting rules of the RedPower project table (spec 20 §1.3): the grid refills itself from the storage, a written plan
- * takes every ingredient from the storage. Works on the table's 28-slot inventory.
+ * takes every ingredient from the storage. Works on the table's inventory (storage from slot 10 to the end).
  */
 public final class ProjectTableCrafting {
     /** All nine grid slots satisfied. */
@@ -67,10 +66,10 @@ public final class ProjectTableCrafting {
 
     /** {@code findMatch}: the first storage slot whose stack matches, or −1. */
     public static int findMatch(IItemHandlerModifiable inventory, ItemStack wanted) {
-        for (int i = 0; i < STORAGE_SIZE; i++) {
-            ItemStack test = inventory.getStackInSlot(STORAGE_START + i);
+        for (int i = STORAGE_START; i < inventory.getSlots(); i++) {
+            ItemStack test = inventory.getStackInSlot(i);
             if (!test.isEmpty() && matches(wanted, test)) {
-                return STORAGE_START + i;
+                return i;
             }
         }
         return -1;
@@ -91,8 +90,8 @@ public final class ProjectTableCrafting {
         if (bits == ALL) {
             return ALL;
         }
-        for (int i = 0; i < STORAGE_SIZE; i++) {
-            ItemStack test = inventory.getStackInSlot(STORAGE_START + i);
+        for (int i = STORAGE_START; i < inventory.getSlots(); i++) {
+            ItemStack test = inventory.getStackInSlot(i);
             if (test.isEmpty()) {
                 continue;
             }
@@ -124,8 +123,8 @@ public final class ProjectTableCrafting {
         if (bits == ALL) {
             return false;
         }
-        for (int i = 0; i < STORAGE_SIZE; i++) {
-            ItemStack test = inventory.getStackInSlot(STORAGE_START + i);
+        for (int i = STORAGE_START; i < inventory.getSlots(); i++) {
+            ItemStack test = inventory.getStackInSlot(i);
             if (test.isEmpty()) {
                 continue;
             }

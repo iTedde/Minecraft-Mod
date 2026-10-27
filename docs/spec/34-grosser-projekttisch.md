@@ -63,9 +63,11 @@ der alte Tisch wird beim Abbau geleert (alles droppt), dann verbaut.
   Rezept vorhanden.
 - Testplan: GUI im Client (Slots, Bauplan, EMI-„+“), Holzrohr/Trichter am Vorrat.
 
-## 7. Offene Entscheidungen
+## 7. Entscheidungen
 
-| Nr. | Frage | Vorschlag |
+Freigegeben (Nutzer, 2026-10-27: „Mache ihn“) – alle Vorschläge übernommen:
+
+| Nr. | Frage | Entscheidung |
 |---|---|---|
 | F1 | Name | „Großer Projekttisch“ / „Large Project Table“ |
 | F2 | Rezept | `III/CPC/III` (Projekttisch + 2 Truhen + 6 Eisenbarren) |
@@ -73,7 +75,7 @@ der alte Tisch wird beim Abbau geleert (alles droppt), dann verbaut.
 
 ## 8. Teilphasen
 
-- **34.0** Spezifikation (diese Datei) – Freigabe offen.
+- **34.0** Spezifikation (diese Datei) – freigegeben 2026-10-27.
 - **34.1** Umsetzung: Block, Block-Entity, Menü/Screen, Logik mit Vorratsgröße als Parameter, Rezept, Lang, Texturen,
-  EMI-Handler, GameTests.
+  EMI-Handler, GameTests – erledigt 2026-10-27.
 - **34.2** EMI-Info, Wiki, Herkunft, Testplan, Paket.

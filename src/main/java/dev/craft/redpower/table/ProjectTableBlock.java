@@ -61,7 +61,7 @@ public class ProjectTableBlock extends BaseEntityBlock {
         return InteractionResult.sidedSuccess(level.isClientSide());
     }
 
-    /** All 28 slots drop (the original lost the last storage slot; fixed, spec 20 §4 F2). */
+    /** All slots drop (the original lost the last storage slot; fixed, spec 20 §4 F2). */
     @Override
     protected void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
         if (!state.is(newState.getBlock()) && level.getBlockEntity(pos) instanceof ProjectTableBlockEntity table) {

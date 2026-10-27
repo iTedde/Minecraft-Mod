@@ -2144,12 +2144,16 @@ public final class CraftRecipeProvider extends RecipeProvider {
 
     /**
      * RedPower project table ({@code RedPowerBase} 354, stone, planks, crafting table, chest) and blank plan: paper and
-     * indigo dye, here any blue dye (RedPower registers indigo as {@code dyeBlue}, spec 20 §4 F4).
+     * indigo dye, here any blue dye (RedPower registers indigo as {@code dyeBlue}, spec 20 §4 F4). Large project table
+     * (spec 34): project table, two chests and six iron ingots.
      */
     private void redPowerTable() {
         shaped(RpItems.PROJECT_TABLE, 1, "project_table").pattern("SSS", "WTW", "WCW")
                 .define('S', Items.STONE).define('W', ItemTags.PLANKS).define('T', Items.CRAFTING_TABLE)
                 .define('C', Items.CHEST).save();
+        shaped(RpItems.LARGE_PROJECT_TABLE, 1, "large_project_table").pattern("III", "CPC", "III")
+                .define('I', Tags.Items.INGOTS_IRON).define('C', Tags.Items.CHESTS_WOODEN)
+                .define('P', RpItems.PROJECT_TABLE.get()).save();
         shapeless(RpItems.BLANK_PLAN, 1, "blank_plan", Ingredient.of(Items.PAPER), Ingredient.of(Tags.Items.DYES_BLUE));
     }
 

@@ -45,6 +45,7 @@ public class CraftEmiPlugin implements EmiPlugin {
         LightShieldEmiRecipes.register(registry);
         PcEmiRecipes.register(registry);
         registry.addWorkstation(VanillaEmiRecipeCategories.CRAFTING, EmiStack.of(RpItems.PROJECT_TABLE.get()));
+        registry.addWorkstation(VanillaEmiRecipeCategories.CRAFTING, EmiStack.of(RpItems.LARGE_PROJECT_TABLE.get()));
         CraftingTableEmiHandlers.register(registry);
         MultiblockEmiInfo.register(registry);
         MultiblockEmiInfo.registerTerraformer(registry);

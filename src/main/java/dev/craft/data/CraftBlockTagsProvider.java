@@ -81,7 +81,7 @@ public final class CraftBlockTagsProvider extends BlockTagsProvider {
         for (Ic2Machine machine : Ic2Machine.values()) {
             tag(BlockTags.MINEABLE_WITH_PICKAXE).add(Ic2Blocks.machine(machine).get());
         }
-        tag(BlockTags.MINEABLE_WITH_PICKAXE).add(RpBlocks.PROJECT_TABLE.get());
+        tag(BlockTags.MINEABLE_WITH_PICKAXE).add(RpBlocks.PROJECT_TABLE.get(), RpBlocks.LARGE_PROJECT_TABLE.get());
         IronChestBlocks.BLOCKS.getEntries().forEach(chest -> tag(BlockTags.MINEABLE_WITH_PICKAXE).add(chest.get()));
         tag(BlockTags.MINEABLE_WITH_PICKAXE).add(EsBlocks.ENDER_CHEST.get(), EsBlocks.ENDER_TANK.get());
         // Tinker Table: pickaxe level 0.

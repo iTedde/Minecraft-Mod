@@ -15,19 +15,25 @@ import net.minecraft.world.item.ItemStack;
 
 /**
  * RedPower {@code GuiAdvBench}: the write-plan button lights up with a blank plan and a result; a written plan shows its
- * ingredients as ghost items in empty grid slots, red where the storage cannot supply them.
+ * ingredients as ghost items in empty grid slots, red where the storage cannot supply them. The large project table
+ * (spec 34) uses a background one storage row higher.
  */
 public class ProjectTableScreen extends AbstractContainerScreen<ProjectTableMenu> {
     private static final ResourceLocation BACKGROUND =
             ResourceLocation.fromNamespaceAndPath(Craft.MODID, "textures/gui/project_table.png");
+    private static final ResourceLocation LARGE_BACKGROUND =
+            ResourceLocation.fromNamespaceAndPath(Craft.MODID, "textures/gui/large_project_table.png");
     private static final int BUTTON_X = 18;
     private static final int BUTTON_Y = 55;
     private static final int BUTTON_SIZE = 14;
 
+    private final ResourceLocation background;
+
     public ProjectTableScreen(ProjectTableMenu menu, Inventory inventory, Component title) {
         super(menu, inventory, title);
         imageWidth = 176;
-        imageHeight = 222;
+        imageHeight = 222 + (menu.storageRows() - 2) * 18;
+        background = menu.storageRows() > 2 ? LARGE_BACKGROUND : BACKGROUND;
         titleLabelX = 60;
         inventoryLabelY = imageHeight - 94;
     }
@@ -45,9 +51,9 @@ public class ProjectTableScreen extends AbstractContainerScreen<ProjectTableMenu
 
     @Override
     protected void renderBg(GuiGraphics graphics, float partialTick, int mouseX, int mouseY) {
-        graphics.blit(BACKGROUND, leftPos, topPos, 0, 0, imageWidth, imageHeight);
+        graphics.blit(background, leftPos, topPos, 0, 0, imageWidth, imageHeight);
         if (canWritePlan()) {
-            graphics.blit(BACKGROUND, leftPos + BUTTON_X, topPos + BUTTON_Y, 176, 0, BUTTON_SIZE, BUTTON_SIZE);
+            graphics.blit(background, leftPos + BUTTON_X, topPos + BUTTON_Y, 176, 0, BUTTON_SIZE, BUTTON_SIZE);
         }
         ItemStack[] plan = menu.getPlanItems();
         if (plan == null) {
@@ -72,7 +78,7 @@ public class ProjectTableScreen extends AbstractContainerScreen<ProjectTableMenu
             } else {
                 graphics.setColor(1.0F, 0.1F, 0.1F, 0.6F);
             }
-            graphics.blit(BACKGROUND, x, y, slot.x, slot.y, 16, 16);
+            graphics.blit(background, x, y, slot.x, slot.y, 16, 16);
             graphics.setColor(1.0F, 1.0F, 1.0F, 1.0F);
             RenderSystem.disableBlend();
             graphics.pose().popPose();

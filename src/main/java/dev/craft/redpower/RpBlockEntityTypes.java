@@ -16,6 +16,10 @@ public final class RpBlockEntityTypes {
     public static final Supplier<BlockEntityType<ProjectTableBlockEntity>> PROJECT_TABLE =
             BLOCK_ENTITY_TYPES.register("project_table", () -> BlockEntityType.Builder
                     .of(ProjectTableBlockEntity::new, RpBlocks.PROJECT_TABLE.get()).build(null));
+    @SuppressWarnings("DataFlowIssue")
+    public static final Supplier<BlockEntityType<ProjectTableBlockEntity>> LARGE_PROJECT_TABLE =
+            BLOCK_ENTITY_TYPES.register("large_project_table", () -> BlockEntityType.Builder
+                    .of(ProjectTableBlockEntity::large, RpBlocks.LARGE_PROJECT_TABLE.get()).build(null));
 
     private RpBlockEntityTypes() {
     }

@@ -36,6 +36,7 @@
     "craft:singularity_compressor",
     "craft:centrifuge_extractor",
     "craft:project_table",
+    "craft:large_project_table",
     "craft:iron_chest",
     "craft:gold_chest",
     "craft:diamond_chest",

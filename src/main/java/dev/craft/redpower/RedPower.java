@@ -18,9 +18,11 @@ public final class RedPower {
         modBus.addListener(RedPower::registerCapabilities);
     }
 
-    /** Every side of the project table reaches the 18 storage slots only. */
+    /** Every side of the project tables reaches the storage slots only (18, large table 27). */
     private static void registerCapabilities(RegisterCapabilitiesEvent event) {
         event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, RpBlockEntityTypes.PROJECT_TABLE.get(),
+                (table, side) -> table.getStorage());
+        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, RpBlockEntityTypes.LARGE_PROJECT_TABLE.get(),
                 (table, side) -> table.getStorage());
     }
 }

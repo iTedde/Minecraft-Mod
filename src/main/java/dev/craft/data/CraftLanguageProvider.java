@@ -184,6 +184,8 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
     protected void redPower(boolean german) {
         add("itemGroup.craft.redpower", "Craft: RedPower");
         block(RpBlocks.PROJECT_TABLE, german ? "Projekttisch" : "Project Table");
+        block(RpBlocks.LARGE_PROJECT_TABLE, german ? "Großer Projekttisch" : "Large Project Table");
+        add("tooltip.craft.large_project_table", german ? "27 Vorratsplätze" : "27 storage slots");
         item(RpItems.BLANK_PLAN, german ? "Leerer Bauplan" : "Blank Plan");
         item(RpItems.PLAN, german ? "Bauplan" : "Plan");
         add(RpItems.PLAN.get().getDescriptionId() + ".named", german ? "Bauplan: %s" : "%s Plan");

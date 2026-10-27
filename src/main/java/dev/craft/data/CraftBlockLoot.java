@@ -73,6 +73,7 @@ public final class CraftBlockLoot extends BlockLootSubProvider {
         }
         dropSelf(GtBlocks.HIGHLY_ADVANCED_MACHINE_BLOCK.get());
         dropSelf(RpBlocks.PROJECT_TABLE.get());
+        dropSelf(RpBlocks.LARGE_PROJECT_TABLE.get());
         dropSelf(MpsBlocks.TINKER_TABLE.get());
         IronChestBlocks.BLOCKS.getEntries().forEach(chest -> dropSelf(chest.get()));
         // EnderStorage getBlockDropped: always itself with frequency and owner (spec 27 §2).

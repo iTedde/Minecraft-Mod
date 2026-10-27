@@ -74,6 +74,8 @@ public final class RpItems {
     public static final DeferredItem<PlanItem> PLAN = ITEMS.register("plan",
             () -> new PlanItem(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)));
     public static final DeferredItem<BlockItem> PROJECT_TABLE = ITEMS.registerSimpleBlockItem(RpBlocks.PROJECT_TABLE);
+    public static final DeferredItem<BlockItem> LARGE_PROJECT_TABLE =
+            ITEMS.registerSimpleBlockItem(RpBlocks.LARGE_PROJECT_TABLE);
 
     private static final Map<RpGem, Map<Tool, DeferredItem<Item>>> TOOLS = new EnumMap<>(RpGem.class);
 

@@ -1,6 +1,7 @@
 package dev.craft.redpower;
 
 import dev.craft.Craft;
+import dev.craft.redpower.table.LargeProjectTableBlock;
 import dev.craft.redpower.table.ProjectTableBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -18,6 +19,11 @@ public final class RpBlocks {
             () -> new ProjectTableBlock(BlockBehaviour.Properties.of().mapColor(MapColor.STONE)
                     .instrument(NoteBlockInstrument.BASEDRUM).strength(2.0F).requiresCorrectToolForDrops()
                     .sound(SoundType.STONE)));
+    /** Large project table (spec 34): same block properties. */
+    public static final DeferredBlock<LargeProjectTableBlock> LARGE_PROJECT_TABLE = BLOCKS.register(
+            "large_project_table", () -> new LargeProjectTableBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.STONE).instrument(NoteBlockInstrument.BASEDRUM).strength(2.0F)
+                    .requiresCorrectToolForDrops().sound(SoundType.STONE)));
 
     private RpBlocks() {
     }

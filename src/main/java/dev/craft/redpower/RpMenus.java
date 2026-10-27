@@ -13,7 +13,10 @@ public final class RpMenus {
     public static final DeferredRegister<MenuType<?>> MENUS = DeferredRegister.create(Registries.MENU, Craft.MODID);
 
     public static final Supplier<MenuType<ProjectTableMenu>> PROJECT_TABLE = MENUS.register("project_table",
-            () -> IMenuTypeExtension.create((id, inventory, buf) -> new ProjectTableMenu(id, inventory)));
+            () -> IMenuTypeExtension.create((id, inventory, buf) -> ProjectTableMenu.client(id, inventory)));
+    public static final Supplier<MenuType<ProjectTableMenu>> LARGE_PROJECT_TABLE = MENUS.register(
+            "large_project_table",
+            () -> IMenuTypeExtension.create((id, inventory, buf) -> ProjectTableMenu.clientLarge(id, inventory)));
 
     private RpMenus() {
     }

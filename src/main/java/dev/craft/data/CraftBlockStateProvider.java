@@ -180,6 +180,11 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
                 modLoc("block/project_table_top"));
         horizontalBlock(RpBlocks.PROJECT_TABLE.get(), model);
         simpleBlockItem(RpBlocks.PROJECT_TABLE.get(), model);
+        ModelFile large = models().orientableWithBottom("large_project_table",
+                modLoc("block/large_project_table_side"), modLoc("block/large_project_table_front"),
+                modLoc("block/large_project_table_bottom"), modLoc("block/large_project_table_top"));
+        horizontalBlock(RpBlocks.LARGE_PROJECT_TABLE.get(), large);
+        simpleBlockItem(RpBlocks.LARGE_PROJECT_TABLE.get(), large);
         // Iron chests are drawn by their block entity renderer; the item model is builtin/entity.
         for (IronChestType type : IronChestType.values()) {
             simpleBlock(IronChestBlocks.chest(type).get(), models().getBuilder(type.getName() + "_chest")

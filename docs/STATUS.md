@@ -2927,8 +2927,25 @@ vermerkt gewesen, neu aufgenommen).
   (Vorratsgröße als Parameter), GUI 176 × 240, Vorschläge F1 Name, F2 Rezept `III/CPC/III`, F3 Eisenrand-Textur.
 - **Freigabe offen.**
 
+## Erledigt (34.1 Großer Projekttisch: Umsetzung, 2026-10-27)
+Nutzer: „Mache ihn, aber mach noch keine neue Version danach“ (Spec 34 freigegeben, F1–F3 wie vorgeschlagen).
+- [x] Vorratsgröße als Parameter: `ProjectTableBlockEntity` (18 bzw. 27, `large(...)`), `ProjectTableCrafting` läuft
+  bis zum Inventarende, `ProjectTableMenu` mit `storageRows()`/`playerStart()`/`end()` und zwei Menütypen
+  (`client`/`clientLarge`), Screen 176 × 240 mit eigener GUI.
+- [x] `LargeProjectTableBlock` (`craft:large_project_table`), Block-Entity-Typ, Menü, Item, Item-Capability (27
+  Vorratsplätze), Tooltip „27 Vorratsplätze“, Name „Großer Projekttisch“ / „Large Project Table“.
+- [x] Rezept `III/CPC/III` (Eisenbarren, Holztruhen, Projekttisch), Loot, Spitzhacken-Tag, Blockstate/Modell.
+- [x] Texturen `tools/scripts/large_project_table_textures.py`: Projekttisch-Kacheln mit Eisenrand, GUI mit dritter
+  Vorratsreihe.
+- [x] EMI: Werkbank-Workstation und „+“-Füllen (gemeinsamer Handler für beide Tische).
+- [x] 4 neue GameTests (Nachschub aus der dritten Reihe + Menü-Aufbau, Automatisierung 27 Slots, Abbau droppt 37,
+  Rezept); `breakingDropsAllSlots` auf gemeinsame Hilfsmethode umgestellt. Alle 547 grün (ein Lauf vorher mit dem
+  bekannten Zufallsausreißer `plasmacannon`), `gradlew runData build` grün.
+- Keine neue Version (Nutzer).
+
 ## Nächste Schritte
-- Freigabe Spec 34 (F1–F3), dann 34.1.
+- 34.2: EMI-Info, Wiki, Herkunft, Testplan (Paket erst, wenn der Nutzer eine Version will).
+- Client-Test 34.1 (GUI 3 Reihen, Bauplan, EMI-„+“, Holzrohr/Trichter am Vorrat).
 - Client-Test 33 (FE Producer an AE2 Energy Acceptor, Testplan 16).
 - Client-Test 32 und 31 (Nutzer), 30.6, Extruder-Rezepte, Trichter, B7 (EMI-Tags übersetzt?).
 - Induction Furnace rechter Ausgang: Rückfrage an den Nutzer offen (welche Rohre/Seite, IC2 oder TE).
