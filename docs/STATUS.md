@@ -2920,7 +2920,15 @@ Nutzer: „Mach daraus die Version 1.1.2“.
 - [x] Craft **1.1.2** (`releases/craft-1.1.2.jar`, 1.1.1 plus B7), Paket `releases/Craft-1.1.2-curseforge.zip` (wie
   1.1.1 mit Craft 1.1.2, Manifest-Name/-Version 1.1.2).
 
+## Erledigt (34.0 Großer Projekttisch: Spezifikation, 2026-10-27)
+Nutzer: „Es sollte ein teurerer Project Table werden, der quasi eine Holzchest als Platz hatte“ (in keiner Datei
+vermerkt gewesen, neu aufgenommen).
+- [x] `docs/spec/34-grosser-projekttisch.md`: zweiter Projekttisch mit 27 Vorratsplätzen, sonst gleiche Logik
+  (Vorratsgröße als Parameter), GUI 176 × 240, Vorschläge F1 Name, F2 Rezept `III/CPC/III`, F3 Eisenrand-Textur.
+- **Freigabe offen.**
+
 ## Nächste Schritte
+- Freigabe Spec 34 (F1–F3), dann 34.1.
 - Client-Test 33 (FE Producer an AE2 Energy Acceptor, Testplan 16).
 - Client-Test 32 und 31 (Nutzer), 30.6, Extruder-Rezepte, Trichter, B7 (EMI-Tags übersetzt?).
 - Induction Furnace rechter Ausgang: Rückfrage an den Nutzer offen (welche Rohre/Seite, IC2 oder TE).
