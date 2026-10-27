@@ -2915,6 +2915,11 @@ Nutzer: „Mach alles, was noch gemacht werden muss“.
 - [x] `gradlew runData build` grün (GameTests nicht erneut, nur Lang-Datagen geändert; 543 grün zuletzt).
 - Keine neue Version gebaut (Craft 1.1.1 / Paket 1.1.1 unverändert).
 
+## Erledigt (Version 1.1.2, 2026-10-27)
+Nutzer: „Mach daraus die Version 1.1.2“.
+- [x] Craft **1.1.2** (`releases/craft-1.1.2.jar`, 1.1.1 plus B7), Paket `releases/Craft-1.1.2-curseforge.zip` (wie
+  1.1.1 mit Craft 1.1.2, Manifest-Name/-Version 1.1.2).
+
 ## Nächste Schritte
 - Client-Test 33 (FE Producer an AE2 Energy Acceptor, Testplan 16).
 - Client-Test 32 und 31 (Nutzer), 30.6, Extruder-Rezepte, Trichter, B7 (EMI-Tags übersetzt?).
