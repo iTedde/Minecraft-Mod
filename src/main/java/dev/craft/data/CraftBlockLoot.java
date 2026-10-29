@@ -13,7 +13,9 @@ import dev.craft.powerplants.PpBlocks;
 import dev.craft.enderstorage.EsBlocks;
 import dev.craft.mps.MpsBlocks;
 import dev.craft.enderstorage.EsDataComponents;
+import dev.craft.ironchest.IronChestBlock;
 import dev.craft.ironchest.IronChestBlocks;
+import dev.craft.ironchest.IronChestItems;
 import dev.craft.thermalexpansion.TeBlocks;
 import dev.craft.redpower.RpBlocks;
 import dev.craft.gregtech.GtBlocks;
@@ -75,7 +77,9 @@ public final class CraftBlockLoot extends BlockLootSubProvider {
         dropSelf(RpBlocks.PROJECT_TABLE.get());
         dropSelf(RpBlocks.LARGE_PROJECT_TABLE.get());
         dropSelf(MpsBlocks.TINKER_TABLE.get());
-        IronChestBlocks.BLOCKS.getEntries().forEach(chest -> dropSelf(chest.get()));
+        // Every copper chest stage drops the fresh copper chest (spec 35 §1).
+        IronChestBlocks.BLOCKS.getEntries().forEach(chest -> dropOther(chest.get(),
+                IronChestItems.chest(((IronChestBlock) chest.get()).getType())));
         // EnderStorage getBlockDropped: always itself with frequency and owner (spec 27 §2).
         for (Block ender : List.of(EsBlocks.ENDER_CHEST.get(), EsBlocks.ENDER_TANK.get())) {
             add(ender, LootTable.lootTable().withPool(applyExplosionCondition(ender, LootPool.lootPool()

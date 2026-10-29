@@ -2954,8 +2954,28 @@ Bau per Event ohne Mixin.
 ## Erledigt
 - [x] `docs/spec/35-kupfergolem.md` (Werte aus minecraft.wiki, Copper Golem/Copper Chest), Index, CLAUDE.md.
 
+- F1 entschieden (Nutzer, „passt so“): abgebaute Kupferkiste droppt frisch. Spezifikation freigegeben.
+
+# Phase 35.1 – Oxidation der Kupferkiste (2026-10-29)
+
+## Erledigt
+- [x] 8 Blöcke: `craft:copper_chest` (frisch, bleibt die bisherige ID) + `exposed_`/`weathered_`/`oxidized_copper_chest`,
+  je mit `waxed_`-Variante; `CopperChestBlock` (Stufe), `WeatheringCopperChestBlock` (`WeatheringCopper`, Zufallsticks).
+- [x] Data Maps `neoforge:oxidizables`/`waxables` → Vanilla-Oxidation, Honigwabe, Axt (schleichend), Blitz.
+- [x] `IronChestBlock#onRemove`: Wechsel innerhalb desselben Kistentyps behält Block-Entity und Inhalt.
+- [x] Renderer wählt die Textur je Stufe; 3 neue Kisten- und Partikeltexturen (Python/Pillow, Farbverschiebung nach
+  den Vanilla-Kupferblöcken). Loot: jede Stufe droppt die frische Kupferkiste. Lang DE/EN.
+- [x] 6 GameTests `CopperChestGameTests` (Stufenkette/Data Maps, Inhalt bleibt beim Oxidieren, Honigwabe + Axt,
+  Blitz, Drop, Upgrade aus oxidierter Kiste) grün. `gradlew runData build` grün.
+- [ ] GameTests gesamt: 548/549 – `liquidTesseractFillsRemoteTank` („water in the remote tank“) schlägt reproduzierbar
+  fehl, **auch ohne die neuen Tests**; vermutlich durch die noch nicht committete Nuke-Entfernung im Arbeitsbaum
+  (vorher 547 grün). Nicht angefasst.
+- `abweichungen.md`, `spec/22` (Nachtrag), `spec/35` §1 ergänzt.
+
 ## Nächste Schritte
-- 35.0: Frage F1 (Drop der oxidierten Kupferkiste) offen, dann 35.1 Oxidation der Kupferkiste.
+- 35.2: Golem (Kreatur, Bau aus Muster per Event + Werfer, Modell/Texturen, Oxidation/Wachs).
+- Client-Test 35.1 (Texturen der Stufen, Honigwabe/Axt schleichend, Partikel).
+- `liquidTesseractFillsRemoteTank` klären (siehe oben).
 - 34.2: EMI-Info, Wiki, Herkunft, Testplan (Paket erst, wenn der Nutzer eine Version will).
 - Client-Test 34.1 (GUI 3 Reihen, Bauplan, EMI-„+“, Holzrohr/Trichter am Vorrat).
 - Client-Test 33 (FE Producer an AE2 Energy Acceptor, Testplan 16).

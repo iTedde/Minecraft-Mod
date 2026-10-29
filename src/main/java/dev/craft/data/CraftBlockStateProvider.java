@@ -58,6 +58,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.NetherPortalBlock;
 import net.minecraft.world.level.block.PipeBlock;
+import net.minecraft.world.level.block.WeatheringCopper.WeatherState;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.AABB;
@@ -189,6 +190,16 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
         for (IronChestType type : IronChestType.values()) {
             simpleBlock(IronChestBlocks.chest(type).get(), models().getBuilder(type.getName() + "_chest")
                     .texture("particle", modLoc("block/ironchest/" + type.getName())));
+        }
+        // Copper chest stages (spec 35 §1); the unaffected unwaxed one is the copper chest above.
+        for (WeatherState stage : WeatherState.values()) {
+            String prefix = stage == WeatherState.UNAFFECTED ? "" : stage.getSerializedName() + "_";
+            ModelFile copperModel = models().getBuilder(prefix + "copper_chest")
+                    .texture("particle", modLoc("block/ironchest/" + prefix + "copper"));
+            if (stage != WeatherState.UNAFFECTED) {
+                simpleBlock(IronChestBlocks.copperChest(stage, false).get(), copperModel);
+            }
+            simpleBlock(IronChestBlocks.copperChest(stage, true).get(), copperModel);
         }
         // Shield light: invisible, glowstone particles.
         simpleBlock(LsBlocks.SHIELD_LIGHT.get(), models().getBuilder("shield_light")

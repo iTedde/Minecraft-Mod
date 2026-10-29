@@ -28,9 +28,10 @@ Neu:
 | Oxidation | Blockstate `oxidation` = `unaffected` / `exposed` / `weathered` / `oxidized`, Fortschritt über Zufallsticks wie Vanilla-Kupferblöcke (`WeatheringCopper`-Regeln: Wahrscheinlichkeit, Bremse durch weniger oxidierte Nachbarn) |
 | Wachs | Blockstate `waxed` (boolean); Honigwabe wachst (Partikel, Ton, Honigwabe wird verbraucht), gewachste Kiste oxidiert nicht |
 | Axt | schleichend Rechtsklick: entfernt Wachs, sonst eine Stufe (Haltbarkeit −1, Partikel wie Vanilla-Kupfer); ohne Schleichen öffnet sich wie bisher die GUI |
-| Blitz | entfernt eine Stufe (wie Vanilla-Kupferblöcke in der Nähe des Einschlags) |
+| Blitz | wie Vanilla-Kupfer: die getroffene Kiste (oder die hinter dem Blitzableiter) wird ganz frisch, Kupfer in der Nähe verliert zufällig je eine Stufe |
 | Inhalt / Funktion | unabhängig von der Stufe; Oxidation ist nur optisch und für den Golem egal |
-| Item | eine einzige Kupferkiste als Item (frisch); Abbauen droppt die frische Kiste, Stufe und Wachs gehen verloren (**F1**) |
+| Item | eine einzige Kupferkiste als Item (frisch); Abbauen droppt die frische Kiste, Stufe und Wachs gehen verloren (F1, Nutzer 2026-10-29) |
+| Umsetzung (35.1) | 8 Blöcke (`craft:copper_chest`, `exposed_`/`weathered_`/`oxidized_copper_chest`, je mit `waxed_`), alle `IronChestType.COPPER` mit demselben Block-Entity-Typ; Stufenwechsel behält das Block-Entity (`IronChestBlock#onRemove`); Data Maps `neoforge:oxidizables`/`waxables`, damit Vanilla-Zufallsticks, Honigwabe, Axt und Blitz greifen |
 | Upgrades | Kupfer → Eisen / Silber wie bisher, Oxidation entfällt mit dem Wechsel; Holz → Kupfer ergibt eine frische Kiste |
 | Darstellung | Renderer wählt die Textur nach Stufe: 4 Kupferkisten-Texturen (Python/Pillow aus `copperchest.png`, Farben der Vanilla-Kupferstufen) |
 | Komparator, Trichter, Rohre | unverändert |
@@ -131,5 +132,4 @@ Vanilla-Kupfer- und Eisengolem-Klänge in höherer Tonlage (eigene Sounds gibt e
 
 ## 5. Offene Fragen
 
-- **F1** Abgebaute Kupferkiste: als frische Kiste droppen (Vorschlag, Item bleibt eins und stapelt mit Neuen) oder
-  Stufe/Wachs im Item behalten (wie Vanilla-Kupfer mit eigenen Items je Stufe)?
+Keine. F1 entschieden (Nutzer, 2026-10-29): abgebaute Kupferkiste droppt frisch.

@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "craft:block/oxidized_copper_chest"
+    }
+  }
+}

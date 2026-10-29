@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "craft:block/weathered_copper_chest"
+    }
+  }
+}

@@ -1,6 +1,7 @@
 package dev.craft.data;
 
 import java.util.Arrays;
+import java.util.Locale;
 import java.util.function.Supplier;
 
 import dev.craft.Craft;
@@ -42,6 +43,7 @@ import dev.craft.mps.MpsBlocks;
 import dev.craft.mps.MpsItems;
 import dev.craft.mps.module.PowerModule;
 import dev.craft.ironchest.ChestUpgradeType;
+import dev.craft.ironchest.IronChestBlocks;
 import dev.craft.ironchest.IronChestItems;
 import dev.craft.ironchest.IronChestType;
 import dev.craft.redpower.RpBlocks;
@@ -60,6 +62,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.WeatheringCopper.WeatherState;
 import net.neoforged.neoforge.common.data.LanguageProvider;
 
 public abstract class CraftLanguageProvider extends LanguageProvider {
@@ -461,6 +464,19 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
                 {"Obsidian Chest", "Obsidiankiste"}};
         for (IronChestType type : IronChestType.values()) {
             item(IronChestItems.chest(type), chests[type.ordinal()][german ? 1 : 0]);
+        }
+        // Copper chest stages (spec 35 §1), named like the vanilla copper blocks.
+        String[][] stages = {{"", ""}, {"Exposed ", "Angelaufene "}, {"Weathered ", "Verwitterte "},
+                {"Oxidized ", "Oxidierte "}};
+        for (WeatherState stage : WeatherState.values()) {
+            String[] prefix = stages[stage.ordinal()];
+            if (stage != WeatherState.UNAFFECTED) {
+                block(IronChestBlocks.copperChest(stage, false), german ? prefix[1] + "Kupferkiste"
+                        : prefix[0] + "Copper Chest");
+            }
+            block(IronChestBlocks.copperChest(stage, true), german
+                    ? "Gewachste " + prefix[1].toLowerCase(Locale.ROOT) + "Kupferkiste"
+                    : "Waxed " + prefix[0] + "Copper Chest");
         }
         String[][] upgrades = {
                 {"Iron to Gold Chest Upgrade", "Kisten-Upgrade Eisen → Gold"},

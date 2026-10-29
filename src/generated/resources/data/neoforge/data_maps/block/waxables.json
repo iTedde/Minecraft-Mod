@@ -1,0 +1,16 @@
+{
+  "values": {
+    "craft:copper_chest": {
+      "waxed": "craft:waxed_copper_chest"
+    },
+    "craft:exposed_copper_chest": {
+      "waxed": "craft:waxed_exposed_copper_chest"
+    },
+    "craft:oxidized_copper_chest": {
+      "waxed": "craft:waxed_oxidized_copper_chest"
+    },
+    "craft:weathered_copper_chest": {
+      "waxed": "craft:waxed_weathered_copper_chest"
+    }
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "craft:block/exposed_copper_chest"
+    }
+  }
+}
