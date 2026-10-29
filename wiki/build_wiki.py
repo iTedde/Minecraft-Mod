@@ -655,8 +655,14 @@ def main():
     refs = {r: v for r, v in col.ref_table().items() if not (r.startswith('craft:') and r[6:] in ITEMS)}
     tags = {t: v for t, v in col.tags.items()}
     sources = {**SOURCES, **WIKI_NOTES}
+    import content_maschinen
+    machines = {ref: list(texts) for ref, texts in content_maschinen.MACHINES.items() if ref[6:] in ITEMS}
+    unknown = [ref for ref in content_maschinen.MACHINES if ref[6:] not in ITEMS]
+    if unknown:
+        print('machine texts without item:', unknown)
     if terms:
         recipe_list, refs, sources = terms.deep(recipe_list), terms.deep(refs), terms.deep(sources)
+        machines = terms.deep(machines)
     print(f'recipes: {len(recipe_list)}, foreign refs: {len(refs)}, tags: {len(tags)}')
 
     nav_groups = []
@@ -683,6 +689,7 @@ def main():
               .replace('{{RECIPES}}', json.dumps(recipe_list, ensure_ascii=False, separators=(',', ':')).replace('</', '<\\/'))
               .replace('{{REFS}}', json.dumps(refs, ensure_ascii=False, separators=(',', ':')).replace('</', '<\\/'))
               .replace('{{SOURCES}}', json.dumps(sources, ensure_ascii=False, separators=(',', ':')).replace('</', '<\\/'))
+              .replace('{{MACHINES}}', json.dumps(machines, ensure_ascii=False, separators=(',', ':')).replace('</', '<\\/'))
               .replace('{{LOGO}}', logo)
               .replace('{{BUILD}}', esc(f'Stand {glast} · Craft 0.3.0' + (' · englische Namen' if EN_NAMES else ''))))
     with open(OUT, 'w', encoding='utf-8') as f:

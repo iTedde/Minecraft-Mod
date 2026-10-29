@@ -3008,6 +3008,18 @@ Kupferkisten); Spec §2.3 angepasst.
   eigenen Batch verschoben. Zwei Läufe: alles grün bis auf das bekannte `liquidTesseractFillsRemoteTank` (einmal
   zusätzlich der bekannte Ausreißer `plasmacannon`). `gradlew runData build` grün.
 
+# Wiki: Maschinenbeschreibungen (2026-10-29)
+
+Nutzer: „Kannst du in beide Wikis reinschreiben, was alle Maschinen immer so machen und wofür sie gedacht sind?“ –
+„Schreib das doch direkt auf die Seiten der Maschinen“.
+
+## Erledigt
+- [x] `wiki/content_maschinen.py`: 160 Einträge (IC2, Advanced Machines, GT, BuildCraft samt Rohren, Forestry,
+  Power Converters, Kraftwerke samt Gehäuseteilen, stillgelegte Solar Arrays, Thermal Expansion, EnderStorage,
+  Projekttische, Tinker Table, Mining-Portal) mit „Was macht das?“ und „Wofür“; Werte aus `docs/spec`.
+- [x] Item-Seite zeigt den Abschnitt „Was macht das?“ vor der Herkunft; im englischen Wiki mit englischen Namen.
+- [x] Beide Wikis neu erzeugt und nach `X:/Craft/` kopiert. Sie spiegeln den Arbeitsbaum (Nuke dort schon entfernt).
+
 ## Nächste Schritte
 - 35.4: EMI-Info (Bau, Verhalten, Oxidation der Kupferkiste), Herkunft, Wiki, Testplan, `docs/abweichungen.md`
   (Kupfergolem-Eintrag; Datei hat noch nicht committete Nuke-Änderungen des Nutzers).
