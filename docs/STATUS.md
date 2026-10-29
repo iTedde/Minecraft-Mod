@@ -3073,7 +3073,18 @@ integration und Create Hyperloop muss noch über Curse Forge mit rein“ („Hyp
 - [x] Wiki „Create & Paket-Mods“: beide Mods ergänzt; Wikis neu erzeugt und nach `X:/Craft/` kopiert.
 - `gradlew runData build` grün; GameTests alles grün bis auf das bekannte `liquidTesseractFillsRemoteTank`.
 
+# Phase 37.0 – Spezifikation „Nichts macht mehr schneller“ (2026-10-29)
+
+Nutzer: Gravi Suit, Quantum, Power Suit und Advanced Jetpack sollen nicht mehr schneller machen, „es soll einfach
+nichts mehr geben, was einen schneller macht“, dafür je ein Ausgleich.
+
+## Erledigt
+- [x] `docs/spec/37-kein-tempo.md`: Bestandsaufnahme aller Tempo-Quellen (Quantenhose/-stiefel, IC2-Jetpacks, Fortg.
+  Jetpack/Nano-Brustplatte, Gravi-Brustplatte, MPS Sprint/Jump/Swim/Jet/Glider, Kaffee), Deckel auf Sprinttempo,
+  Ausgleich je Teil, Fragen F1–F4, Teilphasen 37.1–37.4. Kein Code geändert.
+
 ## Nächste Schritte
+- **Freigabe Phase 37** (Fragen F1–F4 in `spec/37` §4), danach 37.1.
 - Paket 1.1.3 im CurseForge-Launcher starten (neue Mods: Sophisticated Storage, Hypertubes).
 - Client-Test Phase 35 (Testplan §17) und 34 (Testplan §18); Gravi-Brustplatte am Boden ohne Verbrauch;
   Solarhelm-Rezept in EMI.
