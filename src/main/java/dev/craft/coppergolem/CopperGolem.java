@@ -15,6 +15,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LightningBolt;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
@@ -44,6 +45,11 @@ public class CopperGolem extends AbstractGolem {
 
     private static final EntityDataAccessor<Integer> WEATHER_STATE =
             SynchedEntityData.defineId(CopperGolem.class, EntityDataSerializers.INT);
+    /** Looking into a container, for the model's animation. */
+    private static final EntityDataAccessor<Boolean> INTERACTING =
+            SynchedEntityData.defineId(CopperGolem.class, EntityDataSerializers.BOOLEAN);
+
+    private final ContainerMemory containerMemory = new ContainerMemory();
 
     private boolean waxed;
     /** Game time of the next oxidation step, 0 until the first tick. */
@@ -53,6 +59,8 @@ public class CopperGolem extends AbstractGolem {
 
     public CopperGolem(EntityType<? extends CopperGolem> type, Level level) {
         super(type, level);
+        // The carried item always drops on death.
+        setDropChance(EquipmentSlot.MAINHAND, 2.0F);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -66,11 +74,13 @@ public class CopperGolem extends AbstractGolem {
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
         builder.define(WEATHER_STATE, WeatherState.UNAFFECTED.ordinal());
+        builder.define(INTERACTING, false);
     }
 
     @Override
     protected void registerGoals() {
         goalSelector.addGoal(0, new FloatGoal(this));
+        goalSelector.addGoal(5, new CopperGolemTransportGoal(this));
         goalSelector.addGoal(6, new WaterAvoidingRandomStrollGoal(this, 1.0));
         goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
         goalSelector.addGoal(8, new RandomLookAroundGoal(this));
@@ -82,6 +92,18 @@ public class CopperGolem extends AbstractGolem {
 
     public void setWeatherState(WeatherState stage) {
         entityData.set(WEATHER_STATE, stage.ordinal());
+    }
+
+    public boolean isInteracting() {
+        return entityData.get(INTERACTING);
+    }
+
+    public void setInteracting(boolean interacting) {
+        entityData.set(INTERACTING, interacting);
+    }
+
+    public ContainerMemory getContainerMemory() {
+        return containerMemory;
     }
 
     public boolean isWaxed() {
@@ -158,6 +180,15 @@ public class CopperGolem extends AbstractGolem {
                 setWeatherState(WeatherState.values()[getWeatherState().ordinal() - 1]);
                 restartWeathering();
                 scrape(player, hand, stack, SoundEvents.AXE_SCRAPE, 3005);
+            }
+            return InteractionResult.sidedSuccess(level().isClientSide);
+        }
+        // An empty hand takes the carried item (spec 35 §2.3).
+        if (stack.isEmpty() && !getMainHandItem().isEmpty()) {
+            if (!level().isClientSide) {
+                player.setItemInHand(hand, getMainHandItem());
+                setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
+                playSound(SoundEvents.ITEM_PICKUP, 0.5F, 1.0F);
             }
             return InteractionResult.sidedSuccess(level().isClientSide);
         }

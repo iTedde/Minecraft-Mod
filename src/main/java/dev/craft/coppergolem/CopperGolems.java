@@ -2,8 +2,11 @@ package dev.craft.coppergolem;
 
 import dev.craft.Craft;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.level.block.Block;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.common.DeferredSpawnEggItem;
@@ -18,6 +21,10 @@ public final class CopperGolems {
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPES =
             DeferredRegister.create(Registries.ENTITY_TYPE, Craft.MODID);
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(Craft.MODID);
+
+    /** Containers a golem puts items into (spec 35 §2.3); copper chests are only a source (user 2026-10-29). */
+    public static final TagKey<Block> TARGETS = TagKey.create(Registries.BLOCK,
+            ResourceLocation.fromNamespaceAndPath(Craft.MODID, "copper_golem_targets"));
 
     /** 0.49 × 0.98 as in 1.21.9; tracked like the iron golem. */
     public static final DeferredHolder<EntityType<?>, EntityType<CopperGolem>> COPPER_GOLEM =

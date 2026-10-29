@@ -2988,12 +2988,30 @@ Bau per Event ohne Mixin.
   grün bis auf das bekannte `liquidTesseractFillsRemoteTank`. `gradlew runData build` grün.
 - Spezifikation §2.6 (Umsetzungsdetails) nachgetragen.
 
+# Phase 35.3 – Kupfergolem: Item-Transport (2026-10-29)
+
+Entschieden (Nutzer, 2026-10-29): Kupferkiste ist **nur Quelle**, kein Ziel (sonst endloses Hin-und-her zwischen zwei
+Kupferkisten); Spec §2.3 angepasst.
+
+## Erledigt
+- [x] `CopperGolemTransportGoal`: Suche ±32 über Chunk-Block-Entities, Pfad zu Standplätzen neben dem Behälter
+  (1 über bis 2 unter den Füßen), 3 s hineinschauen, Holen (16 aus dem ersten Slot), Abgeben (leer oder gleiches
+  Item, Rest behalten und weitersuchen).
+- [x] `ContainerMemory` (9 Plätze, 10 Fehlversuche → 7 s umherlaufen, Erfolg vergisst), Block-Tag
+  `craft:copper_golem_targets` (Truhe, Redstone-Truhe, Fass, Iron Chests ohne Kupferkiste).
+- [x] Deckel: `IronChestBlockEntity#setGolemOpen` (Golems getrennt vom Spielerzähler; Server übernimmt den
+  Zähler aus dem Block-Event nicht mehr), Vanilla-Truhen/Fässer ohne Eingriff in deren Zähler.
+- [x] Animation „Kiste untersuchen“ (synchronisiert), Rechtsklick nimmt das Item ab, Item fällt beim Tod.
+- [x] 9 GameTests `CopperGolemTransportGameTests` (Holen, Diamantkiste, Fass mit gleichem Item, Ofen/fremdes
+  Fass/Kupferkiste abgelehnt, Rest in nächste Kiste, Spieler nimmt Item, Reichweite ±32/33, Gedächtnis, Deckel)
+  jeweils in eigenem Batch (Golems suchen ±32 und würden in Nachbartests laufen); die 35.2-Tests ebenfalls in einen
+  eigenen Batch verschoben. Zwei Läufe: alles grün bis auf das bekannte `liquidTesseractFillsRemoteTank` (einmal
+  zusätzlich der bekannte Ausreißer `plasmacannon`). `gradlew runData build` grün.
+
 ## Nächste Schritte
-- 35.3: Item-Transport (Suche ±32, Holen aus Kupferkiste, Abgeben, Gedächtnis, Tag `craft:copper_golem_targets`,
-  Rechtsklick nimmt Item ab, Animation „Kiste untersuchen“), GameTests.
-- Client-Test 35.2 (Modell/Texturen, Laufen, Bau per Hand/Werfer, Honigwabe/Axt-Partikel) und 35.1.
-- `docs/abweichungen.md`: Kupfergolem-Eintrag (spec 35 §3) – Datei hat noch nicht committete Nuke-Änderungen des
-  Nutzers, daher in 35.2 nicht angefasst.
+- 35.4: EMI-Info (Bau, Verhalten, Oxidation der Kupferkiste), Herkunft, Wiki, Testplan, `docs/abweichungen.md`
+  (Kupfergolem-Eintrag; Datei hat noch nicht committete Nuke-Änderungen des Nutzers).
+- Client-Test 35.1–35.3 (Texturen, Laufen, Bau per Hand/Werfer, Partikel, Transport mit Deckel/Animation).
 - `liquidTesseractFillsRemoteTank` klären (vermutlich Nuke-Entfernung im Arbeitsbaum).
 - 34.2: EMI-Info, Wiki, Herkunft, Testplan (Paket erst, wenn der Nutzer eine Version will).
 - Client-Test 34.1 (GUI 3 Reihen, Bauplan, EMI-„+“, Holzrohr/Trichter am Vorrat).

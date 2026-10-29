@@ -73,7 +73,15 @@ public class CopperGolemModel extends HierarchicalModel<CopperGolem> {
         float swing = Mth.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
         rightLeg.xRot = swing;
         leftLeg.xRot = -swing;
-        if (golem.getMainHandItem().isEmpty()) {
+        if (golem.isInteracting()) {
+            // Looking into a container: head bowed, both arms rummaging inside.
+            head.xRot += 0.35F;
+            float rummage = Mth.sin(ageInTicks * 0.6F) * 0.25F;
+            rightArm.xRot = -1.5F + rummage;
+            leftArm.xRot = -1.5F - rummage;
+            rightArm.zRot = 0.0F;
+            leftArm.zRot = 0.0F;
+        } else if (golem.getMainHandItem().isEmpty()) {
             rightArm.xRot = -swing * 0.6F;
             leftArm.xRot = swing * 0.6F;
             rightArm.zRot = 0.0F;

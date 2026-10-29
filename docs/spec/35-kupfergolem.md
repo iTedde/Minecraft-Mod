@@ -11,7 +11,8 @@ minecraft.wiki 2026-10-29), mit diesen Änderungen:
 1. Suchbereich **65 × 65 × 65** statt 65 × 17 × 65 (±32 in jede Richtung um den Golem).
 2. Quelle ist die **Kupferkiste der Iron Chests** (`craft:copper_chest`, 45 Slots) statt der Vanilla-Kupfertruhe; sie
    bekommt dafür Oxidation wie die Kupfertruhe aus 1.21.9.
-3. Ziele sind zusätzlich **alle Iron Chests** und Fässer, nicht nur Holz-, Redstone- und Kupfertruhen.
+3. Ziele sind zusätzlich **alle Iron Chests außer der Kupferkiste** und Fässer, nicht nur Holz- und Redstone-Truhen;
+   die Kupferkiste ist nur Quelle (Nutzer, 2026-10-29).
 4. Keine Statue: Ein oxidierter Golem bleibt ein (langsam arbeitender) Golem.
 
 Entschieden (Nutzer, 2026-10-29): Verhalten wie 1.21.9 · Iron-Chest-Kupferkiste als Quelle, mit Oxidation · Suchbereich
@@ -80,7 +81,7 @@ passenden Slot; was nicht passt, behält er und sucht weiter.
 |---|---|
 | Truhe, Redstone-Truhe | Vanilla (wie 1.21.9; große Truhen als Ganzes) |
 | Fass | Vanilla (neu gegenüber 1.21.9) |
-| Eisen-, Gold-, Diamant-, Kupfer-, Silber-, Kristall-, Obsidiankiste | Iron Chests (Kupferkiste ist wie in 1.21.9 die Kupfertruhe zugleich Quelle und Ziel) |
+| Eisen-, Gold-, Diamant-, Silber-, Kristall-, Obsidiankiste | Iron Chests; die **Kupferkiste ist nur Quelle**, nie Ziel (Nutzer, 2026-10-29: sonst schaufelt der Golem zwischen zwei Kupferkisten endlos hin und her) |
 
 Nicht dabei: Maschinen, Öfen, Trichter, Shulkerkisten, Endertruhen, EnderStorage, Tesserakte, Behälter anderer Mods,
 Loren, liegende Items. Durch den Tag lässt sich die Liste per Datenpaket erweitern. Zugegriffen wird über
@@ -123,6 +124,21 @@ Vanilla-Kupfer- und Eisengolem-Klänge in höherer Tonlage (eigene Sounds gibt e
   (`tools/scripts/copper_golem_textures.py <client-extra-Jar>`); Item zwischen beiden Händen. Geräusche:
   Eisengolem-Treffer/-Tod mit 1,6-facher Tonhöhe, Schritte Kupfer.
 - Drop über Loot-Tabelle `craft:entities/copper_golem` (Datagen `CraftEntityLoot`).
+
+### 2.7 Umsetzung (35.3)
+
+- `CopperGolemTransportGoal` (Priorität vor dem Umherlaufen): Suche über die Block-Entities der geladenen Chunks im
+  Würfel ±32, nächster zuerst; besuchte Behälter werden übersprungen. Gesucht wird erst, wenn der Golem am Boden
+  steht (sonst gibt es noch keinen Pfad), und höchstens jede Sekunde.
+- Erreichbar heißt: Pfad endet auf einem Standplatz neben (auch schräg) oder auf dem Behälter mit Behälter 1 über bis
+  2 unter den Füßen. Kein Pfad oder Weg länger als 60 s zählt als Fehlversuch.
+- 3 s hineinschauen: Deckel auf (Iron Chests zählen Golems getrennt von Spielern, Vanilla-Truhen per Deckel-Event,
+  Fässer per `open`-Zustand), Animation „Kiste untersuchen“ (Kopf gesenkt, Arme wühlen).
+- Holen: 16 aus dem ersten belegten Slot (bzw. weniger, wenn dort weniger liegt). Abgeben: über `insertItem` Slot für
+  Slot von vorn; bleibt ein Rest, merkt sich der Golem den Behälter und sucht weiter.
+- `ContainerMemory`: 9 Plätze (ältester fällt raus), 10 Fehlversuche → 7 s umherlaufen, dann alles vergessen; ebenso,
+  wenn kein unbesuchter Behälter mehr übrig ist. Erfolg (Holen oder Abgeben) vergisst alles.
+- Rechtsklick mit leerer Hand gibt das Item dem Spieler; beim Tod fällt das getragene Item immer.
 
 ## 3. Weiteres
 

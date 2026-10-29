@@ -11,7 +11,9 @@ import dev.craft.compactsolars.SolarArrayType;
 import dev.craft.powerplants.PpBlocks;
 import dev.craft.enderstorage.EsBlocks;
 import dev.craft.mps.MpsBlocks;
+import dev.craft.coppergolem.CopperGolems;
 import dev.craft.ironchest.IronChestBlocks;
+import dev.craft.ironchest.IronChestType;
 import dev.craft.redpower.RpBlocks;
 import dev.craft.buildcraft.BcBlocks;
 import dev.craft.buildcraft.engine.EngineType;
@@ -83,6 +85,13 @@ public final class CraftBlockTagsProvider extends BlockTagsProvider {
         }
         tag(BlockTags.MINEABLE_WITH_PICKAXE).add(RpBlocks.PROJECT_TABLE.get(), RpBlocks.LARGE_PROJECT_TABLE.get());
         IronChestBlocks.BLOCKS.getEntries().forEach(chest -> tag(BlockTags.MINEABLE_WITH_PICKAXE).add(chest.get()));
+        // Copper golem targets (spec 35 §2.3): chests, barrels and every Iron Chest except the copper one (source only).
+        tag(CopperGolems.TARGETS).add(Blocks.CHEST, Blocks.TRAPPED_CHEST, Blocks.BARREL);
+        for (IronChestType type : IronChestType.values()) {
+            if (type != IronChestType.COPPER) {
+                tag(CopperGolems.TARGETS).add(IronChestBlocks.chest(type).get());
+            }
+        }
         tag(BlockTags.MINEABLE_WITH_PICKAXE).add(EsBlocks.ENDER_CHEST.get(), EsBlocks.ENDER_TANK.get());
         // Tinker Table: pickaxe level 0.
         tag(BlockTags.MINEABLE_WITH_PICKAXE).add(MpsBlocks.TINKER_TABLE.get());

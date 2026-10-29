@@ -31,6 +31,8 @@ import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
 @PrefixGameTestTemplate(false)
 public final class CopperGolemGameTests {
     private static final String EMPTY = "empty_8x4x8";
+    /** Own batch: golems search ±32 blocks and would walk into other tests. */
+    static final String BATCH = "copper_golem";
     private static final BlockPos COPPER = new BlockPos(3, 1, 3);
 
     private CopperGolemGameTests() {
@@ -62,7 +64,7 @@ public final class CopperGolemGameTests {
         player.interactOn(golem, InteractionHand.MAIN_HAND);
     }
 
-    @GameTest(template = EMPTY)
+    @GameTest(template = EMPTY, batch = BATCH)
     public static void pumpkinOnCopperBlockBuildsGolem(GameTestHelper helper) {
         helper.setBlock(COPPER, Blocks.WAXED_WEATHERED_COPPER);
         placePumpkin(helper, Direction.UP);
@@ -78,7 +80,7 @@ public final class CopperGolemGameTests {
         });
     }
 
-    @GameTest(template = EMPTY)
+    @GameTest(template = EMPTY, batch = BATCH)
     public static void sidewaysPatternBuildsGolem(GameTestHelper helper) {
         helper.setBlock(COPPER, Blocks.COPPER_BLOCK);
         placePumpkin(helper, Direction.EAST);
@@ -88,7 +90,7 @@ public final class CopperGolemGameTests {
         });
     }
 
-    @GameTest(template = EMPTY)
+    @GameTest(template = EMPTY, batch = BATCH)
     public static void pumpkinMustComeLast(GameTestHelper helper) {
         helper.setBlock(COPPER.above(), Blocks.CARVED_PUMPKIN);
         helper.setBlock(COPPER, Blocks.COPPER_BLOCK);
@@ -99,7 +101,7 @@ public final class CopperGolemGameTests {
         });
     }
 
-    @GameTest(template = EMPTY)
+    @GameTest(template = EMPTY, batch = BATCH)
     public static void dispenserBuildsGolem(GameTestHelper helper) {
         BlockPos dispenser = new BlockPos(1, 2, 3);
         helper.setBlock(new BlockPos(2, 1, 3), Blocks.EXPOSED_COPPER);
@@ -117,7 +119,7 @@ public final class CopperGolemGameTests {
     }
 
     /** Vanilla's dispenser golems still win, even with copper next to the head. */
-    @GameTest(template = EMPTY)
+    @GameTest(template = EMPTY, batch = BATCH)
     public static void dispenserStillBuildsSnowGolem(GameTestHelper helper) {
         BlockPos dispenser = new BlockPos(3, 3, 3);
         helper.setBlock(new BlockPos(3, 1, 3), Blocks.SNOW_BLOCK);
@@ -133,7 +135,7 @@ public final class CopperGolemGameTests {
         });
     }
 
-    @GameTest(template = EMPTY)
+    @GameTest(template = EMPTY, batch = BATCH)
     public static void oxidationCatchesUpOnGameTime(GameTestHelper helper) {
         CopperGolem golem = spawn(helper, WeatherState.UNAFFECTED);
         CopperGolem waxed = spawn(helper, WeatherState.UNAFFECTED);
@@ -150,7 +152,7 @@ public final class CopperGolemGameTests {
         });
     }
 
-    @GameTest(template = EMPTY)
+    @GameTest(template = EMPTY, batch = BATCH)
     public static void oneStageAfterItsTime(GameTestHelper helper) {
         CopperGolem golem = spawn(helper, WeatherState.UNAFFECTED);
         golem.setNextWeatheringTime(helper.getLevel().getGameTime() + 3);
@@ -162,7 +164,7 @@ public final class CopperGolemGameTests {
         });
     }
 
-    @GameTest(template = EMPTY)
+    @GameTest(template = EMPTY, batch = BATCH)
     public static void honeycombWaxesAndAxeScrapesGolem(GameTestHelper helper) {
         CopperGolem golem = spawn(helper, WeatherState.WEATHERED);
         ItemStack honeycomb = new ItemStack(Items.HONEYCOMB, 2);
@@ -177,7 +179,7 @@ public final class CopperGolemGameTests {
         helper.succeed();
     }
 
-    @GameTest(template = EMPTY)
+    @GameTest(template = EMPTY, batch = BATCH)
     public static void lightningTakesOneStage(GameTestHelper helper) {
         CopperGolem golem = spawn(helper, WeatherState.OXIDIZED);
         CopperGolem waxed = helper.spawn(CopperGolems.COPPER_GOLEM.get(), COPPER.east());
