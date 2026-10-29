@@ -3083,8 +3083,27 @@ nichts mehr geben, was einen schneller macht“, dafür je ein Ausgleich.
   Jetpack/Nano-Brustplatte, Gravi-Brustplatte, MPS Sprint/Jump/Swim/Jet/Glider, Kaffee), Deckel auf Sprinttempo,
   Ausgleich je Teil, Fragen F1–F4, Teilphasen 37.1–37.4. Kein Code geändert.
 
+# Phase 37.1 – Kein Tempo mehr: IC2 (2026-10-29)
+
+Nutzer: „Passt so, alles nach deinem Vorschlag, mach 37.1“ – `spec/37` damit freigegeben (F1–F4 wie vorgeschlagen).
+
+## Erledigt
+- [x] `core/MovementCap`: Deckel 0,28 Blöcke/Tick (Vanilla-Sprint) auf die Waagerechte.
+- [x] IC2-Jetpack und Elektro-Jetpack: Bewegung nach `useJetpack` gedeckelt.
+- [x] Quantenhose: kein Sprint-/Schwimmschub mehr, Kosten 1 000 EU je 10 Ticks Sprinten bleiben; Ausgleich kein Hunger
+  beim Sprinten/Sprint-Springen (Mixins `SprintExhaustionMixin`, `SprintJumpExhaustionMixin`, MixinExtras
+  `@WrapWithCondition`) und kein Rückstoß (`LivingKnockBackEvent` in `ArmorEvents`), beides ab 1 000 EU Ladung.
+- [x] Quantenstiefel: Boost-Sprung ohne ×3,5 in x/z, Höhe unverändert.
+- [x] Kaffee: Sättigung statt Tempo (gleiche Stufen-/Überdosislogik), Eile bleibt.
+- [x] GameTests `quantumLeggingsGiveNoSpeed`, `quantumLeggingsIgnoreKnockback`, `quantumSprintCostsNoHunger`,
+  `quantumBootsNoLongJump`, `jetpackCappedToSprintSpeed`; `coffeeRaisesSaturationAndHaste` (vorher …Speed…).
+- `gradlew build` grün; GameTests 572, alles grün bis auf das bekannte `liquidTesseractFillsRemoteTank`.
+  EMI-/Wiki-Texte folgen gesammelt in 37.4.
+
 ## Nächste Schritte
-- **Freigabe Phase 37** (Fragen F1–F4 in `spec/37` §4), danach 37.1.
+- **37.2** GraviSuite (Fortg. Jetpack/Nano-Brustplatte ohne Boost, halber Verbrauch; Gravi-Brustplatte Sprinttempo + Magnet).
+- Client-Test 37.1: Quantenhose sprintet normal schnell, kein Hunger, kein Rückstoß; Quantenstiefel ohne Weitsprung;
+  Jetpacks nicht schneller als Sprinten; Kaffee gibt Sättigung.
 - Paket 1.1.3 im CurseForge-Launcher starten (neue Mods: Sophisticated Storage, Hypertubes).
 - Client-Test Phase 35 (Testplan §17) und 34 (Testplan §18); Gravi-Brustplatte am Boden ohne Verbrauch;
   Solarhelm-Rezept in EMI.

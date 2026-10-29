@@ -8,7 +8,9 @@
     "ExperienceOrbMixin",
     "HopperBlockEntityMixin",
     "HopperBlockMixin",
-    "PlayerFlyingSpeedMixin"
+    "PlayerFlyingSpeedMixin",
+    "SprintExhaustionMixin",
+    "SprintJumpExhaustionMixin"
   ],
   "injectors": {
     "defaultRequire": 1

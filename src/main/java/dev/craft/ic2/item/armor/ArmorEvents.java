@@ -8,6 +8,7 @@ import net.neoforged.neoforge.common.damagesource.DamageContainer;
 import net.neoforged.neoforge.event.entity.living.ArmorHurtEvent;
 import net.neoforged.neoforge.event.entity.living.LivingFallEvent;
 import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
+import net.neoforged.neoforge.event.entity.living.LivingKnockBackEvent;
 
 /**
  * Forge hooks of the IC2 armor. A player wearing at least one {@link SpecialArmor} piece takes damage through
@@ -21,6 +22,7 @@ public final class ArmorEvents {
         bus.addListener(ArmorEvents::onIncomingDamage);
         bus.addListener(ArmorEvents::onArmorHurt);
         bus.addListener(ArmorEvents::onFall);
+        bus.addListener(ArmorEvents::onKnockBack);
     }
 
     private static void onIncomingDamage(LivingIncomingDamageEvent event) {
@@ -35,6 +37,13 @@ public final class ArmorEvents {
     /** Armor damage is applied by {@link ArmorProperties#applyArmor}. */
     private static void onArmorHurt(ArmorHurtEvent event) {
         if (event.getEntity() instanceof Player player && ArmorProperties.wearsSpecialArmor(player)) {
+            event.setCanceled(true);
+        }
+    }
+
+    /** Spec 37 §3.1: charged quantum leggings ignore knockback. */
+    private static void onKnockBack(LivingKnockBackEvent event) {
+        if (event.getEntity() instanceof Player player && QuantumArmorItem.ignoresKnockback(player)) {
             event.setCanceled(true);
         }
     }

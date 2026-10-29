@@ -9,7 +9,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
 /**
- * Coffee mug (IC2 {@code ItemMugCoffee} metadata 0 cold, 1 dark, 2 with milk and sugar): raises speed and haste;
+ * Coffee mug (IC2 {@code ItemMugCoffee} metadata 0 cold, 1 dark, 2 with milk and sugar): raises saturation (spec 37
+ * §3.7, instead of speed) and haste;
  * a level of 3 or more (2 less for milk coffee) causes nausea, 4 or more also instant damage.
  */
 public class CoffeeMugItem extends DrinkItem {
@@ -26,7 +27,7 @@ public class CoffeeMugItem extends DrinkItem {
 
     @Override
     protected void drink(ItemStack stack, Level level, Player player) {
-        int highest = Math.max(amplifyEffect(player, MobEffects.MOVEMENT_SPEED),
+        int highest = Math.max(amplifyEffect(player, MobEffects.SATURATION),
                 amplifyEffect(player, MobEffects.DIG_SPEED));
         if (meta == MILK) {
             highest -= 2;

@@ -1,5 +1,6 @@
 package dev.craft.ic2.item.armor;
 
+import dev.craft.core.MovementCap;
 import dev.craft.ic2.Ic2DataComponents;
 import dev.craft.ic2.keyboard.Ic2Keyboard;
 import net.minecraft.network.chat.Component;
@@ -96,7 +97,7 @@ public class JetpackItem extends Ic2ArmorItem {
                 }
             }
         }
-        player.setDeltaMovement(motion.x, motionY, motion.z);
+        player.setDeltaMovement(MovementCap.clampHorizontal(new Vec3(motion.x, motionY, motion.z)));
         int consume = hoverMode ? 6 : 9;
         if (electric) {
             consume -= 2;

@@ -1,4 +1,4 @@
-# Phase 37 – Nichts macht mehr schneller (Vorschlag zur Freigabe)
+# Phase 37 – Nichts macht mehr schneller (freigegeben 2026-10-29)
 
 Nutzer (2026-10-29): „Wir wollen, dass sowas wie Gravi Suit und Quantum und Power Suit einen nicht mehr schneller
 machen. Advanced Jetpack auch nicht. Es soll einfach nichts mehr geben, was einen schneller macht. Gib den Sachen als
@@ -14,8 +14,11 @@ Bewusste Abweichung von Grundregel 1 (1:1-Mechanik) auf Nutzerwunsch; nach Umset
 - Sprunghöhe bleibt (Höhe ist kein Tempo), horizontale Sprung-Schübe entfallen.
 - Jedes betroffene Teil bekommt einen **Ausgleich**, der nichts mit Tempo zu tun hat.
 
-Umsetzung zentral: eine gemeinsame Hilfsfunktion `core…MovementCap.clampHorizontal(player)` am Ende jedes
-Bewegungs-Ticks der betroffenen Teile (nur wenn das Teil getragen und aktiv ist), dazu die Einzeländerungen unten.
+Umsetzung zentral: `dev.craft.core.MovementCap.clampHorizontal(Vec3)` (Deckel 0,28 Blöcke/Tick) auf die Bewegung, die
+ein betroffenes Teil setzt (nur wenn es getragen und aktiv ist), dazu die Einzeländerungen unten. Kein Hunger beim
+Sprinten (Quantenhose): Mixins `SprintExhaustionMixin` (`ServerPlayer#checkMovementStatistics`) und
+`SprintJumpExhaustionMixin` (`Player#jumpFromGround`) überspringen `causeFoodExhaustion`, solange gesprintet wird;
+Rückstoß über `LivingKnockBackEvent` (`ArmorEvents`).
 
 ## 2 Bestandsaufnahme – was heute schneller macht
 
@@ -91,8 +94,9 @@ Drive (Teleport, siehe Frage F4), Werkzeug-Abbautempo.
 
 ## 5 Teilphasen
 
-- 37.0 Spezifikation (dieses Dokument) – wartet auf Freigabe
-- 37.1 Gemeinsamer Deckel, IC2 (Quantenhose/-stiefel, Jetpacks, Kaffee) + GameTests
+- 37.0 Spezifikation (dieses Dokument) – **freigegeben 2026-10-29** (Nutzer: „alles nach deinem Vorschlag“, also F1 Deckel
+  Sprinttempo auch beim Fliegen, F2 Ausgleiche wie §3, F3 nur Weitsprung weg, F4 nur Craft-Inhalte, Blink Drive bleibt)
+- 37.1 Gemeinsamer Deckel, IC2 (Quantenhose/-stiefel, Jetpacks, Kaffee) + GameTests – erledigt
 - 37.2 GraviSuite (Fortg. Jetpack, Nano-Brustplatte, Gravi-Brustplatte mit Magnet) + GameTests
 - 37.3 MPS (Sprint/Jump/Swim, Deckel für Jet/Glider) + GameTests
 - 37.4 EMI-Texte, Tooltips, Wiki, `spec/28`/`spec/29`/`spec/17`-Verweise, `abweichungen.md`, Testplan
