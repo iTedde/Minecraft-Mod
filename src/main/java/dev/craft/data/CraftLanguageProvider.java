@@ -495,6 +495,39 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
         // Copper golem (spec 35 §3).
         addEntityType(CopperGolems.COPPER_GOLEM, german ? "Kupfergolem" : "Copper Golem");
         item(CopperGolems.SPAWN_EGG, german ? "Kupfergolem-Spawn-Ei" : "Copper Golem Spawn Egg");
+        add("emi.craft.info.copper_golem_build", german
+                ? "Kupfergolem bauen: Kupferblock (jede Stufe, auch gewachst) setzen, dann einen geschnitzten Kürbis "
+                + "oder eine Kürbislaterne daran – oben, seitlich oder darunter, der Kürbis muss zuletzt kommen (auch "
+                + "per Werfer). Der Kupferblock wird zur Kupferkiste, der Golem erscheint am Kürbis; beide haben die "
+                + "Oxidationsstufe des Blocks, ohne Wachs."
+                : "Building a copper golem: place a copper block (any stage, waxed too), then a carved pumpkin or "
+                + "jack o'lantern next to it – on top, at the side or below; the pumpkin has to come last (dispensers "
+                + "work too). The copper block turns into a copper chest, the golem appears at the pumpkin; both get "
+                + "the block's oxidation stage, without wax.");
+        add("emi.craft.info.copper_golem", german
+                ? "Der Kupfergolem sortiert im Umkreis von 32 Blöcken (in jede Richtung): Mit leerer Hand holt er bis "
+                + "zu 16 Stück des ersten Items aus der nächsten Kupferkiste. Dann bringt er es zur nächsten Truhe, "
+                + "Redstone-Truhe, zum Fass oder zu einer Iron Chest (nicht Kupfer), die leer ist oder das Item schon "
+                + "enthält; er schaut jeweils 3 Sekunden hinein. Nach 10 Fehlversuchen läuft er kurz umher und "
+                + "beginnt von vorn. Rechtsklick mit leerer Hand nimmt ihm das Item ab. Er oxidiert in vier Stufen "
+                + "(je etwa 7 Stunden Spielzeit) und arbeitet trotzdem weiter; Honigwabe wachst, Axt schabt ab, "
+                + "Blitz nimmt eine Stufe. 12 Leben, kein Fallschaden, droppt 1–3 Kupferbarren."
+                : "The copper golem sorts within 32 blocks (in every direction): with an empty hand it takes up to 16 "
+                + "of the first item from the nearest copper chest. It then carries it to the nearest chest, trapped "
+                + "chest, barrel or Iron Chest (not copper) that is empty or already holds that item; it looks into "
+                + "each for 3 seconds. After 10 failures it wanders for a moment and starts over. Right click with an "
+                + "empty hand takes its item. It oxidizes in four stages (about 7 hours of game time each) and keeps "
+                + "working; honeycomb waxes, an axe scrapes, lightning takes one stage off. 12 health, no fall damage, "
+                + "drops 1–3 copper ingots.");
+        add("emi.craft.info.copper_chest", german
+                ? "Die Kupferkiste oxidiert wie ein Kupferblock (angelaufen, verwittert, oxidiert); das ist nur "
+                + "Optik, Inhalt und Funktion bleiben. Honigwabe wachst, Axt schleichend: Wachs ab bzw. eine Stufe "
+                + "zurück, Blitz macht sie wieder frisch. Abgebaut droppt sie immer frisch. Kupfergolems holen aus "
+                + "Kupferkisten, legen aber nie hinein."
+                : "The copper chest oxidizes like a copper block (exposed, weathered, oxidized); that is only looks, "
+                + "contents and function stay. Honeycomb waxes, axe while sneaking: removes wax or one stage, "
+                + "lightning makes it fresh again. Broken, it always drops fresh. Copper golems take items from copper "
+                + "chests but never put any in.");
     }
 
     /** GraviSuite (spec 28 §1); English names as in the pack. */

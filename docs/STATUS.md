@@ -3020,13 +3020,23 @@ Nutzer: „Kannst du in beide Wikis reinschreiben, was alle Maschinen immer so m
 - [x] Item-Seite zeigt den Abschnitt „Was macht das?“ vor der Herkunft; im englischen Wiki mit englischen Namen.
 - [x] Beide Wikis neu erzeugt und nach `X:/Craft/` kopiert. Sie spiegeln den Arbeitsbaum (Nuke dort schon entfernt).
 
+# Phase 35.4 – Kupfergolem: EMI, Herkunft, Wiki, Testplan (2026-10-29)
+
+## Erledigt
+- [x] EMI: Info-Seiten „Kupfergolem bauen“ (Spawn-Ei, Kupferblock, geschnitzter Kürbis), Verhalten (Spawn-Ei) und
+  Oxidation (Kupferkiste); `CopperGolemEmiRecipes`.
+- [x] Herkunft: Spawn-Ei „Nur im Kreativmodus, im Überleben aus Kupferblock + Kürbis bauen“.
+- [x] Wiki: Iron-Chests-Seite mit Abschnitten „Kupferkiste mit Oxidation“ und „Kupfergolem“, „Was macht das?“ an
+  Kupferkiste und Spawn-Ei; BC-Motoren in den Maschinentexten mit Redstone-Signal und MJ/t ergänzt. Beide Wikis neu
+  erzeugt und nach `X:/Craft/` kopiert.
+- [x] Testplan §17 (Kupfergolem), `docs/abweichungen.md` Kupfergolem-Eintrag.
+- `gradlew runData build` grün. Phase 35 damit fertig bis auf den Client-Test.
+
 ## Nächste Schritte
-- 35.4: EMI-Info (Bau, Verhalten, Oxidation der Kupferkiste), Herkunft, Wiki, Testplan, `docs/abweichungen.md`
-  (Kupfergolem-Eintrag; Datei hat noch nicht committete Nuke-Änderungen des Nutzers).
-- Client-Test 35.1–35.3 (Texturen, Laufen, Bau per Hand/Werfer, Partikel, Transport mit Deckel/Animation).
+- Client-Test Phase 35 (Testplan §17) und 34.1.
 - `liquidTesseractFillsRemoteTank` klären (vermutlich Nuke-Entfernung im Arbeitsbaum).
 - 34.2: EMI-Info, Wiki, Herkunft, Testplan (Paket erst, wenn der Nutzer eine Version will).
-- Client-Test 34.1 (GUI 3 Reihen, Bauplan, EMI-„+“, Holzrohr/Trichter am Vorrat).
+- Neue Version/Paket erst auf Wunsch des Nutzers.
 - Client-Test 33 (FE Producer an AE2 Energy Acceptor, Testplan 16).
 - Client-Test 32 und 31 (Nutzer), 30.6, Extruder-Rezepte, Trichter, B7 (EMI-Tags übersetzt?).
 - Induction Furnace rechter Ausgang: Rückfrage an den Nutzer offen (welche Rohre/Seite, IC2 oder TE).

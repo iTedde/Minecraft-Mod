@@ -946,7 +946,28 @@ In Klammern steht der tatsächliche Anteil unter den angeschlossenen Seiten.</li
             'Mit <b>Upgrades</b> wird eine Kiste samt Inhalt direkt aufgewertet, auch die normale Holzkiste. Wo Eisen gebraucht wird, geht auch Raffiniertes Eisen. '
             'Zahme Katzen setzen sich auch auf diese Kisten; Komparatoren lesen den Füllstand (in 1.4.7 gab es noch keine).',
             [('Kisten', '7'), ('Upgrades', '9'), ('Paket', 'Kreativ-Tab „Iron Chests“')],
-            [('spec-22', '22 – Iron Chests')])
+            [('spec-22', '22 – Iron Chests'), ('spec-35', '35 – Kupfergolem')],
+            f'''<h2 id="ic--kupfer">Kupferkiste mit Oxidation (neu)</h2>
+<p>{c('copper_chest')} oxidiert in Craft wie ein Kupferblock: frisch → angelaufen → verwittert → oxidiert. Das ändert nur das Aussehen,
+Inhalt, Größe und Upgrades bleiben. <b>Honigwabe</b> wachst (stoppt die Oxidation), die <b>Axt beim Schleichen</b> entfernt Wachs
+bzw. eine Stufe, ein <b>Blitz</b> macht sie wieder frisch. Abgebaut droppt sie immer als frische Kupferkiste.</p>
+<h2 id="ic--golem">Kupfergolem (neu)</h2>
+<p>Nachbau des Kupfergolems aus Minecraft 1.21.9, mit größerer Reichweite und für Iron Chests. {c('copper_golem_spawn_egg')}</p>
+<ul>
+<li><b>Bauen:</b> Kupferblock (jede Stufe, auch gewachst) setzen, dann einen geschnitzten Kürbis oder eine Kürbislaterne daran –
+oben, seitlich oder darunter; der Kürbis muss <b>zuletzt</b> kommen (Spieler, Enderman oder Werfer). Aus dem Kupferblock wird eine
+Kupferkiste, der Golem steht am Platz des Kürbisses. Beide übernehmen die Oxidationsstufe, nicht das Wachs.</li>
+<li><b>Holen:</b> Mit leerer Hand geht er zur nächsten Kupferkiste im Würfel <b>±32 Blöcke</b> und nimmt bis zu 16 Stück vom ersten
+belegten Platz.</li>
+<li><b>Abgeben:</b> Er bringt das Item zur nächsten Truhe, Redstone-Truhe, zum Fass oder zu einer Iron Chest – aber <b>nie</b> in eine
+Kupferkiste (sonst würde er zwischen zwei Kupferkisten endlos hin und her tragen). Er legt nur ab, wenn der Behälter leer ist oder das
+Item schon enthält; was nicht passt, trägt er zum nächsten. Maschinen, Öfen, Trichter oder Shulkerkisten bedient er nicht.</li>
+<li>Bei jedem Behälter schaut er 3 Sekunden hinein (Deckel offen). Er merkt sich 9 besuchte Behälter; nach 10 Fehlversuchen läuft er
+7 Sekunden umher und beginnt von vorn. Erreichbar ist ein Behälter, der höchstens 1 Block über oder 2 unter seinen Füßen steht.</li>
+<li><b>Oxidation:</b> vier Stufen, je 420–460 Minuten Spielzeit (läuft auch in entladenen Chunks weiter). Anders als in 1.21.9 wird er
+<b>nie zur Statue</b>. Honigwabe wachst, Axt entfernt Wachs bzw. eine Stufe, Blitz nimmt eine Stufe.</li>
+<li>Rechtsklick mit leerer Hand nimmt ihm sein Item ab. 12 Leben, kein Fallschaden, droppt 1–3 Kupferbarren und das getragene Item.</li>
+</ul>''')
 
     modpage('mod-advancedmachines', 'Advanced Machines', 'craft:rotary_macerator',
             'Das IC2-Addon aus dem Pack: <b>Rotations-Macerator</b>, <b>Singularitätskompressor</b> und <b>Zentrifugalextraktor</b> nutzen '

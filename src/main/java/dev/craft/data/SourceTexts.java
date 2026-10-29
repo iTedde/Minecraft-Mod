@@ -995,6 +995,11 @@ public final class SourceTexts {
 
     /** Coal chain, carbon, coke, ash, plants, rubber, alloys, fuel (phase 23.4). */
     private static void misc() {
+        add("Nur im Kreativmodus. Im Überlebensmodus baut man den Kupfergolem aus einem Kupferblock und einem "
+                        + "geschnitzten Kürbis (zuletzt gesetzt).",
+                "Creative mode only. In survival the copper golem is built from a copper block and a carved pumpkin "
+                        + "(placed last).",
+                "copper_golem_spawn_egg");
         add("Werkbank: 8 Kohlestaub um einen Feuerstein → 1.",
                 "Crafting: 8 coal dust around a flint → 1.",
                 "coal_ball");

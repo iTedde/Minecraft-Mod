@@ -163,4 +163,4 @@ Vanilla-Kupfer- und Eisengolem-Klänge in höherer Tonlage (eigene Sounds gibt e
 
 ## 5. Offene Fragen
 
-Keine. F1 entschieden (Nutzer, 2026-10-29): abgebaute Kupferkiste droppt frisch.
+Keine. F1 entschieden (Nutzer, 2026-10-29): abgebaute Kupferkiste droppt frisch. F2 entschieden (Nutzer, 2026-10-29): Kupferkiste nur Quelle, nie Ziel.

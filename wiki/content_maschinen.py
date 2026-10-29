@@ -207,14 +207,15 @@ MACHINES = {
         'oder Trichter entnehmen.',
         'Rezepte automatisch herstellen, z. B. Kabel oder Platten in Massen.'),
     'craft:redstone_engine': (
-        'Motor, der mit Redstone-Signal sehr wenig MJ liefert, ohne Brennstoff; überhitzt nie.',
+        'Motor, der mit Redstone-Signal sehr wenig MJ liefert (0,05 MJ/t), ohne Brennstoff; überhitzt nie.',
         'Holzrohre antreiben (Items aus Kisten ziehen).'),
     'craft:stirling_engine': (
-        'Verbrennt Brennstoffe und liefert MJ; kann überhitzen, wenn die Energie nicht abgenommen wird.',
+        'Verbrennt feste Brennstoffe und liefert mit Redstone-Signal 1 MJ/t; kann überhitzen, wenn die Energie '
+        'nicht abgenommen wird.',
         'Erste MJ-Quelle für Pumpe, Quarry oder Mining Well.'),
     'craft:combustion_engine': (
-        'Verbrennt Öl oder Kraftstoff und liefert viel MJ; braucht Wasser zur Kühlung, sonst überhitzt und '
-        'explodiert er.',
+        'Verbrennt mit Redstone-Signal Lava, Öl oder Kraftstoff (1 / 3 / 6 MJ/t); braucht Wasser zur Kühlung, '
+        'sonst überhitzt und explodiert er.',
         'Starke MJ-Quelle für Quarry und Raffinerie.'),
     'craft:wooden_transport_pipe': (
         'Zieht mit MJ (z. B. Redstone-Motor) Items aus der angrenzenden Kiste oder Maschine ins Rohrnetz. Verbindet '
@@ -288,7 +289,7 @@ MACHINES = {
         'Deko und Stützen.'),
     # ------------------------------------------------------------------ Forestry, Power Converters
     'craft:electrical_engine': (
-        'Wandelt EU in MJ um; Elektronenröhren erhöhen die Leistung.',
+        'Wandelt EU in MJ um (3 EU = 1 MJ); Elektronenröhren erhöhen die Leistung.',
         'IC2-Strom für BuildCraft-Maschinen (Quarry, Pumpe).'),
     'craft:thermionic_fabricator': (
         'Schmilzt Sand/Glas zu flüssigem Glas (mit MJ) und formt daraus Elektronenröhren.',
@@ -443,6 +444,14 @@ MACHINES = {
     'craft:tinker_table': (
         'Werkbank der Modular Powersuits: Module in Power-Rüstung und Power Tool einbauen und einstellen.',
         'Power-Rüstung zusammenstellen.'),
+    'craft:copper_chest': (
+        'Kiste mit 45 Plätzen, die wie ein Kupferblock oxidiert (nur Optik); Honigwabe wachst, Axt beim Schleichen '
+        'schabt ab.',
+        'Quelle für den Kupfergolem: was hier hineinkommt, verteilt er auf Truhen, Fässer und Iron Chests.'),
+    'craft:copper_golem_spawn_egg': (
+        'Ruft einen Kupfergolem. Er holt Items aus Kupferkisten im Umkreis von 32 Blöcken und legt sie in Truhen, '
+        'Fässer oder Iron Chests, die leer sind oder dasselbe Item schon enthalten.',
+        'Automatisch sortieren ohne Rohre. Im Überleben aus Kupferblock + geschnitztem Kürbis bauen.'),
     'craft:mining_portal': (
         'Portal zur Mining-Dimension (Rahmen aus Glattem Stein, mit Feuerzeug zünden).',
         'Erze abbauen, ohne die Oberwelt zu durchlöchern.'),

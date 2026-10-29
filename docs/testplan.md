@@ -237,6 +237,17 @@ Testwelt. Sprache einmal Deutsch, einmal Englisch prüfen. EMI und Xaero's Minim
 | 16.3 | Zwei FE-Empfänger (z. B. Energy Acceptor + Ad-Astra-/IF-Gerät) am selben FE Producer bekommen beide Strom; ohne Empfänger füllt sich nur die Bridge | 33.1 | |
 | 16.4 | FE-Kabel eines anderen Mods (z. B. Crafts & Additions) am FE Producer zieht Strom; EU-Kabel/Maschinen nehmen kein FE an | 33.1 | |
 
+## 17. Kupfergolem (Phase 35)
+
+| Nr | Test | Herkunft | OK |
+|---|---|---|---|
+| 17.1 | Kupferkiste oxidiert über Zeit (Textur je Stufe), Honigwabe wachst (Partikel), Axt schleichend schabt ab, ohne Schleichen öffnet die GUI; Inhalt bleibt; Abbau droppt frische Kiste; EMI-Info an der Kupferkiste | 35.1, 35.4 | |
+| 17.2 | Kupferblock + geschnitzter Kürbis (oben, seitlich) bzw. Kürbislaterne per Werfer: Block wird Kupferkiste gleicher Stufe, Golem gleicher Stufe am Kürbis; Kürbis zuerst = nichts; Schnee-/Eisengolem gehen weiter | 35.2 | |
+| 17.3 | Golem: Modell und Textur je Stufe, Laufanimation, Geräusche höher als Eisengolem; Honigwabe/Axt am Golem mit Partikeln; Spawn-Ei im Tab Iron Chests hinter den Kisten | 35.2 | |
+| 17.4 | Transport: Golem holt 16 aus der Kupferkiste, Deckel geht auf, Animation „Kiste untersuchen“, legt in Truhe/Fass/Diamantkiste mit gleichem Item bzw. leere, nie in Kupferkiste, Ofen oder fremd belegtes Fass; Item in der Hand sichtbar; Rechtsklick nimmt es ab | 35.3 | |
+| 17.5 | Reichweite: Kiste 30 Blöcke entfernt (auch 20 höher) wird angelaufen; Deckel einer Truhe, die gleichzeitig ein Spieler offen hat, schließt nicht vorzeitig | 35.3 | |
+| 17.6 | EMI-Info am Spawn-Ei (Bau, Verhalten), Herkunftstext beim Spawn-Ei; Wiki-Abschnitt „Kupfergolem“ auf der Iron-Chests-Seite | 35.4 | |
+
 ## Befunde
 
 | Nr | Datum | Befund | Status |
