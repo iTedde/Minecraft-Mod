@@ -3032,10 +3032,33 @@ Nutzer: „Kannst du in beide Wikis reinschreiben, was alle Maschinen immer so m
 - [x] Testplan §17 (Kupfergolem), `docs/abweichungen.md` Kupfergolem-Eintrag.
 - `gradlew runData build` grün. Phase 35 damit fertig bis auf den Client-Test.
 
+# Phase 34.2 – Großer Projekttisch: EMI, Wiki, Herkunft, Testplan (2026-10-29)
+
+## Erledigt
+- [x] EMI-Info-Seite `emi.craft.info.project_table` an beiden Projekttischen (Vorrat 18/27, Nachschub, Bauplan,
+  Automatisierung nur Vorrat, „+“-Knopf), registriert in `CraftEmiPlugin`.
+- [x] Herkunft: nichts nötig (Werkbankrezept, kein Rohstoff; der Projekttisch hat ebenfalls keinen Eintrag).
+- [x] Wiki: Zeile „Großer Projekttisch“ in „Komplett neue Inhalte“, EMI-„+“-Hinweis nennt beide Tische
+  (Maschinentext gab es schon). Beide Wikis neu erzeugt und nach `X:/Craft/` kopiert.
+- [x] Testplan §18 (Großer Projekttisch). Paket/Version weiter erst auf Wunsch des Nutzers.
+- `gradlew runData build` grün; GameTests alles grün bis auf das bekannte `liquidTesseractFillsRemoteTank`.
+  Phase 34 damit fertig bis auf den Client-Test.
+
+# Nebenbei (2026-10-29)
+
+- Implosionskompressor „tut nichts“: Ursache beim Nutzer war Vanilla-TNT statt Industrie-TNT, kein Fehler.
+- **Gravitations-Brustplatte** (Nutzer: „sollte keine Energie verbrauchen, wenn man läuft“): eingeschaltet
+  416 EU/Tick nur noch in der Luft, am Boden kein Verbrauch und keine Abschaltung. `GraviChestplateItem#tickWorn`,
+  GameTest `consumption` angepasst (grün), EMI-Text, Wiki, `spec/28` §5/§12, `abweichungen.md`.
+- **Entschieden (Nutzer):** Ultimativer Solarhelm bekommt ein Rezept (Phase 36, nach 34.2): `PSP/CQC/PTP`,
+  P Iridiumplatte, S IC2-Solarhelm, C Supraleiter, Q Quantenhelm, T HV-Transformator; Leistung wie im Pack
+  (512/64 EU/t). Compact-Solars-Hüte bleiben entfallen.
+
 ## Nächste Schritte
-- Client-Test Phase 35 (Testplan §17) und 34.1.
+- Phase 36: Rezept Ultimativer Solarhelm (Spezifikation `spec/28` §8/§10 + Umsetzung, EMI-/Wiki-Text „kein Rezept“
+  ersetzen, Herkunft).
+- Client-Test Phase 35 (Testplan §17) und 34 (Testplan §18); Gravi-Brustplatte am Boden ohne Verbrauch.
 - `liquidTesseractFillsRemoteTank` klären (vermutlich Nuke-Entfernung im Arbeitsbaum).
-- 34.2: EMI-Info, Wiki, Herkunft, Testplan (Paket erst, wenn der Nutzer eine Version will).
 - Neue Version/Paket erst auf Wunsch des Nutzers.
 - Client-Test 33 (FE Producer an AE2 Energy Acceptor, Testplan 16).
 - Client-Test 32 und 31 (Nutzer), 30.6, Extruder-Rezepte, Trichter, B7 (EMI-Tags übersetzt?).

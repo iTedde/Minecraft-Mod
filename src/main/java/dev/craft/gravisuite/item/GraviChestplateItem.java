@@ -130,7 +130,8 @@ public class GraviChestplateItem extends ElectricArmorItem {
             Abilities abilities = player.getAbilities();
             boolean creative = abilities.instabuild;
             int charge = ElectricItems.getCharge(stack);
-            if (!creative) {
+            // Deviation (user, 2026-10-29): no consumption on the ground, the pack drains there too.
+            if (!creative && !player.onGround()) {
                 if (charge < ENERGY_PER_TICK) {
                     player.sendSystemMessage(Component.translatable("message.craft.gravisuite.gravi_depleted"));
                     switchFlyMode(player, stack);

@@ -248,6 +248,16 @@ Testwelt. Sprache einmal Deutsch, einmal Englisch prüfen. EMI und Xaero's Minim
 | 17.5 | Reichweite: Kiste 30 Blöcke entfernt (auch 20 höher) wird angelaufen; Deckel einer Truhe, die gleichzeitig ein Spieler offen hat, schließt nicht vorzeitig | 35.3 | |
 | 17.6 | EMI-Info am Spawn-Ei (Bau, Verhalten), Herkunftstext beim Spawn-Ei; Wiki-Abschnitt „Kupfergolem“ auf der Iron-Chests-Seite | 35.4 | |
 
+## 18. Großer Projekttisch (Phase 34)
+
+| Nr | Test | Herkunft | OK |
+|---|---|---|---|
+| 18.1 | Rezept `III/CPC/III` in EMI, Block mit Eisenrand im Tab RedPower hinter dem Projekttisch, Tooltip „27 Vorratsplätze“, Ausrichtung zum Spieler | 34.1 | |
+| 18.2 | GUI 176 × 240: Raster, Bauplan-Slot, Ergebnis, 3 Vorratsreihen, Spielerinventar passen zum Hintergrund; Shift-Klick zwischen Vorrat und Inventar | 34.1 | |
+| 18.3 | Nachschub aus der dritten Vorratsreihe, Bauplan beschreiben und ohne Raster herstellen; EMI-„+“ (auch Shift-+) füllt aus Vorrat und Inventar | 34.1 | |
+| 18.4 | Holzrohr/Trichter an jeder Seite erreicht nur die 27 Vorratsplätze; Abbau droppt alle 37 Slots | 34.1 | |
+| 18.5 | EMI-Info-Seite an beiden Projekttischen; Wiki: Zeile in „Komplett neue Inhalte“, Maschinentext, EMI-„+“-Hinweis | 34.2 | |
+
 ## Befunde
 
 | Nr | Datum | Befund | Status |

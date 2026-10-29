@@ -79,7 +79,6 @@ public final class CraftCreativeTabs {
                 output.accept(Ic2Items.LUMINATOR);
                 output.accept(Ic2Items.CROP);
                 output.accept(Ic2Items.INDUSTRIAL_TNT);
-                output.accept(Ic2Items.NUKE);
                 output.accept(Ic2Items.TOOLBOX);
                 for (DeferredHolder<Item, ? extends Item> item : Ic2Items.ITEMS.getEntries()) {
                     Item value = item.get();

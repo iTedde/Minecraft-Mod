@@ -1,6 +1,7 @@
 package dev.craft.compat.emi;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import dev.craft.compactsolars.CsItems;
@@ -14,10 +15,12 @@ import dev.emi.emi.api.EmiApi;
 import dev.emi.emi.api.EmiEntrypoint;
 import dev.emi.emi.api.EmiPlugin;
 import dev.emi.emi.api.EmiRegistry;
+import dev.emi.emi.api.recipe.EmiInfoRecipe;
 import dev.emi.emi.api.recipe.EmiRecipeCategory;
 import dev.emi.emi.api.recipe.VanillaEmiRecipeCategories;
 import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.Bounds;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 
 /**
@@ -47,6 +50,9 @@ public class CraftEmiPlugin implements EmiPlugin {
         PcEmiRecipes.register(registry);
         registry.addWorkstation(VanillaEmiRecipeCategories.CRAFTING, EmiStack.of(RpItems.PROJECT_TABLE.get()));
         registry.addWorkstation(VanillaEmiRecipeCategories.CRAFTING, EmiStack.of(RpItems.LARGE_PROJECT_TABLE.get()));
+        registry.addRecipe(new EmiInfoRecipe(List.of(EmiStack.of(RpItems.PROJECT_TABLE.get()),
+                EmiStack.of(RpItems.LARGE_PROJECT_TABLE.get())),
+                List.of(Component.translatable("emi.craft.info.project_table")), Ic2EmiRecipes.id("info/project_table")));
         CraftingTableEmiHandlers.register(registry);
         MultiblockEmiInfo.register(registry);
         MultiblockEmiInfo.registerTerraformer(registry);

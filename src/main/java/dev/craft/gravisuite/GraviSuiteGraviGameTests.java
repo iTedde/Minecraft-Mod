@@ -60,7 +60,7 @@ public final class GraviSuiteGraviGameTests {
         helper.succeed();
     }
 
-    /** 416 EU per tick also on the ground; below 416 EU the engine shuts down. */
+    /** 416 EU per tick in the air, nothing on the ground (deviation); below 416 EU the engine shuts down. */
     @GameTest(template = "empty_8x4x8")
     public static void consumption(GameTestHelper helper) {
         Player player = wearing(helper, GameType.SURVIVAL, 100000);
@@ -68,8 +68,11 @@ public final class GraviSuiteGraviGameTests {
         player.setOnGround(true);
         player.fallDistance = 5.0F;
         GraviChestplateItem.serverTick(player);
-        helper.assertValueEqual(ElectricItems.getCharge(chest(player)), 100000 - 416, "416 per tick");
+        helper.assertValueEqual(ElectricItems.getCharge(chest(player)), 100000, "free on the ground");
         helper.assertValueEqual(player.fallDistance, 0.0F, "no fall distance");
+        player.setOnGround(false);
+        GraviChestplateItem.serverTick(player);
+        helper.assertValueEqual(ElectricItems.getCharge(chest(player)), 100000 - 416, "416 per tick");
         ElectricItems.discharge(chest(player), Integer.MAX_VALUE, Integer.MAX_VALUE, true, false);
         ElectricItems.charge(chest(player), 415, Integer.MAX_VALUE, true, false);
         GraviChestplateItem.serverTick(player);

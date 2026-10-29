@@ -115,7 +115,8 @@ NBT `isFlyActive`. Schutz wie Quantum-Brustplatte (§2), aber keine sonstigen Qu
 - **Tick** (Brustslot, Server + Client):
   - Wurde die Platte zuvor abgelegt („zuletzt ausgezogen“), wird `isFlyActive` auf false gesetzt.
   - `isFlyActive`: nicht Kreativ → Ladung < 416: „§cWarning ! Your's energy cell is depleted ! Gravitation engine
-    shutdown !“ und ausschalten; sonst 416 EU entladen (Tier 3, ohne Transferlimit). Das gilt auch am Boden.
+    shutdown !“ und ausschalten; sonst 416 EU entladen (Tier 3, ohne Transferlimit). Das gilt im Pack auch am Boden.
+    **Abweichung (Nutzer, 2026-10-29):** am Boden kein Verbrauch und keine Abschaltung; beides nur in der Luft.
   - Fallhöhe 0.
   - **Boost**: nicht am Boden, fliegend, Boost-Taste: Ladung ≤ 1 248 und nicht Kreativ → „Not enough energy to
     boost !“ (jeden Tick); sonst `moveFlying(seitwärts, vorwärts, 0,11)` (Client, Eingaben ±1, mit Schleichen ×0,3;
@@ -299,7 +300,7 @@ LapPack, begrenzt auf 10 000 000.
 - `chargeFromArmor`: Werkzeug lädt aus Fortg. LapPack, Fortg. Jetpack, Gravitations-Brustplatte; nicht aus Solarhelm.
 - Jetpack: ohne Triebwerk kein Schub; mit Triebwerk und Sprung `motionY`-Anstieg und −12 EU/Tick; Boost −60 extra;
   Schwebemodus begrenzt Sinken; Leistungsabfall ≤ 1 000 EU.
-- Gravitations-Brustplatte: Einschalten erst ab 80 000 EU; −416 EU/Tick auch am Boden; Abschalten bei < 416 EU;
+- Gravitations-Brustplatte: Einschalten erst ab 80 000 EU; −416 EU/Tick in der Luft, am Boden 0 (Abweichung); Abschalten bei < 416 EU;
   Ablegen nimmt `mayfly`; Höhengrenze.
 - Schutzwerte (AbsorbMax-Formeln inkl. der zwei ×25-Fehler, Rüstungsanzeige).
 - Solarhelm: Erzeugung 512/64/0 nach Sonne/Himmel; Verteilreihenfolge (Rüstung vor Inventar).

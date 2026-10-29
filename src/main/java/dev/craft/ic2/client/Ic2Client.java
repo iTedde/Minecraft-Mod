@@ -76,7 +76,6 @@ public final class Ic2Client {
     public static void registerEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerEntityRenderer(Ic2EntityTypes.MINING_LASER.get(), MiningLaserRenderer::new);
         event.registerEntityRenderer(Ic2EntityTypes.INDUSTRIAL_TNT.get(), Ic2ExplosiveRenderer::new);
-        event.registerEntityRenderer(Ic2EntityTypes.NUKE.get(), Ic2ExplosiveRenderer::new);
         event.registerEntityRenderer(Ic2EntityTypes.DYNAMITE.get(), ThrownItemRenderer::new);
         event.registerEntityRenderer(Ic2EntityTypes.STICKY_DYNAMITE.get(), ThrownItemRenderer::new);
         event.registerBlockEntityRenderer(personalSafeType(), PersonalSafeRenderer::new);

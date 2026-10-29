@@ -495,8 +495,6 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
         simpleBlockWithItem(Ic2Blocks.INDUSTRIAL_TNT.get(), models().cubeBottomTop("industrial_tnt",
                 modLoc("block/industrial_tnt_side"), modLoc("block/industrial_tnt_bottom"),
                 modLoc("block/industrial_tnt_top")));
-        simpleBlockWithItem(Ic2Blocks.NUKE.get(), models().cubeBottomTop("nuke", modLoc("block/nuke_side"),
-                modLoc("block/nuke_bottom"), modLoc("block/nuke_top")));
         dynamiteStick(Ic2Blocks.DYNAMITE_STICK.get());
         dynamiteStick(Ic2Blocks.DYNAMITE_STICK_WITH_REMOTE.get());
         simpleBlockWithItem(Ic2Blocks.REINFORCED_STONE.get(), cubeAll(Ic2Blocks.REINFORCED_STONE.get()));

@@ -178,6 +178,7 @@ Engine, Power Converters und der Kernreaktor.</p>
     row('CC: Tweaked', 'mitinstallierter Mod', 'Computer und Turtles (Ersatz für ComputerCraft 1.5 im Pack)', 'zusatzmods', NEW),
     row('Verteiler-Transportrohr', 'Item-Rohr mit Anteil je Seite', 'Diamant-Transportrohr + Komparator; exakte Aufteilung nach eingestellten Prozent', 'mod-buildcraft', NEW),
     row('FE Producer', 'Power-Converters-Bauteil', 'Energy Bridge → FE (1 EU = 4 FE) für AE2, Ad Astra & Co.; nur diese Richtung', 'umwandlung', NEW),
+    row('Großer Projekttisch', 'zweiter Projekttisch (RedPower)', 'Vorrat 27 statt 18 Plätze wie eine Holztruhe, sonst gleich; Rezept: Projekttisch + 2 Truhen + 6 Eisenbarren', 'spec-34', NEW),
 ])}
 
 <h2 id="chg--weg">3. Weggelassen oder eingeschränkt</h2>
@@ -200,7 +201,7 @@ Diese hier bemerkt man im Spiel:</p>
     row('Tiefenschiefer', 'gibt es nicht', 'Tiefenschiefer-Varianten (z. B. Tiefenschiefer-Zinnerz, GT-Erze) mit denselben Regeln wie das Grunderz', 'spec-07', TECH),
     row('Welthöhe / Erzhöhen', '0–255', 'Erzhöhen absolut übernommen (z. B. Zinn y 0–39, Uran y 0–64), keine IC2-Erze unter y 0', 'spec-07', TECH),
     row('Erzwörterbuch', 'OreDictionary (<code>ingotCopper</code>)', 'Tags (<code>c:ingots/copper</code>) – andere Mods mit denselben Tags passen', '', TECH),
-    row('IC2-Explosionsresistenz', 'Obsidian & Co. global auf 36 gesetzt', 'gilt nur bei IC2-Explosionen (Reaktor, Nuke, Industrie-TNT); Vanilla-TNT/Creeper unverändert', 'spec-01', TECH),
+    row('IC2-Explosionsresistenz', 'Obsidian & Co. global auf 36 gesetzt', 'gilt nur bei IC2-Explosionen (Reaktor, Industrie-TNT); Vanilla-TNT/Creeper unverändert', 'spec-01', TECH),
     row('RE-Batterie', 'zwei Items (leer/geladen)', 'ein Item: leer stapelbar bis 16, geladen Stapel 1', 'spec-05', TECH),
     row('Rüstung', 'Forge <code>ISpecialArmor</code>', 'über das Schadens-Event nachgebaut, gleiche Absorption und EU-Kosten', 'spec-05', TECH),
     row('GT-Recycling von Türen', 'Eisentür → 6 Eisenstaub', 'Eisen-/Holztür → 2 (in 1.21 ergeben 6 Barren 3 Türen – sonst Vermehrung)', 'abweichungen', TECH),
@@ -810,7 +811,7 @@ Fluch kommen wie gewohnt über Bücher am Amboss.</p>
 <li><b>BuildCraft / Forestry / Kraftwerke:</b> Raffinerie, Thermionic Fabricator, Carpenter, Koksofen, Kessel, Turbine …</li>
 </ul>
 <p>Angezeigt werden Ein-/Ausgaben, Dauer, EU/t und Gesamt-EU wie in der jeweiligen GUI. Werkbank-Rezepte und Öfen zeigt EMI ohnehin.
-Der <b>+</b>-Knopf füllt Werkbank-Rezepte auch in den <b>Projekttisch</b> (aus Vorrat und Inventar) und in die <b>Automatische Werkbank</b>.
+Der <b>+</b>-Knopf füllt Werkbank-Rezepte auch in den <b>Projekttisch</b> und den <b>Großen Projekttisch</b> (aus Vorrat und Inventar) und in die <b>Automatische Werkbank</b>.
 Über einem Gegenstand: <b>R</b> = Rezept, <b>U</b> = Verwendungen. EMI ist optional – ohne EMI startet Craft trotzdem.</p>
 <h2 id="zu--xaero">Xaero's Minimap</h2>
 <p>Nur mitinstalliert, keine eigene Integration. Version neoforge-1.21.1-26.5.0.</p>
@@ -1054,11 +1055,11 @@ Rohr und jede Maschine ab. Klick auf den Ventilknauf kehrt das um (dann Druck oh
             'im Kreativmodus), <b>Fortgeschrittenes Jetpack</b> und <b>Nano-Brustplatte</b>, <b>Fortgeschrittenes</b> und '
             '<b>Ultimatives LapPack</b>, <b>Fortgeschrittener Bohrer</b> und <b>Kettensäge</b>, <b>Vajra</b>, <b>GraviTool</b> und '
             'der <b>Ultimative Solarhelm</b> (nur Kreativ). Alles läuft mit EU; Rezepte übertragen die Ladung der Zutaten.',
-            [('Version (Vorlage)', '1.8'), ('Flug-Taste', 'G (Pack: F)'), ('Gravi-Brustplatte', '10 Mio. EU, 416 EU/t'),
+            [('Version (Vorlage)', '1.8'), ('Flug-Taste', 'G (Pack: F)'), ('Gravi-Brustplatte', '10 Mio. EU, 416 EU/t in der Luft'),
              ('Paket', 'Kreativ-Tab „IndustrialCraft 2“')],
             [('spec-28', '28 – GraviSuite')],
             f'''<h2 id="mod-gravisuite--flug">Fliegen</h2>
-<ul><li>{c('gravi_chestplate')}: <b>G</b> schaltet den Flug ein (ab 80 000 EU), 416 EU/t auch am Boden, Boost mit Strg
+<ul><li>{c('gravi_chestplate')}: <b>G</b> schaltet den Flug ein (ab 80 000 EU), 416 EU/t in der Luft, am Boden nichts (im Pack auch dort), Boost mit Strg
 (2 × 1 248 EU/t). Kein Fallschaden; schützt wie die Quanten-Brustplatte. HUD oben rechts zeigt Status und Ladung.</li>
 <li>{c('advanced_jetpack')} / {c('advanced_nano_chestplate')}: <b>G</b> schaltet das Triebwerk, Springen gibt Schub (12 EU/t),
 <b>M</b> beim Springen den Schwebemodus. Unter 1 000 EU bricht der Schub stark ein (wie im Original).</li>

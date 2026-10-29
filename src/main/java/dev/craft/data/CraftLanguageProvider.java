@@ -585,10 +585,10 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
         add("message.craft.gravisuite.hover_disabled",
                 german ? "§eSchwebemodus §cdeaktiviert." : "§eHover Mode §cdisabled.");
         add("emi.craft.info.gravi_chestplate", german
-                ? "Gravi-Flugtaste (Standard G) schaltet den Flug ein, ab 80 000 EU. Verbraucht 416 EU/t, auch am "
-                + "Boden; unter 416 EU schaltet sie ab. Boost-Taste (Strg) im Flug: schneller, 2 × 1 248 EU/t. Kein "
+                ? "Gravi-Flugtaste (Standard G) schaltet den Flug ein, ab 80 000 EU. Verbraucht 416 EU/t in der Luft, "
+                + "am Boden nichts; unter 416 EU schaltet sie ab. Boost-Taste (Strg) im Flug: schneller, 2 × 1 248 EU/t. Kein "
                 + "Fallschaden. Schützt wie die Quanten-Brustplatte (900 EU je Schaden) und lädt Werkzeuge."
-                : "Gravi Fly Key (default G) turns flight on, from 80,000 EU. Uses 416 EU/t, also on the ground; below "
+                : "Gravi Fly Key (default G) turns flight on, from 80,000 EU. Uses 416 EU/t in the air, nothing on the ground; below "
                 + "416 EU it shuts down. Boost key (Ctrl) while flying: faster, 2 × 1,248 EU/t. No fall damage. "
                 + "Protects like the quantum chestplate (900 EU per damage) and charges tools.");
         add("emi.craft.info.advanced_jetpack", german
@@ -624,6 +624,16 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
         add("key.categories.craft", "Craft");
         add("key.craft.gravi_fly", german ? "Gravi-Flugtaste" : "Gravi Fly Key");
         add("key.craft.mps_down", german ? "Power-Rüstung: Runter (Flugsteuerung)" : "Power Armor: Down (Flight Control)");
+        add("emi.craft.info.project_table", german
+                ? "Werkbank mit Vorrat: Projekttisch 18 Plätze, Großer Projekttisch 27. Rezept mit je einem Item ins "
+                + "Raster legen, Nachschub in den Vorrat – nach jedem Handwerk füllt sich das Raster daraus nach. Mit "
+                + "beschriebenem Bauplan bleibt das Raster leer und alles kommt aus dem Vorrat. Rohre und Trichter "
+                + "erreichen von allen Seiten nur den Vorrat. Der „+“-Knopf in EMI füllt aus Vorrat und Inventar."
+                : "Crafting table with storage: project table 18 slots, large project table 27. Put the recipe into "
+                + "the grid with one item each and the refill into the storage – after each craft the grid refills "
+                + "from it. With a written plan the grid stays empty and everything comes from the storage. Pipes and "
+                + "hoppers reach only the storage, from every side. EMI's \"+\" button fills from storage and "
+                + "inventory.");
         add("emi.craft.info.tinker_table", german
                 ? "Rechtsklick öffnet die Werkbank für Power-Rüstung und Power-Werkzeug im Inventar. Module kosten "
                 + "Bauteile (Kreativ: kostenlos), Regler stellen ihre Werte ein. Ausbauen gibt jedes Bauteil mit 90 % "
@@ -1675,8 +1685,6 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             block(Ic2Blocks.LUMINATOR, "Luminator");
             block(Ic2Blocks.INDUSTRIAL_TNT, "Industrial TNT");
             add(Ic2EntityTypes.INDUSTRIAL_TNT.get(), "Industrial TNT");
-            block(Ic2Blocks.NUKE, "Nuke");
-            add(Ic2EntityTypes.NUKE.get(), "Nuke");
             item(Ic2Items.DYNAMITE, "Dynamite");
             item(Ic2Items.STICKY_DYNAMITE, "Sticky Dynamite");
             item(Ic2Items.DYNAMITE_O_MOTE, "Dynamite-O-Mote");
@@ -2089,8 +2097,6 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             block(Ic2Blocks.LUMINATOR, "Luminator");
             block(Ic2Blocks.INDUSTRIAL_TNT, "Industrie-TNT");
             add(Ic2EntityTypes.INDUSTRIAL_TNT.get(), "Industrie-TNT");
-            block(Ic2Blocks.NUKE, "Atombombe");
-            add(Ic2EntityTypes.NUKE.get(), "Atombombe");
             item(Ic2Items.DYNAMITE, "Dynamit");
             item(Ic2Items.STICKY_DYNAMITE, "Klebedynamit");
             item(Ic2Items.DYNAMITE_O_MOTE, "Fernzünder");
