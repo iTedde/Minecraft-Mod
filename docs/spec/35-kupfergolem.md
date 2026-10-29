@@ -109,6 +109,21 @@ Eigenes Modell (`EntityModel`, Kopf mit Antenne, kurze Arme, Item in der Hand) u
 gezeichnet mit Python/Pillow im Vanilla-Stil. Animationen: Gehen, Kiste untersuchen, Item halten. Geräusche:
 Vanilla-Kupfer- und Eisengolem-Klänge in höherer Tonlage (eigene Sounds gibt es in 1.21.1 nicht).
 
+### 2.6 Umsetzung (35.2)
+
+- `CopperGolem` (`AbstractGolem`), Stufe als synchronisierter Wert, Wachs und nächster Oxidationszeitpunkt
+  (`gameTime`) im NBT; beim Laden holt der erste Tick alle verstrichenen Stufen nach.
+- Blitz: eine Stufe weniger (ein Treffer je Blitz, obwohl er mehrere Ticks trifft); der Golem fängt kein Feuer und
+  nimmt keinen Blitzschaden. Honigwabe/Axt am Golem auch ohne Schleichen.
+- Bau: `BlockEvent.EntityPlaceEvent` merkt den Kürbis vor, geprüft wird nach dem Tick (der Enderman meldet vor dem
+  Setzen und für den Block darunter). Kupferblock unter dem Kürbis hat Vorrang vor seitlich/oben. Werfer: eigenes
+  Verhalten für geschnitzten Kürbis und Kürbislaterne, das an das Vanilla-Verhalten weitergibt, wenn ein
+  Schnee-/Eisengolem entsteht oder kein Kupferblock angrenzt; der Kürbis schaut dann in Werferrichtung.
+- Modell 64 × 32 (`CopperGolemModel`), Texturen aus den Vanilla-Kupferblöcken je Stufe
+  (`tools/scripts/copper_golem_textures.py <client-extra-Jar>`); Item zwischen beiden Händen. Geräusche:
+  Eisengolem-Treffer/-Tod mit 1,6-facher Tonhöhe, Schritte Kupfer.
+- Drop über Loot-Tabelle `craft:entities/copper_golem` (Datagen `CraftEntityLoot`).
+
 ## 3. Weiteres
 
 - Spawn-Ei im Kreativ-Tab der Iron Chests, direkt hinter den Kisten.

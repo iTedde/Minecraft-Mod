@@ -8,6 +8,7 @@ import dev.craft.enderstorage.EnderStorage;
 import dev.craft.gravisuite.GraviSuite;
 import dev.craft.mps.Mps;
 import dev.craft.gregtech.GregTech;
+import dev.craft.coppergolem.CopperGolems;
 import dev.craft.core.CraftCreativeTabs;
 import dev.craft.forestry.Forestry;
 import dev.craft.powerconverters.PowerConverters;
@@ -47,6 +48,7 @@ public final class Craft {
         RedPower.init(modBus);
         PortalGun.init(modBus);
         IronChests.init(modBus);
+        CopperGolems.init(modBus);
         AdvancedMachines.init(modBus);
         ThermalExpansion.init(modBus);
         EnderStorage.init(modBus);

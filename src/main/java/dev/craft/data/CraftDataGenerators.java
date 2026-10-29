@@ -49,7 +49,8 @@ public final class CraftDataGenerators {
         generator.addProvider(event.includeServer(), new LootTableProvider(output, Set.of(), List.of(
                 new LootTableProvider.SubProviderEntry(CraftBlockLoot::new, LootContextParamSets.BLOCK),
                 new LootTableProvider.SubProviderEntry(CraftBlockLoot.Vanilla::new, LootContextParamSets.BLOCK),
-                new LootTableProvider.SubProviderEntry(CraftScrapBoxLoot::new, LootContextParamSets.EMPTY)),
+                new LootTableProvider.SubProviderEntry(CraftScrapBoxLoot::new, LootContextParamSets.EMPTY),
+                new LootTableProvider.SubProviderEntry(CraftEntityLoot::new, LootContextParamSets.ENTITY)),
                 lookup));
         CraftBlockTagsProvider blockTags = generator.addProvider(event.includeServer(),
                 new CraftBlockTagsProvider(output, lookup, files));

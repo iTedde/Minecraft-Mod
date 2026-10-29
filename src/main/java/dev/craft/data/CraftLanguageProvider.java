@@ -42,6 +42,7 @@ import dev.craft.gravisuite.GsItems;
 import dev.craft.mps.MpsBlocks;
 import dev.craft.mps.MpsItems;
 import dev.craft.mps.module.PowerModule;
+import dev.craft.coppergolem.CopperGolems;
 import dev.craft.ironchest.ChestUpgradeType;
 import dev.craft.ironchest.IronChestBlocks;
 import dev.craft.ironchest.IronChestItems;
@@ -491,6 +492,9 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
         for (ChestUpgradeType type : ChestUpgradeType.values()) {
             item(IronChestItems.upgrade(type), upgrades[type.ordinal()][german ? 1 : 0]);
         }
+        // Copper golem (spec 35 §3).
+        addEntityType(CopperGolems.COPPER_GOLEM, german ? "Kupfergolem" : "Copper Golem");
+        item(CopperGolems.SPAWN_EGG, german ? "Kupfergolem-Spawn-Ei" : "Copper Golem Spawn Egg");
     }
 
     /** GraviSuite (spec 28 §1); English names as in the pack. */

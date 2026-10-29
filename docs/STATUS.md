@@ -2972,10 +2972,29 @@ Bau per Event ohne Mixin.
   (vorher 547 grün). Nicht angefasst.
 - `abweichungen.md`, `spec/22` (Nachtrag), `spec/35` §1 ergänzt.
 
+# Phase 35.2 – Kupfergolem als Kreatur (2026-10-29)
+
+## Erledigt
+- [x] Paket `dev.craft.coppergolem`: `CopperGolem` (12 Leben, Tempo 0,2, `FOLLOW_RANGE` 48, 0,49 × 0,98, kein
+  Fallschaden, passiv), Spawn-Ei im Tab Iron Chests direkt hinter den Kisten, Lang DE/EN, Drop 1–3 Kupferbarren
+  (+1 je Plünderung).
+- [x] Oxidation über `gameTime` (420–460 min je Stufe, Nachholen beim Laden), keine Statue; Honigwabe, Axt (Wachs ab,
+  sonst eine Stufe), Blitz eine Stufe.
+- [x] Bau aus Kupferblock + Kürbis/Kürbislaterne (auch seitlich/kopfüber) per Event (Spieler, Enderman) und Werfer;
+  Block wird zur Kupferkiste gleicher Stufe, Golem gleicher Stufe ungewachst.
+- [x] Modell, Renderer mit Item zwischen den Händen, 4 Texturen (`tools/scripts/copper_golem_textures.py`).
+- [x] 9 GameTests `CopperGolemGameTests` (Bau oben/seitlich, Kürbis zuerst = nichts, Werfer, Schneegolem per Werfer
+  bleibt Vanilla, Oxidation nachholen/gewachst, eine Stufe nach Ablauf, Honigwabe/Axt, Blitz) grün. Gesamt alles
+  grün bis auf das bekannte `liquidTesseractFillsRemoteTank`. `gradlew runData build` grün.
+- Spezifikation §2.6 (Umsetzungsdetails) nachgetragen.
+
 ## Nächste Schritte
-- 35.2: Golem (Kreatur, Bau aus Muster per Event + Werfer, Modell/Texturen, Oxidation/Wachs).
-- Client-Test 35.1 (Texturen der Stufen, Honigwabe/Axt schleichend, Partikel).
-- `liquidTesseractFillsRemoteTank` klären (siehe oben).
+- 35.3: Item-Transport (Suche ±32, Holen aus Kupferkiste, Abgeben, Gedächtnis, Tag `craft:copper_golem_targets`,
+  Rechtsklick nimmt Item ab, Animation „Kiste untersuchen“), GameTests.
+- Client-Test 35.2 (Modell/Texturen, Laufen, Bau per Hand/Werfer, Honigwabe/Axt-Partikel) und 35.1.
+- `docs/abweichungen.md`: Kupfergolem-Eintrag (spec 35 §3) – Datei hat noch nicht committete Nuke-Änderungen des
+  Nutzers, daher in 35.2 nicht angefasst.
+- `liquidTesseractFillsRemoteTank` klären (vermutlich Nuke-Entfernung im Arbeitsbaum).
 - 34.2: EMI-Info, Wiki, Herkunft, Testplan (Paket erst, wenn der Nutzer eine Version will).
 - Client-Test 34.1 (GUI 3 Reihen, Bauplan, EMI-„+“, Holzrohr/Trichter am Vorrat).
 - Client-Test 33 (FE Producer an AE2 Energy Acceptor, Testplan 16).

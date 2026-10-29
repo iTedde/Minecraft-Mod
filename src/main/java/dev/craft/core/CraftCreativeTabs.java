@@ -38,6 +38,8 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import dev.craft.enderstorage.EsItems;
 import dev.craft.mps.MpsItems;
+import dev.craft.coppergolem.CopperGolems;
+import dev.craft.ironchest.ChestUpgradeType;
 import dev.craft.ironchest.IronChestItems;
 import dev.craft.ironchest.IronChestType;
 import net.neoforged.neoforge.registries.DeferredHolder;
@@ -211,8 +213,16 @@ public final class CraftCreativeTabs {
                     .title(Component.translatable("itemGroup.craft.iron_chests"))
                     .icon(() -> IronChestItems.chest(IronChestType.IRON).toStack())
                     .withTabsBefore(ResourceLocation.fromNamespaceAndPath(Craft.MODID, "redpower"))
-                    .displayItems((parameters, output) -> IronChestItems.ITEMS.getEntries()
-                            .forEach(item -> output.accept(item.get())))
+                    .displayItems((parameters, output) -> {
+                        // The copper golem's spawn egg right behind the chests (spec 35 §3).
+                        for (IronChestType type : IronChestType.values()) {
+                            output.accept(IronChestItems.chest(type).get());
+                        }
+                        output.accept(CopperGolems.SPAWN_EGG.get());
+                        for (ChestUpgradeType type : ChestUpgradeType.values()) {
+                            output.accept(IronChestItems.upgrade(type).get());
+                        }
+                    })
                     .build());
 
     public static final Supplier<CreativeModeTab> ADVANCED_MACHINES = TABS.register("advanced_machines", () ->

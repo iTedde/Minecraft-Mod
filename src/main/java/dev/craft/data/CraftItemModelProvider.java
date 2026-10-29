@@ -24,6 +24,7 @@ import dev.craft.gravisuite.GsItems;
 import dev.craft.mps.MpsItems;
 import dev.craft.gravisuite.client.GraviSuiteClient;
 import dev.craft.enderstorage.client.EnderStorageClient;
+import dev.craft.coppergolem.CopperGolems;
 import dev.craft.ironchest.ChestUpgradeType;
 import dev.craft.ironchest.IronChestItems;
 import dev.craft.ironchest.IronChestType;
@@ -75,6 +76,7 @@ public final class CraftItemModelProvider extends ItemModelProvider {
         for (ChestUpgradeType type : ChestUpgradeType.values()) {
             basicItem(IronChestItems.upgrade(type).get());
         }
+        withExistingParent(CopperGolems.SPAWN_EGG.getId().getPath(), mcLoc("item/template_spawn_egg"));
         for (CableType type : CableType.values()) {
             basicItem(Ic2Items.cable(type).get());
         }
