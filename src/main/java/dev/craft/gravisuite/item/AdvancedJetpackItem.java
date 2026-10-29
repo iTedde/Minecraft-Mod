@@ -1,5 +1,6 @@
 package dev.craft.gravisuite.item;
 
+import dev.craft.core.MovementCap;
 import dev.craft.gravisuite.GsDataComponents;
 import dev.craft.ic2.Ic2DataComponents;
 import dev.craft.ic2.item.ElectricItems;
@@ -17,12 +18,13 @@ import net.minecraft.world.phys.Vec3;
 
 /**
  * GraviSuite {@code ItemAdvancedJetPack} (spec 28 §4): electric jetpack with an engine switch (fly key), hover mode
- * (mode key while jumping) and boost; 1 000 000 EU, 12 EU per tick, boost ×5; provides energy like a LapPack.
+ * (mode key while jumping); 1 000 000 EU; provides energy like a LapPack. Spec 37 §3.4: no boost, horizontal speed
+ * capped at sprinting, in return half the consumption (6 instead of 12 EU per tick).
  */
 public class AdvancedJetpackItem extends ElectricArmorItem {
     public static final int MAX_CHARGE = 1000000;
-    public static final int ENERGY_PER_TICK = 12;
-    public static final int BOOST_MULTIPLIER = 5;
+    /** Spec 37 §3.4: half of GraviSuite's 12 EU per tick. */
+    public static final int ENERGY_PER_TICK = 6;
 
     public AdvancedJetpackItem(Holder<ArmorMaterial> material, Properties properties) {
         super(material, Type.CHESTPLATE, properties, MAX_CHARGE, 1000, 2);
@@ -91,15 +93,8 @@ public class AdvancedJetpackItem extends ElectricArmorItem {
         }
         if (Ic2Keyboard.isForwardKeyDown(player)) {
             float forwardPower = power * (hoverMode ? 0.65F : 0.3F) * 2.0F;
-            float boost = 0.0F;
-            if (Ic2Keyboard.isBoostKeyDown(player) && (charge > ENERGY_PER_TICK * BOOST_MULTIPLIER || creative)) {
-                boost = hoverMode ? 0.07F : 0.09F;
-            }
             if (forwardPower > 0.0F) {
-                player.moveRelative(0.02F + boost, new Vec3(0.0, 0.0, 0.4F * forwardPower + boost));
-                if (boost > 0.0F && !creative) {
-                    use(stack, ENERGY_PER_TICK * BOOST_MULTIPLIER);
-                }
+                player.moveRelative(0.02F, new Vec3(0.0, 0.0, 0.4F * forwardPower));
             }
         }
         int maxHeight = player.level().getMaxBuildHeight();
@@ -122,7 +117,7 @@ public class AdvancedJetpackItem extends ElectricArmorItem {
                 }
             }
         }
-        player.setDeltaMovement(motion.x, motionY, motion.z);
+        player.setDeltaMovement(MovementCap.clampHorizontal(new Vec3(motion.x, motionY, motion.z)));
         if (!creative) {
             use(stack, ENERGY_PER_TICK);
         }

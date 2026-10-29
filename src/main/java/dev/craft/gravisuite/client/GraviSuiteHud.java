@@ -62,6 +62,9 @@ public final class GraviSuiteHud {
             if (GraviChestplateItem.isFlyActive(chest)) {
                 lines.add(Component.translatable("hud.craft.gravisuite.gravi_on"));
             }
+            if (GraviChestplateItem.isMagnetActive(chest)) {
+                lines.add(Component.translatable("hud.craft.gravisuite.magnet_on"));
+            }
             lines.add(energyLevel(chest));
         } else if (chest.getItem() instanceof AdvancedJetpackItem) {
             if (AdvancedJetpackItem.isEngineOn(chest)) {

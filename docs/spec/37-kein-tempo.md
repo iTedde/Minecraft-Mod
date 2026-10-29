@@ -97,6 +97,14 @@ Drive (Teleport, siehe Frage F4), Werkzeug-Abbautempo.
 - 37.0 Spezifikation (dieses Dokument) – **freigegeben 2026-10-29** (Nutzer: „alles nach deinem Vorschlag“, also F1 Deckel
   Sprinttempo auch beim Fliegen, F2 Ausgleiche wie §3, F3 nur Weitsprung weg, F4 nur Craft-Inhalte, Blink Drive bleibt)
 - 37.1 Gemeinsamer Deckel, IC2 (Quantenhose/-stiefel, Jetpacks, Kaffee) + GameTests – erledigt
-- 37.2 GraviSuite (Fortg. Jetpack, Nano-Brustplatte, Gravi-Brustplatte mit Magnet) + GameTests
+- 37.2 GraviSuite (Fortg. Jetpack, Nano-Brustplatte, Gravi-Brustplatte mit Magnet) + GameTests – erledigt. Umsetzung:
+  Fortg. Jetpack/Nano-Brustplatte `ENERGY_PER_TICK` 6, Boost-Code entfernt, Bewegung über `MovementCap` gedeckelt;
+  Gravi-Brustplatte ohne Boost (Server-Verbrauch und Client-Schub entfernt, Meldung `gravi_no_boost` entfällt),
+  Fluggeschwindigkeit über `PlayerFlyingSpeedMixin`: `getFlyingSpeed` = `MovementCap.FLY_ACCELERATION` ≈ 0,0277
+  (Endtempo 0,28 Blöcke/Tick, Sprint verdoppelt nicht), nur mit aktiver Platte außerhalb des Kreativmodus; Steigen/
+  Sinken über `abilities.getFlyingSpeed()` unverändert. Magnet: Data Component `craft:magnet_active`, Umschalten mit
+  der Modus-Taste bei gehaltener Boost-Taste (`GsKeyPayload.MODE`), HUD-Zeile „Gravitationsmagnet AN“; jeden Tick
+  Items (ohne Aufhebesperre, nur wenn das Inventar sie aufnimmt, 50 EU je Stapel) und Erfahrungskugeln im Umkreis 8
+  auf den Spieler gesetzt.
 - 37.3 MPS (Sprint/Jump/Swim, Deckel für Jet/Glider) + GameTests
 - 37.4 EMI-Texte, Tooltips, Wiki, `spec/28`/`spec/29`/`spec/17`-Verweise, `abweichungen.md`, Testplan

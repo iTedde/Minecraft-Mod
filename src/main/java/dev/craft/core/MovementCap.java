@@ -6,6 +6,11 @@ import net.minecraft.world.phys.Vec3;
 public final class MovementCap {
     /** Top speed of vanilla ground sprinting in blocks per tick (≈ 5.6 m/s). */
     public static final double MAX_HORIZONTAL = 0.28;
+    /**
+     * Flying acceleration whose top speed with the air friction 0.91 is {@link #MAX_HORIZONTAL}
+     * ({@code v = 0.91 · a / 0.09}); vanilla flies with 0.05, twice that sprinting.
+     */
+    public static final float FLY_ACCELERATION = (float) (MAX_HORIZONTAL * 0.09 / 0.91);
 
     private MovementCap() {
     }

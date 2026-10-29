@@ -3,6 +3,7 @@ package dev.craft.gravisuite;
 import java.util.List;
 
 import dev.craft.Craft;
+import dev.craft.core.MovementCap;
 import dev.craft.gravisuite.item.AdvancedJetpackItem;
 import dev.craft.ic2.Ic2DataComponents;
 import dev.craft.ic2.Ic2Items;
@@ -59,19 +60,24 @@ public final class GraviSuiteJetpackGameTests {
         helper.succeed();
     }
 
+    /** Spec 37 §3.4: 6 EU per tick (half of GraviSuite), no boost, never faster than sprinting. */
     @GameTest(template = "empty_8x4x8")
-    public static void thrustAndBoost(GameTestHelper helper) {
+    public static void thrustWithoutBoost(GameTestHelper helper) {
         Player player = wearing(helper, jetpack(true, 500000), Ic2Keyboard.JUMP);
         player.fallDistance = 5.0F;
         tick(player);
         ItemStack chest = player.getItemBySlot(EquipmentSlot.CHEST);
-        helper.assertValueEqual(ElectricItems.getCharge(chest), 500000 - 12, "12 EU per tick");
+        helper.assertValueEqual(ElectricItems.getCharge(chest), 500000 - 6, "6 EU per tick");
         helper.assertTrue(Math.abs(player.getDeltaMovement().y - 0.2) < 1.0E-6, "motionY +0.2");
         helper.assertValueEqual(player.fallDistance, 0.0F, "fall distance reset");
         Ic2Keyboard.processKeyUpdate(player, Ic2Keyboard.JUMP | Ic2Keyboard.FORWARD | Ic2Keyboard.BOOST);
         tick(player);
-        helper.assertValueEqual(ElectricItems.getCharge(chest), 500000 - 12 - 12 - 60, "boost costs 60 more");
+        helper.assertValueEqual(ElectricItems.getCharge(chest), 500000 - 6 - 6, "boost key costs nothing");
         helper.assertTrue(player.getDeltaMovement().horizontalDistance() > 0.0, "pushed forward");
+        player.setDeltaMovement(0.5, 0.0, 0.0);
+        tick(player);
+        helper.assertTrue(player.getDeltaMovement().horizontalDistance() <= MovementCap.MAX_HORIZONTAL + 1.0E-6,
+                "capped at sprinting");
         helper.succeed();
     }
 
@@ -101,9 +107,9 @@ public final class GraviSuiteJetpackGameTests {
         Player player = wearing(helper, jetpack(true, 1000), Ic2Keyboard.JUMP);
         tick(player);
         helper.assertTrue(Math.abs(player.getDeltaMovement().y - 0.004) < 1.0E-6, "power 0.02");
-        Player empty = wearing(helper, jetpack(true, 11), Ic2Keyboard.JUMP);
+        Player empty = wearing(helper, jetpack(true, 5), Ic2Keyboard.JUMP);
         tick(empty);
-        helper.assertValueEqual(empty.getDeltaMovement().y, 0.0, "below 12 EU nothing");
+        helper.assertValueEqual(empty.getDeltaMovement().y, 0.0, "below 6 EU nothing");
         helper.succeed();
     }
 

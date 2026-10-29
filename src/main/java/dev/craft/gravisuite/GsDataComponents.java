@@ -23,6 +23,12 @@ public final class GsDataComponents {
                     .persistent(Codec.INT)
                     .networkSynchronized(ByteBufCodecs.VAR_INT));
 
+    /** Spec 37 §3.5: gravitation magnet of the gravitation chestplate on/off. */
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Boolean>> MAGNET_ACTIVE =
+            COMPONENTS.registerComponentType("magnet_active", builder -> builder
+                    .persistent(Codec.BOOL)
+                    .networkSynchronized(ByteBufCodecs.BOOL));
+
     private GsDataComponents() {
     }
 }

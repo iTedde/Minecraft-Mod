@@ -239,9 +239,14 @@
         "BaseGeneratorBlockEntity",
         "MachineBlockEntity"
       ],
+      "conductionLoss": 0.0,
+      "conductorBreakdown": 2147483647,
       "id": "solar_panel",
+      "insulationAbsorption": 2147483647,
+      "insulationBreakdown": 2147483647,
       "kinds": [
-        "eu_source"
+        "eu_source",
+        "eu_conductor"
       ],
       "maxEnergyOutput": 1,
       "values": {

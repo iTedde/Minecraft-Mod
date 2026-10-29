@@ -13,11 +13,15 @@ import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.ExperienceOrb;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.GameType;
+import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.gametest.GameTestHolder;
 import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
 
@@ -82,19 +86,48 @@ public final class GraviSuiteGraviGameTests {
         helper.succeed();
     }
 
-    /** Boost in the air: 416 + 2 × 1 248 = 2 912 EU per tick (original error); ≤ 1 248 EU no boost cost. */
+    /** Spec 37 §3.5: no boost (only the 416 EU), flight at sprinting speed without the sprint doubling. */
     @GameTest(template = "empty_8x4x8")
-    public static void boostCost(GameTestHelper helper) {
+    public static void noBoostAndSprintSpeed(GameTestHelper helper) {
         Player player = wearing(helper, GameType.SURVIVAL, 100000);
         flyKey(player);
         player.setOnGround(false);
         Ic2Keyboard.processKeyUpdate(player, Ic2Keyboard.BOOST);
         GraviChestplateItem.serverTick(player);
-        helper.assertValueEqual(ElectricItems.getCharge(chest(player)), 100000 - 2912, "boost paid twice");
-        ElectricItems.discharge(chest(player), Integer.MAX_VALUE, Integer.MAX_VALUE, true, false);
-        ElectricItems.charge(chest(player), 1248, Integer.MAX_VALUE, true, false);
+        helper.assertValueEqual(ElectricItems.getCharge(chest(player)), 100000 - 416, "boost key costs nothing");
+        player.setSprinting(true);
+        helper.assertTrue(player.getAbilities().flying, "flying");
+        helper.assertTrue(GraviChestplateItem.limitsFlyingSpeed(player), "capped at sprinting speed");
+        Player creative = wearing(helper, GameType.CREATIVE, 100000);
+        creative.getAbilities().instabuild = true;
+        flyKey(creative);
+        helper.assertTrue(!GraviChestplateItem.limitsFlyingSpeed(creative), "creative flight unchanged");
+        helper.succeed();
+    }
+
+    /** Spec 37 §3.5: mode + boost switch the magnet; items (50 EU each) and orbs within 8 blocks come to the player. */
+    @GameTest(template = "empty_16x8x16", timeoutTicks = 20)
+    public static void magnet(GameTestHelper helper) {
+        Player player = wearing(helper, GameType.SURVIVAL, 100000);
+        Vec3 pos = helper.absoluteVec(new Vec3(8.5, 1.0, 8.5));
+        player.setPos(pos.x, pos.y, pos.z);
+        player.setOnGround(true);
+        GsKeyPayload.handle(player, GsKeyPayload.MODE);
+        helper.assertTrue(!GraviChestplateItem.isMagnetActive(chest(player)), "mode alone does nothing");
+        Ic2Keyboard.processKeyUpdate(player, Ic2Keyboard.BOOST);
+        GsKeyPayload.handle(player, GsKeyPayload.MODE);
+        helper.assertTrue(GraviChestplateItem.isMagnetActive(chest(player)), "magnet on");
+        ItemEntity near = helper.spawnItem(Items.DIAMOND, 3.5F, 1.0F, 8.5F);
+        near.setNoPickUpDelay();
+        ItemEntity far = helper.spawnItem(Items.DIAMOND, 8.5F, 1.0F, 0.0F);
+        far.setNoPickUpDelay();
+        ExperienceOrb orb = new ExperienceOrb(helper.getLevel(), pos.x + 4.0, pos.y, pos.z, 5);
+        helper.getLevel().addFreshEntity(orb);
         GraviChestplateItem.serverTick(player);
-        helper.assertValueEqual(ElectricItems.getCharge(chest(player)), 1248 - 416, "only base consumption");
+        helper.assertTrue(near.distanceToSqr(player) < 1.0E-6, "near item pulled");
+        helper.assertTrue(far.distanceToSqr(player) > 64.0, "item beyond 8 blocks stays");
+        helper.assertTrue(orb.distanceToSqr(player) < 1.0E-6, "orb pulled");
+        helper.assertValueEqual(ElectricItems.getCharge(chest(player)), 100000 - 50, "50 EU for the item");
         helper.succeed();
     }
 

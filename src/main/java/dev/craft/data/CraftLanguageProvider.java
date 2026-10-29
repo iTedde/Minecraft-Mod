@@ -574,8 +574,9 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
         add("message.craft.gravisuite.gravi_depleted", german
                 ? "§cWarnung! Die Energiezelle ist leer! Gravitationsantrieb abgeschaltet!"
                 : "§cWarning ! Your's energy cell is depleted ! Gravitation engine shutdown !");
-        add("message.craft.gravisuite.gravi_no_boost", german ? "Nicht genug Energie für den Boost!"
-                : "Not enough energy to boost !");
+        add("hud.craft.gravisuite.magnet_on", german ? "§bGravitationsmagnet AN" : "§bGravitation magnet ON");
+        add("message.craft.gravisuite.magnet_on", german ? "§bGravitationsmagnet AN" : "§bGravitation magnet ON");
+        add("message.craft.gravisuite.magnet_off", german ? "§cGravitationsmagnet AUS" : "§cGravitation magnet OFF");
         add("hud.craft.gravisuite.energy_level", german ? "Energiestand: %s" : "Energy level: %s");
         add("hud.craft.gravisuite.jetpack_on", german ? "§eJetpack §aTriebwerk AN" : "§eJetpack §aengine ON");
         add("hud.craft.gravisuite.hover_mode", german ? " §e(Schwebemodus)" : " §e(Hover mode)");

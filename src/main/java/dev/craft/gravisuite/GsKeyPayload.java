@@ -40,6 +40,8 @@ public record GsKeyPayload(int key) implements CustomPacketPayload {
         if (chest.getItem() instanceof GraviChestplateItem) {
             if (key == FLY) {
                 GraviChestplateItem.switchFlyMode(player, chest);
+            } else if (key == MODE && Ic2Keyboard.isBoostKeyDown(player)) {
+                GraviChestplateItem.switchMagnet(player, chest);
             }
             return;
         }

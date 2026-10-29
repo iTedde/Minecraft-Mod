@@ -3118,10 +3118,29 @@ Nutzer: „Ist das Solar 9x9 Panel mit einem Kabel schon im Mod?“ – nein; �
 - [x] Wiki-Generator: Panel nicht in der Liste „Gehäuse der Kraftwerke“ (Wiki noch nicht neu erzeugt, 38.2).
 - `gradlew build` grün; GameTests 574, alles grün bis auf das bekannte `liquidTesseractFillsRemoteTank`.
 
+# Phase 37.2 – Kein Tempo mehr: GraviSuite (2026-10-29)
+
+Nutzer: „mach 37.2“.
+
+## Erledigt
+- [x] Fortg. Jetpack + Fortg. Nano-Brustplatte: Boost entfernt, Vorwärtsflug auf Sprinttempo gedeckelt, Verbrauch
+  6 statt 12 EU/Tick.
+- [x] Gravitations-Brustplatte: Boost entfernt (auch der doppelte Server-Verbrauch), Flugtempo = Sprinttempo,
+  Sprint-Fliegen ohne Wirkung (`PlayerFlyingSpeedMixin`, `MovementCap.FLY_ACCELERATION`); Kreativ unverändert.
+- [x] Gravitationsmagnet: Modus-Taste + Boost schaltet (`craft:magnet_active`, Meldung + HUD-Zeile), zieht Items
+  (50 EU je Stapel, nur wenn Platz im Inventar) und XP im Umkreis 8, auch am Boden/ohne Flug.
+- [x] GameTests `thrustWithoutBoost` (vorher `thrustAndBoost`), `lowChargePowerDrop` (unter 6 EU), `noBoostAndSprintSpeed`
+  (vorher `boostCost`), `magnet`.
+- `gradlew runData`, `build` grün; GameTests 575, alles grün bis auf das bekannte `liquidTesseractFillsRemoteTank`.
+  `energy_profile.json` enthält jetzt auch das Solarpanel als Leiter (Phase 38). EMI/Wiki in 37.4.
+
 ## Nächste Schritte
 - **38.2** EMI-Text Solarpanel, Wiki Solar-Abschnitt + neu erzeugen, `abweichungen.md`, Testplan.
 - Client-Test 38.1: 9×9-Feld mit einem Kabel an der Ecke liefert ≈ 97 EU/t.
-- **37.2** GraviSuite (Fortg. Jetpack/Nano-Brustplatte ohne Boost, halber Verbrauch; Gravi-Brustplatte Sprinttempo + Magnet).
+- **37.3** MPS (Sprint Assist → Tragkraft, Jump Assist ohne Luftsteuerung, Swim Boost → Unterwasser-Abbau, Deckel
+  für Jetpack/Jet Boots/Glider).
+- Client-Test 37.2: Gravi-Flug so schnell wie Sprinten, Sprint-Fliegen ohne Wirkung, Magnet (Modus + Boost) zieht
+  Items/XP; Fortg. Jetpack ohne Boost, halber Verbrauch.
 - Client-Test 37.1: Quantenhose sprintet normal schnell, kein Hunger, kein Rückstoß; Quantenstiefel ohne Weitsprung;
   Jetpacks nicht schneller als Sprinten; Kaffee gibt Sättigung.
 - Paket 1.1.3 im CurseForge-Launcher starten (neue Mods: Sophisticated Storage, Hypertubes).
