@@ -163,7 +163,8 @@ Nur im Spiel, ohne offenen Bildschirm, `Display hud = true`. Je getragener Brust
 
 ## 8 Ultimativer Solarhelm (`ItemUltimateSolarHelmet`)
 
-Kein Rezept im Pack (Rezeptblock leer) → nur Kreativ-Tab (Entscheidung Nutzer: wie im Pack).
+Kein Rezept im Pack (Rezeptblock leer) → zunächst nur Kreativ-Tab (Entscheidung Nutzer: wie im Pack). **Seit Phase 36
+(Nutzer, 2026-10-29) mit Rezept** (§10), Leistung unverändert.
 
 - Tick (Server, Spieler-Tick, Kopfslot): alle 128 Aufrufe Sichtprüfung: `nassesBiom = Regen im Biom möglich`,
   `sonne = Tag und nicht (nassesBiom und (Regen oder Gewitter))`, `himmel = Himmel über (x, y+1, z) sichtbar und
@@ -260,7 +261,7 @@ Supraleiter-Hülle und Supraleiter (Vanilla-Rezept) und Magnetron (Ore-Rezept).
 | Triebwerksverstärker | `ABA/CDC/BFB` | A Glowstonestaub, B Fortg. Legierung, C Fortg. Schaltkreis, D Übertakter-Upgrade, F Fortg. Wärmeableiter |
 | Fortg. Jetpack | `ABA/CDC/EFE` | A Kohlenstoffplatte, B Elektrisches Jetpack, C Triebwerksverstärker, D Fortg. LapPack, E Glasfaserkabel, F Fortg. Schaltkreis |
 | Fortg. Nano-Brustplatte | `ABA/ACA/DFD` | A Kohlenstoffplatte, B Fortg. Jetpack, C Nano-Brustplatte, D Glasfaserkabel, F Fortg. Schaltkreis |
-| Ultimativer Solarhelm | – | kein Rezept |
+| Ultimativer Solarhelm | `PSP/CQC/PTP` | **nicht im Pack** (Phase 36, Nutzer 2026-10-29): P Iridiumplatte, S IC2-Solarhelm, C Supraleiter, Q Quantenhelm, T HV-Transformator |
 
 Alle Zutaten existieren im Mod (Iridiumplatte/Kohlenstoffplatte/Legierung aus IC2/GT, Reaktorteile aus Phase 7,
 Tesla-Spule aus Phase 12). Ladungsübertrag z. B. Ultimatives LapPack = Summe aus 6 Lapotronkristallen + (Fortg.)

@@ -73,7 +73,7 @@ public final class GraviSuiteSolarHelmetGameTests {
         helper.succeed();
     }
 
-    /** 0.15 with AbsorbMax charge / 900 (no ×25), display always 3, provides no energy, no recipe. */
+    /** 0.15 with AbsorbMax charge / 900 (no ×25), display always 3, provides no energy, recipe (phase 36). */
     @GameTest(template = EMPTY)
     public static void protectionAndRecipe(GameTestHelper helper) {
         Player player = helper.makeMockPlayer(GameType.SURVIVAL);
@@ -86,8 +86,8 @@ public final class GraviSuiteSolarHelmetGameTests {
         helper.assertTrue(!item.canProvideEnergy(), "provides no energy");
         ResourceLocation id = BuiltInRegistries.ITEM.getKey(item);
         helper.assertTrue(helper.getLevel().getRecipeManager().getRecipes().stream()
-                .noneMatch(recipe -> recipe.value().getResultItem(helper.getLevel().registryAccess()).is(item)),
-                "no recipe for " + id);
+                .anyMatch(recipe -> recipe.value().getResultItem(helper.getLevel().registryAccess()).is(item)),
+                "recipe for " + id);
         helper.succeed();
     }
 }

@@ -1,0 +1,29 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "C": {
+      "item": "craft:superconductor"
+    },
+    "P": {
+      "item": "craft:iridium_plate"
+    },
+    "Q": {
+      "item": "craft:quantum_helmet"
+    },
+    "S": {
+      "item": "craft:solar_helmet"
+    },
+    "T": {
+      "item": "craft:hv_transformer"
+    }
+  },
+  "pattern": [
+    "PSP",
+    "CQC",
+    "PTP"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:ultimate_solar_helmet"
+  }
+}

@@ -3054,10 +3054,29 @@ Nutzer: „Kannst du in beide Wikis reinschreiben, was alle Maschinen immer so m
   P Iridiumplatte, S IC2-Solarhelm, C Supraleiter, Q Quantenhelm, T HV-Transformator; Leistung wie im Pack
   (512/64 EU/t). Compact-Solars-Hüte bleiben entfallen.
 
+# Phase 36 – Rezept Ultimativer Solarhelm + Version 1.1.3 (2026-10-29)
+
+Nutzer: „Mach das mit dem Solar Helm eben schnell und dann neue Version“; dazu „sophisticated storage create
+integration und Create Hyperloop muss noch über Curse Forge mit rein“ („Hyperloop“ = Create: Hypertubes, Nutzer).
+
+## Erledigt
+- [x] Rezept `PSP/CQC/PTP` (IC2-`AdvRecipe`-Weg wie die übrigen GraviSuite-Rezepte: Iridiumplatte, IC2-Solarhelm,
+  Supraleiter, Quantenhelm, HV-Transformator), Leistung unverändert 512/64 EU/t. GameTest `protectionAndRecipe`
+  prüft jetzt, dass es ein Rezept gibt. EMI-Text, Wiki (GraviSuite-Seite, Hinweis „kein Rezept“ entfernt),
+  `spec/28` §8/§10, `abweichungen.md`.
+- [x] Craft **1.1.3** (`releases/craft-1.1.3.jar`): Phase 34 (Großer Projekttisch), 35 (Kupfergolem), Gravi-Brustplatte
+  am Boden ohne Verbrauch, Nuke entfernt, Solarhelm-Rezept.
+- [x] Paket `releases/Craft-1.1.3-curseforge.zip` (wie 1.1.2 mit Craft 1.1.3), neu im Manifest: Sophisticated Storage
+  1.6.10 (619320, 9341485), Sophisticated Core 1.5.19 (618298, 9341397), Sophisticated Storage Create Integration
+  0.1.23 (1226755, 9151604), Create: Hypertubes 0.6.0 (1281336, 8541877; braucht nur Create). 71 Einträge. Nicht im
+  Client gestartet.
+- [x] Wiki „Create & Paket-Mods“: beide Mods ergänzt; Wikis neu erzeugt und nach `X:/Craft/` kopiert.
+- `gradlew runData build` grün; GameTests alles grün bis auf das bekannte `liquidTesseractFillsRemoteTank`.
+
 ## Nächste Schritte
-- Phase 36: Rezept Ultimativer Solarhelm (Spezifikation `spec/28` §8/§10 + Umsetzung, EMI-/Wiki-Text „kein Rezept“
-  ersetzen, Herkunft).
-- Client-Test Phase 35 (Testplan §17) und 34 (Testplan §18); Gravi-Brustplatte am Boden ohne Verbrauch.
+- Paket 1.1.3 im CurseForge-Launcher starten (neue Mods: Sophisticated Storage, Hypertubes).
+- Client-Test Phase 35 (Testplan §17) und 34 (Testplan §18); Gravi-Brustplatte am Boden ohne Verbrauch;
+  Solarhelm-Rezept in EMI.
 - `liquidTesseractFillsRemoteTank` klären (vermutlich Nuke-Entfernung im Arbeitsbaum).
 - Neue Version/Paket erst auf Wunsch des Nutzers.
 - Client-Test 33 (FE Producer an AE2 Energy Acceptor, Testplan 16).

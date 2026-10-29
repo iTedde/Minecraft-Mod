@@ -2848,6 +2848,11 @@ public final class CraftRecipeProvider extends RecipeProvider {
                 .define('R', GsItems.SUPERCONDUCTOR).define('A', Ic2Items.QUANTUM_CHESTPLATE)
                 .define('D', GsItems.GRAVITATION_ENGINE).define('B', machine(Ic2Machine.HV_TRANSFORMER))
                 .define('C', GsItems.ULTIMATE_LAPPACK).save();
+        // No recipe in the pack; added by the user (phase 36).
+        shaped(GsItems.ULTIMATE_SOLAR_HELMET, 1, "ultimate_solar_helmet").pattern("PSP", "CQC", "PTP")
+                .define('P', Ic2Items.IRIDIUM_PLATE).define('S', Ic2Items.SOLAR_HELMET)
+                .define('C', GsItems.SUPERCONDUCTOR).define('Q', Ic2Items.QUANTUM_HELMET)
+                .define('T', machine(Ic2Machine.HV_TRANSFORMER)).save();
         // The empty top row of the advanced diamond drill is dropped (1.21 trims patterns).
         shaped(GsItems.ADVANCED_DIAMOND_DRILL, 1, "advanced_diamond_drill").pattern("ABA", "CAC")
                 .define('A', Ic2Items.OVERCLOCKER_UPGRADE).define('B', Ic2Items.DIAMOND_DRILL)

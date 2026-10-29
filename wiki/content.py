@@ -1072,7 +1072,8 @@ Rohr und jede Maschine ab. Klick auf den Ventilknauf kehrt das um (dann Druck oh
     [c('gravitool'), 'M + Rechtsklick: Hacke, Baumzapfer, Schraubenschlüssel (immer verlustfrei, auch BuildCraft), Schraubendreher', '50–10 000 EU'],
 ])}
 <h2 id="mod-gravisuite--solarhelm">Ultimativer Solarhelm</h2>
-<p>{c('ultimate_solar_helmet')} hat wie im Pack kein Rezept. Getragen erzeugt er 512 EU/t bei Sonne und 64 EU/t unter freiem
+<p>{c('ultimate_solar_helmet')} hatte im Pack kein Rezept; in Craft gibt es eins (Nutzer, 2026-10-29): Quantenhelm in der Mitte, darüber der
+IC2-Solarhelm, links und rechts Supraleiter, unten der HV-Transformator, in den Ecken Iridiumplatten. Getragen erzeugt er 512 EU/t bei Sonne und 64 EU/t unter freiem
 Himmel und lädt erst die Rüstung, dann das Inventar.</p>''')
 
     modpage('mod-mps', 'Modular Powersuits', 'craft:power_armor_torso',

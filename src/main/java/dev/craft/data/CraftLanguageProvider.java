@@ -604,9 +604,9 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
                 : "Energy storage for the back: recharges held electric tools up to tier 2. Advanced 1,000,000 EU, "
                 + "ultimate 10,000,000 EU.");
         add("emi.craft.info.ultimate_solar_helmet", german
-                ? "Nur im Kreativmodus (kein Rezept, wie im Pack). Erzeugt getragen 512 EU/t bei Sonne und 64 EU/t "
+                ? "Im Pack ohne Rezept, in Craft mit eigenem Rezept (Quantenhelm + Solarhelm). Erzeugt getragen 512 EU/t bei Sonne und 64 EU/t "
                 + "unter freiem Himmel; lädt zuerst die Rüstung (auch sich selbst), dann das Inventar. Rüstungswert 3."
-                : "Creative only (no recipe, as in the pack). Worn it makes 512 EU/t in the sun and 64 EU/t under open "
+                : "No recipe in the pack, Craft adds one (quantum helmet + solar helmet). Worn it makes 512 EU/t in the sun and 64 EU/t under open "
                 + "sky; charges the armor first (itself too), then the inventory. Armor value 3.");
         add("emi.craft.info.vajra", german
                 ? "Baut jeden Block sofort mit Drops ab, 3 333 EU je Block. Rechtsklick auf einen Block "

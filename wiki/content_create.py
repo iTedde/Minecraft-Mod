@@ -54,6 +54,8 @@ Mahlen, Waschen, Fertigungsketten …).</p>
     ['Industrial Foregoing (+ Titanium)', 'Automatisierung mit FE: Farmen, Mob-Verarbeitung, Laserbohrer'],
     ['<b>Create: Integrated Farming</b> (+ Create: Dragons Plus)', 'Farm-Automatisierung mit Create: Pflanzen, Tiere und Fischerei in Maschinen'],
     ['<b>Create: Protection Pixel</b>', 'Rüstungen im Steampunk-/Create-Stil aus Messing und Legierungen, einige mit Sonderfunktionen'],
+    ['<b>Sophisticated Storage Create Integration</b> (+ Sophisticated Storage/Core)', 'Sophisticated-Truhen und -Fässer auf Create-Zügen und -Contraptions nutzbar'],
+    ['<b>Create: Hypertubes</b>', 'Röhrennetz, durch das man (und Pakete) schnell durch die Welt reisen'],
     ['GraveStone Mod', 'Unabhängig von Create: beim Tod landet das Inventar in einem Grabstein statt am Boden'],
     ['LambDynamicLights', 'Unabhängig von Create: dynamisches Licht (Fackel in der Hand, brennende Mobs …) und das Licht des Elektrischen Leuchtschilds'],
 ])}
@@ -172,6 +174,12 @@ Bibliothek Create: Dragons Plus (mitinstalliert). Aufbau zeigen Ponder und EMI.<
 <h2 id="ca--pixel">Create: Protection Pixel</h2>
 <p>Rüstungsteile im Steampunk-Stil (Helme, Brustplatten mit Sonderfunktionen wie Jetpack oder Schild), hergestellt aus Messing und
 Legierungen. Ab Paket <b>1.0.7</b>. Rezepte in EMI.</p>
+<h2 id="ca--sophisticated">Sophisticated Storage Create Integration</h2>
+<p>Bringt Sophisticated Storage (aufrüstbare Truhen, Fässer und Kisten mit Upgrades) samt Sophisticated Core ins Paket und
+macht diese Speicher auf Create-Zügen und Contraptions nutzbar. Ab Paket <b>1.1.3</b>.</p>
+<h2 id="ca--hypertubes">Create: Hypertubes</h2>
+<p>Röhren, durch die Spieler (und Create-Pakete) mit hohem Tempo durch die Welt gezogen werden; Anbauteile wie ein Scanner mit
+Redstone-Signal. Ab Paket <b>1.1.3</b>. Rezepte in EMI, Aufbau im Ponder.</p>
 <h2 id="ca--grave">GraveStone Mod</h2>
 <p>Stirbt man, erscheint an der Stelle ein Grabstein mit dem gesamten Inventar; Rechtsklick holt die Sachen zurück. Ab Paket <b>1.0.7</b>.</p>
 <h2 id="ca--ldl">LambDynamicLights</h2>
