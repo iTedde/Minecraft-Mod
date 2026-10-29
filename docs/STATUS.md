@@ -2947,13 +2947,15 @@ Nutzer: „Mache ihn, aber mach noch keine neue Version danach“ (Spec 34 freig
 
 Nutzerwunsch: Kupfergolems „für Craft nutzbar machen“, mit Reichweite 64 und Iron Chests als Ziel. Den Golem gibt es
 erst ab MC 1.21.9, daher Nachbau. Entschieden (Nutzer): Verhalten wie 1.21.9, eigene Kupfertruhe als Quelle,
-Suchbereich ±32 (65³), Ziele alle Item-Behälter (Iron Chests, Truhen, Fässer, Behälter anderer Mods).
+Suchbereich ±32 (65³). Nachtrag (Nutzer, 2026-10-29): Quelle ist die Iron-Chest-Kupferkiste, die dafür Oxidation
+bekommt; Ziele nur Iron Chests, Truhen, Fässer (keine beliebigen Behälter, „Chaos“); keine Statue; Tab Iron Chests;
+Bau per Event ohne Mixin.
 
 ## Erledigt
 - [x] `docs/spec/35-kupfergolem.md` (Werte aus minecraft.wiki, Copper Golem/Copper Chest), Index, CLAUDE.md.
 
 ## Nächste Schritte
-- 35.0: Fragen F1–F6 in `spec/35` §5 vom Nutzer beantworten lassen, dann 35.1 Kupfertruhe.
+- 35.0: Frage F1 (Drop der oxidierten Kupferkiste) offen, dann 35.1 Oxidation der Kupferkiste.
 - 34.2: EMI-Info, Wiki, Herkunft, Testplan (Paket erst, wenn der Nutzer eine Version will).
 - Client-Test 34.1 (GUI 3 Reihen, Bauplan, EMI-„+“, Holzrohr/Trichter am Vorrat).
 - Client-Test 33 (FE Producer an AE2 Energy Acceptor, Testplan 16).
