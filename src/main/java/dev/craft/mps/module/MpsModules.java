@@ -51,6 +51,8 @@ public final class MpsModules {
     public static final String ADVANCED_BATTERY = "Advanced Battery";
     public static final String ELITE_BATTERY = "Elite Battery";
     public static final String SPRINT_ASSIST = "Sprint Assist";
+    /** Spec 37 §3.6: extra weight capacity of the Sprint Assist instead of its speed multipliers. */
+    public static final String CARRY_CAPACITY = "Carry Capacity";
     public static final String JUMP_ASSIST = "Jump Assist";
     public static final String SHOCK_ABSORBER = "Shock Absorber";
     public static final String GLIDER = "Glider";
@@ -147,13 +149,10 @@ public final class MpsModules {
         add(SPRINT_ASSIST, LEGS, "Movement", Kind.TOGGLEABLE)
                 .cost(MpsItems.SERVO, 4)
                 .base("Sprint Energy Consumption", 0.0).tradeoff("Power", "Sprint Energy Consumption", 10.0)
-                .base("Sprint Speed Multiplier", 1.0).tradeoff("Power", "Sprint Speed Multiplier", 2.0)
+                .base(CARRY_CAPACITY, 0.0).tradeoff("Power", CARRY_CAPACITY, 25000.0)
                 .base("Sprint Energy Consumption", 0.0).tradeoff("Compensation", "Sprint Energy Consumption", 2.0)
                 .base("Sprint Exhaustion Compensation", 0.0)
-                .tradeoff("Compensation", "Sprint Exhaustion Compensation", 1.0)
-                .base("Walking Energy Consumption", 0.0)
-                .tradeoff("Walking Assist", "Walking Energy Consumption", 10.0)
-                .base("Walking Speed Multiplier", 1.0).tradeoff("Walking Assist", "Walking Speed Multiplier", 1.0);
+                .tradeoff("Compensation", "Sprint Exhaustion Compensation", 1.0);
         add(JUMP_ASSIST, LEGS, "Movement", Kind.TOGGLEABLE)
                 .base("Jump Energy Consumption", 0.0).tradeoff("Power", "Jump Energy Consumption", 25.0)
                 .base("Jump Boost", 1.0).tradeoff("Power", "Jump Boost", 4.0)
@@ -179,8 +178,8 @@ public final class MpsModules {
                 .cost(MpsItems.LV_CAPACITOR, 1).base("Jolt Energy", 1000.0);
         add(SWIM_BOOST, LEGS, "Movement", Kind.TOGGLEABLE)
                 .cost(MpsItems.ION_THRUSTER, 1).cost(MpsItems.SOLENOID, 2)
-                .tradeoff("Thrust", "Swim Boost Energy Consumption", 100.0)
-                .tradeoff("Thrust", "Underwater Movement Boost", 1.0);
+                // spec 37 §3.6: no thrust, a fixed 100 J per tick with the eyes under water lifts the mining penalty
+                .base("Swim Boost Energy Consumption", 100.0);
         add(UPHILL_STEP_ASSIST, LEGS, "Movement", Kind.TOGGLEABLE).cost(MpsItems.SERVO, 2);
         add(CUSTOM_COLOUR, ModuleTarget.ALL, "Cosmetic", Kind.TOGGLEABLE)
                 .cost(MpsItems.LASER_EMITTER, 1)
@@ -194,7 +193,7 @@ public final class MpsModules {
         unit("J", "Punch Energy Consumption", "Plasma Energy Per Tick", "Railgun Energy Cost",
                 "Blink Drive Energy Consuption", ENERGY_PER_DAMAGE, "Shovel Energy Consumption",
                 "Pickaxe Energy Consumption", "Axe Energy Consumption", "Underwater Energy Consumption",
-                MAXIMUM_ENERGY, "Sprint Energy Consumption", "Walking Energy Consumption", "Jump Energy Consumption",
+                MAXIMUM_ENERGY, "Sprint Energy Consumption", "Jump Energy Consumption",
                 "Swim Boost Energy Consumption", "Jolt Energy");
         unit("pt", "Melee Damage", "Plasma Damage At Full Charge");
         unit("P", "Melee Knockback");
@@ -202,16 +201,14 @@ public final class MpsModules {
         unit("Ns", "Railgun Total Impulse");
         unit("m", "Blink Drive Range");
         unit(" Joules", "Energy Generation Per 5 Blocks");
-        unit("g", WEIGHT);
+        unit("g", WEIGHT, CARRY_CAPACITY);
         unit(" Points", ARMOR_PHYSICAL, ARMOR_ENERGY);
         unit("x", "Shovel Harvest Speed", "Pickaxe Harvest Speed", "Axe Harvest Speed");
-        unit("%", "Underwater Harvest Speed", "Sprint Speed Multiplier", "Sprint Exhaustion Compensation",
-                "Walking Speed Multiplier", "Jump Boost", "Jump Exhaustion Compensation", "Distance Reduction",
+        unit("%", "Underwater Harvest Speed", "Sprint Exhaustion Compensation", "Jump Boost", "Jump Exhaustion Compensation", "Distance Reduction",
                 "Red Tint", "Green Tint", "Blue Tint");
         unit("J/m", "Impact Energy consumption");
         unit("J/t", "Jet Energy Consumption");
         unit("N", "Jet Thrust");
-        unit("m/s", "Underwater Movement Boost");
     }
 
     private MpsModules() {

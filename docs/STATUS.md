@@ -3134,11 +3134,28 @@ Nutzer: „mach 37.2“.
 - `gradlew runData`, `build` grün; GameTests 575, alles grün bis auf das bekannte `liquidTesseractFillsRemoteTank`.
   `energy_profile.json` enthält jetzt auch das Solarpanel als Leiter (Phase 38). EMI/Wiki in 37.4.
 
+# Phase 37.3 – Kein Tempo mehr: Modular Powersuits (2026-10-29)
+
+Nutzer: „mach 37.3“.
+
+## Erledigt
+- [x] Sprint Assist: keine Tempo-Multiplikatoren (Gehen/Sprinten), Regler „Power“ gibt Tragkraft (+25 000 g),
+  Gehkosten und Regler „Walking Assist“ entfallen, Sprintkosten und Erschöpfungsausgleich bleiben.
+- [x] Jump Assist: zusätzliche Luftsteuerung entfällt, Sprunghöhe bleibt.
+- [x] Swim Boost: kein Schub, fest 100 J/Tick unter Wasser, dafür Abbau unter Wasser wie an Land (auch schwimmend).
+- [x] Jetpack/Jet Boots/Flight Control/Glider: waagerecht auf Sprinttempo gedeckelt, wenn sie in dem Tick schieben.
+- [x] Lang: Eigenschaft „Tragkraft“/„Carry Capacity“, „Sprint-/Geh-Tempo“, „Schwimmschub“, „Gehhilfe“ entfernt.
+- [x] GameTests `sprintAssist` (neu gefasst, mit Tragkraft), `jumpAssist` (ohne Luftsteuerung), neu
+  `jetsCappedToSprintSpeed`, `swimBoostMinesUnderwater`.
+- `gradlew runData`, `build` grün; GameTests 577, alles grün bis auf das bekannte `liquidTesseractFillsRemoteTank`.
+
 ## Nächste Schritte
 - **38.2** EMI-Text Solarpanel, Wiki Solar-Abschnitt + neu erzeugen, `abweichungen.md`, Testplan.
 - Client-Test 38.1: 9×9-Feld mit einem Kabel an der Ecke liefert ≈ 97 EU/t.
-- **37.3** MPS (Sprint Assist → Tragkraft, Jump Assist ohne Luftsteuerung, Swim Boost → Unterwasser-Abbau, Deckel
-  für Jetpack/Jet Boots/Glider).
+- **37.4** EMI-Texte/Tooltips, Wiki (IC2-Rüstung, GraviSuite, MPS, Kaffee), `spec/17`/`spec/28`/`spec/29`-Verweise,
+  `abweichungen.md`, Testplan.
+- Client-Test 37.3: Sprint Assist ohne Tempo, Tragkraft im Tinker Table; Swim Boost: Abbau unter Wasser wie an Land;
+  MPS-Düsen/Glider nicht schneller als Sprinten.
 - Client-Test 37.2: Gravi-Flug so schnell wie Sprinten, Sprint-Fliegen ohne Wirkung, Magnet (Modus + Boost) zieht
   Items/XP; Fortg. Jetpack ohne Boost, halber Verbrauch.
 - Client-Test 37.1: Quantenhose sprintet normal schnell, kein Hunger, kein Rückstoß; Quantenstiefel ohne Weitsprung;

@@ -749,7 +749,7 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
                 {"Carry-through", "Durchschlag"}, {"Range", "Reichweite"}, {"Energy Generated", "Erzeugte Energie"},
                 {"Efficiency", "Effizienz"}, {"Plating Thickness", "Panzerungsdicke"}, {"Field Strength", "Feldstärke"},
                 {"Overclock", "Übertaktung"}, {"Power", "Leistung"}, {"Battery Size", "Batteriegröße"},
-                {"Compensation", "Ausgleich"}, {"Walking Assist", "Gehhilfe"}, {"Thrust", "Schub"},
+                {"Compensation", "Ausgleich"}, {"Thrust", "Schub"},
                 {"Red Intensity", "Rotanteil"}, {"Green Intensity", "Grünanteil"}, {"Blue Intensity", "Blauanteil"}};
         for (String[] tweak : tweaks) {
             add("mps.tweak." + PowerModule.key(tweak[0]), german ? tweak[1] : tweak[0]);
@@ -772,15 +772,14 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
                 {"Axe Energy Consumption", "Axt-Energie"}, {"Axe Harvest Speed", "Axt-Tempo"},
                 {"Underwater Energy Consumption", "Energie unter Wasser"},
                 {"Underwater Harvest Speed", "Tempo unter Wasser"},
-                {"Sprint Energy Consumption", "Sprint-Energie"}, {"Sprint Speed Multiplier", "Sprint-Tempo"},
+                {"Sprint Energy Consumption", "Sprint-Energie"}, {"Carry Capacity", "Tragkraft"},
                 {"Sprint Exhaustion Compensation", "Sprint-Erschöpfungsausgleich"},
-                {"Walking Energy Consumption", "Geh-Energie"}, {"Walking Speed Multiplier", "Geh-Tempo"},
                 {"Jump Energy Consumption", "Sprung-Energie"}, {"Jump Boost", "Sprungkraft"},
                 {"Jump Exhaustion Compensation", "Sprung-Erschöpfungsausgleich"},
                 {"Impact Energy consumption", "Aufprall-Energie"}, {"Distance Reduction", "Fallhöhen-Minderung"},
                 {"Jet Energy Consumption", "Düsen-Energie"}, {"Jet Thrust", "Düsenschub"},
                 {"Jolt Energy", "Stromstoß-Energie"}, {"Swim Boost Energy Consumption", "Schwimm-Energie"},
-                {"Underwater Movement Boost", "Schwimmschub"}, {"Red Tint", "Rot"}, {"Green Tint", "Grün"},
+                {"Red Tint", "Rot"}, {"Green Tint", "Grün"},
                 {"Blue Tint", "Blau"}};
         for (String[] property : properties) {
             add("mps.property." + PowerModule.key(property[0]), german ? property[1] : property[0]);

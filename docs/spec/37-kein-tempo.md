@@ -106,5 +106,12 @@ Drive (Teleport, siehe Frage F4), Werkzeug-Abbautempo.
   der Modus-Taste bei gehaltener Boost-Taste (`GsKeyPayload.MODE`), HUD-Zeile „Gravitationsmagnet AN“; jeden Tick
   Items (ohne Aufhebesperre, nur wenn das Inventar sie aufnimmt, 50 EU je Stapel) und Erfahrungskugeln im Umkreis 8
   auf den Spieler gesetzt.
-- 37.3 MPS (Sprint/Jump/Swim, Deckel für Jet/Glider) + GameTests
+- 37.3 MPS (Sprint/Jump/Swim, Deckel für Jet/Glider) + GameTests – erledigt. Umsetzung: Sprint Assist ohne
+  Tempo-Modifier (alte Modifier werden entfernt), Regler „Power“ → Eigenschaft `Carry Capacity` (×25 000 g, de
+  „Tragkraft“) statt `Sprint Speed Multiplier`, Regler „Walking Assist“ und Gehkosten entfallen; Sprintkosten und
+  „Compensation“ unverändert; Tragkraft gilt, solange das Modul aktiv ist. Jump Assist ohne Luftsteuerung 0,7 ×.
+  Swim Boost ohne Schub und Regler: fest 100 J/Tick, solange die Augen unter Wasser sind; dann hebt
+  `PlayerEvent.BreakSpeed` den Faktor `SUBMERGED_MINING_SPEED` und das ÷5 ohne Boden auf. Jetpack, Jet Boots,
+  Flight Control und Glider: hat ein Düsenschub oder der Glider in diesem Tick gewirkt, wird die Waagerechte über
+  `MovementCap` gedeckelt.
 - 37.4 EMI-Texte, Tooltips, Wiki, `spec/28`/`spec/29`/`spec/17`-Verweise, `abweichungen.md`, Testplan

@@ -1,14 +1,18 @@
 package dev.craft.mps;
 
 import dev.craft.Craft;
+import dev.craft.core.MovementCap;
 import dev.craft.mps.module.MpsModules;
 import net.minecraft.gametest.framework.GameTest;
+import net.minecraft.core.BlockPos;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.GameType;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.event.entity.living.LivingEvent;
 import net.neoforged.neoforge.event.entity.living.LivingFallEvent;
 import net.neoforged.neoforge.gametest.GameTestHolder;
@@ -123,13 +127,16 @@ public final class MpsMovementGameTests {
         MpsMovement.tick(player, JUMP);
         assertNear(helper, player.getDeltaMovement().y, 0.57, "+0.15");
         assertNear(helper, MpsMovement.getJumpTicks(player), 9.0, "one tick used");
-        assertNear(helper, MpsMovement.getAirSpeed(player), (float) (0.1 * 0.7F), "air speed 0.7 × land");
+        helper.assertTrue(MpsMovement.getAirSpeed(player) == null, "no extra air control (spec 37)");
         MpsMovement.tick(player, MpsInput.NONE);
         assertNear(helper, MpsMovement.getJumpTicks(player), 0.0, "released: ticks gone");
         helper.succeed();
     }
 
-    /** Sprint Assist: speed × multiplier, J = consumption × v × 5 at once; air speed half the land speed. */
+    /**
+     * Spec 37 §3.6: Sprint Assist changes no speed; sprinting still pays 12 J × v × 5, walking is free; Power raises the
+     * weight capacity by 25 000 g.
+     */
     @GameTest(template = "empty_8x4x8")
     public static void sprintAssist(GameTestHelper helper) {
         Player player = helper.makeMockPlayer(GameType.SURVIVAL);
@@ -137,16 +144,80 @@ public final class MpsMovementGameTests {
                 MpsModules.SPRINT_ASSIST);
         player.setDeltaMovement(0.2, 0.0, 0.0);
         MpsMovement.tick(player, MpsInput.NONE);
-        assertNear(helper, player.getAttributeValue(Attributes.MOVEMENT_SPEED), 0.1 * 2.0, "walking ×2");
-        assertNear(helper, MpsEnergy.getJoules(legs), 20000.0 - 10.0 * 0.2 * 5.0, "walking 10 J × v × 5");
+        assertNear(helper, player.getAttributeValue(Attributes.MOVEMENT_SPEED), 0.1, "walking unchanged");
+        assertNear(helper, MpsEnergy.getJoules(legs), 20000.0, "walking is free");
         player.setSprinting(true);
         MpsMovement.tick(player, MpsInput.NONE);
-        assertNear(helper, player.getAttributeValue(Attributes.MOVEMENT_SPEED), 0.1 * 1.3 * 3.0, "sprinting ×3");
-        assertNear(helper, MpsEnergy.getJoules(legs), 20000.0 - 10.0 - 12.0 * 0.2 * 5.0, "sprint 12 J × v × 5");
-        assertNear(helper, MpsMovement.getAirSpeed(player), (float) (0.1 * 1.3 * 3.0) * 0.5F, "air half");
+        assertNear(helper, player.getAttributeValue(Attributes.MOVEMENT_SPEED), 0.1 * 1.3, "sprinting unchanged");
+        assertNear(helper, MpsEnergy.getJoules(legs), 20000.0 - 12.0 * 0.2 * 5.0, "sprint 12 J × v × 5");
+        helper.assertTrue(MpsMovement.getAirSpeed(player) == null, "no extra air speed");
+        for (EquipmentSlot slot : new EquipmentSlot[] {EquipmentSlot.HEAD, EquipmentSlot.CHEST}) {
+            ItemStack stack = (slot == EquipmentSlot.HEAD ? MpsItems.POWER_ARMOR_HEAD : MpsItems.POWER_ARMOR_TORSO)
+                    .toStack();
+            ModularItems.addModule(stack, MpsModules.IRON_PLATING);
+            ModularItems.setTweak(stack, MpsModules.IRON_PLATING, "Plating Thickness", 1.0);
+            player.setItemSlot(slot, stack);
+        }
+        ModularItems.addModule(legs, MpsModules.IRON_PLATING);
+        ModularItems.setTweak(legs, MpsModules.IRON_PLATING, "Plating Thickness", 1.0);
+        player.setSprinting(false);
+        player.setDeltaMovement(0.2, 0.0, 0.0);
+        MpsMovement.tick(player, MpsInput.NONE);
+        assertNear(helper, player.getDeltaMovement().x, 0.2, "32 kg under 50 kg capacity: not slowed");
         ModularItems.setActive(legs, MpsModules.SPRINT_ASSIST, false);
         MpsMovement.tick(player, MpsInput.NONE);
-        assertNear(helper, player.getAttributeValue(Attributes.MOVEMENT_SPEED), 0.1 * 1.3, "switched off");
+        assertNear(helper, player.getDeltaMovement().x, 0.2 * 25000.0 / 32000.0, "switched off: slowed");
+        helper.succeed();
+    }
+
+    /** Spec 37 §1: jets with flight control never push faster than sprinting. */
+    @GameTest(template = "empty_8x4x8")
+    public static void jetsCappedToSprintSpeed(GameTestHelper helper) {
+        Player player = helper.makeMockPlayer(GameType.SURVIVAL);
+        wear(player, EquipmentSlot.HEAD, MpsItems.POWER_ARMOR_HEAD.toStack(), MpsModules.FLIGHT_CONTROL);
+        wear(player, EquipmentSlot.CHEST, MpsItems.POWER_ARMOR_TORSO.toStack(), MpsModules.JETPACK);
+        wear(player, EquipmentSlot.FEET, MpsItems.POWER_ARMOR_FEET.toStack(), MpsModules.JET_BOOTS);
+        player.setDeltaMovement(0.27, 0.0, 0.0);
+        player.setYRot(-90.0F);
+        player.setXRot(0.0F);
+        MpsMovement.tick(player, new MpsInput(1.0F, 0.0F, false, false, false));
+        Vec3 motion = player.getDeltaMovement();
+        helper.assertTrue(motion.horizontalDistance() <= MovementCap.MAX_HORIZONTAL + EPSILON,
+                "capped, got " + motion.horizontalDistance());
+        helper.succeed();
+    }
+
+    /**
+     * Spec 37 §3.6: the Swim Boost gives no thrust; under water it pays 100 J per tick and mining is as fast as on
+     * land (without ground too).
+     */
+    @GameTest(template = "empty_8x4x8")
+    public static void swimBoostMinesUnderwater(GameTestHelper helper) {
+        BlockPos pos = new BlockPos(3, 1, 3);
+        helper.setBlock(pos, Blocks.WATER);
+        helper.setBlock(pos.above(), Blocks.WATER);
+        helper.setBlock(pos.above(2), Blocks.WATER);
+        Vec3 at = helper.absoluteVec(new Vec3(3.5, 1.5, 3.5));
+        Player diver = helper.makeMockPlayer(GameType.SURVIVAL);
+        Player other = helper.makeMockPlayer(GameType.SURVIVAL);
+        for (Player player : new Player[] {diver, other}) {
+            player.setPos(at.x, at.y, at.z);
+            player.baseTick();
+            player.setOnGround(false);
+        }
+        ItemStack legs = wear(diver, EquipmentSlot.LEGS, MpsItems.POWER_ARMOR_LEGS.toStack(), MpsModules.SWIM_BOOST);
+        wear(other, EquipmentSlot.LEGS, MpsItems.POWER_ARMOR_LEGS.toStack());
+        helper.assertTrue(diver.isInWater() && diver.isEyeInFluid(net.minecraft.tags.FluidTags.WATER), "under water");
+        diver.setDeltaMovement(0.0, 0.0, 0.0);
+        MpsMovement.tick(diver, new MpsInput(1.0F, 0.0F, false, false, false));
+        MpsMovement.tick(other, MpsInput.NONE);
+        assertNear(helper, diver.getDeltaMovement().horizontalDistance(), 0.0, "no swim thrust");
+        assertNear(helper, MpsEnergy.getJoules(legs), 20000.0 - 100.0, "100 J per tick");
+        BlockPos stone = helper.absolutePos(new BlockPos(3, 0, 3));
+        float diverSpeed = diver.getDigSpeed(Blocks.STONE.defaultBlockState(), stone);
+        float otherSpeed = other.getDigSpeed(Blocks.STONE.defaultBlockState(), stone);
+        assertNear(helper, otherSpeed, 1.0 * 0.2 / 5.0, "vanilla: ×0.2 under water, ÷5 swimming");
+        assertNear(helper, diverSpeed, 1.0, "swim boost: as on land");
         helper.succeed();
     }
 

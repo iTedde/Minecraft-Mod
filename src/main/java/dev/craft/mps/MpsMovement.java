@@ -2,13 +2,16 @@ package dev.craft.mps;
 
 import java.util.Collections;
 import java.util.Map;
+import java.util.Set;
 import java.util.WeakHashMap;
 
 import dev.craft.Craft;
+import dev.craft.core.MovementCap;
 import dev.craft.mps.item.PowerArmorItem;
 import dev.craft.mps.module.MpsModules;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
@@ -42,6 +45,9 @@ public final class MpsMovement {
     private static final Map<Player, Double> JUMP_TICKS = Collections.synchronizedMap(new WeakHashMap<>());
     /** {@code jumpMovementFactor} of the current tick, read by the flying speed mixin and cleared after the tick. */
     private static final Map<Player, Float> AIR_SPEED = Collections.synchronizedMap(new WeakHashMap<>());
+    /** Spec 37 §3.6: players whose Swim Boost paid this tick and mine under water without penalty. */
+    private static final Set<Player> UNDERWATER_MINING = Collections.synchronizedSet(
+            Collections.newSetFromMap(new WeakHashMap<>()));
 
     private MpsMovement() {
     }
@@ -56,6 +62,11 @@ public final class MpsMovement {
 
     public static void setJumpTicks(Player player, double ticks) {
         JUMP_TICKS.put(player, ticks);
+    }
+
+    /** Spec 37 §3.6: the Swim Boost lifts the under-water mining penalty for this player. */
+    public static boolean minesUnderwater(Player player) {
+        return UNDERWATER_MINING.contains(player);
     }
 
     /** The air acceleration set for this tick, {@code null} for the vanilla value. */
@@ -84,12 +95,36 @@ public final class MpsMovement {
         INPUTS.remove(event.getEntity());
         JUMP_TICKS.remove(event.getEntity());
         AIR_SPEED.remove(event.getEntity());
+        UNDERWATER_MINING.remove(event.getEntity());
+    }
+
+    /**
+     * Spec 37 §3.6: with a paid Swim Boost, mining with any tool under water is as fast as on land: the
+     * {@code SUBMERGED_MINING_SPEED} factor and the ÷5 for swimming without ground are undone.
+     */
+    @SubscribeEvent
+    public static void onBreakSpeed(PlayerEvent.BreakSpeed event) {
+        Player player = event.getEntity();
+        if (!minesUnderwater(player) || !player.isEyeInFluid(FluidTags.WATER)) {
+            return;
+        }
+        float speed = event.getNewSpeed();
+        double submerged = player.getAttributeValue(Attributes.SUBMERGED_MINING_SPEED);
+        if (submerged > 0.0 && submerged < 1.0) {
+            speed /= (float) submerged;
+        }
+        if (!player.onGround()) {
+            speed *= 5.0F;
+        }
+        event.setNewSpeed(speed);
     }
 
     /** {@code PlayerTickHandler.handle}. */
     public static void tick(Player player, MpsInput input) {
+        // Spec 37 §3.6: Sprint Assist no longer changes the speed; removes modifiers of older versions.
+        setSpeedMultiplier(player, null);
         if (!ModularItems.usesPowersuit(player)) {
-            setSpeedMultiplier(player, null);
+            UNDERWATER_MINING.remove(player);
             return;
         }
         ItemStack helmet = modular(player, EquipmentSlot.HEAD);
@@ -102,16 +137,13 @@ public final class MpsMovement {
         Float airSpeed = null;
 
         // IPlayerTickModule: Sprint Assist and Uphill Step Assist on the leggings
-        Double speedMultiplier = null;
+        double capacity = WEIGHT_CAPACITY;
         if (!pants.isEmpty()) {
             if (ModularItems.hasActiveModule(pants, MpsModules.SPRINT_ASSIST)) {
-                speedMultiplier = sprintAssist(player, pants);
+                sprintAssist(player, pants);
+                capacity += ModularItems.computeProperty(pants, MpsModules.CARRY_CAPACITY);
             }
             stepAssist(player, ModularItems.hasActiveModule(pants, MpsModules.UPHILL_STEP_ASSIST));
-        }
-        setSpeedMultiplier(player, speedMultiplier);
-        if (speedMultiplier != null) {
-            airSpeed = landSpeed(player) * 0.5F;
         }
 
         double totalEnergyDrain = MpsEnvironment.potionEffects(player, helmet, torso, totalEnergy);
@@ -122,7 +154,9 @@ public final class MpsMovement {
         boolean hasJetpack = active(torso, MpsModules.JETPACK);
         boolean hasGlider = active(torso, MpsModules.GLIDER);
         boolean hasParachute = active(torso, MpsModules.PARACHUTE);
-        double weightRatio = getWeightPenaltyRatio(totalWeight, WEIGHT_CAPACITY);
+        double weightRatio = getWeightPenaltyRatio(totalWeight, capacity);
+        // spec 37 §1: set when jets or the glider pushed this tick; then the horizontal speed is capped
+        boolean propelled = false;
         float forward = input.forward();
         float strafe = input.strafe();
         Vec3 motion = player.getDeltaMovement();
@@ -130,32 +164,15 @@ public final class MpsMovement {
         double my = motion.y;
         double mz = motion.z;
 
+        boolean minesUnderwater = false;
         if (player.isInWater()) {
-            if (hasSwimAssist && (forward != 0.0F || strafe != 0.0F || input.jump() || input.sneak())) {
-                double moveRatio = 0.0;
-                if (forward != 0.0F) {
-                    moveRatio += forward * forward;
-                }
-                if (strafe != 0.0F) {
-                    moveRatio += strafe * strafe;
-                }
-                if (input.jump() || input.sneak()) {
-                    moveRatio += 0.04000000000000001;
-                }
-                double rate = ModularItems.computeProperty(pants, "Underwater Movement Boost") * 0.05;
+            // Spec 37 §3.6: no swim thrust; each tick with the eyes under water the module pays and lifts the
+            // under-water mining penalty (onBreakSpeed).
+            if (hasSwimAssist && player.isEyeInFluid(FluidTags.WATER)) {
                 double consumption = ModularItems.computeProperty(pants, "Swim Boost Energy Consumption");
                 if (consumption + totalEnergyDrain < totalEnergy) {
                     totalEnergyDrain += consumption;
-                    Vec3 look = player.getLookAngle();
-                    mx += look.x * rate * forward / moveRatio;
-                    my += look.y * rate * forward / moveRatio;
-                    mz += look.z * rate * forward / moveRatio;
-                    if (input.jump()) {
-                        my += rate * 0.2 / moveRatio;
-                    }
-                    if (input.sneak()) {
-                        my -= rate * 0.2 / moveRatio;
-                    }
+                    minesUnderwater = true;
                 }
             }
         } else {
@@ -165,7 +182,7 @@ public final class MpsMovement {
                     my += 0.15 * Math.min(multiplier, 1.0) * weightRatio;
                     setJumpTicks(player, multiplier - 1.0);
                 }
-                airSpeed = landSpeed(player) * 0.7F;
+                // spec 37 §3.6: the extra air control (0.7 × land speed) is gone
             } else {
                 setJumpTicks(player, 0.0);
             }
@@ -247,8 +264,11 @@ public final class MpsMovement {
                             mz += horzFacing.z * thrust / 2.0 * Math.signum(forward);
                         }
                     }
-                    if (totalEnergyDrain > drainBefore && player instanceof ServerPlayer serverPlayer) {
-                        serverPlayer.connection.aboveGroundTickCount = 0;
+                    if (totalEnergyDrain > drainBefore) {
+                        propelled = true;
+                        if (player instanceof ServerPlayer serverPlayer) {
+                            serverPlayer.connection.aboveGroundTickCount = 0;
+                        }
                     }
                 }
             }
@@ -259,6 +279,7 @@ public final class MpsMovement {
                 mx += horzFacing.x * change;
                 mz += horzFacing.z * change;
                 airSpeed = (airSpeed != null ? airSpeed : vanillaAirSpeed(player)) + 0.03F;
+                propelled = true;
             }
 
             if (hasParachute && input.sneak() && my < -0.1 && (!hasGlider || forward <= 0.0F)) {
@@ -276,11 +297,17 @@ public final class MpsMovement {
             drain(player, totalEnergyDrain);
         }
         player.fallDistance = (float) computeFallHeightFromVelocity(Math.max(-1000.0, Math.min(my, 0.0)));
-        if (totalWeight > WEIGHT_CAPACITY) {
-            mx *= WEIGHT_CAPACITY / totalWeight;
-            mz *= WEIGHT_CAPACITY / totalWeight;
+        if (totalWeight > capacity) {
+            mx *= capacity / totalWeight;
+            mz *= capacity / totalWeight;
         }
-        player.setDeltaMovement(mx, my, mz);
+        Vec3 result = new Vec3(mx, my, mz);
+        player.setDeltaMovement(propelled ? MovementCap.clampHorizontal(result) : result);
+        if (minesUnderwater) {
+            UNDERWATER_MINING.add(player);
+        } else {
+            UNDERWATER_MINING.remove(player);
+        }
         if (airSpeed != null) {
             AIR_SPEED.put(player, airSpeed);
         } else {
@@ -288,29 +315,23 @@ public final class MpsMovement {
         }
     }
 
-    /** {@code SprintAssistModule.onPlayerTickActive}: pays at once, returns the speed multiplier or {@code null}. */
-    private static Double sprintAssist(Player player, ItemStack pants) {
+    /**
+     * {@code SprintAssistModule.onPlayerTickActive} without the speed multipliers (spec 37 §3.6): sprinting pays at once
+     * and compensates exhaustion; walking costs nothing any more.
+     */
+    private static void sprintAssist(Player player, ItemStack pants) {
+        if (!player.isSprinting()) {
+            return;
+        }
         Vec3 motion = player.getDeltaMovement();
         double horzMovement = Math.sqrt(motion.x * motion.x + motion.z * motion.z);
-        double totalEnergy = MpsEnergy.getPlayerEnergy(player);
-        if (player.isSprinting()) {
-            double exhaustion = Math.round(horzMovement * 100.0) * 0.01;
-            double sprintCost = ModularItems.computeProperty(pants, "Sprint Energy Consumption");
-            if (sprintCost < totalEnergy) {
-                double multiplier = ModularItems.computeProperty(pants, "Sprint Speed Multiplier");
-                double compensation = ModularItems.computeProperty(pants, "Sprint Exhaustion Compensation");
-                drain(player, sprintCost * horzMovement * 5.0);
-                addExhaustion(player, -0.01 * exhaustion * compensation);
-                return multiplier;
-            }
-        } else {
-            double cost = ModularItems.computeProperty(pants, "Walking Energy Consumption");
-            if (cost < totalEnergy) {
-                drain(player, cost * horzMovement * 5.0);
-                return ModularItems.computeProperty(pants, "Walking Speed Multiplier");
-            }
+        double exhaustion = Math.round(horzMovement * 100.0) * 0.01;
+        double sprintCost = ModularItems.computeProperty(pants, "Sprint Energy Consumption");
+        if (sprintCost < MpsEnergy.getPlayerEnergy(player)) {
+            double compensation = ModularItems.computeProperty(pants, "Sprint Exhaustion Compensation");
+            drain(player, sprintCost * horzMovement * 5.0);
+            addExhaustion(player, -0.01 * exhaustion * compensation);
         }
-        return null;
     }
 
     /**
@@ -347,11 +368,6 @@ public final class MpsMovement {
             speed.addOrUpdateTransientModifier(new AttributeModifier(SPRINT_ASSIST_ID, multiplier - 1.0,
                     AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL));
         }
-    }
-
-    /** {@code landMovementFactor}: the movement speed attribute. */
-    private static float landSpeed(Player player) {
-        return (float) player.getAttributeValue(Attributes.MOVEMENT_SPEED);
     }
 
     /** {@code jumpMovementFactor} without MPS: 0.02, sprinting 0.026. */
