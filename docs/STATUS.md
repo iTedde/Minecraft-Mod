@@ -3100,7 +3100,27 @@ Nutzer: „Passt so, alles nach deinem Vorschlag, mach 37.1“ – `spec/37` dam
 - `gradlew build` grün; GameTests 572, alles grün bis auf das bekannte `liquidTesseractFillsRemoteTank`.
   EMI-/Wiki-Texte folgen gesammelt in 37.4.
 
+# Nebenbei (2026-10-29): Energy Acceptor
+
+- Nutzer: „Energy Acceptor … Man kann keine Kabel anschließen.“ Kein Fehler im Code gefunden: EU-Kabel gehen absichtlich
+  nicht an FE-Blöcke (`spec/33`), Weg IC2 Consumer → Energy Bridge → FE Producer → AE2 Energy Acceptor. Echter Test
+  braucht AE2 (+ GuideME) in `run/mods` und `runClient` – Rückfrage an den Nutzer offen.
+
+# Phase 38.1 – Solarpanels leiten untereinander (2026-10-29)
+
+Nutzer: „Ist das Solar 9x9 Panel mit einem Kabel schon im Mod?“ – nein; „Variante 1, mach das als neue Phase“.
+
+## Erledigt
+- [x] `docs/spec/38-solarfeld-leitung.md`, Verweis in `spec/11` §4, README.
+- [x] `SolarPanelBlockEntity` ist `EnergyConductor`: verlustfrei, nimmt nur von Solarpanels an, kein Schock/Schmelzen.
+- [x] GameTests `panelsConductToOneCable`, `otherSourcesDoNotRouteThroughPanels`; `panelInFieldDeliversOneAndAFifth`
+  angepasst (ganzes Feld → eine BatBox, 81 · 60 EU).
+- [x] Wiki-Generator: Panel nicht in der Liste „Gehäuse der Kraftwerke“ (Wiki noch nicht neu erzeugt, 38.2).
+- `gradlew build` grün; GameTests 574, alles grün bis auf das bekannte `liquidTesseractFillsRemoteTank`.
+
 ## Nächste Schritte
+- **38.2** EMI-Text Solarpanel, Wiki Solar-Abschnitt + neu erzeugen, `abweichungen.md`, Testplan.
+- Client-Test 38.1: 9×9-Feld mit einem Kabel an der Ecke liefert ≈ 97 EU/t.
 - **37.2** GraviSuite (Fortg. Jetpack/Nano-Brustplatte ohne Boost, halber Verbrauch; Gravi-Brustplatte Sprinttempo + Magnet).
 - Client-Test 37.1: Quantenhose sprintet normal schnell, kein Hunger, kein Rückstoß; Quantenstiefel ohne Weitsprung;
   Jetpacks nicht schneller als Sprinten; Kaffee gibt Sättigung.

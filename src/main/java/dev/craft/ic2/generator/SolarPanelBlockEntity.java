@@ -1,5 +1,7 @@
 package dev.craft.ic2.generator;
 
+import dev.craft.core.energy.EnergyConductor;
+import dev.craft.core.energy.EnergyTile;
 import dev.craft.ic2.Ic2BlockEntityTypes;
 import dev.craft.ic2.Ic2Blocks;
 import dev.craft.ic2.Ic2Machine;
@@ -18,8 +20,11 @@ import net.neoforged.neoforge.common.Tags;
  * Solar panel, IC2 {@code TileEntitySolarGenerator}: 1 EU/t while the sun is visible. Balancing (user, 2026-10-24;
  * {@code docs/balancing.md} §3.1): a panel lying in a complete 9×9 square of panels on its level yields ×1.2, i.e. one
  * extra EU every {@link #FIELD_BONUS_PERIOD} sunny ticks.
+ * <p>
+ * Spec 38: panels conduct the EU of neighbouring panels without loss, so one cable anywhere at a field collects all of
+ * it. They accept energy only from other panels, so no other source routes through a field.
  */
-public class SolarPanelBlockEntity extends BaseGeneratorBlockEntity {
+public class SolarPanelBlockEntity extends BaseGeneratorBlockEntity implements EnergyConductor {
     /** {@code energyGeneratorSolar} from the pack's IC2.cfg. */
     public static final int ENERGY_GENERATOR_SOLAR = 100;
     public static final int TICK_RATE = 128;
@@ -135,6 +140,39 @@ public class SolarPanelBlockEntity extends BaseGeneratorBlockEntity {
                 && level.dimensionType().hasSkyLight()
                 && level.canSeeSky(pos)
                 && (level.getBiome(pos).is(Tags.Biomes.IS_DESERT) || !level.isRaining() && !level.isThundering());
+    }
+
+    @Override
+    public boolean acceptsEnergyFrom(EnergyTile emitter, Direction direction) {
+        return emitter instanceof SolarPanelBlockEntity;
+    }
+
+    @Override
+    public double getConductionLoss() {
+        return 0.0;
+    }
+
+    @Override
+    public int getInsulationEnergyAbsorption() {
+        return Integer.MAX_VALUE;
+    }
+
+    @Override
+    public int getInsulationBreakdownEnergy() {
+        return Integer.MAX_VALUE;
+    }
+
+    @Override
+    public int getConductorBreakdownEnergy() {
+        return Integer.MAX_VALUE;
+    }
+
+    @Override
+    public void removeInsulation() {
+    }
+
+    @Override
+    public void removeConductor() {
     }
 
     @Override

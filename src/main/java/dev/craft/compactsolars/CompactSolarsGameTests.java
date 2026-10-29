@@ -3,9 +3,12 @@ package dev.craft.compactsolars;
 import java.util.List;
 
 import dev.craft.Craft;
+import dev.craft.core.energy.EnergyNets;
+import dev.craft.core.energy.EnergyTile;
 import dev.craft.ic2.Ic2Blocks;
 import dev.craft.ic2.Ic2Items;
 import dev.craft.ic2.Ic2Machine;
+import dev.craft.ic2.cable.CableType;
 import dev.craft.ic2.generator.SolarPanelBlockEntity;
 import dev.craft.ic2.storage.ElectricStorageBlockEntity;
 import net.minecraft.core.BlockPos;
@@ -105,10 +108,50 @@ public final class CompactSolarsGameTests {
             int fieldBefore = fieldBox.getEnergy();
             int looseBefore = looseBox.getEnergy();
             helper.runAfterDelay(50, () -> {
-                helper.assertValueEqual(fieldBox.getEnergy() - fieldBefore, 60, "field panel over 50 ticks");
+                // spec 38: all 81 panels conduct into the one BatBox, each 60 EU over 50 ticks
+                helper.assertValueEqual(fieldBox.getEnergy() - fieldBefore, 81 * 60, "field over 50 ticks");
                 helper.assertValueEqual(looseBox.getEnergy() - looseBefore, 50, "loose panel over 50 ticks");
                 helper.succeed();
             });
+        });
+    }
+
+    /** Spec 38: panels pass the EU of their neighbours on, one cable at the end collects a whole row. */
+    @GameTest(template = EMPTY, batch = BATCH, timeoutTicks = 120)
+    public static void panelsConductToOneCable(GameTestHelper helper) {
+        sunshine(helper);
+        for (int x = 1; x <= 5; x++) {
+            helper.setBlock(new BlockPos(x, 1, 3), panel());
+        }
+        helper.setBlock(new BlockPos(6, 1, 3), Ic2Blocks.cable(CableType.TIN).get());
+        BlockPos box = new BlockPos(7, 1, 3);
+        helper.setBlock(box, Ic2Blocks.machine(Ic2Machine.BATBOX).get());
+        helper.runAfterDelay(10, () -> {
+            ElectricStorageBlockEntity batbox = helper.getBlockEntity(box);
+            int before = batbox.getEnergy();
+            helper.runAfterDelay(50, () -> {
+                helper.assertValueEqual(batbox.getEnergy() - before, 250, "five panels over 50 ticks");
+                helper.succeed();
+            });
+        });
+    }
+
+    /** Spec 38: panels only accept energy from panels, so another source cannot route through a field. */
+    @GameTest(template = EMPTY, batch = BATCH)
+    public static void otherSourcesDoNotRouteThroughPanels(GameTestHelper helper) {
+        BlockPos generator = new BlockPos(1, 1, 3);
+        helper.setBlock(generator, Ic2Blocks.machine(Ic2Machine.GENERATOR).get());
+        helper.setBlock(new BlockPos(2, 1, 3), panel());
+        helper.setBlock(new BlockPos(3, 1, 3), Ic2Blocks.machine(Ic2Machine.BATBOX).get());
+        helper.runAfterDelay(2, () -> {
+            EnergyTile source = helper.getBlockEntity(generator);
+            EnergyTile batbox = helper.getBlockEntity(new BlockPos(3, 1, 3));
+            List<EnergyTile> targets = EnergyNets.get(helper.getLevel()).discoverTargets(source, false, 32);
+            helper.assertFalse(targets.contains(batbox), "generator reaches the BatBox through a panel");
+            EnergyTile solar = helper.getBlockEntity(new BlockPos(2, 1, 3));
+            helper.assertTrue(EnergyNets.get(helper.getLevel()).discoverTargets(solar, false, 2).contains(batbox),
+                    "panel still feeds the BatBox");
+            helper.succeed();
         });
     }
 

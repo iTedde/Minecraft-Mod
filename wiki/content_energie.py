@@ -175,7 +175,9 @@ def pages(h, stats):
             chip(iid), f'{num(melt - 1)} ({tier(melt - 1)})', num(b['conductionLoss']) + ' EU',
             'voll isoliert' if ins >= 9001 else (f'bis {num(ins)} EU' if ins > 0 else 'blank – schockt immer')]))
     cables.sort(key=lambda r: (r[0], r[1]))
-    casings = [chip(i) for i, b in blocks.items() if 'eu_conductor' in b['kinds'] and b.get('conductorBreakdown', 0) >= UNLIMITED]
+    # solar panels conduct too (spec 38) but are no power plant casing
+    casings = [chip(i) for i, b in blocks.items() if 'eu_conductor' in b['kinds'] and b.get('conductorBreakdown', 0) >= UNLIMITED
+               and i != 'solar_panel']
 
     # ---------------------------------------------------------------- MJ
     engines = [[chip(i), ENGINES[i][0], ENGINES[i][1], num(blocks[i]['values']['getMaxEnergy']) + ' MJ',

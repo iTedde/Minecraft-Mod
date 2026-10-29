@@ -58,7 +58,8 @@ Ersetzt die 3×3-Felder mit Array-Mitte (2026-10-20 bis 2026-10-24) und davor �
 keine Funktion mehr.
 
 **Solarpanel:** wie im Original 1 EU/t bei Sonne (Himmelssicht über dem Panel, Tag, kein Regen außer in Wüsten;
-Prüfung alle 128 Ticks), **jedes Panel liefert selbst** (keine Mitte, kein Ring).
+Prüfung alle 128 Ticks), **jedes Panel liefert selbst** (keine Mitte, kein Ring). Seit Phase 38 leiten Panels den
+Strom angrenzender Panels verlustfrei weiter, ein Kabel am Feld genügt (`spec/38-solarfeld-leitung.md`).
 
 **Feldbonus ×1,2:** Liegt ein Panel in mindestens einem **lückenlosen 9×9-Quadrat aus Solarpanels auf derselben
 Höhe**, liefert es bei Sonne 1,2 EU/t – technisch jeden 5. besonnten Tick 2 EU statt 1 (Pakete bleiben LV). Nur eine
