@@ -614,6 +614,21 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
                 + "unter freiem Himmel; lädt zuerst die Rüstung (auch sich selbst), dann das Inventar. Rüstungswert 3."
                 : "No recipe in the pack, Craft adds one (quantum helmet + solar helmet). Worn it makes 512 EU/t in the sun and 64 EU/t under open "
                 + "sky; charges the armor first (itself too), then the inventory. Armor value 3.");
+        add("message.craft.gravisuite.drill_area_on", german ? "§e3×3-Modus §aAN" : "§e3×3 mode §aON");
+        add("message.craft.gravisuite.drill_area_off", german ? "§e3×3-Modus §cAUS" : "§e3×3 mode §cOFF");
+        add("tooltip.craft.gravisuite.drill_area_on", german ? "3×3-Modus: an (M + Rechtsklick)"
+                : "3×3 mode: on (M + right click)");
+        add("tooltip.craft.gravisuite.drill_area_off", german ? "3×3-Modus: aus (M + Rechtsklick)"
+                : "3×3 mode: off (M + right click)");
+        add("emi.craft.info.advanced_diamond_drill", german
+                ? "Wie der Diamantbohrer, Effizienz 35, 160 EU je Block, Speicher 1 000 000 EU (im Pack 15 000). Modus-Taste "
+                + "(M) + Rechtsklick schaltet den 3×3-Modus: Jeder Abbau nimmt die 8 Blöcke darum in der Ebene quer zur "
+                + "getroffenen Seite mit (je 160 EU), sofern der Bohrer sie abbaut und sie nicht härter sind als der "
+                + "Mittelblock (mindestens bis Erzhärte)."
+                : "Like the diamond drill, efficiency 35, 160 EU per block, storage 1,000,000 EU (pack: 15,000). Mode key "
+                + "(M) + right click switches the 3×3 mode: every break also takes the 8 blocks around it in the plane "
+                + "across the hit face (160 EU each), if the drill mines them and they are not harder than the centre "
+                + "block (at least up to ore hardness).");
         add("emi.craft.info.vajra", german
                 ? "Baut jeden Block sofort mit Drops ab, 3 333 EU je Block. Rechtsklick auf einen Block "
                 + "(Präzisionsmodus): Block wird entfernt und droppt, auch Endportalrahmen – nicht Grundgestein. "

@@ -1084,7 +1084,7 @@ Schwebemodus. {CHG} Kein Boost, vorwärts höchstens Sprinttempo, dafür halber 
 <li>Alle Brustteile laden wie ein LapPack gehaltene Werkzeuge bis Stufe 2 nach.</li></ul>
 <h2 id="mod-gravisuite--werkzeuge">Werkzeuge</h2>
 {h.table(['Werkzeug', 'Wirkung', 'Kosten'], [
-    [c('advanced_diamond_drill'), 'wie der Diamantbohrer, Effizienz 35', '160 EU/Block'],
+    [c('advanced_diamond_drill'), f'wie der Diamantbohrer, Effizienz 35; {CHG} Speicher 1 Mio. EU (Pack 15 000), <b>M + Rechtsklick</b> schaltet den 3×3-Modus (8 Blöcke drumherum quer zur Blickrichtung, nicht härter als der Mittelblock)', '160 EU/Block'],
     [c('advanced_chainsaw'), 'wie die Kettensäge, Effizienz 35, auch Wolle/Melone/Kaktus', '100 EU/Block'],
     [c('vajra'), 'baut alles sofort ab; Rechtsklick entfernt einen Block mit Drops (nicht Grundgestein)', '3 333 EU/Block'],
     [c('gravitool'), 'M + Rechtsklick: Hacke, Baumzapfer, Schraubenschlüssel (immer verlustfrei, auch BuildCraft), Schraubendreher', '50–10 000 EU'],

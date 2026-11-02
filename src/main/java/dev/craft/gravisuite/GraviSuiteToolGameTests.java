@@ -3,6 +3,7 @@ package dev.craft.gravisuite;
 import java.util.List;
 
 import dev.craft.Craft;
+import dev.craft.gravisuite.item.AdvancedDrillItem;
 import dev.craft.ic2.Ic2Items;
 import dev.craft.ic2.item.ElectricItems;
 import net.minecraft.core.BlockPos;
@@ -10,6 +11,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.animal.IronGolem;
@@ -160,5 +162,45 @@ public final class GraviSuiteToolGameTests {
         return level.getRecipeManager().getRecipeFor(RecipeType.CRAFTING, input, level)
                 .map(recipe -> recipe.value().assemble(input, level.registryAccess()))
                 .orElse(ItemStack.EMPTY);
+    }
+
+    /** Phase 41: 1 000 000 EU; 3×3 mode breaks the plane across the hit face, not harder blocks, 160 EU each. */
+    @GameTest(template = EMPTY)
+    public static void advancedDrillAreaMode(GameTestHelper helper) {
+        ServerPlayer player = helper.makeMockServerPlayerInLevel();
+        player.setGameMode(GameType.SURVIVAL);
+        ItemStack drill = GsItems.ADVANCED_DIAMOND_DRILL.toStack();
+        helper.assertValueEqual(((AdvancedDrillItem) drill.getItem()).getMaxCharge(), 1_000_000, "capacity");
+        charged(drill, 100_000);
+        AdvancedDrillItem.setAreaMode(drill, true);
+        player.setItemInHand(InteractionHand.MAIN_HAND, drill);
+        for (int x = 2; x <= 4; x++) {
+            for (int y = 1; y <= 3; y++) {
+                helper.setBlock(new BlockPos(x, y, 4), Blocks.STONE);
+            }
+        }
+        helper.setBlock(new BlockPos(2, 1, 4), Blocks.OBSIDIAN);
+        helper.setBlock(new BlockPos(3, 2, 5), Blocks.STONE);
+        // stand in front of the wall and look straight (+Z) at its centre face
+        Vec3 eye = Vec3.atLowerCornerOf(helper.absolutePos(new BlockPos(3, 2, 2))).add(0.5, 0.5, 0.5);
+        player.moveTo(eye.x, eye.y - player.getEyeHeight(), eye.z, 0.0F, 0.0F);
+        player.gameMode.destroyBlock(helper.absolutePos(new BlockPos(3, 2, 4)));
+        for (int x = 2; x <= 4; x++) {
+            for (int y = 1; y <= 3; y++) {
+                if (x != 2 || y != 1) {
+                    helper.assertBlockPresent(Blocks.AIR, new BlockPos(x, y, 4));
+                }
+            }
+        }
+        helper.assertBlockPresent(Blocks.OBSIDIAN, new BlockPos(2, 1, 4));
+        helper.assertBlockPresent(Blocks.STONE, new BlockPos(3, 2, 5));
+        helper.assertValueEqual(ElectricItems.getCharge(drill), 100_000 - 8 * 160, "8 blocks at 160 EU");
+
+        AdvancedDrillItem.setAreaMode(drill, false);
+        helper.setBlock(new BlockPos(3, 2, 4), Blocks.STONE);
+        helper.setBlock(new BlockPos(4, 2, 4), Blocks.STONE);
+        player.gameMode.destroyBlock(helper.absolutePos(new BlockPos(3, 2, 4)));
+        helper.assertBlockPresent(Blocks.STONE, new BlockPos(4, 2, 4));
+        helper.succeed();
     }
 }

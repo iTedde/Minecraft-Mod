@@ -287,6 +287,14 @@ Testwelt. Sprache einmal Deutsch, einmal Englisch prüfen. EMI und Xaero's Minim
 | 21.3 | Forgematica: Menü (M) öffnet, Taste kollidiert mit der IC2-Modus-Taste → eine umlegen; Schaltplan speichern und einblenden | 39.2 | |
 | 21.4 | Rüstungsständer mit Armen, Regenpartikel, Aufhebe-Einblendung, Subtle-Effects-Partikel sichtbar | 39.2 | |
 
+## 22. Fortgeschrittener Diamantbohrer (Phase 41)
+
+| Nr | Test | Herkunft | OK |
+|---|---|---|---|
+| 22.1 | Bohrer lädt bis 1 000 000 EU (MFSU), Ladeanzeige/Tooltip; Tooltip „3×3-Modus: aus“ | 41 | |
+| 22.2 | M + Rechtsklick: Meldung „3×3-Modus AN/AUS“; an Wand, Boden und Decke jeweils 3×3 quer zur Blickrichtung, Drops (mit Glück/Behutsamkeit), 160 EU je Block | 41 | |
+| 22.3 | Stein mit Obsidian daneben: Obsidian bleibt; Erz neben Stein geht mit; Grundgestein nie; leerer Bohrer baut nur noch Einzelblöcke; EMI-Infoseite | 41 | |
+
 ## Befunde
 
 | Nr | Datum | Befund | Status |

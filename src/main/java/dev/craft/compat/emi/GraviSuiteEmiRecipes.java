@@ -21,6 +21,7 @@ final class GraviSuiteEmiRecipes {
         info(registry, "advanced_jetpack", GsItems.ADVANCED_JETPACK.get(), GsItems.ADVANCED_NANO_CHESTPLATE.get());
         info(registry, "gravisuite_lappack", GsItems.ADVANCED_LAPPACK.get(), GsItems.ULTIMATE_LAPPACK.get());
         info(registry, "ultimate_solar_helmet", GsItems.ULTIMATE_SOLAR_HELMET.get());
+        info(registry, "advanced_diamond_drill", GsItems.ADVANCED_DIAMOND_DRILL.get());
         info(registry, "vajra", GsItems.VAJRA.get());
         info(registry, "gravitool", GsItems.GRAVITOOL.get());
     }

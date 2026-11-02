@@ -29,6 +29,12 @@ public final class GsDataComponents {
                     .persistent(Codec.BOOL)
                     .networkSynchronized(ByteBufCodecs.BOOL));
 
+    /** Phase 41: 3×3×1 mode of the advanced diamond drill on/off. */
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Boolean>> DRILL_AREA =
+            COMPONENTS.registerComponentType("drill_area", builder -> builder
+                    .persistent(Codec.BOOL)
+                    .networkSynchronized(ByteBufCodecs.BOOL));
+
     private GsDataComponents() {
     }
 }

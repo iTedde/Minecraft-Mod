@@ -1878,7 +1878,7 @@
     {
       "canProvideEnergy": false,
       "id": "advanced_diamond_drill",
-      "maxCharge": 15000,
+      "maxCharge": 1000000,
       "tier": 2,
       "transferLimit": 500
     },

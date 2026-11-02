@@ -189,6 +189,14 @@ Wie der Diamantbohrer (`spec/05`: gleiche Abbauliste inkl. Obsidian und Material
 ≠ 0). Ohne 160 EU Ladung Geschwindigkeit 1,0. Treffer ohne Kosten. Keine Sounds (die Bohrer-Sound-Methode wird
 nicht aufgerufen).
 
+> **Craft (Phase 41, Nutzer 2026-11-02, bewusste Abweichung):** Speicher **1 000 000 EU** statt 15 000 (Transfer 500,
+> Tier 2 unverändert). Neu ein **3×3×1-Modus**, ein/aus mit Modus-Taste (M) + Rechtsklick (Meldung, Tooltip, Data
+> Component `craft:drill_area`): Beim Abbau eines Blocks werden zusätzlich die 8 Blöcke darum in der Ebene quer zur
+> getroffenen Seite abgebaut – jeder wie ein normaler Abbau des Spielers (`ServerPlayerGameMode.destroyBlock`: Drops,
+> Verzauberungen, Schutz, Break-Event) für 160 EU. Nur Blöcke, die der Bohrer abbaut und die nicht härter sind als der
+> Mittelblock (mindestens bis Härte 3, also Erze neben Stein); kein Grundgestein. Ohne Ladung hört der Bereich auf. Die
+> Abbauzeit richtet sich nur nach dem Mittelblock. Seite über einen Blickstrahl beim Abbaubeginn (sonst Blickrichtung).
+
 ### 9.2 Fortgeschrittene Kettensäge (`ItemAdvChainsaw`)
 
 Wie die Kettensäge (`spec/05`), aber: 15 000 EU, Transfer 500, Tier 2, **Effizienz 35**, 100 EU je Block (Härte

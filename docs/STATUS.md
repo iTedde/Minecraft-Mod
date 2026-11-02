@@ -3275,6 +3275,22 @@ Nutzer: „Sind freigegeben“ (Solar-Balancing und Fortg. Diamantbohrer).
 - `gradlew runData`, `build` grün; GameTests **alle 577 grün** (auch `liquidTesseractFillsRemoteTank`).
 
 ## Nächste Schritte
-- **Phase 41** Fortg. Diamantbohrer: 1 000 000 EU, 3×3×1-Modus ein/aus (freigegeben 2026-11-02).
 - Neue Version/Paket erst auf Wunsch (1.1.4 enthält Phase 40 noch nicht).
+
+# Phase 41 – Fortgeschrittener Diamantbohrer: 1 Mio. EU, 3×3-Modus (2026-11-02)
+
+Nutzer: „Sind freigegeben“. Einzelheiten nach GraviTool-Muster selbst festgelegt (in `spec/28` §9.1 dokumentiert).
+
+## Erledigt
+- [x] `AdvancedDrillItem`: `MAX_CHARGE` 1 000 000; Data Component `craft:drill_area`; Modus-Taste + Rechtsklick schaltet
+  (Meldung, Tooltip); `onBlockStartBreak` baut die 8 Blöcke der Ebene quer zur getroffenen Seite über
+  `ServerPlayerGameMode.destroyBlock` ab (Sperre gegen Rekursion), Härte ≤ max(Mittelblock, 3), 160 EU je Block über
+  das normale `mineBlock`.
+- [x] EMI-Infoseite `advanced_diamond_drill`, Wiki GraviSuite-Werkzeugtabelle, `spec/28` §9.1, `abweichungen.md`,
+  Testplan §22. GameTest `advancedDrillAreaMode`.
+- `gradlew runData`, `build` grün; GameTests 578, alles grün bis auf das wackelige `liquidTesseractFillsRemoteTank`.
+
+## Nächste Schritte
+- Client-Tests §20–22 (Solar 243 EU/t, Bohrer 3×3), §21 (EPL-Spalte, Taste M).
+- Neue Version/Paket erst auf Wunsch (Paket 1.1.4 enthält Phasen 40/41 und `EplNetworkMixin` noch nicht).
 
