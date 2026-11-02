@@ -1,0 +1,18 @@
+{
+  "required": false,
+  "minVersion": "0.8",
+  "package": "dev.craft.mixin.epl",
+  "plugin": "dev.craft.mixin.epl.EplMixinPlugin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "EplConfigMixin",
+    "EplStatTypeMixin"
+  ],
+  "client": [
+    "EplHeaderMixin",
+    "EplRendererMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

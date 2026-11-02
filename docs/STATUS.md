@@ -3219,3 +3219,27 @@ Nutzer: „Lass uns mit der nächsten Phase weitermachen“ – beide offenen Do
 - Nutzerwünsche vom 2026-11-02 (oben): Reihenfolge/Phasennummern festlegen; offen sind Freigaben für
   Fortg. Diamantbohrer (1 Mio. EU, 3×3) und Solar-Balancing (2 EU/t, ×1,5).
 - Neue Version/Paket erst auf Wunsch des Nutzers.
+
+# Phase 39.1 – Zusatzmods, Spalte „abgebaute Blöcke“ (2026-11-02)
+
+Nutzer: „Nächste Phase“ – die Mod-Wünsche vom 2026-11-02 (die beiden Balancing-Wünsche warten auf Freigabe).
+Litematica: „Forgematica nehmen“ (Nutzer).
+
+## Erledigt
+- [x] `docs/spec/39-zusatzmods.md`: alle Mods für NeoForge 1.21.1 geprüft, CurseForge-Projekt-/Datei-IDs (über
+  api.cfwidget.com) bzw. Modrinth-Versionen mit SHA-1 für `overrides/mods` (Armor Stand Arms von Jodek und Enhanced
+  Player List gibt es nur auf Modrinth).
+- [x] Befund: EPL summiert `minecraft:mined` schon und schickt es an die Clients, zeigt es nur nicht an → keine eigene
+  Statistik nötig, gilt rückwirkend. Mixins `mixin/epl/*` (eigene Konfiguration `craft.epl.mixins.json`, nur mit EPL):
+  Validator, Standardspalten (hinter „distance“), Spaltenwert, Kopf „Mined“; Helfer `compat/epl/EplMinedBlocks` + JUnit.
+- [x] EPL 1.0.2 `compileOnly` + `localRuntime`. Client-Lauf: Config-/StatType-/Header-Mixin angewendet, neue
+  `enhancedplayerlist-common.toml` enthält `blocksMined`; Renderer-Mixin lädt erst mit Tab im Spiel (Signatur per
+  `javap` geprüft).
+- [x] Wiki „Create & Paket-Mods“ (Tabelle + Abschnitte, „ab Paket 1.1.4“), `architektur.md`, Spec-README, Testplan §21.
+- `gradlew build` grün (inkl. JUnit).
+
+## Nächste Schritte
+- **39.2** Paket 1.1.4 (Craft 1.1.4 + Manifest-Einträge laut `spec/39` §1 + zwei Jars in `overrides/mods`) – erst auf
+  Wunsch des Nutzers; danach Wiki nach `X:/Craft` nur falls gewünscht (Releases nur im Repo).
+- Client-Test 21.2: Tab-Liste zeigt „Mined“; Forgematica-Taste M kollidiert mit der IC2-Modus-Taste.
+- Offen: Freigaben Fortg. Diamantbohrer (1 Mio. EU, 3×3) und Solar-Balancing (2 EU/t, ×1,5).

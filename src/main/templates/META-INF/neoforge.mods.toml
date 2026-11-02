@@ -53,6 +53,10 @@ Privater Nachbau von IndustrialCraft 2, BuildCraft (Quarry, Engines), Forestry-E
 [[mixins]]
 config="${mod_id}.mixins.json"
 
+# Phase 39: only applied when Enhanced Player List is installed (CraftMixinPlugin)
+[[mixins]]
+config="${mod_id}.epl.mixins.json"
+
 # The [[accessTransformers]] block allows you to declare where your AT file is.
 # If this block is omitted, a fallback attempt will be made to load an AT from META-INF/accesstransformer.cfg
 #[[accessTransformers]]

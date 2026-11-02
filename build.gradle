@@ -166,6 +166,9 @@ dependencies {
     localRuntime "maven.modrinth:architectury-api:${architectury_version}"
     localRuntime "maven.modrinth:trading-post:${tradingpost_version}"
     localRuntime "maven.modrinth:puzzles-lib:${puzzleslib_version}"
+    // Phase 39: Enhanced Player List, mixins add the "mined blocks" column (spec 39 §3); optional at runtime
+    compileOnly "maven.modrinth:enhanced-player-list:${enhancedplayerlist_version}"
+    localRuntime "maven.modrinth:enhanced-player-list:${enhancedplayerlist_version}"
 
     // Example optional mod dependency with JEI
     // The JEI API is declared for compile time use, while the full JEI artifact is used at runtime

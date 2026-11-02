@@ -278,6 +278,15 @@ Testwelt. Sprache einmal Deutsch, einmal Englisch prüfen. EMI und Xaero's Minim
 | 20.2 | Generator hinter einem Panel erreicht die BatBox auf der anderen Seite nicht; kein Stromschlag an den Panels | 38.1 | |
 | 20.3 | EMI-Infoseite Solarpanel nennt die Leitung; Wiki-Seite Solar (Regel, Schritt-für-Schritt, Fehlersuche) | 38.2 | |
 
+## 21. Zusatzmods und Spalte „abgebaute Blöcke“ (Phase 39)
+
+| Nr | Test | Herkunft | OK |
+|---|---|---|---|
+| 21.1 | Paket startet mit allen neuen Mods (Forgematica, MaFgLib, Armor Stand Arms, Subtle Effects, Fzzy Config, Particle Rain, Pick Up Notifier, Enhanced Player List) ohne Fehler | 39.2 | |
+| 21.2 | Tab halten: EPL-Tabelle mit Spalte „Mined“ hinter „Distance“; Zahl steigt nach Abbauen und Speichern (`/save-all`); bestehende Welt zeigt sofort die bisherige Summe; offline Spieler grau | 39.1 | |
+| 21.3 | Forgematica: Menü (M) öffnet, Taste kollidiert mit der IC2-Modus-Taste → eine umlegen; Schaltplan speichern und einblenden | 39.2 | |
+| 21.4 | Rüstungsständer mit Armen, Regenpartikel, Aufhebe-Einblendung, Subtle-Effects-Partikel sichtbar | 39.2 | |
+
 ## Befunde
 
 | Nr | Datum | Befund | Status |

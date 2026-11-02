@@ -58,6 +58,10 @@ Mahlen, Waschen, Fertigungsketten …).</p>
     ['<b>Create: Hypertubes</b>', 'Röhrennetz, durch das man (und Pakete) schnell durch die Welt reisen'],
     ['GraveStone Mod', 'Unabhängig von Create: beim Tod landet das Inventar in einem Grabstein statt am Boden'],
     ['LambDynamicLights', 'Unabhängig von Create: dynamisches Licht (Fackel in der Hand, brennende Mobs …) und das Licht des Elektrischen Leuchtschilds'],
+    ['Forgematica (+ MaFgLib)', 'Unabhängig von Create: Litematica für NeoForge – Schaltpläne speichern, als Geisterbild einblenden und nachbauen'],
+    ['Enhanced Player List', 'Unabhängig von Create: Tab-Liste mit Spielzeit, Toden, Strecke, abgebauten Blöcken u. a. für alle Spieler, auch offline'],
+    ['Subtle Effects (+ Fzzy Config), Particle Rain', 'Unabhängig von Create: Umgebungs-, Regen- und Schneepartikel'],
+    ['Pick Up Notifier, Armor Stand Arms', 'Unabhängig von Create: Einblendung aufgehobener Items; Rüstungsständer mit Armen'],
 ])}
 <h2 id="cr--craft">Zusammenspiel mit Craft</h2>
 <ul>
@@ -186,6 +190,24 @@ Redstone-Signal. Ab Paket <b>1.1.3</b>. Rezepte in EMI, Aufbau im Ponder.</p>
 <p>Dynamisches Licht: Fackeln und andere leuchtende Items in der Hand, brennende Mobs und Ähnliches erhellen die Umgebung, ohne
 das Licht der Welt zu ändern. Craft nutzt es für das Licht des <a href="#/leuchtschild">Elektrischen Leuchtschilds</a>.
 Ab Paket <b>1.0.12</b>; Einstellungen unter Optionen → Grafik (mit Sodium in dessen Menü).</p>
+<h2 id="ca--litematica">Forgematica (Litematica)</h2>
+<p>Der NeoForge-Port von Litematica (mit MaFgLib statt MaLiLib): Mit dem Auswahlwerkzeug (Holzstock) einen Bereich als
+Schaltplan speichern, Schaltpläne als Geisterbild in die Welt legen und Block für Block nachbauen; fehlende oder falsche Blöcke
+werden farbig markiert. Menü mit <b>M</b> – das ist auch die IC2-Modus-Taste; eine der beiden in den Einstellungen umlegen.
+Schaltpläne liegen im Ordner <code>schematics</code> der Instanz. Ab Paket <b>1.1.4</b>.</p>
+<h2 id="ca--epl">Enhanced Player List – Spielerstatistik</h2>
+<p>Beim Halten der Tab-Taste erscheint eine Tabelle aller Spieler, die je auf dem Server waren (offline grau): Spielzeit, Tode,
+Strecke, <b>abgebaute Blöcke</b> (Spalte „Mined“), Sprünge, ausgeteilter/erlittener Schaden und zuletzt gesehen. Die Spalte
+„Mined“ ergänzt Craft: Sie zählt alle von Hand bzw. mit Werkzeug abgebauten Blöcke (Maschinen wie Quarry oder Miner zählen
+nicht) und gilt auch rückwirkend für bestehende Welten. Die Werte aktualisieren sich, wenn der Server speichert. Spalten wählt
+man in <code>config/enhancedplayerlist-common.toml</code> (<code>visibleStats</code>). Der Mod muss auch auf dem Server liegen.
+Ab Paket <b>1.1.4</b>.</p>
+<h2 id="ca--optik">Subtle Effects, Particle Rain, Pick Up Notifier, Armor Stand Arms</h2>
+<ul><li><b>Subtle Effects</b>: viele kleine Partikel- und Klangdetails an Blöcken, Mobs und in der Umgebung, einstellbar über Fzzy Config.</li>
+<li><b>Particle Rain</b>: Regen, Schnee und Sandstürme als Partikel mit Nebel statt der Vanilla-Regenstreifen.</li>
+<li><b>Pick Up Notifier</b>: unten rechts erscheint kurz, welche Items (und wie viele) man aufgehoben hat.</li>
+<li><b>Armor Stand Arms</b>: Rüstungsständer bekommen beim Aufstellen Arme und können Items in den Händen halten.</li></ul>
+<p>Alle ab Paket <b>1.1.4</b>.</p>
 '''
     page('create-addons', 'Addons', addons)
     return P

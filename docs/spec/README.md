@@ -52,6 +52,7 @@ Vanilla-Klassen/-Felder tragen lesbare Namen (`Block.cobblestone`, `Item.redston
 | `34-grosser-projekttisch.md` | Großer Projekttisch (neuer Inhalt): teurerer Projekttisch mit 27 Vorratsplätzen wie eine Holztruhe, sonst wie der Projekttisch – freigegeben 2026-10-27 (Phase 34) |
 | `35-kupfergolem.md` | Kupfergolem (Nachbau aus MC 1.21.9): holt aus der Iron-Chest-Kupferkiste (neu mit Oxidation) und sortiert in Iron Chests, Truhen und Fässer im Bereich ±32, ohne Statue – freigegeben 2026-10-29 (Phase 35) |
 | `37-kein-tempo.md` | Nichts macht mehr schneller: Deckel auf Sprinttempo für Quanten-, Gravi-, Jetpack- und MPS-Bewegung, Kaffee ohne Tempo, Ausgleich je Teil – freigegeben 2026-10-29 (Phase 37) |
+| `39-zusatzmods.md` | Zusatzmods im Paket (Forgematica, Armor Stand Arms, Subtle Effects, Particle Rain, Pick Up Notifier, Enhanced Player List) und Spalte „abgebaute Blöcke“ in der EPL-Tab-Liste (Phase 39) |
 | `38-solarfeld-leitung.md` | Solarpanels leiten verlustfrei untereinander (nur von Panels), ein Kabel an einem Feld sammelt alles – freigegeben 2026-10-29 (Phase 38) |
 
 Ergänzend: `docs/balancing.md` (Vorschlag, nicht freigegeben), `docs/abweichungen.md`.
