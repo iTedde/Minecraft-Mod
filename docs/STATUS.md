@@ -3243,3 +3243,19 @@ Litematica: „Forgematica nehmen“ (Nutzer).
   Wunsch des Nutzers; danach Wiki nach `X:/Craft` nur falls gewünscht (Releases nur im Repo).
 - Client-Test 21.2: Tab-Liste zeigt „Mined“; Forgematica-Taste M kollidiert mit der IC2-Modus-Taste.
 - Offen: Freigaben Fortg. Diamantbohrer (1 Mio. EU, 3×3) und Solar-Balancing (2 EU/t, ×1,5).
+
+# Phase 39.2 – Paket 1.1.4 (2026-11-02)
+
+Nutzer: „Dann nächste Phase und bauen“.
+
+## Erledigt
+- [x] Craft **1.1.4** (`releases/craft-1.1.4.jar`, 1.1.3 plus Phasen 37, 38, 39.1).
+- [x] Paket `releases/Craft-1.1.4-curseforge.zip` (9,2 MB): wie 1.1.3 mit Craft 1.1.4; Manifest + Forgematica 0.4.3,
+  MaFgLib 0.4.3, Subtle Effects 1.15.1, Fzzy Config 0.7.7+fix1, Particle Rain 4.0.2, Pick Up Notifier v21.1.1
+  (77 Einträge); `overrides/mods` + Armor Stand Arms v2.7.1 und Enhanced Player List 1.0.2 (SHA-1 geprüft).
+- [x] Probelauf `runClient` mit allen neuen Mods (CurseForge-Jars kurz in `run/mods`): lädt ohne Fehler bis ins
+  Hauptmenü; danach regulär beendet (Fenster geschlossen), Welt nicht betreten. Im CurseForge-Launcher nicht gestartet.
+
+## Nächste Schritte
+- Paket 1.1.4 im CurseForge-Launcher starten; Client-Test §21 (Spalte „Mined“, Taste M Forgematica ↔ IC2).
+- Offen: Freigaben Fortg. Diamantbohrer (1 Mio. EU, 3×3) und Solar-Balancing (2 EU/t, ×1,5).

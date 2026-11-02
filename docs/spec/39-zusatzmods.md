@@ -60,4 +60,4 @@ eintragen. Das Paket bringt keine eigene EPL-Config mit (Standard reicht).
 ## 4 Teilphasen
 
 - 39.1 Spezifikation, EPL-Spalte (Mixins), Tests – erledigt
-- 39.2 Paket (Manifest + `overrides/mods`), Wiki „Create & Paket-Mods“, Testplan – Paket erst auf Wunsch des Nutzers
+- 39.2 Paket (Manifest + `overrides/mods`), Wiki „Create & Paket-Mods“, Testplan – erledigt: Craft 1.1.4, `releases/Craft-1.1.4-curseforge.zip` (77 Manifest-Einträge, 9,2 MB)
