@@ -3180,9 +3180,15 @@ nichts umgesetzt**. Reihenfolge, Umfang und Phasennummern noch offen.
 - [ ] **Subtle Effects** (Umgebungseffekte)
 - [ ] **Particle Rain** (Regen-/Wetterpartikel)
 - [ ] **Pick Up Notifier** (Einblendung aufgehobener Items)
-- [ ] **Statistik-Mod**: Vorschlag **Stats Overlay** (CurseForge-ID 1614091, NeoForge 1.21.1, nur Client):
-  HUD mit Spielzeit, Toden, abgebauten Blöcken, Mob-Kills, Schaden, Strecke u. a.; Taste K ein/aus, F7 Einstellungen.
-  Alternative: Enhanced Player List (Tab-Liste, ohne abgebaute Blöcke). Wahl durch den Nutzer offen.
+- [ ] **Statistik-Mod**: Entschieden (Nutzer, 2026-11-02): **Enhanced Player List** (NeoForge 1.21.1, Client + Server,
+  MIT, nur Modrinth → Jar in `overrides/mods`; Quelle https://github.com/Decryptu/enhanced-player-list). Tab-Liste
+  zeigt für alle Spieler (auch offline) Spielzeit, Tode, Strecke, Sprünge, Schaden, zuletzt gesehen. Stats Overlay
+  verworfen (zeigt nur die eigenen Werte).
+- [ ] **Abgebaute Blöcke in der Tab-Liste** (Nutzer, 2026-11-02: „das mit den Blöcken noch reinmodden“): Vanilla
+  zählt nur je Blocksorte. Plan: Craft registriert eine eigene Statistik `craft:blocks_mined` (Summe aller abgebauten
+  Blöcke, serverseitig, landet in `world/stats/<UUID>.json`) und zeigt sie per Mixin in Enhanced Player List als
+  weitere Zeile an (offline Spieler ebenfalls aus der Stats-Datei). Bestehende Welten: Startwert einmalig aus der
+  Summe der `minecraft:mined`-Werte. Vor der Umsetzung die EPL-Quelle ansehen.
 
 Zu prüfen: Verfügbarkeit für NeoForge 1.21.1 und benötigte Bibliotheken (Litematica braucht MaLiLib; ggf.
 Fabric-only → Port/Alternative nachfragen).
