@@ -147,7 +147,7 @@ Testwelt. Sprache einmal Deutsch, einmal Englisch prüfen. EMI und Xaero's Minim
 
 | Nr | Test | Herkunft | OK |
 |---|---|---|---|
-| 8.1b | Solar seit 2026-10-24: 9×9 aus Solarpanels, BatBox unter einem Panel im Feld lädt 1,2 EU/t (60 EU in 50 Ticks), einzelnes Panel 1 EU/t; Lücke im 9×9 → kein Bonus; altes Array liefert nichts, zerfällt in der Werkbank in 8 der Stufe darunter, nicht in EMI/Kreativtab; Lade-Slot eines alten Arrays entnehmbar | Solar-Umbau 2026-10-24 | |
+| 8.1b | Solar seit 2026-10-24: 9×9 aus Solarpanels, BatBox unter einem Panel im Feld lädt 3 EU/t (150 EU in 50 Ticks, seit Phase 40), einzelnes Panel 2 EU/t; Lücke im 9×9 → kein Bonus; altes Array liefert nichts, zerfällt in der Werkbank in 8 der Stufe darunter, nicht in EMI/Kreativtab; Lade-Slot eines alten Arrays entnehmbar | Solar-Umbau 2026-10-24 | |
 | 8.1 | (überholt seit 2026-10-24) Solar Arrays (3×3, 2026-10-20): Rezepte SSS/SXS/SSS; LV + 8 Panels: Sonnensymbol am Tag, BatBox lädt mit 19 EU/t, Panel abdecken → weniger; einzelnes Array liefert nichts; MV mit 8 LV-Arrays 179 EU/t (Ring-Arrays liefern selbst nichts), HV mit 8 MV-Arrays 1536 EU/t (Glasfaser/MFSU); HV-Array im MV-Ring → nicht geformt; zweites Feld, das einen Randblock mit einem ersten teilt, liefert nichts (nach Abbau des ersten schon); ein laufendes Feld wird nicht Teil eines anderen; Lade-Slot; Abbau droppt das Array; Texturen | 6.4b, Nachtrag 2026-10-20 | x |
 | 8.2 | Wassermühle an fließendem Wasser/im Fluss, zwei Mühlen nebeneinander; Windmühle in großer Höhe bei Gewitter (zerfällt nie) | 9.1 | |
 | 8.3 | Koksofen bauen, Kohle per Trichter einspeisen, Koks unten abziehen | 9.2 | |
@@ -274,7 +274,7 @@ Testwelt. Sprache einmal Deutsch, einmal Englisch prüfen. EMI und Xaero's Minim
 
 | Nr | Test | Herkunft | OK |
 |---|---|---|---|
-| 20.1 | 9×9-Feld, ein Kabel an einem Eckpanel → BatBox: am Tag ≈ 97 EU/t (EU-Meter); Reihe aus 5 Panels mit Kabel am Ende 5 EU/t | 38.1 | |
+| 20.1 | 9×9-Feld, ein Kabel an einem Eckpanel → BatBox: am Tag 243 EU/t (EU-Meter, seit Phase 40); Reihe aus 5 Panels mit Kabel am Ende 10 EU/t | 38.1 | |
 | 20.2 | Generator hinter einem Panel erreicht die BatBox auf der anderen Seite nicht; kein Stromschlag an den Panels | 38.1 | |
 | 20.3 | EMI-Infoseite Solarpanel nennt die Leitung; Wiki-Seite Solar (Regel, Schritt-für-Schritt, Fehlersuche) | 38.2 | |
 

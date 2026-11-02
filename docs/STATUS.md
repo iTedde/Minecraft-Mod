@@ -3242,7 +3242,6 @@ Litematica: „Forgematica nehmen“ (Nutzer).
 - **39.2** Paket 1.1.4 (Craft 1.1.4 + Manifest-Einträge laut `spec/39` §1 + zwei Jars in `overrides/mods`) – erst auf
   Wunsch des Nutzers; danach Wiki nach `X:/Craft` nur falls gewünscht (Releases nur im Repo).
 - Client-Test 21.2: Tab-Liste zeigt „Mined“; Forgematica-Taste M kollidiert mit der IC2-Modus-Taste.
-- Offen: Freigaben Fortg. Diamantbohrer (1 Mio. EU, 3×3) und Solar-Balancing (2 EU/t, ×1,5).
 
 # Phase 39.2 – Paket 1.1.4 (2026-11-02)
 
@@ -3259,3 +3258,23 @@ Nutzer: „Dann nächste Phase und bauen“.
 ## Nächste Schritte
 - Paket 1.1.4 im CurseForge-Launcher starten; Client-Test §21 (Spalte „Mined“, Taste M Forgematica ↔ IC2).
 - Offen: Freigaben Fortg. Diamantbohrer (1 Mio. EU, 3×3) und Solar-Balancing (2 EU/t, ×1,5).
+
+# Phase 40 – Solar-Balancing 2 EU/t, ×1,5 (2026-11-02)
+
+Nutzer: „Sind freigegeben“ (Solar-Balancing und Fortg. Diamantbohrer).
+
+## Erledigt
+- [x] `SolarPanelBlockEntity`: `BASE_OUTPUT` 2, `FIELD_OUTPUT` 3 (×1,5), Pakete 2/3 EU, Puffer 3; Bonus-Ticker entfällt.
+- [x] GameTests: `panelInFieldDeliversOneAndAHalf` (vorher …AFifth; 81 · 150 EU bzw. 100 EU in 50 Ticks),
+  `panelsConductToOneCable` 500 EU.
+- [x] EMI `solar_field`, Wiki (Solar-Seite mit Tabelle und Rechner ×1,5, Energievergleich, Änderungen, Maschinen-/Energie-
+  texte, Spannungstabelle), `balancing.md` §3.1, `spec/11` §4, `spec/38`, `abweichungen.md`, `architektur.md`, Testplan.
+- [x] Nebenbei: `EplNetworkMixin` – EPL (seit 39.1 in `localRuntime`) brach den GameTest-Server ab (Payload an
+  Scheinspieler ohne Kanal); sendet jetzt nur an Spieler mit Kanal. **Craft 1.1.4 im Paket hat diesen Fix noch nicht**
+  (betrifft nur Spieler ohne EPL-Kanal, im Paket haben alle EPL).
+- `gradlew runData`, `build` grün; GameTests **alle 577 grün** (auch `liquidTesseractFillsRemoteTank`).
+
+## Nächste Schritte
+- **Phase 41** Fortg. Diamantbohrer: 1 000 000 EU, 3×3×1-Modus ein/aus (freigegeben 2026-11-02).
+- Neue Version/Paket erst auf Wunsch (1.1.4 enthält Phase 40 noch nicht).
+

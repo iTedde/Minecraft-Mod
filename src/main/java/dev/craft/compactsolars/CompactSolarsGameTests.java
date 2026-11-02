@@ -23,7 +23,8 @@ import net.neoforged.neoforge.gametest.GameTestHolder;
 import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
 
 /**
- * In-world tests for solar power since 2026-10-24 (user): only solar panels, ×1.2 for panels in a complete 9×9 square,
+ * In-world tests for solar power since 2026-10-24 (user): only solar panels, 2 EU/t each and 3 EU/t (×1.5) in a
+ * complete 9×9 square (phase 40),
  * arrays are leftovers. Panels are built on the floor (y 1); storage blocks replace the floor below a panel so they
  * do not shade it.
  */
@@ -90,7 +91,7 @@ public final class CompactSolarsGameTests {
     }
 
     @GameTest(template = EMPTY, batch = BATCH, timeoutTicks = 120)
-    public static void panelInFieldDeliversOneAndAFifth(GameTestHelper helper) {
+    public static void panelInFieldDeliversOneAndAHalf(GameTestHelper helper) {
         sunshine(helper);
         BlockPos corner = new BlockPos(1, 1, 1);
         square(helper, corner, 9);
@@ -108,9 +109,9 @@ public final class CompactSolarsGameTests {
             int fieldBefore = fieldBox.getEnergy();
             int looseBefore = looseBox.getEnergy();
             helper.runAfterDelay(50, () -> {
-                // spec 38: all 81 panels conduct into the one BatBox, each 60 EU over 50 ticks
-                helper.assertValueEqual(fieldBox.getEnergy() - fieldBefore, 81 * 60, "field over 50 ticks");
-                helper.assertValueEqual(looseBox.getEnergy() - looseBefore, 50, "loose panel over 50 ticks");
+                // spec 38: all 81 panels conduct into the one BatBox, each 3 EU/t = 150 EU over 50 ticks
+                helper.assertValueEqual(fieldBox.getEnergy() - fieldBefore, 81 * 150, "field over 50 ticks");
+                helper.assertValueEqual(looseBox.getEnergy() - looseBefore, 100, "loose panel over 50 ticks");
                 helper.succeed();
             });
         });
@@ -130,7 +131,7 @@ public final class CompactSolarsGameTests {
             ElectricStorageBlockEntity batbox = helper.getBlockEntity(box);
             int before = batbox.getEnergy();
             helper.runAfterDelay(50, () -> {
-                helper.assertValueEqual(batbox.getEnergy() - before, 250, "five panels over 50 ticks");
+                helper.assertValueEqual(batbox.getEnergy() - before, 500, "five panels over 50 ticks");
                 helper.succeed();
             });
         });

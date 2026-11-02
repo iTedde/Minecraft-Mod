@@ -68,7 +68,7 @@ dazu kommen <a href="#/aenderungen">neue Kraftwerke und eine Mining-Dimension</a
 
 <h2 id="home--neu">Neu und geändert</h2>
 <div class="cards">
-{card('solar-arrays', 'craft:solar_panel', 'Solar', 'Nur noch Solarpanels: jedes liefert 1 EU/t, im 9×9-Feld 1,2 EU/t.', CHG)}
+{card('solar-arrays', 'craft:solar_panel', 'Solar', 'Nur noch Solarpanels: jedes liefert 2 EU/t, im 9×9-Feld 3 EU/t.', CHG)}
 {card('wassermuehle', 'craft:water_mill', 'Wassermühle', 'Bis 2 EU/t aus fließendem Wasser statt 0,26 EU/t.', CHG)}
 {card('windmuehle', 'craft:wind_mill', 'Windmühle', 'Faktor 2,5, Gewitter ×3, geht nie kaputt.', CHG)}
 {card('koksofen', 'craft:coke_oven', 'Koksofen', '3×3×3-Multiblock: Kohle → Koks ohne Strom.', NEW)}
@@ -159,7 +159,7 @@ nach Art der Änderung. Jede Zeile verlinkt auf eine ausführliche Seite; die vo
 <b>Rezepte und Kosten bleiben, gebalanct wird über Leistung, Effizienz und Platzbedarf.</b>
 Details und Begründung: <a href="#/energie">Energiequellen im Vergleich</a>.</p>
 {h.table(['Thema', 'Original', 'Craft'], [
-    row('Solar', 'Solarpanel 1 EU/t; Compact Solar Arrays: ein Block je Stufe 8 / 64 / 512 EU/t', 'nur noch Solarpanels: 1 EU/t, im lückenlosen 9×9-Feld 1,2 EU/t; Arrays ohne Rezept und Leistung, in der Werkbank zerlegbar', 'solar-arrays', CHG),
+    row('Solar', 'Solarpanel 1 EU/t; Compact Solar Arrays: ein Block je Stufe 8 / 64 / 512 EU/t', 'nur noch Solarpanels: 2 EU/t, im lückenlosen 9×9-Feld 3 EU/t (×1,5); Arrays ohne Rezept und Leistung, in der Werkbank zerlegbar', 'solar-arrays', CHG),
     row('Wassermühle', '3×3×3 Wasserblöcke zählen, max. 0,26 EU/t', '5×5×3-Bereich, fließendes Wasser 0,04 EU/t je Block, Biom-Bonus, bis 2 EU/t', 'wassermuehle', CHG),
     row('Windmühle', 'Faktor 1, Regen ×1,2, Gewitter ×1,5, Bruch ab 5 EU/t, Puffer 4', 'Faktor 2,5, Regen ×1,5, Gewitter ×3, kein Zerfall, Puffer 16', 'windmuehle', CHG),
     row('Koks', '– (im Pack nur über Railcraft, das nicht nachgebaut wird)', 'neues Item: im Generator wie Kohle, im Kohlekraftwerk doppelt so viel', 'koksofen', NEW),
@@ -233,7 +233,7 @@ Diese hier bemerkt man im Spiel:</p>
 
     # ------------------------------------------------------------------ Energievergleich
     bars = [
-        ('IC2-Solarpanel', 1, '1 EU/t bei Sonne, unverändert'),
+        ('IC2-Solarpanel', 2, '2 EU/t bei Sonne (Original 1)'),
         ('Wassermühle (neu)', 2, 'bis 2 EU/t, Tag und Nacht'),
         ('Windmühle (neu, y 128)', 3.2, 'Gewitter bis ≈ 9,6 EU/t'),
         ('IC2-Generator', 10, '4 000 EU je Kohle'),
@@ -241,7 +241,7 @@ Diese hier bemerkt man im Spiel:</p>
         ('Geothermiegenerator', 20, '20 000 EU je Lava-Eimer'),
         ('Wasserturbine', 32, 'Deckel; im Fluss-Biom 48'),
         ('Große Windturbine (y 319)', 153, 'Carbon-Rotor; Regen/Gewitter bis 192'),
-        ('Solarfeld 9×9', 97.2, '81 Solarpanels × 1,2, nur am Tag'),
+        ('Solarfeld 9×9', 243, '81 Solarpanels × 3 EU/t, nur am Tag'),
         ('Große Wasserturbine', 256, 'Deckel, ab 256 fließenden Blöcken; im Fluss-Biom 384'),
         ('Hochdruckkraftwerk', 480, '3 Hochdruckkessel + Große Dampfturbine'),
         ('Kernreaktor (typisch)', 400, '60–400+ EU/t je nach Design'),
@@ -256,11 +256,11 @@ wetterabhängig mit Gewitterspitzen, Kohle hat einen Ausbaupfad, Öl ist die lag
 <h2 id="en--leistung">Typische Leistung je Anlage (Craft)</h2>
 <div class="bars" role="img" aria-label="Typische Leistung je Anlage in EU pro Tick">{bar_html}</div>
 <p style="font-size:12px;color:var(--muted)">Spitzenleistung; Solar liefert im Tagesmittel nur etwa die Hälfte (nur bei Tag, kein Regen).
-Solar wächst nur mit der Fläche: rund 1,2 EU/t je Block im 9×9-Feld.</p>
+Solar wächst nur mit der Fläche: 3 EU/t je Block im 9×9-Feld.</p>
 <h2 id="en--tabelle">Vergleichstabelle</h2>
 {h.table(['Quelle', 'Leistung typ.', 'EU/t pro Block Fläche', 'EU pro Ressource', 'Zuverlässigkeit'], [
-    ['Solarpanel', '1 (Tag)', '1,0 Spitze / 0,5 Mittel', '– (wartungsfrei)', 'niedrig (nur Tag, kein Regen)'],
-    [f'Solarfeld 9×9 {CHG}', '97 (Tag, 81 Panels)', '1,2 Spitze / 0,6 Mittel', '– (wartungsfrei)', 'niedrig (nur Tag, kein Regen)'],
+    ['Solarpanel', '2 (Tag)', '2 Spitze / 1 Mittel', '– (wartungsfrei)', 'niedrig (nur Tag, kein Regen)'],
+    [f'Solarfeld 9×9 {CHG}', '243 (Tag, 81 Panels)', '3 Spitze / 1,5 Mittel', '– (wartungsfrei)', 'niedrig (nur Tag, kein Regen)'],
     [f'Wassermühle {CHG}', 'bis 2', '≈ 0,08 (inkl. Wasserfläche)', '–', '<b>hoch</b> (Tag & Nacht)'],
     [f'Wasserturbine {NEW}', '16–32 (Fluss 48)', '≈ 0,5–0,65 (inkl. Wasserring)', '–', '<b>hoch</b>'],
     [f'Windmühle {CHG}', '3–7, Gewitter bis 20', '≈ 0,04–0,25 (Freiraum 9×9)', '–', 'mittel (Wetter, Wind)'],
@@ -322,7 +322,7 @@ aber zuverlässige Quelle, die <b>Tag und Nacht</b> läuft.</p>
 <label>fließende Blöcke <input type="number" name="f" min="0" max="74" value="30"></label>
 <label>Biom <select name="bio"><option value="1">normal</option><option value="1.5">Fluss ×1,5</option><option value="1.25">Ozean ×1,25</option></select></label>
 <label>Mühlen, die sich das Wasser teilen <input type="number" name="sh" min="1" max="9" value="1"></label></div><div class="out"></div><div class="msg"></div></div>
-{h.note('tip', 'Eine Mühle mitten in einem Fluss mit viel fließendem Wasser erreicht die 2 EU/t leicht – das ist so viel wie vier Solarpanels im Tagesmittel. Für mehr Leistung: <a href="#/wasserturbine">Wasserturbine</a>.')}
+{h.note('tip', 'Eine Mühle mitten in einem Fluss mit viel fließendem Wasser erreicht die 2 EU/t leicht – das ist so viel wie zwei Solarpanels im Tagesmittel. Für mehr Leistung: <a href="#/wasserturbine">Wasserturbine</a>.')}
 <p>Spezifikation: <a href="#/spec-14">14 – Kraftwerke</a> §6, Original in <a href="#/spec-02">02 – Generatoren</a>.</p>
 '''
     page('wassermuehle', 'Wassermühle', 'Neu & geändert', wasser)
@@ -508,7 +508,7 @@ Seitenfläche, 26 Wasserturbinengehäuse. Gezählt wird fließendes Wasser bis 5
 ])}
 <p class="lead">Die zweite Ausbaustufe für Kohle, Wasser und Wind: rund 150 bis 512 EU/t je Anlage, <b>rund um die Uhr</b>. Alle drei kosten
 je EU/t ungefähr gleich viel Material: Wind ist absolut am billigsten, liefert aber am wenigsten, Dampf am meisten und braucht Brennstoff. Zum Vergleich: Ein
-9×9-Solarfeld liefert 97 EU/t, und das nur am Tag. Die kleinen Anlagen bleiben unverändert.</p>
+9×9-Solarfeld liefert 243 EU/t, und das nur am Tag. Die kleinen Anlagen bleiben unverändert.</p>
 
 <h2 id="gk--ueberblick">Welche Anlage wofür?</h2>
 {h.table(['Anlage', 'Leistung', 'braucht dauerhaft', 'Aufwand', 'gut, wenn …'], [

@@ -248,11 +248,11 @@
         "eu_source",
         "eu_conductor"
       ],
-      "maxEnergyOutput": 1,
+      "maxEnergyOutput": 2,
       "values": {
         "TIER": 1,
-        "getMaxStorage": 2,
-        "getProduction": 1
+        "getMaxStorage": 3,
+        "getProduction": 2
       }
     },
     {

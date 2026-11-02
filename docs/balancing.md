@@ -20,7 +20,7 @@ Platzbedarf**. Solar wird nicht pauschal geschwächt, die anderen Quellen werden
 |---|---:|---:|---:|---:|---|
 | IC2 Generator | 10 EU/t | 1 | 10 | 4 000 EU / Kohle | Brennstoff nachfüllen |
 | IC2 Geothermie | 20 EU/t | 1 | 20 | 20 000 EU / Lava-Eimer | Lava-Logistik (Pumpe) |
-| IC2 Solarpanel | 1 EU/t (Tag) | 1 | 1 (≈ 0,5 Mittel) | – | Himmel, Tag, kein Regen |
+| IC2 Solarpanel | 2 EU/t (Tag; Original 1) | 1 | 2 (≈ 1 Mittel) | – | Himmel, Tag, kein Regen |
 | IC2 Wassermühle | ≤ 0,26 EU/t passiv; 1–2 EU/t mit Eimern/Zellen | 3×3×3 | ≈ 0,03 | 500 EU/Wassereimer, 1 000 EU/Wasserzelle | praktisch nutzlos |
 | IC2 Windmühle | `wind·(y−64−Hindernisse)/750`; y 128, Wind 15: ≈ 1,3 EU/t; Gewitter ×1,5 | ≈ 9×9 (frei) | ≈ 0,016 | – | Höhe, freie Umgebung, Bruchrisiko > 5 EU/t |
 | IC2 Kernreaktor | 5 EU/t je Puls; Bsp. 1 Vierfachzelle allein 60 EU/t, typische Designs 100–400+ EU/t | ≈ 3×3 (Reaktor + Kammern) | 10–50+ | Einzelzelle 1 000 000 EU (10 000 Zyklen à 5 EU/t·20 t); Vierfachzelle ≈ 12 Mio. EU | Kühlung, Explosionsrisiko, Redstone |
@@ -49,15 +49,17 @@ Platzbedarf**. Solar wird nicht pauschal geschwächt, die anderen Quellen werden
 
 ### 3.1 Solar (Rolle: wartungsfrei, teuer, kompakt)
 
-- **IC2-Solarpanel bleibt 1:1** (1 EU/t bei Sonne, 1 Block).
-- **Nur noch Solarpanels, Feldbonus ×1,2** (Nutzer, 2026-10-24; ersetzt die 3×3-Felder mit LV/MV/HV-Array-Mitte vom
-  2026-10-20). Jedes Panel liefert selbst 1 EU/t; liegt es in einem lückenlosen **9×9-Quadrat** aus Panels auf
-  derselben Höhe, 1,2 EU/t. Eine Stufe, kein Deckel. Ein 9×9-Feld liefert 97 EU/t, ein 10×10-Feld 120 EU/t.
+- **IC2-Solarpanel 2 EU/t** bei Sonne (Original 1; Nutzer, 2026-11-02, Phase 40), 1 Block.
+- **Nur noch Solarpanels, Feldbonus ×1,5** (Nutzer, 2026-10-24 mit ×1,2; seit 2026-11-02 ×1,5; ersetzt die 3×3-Felder
+  mit LV/MV/HV-Array-Mitte vom 2026-10-20). Jedes Panel liefert selbst 2 EU/t; liegt es in einem lückenlosen
+  **9×9-Quadrat** aus Panels auf derselben Höhe, 3 EU/t. Eine Stufe, kein Deckel. Ein 9×9-Feld liefert 243 EU/t, ein
+  10×10-Feld 300 EU/t. Nutzer: „denke ich wäre recht gebalanced“.
+- Vorher (2026-10-24 bis 2026-11-02): 1 EU/t, im Feld 1,2 EU/t (9×9-Feld 97 EU/t).
 - Die Compact-Solars-Arrays sind stillgelegt: kein Rezept, keine Leistung, in der Werkbank zerlegbar in 8 der Stufe
   darunter (`spec/11-compact-solars.md` §4).
-- Folge (bewusst): Solar skaliert nur noch linear mit der Fläche (≈ 1,2 EU/t je Block) und ist damit wieder die
+- Folge (bewusst): Solar skaliert nur noch linear mit der Fläche (3 EU/t je Block im Feld) und bleibt die
   pro Fläche schwache, wartungsfreie Quelle – nur am Tag, ohne Regen. Die Großkraftwerke (§3.8) waren gegen ein
-  HV-Feld (1536 EU/t) gerechnet und liegen jetzt deutlich über Solar.
+  HV-Feld (1536 EU/t) gerechnet und liegen weiter über Solar (243 EU/t je 9×9-Feld, nur am Tag).
 - Vorher (2026-10-20 bis 2026-10-24): 3×3-Felder, LV ×1,2 / MV ×1,4 / HV ×1,5, bis 1536 EU/t mit 8 MV-Arrays.
 
 - Electrical Engine und Power Converters bleiben 1:1 (bewusste Verluste und Rundungen erhalten).

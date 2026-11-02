@@ -1169,14 +1169,14 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
                 : "Vacuum freezer: 3×3×3 cube below the controller (centred on top). Centre air, the 6 face centres "
                 + "advanced casings, the other 20 blocks reinforced casings.");
         add("emi.craft.info.solar_field", german
-                ? "Solarfeld: Jedes Solarpanel liefert bei Sonne 1 EU/t. Liegt es in einem lückenlosen Quadrat aus "
-                + "9×9 Solarpanels auf derselben Höhe, liefert es 1,2 EU/t (alle 5 Ticks 1 EU extra). Ein 9×9-Feld "
-                + "bringt so rund 97 EU/t statt 81. Panels leiten untereinander verlustfrei: ein "
+                ? "Solarfeld: Jedes Solarpanel liefert bei Sonne 2 EU/t. Liegt es in einem lückenlosen Quadrat aus "
+                + "9×9 Solarpanels auf derselben Höhe, liefert es 3 EU/t (×1,5). Ein 9×9-Feld "
+                + "bringt so 243 EU/t statt 162. Panels leiten untereinander verlustfrei: ein "
                 + "Kabel an einem beliebigen Panel sammelt den Strom des ganzen Felds (nur Panels speisen ein). Die alten LV/MV/HV-Solar-Arrays liefern nichts mehr; in der Werkbank "
                 + "zerfallen sie in 8 Teile der Stufe darunter."
-                : "Solar field: every solar panel delivers 1 EU/t in sunlight. If it lies in a complete square of "
-                + "9×9 solar panels on the same level, it delivers 1.2 EU/t (1 extra EU every 5 ticks). A 9×9 field "
-                + "thus yields about 97 EU/t instead of 81. Panels pass power to each other without loss: one "
+                : "Solar field: every solar panel delivers 2 EU/t in sunlight. If it lies in a complete square of "
+                + "9×9 solar panels on the same level, it delivers 3 EU/t (×1.5). A 9×9 field "
+                + "thus yields 243 EU/t instead of 162. Panels pass power to each other without loss: one "
                 + "cable at any panel collects the whole field (only panels feed in). The old LV/MV/HV solar arrays no longer deliver anything; at "
                 + "the crafting table they come apart into 8 of the tier below.");
     }

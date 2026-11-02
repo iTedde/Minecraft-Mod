@@ -55,7 +55,7 @@ aufgeteilt – das Paket kommt um den Kabelverlust kleiner an.</li>
 <li>Die Energie sucht sich automatisch den Weg zu allen Verbrauchern, die Strom wollen. Verbraucher, die nichts brauchen, bekommen nichts.</li>
 </ul>
 {h.table(['Stufe', 'Paket bis', 'typische Quellen', 'sichere Empfänger', 'passende Kabel'], [
-    ['<b>LV</b>', '32 EU', 'Generator, Geothermie, Wasser-/Windmühle, Solarpanel (1, im 9×9-Feld 2er Pakete), Wasserturbine (32)', f"{c('batbox')}, alle Standardmaschinen", f"{c('insulated_copper_cable')} (0,2 EU Verlust/Block), {c('tin_cable')} nur bis 5 EU"],
+    ['<b>LV</b>', '32 EU', 'Generator, Geothermie, Wasser-/Windmühle, Solarpanel (2, im 9×9-Feld 3er Pakete), Wasserturbine (32)', f"{c('batbox')}, alle Standardmaschinen", f"{c('insulated_copper_cable')} (0,2 EU Verlust/Block), {c('tin_cable')} nur bis 5 EU"],
     ['<b>MV</b>', '128 EU', 'MFE, <b>Dampfturbine (bis 64)</b>, MV-Array (64)', f"{c('mfe')}, LV-Transformator (Eingang)", f"{c('insulated_gold_cable')}, {c('double_insulated_gold_cable')}"],
     ['<b>HV</b>', '512 EU', 'MFSU, HV-Array (2 × 512 je Tick)', f"{c('mfsu')}, MV-Transformator (Eingang)", f"{c('glass_fibre_cable')} (0,025 EU/Block)"],
     ['<b>EV</b>', '2048 EU', 'HV-Transformator (hohe Seite)', 'HV-Transformator (Eingang)', f"{c('hv_cable')} und isolierte Varianten"],
@@ -417,22 +417,22 @@ kommen über 32 EU/t einfach zwei Pakete pro Tick (32 + Rest) – auch dann blei
     key_field = {'P': P_, 'p': p_}
     solar = f'''<h1>Solar: Solarpanels und Solarfelder</h1>
 {h.infobox('Solarpanel', 'craft:solar_panel', [
-    ('Herkunft', 'IndustrialCraft 2'), ('Status', CHG + ' Balancing (2026-10-24)'), ('Leistung', '1 EU/t bei Sonne'),
-    ('Feldbonus', '<b>×1,2</b> im lückenlosen 9×9-Quadrat'), ('Paket', 'LV (1 bzw. 2 EU)'),
+    ('Herkunft', 'IndustrialCraft 2'), ('Status', CHG + ' Balancing (2026-10-24, 2026-11-02)'), ('Leistung', '2 EU/t bei Sonne'),
+    ('Feldbonus', '<b>×1,5</b> (3 EU/t) im lückenlosen 9×9-Quadrat'), ('Paket', 'LV (2 bzw. 3 EU)'),
     ('Solar Arrays', 'stillgelegt, nur noch zerlegbar'),
 ])}
-<p class="lead">Solarstrom kommt in Craft nur noch aus dem <b>IC2-Solarpanel</b>. Jedes Panel liefert selbst 1 EU/t, solange es
-die Sonne sieht. Wer viele Panels zu einem großen Feld zusammenstellt, bekommt einen kleinen <b>Bonus von ×1,2</b>.</p>
+<p class="lead">Solarstrom kommt in Craft nur noch aus dem <b>IC2-Solarpanel</b>. Jedes Panel liefert selbst 2 EU/t, solange es
+die Sonne sieht. Wer viele Panels zu einem großen Feld zusammenstellt, bekommt einen <b>Bonus von ×1,5</b>.</p>
 {h.compare('<ul><li>Solarpanel 1 EU/t</li><li>Compact Solar Arrays: 1 Block = 8 / 64 / 512 EU/t</li><li>dazu Solar-Hüte als Rüstung</li></ul>',
-           '<ul><li>Solarpanel 1 EU/t, im 9×9-Feld <b>1,2 EU/t</b></li><li>Solar Arrays ohne Funktion, zerlegbar</li><li>Solar-Hüte entfallen</li></ul>')}
+           '<ul><li>Solarpanel <b>2 EU/t</b>, im 9×9-Feld <b>3 EU/t</b></li><li>Solar Arrays ohne Funktion, zerlegbar</li><li>Solar-Hüte entfallen</li></ul>')}
 <div class="tocpos"></div>
 <h2 id="sol--regel">Die Regel</h2>
 <ul>
-<li>Jedes Solarpanel liefert bei Sonne <b>1 EU/t</b>: Himmelssicht direkt darüber, Tag, kein Regen (in Wüsten auch bei Regen).</li>
-<li>Liegt ein Panel in einem <b>lückenlosen Quadrat aus 9×9 Solarpanels auf derselben Höhe</b>, liefert es <b>1,2 EU/t</b>
-(jeden 5. Tick 2 EU statt 1).</li>
+<li>Jedes Solarpanel liefert bei Sonne <b>2 EU/t</b>: Himmelssicht direkt darüber, Tag, kein Regen (in Wüsten auch bei Regen).</li>
+<li>Liegt ein Panel in einem <b>lückenlosen Quadrat aus 9×9 Solarpanels auf derselben Höhe</b>, liefert es <b>3 EU/t</b>
+(×1,5).</li>
 <li>Das Quadrat darf beliebig liegen. Ein 10×10-Feld oder eine 9×20-Fläche bekommt den Bonus also komplett. Nur Panels, die in
-keinem vollen 9×9 liegen (z. B. eine einzelne zehnte Reihe), bleiben bei 1 EU/t.</li>
+keinem vollen 9×9 liegen (z. B. eine einzelne zehnte Reihe), bleiben bei 2 EU/t.</li>
 <li>Für das Quadrat zählen alle Panels, auch abgedeckte. Den Bonus selbst bekommt aber nur ein Panel, das Sonne hat.</li>
 <li>Es gibt nur diese eine Stufe, keinen Deckel: Je größer das Feld, desto mehr Strom.</li>
 <li>{CHG} Panels <b>leiten untereinander</b> (alle sechs Seiten, verlustfrei, kein Stromschlag): Ein Kabel oder Gerät an
@@ -440,12 +440,12 @@ keinem vollen 9×9 liegen (z. B. eine einzelne zehnte Reihe), bleiben bei 1 EU/t
 Generatoren oder Speicher können ihren Strom nicht durch ein Feld schicken. Im Pack war das Panel nur Quelle.</li>
 </ul>
 {h.table(['Aufbau', 'Panels', 'Leistung (Tag)'], [
-    ['einzelnes Panel', '1', '1 EU/t'],
-    ['8×8', '64', '64 EU/t'],
-    ['<b>9×9</b>', '81', '<b>97,2 EU/t</b>'],
-    ['9×9 mit einer Lücke', '80', '80 EU/t'],
-    ['10×10', '100', '120 EU/t'],
-    ['18×18', '324', '388,8 EU/t'],
+    ['einzelnes Panel', '1', '2 EU/t'],
+    ['8×8', '64', '128 EU/t'],
+    ['<b>9×9</b>', '81', '<b>243 EU/t</b>'],
+    ['9×9 mit einer Lücke', '80', '160 EU/t'],
+    ['10×10', '100', '300 EU/t'],
+    ['18×18', '324', '972 EU/t'],
 ])}
 <h2 id="sol--bau">Schritt für Schritt: Solarfeld</h2>
 <div class="layers">{h.layer(['PPPPPPPPPp', 'PPPPPPPPPp', 'PPPPPPPPPp', 'PPPPPPPPPp', 'PPPPPPPPPp', 'PPPPPPPPPp', 'PPPPPPPPPp', 'PPPPPPPPPp', 'PPPPPPPPPp'], key_field, '9×9 von oben, dazu eine zehnte Spalte', 22)}<div>{h.legend(key_field)}</div></div>

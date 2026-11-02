@@ -15,13 +15,15 @@ Bewusste Abweichung vom Pack (IC2-Solarpanel ist nur Quelle), ergänzt `spec/11`
   kann nicht schmelzen.
 - Panels nehmen **nur von Solarpanels** an. Kabel, Generatoren, Speicher usw. können keinen Strom durch ein Feld
   leiten; der Weg führt immer Panel → … → Panel → Kabel/Gerät.
-- Feldbonus ×1,2 (9×9) unverändert; Panels müssen sich dafür ohnehin lückenlos berühren.
+- Feldbonus (9×9, seit Phase 40 ×1,5) unverändert; Panels müssen sich dafür ohnehin lückenlos berühren.
 - Stehen mehrere Kabel/Geräte am Feld, verteilt das EU-Netz wie sonst nach Leitungsverlust auf alle Abnehmer.
 
 | Aufbau | vorher | jetzt |
 |---|---|---|
-| 9×9-Feld, ein Kabel an einer Ecke | nur das Eckpanel liefert (1,2 EU/t) | ganzes Feld, 97,2 EU/t |
-| Reihe aus 5 Panels, Kabel am Ende | 1 EU/t | 5 EU/t |
+| 9×9-Feld, ein Kabel an einer Ecke | nur das Eckpanel liefert (3 EU/t) | ganzes Feld, 243 EU/t |
+| Reihe aus 5 Panels, Kabel am Ende | 2 EU/t | 10 EU/t |
+
+Werte seit Phase 40 (2 EU/t, im Feld 3 EU/t); bei Phase 38 waren es 1,2 / 97,2 bzw. 1 / 5 EU/t.
 
 ## 2 Umsetzung
 

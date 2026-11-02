@@ -57,31 +57,31 @@ Ersetzt die 3×3-Felder mit Array-Mitte (2026-10-20 bis 2026-10-24) und davor �
 2026-10-15 bis 2026-10-20). Solarstrom kommt nur noch aus dem **IC2-Solarpanel**; die Compact-Solars-Arrays haben
 keine Funktion mehr.
 
-**Solarpanel:** wie im Original 1 EU/t bei Sonne (Himmelssicht über dem Panel, Tag, kein Regen außer in Wüsten;
+**Solarpanel:** 2 EU/t bei Sonne (Original 1 EU/t; Phase 40, Nutzer 2026-11-02) (Himmelssicht über dem Panel, Tag, kein Regen außer in Wüsten;
 Prüfung alle 128 Ticks), **jedes Panel liefert selbst** (keine Mitte, kein Ring). Seit Phase 38 leiten Panels den
 Strom angrenzender Panels verlustfrei weiter, ein Kabel am Feld genügt (`spec/38-solarfeld-leitung.md`).
 
-**Feldbonus ×1,2:** Liegt ein Panel in mindestens einem **lückenlosen 9×9-Quadrat aus Solarpanels auf derselben
-Höhe**, liefert es bei Sonne 1,2 EU/t – technisch jeden 5. besonnten Tick 2 EU statt 1 (Pakete bleiben LV). Nur eine
+**Feldbonus ×1,5** (bis 2026-11-02 ×1,2): Liegt ein Panel in mindestens einem **lückenlosen 9×9-Quadrat aus Solarpanels auf derselben
+Höhe**, liefert es bei Sonne 3 EU/t (Pakete bleiben LV). Nur eine
 Stufe, kein Deckel.
 
 - Das Quadrat darf beliebig liegen, das Panel muss nicht in der Mitte sein; ein 10×10-Feld bekommt den Bonus also
   vollständig, eine 9×20-Fläche ebenfalls. Panels außerhalb jedes vollen 9×9 (z. B. eine zehnte Spalte an einem
-  9×9) liefern 1 EU/t.
+  9×9) liefern 2 EU/t.
 - Für das Quadrat zählen alle Solarpanel-Blöcke, auch abgedeckte; den Bonus erhält aber nur, wer selbst Sonne hat.
 - Blöcke in nicht geladenen Chunks zählen als fehlend.
 - Prüfung zusammen mit der Sonne (alle 128 Ticks, versetzt je Panel) und einmal beim ersten Tick nach dem Laden; nicht
   gespeichert. Ein neu gebautes Feld bekommt den Bonus also spätestens nach 128 Ticks (≈ 6 s).
 - Umsetzung: 17×17-Umgebung der Ebene als Präfixsummen, dann die 81 möglichen 9×9-Quadrate, die das Panel
   enthalten, in O(1) je Quadrat (`SolarPanelBlockEntity.isInField`).
-- Puffer des Panels 2 EU (für den Bonus-Tick), Paketgröße 1 bzw. 2 im Feld.
+- Puffer des Panels 3 EU, Paketgröße 2 bzw. 3 im Feld.
 
 | Aufbau | Leistung (Tag) |
 |---|---:|
-| einzelnes Panel | 1 EU/t |
-| 9×9 = 81 Panels | 97,2 EU/t (statt 81) |
-| 10×10 = 100 Panels | 120 EU/t |
-| 9×9 mit einer Lücke (80 Panels) | 80 EU/t |
+| einzelnes Panel | 2 EU/t |
+| 9×9 = 81 Panels | 243 EU/t (statt 162) |
+| 10×10 = 100 Panels | 300 EU/t |
+| 9×9 mit einer Lücke (80 Panels) | 160 EU/t |
 
 **Alte Arrays (LV/MV/HV):** bleiben registriert, damit Welten und Truhen nichts verlieren, aber
 - kein Herstellungsrezept, nicht im Kreativtab (Tab „Compact Solars“ entfällt) und in EMI ausgeblendet;

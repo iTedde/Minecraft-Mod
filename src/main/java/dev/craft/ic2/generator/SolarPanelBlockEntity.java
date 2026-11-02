@@ -17,9 +17,9 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.common.Tags;
 
 /**
- * Solar panel, IC2 {@code TileEntitySolarGenerator}: 1 EU/t while the sun is visible. Balancing (user, 2026-10-24;
- * {@code docs/balancing.md} §3.1): a panel lying in a complete 9×9 square of panels on its level yields ×1.2, i.e. one
- * extra EU every {@link #FIELD_BONUS_PERIOD} sunny ticks.
+ * Solar panel, IC2 {@code TileEntitySolarGenerator} (pack: 1 EU/t while the sun is visible). Balancing
+ * ({@code docs/balancing.md} §3.1, phase 40, user 2026-11-02): {@link #BASE_OUTPUT} EU/t, and a panel lying in a
+ * complete 9×9 square of panels on its level yields ×1.5, i.e. {@link #FIELD_OUTPUT} EU/t.
  * <p>
  * Spec 38: panels conduct the EU of neighbouring panels without loss, so one cable anywhere at a field collects all of
  * it. They accept energy only from other panels, so no other source routes through a field.
@@ -30,18 +30,19 @@ public class SolarPanelBlockEntity extends BaseGeneratorBlockEntity implements E
     public static final int TICK_RATE = 128;
     /** Edge length of the square of panels that earns the field bonus. */
     public static final int FIELD_SIZE = 9;
-    /** ×1.2: every fifth sunny tick of a panel in a field yields 2 EU instead of 1. */
-    public static final int FIELD_BONUS_PERIOD = 5;
+    /** Phase 40: EU/t of a single panel in the sun (pack: 1). */
+    public static final int BASE_OUTPUT = 2;
+    /** Phase 40: EU/t of a panel in a complete field (×1.5). */
+    public static final int FIELD_OUTPUT = 3;
 
     private int ticker;
     private boolean sunIsVisible;
     private boolean inField;
     private boolean fieldChecked;
-    private int bonusTicker;
 
     public SolarPanelBlockEntity(BlockPos pos, BlockState state) {
-        // Buffer 2 for the bonus ticks; the packet size follows the field (1 alone, 2 in a field).
-        super(Ic2BlockEntityTypes.get(Ic2Machine.SOLAR_PANEL), pos, state, 1, 1, 2);
+        // The packet size follows the field (2 alone, 3 in a field).
+        super(Ic2BlockEntityTypes.get(Ic2Machine.SOLAR_PANEL), pos, state, 1, BASE_OUTPUT, FIELD_OUTPUT);
         this.ticker = RANDOM.nextInt(TICK_RATE);
     }
 
@@ -67,7 +68,7 @@ public class SolarPanelBlockEntity extends BaseGeneratorBlockEntity implements E
         if (ticker++ % TICK_RATE == 0 || !fieldChecked) {
             updateSunVisibility();
             inField = isInField(level, worldPosition);
-            production = inField ? 2 : 1;
+            production = inField ? FIELD_OUTPUT : BASE_OUTPUT;
             fieldChecked = true;
         }
         if (!sunIsVisible) {
@@ -75,10 +76,7 @@ public class SolarPanelBlockEntity extends BaseGeneratorBlockEntity implements E
         }
         double gen = ENERGY_GENERATOR_SOLAR / 100.0;
         if (gen >= 1.0 || ticker % (100 - ENERGY_GENERATOR_SOLAR) == 0) {
-            storage += (int) Math.ceil(gen);
-        }
-        if (inField && ++bonusTicker % FIELD_BONUS_PERIOD == 0) {
-            storage++;
+            storage += production;
         }
         return true;
     }

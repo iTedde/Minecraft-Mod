@@ -47,6 +47,8 @@ Umsetzung (Mixin-Konfiguration `craft.epl.mixins.json`, nur aktiv, wenn EPL gela
 - `EplConfigMixin`: Standardliste `visibleStats` mit `blocksMined` hinter `distance` (neue Config-Dateien).
 - `EplRendererMixin`: Wert der Spalte = Summe der abgebauten Blöcke (`12,345`; Kompaktmodus `12.3k`/`2.5M`),
   offline grau wie die anderen Spalten.
+- `EplNetworkMixin` (seit Phase 40): EPL sendet seine Statistik nur noch an Spieler, deren Verbindung den Kanal
+  kennt; sonst warf NeoForge bei GameTest-Scheinspielern (bzw. Clients ohne EPL) und brach den GameTest-Server ab.
 - `EplHeaderMixin`: Spaltenkopf „Mined“ (Kompaktmodus „MIN“), englisch wie die übrigen EPL-Köpfe.
 - Hilfsklasse `compat/epl/EplMinedBlocks` (JUnit `EplMinedBlocksTest`).
 
