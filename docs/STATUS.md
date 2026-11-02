@@ -3294,3 +3294,17 @@ Nutzer: „Sind freigegeben“. Einzelheiten nach GraviTool-Muster selbst festge
 - Client-Tests §20–22 (Solar 243 EU/t, Bohrer 3×3), §21 (EPL-Spalte, Taste M).
 - Neue Version/Paket erst auf Wunsch (Paket 1.1.4 enthält Phasen 40/41 und `EplNetworkMixin` noch nicht).
 
+# Version 1.2.0 (2026-11-02)
+
+Nutzer: „Ja, bau 1.1.5“, dann „Nenne es vielleicht sogar 1.2.0“.
+
+## Erledigt
+- [x] Craft **1.2.0** (`releases/craft-1.2.0.jar`): 1.1.4 plus Phase 40 (Solar 2 EU/t, ×1,5 im 9×9-Feld), Phase 41
+  (Fortg. Diamantbohrer 1 Mio. EU, 3×3-Modus) und `EplNetworkMixin`.
+- [x] Paket `releases/Craft-1.2.0-curseforge.zip` (9,2 MB): wie 1.1.4 mit Craft 1.2.0, Manifest unverändert (77 Einträge).
+  Nicht im CurseForge-Launcher gestartet.
+
+## Nächste Schritte
+- Paket 1.2.0 im CurseForge-Launcher starten; Client-Tests §20–22 (Solar 243 EU/t, Bohrer 3×3, EPL-Spalte, Taste M).
+- Neue Version/Paket erst auf Wunsch des Nutzers.
+
