@@ -587,16 +587,21 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
                 german ? "§eSchwebemodus §cdeaktiviert." : "§eHover Mode §cdisabled.");
         add("emi.craft.info.gravi_chestplate", german
                 ? "Gravi-Flugtaste (Standard G) schaltet den Flug ein, ab 80 000 EU. Verbraucht 416 EU/t in der Luft, "
-                + "am Boden nichts; unter 416 EU schaltet sie ab. Boost-Taste (Strg) im Flug: schneller, 2 × 1 248 EU/t. Kein "
-                + "Fallschaden. Schützt wie die Quanten-Brustplatte (900 EU je Schaden) und lädt Werkzeuge."
+                + "am Boden nichts; unter 416 EU schaltet sie ab. Flug so schnell wie Sprinten, kein Boost. Kein "
+                + "Fallschaden. Schützt wie die Quanten-Brustplatte (900 EU je Schaden) und lädt Werkzeuge. "
+                + "Gravitationsmagnet: Boost-Taste (Strg) halten + Modus-Taste (M) schaltet ihn; zieht Items (50 EU je "
+                + "Stapel, nur bei Platz im Inventar) und Erfahrung im Umkreis 8 heran, auch am Boden."
                 : "Gravi Fly Key (default G) turns flight on, from 80,000 EU. Uses 416 EU/t in the air, nothing on the ground; below "
-                + "416 EU it shuts down. Boost key (Ctrl) while flying: faster, 2 × 1,248 EU/t. No fall damage. "
-                + "Protects like the quantum chestplate (900 EU per damage) and charges tools.");
+                + "416 EU it shuts down. Flight is as fast as sprinting, no boost. No fall damage. "
+                + "Protects like the quantum chestplate (900 EU per damage) and charges tools. Gravitation magnet: hold "
+                + "the boost key (Ctrl) + mode key (M) to switch it; pulls items (50 EU per stack, only with room in "
+                + "the inventory) and experience within 8 blocks, also on the ground.");
         add("emi.craft.info.advanced_jetpack", german
-                ? "Gravi-Flugtaste (Standard G) schaltet das Triebwerk ein/aus, Springen gibt Schub (12 EU/t), "
-                + "Boost-Taste (Strg) +60 EU/t. Modus-Taste (M) beim Springen: Schwebemodus (langsames Sinken). Lädt "
+                ? "Gravi-Flugtaste (Standard G) schaltet das Triebwerk ein/aus, Springen gibt Schub (6 EU/t), "
+                + "höchstens so schnell wie Sprinten, kein Boost. Modus-Taste (M) beim Springen: Schwebemodus (langsames Sinken). Lädt "
                 + "Werkzeuge wie ein LapPack. Die Nano-Brustplatte schützt zusätzlich (800 EU je Schaden)."
-                : "Gravi Fly Key (default G) switches the engine, jumping thrusts (12 EU/t), boost key (Ctrl) +60 EU/t. "
+                : "Gravi Fly Key (default G) switches the engine, jumping thrusts (6 EU/t), at most "
+                + "as fast as sprinting, no boost. "
                 + "Mode key (M) while jumping: hover mode (slow descent). Charges tools like a lappack. The nano "
                 + "chestplate also protects (800 EU per damage).");
         add("emi.craft.info.gravisuite_lappack", german
@@ -721,15 +726,15 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
                 {"Basic Battery", "Einfache Batterie", "Integrate a battery to allow the item to store energy.", "Eine eingebaute Batterie lässt das Item Energie speichern."},
                 {"Advanced Battery", "Fortgeschrittene Batterie", "Integrate a more advanced battery to store more energy.", "Eine fortgeschrittenere Batterie speichert mehr Energie."},
                 {"Elite Battery", "Elite-Batterie", "Integrate a the most advanced battery to store an extensive amount of energy.", "Die fortschrittlichste Batterie speichert gewaltige Energiemengen."},
-                {"Sprint Assist", "Sprinthilfe", "A set of servo motors to help you sprint (double-tap forward) and walk faster.", "Servomotoren, mit denen du schneller sprintest (zweimal vorwärts) und gehst."},
+                {"Sprint Assist", "Sprinthilfe", "Servo motors carry the load while you sprint (double-tap forward): more carry capacity, less exhaustion. No extra speed.", "Servomotoren tragen die Last beim Sprinten (zweimal vorwärts): mehr Tragkraft, weniger Erschöpfung. Kein Zusatztempo."},
                 {"Jump Assist", "Sprunghilfe", "Another set of servo motors to help you jump higher.", "Weitere Servomotoren, mit denen du höher springst."},
                 {"Shock Absorber", "Stoßdämpfer", "With some servos, springs, and padding, you should be able to negate a portion of fall damage.", "Mit Servos, Federn und Polstern lässt sich ein Teil des Fallschadens aufheben."},
-                {"Glider", "Gleiter", "Tack on some wings to turn downward into forward momentum. Press sneak+forward while falling to activate.", "Flügel wandeln Fallen in Vorwärtsbewegung um. Im Fallen Schleichen + Vorwärts drücken."},
+                {"Glider", "Gleiter", "Tack on some wings to turn downward into forward momentum, at most sprinting speed. Press sneak+forward while falling to activate.", "Flügel wandeln Fallen in Vorwärtsbewegung um, höchstens Sprinttempo. Im Fallen Schleichen + Vorwärts drücken."},
                 {"Parachute", "Fallschirm", "Add a parachute to slow your descent. Activate by pressing sneak (defaults to Shift) in midair.", "Ein Fallschirm bremst den Fall. In der Luft Schleichen (Standard: Shift) drücken."},
                 {"Jetpack", "Jetpack", "A jetpack should allow you to jump indefinitely, or at least until you run out of power.", "Mit einem Jetpack springst du endlos – oder zumindest, bis die Energie ausgeht."},
                 {"Jet Boots", "Düsenstiefel", "Jet boots are not as strong as a jetpack, but they should at least be strong enough to counteract gravity.", "Düsenstiefel sind schwächer als ein Jetpack, sollten aber wenigstens die Schwerkraft ausgleichen."},
                 {"Water Electrolyzer", "Wasser-Elektrolyseur", "When you run out of air, this module will jolt the water around you, electrolyzing a small bubble to breathe from.", "Geht dir die Luft aus, zerlegt das Modul das Wasser um dich per Stromstoß in eine kleine Atemblase."},
-                {"Swim Boost", "Schwimmhilfe", "By refitting an ion thruster for underwater use, you may be able to add extra forward (or backward) thrust when underwater.", "Ein umgebautes Ionentriebwerk gibt unter Wasser zusätzlichen Schub nach vorn (oder hinten)."},
+                {"Swim Boost", "Schwimmhilfe", "Diver servos steady your arms underwater: mining underwater (even while swimming) is as fast as on land. No thrust.", "Taucher-Servos halten unter Wasser die Arme ruhig: Abbauen unter Wasser (auch schwimmend) so schnell wie an Land. Kein Schub."},
                 {"Uphill Step Assist", "Stufenhilfe", "A pair of dedicated servos allow you to effortlessly step up 1m-high ledges.", "Zwei Servos lassen dich mühelos 1 m hohe Stufen hinaufsteigen."},
                 {"Custom Colour Module", "Farbmodul", "Give your armor some coloured tinting to customize your armor's appearance.", "Färbt deine Rüstung nach Wunsch ein."},
                 {"Transparent Armor", "Durchsichtige Rüstung", "Make the item transparent, so you can show off your skin without losing armor.", "Macht das Teil durchsichtig, damit dein Skin zu sehen ist, ohne Schutz zu verlieren."},
@@ -1028,10 +1033,24 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
                 : "Hops/wheat sets the strength, (wheat + hops)/water the food and duration, the age the intensity. Beer "
                 + "gives mining fatigue, when drunk repeatedly strength, slowness, resistance, nausea and damage. "
                 + "Finished rum gives fire resistance and resistance; spoiled drinks random ailments.");
+        add("emi.craft.info.quantum_leggings", german
+                ? "Macht nicht schneller. Solange geladen (ab 1 000 EU): Sprinten und Sprint-Springen kosten keinen "
+                + "Hunger, kein Rückstoß bei Treffern. Sprinten verbraucht 1 000 EU je 10 Ticks."
+                : "Does not make you faster. While charged (from 1,000 EU): sprinting and sprint jumping cost no "
+                + "hunger, no knockback from hits. Sprinting uses 1,000 EU per 10 ticks.");
+        add("emi.craft.info.quantum_boots", german
+                ? "Boost-Taste + Springen: hoher Sprung (nur Höhe, kein Weitsprung). Hebt Fallschaden auf, solange "
+                + "die Ladung reicht."
+                : "Boost key + jump: high jump (height only, no long jump). Cancels fall damage while the charge "
+                + "lasts.");
+        add("emi.craft.info.jetpack", german
+                ? "Springen halten gibt Schub nach oben; vorwärts höchstens so schnell wie Sprinten. Modus-Taste "
+                + "+ Springen: Schwebemodus."
+                : "Hold jump to thrust upwards; forward at most as fast as sprinting. Mode key + jump: hover mode.");
         add("emi.craft.info.coffee", german
-                ? "Gibt Tempo und Eile und steigert beide bei jedem Schluck (kalt bis II, schwarz bis VI, mit Milch "
+                ? "Gibt Sättigung und Eile und steigert beide bei jedem Schluck (kalt bis II, schwarz bis VI, mit Milch "
                 + "bis VII). Ab Stufe IV (Milchkaffee: VI) Übelkeit, ab V (VII) zusätzlich Schaden."
-                : "Gives speed and haste and raises both with every mug (cold up to II, dark up to VI, with milk up "
+                : "Gives saturation and haste and raises both with every mug (cold up to II, dark up to VI, with milk up "
                 + "to VII). From level IV (milk coffee: VI) nausea, from V (VII) also damage.");
         add("emi.craft.info.cultivation_blueprint", german
                 ? "Terraformer (4000 EU je Schritt, Reichweite 40): Sand wird zu Erde, Erde zu Gras, auf Gras wachsen "
@@ -1152,11 +1171,13 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
         add("emi.craft.info.solar_field", german
                 ? "Solarfeld: Jedes Solarpanel liefert bei Sonne 1 EU/t. Liegt es in einem lückenlosen Quadrat aus "
                 + "9×9 Solarpanels auf derselben Höhe, liefert es 1,2 EU/t (alle 5 Ticks 1 EU extra). Ein 9×9-Feld "
-                + "bringt so rund 97 EU/t statt 81. Die alten LV/MV/HV-Solar-Arrays liefern nichts mehr; in der Werkbank "
+                + "bringt so rund 97 EU/t statt 81. Panels leiten untereinander verlustfrei: ein "
+                + "Kabel an einem beliebigen Panel sammelt den Strom des ganzen Felds (nur Panels speisen ein). Die alten LV/MV/HV-Solar-Arrays liefern nichts mehr; in der Werkbank "
                 + "zerfallen sie in 8 Teile der Stufe darunter."
                 : "Solar field: every solar panel delivers 1 EU/t in sunlight. If it lies in a complete square of "
                 + "9×9 solar panels on the same level, it delivers 1.2 EU/t (1 extra EU every 5 ticks). A 9×9 field "
-                + "thus yields about 97 EU/t instead of 81. The old LV/MV/HV solar arrays no longer deliver anything; at "
+                + "thus yields about 97 EU/t instead of 81. Panels pass power to each other without loss: one "
+                + "cable at any panel collects the whole field (only panels feed in). The old LV/MV/HV solar arrays no longer deliver anything; at "
                 + "the crafting table they come apart into 8 of the tier below.");
     }
 

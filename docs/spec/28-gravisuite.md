@@ -77,6 +77,8 @@ Rüstungsanzeige):
 
 ## 4 Fortgeschrittenes Jetpack und Fortg. Nano-Brustplatte (`ItemAdvancedJetPack`)
 
+> **Craft (Phase 37, `spec/37`):** kein Zusatztempo mehr; Pack-Werte hier nur als Referenz. Kein Boost, Vorwärtsflug höchstens Sprinttempo, Verbrauch 6 statt 12 EU/t (§3.4).
+
 Die Nano-Brustplatte erbt das Jetpack komplett (gleiche statische Werte: 1 000 000 EU, 12 EU/Tick, Boost ×5) und
 schützt zusätzlich (§2). NBT: `isFlyActive` (Triebwerk an), `isHoverActive` (Schwebemodus), `toggleTimer`.
 
@@ -105,6 +107,8 @@ schützt zusätzlich (§2). NBT: `isFlyActive` (Triebwerk an), `isHoverActive` (
 - Jetpack und Nano-Brustplatte haben keinen Fallschutz außer „Fallhöhe 0“ während des Schubs.
 
 ## 5 Gravitations-Brustplatte (`ItemGraviChestPlate`, `GraviChestPlate*Proxy`)
+
+> **Craft (Phase 37, `spec/37`):** kein Zusatztempo mehr; Pack-Werte hier nur als Referenz. Kein Boost, Flug so schnell wie Sprinten, Sprint-Fliegen ohne Wirkung; neu der Gravitationsmagnet (Strg + M, Items/XP im Umkreis 8, 50 EU je Stapel) (§3.5).
 
 Werte: Mindestladung zum Einschalten 80 000, Verbrauch **416 EU/Tick**, Boost-Faktor 3 (1 248 EU), Boost-Tempo 0,11.
 NBT `isFlyActive`. Schutz wie Quantum-Brustplatte (§2), aber keine sonstigen Quantum-Effekte.

@@ -46,7 +46,7 @@ GT_USE = 'je Rezept (EU/t steht im Rezept, EMI)'
 OUT = {
     'generator': '10 EU/t (4 000 EU je Kohle)',
     'geothermal_generator': '20 EU/t (20 000 EU je Lava-Eimer)',
-    'solar_panel': '1 EU/t bei Tag, kein Regen; 1,2 EU/t im 9×9-Feld',
+    'solar_panel': '1 EU/t bei Tag, kein Regen; 1,2 EU/t im 9×9-Feld; leitet Solarstrom benachbarter Panels verlustfrei weiter',
     'water_mill': 'bis 2 EU/t (Tag und Nacht)',
     'wind_mill': '≈ 3–7 EU/t je nach Höhe, Gewitter mehr',
     'nuclear_reactor': 'je Design 60–400+ EU/t (5 EU/t je Puls), siehe Kernreaktor',

@@ -435,6 +435,9 @@ die Sonne sieht. Wer viele Panels zu einem großen Feld zusammenstellt, bekommt 
 keinem vollen 9×9 liegen (z. B. eine einzelne zehnte Reihe), bleiben bei 1 EU/t.</li>
 <li>Für das Quadrat zählen alle Panels, auch abgedeckte. Den Bonus selbst bekommt aber nur ein Panel, das Sonne hat.</li>
 <li>Es gibt nur diese eine Stufe, keinen Deckel: Je größer das Feld, desto mehr Strom.</li>
+<li>{CHG} Panels <b>leiten untereinander</b> (alle sechs Seiten, verlustfrei, kein Stromschlag): Ein Kabel oder Gerät an
+<b>irgendeinem</b> Panel eines zusammenhängenden Felds sammelt den Strom aller Panels. Nur Panels speisen in diese Leitung ein –
+Generatoren oder Speicher können ihren Strom nicht durch ein Feld schicken. Im Pack war das Panel nur Quelle.</li>
 </ul>
 {h.table(['Aufbau', 'Panels', 'Leistung (Tag)'], [
     ['einzelnes Panel', '1', '1 EU/t'],
@@ -449,7 +452,7 @@ keinem vollen 9×9 liegen (z. B. eine einzelne zehnte Reihe), bleiben bei 1 EU/t
 {steps([
     'Eine ebene Fläche mit freiem Himmel suchen. Glas über den Panels stört nicht, Blätter, Wasser und feste Blöcke schon.',
     'Mindestens <b>9×9 = 81</b> {0} lückenlos auf <b>einer Höhe</b> verlegen.'.format(c('solar_panel')),
-    '<b>Kabel unter den Panels</b> verlegen (oben würden sie die Sonne verdecken). Jedes Panel gibt seinen Strom selbst ab, also braucht jedes Panel Kontakt zum Kabelnetz, etwa über ein Kabelraster in der Ebene darunter.',
+    '<b>Ein Kabel an ein beliebiges Panel</b> anschließen, am besten seitlich am Rand oder darunter (oben würde es die Sonne verdecken). Panels leiten untereinander verlustfrei weiter, das eine Kabel sammelt den Strom des ganzen Felds.',
     'Den Bonus erkennt ein Panel spätestens nach 128 Ticks (≈ 6 s) nach dem Bauen.',
 ])}
 {h.note('tip', 'Ein Speicher (BatBox, MFE, MFSU) gehört dazu: Solar liefert nur am Tag. Im Tagesmittel bleibt etwa die Hälfte der Spitzenleistung übrig.')}
@@ -468,10 +471,11 @@ In der Werkbank zerfällt jedes Array in <b>8 Teile der Stufe darunter</b>. Der 
 <h2 id="sol--fehler">Fehlersuche</h2>
 {faq([
     ('Kein Bonus', 'Liegt das Panel in einem vollen 9×9 auf derselben Höhe? Eine einzige Lücke oder ein Panel eine Ebene höher bricht das Quadrat. Nach dem Bauen bis zu 6 Sekunden warten.'),
-    ('Ein Panel liefert nichts', 'Nacht, Regen oder kein freier Himmel direkt darüber? Hat es Kontakt zu einem Kabel oder Speicher?'),
+    ('Ein Panel liefert nichts', 'Nacht, Regen oder kein freier Himmel direkt darüber? Berührt es ein anderes Panel des Felds oder direkt ein Kabel bzw. einen Speicher?'),
+    ('Strom hinter dem Feld kommt nicht an', 'Panels leiten nur Solarstrom weiter. Einen Generator oder Speicher hinter dem Feld mit einem eigenen Kabel anschließen, nicht durch die Panels.'),
     ('Mein altes Solar Array liefert nichts mehr', 'Richtig so: Seit dem Solar-Umbau liefern nur noch Solarpanels. Das Array in der Werkbank zerlegen und die Panels als Feld verlegen.'),
 ])}
-<p>Spezifikation: <a href="#/spec-11">11 – Compact Solars</a> §4, <a href="#/balancing">Energiebalancing</a> §3.1.</p>
+<p>Spezifikation: <a href="#/spec-11">11 – Compact Solars</a> §4, <a href="#/spec-38">38 – Solarpanels leiten untereinander</a>, <a href="#/balancing">Energiebalancing</a> §3.1.</p>
 '''
     page('solar-arrays', 'Solar', 'Neu & geändert', solar)
 

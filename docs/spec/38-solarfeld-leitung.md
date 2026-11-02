@@ -36,4 +36,4 @@ GameTests: `panelsConductToOneCable` (5 Panels → Zinnkabel → BatBox, 250 EU 
 ## 3 Teilphasen
 
 - 38.1 Spezifikation + Umsetzung + GameTests – erledigt (Client offen)
-- 38.2 EMI-Text Solarpanel, Wiki (Solar-Abschnitt, neu erzeugen), `abweichungen.md`, Testplan
+- 38.2 EMI-Text Solarpanel, Wiki (Solar-Abschnitt, neu erzeugen), `abweichungen.md`, Testplan – erledigt (EMI `solar_field`, Wiki Solar-Regel/Bauanleitung/Fehlersuche, „Alle Änderungen“, Testplan §20)

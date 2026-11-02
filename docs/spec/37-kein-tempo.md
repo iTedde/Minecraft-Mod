@@ -114,4 +114,4 @@ Drive (Teleport, siehe Frage F4), Werkzeug-Abbautempo.
   `PlayerEvent.BreakSpeed` den Faktor `SUBMERGED_MINING_SPEED` und das ÷5 ohne Boden auf. Jetpack, Jet Boots,
   Flight Control und Glider: hat ein Düsenschub oder der Glider in diesem Tick gewirkt, wird die Waagerechte über
   `MovementCap` gedeckelt.
-- 37.4 EMI-Texte, Tooltips, Wiki, `spec/28`/`spec/29`/`spec/17`-Verweise, `abweichungen.md`, Testplan
+- 37.4 EMI-Texte, Tooltips, Wiki, `spec/28`/`spec/29`/`spec/17`-Verweise, `abweichungen.md`, Testplan – erledigt. Neue EMI-Infoseiten Quantenhose, Quantenstiefel, Jetpack (`MultiblockEmiInfo.registerArmor`); Gravi-Brustplatte, Fortg. Jetpack, Kaffee und die MPS-Modulbeschreibungen Sprinthilfe/Schwimmhilfe/Gleiter angepasst; Verweise auch in `spec/05` §5.2/§9; Wiki „Alle Änderungen“ §1a, GraviSuite-/MPS-Seite, Tastentabelle; Testplan §19

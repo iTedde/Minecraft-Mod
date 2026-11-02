@@ -258,6 +258,26 @@ Testwelt. Sprache einmal Deutsch, einmal Englisch prüfen. EMI und Xaero's Minim
 | 18.4 | Holzrohr/Trichter an jeder Seite erreicht nur die 27 Vorratsplätze; Abbau droppt alle 37 Slots | 34.1 | |
 | 18.5 | EMI-Info-Seite an beiden Projekttischen; Wiki: Zeile in „Komplett neue Inhalte“, Maschinentext, EMI-„+“-Hinweis | 34.2 | |
 
+## 19. Nichts macht schneller (Phase 37)
+
+| Nr | Test | Herkunft | OK |
+|---|---|---|---|
+| 19.1 | Quantenhose: Sprinten normal schnell (auch im Wasser), Hungerleiste sinkt beim Sprinten/Sprint-Springen nicht, kein Rückstoß bei Treffern; ohne Ladung wieder normal | 37.1 | |
+| 19.2 | Quantenstiefel: Strg + Springen hoch wie bisher, aber kein Weitsprung; Jetpack/Elektro-Jetpack nicht schneller als Sprinten | 37.1 | |
+| 19.3 | Kaffee: Sättigung + Eile, Stufe steigt je Tasse, Übelkeit/Schaden ab der Überdosis | 37.1 | |
+| 19.4 | Fortg. Jetpack/Nano-Brustplatte: Strg ohne Wirkung, vorwärts höchstens Sprinttempo, Verbrauch 6 EU/t | 37.2 | |
+| 19.5 | Gravi-Brustplatte: Flug so schnell wie Sprinten, Sprint-Fliegen ohne Wirkung, Steigen/Sinken normal; Strg + M schaltet Magnet (Meldung, HUD-Zeile), zieht Items (−50 EU je Stapel, nicht bei vollem Inventar) und XP im Umkreis 8, auch am Boden | 37.2 | |
+| 19.6 | MPS: Sprinthilfe ohne Tempo, Eigenschaft „Tragkraft“ im Tinker Table, Rüstung über 25 kg bremst mit Modul weniger; Sprunghilfe springt hoch ohne Luftsteuerung; Schwimmhilfe: Abbau unter Wasser (auch schwimmend) wie an Land; Jetpack/Düsenstiefel/Gleiter nicht schneller als Sprinten | 37.3 | |
+| 19.7 | EMI-Infoseiten Quantenhose, Quantenstiefel, Jetpack, Gravi-Brustplatte, Fortg. Jetpack, Kaffee; Modulbeschreibungen Sprint-/Schwimmhilfe/Gleiter; Wiki „Alle Änderungen“ §1a, GraviSuite-/MPS-Seite | 37.4 | |
+
+## 20. Solarpanels leiten untereinander (Phase 38)
+
+| Nr | Test | Herkunft | OK |
+|---|---|---|---|
+| 20.1 | 9×9-Feld, ein Kabel an einem Eckpanel → BatBox: am Tag ≈ 97 EU/t (EU-Meter); Reihe aus 5 Panels mit Kabel am Ende 5 EU/t | 38.1 | |
+| 20.2 | Generator hinter einem Panel erreicht die BatBox auf der anderen Seite nicht; kein Stromschlag an den Panels | 38.1 | |
+| 20.3 | EMI-Infoseite Solarpanel nennt die Leitung; Wiki-Seite Solar (Regel, Schritt-für-Schritt, Fehlersuche) | 38.2 | |
+
 ## Befunde
 
 | Nr | Datum | Befund | Status |

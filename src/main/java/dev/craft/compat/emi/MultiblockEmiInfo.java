@@ -69,6 +69,13 @@ final class MultiblockEmiInfo {
         info(registry, "coffee", Ic2Items.COLD_COFFEE.get(), Ic2Items.DARK_COFFEE.get(), Ic2Items.COFFEE.get());
     }
 
+    /** Info pages of the IC2 armor changed by spec 37 (no speed boosts, compensation instead). */
+    static void registerArmor(EmiRegistry registry) {
+        info(registry, "quantum_leggings", Ic2Items.QUANTUM_LEGGINGS.get());
+        info(registry, "quantum_boots", Ic2Items.QUANTUM_BOOTS.get());
+        info(registry, "jetpack", Ic2Items.JETPACK.get(), Ic2Items.ELECTRIC_JETPACK.get());
+    }
+
     private static ItemLike casing(GtCasingBlock.Type type) {
         return GtItems.casing(type).get();
     }

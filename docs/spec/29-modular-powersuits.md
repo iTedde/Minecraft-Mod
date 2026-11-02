@@ -198,6 +198,8 @@ Werkzeug `craft:mps_mode` (String), Helm `craft:mps_food` (Puffer Nahrung/Sätti
 
 ## 6 Bewegung (`PlayerTickHandler`, jeden Spieler-Tick auf Client und Server)
 
+> **Craft (Phase 37, `spec/37`):** kein Zusatztempo mehr; Pack-Werte hier nur als Referenz. Sprint Assist ohne Tempo (Regler „Power“ → Tragkraft), Jump Assist ohne Luftsteuerung, Swim Boost ohne Schub (dafür Abbau unter Wasser wie an Land), Jetpack/Jet Boots/Flight Control/Glider waagerecht gedeckelt (§3.6).
+
 Eingaben (Vor/Seit, Springen, Schleichen, „Runter“ = Taste **Z** nur bei offenem Spielfenster) schickt der Client
 jeden Tick an den Server (`PlayerUpdate`). Alle Kosten eines Ticks werden gesammelt (`totalEnergyDrain`) und am Ende
 einmal abgebucht; ein Modul läuft nur, wenn Kosten + bisherige Sammelkosten < Vorrat.

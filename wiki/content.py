@@ -130,7 +130,7 @@ Mod selbst und die drei mitgelieferten Mods.</p>
 <p>Die IC2-Tasten lassen sich unter <i>Optionen → Steuerung → IndustrialCraft 2</i> ändern.</p>
 {h.table(['Taste (Standard)', 'Name', 'Wofür'], [
     ['<b>M</b>', 'Modus-Taste', 'Modus wechseln: Bergbaulaser, el. Schraubenschlüssel, Farbroller, Jetpack, Nanosäbel …'],
-    ['<b>linke Strg</b>', 'Boost-Taste', 'Quantenrüstung: Sprint-/Sprungverstärkung'],
+    ['<b>linke Strg</b>', 'Boost-Taste', 'Quantenstiefel: hoher Sprung; mit M: Gravitationsmagnet der Gravi-Brustplatte'],
     ['<b>linke Alt</b>', 'ALT-Taste', 'Schraubenschlüssel: Drehrichtung umkehren u. a.'],
     ['<b>C</b>', 'Seiteninventar-Taste', 'Seiteninventar (wie im Original)'],
     ['<b>R</b> / <b>U</b>', 'EMI', 'über einem Gegenstand: Rezept / Verwendungen anzeigen'],
@@ -163,6 +163,22 @@ Details und Begründung: <a href="#/energie">Energiequellen im Vergleich</a>.</p
     row('Wassermühle', '3×3×3 Wasserblöcke zählen, max. 0,26 EU/t', '5×5×3-Bereich, fließendes Wasser 0,04 EU/t je Block, Biom-Bonus, bis 2 EU/t', 'wassermuehle', CHG),
     row('Windmühle', 'Faktor 1, Regen ×1,2, Gewitter ×1,5, Bruch ab 5 EU/t, Puffer 4', 'Faktor 2,5, Regen ×1,5, Gewitter ×3, kein Zerfall, Puffer 16', 'windmuehle', CHG),
     row('Koks', '– (im Pack nur über Railcraft, das nicht nachgebaut wird)', 'neues Item: im Generator wie Kohle, im Kohlekraftwerk doppelt so viel', 'koksofen', NEW),
+    row('Solarpanel als Leiter', 'jedes Panel braucht ein eigenes Kabel', 'Panels leiten untereinander verlustfrei, ein Kabel am Feld sammelt alles', 'solar-arrays', CHG),
+])}
+
+<h2 id="chg--tempo">1a. Bewusst geändert: Nichts macht schneller</h2>
+<p>Kein Craft-Teil bringt den Spieler waagerecht schneller als Vanilla-Sprinten (≈ 5,6 m/s) – am Boden, in der Luft und im Wasser.
+Fliegen, Schweben und Sprunghöhe bleiben; jedes Teil bekommt einen Ausgleich (Nutzer, 2026-10-29). Vanilla-Dinge (Elytra,
+Tempotränke, Pferde) und andere Mods sind nicht betroffen.</p>
+{h.table(['Teil', 'Original', 'Craft'], [
+    row('Quantenhose', 'Sprint-Zusatzschub ≈ 3× Sprinttempo, auch im Wasser', 'kein Schub; dafür Sprinten ohne Hunger und kein Rückstoß (ab 1 000 EU)', 'spec-37', CHG),
+    row('Quantenstiefel', 'Boost-Sprung mit Weitsprung ×3,5', 'nur noch der hohe Sprung', 'spec-37', CHG),
+    row('Jetpack / Elektro-Jetpack', 'kleiner Vorwärtsschub', 'höchstens Sprinttempo (war schon darunter)', 'spec-37', CHG),
+    row('Fortg. Jetpack, Fortg. Nano-Brustplatte', 'Schub + Boost (bis ≈ 12 m/s), 12 EU/t', 'kein Boost, höchstens Sprinttempo, halber Verbrauch 6 EU/t', 'mod-gravisuite', CHG),
+    row('Gravitations-Brustplatte', 'Kreativflug, Sprint-Fliegen ×2, Boost', 'Flug so schnell wie Sprinten, kein Boost; dafür Gravitationsmagnet (Items/XP im Umkreis 8)', 'mod-gravisuite', CHG),
+    row('MPS Sprint-/Sprung-/Schwimmhilfe', 'bis 3× Laufen, Luftsteuerung, Schwimmschub', 'kein Tempo; Sprinthilfe gibt Tragkraft, Schwimmhilfe Abbauen unter Wasser wie an Land, Sprunghöhe bleibt', 'mod-mps', CHG),
+    row('MPS Jetpack, Düsenstiefel, Flugsteuerung, Gleiter', 'Schub in Blickrichtung', 'waagerecht höchstens Sprinttempo', 'mod-mps', CHG),
+    row('Kaffee', 'Tempo + Eile', 'Sättigung + Eile (gleiche Stufen und Überdosis)', 'spec-37', CHG),
 ])}
 <p>Unverändert 1:1 bleiben: IC2-Generator, Geothermie, alle BuildCraft-Engines, Öl und Treibstoff, Electrical
 Engine, Power Converters und der Kernreaktor.</p>
@@ -1057,12 +1073,14 @@ Rohr und jede Maschine ab. Klick auf den Ventilknauf kehrt das um (dann Druck oh
             'der <b>Ultimative Solarhelm</b> (nur Kreativ). Alles läuft mit EU; Rezepte übertragen die Ladung der Zutaten.',
             [('Version (Vorlage)', '1.8'), ('Flug-Taste', 'G (Pack: F)'), ('Gravi-Brustplatte', '10 Mio. EU, 416 EU/t in der Luft'),
              ('Paket', 'Kreativ-Tab „IndustrialCraft 2“')],
-            [('spec-28', '28 – GraviSuite')],
+            [('spec-28', '28 – GraviSuite'), ('spec-37', '37 – Nichts macht schneller')],
             f'''<h2 id="mod-gravisuite--flug">Fliegen</h2>
-<ul><li>{c('gravi_chestplate')}: <b>G</b> schaltet den Flug ein (ab 80 000 EU), 416 EU/t in der Luft, am Boden nichts (im Pack auch dort), Boost mit Strg
-(2 × 1 248 EU/t). Kein Fallschaden; schützt wie die Quanten-Brustplatte. HUD oben rechts zeigt Status und Ladung.</li>
-<li>{c('advanced_jetpack')} / {c('advanced_nano_chestplate')}: <b>G</b> schaltet das Triebwerk, Springen gibt Schub (12 EU/t),
-<b>M</b> beim Springen den Schwebemodus. Unter 1 000 EU bricht der Schub stark ein (wie im Original).</li>
+<ul><li>{c('gravi_chestplate')}: <b>G</b> schaltet den Flug ein (ab 80 000 EU), 416 EU/t in der Luft, am Boden nichts (im Pack auch dort).
+{CHG} Fliegen ist so schnell wie Sprinten, Sprint-Fliegen und Boost gibt es nicht mehr. Kein Fallschaden; schützt wie die Quanten-Brustplatte. HUD oben rechts zeigt Status und Ladung.</li>
+<li>{CHG} <b>Gravitationsmagnet</b> der Gravi-Brustplatte: <b>Strg halten + M</b> schaltet ihn (HUD „Gravitationsmagnet AN“). Er zieht Items
+(50 EU je Stapel, nur wenn das Inventar sie aufnimmt) und Erfahrungskugeln im Umkreis von 8 Blöcken heran – auch am Boden und ohne Flug.</li>
+<li>{c('advanced_jetpack')} / {c('advanced_nano_chestplate')}: <b>G</b> schaltet das Triebwerk, Springen gibt Schub, <b>M</b> beim Springen den
+Schwebemodus. {CHG} Kein Boost, vorwärts höchstens Sprinttempo, dafür halber Verbrauch (6 statt 12 EU/t). Unter 1 000 EU bricht der Schub stark ein (wie im Original).</li>
 <li>Alle Brustteile laden wie ein LapPack gehaltene Werkzeuge bis Stufe 2 nach.</li></ul>
 <h2 id="mod-gravisuite--werkzeuge">Werkzeuge</h2>
 {h.table(['Werkzeug', 'Wirkung', 'Kosten'], [
@@ -1083,7 +1101,7 @@ Himmel und lädt erst die Rüstung, dann das Inventar.</p>''')
             '(50 J = 1 EU) und kommt aus Batteriemodulen.',
             [('Version (Vorlage)', '0.3.2'), ('Energie', 'Joule, 50 J = 1 EU'), ('Tasten', 'Z runter, K Belegung, Schleichen + Mausrad Modus'),
              ('Kreativ-Tab', 'Craft: Modular Powersuits')],
-            [('spec-29', '29 – Modular Powersuits')],
+            [('spec-29', '29 – Modular Powersuits'), ('spec-37', '37 – Nichts macht schneller')],
             f'''<h2 id="mod-mps--tisch">Tinker Table</h2>
 <ul><li>{c('tinker_table')}: Rechtsklick öffnet die Übersicht aller modularen Teile im Inventar. Modul wählen,
 „Einbauen“ verbraucht die angezeigten Bauteile (Kreativ: kostenlos), Regler stellen die Werte ein.</li>
@@ -1094,7 +1112,13 @@ Kondensator bringen beim Einbau gleich etwas Ladung mit.</li></ul>
 bilden einen gemeinsamen Vorrat (verbraucht wird von den Stiefeln aufwärts).</li>
 <li>Laden in IC2-Speichern und -Ladegeräten wie ein Stufe-1-Gegenstand; dazu Solar (Helm, alle 4 s) und Kinetik (Hose,
 je 5 Blöcke).</li>
-<li>Über 25 kg Gesamtgewicht wird man langsamer, Jetpack und Sprung werden schwächer.</li></ul>
+<li>Über 25 kg Gesamtgewicht wird man langsamer, Jetpack und Sprung werden schwächer. Die Sprinthilfe hebt die Grenze um bis zu 25 kg an (Regler „Power“).</li></ul>
+<h2 id="mod-mps--tempo">Kein Zusatztempo {CHG}</h2>
+<ul><li><b>Sprinthilfe:</b> macht nicht mehr schneller; der Regler „Power“ gibt stattdessen <b>Tragkraft</b> (bis +25 000 g), der
+Erschöpfungsausgleich bleibt. Den Regler „Gehhilfe“ und die Gehkosten gibt es nicht mehr.</li>
+<li><b>Sprunghilfe:</b> höher springen ja, aber keine zusätzliche Luftsteuerung.</li>
+<li><b>Schwimmhilfe:</b> kein Schub; fest 100 J/Tick unter Wasser, dafür baut jedes Werkzeug unter Wasser (auch schwimmend) so schnell ab wie an Land.</li>
+<li><b>Jetpack, Düsenstiefel, Flugsteuerung, Gleiter:</b> steigen und schweben wie bisher, waagerecht höchstens Sprinttempo.</li></ul>
 <h2 id="mod-mps--module">Module</h2>
 {h.table(['Teil', 'Module'], [
     ['alle Rüstungsteile', 'Eisen-/Diamantpanzerung, Energieschild (max. Schutz 6 je Teil), Batterien, Farbe, Durchsichtig, Citizen-Joe-Stil'],

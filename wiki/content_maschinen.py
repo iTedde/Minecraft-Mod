@@ -17,7 +17,7 @@ MACHINES = {
         'Generator.'),
     'craft:solar_panel': (
         'Erzeugt bei Tag mit freier Sicht zum Himmel 1 EU/t, nachts und bei Regen nichts. In Craft: Panels in einem '
-        'lückenlosen 9×9-Quadrat liefern je ×1,2.',
+        'lückenlosen 9×9-Quadrat liefern je ×1,2 und leiten untereinander, ein Kabel am Feld genügt.',
         'Wartungsfreier Strom ohne Brennstoff. In Craft die einzige Solarquelle – viele Panels im 9×9-Feld statt '
         'Solar Arrays.'),
     'craft:water_mill': (

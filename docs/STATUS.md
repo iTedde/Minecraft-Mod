@@ -3150,10 +3150,7 @@ Nutzer: „mach 37.3“.
 - `gradlew runData`, `build` grün; GameTests 577, alles grün bis auf das bekannte `liquidTesseractFillsRemoteTank`.
 
 ## Nächste Schritte
-- **38.2** EMI-Text Solarpanel, Wiki Solar-Abschnitt + neu erzeugen, `abweichungen.md`, Testplan.
 - Client-Test 38.1: 9×9-Feld mit einem Kabel an der Ecke liefert ≈ 97 EU/t.
-- **37.4** EMI-Texte/Tooltips, Wiki (IC2-Rüstung, GraviSuite, MPS, Kaffee), `spec/17`/`spec/28`/`spec/29`-Verweise,
-  `abweichungen.md`, Testplan.
 - Client-Test 37.3: Sprint Assist ohne Tempo, Tragkraft im Tinker Table; Swim Boost: Abbau unter Wasser wie an Land;
   MPS-Düsen/Glider nicht schneller als Sprinten.
 - Client-Test 37.2: Gravi-Flug so schnell wie Sprinten, Sprint-Fliegen ohne Wirkung, Magnet (Modus + Boost) zieht
@@ -3201,3 +3198,24 @@ Fabric-only → Port/Alternative nachfragen).
 - [ ] **Solar-Balancing** (`balancing.md` §3.1, Phase 29): Solarpanel-Grundwert **2 EU/t** statt 1 EU/t, Bonus im
   9×9-Feld **×1,5** statt ×1,2, also 3 EU/t je Panel im Feld. Nutzer: „denke ich wäre recht gebalanced“ – vor der
   Umsetzung Freigabe einholen (Auswirkung auf Solarhelme, Phase-38-Leitung, Wiki).
+
+# Phase 37.4 + 38.2 – EMI, Wiki, Doku (2026-11-02)
+
+Nutzer: „Lass uns mit der nächsten Phase weitermachen“ – beide offenen Doku-Teilpakete zusammen erledigt.
+
+## Erledigt
+- [x] EMI: neue Infoseiten `quantum_leggings`, `quantum_boots`, `jetpack` (`MultiblockEmiInfo.registerArmor`);
+  `gravi_chestplate` (ohne Boost, mit Magnet), `advanced_jetpack` (6 EU/t, kein Boost), `coffee` (Sättigung),
+  `solar_field` (Panels leiten) angepasst; MPS-Modulbeschreibungen Sprinthilfe, Schwimmhilfe, Gleiter (en/de).
+- [x] Wiki: „Alle Änderungen“ §1a „Nichts macht schneller“ + Zeile „Solarpanel als Leiter“, Tastentabelle (Boost-Taste),
+  GraviSuite-Flug, MPS-Abschnitt „Kein Zusatztempo“, Solar-Seite (Regel, Bauanleitung, Fehlersuche), Maschinen-/
+  Energietexte Solarpanel; `Craft-Wiki.html` und `Craft-Wiki-EN.html` neu erzeugt.
+- [x] `abweichungen.md` (zwei Zeilen), Verweise in `spec/05` §5.2/§9, `spec/17`, `spec/28` §4/§5, `spec/29` §6,
+  Teilphasen in `spec/37`/`spec/38`, README; Testplan §19 (Phase 37) und §20 (Phase 38).
+- `gradlew runData`, `build` grün. Phasen 37 und 38 damit erledigt (Client-Test offen).
+
+## Nächste Schritte
+- Client-Tests 37/38 (Testplan §19, §20) und die älteren offenen Tests (siehe vorige „Nächste Schritte“).
+- Nutzerwünsche vom 2026-11-02 (oben): Reihenfolge/Phasennummern festlegen; offen sind Freigaben für
+  Fortg. Diamantbohrer (1 Mio. EU, 3×3) und Solar-Balancing (2 EU/t, ×1,5).
+- Neue Version/Paket erst auf Wunsch des Nutzers.
