@@ -3168,3 +3168,29 @@ Nutzer: „mach 37.3“.
 - Client-Test 33 (FE Producer an AE2 Energy Acceptor, Testplan 16).
 - Client-Test 32 und 31 (Nutzer), 30.6, Extruder-Rezepte, Trichter, B7 (EMI-Tags übersetzt?).
 - Induction Furnace rechter Ausgang: Rückfrage an den Nutzer offen (welche Rohre/Seite, IC2 oder TE).
+
+# Nutzerwünsche: weitere Mods und Änderungen (2026-11-02)
+
+Nutzer: „Ich gebe dir mal ein paar Mods, die noch mit rein müssen. Schreib das erstmal auf“ – **nur notiert,
+nichts umgesetzt**. Reihenfolge, Umfang und Phasennummern noch offen.
+
+## Mods fürs CurseForge-Paket (vermutlich nur per Manifest)
+- [ ] **Litematica** (Schaltpläne/Bauvorlagen)
+- [ ] **Armor Stand Arms** (Rüstungsständer mit Armen)
+- [ ] **Subtle Effects** (Umgebungseffekte)
+- [ ] **Particle Rain** (Regen-/Wetterpartikel)
+- [ ] **Pick Up Notifier** (Einblendung aufgehobener Items)
+- [ ] **Statistik-Mod**: zeigt Spielzeit, abgebaute Blöcke, Tode usw. an – konkreter Mod noch offen
+  (Vorschlag suchen und dem Nutzer vorlegen).
+
+Zu prüfen: Verfügbarkeit für NeoForge 1.21.1 und benötigte Bibliotheken (Litematica braucht MaLiLib; ggf.
+Fabric-only → Port/Alternative nachfragen).
+
+## Änderungen an Craft
+- [ ] **Fortgeschrittener Diamantbohrer** (GraviSuite, `spec/28` §9.1): Kapazität **1 000 000 EU** statt 15 000
+  und ein **ein-/ausschaltbarer 3×3×1-Abbaumodus**. Nutzer: „hatte früher 1 Mio EU Kapazität“ – laut Pack-Jar
+  (`spec/28`) 15 000 EU; vor der Umsetzung klären, ob das eine bewusste Abweichung (Balancing) ist und welche
+  Kosten/Tasten der 3×3-Modus haben soll.
+- [ ] **Solar-Balancing** (`balancing.md` §3.1, Phase 29): Solarpanel-Grundwert **2 EU/t** statt 1 EU/t, Bonus im
+  9×9-Feld **×1,5** statt ×1,2, also 3 EU/t je Panel im Feld. Nutzer: „denke ich wäre recht gebalanced“ – vor der
+  Umsetzung Freigabe einholen (Auswirkung auf Solarhelme, Phase-38-Leitung, Wiki).
