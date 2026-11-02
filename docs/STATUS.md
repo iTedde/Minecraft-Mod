@@ -3180,8 +3180,9 @@ nichts umgesetzt**. Reihenfolge, Umfang und Phasennummern noch offen.
 - [ ] **Subtle Effects** (Umgebungseffekte)
 - [ ] **Particle Rain** (Regen-/Wetterpartikel)
 - [ ] **Pick Up Notifier** (Einblendung aufgehobener Items)
-- [ ] **Statistik-Mod**: zeigt Spielzeit, abgebaute Blöcke, Tode usw. an – konkreter Mod noch offen
-  (Vorschlag suchen und dem Nutzer vorlegen).
+- [ ] **Statistik-Mod**: Vorschlag **Stats Overlay** (CurseForge-ID 1614091, NeoForge 1.21.1, nur Client):
+  HUD mit Spielzeit, Toden, abgebauten Blöcken, Mob-Kills, Schaden, Strecke u. a.; Taste K ein/aus, F7 Einstellungen.
+  Alternative: Enhanced Player List (Tab-Liste, ohne abgebaute Blöcke). Wahl durch den Nutzer offen.
 
 Zu prüfen: Verfügbarkeit für NeoForge 1.21.1 und benötigte Bibliotheken (Litematica braucht MaLiLib; ggf.
 Fabric-only → Port/Alternative nachfragen).
