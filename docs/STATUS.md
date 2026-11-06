@@ -3429,3 +3429,16 @@ Nutzer nach der Übersicht der Änderungen seit 1.2.0: „Das ist alles abgesegn
 ## Nächste Schritte
 - Client-Tests §20–22 aus 1.2.0 (Solar 243 EU/t, Bohrer 3×3, EPL-Spalte, Taste M) – nicht Teil dieser Abnahme.
 - Neue Version/Paket erst auf Wunsch des Nutzers.
+
+# Abnahme Client-Tests §20–22 (2026-11-06)
+
+Nutzer: „Die Clienttest sind auch abgesegnet“.
+
+## Erledigt
+- [x] Testplan §20 (Solarfeld-Leitung, 243 EU/t), §21 (Zusatzmods, EPL-Spalte „Mined“, Forgematica-Taste) und §22
+  (Fortg. Diamantbohrer 1 Mio. EU, 3×3-Modus) als bestanden eingetragen; Phasen 38–41 in CLAUDE.md „Client-Test
+  2026-11-06 bestanden“.
+
+## Nächste Schritte
+- Keine offenen Aufgaben aus 1.2.x; neue Version/Paket erst auf Wunsch des Nutzers.
+- Ältere Phasen mit „Client-Test offen“ (26–37) unverändert.

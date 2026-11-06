@@ -274,26 +274,26 @@ Testwelt. Sprache einmal Deutsch, einmal Englisch prüfen. EMI und Xaero's Minim
 
 | Nr | Test | Herkunft | OK |
 |---|---|---|---|
-| 20.1 | 9×9-Feld, ein Kabel an einem Eckpanel → BatBox: am Tag 243 EU/t (EU-Meter, seit Phase 40); Reihe aus 5 Panels mit Kabel am Ende 10 EU/t | 38.1 | |
-| 20.2 | Generator hinter einem Panel erreicht die BatBox auf der anderen Seite nicht; kein Stromschlag an den Panels | 38.1 | |
-| 20.3 | EMI-Infoseite Solarpanel nennt die Leitung; Wiki-Seite Solar (Regel, Schritt-für-Schritt, Fehlersuche) | 38.2 | |
+| 20.1 | 9×9-Feld, ein Kabel an einem Eckpanel → BatBox: am Tag 243 EU/t (EU-Meter, seit Phase 40); Reihe aus 5 Panels mit Kabel am Ende 10 EU/t | 38.1 | bestanden 2026-11-06 (Nutzer) |
+| 20.2 | Generator hinter einem Panel erreicht die BatBox auf der anderen Seite nicht; kein Stromschlag an den Panels | 38.1 | bestanden 2026-11-06 (Nutzer) |
+| 20.3 | EMI-Infoseite Solarpanel nennt die Leitung; Wiki-Seite Solar (Regel, Schritt-für-Schritt, Fehlersuche) | 38.2 | bestanden 2026-11-06 (Nutzer) |
 
 ## 21. Zusatzmods und Spalte „abgebaute Blöcke“ (Phase 39)
 
 | Nr | Test | Herkunft | OK |
 |---|---|---|---|
-| 21.1 | Paket startet mit allen neuen Mods (Forgematica, MaFgLib, Armor Stand Arms, Subtle Effects, Fzzy Config, Particle Rain, Pick Up Notifier, Enhanced Player List) ohne Fehler | 39.2 | |
-| 21.2 | Tab halten: EPL-Tabelle mit Spalte „Mined“ hinter „Distance“; Zahl steigt nach Abbauen und Speichern (`/save-all`); bestehende Welt zeigt sofort die bisherige Summe; offline Spieler grau | 39.1 | |
-| 21.3 | Forgematica: Menü (M) öffnet, Taste kollidiert mit der IC2-Modus-Taste → eine umlegen; Schaltplan speichern und einblenden | 39.2 | |
-| 21.4 | Rüstungsständer mit Armen, Regenpartikel, Aufhebe-Einblendung, Subtle-Effects-Partikel sichtbar | 39.2 | |
+| 21.1 | Paket startet mit allen neuen Mods (Forgematica, MaFgLib, Armor Stand Arms, Subtle Effects, Fzzy Config, Particle Rain, Pick Up Notifier, Enhanced Player List) ohne Fehler | 39.2 | bestanden 2026-11-06 (Nutzer) |
+| 21.2 | Tab halten: EPL-Tabelle mit Spalte „Mined“ hinter „Distance“; Zahl steigt nach Abbauen und Speichern (`/save-all`); bestehende Welt zeigt sofort die bisherige Summe; offline Spieler grau | 39.1 | bestanden 2026-11-06 (Nutzer) |
+| 21.3 | Forgematica: Menü (M) öffnet, Taste kollidiert mit der IC2-Modus-Taste → eine umlegen; Schaltplan speichern und einblenden | 39.2 | bestanden 2026-11-06 (Nutzer) |
+| 21.4 | Rüstungsständer mit Armen, Regenpartikel, Aufhebe-Einblendung, Subtle-Effects-Partikel sichtbar | 39.2 | bestanden 2026-11-06 (Nutzer) |
 
 ## 22. Fortgeschrittener Diamantbohrer (Phase 41)
 
 | Nr | Test | Herkunft | OK |
 |---|---|---|---|
-| 22.1 | Bohrer lädt bis 1 000 000 EU (MFSU), Ladeanzeige/Tooltip; Tooltip „3×3-Modus: aus“ | 41 | |
-| 22.2 | M + Rechtsklick: Meldung „3×3-Modus AN/AUS“; an Wand, Boden und Decke jeweils 3×3 quer zur Blickrichtung, Drops (mit Glück/Behutsamkeit), 160 EU je Block | 41 | |
-| 22.3 | Stein mit Obsidian daneben: Obsidian bleibt; Erz neben Stein geht mit; Grundgestein nie; leerer Bohrer baut nur noch Einzelblöcke; EMI-Infoseite | 41 | |
+| 22.1 | Bohrer lädt bis 1 000 000 EU (MFSU), Ladeanzeige/Tooltip; Tooltip „3×3-Modus: aus“ | 41 | bestanden 2026-11-06 (Nutzer) |
+| 22.2 | M + Rechtsklick: Meldung „3×3-Modus AN/AUS“; an Wand, Boden und Decke jeweils 3×3 quer zur Blickrichtung, Drops (mit Glück/Behutsamkeit), 160 EU je Block | 41 | bestanden 2026-11-06 (Nutzer) |
+| 22.3 | Stein mit Obsidian daneben: Obsidian bleibt; Erz neben Stein geht mit; Grundgestein nie; leerer Bohrer baut nur noch Einzelblöcke; EMI-Infoseite | 41 | bestanden 2026-11-06 (Nutzer) |
 
 ## Befunde
 
