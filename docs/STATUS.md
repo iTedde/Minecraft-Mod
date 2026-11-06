@@ -3417,3 +3417,15 @@ Nutzer: „Erstelle die neue Version“.
 - Paket 1.2.3 im CurseForge-Launcher starten; Meißel an Beton, Rüstung ausblenden, EMI-Seitenleiste mit Ender-Tank,
   Ad-Astra-Lampen, Create-Addons prüfen.
 - Client-Tests §20–22 aus 1.2.0 weiter offen.
+
+# Abnahme 1.2.1–1.2.3 (2026-11-06)
+
+Nutzer nach der Übersicht der Änderungen seit 1.2.0: „Das ist alles abgesegnet“.
+
+## Erledigt
+- [x] Abgenommen: Ad-Astra-Lampen Licht 15, Ender-Tank/EMI-Fix, Create-Addons (1.2.1), Armor Hider (1.2.2), Chisel
+  Reborn (1.2.3), Verwerfen von Phase 42. Craft 1.2.3 / Paket 1.2.3 ist der aktuelle Stand.
+
+## Nächste Schritte
+- Client-Tests §20–22 aus 1.2.0 (Solar 243 EU/t, Bohrer 3×3, EPL-Spalte, Taste M) – nicht Teil dieser Abnahme.
+- Neue Version/Paket erst auf Wunsch des Nutzers.
