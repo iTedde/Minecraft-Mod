@@ -3492,3 +3492,14 @@ Nutzer: „Erstelle die neue Version“.
 ## Nächste Schritte
 - Paket 1.2.4 im CurseForge-Launcher starten; Mekanism mit Craft-Strom (FE Producer), keine Mekanism-Zinn-/Uran-/
   Bleierze in neuen Chunks, Mining-Dimension unverändert.
+
+# Abnahme 1.2.4 (2026-11-06)
+
+Nutzer: „Das ist alles abgesegnet, ist es gepusht?“
+
+## Erledigt
+- [x] Abgenommen: Craft 1.2.4 / Paket 1.2.4 (Mekanism + Generators, doppelte Erze aus, Thermal Dynamics nicht
+  verfügbar). Aktueller Stand.
+
+## Nächste Schritte
+- Neue Version/Paket erst auf Wunsch des Nutzers.
