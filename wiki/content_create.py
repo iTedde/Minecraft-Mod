@@ -62,6 +62,7 @@ Mahlen, Waschen, Fertigungsketten …).</p>
     ['Create: Bits \'n\' Bobs (+ Azimuth, Strut Your Stuff)', 'Deko- und Mechanik-Erweiterungen für Create, u. a. Träger-Streben (ab Paket 1.2.1)'],
     ['Create: Transmission', 'Ein Block: die Transmission-Kette – treibt Förderbänder sauberer an als ein verkleideter Kettenantrieb (ab Paket 1.2.1)'],
     ['<b>Chisel Reborn</b> (+ Cryonic Config)', 'Unabhängig von Create: Meißel – Steine, Holz, Glas, Wolle und <b>Beton</b> (32 Muster je Farbe) in Ziermuster umwandeln (ab Paket 1.2.3)'],
+    ['<b>Mekanism</b> + Mekanism Generators', 'Unabhängig von Create: Technik-Mod mit eigener Erzverarbeitung (bis 5× Ausbeute), Maschinen, Gas-Chemie, Energiespeichern und Generatoren (Solar, Wind, Wärme, Gas, Fusion); Energie als FE/Joule, nicht EU. Craft-Strom über den FE Producer (ab Paket 1.2.4)'],
     ['Armor Hider (+ Eunomia)', 'Unabhängig von Create: getragene Rüstung je Slot ausblenden oder durchsichtig machen, auch für andere sichtbar (ab Paket 1.2.2)'],
     ['GraveStone Mod', 'Unabhängig von Create: beim Tod landet das Inventar in einem Grabstein statt am Boden'],
     ['LambDynamicLights', 'Unabhängig von Create: dynamisches Licht (Fackel in der Hand, brennende Mobs …) und das Licht des Elektrischen Leuchtschilds'],

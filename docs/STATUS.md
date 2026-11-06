@@ -3442,3 +3442,21 @@ Nutzer: „Die Clienttest sind auch abgesegnet“.
 ## Nächste Schritte
 - Keine offenen Aufgaben aus 1.2.x; neue Version/Paket erst auf Wunsch des Nutzers.
 - Ältere Phasen mit „Client-Test offen“ (26–37) unverändert.
+
+# Paket 1.2.4 – Mekanism (2026-11-06)
+
+Nutzer: „Thermal Dynamics, Mekanism, Mekanism Generators – das kann auch noch rein“.
+
+## Erledigt
+- [x] Thermal Dynamics geprüft: letzte Datei 11.0.1 für **1.20.1**, keine für 1.21.1 → nicht aufnehmbar. Craft hat aus
+  TE 2.2.2.2 schon Redstone-Energieleitung und Liquiduct (Phase 25.6); dazu BuildCraft-Rohre.
+- [x] Paket `releases/Craft-1.2.4-curseforge.zip` (9,2 MB): wie 1.2.3 (Craft 1.2.3), Manifest + Mekanism 10.7.19
+  (268560/7904058) und Mekanism Generators 10.7.19 (268566/7904061) → 91 Einträge. Keine Pflicht-Abhängigkeiten;
+  die als inkompatibel markierten Mods (AppMek < 1.6, EnderIO-Conduits, LaserIO, JAOPCA, Fission Recipe) sind nicht
+  im Paket. Hinweis: Mekanism erzeugt eigene Zinn-, Blei- und Uranerze neben den Craft-Erzen. Nicht im Client
+  gestartet.
+- [x] Wiki „Create & Paket-Mods“: Zeile Mekanism; Wikis neu erzeugt.
+
+## Nächste Schritte
+- Paket 1.2.4 im CurseForge-Launcher starten; Mekanism-Maschinen mit Craft-Strom über FE Producer prüfen.
+- Offen beim Nutzer: doppelte Erze (Mekanism-Zinn/-Blei/-Uran) per Config abschalten?
