@@ -3348,3 +3348,23 @@ Nutzer: „Ich möchte, das es möglich ist, das man die Rüstung usw. die man a
 - Paket 1.2.2 im CurseForge-Launcher starten; Rüstung je Slot ausblenden (Armor-Hider-Einstellungen über
   Optionen → Skin-Anpassung), auch Quanten-/MPS-/GraviSuite-Teile prüfen; Lampen und Create-Addons aus 1.2.1.
 - Client-Tests §20–22 aus 1.2.0 weiter offen.
+
+# Craft 1.2.2 – EMI-Seitenleiste (2026-11-06)
+
+Nutzer: „NEI ist teilweise super verbuggt“ (gemeint: EMI).
+
+## Erledigt
+- [x] Befund im Log der Instanz „Craft 1.2.0“: 138 × `[EMI] Error rendering sidebar`, Ursache
+  `IllegalStateException: Not building!` in `EnderTankRenderer.triangles` beim Zeichnen des Ender-Tank-Items. Der
+  Renderer hielt den Puffer der Tank-Textur über `renderButtons` hinweg fest; in GUIs (EMI, Inventar) beendet das
+  Holen des Knopf-Puffers den vorherigen, das Ventil schrieb dann in einen geschlossenen Puffer, und EMI brach die
+  ganze Seitenleiste ab (Items fehlten/flackerten). Fix: Puffer für das Ventil neu holen. Ender-Truhe geprüft, nicht
+  betroffen. Sonst keine EMI-Fehler im Log.
+- [x] Craft **1.2.2** (`releases/craft-1.2.2.jar`), `gradlew build` grün; Paket `Craft-1.2.2-curseforge.zip` enthält
+  jetzt Craft 1.2.2 statt 1.2.1 (Manifest unverändert, 87 Einträge). Nicht im Client gestartet.
+
+## Nächste Schritte
+- Paket 1.2.2 im CurseForge-Launcher starten; EMI-Seitenleiste mit Ender-Tank prüfen; Rüstung ausblenden (Armor
+  Hider), Ad-Astra-Lampen, Create-Addons aus 1.2.1.
+- Weitere EMI-Fehler beim Nutzer nachfragen (Log zeigte keine weiteren).
+- Client-Tests §20–22 aus 1.2.0 weiter offen.
