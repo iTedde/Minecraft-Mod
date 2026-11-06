@@ -3308,3 +3308,25 @@ Nutzer: „Ja, bau 1.1.5“, dann „Nenne es vielleicht sogar 1.2.0“.
 - Paket 1.2.0 im CurseForge-Launcher starten; Client-Tests §20–22 (Solar 243 EU/t, Bohrer 3×3, EPL-Spalte, Taste M).
 - Neue Version/Paket erst auf Wunsch des Nutzers.
 
+
+# Version 1.2.1 (2026-11-06)
+
+Nutzer: „Ad Astra Lampen machen kaum Licht, kannst du das Fixen?“, dazu: Create: Additional Logistics, Create: Factory
+Controller, Create: Ultimate Factory, Create Bits 'n Bobs, Create Transmission, Create Stock Bridge „auch alles rein“.
+
+## Erledigt
+- [x] Ad-Astra-Lampen: Ad Astra 1.16.26 setzt Industrielampen auf Licht 12, kleine auf 8. `compat/adastra/AdAstraLamps`
+  hebt beim Common-Setup alle Zustände aller `ad_astra:*industrial_lamp` (alle Farben, groß und klein) auf **15**
+  (Accessor-Mixin `mixin/BlockStateBaseAccessor` auf `lightEmission`); ohne Ad Astra inaktiv. Schon gesetzte Lampen
+  einmal neu setzen, falls das gespeicherte Chunk-Licht noch alt ist.
+- [x] Craft **1.2.1** (`releases/craft-1.2.1.jar`), `gradlew build` grün.
+- [x] Paket `releases/Craft-1.2.1-curseforge.zip` (9,2 MB): wie 1.2.0 mit Craft 1.2.1; Manifest + 8 Einträge (85):
+  Create: Additional Logistics 1.4.5 (1359885/7460280), Create: Factory Controller 1.2.3 (1573767/9224923),
+  Create: Ultimate Factory 2.2.4 (978125/8038954), Create: Bits 'n' Bobs 2.3.5 (1398383/8886545) mit Azimuth API
+  1.4.10 (1466331/9058513) und Strut Your Stuff 1.3.1 (1486746/8812965), Create: Transmission 1.2.2
+  (1354280/8646664), Create Stock Bridge 0.2.0 (1256341/8044769, braucht AE2 – vorhanden). Abhängigkeiten aus den
+  `neoforge.mods.toml` geprüft (Create 6.0.10, NeoForge 21.1.259 passen). Nicht im Client gestartet.
+
+## Nächste Schritte
+- Paket 1.2.1 im CurseForge-Launcher starten; Lampenhelligkeit und die neuen Create-Addons prüfen.
+- Client-Tests §20–22 aus 1.2.0 weiter offen.

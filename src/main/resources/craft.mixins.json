@@ -4,6 +4,7 @@
   "package": "dev.craft.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "BlockStateBaseAccessor",
     "CraftingInputMixin",
     "ExperienceOrbMixin",
     "HopperBlockEntityMixin",
