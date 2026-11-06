@@ -3383,3 +3383,20 @@ Entschieden: beides kombiniert (echte Farbvariante, sonst tönen), Drop = Origin
 ## Nächste Schritte
 - Freigabe der Spezifikation durch den Nutzer, dann 42.1.
 - Paket 1.2.2 im CurseForge-Launcher starten (EMI-Fix, Armor Hider, Lampen, Create-Addons).
+
+# Paket 1.2.3 – Chisel statt Farbroller-Ausbau (2026-11-06)
+
+Nutzer: „Bessere Idee, mache den Chissle rein, aber auch für z.B. Betong“. Phase 42 (Farbroller für alle Baublöcke)
+damit **verworfen**; Spezifikation bleibt als Notiz, Status geändert.
+
+## Erledigt
+- [x] Geprüft: Original-Chisel gibt es für 1.21.1 nicht; Rechiseled 1.2.6 hat **keine** Beton-Varianten, Chisel Reborn
+  2.0.1 hat 32 Muster je Betonfarbe (512 Beton-Blockzustände) plus Stein, Holz, Wolle, Glas, Erzblöcke u. a.
+- [x] Paket `releases/Craft-1.2.3-curseforge.zip` (9,2 MB): wie 1.2.2 (Craft 1.2.2), Manifest + Chisel Reborn 2.0.1
+  (551763/8288925) und Cryonic Config 1.0.0 (1208896/7344729, MC 1.21–1.21.11) → 89 Einträge; Architectury 13.0.11
+  ist schon im Paket. Nicht im Client gestartet.
+
+## Nächste Schritte
+- Paket 1.2.3 im CurseForge-Launcher starten; Meißel an Beton/Stein prüfen; EMI-Fix (Ender-Tank), Armor Hider,
+  Ad-Astra-Lampen, Create-Addons.
+- Client-Tests §20–22 aus 1.2.0 weiter offen.

@@ -5,7 +5,7 @@ Smooth Stone?“ Entschieden (Nutzer, 2026-11-06): **beides kombiniert** (echte 
 tönen) und **Drop = Originalblock** (Farbe geht beim Abbauen verloren). Kein Pack-Vorbild, neuer Inhalt; erweitert
 den IC2-Farbroller (`spec/05` §4.1). Bisheriges Verhalten (Kabel, Bauschaumwand, Wolle, Schafe) bleibt unverändert.
 
-Status: **Spezifikation, Freigabe offen.**
+Status: **verworfen** (Nutzer, 2026-11-06: „Bessere Idee, mache den Chissle rein, aber auch für z.B. Betong“) – stattdessen Chisel Reborn im CurseForge-Paket 1.2.3. Nicht umgesetzt.
 
 ## 1. Reihenfolge beim Rechtsklick auf einen Block
 
