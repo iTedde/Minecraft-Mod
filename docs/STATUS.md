@@ -3400,3 +3400,20 @@ damit **verworfen**; Spezifikation bleibt als Notiz, Status geändert.
 - Paket 1.2.3 im CurseForge-Launcher starten; Meißel an Beton/Stein prüfen; EMI-Fix (Ender-Tank), Armor Hider,
   Ad-Astra-Lampen, Create-Addons.
 - Client-Tests §20–22 aus 1.2.0 weiter offen.
+
+# Version 1.2.3 (2026-11-06)
+
+Nutzer: „Erstelle die neue Version“.
+
+## Erledigt
+- [x] Craft **1.2.3** (`releases/craft-1.2.3.jar`): Stand 1.2.2 (Ad-Astra-Lampen, Ender-Tank/EMI-Fix), Versionsnummer an
+  das Paket angeglichen. `gradlew runData`, danach `build` (inkl. JUnit) grün.
+- [x] Paket `releases/Craft-1.2.3-curseforge.zip` enthält jetzt Craft 1.2.3 (Manifest unverändert, 89 Einträge).
+- [x] Wiki „Create & Paket-Mods“: neue Mods aus 1.2.1–1.2.3 (Beschreibungen aus den `neoforge.mods.toml`), Ad-Astra-
+  Lampen; `Craft-Wiki.html` und `Craft-Wiki-EN.html` neu erzeugt.
+- Nicht im Client gestartet.
+
+## Nächste Schritte
+- Paket 1.2.3 im CurseForge-Launcher starten; Meißel an Beton, Rüstung ausblenden, EMI-Seitenleiste mit Ender-Tank,
+  Ad-Astra-Lampen, Create-Addons prüfen.
+- Client-Tests §20–22 aus 1.2.0 weiter offen.
