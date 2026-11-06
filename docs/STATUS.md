@@ -3330,3 +3330,21 @@ Controller, Create: Ultimate Factory, Create Bits 'n Bobs, Create Transmission, 
 ## Nächste Schritte
 - Paket 1.2.1 im CurseForge-Launcher starten; Lampenhelligkeit und die neuen Create-Addons prüfen.
 - Client-Tests §20–22 aus 1.2.0 weiter offen.
+
+# Paket 1.2.2 – Rüstung ausblenden (2026-11-06)
+
+Nutzer: „Ich möchte, das es möglich ist, das man die Rüstung usw. die man an hat, auch ausblenden kann“; Auswahl
+„Armor Hider“ (statt Armor Cosmetic oder eigener Umsetzung in Craft).
+
+## Erledigt
+- [x] Paket `releases/Craft-1.2.2-curseforge.zip` (9,2 MB): wie 1.2.1 (Craft 1.2.1), Manifest + Armor Hider 0.14.6
+  (1475841/9347542) und Bibliothek Eunomia 0.3.15 (1654849/9347254) → 87 Einträge. Abhängigkeiten geprüft
+  (NeoForge ≥ 21.1.244, MC 1.21–1.21.1). Armor Hider hängt sich in `HumanoidArmorLayer` und die NeoForge-
+  Rüstungsmodelle ein; Craft zeichnet alle Rüstungen (IC2, GraviSuite, MPS …) über diese Vanilla-Schicht, also
+  greift das Ausblenden auch dort. Muss auf Server und Client installiert sein (im Paket der Fall).
+- Nicht im Client gestartet.
+
+## Nächste Schritte
+- Paket 1.2.2 im CurseForge-Launcher starten; Rüstung je Slot ausblenden (Armor-Hider-Einstellungen über
+  Optionen → Skin-Anpassung), auch Quanten-/MPS-/GraviSuite-Teile prüfen; Lampen und Create-Addons aus 1.2.1.
+- Client-Tests §20–22 aus 1.2.0 weiter offen.
