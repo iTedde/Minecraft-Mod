@@ -3478,3 +3478,17 @@ Nutzer: „Ja, schalte die doppelten Erze ab“, dazu: „Nicht die Mining welt 
 ## Nächste Schritte
 - Paket 1.2.4 im CurseForge-Launcher starten; prüfen, dass `serverconfig/Mekanism/world.toml` der Welt die drei Erze
   auf `false` hat; Mekanism-Maschinen mit Craft-Strom über FE Producer.
+
+# Version 1.2.4 (2026-11-06)
+
+Nutzer: „Erstelle die neue Version“.
+
+## Erledigt
+- [x] Craft **1.2.4** (`releases/craft-1.2.4.jar`): Code wie 1.2.3, Versionsnummer an das Paket angeglichen.
+  `gradlew runData`, danach `build` (inkl. JUnit) grün.
+- [x] Paket `releases/Craft-1.2.4-curseforge.zip` (9,2 MB) enthält jetzt Craft 1.2.4; Manifest 91 Einträge (Mekanism +
+  Generators), `overrides/defaultconfigs/Mekanism/world.toml` (Zinn/Uran/Blei aus). Nicht im Client gestartet.
+
+## Nächste Schritte
+- Paket 1.2.4 im CurseForge-Launcher starten; Mekanism mit Craft-Strom (FE Producer), keine Mekanism-Zinn-/Uran-/
+  Bleierze in neuen Chunks, Mining-Dimension unverändert.
