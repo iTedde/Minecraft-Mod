@@ -3460,3 +3460,21 @@ Nutzer: „Thermal Dynamics, Mekanism, Mekanism Generators – das kann auch noc
 ## Nächste Schritte
 - Paket 1.2.4 im CurseForge-Launcher starten; Mekanism-Maschinen mit Craft-Strom über FE Producer prüfen.
 - Offen beim Nutzer: doppelte Erze (Mekanism-Zinn/-Blei/-Uran) per Config abschalten?
+
+# Paket 1.2.4 – doppelte Mekanism-Erze aus (2026-11-06)
+
+Nutzer: „Ja, schalte die doppelten Erze ab“, dazu: „Nicht die Mining welt erneuern“.
+
+## Erledigt
+- [x] Mekanism `WorldConfig` ist eine **Server-/Welt-Config** (`<Welt>/serverconfig/Mekanism/world.toml`); neue Welten
+  übernehmen `defaultconfigs/Mekanism/world.toml`. Paket 1.2.4 enthält jetzt
+  `overrides/defaultconfigs/Mekanism/world.toml` mit `[tin]`, `[uranium]`, `[lead]` `shouldGenerate = false`; Osmium,
+  Fluorit und Salz bleiben an, fehlende Werte ergänzt NeoForge.
+- [x] Keine Neugenerierung: wirkt nur auf neu erzeugte Chunks; `enableRegeneration` (Mekanism-Retrogen) bleibt
+  `false`; Mining-Dimension und Oberwelt bleiben unverändert.
+- Hinweis: Eine Welt, die schon einmal mit Mekanism geladen wurde, hat ihre eigene `serverconfig`-Datei – dort die
+  drei Werte von Hand auf `false` setzen. Nicht im Client gestartet.
+
+## Nächste Schritte
+- Paket 1.2.4 im CurseForge-Launcher starten; prüfen, dass `serverconfig/Mekanism/world.toml` der Welt die drei Erze
+  auf `false` hat; Mekanism-Maschinen mit Craft-Strom über FE Producer.
