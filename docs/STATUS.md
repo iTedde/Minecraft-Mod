@@ -3368,3 +3368,18 @@ Nutzer: „NEI ist teilweise super verbuggt“ (gemeint: EMI).
   Hider), Ad-Astra-Lampen, Create-Addons aus 1.2.1.
 - Weitere EMI-Fehler beim Nutzer nachfragen (Log zeigte keine weiteren).
 - Client-Tests §20–22 aus 1.2.0 weiter offen.
+
+# Phase 42.0 – Spezifikation Farbroller für alle Baublöcke (2026-11-06)
+
+Nutzer: „Kann man das so machen, das der Roller auch alle anderen Baublöcke einfärben kann? z.B. Smooth Stone?“
+Entschieden: beides kombiniert (echte Farbvariante, sonst tönen), Drop = Originalblock.
+
+## Erledigt
+- [x] `docs/spec/42-farbroller-alle-bloecke.md`: Reihenfolge (PaintableBlock → Vanilla-Farbfamilie → getönter
+  Vollblock), Familien (Wolle, Teppich, Glas/-scheibe, Terrakotta, glasierte Terrakotta, Beton/-pulver, Kerzen,
+  Shulkerkiste, Bett, Banner), `craft:painted_block` mit Block-Entity (Originalzustand + Farbe), Verhalten wie das
+  Original, Drop des Originals, Tag `craft:unpaintable`, Grenzen; Teilphasen 42.1–42.3. Spec-README, CLAUDE.md.
+
+## Nächste Schritte
+- Freigabe der Spezifikation durch den Nutzer, dann 42.1.
+- Paket 1.2.2 im CurseForge-Launcher starten (EMI-Fix, Armor Hider, Lampen, Create-Addons).
