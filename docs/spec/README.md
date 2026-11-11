@@ -54,6 +54,7 @@ Vanilla-Klassen/-Felder tragen lesbare Namen (`Block.cobblestone`, `Item.redston
 | `37-kein-tempo.md` | Nichts macht mehr schneller: Deckel auf Sprinttempo für Quanten-, Gravi-, Jetpack- und MPS-Bewegung, Kaffee ohne Tempo, Ausgleich je Teil – freigegeben 2026-10-29 (Phase 37) |
 | `39-zusatzmods.md` | Zusatzmods im Paket (Forgematica, Armor Stand Arms, Subtle Effects, Particle Rain, Pick Up Notifier, Enhanced Player List) und Spalte „abgebaute Blöcke“ in der EPL-Tab-Liste (Phase 39) |
 | `42-farbroller-alle-bloecke.md` | Farbroller färbt alle Baublöcke: echte Vanilla-Farbvarianten tauschen, sonst volle Blöcke tönen (Drop = Original) – verworfen 2026-11-06, stattdessen Chisel Reborn (Phase 42) |
+| `43-oml-eu.md` | EU-Eingang für die elektrischen Lichter von Open Modular Lighting: 1 EU = 1 FE, LV (über 32 EU explodiert), FE bleibt; Kabel verbinden sich (Phase 43) |
 | `38-solarfeld-leitung.md` | Solarpanels leiten verlustfrei untereinander (nur von Panels), ein Kabel an einem Feld sammelt alles – freigegeben 2026-10-29 (Phase 38) |
 
 Ergänzend: `docs/balancing.md` (Vorschlag, nicht freigegeben), `docs/abweichungen.md`.

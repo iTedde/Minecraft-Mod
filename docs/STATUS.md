@@ -3526,3 +3526,22 @@ Create: Enchantment Industry“.
 ## Nächste Schritte
 - Paket 1.2.5 im CurseForge-Launcher starten (NeoForge 21.1.265); Flutlicht mit Craft-Strom über FE Producer prüfen,
   Enchantment Industry/FluidLogistics/Mobile Packages kurz anspielen.
+
+# Phase 43.1 – EU für Open Modular Lighting (2026-11-11)
+
+Nutzer: „Kannst du die Flutlichter auf EU dann umstellen?“ Entschieden: 1 EU = 1 FE, LV 32 mit Explosion, FE bleibt.
+
+## Erledigt
+- [x] `docs/spec/43-oml-eu.md` (Entscheidungen, Umfang, Umsetzung).
+- [x] `compat/oml/OmlEuInput`: elektrische OML-Lichter (Flutlicht, UV-Flutlicht, Pflanzenlicht, Leuchtstoffröhren,
+  Würfellicht) als LV-EU-Senke im Netz (Stellvertreter je Position; Chunk-Laden, Nachbar-Benachrichtigung, Prüfung
+  jede Sekunde), EU 1:1 als FE in den Speicher des Lichts, über 32 EU `explodeMachineAt`. Kabel verbinden sich
+  optisch (`CableBlock.connects`, `CableBlockEntity.canInteractWith`). Ohne OML wirkungslos, keine Compile-Abhängigkeit.
+- [x] GameTests `OmlEuInputGameTests` (32 EU → 32 FE, Kabel verbunden, abgebautes Licht verlässt das Netz; 128 EU →
+  Explosion). Lauf mit OML 1.0.0 und `-Pneo_version=21.1.265` in eigenem Testordner: **alle 580 Tests grün**.
+  Normaler `gradlew build` (21.1.259) grün.
+- [x] Wiki-Zeile Open Modular Lighting, Spec-README, CLAUDE.md-Phasentabelle; Wikis neu erzeugt.
+
+## Nächste Schritte
+- **43.2** Craft 1.2.5 + Paket (enthält bisher Craft 1.2.4) – auf Wunsch des Nutzers.
+- Client-Test: Flutlicht an LV-Kabel (Kabel verbindet sich, Licht geht an), an MV → Explosion.

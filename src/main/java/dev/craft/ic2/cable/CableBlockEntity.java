@@ -1,5 +1,6 @@
 package dev.craft.ic2.cable;
 
+import dev.craft.compat.oml.OmlEuInput;
 import dev.craft.core.energy.EnergyConductor;
 import dev.craft.core.energy.EnergyNets;
 import dev.craft.core.energy.EnergySink;
@@ -82,7 +83,8 @@ public class CableBlockEntity extends BlockEntity implements EnergyConductor {
         if (tile instanceof LuminatorBlockEntity luminator) {
             return luminator.canCableConnectFrom(worldPosition);
         }
-        return tile instanceof EnergySink || tile instanceof EnergySource || tile instanceof EnergyConductor;
+        return tile instanceof EnergySink || tile instanceof EnergySource || tile instanceof EnergyConductor
+                || OmlEuInput.isEuInput(tile.getBlockState());
     }
 
     // --- energy net ---

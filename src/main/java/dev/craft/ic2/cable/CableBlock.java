@@ -9,6 +9,7 @@ import dev.craft.core.energy.EnergySink;
 import dev.craft.core.energy.EnergySource;
 import dev.craft.ic2.Ic2BlockEntityTypes;
 import dev.craft.ic2.Ic2Blocks;
+import dev.craft.compat.oml.OmlEuInput;
 import dev.craft.ic2.block.LuminatorBlockEntity;
 import dev.craft.ic2.block.PaintableBlock;
 import dev.craft.ic2.item.tool.InsulationCutterItem;
@@ -145,7 +146,8 @@ public class CableBlock extends BaseEntityBlock implements PaintableBlock {
         return neighbor instanceof CableBlockEntity
                 || neighbor instanceof EnergySink
                 || neighbor instanceof EnergySource
-                || neighbor instanceof EnergyConductor;
+                || neighbor instanceof EnergyConductor
+                || OmlEuInput.isEuInput(neighbor.getBlockState());
     }
 
     /** Recomputes the connections of the cable at {@code pos} and of its neighbours (after painting). */

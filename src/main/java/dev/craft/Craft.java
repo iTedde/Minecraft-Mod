@@ -4,6 +4,7 @@ import com.mojang.logging.LogUtils;
 import dev.craft.advancedmachines.AdvancedMachines;
 import dev.craft.buildcraft.BuildCraft;
 import dev.craft.compat.adastra.AdAstraLamps;
+import dev.craft.compat.oml.OmlEuInput;
 import dev.craft.compactsolars.CompactSolars;
 import dev.craft.enderstorage.EnderStorage;
 import dev.craft.gravisuite.GraviSuite;
@@ -57,6 +58,7 @@ public final class Craft {
         Mps.init(modBus);
         LightShield.init(modBus);
         AdAstraLamps.init(modBus);
+        OmlEuInput.init();
         CraftCreativeTabs.TABS.register(modBus);
         modBus.addListener(Craft::addPackFinders);
     }
