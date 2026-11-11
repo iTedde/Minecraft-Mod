@@ -3503,3 +3503,26 @@ Nutzer: „Das ist alles abgesegnet, ist es gepusht?“
 
 ## Nächste Schritte
 - Neue Version/Paket erst auf Wunsch des Nutzers.
+
+# Paket 1.2.5 – Flutlichter + drei Create-Addons (2026-11-11)
+
+Nutzer: „Hätte gerne so Flutlichter im Spiel … Dazu müssen noch diese rein: fluid logistics, mobile packages,
+Create: Enchantment Industry“.
+
+## Erledigt
+- [x] Licht-Mods für NeoForge 1.21.1 geprüft: **Open Modular Lighting** 1.0.0 (Keridos, Port von FloodLights 1.7.10)
+  gewählt – elektrisches Flutlicht (Strahl 64 / Kegel 32 / 8 Blöcke, 10–20 FE/t), Brennstoff-Flutlicht, UV-Flutlicht,
+  Pflanzenlicht, Leuchtstoff-/Würfellichter; Strom als FE → Craft-Strom über den FE Producer. OMLib steckt als
+  Jar-in-Jar drin. Alternativen nicht aufgenommen: Lumen Rigs (Bühnenlicht, Veil optional), NoxLights und Astrea:
+  Last Light (brauchen Veil/Lodestone).
+- [x] Open Modular Lighting verlangt **NeoForge ≥ 21.1.264** → Paket-Loader von 21.1.259 auf **21.1.265** angehoben
+  (Craft verlangt nur ≥ 21.1.259; Entwicklung bleibt auf 259).
+- [x] Paket `releases/Craft-1.2.5-curseforge.zip` (8,8 MB): wie 1.2.4 (Craft 1.2.4), Manifest + Create: FluidLogistics
+  1.3.2 (1475079/9340866), Create: Mobile Packages 0.7.8 (1232978/9067013), Create: Enchantment Industry 2.5.4b
+  (688768/9104664; Beta-Kanal, braucht Create ≥ 6.0.10 und Dragons Plus ≥ 1.11.9 – beide im Paket) und Open Modular
+  Lighting 1.0.0 (268178/9412006) → 95 Einträge. Nicht im Client gestartet.
+- [x] Wiki „Create & Paket-Mods“: vier Zeilen; Wikis neu erzeugt.
+
+## Nächste Schritte
+- Paket 1.2.5 im CurseForge-Launcher starten (NeoForge 21.1.265); Flutlicht mit Craft-Strom über FE Producer prüfen,
+  Enchantment Industry/FluidLogistics/Mobile Packages kurz anspielen.
