@@ -128,11 +128,14 @@ Batterieslots.
 
 ### 5.1 Partikel (nur Client, Anzeige)
 
-Bei aktivem Pad mit ≥ 4 EU Speicher: je Spalte (1 + 2n)² Positionen über der Fläche (Breite 0,9 + 2n) steigen
-farbige Funken auf. Static 6 je Position, Lebensdauer ~5, Steiggeschwindigkeit 3,0 (×0,2, Dämpfung 0,99);
+Bei aktivem Pad mit ≥ 4 EU Speicher (`randomDisplayTick`): (1 + 2n) Durchgänge, je Durchgang so viele Funken wie
+unten angegeben, an zufälligen Stellen über der Fläche (Breite 0,9 + 2n, Höhe +0,2 … 0,4) steigen farbige Funken
+auf (korrigiert in 47.2: nicht (1 + 2n)²). Static 6 je Position, Lebensdauer ~5, Steiggeschwindigkeit 3,0 (×0,2, Dämpfung 0,99);
 Crystalizor 5 je Position, Lebensdauer ~14, Steigen 7,6; Lapotronic 6, ~14, 7,6. Farbe: normal grün (R 0,
 G 0,6–1,0, B 0; Lapotronic B = G → türkis); Entladungsmodul gelb/orange (R 1, G 0,6–1,0); Schadensmodul rot
-(R 1, G 0). Größe 0,02, kein Kollisionstest. In 1.21 eigener Partikeltyp mit Farbe (Abweichung: Zahlenwerte sinngemäß).
+(R 1, G 0; Lapotronic B 0–0,4). Größe 0,02, kein Kollisionstest. Die Startgeschwindigkeit (0, 3,0/7,6, 0) wird wie
+bei jedem Partikel zufällig gestreut und auf die Grundgeschwindigkeit normiert, die Steigrate dann × 0,2; Lebensdauer
+Basis / (0,2 … 1,0). In 1.21 eigener Partikeltyp mit Farbe (Abweichung: Zahlenwerte sinngemäß).
 
 ## 6 Gefahren
 
@@ -187,7 +190,7 @@ Modul-Tooltip: „Restricted: Emitter Slot“, „Modulation: Projector/Field“
 - Rechtsklick auf die **Unterseite** des passenden Pads (`upgradeAnySide=false`), falscher Pad → Klick verbraucht,
   nichts passiert. Nur Server:
   - Ist der Pad aktiv (`upgradeZap`): Meldung „The pad is active and electrocutes you!“ und electrocution
-    max(2 × Stufe, ⌊D × 1,0⌋) (D aus §6 mit alter Stufe und aktuellem Speicher).
+    max(2 × Stufe, ⌈D × 1,0⌉) (D aus §6 mit alter Stufe und aktuellem Speicher; `ke.f` = aufrunden).
   - Block wird zum nächsten Pad, **Speicher bleibt**, Batterieslot bleibt. Hatte der alte Pad Modulplätze, bleiben
     Projektor/Feld/Upgrades auf ihren Plätzen. Beim Static → Crystalizor landet das Upgrade aus Static-Platz 1
     auf **Crystalizor-Platz 2 (Feld)** – dort wirkt es nicht, es lässt sich aber herausnehmen (Originalfehler,
@@ -246,7 +249,12 @@ Alle Bauteile gibt es in Craft bereits (IC2-Phasen 3/6/7).
 - Partikel als eigener farbiger Partikeltyp, Zahlenwerte sinngemäß.
 - Nur Spieler werden geladen (Original nur `EntityPlayerMP`, in 1.21 jeder `ServerPlayer` – gleich).
 - Inventar einheitlich 6 Plätze (Batterie, Projektor, Feld, 3 Upgrades); der Static nutzt Platz 0 und 1 (Upgrade),
-  Crystalizor/Lapotronic die Upgrade-Plätze 3–4 bzw. 3–5. Die Zuordnung beim Ausbau (§8) folgt in 47.2.
+  Crystalizor/Lapotronic die Upgrade-Plätze 3–4 bzw. 3–5 – das entspricht genau den Original-Indizes, der Ausbau
+  (§8) überträgt die Plätze daher 1:1 nach dem Original-Algorithmus.
+- Ausbausatz über `onItemUseFirst` (wie im Original vor dem Block-Klick); der neue Pad ist inaktiv (Original:
+  Metadaten ohne Bit 8).
+- Partikel nur auf dem Client: der Server schickt dem Client bei Änderung einen kleinen Zustand (≥ 4 EU, Entladungs-/
+  Schadensmodul, Feldausdehnung) statt des ganzen Speichers; Partikeltextur `minecraft:generic_0`.
 - Klickgeräusch `random.click` → Steinknopf-Klick (`block.stone_button.click_on`), Lautstärke/Tonhöhe wie im Original.
 - Abbauen dauert immer wie ohne passendes Werkzeug (`requiresCorrectToolForDrops`, in keinem `mineable`-Tag) –
   wie `canHarvestBlock = false` im Original; Drop nie (Loot-Tabelle leer), nur der Schraubenschlüssel gibt den Pad.

@@ -3856,5 +3856,29 @@ Nutzer: Mod „mit dem man Bälle auf Flächen werfen kann“ zum Auffüllen/Ren
 
 ## Nächste Schritte
 - Paket 1.2.10 im CurseForge-Launcher testen (Server braucht den Mod ebenfalls).
-- **47.2** Effizienz-Upgrade, Emitter-Module, Ausbausätze, Partikel.
+- **47.3** EMI (Info-Seiten), Herkunft, Wiki, Testplan, Craft-Version + Paket.
+- Client-Test Pads/Module/Partikel – nur nach Rückfrage.
+- Phase 51 (Leuchtschild „wie Blendgranate“): Umfang klären.
+
+# Phase 47.2 – ChargePads: Module, Ausbausätze, Partikel (2026-11-12)
+
+## Erledigt
+- [x] Items: Effizienz-Upgrade, 8 Emitter-Module (`PadModule.getName()`, Tooltip Beschränkt/Modulation/Stärke),
+  Kristallisator-/Lapotron-Ausbausatz, MFSU-Aufrüstung (nur Zwischenprodukt); Seltenheiten laut §1; IC2-Tab.
+- [x] Ausbausatz (`UpgradeKitItem.onItemUseFirst`): nur Unterseite, falscher Pad schluckt den Klick, aktiver Pad →
+  Meldung + electrocution max(2 × Stufe, ⌈D⌉); Speicher/Batterie bleiben, Plätze nach Original-Algorithmus
+  (Static-Upgrade landet im Feldplatz), Rest fällt nach unten; Satz verbraucht außer Kreativ.
+- [x] Rezepte §10: 3 Ausbau-Rezepte + 2 formlose Pad-Rezepte, Effizienz-Upgrade (nur volles RE-Akku per
+  Komponenten-Zutat), alle 8 Module.
+- [x] Partikel `craft:charge_spark` (Farbe je Stufe/Modul, Werte aus `ac`/`ad`/`ab`/`j`), Client-Zustand „fx“.
+- [x] Texturen: 12 Item-Icons aus `blocks.png` (Script `tools/scripts/charge_pads_textures.py` erweitert).
+- [x] 8 GameTests `ChargePadModuleGameTests` (Ausbau + Plätze, Ausbau-Zap, Modulplätze, Feldausdehnung,
+  Nahbereich, Entladung, Schadensfeld, Effizienz-Rezept). Lauf 618 Tests: rot nur der bekannte Wackelkandidat
+  `liquidTesseractFillsRemoteTank`. `runData`, danach `build` grün.
+- Doku: Spec 47 §5.1/§8/§12 korrigiert, `abweichungen.md`, `architektur.md`, CLAUDE.md. Nicht im Client gestartet.
+
+## Nächste Schritte
+- **47.3** EMI (Info-Seiten), Herkunft, Wiki, Testplan, Craft-Version + Paket.
+- Client-Test Pads/Module/Partikel – nur nach Rückfrage.
+- Paket 1.2.10 im CurseForge-Launcher testen.
 - Phase 51 (Leuchtschild „wie Blendgranate“): Umfang klären.

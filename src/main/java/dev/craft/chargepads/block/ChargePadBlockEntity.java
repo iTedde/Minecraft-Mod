@@ -27,6 +27,9 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.MenuProvider;
@@ -39,6 +42,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ClipContext;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
@@ -67,6 +71,9 @@ public class ChargePadBlockEntity extends BlockEntity implements EnergySink, Wre
     public static final int MAX_TRANSFORMERS = 4;
     /** Inventory: battery, projector, field, three upgrade slots; a static pad uses slots 0 and 1 only. */
     public static final int INVENTORY_SIZE = 6;
+    /** Sparks only rise with at least this much stored (original {@code y() >= 4}). */
+    public static final int PARTICLE_MIN_STORAGE = 4;
+    private static final String FX_TAG = "fx";
 
     private final ItemStackHandler inventory = new ItemStackHandler(INVENTORY_SIZE) {
         @Override
@@ -99,6 +106,8 @@ public class ChargePadBlockEntity extends BlockEntity implements EnergySink, Wre
     private int fieldExpansion;
     /** Set when the field found nothing to charge; the block switches off at its next check (§4). */
     private boolean nothingToCharge;
+    /** Particle state last sent to the clients (server) or received (client); see {@link #particleState()}. */
+    private int syncedFx;
 
     public ChargePadBlockEntity(BlockPos pos, BlockState state) {
         super(CpBlockEntityTypes.CHARGE_PAD.get(), pos, state);
@@ -217,6 +226,49 @@ public class ChargePadBlockEntity extends BlockEntity implements EnergySink, Wre
         if (changed || before != storage) {
             setChanged();
         }
+        int fx = particleState();
+        if (fx != syncedFx) {
+            syncedFx = fx;
+            BlockState state = getBlockState();
+            level.sendBlockUpdated(worldPosition, state, state, Block.UPDATE_CLIENTS);
+        }
+    }
+
+    // --- client view for the particles (§5.1) ---
+
+    /** Bit 0: ≥ 4 EU stored, bit 1: drain module, bit 2: damage module, bits 3+: field expansion. */
+    private int particleState() {
+        boolean emitters = ChargePadsConfig.ALLOW_EMITTER_UPGRADE;
+        return (storage >= PARTICLE_MIN_STORAGE ? 1 : 0) | (emitters && drainModule ? 2 : 0)
+                | (emitters && damageModule ? 4 : 0) | fieldExpansion << 3;
+    }
+
+    public boolean isClientPowered() {
+        return (syncedFx & 1) != 0;
+    }
+
+    public boolean isClientDrain() {
+        return (syncedFx & 2) != 0;
+    }
+
+    public boolean isClientDamage() {
+        return (syncedFx & 4) != 0;
+    }
+
+    public int getClientFieldExpansion() {
+        return syncedFx >> 3;
+    }
+
+    @Override
+    public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
+        CompoundTag tag = new CompoundTag();
+        tag.putInt(FX_TAG, particleState());
+        return tag;
+    }
+
+    @Override
+    public Packet<ClientGamePacketListener> getUpdatePacket() {
+        return ClientboundBlockEntityDataPacket.create(this);
     }
 
     /** Battery slot (§3): one discharge per tick, only when the pad needs energy. */
@@ -567,6 +619,10 @@ public class ChargePadBlockEntity extends BlockEntity implements EnergySink, Wre
     @Override
     protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.loadAdditional(tag, registries);
+        if (tag.contains(FX_TAG)) {
+            syncedFx = tag.getInt(FX_TAG);
+            return;
+        }
         storage = tag.getInt("storage");
         inventory.deserializeNBT(registries, tag.getCompound("Items"));
     }

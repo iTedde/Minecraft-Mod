@@ -59,6 +59,11 @@ public enum PadTier {
         return tier * 10_000;
     }
 
+    /** The pad an upgrade kit turns this one into (§8); the lapotronic pad has none. */
+    public PadTier next() {
+        return this == STATIC ? CRYSTALIZOR : LAPOTRONIC;
+    }
+
     public boolean hasModuleSlots() {
         return tier > 1;
     }

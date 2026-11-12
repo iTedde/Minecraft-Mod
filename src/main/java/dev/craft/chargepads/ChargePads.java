@@ -1,5 +1,6 @@
 package dev.craft.chargepads;
 
+import dev.craft.chargepads.particle.CpParticles;
 import dev.craft.core.CraftCreativeTabs;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
@@ -20,6 +21,7 @@ public final class ChargePads {
         CpItems.ITEMS.register(modBus);
         CpBlockEntityTypes.BLOCK_ENTITY_TYPES.register(modBus);
         CpMenus.MENUS.register(modBus);
+        CpParticles.PARTICLE_TYPES.register(modBus);
         modBus.addListener(ChargePads::registerCapabilities);
         modBus.addListener(ChargePads::addToCreativeTab);
     }

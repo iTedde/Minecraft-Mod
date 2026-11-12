@@ -6,10 +6,14 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.craft.chargepads.ChargePadsConfig;
 import dev.craft.chargepads.CpBlockEntityTypes;
+import dev.craft.chargepads.CpBlocks;
 import dev.craft.chargepads.PadTier;
+import dev.craft.chargepads.particle.ChargePadParticles;
 import dev.craft.core.CraftDamageTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.network.chat.Component;
+import net.neoforged.neoforge.items.ItemStackHandler;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -259,6 +263,79 @@ public class ChargePadBlock extends BaseEntityBlock {
         ItemEntity item = new ItemEntity(level, pos.getX() + x, pos.getY() + y, pos.getZ() + z, stack.copy());
         item.setPickUpDelay(10);
         level.addFreshEntity(item);
+    }
+
+    // --- upgrade kits (§8) ---
+
+    /**
+     * Turns {@code pad} into the next pad (server only). An active pad first electrocutes the player with
+     * {@code max(2 × tier, ⌈D × modifier⌉)}. Storage and battery stay; module slots and upgrades move like in the
+     * original (the static pad's upgrade lands in the crystalizor's field slot); whatever finds no slot falls out
+     * below.
+     */
+    public static void upgrade(Level level, BlockPos pos, ChargePadBlockEntity pad, @Nullable Player player) {
+        PadTier old = pad.getTier();
+        int storage = pad.getStorage();
+        BlockState state = level.getBlockState(pos);
+        if (player != null && ChargePadsConfig.UPGRADE_ZAP && state.getValue(ACTIVE)) {
+            int damage = (int) Math.ceil(old.getDischargeDamage(storage) * ChargePadsConfig.UPGRADE_ZAP_MODIFIER);
+            damage = Math.max(2 * old.getTier(), damage);
+            player.sendSystemMessage(Component.translatable("message.craft.chargepads.upgrade_zap"));
+            player.hurt(level.damageSources().source(CraftDamageTypes.ELECTROCUTION), damage);
+        }
+        int oldSlots = old.getSlotCount();
+        ItemStack[] stacks = new ItemStack[oldSlots];
+        for (int slot = 0; slot < oldSlots; slot++) {
+            stacks[slot] = pad.getInventory().getStackInSlot(slot);
+            pad.getInventory().setStackInSlot(slot, ItemStack.EMPTY);
+        }
+        PadTier tier = old.next();
+        level.setBlock(pos, CpBlocks.pad(tier).get().defaultBlockState(), Block.UPDATE_ALL);
+        if (!(level.getBlockEntity(pos) instanceof ChargePadBlockEntity upgraded)) {
+            return;
+        }
+        upgraded.setStorage(storage);
+        ItemStackHandler inventory = upgraded.getInventory();
+        inventory.setStackInSlot(PadTier.BATTERY_SLOT, stacks[PadTier.BATTERY_SLOT]);
+        stacks[PadTier.BATTERY_SLOT] = ItemStack.EMPTY;
+        if (old.hasModuleSlots() && tier.hasModuleSlots()) {
+            inventory.setStackInSlot(PadTier.PROJECTOR_SLOT, stacks[PadTier.PROJECTOR_SLOT]);
+            stacks[PadTier.PROJECTOR_SLOT] = ItemStack.EMPTY;
+        }
+        int target = tier.hasModuleSlots() ? 2 : 1;
+        for (int source = old.hasModuleSlots() ? 2 : 1; source < oldSlots && target < tier.getSlotCount();
+             source++, target++) {
+            inventory.setStackInSlot(target, stacks[source]);
+            stacks[source] = ItemStack.EMPTY;
+        }
+        for (ItemStack stack : stacks) {
+            dropBelow(level, pos, stack);
+        }
+    }
+
+    /** Leftovers of an upgrade fall out below in stacks of 8–16 ({@code upgradeAnySide = false}). */
+    private static void dropBelow(Level level, BlockPos pos, ItemStack stack) {
+        RandomSource random = level.random;
+        double x = pos.getX() + random.nextFloat() * 0.8 + 0.1;
+        double y = pos.getY() - (random.nextFloat() * 0.8 + 0.1);
+        double z = pos.getZ() + random.nextFloat() * 0.8 + 0.1;
+        while (!stack.isEmpty()) {
+            ItemEntity item = new ItemEntity(level, x, y, z, stack.split(random.nextInt(9) + 8));
+            item.setDeltaMovement(random.nextGaussian() * 0.05, -(random.nextGaussian() * 0.05 + 0.2),
+                    random.nextGaussian() * 0.05);
+            level.addFreshEntity(item);
+        }
+    }
+
+    // --- particles (§5.1) ---
+
+    /** {@code randomDisplayTick}: sparks rise from active pads with at least 4 EU stored. */
+    @Override
+    public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
+        if (state.getValue(ACTIVE) && level.getBlockEntity(pos) instanceof ChargePadBlockEntity pad
+                && pad.isClientPowered()) {
+            ChargePadParticles.spawn(level, pos, tier, pad, random);
+        }
     }
 
     @Override

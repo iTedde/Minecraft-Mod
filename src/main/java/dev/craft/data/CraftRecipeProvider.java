@@ -25,6 +25,7 @@ import dev.craft.buildcraft.BcItems;
 import dev.craft.buildcraft.transport.PipeType;
 import dev.craft.buildcraft.engine.EngineType;
 import dev.craft.chargepads.CpItems;
+import dev.craft.chargepads.item.PadModule;
 import dev.craft.compactsolars.CsItems;
 import dev.craft.compactsolars.SolarArrayType;
 import dev.craft.forestry.FrFluids;
@@ -3622,6 +3623,60 @@ public final class CraftRecipeProvider extends RecipeProvider {
         shaped(CpItems.LAPOTRONIC_CHARGE_PAD, 1, "lapotronic_charge_pad").pattern("rSr", "c#c")
                 .define('r', Ic2Items.CARBON_PLATE).define('S', Items.STONE_PRESSURE_PLATE)
                 .define('c', Ic2Items.ADVANCED_CIRCUIT).define('#', machine(Ic2Machine.MFSU)).save();
+        // Upgrade kits (spec 47 §8, §10).
+        shaped(CpItems.CRYSTALIZOR_UPGRADE_KIT, 1, "crystalizor_upgrade_kit").pattern("W", "*", "#")
+                .define('W', Ic2Items.ELECTRIC_WRENCH).define('*', Ic2Items.ELECTRONIC_CIRCUIT)
+                .define('#', machine(Ic2Machine.MFE)).save();
+        shaped(CpItems.MFS_UNIT_UPGRADE, 1, "mfs_unit_upgrade").pattern("O*O", "OYO", "O#O")
+                .define('Y', Ic2Items.WRENCH).define('*', Ic2Items.ADVANCED_CIRCUIT)
+                .define('O', Ic2Items.LAPOTRON_CRYSTAL).define('#', Ic2Items.ADVANCED_MACHINE_CASING).save();
+        shaped(CpItems.MFS_UNIT_UPGRADE, 1, "mfs_unit_upgrade_from_mfsu").pattern("Y", "M")
+                .define('Y', Ic2Items.WRENCH).define('M', machine(Ic2Machine.MFSU)).save();
+        shaped(CpItems.LAPOTRONIC_UPGRADE_KIT, 1, "lapotronic_upgrade_kit").pattern("*W*", "@#@")
+                .define('#', CpItems.MFS_UNIT_UPGRADE).define('*', Ic2Items.ADVANCED_CIRCUIT)
+                .define('@', Ic2Items.CARBON_PLATE).define('W', Ic2Items.ELECTRIC_WRENCH).save();
+        shapeless(CpItems.CRYSTALIZOR_CHARGE_PAD, 1, "crystalizor_charge_pad_from_kit",
+                Ingredient.of(CpItems.STATIC_CHARGE_PAD), Ingredient.of(CpItems.CRYSTALIZOR_UPGRADE_KIT));
+        shapeless(CpItems.LAPOTRONIC_CHARGE_PAD, 1, "lapotronic_charge_pad_from_kit",
+                Ingredient.of(CpItems.CRYSTALIZOR_CHARGE_PAD), Ingredient.of(CpItems.LAPOTRONIC_UPGRADE_KIT));
+        // Efficiency upgrade: only a fully charged RE battery fits (original chargedReBattery).
+        Ingredient fullBattery = DataComponentIngredient.of(false, Ic2DataComponents.CHARGE.get(),
+                Ic2Items.RE_BATTERY.get().getMaxCharge(), Ic2Items.RE_BATTERY);
+        Ingredient goldCable = Ingredient.of(Ic2Items.cable(CableType.DOUBLE_INSULATED_GOLD));
+        Ingredient splitter = Ingredient.of(Ic2Items.cable(CableType.SPLITTER));
+        shaped(CpItems.EFFICIENCY_UPGRADE, 1, "efficiency_upgrade").pattern("BfB", "g#g")
+                .define('B', fullBattery).define('f', Ic2Items.cable(CableType.GLASS_FIBRE)).define('g', goldCable)
+                .define('#', Ic2Items.ADVANCED_CIRCUIT).save();
+        // Emitter modules (spec 47 §7, §10).
+        shaped(CpItems.module(PadModule.PROXIMITY_BOOSTER), 1, "proximity_booster_module")
+                .pattern("AAA", "^s^", "gAg").define('A', Ic2Items.ADVANCED_CIRCUIT)
+                .define('^', Ic2Items.OVERCLOCKER_UPGRADE).define('s', splitter).define('g', goldCable).save();
+        shaped(CpItems.module(PadModule.WIDE_BAND_BOOSTER), 1, "wide_band_booster_module")
+                .pattern("A@A", "*s*", "A@A").define('A', Ic2Items.ADVANCED_CIRCUIT)
+                .define('@', CpItems.module(PadModule.PROXIMITY_BOOSTER)).define('*', Ic2Items.ENERGY_CRYSTAL)
+                .define('s', splitter).save();
+        shaped(CpItems.module(PadModule.FIELD_EXPANSION_ALPHA), 1, "field_expansion_module_alpha")
+                .pattern("NdN", "sWs", "NdN").define('N', Ic2Items.NEUTRON_REFLECTOR)
+                .define('d', Ic2Items.cable(CableType.DETECTOR)).define('s', splitter)
+                .define('W', CpItems.module(PadModule.WIDE_BAND_BOOSTER)).save();
+        shaped(CpItems.module(PadModule.FIELD_EXPANSION_DELTA), 1, "field_expansion_module_delta")
+                .pattern("1e1", "sAs", "1e1").define('1', CpItems.module(PadModule.FIELD_EXPANSION_ALPHA))
+                .define('e', CpItems.EFFICIENCY_UPGRADE).define('s', splitter)
+                .define('A', Ic2Items.ADVANCED_CIRCUIT).save();
+        shaped(CpItems.module(PadModule.FIELD_EXPANSION_THETA), 1, "field_expansion_module_theta")
+                .pattern("T^T", "2s2", "eAe").define('T', Ic2Items.THICK_NEUTRON_REFLECTOR)
+                .define('^', Ic2Items.OVERCLOCKER_UPGRADE).define('2', CpItems.module(PadModule.FIELD_EXPANSION_DELTA))
+                .define('s', splitter).define('e', CpItems.EFFICIENCY_UPGRADE)
+                .define('A', Ic2Items.ADVANCED_CIRCUIT).save();
+        shaped(CpItems.module(PadModule.ARMOUR_PRIORITY), 1, "armour_priority_module")
+                .pattern("vEv", "g@g").define('v', Items.GLOWSTONE_DUST).define('E', Items.ENDER_PEARL)
+                .define('g', goldCable).define('@', CpItems.module(PadModule.PROXIMITY_BOOSTER)).save();
+        shaped(CpItems.module(PadModule.DAMAGE_CONVERSION), 1, "damage_conversion_module")
+                .pattern("UUU", "g#g").define('U', Ic2Items.NEAR_DEPLETED_URANIUM_CELL).define('g', goldCable)
+                .define('#', Ic2Items.ADVANCED_CIRCUIT).save();
+        shaped(CpItems.module(PadModule.DRAIN_CONVERSION), 1, "drain_conversion_module")
+                .pattern("vvv", "g#g").define('v', Items.GLOWSTONE_DUST).define('g', goldCable)
+                .define('#', Ic2Items.ADVANCED_CIRCUIT).save();
     }
 
     private ShapedBuilder shaped(ItemLike result, int count, String name) {

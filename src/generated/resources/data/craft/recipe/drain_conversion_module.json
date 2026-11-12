@@ -1,0 +1,22 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "#": {
+      "item": "craft:advanced_circuit"
+    },
+    "g": {
+      "item": "craft:double_insulated_gold_cable"
+    },
+    "v": {
+      "item": "minecraft:glowstone_dust"
+    }
+  },
+  "pattern": [
+    "vvv",
+    "g#g"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:drain_conversion_module"
+  }
+}

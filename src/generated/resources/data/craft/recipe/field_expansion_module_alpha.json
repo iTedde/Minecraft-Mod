@@ -1,0 +1,26 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "N": {
+      "item": "craft:neutron_reflector"
+    },
+    "W": {
+      "item": "craft:wide_band_booster_module"
+    },
+    "d": {
+      "item": "craft:detector_cable"
+    },
+    "s": {
+      "item": "craft:splitter_cable"
+    }
+  },
+  "pattern": [
+    "NdN",
+    "sWs",
+    "NdN"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:field_expansion_module_alpha"
+  }
+}

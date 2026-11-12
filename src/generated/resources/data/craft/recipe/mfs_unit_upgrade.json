@@ -1,0 +1,26 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "#": {
+      "item": "craft:advanced_machine_casing"
+    },
+    "*": {
+      "item": "craft:advanced_circuit"
+    },
+    "O": {
+      "item": "craft:lapotron_crystal"
+    },
+    "Y": {
+      "item": "craft:wrench"
+    }
+  },
+  "pattern": [
+    "O*O",
+    "OYO",
+    "O#O"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:mfs_unit_upgrade"
+  }
+}

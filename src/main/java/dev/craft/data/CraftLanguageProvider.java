@@ -27,6 +27,8 @@ import dev.craft.gregtech.GtMachine;
 import dev.craft.gregtech.block.GtCasingBlock;
 import dev.craft.gregtech.world.GtOre;
 import dev.craft.chargepads.CpBlocks;
+import dev.craft.chargepads.CpItems;
+import dev.craft.chargepads.item.PadModule;
 import dev.craft.compactsolars.CsBlocks;
 import dev.craft.compactsolars.SolarArrayType;
 import dev.craft.powerconverters.ConverterType;
@@ -635,6 +637,35 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
         block(CpBlocks.STATIC_CHARGE_PAD, german ? "Statisches Ladepad" : "Static Charge Pad");
         block(CpBlocks.CRYSTALIZOR_CHARGE_PAD, german ? "Kristallisator-Ladepad" : "Crystalizor Charge Pad");
         block(CpBlocks.LAPOTRONIC_CHARGE_PAD, german ? "Lapotron-Ladepad" : "Lapotronic Charge Pad");
+        item(CpItems.CRYSTALIZOR_UPGRADE_KIT, german ? "Kristallisator-Ausbausatz" : "Crystalizor Upgrade Kit");
+        item(CpItems.MFS_UNIT_UPGRADE, german ? "MFSU-Aufrüstung" : "MFS Unit Upgrade");
+        item(CpItems.LAPOTRONIC_UPGRADE_KIT, german ? "Lapotron-Ausbausatz" : "Lapotronic Upgrade Kit");
+        item(CpItems.EFFICIENCY_UPGRADE, german ? "Effizienz-Upgrade" : "Efficiency Upgrade");
+        item(CpItems.module(PadModule.DRAIN_CONVERSION), german ? "Entladungs-Umwandlungsmodul"
+                : "Drain Conversion Module");
+        item(CpItems.module(PadModule.DAMAGE_CONVERSION), german ? "Schadens-Umwandlungsmodul"
+                : "Damage Conversion Module");
+        item(CpItems.module(PadModule.ARMOUR_PRIORITY), german ? "Rüstungsvorrang-Modul" : "Armour Priority Module");
+        item(CpItems.module(PadModule.PROXIMITY_BOOSTER), german ? "Nahbereichs-Verstärkermodul"
+                : "Proximity Booster Module");
+        item(CpItems.module(PadModule.WIDE_BAND_BOOSTER), german ? "Breitband-Verstärkermodul"
+                : "Wide-Band Booster Module");
+        item(CpItems.module(PadModule.FIELD_EXPANSION_ALPHA), german ? "Feldausdehnungsmodul (Alpha)"
+                : "Field Expansion Module (Alpha)");
+        item(CpItems.module(PadModule.FIELD_EXPANSION_DELTA), german ? "Feldausdehnungsmodul (Delta)"
+                : "Field Expansion Module (Delta)");
+        item(CpItems.module(PadModule.FIELD_EXPANSION_THETA), german ? "Feldausdehnungsmodul (Theta)"
+                : "Field Expansion Module (Theta)");
+        add("tooltip.craft.chargepads.restricted", german ? "Beschränkt: " : "Restricted: ");
+        add("tooltip.craft.chargepads.emitter_slot", german ? "Emitterplatz" : "Emitter Slot");
+        add("tooltip.craft.chargepads.disabled", german ? "DEAKTIVIERT" : "DISABLED");
+        add("tooltip.craft.chargepads.modulation", german ? "Modulation: " : "Modulation: ");
+        add("tooltip.craft.chargepads.strength", german ? "Stärke: " : "Strength: ");
+        add("tooltip.craft.chargepads.strength.alpha", "Alpha");
+        add("tooltip.craft.chargepads.strength.delta", "Delta");
+        add("tooltip.craft.chargepads.strength.theta", "Theta");
+        add("message.craft.chargepads.upgrade_zap", german ? "Das Pad ist aktiv und verpasst dir einen Stromschlag!"
+                : "The pad is active and electrocutes you!");
         add("gui.craft.chargepads.field", german ? "Feld" : "Field");
         add("gui.craft.chargepads.projector", german ? "Projektor" : "Projector");
         add("death.attack.craft.electrocution", german ? "%1$s starb an einem Stromschlag" : "%1$s died from shock");

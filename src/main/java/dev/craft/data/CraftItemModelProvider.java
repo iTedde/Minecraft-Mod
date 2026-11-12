@@ -22,6 +22,7 @@ import dev.craft.portalgun.PgItems;
 import dev.craft.enderstorage.EsItems;
 import dev.craft.gravisuite.GsItems;
 import dev.craft.nuclearcontrol.NcItems;
+import dev.craft.chargepads.CpItems;
 import dev.craft.mps.MpsItems;
 import dev.craft.gravisuite.client.GraviSuiteClient;
 import dev.craft.enderstorage.client.EnderStorageClient;
@@ -31,7 +32,9 @@ import dev.craft.ironchest.IronChestItems;
 import dev.craft.ironchest.IronChestType;
 import dev.craft.redpower.RpItems;
 import net.minecraft.data.PackOutput;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
+import net.neoforged.neoforge.registries.DeferredHolder;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.client.renderer.block.model.BlockModel;
 import net.neoforged.neoforge.client.model.generators.ModelFile;
@@ -56,6 +59,12 @@ public final class CraftItemModelProvider extends ItemModelProvider {
                 NcItems.COUNTER_SENSOR_LOCATION_CARD, NcItems.GT_SENSOR_KIT, NcItems.GT_SENSOR_CARD)) {
             String name = item.getId().getPath();
             withExistingParent(name, mcLoc("item/generated")).texture("layer0", modLoc("item/nuclearcontrol/" + name));
+        }
+        for (DeferredHolder<Item, ? extends Item> item : CpItems.ITEMS.getEntries()) {
+            if (!(item.get() instanceof BlockItem)) {
+                String name = item.getId().getPath();
+                withExistingParent(name, mcLoc("item/generated")).texture("layer0", modLoc("item/chargepads/" + name));
+            }
         }
         basicItem(AdvancedMachinesItems.REFINED_IRON_DUST.get());
         for (DeferredItem<? extends Item> item : List.of(TeItems.INVAR_DUST, TeItems.INVAR_INGOT, TeItems.WOOD_CHIPS,
