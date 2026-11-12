@@ -3732,3 +3732,44 @@ nur EU + MJ (kein FE).
   Boden/Decke, Drehung), alle Karten, Farbwahl, Textkarte.
 - **46.3** Energie-/Durchschnittszähler, Bereichsauslöser, Zähler-Sensorkit/-karte, GT-Sensorkit.
 - Phase 51 (Leuchtschild „wie Blendgranate“): Umfang klären.
+
+# Phase 46.3 – Zähler, Bereichsauslöser, GT-Sensorkit (in Arbeit, Zwischenstand 2026-11-12)
+
+Nutzer: „nächste Phase“, dann „speicher mal kurz“. **Baut noch nicht** (Registrierungen/Menüs fehlen).
+
+## Erledigt
+- [x] `gregtech/machine/GtDeviceInformation` („Progress:“, „<n>secs“, „/<n>secs“ – ohne Leerzeichen wie im Original)
+  an Hochofen, Grinder, Implosionskompressor, Vakuumgefrierer, Zentrifuge/Elektrolyseur (`GtTankMachineBlockEntity`).
+- [x] `CounterBlockEntity` (Eingang Front, Paket 32·4ⁿ, Puffer 2×Paket, Explosion 0,8, Ausgabe max. 4096),
+  `EnergyCounterBlockEntity` (Zählerstand long, Reset), `AverageCounterBlockEntity` (11 Messpunkte à 20 Ticks,
+  Zeitraum 1/3/5/10), `CounterBlock` (FACING = Eingangsseite, zum Spieler gesetzt).
+- [x] `RangeTriggerBlockEntity` (Hysterese, alle 21 Ticks, Seiten-Inventar unten/oben/Seiten, Redstone stark+schwach,
+  Invertieren sofort) und `RangeTriggerBlock` (STATUS 0/1/2 → Texturen 27/28/29).
+
+## Offen (Fortsetzung)
+- `NcBlocks`/`NcItems`/`NcBlockEntityTypes`/`NcMenus` ergänzen: `energy_counter`, `average_counter`, `range_trigger`,
+  `counter_sensor_kit`, `counter_sensor_location_card`, `gt_sensor_kit` (GT-Tab, ohne Chatmeldung), `gt_sensor_card`
+  (nicht im Kreativ-Tab; Tooltip „Insert into Display Panel“; Kit „Attach to GregTech Machines“). Capabilities
+  (Zähler: Slot 0 alle Seiten; Auslöser: `getInventory(side)`).
+- `CounterMenu` (`energy`/`average`, Slot 8,18; Zählerstand als 2 Ints, Durchschnitt + Zeitraum),
+  `RangeTriggerMenu` (Slots 8,21 / 8,39, Inventar ab y 108, GUI 176×190).
+- Screens: Zähler (GUIEnergyCounter, Reset-Knopf 35,42 127×20; Durchschnitt Knöpfe 1/3/5/10 je 30 breit,
+  Zeilen „Ausgabe: %sEU/t“ y 22 und „Zeitraum: %ss“ y 32), Auslöser (GUIRangeTrigger, 2×10 Ziffern mit −/+
+  `CompactButton`, Werte y 33/70, Invertieren 8,62 aus u 176 v 0/15 18×15).
+- Payloads: Reset, Zeitraum, Invertieren Auslöser, Grenzen (long über Text).
+- Karten: `CounterSensorCardItem` (Typ „counter“, Bit 1; „energy“ long bzw. „average“ int – bleibt einmal gesetzt
+  stehen wie im Original; Zeile `panel.energy_counter` „Energie: %sEU“ bzw. `panel.output`), `GtSensorCardItem`
+  (Typ „gregtech“, Bits 1/2/4 Primär/Sekundär/Tertiär, Strings mString1–3). `SensorKitItem` um counter/gregtech
+  (+ Flag ohne Chatmeldung).
+- Datagen: Lang, Blockstates (Zähler: 41 Front, 42/43 übrige; Auslöser 23 hinten, 24 Seiten, 27–29 Front),
+  Item-Modelle (Zähler-Kit 68, Zähler-Karte 52; GT-Kit/-Karte = Index 17/16 aus `gregtechmod/textures/items.png`
+  der GregTech.zip), Rezepte inkl. Assembler (Schaltung + Frequenzsender → GT-Kit 1600×2; GT-Karte → 2 Schaltungen
+  1600×2), Rückbau Zähler-Karte → 2 Schaltungen. Texturskript + GUIs `GUIEnergyCounter`, `GUIRangeTrigger`.
+- Spec 46: §8 Namen „GregTech Sensor Card/Kit“, „secs“ ohne Leerzeichen; Abweichung: Drehung (IRotation) des
+  Auslösers ohne sichtbare Wirkung entfällt. GameTests, `gradlew build`.
+
+## Nächste Schritte
+- **46.3 fortsetzen** (Liste oben), dann 46.4.
+- Client-Test 46.1 + 46.2: Thermomonitore, Alarme; Infotafel mit Erweiterungen (Rahmen, Farben, Licht, Text an Wand/
+  Boden/Decke, Drehung), alle Karten, Farbwahl, Textkarte.
+- Phase 51 (Leuchtschild „wie Blendgranate“): Umfang klären.
