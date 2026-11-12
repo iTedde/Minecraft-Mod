@@ -3574,3 +3574,31 @@ weitere FE-Mods – „Das schonmal alles rein, dann noch mehr Brainstorm“.
 - Paket 1.2.6 im CurseForge-Launcher starten (Flutlicht am LV-Kabel, Forestry-Erze, Supplementaries/Sodium).
 - Phasen 45–50 jeweils mit Spezifikation x.0 beginnen (Pack-Jars von Nuclear Control, ChargePads, MFFS, Wireless
   Redstone, Omnitools, Obsidiplates, Gravity Gun, Secret Rooms sind noch nicht dekompiliert); Reihenfolge beim Nutzer.
+
+# Phase 44b – Paket 1.2.7 mit Server-/Komfort-Mods (2026-11-12)
+
+Nutzer: „spark, Torchmaster, Terralith oder Tectonic, Distant Horizons (Da ist die Frage, wie stark es den Server
+auslastet), Macaw's Brücken und Dächer, Handcrafted (Möbel), Serene Seasons“.
+
+## Erledigt
+- [x] Terralith statt Tectonic gewählt (Biome statt nur Geländeform; Tectonic bräuchte zusätzlich ApolLib).
+- [x] Paket `releases/Craft-1.2.7-curseforge.zip` (8,8 MB): wie 1.2.6 (Craft 1.2.5); Manifest + spark 1.10.124
+  (361579/6225208), Torchmaster 21.1.13 (254268/8949981), Terralith 2.6.2 (513688/8222737) + Lithostitched 1.8.1
+  (936015/9170709, ApolLib eingebettet), Distant Horizons 3.3.3 (508933/9004764), Macaw's Bridges 3.1.2
+  (351725/7627896), Macaw's Roofs 2.3.2 (352039/6494399), Handcrafted 4.0.3 (538214/6330030; Resourceful Lib schon
+  im Paket), Serene Seasons 10.1.0.3 (291874/6182596, Beta – neueste 1.21.1-Datei) + GlitchCore 2.1.0.2
+  (955399/8109792) → 112 Einträge.
+- [x] Befund: `deps.ps1` erkennt `required=true` (altes Format) nicht – GlitchCore fiel nur beim Blick in die
+  `neoforge.mods.toml` auf; maßgeblich ist der Ladetest („0 mod requirements missing“).
+- [x] Ladetest (GameTest-Server, 21.1.265, alle Mods aus 1.2.6/1.2.7 + OML): **Distant Horizons stürzt im
+  GameTest-Server ab** (castet den Server auf `DedicatedServer`) – nur Testumgebung; ohne DH 575/580 grün, die 5
+  bekannten Moonlight-Mock-Spieler-Fälle. `harvestAndPickWheat`/`plasmaCannon` scheiterten einmal, im zweiten Lauf
+  grün (zufallsabhängig).
+- [x] Wiki „Create & Paket-Mods“: sechs Zeilen; Wikis neu erzeugt.
+- Hinweise: Terralith/Serene Seasons wirken in bestehender Welt nur in neuen Chunks (Biomgrenzen am Rand des
+  Erkundeten). Distant Horizons: nur am Client = keine Server-Last; mit DH auf dem Server erzeugt der Server LODs
+  (CPU/RAM), regelbar per `/dh config` (Thread-Preset) oder abschaltbar. Nicht im Client gestartet.
+
+## Nächste Schritte
+- Paket 1.2.7 im CurseForge-Launcher starten (DH, Terralith in neuer Welt, Serene Seasons mit IC2-Crops).
+- Phasen 45–50 mit Spezifikation x.0 beginnen; Reihenfolge beim Nutzer (Vorschlag: 45).
