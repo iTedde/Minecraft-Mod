@@ -4,6 +4,7 @@ import java.util.function.Supplier;
 
 import dev.craft.Craft;
 import dev.craft.nuclearcontrol.menu.AlarmMenu;
+import dev.craft.nuclearcontrol.menu.InfoPanelMenu;
 import dev.craft.nuclearcontrol.menu.RemoteThermalMonitorMenu;
 import dev.craft.nuclearcontrol.menu.ThermalMonitorMenu;
 import net.minecraft.core.registries.Registries;
@@ -23,6 +24,10 @@ public final class NcMenus {
                     new RemoteThermalMonitorMenu(id, inventory, buf.readBlockPos())));
     public static final Supplier<MenuType<AlarmMenu>> ALARM = MENUS.register("alarm",
             () -> IMenuTypeExtension.create((id, inventory, buf) -> new AlarmMenu(id, inventory, buf.readBlockPos())));
+
+    public static final Supplier<MenuType<InfoPanelMenu>> INFORMATION_PANEL = MENUS.register("information_panel",
+            () -> IMenuTypeExtension.create((id, inventory, buf) ->
+                    new InfoPanelMenu(id, inventory, buf.readBlockPos())));
 
     private NcMenus() {
     }

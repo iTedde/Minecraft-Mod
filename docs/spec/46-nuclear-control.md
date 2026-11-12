@@ -185,10 +185,20 @@ Karten zeigen im Tooltip Titel und „x: …, y: …, z: …“.
 Feldkarte + Energie-Sensorkarten → Feldkarte mit mehr Zielen (Summe ≤ 6); Feldkarte allein → `2 × Ziele`
 Elektronische Schaltungen. Reichweite wird für jedes Ziel einzeln geprüft (Ziel außerhalb zählt nicht).
 
+Weitere Einzelheiten (aus dem Code, 46.2): Anzeigeeinstellungen je Kartentyp, Standard alle Zeilen; ohne Karte oder
+mit Einstellung 0 zeigt die Tafel nichts. Fehlerzustände ersetzen die Zeilen durch eine zentrierte Meldung; ein
+Kartentitel steht zentriert über den Zeilen. Zahlen mit Leerzeichen gruppiert (`#,###`). Text skaliert auf die ganze
+Bildschirmfläche (`0,875 + Ausdehnung`), Zeilenhöhe Schrifthöhe + 2, ohne Schatten, volle Helligkeit; Farbe 0 = Textfarbe
+der Tafel (`COLORS_HEX`, Standard 0 = schwarz). Bildschirmhintergrund: Zeile 2 (grün) ohne Farb-Upgrade, sonst die
+gewählte Farbe; Rahmen je Block an den Außenkanten. Zeitkarte: `(Tageszeit − 18000) % 24000`, vor der ersten
+Mitternacht negativ (übernommen). Feldkarte: Werte je Ziel als `int`, alte Werte bleiben stehen, wenn ein Ziel
+fehlt. Reaktorkarte „An“ = Redstone am Reaktor (`isBlockIndirectlyGettingPowered`).
+
 ## 6 Energiequellen der Sensoren (`EnergyStorageHelper`, `crossmod`)
 
-- **EU** (Typ 0): Blöcke mit IC2-`IEnergyStorage` = BatBox, MFE, MFSU (Craft: Speicherblöcke in `ic2/storage`;
-  dazu alle anderen Craft-Blöcke, die einen EU-Speicher mit Kapazität anbieten – Liste in 46.1).
+- **EU** (Typ 0): Blöcke mit IC2-`IEnergyStorage` = BatBox, MFE, MFSU und – weil GregTechs `BaseMetaTileEntity`
+  `IEnergyStorage` implementiert – jede GT-Maschine (Kapazität `maxEUStore + Batterien`). Craft:
+  `ElectricStorageBlockEntity` und `GtMachineBlockEntity` (`getStored`/`getCapacity`).
 - **MJ** (Typ 1): BuildCraft-`IPowerReceptor` mit `PowerProvider` – gespeicherte/maximale MJ (Craft:
   `BcCapabilities.POWER_RECEPTOR`).
 - Flüssigkeit: jeder Block mit Tank (Pack: BC-`ITankContainer`, erster Tank von oben; Craft: Fluid-Capability,
@@ -246,9 +256,12 @@ GregTech legt im Pack ein eigenes Kit + Karte an, sobald Nuclear Control da ist:
   Reaktor-Sensorkit, Reaktor-Sensorkarte, Reichweiten-Upgrade), Heul- und Industriealarm; GUIs aus den Pack-Texturen,
   Texturen/Sounds per `tools/scripts/nuclear_control_textures.py`. IC2-Schraubenschlüssel reicht Shift-Klicks an den
   Block weiter (`shouldPassSneakingClickToBlock`), damit Shift + Schraubenschlüssel das Display dreht.
+- **46.2** (2026-11-12, umgesetzt): Industrie-Infotafel + Erweiterung (Bildschirm bis 41 × 41, Licht 7, Farb-Upgrade
+  mit Farbwahl, Beschriftung an/aus, Anzeigezeilen je Kartentyp, Kartentitel, Textdrehung), Energie- und
+  Flüssigkeits-Sensorkit, Karten Reaktor/Energie/Energiefeld/Flüssigkeit/Text/Zeit, Energiefeld-Sonderrezept,
+  Rückbau-Rezepte; GUIs Infotafel/Farben/Textkarte aus den Pack-Texturen. 6 GameTests (`InfoPanelGameTests`).
 
 ## 11 Offene Fragen (Nutzer)
 
-1. Umfang **komplett** wie oben, einschließlich GregTech-Sensorkit (§8)? Vorschlag: ja.
-2. Energie-Sensor wie im Pack nur **EU + MJ**, oder zusätzlich **FE** (Speicher anderer Mods wie Mekanism-Würfel,
-   AE2-Energiezellen)? Vorschlag: wie im Pack (EU + MJ); Flüssigkeiten gehen ohnehin mit allen Mods.
+1. ~~Umfang~~ **Entschieden (Nutzer, 2026-11-12):** komplett wie oben, einschließlich GregTech-Sensorkit (§8).
+2. ~~Energie-Sensor~~ **Entschieden (Nutzer, 2026-11-12):** wie im Pack nur EU + MJ, kein FE.

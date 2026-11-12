@@ -49,7 +49,10 @@ public final class CraftItemModelProvider extends ItemModelProvider {
     protected void registerModels() {
         basicItem(PpItems.COKE.get());
         for (DeferredItem<? extends Item> item : List.of(NcItems.THERMOMETER, NcItems.DIGITAL_THERMOMETER,
-                NcItems.REMOTE_SENSOR_KIT, NcItems.REACTOR_SENSOR_LOCATION_CARD, NcItems.RANGE_UPGRADE)) {
+                NcItems.REMOTE_SENSOR_KIT, NcItems.REACTOR_SENSOR_LOCATION_CARD, NcItems.RANGE_UPGRADE,
+                NcItems.ENERGY_SENSOR_KIT, NcItems.LIQUID_SENSOR_KIT, NcItems.ENERGY_SENSOR_LOCATION_CARD,
+                NcItems.ENERGY_ARRAY_LOCATION_CARD, NcItems.LIQUID_SENSOR_LOCATION_CARD, NcItems.TEXT_CARD,
+                NcItems.TIME_CARD, NcItems.COLOR_UPGRADE)) {
             String name = item.getId().getPath();
             withExistingParent(name, mcLoc("item/generated")).texture("layer0", modLoc("item/nuclearcontrol/" + name));
         }

@@ -1,0 +1,12 @@
+{
+  "type": "craft:ic2_shapeless",
+  "ingredients": [
+    {
+      "item": "craft:liquid_sensor_location_card"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:electronic_circuit"
+  }
+}

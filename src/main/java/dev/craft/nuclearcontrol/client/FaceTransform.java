@@ -15,37 +15,29 @@ final class FaceTransform {
     private FaceTransform() {
     }
 
+    /** Reading direction (right on the display). */
+    static Direction reading(Direction facing) {
+        return switch (facing) {
+            case UP, DOWN, SOUTH -> Direction.EAST;
+            case NORTH -> Direction.WEST;
+            case WEST -> Direction.SOUTH;
+            case EAST -> Direction.NORTH;
+        };
+    }
+
+    /** "Up" on the display. */
+    static Direction up(Direction facing) {
+        return switch (facing) {
+            case UP -> Direction.NORTH;
+            case DOWN -> Direction.SOUTH;
+            default -> Direction.UP;
+        };
+    }
+
     static void apply(PoseStack poseStack, Direction facing) {
-        Vector3f reading;
-        Vector3f textUp;
-        switch (facing) {
-            case UP -> {
-                reading = new Vector3f(1, 0, 0);
-                textUp = new Vector3f(0, 0, -1);
-            }
-            case DOWN -> {
-                reading = new Vector3f(1, 0, 0);
-                textUp = new Vector3f(0, 0, 1);
-            }
-            case NORTH -> {
-                reading = new Vector3f(-1, 0, 0);
-                textUp = new Vector3f(0, 1, 0);
-            }
-            case SOUTH -> {
-                reading = new Vector3f(1, 0, 0);
-                textUp = new Vector3f(0, 1, 0);
-            }
-            case WEST -> {
-                reading = new Vector3f(0, 0, 1);
-                textUp = new Vector3f(0, 1, 0);
-            }
-            default -> {
-                reading = new Vector3f(0, 0, -1);
-                textUp = new Vector3f(0, 1, 0);
-            }
-        }
-        Vector3f normal = new Vector3f(facing.getStepX(), facing.getStepY(), facing.getStepZ());
-        Vector3f down = textUp.negate(new Vector3f());
+        Vector3f reading = reading(facing).step();
+        Vector3f normal = facing.step();
+        Vector3f down = up(facing).step().negate();
         Matrix3f rotation = new Matrix3f(reading, normal, down);
         poseStack.translate(0.5, 0.5, 0.5);
         poseStack.last().pose().mul(new Matrix4f(rotation));

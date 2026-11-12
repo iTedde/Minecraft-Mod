@@ -52,6 +52,7 @@ import dev.craft.mps.MpsBlocks;
 import dev.craft.nuclearcontrol.NcBlocks;
 import dev.craft.nuclearcontrol.block.AlarmBlock;
 import dev.craft.nuclearcontrol.block.AttachedBlock;
+import dev.craft.nuclearcontrol.block.InfoPanelBlock;
 import dev.craft.nuclearcontrol.block.RemoteThermalMonitorBlock;
 import dev.craft.nuclearcontrol.block.ThermalMonitorBlock;
 import dev.craft.ironchest.IronChestType;
@@ -888,6 +889,24 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
             return ConfiguredModel.builder().modelFile(remoteModel).rotationX(x).rotationY(y % 360).build();
         });
         simpleBlockItem(remote, remoteModel);
+        facingCube(NcBlocks.INFORMATION_PANEL.get(), "information_panel", "information_panel_back",
+                "information_panel_side");
+        facingCube(NcBlocks.INFORMATION_PANEL_EXTENDER.get(), "information_panel_extender",
+                "information_panel_extender_back", "information_panel_extender_side");
+    }
+
+    /** Information panel and extender: front = green panel with border (the renderer draws the screen over it). */
+    private void facingCube(Block block, String name, String back, String side) {
+        ModelFile model = models().cube("block/nuclearcontrol/" + name, ncTexture(side), ncTexture(side),
+                        ncTexture("information_panel_front"), ncTexture(back), ncTexture(side), ncTexture(side))
+                .texture("particle", ncTexture(side));
+        getVariantBuilder(block).forAllStates(state -> {
+            Direction facing = state.getValue(InfoPanelBlock.FACING);
+            int x = facing == Direction.UP ? 270 : facing == Direction.DOWN ? 90 : 0;
+            int y = facing.getAxis().isHorizontal() ? (int) facing.toYRot() + 180 : 0;
+            return ConfiguredModel.builder().modelFile(model).rotationX(x).rotationY(y % 360).build();
+        });
+        simpleBlockItem(block, model);
     }
 
     private void attachedBlock(AttachedBlock block, int inset, Function<BlockState, String> front, String back,

@@ -1,0 +1,41 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "A": {
+      "tag": "c:dyes/cyan"
+    },
+    "B": {
+      "tag": "c:dyes/blue"
+    },
+    "C": {
+      "item": "craft:insulated_copper_cable"
+    },
+    "G": {
+      "tag": "c:dyes/green"
+    },
+    "I": {
+      "tag": "c:dyes/black"
+    },
+    "M": {
+      "tag": "c:dyes/magenta"
+    },
+    "R": {
+      "tag": "c:dyes/red"
+    },
+    "W": {
+      "tag": "c:dyes/white"
+    },
+    "Y": {
+      "tag": "c:dyes/yellow"
+    }
+  },
+  "pattern": [
+    "RYG",
+    "WCM",
+    "IAB"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:color_upgrade"
+  }
+}

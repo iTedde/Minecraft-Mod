@@ -4,6 +4,8 @@ import java.util.function.Supplier;
 
 import dev.craft.Craft;
 import dev.craft.nuclearcontrol.block.AlarmBlockEntity;
+import dev.craft.nuclearcontrol.block.InfoPanelBlockEntity;
+import dev.craft.nuclearcontrol.block.InfoPanelExtenderBlockEntity;
 import dev.craft.nuclearcontrol.block.RemoteThermalMonitorBlockEntity;
 import dev.craft.nuclearcontrol.block.ThermalMonitorBlockEntity;
 import net.minecraft.core.registries.Registries;
@@ -27,6 +29,15 @@ public final class NcBlockEntityTypes {
     public static final Supplier<BlockEntityType<AlarmBlockEntity>> ALARM =
             BLOCK_ENTITY_TYPES.register("alarm", () -> BlockEntityType.Builder.of(AlarmBlockEntity::new,
                     NcBlocks.HOWLER_ALARM.get(), NcBlocks.INDUSTRIAL_ALARM.get()).build(null));
+
+    @SuppressWarnings("DataFlowIssue")
+    public static final Supplier<BlockEntityType<InfoPanelBlockEntity>> INFORMATION_PANEL =
+            BLOCK_ENTITY_TYPES.register("information_panel", () -> BlockEntityType.Builder.of(
+                    InfoPanelBlockEntity::new, NcBlocks.INFORMATION_PANEL.get()).build(null));
+    @SuppressWarnings("DataFlowIssue")
+    public static final Supplier<BlockEntityType<InfoPanelExtenderBlockEntity>> INFORMATION_PANEL_EXTENDER =
+            BLOCK_ENTITY_TYPES.register("information_panel_extender", () -> BlockEntityType.Builder.of(
+                    InfoPanelExtenderBlockEntity::new, NcBlocks.INFORMATION_PANEL_EXTENDER.get()).build(null));
 
     private NcBlockEntityTypes() {
     }

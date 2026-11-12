@@ -24,15 +24,21 @@ public final class NuclearControl {
         NcBlockEntityTypes.BLOCK_ENTITY_TYPES.register(modBus);
         NcMenus.MENUS.register(modBus);
         NcSounds.SOUNDS.register(modBus);
+        NcRecipes.SERIALIZERS.register(modBus);
         modBus.addListener(NuclearControl::registerCapabilities);
         modBus.addListener(NuclearControl::addToCreativeTab);
         modBus.addListener(NcPayloads::register);
     }
 
-    /** The remote thermal monitor is an {@code IInventory} with {@code isItemValid}: every slot from every side. */
+    /**
+     * The remote thermal monitor and the information panel are {@code IInventory}s with {@code isItemValid}: every slot
+     * from every side.
+     */
     private static void registerCapabilities(RegisterCapabilitiesEvent event) {
         event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, NcBlockEntityTypes.REMOTE_THERMAL_MONITOR.get(),
                 (monitor, side) -> monitor.getInventory());
+        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, NcBlockEntityTypes.INFORMATION_PANEL.get(),
+                (panel, side) -> panel.getInventory());
     }
 
     private static void addToCreativeTab(BuildCreativeModeTabContentsEvent event) {

@@ -3700,3 +3700,35 @@ muss ist das Electric light shield. Das muss viel Heller sein, wie so ne Blendgr
   Schraubenschlüssel dreht), Alarme (Ton, Reichweite, Licht).
 - Antworten zu spec 46 §11 (GT-Sensorkit? Energie-Sensor auch FE?), dann **46.2** Infotafel + Karten.
 - Phase 51 (Leuchtschild „wie Blendgranate“): Umfang klären.
+
+# Phase 46.2 – Infotafel und Karten (2026-11-12)
+
+Nutzer: „nächste Phase“. Entschieden (spec 46 §11): Umfang komplett inkl. GT-Sensorkit; Energie-Sensor wie im Pack
+nur EU + MJ (kein FE).
+
+## Erledigt
+- [x] Industrie-Infotafel (Karten-, Reichweiten-, Farb-Upgrade-Slot; Aktualisierung alle 21 Ticks; Anzeige nur mit
+  Redstone, dann Licht 7; Reichweite 8·2ⁿ, „Außer Reichweite“/„Ungültige Karte“/„Ziel nicht gefunden“; Shift +
+  Schraubenschlüssel dreht den Text) und Infotafel-Erweiterung (Bildschirm wächst x−, x+, y−, y+, z−, z+ je bis 20
+  Reihen, Erweiterungen leuchten mit). Bildschirmfronten mit Rahmen und Hintergrundfarbe sowie der skalierte Text
+  per Block-Entity-Renderer der Tafel.
+- [x] GUI Infotafel (Anzeigezeilen je Kartentyp, Beschriftung an/aus, Kartentitel, „T“ → Farbwahl mit Farb-Upgrade,
+  „...“ → Textkarte mit 10 Zeilen); Einstellungen per Payload, nur bei offenem Menü.
+- [x] Karten: Reaktor (Hitze, Max., Schmelzpunkt 85 %, Ausgabe EU/t, Restzeit Uran/Thorium/Plutonium, An/Aus),
+  Energie (EU: BatBox/MFE/MFSU + GT-Maschinen, MJ: BC-Empfänger), Energiefeld (2–6 Ziele, Sonderrezept, zerlegbar in
+  2 Schaltungen je Ziel), Flüssigkeit (erster Tank, mB), Text, Zeit. Energie-/Flüssigkeits-Sensorkit, Farb-Upgrade.
+  `ReactorSensorKitItem`/`SensorLocationCardItem` durch `SensorKitItem`/`PanelCardItem` ersetzt.
+- [x] Rezepte (inkl. Rückbau Energie-/Flüssigkeitskarte), Loot, Spitzhacken-Tag, Lang de/en (Panel-Texte nach der
+  Pack-Lang), Blockstates/Modelle; Texturskript um Items, Tafel-/Erweiterungsseiten, Farbbögen und 3 GUIs ergänzt.
+- [x] Abweichungen (6 Zeilen), Spec §6/§5.3/§10/§11, CLAUDE.md.
+- [x] 6 GameTests (`InfoPanelGameTests`): Bildschirm wachsen/schrumpfen + Licht, Reaktorkarte + Reichweite,
+  Energie-Kit an BatBox, Flüssigkeits-Kit am BC-Tank, Feldkarten-Rezept, Zeit-/Textkarte. Lauf: 598 Tests, alle neuen
+  grün; rot nur die bekannten Wackelkandidaten `liquidTesseractFillsRemoteTank` und `plasmaCannon`. `gradlew build`
+  grün.
+- Nicht im Client gestartet.
+
+## Nächste Schritte
+- Client-Test 46.1 + 46.2: Thermomonitore, Alarme; Infotafel mit Erweiterungen (Rahmen, Farben, Licht, Text an Wand/
+  Boden/Decke, Drehung), alle Karten, Farbwahl, Textkarte.
+- **46.3** Energie-/Durchschnittszähler, Bereichsauslöser, Zähler-Sensorkit/-karte, GT-Sensorkit.
+- Phase 51 (Leuchtschild „wie Blendgranate“): Umfang klären.

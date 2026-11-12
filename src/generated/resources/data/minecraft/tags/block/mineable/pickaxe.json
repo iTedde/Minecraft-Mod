@@ -58,6 +58,8 @@
     "craft:industrial_alarm",
     "craft:howler_alarm",
     "craft:remote_thermal_monitor",
+    "craft:information_panel",
+    "craft:information_panel_extender",
     "craft:machine_casing",
     "craft:advanced_machine_casing",
     "craft:tin_ore",

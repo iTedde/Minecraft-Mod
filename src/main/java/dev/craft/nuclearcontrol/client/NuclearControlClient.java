@@ -32,6 +32,7 @@ public final class NuclearControlClient {
         event.register(NcMenus.THERMAL_MONITOR.get(), ThermalMonitorScreen::new);
         event.register(NcMenus.REMOTE_THERMAL_MONITOR.get(), RemoteThermalMonitorScreen::new);
         event.register(NcMenus.ALARM.get(), AlarmScreen::new);
+        event.register(NcMenus.INFORMATION_PANEL.get(), InfoPanelScreen::new);
     }
 
     @SubscribeEvent
@@ -39,5 +40,6 @@ public final class NuclearControlClient {
         event.registerBlockEntityRenderer(NcBlockEntityTypes.THERMAL_MONITOR.get(), ThermalMonitorRenderer::new);
         event.registerBlockEntityRenderer(NcBlockEntityTypes.REMOTE_THERMAL_MONITOR.get(),
                 RemoteThermalMonitorRenderer::new);
+        event.registerBlockEntityRenderer(NcBlockEntityTypes.INFORMATION_PANEL.get(), InfoPanelRenderer::new);
     }
 }

@@ -2,7 +2,9 @@ package dev.craft.nuclearcontrol;
 
 import dev.craft.Craft;
 import dev.craft.nuclearcontrol.block.AlarmBlockEntity;
+import dev.craft.nuclearcontrol.block.InfoPanelBlockEntity;
 import dev.craft.nuclearcontrol.block.ThermalMonitorBlockEntity;
+import dev.craft.nuclearcontrol.item.TextCardItem;
 import dev.craft.nuclearcontrol.menu.NcMenu;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.core.BlockPos;
@@ -16,15 +18,24 @@ import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 /**
- * GUI settings sent to the server (the original's {@code initiateClientTileEntityEvent} and
- * {@code setNewAlarmSound}): heat level and redstone inversion of the thermal monitors, range and sound of the alarms.
- * Only accepted for the block of the player's open Nuclear Control menu.
+ * GUI settings sent to the server (the original's {@code initiateClientTileEntityEvent}, {@code setNewAlarmSound},
+ * {@code setScreenColor} and the card settings): heat level and redstone inversion of the thermal monitors, range and
+ * sound of the alarms, display bits, labels, colours, card title and text lines of the information panel. Only
+ * accepted for the block of the player's open Nuclear Control menu.
  */
 public final class NcPayloads {
     public static final int HEAT_LEVEL = 0;
     public static final int INVERT = 1;
     public static final int RANGE = 2;
     public static final int SOUND = 3;
+    public static final int DISPLAY_SETTINGS = 4;
+    public static final int SHOW_LABELS = 5;
+    /** Value {@code background | text << 4}. */
+    public static final int COLORS = 6;
+    public static final int TITLE = 7;
+    /** Value = line index. */
+    public static final int TEXT_LINE = 8;
+    public static final int MAX_TEXT = 64;
 
     private NcPayloads() {
     }
@@ -39,6 +50,10 @@ public final class NcPayloads {
 
     public static void sendSound(BlockPos pos, String sound) {
         PacketDistributor.sendToServer(new Setting(pos, SOUND, 0, sound));
+    }
+
+    public static void sendText(BlockPos pos, int kind, int value, String text) {
+        PacketDistributor.sendToServer(new Setting(pos, kind, value, text));
     }
 
     private static void handle(Setting payload, IPayloadContext context) {
@@ -69,6 +84,30 @@ public final class NcPayloads {
                 }
             }
             default -> {
+                if (blockEntity instanceof InfoPanelBlockEntity panel) {
+                    handlePanel(panel, payload);
+                }
+            }
+        }
+    }
+
+    private static void handlePanel(InfoPanelBlockEntity panel, Setting payload) {
+        switch (payload.kind()) {
+            case DISPLAY_SETTINGS -> panel.setDisplaySettings(payload.value());
+            case SHOW_LABELS -> panel.setShowLabels(payload.value() != 0);
+            case COLORS -> {
+                if (panel.isColored()) {
+                    panel.setColors(payload.value(), payload.value() >> 4);
+                }
+            }
+            case TITLE -> panel.editCard(card -> card.setTitle(payload.text()));
+            case TEXT_LINE -> {
+                if (payload.value() >= 0 && payload.value() < TextCardItem.LINES
+                        && panel.getCard().getItem() instanceof TextCardItem) {
+                    panel.editCard(card -> card.setString("line_" + payload.value(), payload.text()));
+                }
+            }
+            default -> {
             }
         }
     }
@@ -80,7 +119,7 @@ public final class NcPayloads {
                 BlockPos.STREAM_CODEC, Setting::pos,
                 ByteBufCodecs.VAR_INT, Setting::kind,
                 ByteBufCodecs.VAR_INT, Setting::value,
-                ByteBufCodecs.stringUtf8(32), Setting::text,
+                ByteBufCodecs.stringUtf8(MAX_TEXT), Setting::text,
                 Setting::new);
 
         @Override

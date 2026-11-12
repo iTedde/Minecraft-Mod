@@ -1,0 +1,23 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "L": {
+      "tag": "c:dyes/lime"
+    },
+    "P": {
+      "item": "minecraft:glass_pane"
+    },
+    "W": {
+      "tag": "minecraft:planks"
+    }
+  },
+  "pattern": [
+    "PPP",
+    "WLW",
+    "WWW"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:information_panel_extender"
+  }
+}

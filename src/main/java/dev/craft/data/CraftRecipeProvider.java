@@ -58,6 +58,7 @@ import dev.craft.enderstorage.EnderStorageRecolourRecipe;
 import dev.craft.enderstorage.EsDataComponents;
 import dev.craft.enderstorage.EsItems;
 import dev.craft.gravisuite.GsItems;
+import dev.craft.nuclearcontrol.EnergyArrayRecipe;
 import dev.craft.nuclearcontrol.NcItems;
 import dev.craft.mps.MpsItems;
 import dev.craft.enderstorage.Frequency;
@@ -3560,6 +3561,31 @@ public final class CraftRecipeProvider extends RecipeProvider {
                 .save();
         shapeless(Ic2Items.ELECTRONIC_CIRCUIT, 2, "electronic_circuit_from_reactor_sensor_location_card",
                 Ingredient.of(NcItems.REACTOR_SENSOR_LOCATION_CARD));
+        shaped(NcItems.INFORMATION_PANEL, 1, "information_panel").pattern("PPP", "LCL", "IRI")
+                .define('P', Items.GLASS_PANE).define('L', Tags.Items.DYES_LIME).define('C', Ic2Items.ELECTRONIC_CIRCUIT)
+                .define('I', Tags.Items.DYES_BLACK).define('R', Items.REDSTONE).save();
+        shaped(NcItems.INFORMATION_PANEL_EXTENDER, 1, "information_panel_extender").pattern("PPP", "WLW", "WWW")
+                .define('P', Items.GLASS_PANE).define('L', Tags.Items.DYES_LIME).define('W', ItemTags.PLANKS).save();
+        shaped(NcItems.ENERGY_SENSOR_KIT, 1, "energy_sensor_kit").pattern("  F", " D ", "P  ")
+                .define('F', Ic2Items.FREQUENCY_TRANSMITTER).define('D', Ic2Items.EU_METER).define('P', Items.PAPER)
+                .save();
+        shaped(NcItems.LIQUID_SENSOR_KIT, 1, "liquid_sensor_kit").pattern("  F", " C ", "P  ")
+                .define('F', Ic2Items.FREQUENCY_TRANSMITTER).define('C', Items.BUCKET).define('P', Items.PAPER).save();
+        shaped(NcItems.COLOR_UPGRADE, 1, "color_upgrade").pattern("RYG", "WCM", "IAB")
+                .define('R', Tags.Items.DYES_RED).define('Y', Tags.Items.DYES_YELLOW).define('G', Tags.Items.DYES_GREEN)
+                .define('W', Tags.Items.DYES_WHITE).define('C', Ic2Items.cable(CableType.INSULATED_COPPER))
+                .define('M', Tags.Items.DYES_MAGENTA).define('I', Tags.Items.DYES_BLACK)
+                .define('A', Tags.Items.DYES_CYAN).define('B', Tags.Items.DYES_BLUE).save();
+        shaped(NcItems.TEXT_CARD, 1, "text_card").pattern(" C ", "PFP", " C ")
+                .define('C', Ic2Items.ELECTRONIC_CIRCUIT).define('P', Items.PAPER)
+                .define('F', Ic2Items.cable(CableType.INSULATED_COPPER)).save();
+        shapeless(NcItems.TIME_CARD, 1, "time_card", Ingredient.of(Ic2Items.ELECTRONIC_CIRCUIT),
+                Ingredient.of(Items.CLOCK));
+        shapeless(Ic2Items.ELECTRONIC_CIRCUIT, 2, "electronic_circuit_from_energy_sensor_location_card",
+                Ingredient.of(NcItems.ENERGY_SENSOR_LOCATION_CARD));
+        shapeless(Ic2Items.ELECTRONIC_CIRCUIT, 1, "electronic_circuit_from_liquid_sensor_location_card",
+                Ingredient.of(NcItems.LIQUID_SENSOR_LOCATION_CARD));
+        SpecialRecipeBuilder.special(EnergyArrayRecipe::new).save(output, id("energy_array_card"));
     }
 
     private ShapedBuilder shaped(ItemLike result, int count, String name) {
