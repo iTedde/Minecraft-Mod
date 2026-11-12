@@ -3545,3 +3545,32 @@ Nutzer: „Kannst du die Flutlichter auf EU dann umstellen?“ Entschieden: 1 EU
 ## Nächste Schritte
 - **43.2** Craft 1.2.5 + Paket (enthält bisher Craft 1.2.4) – auf Wunsch des Nutzers.
 - Client-Test: Flutlicht an LV-Kabel (Kabel verbindet sich, Licht geht an), an MV → Explosion.
+
+# Phase 43.2 + 44 – Craft 1.2.5, Paket 1.2.6 mit neuen Mods (2026-11-12)
+
+Nutzer: „Lass Advanced Solar Panels raus, genauso Steve's Carts“; rein: Ad Astra mit EU, Storage Drawers, Farmer's
+Delight, Supplementaries, Reliquary Reincarnations, Forestry Community Edition (Alpha), IC2 Nuclear Control,
+ChargePads, MFFS, Wireless Redstone, Omnitools, Obsidian Pressure Plates, Gravity Gun, Secret Rooms, EU-Eingang für
+weitere FE-Mods – „Das schonmal alles rein, dann noch mehr Brainstorm“.
+
+## Erledigt
+- [x] Craft **1.2.5** (`releases/craft-1.2.5.jar`): 1.2.4 + EU-Eingang für Open Modular Lighting (Phase 43.1).
+  `gradlew runData`, danach `build` grün.
+- [x] Paket `releases/Craft-1.2.6-curseforge.zip` (8,8 MB): wie 1.2.5 mit Craft 1.2.5; Manifest + Storage Drawers
+  13.11.4 (223852/6995432), Farmer's Delight 1.3.4 (398521/8765184), Supplementaries 4.0.2 (412082/9211734) +
+  Moonlight Lib 3.8.3 (499980/9519534), Reliquary Reincarnations 2.0.85 (241319/9555024), Forestry Community Edition
+  3.0.0-alpha9 (1056828/9390077) + Patchouli 93 (306770/7730942) → 102 Einträge. Pflicht-Abhängigkeiten per
+  `neoforge.mods.toml` geprüft (Supplementaries: Sodium ≥ 0.8.12-beta.1 – Paket hat 0.8.12; Farmer's Delight ≥ 1.3.0).
+- [x] Ladetest: GameTest-Server mit Craft 1.2.5 + den sieben Jars + OML auf 21.1.265 startet; 575/580 Tests grün.
+  Die 5 Fehlschläge (Tests mit Mock-Spieler: EnderStorage-Pouch, Fortg. Bohrer, Quanten-Sprint, Blink Drive,
+  Personal Safe) kommen von Moonlight („Payload moonlight:s2c_finalize_fluids may not be sent to the client“ an den
+  Mock-Spieler ohne Verbindung) – nur Testumgebung. Supplementaries meldet fehlende Kreativ-Tab-Anker für
+  Forestry-Wegschilder (kosmetisch).
+- [x] Wiki „Create & Paket-Mods“: fünf Zeilen; Wikis neu erzeugt. Phasen 45–50 in CLAUDE.md eingeplant.
+- Hinweis: Forestry CE bringt eigene Carpenter/Thermionic Fabricator/Elektronenröhren neben Crafts Forestry-Teilen
+  und eigene Erze (Apatit, Zinn?) – im Client prüfen, ggf. Zinnerz per Config aus. Nicht im Client gestartet.
+
+## Nächste Schritte
+- Paket 1.2.6 im CurseForge-Launcher starten (Flutlicht am LV-Kabel, Forestry-Erze, Supplementaries/Sodium).
+- Phasen 45–50 jeweils mit Spezifikation x.0 beginnen (Pack-Jars von Nuclear Control, ChargePads, MFFS, Wireless
+  Redstone, Omnitools, Obsidiplates, Gravity Gun, Secret Rooms sind noch nicht dekompiliert); Reihenfolge beim Nutzer.
