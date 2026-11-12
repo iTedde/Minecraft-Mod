@@ -52,7 +52,9 @@ import dev.craft.mps.MpsBlocks;
 import dev.craft.nuclearcontrol.NcBlocks;
 import dev.craft.nuclearcontrol.block.AlarmBlock;
 import dev.craft.nuclearcontrol.block.AttachedBlock;
+import dev.craft.nuclearcontrol.block.CounterBlock;
 import dev.craft.nuclearcontrol.block.InfoPanelBlock;
+import dev.craft.nuclearcontrol.block.RangeTriggerBlock;
 import dev.craft.nuclearcontrol.block.RemoteThermalMonitorBlock;
 import dev.craft.nuclearcontrol.block.ThermalMonitorBlock;
 import dev.craft.ironchest.IronChestType;
@@ -893,6 +895,37 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
                 "information_panel_side");
         facingCube(NcBlocks.INFORMATION_PANEL_EXTENDER.get(), "information_panel_extender",
                 "information_panel_extender_back", "information_panel_extender_side");
+        // Counters: input side 41, all others 42 (energy) or 43 (average); FACING = input side.
+        counterCube(NcBlocks.ENERGY_COUNTER.get(), "energy_counter");
+        counterCube(NcBlocks.AVERAGE_COUNTER.get(), "average_counter");
+        // Range trigger: display 27/28/29 by state (unknown/passive/active), back 23, sides 24.
+        String[] trigger = {"unknown", "passive", "active"};
+        Map<Integer, ModelFile> triggerModels = new HashMap<>();
+        for (int state = 0; state < 3; state++) {
+            triggerModels.put(state, models().cube("block/nuclearcontrol/range_trigger_" + trigger[state],
+                            ncTexture("remote_thermal_monitor_side"), ncTexture("remote_thermal_monitor_side"),
+                            ncTexture("range_trigger_" + trigger[state]), ncTexture("remote_thermal_monitor_back"),
+                            ncTexture("remote_thermal_monitor_side"), ncTexture("remote_thermal_monitor_side"))
+                    .texture("particle", ncTexture("remote_thermal_monitor_side")));
+        }
+        getVariantBuilder(NcBlocks.RANGE_TRIGGER.get()).forAllStates(state -> facingModel(
+                triggerModels.get(state.getValue(RangeTriggerBlock.STATUS)), state.getValue(RangeTriggerBlock.FACING)));
+        simpleBlockItem(NcBlocks.RANGE_TRIGGER.get(), triggerModels.get(1));
+    }
+
+    private void counterCube(Block block, String name) {
+        ModelFile model = models().cube("block/nuclearcontrol/" + name, ncTexture(name), ncTexture(name),
+                        ncTexture("counter_input"), ncTexture(name), ncTexture(name), ncTexture(name))
+                .texture("particle", ncTexture(name));
+        getVariantBuilder(block).forAllStates(state -> facingModel(model, state.getValue(CounterBlock.FACING)));
+        simpleBlockItem(block, model);
+    }
+
+    /** North face of the model towards {@code facing}. */
+    private static ConfiguredModel[] facingModel(ModelFile model, Direction facing) {
+        int x = facing == Direction.UP ? 270 : facing == Direction.DOWN ? 90 : 0;
+        int y = facing.getAxis().isHorizontal() ? (int) facing.toYRot() + 180 : 0;
+        return ConfiguredModel.builder().modelFile(model).rotationX(x).rotationY(y % 360).build();
     }
 
     /** Information panel and extender: front = green panel with border (the renderer draws the screen over it). */

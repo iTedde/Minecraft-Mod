@@ -1,0 +1,29 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "A": {
+      "item": "craft:advanced_circuit"
+    },
+    "E": {
+      "item": "craft:detector_cable"
+    },
+    "F": {
+      "item": "craft:frequency_transmitter"
+    },
+    "M": {
+      "item": "craft:machine_casing"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    }
+  },
+  "pattern": [
+    "EFE",
+    "AMA",
+    " R "
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:range_trigger"
+  }
+}

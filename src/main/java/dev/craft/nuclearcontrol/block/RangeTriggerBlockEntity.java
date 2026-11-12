@@ -195,7 +195,8 @@ public class RangeTriggerBlockEntity extends BlockEntity implements Wrenchable, 
         return levelEnd;
     }
 
-    public void setLevel(boolean end, long value) {
+    /** {@code setLevelStart}/{@code setLevelEnd}: ten digits at most. */
+    public void setLimit(boolean end, long value) {
         if (value < 0 || value > MAX_LEVEL) {
             return;
         }

@@ -5,7 +5,9 @@ import java.util.function.Supplier;
 import javax.annotation.Nullable;
 
 import dev.craft.ic2.reactor.NuclearReactorBlockEntity;
+import dev.craft.gregtech.machine.GtDeviceInformation;
 import dev.craft.nuclearcontrol.NcDataComponents;
+import dev.craft.nuclearcontrol.block.CounterBlockEntity;
 import dev.craft.nuclearcontrol.card.CardData;
 import dev.craft.nuclearcontrol.card.EnergySources;
 import net.minecraft.core.BlockPos;
@@ -19,7 +21,8 @@ import net.minecraft.world.level.Level;
 /**
  * Sensor kit ({@code ItemSensorKitBase} and subclasses, spec 46 §5.2): right click on a fitting target turns the kit
  * in the hand into the sensor location card for that position. Reactor kit: reactor or chamber (position of the
- * reactor); energy kit: EU storage, else MJ receptor (plus {@code targetType}); liquid kit: any block with a tank.
+ * reactor); energy kit: EU storage, else MJ receptor (plus {@code targetType}); liquid kit: any block with a tank;
+ * counter kit: energy or average counter.
  */
 public class SensorKitItem extends Item {
     private final Supplier<? extends Item> card;
@@ -59,6 +62,22 @@ public class SensorKitItem extends Item {
         return EnergySources.tanks(level, pos) == null ? null : new Target(pos, -1);
     }
 
+    @Nullable
+    public static Target counter(Level level, BlockPos pos) {
+        return level.getBlockEntity(pos) instanceof CounterBlockEntity ? new Target(pos, -1) : null;
+    }
+
+    /** {@code GT_SensorKit_Item}: a GregTech machine that gives information ({@code isGivingInformation}). */
+    @Nullable
+    public static Target gregTech(Level level, BlockPos pos) {
+        return level.getBlockEntity(pos) instanceof GtDeviceInformation ? new Target(pos, -1) : null;
+    }
+
+    /** Chat message after mounting; the GregTech kit sends none. */
+    protected void announce(Player player) {
+        player.sendSystemMessage(Component.translatable("message.craft.nuclearcontrol.sensor_kit"));
+    }
+
     @Override
     public InteractionResult onItemUseFirst(ItemStack stack, net.minecraft.world.item.context.UseOnContext context) {
         Player player = context.getPlayer();
@@ -78,7 +97,7 @@ public class SensorKitItem extends Item {
                 data.save(result);
             }
             player.setItemInHand(context.getHand(), result);
-            player.sendSystemMessage(Component.translatable("message.craft.nuclearcontrol.sensor_kit"));
+            announce(player);
         }
         return InteractionResult.sidedSuccess(context.getLevel().isClientSide());
     }

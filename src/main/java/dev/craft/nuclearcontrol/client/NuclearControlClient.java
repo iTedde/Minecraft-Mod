@@ -33,6 +33,8 @@ public final class NuclearControlClient {
         event.register(NcMenus.REMOTE_THERMAL_MONITOR.get(), RemoteThermalMonitorScreen::new);
         event.register(NcMenus.ALARM.get(), AlarmScreen::new);
         event.register(NcMenus.INFORMATION_PANEL.get(), InfoPanelScreen::new);
+        event.register(NcMenus.COUNTER.get(), CounterScreen::new);
+        event.register(NcMenus.RANGE_TRIGGER.get(), RangeTriggerScreen::new);
     }
 
     @SubscribeEvent

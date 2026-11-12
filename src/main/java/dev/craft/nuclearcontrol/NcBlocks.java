@@ -2,8 +2,10 @@ package dev.craft.nuclearcontrol;
 
 import dev.craft.Craft;
 import dev.craft.nuclearcontrol.block.AlarmBlock;
+import dev.craft.nuclearcontrol.block.CounterBlock;
 import dev.craft.nuclearcontrol.block.InfoPanelBlock;
 import dev.craft.nuclearcontrol.block.InfoPanelExtenderBlock;
+import dev.craft.nuclearcontrol.block.RangeTriggerBlock;
 import dev.craft.nuclearcontrol.block.RemoteThermalMonitorBlock;
 import dev.craft.nuclearcontrol.block.ThermalMonitorBlock;
 import net.minecraft.world.level.block.SoundType;
@@ -32,6 +34,12 @@ public final class NcBlocks {
     public static final DeferredBlock<InfoPanelExtenderBlock> INFORMATION_PANEL_EXTENDER =
             BLOCKS.register("information_panel_extender",
                     () -> new InfoPanelExtenderBlock(properties().lightLevel(InfoPanelBlock::lightLevel)));
+    public static final DeferredBlock<CounterBlock> ENERGY_COUNTER = BLOCKS.register("energy_counter",
+            () -> new CounterBlock(properties(), false));
+    public static final DeferredBlock<CounterBlock> AVERAGE_COUNTER = BLOCKS.register("average_counter",
+            () -> new CounterBlock(properties(), true));
+    public static final DeferredBlock<RangeTriggerBlock> RANGE_TRIGGER = BLOCKS.register("range_trigger",
+            () -> new RangeTriggerBlock(properties()));
 
     private NcBlocks() {
     }

@@ -4,8 +4,11 @@ import java.util.function.Supplier;
 
 import dev.craft.Craft;
 import dev.craft.nuclearcontrol.block.AlarmBlockEntity;
+import dev.craft.nuclearcontrol.block.AverageCounterBlockEntity;
+import dev.craft.nuclearcontrol.block.EnergyCounterBlockEntity;
 import dev.craft.nuclearcontrol.block.InfoPanelBlockEntity;
 import dev.craft.nuclearcontrol.block.InfoPanelExtenderBlockEntity;
+import dev.craft.nuclearcontrol.block.RangeTriggerBlockEntity;
 import dev.craft.nuclearcontrol.block.RemoteThermalMonitorBlockEntity;
 import dev.craft.nuclearcontrol.block.ThermalMonitorBlockEntity;
 import net.minecraft.core.registries.Registries;
@@ -38,6 +41,19 @@ public final class NcBlockEntityTypes {
     public static final Supplier<BlockEntityType<InfoPanelExtenderBlockEntity>> INFORMATION_PANEL_EXTENDER =
             BLOCK_ENTITY_TYPES.register("information_panel_extender", () -> BlockEntityType.Builder.of(
                     InfoPanelExtenderBlockEntity::new, NcBlocks.INFORMATION_PANEL_EXTENDER.get()).build(null));
+
+    @SuppressWarnings("DataFlowIssue")
+    public static final Supplier<BlockEntityType<EnergyCounterBlockEntity>> ENERGY_COUNTER =
+            BLOCK_ENTITY_TYPES.register("energy_counter", () -> BlockEntityType.Builder.of(
+                    EnergyCounterBlockEntity::new, NcBlocks.ENERGY_COUNTER.get()).build(null));
+    @SuppressWarnings("DataFlowIssue")
+    public static final Supplier<BlockEntityType<AverageCounterBlockEntity>> AVERAGE_COUNTER =
+            BLOCK_ENTITY_TYPES.register("average_counter", () -> BlockEntityType.Builder.of(
+                    AverageCounterBlockEntity::new, NcBlocks.AVERAGE_COUNTER.get()).build(null));
+    @SuppressWarnings("DataFlowIssue")
+    public static final Supplier<BlockEntityType<RangeTriggerBlockEntity>> RANGE_TRIGGER =
+            BLOCK_ENTITY_TYPES.register("range_trigger", () -> BlockEntityType.Builder.of(
+                    RangeTriggerBlockEntity::new, NcBlocks.RANGE_TRIGGER.get()).build(null));
 
     private NcBlockEntityTypes() {
     }

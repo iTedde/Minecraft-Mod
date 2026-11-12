@@ -1,0 +1,73 @@
+{
+  "variants": {
+    "facing=down,status=0": {
+      "model": "craft:block/nuclearcontrol/range_trigger_unknown",
+      "x": 90
+    },
+    "facing=down,status=1": {
+      "model": "craft:block/nuclearcontrol/range_trigger_passive",
+      "x": 90
+    },
+    "facing=down,status=2": {
+      "model": "craft:block/nuclearcontrol/range_trigger_active",
+      "x": 90
+    },
+    "facing=east,status=0": {
+      "model": "craft:block/nuclearcontrol/range_trigger_unknown",
+      "y": 90
+    },
+    "facing=east,status=1": {
+      "model": "craft:block/nuclearcontrol/range_trigger_passive",
+      "y": 90
+    },
+    "facing=east,status=2": {
+      "model": "craft:block/nuclearcontrol/range_trigger_active",
+      "y": 90
+    },
+    "facing=north,status=0": {
+      "model": "craft:block/nuclearcontrol/range_trigger_unknown"
+    },
+    "facing=north,status=1": {
+      "model": "craft:block/nuclearcontrol/range_trigger_passive"
+    },
+    "facing=north,status=2": {
+      "model": "craft:block/nuclearcontrol/range_trigger_active"
+    },
+    "facing=south,status=0": {
+      "model": "craft:block/nuclearcontrol/range_trigger_unknown",
+      "y": 180
+    },
+    "facing=south,status=1": {
+      "model": "craft:block/nuclearcontrol/range_trigger_passive",
+      "y": 180
+    },
+    "facing=south,status=2": {
+      "model": "craft:block/nuclearcontrol/range_trigger_active",
+      "y": 180
+    },
+    "facing=up,status=0": {
+      "model": "craft:block/nuclearcontrol/range_trigger_unknown",
+      "x": 270
+    },
+    "facing=up,status=1": {
+      "model": "craft:block/nuclearcontrol/range_trigger_passive",
+      "x": 270
+    },
+    "facing=up,status=2": {
+      "model": "craft:block/nuclearcontrol/range_trigger_active",
+      "x": 270
+    },
+    "facing=west,status=0": {
+      "model": "craft:block/nuclearcontrol/range_trigger_unknown",
+      "y": 270
+    },
+    "facing=west,status=1": {
+      "model": "craft:block/nuclearcontrol/range_trigger_passive",
+      "y": 270
+    },
+    "facing=west,status=2": {
+      "model": "craft:block/nuclearcontrol/range_trigger_active",
+      "y": 270
+    }
+  }
+}

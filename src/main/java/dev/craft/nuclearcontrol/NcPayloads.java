@@ -2,7 +2,10 @@ package dev.craft.nuclearcontrol;
 
 import dev.craft.Craft;
 import dev.craft.nuclearcontrol.block.AlarmBlockEntity;
+import dev.craft.nuclearcontrol.block.AverageCounterBlockEntity;
+import dev.craft.nuclearcontrol.block.EnergyCounterBlockEntity;
 import dev.craft.nuclearcontrol.block.InfoPanelBlockEntity;
+import dev.craft.nuclearcontrol.block.RangeTriggerBlockEntity;
 import dev.craft.nuclearcontrol.block.ThermalMonitorBlockEntity;
 import dev.craft.nuclearcontrol.item.TextCardItem;
 import dev.craft.nuclearcontrol.menu.NcMenu;
@@ -19,9 +22,10 @@ import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 /**
  * GUI settings sent to the server (the original's {@code initiateClientTileEntityEvent}, {@code setNewAlarmSound},
- * {@code setScreenColor} and the card settings): heat level and redstone inversion of the thermal monitors, range and
- * sound of the alarms, display bits, labels, colours, card title and text lines of the information panel. Only
- * accepted for the block of the player's open Nuclear Control menu.
+ * {@code setScreenColor}, {@code setRangeTrigger} and the card settings): heat level and redstone inversion of the
+ * thermal monitors and the range trigger, range and sound of the alarms, display bits, labels, colours, card title and
+ * text lines of the information panel, counter reset and period, trigger limits. Only accepted for the block of the
+ * player's open Nuclear Control menu.
  */
 public final class NcPayloads {
     public static final int HEAT_LEVEL = 0;
@@ -35,6 +39,12 @@ public final class NcPayloads {
     public static final int TITLE = 7;
     /** Value = line index. */
     public static final int TEXT_LINE = 8;
+    /** Energy counter "Reset"; average counter event 0 (no button). */
+    public static final int COUNTER_RESET = 9;
+    /** Value = 1/3/5/10 s. */
+    public static final int AVERAGE_PERIOD = 10;
+    /** Value 0 = start, 1 = end; the limit (long) as text. */
+    public static final int TRIGGER_LIMIT = 11;
     public static final int MAX_TEXT = 64;
 
     private NcPayloads() {
@@ -71,6 +81,28 @@ public final class NcPayloads {
             case INVERT -> {
                 if (blockEntity instanceof ThermalMonitorBlockEntity monitor) {
                     monitor.setInvertRedstone(payload.value() != 0);
+                } else if (blockEntity instanceof RangeTriggerBlockEntity trigger) {
+                    trigger.setInvertRedstone(payload.value() != 0);
+                }
+            }
+            case COUNTER_RESET -> {
+                if (blockEntity instanceof EnergyCounterBlockEntity counter) {
+                    counter.reset();
+                } else if (blockEntity instanceof AverageCounterBlockEntity counter) {
+                    counter.reset();
+                }
+            }
+            case AVERAGE_PERIOD -> {
+                if (blockEntity instanceof AverageCounterBlockEntity counter) {
+                    counter.setPeriod(payload.value());
+                }
+            }
+            case TRIGGER_LIMIT -> {
+                if (blockEntity instanceof RangeTriggerBlockEntity trigger) {
+                    try {
+                        trigger.setLimit(payload.value() != 0, Long.parseLong(payload.text()));
+                    } catch (NumberFormatException ignored) {
+                    }
                 }
             }
             case RANGE -> {

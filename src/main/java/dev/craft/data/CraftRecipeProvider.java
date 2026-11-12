@@ -3586,6 +3586,27 @@ public final class CraftRecipeProvider extends RecipeProvider {
         shapeless(Ic2Items.ELECTRONIC_CIRCUIT, 1, "electronic_circuit_from_liquid_sensor_location_card",
                 Ingredient.of(NcItems.LIQUID_SENSOR_LOCATION_CARD));
         SpecialRecipeBuilder.special(EnergyArrayRecipe::new).save(output, id("energy_array_card"));
+        shaped(NcItems.ENERGY_COUNTER, 1, "energy_counter").pattern(" A ", "FTF")
+                .define('A', Ic2Items.ADVANCED_CIRCUIT).define('F', Ic2Items.cable(CableType.GLASS_FIBRE))
+                .define('T', machine(Ic2Machine.MV_TRANSFORMER)).save();
+        shaped(NcItems.AVERAGE_COUNTER, 1, "average_counter").pattern("FTF", " A ")
+                .define('A', Ic2Items.ADVANCED_CIRCUIT).define('F', Ic2Items.cable(CableType.GLASS_FIBRE))
+                .define('T', machine(Ic2Machine.MV_TRANSFORMER)).save();
+        shaped(NcItems.RANGE_TRIGGER, 1, "range_trigger").pattern("EFE", "AMA", " R ")
+                .define('E', Ic2Items.cable(CableType.DETECTOR)).define('F', Ic2Items.FREQUENCY_TRANSMITTER)
+                .define('A', Ic2Items.ADVANCED_CIRCUIT).define('M', Ic2Items.MACHINE_CASING)
+                .define('R', Items.REDSTONE).save();
+        shaped(NcItems.COUNTER_SENSOR_KIT, 1, "counter_sensor_kit").pattern("  F", " C ", "P  ")
+                .define('F', Ic2Items.FREQUENCY_TRANSMITTER).define('C', Ic2Items.ELECTRONIC_CIRCUIT)
+                .define('P', Items.PAPER).save();
+        shapeless(Ic2Items.ELECTRONIC_CIRCUIT, 2, "electronic_circuit_from_counter_sensor_location_card",
+                Ingredient.of(NcItems.COUNTER_SENSOR_LOCATION_CARD));
+        // GregTech's addon (spec 46 §8): assembler only.
+        assemble("gt_sensor_kit", SizedIngredient.of(Ic2Items.ELECTRONIC_CIRCUIT.get(), 1),
+                SizedIngredient.of(Ic2Items.FREQUENCY_TRANSMITTER.get(), 1), new ItemStack(NcItems.GT_SENSOR_KIT.get()),
+                1600, 2);
+        assemble("electronic_circuit_from_gt_sensor_card", SizedIngredient.of(NcItems.GT_SENSOR_CARD.get(), 1), null,
+                new ItemStack(Ic2Items.ELECTRONIC_CIRCUIT.get(), 2), 1600, 2);
     }
 
     private ShapedBuilder shaped(ItemLike result, int count, String name) {

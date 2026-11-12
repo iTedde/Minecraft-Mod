@@ -259,6 +259,8 @@ Status: *geplant* (aus Phase 1 abgeleitet, noch nicht umgesetzt), *entschieden* 
 | Textkarte: Eingabe | eigenes Textfeld `GuiTextArea` (10 Zeilen, Breite begrenzt) | 10 einzelne Textzeilen (Enter/Pfeile wechseln die Zeile), je höchstens 64 Zeichen; Titel höchstens 32 Zeichen | 1.21-Widgets, Paketgröße | **umgesetzt** (46.2) |
 | Flüssigkeits-Sensor | BC-`ITankContainer.getTanks(UP)[0]` bzw. Railcraft-`getTank` | NeoForge-Fluid-Capability von oben (sonst ohne Seite), erster Tank; Name = Name der Flüssigkeit | 1.21-Capabilities | **umgesetzt** (46.2) |
 | Energie-Sensor: EU-Speicher | IC2-`IEnergyStorage` (BatBox/MFE/MFSU) und jede GT-Maschine (`BaseMetaTileEntity`) | `ElectricStorageBlockEntity` und `GtMachineBlockEntity` (gespeichert/Kapazität); MJ über `BcCapabilities.POWER_RECEPTOR`; kein FE (Nutzer 2026-11-12) | Craft-Klassen | **umgesetzt** (46.2) |
+| Bereichsauslöser: Drehung | `IRotation` (Shift + Schraubenschlüssel dreht ein Feld `rotation`, ohne sichtbare Wirkung am vollen Block) | entfällt; der Schraubenschlüssel setzt nur die Displayseite bzw. baut ab | keine Wirkung im Original | **umgesetzt** (46.3) |
+| Zähler: GUI-Werte | `NuclearNetworkHelper` schickt Zählerstand/Durchschnitt an offene GUIs | Menü-Datenslots (Zählerstand als 2 Ints, Durchschnitt, Zeitraum); Grenzen und Umkehr des Auslösers per Block-Entity-Update | 1.21-Menüs | **umgesetzt** (46.3) |
 
 ## Bewusst (Energiebalancing)
 

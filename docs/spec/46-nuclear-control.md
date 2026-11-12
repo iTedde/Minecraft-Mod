@@ -56,7 +56,7 @@ die angeklickte Fläche).
 | `range_upgrade` | Range Upgrade / Reichweiten-Upgrade | 64 |
 | `color_upgrade` | Color Upgrade / Farb-Upgrade | 64 |
 | `gt_sensor_kit` | GregTech Sensor Kit / GregTech-Sensorkit (GT-Zusatz, §8) | 1 |
-| `gt_sensor_card` | GregTech Sensor Location Card / GregTech-Sensorkarte (§8) | 1 |
+| `gt_sensor_card` | GregTech Sensor Card / GregTech-Sensorkarte (§8) | 1 |
 
 Im Pack sind Zähler-/Flüssigkeitskit, Zähler-/Flüssigkeitskarte und Reichweiten-/Farb-Upgrade je ein Item mit Meta 0/1;
 in 1.21 je ein eigenes Item (keine Metas).
@@ -236,6 +236,10 @@ GregTech legt im Pack ein eigenes Kit + Karte an, sobald Nuclear Control da ist:
   „<Fortschritt> secs“, „/<Gesamt> secs“.
 - In Craft vorhandene GT-Maschinen mit Information: Elektrolyseur, Industrial Blast Furnace, Zentrifuge, Industrial
   Grinder, Implosionskompressor, Vakuumgefrierer (die übrigen GT-Geräte mit Information gibt es in Craft nicht).
+- Namen laut GT-Lang: „GregTech Sensor Kit“, „GregTech Sensor Card“. Zeilen ohne Leerzeichen vor „secs“
+  (`mProgresstime / 20 + "secs"`). Anzeigeeinstellungen „Primary“/„Secondary“/„Tertiary“ (Bits 1/2/4).
+- Kit: GregTech-Tab, Tooltip „Attach to GregTech Machines“, **keine** Chatmeldung beim Anbringen. Karte: in keinem
+  Kreativ-Tab (leeres `getSubItems`, in NEI versteckt), Tooltip „Insert into Display Panel“ vor Titel/Koordinaten.
 
 ## 9 Umsetzung (Vorschlag Teilphasen)
 
@@ -260,6 +264,11 @@ GregTech legt im Pack ein eigenes Kit + Karte an, sobald Nuclear Control da ist:
   mit Farbwahl, Beschriftung an/aus, Anzeigezeilen je Kartentyp, Kartentitel, Textdrehung), Energie- und
   Flüssigkeits-Sensorkit, Karten Reaktor/Energie/Energiefeld/Flüssigkeit/Text/Zeit, Energiefeld-Sonderrezept,
   Rückbau-Rezepte; GUIs Infotafel/Farben/Textkarte aus den Pack-Texturen. 6 GameTests (`InfoPanelGameTests`).
+
+- **46.3** (2026-11-12, umgesetzt): Energie- und Durchschnittszähler (GUI aus `GUIEnergyCounter.png`, Reset bzw.
+  Zeitraum 1/3/5/10 s), Bereichsauslöser (GUI mit 2 × 10 Ziffernknöpfen, Redstone-Umkehr, Anzeige grau/grün/rot),
+  Zähler-Sensorkit/-karte, GregTech-Sensorkit/-karte (Assembler-Rezepte), Rückbau Zählerkarte. Zählerkarte: einmal
+  gesetztes `average` bleibt auf der Karte (Original). 6 GameTests (`CounterGameTests`).
 
 ## 11 Offene Fragen (Nutzer)
 

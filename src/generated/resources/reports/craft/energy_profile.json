@@ -1656,6 +1656,34 @@
         "getMaxStorage": 600,
         "getTier": 1
       }
+    },
+    {
+      "classes": [
+        "EnergyCounterBlockEntity",
+        "CounterBlockEntity"
+      ],
+      "id": "energy_counter",
+      "kinds": [
+        "eu_sink",
+        "eu_source"
+      ],
+      "maxEnergyOutput": 4096,
+      "maxSafeInput": 32,
+      "values": {}
+    },
+    {
+      "classes": [
+        "AverageCounterBlockEntity",
+        "CounterBlockEntity"
+      ],
+      "id": "average_counter",
+      "kinds": [
+        "eu_sink",
+        "eu_source"
+      ],
+      "maxEnergyOutput": 4096,
+      "maxSafeInput": 32,
+      "values": {}
     }
   ],
   "items": [

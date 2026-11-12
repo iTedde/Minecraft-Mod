@@ -610,6 +610,23 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
         add(setting + "liquid_free", german ? "Frei" : "Free");
         add(setting + "liquid_capacity", german ? "Kapazität" : "Capacity");
         add(setting + "liquid_percentage", german ? "Füllstand in %" : "Fill percentage");
+        block(NcBlocks.ENERGY_COUNTER, german ? "Energiezähler" : "Energy Counter");
+        block(NcBlocks.AVERAGE_COUNTER, german ? "Durchschnittszähler" : "Average Counter");
+        block(NcBlocks.RANGE_TRIGGER, german ? "Bereichsauslöser" : "Range Trigger");
+        item(NcItems.COUNTER_SENSOR_KIT, german ? "Zähler-Sensorkit" : "Counter Sensor Kit");
+        item(NcItems.COUNTER_SENSOR_LOCATION_CARD, german ? "Zähler-Sensorkarte" : "Counter Sensor Location Card");
+        item(NcItems.GT_SENSOR_KIT, german ? "GregTech-Sensorkit" : "GregTech Sensor Kit");
+        item(NcItems.GT_SENSOR_CARD, german ? "GregTech-Sensorkarte" : "GregTech Sensor Card");
+        add("tooltip.craft.nuclearcontrol.gt_sensor_kit", german ? "An GregTech-Maschinen anbringen"
+                : "Attach to GregTech Machines");
+        add("tooltip.craft.nuclearcontrol.gt_sensor_card", german ? "In eine Infotafel einsetzen"
+                : "Insert into Display Panel");
+        add("gui.craft.nuclearcontrol.reset", german ? "Zurücksetzen" : "Reset");
+        add("gui.craft.nuclearcontrol.average_period", german ? "Zeitraum: %ss" : "Period: %ssec");
+        add(panel + "energy_counter", german ? "Energie: %sEU" : "Energy: %sEU");
+        add(setting + "gt_primary", german ? "Primär" : "Primary");
+        add(setting + "gt_secondary", german ? "Sekundär" : "Secondary");
+        add(setting + "gt_tertiary", german ? "Tertiär" : "Tertiary");
     }
 
     /** GraviSuite (spec 28 §1); English names as in the pack. */
