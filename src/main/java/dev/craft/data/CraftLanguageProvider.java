@@ -1293,6 +1293,84 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
                 + "thus yields 243 EU/t instead of 162. Panels pass power to each other without loss: one "
                 + "cable at any panel collects the whole field (only panels feed in). The old LV/MV/HV solar arrays no longer deliver anything; at "
                 + "the crafting table they come apart into 8 of the tier below.");
+        nuclearControlInfo(german);
+    }
+
+    /** EMI info pages of IC2 Nuclear Control (spec 46). */
+    private void nuclearControlInfo(boolean german) {
+        add("emi.craft.info.nc_thermal_monitor", german
+                ? "Direkt an einen Reaktor oder eine Reaktorkammer setzen (braucht festen Halt). Ab der eingestellten "
+                + "Hitze (Standard 500, GUI ±1 … ±10 000) gibt er ein Redstone-Signal 15 nach allen Seiten außer zum "
+                + "Reaktor; „Invertieren“ kehrt das um. Front grün/rot, grau ohne Reaktor."
+                : "Place directly on a reactor or reactor chamber (needs a solid block). From the set heat (default "
+                + "500, GUI ±1 … ±10,000) it emits redstone 15 to all sides except towards the reactor; \"Invert\" "
+                + "reverses it. Front green/red, grey without a reactor.");
+        add("emi.craft.info.nc_remote_thermal_monitor", german
+                ? "Wie der Thermomonitor, aber aus der Ferne: Reaktor-Sensorkarte einlegen. Braucht 1 EU/t (Batterie-"
+                + "Slot oder Kabel, 600 EU Speicher; zu großes Paket → Explosion). Reichweite 8 Blöcke je Achse, mit "
+                + "Reichweiten-Upgrades ×2 je Stück (max. 7 → 1024). Transformator-/Energiespeicher-Upgrades passen."
+                : "Like the thermal monitor, but remote: insert a reactor sensor location card. Needs 1 EU/t (battery "
+                + "slot or cable, 600 EU storage; oversized packet → explosion). Range 8 blocks per axis, ×2 per range "
+                + "upgrade (max. 7 → 1024). Transformer/energy storage upgrades fit.");
+        add("emi.craft.info.nc_thermometer", german
+                ? "Rechtsklick auf Reaktor oder Kammer zeigt die Hüllentemperatur. Thermometer: 11 Messungen, dann "
+                + "kaputt. Digitalthermometer: 50 EU je Messung (12 000 EU, LV), zeigt dazu die Grenzen für "
+                + "Wasserverdampfen (50 %) und Schmelzen (85 %)."
+                : "Right click a reactor or chamber to show the hull heat. Thermometer: 11 readings, then it breaks. "
+                + "Digital thermometer: 50 EU per reading (12,000 EU, LV), also shows the limits for water evaporating "
+                + "(50 %) and melting (85 %).");
+        add("emi.craft.info.nc_alarm", german
+                ? "Heult, solange Redstone anliegt (am Block oder an angrenzendem Draht). GUI: Ton (Standard/Sci-Fi) "
+                + "und Reichweite 0–128 Blöcke (Standard 64). Der Industriealarm blinkt zusätzlich mit Licht. "
+                + "Braucht festen Halt."
+                : "Sounds while powered by redstone (at the block or adjacent wire). GUI: sound (default/sci-fi) and "
+                + "range 0–128 blocks (default 64). The industrial alarm also flashes light. Needs a solid block.");
+        add("emi.craft.info.nc_information_panel", german
+                ? "Zeigt den Inhalt einer Karte, aber nur mit Redstone-Signal (dann leuchtet die Tafel). "
+                + "Infotafel-Erweiterungen in gleicher Ausrichtung vergrößern den Bildschirm (je Richtung bis 20). "
+                + "Reichweiten-Upgrade: Fernkarten-Reichweite 8 × 2ⁿ (max. 7). Farb-Upgrade: Farben wählen („T“). "
+                + "GUI: Zeilen ein/aus, Kartentitel. Shift + Schraubenschlüssel dreht den Text."
+                : "Shows a card's content, but only with a redstone signal (then the panel lights up). Information "
+                + "panel extenders facing the same way enlarge the screen (up to 20 each direction). Range upgrade: "
+                + "remote card range 8 × 2ⁿ (max. 7). Color upgrade: choose colours (\"T\"). GUI: lines on/off, card "
+                + "title. Shift + wrench rotates the text.");
+        add("emi.craft.info.nc_sensor_kit", german
+                ? "Sensorkarten haben kein Rezept: Mit dem passenden Kit auf das Ziel rechtsklicken, dann wird das Kit "
+                + "zur Karte mit dessen Koordinaten. Reaktor-Kit → Reaktor/Kammer, Energie-Kit → BatBox/MFE/MFSU, "
+                + "GT-Maschine (EU) oder BC-Empfänger (MJ), Flüssigkeits-Kit → Tank, Zähler-Kit → Energie-/"
+                + "Durchschnittszähler, GregTech-Kit → Hochofen, Grinder, Zentrifuge, Elektrolyseur, "
+                + "Implosionskompressor, Vakuumgefrierer."
+                : "Sensor cards have no recipe: right click the target with the matching kit and the kit turns into "
+                + "the card with its coordinates. Reactor kit → reactor/chamber, energy kit → BatBox/MFE/MFSU, GT "
+                + "machine (EU) or BC receiver (MJ), liquid kit → tank, counter kit → energy/average counter, "
+                + "GregTech kit → blast furnace, grinder, centrifuge, electrolyzer, implosion compressor, vacuum "
+                + "freezer.");
+        add("emi.craft.info.nc_energy_array_card", german
+                ? "Werkbank, formlos: 2–6 Energie-Sensorkarten → Energiefeld-Karte; Feldkarte + weitere Energiekarten "
+                + "→ mehr Ziele (höchstens 6). Zeigt je Speicher und/oder die Summe. Feldkarte allein → 2 "
+                + "Elektronische Schaltungen je Ziel."
+                : "Crafting, shapeless: 2–6 energy sensor location cards → energy array location card; array card + "
+                + "more energy cards → more targets (at most 6). Shows each storage and/or the total. Array card alone "
+                + "→ 2 electronic circuits per target.");
+        add("emi.craft.info.nc_text_time_card", german
+                ? "Textkarte: 10 Zeilen freier Text, bearbeitet über „...“ in der Infotafel. Zeitkarte: Tageszeit "
+                + "hh:mm. Beide brauchen keinen Sensor."
+                : "Text card: 10 lines of free text, edited with \"...\" in the information panel. Time card: time of "
+                + "day hh:mm. Neither needs a sensor.");
+        add("emi.craft.info.nc_counter", german
+                ? "EU rein an der Front (zeigt beim Setzen zum Spieler), raus an allen anderen Seiten, ein volles Paket "
+                + "je Tick. Paket 32 EU, ×4 je Transformator-Upgrade (max. 4); größere Pakete → Explosion. "
+                + "Energiezähler zählt die durchgeleiteten EU (Reset), Durchschnittszähler zeigt EU/t über 1/3/5/10 s."
+                : "EU in at the front (faces the player when placed), out at all other sides, one full packet per "
+                + "tick. Packet 32 EU, ×4 per transformer upgrade (max. 4); larger packets → explosion. The energy "
+                + "counter counts the EU passed (reset), the average counter shows EU/t over 1/3/5/10 s.");
+        add("emi.craft.info.nc_range_trigger", german
+                ? "Energie- oder Energiefeld-Karte einlegen und zwei Grenzen einstellen: ab der oberen Redstone an, "
+                + "unter der unteren aus, dazwischen bleibt es (Hysterese). „Invertieren“ kehrt das Signal um. "
+                + "Reichweiten-Upgrade wie bei der Infotafel."
+                : "Insert an energy or energy array card and set two limits: redstone on from the upper, off below the "
+                + "lower, unchanged in between (hysteresis). \"Invert\" reverses the signal. Range upgrade as on the "
+                + "information panel.");
     }
 
     /** IC2 crops (spec 05 §9): blocks, items, crop names, Cropnalyzer texts. */

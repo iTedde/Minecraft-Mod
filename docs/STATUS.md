@@ -3770,3 +3770,27 @@ Nutzer: „nächste Phase“, dann „speicher mal kurz“. **Baut noch nicht** 
   Reset, Zeitraum), Bereichsauslöser (Ziffern, Umkehr, Anzeigefarbe), Zähler- und GT-Karte auf der Tafel.
 - **46.4** EMI, Herkunft, Wiki, Paket.
 - Phase 51 (Leuchtschild „wie Blendgranate“): Umfang klären.
+
+# Phase 46.4 – EMI, Herkunft, Wiki, Paket (2026-11-12)
+
+Nutzer: „nächste Phase“.
+
+## Erledigt
+- [x] EMI: `compat/emi/NcEmiRecipes` – 10 Info-Seiten (Thermomonitor, Fern-Thermomonitor, Thermometer, Alarme,
+  Infotafel + Erweiterung/Upgrades, Kits → Karten, Energiefeld-Karte (Sonderrezept, sonst in EMI unsichtbar),
+  Text-/Zeitkarte, Zähler, Bereichsauslöser). GT-Sensorkarte bleibt in EMI sichtbar (im Pack nur in NEI versteckt).
+- [x] Herkunft: `SourceTexts.nuclearControl` für die rezeptlosen Karten (Reaktor, Energie, Flüssigkeit, Zähler, GT)
+  und die Feldkarte; sonst keine neuen Rohstoffe.
+- [x] Wiki: Gruppe „Nuclear Control“ (26 Einträge), Seite „IC2 Nuclear Control“ (Reaktor, Alarme, Tafel, Kits/Karten,
+  Zähler/Auslöser); DE + EN-Namen neu erzeugt. `testplan.md` Abschnitt 23, `architektur.md`, Spec §10, CLAUDE.md.
+- [x] Craft **1.2.7** (`releases/craft-1.2.7.jar`), `gradlew runData`, danach `build` grün. GameTests: 604, rot nur
+  der bekannte Wackelkandidat `liquidTesseractFillsRemoteTank`.
+- [x] Paket `releases/Craft-1.2.9-curseforge.zip` (9,2 MB): wie 1.2.8, nur Craft 1.2.6 → 1.2.7; Manifest unverändert
+  (112 Einträge). Nicht im Client gestartet.
+- **Phase 46 erledigt, Client-Test offen** (Testplan 23.1–23.5).
+
+## Nächste Schritte
+- Client-Test Nuclear Control (Testplan 23) – nur nach Rückfrage (Nutzer spielt evtl. selbst); Paket 1.2.9 im
+  CurseForge-Launcher.
+- Phase 47 (ChargePads) mit Spezifikation 47.0 beginnen.
+- Phase 51 (Leuchtschild „wie Blendgranate“): Umfang klären.

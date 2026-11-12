@@ -295,6 +295,16 @@ Testwelt. Sprache einmal Deutsch, einmal Englisch prüfen. EMI und Xaero's Minim
 | 22.2 | M + Rechtsklick: Meldung „3×3-Modus AN/AUS“; an Wand, Boden und Decke jeweils 3×3 quer zur Blickrichtung, Drops (mit Glück/Behutsamkeit), 160 EU je Block | 41 | bestanden 2026-11-06 (Nutzer) |
 | 22.3 | Stein mit Obsidian daneben: Obsidian bleibt; Erz neben Stein geht mit; Grundgestein nie; leerer Bohrer baut nur noch Einzelblöcke; EMI-Infoseite | 41 | bestanden 2026-11-06 (Nutzer) |
 
+## 23. IC2 Nuclear Control (Phase 46)
+
+| Nr | Test | Herkunft | OK |
+|---|---|---|---|
+| 23.1 | Texturen/Modelle aller Blöcke und Items im IC2-Tab (GT-Sensorkit im GT-Tab); Rezepte in EMI, Info-Seiten und Herkunft der Karten | 46.1–46.4 | |
+| 23.2 | Thermometer/Digitalthermometer am Reaktor (Meldung, Haltbarkeit, 50 EU); Thermomonitor an Reaktor/Kammer (Schwelle per GUI, Front grün/rot/grau, Redstone, Invertieren, Zahl oben); Fern-Thermomonitor mit Karte, Batterie, Upgrades, Anzeige auf der Front | 46.1 | |
+| 23.3 | Heul- und Industriealarm an Wand/Boden/Decke: Ton (Standard/Sci-Fi), Reichweite, Licht blinkt; fällt ab ohne Halt | 46.1 | |
+| 23.4 | Infotafel mit Erweiterungen (Rahmen, Farben mit Farb-Upgrade, Licht nur mit Redstone, Text an Wand/Boden/Decke, Shift + Schraubenschlüssel dreht); alle Karten (Reaktor, Energie EU/MJ, Feld, Flüssigkeit, Zähler, GT, Text, Zeit), Zeilen-Häkchen, Titel, „Außer Reichweite“ | 46.2, 46.3 | |
+| 23.5 | Energie-/Durchschnittszähler zwischen Kabeln (Eingang Front, Zählerstand, Reset, Zeitraum 1/3/5/10, Explosion bei zu großem Paket); Bereichsauslöser (Ziffern ±, Umkehr, Texturen je Zustand, Redstone) | 46.3 | |
+
 ## Befunde
 
 | Nr | Datum | Befund | Status |

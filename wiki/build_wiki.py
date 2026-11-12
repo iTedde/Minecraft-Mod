@@ -65,6 +65,7 @@ WIKI_NOTES = {
 }
 
 GROUPS = [
+    ('nuclearcontrol', 'Nuclear Control'),
     ('mps', 'Modular Powersuits'),
     ('gravisuite', 'GraviSuite'),
     ('enderstorage', 'EnderStorage'),
@@ -83,7 +84,7 @@ GROUPS = [
 ]
 GROUP_ORDER = ['IndustrialCraft 2', 'GregTech', 'BuildCraft', 'Forestry', 'Power Converters',
                'Compact Solars', 'Kraftwerke (neu)', 'Mining-Dimension (neu)', 'Leuchtschild (neu)', 'Iron Chests', 'Advanced Machines',
-               'Thermal Expansion', 'EnderStorage', 'GraviSuite', 'Modular Powersuits',
+               'Thermal Expansion', 'EnderStorage', 'GraviSuite', 'Modular Powersuits', 'Nuclear Control',
                'Sonstiges']
 
 # items whose behaviour was changed on purpose or which are new content

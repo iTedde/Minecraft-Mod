@@ -1136,6 +1136,50 @@ abwechselnd aus/an (erster Druck: aus).</li>
 <li><b>Schleichen + Mausrad</b> mit dem Power-Werkzeug: Modus wählen (Symbole über der Hotbar), Rechtsklick führt ihn aus.</li></ul>
 <p>{c('component_carbon_myofiber')} und {c('component_myofiber_gel')} haben wie im Pack weder Rezept noch Verwendung.</p>''')
 
+    modpage('mod-nuclearcontrol', 'IC2 Nuclear Control', 'craft:information_panel',
+            'IC2 Nuclear Control aus dem Pack: <b>Reaktor-Überwachung</b> (Thermometer, Thermomonitore), <b>Alarme</b>, '
+            'die <b>Industrie-Infotafel</b> mit Sensorkarten für Reaktoren, Speicher, Tanks und Zähler, dazu '
+            '<b>Energiezähler</b> und der <b>Bereichsauslöser</b>. Mit dabei der GregTech-Zusatz (Sensorkit für GT-Maschinen). '
+            'Alle Teile liegen im Kreativ-Tab „IndustrialCraft 2“, das GT-Sensorkit im GregTech-Tab.',
+            [('Vorlage', 'IC2 Nuclear Control (FTB Ultimate)'), ('Energie', 'EU (Fern-Thermomonitor 1 EU/t)'),
+             ('Reichweite Karten', '8 × 2ⁿ je Achse (n Reichweiten-Upgrades, max. 1024)'), ('Kreativ-Tab', 'IndustrialCraft 2')],
+            [('spec-46', '46 – IC2 Nuclear Control')],
+            f"""<h2 id="mod-nuclearcontrol--reaktor">Reaktor überwachen</h2>
+<ul><li>{c('thermometer')} / {c('digital_thermometer')}: Rechtsklick auf Reaktor oder Kammer zeigt die Hüllentemperatur.
+Das einfache hält 11 Messungen, das digitale kostet 50 EU je Messung und nennt die Grenzen 50 % (Wasser verdampft) und 85 % (Schmelzen).</li>
+<li>{c('thermal_monitor')}: direkt an Reaktor oder Kammer setzen; ab der eingestellten Hitze (Standard 500) Redstone 15 nach
+allen Seiten außer zum Reaktor, umkehrbar. Front grün/rot, grau ohne Reaktor.</li>
+<li>{c('remote_thermal_monitor')}: dasselbe über eine Reaktor-Sensorkarte aus der Ferne; braucht 1 EU/t (600 EU Speicher,
+Transformator-/Energiespeicher-Upgrades), zu große Pakete sprengen ihn.</li></ul>
+<h2 id="mod-nuclearcontrol--alarm">Alarme</h2>
+<p>{c('howler_alarm')} und {c('industrial_alarm')} heulen, solange Redstone anliegt; Ton und Reichweite (0–128, Standard 64)
+in der GUI. Der Industriealarm blinkt zusätzlich (Licht 7, 7, 15, 0 – wie im Pack). Ein Thermomonitor am Alarm warnt
+bei Überhitzung.</p>
+<h2 id="mod-nuclearcontrol--tafel">Industrie-Infotafel</h2>
+<ul><li>{c('information_panel')}: zeigt eine Karte, aber <b>nur mit Redstone-Signal</b> (dann Licht 7); aktualisiert sich etwa jede Sekunde.</li>
+<li>{c('information_panel_extender')}: in gleicher Ausrichtung daneben gesetzt, vergrößert den Bildschirm (je Richtung bis 20 Blöcke).</li>
+<li>{c('range_upgrade')}: verdoppelt die Reichweite der Fernkarten je Stück (8 → max. 1024 Blöcke je Achse).
+{c('color_upgrade')}: Hintergrund- und Textfarbe wählen (Knopf „T“).</li>
+<li>GUI: Anzeigezeilen je Kartentyp ein/aus, Beschriftung, Kartentitel; Shift + Schraubenschlüssel dreht den Text.</li></ul>
+<h2 id="mod-nuclearcontrol--karten">Sensorkits und Karten</h2>
+<p>Sensorkarten haben kein Rezept: Mit dem Kit auf das Ziel rechtsklicken, das Kit wird zur Karte mit den Koordinaten.</p>
+{h.table(['Kit → Karte', 'Ziel', 'Zeigt'], [
+    [c('remote_sensor_kit') + ' → ' + c('reactor_sensor_location_card'), 'Reaktor oder Kammer', 'An/Aus, Hitze, Max. Hitze, Schmelzpunkt, Ausgabe EU/t, Restzeit der Brennstäbe'],
+    [c('energy_sensor_kit') + ' → ' + c('energy_sensor_location_card'), 'BatBox/MFE/MFSU, GT-Maschinen (EU), BuildCraft-Empfänger (MJ)', 'Aktuell, Speicher, Frei, Füllstand'],
+    [c('liquid_sensor_kit') + ' → ' + c('liquid_sensor_location_card'), 'jeder Block mit Tank', 'Flüssigkeit, Menge, Frei, Kapazität, Füllstand'],
+    [c('counter_sensor_kit') + ' → ' + c('counter_sensor_location_card'), 'Energie-/Durchschnittszähler', 'Zählerstand bzw. EU/t'],
+    [c('gt_sensor_kit') + ' → ' + c('gt_sensor_card'), 'Hochofen, Grinder, Zentrifuge, Elektrolyseur, Implosionskompressor, Vakuumgefrierer', 'Fortschritt in Sekunden'],
+    [c('energy_array_location_card'), 'Werkbank: 2–6 Energiekarten (formlos)', 'je Speicher und/oder Summe'],
+    [c('text_card') + ', ' + c('time_card'), '–', '10 Zeilen Text („...“ in der Tafel) bzw. Tageszeit'],
+])}
+{h.note('info', 'Die Energiefeld-Karte zerfällt allein in der Werkbank in 2 Elektronische Schaltungen je Ziel; das GT-Sensorkit und die Rückgewinnung der GT-Karte laufen im Assembler.')}
+<h2 id="mod-nuclearcontrol--zaehler">Zähler und Bereichsauslöser</h2>
+<ul><li>{c('energy_counter')} / {c('average_counter')}: EU rein an der Front, raus an allen anderen Seiten, ein volles Paket
+je Tick. Paket 32 EU, ×4 je Transformator-Upgrade; größere Pakete lassen ihn explodieren. Der Energiezähler zählt die EU
+(Reset), der Durchschnittszähler zeigt EU/t über 1/3/5/10 s.</li>
+<li>{c('range_trigger')}: Energie- oder Feldkarte einlegen, zwei Grenzen einstellen – ab der oberen Redstone an, unter der
+unteren aus, dazwischen bleibt der Zustand (Hysterese). Damit lassen sich Generatoren nach dem Füllstand eines Speichers schalten.</li></ul>""")
+
     # ------------------------------------------------------------------ Items
     page('items', 'Gegenstände & Blöcke', 'Allgemein', f'''<h1>Gegenstände & Blöcke</h1>
 <p class="lead">Alle {stats['items']} registrierten Blöcke und Items von Craft mit deutschem und englischem Namen. Jeder Eintrag hat eine eigene Seite

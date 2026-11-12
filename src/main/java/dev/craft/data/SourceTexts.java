@@ -27,6 +27,7 @@ public final class SourceTexts {
         fuelRods();
         misc();
         thermalExpansion();
+        nuclearControl();
     }
 
     private SourceTexts() {
@@ -1102,5 +1103,31 @@ public final class SourceTexts {
                         + "also raw metal) + sand → 2 ingots + rich slag (5 %); pyrite ore + sand (10 %). Added to ore instead "
                         + "of sand: 3 ingots + slag.",
                 "rich_slag");
+    }
+
+    /** IC2 Nuclear Control (spec 46): cards without a crafting recipe. */
+    private static void nuclearControl() {
+        add("Kein Rezept: Mit dem Reaktor-Sensorkit auf einen Reaktor oder eine Reaktorkammer rechtsklicken.",
+                "No recipe: right click a reactor or reactor chamber with the remote sensor kit.",
+                "reactor_sensor_location_card");
+        add("Kein Rezept: Mit dem Energie-Sensorkit auf BatBox, MFE, MFSU, eine GT-Maschine oder einen "
+                        + "BuildCraft-Empfänger (MJ) rechtsklicken.",
+                "No recipe: right click a BatBox, MFE, MFSU, GT machine or BuildCraft receiver (MJ) with the energy "
+                        + "sensor kit.",
+                "energy_sensor_location_card");
+        add("Kein Rezept: Mit dem Flüssigkeits-Sensorkit auf einen Block mit Tank rechtsklicken.",
+                "No recipe: right click a block with a tank with the liquid sensor kit.",
+                "liquid_sensor_location_card");
+        add("Kein Rezept: Mit dem Zähler-Sensorkit auf einen Energie- oder Durchschnittszähler rechtsklicken.",
+                "No recipe: right click an energy or average counter with the counter sensor kit.",
+                "counter_sensor_location_card");
+        add("Kein Rezept: Mit dem GregTech-Sensorkit auf eine GT-Maschine mit Fortschritt rechtsklicken "
+                        + "(Hochofen, Grinder, Zentrifuge, Elektrolyseur, Implosionskompressor, Vakuumgefrierer).",
+                "No recipe: right click a GT machine with progress with the GregTech sensor kit (blast furnace, "
+                        + "grinder, centrifuge, electrolyzer, implosion compressor, vacuum freezer).",
+                "gt_sensor_card");
+        add("Werkbank, formlos: 2–6 Energie-Sensorkarten → 1 (weitere Karten dazulegen, höchstens 6 Ziele).",
+                "Crafting, shapeless: 2–6 energy sensor location cards → 1 (add more cards, at most 6 targets).",
+                "energy_array_location_card");
     }
 }

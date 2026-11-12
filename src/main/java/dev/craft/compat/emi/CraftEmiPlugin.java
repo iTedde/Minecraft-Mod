@@ -48,6 +48,7 @@ public class CraftEmiPlugin implements EmiPlugin {
         LightShieldEmiRecipes.register(registry);
         CopperGolemEmiRecipes.register(registry);
         PcEmiRecipes.register(registry);
+        NcEmiRecipes.register(registry);
         registry.addWorkstation(VanillaEmiRecipeCategories.CRAFTING, EmiStack.of(RpItems.PROJECT_TABLE.get()));
         registry.addWorkstation(VanillaEmiRecipeCategories.CRAFTING, EmiStack.of(RpItems.LARGE_PROJECT_TABLE.get()));
         registry.addRecipe(new EmiInfoRecipe(List.of(EmiStack.of(RpItems.PROJECT_TABLE.get()),

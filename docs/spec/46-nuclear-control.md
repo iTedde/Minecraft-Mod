@@ -269,6 +269,10 @@ GregTech legt im Pack ein eigenes Kit + Karte an, sobald Nuclear Control da ist:
   Zeitraum 1/3/5/10 s), Bereichsauslöser (GUI mit 2 × 10 Ziffernknöpfen, Redstone-Umkehr, Anzeige grau/grün/rot),
   Zähler-Sensorkit/-karte, GregTech-Sensorkit/-karte (Assembler-Rezepte), Rückbau Zählerkarte. Zählerkarte: einmal
   gesetztes `average` bleibt auf der Karte (Original). 6 GameTests (`CounterGameTests`).
+- **46.4** (2026-11-12, umgesetzt): EMI-Info-Seiten (`compat/emi/NcEmiRecipes`, 10 Seiten), Herkunftstexte der
+  rezeptlosen Karten und der Feldkarte (`SourceTexts.nuclearControl`), Wiki-Gruppe „Nuclear Control“ und Seite
+  „IC2 Nuclear Control“, Testplan Abschnitt 23; Craft 1.2.7, Paket 1.2.9. Die GT-Sensorkarte bleibt in EMI sichtbar
+  (im Pack nur in NEI versteckt), damit ihre Assembler-Rezepte auffindbar sind.
 
 ## 11 Offene Fragen (Nutzer)
 
