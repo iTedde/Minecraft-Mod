@@ -3602,3 +3602,16 @@ auslastet), Macaw's Brücken und Dächer, Handcrafted (Möbel), Serene Seasons�
 ## Nächste Schritte
 - Paket 1.2.7 im CurseForge-Launcher starten (DH, Terralith in neuer Welt, Serene Seasons mit IC2-Crops).
 - Phasen 45–50 mit Spezifikation x.0 beginnen; Reihenfolge beim Nutzer (Vorschlag: 45).
+
+# Phase 45.0 – Spezifikation EU-Eingang Ad Astra/AE2 (2026-11-12)
+
+Nutzer: „Los gehts“. Entschieden: nur Ad Astra + AE2, 1 EU = 4 FE, LV 32 mit Explosion, Speicher/Kabel ausgenommen.
+
+## Erledigt
+- [x] `docs/spec/45-fe-eu-eingang.md`: Blockliste aus den Paket-Jars (Ad Astra 1.16.26: 8 Maschinen; AE2 19.2.18:
+  Unterklassen von `AEBasePoweredBlockEntity` = Controller, Energieakzeptor, Auflader, Prägepresse,
+  Wachstumsbeschleuniger, ME-Truhe; `cable_bus` mit Energieakzeptor-Part bewusst ausgenommen), Verhalten,
+  Umsetzungsplan (Verallgemeinerung von `OmlEuInput`). Spec-README, CLAUDE.md.
+
+## Nächste Schritte
+- Freigabe der Blockliste durch den Nutzer, dann **45.1** Umsetzung + GameTests mit den Paket-Jars.

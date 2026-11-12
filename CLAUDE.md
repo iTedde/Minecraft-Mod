@@ -128,7 +128,7 @@ MJ und EU bleiben getrennte Systeme; Verbindung nur über Electrical Engine (EU�
 | 43 | EU für Open Modular Lighting (Nutzer, 2026-11-11; `docs/spec/43-oml-eu.md`, `compat/oml`): Entschieden: 1 EU = 1 FE, LV 32 mit Explosion, FE bleibt. 43.1 Umsetzung + GameTests (erledigt) · 43.2 Craft 1.2.5 / Paket 1.2.6 (erledigt) | **erledigt** (Client-Test offen) |
 | 44 | Paket-Mods (Nutzer, 2026-11-12): Storage Drawers, Farmer's Delight, Supplementaries (+ Moonlight Lib), Reliquary Reincarnations, Forestry Community Edition (Alpha, + Patchouli) im Paket 1.2.6. Verworfen: Advanced Solar Panels, Steve's Carts | **erledigt** (Client-Test offen) |
 | 44b | Server-/Komfort-Mods (Nutzer, 2026-11-12): spark, Torchmaster, Terralith (statt Tectonic), Distant Horizons, Macaw's Bridges/Roofs, Handcrafted, Serene Seasons im Paket 1.2.7 | **erledigt** (Client-Test offen) |
-| 45 | EU-Eingang für weitere FE-Geräte (Nutzer, 2026-11-12; Ad-Astra-Maschinen, AE2-Controller u. a., Ausbau von Phase 43): 45.0 Spezifikation + Entscheidungen (offen) | offen |
+| 45 | EU-Eingang für weitere FE-Geräte (Nutzer, 2026-11-12; Ad-Astra-Maschinen, AE2-Controller u. a., Ausbau von Phase 43; `docs/spec/45-fe-eu-eingang.md`): Entschieden: nur Ad Astra + AE2, 1 EU = 4 FE, LV 32 mit Explosion, Speicher/Kabel ausgenommen. 45.0 Spezifikation (erledigt, Freigabe der Blockliste offen) · 45.1 Umsetzung · 45.2 Wiki/Paket | **in Arbeit** |
 | 46 | IC2 Nuclear Control (aus dem Pack, Nutzer 2026-11-12) | offen |
 | 47 | ChargePads (aus dem Pack, Nutzer 2026-11-12) | offen |
 | 48 | Modular Force Field System (aus dem Pack, Nutzer 2026-11-12) | offen |
