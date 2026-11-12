@@ -1,4 +1,4 @@
-package dev.craft.compat.oml;
+package dev.craft.compat.euinput;
 
 import dev.craft.core.energy.EnergyNets;
 import dev.craft.core.energy.EnergySink;
@@ -7,6 +7,7 @@ import dev.craft.core.explosion.Ic2Explosion;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import net.minecraft.core.BlockPos;
@@ -27,47 +28,68 @@ import net.neoforged.neoforge.event.level.LevelEvent;
 import net.neoforged.neoforge.event.tick.LevelTickEvent;
 
 /**
- * EU input for the electric lights of Open Modular Lighting (phase 43, {@code docs/spec/43-oml-eu.md}): every electric
- * light joins the EU net as an LV sink (max. 32 EU per packet, explodes above) and passes EU 1:1 as FE into the light's
- * own energy storage. FE input stays untouched. Does nothing without the mod.
+ * EU input for FE machines of other mods: Open Modular Lighting lights (phase 43, {@code docs/spec/43-oml-eu.md},
+ * 1 EU = 1 FE) and selected Ad Astra and AE2 machines (phase 45, {@code docs/spec/45-fe-eu-eingang.md},
+ * 1 EU = 4 FE). Each listed block joins the EU net as an LV sink (max. 32 EU per packet, explodes above) and passes the
+ * EU as FE into the block's own energy storage; only whole EU are taken. FE input stays untouched. Rules of mods that
+ * are not installed do nothing.
  *
- * <p>The lights are foreign block entities, so the net gets a small {@link LightSink} per position. It is added when a
- * chunk loads or a light appears (placement or any block change that notifies neighbours), and dropped again on
- * chunk unload, on such a change and by a sweep every second.
+ * <p>The blocks are foreign block entities, so the net gets a small {@link ForeignSink} per position. It is added when
+ * a chunk loads or a listed block appears (placement or any block change that notifies neighbours), and dropped again
+ * on chunk unload, on such a change and by a sweep every second.
  */
-public final class OmlEuInput {
-    public static final String MOD_ID = "openmodularlighting";
+public final class ForeignEuInputs {
     public static final int MAX_INPUT = 32;
-    /** Electric lights only; the carbon floodlight burns fuel, phantom/UV light blocks are its beam. */
-    private static final Set<String> ELECTRIC_LIGHTS = Set.of("electric_floodlight", "uv_floodlight", "grow_light",
-            "small_fluorescent_light", "square_fluorescent_light", "cube_light");
     private static final int SWEEP_INTERVAL = 20;
 
-    private static boolean loaded;
+    /** One mod: its listed blocks take EU at {@code fePerEu} FE per EU. */
+    public record Rule(String modId, Set<String> blocks, int fePerEu) {
+    }
+
+    public static final Rule OML = new Rule("openmodularlighting", Set.of("electric_floodlight", "uv_floodlight",
+            "grow_light", "small_fluorescent_light", "square_fluorescent_light", "cube_light"), 1);
+    /** Machines only: no generators (coal generator, solar panel), storage (energizer) or cables. */
+    public static final Rule AD_ASTRA = new Rule("ad_astra", Set.of("compressor", "fuel_refinery", "oxygen_loader",
+            "oxygen_distributor", "water_pump", "cryo_freezer", "gravity_normalizer", "etrionic_blast_furnace"), 4);
+    /** AE2's {@code AEBasePoweredBlockEntity} blocks; not the cable bus (energy acceptor part) or energy cells. */
+    public static final Rule AE2 = new Rule("ae2", Set.of("controller", "energy_acceptor", "charger", "inscriber",
+            "growth_accelerator", "chest"), 4);
+    private static final List<Rule> RULES = List.of(OML, AD_ASTRA, AE2);
+
+    private static final Map<String, Rule> ACTIVE = new HashMap<>();
     private static final Map<ServerLevel, LevelSinks> LEVELS = new HashMap<>();
 
-    private OmlEuInput() {
+    private ForeignEuInputs() {
     }
 
     public static void init() {
-        loaded = ModList.get().isLoaded(MOD_ID);
-        if (!loaded) {
+        for (Rule rule : RULES) {
+            if (ModList.get().isLoaded(rule.modId())) {
+                ACTIVE.put(rule.modId(), rule);
+            }
+        }
+        if (ACTIVE.isEmpty()) {
             return;
         }
-        NeoForge.EVENT_BUS.addListener(OmlEuInput::onChunkLoad);
-        NeoForge.EVENT_BUS.addListener(OmlEuInput::onChunkUnload);
-        NeoForge.EVENT_BUS.addListener(OmlEuInput::onNeighborNotify);
-        NeoForge.EVENT_BUS.addListener(OmlEuInput::onLevelTick);
-        NeoForge.EVENT_BUS.addListener(OmlEuInput::onLevelUnload);
+        NeoForge.EVENT_BUS.addListener(ForeignEuInputs::onChunkLoad);
+        NeoForge.EVENT_BUS.addListener(ForeignEuInputs::onChunkUnload);
+        NeoForge.EVENT_BUS.addListener(ForeignEuInputs::onNeighborNotify);
+        NeoForge.EVENT_BUS.addListener(ForeignEuInputs::onLevelTick);
+        NeoForge.EVENT_BUS.addListener(ForeignEuInputs::onLevelUnload);
     }
 
-    /** Whether {@code state} is an electric OML light that takes EU (client-safe; used for cable connections). */
-    public static boolean isEuInput(BlockState state) {
-        if (!loaded) {
-            return false;
+    /** The rule for {@code state}, or {@code null} if it takes no EU (client-safe; used for cable connections). */
+    public static Rule ruleFor(BlockState state) {
+        if (ACTIVE.isEmpty()) {
+            return null;
         }
         ResourceLocation id = BuiltInRegistries.BLOCK.getKey(state.getBlock());
-        return id.getNamespace().equals(MOD_ID) && ELECTRIC_LIGHTS.contains(id.getPath());
+        Rule rule = ACTIVE.get(id.getNamespace());
+        return rule != null && rule.blocks().contains(id.getPath()) ? rule : null;
+    }
+
+    public static boolean isEuInput(BlockState state) {
+        return ruleFor(state) != null;
     }
 
     // --- lifecycle ---
@@ -92,9 +114,9 @@ public final class OmlEuInput {
                 return;
             }
             ChunkPos chunk = event.getChunk().getPos();
-            Iterator<Map.Entry<BlockPos, LightSink>> it = sinks.active.entrySet().iterator();
+            Iterator<Map.Entry<BlockPos, ForeignSink>> it = sinks.active.entrySet().iterator();
             while (it.hasNext()) {
-                Map.Entry<BlockPos, LightSink> entry = it.next();
+                Map.Entry<BlockPos, ForeignSink> entry = it.next();
                 if (new ChunkPos(entry.getKey()).equals(chunk)) {
                     EnergyNets.remove(level, entry.getValue());
                     it.remove();
@@ -104,7 +126,7 @@ public final class OmlEuInput {
         }
     }
 
-    /** Any block change notifies its neighbours – covers breaking, commands, pistons and contraptions. */
+    /** Any block change notifies its neighbours – covers placing, breaking, commands, pistons and contraptions. */
     private static void onNeighborNotify(BlockEvent.NeighborNotifyEvent event) {
         if (!(event.getLevel() instanceof ServerLevel level)) {
             return;
@@ -148,38 +170,44 @@ public final class OmlEuInput {
         }
     }
 
-    /** Adds a sink for a light at {@code pos} or drops a stale one. */
+    /** Adds a sink for a listed block at {@code pos}, or drops a stale one (also when the block's rule changed). */
     private static void update(ServerLevel level, LevelSinks sinks, BlockPos pos) {
-        LightSink sink = sinks.active.get(pos);
-        boolean light = level.isLoaded(pos) && isEuInput(level.getBlockState(pos));
-        if (light && sink == null) {
-            EnergyTile occupant = EnergyNets.get(level).getTile(pos);
-            if (occupant == null) {
-                sink = new LightSink(level, pos);
+        ForeignSink sink = sinks.active.get(pos);
+        Rule rule = level.isLoaded(pos) ? ruleFor(level.getBlockState(pos)) : null;
+        if (sink != null && sink.rule != rule) {
+            sinks.active.remove(pos);
+            EnergyNets.remove(level, sink);
+            sink = null;
+        }
+        if (rule == null) {
+            return;
+        }
+        if (sink == null) {
+            if (EnergyNets.get(level).getTile(pos) == null) {
+                sink = new ForeignSink(level, pos, rule);
                 sinks.active.put(pos, sink);
                 EnergyNets.add(level, sink);
             }
-        } else if (!light && sink != null) {
-            sinks.active.remove(pos);
-            EnergyNets.remove(level, sink);
-        } else if (light && !EnergyNets.isAdded(level, sink)) {
+        } else if (!EnergyNets.isAdded(level, sink)) {
             EnergyNets.add(level, sink);
         }
     }
 
     private static final class LevelSinks {
-        final Map<BlockPos, LightSink> active = new HashMap<>();
+        final Map<BlockPos, ForeignSink> active = new HashMap<>();
         final Set<BlockPos> pending = new HashSet<>();
     }
 
-    /** EU sink standing in for one light; 1 EU = 1 FE. */
-    static final class LightSink implements EnergySink {
+    /** EU sink standing in for one foreign block. */
+    static final class ForeignSink implements EnergySink {
         private final ServerLevel level;
         private final BlockPos pos;
+        final Rule rule;
 
-        LightSink(ServerLevel level, BlockPos pos) {
+        ForeignSink(ServerLevel level, BlockPos pos, Rule rule) {
             this.level = level;
             this.pos = pos;
+            this.rule = rule;
         }
 
         @Override
@@ -188,7 +216,7 @@ public final class OmlEuInput {
         }
 
         private boolean valid() {
-            return level.isLoaded(pos) && isEuInput(level.getBlockState(pos));
+            return level.isLoaded(pos) && ruleFor(level.getBlockState(pos)) == rule;
         }
 
         private IEnergyStorage storage(Direction side) {
@@ -222,7 +250,10 @@ public final class OmlEuInput {
         @Override
         public int demandsEnergy() {
             IEnergyStorage storage = anyStorage();
-            return storage == null ? 0 : Math.max(0, storage.getMaxEnergyStored() - storage.getEnergyStored());
+            if (storage == null) {
+                return 0;
+            }
+            return Math.max(0, storage.getMaxEnergyStored() - storage.getEnergyStored()) / rule.fePerEu();
         }
 
         @Override
@@ -241,7 +272,15 @@ public final class OmlEuInput {
             if (storage == null) {
                 storage = anyStorage();
             }
-            return storage == null ? amount : amount - storage.receiveEnergy(amount, false);
+            if (storage == null) {
+                return amount;
+            }
+            int rate = rule.fePerEu();
+            int eu = Math.min(amount, storage.receiveEnergy(amount * rate, true) / rate);
+            if (eu > 0) {
+                storage.receiveEnergy(eu * rate, false);
+            }
+            return amount - eu;
         }
 
         @Override

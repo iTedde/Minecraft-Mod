@@ -60,10 +60,10 @@ hängen; stattdessen den Energieakzeptor-Block nehmen), Energiezellen (nehmen ke
 
 ## 4. Umsetzung
 
-`compat/oml/OmlEuInput` wird zu einem gemeinsamen `compat/euinput/ForeignEuInputs` verallgemeinert: Regeln je Mod
+`compat/oml/OmlEuInput` ist zu `compat/euinput/ForeignEuInputs` verallgemeinert (umgesetzt 45.1): Regeln je Mod
 (Namespace, Blockliste, FE je EU), gleiche Lebenszyklus-Logik wie Phase 43 (Chunk-Laden, Nachbar-Benachrichtigung,
 Prüfung jede Sekunde). Kabelanbindung über `ForeignEuInputs.isEuInput(state)`. GameTests mit Ad Astra und AE2
-(Kompressor, ME-Controller: 32 EU → 128 FE; 128 EU → Explosion), Lauf mit den Paket-Jars im eigenen Testordner.
+(Kompressor und Prägepresse: 32 EU → 128 FE; ME-Controller: alle EU angenommen – er reicht die Energie sofort ans AE-Netz weiter, sein eigener Puffer steigt nur um einen Teil; Kompressor bei 128 EU → Explosion), Lauf mit den Paket-Jars im eigenen Testordner.
 
 ## 5. Teilphasen
 

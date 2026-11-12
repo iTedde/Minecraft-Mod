@@ -3615,3 +3615,25 @@ Nutzer: „Los gehts“. Entschieden: nur Ad Astra + AE2, 1 EU = 4 FE, LV 32 mit
 
 ## Nächste Schritte
 - Freigabe der Blockliste durch den Nutzer, dann **45.1** Umsetzung + GameTests mit den Paket-Jars.
+
+# Phase 45.1 – EU-Eingang Ad Astra/AE2 umgesetzt (2026-11-12)
+
+Nutzer: „Los gehts“ (Blockliste aus 45.0 freigegeben).
+
+## Erledigt
+- [x] `compat/oml/OmlEuInput` → `compat/euinput/ForeignEuInputs` verallgemeinert: Regeln je Mod (`Rule`: Namespace,
+  Blockliste, FE je EU) – OML 1:1, Ad Astra (8 Maschinen) und AE2 (6 Blöcke) 1 EU = 4 FE; LV 32 mit Explosion;
+  angenommen werden nur ganze EU (Simulation vorab). Kabel-Hooks in `CableBlock`/`CableBlockEntity` umbenannt.
+- [x] GameTests `ForeignEuInputsGameTests` (Flutlicht, Ad-Astra-Kompressor, AE2-Controller/-Prägepresse nehmen EU;
+  Flutlicht und Kompressor explodieren bei 128 EU). Lauf mit den Paket-Jars (Ad Astra 1.16.26 + Resourceful Lib/
+  Config + Common Storage Lib, AE2 19.2.18 + GuideME, OML) auf 21.1.265: alle neuen Tests grün. Befund AE2: der
+  Controller nimmt alle 128 FE an, sein Puffer steigt nur um ~78 (gibt sofort ans Netz weiter) – Test prüft dort nur
+  „alles angenommen + Puffer steigt“.
+- [x] Die 5 Mock-Spieler-Fehlschläge treten auch mit Ad Astra auf („Payload ad_astra:…/sync_planets may not be sent“)
+  – wie bei Moonlight nur Testumgebung. `plasmaCannon` zum zweiten Mal zufällig gescheitert („zombie killed by the
+  bolt“) – wackeliger Test, bei Gelegenheit robuster machen.
+- [x] Ohne Fremd-Mods: `gradlew build` grün, **alle 584 GameTests grün**.
+
+## Nächste Schritte
+- **45.2** Wiki-Text, Craft 1.2.6 + Paket 1.2.8 – auf Wunsch.
+- Client-Test: Ad-Astra-Kompressor/AE2-Controller am LV-Kabel, an MV → Explosion.

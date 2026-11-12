@@ -22,10 +22,10 @@ Keridos, CurseForge 268178) ist seit Paket 1.2.5 mitinstalliert und nimmt von si
 
 ## Umsetzung
 
-`compat/oml/OmlEuInput`: je Licht ein `EnergySink`-Stellvertreter im EU-Netz (positionsbasiert), angemeldet bei
+`compat/euinput/ForeignEuInputs` (bis Phase 45 `compat/oml/OmlEuInput`): je Licht ein `EnergySink`-Stellvertreter im EU-Netz (positionsbasiert), angemeldet bei
 Chunk-Laden und bei jeder Blockänderung mit Nachbar-Benachrichtigung (Setzen, Abbauen, Befehle, Kolben,
 Contraptions), abgemeldet bei Chunk-Entladen, Blockänderung und einer Prüfung jede Sekunde. EU werden per
 `IEnergyStorage.receiveEnergy` 1:1 als FE übergeben. Kabel: `CableBlock.connects`/`CableBlockEntity.canInteractWith`
-fragen `OmlEuInput.isEuInput`.
+fragen `ForeignEuInputs.isEuInput`.
 
 Abweichung: OML verlangt NeoForge ≥ 21.1.264 – das Paket läuft seit 1.2.5 auf 21.1.265.
