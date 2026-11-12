@@ -3906,3 +3906,23 @@ Nutzer: „Nächste Phase“.
   CurseForge-Launcher.
 - Phase 48 (Modular Force Field System) mit Spezifikation 48.0 beginnen.
 - Phase 51 (Leuchtschild „wie Blendgranate“): Umfang klären.
+
+# Phase 48.0 – Spezifikation Modular Force Field System (2026-11-12)
+
+Nutzer: „Nächste Phase“.
+
+## Erledigt
+- [x] `modularforcefieldsystem.zip` (MFFS V2 2.2.8.3.6) mit Vineflower nach `reference/decompiled/mffs/` dekompiliert
+  (ohne Remapping, Mod-Namen lesbar). Vanilla-Namen über `minecraft.jar` aufgelöst. UE nicht im Pack → nur
+  IC2-Rezepte; TE-Pulverisierer und GT-Grinder (10 Forcicium + 2 Thoriumstaub) gelten.
+- [x] `docs/spec/48-mffs.md`: Monazit/Forcicium/Zelle, Extraktor (4 000 EU → 12 000 FE), Kondensator (10–28 Mio. FE,
+  Reichweite 8–80), Konverter (3 FE = 1 EU), Karten, Rechte/Sicherheitsstation/-speicher/Steuerungssystem,
+  Multiwerkzeug (5 Modi + Debugger), Projektor (8 Module, Kosten/Unterhalt, Originalfehler ×2 auf Standardfelder),
+  9 Upgrades (Störsender-Ausbrennen, Fusion, Tarnung …), Kraftfeldblock, Verteidigungsstation (6 Modi), 35 Rezepte,
+  GUIs, Abweichungen, Teilphasen 48.1–48.5. Spec-README, CLAUDE.md.
+
+## Nächste Schritte
+- Freigabe durch den Nutzer (§11: eigener Tab? Chunkloading an? keine Admin-Liste? Gefahren wie im Pack?
+  Energiename DE „Kraftenergie (KE)“? Handbuch ohne Changelog/Versionsprüfung?), dann **48.1** Grundlagen/Energie.
+- Client-Test ChargePads (Testplan 24) und Nuclear Control (Testplan 23) – nur nach Rückfrage.
+- Phase 51 (Leuchtschild „wie Blendgranate“): Umfang klären.

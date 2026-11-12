@@ -24,7 +24,7 @@ ein überarbeitetes Energiebalancing und neue Kraftwerke. Wird nicht veröffentl
 5. Nach **jeder Phase** muss der Mod bauen (`gradlew build`) und im Client starten (`gradlew runClient`).
 6. Offene Entscheidungen nicht eigenmächtig treffen – nachfragen (Liste unten).
 7. Dokumentation auf Deutsch; Code, Bezeichner und Commit-Messages auf Englisch.
-8. `reference/decompiled/` ist vollständig dekompiliert (seit Phase 24 auch `advancedmachines`, `thermalexpansion`, `CoFHCore`, seit Phase 27 `gravisuite`, seit Phase 28 `modularpowersuits`, seit Phase 46 `nuclearcontrol`, seit Phase 47 `chargepads`; ohne MCP-Remapping, Minecraft-Namen verschleiert). **Nicht erneut dekompilieren.**
+8. `reference/decompiled/` ist vollständig dekompiliert (seit Phase 24 auch `advancedmachines`, `thermalexpansion`, `CoFHCore`, seit Phase 27 `gravisuite`, seit Phase 28 `modularpowersuits`, seit Phase 46 `nuclearcontrol`, seit Phase 47 `chargepads`, seit Phase 48 `mffs`; ohne MCP-Remapping, Minecraft-Namen verschleiert). **Nicht erneut dekompilieren.**
 9. **Niemals ganze Ordner oder große Klassen komplett lesen.** Gezielt mit Grep nach Klassen-, Methoden- oder
    Feldnamen suchen und nur die relevanten Stellen lesen.
 10. Ab Phase 2 ist **`docs/spec/` die Quelle der Wahrheit**. `reference/` nur öffnen, wenn in der Spezifikation etwas
@@ -57,6 +57,7 @@ ein überarbeitetes Energiebalancing und neue Kraftwerke. Wird nicht veröffentl
 | `…coppergolem` (neue Inhalte) | Kupfergolem, Nachbau aus MC 1.21.9 (Phase 35) |
 | `…nuclearcontrol` | IC2 Nuclear Control (Phase 46) |
 | `…chargepads` | ChargePads (Phase 47) |
+| `…mffs` | Modular Force Field System (Phase 48) |
 
 MJ und EU bleiben getrennte Systeme; Verbindung nur über Electrical Engine (EU→MJ) und Power Converters.
 
@@ -133,7 +134,7 @@ MJ und EU bleiben getrennte Systeme; Verbindung nur über Electrical Engine (EU�
 | 45 | EU-Eingang für weitere FE-Geräte (Nutzer, 2026-11-12; Ad-Astra-Maschinen, AE2-Controller u. a., Ausbau von Phase 43; `docs/spec/45-fe-eu-eingang.md`): Entschieden: nur Ad Astra + AE2, 1 EU = 4 FE, LV 32 mit Explosion, Speicher/Kabel ausgenommen. 45.0 Spezifikation (erledigt, freigegeben 2026-11-12) · 45.1 Umsetzung + GameTests (erledigt) · 45.2 Wiki, Craft 1.2.6 / Paket 1.2.8 (erledigt) | **erledigt** (Client-Test offen) |
 | 46 | IC2 Nuclear Control (aus dem Pack, Nutzer 2026-11-12; `docs/spec/46-nuclear-control.md`, Paket `…nuclearcontrol`): 46.0 Spezifikation (erledigt; §11 entschieden: komplett inkl. GT-Sensorkit, Energie-Sensor nur EU + MJ) · 46.1 Thermometer/Thermomonitore/Alarme (erledigt, Client offen) · 46.2 Infotafel/Karten (erledigt, Client offen) · 46.3 Zähler/Bereichsauslöser/GT-Sensorkit (erledigt, Client offen) · 46.4 EMI/Herkunft/Wiki/Paket (erledigt, Craft 1.2.7 / Paket 1.2.9) | **erledigt** (Client-Test offen) |
 | 47 | ChargePads (aus dem Pack, Nutzer 2026-11-12; `docs/spec/47-chargepads.md`, Paket `…chargepads`): 47.0 Spezifikation (erledigt; §11 entschieden: IC2-Tab, nur Craft-Elektro-Items, Gefahren an) · 47.1 Pads (erledigt, Client offen) · 47.2 Module/Ausbausätze (erledigt, Client offen) · 47.3 EMI/Herkunft/Wiki/Paket (erledigt, Craft 1.2.8 / Paket 1.2.11) | **erledigt** (Client-Test offen) |
-| 48 | Modular Force Field System (aus dem Pack, Nutzer 2026-11-12) | offen |
+| 48 | Modular Force Field System (aus dem Pack, Nutzer 2026-11-12; `docs/spec/48-mffs.md`, Paket `…mffs`): 48.0 Spezifikation (erledigt; §11 offen) · 48.1 Grundlagen/Energie · 48.2 Projektor + Kraftfeld · 48.3 Projektor-Upgrades · 48.4 Sicherheit/Verteidigung · 48.5 EMI/Herkunft/Wiki/Paket | **in Arbeit** |
 | 49 | Wireless Redstone (aus dem Pack, inkl. Addons, Nutzer 2026-11-12) | offen |
 | 50 | Kleinkram aus dem Pack (Nutzer 2026-11-12): Omnitools, Obsidian Pressure Plates, Gravity Gun, Secret Rooms | offen |
 | 51 | Leuchtschild viel heller, „wie so ne Blendgranate“ (Nutzer, 2026-11-12; Ausbau von Phase 30) – Umfang offen | offen |
