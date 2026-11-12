@@ -3841,3 +3841,20 @@ Nutzer: „Weiter geht“; Freigabe §11: alle Vorschläge übernommen (IC2-Tab,
 - **47.2** Effizienz-Upgrade, Emitter-Module, Ausbausätze, Partikel.
 - Client-Test Pads – nur nach Rückfrage.
 - Phase 51 (Leuchtschild „wie Blendgranate“): Umfang klären.
+
+# Paket 1.2.10 – Hole Filler Mod (2026-11-12)
+
+Nutzer: Mod „mit dem man Bälle auf Flächen werfen kann“ zum Auffüllen/Renaturieren (kein WorldEdit) → „Prüfen“,
+„ja mach das“.
+
+## Erledigt
+- [x] Geprüft: Hole Filler Mod 1.3.0 hat eine NeoForge-1.21.1-Datei (CurseForge projectID 440585, fileID 6583948,
+  `hole_filler_mod_1.3.0-neoforge-mc_1.21.1.jar`, Client + Server); einzige Abhängigkeit Architectury API, schon im
+  Manifest. Lizenz „All Rights Reserved“ → nur per Manifest, nicht in `overrides`.
+- [x] `releases/Craft-1.2.10-curseforge.zip` (9,6 MB): wie 1.2.9 (Craft 1.2.7), Manifest + Hole Filler (113 Einträge).
+  Nicht im Client gestartet. Hinweis: der Mod füllt auf, trägt aber kein Gelände ab.
+
+## Nächste Schritte
+- Paket 1.2.10 im CurseForge-Launcher testen (Server braucht den Mod ebenfalls).
+- **47.2** Effizienz-Upgrade, Emitter-Module, Ausbausätze, Partikel.
+- Phase 51 (Leuchtschild „wie Blendgranate“): Umfang klären.
