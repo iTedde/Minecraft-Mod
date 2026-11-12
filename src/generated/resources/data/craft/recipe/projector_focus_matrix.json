@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "tag": "c:ingots/refined_iron"
+    },
+    "i": {
+      "item": "minecraft:diamond"
+    },
+    "l": {
+      "item": "minecraft:glass"
+    }
+  },
+  "pattern": [
+    "AlA",
+    "lil",
+    "AlA"
+  ],
+  "result": {
+    "count": 64,
+    "id": "craft:projector_focus_matrix"
+  }
+}

@@ -43,6 +43,8 @@ public final class OreValues {
         values.add(Map.entry(common("ores/silver"), 3));
         values.add(Map.entry(common("ores/lead"), 3));
         values.add(Map.entry(common("ores/nickel"), 4));
+        // MFFS: GregTech addValuableOre(MonazitOre, 3).
+        values.add(Map.entry(common("ores/monazit"), 3));
         values.add(Map.entry(Tags.Blocks.ORES, 1));
         return List.copyOf(values);
     }

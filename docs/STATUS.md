@@ -3926,3 +3926,29 @@ Nutzer: „Nächste Phase“.
   Energiename DE „Kraftenergie (KE)“? Handbuch ohne Changelog/Versionsprüfung?), dann **48.1** Grundlagen/Energie.
 - Client-Test ChargePads (Testplan 24) und Nuclear Control (Testplan 23) – nur nach Rückfrage.
 - Phase 51 (Leuchtschild „wie Blendgranate“): Umfang klären.
+
+# Phase 48.1 – MFFS-Grundlagen (2026-11-12/13)
+
+Nutzer: „Nächste Phase“. §11 der Spezifikation komplett wie vorgeschlagen freigegeben (Tab, Chunkloading, keine
+Admin-Liste, Gefahren an, „Kraftenergie (KE)“, Handbuch ohne Changelog/Versionsprüfung); Spec §3/§4/§5 um Details aus
+dem Original ergänzt (MJ-Provider, Materialverbrauch, versteckte Konverter-Plätze, IC2-Schraubenschlüssel, Name ≤ 21).
+
+## Erledigt
+- [x] Paket `dev.craft.mffs`: Monazit-Erz (+ Tiefenschiefer), Forcicium, Kompakte Forcicium-Zelle, Kraftenergie-Kristall,
+  Fokusmatrix, Feldmodulatoren, Extraktor-Beschleuniger, Kondensator-Upgrades, leere/Power-Link-/Unendlich-Karte,
+  Multiwerkzeug ‹Schraubenschlüssel›/‹Schalter›; Extraktor (EU/MJ → KE, Zellenmodus), Kondensator (Upgrades, Item
+  laden/entladen, Weitergabe 3 Modi, verbundene Geräte), Konverter (KE → EU, Pakete); gemeinsame Maschinenlogik
+  (Name, Geräte-ID, Schaltmodi Redstone/Schalter, Chunkloading, Ausrichtung, Plätze fallen heraus, Karten → leer).
+- [x] GUIs mit Original-Hintergründen (Namenseingabe, Schaltknopf, Kondensator-Modus, Konverter-Knöpfe); eigener Tab.
+- [x] Weltgen Oberwelt + Mining-Dimension; Ofen/Macerator/TE-Pulverisierer/GT-Grinder; Massefab-Verstärker 5 000;
+  Erzwert 3; Tags `c:ores/monazit`, `c:gems/forcicium`; 16 Rezepte; Herkunftstexte Erz/Zelle (wegen `SourceTextsTest`).
+- [x] Texturen `tools/scripts/mffs_textures.py` (Argumente: Projektordner, Minecraft-Client-Jar).
+- [x] 8 GameTests `MffsGameTests` grün. Rot nur Tesserakte (`liquidTesseractFillsRemoteTank` bekannt,
+  `energyTesseractCarriesEnergy` neu wackelig: im ersten Lauf grün, kein MFFS-Bezug). `runData`, danach `build` grün.
+- Doku: Spec 48, `abweichungen.md`, `architektur.md`, CLAUDE.md. Nicht im Client gestartet.
+
+## Nächste Schritte
+- **48.2** Projektor + Kraftfeld (Block, 8 Module, Kosten/Unterhalt, Feldblöcke, GUI, GameTests).
+- Client-Test MFFS-Grundlagen, ChargePads (Testplan 24), Nuclear Control (Testplan 23) – nur nach Rückfrage.
+- `energyTesseractCarriesEnergy` beobachten.
+- Phase 51 (Leuchtschild „wie Blendgranate“): Umfang klären.

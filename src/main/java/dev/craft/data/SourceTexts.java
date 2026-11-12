@@ -28,6 +28,7 @@ public final class SourceTexts {
         misc();
         thermalExpansion();
         nuclearControl();
+        mffs();
     }
 
     private SourceTexts() {
@@ -1106,6 +1107,22 @@ public final class SourceTexts {
     }
 
     /** IC2 Nuclear Control (spec 46): cards without a crafting recipe. */
+    /** Modular Force Field System (spec 48 §2). */
+    private static void mffs() {
+        add("Oberwelt und Mining-Dimension (doppelt), y 0–79, 5 Adern (Größe 5) je Chunk (MFFS). Spitzhacke, droppt "
+                        + "sich selbst. Ofen → 4 Forcicium; Macerator/Pulverisierer → 8 Forcicium; Industrial Grinder → "
+                        + "10 Forcicium + 2 Thoriumstaub.",
+                "Overworld and mining dimension (doubled), y 0–79, 5 veins (size 5) per chunk (MFFS). Pickaxe, drops "
+                        + "itself. Furnace → 4 forcicium; macerator/pulverizer → 8 forcicium; industrial grinder → "
+                        + "10 forcicium + 2 thorium dust.",
+                "monazit_ore", "deepslate_monazit_ore");
+        add("Rezept (Raffiniertes Eisen, Kraftenergie-Kristall, Fortgeschrittener Schaltkreis). Füllt sich aktiv mit "
+                        + "Forcicium aus dem Inventar oder im Extraktor (Platz rechts, 200 000 EU je Forcicium).",
+                "Recipe (refined iron, force energy crystal, advanced circuit). Fills itself with forcicium from the "
+                        + "inventory while active, or in the extractor (right slot, 200,000 EU per forcicium).",
+                "forcicium_cell");
+    }
+
     private static void nuclearControl() {
         add("Kein Rezept: Mit dem Reaktor-Sensorkit auf einen Reaktor oder eine Reaktorkammer rechtsklicken.",
                 "No recipe: right click a reactor or reactor chamber with the remote sensor kit.",

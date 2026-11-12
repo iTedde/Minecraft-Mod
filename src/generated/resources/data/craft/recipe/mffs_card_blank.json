@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "craft:electronic_circuit"
+    },
+    "o": {
+      "item": "minecraft:paper"
+    }
+  },
+  "pattern": [
+    "ooo",
+    "oCo",
+    "ooo"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:mffs_card_blank"
+  }
+}

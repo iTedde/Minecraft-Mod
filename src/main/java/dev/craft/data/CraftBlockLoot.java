@@ -1,5 +1,6 @@
 package dev.craft.data;
 
+import dev.craft.mffs.MffsBlocks;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
@@ -86,6 +87,8 @@ public final class CraftBlockLoot extends BlockLootSubProvider {
         NcBlocks.BLOCKS.getEntries().forEach(block -> dropSelf(block.get()));
         // Charge pads: canHarvestBlock = false, only the wrench gets them back (spec 47 §2.1).
         CpBlocks.BLOCKS.getEntries().forEach(block -> add(block.get(), noDrop()));
+        // MFFS: the ore drops itself (no fortune); machines drop themselves (IC2 wrench path, spec 48 §5).
+        MffsBlocks.BLOCKS.getEntries().forEach(block -> dropSelf(block.get()));
         // EnderStorage getBlockDropped: always itself with frequency and owner (spec 27 §2).
         for (Block ender : List.of(EsBlocks.ENDER_CHEST.get(), EsBlocks.ENDER_TANK.get())) {
             add(ender, LootTable.lootTable().withPool(applyExplosionCondition(ender, LootPool.lootPool()
@@ -284,7 +287,8 @@ public final class CraftBlockLoot extends BlockLootSubProvider {
     protected Iterable<Block> getKnownBlocks() {
         return Stream.of(Ic2Blocks.BLOCKS, BcBlocks.BLOCKS, FrBlocks.BLOCKS, PcBlocks.BLOCKS,
                         CsBlocks.BLOCKS, GtBlocks.BLOCKS, PpBlocks.BLOCKS, RpBlocks.BLOCKS, IronChestBlocks.BLOCKS,
-                        TeBlocks.BLOCKS, EsBlocks.BLOCKS, MpsBlocks.BLOCKS, NcBlocks.BLOCKS, CpBlocks.BLOCKS)
+                        TeBlocks.BLOCKS, EsBlocks.BLOCKS, MpsBlocks.BLOCKS, NcBlocks.BLOCKS, CpBlocks.BLOCKS,
+                        MffsBlocks.BLOCKS)
                 .flatMap(blocks -> blocks.getEntries().stream())
                 .map(holder -> (Block) holder.get()).toList();
     }

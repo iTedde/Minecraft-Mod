@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "D": {
+      "item": "craft:advanced_circuit"
+    },
+    "E": {
+      "item": "craft:carbon_plate"
+    },
+    "S": {
+      "item": "craft:wrench"
+    },
+    "m": {
+      "item": "minecraft:redstone"
+    },
+    "n": {
+      "item": "minecraft:lever"
+    },
+    "x": {
+      "item": "craft:force_energy_crystal"
+    }
+  },
+  "pattern": [
+    "mSn",
+    "ExE",
+    "EDE"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:mffs_multitool_wrench"
+  }
+}

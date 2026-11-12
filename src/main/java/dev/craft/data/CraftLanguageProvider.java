@@ -1,5 +1,7 @@
 package dev.craft.data;
 
+import dev.craft.mffs.MffsBlocks;
+import dev.craft.mffs.MffsItems;
 import java.util.Arrays;
 import java.util.Locale;
 import java.util.function.Supplier;
@@ -633,6 +635,81 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
     }
 
     /** Charge Pads (spec 47 §1); English names and messages as in the pack. */
+    /** Modular Force Field System (spec 48); force energy: EN "FE", DE "KE" (Kraftenergie, §11). */
+    protected void mffs(boolean german) {
+        add("itemGroup.craft.mffs", "Craft: Modular Force Field System");
+        block(MffsBlocks.MONAZIT_ORE, german ? "Monazit-Erz" : "Monazit Ore");
+        block(MffsBlocks.DEEPSLATE_MONAZIT_ORE, german ? "Tiefenschiefer-Monazit-Erz" : "Deepslate Monazit Ore");
+        block(MffsBlocks.EXTRACTOR, german ? "MFFS-Extraktor" : "MFFS Extractor");
+        block(MffsBlocks.CAPACITOR, german ? "MFFS-Kondensator" : "MFFS Capacitor");
+        block(MffsBlocks.CONVERTER, german ? "MFFS-Konverter" : "MFFS Converter");
+        item(MffsItems.FORCICIUM, "Forcicium");
+        item(MffsItems.FORCICIUM_CELL, german ? "Kompakte Forcicium-Zelle" : "MFFS compact Forcicium Cell");
+        item(MffsItems.FORCE_ENERGY_CRYSTAL, german ? "Kraftenergie-Kristall" : "MFFS Force Energy Crystal");
+        item(MffsItems.PROJECTOR_FOCUS_MATRIX, german ? "Projektor-Fokusmatrix" : "MFFS Projector Focus Matrix");
+        item(MffsItems.FIELD_MODULATOR_DISTANCE, german ? "Feldmodulator ‹Distanz›"
+                : "MFFS Projector Field Modulator <distance>");
+        item(MffsItems.FIELD_MODULATOR_STRENGTH, german ? "Feldmodulator ‹Stärke›"
+                : "MFFS Projector Field Modulator <strength>");
+        item(MffsItems.EXTRACTOR_BOOSTER, german ? "Extraktor-Beschleuniger" : "MFFS Extractor Booster");
+        item(MffsItems.CAPACITOR_UPGRADE_CAPACITY, german ? "Kondensator-Upgrade ‹Kapazität›"
+                : "MFFS Capacitor Upgrade <Capacity>");
+        item(MffsItems.CAPACITOR_UPGRADE_RANGE, german ? "Kondensator-Upgrade ‹Reichweite›"
+                : "MFFS Capacitor Upgrade <Range>");
+        item(MffsItems.CARD_BLANK, german ? "MFFS-Karte ‹leer›" : "MFFS Card <blank>");
+        item(MffsItems.CARD_POWER_LINK, german ? "MFFS-Karte ‹Power-Link›" : "MFFS Card <Power Link>");
+        item(MffsItems.CARD_INFINITE_POWER, german ? "MFFS-Unendlich-Energie-Karte" : "MFFS Infinite Power Card");
+        item(MffsItems.MULTITOOL_WRENCH, german ? "MFFS-Multiwerkzeug ‹Schraubenschlüssel›"
+                : "MFFS MultiTool <Wrench>");
+        item(MffsItems.MULTITOOL_SWITCH, german ? "MFFS-Multiwerkzeug ‹Schalter›" : "MFFS MultiTool <Switch>");
+        add("tooltip.craft.mffs.link_to", german ? "Verknüpft mit: %s" : "Linkto: %s");
+        add("tooltip.craft.mffs.world", german ? "Welt: %s" : "World: %s");
+        add("tooltip.craft.mffs.coords", german ? "Koordinaten: %s/%s/%s" : "Coords: %s/%s/%s");
+        add("tooltip.craft.mffs.valid", german ? "Gültig" : "Valid");
+        add("tooltip.craft.mffs.invalid", german ? "Ungültig" : "Invalid");
+        add("tooltip.craft.mffs.force_energy", german ? "%s KE/%s KE" : "%s FE/%s FE");
+        add("tooltip.craft.mffs.forcicium_cell", "%s / %s Forcicium");
+        add("tooltip.craft.mffs.infinite_power_card.1", german ? "Admin-Karte zum Versorgen von Maschinen"
+                : "Admin Card to Power Maschines");
+        add("tooltip.craft.mffs.infinite_power_card.2", german ? "oder zum unendlichen Laden eines Kondensators"
+                : "or use to infinit charge Capactior");
+        add("message.craft.mffs.access_denied", german ? "[Feldsicherheit] Fehler: Zugriff verweigert"
+                : "[Field Security] Fail: access denied");
+        add("message.craft.mffs.card_installed", german ? "Erfolg: %s-Karte eingesetzt" : "Success: %s Card installed");
+        add("message.craft.mffs.card_copied", german ? "Erfolg: %s-Kartendaten kopiert" : "Success: %s Card data copied");
+        add("message.craft.mffs.slot_not_empty", german ? "Fehler: Platz ist nicht leer" : "Fail: Slot is not empty");
+        add("message.craft.mffs.power_link_created", german ? "[Kondensator] Erfolg: <Power-Link>-Karte erstellt"
+                : "[Capacitor] Success: <Power-Link> Card create");
+        add("message.craft.mffs.cell_active", german ? "[Forcicium-Zelle] Aktiv" : "[Forcicum Cell] Active");
+        add("message.craft.mffs.cell_inactive", german ? "[Forcicium-Zelle] Inaktiv" : "[Forcicum Cell] Inactive");
+        add("message.craft.mffs.multitool.not_enough", german
+                ? "[Multiwerkzeug] Fehler: zu wenig KE, bitte laden, mindestens %s nötig"
+                : "[MultiTool] Fail: not enough FP please charge need min %s");
+        add("message.craft.mffs.multitool.not_enough_facing", german
+                ? "[Multiwerkzeug] Fehler: zu wenig KE, bitte laden, mindestens %s zum Drehen nötig"
+                : "[MultiTool] Fail: not enough FE please charge need min %s for change Facing");
+        add("message.craft.mffs.multitool.not_enough_remove", german
+                ? "[Multiwerkzeug] Fehler: zu wenig KE, bitte laden, mindestens %s zum Abbauen nötig"
+                : "[MultiTool] Fail: not enough FE please charge need min %s for remove");
+        add("message.craft.mffs.multitool.not_switchable", german
+                ? "[Multiwerkzeug] Fehler: Gerät nicht im Schaltermodus" : "[MultiTool] Fail: Object not in switch enable mode");
+        add("message.craft.mffs.multitool.not_enough_charge", german
+                ? "[Multiwerkzeug] Fehler: zu wenig KE, bitte laden" : "[MultiTool] Fail: not enough FP please charge");
+        add("gui.craft.mffs.force_energy", german ? "Kraftenergie" : "Force Energy");
+        add("gui.craft.mffs.upgrades", "Upgrades");
+        add("gui.craft.mffs.extractor", german ? "Extraktor" : "Extractor");
+        add("gui.craft.mffs.capacitor", german ? "Kraftenergie-Kondensator" : "Force Energy Capacitor");
+        add("gui.craft.mffs.fe", german ? "KE: %s" : "FE: %s");
+        add("gui.craft.mffs.power_uplink", german ? "Power-Uplink: " : "Power Uplink: ");
+        add("gui.craft.mffs.transmit_range", german ? "Sendereichweite:" : "transmit range:");
+        add("gui.craft.mffs.linked_devices", german ? "verbundene Geräte:" : "linked device:");
+        add("gui.craft.mffs.converter", german ? "MFFS-Konverter" : "MFFS Converter");
+        add("gui.craft.mffs.packets", german ? "Pakete" : "packets");
+        add("gui.craft.mffs.no_link", german ? "KE: Kein Link/OOR" : "FE: No Link/OOR");
+        add("gui.craft.mffs.offline", "OFFLINE");
+        add("gui.craft.mffs.online", "ONLINE");
+    }
+
     protected void chargePads(boolean german) {
         block(CpBlocks.STATIC_CHARGE_PAD, german ? "Statisches Ladepad" : "Static Charge Pad");
         block(CpBlocks.CRYSTALIZOR_CHARGE_PAD, german ? "Kristallisator-Ladepad" : "Crystalizor Charge Pad");
@@ -2302,6 +2379,7 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             graviSuite(false);
             nuclearControl(false);
             chargePads(false);
+            mffs(false);
             modularPowersuits(false);
             advancedMachines(false);
             thermalExpansion(false);
@@ -2721,6 +2799,7 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             graviSuite(true);
             nuclearControl(true);
             chargePads(true);
+            mffs(true);
             modularPowersuits(true);
             advancedMachines(true);
             thermalExpansion(true);

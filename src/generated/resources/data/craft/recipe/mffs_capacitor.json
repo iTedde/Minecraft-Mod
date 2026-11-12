@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "craft:electronic_circuit"
+    },
+    "F": {
+      "item": "craft:advanced_machine_casing"
+    },
+    "J": {
+      "item": "craft:frequency_transmitter"
+    },
+    "x": {
+      "item": "craft:force_energy_crystal"
+    }
+  },
+  "pattern": [
+    "xJx",
+    "CFC",
+    "xJx"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:mffs_capacitor"
+  }
+}

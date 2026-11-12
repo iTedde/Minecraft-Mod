@@ -1717,6 +1717,37 @@
       ],
       "maxSafeInput": 512,
       "values": {}
+    },
+    {
+      "classes": [
+        "ExtractorBlockEntity",
+        "FePoweredBlockEntity",
+        "MffsMachineBlockEntity"
+      ],
+      "id": "mffs_extractor",
+      "kinds": [
+        "eu_sink",
+        "mj_receiver"
+      ],
+      "maxSafeInput": 2048,
+      "mjActivation": 1600,
+      "mjMaxReceived": 1600,
+      "mjMaxStored": 1600,
+      "mjMinReceived": 2,
+      "values": {}
+    },
+    {
+      "classes": [
+        "ConverterBlockEntity",
+        "FePoweredBlockEntity",
+        "MffsMachineBlockEntity"
+      ],
+      "id": "mffs_converter",
+      "kinds": [
+        "eu_source"
+      ],
+      "maxEnergyOutput": 2147483647,
+      "values": {}
     }
   ],
   "items": [

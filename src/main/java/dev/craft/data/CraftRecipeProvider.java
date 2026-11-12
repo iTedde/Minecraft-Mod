@@ -1,5 +1,6 @@
 package dev.craft.data;
 
+import dev.craft.mffs.MffsItems;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -148,6 +149,7 @@ public final class CraftRecipeProvider extends RecipeProvider {
         graviSuite();
         nuclearControl();
         chargePads();
+        mffs();
         modularPowersuits();
         advancedMachines();
         thermalExpansion();
@@ -3613,6 +3615,73 @@ public final class CraftRecipeProvider extends RecipeProvider {
     }
 
     /** Charge Pads (spec 47 §10), IC2 recipes; modules, kits and the efficiency upgrade follow in 47.2. */
+    /**
+     * MFFS (spec 48 §12, §2): the IC2 variants as vanilla shaped recipes ({@code GameRegistry.addRecipe}, mirroring
+     * allowed); the crystal counts with any charge. Ore: furnace 4, macerator 8, TE pulverizer 8 (energy 100), GT
+     * industrial grinder 10 forcicium + 2 thorium dust.
+     */
+    private void mffs() {
+        Ingredient refinedIron = Ingredient.of(CraftItemTagsProvider.INGOTS_REFINED_IRON);
+        Ingredient crystal = Ingredient.of(MffsItems.FORCE_ENERGY_CRYSTAL);
+        Ingredient forcicium = Ingredient.of(MffsItems.FORCICIUM);
+        mffsShaped(MffsItems.EXTRACTOR, 1, "mffs_extractor", " C ", "xFx", " G ")
+                .define('C', Ic2Items.ELECTRONIC_CIRCUIT).define('x', crystal)
+                .define('F', Ic2Items.ADVANCED_MACHINE_CASING).define('G', machine(Ic2Machine.EXTRACTOR))
+                .save(output, id("mffs_extractor"));
+        mffsShaped(MffsItems.CAPACITOR, 1, "mffs_capacitor", "xJx", "CFC", "xJx").define('x', crystal)
+                .define('J', Ic2Items.FREQUENCY_TRANSMITTER).define('C', Ic2Items.ELECTRONIC_CIRCUIT)
+                .define('F', Ic2Items.ADVANCED_MACHINE_CASING).save(output, id("mffs_capacitor"));
+        mffsShaped(MffsItems.CONVERTER, 1, "mffs_converter", "ANA", "JOM", "APA").define('A', refinedIron)
+                .define('N', machine(Ic2Machine.LV_TRANSFORMER)).define('O', machine(Ic2Machine.MV_TRANSFORMER))
+                .define('P', machine(Ic2Machine.HV_TRANSFORMER)).define('J', Ic2Items.FREQUENCY_TRANSMITTER)
+                .define('M', Ic2Items.cable(CableType.GLASS_FIBRE)).save(output, id("mffs_converter"));
+        mffsShaped(MffsItems.FORCE_ENERGY_CRYSTAL, 1, "force_energy_crystal", "uuu", "uiu", "uuu")
+                .define('u', forcicium).define('i', Items.DIAMOND).save(output, id("force_energy_crystal"));
+        mffsShaped(MffsItems.FORCICIUM_CELL, 1, "forcicium_cell", "AAA", "AxA", "ADA").define('A', refinedIron)
+                .define('x', crystal).define('D', Ic2Items.ADVANCED_CIRCUIT).save(output, id("forcicium_cell"));
+        mffsShaped(MffsItems.PROJECTOR_FOCUS_MATRIX, 64, "projector_focus_matrix", "AlA", "lil", "AlA")
+                .define('A', refinedIron).define('l', Items.GLASS).define('i', Items.DIAMOND)
+                .save(output, id("projector_focus_matrix"));
+        Ingredient matrix = Ingredient.of(MffsItems.PROJECTOR_FOCUS_MATRIX);
+        mffsShaped(MffsItems.FIELD_MODULATOR_STRENGTH, 1, "field_modulator_strength", "vvv", "vvv", "vvv")
+                .define('v', matrix).save(output, id("field_modulator_strength"));
+        mffsShaped(MffsItems.FIELD_MODULATOR_DISTANCE, 1, "field_modulator_distance", "vvv", "   ", "vvv")
+                .define('v', matrix).save(output, id("field_modulator_distance"));
+        mffsShaped(MffsItems.EXTRACTOR_BOOSTER, 4, "mffs_extractor_booster", " E ", "EBE", " E ")
+                .define('E', Ic2Items.CARBON_PLATE).define('B', Ic2Items.OVERCLOCKER_UPGRADE)
+                .save(output, id("mffs_extractor_booster"));
+        mffsShaped(MffsItems.CAPACITOR_UPGRADE_CAPACITY, 1, "mffs_capacitor_upgrade_capacity", " E ", "ExE", " E ")
+                .define('E', Ic2Items.CARBON_PLATE).define('x', crystal)
+                .save(output, id("mffs_capacitor_upgrade_capacity"));
+        mffsShaped(MffsItems.CAPACITOR_UPGRADE_RANGE, 1, "mffs_capacitor_upgrade_range", "HHH", "EIE", "EDE")
+                .define('H', Ic2Items.cable(CableType.COPPER)).define('E', Ic2Items.CARBON_PLATE)
+                .define('I', Ic2Items.cable(CableType.INSULATED_COPPER)).define('D', Ic2Items.ADVANCED_CIRCUIT)
+                .save(output, id("mffs_capacitor_upgrade_range"));
+        mffsShaped(MffsItems.CARD_BLANK, 1, "mffs_card_blank", "ooo", "oCo", "ooo").define('o', Items.PAPER)
+                .define('C', Ic2Items.ELECTRONIC_CIRCUIT).save(output, id("mffs_card_blank"));
+        mffsShaped(MffsItems.MULTITOOL_WRENCH, 1, "mffs_multitool_wrench", "mSn", "ExE", "EDE")
+                .define('m', Items.REDSTONE).define('S', Ic2Items.WRENCH).define('n', Items.LEVER)
+                .define('E', Ic2Items.CARBON_PLATE).define('x', crystal).define('D', Ic2Items.ADVANCED_CIRCUIT)
+                .save(output, id("mffs_multitool_wrench"));
+        // Data cards back to blank cards (the recipe clears them).
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, MffsItems.CARD_BLANK.get())
+                .requires(MffsItems.CARD_POWER_LINK.get()).unlockedBy("has_card", has(MffsItems.CARD_POWER_LINK.get()))
+                .save(output, id("mffs_card_blank_from_power_link"));
+        Ingredient ore = Ingredient.of(MffsItems.MONAZIT_ORE, MffsItems.DEEPSLATE_MONAZIT_ORE);
+        smelt("forcicium_from_monazit_ore", ore, MffsItems.FORCICIUM, 4, 0.5F);
+        machine(MachineRecipe.Kind.MACERATOR, "monazit_ore", ore, 1, MffsItems.FORCICIUM, 8);
+        te(TeRecipe.Kind.PULVERIZER, "monazit_ore", ore, stack(MffsItems.FORCICIUM, 8), 100);
+        grind("monazit_ore", ore, 1, stack(MffsItems.FORCICIUM, 10), stack(GtItems.THORIUM_DUST, 2));
+    }
+
+    private static ShapedRecipeBuilder mffsShaped(ItemLike result, int count, String unlock, String... rows) {
+        ShapedRecipeBuilder builder = ShapedRecipeBuilder.shaped(RecipeCategory.MISC, result, count);
+        for (String row : rows) {
+            builder.pattern(row);
+        }
+        return builder.unlockedBy("has_forcicium", has(MffsItems.FORCICIUM.get()));
+    }
+
     private void chargePads() {
         shaped(CpItems.STATIC_CHARGE_PAD, 1, "static_charge_pad").pattern("rSr", "c#c")
                 .define('r', Ic2Items.RUBBER).define('S', Items.STONE_PRESSURE_PLATE)

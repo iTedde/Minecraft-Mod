@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "craft:block/mffs/mffs_extractor_side",
+    "east": "craft:block/mffs/mffs_extractor_side",
+    "north": "craft:block/mffs/mffs_extractor_front",
+    "particle": "craft:block/mffs/mffs_extractor_side",
+    "south": "craft:block/mffs/mffs_extractor_back",
+    "up": "craft:block/mffs/mffs_extractor_side",
+    "west": "craft:block/mffs/mffs_extractor_side"
+  }
+}

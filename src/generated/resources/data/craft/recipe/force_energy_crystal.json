@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "i": {
+      "item": "minecraft:diamond"
+    },
+    "u": {
+      "item": "craft:forcicium"
+    }
+  },
+  "pattern": [
+    "uuu",
+    "uiu",
+    "uuu"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:force_energy_crystal"
+  }
+}

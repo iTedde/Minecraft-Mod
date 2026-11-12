@@ -1,5 +1,6 @@
 package dev.craft.data;
 
+import dev.craft.mffs.MffsBlocks;
 import java.util.List;
 import java.util.Set;
 
@@ -89,6 +90,9 @@ public final class CraftWorldGen {
     public static final ResourceKey<PlacedFeature> TE_LEAD = placedKey("te_lead_ore");
     public static final ResourceKey<PlacedFeature> TE_NICKEL = placedKey("te_nickel_ore");
     public static final ResourceKey<BiomeModifier> ADD_TE_ORES = modifierKey("add_te_ores");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> MFFS_MONAZIT_CONFIGURED = configuredKey("mffs_monazit_ore");
+    public static final ResourceKey<PlacedFeature> MFFS_MONAZIT = placedKey("mffs_monazit_ore");
+    public static final ResourceKey<BiomeModifier> ADD_MFFS_ORES = modifierKey("add_mffs_ores");
     public static final ResourceKey<BiomeModifier> ADD_GT_NETHER_ORES = modifierKey("add_gt_nether_ores");
     public static final ResourceKey<BiomeModifier> ADD_GT_END_ORES = modifierKey("add_gt_end_ores");
 
@@ -138,6 +142,10 @@ public final class CraftWorldGen {
         register(context, GT_NETHER_ORES_CONFIGURED, GtWorldGen.NETHER_ORES.get(), NoneFeatureConfiguration.INSTANCE);
         register(context, GT_END_ORES_CONFIGURED, GtWorldGen.END_ORES.get(), NoneFeatureConfiguration.INSTANCE);
         register(context, TE_SILVER_CONFIGURED, TeWorldGen.SILVER_ORE.get(), NoneFeatureConfiguration.INSTANCE);
+        // MFFSWorldGenerator: WorldGenMinable(MonazitOre, MonazitOreWorldGen + 1 = 5), replaces stone only.
+        register(context, MFFS_MONAZIT_CONFIGURED, Feature.ORE, new OreConfiguration(List.of(
+                OreConfiguration.target(stone, MffsBlocks.MONAZIT_ORE.get().defaultBlockState()),
+                OreConfiguration.target(deepslate, MffsBlocks.DEEPSLATE_MONAZIT_ORE.get().defaultBlockState())), 5));
         register(context, TE_LEAD_CONFIGURED, TeWorldGen.LEAD_ORE.get(), NoneFeatureConfiguration.INSTANCE);
         register(context, TE_NICKEL_CONFIGURED, TeWorldGen.NICKEL_ORE.get(), NoneFeatureConfiguration.INSTANCE);
     }
@@ -204,6 +212,9 @@ public final class CraftWorldGen {
         registerOre(context, TE_NICKEL, configured.getOrThrow(TE_NICKEL_CONFIGURED), List.of(
                 CountPlacement.of(TeWorldGen.NICKEL_CLUSTERS), InSquarePlacement.spread(),
                 uniformHeight(TeWorldGen.NICKEL_MIN_Y, TeWorldGen.NICKEL_MAX_Y - 1), BiomeFilter.biome()));
+        // MFFSWorldGenerator: MonazitOreWorldGen + 1 = 5 tries per chunk, y = rand(80).
+        registerOre(context, MFFS_MONAZIT, configured.getOrThrow(MFFS_MONAZIT_CONFIGURED), List.of(
+                CountPlacement.of(5), InSquarePlacement.spread(), uniformHeight(0, 79), BiomeFilter.biome()));
         MiningDimension.bootstrapVanillaOres(context);
     }
 
@@ -253,6 +264,8 @@ public final class CraftWorldGen {
         context.register(ADD_TE_ORES, new BiomeModifiers.AddFeaturesBiomeModifier(overworld,
                 HolderSet.direct(placed.getOrThrow(TE_SILVER), placed.getOrThrow(TE_LEAD), placed.getOrThrow(TE_NICKEL)),
                 GenerationStep.Decoration.UNDERGROUND_ORES));
+        context.register(ADD_MFFS_ORES, new BiomeModifiers.AddFeaturesBiomeModifier(overworld,
+                HolderSet.direct(placed.getOrThrow(MFFS_MONAZIT)), GenerationStep.Decoration.UNDERGROUND_ORES));
         context.register(ADD_GT_NETHER_ORES, new BiomeModifiers.AddFeaturesBiomeModifier(
                 biomes.getOrThrow(BiomeTags.IS_NETHER), HolderSet.direct(placed.getOrThrow(GT_NETHER_ORES)),
                 GenerationStep.Decoration.UNDERGROUND_ORES));

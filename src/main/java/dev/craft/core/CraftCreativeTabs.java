@@ -1,5 +1,9 @@
 package dev.craft.core;
 
+import dev.craft.mffs.MffsItems;
+import dev.craft.mffs.item.ForceEnergyCrystalItem;
+import dev.craft.mffs.item.ForciciumCellItem;
+import dev.craft.mffs.item.multitool.MultitoolItem;
 import java.util.function.Supplier;
 
 import dev.craft.Craft;
@@ -277,6 +281,32 @@ public final class CraftCreativeTabs {
                         output.accept(MpsItems.POWER_TOOL.get());
                         MpsItems.components().forEach(item -> output.accept(item.get()));
                     })
+                    .build());
+
+    /** {@code MFFSCreativeTab} (icon capacitor); crystal, cell and multitools charged, crystal and cell also empty. */
+    public static final Supplier<CreativeModeTab> MFFS = TABS.register("mffs", () ->
+            CreativeModeTab.builder()
+                    .title(Component.translatable("itemGroup.craft.mffs"))
+                    .icon(() -> MffsItems.CAPACITOR.toStack())
+                    .withTabsBefore(ResourceLocation.fromNamespaceAndPath(Craft.MODID, "modular_powersuits"))
+                    .displayItems((parameters, output) -> MffsItems.ITEMS.getEntries().forEach(holder -> {
+                        Item item = holder.get();
+                        if (item instanceof ForceEnergyCrystalItem crystal) {
+                            ItemStack full = new ItemStack(crystal);
+                            crystal.setAvailablePower(full, ForceEnergyCrystalItem.MAX_POWER);
+                            output.accept(full);
+                            output.accept(new ItemStack(crystal));
+                        } else if (item instanceof ForciciumCellItem) {
+                            ItemStack full = new ItemStack(item);
+                            ForciciumCellItem.setLevel(full, ForciciumCellItem.MAX_LEVEL);
+                            output.accept(full);
+                            output.accept(new ItemStack(item));
+                        } else if (item instanceof MultitoolItem multitool) {
+                            output.accept(multitool.charged());
+                        } else {
+                            output.accept(item);
+                        }
+                    }))
                     .build());
 
     private CraftCreativeTabs() {

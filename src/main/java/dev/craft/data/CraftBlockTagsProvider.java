@@ -1,5 +1,6 @@
 package dev.craft.data;
 
+import dev.craft.mffs.MffsBlocks;
 import java.util.List;
 import net.minecraft.core.registries.BuiltInRegistries;
 import java.util.concurrent.CompletableFuture;
@@ -47,6 +48,8 @@ import org.jetbrains.annotations.Nullable;
 public final class CraftBlockTagsProvider extends BlockTagsProvider {
     public static final TagKey<Block> ORES_TIN = commonTag("ores/tin");
     public static final TagKey<Block> ORES_URANIUM = commonTag("ores/uranium");
+    /** MFFS OreDict {@code MonazitOre} (spec 48 §2). */
+    public static final TagKey<Block> ORES_MONAZIT = commonTag("ores/monazit");
     public static final TagKey<Block> STORAGE_BLOCKS_URANIUM = commonTag("storage_blocks/uranium");
     public static final TagKey<Block> STORAGE_BLOCKS_TIN = commonTag("storage_blocks/tin");
     public static final TagKey<Block> STORAGE_BLOCKS_BRONZE = commonTag("storage_blocks/bronze");
@@ -164,6 +167,11 @@ public final class CraftBlockTagsProvider extends BlockTagsProvider {
         tag(Tags.Blocks.ORES_IN_GROUND_STONE).add(Ic2Blocks.TIN_ORE.get());
         tag(Tags.Blocks.ORES_IN_GROUND_DEEPSLATE).add(Ic2Blocks.DEEPSLATE_TIN_ORE.get());
         tag(STORAGE_BLOCKS_TIN).add(Ic2Blocks.TIN_BLOCK.get());
+        tag(ORES_MONAZIT).add(MffsBlocks.MONAZIT_ORE.get(), MffsBlocks.DEEPSLATE_MONAZIT_ORE.get());
+        tag(Tags.Blocks.ORES).addTag(ORES_MONAZIT);
+        tag(Tags.Blocks.ORES_IN_GROUND_STONE).add(MffsBlocks.MONAZIT_ORE.get());
+        tag(Tags.Blocks.ORES_IN_GROUND_DEEPSLATE).add(MffsBlocks.DEEPSLATE_MONAZIT_ORE.get());
+        tag(BlockTags.MINEABLE_WITH_PICKAXE).add(MffsBlocks.MONAZIT_ORE.get(), MffsBlocks.DEEPSLATE_MONAZIT_ORE.get());
         tag(ORES_URANIUM).add(Ic2Blocks.URANIUM_ORE.get(), Ic2Blocks.DEEPSLATE_URANIUM_ORE.get());
         tag(Tags.Blocks.ORES).addTag(ORES_URANIUM);
         tag(Tags.Blocks.ORES_IN_GROUND_STONE).add(Ic2Blocks.URANIUM_ORE.get());

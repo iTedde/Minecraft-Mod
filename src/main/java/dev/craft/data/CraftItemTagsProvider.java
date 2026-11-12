@@ -1,5 +1,6 @@
 package dev.craft.data;
 
+import dev.craft.mffs.MffsItems;
 import java.util.List;
 import dev.craft.forestry.FrItems;
 import java.util.concurrent.CompletableFuture;
@@ -153,6 +154,10 @@ public final class CraftItemTagsProvider extends ItemTagsProvider {
         // The rubber sapling stays out of the item tag minecraft:saplings: IC2 did not register it as "treeSapling",
         // and the tag would give it the vanilla burn time of 100 instead of 80.
         copy(CraftBlockTagsProvider.ORES_TIN, commonTag("ores/tin"));
+        copy(CraftBlockTagsProvider.ORES_MONAZIT, commonTag("ores/monazit"));
+        // MFFS OreDict ForciciumItem.
+        tag(commonTag("gems/forcicium")).add(MffsItems.FORCICIUM.get());
+        tag(Tags.Items.GEMS).addTag(commonTag("gems/forcicium"));
         copy(Tags.Blocks.ORES, Tags.Items.ORES);
         copy(Tags.Blocks.ORES_IN_GROUND_STONE, Tags.Items.ORES_IN_GROUND_STONE);
         copy(Tags.Blocks.ORES_IN_GROUND_DEEPSLATE, Tags.Items.ORES_IN_GROUND_DEEPSLATE);

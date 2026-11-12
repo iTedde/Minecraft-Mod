@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "craft:electronic_circuit"
+    },
+    "F": {
+      "item": "craft:advanced_machine_casing"
+    },
+    "G": {
+      "item": "craft:extractor"
+    },
+    "x": {
+      "item": "craft:force_energy_crystal"
+    }
+  },
+  "pattern": [
+    " C ",
+    "xFx",
+    " G "
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:mffs_extractor"
+  }
+}

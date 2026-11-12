@@ -123,8 +123,12 @@ Wandelt **EU (oder MJ) + Forcicium → FE** und schickt sie an den verlinkten Ko
 - Plätze: 0 Forcicium/Zelle (64, nur wenn Platz 4 leer), 1 Power-Link (1), 2 Kapazitäts-Upgrade (max 9), 3 Beschleuniger
   (max 19), 4 Forcicium-Zelle zum Füllen (1, nur wenn Platz 0 leer). Automation (alle Seiten) nur in Platz 0.
 - **Arbeitsenergie** (EU-Puffer) max **4 000**; EU von **allen Seiten**, max. sichere Spannung **2 048** (darüber
-  IC2-Explosion), Bedarf nur wenn aktiv. MJ (BuildCraft): 1 MJ = 2,5 EU, Provider (min 10, max 2, Speicher/Aktivierung
-  = MaxWork/2,5), nur wenn aktiv.
+  IC2-Explosion), Bedarf nur wenn aktiv. MJ (BuildCraft): 1 MJ = 2,5 EU, Provider `configure(Latenz 10, min 2, max/Aktivierung/Speicher je
+  4 000/2,5 = 1 600)` (einmal im Konstruktor, auch im Zellenmodus nicht neu), jeden Tick nur wenn aktiv:
+  `useEnergy(1, MaxWork − Work/2,5)` (Originalfehler: Klammer fehlt) · 2,5 → Arbeitsenergie (gedeckelt).
+- Arbeitsenergie-Annahme EU: alles bis zum Puffer-Max (Rest zurück), von allen Seiten, Bedarf = Max − Arbeit
+  (nur aktiv). Material wird schon geladen, wenn die Arbeitsenergie noch fehlt (Zyklus bleibt erhalten);
+  Zyklus − 1 und +12 000 FE nur, wenn Platz im FE-Puffer, Material **und** Arbeitsenergie ≥ Max − 1 (dann 0).
 - **FE-Puffer** 1 000 000 + 100 000 je Kapazitäts-Upgrade.
 - Arbeitstakt alle **20 − Beschleuniger** Ticks (19 Beschleuniger → jeden Tick):
   - **Modus 0** (Platz 4 leer): Ist der FE-Puffer nicht voll, Material vorhanden (laufender Zyklus > 0, sonst 1
@@ -139,6 +143,7 @@ Wandelt **EU (oder MJ) + Forcicium → FE** und schickt sie an den verlinkten Ko
 ## 4 Konverter (`TileEntityConverter`)
 
 Wandelt **FE → EU**: je EU **3 FE** (`12000/4000`). Platz 0 Power-Link (nur `IPowerLinkItem`).
+- Inventar 4 Plätze; Plätze 1–3 ohne GUI, nehmen alles; Automation (alle Seiten) nur Platz 1 (Originaleigenheit).
 - Aktiv, wenn eingeschaltet (§5) und Energiequelle vorhanden. Ausgang „IC 2“ an/aus (Knopf, Standard aus).
 - Paketgröße 1 / 32 / 128 / 512 / 2 048 EU (Knöpfe +/−, zyklisch), Paketanzahl 1–9 je Tick; nur änderbar, solange der
   Ausgang aus ist. Je Paket: prüft 3·Größe FE vorhanden, gibt das Paket ins EU-Netz, zieht 3 · (Größe − Rest) FE ab.
@@ -148,12 +153,12 @@ Wandelt **FE → EU**: je EU **3 FE** (`12000/4000`). Platz 0 Power-Link (nur `I
 ## 5 Gemeinsame Maschinenlogik (`TileEntityMachines`, `BlockMFFSBase`)
 
 - **Block**: Material Eisen, **unzerstörbar** (Härte −1), Explosionswiderstand 100 (aktiv 999), Stein-Geräusch.
-  Abbau **nur per MFFS-Multiwerkzeug** (§8); dabei fallen die Plätze heraus (Karten mit Daten fallen als **leere
+  Abbau per MFFS-Multiwerkzeug (§8) oder – wie im Pack über `IWrenchable` – mit dem IC2-Schraubenschlüssel (nur inaktiv); dabei fallen die Plätze heraus (Karten mit Daten fallen als **leere
   Karte**: Power-Link, Sicherheits-Link, Ausweis, Datenlink; Sicherheitsstation ohne Datenlink-Ausnahme). Block droppt
   sich selbst.
 - **Ausrichtung** beim Setzen nach Blick (6 Richtungen, Blick ≥ 65° hoch/runter = oben/unten). Textur: Vorderseite,
   Rückseite, Rest; aktiv eigene Texturen; Projektor zusätzlich je Modultyp (Raster `typ·16 + aktiv·4 + {0,1,2}`).
-- **Name**: frei, max. 20 Zeichen (Tastatureingabe im GUI). **Geräte-ID**: zufällige Zahl ≠ 0, eindeutig je Typ,
+- **Name**: frei, Tastatureingabe im GUI (angehängt wird, solange der Name ≤ 20 Zeichen hat, also bis 21). **Geräte-ID**: zufällige Zahl ≠ 0, eindeutig je Typ,
   bleibt erhalten (NBT). Alle Geräte einer Welt stehen in einer Liste je Typ (Linkgrid) – darüber finden Karten ihre
   Ziele auch nach dem Verschieben.
 - **Schaltmodus** (Knopf oben rechts, zyklisch zwischen min..max): 1 = **Redstone** (an solange Signal), 2 =
@@ -377,7 +382,7 @@ gehören alle nicht-Rand-Punkte zum **Innenraum** (für Schwamm, Fusion, Störse
   töten**, 5 **freundliche NPCs töten** (je 10 000 FE, sofort Leben 0).
 - Lager voll → Rest ins größte angrenzende Inventar; passt es nicht, geht es verloren.
 
-## 11 Entscheidungen (offen – Vorschläge)
+## 11 Entscheidungen (alle wie vorgeschlagen freigegeben, Nutzer 2026-11-12)
 
 1. **Kreativ-Tab**: eigener Tab „Modular Force Field System“ wie im Pack (wie TE/MPS).
 2. **Chunkloading**: wie im Pack an – jede MFFS-Maschine hält ihren Chunk geladen (sonst fallen Felder ohne Spieler

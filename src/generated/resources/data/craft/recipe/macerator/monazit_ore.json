@@ -1,0 +1,15 @@
+{
+  "type": "craft:macerator",
+  "ingredient": [
+    {
+      "item": "craft:monazit_ore"
+    },
+    {
+      "item": "craft:deepslate_monazit_ore"
+    }
+  ],
+  "result": {
+    "count": 8,
+    "id": "craft:forcicium"
+  }
+}

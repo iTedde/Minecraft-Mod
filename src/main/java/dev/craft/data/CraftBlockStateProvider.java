@@ -1,5 +1,7 @@
 package dev.craft.data;
 
+import dev.craft.mffs.MffsBlocks;
+import dev.craft.mffs.block.MffsMachineBlock;
 import java.util.List;
 import dev.craft.ic2.crop.CropBlock;
 import java.util.Arrays;
@@ -165,6 +167,7 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
         gregTech();
         nuclearControl();
         chargePads();
+        mffs();
     }
 
     /** BuildCraft {@code RenderingMarkers}: a torch-like stick, turned so that it points away from its support. */
@@ -1009,5 +1012,36 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
 
     private ResourceLocation ncTexture(String name) {
         return modLoc("block/nuclearcontrol/" + name);
+    }
+
+    /**
+     * MFFS (spec 48 §5): ores; machines with front (north in the model), back and side textures, active variants,
+     * turned to the six facings.
+     */
+    private void mffs() {
+        for (Block ore : List.of(MffsBlocks.MONAZIT_ORE.get(), MffsBlocks.DEEPSLATE_MONAZIT_ORE.get())) {
+            String name = BuiltInRegistries.BLOCK.getKey(ore).getPath();
+            simpleBlockWithItem(ore, models().cubeAll(name, modLoc("block/mffs/" + name)));
+        }
+        for (var holder : MffsBlocks.machines()) {
+            MffsMachineBlock block = holder.get();
+            String name = holder.getId().getPath();
+            ModelFile inactive = mffsMachineModel(name, "");
+            ModelFile active = mffsMachineModel(name, "_active");
+            getVariantBuilder(block).forAllStates(state -> {
+                Direction facing = state.getValue(MffsMachineBlock.FACING);
+                int x = facing == Direction.UP ? 270 : facing == Direction.DOWN ? 90 : 0;
+                int y = facing.getAxis().isHorizontal() ? (int) facing.toYRot() + 180 : 0;
+                return ConfiguredModel.builder().modelFile(state.getValue(MffsMachineBlock.ACTIVE) ? active : inactive)
+                        .rotationX(x).rotationY(y % 360).build();
+            });
+            simpleBlockItem(block, inactive);
+        }
+    }
+
+    private ModelFile mffsMachineModel(String name, String suffix) {
+        ResourceLocation side = modLoc("block/mffs/" + name + "_side" + suffix);
+        return models().cube("block/mffs/" + name + suffix, side, side, modLoc("block/mffs/" + name + "_front" + suffix),
+                modLoc("block/mffs/" + name + "_back" + suffix), side, side).texture("particle", side);
     }
 }

@@ -1,5 +1,7 @@
 package dev.craft.data;
 
+import dev.craft.mffs.MffsItems;
+import dev.craft.mffs.client.MffsClient;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,6 +67,20 @@ public final class CraftItemModelProvider extends ItemModelProvider {
                 String name = item.getId().getPath();
                 withExistingParent(name, mcLoc("item/generated")).texture("layer0", modLoc("item/chargepads/" + name));
             }
+        }
+        for (DeferredHolder<Item, ? extends Item> item : MffsItems.ITEMS.getEntries()) {
+            if (!(item.get() instanceof BlockItem) && item.get() != MffsItems.FORCE_ENERGY_CRYSTAL.get()) {
+                String name = item.getId().getPath();
+                withExistingParent(name, mcLoc("item/generated")).texture("layer0", modLoc("item/mffs/" + name));
+            }
+        }
+        // Force energy crystal: icon by fill step (items.png 112-116).
+        ItemModelBuilder crystal = withExistingParent("force_energy_crystal", mcLoc("item/generated"))
+                .texture("layer0", modLoc("item/mffs/force_energy_crystal_0"));
+        for (int step = 1; step <= 4; step++) {
+            ModelFile model = withExistingParent("item/mffs/force_energy_crystal_" + step, mcLoc("item/generated"))
+                    .texture("layer0", modLoc("item/mffs/force_energy_crystal_" + step));
+            crystal.override().predicate(MffsClient.FILL, step / 4.0F).model(model).end();
         }
         basicItem(AdvancedMachinesItems.REFINED_IRON_DUST.get());
         for (DeferredItem<? extends Item> item : List.of(TeItems.INVAR_DUST, TeItems.INVAR_INGOT, TeItems.WOOD_CHIPS,
