@@ -3635,5 +3635,22 @@ Nutzer: „Los gehts“ (Blockliste aus 45.0 freigegeben).
 - [x] Ohne Fremd-Mods: `gradlew build` grün, **alle 584 GameTests grün**.
 
 ## Nächste Schritte
-- **45.2** Wiki-Text, Craft 1.2.6 + Paket 1.2.8 – auf Wunsch.
+- **45.2** Wiki-Text, Craft 1.2.6 + Paket 1.2.8.
 - Client-Test: Ad-Astra-Kompressor/AE2-Controller am LV-Kabel, an MV → Explosion.
+
+# Phase 45.2 – Craft 1.2.6, Paket 1.2.8 (2026-11-12)
+
+Nutzer: „nächste Phase“.
+
+## Erledigt
+- [x] Wiki: Ad-Astra- und AE2-Zeile in „Create & Paket-Mods“, Abschnitte „Applied Energistics 2“ und „Ad Astra“
+  (Blockliste, 1 EU = 4 FE, LV 32, Explosion, Ausnahmen Kabel-Part/Energiezellen/Generatoren/Energizer),
+  „Energie umwandeln“ (FE Producer, Hinweis auf den Direktweg) und Energieübersicht. Wikis neu erzeugt.
+- [x] Craft **1.2.6** (`releases/craft-1.2.6.jar`): 1.2.5 + EU-Eingang Ad Astra/AE2 (Phase 45.1). `gradlew runData`,
+  danach `build` grün.
+- [x] Paket `releases/Craft-1.2.8-curseforge.zip` (8,8 MB): wie 1.2.7, nur Craft 1.2.5 → 1.2.6; Manifest unverändert
+  (112 Einträge). Nicht im Client gestartet.
+
+## Nächste Schritte
+- Paket 1.2.8 im CurseForge-Launcher: Ad-Astra-Kompressor und AE2-Controller am LV-Kabel, an MV → Explosion.
+- Phase 46 (IC2 Nuclear Control) mit Spezifikation 46.0 beginnen – oder andere Reihenfolge nach Wunsch.

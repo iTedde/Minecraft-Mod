@@ -289,7 +289,7 @@ Wird der MJ-Puffer nicht abgenommen, heizt sie sich auf und kühlt dann zwangswe
 <li>Reste unter 1 FE bleiben in der Bridge, es geht nichts verloren. Ohne Empfänger füllt sich nur die Bridge.</li>
 <li>Kein Rückweg: FE, Create-Drehkraft & Co. kommen <b>nicht</b> ins EU-Netz.</li>
 <li>Rezept: 4 Gold in den Ecken, Redstone-Block in der Mitte (wie die anderen Konverter).</li>
-<li>Beispiel: 128 EU/t (ein MV-Kabel voll) → 512 FE/t ≈ 256 AE/t in AE2.</li>
+<li>Beispiel: 128 EU/t (ein MV-Kabel voll) → 512 FE/t ≈ 256 AE/t in AE2.</li><li><b>Ohne Umweg</b> (ab Craft 1.2.6): Ad-Astra-Maschinen und die AE2-Energieblöcke nehmen EU direkt am Craft-Kabel (gleicher Kurs 1 EU = 4 FE, höchstens LV 32 EU, darüber Explosion), die Lichter von Open Modular Lighting mit 1 EU = 1 FE (Spezifikation <a href="#/spec-45">45</a>, <a href="#/spec-43">43</a>).</li>
 </ul>
 {h.note('tip', 'Öl lohnt sich: 1 Eimer Öl im Combustion-Motor = 60 000 MJ ≈ 145 800 EU, 1 Eimer Treibstoff = 600 000 MJ ≈ 1,46 Mio. EU.')}
 <p>Referenz: <a href="#/spec-10">10 – Energieumwandlung</a>, <a href="#/spec-33">33 – FE Producer</a>.</p>

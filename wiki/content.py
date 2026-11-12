@@ -279,7 +279,7 @@ Solar wächst nur mit der Fläche: 3 EU/t je Block im 9×9-Feld.</p>
 <ul>
 <li><b>MJ → EU</b> über Power Converters: <b>1 MJ = 2,43 EU</b> (4375/1800 PCU), Producer geben nur volle Pakete ab.</li>
 <li><b>EU → MJ</b> über die Forestry Electrical Engine: <b>3 EU = 1 MJ</b> (6 EU → 2 MJ, mit Upgrades bis 36 EU → 10 MJ).</li>
-<li><b>EU → FE</b> (AE2, Ad Astra …) über den <a href="#/umwandlung">FE Producer</a>: <b>1 EU = 4 FE</b>, kein Rückweg.</li>
+<li><b>EU → FE</b> (AE2, Ad Astra …) über den <a href="#/umwandlung">FE Producer</a>: <b>1 EU = 4 FE</b>, kein Rückweg. Ad-Astra-Maschinen und AE2-Energieblöcke nehmen ab Craft 1.2.6 EU auch direkt am Kabel (gleicher Kurs, höchstens LV).</li>
 <li>Eine Rundreise EU → MJ → EU verliert ≈ 19 %.</li>
 </ul>
 <p>Herleitung, Originalwerte und der „Problembefund“ stehen im Volltext: <a href="#/balancing">Energiebalancing (Volltext)</a>.</p>

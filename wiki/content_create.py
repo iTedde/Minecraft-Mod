@@ -47,10 +47,10 @@ Mahlen, Waschen, Fertigungsketten …).</p>
     ['Copycats+', 'Kopierblöcke in vielen Formen (Stufen, Zäune, Platten …), die das Aussehen eines anderen Blocks übernehmen'],
     ['Mechanical Extruder', 'Erzeugt Blöcke (z. B. Bruchstein, Basalt) automatisch aus Flüssigkeiten – wie ein Bruchsteingenerator als Maschine'],
     ['Create Ore Excavation', 'Bohrt unerschöpfliche Erzvorkommen mit Drehkraft ab'],
-    ['Applied Kinetics (+ AE2)', 'Applied Energistics 2: digitales Lager; Applied Kinetics betreibt AE2-Teile mit Drehkraft'],
+    ['Applied Kinetics (+ AE2)', 'Applied Energistics 2: digitales Lager; Applied Kinetics betreibt AE2-Teile mit Drehkraft; mit Craft ab 1.2.6 nehmen Controller, Energieakzeptor, Auflader, Prägepresse, Wachstumsbeschleuniger und ME-Truhe <b>EU</b> direkt am Craft-Kabel (1 EU = 4 FE, höchstens LV)'],
     ['New Furnitures', 'Möbel im Create-Stil'],
     ['Create Better FPS (+ Sodium)', 'Leistung: schnellere Darstellung von Create-Anlagen'],
-    ['<b>Ad Astra</b>', 'Raumfahrt: Raketen, Mond, Mars und weitere Planeten, Sauerstoff, Raumanzüge (läuft mit FE-Strom); Industrielampen leuchten mit Craft ab 1.2.1 voll (Licht 15)'],
+    ['<b>Ad Astra</b>', 'Raumfahrt: Raketen, Mond, Mars und weitere Planeten, Sauerstoff, Raumanzüge (läuft mit FE-Strom; mit Craft ab 1.2.6 nehmen die Maschinen auch <b>EU</b> direkt am Craft-Kabel, 1 EU = 4 FE, höchstens LV); Industrielampen leuchten mit Craft ab 1.2.1 voll (Licht 15)'],
     ['Industrial Foregoing (+ Titanium)', 'Automatisierung mit FE: Farmen, Mob-Verarbeitung, Laserbohrer'],
     ['<b>Create: Integrated Farming</b> (+ Create: Dragons Plus)', 'Farm-Automatisierung mit Create: Pflanzen, Tiere und Fischerei in Maschinen'],
     ['<b>Create: Protection Pixel</b>', 'Rüstungen im Steampunk-/Create-Stil aus Messing und Legierungen, einige mit Sonderfunktionen'],
@@ -190,9 +190,10 @@ Craft ersetzt es deshalb. Mit dem Einsetzer (Brett auf die Welle) geht es weiter
 <p>AE2 speichert Items digital in Laufwerken und kann automatisch herstellen. Es braucht normalerweise FE; <b>Applied Kinetics</b> erlaubt,
 AE2-Teile mit Create-Drehkraft zu versorgen. Das Ingame-Handbuch von AE2 (GuideME) erklärt den Einstieg.</p>
 <p><b>Mit Craft-Strom:</b> EU-Kabel → IC2 Consumer → Energy Bridge → <a href="#/umwandlung">FE Producer</a> → AE2 <b>Energy Acceptor</b> (oder Controller) direkt daneben. 128 EU/t ergeben 512 FE/t ≈ 256 AE/t (AE2: 1 AE = 2 FE).</p>
+<p><b>Direkt am EU-Kabel</b> (ab Craft 1.2.6): ME-Controller, Energieakzeptor (Block), Auflader, Prägepresse, Wachstumsbeschleuniger und ME-Truhe nehmen EU – <b>1 EU = 4 FE = 2 AE</b>. Höchstens <b>LV (32 EU je Paket)</b>, ein MV-Paket lässt den Block explodieren; vor MV-/HV-Netzen einen LV-Trafo setzen. Der Energieakzeptor als Kabel-Part (auf einem ME-Kabel) und die Energiezellen nehmen kein EU – dafür den Energieakzeptor-Block nehmen.</p>
 <h2 id="ca--astra">Ad Astra – Raumfahrt</h2>
 <p>Raketen bauen, betanken und zu Mond, Mars, Venus, Merkur und Glacio fliegen. Auf den Planeten braucht man <b>Raumanzug und Sauerstoff</b>.
-Maschinen laufen mit FE. Neue Erze und Metalle (z. B. Desh, Ostrum, Calorite) gibt es nur dort.</p>
+Maschinen laufen mit FE; ab Craft 1.2.6 nehmen Kompressor, Treibstoffraffinerie, Sauerstofflader, Sauerstoffverteiler, Wasserpumpe, Kryo-Gefrierer, Schwerkraft-Normalisierer und Etrionischer Hochofen auch <b>EU direkt am Craft-Kabel</b> (1 EU = 4 FE, höchstens LV 32 EU – darüber explodieren sie). Generatoren, Energizer und Ad-Astra-Kabel bleiben reine FE-Blöcke. Neue Erze und Metalle (z. B. Desh, Ostrum, Calorite) gibt es nur dort.</p>
 <h2 id="ca--if">Industrial Foregoing</h2>
 <p>Automatisierung mit FE: Pflanzen- und Baumfarmen, Mob-Verarbeitung, Laserbohrer für Erze, Flüssigkeitsverarbeitung. Unabhängig von Create.</p>
 <h2 id="ca--farming">Create: Integrated Farming</h2>
