@@ -1343,6 +1343,62 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
                 + "cable at any panel collects the whole field (only panels feed in). The old LV/MV/HV solar arrays no longer deliver anything; at "
                 + "the crafting table they come apart into 8 of the tier below.");
         nuclearControlInfo(german);
+        chargePadInfo(german);
+    }
+
+    /** EMI info pages of ChargePads (spec 47). */
+    private void chargePadInfo(boolean german) {
+        add("emi.craft.info.cp_charge_pad", german
+                ? "Lädt Elektro-Items der Spieler, die darauf stehen (bis zur Pad-Stufe 1/2/3). EU nur von unten, "
+                + "Speicher 40 000 / 600 000 / 10 000 000 EU, Laderate = Eingang 32 / 128 / 512 EU/t; zu großes "
+                + "Paket → Explosion. Aktiv kostet er Grundverbrauch (Stufe EU/t) und gibt Redstone 15 nach unten und "
+                + "zur Seite. Zuerst die gehaltene Hand, nur wenn dort nichts zu laden ist die Rüstung. Batterieslot "
+                + "lädt den Pad (Redstone 500 EU, Einweg-Batterie 1 000 EU)."
+                : "Charges the electric items of players standing on it (up to the pad tier 1/2/3). EU only from "
+                + "below, storage 40,000 / 600,000 / 10,000,000 EU, charge rate = input 32 / 128 / 512 EU/t; oversized "
+                + "packet → explosion. While active it uses a base drain (tier EU/t) and emits redstone 15 downwards "
+                + "and to the sides. First the held item, the armour only if nothing in hand can be charged. The "
+                + "battery slot charges the pad (redstone 500 EU, single-use battery 1,000 EU).");
+        add("emi.craft.info.cp_hazard", german
+                ? "Vorsicht, Strom! Nur der Schraubenschlüssel baut den Pad ab (ohne Energie). Abbauen ohne Schlüssel: "
+                + "Stromschlag in der Umgebung (je nach Speicher bis 10 / 12 / 20 Schaden, ignoriert Rüstung), ein Teil "
+                + "des Inventars geht verloren, der Pad droppt nicht. Wer aus mehr als 3,5 / 2,5 / 1,5 Blöcken auf "
+                + "den Pad fällt, bekommt 3 / 6 / 9 Schaden extra. Mit Entladungs- oder Schadensmodul öffnen GUI und "
+                + "Schlüssel nur von unten."
+                : "Danger, electricity! Only the wrench removes the pad (without energy). Breaking it otherwise: "
+                + "electric shock around it (up to 10 / 12 / 20 damage depending on storage, ignores armour), part of "
+                + "the inventory is lost, the pad drops nothing. Falling more than 3.5 / 2.5 / 1.5 blocks onto the pad "
+                + "deals 3 / 6 / 9 extra damage. With a drain or damage module, GUI and wrench only work from below.");
+        add("emi.craft.info.cp_upgrades", german
+                ? "Upgrade-Plätze 1 / 2 / 3. Übertakter (max. 16): Laderate × 1,05 je Stück, +1 EU/t Grundverbrauch. "
+                + "Effizienz-Upgrade (max. 16): hebt den Übertakter-Mehrverbrauch auf, Ladekosten × 0,995 je Stück; "
+                + "im Rezept nur ein voll geladenes RE-Akku. Energiespeicher: + Stufe × 10 000 EU. Transformer "
+                + "(max. 4): Eingang × 4, Batterieslot eine Stufe höher."
+                : "Upgrade slots 1 / 2 / 3. Overclocker (max. 16): charge rate × 1.05 each, +1 EU/t base drain. "
+                + "Efficiency upgrade (max. 16): cancels the overclocker drain, charging cost × 0.995 each; its recipe "
+                + "needs a fully charged RE battery. Energy storage: + tier × 10,000 EU. Transformer (max. 4): input "
+                + "× 4, battery slot one tier higher.");
+        add("emi.craft.info.cp_upgrade_kit", german
+                ? "Statisch → Kristallisator → Lapotron: in der Werkbank mit dem Pad oder per Rechtsklick auf die "
+                + "Unterseite des gesetzten Pads – Speicher und Inhalt bleiben. Ist der Pad gerade aktiv, gibt es "
+                + "einen Stromschlag. Die MFSU-Aufrüstung ist nur ein Bauteil des Lapotron-Ausbausatzes."
+                : "Static → Crystalizor → Lapotronic: at the crafting table with the pad or by right clicking the "
+                + "bottom of the placed pad – storage and contents stay. If the pad is active you get a shock. The MFS "
+                + "unit upgrade is only a part of the lapotronic upgrade kit.");
+        add("emi.craft.info.cp_field_module", german
+                ? "Feld-Platz (Kristallisator/Lapotron). Entladung: das Feld entlädt statt zu laden. Schaden: Lebewesen "
+                + "im Feld bekommen laufend Schaden und Vergiftung, nichts wird geladen. Rüstungsvorrang: zuerst die "
+                + "Rüstung, dann die Hand."
+                : "Field slot (crystalizor/lapotronic). Drain: the field discharges instead of charging. Damage: living "
+                + "beings in the field take continuous damage and poison, nothing is charged. Armour priority: armour "
+                + "first, then the hand.");
+        add("emi.craft.info.cp_projector_module", german
+                ? "Projektor-Platz (Kristallisator/Lapotron). Nahbereich: auch die Hotbar-Fächer neben der Hand. "
+                + "Breitband: die ganze Hotbar. Feldausdehnung Alpha/Delta/Theta: Feld +1/+2/+3 Blöcke zu jeder "
+                + "Seite, Grundverbrauch +2/+4/+6 EU/t; Delta und Theta nur im Lapotron-Pad."
+                : "Projector slot (crystalizor/lapotronic). Proximity: also the hotbar slots next to the hand. Wide "
+                + "band: the whole hotbar. Field expansion alpha/delta/theta: field +1/+2/+3 blocks to each side, base "
+                + "drain +2/+4/+6 EU/t; delta and theta only in the lapotronic pad.");
     }
 
     /** EMI info pages of IC2 Nuclear Control (spec 46). */

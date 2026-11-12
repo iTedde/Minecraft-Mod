@@ -3882,3 +3882,27 @@ Nutzer: Mod „mit dem man Bälle auf Flächen werfen kann“ zum Auffüllen/Ren
 - Client-Test Pads/Module/Partikel – nur nach Rückfrage.
 - Paket 1.2.10 im CurseForge-Launcher testen.
 - Phase 51 (Leuchtschild „wie Blendgranate“): Umfang klären.
+
+# Phase 47.3 – ChargePads: EMI, Wiki, Paket (2026-11-12)
+
+Nutzer: „Nächste Phase“.
+
+## Erledigt
+- [x] EMI: 6 Info-Seiten (`compat/emi/CpEmiRecipes`): Pads (Laden, Energie, Redstone), Gefahren (Zaps,
+  Schraubenschlüssel), Upgrades (inkl. Effizienz-Upgrade nur mit vollem RE-Akku), Ausbausätze, Feld- und
+  Projektormodule; Texte DE/EN in `CraftLanguageProvider.chargePadInfo`.
+- [x] Herkunft: nichts nötig – alle ChargePads-Teile haben ein Rezept.
+- [x] Wiki: Gruppe „ChargePads“ (15 Einträge; Module über `SUFFIX_GROUPS`, da ihre Namen erst in
+  `PadModule.getName()` entstehen), Seite „ChargePads“ (Pads, Upgrades/Ausbau, Module, Gefahren); DE + EN-Namen neu
+  erzeugt. `testplan.md` Abschnitt 24, Spec 47 §13, `architektur.md`, CLAUDE.md.
+- [x] Craft **1.2.8** (`releases/craft-1.2.8.jar`), `gradlew runData`, danach `build` grün. GameTests nicht erneut
+  gelaufen (nur EMI/Sprache/Wiki geändert; letzter Lauf in 47.2).
+- [x] Paket `releases/Craft-1.2.11-curseforge.zip` (9,7 MB): wie 1.2.10, nur Craft 1.2.7 → 1.2.8; Manifest
+  unverändert (113 Einträge). Nicht im Client gestartet.
+- **Phase 47 erledigt, Client-Test offen** (Testplan 24.1–24.5).
+
+## Nächste Schritte
+- Client-Test ChargePads (Testplan 24) und Nuclear Control (Testplan 23) – nur nach Rückfrage; Paket 1.2.11 im
+  CurseForge-Launcher.
+- Phase 48 (Modular Force Field System) mit Spezifikation 48.0 beginnen.
+- Phase 51 (Leuchtschild „wie Blendgranate“): Umfang klären.

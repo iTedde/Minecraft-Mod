@@ -267,3 +267,6 @@ Alle Bauteile gibt es in Craft bereits (IC2-Phasen 3/6/7).
 - **47.2** Effizienz-Upgrade, alle Emitter-Module (Projektor/Feld, Schadens-/Entladungsfeld, Feldausdehnung),
   Ausbausätze (Werkbank + Rechtsklick, Ausbau-Zap), Partikel, Rezepte, GameTests.
 - **47.3** EMI (Info-Seiten), Herkunft, Wiki, Testplan, Craft-Version + Paket.
+  Umgesetzt 2026-11-12: 6 EMI-Info-Seiten (`compat/emi/CpEmiRecipes`: Pads, Gefahren, Upgrades, Ausbausätze,
+  Feld-/Projektormodule); kein Herkunftstext nötig (alle Teile haben ein Rezept); Wiki-Gruppe „ChargePads“ und
+  Seite „ChargePads“, Testplan Abschnitt 24; Craft 1.2.8, Paket 1.2.11.

@@ -1180,6 +1180,49 @@ je Tick. Paket 32 EU, ×4 je Transformator-Upgrade; größere Pakete lassen ihn 
 <li>{c('range_trigger')}: Energie- oder Feldkarte einlegen, zwei Grenzen einstellen – ab der oberen Redstone an, unter der
 unteren aus, dazwischen bleibt der Zustand (Hysterese). Damit lassen sich Generatoren nach dem Füllstand eines Speichers schalten.</li></ul>""")
 
+    modpage('mod-chargepads', 'ChargePads', 'craft:lapotronic_charge_pad',
+            'Charge Pads aus dem Pack: flache <b>Ladepads</b>, die Elektro-Items der Spieler laden, die darauf stehen – '
+            'ohne Ausziehen, ohne Ladestation. Drei Stufen, IC2-Upgrades, ein eigenes Effizienz-Upgrade und Emitter-Module '
+            '(größeres Feld, ganze Hotbar, Rüstung zuerst, aber auch Entladen oder Verletzen). Vorsicht: falsch abgebaut '
+            'gibt es einen Stromschlag. Alle Teile liegen im Kreativ-Tab „IndustrialCraft 2“.',
+            [('Vorlage', 'Charge Pads 2.4.1 (FTB Ultimate)'), ('Energie', 'EU, nur von unten'),
+             ('Laderate', '32 / 128 / 512 EU/t'), ('Kreativ-Tab', 'IndustrialCraft 2')],
+            [('spec-47', '47 – ChargePads')],
+            f"""<h2 id="mod-chargepads--pads">Pads</h2>
+{h.table(['Pad', 'Speicher', 'Eingang = Laderate', 'lädt bis', 'Plätze'], [
+    [c('static_charge_pad'), '40 000 EU', '32 EU/t', 'Stufe 1 (LV)', 'Batterie + 1 Upgrade'],
+    [c('crystalizor_charge_pad'), '600 000 EU', '128 EU/t', 'Stufe 2 (MV)', 'Batterie + 2 Upgrades + Projektor + Feld'],
+    [c('lapotronic_charge_pad'), '10 000 000 EU', '512 EU/t', 'Stufe 3 (HV)', 'Batterie + 3 Upgrades + Projektor + Feld'],
+])}
+<ul><li>Strom nur <b>von unten</b> (Kabel unter den Pad); ein zu großes Paket sprengt ihn. Der Batterieslot lädt den Pad
+aus Akkus, Redstone (500 EU) oder Einweg-Batterien (1 000 EU).</li>
+<li>Betritt ein Spieler den Pad, schaltet er sich ein (Klick, Funken): Grundverbrauch Stufe EU/t, Redstone 15 nach unten
+und zur Seite. Geht der Spieler weg oder ist nichts zu laden, schaltet er ab.</li>
+<li>Geladen wird zuerst das Item in der Hand; nur wenn dort nichts Ladbares ist, die Rüstung. Alle Craft-Elektro-Items
+(IC2, GraviSuite, MPS, Leuchtschild …) bis zur Pad-Stufe.</li></ul>
+<h2 id="mod-chargepads--upgrades">Upgrades und Ausbau</h2>
+<ul><li>Übertakter (max. 16): Laderate × 1,05 je Stück, +1 EU/t Grundverbrauch. {c('efficiency_upgrade')} (max. 16) hebt
+diesen Mehrverbrauch auf und senkt die Ladekosten × 0,995 je Stück; im Rezept passt nur ein <b>voll geladenes</b> RE-Akku.</li>
+<li>Energiespeicher: + Stufe × 10 000 EU; Transformer (max. 4): Eingang × 4, Batterieslot eine Stufe höher.</li>
+<li>{c('crystalizor_upgrade_kit')} und {c('lapotronic_upgrade_kit')} (mit {c('mfs_unit_upgrade')}): Pad in der Werkbank
+oder gesetzt per Rechtsklick auf die <b>Unterseite</b> eine Stufe höher bringen – Speicher und Inhalt bleiben. Aktiver Pad →
+Stromschlag. Wie im Original landet das Upgrade des statischen Pads im Feld-Platz (wirkt dort nicht, herausnehmen).</li></ul>
+<h2 id="mod-chargepads--module">Emitter-Module</h2>
+{h.table(['Modul', 'Platz', 'Wirkung'], [
+    [c('proximity_booster_module'), 'Projektor', 'auch die Hotbar-Fächer neben der Hand'],
+    [c('wide_band_booster_module'), 'Projektor', 'die ganze Hotbar'],
+    [c('field_expansion_module_alpha') + ', ' + c('field_expansion_module_delta') + ', ' + c('field_expansion_module_theta'), 'Projektor', 'Feld +1/+2/+3 Blöcke zu jeder Seite, Grundverbrauch +2/+4/+6 EU/t (Delta/Theta nur Lapotron)'],
+    [c('armour_priority_module'), 'Feld', 'erst Rüstung, dann Hand'],
+    [c('drain_conversion_module'), 'Feld', 'entlädt statt zu laden (Energie geht verloren)'],
+    [c('damage_conversion_module'), 'Feld', 'verletzt und vergiftet alle Lebewesen im Feld, lädt nichts'],
+])}
+<h2 id="mod-chargepads--gefahr">Gefahren</h2>
+<ul><li>Nur der <b>Schraubenschlüssel</b> baut den Pad sauber ab (Energie geht verloren). Mit Entladungs- oder Schadensmodul
+öffnen GUI und Schlüssel nur von unten.</li>
+<li>Abbauen ohne Schlüssel: Stromschlag in der Umgebung (je nach Speicher bis 10 / 12 / 20 Schaden, ignoriert Rüstung),
+ein Teil des Inventars geht verloren, der Pad selbst droppt nicht.</li>
+<li>Wer aus mehr als 3,5 / 2,5 / 1,5 Blöcken auf den Pad fällt, bekommt 3 / 6 / 9 Schaden extra.</li></ul>""")
+
     # ------------------------------------------------------------------ Items
     page('items', 'Gegenstände & Blöcke', 'Allgemein', f'''<h1>Gegenstände & Blöcke</h1>
 <p class="lead">Alle {stats['items']} registrierten Blöcke und Items von Craft mit deutschem und englischem Namen. Jeder Eintrag hat eine eigene Seite

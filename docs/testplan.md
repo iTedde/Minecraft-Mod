@@ -305,6 +305,16 @@ Testwelt. Sprache einmal Deutsch, einmal Englisch prüfen. EMI und Xaero's Minim
 | 23.4 | Infotafel mit Erweiterungen (Rahmen, Farben mit Farb-Upgrade, Licht nur mit Redstone, Text an Wand/Boden/Decke, Shift + Schraubenschlüssel dreht); alle Karten (Reaktor, Energie EU/MJ, Feld, Flüssigkeit, Zähler, GT, Text, Zeit), Zeilen-Häkchen, Titel, „Außer Reichweite“ | 46.2, 46.3 | |
 | 23.5 | Energie-/Durchschnittszähler zwischen Kabeln (Eingang Front, Zählerstand, Reset, Zeitraum 1/3/5/10, Explosion bei zu großem Paket); Bereichsauslöser (Ziffern ±, Umkehr, Texturen je Zustand, Redstone) | 46.3 | |
 
+## 24. ChargePads (Phase 47)
+
+| Nr | Test | Herkunft | OK |
+|---|---|---|---|
+| 24.1 | Texturen/Modelle der 3 Pads (flach, Oberseite aktiv/inaktiv) und aller 12 Items im IC2-Tab; Rezepte und 6 Info-Seiten in EMI; Effizienz-Upgrade nur mit vollem RE-Akku | 47.1–47.3 | |
+| 24.2 | Pad mit Kabel von unten (von der Seite nimmt er nichts), GUI (Energie, Max., Eingang, gesperrte Plätze), Batterieslot mit Akku/Redstone; zu großes Paket → Explosion | 47.1 | |
+| 24.3 | Draufstellen: Klick, Funken, Redstone 15 unten/seitlich; Hand-Item lädt, danach Rüstung; Übertakter/Effizienz/Speicher/Transformer wirken; Abschalten beim Weggehen | 47.1, 47.2 | |
+| 24.4 | Module: Nahbereich/Breitband (Hotbar), Rüstungsvorrang, Feldausdehnung (Funkenfläche größer), Entladung (gelbe Funken), Schaden (rote Funken, Gift); mit Entladungs-/Schadensmodul GUI nur von unten | 47.2 | |
+| 24.5 | Ausbausätze: Werkbank und Rechtsklick auf die Unterseite (Speicher bleibt, Upgrade landet im Feld-Platz), aktiver Pad → Meldung + Schaden; Schraubenschlüssel gibt den Pad, Spitzhacke → Stromschlag + Inventarverlust; Fall aus 4 Blöcken → Zusatzschaden | 47.1, 47.2 | |
+
 ## Befunde
 
 | Nr | Datum | Befund | Status |

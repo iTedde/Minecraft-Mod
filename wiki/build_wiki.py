@@ -65,6 +65,7 @@ WIKI_NOTES = {
 }
 
 GROUPS = [
+    ('chargepads', 'ChargePads'),
     ('nuclearcontrol', 'Nuclear Control'),
     ('mps', 'Modular Powersuits'),
     ('gravisuite', 'GraviSuite'),
@@ -84,7 +85,7 @@ GROUPS = [
 ]
 GROUP_ORDER = ['IndustrialCraft 2', 'GregTech', 'BuildCraft', 'Forestry', 'Power Converters',
                'Compact Solars', 'Kraftwerke (neu)', 'Mining-Dimension (neu)', 'Leuchtschild (neu)', 'Iron Chests', 'Advanced Machines',
-               'Thermal Expansion', 'EnderStorage', 'GraviSuite', 'Modular Powersuits', 'Nuclear Control',
+               'Thermal Expansion', 'EnderStorage', 'GraviSuite', 'Modular Powersuits', 'Nuclear Control', 'ChargePads',
                'Sonstiges']
 
 # items whose behaviour was changed on purpose or which are new content
@@ -143,6 +144,7 @@ def registry_texts():
 
 
 SUFFIX_GROUPS = [
+    (r'^(drain_conversion|damage_conversion|armour_priority|proximity_booster|wide_band_booster|field_expansion)_module', 'ChargePads'),
     (r'^component_', 'Modular Powersuits'),
     (r'_chest$|^(iron|gold|copper|silver|wood|diamond)_[a-z]+_upgrade$', 'Iron Chests'),
     (r'_electron_tube$|circuit_board$|^soldering|^sturdy', 'Forestry'),
