@@ -57,6 +57,7 @@ Vanilla-Klassen/-Felder tragen lesbare Namen (`Block.cobblestone`, `Item.redston
 | `43-oml-eu.md` | EU-Eingang für die elektrischen Lichter von Open Modular Lighting: 1 EU = 1 FE, LV (über 32 EU explodiert), FE bleibt; Kabel verbinden sich (Phase 43) |
 | `45-fe-eu-eingang.md` | EU-Eingang für Ad-Astra-Maschinen und AE2 (Controller, Energieakzeptor, Auflader, Prägepresse …): 1 EU = 4 FE, LV mit Explosion, ohne Speicher/Kabel (Phase 45) |
 | `46-nuclear-control.md` | IC2 Nuclear Control 1.4.5: Thermomonitore, Alarme, Infotafel mit Karten, Energie-/Durchschnittszähler, Bereichsauslöser, GT-Sensorkit (Phase 46) |
+| `47-chargepads.md` | Charge Pads 2.4.1: drei Ladepads (Static/Crystalizor/Lapotronic) laden Elektro-Items im Stehen, Upgrades, Emitter-Module, Ausbausätze, Zaps (Phase 47) |
 | `38-solarfeld-leitung.md` | Solarpanels leiten verlustfrei untereinander (nur von Panels), ein Kabel an einem Feld sammelt alles – freigegeben 2026-10-29 (Phase 38) |
 
 Ergänzend: `docs/balancing.md` (Vorschlag, nicht freigegeben), `docs/abweichungen.md`.

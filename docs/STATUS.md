@@ -3794,3 +3794,22 @@ Nutzer: „nächste Phase“.
   CurseForge-Launcher.
 - Phase 47 (ChargePads) mit Spezifikation 47.0 beginnen.
 - Phase 51 (Leuchtschild „wie Blendgranate“): Umfang klären.
+
+# Phase 47.0 – Spezifikation ChargePads (2026-11-12)
+
+Nutzer: „nächste Phase“.
+
+## Erledigt
+- [x] `ChargePads.zip` (2.4.1 build 66) mit Vineflower nach `reference/decompiled/chargepads/` dekompiliert (ohne
+  Remapping). Vanilla-Namen über `minecraft.jar` aufgelöst (Steindruckplatte, Redstone, Glowstonestaub, Enderperle,
+  Vergiftung, Material Eisen, `ke.f`/`ke.c`). GregTech greift in keine ChargePads-Rezepte ein.
+- [x] `docs/spec/47-chargepads.md`: 3 Pads (40 k/600 k/10 M EU, 32/128/512 EU/t, Energie nur von unten), Aktivierung
+  + Redstone, Laden (Grundverbrauch, Laderate × 1,05^OC, Kosten × 0,995^Eff, Hand vor Rüstung), Upgrades, 8 Module,
+  Ausbausätze (inkl. Originalfehler Upgrade → Feldplatz), Fall-/Abbau-/Ausbau-Zap mit Formeln, GUI, 18 Rezepte,
+  Teilphasen 47.1–47.3. Spec-README, CLAUDE.md.
+
+## Nächste Schritte
+- Freigabe durch den Nutzer (§11: Kreativ-Tab eigen oder IC2? nur Craft-Elektro-Items laden? Gefahren wie im
+  Pack an?), dann **47.1** Pads.
+- Client-Test Nuclear Control (Testplan 23) – nur nach Rückfrage.
+- Phase 51 (Leuchtschild „wie Blendgranate“): Umfang klären.
