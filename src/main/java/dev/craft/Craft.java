@@ -3,6 +3,7 @@ package dev.craft;
 import com.mojang.logging.LogUtils;
 import dev.craft.advancedmachines.AdvancedMachines;
 import dev.craft.buildcraft.BuildCraft;
+import dev.craft.chargepads.ChargePads;
 import dev.craft.compat.adastra.AdAstraLamps;
 import dev.craft.compat.euinput.ForeignEuInputs;
 import dev.craft.compactsolars.CompactSolars;
@@ -59,6 +60,7 @@ public final class Craft {
         Mps.init(modBus);
         LightShield.init(modBus);
         NuclearControl.init(modBus);
+        ChargePads.init(modBus);
         AdAstraLamps.init(modBus);
         ForeignEuInputs.init();
         CraftCreativeTabs.TABS.register(modBus);

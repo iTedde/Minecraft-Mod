@@ -5,20 +5,13 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 import dev.craft.buildcraft.BcBlocks;
-import dev.craft.buildcraft.transport.PipeType;
 import dev.craft.buildcraft.engine.EngineType;
-import dev.craft.forestry.FrBlocks;
+import dev.craft.buildcraft.transport.PipeType;
+import dev.craft.chargepads.CpBlocks;
 import dev.craft.compactsolars.CsBlocks;
-import dev.craft.powerplants.PpBlocks;
 import dev.craft.enderstorage.EsBlocks;
-import dev.craft.nuclearcontrol.NcBlocks;
-import dev.craft.mps.MpsBlocks;
 import dev.craft.enderstorage.EsDataComponents;
-import dev.craft.ironchest.IronChestBlock;
-import dev.craft.ironchest.IronChestBlocks;
-import dev.craft.ironchest.IronChestItems;
-import dev.craft.thermalexpansion.TeBlocks;
-import dev.craft.redpower.RpBlocks;
+import dev.craft.forestry.FrBlocks;
 import dev.craft.gregtech.GtBlocks;
 import dev.craft.gregtech.GtItems;
 import dev.craft.gregtech.GtMachine;
@@ -26,13 +19,21 @@ import dev.craft.gregtech.block.GtCasingBlock;
 import dev.craft.gregtech.world.GtOre;
 import dev.craft.gregtech.world.GtOreChanceCondition;
 import dev.craft.gregtech.world.GtOreCountFunction;
-import dev.craft.powerconverters.PcBlocks;
 import dev.craft.ic2.Ic2Blocks;
 import dev.craft.ic2.Ic2Items;
 import dev.craft.ic2.Ic2Machine;
 import dev.craft.ic2.block.RubberWoodBlock;
 import dev.craft.ic2.block.ScaffoldBlock;
 import dev.craft.ic2.cable.CableType;
+import dev.craft.ironchest.IronChestBlock;
+import dev.craft.ironchest.IronChestBlocks;
+import dev.craft.ironchest.IronChestItems;
+import dev.craft.mps.MpsBlocks;
+import dev.craft.nuclearcontrol.NcBlocks;
+import dev.craft.powerconverters.PcBlocks;
+import dev.craft.powerplants.PpBlocks;
+import dev.craft.redpower.RpBlocks;
+import dev.craft.thermalexpansion.TeBlocks;
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.world.item.DyeColor;
@@ -83,6 +84,8 @@ public final class CraftBlockLoot extends BlockLootSubProvider {
                 IronChestItems.chest(((IronChestBlock) chest.get()).getType())));
         // Nuclear Control (spec 46): every block drops itself.
         NcBlocks.BLOCKS.getEntries().forEach(block -> dropSelf(block.get()));
+        // Charge pads: canHarvestBlock = false, only the wrench gets them back (spec 47 §2.1).
+        CpBlocks.BLOCKS.getEntries().forEach(block -> add(block.get(), noDrop()));
         // EnderStorage getBlockDropped: always itself with frequency and owner (spec 27 §2).
         for (Block ender : List.of(EsBlocks.ENDER_CHEST.get(), EsBlocks.ENDER_TANK.get())) {
             add(ender, LootTable.lootTable().withPool(applyExplosionCondition(ender, LootPool.lootPool()
@@ -281,7 +284,7 @@ public final class CraftBlockLoot extends BlockLootSubProvider {
     protected Iterable<Block> getKnownBlocks() {
         return Stream.of(Ic2Blocks.BLOCKS, BcBlocks.BLOCKS, FrBlocks.BLOCKS, PcBlocks.BLOCKS,
                         CsBlocks.BLOCKS, GtBlocks.BLOCKS, PpBlocks.BLOCKS, RpBlocks.BLOCKS, IronChestBlocks.BLOCKS,
-                        TeBlocks.BLOCKS, EsBlocks.BLOCKS, MpsBlocks.BLOCKS, NcBlocks.BLOCKS)
+                        TeBlocks.BLOCKS, EsBlocks.BLOCKS, MpsBlocks.BLOCKS, NcBlocks.BLOCKS, CpBlocks.BLOCKS)
                 .flatMap(blocks -> blocks.getEntries().stream())
                 .map(holder -> (Block) holder.get()).toList();
     }

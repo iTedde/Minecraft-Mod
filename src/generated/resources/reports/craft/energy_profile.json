@@ -1684,6 +1684,39 @@
       "maxEnergyOutput": 4096,
       "maxSafeInput": 32,
       "values": {}
+    },
+    {
+      "classes": [
+        "ChargePadBlockEntity"
+      ],
+      "id": "static_charge_pad",
+      "kinds": [
+        "eu_sink"
+      ],
+      "maxSafeInput": 32,
+      "values": {}
+    },
+    {
+      "classes": [
+        "ChargePadBlockEntity"
+      ],
+      "id": "crystalizor_charge_pad",
+      "kinds": [
+        "eu_sink"
+      ],
+      "maxSafeInput": 128,
+      "values": {}
+    },
+    {
+      "classes": [
+        "ChargePadBlockEntity"
+      ],
+      "id": "lapotronic_charge_pad",
+      "kinds": [
+        "eu_sink"
+      ],
+      "maxSafeInput": 512,
+      "values": {}
     }
   ],
   "items": [

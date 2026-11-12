@@ -24,6 +24,7 @@ import dev.craft.advancedmachines.AdvancedMachinesItems;
 import dev.craft.buildcraft.BcItems;
 import dev.craft.buildcraft.transport.PipeType;
 import dev.craft.buildcraft.engine.EngineType;
+import dev.craft.chargepads.CpItems;
 import dev.craft.compactsolars.CsItems;
 import dev.craft.compactsolars.SolarArrayType;
 import dev.craft.forestry.FrFluids;
@@ -145,6 +146,7 @@ public final class CraftRecipeProvider extends RecipeProvider {
         enderStorage();
         graviSuite();
         nuclearControl();
+        chargePads();
         modularPowersuits();
         advancedMachines();
         thermalExpansion();
@@ -3607,6 +3609,19 @@ public final class CraftRecipeProvider extends RecipeProvider {
                 1600, 2);
         assemble("electronic_circuit_from_gt_sensor_card", SizedIngredient.of(NcItems.GT_SENSOR_CARD.get(), 1), null,
                 new ItemStack(Ic2Items.ELECTRONIC_CIRCUIT.get(), 2), 1600, 2);
+    }
+
+    /** Charge Pads (spec 47 §10), IC2 recipes; modules, kits and the efficiency upgrade follow in 47.2. */
+    private void chargePads() {
+        shaped(CpItems.STATIC_CHARGE_PAD, 1, "static_charge_pad").pattern("rSr", "c#c")
+                .define('r', Ic2Items.RUBBER).define('S', Items.STONE_PRESSURE_PLATE)
+                .define('c', Ic2Items.ELECTRONIC_CIRCUIT).define('#', machine(Ic2Machine.BATBOX)).save();
+        shaped(CpItems.CRYSTALIZOR_CHARGE_PAD, 1, "crystalizor_charge_pad").pattern("rSr", "c#c")
+                .define('r', Ic2Items.RUBBER).define('S', Items.STONE_PRESSURE_PLATE)
+                .define('c', Ic2Items.ELECTRONIC_CIRCUIT).define('#', machine(Ic2Machine.MFE)).save();
+        shaped(CpItems.LAPOTRONIC_CHARGE_PAD, 1, "lapotronic_charge_pad").pattern("rSr", "c#c")
+                .define('r', Ic2Items.CARBON_PLATE).define('S', Items.STONE_PRESSURE_PLATE)
+                .define('c', Ic2Items.ADVANCED_CIRCUIT).define('#', machine(Ic2Machine.MFSU)).save();
     }
 
     private ShapedBuilder shaped(ItemLike result, int count, String name) {

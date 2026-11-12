@@ -26,6 +26,7 @@ import dev.craft.gregtech.GtItems;
 import dev.craft.gregtech.GtMachine;
 import dev.craft.gregtech.block.GtCasingBlock;
 import dev.craft.gregtech.world.GtOre;
+import dev.craft.chargepads.CpBlocks;
 import dev.craft.compactsolars.CsBlocks;
 import dev.craft.compactsolars.SolarArrayType;
 import dev.craft.powerconverters.ConverterType;
@@ -627,6 +628,23 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
         add(setting + "gt_primary", german ? "Primär" : "Primary");
         add(setting + "gt_secondary", german ? "Sekundär" : "Secondary");
         add(setting + "gt_tertiary", german ? "Tertiär" : "Tertiary");
+    }
+
+    /** Charge Pads (spec 47 §1); English names and messages as in the pack. */
+    protected void chargePads(boolean german) {
+        block(CpBlocks.STATIC_CHARGE_PAD, german ? "Statisches Ladepad" : "Static Charge Pad");
+        block(CpBlocks.CRYSTALIZOR_CHARGE_PAD, german ? "Kristallisator-Ladepad" : "Crystalizor Charge Pad");
+        block(CpBlocks.LAPOTRONIC_CHARGE_PAD, german ? "Lapotron-Ladepad" : "Lapotronic Charge Pad");
+        add("gui.craft.chargepads.field", german ? "Feld" : "Field");
+        add("gui.craft.chargepads.projector", german ? "Projektor" : "Projector");
+        add("death.attack.craft.electrocution", german ? "%1$s starb an einem Stromschlag" : "%1$s died from shock");
+        add("death.attack.craft.electrocution.player", german
+                ? "%1$s starb im Kampf mit %2$s an einem Stromschlag" : "%1$s died from shock whilst fighting %2$s");
+        add("death.attack.craft.emitter_radiation", german ? "%1$s starb an Emitterstrahlung"
+                : "%1$s died from emitter radiation");
+        add("death.attack.craft.emitter_radiation.player", german
+                ? "%1$s starb im Kampf mit %2$s an Emitterstrahlung"
+                : "%1$s died from emitter radiation whilst fighting %2$s");
     }
 
     /** GraviSuite (spec 28 §1); English names as in the pack. */
@@ -2196,6 +2214,7 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             enderStorage(false);
             graviSuite(false);
             nuclearControl(false);
+            chargePads(false);
             modularPowersuits(false);
             advancedMachines(false);
             thermalExpansion(false);
@@ -2614,6 +2633,7 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             enderStorage(true);
             graviSuite(true);
             nuclearControl(true);
+            chargePads(true);
             modularPowersuits(true);
             advancedMachines(true);
             thermalExpansion(true);

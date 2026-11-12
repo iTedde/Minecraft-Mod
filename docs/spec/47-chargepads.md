@@ -229,13 +229,13 @@ passenden Pad-Platz (rückwärts gesucht), sonst Haupt-↔ Hotbar. Speicher als 
 1.4.7-Darstellung „voll“). Das Ergebnis-Pad aus formlosen Rezepten ist leer (Pad-Items tragen keine Energie).
 Alle Bauteile gibt es in Craft bereits (IC2-Phasen 3/6/7).
 
-## 11 Offene Entscheidungen
+## 11 Entscheidungen (Nutzer, 2026-11-12: alle Vorschläge übernommen)
 
-1. **Kreativ-Tab**: eigener Tab „Charge Pads“ wie im Pack oder in den IC2-Tab (wie Nuclear Control)?
-   Vorschlag: IC2-Tab.
+1. **Kreativ-Tab**: IC2-Tab (wie Nuclear Control), kein eigener Tab.
 2. **Welche Items werden geladen**: alle Craft-Elektro-Items (`ElectricItem`, also IC2, GraviSuite, MPS,
-   Leuchtschild …) bis zur Pad-Stufe – keine FE-Items anderer Mods. Vorschlag: so.
-3. **Gefährliche Teile** (Fall-/Abbau-/Ausbau-Zap, Schadens- und Entladungsmodul): wie im Pack an. Vorschlag: so.
+   Leuchtschild …) bis zur Pad-Stufe – keine FE-Items anderer Mods.
+3. **Gefährliche Teile** (Fall-/Abbau-/Ausbau-Zap, Schadens- und Entladungsmodul): wie im Pack an
+   (Schalter als Konstanten in `ChargePadsConfig`).
 
 ## 12 Abweichungen (1.21)
 
@@ -245,6 +245,11 @@ Alle Bauteile gibt es in Craft bereits (IC2-Phasen 3/6/7).
 - Vergiftung Stärke Stufe × 4 als Effekt-Amplifier wie im Original.
 - Partikel als eigener farbiger Partikeltyp, Zahlenwerte sinngemäß.
 - Nur Spieler werden geladen (Original nur `EntityPlayerMP`, in 1.21 jeder `ServerPlayer` – gleich).
+- Inventar einheitlich 6 Plätze (Batterie, Projektor, Feld, 3 Upgrades); der Static nutzt Platz 0 und 1 (Upgrade),
+  Crystalizor/Lapotronic die Upgrade-Plätze 3–4 bzw. 3–5. Die Zuordnung beim Ausbau (§8) folgt in 47.2.
+- Klickgeräusch `random.click` → Steinknopf-Klick (`block.stone_button.click_on`), Lautstärke/Tonhöhe wie im Original.
+- Abbauen dauert immer wie ohne passendes Werkzeug (`requiresCorrectToolForDrops`, in keinem `mineable`-Tag) –
+  wie `canHarvestBlock = false` im Original; Drop nie (Loot-Tabelle leer), nur der Schraubenschlüssel gibt den Pad.
 
 ## 13 Teilphasen
 

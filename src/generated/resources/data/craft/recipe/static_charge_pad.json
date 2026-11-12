@@ -1,0 +1,25 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "#": {
+      "item": "craft:batbox"
+    },
+    "S": {
+      "item": "minecraft:stone_pressure_plate"
+    },
+    "c": {
+      "item": "craft:electronic_circuit"
+    },
+    "r": {
+      "item": "craft:rubber"
+    }
+  },
+  "pattern": [
+    "rSr",
+    "c#c"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:static_charge_pad"
+  }
+}

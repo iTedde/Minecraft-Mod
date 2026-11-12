@@ -50,6 +50,9 @@ import dev.craft.lightshield.LsBlocks;
 import dev.craft.ironchest.IronChestBlocks;
 import dev.craft.mps.MpsBlocks;
 import dev.craft.nuclearcontrol.NcBlocks;
+import dev.craft.chargepads.CpBlocks;
+import dev.craft.chargepads.PadTier;
+import dev.craft.chargepads.block.ChargePadBlock;
 import dev.craft.nuclearcontrol.block.AlarmBlock;
 import dev.craft.nuclearcontrol.block.AttachedBlock;
 import dev.craft.nuclearcontrol.block.CounterBlock;
@@ -161,6 +164,7 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
         powerPlants();
         gregTech();
         nuclearControl();
+        chargePads();
     }
 
     /** BuildCraft {@code RenderingMarkers}: a torch-like stick, turned so that it points away from its support. */
@@ -965,6 +969,42 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
                     .rotationY(y % 360).build();
         });
         simpleBlockItem(block, model.apply(itemFront));
+    }
+
+    /**
+     * Charge pads (spec 47 §2.1): 16 x 4 x 16 px; bottom, sides (the 1.4.7 UV takes rows 12-15 of the side icon,
+     * the default UV of a 4 px high face does the same) and the top by state.
+     */
+    private void chargePads() {
+        for (PadTier tier : PadTier.values()) {
+            ChargePadBlock block = CpBlocks.pad(tier).get();
+            String name = tier.name().toLowerCase(java.util.Locale.ROOT);
+            Function<Boolean, ModelFile> model = active -> {
+                String top = name + "_charge_pad_top" + (active ? "_active" : "");
+                return models().withExistingParent("block/chargepads/" + top.replace("_top", ""), mcLoc("block/block"))
+                        .texture("particle", cpTexture(name + "_charge_pad_bottom"))
+                        .texture("top", cpTexture(top))
+                        .texture("bottom", cpTexture(name + "_charge_pad_bottom"))
+                        .texture("side", cpTexture(name + "_charge_pad_side")).renderType("cutout")
+                        .element().from(0, 0, 0).to(16, 4, 16)
+                        .face(Direction.UP).texture("#top").end()
+                        .face(Direction.DOWN).texture("#bottom").cullface(Direction.DOWN).end()
+                        .face(Direction.NORTH).texture("#side").cullface(Direction.NORTH).end()
+                        .face(Direction.SOUTH).texture("#side").cullface(Direction.SOUTH).end()
+                        .face(Direction.WEST).texture("#side").cullface(Direction.WEST).end()
+                        .face(Direction.EAST).texture("#side").cullface(Direction.EAST).end()
+                        .end();
+            };
+            ModelFile inactive = model.apply(false);
+            ModelFile active = model.apply(true);
+            getVariantBuilder(block).forAllStates(state -> ConfiguredModel.builder()
+                    .modelFile(state.getValue(ChargePadBlock.ACTIVE) ? active : inactive).build());
+            simpleBlockItem(block, inactive);
+        }
+    }
+
+    private ResourceLocation cpTexture(String name) {
+        return modLoc("block/chargepads/" + name);
     }
 
     private ResourceLocation ncTexture(String name) {

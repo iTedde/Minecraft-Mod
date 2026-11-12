@@ -3813,3 +3813,31 @@ Nutzer: „nächste Phase“.
   Pack an?), dann **47.1** Pads.
 - Client-Test Nuclear Control (Testplan 23) – nur nach Rückfrage.
 - Phase 51 (Leuchtschild „wie Blendgranate“): Umfang klären.
+
+# Phase 47.1 – ChargePads: Pads (2026-11-12)
+
+Nutzer: „Weiter geht“; Freigabe §11: alle Vorschläge übernommen (IC2-Tab, nur Craft-Elektro-Items, Gefahren an).
+
+## Erledigt
+- [x] Paket `dev.craft.chargepads`: Static/Crystalizor/Lapotron-Ladepad (flach 16×4×16, Zustand `active`),
+  `PadTier` mit allen Stufenwerten, `ChargePadsConfig` (Pack-Schalter als Konstanten).
+- [x] Block-Entity: EU nur von unten, IC2-Überlaufeigenheit, Überspannung → IC2-Maschinenexplosion, Batterieslot
+  (Elektro-Items bis Pad-Stufe + Transformer, Redstone 500, Einweg-Batterie 1 000), Upgrades (Übertakter/Effizienz
+  max. 16, Transformer max. 4, Speicher unbegrenzt), Grundverbrauch, Feld + Laden (Hand/Rüstung, Verteilung,
+  „nichts zu laden“), Modul-Logik schon vorbereitet (Items folgen in 47.2), Schraubenschlüssel (Drop 1,0,
+  mit Emittermodul nur von unten).
+- [x] Block: Feldprüfung über Betreten/geplanten (10 Ticks)/zufälligen Tick, Klick, Redstone 15 nach unten und zur
+  Seite, Fall-Zap, Abbau-Zap + Inventarverlust, kein Drop, Inventar fällt heraus.
+- [x] GUI (Menü + Screen mit Sperren, Energiebalken, Feld/Projektor), Shift-Klick wie im Original.
+- [x] Schadensarten `craft:electrocution` (ignoriert Rüstung) und `craft:emitter_radiation`, Todesmeldungen DE/EN.
+- [x] Datagen: Blockstates/Modelle, leere Loot-Tabellen, Sprache, 3 Pad-Rezepte; Texturen + GUI per
+  `tools/scripts/charge_pads_textures.py`.
+- [x] 6 GameTests (`ChargePadGameTests`): Zap-Formel, Energie nur von unten + Upgrades + Explosion, Batterieslot,
+  Spieler wird geladen + Redstone + Abschalten, Abbau-Zap, Fall-Zap. Lauf: rot nur der bekannte Wackelkandidat
+  `liquidTesseractFillsRemoteTank`. `gradlew runData`, danach `build` grün.
+- Doku: Spec 47 §11/§12, `abweichungen.md`, `architektur.md`, CLAUDE.md. Nicht im Client gestartet.
+
+## Nächste Schritte
+- **47.2** Effizienz-Upgrade, Emitter-Module, Ausbausätze, Partikel.
+- Client-Test Pads – nur nach Rückfrage.
+- Phase 51 (Leuchtschild „wie Blendgranate“): Umfang klären.
