@@ -11,6 +11,7 @@ import dev.craft.compactsolars.SolarArrayType;
 import dev.craft.powerplants.PpBlocks;
 import dev.craft.enderstorage.EsBlocks;
 import dev.craft.mps.MpsBlocks;
+import dev.craft.nuclearcontrol.NcBlocks;
 import dev.craft.coppergolem.CopperGolems;
 import dev.craft.ironchest.IronChestBlocks;
 import dev.craft.ironchest.IronChestType;
@@ -95,6 +96,7 @@ public final class CraftBlockTagsProvider extends BlockTagsProvider {
         tag(BlockTags.MINEABLE_WITH_PICKAXE).add(EsBlocks.ENDER_CHEST.get(), EsBlocks.ENDER_TANK.get());
         // Tinker Table: pickaxe level 0.
         tag(BlockTags.MINEABLE_WITH_PICKAXE).add(MpsBlocks.TINKER_TABLE.get());
+        NcBlocks.BLOCKS.getEntries().forEach(block -> tag(BlockTags.MINEABLE_WITH_PICKAXE).add(block.get()));
         tag(BlockTags.MINEABLE_WITH_PICKAXE).add(Ic2Blocks.MACHINE_CASING.get(),
                 Ic2Blocks.ADVANCED_MACHINE_CASING.get(), Ic2Blocks.TIN_ORE.get(), Ic2Blocks.DEEPSLATE_TIN_ORE.get(), Ic2Blocks.TIN_BLOCK.get(), Ic2Blocks.BRONZE_BLOCK.get(),
                 Ic2Blocks.IRON_FENCE.get());

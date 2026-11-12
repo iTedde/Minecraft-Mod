@@ -1,0 +1,23 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "G": {
+      "item": "minecraft:glass"
+    },
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "W": {
+      "item": "craft:water_cell"
+    }
+  },
+  "pattern": [
+    "IG ",
+    "GWG",
+    " GG"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:thermometer"
+  }
+}

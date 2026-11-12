@@ -1,0 +1,5 @@
+// 1.21.1	2026-10-17T14:40:05.2924074	Tags for minecraft:worldgen/biome mod id craft
+9132bcd3a01cec0e4dfd5b2e58d7733da4405f51 data/craft/tags/worldgen/biome/has_gt_bauxite_ore.json
+86689ce635b0f003fc0e3f8e3b236d12696d8e3a data/craft/tags/worldgen/biome/has_gt_ruby_ore.json
+72b2cfdbfa3b8cc948d07b7499b574c6f46fba00 data/craft/tags/worldgen/biome/has_gt_sapphire_ore.json
+a750d80151a1fc4cf532a69dc779333f51000d62 data/craft/tags/worldgen/biome/has_rubber_trees.json

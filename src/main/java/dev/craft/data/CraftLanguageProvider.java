@@ -39,6 +39,8 @@ import dev.craft.lightshield.LsItems;
 import dev.craft.portalgun.PgItems;
 import dev.craft.enderstorage.EsItems;
 import dev.craft.gravisuite.GsItems;
+import dev.craft.nuclearcontrol.NcBlocks;
+import dev.craft.nuclearcontrol.NcItems;
 import dev.craft.mps.MpsBlocks;
 import dev.craft.mps.MpsItems;
 import dev.craft.mps.module.PowerModule;
@@ -528,6 +530,28 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
                 + "contents and function stay. Honeycomb waxes, axe while sneaking: removes wax or one stage, "
                 + "lightning makes it fresh again. Broken, it always drops fresh. Copper golems take items from copper "
                 + "chests but never put any in.");
+    }
+
+    /** IC2 Nuclear Control (spec 46 §1); English names and messages as in the pack's lang file. */
+    protected void nuclearControl(boolean german) {
+        block(NcBlocks.THERMAL_MONITOR, german ? "Thermomonitor" : "Thermal Monitor");
+        block(NcBlocks.INDUSTRIAL_ALARM, german ? "Industriealarm" : "Industrial Alarm");
+        block(NcBlocks.HOWLER_ALARM, german ? "Heulalarm" : "Howler Alarm");
+        block(NcBlocks.REMOTE_THERMAL_MONITOR, german ? "Fern-Thermomonitor" : "Remote Thermal Monitor");
+        item(NcItems.THERMOMETER, "Thermometer");
+        item(NcItems.DIGITAL_THERMOMETER, german ? "Digitalthermometer" : "Digital Thermometer");
+        item(NcItems.REMOTE_SENSOR_KIT, german ? "Reaktor-Sensorkit" : "Remote Sensor Kit");
+        item(NcItems.REACTOR_SENSOR_LOCATION_CARD, german ? "Reaktor-Sensorkarte" : "Reactor Sensor Location Card");
+        item(NcItems.RANGE_UPGRADE, german ? "Reichweiten-Upgrade" : "Range Upgrade");
+        add("message.craft.nuclearcontrol.thermo", german ? "Hüllentemperatur: %s" : "Hull heat: %s");
+        add("message.craft.nuclearcontrol.thermo_digital", german
+                ? "Hüllentemperatur: %s (Wasser verdampft: %s / Schmelzen: %s)"
+                : "Hull heat: %s (Water evaporate: %s / melting: %s)");
+        add("message.craft.nuclearcontrol.sensor_kit", german
+                ? "Fernsensor montiert, Sensorkarte erhalten" : "Remote Sensor mounted, Sensor Location Card received");
+        add("gui.craft.nuclearcontrol.invert_redstone", german ? "Redstone umkehren" : "Invert redstone");
+        add("gui.craft.nuclearcontrol.alarm_range", german ? "Reichweite: %s" : "Sound range: %s");
+        add("gui.craft.nuclearcontrol.alarm_sound", german ? "Ton" : "Sound");
     }
 
     /** GraviSuite (spec 28 §1); English names as in the pack. */
@@ -2018,6 +2042,7 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             ironChests(false);
             enderStorage(false);
             graviSuite(false);
+            nuclearControl(false);
             modularPowersuits(false);
             advancedMachines(false);
             thermalExpansion(false);
@@ -2435,6 +2460,7 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             ironChests(true);
             enderStorage(true);
             graviSuite(true);
+            nuclearControl(true);
             modularPowersuits(true);
             advancedMachines(true);
             thermalExpansion(true);

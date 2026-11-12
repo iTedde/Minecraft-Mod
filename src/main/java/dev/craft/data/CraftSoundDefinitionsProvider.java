@@ -4,6 +4,7 @@ import java.util.List;
 
 import dev.craft.Craft;
 import dev.craft.gravisuite.GsSounds;
+import dev.craft.nuclearcontrol.NcSounds;
 import dev.craft.ic2.Ic2Sounds;
 import net.minecraft.data.PackOutput;
 import net.minecraft.sounds.SoundEvent;
@@ -19,7 +20,7 @@ public final class CraftSoundDefinitionsProvider extends SoundDefinitionsProvide
 
     @Override
     public void registerSounds() {
-        for (List<DeferredHolder<SoundEvent, SoundEvent>> sounds : List.of(Ic2Sounds.all(), GsSounds.all())) {
+        for (List<DeferredHolder<SoundEvent, SoundEvent>> sounds : List.of(Ic2Sounds.all(), GsSounds.all(), NcSounds.all())) {
             for (DeferredHolder<SoundEvent, SoundEvent> sound : sounds) {
                 add(sound.get(), SoundDefinition.definition().with(sound(sound.getId())));
             }

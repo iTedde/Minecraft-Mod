@@ -1,0 +1,45 @@
+{
+  "parent": "minecraft:block/block",
+  "elements": [
+    {
+      "faces": {
+        "down": {
+          "cullface": "down",
+          "texture": "#back"
+        },
+        "east": {
+          "texture": "#side"
+        },
+        "north": {
+          "texture": "#side"
+        },
+        "south": {
+          "texture": "#side"
+        },
+        "up": {
+          "texture": "#front"
+        },
+        "west": {
+          "texture": "#side"
+        }
+      },
+      "from": [
+        2,
+        0,
+        2
+      ],
+      "to": [
+        14,
+        7,
+        14
+      ]
+    }
+  ],
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "back": "craft:block/nuclearcontrol/industrial_alarm_back",
+    "front": "craft:block/nuclearcontrol/industrial_alarm_lamp_bright",
+    "particle": "craft:block/nuclearcontrol/industrial_alarm_side",
+    "side": "craft:block/nuclearcontrol/industrial_alarm_side"
+  }
+}

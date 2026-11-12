@@ -21,6 +21,7 @@ import dev.craft.lightshield.LsItems;
 import dev.craft.portalgun.PgItems;
 import dev.craft.enderstorage.EsItems;
 import dev.craft.gravisuite.GsItems;
+import dev.craft.nuclearcontrol.NcItems;
 import dev.craft.mps.MpsItems;
 import dev.craft.gravisuite.client.GraviSuiteClient;
 import dev.craft.enderstorage.client.EnderStorageClient;
@@ -47,6 +48,11 @@ public final class CraftItemModelProvider extends ItemModelProvider {
     @Override
     protected void registerModels() {
         basicItem(PpItems.COKE.get());
+        for (DeferredItem<? extends Item> item : List.of(NcItems.THERMOMETER, NcItems.DIGITAL_THERMOMETER,
+                NcItems.REMOTE_SENSOR_KIT, NcItems.REACTOR_SENSOR_LOCATION_CARD, NcItems.RANGE_UPGRADE)) {
+            String name = item.getId().getPath();
+            withExistingParent(name, mcLoc("item/generated")).texture("layer0", modLoc("item/nuclearcontrol/" + name));
+        }
         basicItem(AdvancedMachinesItems.REFINED_IRON_DUST.get());
         for (DeferredItem<? extends Item> item : List.of(TeItems.INVAR_DUST, TeItems.INVAR_INGOT, TeItems.WOOD_CHIPS,
                 TeItems.SAWDUST, TeItems.COMPRESSED_SAWDUST, TeItems.SLAG, TeItems.RICH_SLAG, TeItems.PNEUMATIC_SERVO,

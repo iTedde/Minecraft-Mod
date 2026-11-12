@@ -58,6 +58,7 @@ import dev.craft.enderstorage.EnderStorageRecolourRecipe;
 import dev.craft.enderstorage.EsDataComponents;
 import dev.craft.enderstorage.EsItems;
 import dev.craft.gravisuite.GsItems;
+import dev.craft.nuclearcontrol.NcItems;
 import dev.craft.mps.MpsItems;
 import dev.craft.enderstorage.Frequency;
 import dev.craft.ironchest.ChestUpgradeType;
@@ -142,6 +143,7 @@ public final class CraftRecipeProvider extends RecipeProvider {
         ironChests();
         enderStorage();
         graviSuite();
+        nuclearControl();
         modularPowersuits();
         advancedMachines();
         thermalExpansion();
@@ -3529,6 +3531,35 @@ public final class CraftRecipeProvider extends RecipeProvider {
 
     private static ItemLike machine(Ic2Machine machine) {
         return Ic2Items.machine(machine);
+    }
+
+    /** IC2 Nuclear Control (spec 46 §2), IC2 recipes ({@code Ic2Recipes.addCraftingRecipe}). */
+    private void nuclearControl() {
+        shaped(NcItems.THERMAL_MONITOR, 1, "thermal_monitor").pattern("GGG", "GCG", "GRG")
+                .define('G', Ic2Items.REINFORCED_GLASS).define('C', Ic2Items.ADVANCED_CIRCUIT)
+                .define('R', Items.REDSTONE).save();
+        shaped(NcItems.HOWLER_ALARM, 1, "howler_alarm").pattern("NNN", "ICI", "IRI").define('N', Items.NOTE_BLOCK)
+                .define('I', Items.IRON_INGOT).define('C', Ic2Items.ELECTRONIC_CIRCUIT).define('R', Items.REDSTONE)
+                .save();
+        shaped(NcItems.INDUSTRIAL_ALARM, 1, "industrial_alarm").pattern("GOG", "GHG", "GRG")
+                .define('G', Ic2Items.REINFORCED_GLASS).define('O', Tags.Items.DYES_ORANGE)
+                .define('H', NcItems.HOWLER_ALARM).define('R', Items.REDSTONE).save();
+        shaped(NcItems.REMOTE_THERMAL_MONITOR, 1, "remote_thermal_monitor").pattern("F", "M", "T")
+                .define('F', Ic2Items.FREQUENCY_TRANSMITTER).define('M', Ic2Items.MACHINE_CASING)
+                .define('T', NcItems.THERMAL_MONITOR).save();
+        shaped(NcItems.THERMOMETER, 1, "thermometer").pattern("IG ", "GWG", " GG").define('I', Items.IRON_INGOT)
+                .define('G', Items.GLASS).define('W', Ic2Items.WATER_CELL).save();
+        shaped(NcItems.DIGITAL_THERMOMETER, 1, "digital_thermometer").pattern("I  ", "IC ", " GI")
+                .define('I', CraftItemTagsProvider.INGOTS_REFINED_IRON).define('C', Ic2Items.ELECTRONIC_CIRCUIT)
+                .define('G', Items.GLOWSTONE_DUST).save();
+        shaped(NcItems.REMOTE_SENSOR_KIT, 1, "remote_sensor_kit").pattern("  F", " D ", "P  ")
+                .define('F', Ic2Items.FREQUENCY_TRANSMITTER).define('D', NcItems.DIGITAL_THERMOMETER)
+                .define('P', Items.PAPER).save();
+        shaped(NcItems.RANGE_UPGRADE, 1, "range_upgrade").pattern("CFC")
+                .define('C', Ic2Items.cable(CableType.INSULATED_COPPER)).define('F', Ic2Items.FREQUENCY_TRANSMITTER)
+                .save();
+        shapeless(Ic2Items.ELECTRONIC_CIRCUIT, 2, "electronic_circuit_from_reactor_sensor_location_card",
+                Ingredient.of(NcItems.REACTOR_SENSOR_LOCATION_CARD));
     }
 
     private ShapedBuilder shaped(ItemLike result, int count, String name) {

@@ -240,7 +240,14 @@ GregTech legt im Pack ein eigenes Kit + Karte an, sobald Nuclear Control da ist:
   Kits/Karten (Reaktor, Energie, Feld, Text, Zeit, Flüssigkeit), Upgrades · **46.3** Energie-/Durchschnittszähler,
   Bereichsauslöser, Zählerkarte, GT-Sensorkit · **46.4** EMI, Herkunft, Wiki, GameTests, Paket.
 
-## 10 Offene Fragen (Nutzer)
+## 10 Stand
+
+- **46.1** (2026-11-12, umgesetzt): Thermometer, Digitalthermometer, Thermomonitor, Fern-Thermomonitor (mit
+  Reaktor-Sensorkit, Reaktor-Sensorkarte, Reichweiten-Upgrade), Heul- und Industriealarm; GUIs aus den Pack-Texturen,
+  Texturen/Sounds per `tools/scripts/nuclear_control_textures.py`. IC2-Schraubenschlüssel reicht Shift-Klicks an den
+  Block weiter (`shouldPassSneakingClickToBlock`), damit Shift + Schraubenschlüssel das Display dreht.
+
+## 11 Offene Fragen (Nutzer)
 
 1. Umfang **komplett** wie oben, einschließlich GregTech-Sensorkit (§8)? Vorschlag: ja.
 2. Energie-Sensor wie im Pack nur **EU + MJ**, oder zusätzlich **FE** (Speicher anderer Mods wie Mekanism-Würfel,

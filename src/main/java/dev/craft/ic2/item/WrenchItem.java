@@ -22,6 +22,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -131,6 +132,15 @@ public class WrenchItem extends Item {
             playSound(level, player);
         }
         return InteractionResult.sidedSuccess(level.isClientSide());
+    }
+
+    /**
+     * IC2 {@code shouldPassSneakingClickToBlock}: a sneaking click still reaches the block (Nuclear Control turns
+     * its displays that way).
+     */
+    @Override
+    public boolean doesSneakBypassUse(ItemStack stack, LevelReader level, BlockPos pos, Player player) {
+        return true;
     }
 
     private static void playSound(Level level, Player player) {

@@ -1,0 +1,23 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "F": {
+      "item": "craft:frequency_transmitter"
+    },
+    "M": {
+      "item": "craft:machine_casing"
+    },
+    "T": {
+      "item": "craft:thermal_monitor"
+    }
+  },
+  "pattern": [
+    "F",
+    "M",
+    "T"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:remote_thermal_monitor"
+  }
+}

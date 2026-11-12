@@ -109,6 +109,16 @@
       "craft:machines/teleporter/tele_use"
     ]
   },
+  "nuclearcontrol/alarm_default": {
+    "sounds": [
+      "craft:nuclearcontrol/alarm_default"
+    ]
+  },
+  "nuclearcontrol/alarm_sci_fi": {
+    "sounds": [
+      "craft:nuclearcontrol/alarm_sci_fi"
+    ]
+  },
   "terraformers/terraformer_generic_loop": {
     "sounds": [
       "craft:terraformers/terraformer_generic_loop"

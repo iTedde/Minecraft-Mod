@@ -1641,6 +1641,21 @@
       "mjMaxStored": 0,
       "mjMinReceived": 2,
       "values": {}
+    },
+    {
+      "classes": [
+        "RemoteThermalMonitorBlockEntity",
+        "ThermalMonitorBlockEntity"
+      ],
+      "id": "remote_thermal_monitor",
+      "kinds": [
+        "eu_sink"
+      ],
+      "maxSafeInput": 32,
+      "values": {
+        "getMaxStorage": 600,
+        "getTier": 1
+      }
     }
   ],
   "items": [
@@ -1944,6 +1959,13 @@
       "maxCharge": 10000,
       "tier": 1,
       "transferLimit": 100
+    },
+    {
+      "canProvideEnergy": false,
+      "id": "digital_thermometer",
+      "maxCharge": 12000,
+      "tier": 1,
+      "transferLimit": 250
     }
   ]
 }

@@ -9,6 +9,7 @@ import dev.craft.compactsolars.CompactSolars;
 import dev.craft.enderstorage.EnderStorage;
 import dev.craft.gravisuite.GraviSuite;
 import dev.craft.mps.Mps;
+import dev.craft.nuclearcontrol.NuclearControl;
 import dev.craft.gregtech.GregTech;
 import dev.craft.coppergolem.CopperGolems;
 import dev.craft.core.CraftCreativeTabs;
@@ -57,6 +58,7 @@ public final class Craft {
         GraviSuite.init(modBus);
         Mps.init(modBus);
         LightShield.init(modBus);
+        NuclearControl.init(modBus);
         AdAstraLamps.init(modBus);
         ForeignEuInputs.init();
         CraftCreativeTabs.TABS.register(modBus);

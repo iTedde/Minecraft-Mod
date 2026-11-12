@@ -1,0 +1,26 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "G": {
+      "item": "craft:reinforced_glass"
+    },
+    "H": {
+      "item": "craft:howler_alarm"
+    },
+    "O": {
+      "tag": "c:dyes/orange"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    }
+  },
+  "pattern": [
+    "GOG",
+    "GHG",
+    "GRG"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:industrial_alarm"
+  }
+}

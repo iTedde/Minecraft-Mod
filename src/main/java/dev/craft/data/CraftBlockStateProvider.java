@@ -5,6 +5,7 @@ import dev.craft.ic2.crop.CropBlock;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import com.google.gson.JsonObject;
@@ -48,6 +49,11 @@ import dev.craft.enderstorage.EsBlocks;
 import dev.craft.lightshield.LsBlocks;
 import dev.craft.ironchest.IronChestBlocks;
 import dev.craft.mps.MpsBlocks;
+import dev.craft.nuclearcontrol.NcBlocks;
+import dev.craft.nuclearcontrol.block.AlarmBlock;
+import dev.craft.nuclearcontrol.block.AttachedBlock;
+import dev.craft.nuclearcontrol.block.RemoteThermalMonitorBlock;
+import dev.craft.nuclearcontrol.block.ThermalMonitorBlock;
 import dev.craft.ironchest.IronChestType;
 import dev.craft.redpower.RpBlocks;
 import net.minecraft.core.Direction;
@@ -59,6 +65,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.NetherPortalBlock;
 import net.minecraft.world.level.block.PipeBlock;
 import net.minecraft.world.level.block.WeatheringCopper.WeatherState;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.AABB;
@@ -150,6 +157,7 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
         compactSolars();
         powerPlants();
         gregTech();
+        nuclearControl();
     }
 
     /** BuildCraft {@code RenderingMarkers}: a torch-like stick, turned so that it points away from its support. */
@@ -850,5 +858,64 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
                 .texture("particle", texture).texture("portal", texture).renderType("translucent");
         getVariantBuilder(MiningBlocks.MINING_PORTAL.get()).forAllStates(state -> ConfiguredModel.builder()
                 .modelFile(state.getValue(NetherPortalBlock.AXIS) == Direction.Axis.X ? alongX : alongZ).build());
+    }
+
+    /**
+     * Nuclear Control (spec 46): the flat blocks lie on the floor in their base model (display up, back down) and are
+     * turned like vanilla wall buttons; the remote thermal monitor's display is the north face of its base model.
+     */
+    private void nuclearControl() {
+        String[] status = {"normal", "hot", "none"};
+        attachedBlock(NcBlocks.THERMAL_MONITOR.get(), 1,
+                state -> "thermal_monitor_" + status[state.getValue(ThermalMonitorBlock.STATUS)],
+                "thermal_monitor_back", "thermal_monitor_side", "thermal_monitor_normal");
+        String[] lamp = {"off", "dim", "bright"};
+        attachedBlock(NcBlocks.INDUSTRIAL_ALARM.get(), 2,
+                state -> "industrial_alarm_lamp_" + lamp[state.getValue(AlarmBlock.LAMP)],
+                "industrial_alarm_back", "industrial_alarm_side", "industrial_alarm_lamp_off");
+        attachedBlock(NcBlocks.HOWLER_ALARM.get(), 2, state -> "howler_alarm_front", "howler_alarm_back",
+                "howler_alarm_side", "howler_alarm_front");
+        RemoteThermalMonitorBlock remote = NcBlocks.REMOTE_THERMAL_MONITOR.get();
+        ModelFile remoteModel = models().cube("block/nuclearcontrol/remote_thermal_monitor",
+                        ncTexture("remote_thermal_monitor_side"), ncTexture("remote_thermal_monitor_side"),
+                        ncTexture("remote_thermal_monitor_front"), ncTexture("remote_thermal_monitor_back"),
+                        ncTexture("remote_thermal_monitor_side"), ncTexture("remote_thermal_monitor_side"))
+                .texture("particle", ncTexture("remote_thermal_monitor_side"));
+        getVariantBuilder(remote).forAllStates(state -> {
+            Direction facing = state.getValue(RemoteThermalMonitorBlock.FACING);
+            int x = facing == Direction.UP ? 270 : facing == Direction.DOWN ? 90 : 0;
+            int y = facing.getAxis().isHorizontal() ? (int) facing.toYRot() + 180 : 0;
+            return ConfiguredModel.builder().modelFile(remoteModel).rotationX(x).rotationY(y % 360).build();
+        });
+        simpleBlockItem(remote, remoteModel);
+    }
+
+    private void attachedBlock(AttachedBlock block, int inset, Function<BlockState, String> front, String back,
+                               String side, String itemFront) {
+        Map<String, ModelFile> models = new HashMap<>();
+        Function<String, ModelFile> model = texture -> models.computeIfAbsent(texture,
+                key -> models().withExistingParent("block/nuclearcontrol/" + key, mcLoc("block/block"))
+                        .texture("particle", ncTexture(side)).texture("front", ncTexture(key))
+                        .texture("back", ncTexture(back)).texture("side", ncTexture(side)).renderType("cutout")
+                        .element().from(inset, 0, inset).to(16 - inset, AttachedBlock.HEIGHT, 16 - inset)
+                        .face(Direction.UP).texture("#front").end()
+                        .face(Direction.DOWN).texture("#back").cullface(Direction.DOWN).end()
+                        .face(Direction.NORTH).texture("#side").end()
+                        .face(Direction.SOUTH).texture("#side").end()
+                        .face(Direction.WEST).texture("#side").end()
+                        .face(Direction.EAST).texture("#side").end()
+                        .end());
+        getVariantBuilder(block).forAllStates(state -> {
+            Direction facing = state.getValue(AttachedBlock.FACING);
+            int x = facing == Direction.UP ? 0 : facing == Direction.DOWN ? 180 : 90;
+            int y = facing.getAxis().isHorizontal() ? (int) facing.toYRot() + 180 : 0;
+            return ConfiguredModel.builder().modelFile(model.apply(front.apply(state))).rotationX(x)
+                    .rotationY(y % 360).build();
+        });
+        simpleBlockItem(block, model.apply(itemFront));
+    }
+
+    private ResourceLocation ncTexture(String name) {
+        return modLoc("block/nuclearcontrol/" + name);
     }
 }

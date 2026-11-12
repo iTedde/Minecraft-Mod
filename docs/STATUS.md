@@ -3670,5 +3670,33 @@ Nutzer: „nächste Phase“.
   Spec-README, CLAUDE.md.
 
 ## Nächste Schritte
-- Freigabe durch den Nutzer (§10: Umfang inkl. GT-Sensorkit? Energie-Sensor nur EU + MJ oder auch FE?), dann
+- Freigabe durch den Nutzer (§11: Umfang inkl. GT-Sensorkit? Energie-Sensor nur EU + MJ oder auch FE?), dann
   **46.1** Thermometer, Thermomonitore, Alarme.
+
+# Phase 46.1 – Thermometer, Thermomonitore, Alarme (2026-11-12)
+
+Nutzer: „nächste Phase“ (die §11-Fragen betreffen erst 46.2/46.3). Nebenbei (Nutzer): „Was auch noch viel besser werden
+muss ist das Electric light shield. Das muss viel Heller sein, wie so ne Blendgranate“ → als Phase 51 eingeplant.
+
+## Erledigt
+- [x] Paket `dev.craft.nuclearcontrol`: Thermomonitor (Nachbar-Reaktor/-Kammer, Schwelle 500, Redstone außer zum
+  Reaktor, Front grün/rot/grau), Fern-Thermomonitor (EU-Senke 600 + 10 000 je Speicher-Upgrade, LV ×4 je
+  Trafo-Upgrade, 1 EU/t, Batterie-/Einweg-Batterie-Slot, Reaktorkarte mit Reichweite 8·2ⁿ, Explosion 0,8, Display
+  drehbar), Heul-/Industriealarm (Redstone am Block oder Draht daneben, Reichweite 0…128 in 8er-Schritten, Ton
+  default/sci-fi, Lampe 7/7/15/0), Thermometer (10 Schaden), Digitalthermometer (12 000 EU, 50 EU je Messung, 100 EU
+  nötig), Reaktor-Sensorkit → Reaktor-Sensorkarte, Reichweiten-Upgrade. GUIs nach den Original-Texturen, Zahl/Balken
+  per Block-Entity-Renderer, Alarmton als Client-`SoundInstance`.
+- [x] Rezepte, Loot, Spitzhacken-Tag, Lang de/en, Blockstates/Modelle; `tools/scripts/nuclear_control_textures.py`
+  (Texturen, GUIs, Sounds aus der Pack-Zip). `WrenchItem.doesSneakBypassUse` = IC2 `shouldPassSneakingClickToBlock`.
+- [x] Abweichungen (5 Zeilen), Spec §10.
+- [x] 8 GameTests (`NuclearControlGameTests`). Lauf in frischem Ordner (`-PgameTestDir`): **alle 592 grün**;
+  `gradlew build` grün. Befund: in `run/` scheitert `liquidTesseractFillsRemoteTank` reproduzierbar – auch auf dem
+  letzten Commit ohne diese Änderungen nur dort (sauberer Stand im frischen Ordner 584/584 grün) → liegt an
+  gespeichertem Zustand in `run/` (vermutlich Tesserakt-Daten aus dem Spielen), nicht am Code.
+- Nicht im Client gestartet.
+
+## Nächste Schritte
+- Client-Test 46.1: Thermomonitor am Reaktor (Zahl, Farbe, Redstone), Fern-Thermomonitor mit Karte (Balken, Shift +
+  Schraubenschlüssel dreht), Alarme (Ton, Reichweite, Licht).
+- Antworten zu spec 46 §11 (GT-Sensorkit? Energie-Sensor auch FE?), dann **46.2** Infotafel + Karten.
+- Phase 51 (Leuchtschild „wie Blendgranate“): Umfang klären.

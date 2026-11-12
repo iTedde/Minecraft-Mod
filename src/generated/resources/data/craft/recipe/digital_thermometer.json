@@ -1,0 +1,23 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "C": {
+      "item": "craft:electronic_circuit"
+    },
+    "G": {
+      "item": "minecraft:glowstone_dust"
+    },
+    "I": {
+      "tag": "c:ingots/refined_iron"
+    }
+  },
+  "pattern": [
+    "I  ",
+    "IC ",
+    " GI"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:digital_thermometer"
+  }
+}
