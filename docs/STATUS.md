@@ -3653,4 +3653,22 @@ Nutzer: „nächste Phase“.
 
 ## Nächste Schritte
 - Paket 1.2.8 im CurseForge-Launcher: Ad-Astra-Kompressor und AE2-Controller am LV-Kabel, an MV → Explosion.
-- Phase 46 (IC2 Nuclear Control) mit Spezifikation 46.0 beginnen – oder andere Reihenfolge nach Wunsch.
+- Phase 46 (IC2 Nuclear Control) mit Spezifikation 46.0 beginnen.
+
+# Phase 46.0 – Spezifikation IC2 Nuclear Control (2026-11-12)
+
+Nutzer: „nächste Phase“.
+
+## Erledigt
+- [x] `IC2NuclearControl.zip` (1.4.5) mit Vineflower nach `reference/decompiled/nuclearcontrol/` dekompiliert (ohne
+  Remapping wie GraviSuite/MPS; SpecialSource/MCP liegen nicht mehr in `tools/`). Vanilla-Namen der Rezepte über
+  den statischen Initialisierer von `minecraft.jar` geprüft (Notenblock, Bretter, Eimer, Uhr).
+- [x] `docs/spec/46-nuclear-control.md`: 9 Blöcke, 17 Items (inkl. GT-Sensorkit aus `GT_Mod`), alle Rezepte,
+  Thermo-/Fernmonitor (Schwelle, Redstone, 1 EU/t, Upgrades, Explosion 0,8), Alarme (Reichweite, Licht-Folge 7/7/15/0
+  aus Originalfehler), Infotafel (Redstone nötig, Reichweite 8·2ⁿ, Bildschirm bis 20 je Richtung, Farben),
+  Kits/Karten mit Anzeigezeilen, Energiefeld-Rezept, Zähler, Bereichsauslöser (Hysterese), Teilphasen 46.1–46.4.
+  Spec-README, CLAUDE.md.
+
+## Nächste Schritte
+- Freigabe durch den Nutzer (§10: Umfang inkl. GT-Sensorkit? Energie-Sensor nur EU + MJ oder auch FE?), dann
+  **46.1** Thermometer, Thermomonitore, Alarme.
