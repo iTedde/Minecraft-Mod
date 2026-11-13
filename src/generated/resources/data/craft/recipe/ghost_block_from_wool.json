@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "0": {
+      "tag": "minecraft:wool"
+    },
+    "X": {
+      "item": "craft:camo_paste"
+    }
+  },
+  "pattern": [
+    "X0X",
+    "0 0",
+    "X0X"
+  ],
+  "result": {
+    "count": 4,
+    "id": "craft:ghost_block"
+  }
+}

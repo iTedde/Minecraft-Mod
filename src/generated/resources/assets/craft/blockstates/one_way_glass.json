@@ -1,0 +1,30 @@
+{
+  "variants": {
+    "facing=down": {
+      "model": "craft:secretrooms/one_way_glass",
+      "x": 180
+    },
+    "facing=east": {
+      "model": "craft:secretrooms/one_way_glass",
+      "x": 90,
+      "y": 90
+    },
+    "facing=north": {
+      "model": "craft:secretrooms/one_way_glass",
+      "x": 90
+    },
+    "facing=south": {
+      "model": "craft:secretrooms/one_way_glass",
+      "x": 90,
+      "y": 180
+    },
+    "facing=up": {
+      "model": "craft:secretrooms/one_way_glass"
+    },
+    "facing=west": {
+      "model": "craft:secretrooms/one_way_glass",
+      "x": 90,
+      "y": 270
+    }
+  }
+}

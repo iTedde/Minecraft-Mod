@@ -4211,3 +4211,24 @@ Speicher und Stromverbrauch, vielleicht so 100000“.
 
 ## Nächste Schritte
 - 50.4 Secret Rooms: Tarn-Grundlage (Modell, Paste, Geisterblock, Einwegglas).
+
+# Phase 50.4 – Secret Rooms: Tarn-Grundlage (2026-11-13)
+
+## Erledigt
+- [x] `secretrooms/CamoBlockEntity` (Vorlage-`BlockState`, einmal beim Setzen gewählt, Sync + `ModelData`),
+  `CamoSelection` (gleiches Gegenüber-Paar unten/oben → West/Ost → Nord/Süd mit der Vorrangkette des Originals,
+  sonst erster Nachbar; die Mehrheitszählung des Originals scheitert an einem Indexfehler und fällt genau darauf
+  zurück; nur volle Würfel, getarnte Nachbarn geben ihre Tarnung weiter; Einwegglas: die vier Nachbarn um die
+  Blickachse, Doppelte zuerst), `CamoBlock` (Licht wie die Vorlage, `dynamicShape`, keine Verdeckung).
+- [x] Geisterblock (ohne Kollision, mit Redstone am Block/darüber fest), Einwegglas (`facing`: Tarnseite, sonst
+  Glas; beim Setzen vom Spieler weg, Taste „Einwegglas-Richtung“ – Standard `\` wie im Original – dreht das je
+  Spieler um; Lichtdurchlass nur nach oben gerichtet = Original-Eigenheit), Tarnpaste. Rezepte wie im Pack (Paste
+  aus Erde/Sand/Ton, Geisterblock aus verrottetem Fleisch/Wolle, Einwegglas 9×/1×).
+- [x] Client: `CamoBakedModel` (umhüllt die Blockmodelle, zeichnet die Vorlage, Einwegglas nur auf der Tarnseite),
+  Farb-Handler (Biomtönung der Vorlage), Tab „Craft: Secret Rooms“. Texturen selbst erzeugt (Pack-Zip enthält
+  `textures.png` nicht): Paste, Platzhalter-Tarnblock (Stein mit Farbpunkten), Einwegglas (getöntes Vanilla-Glas).
+- [x] GameTests `SecretRoomsGameTests` (Paar vor Einzelnachbar, Weitergabe, Geisterblock mit/ohne Strom,
+  Einwegglas-Auswahl). Alle 662 grün. `runData`, danach `build` grün. **Tarnung im Client ungesehen.**
+
+## Nächste Schritte
+- 50.5 Secret Rooms: Redstone-Block, Hebel, Knopf, Druckplatten, Treppe, Kiste, Tor, Türen, Falltür, Fackel-Hebel.

@@ -87,6 +87,7 @@ public final class CraftBlockLoot extends BlockLootSubProvider {
         NcBlocks.BLOCKS.getEntries().forEach(block -> dropSelf(block.get()));
         dropSelf(dev.craft.obsidiplates.ObsidiPlates.OBSIDIAN_PRESSURE_PLATE.get());
         dropSelf(dev.craft.omnitools.OmniTools.MYSTICAL_PLINTH.get());
+        dev.craft.secretrooms.SecretRooms.BLOCKS.getEntries().forEach(block -> dropSelf(block.get()));
         // Charge pads: canHarvestBlock = false, only the wrench gets them back (spec 47 §2.1).
         CpBlocks.BLOCKS.getEntries().forEach(block -> add(block.get(), noDrop()));
         // MFFS: the ore drops itself (no fortune); machines drop themselves (IC2 wrench path, spec 48 §5).
@@ -293,7 +294,7 @@ public final class CraftBlockLoot extends BlockLootSubProvider {
                         CsBlocks.BLOCKS, GtBlocks.BLOCKS, PpBlocks.BLOCKS, RpBlocks.BLOCKS, IronChestBlocks.BLOCKS,
                         TeBlocks.BLOCKS, EsBlocks.BLOCKS, MpsBlocks.BLOCKS, NcBlocks.BLOCKS, CpBlocks.BLOCKS,
                         MffsBlocks.BLOCKS, dev.craft.obsidiplates.ObsidiPlates.BLOCKS,
-                        dev.craft.omnitools.OmniTools.BLOCKS)
+                        dev.craft.omnitools.OmniTools.BLOCKS, dev.craft.secretrooms.SecretRooms.BLOCKS)
                 .flatMap(blocks -> blocks.getEntries().stream())
                 .map(holder -> (Block) holder.get()).toList();
     }

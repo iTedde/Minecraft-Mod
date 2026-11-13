@@ -1,5 +1,7 @@
 {
   "values": [
+    "craft:ghost_block",
+    "craft:one_way_glass",
     "craft:wooden_scaffold",
     "craft:auto_workbench",
     "craft:rubber_wood"

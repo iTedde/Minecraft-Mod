@@ -323,6 +323,16 @@ public final class CraftCreativeTabs {
                     })
                     .build());
 
+    /** {@code CreativeTabCamo} (spec 50 §4). */
+    public static final Supplier<CreativeModeTab> SECRET_ROOMS = TABS.register("secret_rooms", () ->
+            CreativeModeTab.builder()
+                    .title(Component.translatable("itemGroup.craft.secret_rooms"))
+                    .icon(() -> dev.craft.secretrooms.SecretRooms.CAMO_PASTE.toStack())
+                    .withTabsBefore(ResourceLocation.fromNamespaceAndPath(Craft.MODID, "kleinkram"))
+                    .displayItems((parameters, output) -> dev.craft.secretrooms.SecretRooms.ITEMS.getEntries()
+                            .forEach(holder -> output.accept(holder.get())))
+                    .build());
+
     private CraftCreativeTabs() {
     }
 }

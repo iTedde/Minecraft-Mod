@@ -91,6 +91,8 @@ public final class CraftBlockTagsProvider extends BlockTagsProvider {
         tag(BlockTags.MINEABLE_WITH_PICKAXE).add(dev.craft.obsidiplates.ObsidiPlates.OBSIDIAN_PRESSURE_PLATE.get());
         tag(BlockTags.PRESSURE_PLATES).add(dev.craft.obsidiplates.ObsidiPlates.OBSIDIAN_PRESSURE_PLATE.get());
         tag(BlockTags.MINEABLE_WITH_PICKAXE).add(dev.craft.omnitools.OmniTools.MYSTICAL_PLINTH.get());
+        dev.craft.secretrooms.SecretRooms.BLOCKS.getEntries()
+                .forEach(block -> tag(BlockTags.MINEABLE_WITH_AXE).add(block.get()));
         IronChestBlocks.BLOCKS.getEntries().forEach(chest -> tag(BlockTags.MINEABLE_WITH_PICKAXE).add(chest.get()));
         // Copper golem targets (spec 35 §2.3): chests, barrels and every Iron Chest except the copper one (source only).
         tag(CopperGolems.TARGETS).add(Blocks.CHEST, Blocks.TRAPPED_CHEST, Blocks.BARREL);

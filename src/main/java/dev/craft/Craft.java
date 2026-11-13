@@ -68,6 +68,7 @@ public final class Craft {
         dev.craft.omnitools.OmniTools.init(modBus);
         dev.craft.obsidiplates.ObsidiPlates.init(modBus);
         dev.craft.gravitygun.GravityGun.init(modBus);
+        dev.craft.secretrooms.SecretRooms.init(modBus);
         AdAstraLamps.init(modBus);
         ForeignEuInputs.init();
         CraftCreativeTabs.TABS.register(modBus);

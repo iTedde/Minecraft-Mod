@@ -114,6 +114,8 @@ public final class CraftItemModelProvider extends ItemModelProvider {
         withExistingParent("obsidian_pressure_plate", modLoc("block/obsidian_pressure_plate"));
         getBuilder("forge_lexicon").parent(new ModelFile.UncheckedModelFile("item/generated"))
                 .texture("layer0", modLoc("item/omnitools/forge_lexicon"));
+        getBuilder("camo_paste").parent(new ModelFile.UncheckedModelFile("item/generated"))
+                .texture("layer0", modLoc("item/secretrooms/camo_paste"));
         for (String gun : List.of("gravity_gun", "charged_gravity_gun")) {
             getBuilder(gun).parent(new ModelFile.UncheckedModelFile("item/handheld"))
                     .texture("layer0", modLoc("item/gravitygun/" + gun));

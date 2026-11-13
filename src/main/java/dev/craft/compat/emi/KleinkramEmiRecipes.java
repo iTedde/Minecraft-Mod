@@ -20,6 +20,9 @@ final class KleinkramEmiRecipes {
         info(registry, dev.craft.omnitools.OmniTools.MYSTICAL_PLINTH.get(), "mystical_plinth");
         info(registry, dev.craft.gravitygun.GravityGun.GRAVITY_GUN.get(), "gravity_gun");
         info(registry, dev.craft.gravitygun.GravityGun.CHARGED_GRAVITY_GUN.get(), "charged_gravity_gun");
+        info(registry, dev.craft.secretrooms.SecretRooms.CAMO_PASTE.get(), "camo_paste");
+        info(registry, dev.craft.secretrooms.SecretRooms.GHOST_BLOCK.get(), "ghost_block");
+        info(registry, dev.craft.secretrooms.SecretRooms.ONE_WAY_GLASS.get(), "one_way_glass");
     }
 
     static void info(EmiRegistry registry, ItemLike item, String key) {

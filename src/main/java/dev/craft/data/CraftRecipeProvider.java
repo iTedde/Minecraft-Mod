@@ -2205,6 +2205,36 @@ public final class CraftRecipeProvider extends RecipeProvider {
                 .pattern("DEI").pattern("EGE").pattern("IEO").define('D', Items.DIAMOND).define('E', Items.ENDER_PEARL)
                 .define('I', Items.IRON_INGOT).define('O', Items.OBSIDIAN).define('G', Items.NETHER_STAR)
                 .unlockedBy("has_nether_star", has(Items.NETHER_STAR)).save(output, id("charged_gravity_gun"));
+        secretRooms();
+    }
+
+    /** Secret Rooms (spec 50 §4): {@code SecretRooms.addRecipes}. */
+    private void secretRooms() {
+        var paste = dev.craft.secretrooms.SecretRooms.CAMO_PASTE;
+        for (var base : List.of(Items.DIRT, Items.SAND, Items.CLAY_BALL)) {
+            ShapedRecipeBuilder.shaped(RecipeCategory.MISC, paste, 9).pattern("X#X").pattern("$0$").pattern("@#@")
+                    .define('X', Tags.Items.DYES_RED).define('$', Tags.Items.DYES_GREEN)
+                    .define('@', Tags.Items.DYES_YELLOW).define('#', Tags.Items.DYES_BLACK).define('0', base)
+                    .unlockedBy("has_dye", has(Tags.Items.DYES_RED))
+                    .save(output, id("camo_paste_from_" + BuiltInRegistries.ITEM.getKey(base).getPath()));
+        }
+        var ghost = dev.craft.secretrooms.SecretRooms.GHOST_BLOCK;
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, ghost, 4).pattern("X0X").pattern("0 0")
+                .pattern("X0X").define('X', paste).define('0', Items.ROTTEN_FLESH)
+                .unlockedBy("has_paste", has(paste)).save(output, id("ghost_block_from_rotten_flesh"));
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, ghost, 4).pattern("X0X").pattern("0 0")
+                .pattern("X0X").define('X', paste).define('0', ItemTags.WOOL)
+                .unlockedBy("has_paste", has(paste)).save(output, id("ghost_block_from_wool"));
+        var oneWay = dev.craft.secretrooms.SecretRooms.ONE_WAY_GLASS;
+        String[][] patterns = {{"X00", "X00", "X00"}, {"00X", "00X", "00X"}, {"XXX", "000", "000"},
+                {"000", "000", "XXX"}};
+        for (int i = 0; i < patterns.length; i++) {
+            ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, oneWay, 9).pattern(patterns[i][0])
+                    .pattern(patterns[i][1]).pattern(patterns[i][2]).define('X', paste).define('0', Items.GLASS)
+                    .unlockedBy("has_paste", has(paste)).save(output, id("one_way_glass_" + i));
+        }
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, oneWay).requires(paste)
+                .requires(Items.GLASS).unlockedBy("has_paste", has(paste)).save(output, id("one_way_glass_single"));
     }
 
     /** Electric light shield (spec 30 §6): vanilla recipe without charge transfer, so the shield comes out empty. */

@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "tag": "c:dyes/black"
+    },
+    "$": {
+      "tag": "c:dyes/green"
+    },
+    "0": {
+      "item": "minecraft:dirt"
+    },
+    "@": {
+      "tag": "c:dyes/yellow"
+    },
+    "X": {
+      "tag": "c:dyes/red"
+    }
+  },
+  "pattern": [
+    "X#X",
+    "$0$",
+    "@#@"
+  ],
+  "result": {
+    "count": 9,
+    "id": "craft:camo_paste"
+  }
+}

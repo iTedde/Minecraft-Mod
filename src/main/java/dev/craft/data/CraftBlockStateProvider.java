@@ -172,6 +172,7 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
         mffs();
         pressurePlateBlock(dev.craft.obsidiplates.ObsidiPlates.OBSIDIAN_PRESSURE_PLATE.get(), mcLoc("block/obsidian"));
         plinth();
+        secretRooms();
     }
 
     /** BuildCraft {@code RenderingMarkers}: a torch-like stick, turned so that it points away from its support. */
@@ -1046,6 +1047,20 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
                 .face(Direction.WEST).uvs(0, 4, 16, 16).texture("#side").cullface(Direction.WEST).end()
                 .face(Direction.EAST).uvs(0, 4, 16, 16).texture("#side").cullface(Direction.EAST).end()
                 .end();
+    }
+
+    /**
+     * Secret Rooms (spec 50 §4): the block models are only the fallback (no camouflage yet) and the item look; the
+     * camouflage model wraps them on the client.
+     */
+    private void secretRooms() {
+        ModelFile camo = models().cubeAll("secretrooms/camo_block", modLoc("block/secretrooms/camo_block"));
+        simpleBlock(dev.craft.secretrooms.SecretRooms.GHOST_BLOCK.get(), camo);
+        simpleBlockItem(dev.craft.secretrooms.SecretRooms.GHOST_BLOCK.get(), camo);
+        ModelFile glass = models().cubeAll("secretrooms/one_way_glass", modLoc("block/secretrooms/one_way_glass"))
+                .renderType("cutout");
+        directionalBlock(dev.craft.secretrooms.SecretRooms.ONE_WAY_GLASS.get(), glass);
+        simpleBlockItem(dev.craft.secretrooms.SecretRooms.ONE_WAY_GLASS.get(), glass);
     }
 
     private void mffs() {

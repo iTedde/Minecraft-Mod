@@ -1379,6 +1379,34 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
         item(dev.craft.omnitools.OmniTools.FORGE_LEXICON, german ? "Forge-Lexikon" : "Forge Lexicon");
         add("gui.craft.forge_lexicon.no_conversion", german ? "Keine Umwandlung nötig." : "No conversion necessary.");
         item(dev.craft.gravitygun.GravityGun.GRAVITY_GUN, german ? "Gravitationskanone" : "Gravity Gun");
+        add("itemGroup.craft.secret_rooms", "Craft: Secret Rooms");
+        item(dev.craft.secretrooms.SecretRooms.CAMO_PASTE, german ? "Tarnpaste" : "Camo Paste");
+        add(dev.craft.secretrooms.SecretRooms.GHOST_BLOCK.get(), german ? "Geisterblock" : "Ghost Block");
+        add(dev.craft.secretrooms.SecretRooms.ONE_WAY_GLASS.get(), german ? "Einwegglas" : "One-Way Glass");
+        add("key.craft.one_way_facing", german ? "Einwegglas-Richtung umschalten" : "Toggle one-way glass facing");
+        add("message.craft.secret_rooms.facing_towards", german ? "Einwegglas: Tarnseite zu dir"
+                : "One-way glass: camouflage towards you");
+        add("message.craft.secret_rooms.facing_away", german ? "Einwegglas: Tarnseite von dir weg"
+                : "One-way glass: camouflage away from you");
+        add("emi.craft.info.camo_paste", german
+                ? "Zutat aller Secret-Rooms-Blöcke. Getarnte Blöcke sehen beim Setzen aus wie ihre Nachbarn: ein "
+                + "gleiches gegenüberliegendes Nachbarpaar (unten/oben, West/Ost, Nord/Süd) hat Vorrang, sonst der "
+                + "erste Nachbar (unten, oben, West, Ost, Nord, Süd); es zählen nur volle Blöcke."
+                : "Ingredient of all Secret Rooms blocks. Camouflaged blocks take on the look of their neighbours when "
+                + "placed: a matching pair of opposite neighbours (down/up, west/east, north/south) wins, otherwise the "
+                + "first neighbour (down, up, west, east, north, south); only full blocks count.");
+        add("emi.craft.info.ghost_block", german
+                ? "Getarnter Block, durch den man hindurchlaufen kann. Mit Redstone-Signal am Block oder am Block "
+                + "darüber wird er fest."
+                : "Camouflaged block you can walk through. A redstone signal at the block or the block above makes "
+                + "it solid.");
+        add("emi.craft.info.one_way_glass", german
+                ? "Eine Seite ist getarnt wie die umliegenden Blöcke, alle anderen sind Glas – von innen sieht man "
+                + "hinaus, von außen nicht hinein. Die Tarnseite zeigt beim Setzen von dir weg; die Taste "
+                + "„Einwegglas-Richtung umschalten“ (Standard: \\) dreht das um."
+                : "One side is camouflaged like the blocks around it, all others are glass – from inside you see out, "
+                + "from outside not in. The camouflaged side faces away from you when placed; the key \"Toggle "
+                + "one-way glass facing\" (default: \\) turns that round.");
         item(dev.craft.gravitygun.GravityGun.CHARGED_GRAVITY_GUN, german ? "Aufgeladene Gravitationskanone"
                 : "Charged Gravity Gun");
         add(dev.craft.gravitygun.GravityGun.GRABBED_BLOCK.get(), german ? "Gegriffener Block" : "Grabbed Block");
