@@ -1369,6 +1369,24 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
         }
     }
 
+    /** Phase 50 small mods (spec 50). */
+    protected void kleinkram(boolean german) {
+        add("itemGroup.craft.kleinkram", german ? "Craft: Kleinkram" : "Craft: Odds and Ends");
+        add(dev.craft.obsidiplates.ObsidiPlates.OBSIDIAN_PRESSURE_PLATE.get(), german ? "Obsidian-Druckplatte"
+                : "Obsidian Pressure Plate");
+        item(dev.craft.omnitools.OmniTools.OMNIWRENCH, german ? "Prototyp-OmniWrench" : "Prototype OmniWrench");
+        add("emi.craft.info.omniwrench", german
+                ? "Unzerstörbarer Universal-Schraubenschlüssel ohne Strom. Dreht Vanilla-Blöcke (Schleichen: "
+                + "andersherum), dreht IC2-Maschinen auf die geklickte Seite (Schleichen: Gegenseite) und baut sie per "
+                + "Klick auf die Front ab – immer verlustfrei. Gilt auch als BuildCraft-/Thermal-Expansion-Schlüssel."
+                : "Unbreakable universal wrench without power. Rotates vanilla blocks (sneaking: the other way), turns "
+                + "IC2 machines to the clicked side (sneaking: opposite side) and removes them by clicking the front – "
+                + "always without loss. Also works as a BuildCraft/Thermal Expansion wrench.");
+        add("emi.craft.info.obsidian_pressure_plate", german
+                ? "Druckplatte, die nur Spieler auslösen – Mobs, Tiere und Gegenstände nicht. Fest wie Obsidian."
+                : "Pressure plate that only players trigger – not mobs, animals or items. As tough as obsidian.");
+    }
+
     /** Electric light shield (spec 30). */
     protected void lightShield(boolean german) {
         item(LsItems.ELECTRIC_LIGHT_SHIELD, german ? "Elektrischer Leuchtschild" : "Electric Light Shield");
@@ -2798,6 +2816,7 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             redPower(false);
             portalGun(false);
             lightShield(false);
+            kleinkram(false);
             musicDiscs(false);
             ironChests(false);
             enderStorage(false);
@@ -3219,6 +3238,7 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             redPower(true);
             portalGun(true);
             lightShield(true);
+            kleinkram(true);
             musicDiscs(true);
             ironChests(true);
             enderStorage(true);

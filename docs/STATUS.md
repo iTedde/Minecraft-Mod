@@ -4147,3 +4147,20 @@ Speicher und Stromverbrauch, vielleicht so 100000“.
 
 ## Nächste Schritte
 - 50.1 Obsidian-Druckplatte + OmniWrench.
+
+# Phase 50.1 – Obsidian-Druckplatte + OmniWrench (2026-11-13)
+
+## Erledigt
+- [x] `obsidiplates/ObsidiPlates` + `ObsidianPressurePlateBlock` (nur Spieler, `BlockSetType.STONE`, Härte 12,5,
+  Festigkeit 1200, Spitzhacke, Modell aus Vanilla-Obsidian), Rezept `##` Obsidian, Tag `pressure_plates`.
+- [x] `omnitools/OmniTools` + `OmniWrenchItem` (erbt vom TE-Halbmondhammer: Vanilla-Drehen, BC/TE-`ToolWrench`):
+  IC2-`Wrenchable` drehen/abbauen ohne Verlust, Schleichen = Gegenseite, MFFS-Rechte; Nuclear-Control-Tafeln und
+  -Monitore erkennen ihn wie den IC2-Schlüssel. Rezept `D D / G / W`. Texturen per `tools/scripts/kleinkram_textures.py`
+  aus `omnitools.zip` (auch Lexicon/Sockel für 50.2).
+- [x] Tab „Craft: Kleinkram“, EMI-Infoseiten (`KleinkramEmiRecipes`), Lang DE/EN.
+- [x] GameTests `KleinkramGameTests` (verlustfreies Abbauen, Vanilla-Drehen, Schwein löst Platte nicht aus); alle 651
+  grün. `runData`, danach `build` grün.
+- Spec-Korrektur §2: Abbau mit jeder Spitzhacke (Material Stein, keine Erntestufe wie beim Obsidianblock).
+
+## Nächste Schritte
+- 50.2 Mystischer Sockel + Forge Lexicon.

@@ -65,6 +65,8 @@ public final class Craft {
         ChargePads.init(modBus);
         Mffs.init(modBus);
         MusicDiscs.init(modBus);
+        dev.craft.omnitools.OmniTools.init(modBus);
+        dev.craft.obsidiplates.ObsidiPlates.init(modBus);
         AdAstraLamps.init(modBus);
         ForeignEuInputs.init();
         CraftCreativeTabs.TABS.register(modBus);

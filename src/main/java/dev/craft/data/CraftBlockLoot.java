@@ -85,6 +85,7 @@ public final class CraftBlockLoot extends BlockLootSubProvider {
                 IronChestItems.chest(((IronChestBlock) chest.get()).getType())));
         // Nuclear Control (spec 46): every block drops itself.
         NcBlocks.BLOCKS.getEntries().forEach(block -> dropSelf(block.get()));
+        dropSelf(dev.craft.obsidiplates.ObsidiPlates.OBSIDIAN_PRESSURE_PLATE.get());
         // Charge pads: canHarvestBlock = false, only the wrench gets them back (spec 47 §2.1).
         CpBlocks.BLOCKS.getEntries().forEach(block -> add(block.get(), noDrop()));
         // MFFS: the ore drops itself (no fortune); machines drop themselves (IC2 wrench path, spec 48 §5).
@@ -290,7 +291,7 @@ public final class CraftBlockLoot extends BlockLootSubProvider {
         return Stream.of(Ic2Blocks.BLOCKS, BcBlocks.BLOCKS, FrBlocks.BLOCKS, PcBlocks.BLOCKS,
                         CsBlocks.BLOCKS, GtBlocks.BLOCKS, PpBlocks.BLOCKS, RpBlocks.BLOCKS, IronChestBlocks.BLOCKS,
                         TeBlocks.BLOCKS, EsBlocks.BLOCKS, MpsBlocks.BLOCKS, NcBlocks.BLOCKS, CpBlocks.BLOCKS,
-                        MffsBlocks.BLOCKS)
+                        MffsBlocks.BLOCKS, dev.craft.obsidiplates.ObsidiPlates.BLOCKS)
                 .flatMap(blocks -> blocks.getEntries().stream())
                 .map(holder -> (Block) holder.get()).toList();
     }

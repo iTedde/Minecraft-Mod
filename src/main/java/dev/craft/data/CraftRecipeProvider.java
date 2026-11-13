@@ -146,6 +146,7 @@ public final class CraftRecipeProvider extends RecipeProvider {
         redPowerTable();
         longFallBoots();
         lightShield();
+        kleinkram();
         ironChests();
         enderStorage();
         graviSuite();
@@ -2178,6 +2179,17 @@ public final class CraftRecipeProvider extends RecipeProvider {
                 Ingredient.of(PgItems.LONG_FALL_BOOT));
         shapeless(PgItems.LONG_FALL_BOOT, 2, "long_fall_boot_from_long_fall_boots",
                 Ingredient.of(PgItems.LONG_FALL_BOOTS));
+    }
+
+    /** Phase 50 small mods (spec 50): Obsidian Pressure Plate, OmniTools. */
+    private void kleinkram() {
+        ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, dev.craft.obsidiplates.ObsidiPlates.OBSIDIAN_PRESSURE_PLATE_ITEM)
+                .pattern("##").define('#', Items.OBSIDIAN)
+                .unlockedBy("has_obsidian", has(Items.OBSIDIAN)).save(output, id("obsidian_pressure_plate"));
+        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, dev.craft.omnitools.OmniTools.OMNIWRENCH)
+                .pattern("D D").pattern(" G ").pattern(" W ").define('D', Items.DIAMOND).define('G', Items.GOLD_INGOT)
+                .define('W', Items.CYAN_WOOL)
+                .unlockedBy("has_diamond", has(Items.DIAMOND)).save(output, id("omniwrench"));
     }
 
     /** Electric light shield (spec 30 §6): vanilla recipe without charge transfer, so the shield comes out empty. */

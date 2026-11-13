@@ -170,6 +170,7 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
         nuclearControl();
         chargePads();
         mffs();
+        pressurePlateBlock(dev.craft.obsidiplates.ObsidiPlates.OBSIDIAN_PRESSURE_PLATE.get(), mcLoc("block/obsidian"));
     }
 
     /** BuildCraft {@code RenderingMarkers}: a torch-like stick, turned so that it points away from its support. */

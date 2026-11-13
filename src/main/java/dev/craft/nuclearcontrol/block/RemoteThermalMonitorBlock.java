@@ -68,7 +68,7 @@ public class RemoteThermalMonitorBlock extends BaseEntityBlock {
     protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos,
                                               Player player, InteractionHand hand, BlockHitResult hit) {
         if (player.isShiftKeyDown()) {
-            if (stack.getItem() instanceof WrenchItem
+            if ((stack.getItem() instanceof WrenchItem || stack.getItem() instanceof dev.craft.omnitools.OmniWrenchItem)
                     && level.getBlockEntity(pos) instanceof RemoteThermalMonitorBlockEntity monitor) {
                 if (!level.isClientSide()) {
                     monitor.rotate();

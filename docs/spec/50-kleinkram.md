@@ -64,8 +64,8 @@ Craft-Zinnbarren ↔ Mekanism-Zinnbarren, Craft-Kupferstaub ↔ Create-/Mekanism
 ## 2 Obsidian Pressure Plates
 
 - `craft:obsidian_pressure_plate`: Druckplatte, die **nur Spieler** auslöst (`EnumMobType.players`), Textur/Klang
-  wie Obsidian, Härte 12,5 (Obsidian 50 – im Original wirklich 12,5), Explosionsfestigkeit wie Obsidian (1200), nur
-  mit Diamant-Spitzhacke abbaubar wie Obsidian (Original: Erntestufe des Obsidian-Materials → in 50.1 prüfen).
+  wie Obsidian, Härte 12,5 (Obsidian 50 – im Original wirklich 12,5), Explosionsfestigkeit wie Obsidian (1200), mit
+  **jeder Spitzhacke** abbaubar (Material Stein; die Erntestufe 3 setzt Forge nur für den Obsidianblock selbst).
 - Rezept `##` (2 Obsidian waagerecht) → 1 Platte.
 - Signal 15 solange ein Spieler (nicht Zuschauer) darauf steht, Abschalten nach 20 Ticks wie Stein-Druckplatten.
 

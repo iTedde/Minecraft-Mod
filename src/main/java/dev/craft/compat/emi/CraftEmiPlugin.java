@@ -46,6 +46,7 @@ public class CraftEmiPlugin implements EmiPlugin {
         GraviSuiteEmiRecipes.register(registry);
         MpsEmiRecipes.register(registry);
         LightShieldEmiRecipes.register(registry);
+        KleinkramEmiRecipes.register(registry);
         CopperGolemEmiRecipes.register(registry);
         PcEmiRecipes.register(registry);
         NcEmiRecipes.register(registry);

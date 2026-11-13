@@ -309,6 +309,19 @@ public final class CraftCreativeTabs {
                     }))
                     .build());
 
+    /** Small mods from the pack (spec 50 §5): OmniTools, Gravity Gun, Obsidian Pressure Plate. */
+    public static final Supplier<CreativeModeTab> KLEINKRAM = TABS.register("kleinkram", () ->
+            CreativeModeTab.builder()
+                    .title(Component.translatable("itemGroup.craft.kleinkram"))
+                    .icon(() -> dev.craft.omnitools.OmniTools.OMNIWRENCH.toStack())
+                    .withTabsBefore(ResourceLocation.fromNamespaceAndPath(Craft.MODID, "mffs"))
+                    .displayItems((parameters, output) -> {
+                        dev.craft.omnitools.OmniTools.ITEMS.getEntries().forEach(holder -> output.accept(holder.get()));
+                        dev.craft.obsidiplates.ObsidiPlates.ITEMS.getEntries()
+                                .forEach(holder -> output.accept(holder.get()));
+                    })
+                    .build());
+
     private CraftCreativeTabs() {
     }
 }
