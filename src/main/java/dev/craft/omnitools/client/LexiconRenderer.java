@@ -5,6 +5,8 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
 import dev.craft.Craft;
 import dev.craft.omnitools.LexiconBlockEntity;
+import dev.craft.omnitools.OmniTools;
+import dev.craft.omnitools.PlinthBlock;
 import net.minecraft.client.model.BookModel;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -28,6 +30,11 @@ public class LexiconRenderer implements BlockEntityRenderer<LexiconBlockEntity> 
     @Override
     public void render(LexiconBlockEntity entity, float partialTick, PoseStack poseStack, MultiBufferSource buffer,
             int packedLight, int packedOverlay) {
+        // The client keeps the block entity when the lexicon is taken off (same block, only the state changes).
+        if (!entity.getBlockState().is(OmniTools.MYSTICAL_PLINTH.get())
+                || !entity.getBlockState().getValue(PlinthBlock.LEXICON)) {
+            return;
+        }
         poseStack.pushPose();
         poseStack.translate(0.5F, 0.75F, 0.5F);
         float turn = entity.rot - entity.oRot;

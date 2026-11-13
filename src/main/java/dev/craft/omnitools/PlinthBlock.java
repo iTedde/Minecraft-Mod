@@ -96,7 +96,8 @@ public class PlinthBlock extends BaseEntityBlock {
     @Override
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player,
             BlockHitResult hit) {
-        if (player.isShiftKeyDown() || !(level.getBlockEntity(pos) instanceof LexiconBlockEntity book)) {
+        if (player.isShiftKeyDown() || !state.getValue(LEXICON)
+                || !(level.getBlockEntity(pos) instanceof LexiconBlockEntity book)) {
             return InteractionResult.PASS;
         }
         if (!level.isClientSide()) {

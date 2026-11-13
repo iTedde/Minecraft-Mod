@@ -40,8 +40,12 @@ public class OmniWrenchItem extends CrescentHammerItem {
         Player player = context.getPlayer();
         BlockPos pos = context.getClickedPos();
         BlockEntity blockEntity = level.getBlockEntity(pos);
-        if (player == null || !(blockEntity instanceof Wrenchable wrenchable)) {
+        if (player == null) {
             return InteractionResult.PASS;
+        }
+        if (!(blockEntity instanceof Wrenchable wrenchable)) {
+            // Vanilla rotation must run before the block's own use (furnace, chest … would open their GUI first).
+            return useOn(context);
         }
         Direction side = player.isShiftKeyDown() ? context.getClickedFace().getOpposite() : context.getClickedFace();
         if (blockEntity instanceof MffsMachineBlockEntity machine && !machine.wrenchCanManipulate(player)) {

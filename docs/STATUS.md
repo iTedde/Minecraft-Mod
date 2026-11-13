@@ -4276,6 +4276,30 @@ Nutzer: „Mach das Paket und dann die Clienttests“ – Paket also vor dem Cli
   1.2.10; Manifest unverändert (113 Einträge).
 
 ## Nächste Schritte
-- Client-Test: Testplan 26 (Phase 50), 13.2 (Leuchtschild-Taschenlampe), Schallplatten, MFFS, ChargePads,
-  Nuclear Control.
+- siehe Client-Test 2026-11-13 unten.
+
+# Client-Test Phase 50 + Craft 1.2.11 / Paket 1.2.14 (2026-11-13)
+
+Nutzer: „Teste alles außer Redstone“, danach „Reicht jetzt, ist alles abgesegnet“.
+
+## Erledigt
+- [x] Client-Test (Testplan 26, ohne Redstone): Secret Rooms (Geisterblock in Stein-/Holz-/Graswand, Biomfarbe,
+  durchlaufbar; Einwegglas eine Seite getarnt, andere durchsichtig; Truhe/Treppe getarnt), Tab „Kleinkram“ mit
+  Texturen, OmniWrench (Treppe, TE-Maschine, Infotafel drehen; Macerator über die Front verlustfrei abbauen),
+  Forge-Lexikon (tragbar, Zinnerz → Tiefschiefer-Zinnerz, Pfeile, Gruppenname, Inhalt zurück), Sockel (Licht 15,
+  Buch dreht sich, GUI, Abnehmen mit Schlüssel), Gravitationskanone (Schwein/Block/Truhe greifen, halten, setzen,
+  werfen, heranziehen; aufgeladen Block losreißen, Creeper explodiert; Blitz lädt auf). Nicht geprüft:
+  Obsidian-Druckplatte, Türen/Falltür/Tor, Mitspieler, Taschenlampe, Schallplatten, MFFS, ChargePads, Nuclear
+  Control – vom Nutzer abgesegnet.
+- [x] Befund: OmniWrench drehte Vanilla-Blöcke mit eigener GUI (Ofen) nicht – die Drehung lief in `useOn`, das
+  NeoForge erst nach der Block-GUI aufruft. Jetzt in `onItemUseFirst`; GameTest ruft `onItemUseFirst` auf.
+- [x] Befund: Nach dem Abnehmen blieb das Lexikon auf dem Sockel sichtbar (Client behält das Block-Entity bei
+  reinem Zustandswechsel). Renderer und Sockel-GUI prüfen jetzt den Zustand `lexicon`.
+- [x] Testplan 26.2: Macerator lässt sich wie im Original (`wrenchCanSetFacing` = false) nicht drehen, nur abbauen.
+- [x] Craft **1.2.11** (`releases/craft-1.2.11.jar`), `runData`, danach `build` grün. GameTests nicht gelaufen
+  (Nutzer hat abgebrochen).
+- [x] Paket `releases/Craft-1.2.14-curseforge.zip` (41,7 MB): wie 1.2.13, nur Craft 1.2.10 → 1.2.11.
+
+## Nächste Schritte
+- GameTests beim nächsten Lauf mitnehmen (`omniwrenchRotatesVanillaBlocks` geändert).
 - Tesserakt- und `plasmaCannon`-/`harvestAndPickWheat`-Wackler weiter beobachten.

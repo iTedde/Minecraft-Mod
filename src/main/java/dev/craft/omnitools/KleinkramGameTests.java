@@ -69,8 +69,10 @@ public final class KleinkramGameTests {
         ItemStack wrench = new ItemStack(OmniTools.OMNIWRENCH.get());
         player.setItemInHand(InteractionHand.MAIN_HAND, wrench);
         BlockPos absolute = helper.absolutePos(POS);
-        wrench.useOn(new UseOnContext(player, InteractionHand.MAIN_HAND,
-                new BlockHitResult(Vec3.atCenterOf(absolute), Direction.UP, absolute, false)));
+        // onItemUseFirst like the game: it runs before the furnace would open its GUI.
+        helper.assertTrue(wrench.getItem().onItemUseFirst(wrench, new UseOnContext(player, InteractionHand.MAIN_HAND,
+                new BlockHitResult(Vec3.atCenterOf(absolute), Direction.UP, absolute, false))).consumesAction(),
+                "rotation handled before the block's use");
         helper.assertTrue(helper.getBlockState(POS).getValue(BlockStateProperties.HORIZONTAL_FACING) != Direction.NORTH,
                 "furnace rotated");
         helper.assertTrue(dev.craft.buildcraft.item.ToolWrench.isWrench(wrench), "BuildCraft/TE wrench");
