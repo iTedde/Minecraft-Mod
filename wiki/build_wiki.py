@@ -65,6 +65,10 @@ WIKI_NOTES = {
 }
 
 GROUPS = [
+    ('secretrooms', 'Secret Rooms'),
+    ('gravitygun', 'Kleinkram'),
+    ('obsidiplates', 'Kleinkram'),
+    ('omnitools', 'Kleinkram'),
     ('mffs', 'MFFS'),
     ('chargepads', 'ChargePads'),
     ('nuclearcontrol', 'Nuclear Control'),
@@ -86,7 +90,7 @@ GROUPS = [
 ]
 GROUP_ORDER = ['IndustrialCraft 2', 'GregTech', 'BuildCraft', 'Forestry', 'Power Converters',
                'Compact Solars', 'Kraftwerke (neu)', 'Mining-Dimension (neu)', 'Leuchtschild (neu)', 'Iron Chests', 'Advanced Machines',
-               'Thermal Expansion', 'EnderStorage', 'GraviSuite', 'Modular Powersuits', 'Nuclear Control', 'ChargePads', 'MFFS',
+               'Thermal Expansion', 'EnderStorage', 'GraviSuite', 'Modular Powersuits', 'Nuclear Control', 'ChargePads', 'MFFS', 'Kleinkram', 'Secret Rooms',
                'Sonstiges']
 
 # items whose behaviour was changed on purpose or which are new content

@@ -325,6 +325,18 @@ Testwelt. Sprache einmal Deutsch, einmal Englisch prüfen. EMI und Xaero's Minim
 | 25.4 | Upgrades: Tarnung (Block, Wasser-/Lavaeimer, Wechsel sofort), Berührungsschaden, Schwamm, Kuppel, Blockbrecher (1 Item ins Nachbarinventar), Störsender brennt fremden Projektor aus + Reparatur, Feldfusion, NPC-Abwehr; Feld-Teleporter durch eine Wand | 48.3 | |
 | 25.5 | Sicherheitsstation-GUI (Master, 8 Rechte-Knöpfe mit Symbolen, Lizenz ±, Kopie), Kodierer (eigener/fremder Ausweis, Datenlink), Rechte wirken (GUI gesperrt, Feld-Durchgang); Sicherheitsspeicher (Trichter nur ausgeschaltet), Steuerungssystem (Ferndaten, Schalten, Remote-GUI), Verteidigungsstation (Warnung, Modi informieren/durchsuchen/töten, NPCs), Handbuch, Debugger | 48.4 | |
 
+
+### 26 Kleinkram und Secret Rooms (Phase 50)
+
+| Nr. | Prüfung | Phase | Ergebnis |
+|---|---|---|---|
+| 26.1 | Tab „Craft: Kleinkram“: OmniWrench, Sockel, Forge-Lexikon, Gravitationskanonen, Obsidian-Druckplatte mit Texturen; Rezepte und Infoseiten in EMI | 50.1–50.3 | |
+| 26.2 | OmniWrench: Ofen/Treppe drehen (Schleichen andersherum), Macerator auf Seite drehen und über die Front verlustfrei abbauen, BuildCraft-Motor/TE-Maschine drehen, Infotafel drehen; Obsidian-Druckplatte: Spieler löst aus, Schwein/Item nicht | 50.1 | |
+| 26.3 | Forge-Lexikon tragbar (Schleichen + Rechtsklick): Craft-Zinnbarren ↔ Mekanism-Zinnbarren, Erz ↔ Tiefschiefer-Erz, Pfeile, Gruppenname, Knopf; Inhalt beim Schließen zurück. Sockel: Lexikon auflegen (Blitz, Knall, Licht 15, Buch dreht sich zum Spieler), GUI, Schleichen + Schlüssel nimmt es samt Inhalt ab | 50.2 | |
+| 26.4 | Gravitationskanone: Benutzen greift Schwein/Block/Truhe (Inhalt bleibt), hält 3,5 vor dir, erneut lässt los (Block fällt und setzt sich), Taste halten zieht aus 10 heran, Angriff wirft (Aufprallschaden), keine Block-Abbau-/Setz-Aktion mit der Kanone; aufgeladen: 15 Blöcke, reißt Blöcke los, geworfener Creeper explodiert; Blitz lädt auf; Mitspieler greifen | 50.3 | |
+| 26.5 | Secret Rooms: Tab, Paste; Geisterblock in Stein-/Holzwand sieht aus wie die Wand (Paar-Regel), durchlaufbar, mit Hebel fest; Einwegglas in Wand: von außen getarnt, von innen durchsichtig, Taste „\\“ dreht die Richtung; Grasblock-Tarnung mit Biomfarbe | 50.4 | |
+| 26.6 | Getarnter Redstone (Kette zur Lampe), Hebel/Knopf/Druckplatten (Spieler-Variante), Treppe (begehbar, sieht voll aus), Truhe (Inhalt, Katze), Tor (Wand aus 10 Blöcken heraus/hinein), Holz-/Eisentür und Falltür in Tarnung (offen/zu, Form stimmt), Fackel-Hebel (Licht, schaltet) | 50.5 | |
+
 ## Befunde
 
 | Nr | Datum | Befund | Status |

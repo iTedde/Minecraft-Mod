@@ -4252,3 +4252,18 @@ Speicher und Stromverbrauch, vielleicht so 100000“.
 
 ## Nächste Schritte
 - 50.6 Herkunft (`SourceTexts`), Wiki, Testplan; Craft-Version + Paket erst nach Client-Test (Tarnmodell ungesehen).
+
+# Phase 50.6 – Kleinkram: Wiki, Testplan (2026-11-13)
+
+## Erledigt
+- [x] Wiki: Gruppen „Kleinkram“ und „Secret Rooms“, Seiten „Kleinkram: OmniTools, Obsidian-Druckplatte, Gravity Gun“
+  und „Secret Rooms“; DE + EN-Namen neu erzeugt (96 Seiten, 853 Items).
+- [x] Testplan Abschnitt 26 (26.1–26.6). Herkunft: alle neuen Items haben Rezepte, keine `SourceTexts` nötig.
+- **Phase 50 erledigt, Client-Test offen** – vor allem das Tarnmodell (Secret Rooms) ist im Client ungesehen.
+  Keine neue Craft-Version / kein Paket (erst nach dem Client-Test).
+
+## Nächste Schritte
+- Client-Test (nur nach Rückfrage): Testplan 26 (Phase 50), 13.2 (Leuchtschild-Taschenlampe), Schallplatten, MFFS,
+  ChargePads, Nuclear Control.
+- Danach Craft-Version + CurseForge-Paket (Musik, Taschenlampe, Phase 50).
+- Tesserakt- und `plasmaCannon`-/`harvestAndPickWheat`-Wackler weiter beobachten.

@@ -1296,6 +1296,63 @@ Tick. Modi: informieren, Spieler töten (Inventar wird beschlagnahmt), durchsuch
 {c('mffs_multitool_debugger')} gibt es nur im Kreativmodus; er gilt bei jeder Sicherheitsprüfung als Freibrief.</p>""")
 
     # ------------------------------------------------------------------ Items
+    modpage('mod-kleinkram', 'Kleinkram: OmniTools, Obsidian-Druckplatte, Gravity Gun', 'craft:omniwrench',
+            'Drei kleine Mods aus dem Pack (Phase 50) im Kreativ-Tab „Craft: Kleinkram“: der <b>OmniWrench</b> und das '
+            '<b>Forge-Lexikon</b> aus OmniTools, die <b>Obsidian-Druckplatte</b> und die <b>Gravitationskanone</b>.',
+            [('Vorlagen', 'OmniTools 3.0.4, ObsidiPlates 1.2.0, GraviGun 1.4.7v2'), ('Kreativ-Tab', 'Craft: Kleinkram')],
+            [('spec-50', '50 – Kleinkram aus dem Pack')],
+            f"""<h2 id="mod-kleinkram--omniwrench">OmniWrench</h2>
+<p>{c('omniwrench')} (Diamant, Goldbarren, cyanfarbene Wolle): unzerstörbar, ohne Strom. Dreht Vanilla-Blöcke (Schleichen: andersherum),
+dreht IC2-Maschinen auf die geklickte Seite (Schleichen: Gegenseite) und baut sie per Klick auf die Front <b>immer verlustfrei</b> ab.
+Zählt auch als BuildCraft- und Thermal-Expansion-Schlüssel und dreht die Nuclear-Control-Tafeln.</p>
+<h2 id="mod-kleinkram--lexikon">Forge-Lexikon und Mystischer Sockel</h2>
+<ul><li>{c('forge_lexicon')} wandelt Erze, Staub, kleine Stäube und Barren zwischen gleichwertigen Varianten verschiedener Mods um
+(gemeinsamer <code>c:</code>-Tag, z. B. Craft-Zinn ↔ Mekanism-Zinn; Gruppen nach der Whitelist des Packs). Schleichen + Rechtsklick öffnet es überall.</li>
+<li>Pfeile wählen die Zielvariante, der Knopf wandelt den ganzen Stapel um (so viel der Ausgang fasst). Die Wahl bleibt für dieselbe Gruppe erhalten.</li>
+<li>{c('mystical_plinth')}: Rechtsklick mit dem Lexikon legt es mit (harmlosem) Blitz und Knall darauf; dann leuchtet der Sockel (15) und öffnet
+per Rechtsklick das Lexikon. Schleichen + Schraubenschlüssel nimmt es samt Inhalt wieder ab.</li></ul>
+<h2 id="mod-kleinkram--druckplatte">Obsidian-Druckplatte</h2>
+<p>{c('obsidian_pressure_plate')} aus 2 Obsidian: wird nur von <b>Spielern</b> ausgelöst, nicht von Mobs, Tieren oder Gegenständen.
+Fest wie Obsidian gegen Explosionen, mit jeder Spitzhacke abbaubar.</p>
+<h2 id="mod-kleinkram--gravitygun">Gravitationskanone</h2>
+{h.table(['', 'Normal', 'Aufgeladen'], [
+    ['Greifen', 'Entities und Blöcke in 4 Blöcken', 'ebenso'],
+    ['Heranziehen (Taste halten)', 'Entities aus 10 Blöcken', 'aus 15 Blöcken, doppelt so stark, reißt auch Blöcke los'],
+    ['Werfen', 'Stärke 10', 'Stärke 12; geworfene Creeper explodieren'],
+    ['Herstellung', 'Diamant, Enderperlen, Eisen, Obsidian, Glowstone', 'mit Netherstern statt Glowstone – oder Blitz in der Nähe'],
+])}
+<ul><li><b>Benutzen-Taste</b> greift bzw. lässt los, <b>Angriffstaste</b> wirft (oder stößt ein Ziel an). Gehaltenes schwebt 3,5 Blöcke vor dir.</li>
+<li>Greifbar sind volle Blöcke, Truhen (mit Inhalt), Glas, Glowstone, Kuchen, TNT, Eis, Laub und Ambosse, außer Grundgestein; losgelassene
+Blöcke fallen und setzen sich wieder ab.</li>
+<li>Geworfenes richtet beim Aufprall Schaden an (2,5 je Block/Tick Tempo). Gemälde und der Enderdrache lassen sich nicht greifen.</li>
+<li>Aussehen und Klänge sind eigene – nichts aus Half-Life 2.</li></ul>""")
+
+    modpage('mod-secretrooms', 'Secret Rooms', 'craft:camo_paste',
+            'Getarnte Blöcke aus dem Pack (SecretRoomsMod, Phase 50) im Kreativ-Tab „Craft: Secret Rooms“: sie sehen beim Setzen aus wie '
+            'ihre Nachbarn – für Geheimgänge, versteckte Türen und Schalter.',
+            [('Vorlage', 'SecretRoomsMod (FTB Ultimate)'), ('Zutat', 'Tarnpaste'), ('Kreativ-Tab', 'Craft: Secret Rooms')],
+            [('spec-50', '50 – Kleinkram aus dem Pack')],
+            f"""<h2 id="mod-secretrooms--tarnung">So wird getarnt</h2>
+<ul><li>Beim Setzen sucht der Block ein gleiches <b>gegenüberliegendes Nachbarpaar</b> (unten/oben, West/Ost, Nord/Süd); sonst nimmt er den
+ersten Nachbarn (unten, oben, West, Ost, Nord, Süd). Es zählen nur volle Blöcke; getarnte Nachbarn geben ihre Tarnung weiter.</li>
+<li>Die Tarnung bleibt, auch wenn sich die Nachbarn später ändern. Licht geht durch wie durch den nachgeahmten Block.</li>
+<li>{c('camo_paste')}: 9 Stück aus rotem, grünem, gelbem und schwarzem Farbstoff um Erde, Sand oder Ton.</li></ul>
+<h2 id="mod-secretrooms--bloecke">Blöcke</h2>
+{h.table(['Block', 'Verhalten'], [
+    [c('ghost_block'), 'durchlaufbar; mit Redstone am Block oder darüber fest'],
+    [c('one_way_glass'), 'eine Seite getarnt, sonst Glas – von innen sieht man hinaus. Tarnseite zeigt beim Setzen von dir weg, Taste „Einwegglas-Richtung“ (\\) dreht das um'],
+    [c('camo_redstone'), 'leitet ein Signal verlustfrei weiter (von der speisenden Seite an alle anderen)'],
+    [c('camo_lever') + ' ' + c('camo_button'), 'schalten wie Hebel/Knopf'],
+    [c('camo_pressure_plate') + ' ' + c('camo_player_pressure_plate'), 'lösen aus, wenn man auf dem Block steht (Spieler-Variante nur Spieler)'],
+    [c('camo_stairs'), 'sieht aus wie ein voller Block, läuft sich wie eine Treppe'],
+    [c('camo_chest'), 'Truhe mit 27 Plätzen'],
+    [c('camo_gate'), 'Redstone schiebt bis zu 10 getarnte Blöcke heraus, ohne Signal verschwinden sie (nach unten: bleiben – wie im Original)'],
+    [c('camo_wooden_door') + ' ' + c('camo_iron_door') + ' ' + c('camo_trapdoor'), 'Türen und Falltür in Tarnung der Wand bzw. des Scharnierblocks'],
+    [c('torch_lever'), 'Fackel (Licht 14), die per Rechtsklick wie ein Hebel schaltet'],
+])}
+<p>Ein Rezept-Fehler des Originals ist übernommen: Tarnpaste + Holztreppe im Ring ergibt 9 Tarnpaste statt Treppen; getarnte Treppen
+entstehen aus Bruchsteintreppe.</p>""")
+
     page('items', 'Gegenstände & Blöcke', 'Allgemein', f'''<h1>Gegenstände & Blöcke</h1>
 <p class="lead">Alle {stats['items']} registrierten Blöcke und Items von Craft mit deutschem und englischem Namen. Jeder Eintrag hat eine eigene Seite
 mit allen Rezepten (Herstellung, Verwendung, Maschinenrezepte – jede Zutat ist verlinkt), Registry-ID, <code>/give</code>-Befehl und den Seiten, die ihn erwähnen. {NEW} und {CHG} markieren neue bzw. geänderte Inhalte.</p>
