@@ -58,6 +58,7 @@ ein überarbeitetes Energiebalancing und neue Kraftwerke. Wird nicht veröffentl
 | `…nuclearcontrol` | IC2 Nuclear Control (Phase 46) |
 | `…chargepads` | ChargePads (Phase 47) |
 | `…mffs` | Modular Force Field System (Phase 48) |
+| `…music` (neue Inhalte) | Eigene Schallplatten (2026-11-13; Repo deshalb privat) |
 
 MJ und EU bleiben getrennte Systeme; Verbindung nur über Electrical Engine (EU→MJ) und Power Converters.
 

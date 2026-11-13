@@ -7,6 +7,7 @@ import java.util.concurrent.CompletableFuture;
 import dev.craft.Craft;
 import dev.craft.core.CraftDamageTypes;
 import dev.craft.mining.MiningDimension;
+import dev.craft.music.MusicDiscs;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
@@ -25,6 +26,7 @@ import net.neoforged.neoforge.registries.NeoForgeRegistries;
 public final class CraftDataGenerators {
     private static final RegistrySetBuilder DATAPACK_ENTRIES = new RegistrySetBuilder()
             .add(Registries.DAMAGE_TYPE, CraftDamageTypes::bootstrap)
+            .add(Registries.JUKEBOX_SONG, MusicDiscs::bootstrapSongs)
             .add(Registries.CONFIGURED_FEATURE, CraftWorldGen::bootstrapConfigured)
             .add(Registries.PLACED_FEATURE, CraftWorldGen::bootstrapPlaced)
             .add(Registries.DIMENSION_TYPE, MiningDimension::bootstrapType)

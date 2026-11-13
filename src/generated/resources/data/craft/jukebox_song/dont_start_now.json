@@ -1,0 +1,8 @@
+{
+  "comparator_output": 3,
+  "description": {
+    "translate": "jukebox_song.craft.dont_start_now"
+  },
+  "length_in_seconds": 182.0,
+  "sound_event": "craft:records/dont_start_now"
+}

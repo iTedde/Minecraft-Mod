@@ -1361,6 +1361,14 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
         item(PgItems.LONG_FALL_BOOTS, german ? "Weitfallstiefel" : "Long Fall Boots");
     }
 
+    /** Custom music discs (user 2026-11-13): same item name as vanilla, title as jukebox song description. */
+    protected void musicDiscs(boolean german) {
+        for (dev.craft.music.MusicDiscs.Track track : dev.craft.music.MusicDiscs.tracks()) {
+            item(track.disc(), german ? "Schallplatte" : "Music Disc");
+            add("jukebox_song.craft." + track.name(), track.title());
+        }
+    }
+
     /** Electric light shield (spec 30). */
     protected void lightShield(boolean german) {
         item(LsItems.ELECTRIC_LIGHT_SHIELD, german ? "Elektrischer Leuchtschild" : "Electric Light Shield");
@@ -2778,6 +2786,7 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             redPower(false);
             portalGun(false);
             lightShield(false);
+            musicDiscs(false);
             ironChests(false);
             enderStorage(false);
             graviSuite(false);
@@ -3198,6 +3207,7 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             redPower(true);
             portalGun(true);
             lightShield(true);
+            musicDiscs(true);
             ironChests(true);
             enderStorage(true);
             graviSuite(true);

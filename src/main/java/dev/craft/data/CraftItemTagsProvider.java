@@ -137,6 +137,7 @@ public final class CraftItemTagsProvider extends ItemTagsProvider {
     @Override
     protected void addTags(HolderLookup.Provider provider) {
         copy(BlockTags.LOGS_THAT_BURN, ItemTags.LOGS_THAT_BURN);
+        dev.craft.music.MusicDiscs.tracks().forEach(track -> tag(Tags.Items.MUSIC_DISCS).add(track.disc().get()));
         copy(BlockTags.LEAVES, ItemTags.LEAVES);
         copy(BlockTags.DOORS, ItemTags.DOORS);
         // IC2 IBoxable: cables and the SU battery go into the toolbox despite their stack size; ItemGradual items

@@ -4082,3 +4082,24 @@ Nutzer: „Nächste Phase“.
 - Phase 50 (Kleinkram: Omnitools, Obsidian Pressure Plates, Gravity Gun, Secret Rooms) mit Spezifikation beginnen.
 - Phase 51 (Leuchtschild „wie Blendgranate“): Umfang klären.
 - Tesserakt-Tests weiter beobachten.
+
+# Intermezzo – Eigene Schallplatten (2026-11-13)
+
+Nutzer: MP3s aus `X:\Craft\Musik` als neue Schallplatten, Mono. Entschieden: nur Kreativ/Befehl (kein Rezept, kein
+Loot), Musik in der Mod-Jar, dafür Repo auf **privat** gestellt (Nutzer, 2026-11-13), 64 kbit/s ok (Paket > 20 MB).
+
+## Erledigt
+- [x] 18 Titel per ffmpeg (pip `imageio-ffmpeg`) nach Mono-OGG 44,1 kHz / 64 kbit/s, zusammen 30 MB,
+  `assets/craft/sounds/records/<name>.ogg`; in `sounds.json` mit `stream: true`.
+- [x] Paket `dev.craft.music` (`MusicDiscs`): je Titel SoundEvent, Jukebox-Song (`data/craft/jukebox_song/`, Länge
+  aufgerundet, Komparator 1–15 reihum) und Item `craft:music_disc_<name>` (selten, Stapel 1). Tab „Werkzeuge &
+  Hilfsmittel“, Tag `c:music_discs`. Name „Schallplatte“/„Music Disc“, Titel als Song-Beschreibung (ohne Interpret,
+  MP3s ohne Tags; „Toter Schmetterlink“ → „Toter Schmetterling“).
+- [x] Texturen: Vanilla-Platte `cat` mit 18 Etikettfarben (Farbton reihum), `textures/item/music/`.
+- [x] `runData`, danach `build` grün (Jar 40 MB). Nicht im Client gestartet, keine neue Version/Paket.
+
+## Nächste Schritte
+- Client-Test Schallplatten (Jukebox, Tooltip, Länge) – nur nach Rückfrage.
+- Craft-Version + Paket mit Musik auf Wunsch.
+- Client-Test MFFS (Testplan 25), ChargePads (Testplan 24), Nuclear Control (Testplan 23) – nur nach Rückfrage.
+- Phase 50 mit Spezifikation beginnen; Phase 51 Umfang klären; Tesserakt-Tests beobachten.

@@ -20,6 +20,7 @@ import dev.craft.ic2.cable.CableType;
 import dev.craft.ic2.client.Ic2Client;
 import dev.craft.powerplants.PpItems;
 import dev.craft.lightshield.LsItems;
+import dev.craft.music.MusicDiscs;
 import dev.craft.portalgun.PgItems;
 import dev.craft.enderstorage.EsItems;
 import dev.craft.gravisuite.GsItems;
@@ -108,6 +109,8 @@ public final class CraftItemModelProvider extends ItemModelProvider {
         basicItem(PgItems.LONG_FALL_BOOT.get());
         basicItem(PgItems.LONG_FALL_BOOTS.get());
         lightShield();
+        MusicDiscs.tracks().forEach(track -> withExistingParent(track.disc().getId().getPath(), mcLoc("item/generated"))
+                .texture("layer0", modLoc("item/music/" + track.disc().getId().getPath())));
         for (ChestUpgradeType type : ChestUpgradeType.values()) {
             basicItem(IronChestItems.upgrade(type).get());
         }

@@ -1,0 +1,8 @@
+{
+  "comparator_output": 8,
+  "description": {
+    "translate": "jukebox_song.craft.kiss_and_makeup"
+  },
+  "length_in_seconds": 205.0,
+  "sound_event": "craft:records/kiss_and_makeup"
+}

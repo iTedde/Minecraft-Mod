@@ -119,6 +119,150 @@
       "craft:nuclearcontrol/alarm_sci_fi"
     ]
   },
+  "records/be_the_one": {
+    "sounds": [
+      {
+        "name": "craft:records/be_the_one",
+        "stream": true
+      }
+    ]
+  },
+  "records/break_my_heart": {
+    "sounds": [
+      {
+        "name": "craft:records/break_my_heart",
+        "stream": true
+      }
+    ]
+  },
+  "records/dont_start_now": {
+    "sounds": [
+      {
+        "name": "craft:records/dont_start_now",
+        "stream": true
+      }
+    ]
+  },
+  "records/fever": {
+    "sounds": [
+      {
+        "name": "craft:records/fever",
+        "stream": true
+      }
+    ]
+  },
+  "records/hallucinate": {
+    "sounds": [
+      {
+        "name": "craft:records/hallucinate",
+        "stream": true
+      }
+    ]
+  },
+  "records/houdini": {
+    "sounds": [
+      {
+        "name": "craft:records/houdini",
+        "stream": true
+      }
+    ]
+  },
+  "records/illusion": {
+    "sounds": [
+      {
+        "name": "craft:records/illusion",
+        "stream": true
+      }
+    ]
+  },
+  "records/kiss_and_makeup": {
+    "sounds": [
+      {
+        "name": "craft:records/kiss_and_makeup",
+        "stream": true
+      }
+    ]
+  },
+  "records/levitating": {
+    "sounds": [
+      {
+        "name": "craft:records/levitating",
+        "stream": true
+      }
+    ]
+  },
+  "records/love_again": {
+    "sounds": [
+      {
+        "name": "craft:records/love_again",
+        "stream": true
+      }
+    ]
+  },
+  "records/new_rules": {
+    "sounds": [
+      {
+        "name": "craft:records/new_rules",
+        "stream": true
+      }
+    ]
+  },
+  "records/no_lie": {
+    "sounds": [
+      {
+        "name": "craft:records/no_lie",
+        "stream": true
+      }
+    ]
+  },
+  "records/one_kiss": {
+    "sounds": [
+      {
+        "name": "craft:records/one_kiss",
+        "stream": true
+      }
+    ]
+  },
+  "records/physical": {
+    "sounds": [
+      {
+        "name": "craft:records/physical",
+        "stream": true
+      }
+    ]
+  },
+  "records/sonne_geht_auf": {
+    "sounds": [
+      {
+        "name": "craft:records/sonne_geht_auf",
+        "stream": true
+      }
+    ]
+  },
+  "records/toter_schmetterling": {
+    "sounds": [
+      {
+        "name": "craft:records/toter_schmetterling",
+        "stream": true
+      }
+    ]
+  },
+  "records/training_season": {
+    "sounds": [
+      {
+        "name": "craft:records/training_season",
+        "stream": true
+      }
+    ]
+  },
+  "records/were_good": {
+    "sounds": [
+      {
+        "name": "craft:records/were_good",
+        "stream": true
+      }
+    ]
+  },
   "terraformers/terraformer_generic_loop": {
     "sounds": [
       "craft:terraformers/terraformer_generic_loop"
