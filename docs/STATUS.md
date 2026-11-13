@@ -3952,3 +3952,35 @@ dem Original ergänzt (MJ-Provider, Materialverbrauch, versteckte Konverter-Plä
 - Client-Test MFFS-Grundlagen, ChargePads (Testplan 24), Nuclear Control (Testplan 23) – nur nach Rückfrage.
 - `energyTesseractCarriesEnergy` beobachten.
 - Phase 51 (Leuchtschild „wie Blendgranate“): Umfang klären.
+
+# Phase 48.2 – MFFS-Projektor + Kraftfeld (2026-11-13)
+
+Nutzer: „wo waren wir stehengeblieben? Führe dort fort“.
+
+## Erledigt
+- [x] Projektor (`mffs_projector`): 13 Plätze wie im Original, Einschalten nach ≥ 40 Ticks bei Link-KE > Schätzung
+  need(5), Feld berechnen (Feldkarte, Ansprüche mehrerer Projektoren, erster besitzt), Erstkosten ×10, Unterhalt alle
+  20 Ticks, max. 5 000 Blöcke je Durchlauf, Originalfehler ×2 auf Standardfelder; Ausschalten (Schalter, kein Modul/
+  Quelle, ≤ need(1)) entfernt das Feld; Entfernen des Projektors ebenso. Zugriffsart-Knopf 0→1→2, Kristall/Unendlich-
+  Karte erzwingt 0. `checkSlots`: nicht unterstützte Teile fallen heraus, ohne Modul Plätze 2–10. Modultyp als
+  Blockzustand (Textur je Typ), Ausbrennen-Flag (GUI gesperrt, Rauch) vorbereitet für 48.3.
+- [x] 8 Module (Wand, Deflektor, Röhre, Würfel, Kugel, Eindämmung, Erw. Würfel, Diagonale Wand) 1:1 nach
+  `calculateField` (inkl. Feldmanipulator-Schalter für 48.3), Rechtsklick setzt das Modul ein; Upgrade-Listen je Modul.
+- [x] Kraftfeld-Block: unzerstörbar, 999 (Explosionsabfrage kostet 10 KE), keine Drops, Typen als Blockzustand,
+  durchscheinende Original-Texturen, gleiche Nachbarn verbergen Flächen, kein Auswahlrahmen, Zapper-Kollision 1/16
+  kleiner; Linksklick-Schock (Zugriffsart 0; 2/3 doppelt), Berührung 20/1 bzw. Zapper 10, Nachfüllen freier Positionen
+  (Standard 10 KE, sonst 20 – Spec korrigiert), Zufallstick ohne aktiven Besitzer → weg. Schadensart
+  `craft:field_shock` (ignoriert Rüstung, „was fried by a forcefield“).
+- [x] GUI mit Original-Hintergrund (Plätze, Rahmen je Modul, Füllbalken, Zugriffsart, Schaltmodus, Name),
+  Power-Link-Karte per Rechtsklick in den Projektor, Rezepte Projektor + 8 Module, Texturen über
+  `tools/scripts/mffs_textures.py`.
+- [x] Tests: JUnit `ProjectorModuleTest` (alle Formen nachgezählt), 6 GameTests `MffsProjectorGameTests`; alle 632
+  GameTests grün (Tesserakte diesmal auch). `runData`, danach `build` grün. Doku: Spec 48 §9.2/§9.4, `abweichungen.md`,
+  `architektur.md`, CLAUDE.md. Nicht im Client gestartet.
+
+## Nächste Schritte
+- **48.3** Projektor-Upgrades (9) inkl. Tarnungs-Rendering, Störsender/Ausbrennen + Wrench-Reparatur, Fusion,
+  Feld-Teleporter, GameTests.
+- Client-Test MFFS (Grundlagen + Projektor), ChargePads (Testplan 24), Nuclear Control (Testplan 23) – nur nach
+  Rückfrage.
+- Phase 51 (Leuchtschild „wie Blendgranate“): Umfang klären.

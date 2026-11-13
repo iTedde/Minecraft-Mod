@@ -1,6 +1,7 @@
 """Cut the MFFS textures and GUIs out of ftb ultimate/mods/modularforcefieldsystem.zip (spec 48 par. 1, par. 13).
 
-Pack GraphicStyle=1: machine textures *_ue.png (512 px, 32 px tiles): 0 side, 1 front, 2 back, 4-6 the same active.
+Pack GraphicStyle=1: machine textures *_ue.png (512 px, 32 px tiles): 0 side, 1 front, 2 back, 4-6 the same active;
+the projector has one row per module type (ProTyp 0-8). Force field: blocks.png tiles 0-3, camouflage 180 (empty).
 Items: items.png (16 px tiles, index = row * 16 + column). Ore: forciciumore.png tile 0; the deepslate variant puts
 the green ore pixels onto the vanilla deepslate texture (argument 2: the Minecraft client jar).
 """
@@ -25,10 +26,14 @@ ITEMS = {
     65: "field_modulator_strength", 37: "mffs_extractor_booster", 32: "mffs_capacitor_upgrade_capacity",
     33: "mffs_capacitor_upgrade_range", 16: "mffs_card_blank", 17: "mffs_card_power_link",
     21: "mffs_card_infinite_power", 0: "mffs_multitool_wrench", 1: "mffs_multitool_switch",
+    49: "projector_module_wall", 50: "projector_module_deflector", 51: "projector_module_tube",
+    52: "projector_module_sphere", 53: "projector_module_cube", 54: "projector_module_containment",
+    55: "projector_module_adv_cube", 56: "projector_module_diagonal_wall",
 }
+FIELD_TYPES = {180: "camouflage", 0: "default", 1: "zapper", 2: "area", 3: "containment"}
 CRYSTAL_STEPS = range(5)  # icons 112-116
 GUIS = {"GuiExtractor.png": "extractor", "GuiCapacitor.png": "capacitor", "GuiConvertor.png": "converter",
-        "items.png": "items"}
+        "GuiProjector.png": "projector", "items.png": "items"}
 
 
 def tile(sheet, index, size):
@@ -54,6 +59,14 @@ with zipfile.ZipFile(ZIP) as archive:
         image = sheet(file)
         for index, face in FACES.items():
             save(tile(image, index, 32), ASSETS / "textures/block/mffs" / f"{name}_{face}.png")
+    projector = sheet("projector_ue.png")
+    for typ in range(9):
+        for index, face in FACES.items():
+            save(tile(projector, typ * 16 + index, 32),
+                 ASSETS / "textures/block/mffs" / f"mffs_projector_{typ}_{face}.png")
+    fields = sheet("blocks.png")
+    for index, name in FIELD_TYPES.items():
+        save(tile(fields, index, 16), ASSETS / "textures/block/mffs" / f"force_field_{name}.png")
     items = sheet("items.png")
     for index, name in ITEMS.items():
         save(tile(items, index, 16), ASSETS / "textures/item/mffs" / (name + ".png"))

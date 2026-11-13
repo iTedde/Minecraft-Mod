@@ -2,6 +2,8 @@ package dev.craft.data;
 
 import dev.craft.mffs.MffsBlocks;
 import dev.craft.mffs.block.MffsMachineBlock;
+import dev.craft.mffs.block.ForceFieldBlock;
+import dev.craft.mffs.block.ProjectorBlock;
 import java.util.List;
 import dev.craft.ic2.crop.CropBlock;
 import java.util.Arrays;
@@ -1037,6 +1039,37 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
             });
             simpleBlockItem(block, inactive);
         }
+        mffsProjector();
+        mffsForceField();
+    }
+
+    /** Projector: textures per module type ({@code ProTyp} 0–8) and activity, turned like the other machines. */
+    private void mffsProjector() {
+        ProjectorBlock block = MffsBlocks.PROJECTOR.get();
+        ModelFile[][] models = new ModelFile[9][2];
+        for (int type = 0; type <= 8; type++) {
+            models[type][0] = mffsMachineModel("mffs_projector_" + type, "");
+            models[type][1] = mffsMachineModel("mffs_projector_" + type, "_active");
+        }
+        getVariantBuilder(block).forAllStates(state -> {
+            Direction facing = state.getValue(MffsMachineBlock.FACING);
+            int x = facing == Direction.UP ? 270 : facing == Direction.DOWN ? 90 : 0;
+            int y = facing.getAxis().isHorizontal() ? (int) facing.toYRot() + 180 : 0;
+            int active = state.getValue(MffsMachineBlock.ACTIVE) ? 1 : 0;
+            return ConfiguredModel.builder().modelFile(models[state.getValue(ProjectorBlock.MODULE)][active])
+                    .rotationX(x).rotationY(y % 360).build();
+        });
+        simpleBlockItem(block, models[0][0]);
+    }
+
+    /** Force field: one translucent cube per field type (camouflage is invisible without a camouflage block). */
+    private void mffsForceField() {
+        getVariantBuilder(MffsBlocks.FORCE_FIELD.get()).forAllStates(state -> {
+            String type = state.getValue(ForceFieldBlock.TYPE).getSerializedName();
+            ModelFile model = models().cubeAll("block/mffs/force_field_" + type,
+                    modLoc("block/mffs/force_field_" + type)).renderType("translucent");
+            return ConfiguredModel.builder().modelFile(model).build();
+        });
     }
 
     private ModelFile mffsMachineModel(String name, String suffix) {

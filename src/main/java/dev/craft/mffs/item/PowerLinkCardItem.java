@@ -5,6 +5,7 @@ import dev.craft.mffs.block.CapacitorBlockEntity;
 import dev.craft.mffs.block.ConverterBlockEntity;
 import dev.craft.mffs.block.ExtractorBlockEntity;
 import dev.craft.mffs.block.MffsMachineBlockEntity;
+import dev.craft.mffs.block.ProjectorBlockEntity;
 import dev.craft.mffs.energy.ForceEnergyStorage;
 import dev.craft.mffs.energy.PowerLinkItem;
 import dev.craft.mffs.security.MffsSecurity;
@@ -58,7 +59,9 @@ public class PowerLinkCardItem extends CardItem implements PowerLinkItem {
             return InteractionResult.PASS;
         }
         int slot;
-        if (machine instanceof ConverterBlockEntity) {
+        if (machine instanceof ProjectorBlockEntity) {
+            slot = ProjectorBlockEntity.SLOT_POWER_LINK;
+        } else if (machine instanceof ConverterBlockEntity) {
             slot = ConverterBlockEntity.SLOT_POWER_LINK;
         } else if (machine instanceof ExtractorBlockEntity) {
             slot = ExtractorBlockEntity.SLOT_POWER_LINK;

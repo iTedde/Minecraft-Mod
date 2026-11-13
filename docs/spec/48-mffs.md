@@ -328,7 +328,7 @@ D = Distanz-Modulatoren, S = Stärke-Modulatoren, F↑/F↓/F→/F← = Fokusmat
 | Eindämmung | ✓ | ✓ | ✓ | wie Würfel ohne Manipulator | Hohlquader vor dem Projektor: Abstand D+1, Tiefe S+1+1, Breite F←..F→, Höhe F↑..F↓ |
 | Erw. Würfel | – | ✓ | ✓ | wie Würfel | Hohlquader um den Projektor: von −1 bis S+2 entlang der Achse, quer F←..F→ / F↑..F↓; Manipulator: nur die vordere Hälfte |
 
-Die genauen Schleifen (Achsenvertauschung je Seite, Vorzeichen) folgen 1:1 `modules/*.calculateField`. Bei 3D-Modulen
+Die genauen Schleifen (Achsenvertauschung je Seite, Vorzeichen) folgen 1:1 `modules/*.calculateField` (Craft: `mffs/field/ProjectorModule`, nachgezählt in `ProjectorModuleTest`). Die Fokus-Zuschläge +1/+2 für Eindämmung/Erw. Würfel in `checkslots` landen im Original in einem nie gelesenen Feld – ohne Wirkung. Bei 3D-Modulen
 gehören alle nicht-Rand-Punkte zum **Innenraum** (für Schwamm, Fusion, Störsender).
 
 ### 9.3 Upgrades (`options/*`)
@@ -362,8 +362,9 @@ gehören alle nicht-Rand-Punkte zum **Innenraum** (für Schwamm, Fusion, Störse
   → 10 Schaden + Meldung und danach **noch einmal** 10 (**Originalfehler**, doppelte Prüfung).
 - **Berührung** (nur Zapper-Typ praktisch erreichbar, da sonst voller Block): Lebewesen 10 Schaden; Nicht-Zapper-Spieler:
   mit Zutritt 1, ohne 20 Schaden.
-- Wird ein Nachbar entfernt, setzt das Feld leere Feldpositionen im 3×3×3 sofort wieder (Erstkosten 10 FE, Standard-Typ
-  ×2 wie oben). Zufallstick: kein aktiver Projektor → Block verschwindet.
+- Wird ein Nachbar zu etwas anderem als Kraftfeld, setzt das Feld leere (Luft-)Feldpositionen im 3×3×3 sofort wieder:
+  inaktiver Besitzer gibt den Anspruch auf, aktiver setzt den Block und zahlt **10 FE beim Standard-Typ, 20 FE bei allen
+  anderen** (Originalfehler, umgekehrt zum Unterhalt). Zufallstick: kein aktiver Projektor → Block verschwindet.
 - Verschwindet beim Abschalten/Ausbrennen/Abbau des Projektors.
 
 ## 10 Verteidigungsstation (`TileEntityAreaDefenseStation`)

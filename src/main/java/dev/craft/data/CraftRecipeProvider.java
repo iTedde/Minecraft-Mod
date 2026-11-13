@@ -1,6 +1,7 @@
 package dev.craft.data;
 
 import dev.craft.mffs.MffsItems;
+import dev.craft.mffs.field.ProjectorModule;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -3631,6 +3632,19 @@ public final class CraftRecipeProvider extends RecipeProvider {
         mffsShaped(MffsItems.CAPACITOR, 1, "mffs_capacitor", "xJx", "CFC", "xJx").define('x', crystal)
                 .define('J', Ic2Items.FREQUENCY_TRANSMITTER).define('C', Ic2Items.ELECTRONIC_CIRCUIT)
                 .define('F', Ic2Items.ADVANCED_MACHINE_CASING).save(output, id("mffs_capacitor"));
+        mffsShaped(MffsItems.PROJECTOR, 1, "mffs_projector", "KyK", "yFy", "KJK")
+                .define('K', Ic2Items.ADVANCED_ALLOY).define('y', MffsItems.PROJECTOR_FOCUS_MATRIX)
+                .define('F', Ic2Items.ADVANCED_MACHINE_CASING).define('J', Ic2Items.FREQUENCY_TRANSMITTER)
+                .save(output, id("mffs_projector"));
+        // Modules (ProjectorTyp recipes): A focus matrix, B obsidian, C cube module.
+        mffsModule(ProjectorModule.WALL, "AA ", "AA ", "BB ");
+        mffsModule(ProjectorModule.DEFLECTOR, "AAA", "ABA", "AAA");
+        mffsModule(ProjectorModule.TUBE, "AAA", " B ", "AAA");
+        mffsModule(ProjectorModule.CUBE, "B B", " A ", "B B");
+        mffsModule(ProjectorModule.SPHERE, " B ", "BAB", " B ");
+        mffsModule(ProjectorModule.CONTAINMENT, "BBB", "BAB", "BBB");
+        mffsModule(ProjectorModule.ADV_CUBE, "AAA", "ACA", "AAA");
+        mffsModule(ProjectorModule.DIAGONAL_WALL, "A A", " B ", "A A");
         mffsShaped(MffsItems.CONVERTER, 1, "mffs_converter", "ANA", "JOM", "APA").define('A', refinedIron)
                 .define('N', machine(Ic2Machine.LV_TRANSFORMER)).define('O', machine(Ic2Machine.MV_TRANSFORMER))
                 .define('P', machine(Ic2Machine.HV_TRANSFORMER)).define('J', Ic2Items.FREQUENCY_TRANSMITTER)
@@ -3672,6 +3686,20 @@ public final class CraftRecipeProvider extends RecipeProvider {
         machine(MachineRecipe.Kind.MACERATOR, "monazit_ore", ore, 1, MffsItems.FORCICIUM, 8);
         te(TeRecipe.Kind.PULVERIZER, "monazit_ore", ore, stack(MffsItems.FORCICIUM, 8), 100);
         grind("monazit_ore", ore, 1, stack(MffsItems.FORCICIUM, 10), stack(GtItems.THORIUM_DUST, 2));
+    }
+
+    private void mffsModule(ProjectorModule module, String... rows) {
+        var item = MffsItems.module(module);
+        ShapedRecipeBuilder builder = mffsShaped(item, 1, item.getId().getPath(), rows)
+                .define('A', MffsItems.PROJECTOR_FOCUS_MATRIX);
+        String pattern = String.join("", rows);
+        if (pattern.contains("B")) {
+            builder.define('B', Items.OBSIDIAN);
+        }
+        if (pattern.contains("C")) {
+            builder.define('C', MffsItems.module(ProjectorModule.CUBE));
+        }
+        builder.save(output, id(item.getId().getPath()));
     }
 
     private static ShapedRecipeBuilder mffsShaped(ItemLike result, int count, String unlock, String... rows) {

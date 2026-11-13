@@ -3,6 +3,7 @@ package dev.craft.mffs.block;
 import com.mojang.serialization.MapCodec;
 import dev.craft.mffs.item.BlankCardItem;
 import dev.craft.mffs.item.PowerLinkCardItem;
+import dev.craft.mffs.item.ProjectorModuleItem;
 import dev.craft.mffs.item.multitool.MultitoolItem;
 import dev.craft.mffs.security.MffsSecurity;
 import dev.craft.mffs.security.SecurityRight;
@@ -119,13 +120,14 @@ public class MffsMachineBlock extends BaseEntityBlock {
 
     /**
      * Items that act on the machine themselves keep the GUI closed: multitool, blank card, power link card, lever
-     * (later also modules and security link cards).
+     * module (later also security link cards).
      */
     @Override
     protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos,
                                               Player player, InteractionHand hand, BlockHitResult hit) {
         if (stack.getItem() instanceof MultitoolItem || stack.getItem() instanceof BlankCardItem
-                || stack.getItem() instanceof PowerLinkCardItem || stack.is(Items.LEVER)) {
+                || stack.getItem() instanceof PowerLinkCardItem || stack.getItem() instanceof ProjectorModuleItem
+                || stack.is(Items.LEVER)) {
             return ItemInteractionResult.SKIP_DEFAULT_BLOCK_INTERACTION;
         }
         return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;

@@ -4,6 +4,7 @@ import dev.craft.Craft;
 import dev.craft.mffs.menu.CapacitorMenu;
 import dev.craft.mffs.menu.ConverterMenu;
 import dev.craft.mffs.menu.ExtractorMenu;
+import dev.craft.mffs.menu.ProjectorMenu;
 import java.util.function.Supplier;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.inventory.MenuType;
@@ -21,6 +22,10 @@ public final class MffsMenus {
                     buf.readBlockPos())));
     public static final Supplier<MenuType<ConverterMenu>> CONVERTER = MENUS.register("mffs_converter",
             () -> IMenuTypeExtension.create((id, inventory, buf) -> new ConverterMenu(id, inventory,
+                    buf.readBlockPos())));
+
+    public static final Supplier<MenuType<ProjectorMenu>> PROJECTOR = MENUS.register("mffs_projector",
+            () -> IMenuTypeExtension.create((id, inventory, buf) -> new ProjectorMenu(id, inventory,
                     buf.readBlockPos())));
 
     private MffsMenus() {

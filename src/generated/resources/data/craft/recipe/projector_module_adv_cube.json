@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "craft:projector_focus_matrix"
+    },
+    "C": {
+      "item": "craft:projector_module_cube"
+    }
+  },
+  "pattern": [
+    "AAA",
+    "ACA",
+    "AAA"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:projector_module_adv_cube"
+  }
+}

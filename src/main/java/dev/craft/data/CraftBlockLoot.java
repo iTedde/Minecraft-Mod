@@ -88,7 +88,9 @@ public final class CraftBlockLoot extends BlockLootSubProvider {
         // Charge pads: canHarvestBlock = false, only the wrench gets them back (spec 47 §2.1).
         CpBlocks.BLOCKS.getEntries().forEach(block -> add(block.get(), noDrop()));
         // MFFS: the ore drops itself (no fortune); machines drop themselves (IC2 wrench path, spec 48 §5).
-        MffsBlocks.BLOCKS.getEntries().forEach(block -> dropSelf(block.get()));
+        // The force field has no loot table at all (noLootTable).
+        MffsBlocks.BLOCKS.getEntries().stream().filter(block -> block != MffsBlocks.FORCE_FIELD)
+                .forEach(block -> dropSelf(block.get()));
         // EnderStorage getBlockDropped: always itself with frequency and owner (spec 27 §2).
         for (Block ender : List.of(EsBlocks.ENDER_CHEST.get(), EsBlocks.ENDER_TANK.get())) {
             add(ender, LootTable.lootTable().withPool(applyExplosionCondition(ender, LootPool.lootPool()

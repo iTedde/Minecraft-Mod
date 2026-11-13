@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "type=area": {
+      "model": "craft:block/mffs/force_field_area"
+    },
+    "type=camouflage": {
+      "model": "craft:block/mffs/force_field_camouflage"
+    },
+    "type=containment": {
+      "model": "craft:block/mffs/force_field_containment"
+    },
+    "type=default": {
+      "model": "craft:block/mffs/force_field_default"
+    },
+    "type=zapper": {
+      "model": "craft:block/mffs/force_field_zapper"
+    }
+  }
+}

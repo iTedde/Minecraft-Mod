@@ -5,7 +5,9 @@ import dev.craft.mffs.block.CapacitorBlockEntity;
 import dev.craft.mffs.block.ConverterBlockEntity;
 import dev.craft.mffs.block.ExtractorBlockEntity;
 import dev.craft.mffs.block.MffsMachineBlock;
+import dev.craft.mffs.block.ForceFieldBlock;
 import dev.craft.mffs.block.MffsMachineBlockEntity;
+import dev.craft.mffs.block.ProjectorBlock;
 import java.util.List;
 import java.util.function.BiFunction;
 import net.minecraft.core.BlockPos;
@@ -14,10 +16,11 @@ import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.level.material.PushReaction;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
-/** MFFS blocks (spec 48 §1.1); projector, stations and force field follow in phases 48.2–48.4. */
+/** MFFS blocks (spec 48 §1.1); the stations follow in phase 48.4. */
 public final class MffsBlocks {
     public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(Craft.MODID);
 
@@ -36,16 +39,34 @@ public final class MffsBlocks {
     public static final DeferredBlock<MffsMachineBlock> CONVERTER = machine("mffs_converter",
             ConverterBlockEntity::new);
 
+    public static final DeferredBlock<ProjectorBlock> PROJECTOR = BLOCKS.register("mffs_projector",
+            () -> new ProjectorBlock(machineProperties()));
+
+    /**
+     * {@code BlockForceField}: unbreakable, resistance 999, not opaque, no light, no drops, no redstone conduction,
+     * cannot be pushed.
+     */
+    public static final DeferredBlock<ForceFieldBlock> FORCE_FIELD = BLOCKS.register("force_field",
+            () -> new ForceFieldBlock(BlockBehaviour.Properties.of().mapColor(MapColor.NONE).strength(-1.0F, 999.0F)
+                    .sound(SoundType.GLASS).noOcclusion().noLootTable().pushReaction(PushReaction.BLOCK)
+                    .isRedstoneConductor((state, level, pos) -> false).isSuffocating((state, level, pos) -> false)
+                    .isViewBlocking((state, level, pos) -> false).isValidSpawn((state, level, pos, type) -> false)));
+
     private MffsBlocks() {
     }
 
     /** {@code BlockMFFSBase}: material iron, unbreakable (−1), resistance 100, stone sound. */
     private static DeferredBlock<MffsMachineBlock> machine(
             String name, BiFunction<BlockPos, BlockState, ? extends MffsMachineBlockEntity> factory) {
-        return BLOCKS.register(name, () -> new MffsMachineBlock(BlockBehaviour.Properties.of()
-                .mapColor(MapColor.METAL).strength(-1.0F, 100.0F).sound(SoundType.STONE), factory));
+        return BLOCKS.register(name, () -> new MffsMachineBlock(machineProperties(), factory));
     }
 
+    private static BlockBehaviour.Properties machineProperties() {
+        return BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(-1.0F, 100.0F)
+                .sound(SoundType.STONE);
+    }
+
+    /** Machines with the plain front/back/side model (the projector has one per module type). */
     public static List<DeferredBlock<MffsMachineBlock>> machines() {
         return List.of(EXTRACTOR, CAPACITOR, CONVERTER);
     }

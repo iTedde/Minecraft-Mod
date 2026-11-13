@@ -2,6 +2,7 @@ package dev.craft.data;
 
 import dev.craft.mffs.MffsBlocks;
 import dev.craft.mffs.MffsItems;
+import dev.craft.mffs.field.ProjectorModule;
 import java.util.Arrays;
 import java.util.Locale;
 import java.util.function.Supplier;
@@ -643,6 +644,21 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
         block(MffsBlocks.EXTRACTOR, german ? "MFFS-Extraktor" : "MFFS Extractor");
         block(MffsBlocks.CAPACITOR, german ? "MFFS-Kondensator" : "MFFS Capacitor");
         block(MffsBlocks.CONVERTER, german ? "MFFS-Konverter" : "MFFS Converter");
+        block(MffsBlocks.PROJECTOR, german ? "MFFS-Projektor" : "MFFS Projector");
+        block(MffsBlocks.FORCE_FIELD, german ? "Kraftfeld" : "Force Field");
+        item(MffsItems.module(ProjectorModule.WALL), german ? "Projektormodul Wand" : "MFFS Projector Module Wall");
+        item(MffsItems.module(ProjectorModule.DEFLECTOR), german ? "Projektormodul Deflektor"
+                : "MFFS Projector Module Deflector");
+        item(MffsItems.module(ProjectorModule.TUBE), german ? "Projektormodul Röhre" : "MFFS Projector Module Tube");
+        item(MffsItems.module(ProjectorModule.CUBE), german ? "Projektormodul Würfel" : "MFFS Projector Module Cube");
+        item(MffsItems.module(ProjectorModule.SPHERE), german ? "Projektormodul Kugel"
+                : "MFFS Projector Module Sphere");
+        item(MffsItems.module(ProjectorModule.CONTAINMENT), german ? "Projektormodul Eindämmung"
+                : "MFFS Projector Module Containment");
+        item(MffsItems.module(ProjectorModule.ADV_CUBE), german ? "Projektormodul Erweiterter Würfel"
+                : "MFFS Projector Module Adv.Cube");
+        item(MffsItems.module(ProjectorModule.DIAGONAL_WALL), german ? "Projektormodul Diagonale Wand"
+                : "MFFS Projector Module diagonal Wall");
         item(MffsItems.FORCICIUM, "Forcicium");
         item(MffsItems.FORCICIUM_CELL, german ? "Kompakte Forcicium-Zelle" : "MFFS compact Forcicium Cell");
         item(MffsItems.FORCE_ENERGY_CRYSTAL, german ? "Kraftenergie-Kristall" : "MFFS Force Energy Crystal");
@@ -707,6 +723,20 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
         add("gui.craft.mffs.packets", german ? "Pakete" : "packets");
         add("gui.craft.mffs.no_link", german ? "KE: Kein Link/OOR" : "FE: No Link/OOR");
         add("gui.craft.mffs.offline", "OFFLINE");
+        add("gui.craft.mffs.projector", german ? "MFFS-Projektor" : "MFFS Projector");
+        add("gui.craft.mffs.type_mode", german ? "Modultyp" : "Typ-Mode");
+        add("gui.craft.mffs.power_link", "PowerLink");
+        add("gui.craft.mffs.no_link_oor", german ? "Kein Link/OOR" : "No Link/OOR");
+        add("message.craft.mffs.module_installed", german ? "[Projektor] Erfolg: <%s> eingesetzt"
+                : "[Projector] Success: <%s> installed");
+        add("message.craft.mffs.projector_slot_not_empty", german ? "[Projektor] Fehler: Platz ist nicht leer"
+                : "[Projector] Fail: Slot is not empty");
+        add("message.craft.mffs.high_energy_field", german ? "[Kraftfeld] Achtung: Hochenergiefeld"
+                : "[Force Field] Attention High Energy Field");
+        add("death.attack.craft.field_shock", german ? "%1$s wurde von einem Kraftfeld gegrillt"
+                : "%1$s was fried by a forcefield");
+        add("death.attack.craft.field_shock.player", german ? "%1$s wurde von einem Kraftfeld gegrillt"
+                : "%1$s was fried by a forcefield");
         add("gui.craft.mffs.online", "ONLINE");
     }
 

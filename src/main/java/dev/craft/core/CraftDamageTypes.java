@@ -18,6 +18,8 @@ public final class CraftDamageTypes {
     public static final ResourceKey<DamageType> ELECTROCUTION = key("electrocution");
     /** Damage conversion module of the charge pads (spec 47 §5); armor applies. */
     public static final ResourceKey<DamageType> EMITTER_RADIATION = key("emitter_radiation");
+    /** MFFS {@code fieldShock}: force field touch and click (spec 48 §9.4), ignores armour. */
+    public static final ResourceKey<DamageType> FIELD_SHOCK = key("field_shock");
 
     private CraftDamageTypes() {
     }
@@ -32,5 +34,6 @@ public final class CraftDamageTypes {
         context.register(NUKE, new DamageType("craft.nuke", 0.1F));
         context.register(ELECTROCUTION, new DamageType("craft.electrocution", 0.1F));
         context.register(EMITTER_RADIATION, new DamageType("craft.emitter_radiation", 0.1F));
+        context.register(FIELD_SHOCK, new DamageType("craft.field_shock", 0.1F));
     }
 }

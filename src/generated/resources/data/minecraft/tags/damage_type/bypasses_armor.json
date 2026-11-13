@@ -1,6 +1,7 @@
 {
   "values": [
     "craft:radiation",
-    "craft:electrocution"
+    "craft:electrocution",
+    "craft:field_shock"
   ]
 }

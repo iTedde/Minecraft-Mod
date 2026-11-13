@@ -62,6 +62,9 @@ public abstract class MffsMachineBlockEntity extends BlockEntity implements Menu
             @Override
             protected void onContentsChanged(int slot) {
                 setChanged();
+                if (level != null && !level.isClientSide()) {
+                    onInventoryChanged(slot);
+                }
             }
         };
     }
@@ -221,20 +224,26 @@ public abstract class MffsMachineBlockEntity extends BlockEntity implements Menu
         }
     }
 
+    /** {@code onInventoryChanged} on the server ({@code TileEntityProjector.d → checkslots}). */
+    protected void onInventoryChanged(int slot) {
+    }
+
     /** {@code dropplugins}: every slot falls out; cards holding data fall as blank cards. */
     public void dropPlugins() {
-        if (level == null) {
+        for (int slot = 0; slot < inventory.getSlots(); slot++) {
+            dropPlugin(slot);
+        }
+    }
+
+    /** {@code dropplugins(slot, inventory)}: one slot falls out. */
+    public void dropPlugin(int slot) {
+        ItemStack stack = inventory.getStackInSlot(slot);
+        if (level == null || stack.isEmpty()) {
             return;
         }
-        for (int slot = 0; slot < inventory.getSlots(); slot++) {
-            ItemStack stack = inventory.getStackInSlot(slot);
-            if (stack.isEmpty()) {
-                continue;
-            }
-            ItemStack drop = stack.getItem() instanceof CardItem ? new ItemStack(MffsItems.CARD_BLANK.get()) : stack;
-            Containers.dropItemStack(level, worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(), drop);
-            inventory.setStackInSlot(slot, ItemStack.EMPTY);
-        }
+        ItemStack drop = stack.getItem() instanceof CardItem ? new ItemStack(MffsItems.CARD_BLANK.get()) : stack;
+        inventory.setStackInSlot(slot, ItemStack.EMPTY);
+        Containers.dropItemStack(level, worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(), drop);
     }
 
     public boolean stillValid(Player player) {

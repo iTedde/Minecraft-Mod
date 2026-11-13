@@ -4,6 +4,7 @@ import dev.craft.Craft;
 import dev.craft.mffs.block.CapacitorBlockEntity;
 import dev.craft.mffs.block.ConverterBlockEntity;
 import dev.craft.mffs.block.ExtractorBlockEntity;
+import dev.craft.mffs.block.ProjectorBlockEntity;
 import java.util.function.Supplier;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -22,6 +23,10 @@ public final class MffsBlockEntityTypes {
     public static final Supplier<BlockEntityType<ConverterBlockEntity>> CONVERTER = BLOCK_ENTITY_TYPES.register(
             "mffs_converter", () -> BlockEntityType.Builder.of(ConverterBlockEntity::new,
                     MffsBlocks.CONVERTER.get()).build(null));
+
+    public static final Supplier<BlockEntityType<ProjectorBlockEntity>> PROJECTOR = BLOCK_ENTITY_TYPES.register(
+            "mffs_projector", () -> BlockEntityType.Builder.of(ProjectorBlockEntity::new,
+                    MffsBlocks.PROJECTOR.get()).build(null));
 
     private MffsBlockEntityTypes() {
     }

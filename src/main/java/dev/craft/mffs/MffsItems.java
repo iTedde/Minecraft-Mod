@@ -6,6 +6,10 @@ import dev.craft.mffs.item.ForceEnergyCrystalItem;
 import dev.craft.mffs.item.ForciciumCellItem;
 import dev.craft.mffs.item.InfinitePowerCardItem;
 import dev.craft.mffs.item.PowerLinkCardItem;
+import dev.craft.mffs.item.ProjectorModuleItem;
+import dev.craft.mffs.field.ProjectorModule;
+import java.util.EnumMap;
+import java.util.Map;
 import dev.craft.mffs.item.multitool.SwitchMultitoolItem;
 import dev.craft.mffs.item.multitool.WrenchMultitoolItem;
 import net.minecraft.world.item.BlockItem;
@@ -13,7 +17,7 @@ import net.minecraft.world.item.Item;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
-/** MFFS items of phase 48.1 (spec 48 §1.2) with the original stack sizes. */
+/** MFFS items (spec 48 §1.2) with the original stack sizes. */
 public final class MffsItems {
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(Craft.MODID);
 
@@ -23,6 +27,7 @@ public final class MffsItems {
     public static final DeferredItem<BlockItem> EXTRACTOR = ITEMS.registerSimpleBlockItem(MffsBlocks.EXTRACTOR);
     public static final DeferredItem<BlockItem> CAPACITOR = ITEMS.registerSimpleBlockItem(MffsBlocks.CAPACITOR);
     public static final DeferredItem<BlockItem> CONVERTER = ITEMS.registerSimpleBlockItem(MffsBlocks.CONVERTER);
+    public static final DeferredItem<BlockItem> PROJECTOR = ITEMS.registerSimpleBlockItem(MffsBlocks.PROJECTOR);
 
     public static final DeferredItem<Item> FORCICIUM = ITEMS.registerSimpleItem("forcicium");
     public static final DeferredItem<ForciciumCellItem> FORCICIUM_CELL = ITEMS.registerItem("forcicium_cell",
@@ -51,6 +56,21 @@ public final class MffsItems {
     public static final DeferredItem<SwitchMultitoolItem> MULTITOOL_SWITCH = ITEMS.registerItem(
             "mffs_multitool_switch", SwitchMultitoolItem::new, new Item.Properties().stacksTo(1));
 
+    /** Projector modules (stack 8), registry {@code projector_module_<shape>}. */
+    public static final Map<ProjectorModule, DeferredItem<ProjectorModuleItem>> MODULES = new EnumMap<>(
+            ProjectorModule.class);
+
+    static {
+        for (ProjectorModule module : ProjectorModule.values()) {
+            MODULES.put(module, ITEMS.registerItem("projector_module_" + module.name().toLowerCase(java.util.Locale.ROOT),
+                    properties -> new ProjectorModuleItem(module, properties), new Item.Properties().stacksTo(8)));
+        }
+    }
+
     private MffsItems() {
+    }
+
+    public static DeferredItem<ProjectorModuleItem> module(ProjectorModule module) {
+        return MODULES.get(module);
     }
 }
