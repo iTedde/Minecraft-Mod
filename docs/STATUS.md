@@ -3980,8 +3980,43 @@ Nutzer: „wo waren wir stehengeblieben? Führe dort fort“.
 
 ## Nächste Schritte
 - **48.3** Projektor-Upgrades (9) inkl. Tarnungs-Rendering, Störsender/Ausbrennen + Wrench-Reparatur, Fusion,
-  Feld-Teleporter, GameTests.
+  Feld-Teleporter, GameTests – erledigt, s. u.
 - Client-Test MFFS (Grundlagen + Projektor), ChargePads (Testplan 24), Nuclear Control (Testplan 23) – nur nach
   Rückfrage.
 - Phase 51 (Leuchtschild „wie Blendgranate“): Umfang klären.
 - Phase 49 (Wireless Redstone) **verworfen** (Nutzer, 2026-11-13: „Streich Phase 49“).
+
+# Phase 48.3 – MFFS-Projektor-Upgrades (2026-11-13)
+
+Nutzer: „Weiter gehts“.
+
+## Erledigt
+- [x] 9 Upgrade-Items `projector_upgrade_*` (Stapel 8, Tooltip „passt zu“ mit Umschalt), Texturen aus `items.png`
+  (`tools/scripts/mffs_textures.py`), 8 Rezepte (Verteidigungsstation erst mit dem Personalausweis in 48.4).
+- [x] Wirkung 1:1 nach `TileEntityProjector`: Optionsliste mit eingeschobenem Störsender-Test; **Störsender** – jeder
+  Projektor eines anderen Kondensators mit einem Feldpunkt im Innenraum eines aktiven Störsenders brennt beim
+  Berechnen aus (alle Plätze fallen heraus); **Fusion** (Punkte im fremden Innenraum ohne Anspruch, eigene Innenpunkte
+  entfernen fremde Fusions-Feldblöcke, Neuberechnung beim Abschalten eines Partners); **Schwamm** (Flüssigkeiten im
+  Innenraum); **Blockbrecher** (Wand/Deflektor/Diagonale: genau ein Item je Block ins größte Nachbarinventar,
+  Originalfehler); **NPC-Abwehr**/**Verteidigungsstation** (10 Schaden `craft:field_defense`, 10 000 KE, Feldquader,
+  Kugel mit Radius D+4; Spielerprüfung über `MffsSecurity.isDeniedByStation`, bis 48.4 nie).
+- [x] **Tarnung**: Platz 11 (Blöcke, Wasser-/Lavaeimer), Feldblock-Entity mit Blockzustand, Client-Modell zeichnet
+  den Tarnblock (Flüssigkeiten als Würfel mit stehender Textur), Färbung vom Tarnblock; neuer Tarnblock aktualisiert
+  sofort alle Feldblöcke.
+- [x] **Multiwerkzeug ‹Feld-Teleporter›** (Modus nach dem Schalter; Kodierer/Handbuch folgen 48.4): Blickrichtung,
+  ≤ 5 Blöcke, gleicher Kondensator am Ende, Hindernis/Leere, 10 000 KE, alle Original-Meldungen; Zugriffsart 0 nur
+  Admin/Debugger (`MffsSecurity.isAdmin`, bis 48.4 nie). **Wrench** repariert ausgebrannte Projektoren (10 000 KE).
+- [x] 7 GameTests `MffsUpgradeGameTests` (Schwamm, Tarnung, Störsender + Reparatur, Fusion, Blockbrecher,
+  NPC-Abwehr, Teleporter) grün; Lauf 639 Tests, rot nur die bekannten Tesserakte (`energyTesseractCarriesEnergy`,
+  `liquidTesseractFillsRemoteTank`). `runData`, danach `build` grün.
+- Doku: Spec 48 §9.3 (Ablauf im Detail), §12, §14, §15; `abweichungen.md`, `architektur.md`, CLAUDE.md. Nicht im
+  Client gestartet (Tarnungs-Rendering daher ungesehen).
+
+## Nächste Schritte
+- **48.4** Sicherheit: Sicherheitsstation, Ausweis/Lizenz/Link-/Datenlink-Karten, Rechte, Kodierer, Sicherheits-
+  speicher (Blockbrecher: erster Platz übersprungen), Steuerungssystem, Verteidigungsstation, Handbuch, Debugger
+  (Freibrief für `MffsSecurity.isAdmin`), Rezept Verteidigungsstation-Upgrade, `isDeniedByStation`, GameTests.
+- Client-Test MFFS (Grundlagen + Projektor + Tarnung), ChargePads (Testplan 24), Nuclear Control (Testplan 23) – nur
+  nach Rückfrage.
+- Tesserakt-Tests weiter beobachten (diesmal beide rot).
+- Phase 51 (Leuchtschild „wie Blendgranate“): Umfang klären.

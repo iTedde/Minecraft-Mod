@@ -1,5 +1,6 @@
 package dev.craft.mffs.block;
 
+import dev.craft.core.CraftDamageTypes;
 import dev.craft.mffs.MffsBlockEntityTypes;
 import dev.craft.mffs.MffsBlocks;
 import dev.craft.mffs.MffsConfig;
@@ -14,28 +15,48 @@ import dev.craft.mffs.field.ProjectorUpgrade;
 import dev.craft.mffs.field.ProjectorUpgradeItem;
 import dev.craft.mffs.item.ProjectorModuleItem;
 import dev.craft.mffs.menu.ProjectorMenu;
+import dev.craft.mffs.security.MffsSecurity;
+import dev.craft.mffs.security.SecurityRight;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.monster.Ghast;
+import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.monster.Slime;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LiquidBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.items.IItemHandler;
 
 /**
  * {@code TileEntityProjector} (spec 48 §9.1): projects the field of its module. Switches on after at least 40 ticks
  * when the link has more force energy than the estimate {@link #getPowerNeed(int) need(5)}; computes the field points
  * into the {@link ForceFieldMap} and places the blocks (creation cost ×10); every 20 ticks upkeep and placing missing
  * blocks (at most 5 000 per pass). Switches off below {@code need(1)}, without module or source, when burnt out or
- * switched off – the field is removed. Upgrades (slots 2–4), camouflage (11), security link (12) and burn-out follow in
- * phases 48.3/48.4.
+ * switched off – the field is removed. Upgrades (slots 2–4, spec 48 §9.3): touch damage and camouflage set the field
+ * type, the sponge removes liquids and field fusion foreign fusion blocks in the interior, the block breaker clears
+ * field positions, every projector burns out when a point lies inside the interior of another capacitor's active
+ * jammer, NPC defence and defence station hurt entities in the field box every 20 ticks. The security link (12)
+ * follows in phase 48.4.
  */
 public class ProjectorBlockEntity extends FePoweredBlockEntity {
     public static final int SLOT_POWER_LINK = 0;
@@ -54,6 +75,9 @@ public class ProjectorBlockEntity extends FePoweredBlockEntity {
 
     private static final int SWITCH_DELAY = 40;
     private static final int FIELD_INTERVAL = 20;
+    /** NPC defence and defence station: damage and force energy per hit ({@code fieldDefense}, 10 000 FE). */
+    private static final int DEFENSE_DAMAGE = 10;
+    private static final int DEFENSE_COST = 10000;
 
     /** Field points of the last calculation ({@code field_def}); kept after switching off (power estimate). */
     private final Set<BlockPos> fieldPoints = new LinkedHashSet<>();
@@ -69,6 +93,8 @@ public class ProjectorBlockEntity extends FePoweredBlockEntity {
     private boolean fieldInitialized;
     private boolean checkingSlots;
     private boolean unloading;
+    /** Look of the camouflage field blocks (slot 11), null without a block. */
+    private BlockState camouflage;
 
     public ProjectorBlockEntity(BlockPos pos, BlockState state) {
         super(MffsBlockEntityTypes.PROJECTOR.get(), pos, state, 13);
@@ -123,6 +149,9 @@ public class ProjectorBlockEntity extends FePoweredBlockEntity {
             return true;
         }
         if (slot == SLOT_POWER_LINK && stack.getItem() instanceof PowerLinkItem) {
+            return true;
+        }
+        if (slot == SLOT_CAMOUFLAGE && camouflageOf(stack) != null && hasUpgrade(ProjectorUpgrade.CAMOUFLAGE)) {
             return true;
         }
         ProjectorModule module = getModule();
@@ -220,7 +249,42 @@ public class ProjectorBlockEntity extends FePoweredBlockEntity {
                 dropPlugin(SLOT_CAMOUFLAGE);
             }
         } finally {
+            updateCamouflage();
             checkingSlots = false;
+        }
+    }
+
+    /** Block look for slot 11: a block item, or water/lava for their buckets (the original's texture indices). */
+    public static BlockState camouflageOf(ItemStack stack) {
+        if (stack.is(Items.WATER_BUCKET)) {
+            return Blocks.WATER.defaultBlockState();
+        }
+        if (stack.is(Items.LAVA_BUCKET)) {
+            return Blocks.LAVA.defaultBlockState();
+        }
+        if (stack.getItem() instanceof BlockItem item && !item.getBlock().defaultBlockState().is(MffsBlocks.FORCE_FIELD)) {
+            return item.getBlock().defaultBlockState();
+        }
+        return null;
+    }
+
+    public BlockState getCamouflage() {
+        return camouflage;
+    }
+
+    /** {@code UpdateForcefieldTexttur}: a new look reaches all placed camouflage blocks of an active field. */
+    private void updateCamouflage() {
+        BlockState look = hasUpgrade(ProjectorUpgrade.CAMOUFLAGE) ? camouflageOf(getStack(SLOT_CAMOUFLAGE)) : null;
+        if (Objects.equals(look, camouflage)) {
+            return;
+        }
+        camouflage = look;
+        if (isActive() && hasUpgrade(ProjectorUpgrade.CAMOUFLAGE)) {
+            for (BlockPos pos : fieldPoints) {
+                if (level.isLoaded(pos) && level.getBlockEntity(pos) instanceof ForceFieldBlockEntity field) {
+                    field.setCamouflage(camouflage);
+                }
+            }
         }
     }
 
@@ -267,6 +331,12 @@ public class ProjectorBlockEntity extends FePoweredBlockEntity {
         if (getTicker() == FIELD_INTERVAL) {
             if (isActive()) {
                 generateField(false);
+                if (hasUpgrade(ProjectorUpgrade.NPC_DEFENSE)) {
+                    npcDefense();
+                }
+                if (hasUpgrade(ProjectorUpgrade.DEFENSE_STATION)) {
+                    playerDefense();
+                }
             }
             setTicker(0);
         }
@@ -296,20 +366,122 @@ public class ProjectorBlockEntity extends FePoweredBlockEntity {
         for (BlockPos point : field) {
             if (point.getY() + worldPosition.getY() < params.maxY()) {
                 BlockPos pos = worldPosition.offset(point);
-                defineField(pos);
+                if (!defineField(pos)) {
+                    return false;
+                }
                 fieldPoints.add(pos);
             }
         }
         for (BlockPos point : interior) {
             if (point.getY() + worldPosition.getY() < params.maxY()) {
-                interiorPoints.add(worldPosition.offset(point));
+                BlockPos pos = worldPosition.offset(point);
+                checkInteriorBlock(pos);
+                interiorPoints.add(pos);
             }
         }
         return true;
     }
 
-    /** {@code Forcefielddefine}: claim the position (behind other projectors' claims). */
-    private void defineField(BlockPos pos) {
+    /**
+     * {@code getOptions(true)}: the own upgrades by slot, the jammer check (which concerns every projector) inserted
+     * after the first slot like in the original.
+     */
+    private List<ProjectorUpgrade> getOptions() {
+        List<ProjectorUpgrade> options = new ArrayList<>();
+        for (int slot = SLOT_UPGRADE_FIRST; slot <= SLOT_UPGRADE_LAST; slot++) {
+            if (getStack(slot).getItem() instanceof ProjectorUpgradeItem item) {
+                options.add(item.getUpgrade());
+            }
+            if (!options.contains(ProjectorUpgrade.FIELD_JAMMER)) {
+                options.add(ProjectorUpgrade.FIELD_JAMMER);
+            }
+        }
+        return options;
+    }
+
+    private List<ProjectorBlockEntity> projectorsWith(ProjectorUpgrade upgrade) {
+        List<ProjectorBlockEntity> found = new ArrayList<>();
+        for (var machine : MffsDevices.all(level, MffsDevices.Kind.PROJECTOR)) {
+            if (machine instanceof ProjectorBlockEntity projector && !projector.isRemoved()
+                    && projector.hasUpgrade(upgrade)) {
+                found.add(projector);
+            }
+        }
+        return found;
+    }
+
+    /** {@code CheckJammerinfluence}: inside the interior of another capacitor's active jammer this projector burns out. */
+    private boolean checkJammer(BlockPos pos) {
+        for (ProjectorBlockEntity jammer : projectorsWith(ProjectorUpgrade.FIELD_JAMMER)) {
+            if (jammer.getPowerSourceId() != getPowerSourceId() && jammer.isActive()
+                    && jammer.interiorPoints.contains(pos)) {
+                burnOut();
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /** {@code checkFieldFusioninfluence}: inside another active fusion projector of the same capacitor. */
+    private boolean checkFusion(BlockPos pos) {
+        if (isPowerSourceItem()) {
+            return false;
+        }
+        for (ProjectorBlockEntity other : projectorsWith(ProjectorUpgrade.FIELD_FUSION)) {
+            if (other.getPowerSourceId() == getPowerSourceId() && other.getDeviceId() != getDeviceId()
+                    && other.isActive() && other.interiorPoints.contains(pos)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /** {@code ProjektorBurnout}: burnt out until repaired with the multitool wrench; every slot falls out. */
+    public void burnOut() {
+        setBurnedOut(true);
+        dropPlugins();
+    }
+
+    /**
+     * {@code calculateBlock}: interior checks of the own upgrades – the sponge removes liquid blocks, field fusion
+     * removes the field block of another fusion projector of the same capacitor (merged rooms).
+     */
+    private void checkInteriorBlock(BlockPos pos) {
+        for (ProjectorUpgrade option : getOptions()) {
+            if (option == ProjectorUpgrade.SPONGE) {
+                if (level.getBlockState(pos).getBlock() instanceof LiquidBlock) {
+                    level.setBlock(pos, Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL);
+                }
+            } else if (option == ProjectorUpgrade.FIELD_FUSION) {
+                ForceFieldMap.Stack stack = ForceFieldMap.getOrCreate(level, pos);
+                if (stack.isEmpty() || stack.getCapacitorId() != getPowerSourceId()) {
+                    continue;
+                }
+                if (MffsDevices.get(level, MffsDevices.Kind.PROJECTOR, stack.getProjectorId())
+                        instanceof ProjectorBlockEntity owner && owner.hasUpgrade(ProjectorUpgrade.FIELD_FUSION)) {
+                    owner.claimed.remove(pos);
+                    stack.removeByProjector(owner.getDeviceId());
+                    if (level.getBlockState(pos).is(MffsBlocks.FORCE_FIELD.get())) {
+                        level.setBlock(pos, Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL);
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * {@code Forcefielddefine}: the jammer check aborts the calculation (burn-out), a point inside a fused field is
+     * kept without a claim; otherwise claim the position (behind other projectors' claims).
+     */
+    private boolean defineField(BlockPos pos) {
+        for (ProjectorUpgrade option : getOptions()) {
+            if (option == ProjectorUpgrade.FIELD_JAMMER && checkJammer(pos)) {
+                return false;
+            }
+            if (option == ProjectorUpgrade.FIELD_FUSION && checkFusion(pos)) {
+                return true;
+            }
+        }
         ForceFieldMap.Stack stack = ForceFieldMap.getOrCreate(level, pos);
         if (!stack.isEmpty()) {
             if (stack.getProjectorId() != getDeviceId()) {
@@ -321,6 +493,7 @@ public class ProjectorBlockEntity extends FePoweredBlockEntity {
             stack.setSync(false);
         }
         claimed.add(pos.immutable());
+        return true;
     }
 
     /**
@@ -345,15 +518,161 @@ public class ProjectorBlockEntity extends FePoweredBlockEntity {
                     || stack.getProjectorId() != getDeviceId()) {
                 continue;
             }
+            if (hasUpgrade(ProjectorUpgrade.BLOCK_BREAKER)) {
+                breakBlock(pos);
+            }
             BlockState state = level.getBlockState(pos);
             boolean field = state.is(MffsBlocks.FORCE_FIELD.get());
             if (state.isAir() || state.getBlock() instanceof LiquidBlock || field) {
                 if (!field) {
-                    level.setBlock(pos, MffsBlocks.FORCE_FIELD.get().defaultBlockState()
-                            .setValue(ForceFieldBlock.TYPE, stack.getType()), Block.UPDATE_ALL);
+                    placeFieldBlock(pos, stack.getType());
                     blockCounter++;
                 }
                 stack.setSync(true);
+            }
+        }
+    }
+
+    /** Places a field block of the given type; camouflage blocks get the projector's look. */
+    public void placeFieldBlock(BlockPos pos, ForceFieldType type) {
+        level.setBlock(pos, MffsBlocks.FORCE_FIELD.get().defaultBlockState().setValue(ForceFieldBlock.TYPE, type),
+                Block.UPDATE_ALL);
+        if (level.getBlockEntity(pos) instanceof ForceFieldBlockEntity field) {
+            field.setCamouflage(camouflage);
+        }
+    }
+
+    /**
+     * Block breaker ({@code MFFSProjectorOptionCutter}): removes anything but air, field blocks, unbreakable blocks
+     * and blocks with a block entity. Wall, deflector and diagonal wall give the drops to the largest attached
+     * inventory – one single item (original error), the rest is lost; other shapes lose everything.
+     */
+    private void breakBlock(BlockPos pos) {
+        BlockState state = level.getBlockState(pos);
+        if (state.isAir() || state.is(MffsBlocks.FORCE_FIELD.get()) || state.getDestroySpeed(level, pos) < 0
+                || level.getBlockEntity(pos) != null || !(level instanceof ServerLevel serverLevel)) {
+            return;
+        }
+        List<ItemStack> drops = Block.getDrops(state, serverLevel, pos, null);
+        level.setBlock(pos, Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL);
+        ProjectorModule module = getModule();
+        if (module != null && module.isBlockDropper() && !drops.isEmpty()) {
+            IItemHandler inventory = findAttachedInventory();
+            if (inventory != null && inventory.getSlots() > 0) {
+                addOneItem(inventory, drops);
+            }
+        }
+    }
+
+    /** {@code InventoryHelper.findAttachedInventory}: the neighbour inventory with the most slots. */
+    private IItemHandler findAttachedInventory() {
+        IItemHandler best = null;
+        for (BlockPos pos : List.of(worldPosition.east(), worldPosition.west(), worldPosition.above(),
+                worldPosition.below(), worldPosition.south(), worldPosition.north())) {
+            BlockEntity blockEntity = level.getBlockEntity(pos);
+            IItemHandler handler = blockEntity == null ? null
+                    : level.getCapability(Capabilities.ItemHandler.BLOCK, pos, null);
+            if (handler != null && (best == null || best.getSlots() < handler.getSlots())) {
+                best = handler;
+            }
+        }
+        return best;
+    }
+
+    /**
+     * {@code addStacksToInventory}: the first slot that takes one item of any drop gets exactly that one item and
+     * the method ends (original error). The security storage's first slot is skipped – that storage follows in 48.4.
+     */
+    private static void addOneItem(IItemHandler inventory, List<ItemStack> drops) {
+        for (int slot = 0; slot < inventory.getSlots(); slot++) {
+            for (ItemStack drop : drops) {
+                if (!drop.isEmpty() && inventory.insertItem(slot, drop.copyWithCount(1), false).isEmpty()) {
+                    return;
+                }
+            }
+        }
+    }
+
+    /** Field box: the projector and every claimed position ({@code field_queue}). */
+    private AABB fieldBox() {
+        int minX = worldPosition.getX();
+        int minY = worldPosition.getY();
+        int minZ = worldPosition.getZ();
+        int maxX = minX;
+        int maxY = minY;
+        int maxZ = minZ;
+        for (BlockPos pos : claimed) {
+            minX = Math.min(minX, pos.getX());
+            minY = Math.min(minY, pos.getY());
+            minZ = Math.min(minZ, pos.getZ());
+            maxX = Math.max(maxX, pos.getX());
+            maxY = Math.max(maxY, pos.getY());
+            maxZ = Math.max(maxZ, pos.getZ());
+        }
+        return new AABB(minX, minY, minZ, maxX, maxY, maxZ);
+    }
+
+    /** The sphere only reaches entities within distance D + 4 (truncated coordinates like the original). */
+    private boolean inReach(LivingEntity entity) {
+        if (getModule() != ProjectorModule.SPHERE) {
+            return true;
+        }
+        int dx = (int) entity.getX() - worldPosition.getX();
+        int dy = (int) entity.getY() - worldPosition.getY();
+        int dz = (int) entity.getZ() - worldPosition.getZ();
+        return Math.sqrt(dx * dx + dy * dy + dz * dz) <= count(SLOT_DISTANCE) + 4;
+    }
+
+    private void defend(LivingEntity entity) {
+        entity.hurt(level.damageSources().source(CraftDamageTypes.FIELD_DEFENSE), DEFENSE_DAMAGE);
+    }
+
+    /**
+     * {@code ProjectorNPCDefence}: monsters, slimes and ghasts in the field box take 10 damage for 10 000 FE each; stops
+     * once the link power of this tick is below 10 000.
+     */
+    private void npcDefense() {
+        for (LivingEntity entity : level.getEntitiesOfClass(LivingEntity.class, fieldBox())) {
+            if (!(entity instanceof Monster || entity instanceof Slime || entity instanceof Ghast) || !inReach(entity)) {
+                continue;
+            }
+            if (linkPower < DEFENSE_COST) {
+                break;
+            }
+            if (consumePower(DEFENSE_COST, true)) {
+                defend(entity);
+                consumePower(DEFENSE_COST, false);
+            }
+        }
+    }
+
+    /**
+     * {@code ProjectorPlayerDefence}: players in the field box whom the security station refuses right SR (access type
+     * 2: the capacitor's station, 3: the projector's own) are warned and take 10 damage for 10 000 FE.
+     */
+    private void playerDefense() {
+        for (LivingEntity entity : level.getEntitiesOfClass(LivingEntity.class, fieldBox())) {
+            if (!(entity instanceof Player player) || !inReach(entity)) {
+                continue;
+            }
+            if (linkPower < DEFENSE_COST) {
+                break;
+            }
+            if (linkPower <= DEFENSE_COST) {
+                continue;
+            }
+            boolean kill = false;
+            if (accessType == 2 && MffsDevices.get(level, MffsDevices.Kind.CAPACITOR, getPowerSourceId())
+                    instanceof CapacitorBlockEntity capacitor) {
+                kill = MffsSecurity.isDeniedByStation(capacitor, player, SecurityRight.SR);
+            }
+            if (accessType == 3) {
+                kill = MffsSecurity.isDeniedByStation(this, player, SecurityRight.SR);
+            }
+            if (kill && consumePower(DEFENSE_COST, true)) {
+                player.sendSystemMessage(Component.translatable("message.craft.mffs.area_defence_leave"));
+                defend(player);
+                consumePower(DEFENSE_COST, false);
             }
         }
     }
@@ -379,6 +698,12 @@ public class ProjectorBlockEntity extends FePoweredBlockEntity {
             }
         }
         claimed.clear();
+        // Fused projectors of the same capacitor take over the positions they gave up.
+        for (ProjectorBlockEntity other : projectorsWith(ProjectorUpgrade.FIELD_FUSION)) {
+            if (other != this && other.getPowerSourceId() == getPowerSourceId() && other.isActive()) {
+                other.calculateField();
+            }
+        }
     }
 
     /**

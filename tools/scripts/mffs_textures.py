@@ -29,6 +29,10 @@ ITEMS = {
     49: "projector_module_wall", 50: "projector_module_deflector", 51: "projector_module_tube",
     52: "projector_module_sphere", 53: "projector_module_cube", 54: "projector_module_containment",
     55: "projector_module_adv_cube", 56: "projector_module_diagonal_wall",
+    36: "projector_upgrade_touch_damage", 35: "projector_upgrade_sponge", 34: "projector_upgrade_field_manipulator",
+    38: "projector_upgrade_block_breaker", 41: "projector_upgrade_field_jammer", 42: "projector_upgrade_camouflage",
+    43: "projector_upgrade_field_fusion", 40: "projector_upgrade_npc_defense", 39: "projector_upgrade_defense_station",
+    4: "mffs_multitool_field_teleporter",
 }
 FIELD_TYPES = {180: "camouflage", 0: "default", 1: "zapper", 2: "area", 3: "containment"}
 CRYSTAL_STEPS = range(5)  # icons 112-116

@@ -23,6 +23,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
@@ -36,8 +38,9 @@ import net.minecraft.world.phys.shapes.VoxelShape;
  * 10 FE), no drops, no item, no redstone conduction, no selection box (hidden client-side). Full collision, the zapper
  * type 1/16 smaller so touching it hurts. Neighbours of the same type hide their faces. A removed neighbour makes the
  * field refill empty claimed positions around it at once; a random tick removes blocks without an active owner.
+ * Camouflage fields carry their look in a {@link ForceFieldBlockEntity}.
  */
-public class ForceFieldBlock extends Block {
+public class ForceFieldBlock extends Block implements EntityBlock {
     public static final EnumProperty<ForceFieldType> TYPE = EnumProperty.create("type", ForceFieldType.class);
     private static final VoxelShape ZAPPER_SHAPE = Block.box(1, 1, 1, 15, 15, 15);
     private static final int SHOCK = 10;
@@ -50,6 +53,12 @@ public class ForceFieldBlock extends Block {
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(TYPE);
+    }
+
+    /** Only the camouflage type has a block entity (it carries the look). */
+    @Override
+    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+        return state.getValue(TYPE) == ForceFieldType.CAMOUFLAGE ? new ForceFieldBlockEntity(pos, state) : null;
     }
 
     @Override
@@ -203,7 +212,7 @@ public class ForceFieldBlock extends Block {
             stack.removeByProjector(stack.getProjectorId());
             return;
         }
-        level.setBlock(pos, defaultBlockState().setValue(TYPE, stack.getType()), Block.UPDATE_ALL);
+        projector.placeFieldBlock(pos, stack.getType());
         stack.setSync(true);
         int cost = MffsConfig.FIELD_BLOCK_COST * MffsConfig.FIELD_BLOCK_CREATE_MODIFIER;
         if (stack.getType() != ForceFieldType.DEFAULT) {

@@ -4,14 +4,20 @@ import dev.craft.Craft;
 import dev.craft.mffs.MffsBlocks;
 import dev.craft.mffs.MffsItems;
 import dev.craft.mffs.MffsMenus;
+import dev.craft.mffs.block.ForceFieldBlock;
+import dev.craft.mffs.block.ForceFieldBlockEntity;
+import dev.craft.mffs.field.ForceFieldType;
 import dev.craft.mffs.item.ForceEnergyCrystalItem;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.block.BlockModelShaper;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.neoforge.client.event.ModelEvent;
+import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.client.event.RenderHighlightEvent;
 
@@ -29,6 +35,30 @@ public final class MffsClient {
         event.register(MffsMenus.CAPACITOR.get(), CapacitorScreen::new);
         event.register(MffsMenus.CONVERTER.get(), ConverterScreen::new);
         event.register(MffsMenus.PROJECTOR.get(), ProjectorScreen::new);
+    }
+
+    /** Camouflage force fields draw the look their block entity names ({@link CamouflageFieldModel}). */
+    @SubscribeEvent
+    public static void wrapCamouflageModel(ModelEvent.ModifyBakingResult event) {
+        for (var state : MffsBlocks.FORCE_FIELD.get().getStateDefinition().getPossibleStates()) {
+            if (state.getValue(ForceFieldBlock.TYPE) == ForceFieldType.CAMOUFLAGE) {
+                event.getModels().computeIfPresent(BlockModelShaper.stateToModelLocation(state),
+                        (location, model) -> new CamouflageFieldModel(model));
+            }
+        }
+    }
+
+    /** Tints of the camouflage look (grass, leaves, water …) come from the camouflage block's own colour handler. */
+    @SubscribeEvent
+    public static void registerBlockColors(RegisterColorHandlersEvent.Block event) {
+        var colors = event.getBlockColors();
+        event.register((state, level, pos, tintIndex) -> {
+            if (level != null && pos != null && level.getBlockEntity(pos) instanceof ForceFieldBlockEntity field
+                    && field.getCamouflage() != null) {
+                return colors.getColor(field.getCamouflage(), level, pos, tintIndex);
+            }
+            return -1;
+        }, MffsBlocks.FORCE_FIELD.get());
     }
 
     /** {@code BlockForceField} has an empty selection box: no outline on force fields. */

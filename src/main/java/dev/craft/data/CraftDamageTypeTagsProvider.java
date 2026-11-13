@@ -21,6 +21,6 @@ public final class CraftDamageTypeTagsProvider extends TagsProvider<DamageType> 
     @Override
     protected void addTags(HolderLookup.Provider provider) {
         tag(DamageTypeTags.BYPASSES_ARMOR).add(CraftDamageTypes.RADIATION).add(CraftDamageTypes.ELECTROCUTION)
-                .add(CraftDamageTypes.FIELD_SHOCK);
+                .add(CraftDamageTypes.FIELD_SHOCK).add(CraftDamageTypes.FIELD_DEFENSE);
     }
 }

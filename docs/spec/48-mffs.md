@@ -353,6 +353,25 @@ gehören alle nicht-Rand-Punkte zum **Innenraum** (für Schwamm, Fusion, Störse
 - **Verteidigungsstation**: wie NPC-Abwehr für **Spieler ohne Recht SR** (nur Zugriffsart 2/3), je 10 Schaden + Chat
   „!!! [Area Defence] leave or die !!!“, 10 000 FE; nur wenn verfügbare FE > 10 000.
 
+Ablauf im Detail (nachgetragen 48.3, `TileEntityProjector`):
+- Beim Berechnen prüft jeder Feldpunkt die Optionsliste `getOptions(true)`: eigene Upgrades nach Platz, der
+  Störsender-Test (gilt für alle Projektoren) nach dem ersten Platz eingeschoben. Störsender-Treffer → Ausbrennen und
+  Berechnung bricht ab (kein Feld). Fusions-Treffer → Punkt zählt zum Feld (Kosten), wird aber nicht beansprucht.
+- Innenpunkte durchlaufen Schwamm (jeder Flüssigkeitsblock → Luft; Pack `forcefieldremoveonlywaterandlava=false`) und
+  Fusion (Feldblock eines anderen Fusions-Projektors desselben Kondensators → Anspruch weg, Block weg).
+- Der Störsender wirkt **nur beim Berechnen** (Einschalten, Laden, Fusions-Neuberechnung) – ein später
+  eingeschalteter Störsender lässt bestehende Felder in Ruhe.
+- Abschalten eines Projektors lässt alle aktiven Fusions-Projektoren desselben Kondensators neu rechnen (sie übernehmen
+  die frei gewordenen Punkte beim nächsten Unterhalt).
+- Blockbrecher wirkt im Unterhalt auf noch nicht gesetzte eigene Punkte vor dem Setzen: nicht Luft/Kraftfeld/
+  Grundgestein, keine Block-Entity; Drops ohne Werkzeug. Angrenzendes Inventar = das mit den meisten Plätzen der sechs
+  Nachbarn des **Projektors**.
+- NPC-Abwehr/Verteidigungsstation: Quader von Projektorposition bis über alle beanspruchten Punkte; Kugel zusätzlich
+  Abstand der abgeschnittenen Ganzzahl-Koordinaten ≤ D + 4. Abbruch, sobald die zu Tickbeginn gelesene Link-Energie
+  < 10 000 ist (der Wert sinkt innerhalb der Schleife nicht). Tod: „%1$s was fried“.
+- Tarnung: Platz 11 nimmt Blöcke und Wasser-/Lavaeimer (Wasser bzw. Lava); ein neuer Tarnblock ändert sofort alle
+  gesetzten Feldblöcke des aktiven Feldes.
+
 ### 9.4 Kraftfeld-Block (`BlockForceField`)
 
 - Unzerstörbar, Explosionswiderstand 999 (jede Explosionsabfrage kostet den Projektor 10 FE), nicht undurchsichtig,
@@ -441,7 +460,7 @@ i Diamant, j Spinnenauge, k Obsidian, l Glas, m Redstone, n Hebel, o Papier.
 | Upgrade Tarnung | ` K /KRK/ K ` | 1 |
 | Upgrade Feldfusion | ` K /KDK/ K ` | 1 |
 | Upgrade NPC-Abwehr | `fgf/hQh/jgj` | 1 |
-| Upgrade Verteidigungsstation | ` z /CQC/ z ` | 1 |
+| Upgrade Verteidigungsstation | ` z /CQC/ z ` (erst mit dem Personalausweis, 48.4) | 1 |
 
 Formlos: Power-Link-/Personalausweis-/Sicherheits-Link-/Zugangslizenz-/Datenlink-Karte → leere Karte.
 Schmelzen/Maschinen: §2. Modulrezepte (Vanilla-Zutaten + MFFS) gelten auch ohne IC2 – hier ohnehin.
@@ -464,7 +483,10 @@ Sicherheitsspeicher (6×9), Steuerungssystem (Datenlink-Leser, Ablage 7×4, Fern
   containment). Ausrichtung als Blockzustand `facing` (6), aktiv als `active`.
 - Kraftfeld: Feldkarte (Stapel je Position) im Speicher je Level wie im Original (nicht gespeichert; Projektoren bauen
   sie beim Laden neu auf). Welthöhe 1.21 statt 255; Weltboden (y −64) statt y 0 bei Teleporter/Röhre.
-- Tarnung: Feldblock rendert das Modell des Tarnblocks (Block-Entity mit Blockzustand) statt Texturindex-Strings.
+- Tarnung: Feldblock rendert das Modell des Tarnblocks (Block-Entity mit Blockzustand) statt Texturindex-Strings;
+  Platz 11 nur Block-Items und Wasser-/Lavaeimer (Original: jedes Item, Nicht-Blöcke stürzten ab).
+- Blockbrecher schont alle unzerstörbaren Blöcke (Härte < 0) statt nur Grundgestein; Inventare über die
+  Item-Handler-Capability. Ein entfernter Projektor rechnet sich bei der Fusions-Neuberechnung nicht selbst neu.
 - **Forcicium-Zelle aktiv/inaktiv je Item** (Data Component) statt eines globalen Schalters am Item-Objekt (Original:
   ein Schalter für alle Zellen aller Spieler). Zugangslizenz zählt Minuten je Item über die Spielzeit statt eines
   gemeinsamen Tick-Zählers aller Karten. Kartennamen-Nachführung je Item alle 600 Ticks.
@@ -485,6 +507,8 @@ Sicherheitsspeicher (6×9), Steuerungssystem (Datenlink-Leser, Ablage 7×4, Fern
   loading, Tab, Texturen, Rezepte, GameTests.
 - **48.2** Projektor + Kraftfeld: Block, Feldkarte, 8 Module, Kosten/Unterhalt, Feldblock-Verhalten, GUI, GameTests.
 - **48.3** Projektor-Upgrades (9) inkl. Tarnungs-Rendering, Störsender/Ausbrennen, Fusion, Feld-Teleporter, GameTests.
+  (erledigt 2026-11-13; Rezept Verteidigungsstation-Upgrade, Admin-/Debugger-Freibrief und Stationsprüfung der
+  Verteidigung folgen mit 48.4)
 - **48.4** Sicherheit: Sicherheitsstation, Ausweis/Lizenz/Link-/Datenlink-Karten, Rechte, Kodierer, Sicherheitsspeicher,
   Steuerungssystem, Verteidigungsstation, Handbuch, Debugger, GameTests.
 - **48.5** EMI (Info-Seiten), Herkunft, Wiki, Testplan, Craft-Version + Paket.

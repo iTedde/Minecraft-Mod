@@ -7,9 +7,12 @@ import dev.craft.mffs.item.ForciciumCellItem;
 import dev.craft.mffs.item.InfinitePowerCardItem;
 import dev.craft.mffs.item.PowerLinkCardItem;
 import dev.craft.mffs.item.ProjectorModuleItem;
+import dev.craft.mffs.item.ProjectorUpgradeOptionItem;
 import dev.craft.mffs.field.ProjectorModule;
+import dev.craft.mffs.field.ProjectorUpgrade;
 import java.util.EnumMap;
 import java.util.Map;
+import dev.craft.mffs.item.multitool.FieldTeleporterMultitoolItem;
 import dev.craft.mffs.item.multitool.SwitchMultitoolItem;
 import dev.craft.mffs.item.multitool.WrenchMultitoolItem;
 import net.minecraft.world.item.BlockItem;
@@ -55,15 +58,27 @@ public final class MffsItems {
             "mffs_multitool_wrench", WrenchMultitoolItem::new, new Item.Properties().stacksTo(1));
     public static final DeferredItem<SwitchMultitoolItem> MULTITOOL_SWITCH = ITEMS.registerItem(
             "mffs_multitool_switch", SwitchMultitoolItem::new, new Item.Properties().stacksTo(1));
+    public static final DeferredItem<FieldTeleporterMultitoolItem> MULTITOOL_FIELD_TELEPORTER = ITEMS.registerItem(
+            "mffs_multitool_field_teleporter", FieldTeleporterMultitoolItem::new, new Item.Properties().stacksTo(1));
 
     /** Projector modules (stack 8), registry {@code projector_module_<shape>}. */
     public static final Map<ProjectorModule, DeferredItem<ProjectorModuleItem>> MODULES = new EnumMap<>(
             ProjectorModule.class);
 
+    /** Projector upgrades (stack 8), registry {@code projector_upgrade_<name>}. */
+    public static final Map<ProjectorUpgrade, DeferredItem<ProjectorUpgradeOptionItem>> UPGRADES = new EnumMap<>(
+            ProjectorUpgrade.class);
+
     static {
         for (ProjectorModule module : ProjectorModule.values()) {
             MODULES.put(module, ITEMS.registerItem("projector_module_" + module.name().toLowerCase(java.util.Locale.ROOT),
                     properties -> new ProjectorModuleItem(module, properties), new Item.Properties().stacksTo(8)));
+        }
+        for (ProjectorUpgrade upgrade : ProjectorUpgrade.values()) {
+            UPGRADES.put(upgrade, ITEMS.registerItem("projector_upgrade_"
+                            + upgrade.name().toLowerCase(java.util.Locale.ROOT),
+                    properties -> new ProjectorUpgradeOptionItem(upgrade, properties),
+                    new Item.Properties().stacksTo(8)));
         }
     }
 
@@ -72,5 +87,9 @@ public final class MffsItems {
 
     public static DeferredItem<ProjectorModuleItem> module(ProjectorModule module) {
         return MODULES.get(module);
+    }
+
+    public static DeferredItem<ProjectorUpgradeOptionItem> upgrade(ProjectorUpgrade upgrade) {
+        return UPGRADES.get(upgrade);
     }
 }

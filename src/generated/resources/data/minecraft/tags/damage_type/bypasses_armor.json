@@ -2,6 +2,7 @@
   "values": [
     "craft:radiation",
     "craft:electrocution",
-    "craft:field_shock"
+    "craft:field_shock",
+    "craft:field_defense"
   ]
 }

@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "X": {
+      "item": "craft:advanced_alloy"
+    },
+    "c": {
+      "item": "minecraft:iron_pickaxe"
+    }
+  },
+  "pattern": [
+    " X ",
+    "XcX",
+    " X "
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:projector_upgrade_block_breaker"
+  }
+}

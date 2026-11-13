@@ -2,6 +2,7 @@ package dev.craft.data;
 
 import dev.craft.mffs.MffsItems;
 import dev.craft.mffs.field.ProjectorModule;
+import dev.craft.mffs.field.ProjectorUpgrade;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -3677,6 +3678,19 @@ public final class CraftRecipeProvider extends RecipeProvider {
                 .define('m', Items.REDSTONE).define('S', Ic2Items.WRENCH).define('n', Items.LEVER)
                 .define('E', Ic2Items.CARBON_PLATE).define('x', crystal).define('D', Ic2Items.ADVANCED_CIRCUIT)
                 .save(output, id("mffs_multitool_wrench"));
+        Ingredient alloy = Ingredient.of(Ic2Items.ADVANCED_ALLOY);
+        mffsUpgrade(ProjectorUpgrade.TOUCH_DAMAGE, alloy, Ingredient.of(machine(Ic2Machine.TESLA_COIL)));
+        mffsUpgrade(ProjectorUpgrade.SPONGE, alloy, Ingredient.of(Items.BUCKET));
+        mffsUpgrade(ProjectorUpgrade.FIELD_MANIPULATOR, alloy, Ingredient.of(Ic2Items.ELECTRONIC_CIRCUIT));
+        mffsUpgrade(ProjectorUpgrade.BLOCK_BREAKER, alloy, Ingredient.of(Items.IRON_PICKAXE));
+        mffsUpgrade(ProjectorUpgrade.FIELD_JAMMER, Ingredient.of(Ic2Items.FREQUENCY_TRANSMITTER), matrix);
+        mffsUpgrade(ProjectorUpgrade.CAMOUFLAGE, alloy, Ingredient.of(Ic2Items.UU_MATTER));
+        mffsUpgrade(ProjectorUpgrade.FIELD_FUSION, alloy, Ingredient.of(Ic2Items.ADVANCED_CIRCUIT));
+        var npcDefense = MffsItems.upgrade(ProjectorUpgrade.NPC_DEFENSE);
+        mffsShaped(npcDefense, 1, npcDefense.getId().getPath(), "fgf", "hQh", "jgj").define('f', Items.BONE)
+                .define('g', Items.BLAZE_ROD).define('h', Items.ROTTEN_FLESH).define('j', Items.SPIDER_EYE)
+                .define('Q', machine(Ic2Machine.TESLA_COIL)).save(output, id(npcDefense.getId().getPath()));
+        // The defence station upgrade needs the personal ID card (phase 48.4).
         // Data cards back to blank cards (the recipe clears them).
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, MffsItems.CARD_BLANK.get())
                 .requires(MffsItems.CARD_POWER_LINK.get()).unlockedBy("has_card", has(MffsItems.CARD_POWER_LINK.get()))
@@ -3700,6 +3714,13 @@ public final class CraftRecipeProvider extends RecipeProvider {
             builder.define('C', MffsItems.module(ProjectorModule.CUBE));
         }
         builder.save(output, id(item.getId().getPath()));
+    }
+
+    /** The upgrade pattern {@code " X /XcX/ X "} around one centre part. */
+    private void mffsUpgrade(ProjectorUpgrade upgrade, Ingredient ring, Ingredient centre) {
+        var item = MffsItems.upgrade(upgrade);
+        mffsShaped(item, 1, item.getId().getPath(), " X ", "XcX", " X ").define('X', ring).define('c', centre)
+                .save(output, id(item.getId().getPath()));
     }
 
     private static ShapedRecipeBuilder mffsShaped(ItemLike result, int count, String unlock, String... rows) {

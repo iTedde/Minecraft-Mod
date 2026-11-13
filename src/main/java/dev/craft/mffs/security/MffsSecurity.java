@@ -16,6 +16,22 @@ public final class MffsSecurity {
         return true;
     }
 
+    /**
+     * {@code killswitch} of the defence upgrade (spec 48 §9.3): true only when the machine has a linked security
+     * station that refuses the right. Without stations (until phase 48.4) never.
+     */
+    public static boolean isDeniedByStation(MffsMachineBlockEntity machine, Player player, SecurityRight right) {
+        return false;
+    }
+
+    /**
+     * Free pass of access type 0 (field teleporter): a name on the admin list (empty in Craft, spec 48 §11.3) or a
+     * debugger in the inventory – the debugger follows in phase 48.4.
+     */
+    public static boolean isAdmin(Player player) {
+        return false;
+    }
+
     /** Access check with the original's chat message on failure. */
     public static boolean checkAccess(MffsMachineBlockEntity machine, Player player, SecurityRight right) {
         if (isAccessGranted(machine, player, right)) {

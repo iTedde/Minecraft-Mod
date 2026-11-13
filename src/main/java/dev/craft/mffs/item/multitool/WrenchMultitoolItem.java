@@ -3,12 +3,14 @@ package dev.craft.mffs.item.multitool;
 import dev.craft.buildcraft.item.ToolWrench;
 import dev.craft.ic2.machine.Wrenchable;
 import dev.craft.mffs.block.MffsMachineBlockEntity;
+import dev.craft.mffs.block.ProjectorBlockEntity;
 import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.Containers;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -22,11 +24,12 @@ import net.minecraft.world.level.block.state.BlockState;
 /**
  * {@code ItemWrench} (spec 48 §8): on an MFFS machine (right EB, not while active) a different side turns it there and
  * the front side removes it, 1 000 FE each; on other wrenchable Craft blocks turning costs 1 000 FE and removing
- * 25 000 FE. Also a BuildCraft wrench (1 000 FE per use). Repairing a burnt-out projector follows in phase 48.3.
+ * 25 000 FE. Also a BuildCraft wrench (1 000 FE per use). A burnt-out projector is repaired for 10 000 FE.
  */
 public class WrenchMultitoolItem extends MultitoolItem implements ToolWrench {
     public static final int MANIPULATE_COST = 1000;
     public static final int REMOVE_COST = 25000;
+    public static final int REPAIR_COST = 10000;
 
     public WrenchMultitoolItem(Properties properties) {
         super(properties);
@@ -42,6 +45,16 @@ public class WrenchMultitoolItem extends MultitoolItem implements ToolWrench {
         BlockPos pos = context.getClickedPos();
         BlockEntity blockEntity = level.getBlockEntity(pos);
         Direction side = context.getClickedFace();
+        if (blockEntity instanceof ProjectorBlockEntity projector && projector.isBurnedOut()) {
+            if (!consumePower(stack, REPAIR_COST, true)) {
+                notEnough(player, "message.craft.mffs.multitool.not_enough_repair", REPAIR_COST);
+                return InteractionResult.FAIL;
+            }
+            consumePower(stack, REPAIR_COST, false);
+            projector.setBurnedOut(false);
+            player.sendSystemMessage(Component.translatable("message.craft.mffs.multitool.projector_repaired"));
+            return InteractionResult.SUCCESS;
+        }
         if (blockEntity instanceof MffsMachineBlockEntity machine) {
             return useOnMachine(stack, player, machine, side);
         }

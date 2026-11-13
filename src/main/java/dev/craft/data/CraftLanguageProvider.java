@@ -3,6 +3,7 @@ package dev.craft.data;
 import dev.craft.mffs.MffsBlocks;
 import dev.craft.mffs.MffsItems;
 import dev.craft.mffs.field.ProjectorModule;
+import dev.craft.mffs.field.ProjectorUpgrade;
 import java.util.Arrays;
 import java.util.Locale;
 import java.util.function.Supplier;
@@ -637,6 +638,24 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
 
     /** Charge Pads (spec 47 §1); English names and messages as in the pack. */
     /** Modular Force Field System (spec 48); force energy: EN "FE", DE "KE" (Kraftenergie, §11). */
+    private void upgrade(boolean german, ProjectorUpgrade upgrade, String name) {
+        item(MffsItems.upgrade(upgrade), german ? "Projektor-Upgrade ‹" + name + "›"
+                : "MFFS Projector Upgrade <" + name + ">");
+    }
+
+    private static String moduleNameDe(ProjectorModule module) {
+        return switch (module) {
+            case WALL -> "Wand";
+            case DEFLECTOR -> "Deflektor";
+            case TUBE -> "Röhre";
+            case CUBE -> "Würfel";
+            case SPHERE -> "Kugel";
+            case CONTAINMENT -> "Eindämmung";
+            case ADV_CUBE -> "Erweiterter Würfel";
+            case DIAGONAL_WALL -> "Diagonale Wand";
+        };
+    }
+
     protected void mffs(boolean german) {
         add("itemGroup.craft.mffs", "Craft: Modular Force Field System");
         block(MffsBlocks.MONAZIT_ORE, german ? "Monazit-Erz" : "Monazit Ore");
@@ -678,6 +697,49 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
         item(MffsItems.MULTITOOL_WRENCH, german ? "MFFS-Multiwerkzeug ‹Schraubenschlüssel›"
                 : "MFFS MultiTool <Wrench>");
         item(MffsItems.MULTITOOL_SWITCH, german ? "MFFS-Multiwerkzeug ‹Schalter›" : "MFFS MultiTool <Switch>");
+        item(MffsItems.MULTITOOL_FIELD_TELEPORTER, german ? "MFFS-Multiwerkzeug ‹Feld-Teleporter›"
+                : "MFFS MultiTool <Field Teleporter>");
+        upgrade(german, ProjectorUpgrade.TOUCH_DAMAGE, german ? "Berührungsschaden" : "touch damage");
+        upgrade(german, ProjectorUpgrade.SPONGE, german ? "Schwamm" : "Sponge");
+        upgrade(german, ProjectorUpgrade.FIELD_MANIPULATOR, german ? "Feldmanipulator" : "Field Manipulator");
+        upgrade(german, ProjectorUpgrade.BLOCK_BREAKER, german ? "Blockbrecher" : "Block Breaker");
+        upgrade(german, ProjectorUpgrade.FIELD_JAMMER, german ? "Kraftfeld-Störsender" : "Force Field Jammer");
+        upgrade(german, ProjectorUpgrade.CAMOUFLAGE, german ? "Tarnung" : "Camouflage");
+        upgrade(german, ProjectorUpgrade.FIELD_FUSION, german ? "Feldfusion" : "Field Fusion");
+        upgrade(german, ProjectorUpgrade.NPC_DEFENSE, german ? "NPC-Abwehr" : "NPC Defense");
+        upgrade(german, ProjectorUpgrade.DEFENSE_STATION, german ? "Verteidigungsstation" : "Defense Station");
+        add("tooltip.craft.mffs.compatible_with_hint", german ? "passt zu: (Umschalt halten)"
+                : "compatible with: (Hold Shift)");
+        add("tooltip.craft.mffs.compatible_with", german ? "passt zu:" : "compatible with:");
+        for (ProjectorModule module : ProjectorModule.values()) {
+            add("tooltip.craft.mffs.module." + MffsItems.module(module).getId().getPath(),
+                    german ? moduleNameDe(module) : module.getDisplayName());
+        }
+        add("message.craft.mffs.multitool.projector_repaired", german ? "[Multiwerkzeug] Projektor repariert"
+                : "[MultiTool] Projector repaired");
+        add("message.craft.mffs.multitool.not_enough_repair", german
+                ? "[Multiwerkzeug] Fehler: nicht genug KE, bitte laden, mindestens %s nötig"
+                : "[MultiTool] Fail: not enough FP please charge need min %s");
+        add("message.craft.mffs.teleporter.granted", german ? "[Feldsicherheit] Erfolg: Zugriff gewährt"
+                : "[Field Security] Success: access granted");
+        add("message.craft.mffs.teleporter.too_strong", german ? "[Feldsicherheit] Fehler: Feld zu stark >= 5 Blöcke"
+                : "[Field Security] Fail: Field to Strong >= 5 Blocks");
+        add("message.craft.mffs.teleporter.obstacle", german ? "[Feldsicherheit] Fehler: Hindernis erkannt"
+                : "[Field Security] Fail: detected obstacle");
+        add("message.craft.mffs.teleporter.void", german
+                ? "[Feldsicherheit] Fehler: Übertragung ins Leere nicht erlaubt"
+                : "[Field Security] Fail: transmission into Void not allowed");
+        add("message.craft.mffs.teleporter.not_enough", german ? "[Feldsicherheit] Fehler: nicht genug KE, bitte laden"
+                : "[Field Security] Fail: not enough FP please charge");
+        add("message.craft.mffs.teleporter.complete", german ? "[Feldsicherheit] Erfolg: Übertragung abgeschlossen"
+                : "[Field Security] Success: transmission complete");
+        add("message.craft.mffs.teleporter.unsupported_source", german
+                ? "[Feldsicherheit] Fehler: Energiequelle des Projektors unterstützt das nicht"
+                : "[Field Security] Fail: Projector Powersource not Support this activities");
+        add("message.craft.mffs.area_defence_leave", german ? "!!! [Gebietsverteidigung] Verschwinde oder stirb !!!"
+                : "!!! [Area Defence] leave or die !!!");
+        add("death.attack.craft.field_defense", german ? "%1$s wurde gegrillt" : "%1$s was fried");
+        add("death.attack.craft.field_defense.player", german ? "%1$s wurde gegrillt" : "%1$s was fried");
         add("tooltip.craft.mffs.link_to", german ? "Verknüpft mit: %s" : "Linkto: %s");
         add("tooltip.craft.mffs.world", german ? "Welt: %s" : "World: %s");
         add("tooltip.craft.mffs.coords", german ? "Koordinaten: %s/%s/%s" : "Coords: %s/%s/%s");

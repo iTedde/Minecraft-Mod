@@ -4,6 +4,7 @@ import dev.craft.Craft;
 import dev.craft.mffs.block.CapacitorBlockEntity;
 import dev.craft.mffs.block.ConverterBlockEntity;
 import dev.craft.mffs.block.ExtractorBlockEntity;
+import dev.craft.mffs.block.ForceFieldBlockEntity;
 import dev.craft.mffs.block.ProjectorBlockEntity;
 import java.util.function.Supplier;
 import net.minecraft.core.registries.Registries;
@@ -27,6 +28,9 @@ public final class MffsBlockEntityTypes {
     public static final Supplier<BlockEntityType<ProjectorBlockEntity>> PROJECTOR = BLOCK_ENTITY_TYPES.register(
             "mffs_projector", () -> BlockEntityType.Builder.of(ProjectorBlockEntity::new,
                     MffsBlocks.PROJECTOR.get()).build(null));
+    public static final Supplier<BlockEntityType<ForceFieldBlockEntity>> FORCE_FIELD = BLOCK_ENTITY_TYPES.register(
+            "force_field", () -> BlockEntityType.Builder.of(ForceFieldBlockEntity::new,
+                    MffsBlocks.FORCE_FIELD.get()).build(null));
 
     private MffsBlockEntityTypes() {
     }
