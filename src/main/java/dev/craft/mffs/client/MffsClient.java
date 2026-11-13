@@ -35,6 +35,10 @@ public final class MffsClient {
         event.register(MffsMenus.CAPACITOR.get(), CapacitorScreen::new);
         event.register(MffsMenus.CONVERTER.get(), ConverterScreen::new);
         event.register(MffsMenus.PROJECTOR.get(), ProjectorScreen::new);
+        event.register(MffsMenus.SECURITY_STATION.get(), SecurityStationScreen::new);
+        event.register(MffsMenus.SECURITY_STORAGE.get(), SecurityStorageScreen::new);
+        event.register(MffsMenus.CONTROL_SYSTEM.get(), ControlSystemScreen::new);
+        event.register(MffsMenus.DEFENSE_STATION.get(), DefenseStationScreen::new);
     }
 
     /** Camouflage force fields draw the look their block entity names ({@link CamouflageFieldModel}). */

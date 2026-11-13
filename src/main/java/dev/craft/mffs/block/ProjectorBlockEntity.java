@@ -5,7 +5,9 @@ import dev.craft.mffs.MffsBlockEntityTypes;
 import dev.craft.mffs.MffsBlocks;
 import dev.craft.mffs.MffsConfig;
 import dev.craft.mffs.MffsDevices;
+import dev.craft.mffs.MffsInventories;
 import dev.craft.mffs.MffsItems;
+import dev.craft.mffs.item.SecurityLinkCardItem;
 import dev.craft.mffs.energy.PowerLinkItem;
 import dev.craft.mffs.field.FieldParams;
 import dev.craft.mffs.field.ForceFieldMap;
@@ -154,6 +156,9 @@ public class ProjectorBlockEntity extends FePoweredBlockEntity {
         if (slot == SLOT_CAMOUFLAGE && camouflageOf(stack) != null && hasUpgrade(ProjectorUpgrade.CAMOUFLAGE)) {
             return true;
         }
+        if (slot == SLOT_SECURITY_LINK) {
+            return stack.getItem() instanceof SecurityLinkCardItem && !isPowerSourceItem();
+        }
         ProjectorModule module = getModule();
         if (module == null) {
             return false;
@@ -194,10 +199,33 @@ public class ProjectorBlockEntity extends FePoweredBlockEntity {
         return slot >= SLOT_DISTANCE && slot <= SLOT_FOCUS_LEFT ? 64 : 1;
     }
 
+    /** {@code onInventoryChanged}: {@code getLinkedSecurityStation()} (access type 3) and {@code checkslots}. */
     @Override
     protected void onInventoryChanged(int slot) {
+        if (!checkingSlots) {
+            getLinkedSecurityStation();
+        }
         checkSlots();
         markForUpdate();
+    }
+
+    /**
+     * Own station from slot 12: while one is linked the access type is 3 (not with an item power source); without
+     * one access type 3 falls back to 0.
+     */
+    @Override
+    public SecurityStationBlockEntity getLinkedSecurityStation() {
+        SecurityStationBlockEntity station = SecurityLinkCardItem.getLinkedStation(this, SLOT_SECURITY_LINK);
+        if (station != null) {
+            if (accessType != 3 && !isPowerSourceItem()) {
+                setAccessType(3);
+            }
+            return station;
+        }
+        if (accessType == 3) {
+            setAccessType(0);
+        }
+        return null;
     }
 
     /**
@@ -244,6 +272,9 @@ public class ProjectorBlockEntity extends FePoweredBlockEntity {
                         || isPowerSourceItem() && needsCapacitor(item.getUpgrade()))) {
                     dropPlugin(slot);
                 }
+            }
+            if (getStack(SLOT_SECURITY_LINK).getItem() instanceof SecurityLinkCardItem && isPowerSourceItem()) {
+                dropPlugin(SLOT_SECURITY_LINK);
             }
             if (!hasUpgrade(ProjectorUpgrade.CAMOUFLAGE)) {
                 dropPlugin(SLOT_CAMOUFLAGE);
@@ -557,31 +588,16 @@ public class ProjectorBlockEntity extends FePoweredBlockEntity {
         level.setBlock(pos, Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL);
         ProjectorModule module = getModule();
         if (module != null && module.isBlockDropper() && !drops.isEmpty()) {
-            IItemHandler inventory = findAttachedInventory();
+            IItemHandler inventory = MffsInventories.findAttachedInventory(level, worldPosition, 0);
             if (inventory != null && inventory.getSlots() > 0) {
                 addOneItem(inventory, drops);
             }
         }
     }
 
-    /** {@code InventoryHelper.findAttachedInventory}: the neighbour inventory with the most slots. */
-    private IItemHandler findAttachedInventory() {
-        IItemHandler best = null;
-        for (BlockPos pos : List.of(worldPosition.east(), worldPosition.west(), worldPosition.above(),
-                worldPosition.below(), worldPosition.south(), worldPosition.north())) {
-            BlockEntity blockEntity = level.getBlockEntity(pos);
-            IItemHandler handler = blockEntity == null ? null
-                    : level.getCapability(Capabilities.ItemHandler.BLOCK, pos, null);
-            if (handler != null && (best == null || best.getSlots() < handler.getSlots())) {
-                best = handler;
-            }
-        }
-        return best;
-    }
-
     /**
      * {@code addStacksToInventory}: the first slot that takes one item of any drop gets exactly that one item and
-     * the method ends (original error). The security storage's first slot is skipped – that storage follows in 48.4.
+     * the method ends (original error). The security storage's first slot is skipped ({@link MffsInventories}).
      */
     private static void addOneItem(IItemHandler inventory, List<ItemStack> drops) {
         for (int slot = 0; slot < inventory.getSlots(); slot++) {

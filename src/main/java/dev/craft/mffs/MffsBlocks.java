@@ -2,12 +2,16 @@ package dev.craft.mffs;
 
 import dev.craft.Craft;
 import dev.craft.mffs.block.CapacitorBlockEntity;
+import dev.craft.mffs.block.ControlSystemBlockEntity;
 import dev.craft.mffs.block.ConverterBlockEntity;
+import dev.craft.mffs.block.DefenseStationBlockEntity;
 import dev.craft.mffs.block.ExtractorBlockEntity;
 import dev.craft.mffs.block.MffsMachineBlock;
 import dev.craft.mffs.block.ForceFieldBlock;
 import dev.craft.mffs.block.MffsMachineBlockEntity;
 import dev.craft.mffs.block.ProjectorBlock;
+import dev.craft.mffs.block.SecurityStationBlockEntity;
+import dev.craft.mffs.block.SecurityStorageBlockEntity;
 import java.util.List;
 import java.util.function.BiFunction;
 import net.minecraft.core.BlockPos;
@@ -20,7 +24,7 @@ import net.minecraft.world.level.material.PushReaction;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
-/** MFFS blocks (spec 48 §1.1); the stations follow in phase 48.4. */
+/** MFFS blocks (spec 48 §1.1). */
 public final class MffsBlocks {
     public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(Craft.MODID);
 
@@ -38,6 +42,14 @@ public final class MffsBlocks {
             CapacitorBlockEntity::new);
     public static final DeferredBlock<MffsMachineBlock> CONVERTER = machine("mffs_converter",
             ConverterBlockEntity::new);
+    public static final DeferredBlock<MffsMachineBlock> DEFENSE_STATION = machine("mffs_defense_station",
+            DefenseStationBlockEntity::new);
+    public static final DeferredBlock<MffsMachineBlock> SECURITY_STATION = machine("mffs_security_station",
+            SecurityStationBlockEntity::new);
+    public static final DeferredBlock<MffsMachineBlock> SECURITY_STORAGE = machine("mffs_security_storage",
+            SecurityStorageBlockEntity::new);
+    public static final DeferredBlock<MffsMachineBlock> CONTROL_SYSTEM = machine("mffs_control_system",
+            ControlSystemBlockEntity::new);
 
     public static final DeferredBlock<ProjectorBlock> PROJECTOR = BLOCKS.register("mffs_projector",
             () -> new ProjectorBlock(machineProperties()));
@@ -68,6 +80,7 @@ public final class MffsBlocks {
 
     /** Machines with the plain front/back/side model (the projector has one per module type). */
     public static List<DeferredBlock<MffsMachineBlock>> machines() {
-        return List.of(EXTRACTOR, CAPACITOR, CONVERTER);
+        return List.of(EXTRACTOR, CAPACITOR, CONVERTER, DEFENSE_STATION, SECURITY_STATION, SECURITY_STORAGE,
+                CONTROL_SYSTEM);
     }
 }

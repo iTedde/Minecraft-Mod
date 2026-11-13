@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "craft:block/mffs/mffs_security_station_side",
+    "east": "craft:block/mffs/mffs_security_station_side",
+    "north": "craft:block/mffs/mffs_security_station_front",
+    "particle": "craft:block/mffs/mffs_security_station_side",
+    "south": "craft:block/mffs/mffs_security_station_back",
+    "up": "craft:block/mffs/mffs_security_station_side",
+    "west": "craft:block/mffs/mffs_security_station_side"
+  }
+}

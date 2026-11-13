@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "craft:block/mffs/mffs_control_system_side",
+    "east": "craft:block/mffs/mffs_control_system_side",
+    "north": "craft:block/mffs/mffs_control_system_front",
+    "particle": "craft:block/mffs/mffs_control_system_side",
+    "south": "craft:block/mffs/mffs_control_system_back",
+    "up": "craft:block/mffs/mffs_control_system_side",
+    "west": "craft:block/mffs/mffs_control_system_side"
+  }
+}

@@ -19,6 +19,8 @@ ZIP = ROOT / "ftb ultimate/mods/modularforcefieldsystem.zip"
 SPRITES = "chb/mods/mffs/sprites/"
 
 MACHINES = {"Extractor_ue.png": "mffs_extractor", "Capacitor_ue.png": "mffs_capacitor",
+            "DefenceStation_ue.png": "mffs_defense_station", "AdvSecurtyStation_ue.png": "mffs_security_station",
+            "SecStorage_ue.png": "mffs_security_storage", "ControlSystem_ue.png": "mffs_control_system",
             "Converter_ue.png": "mffs_converter"}
 FACES = {0: "side", 1: "front", 2: "back", 4: "side_active", 5: "front_active", 6: "back_active"}
 ITEMS = {
@@ -32,12 +34,16 @@ ITEMS = {
     36: "projector_upgrade_touch_damage", 35: "projector_upgrade_sponge", 34: "projector_upgrade_field_manipulator",
     38: "projector_upgrade_block_breaker", 41: "projector_upgrade_field_jammer", 42: "projector_upgrade_camouflage",
     43: "projector_upgrade_field_fusion", 40: "projector_upgrade_npc_defense", 39: "projector_upgrade_defense_station",
-    4: "mffs_multitool_field_teleporter",
+    4: "mffs_multitool_field_teleporter", 18: "mffs_card_personal_id", 19: "mffs_card_security_link",
+    20: "mffs_card_access", 22: "mffs_card_data_link", 2: "mffs_multitool_id_writer", 3: "mffs_multitool_debugger",
+    5: "mffs_multitool_guide",
 }
 FIELD_TYPES = {180: "camouflage", 0: "default", 1: "zapper", 2: "area", 3: "containment"}
 CRYSTAL_STEPS = range(5)  # icons 112-116
 GUIS = {"GuiExtractor.png": "extractor", "GuiCapacitor.png": "capacitor", "GuiConvertor.png": "converter",
-        "GuiProjector.png": "projector", "items.png": "items"}
+        "GuiProjector.png": "projector", "items.png": "items", "GuiAdvSecstation.png": "security_station",
+        "GuiSecStorage.png": "security_storage", "GuiControlSystem.png": "control_system",
+        "GuiDefStation.png": "defense_station", "GuiManuel.png": "guide", "AdvSecStationButtons.png": "security_buttons"}
 
 
 def tile(sheet, index, size):

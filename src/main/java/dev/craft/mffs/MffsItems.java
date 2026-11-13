@@ -1,7 +1,11 @@
 package dev.craft.mffs;
 
 import dev.craft.Craft;
+import dev.craft.mffs.item.AccessCardItem;
 import dev.craft.mffs.item.BlankCardItem;
+import dev.craft.mffs.item.DataLinkCardItem;
+import dev.craft.mffs.item.PersonalIdCardItem;
+import dev.craft.mffs.item.SecurityLinkCardItem;
 import dev.craft.mffs.item.ForceEnergyCrystalItem;
 import dev.craft.mffs.item.ForciciumCellItem;
 import dev.craft.mffs.item.InfinitePowerCardItem;
@@ -12,7 +16,10 @@ import dev.craft.mffs.field.ProjectorModule;
 import dev.craft.mffs.field.ProjectorUpgrade;
 import java.util.EnumMap;
 import java.util.Map;
+import dev.craft.mffs.item.multitool.DebuggerMultitoolItem;
 import dev.craft.mffs.item.multitool.FieldTeleporterMultitoolItem;
+import dev.craft.mffs.item.multitool.GuideMultitoolItem;
+import dev.craft.mffs.item.multitool.IdWriterMultitoolItem;
 import dev.craft.mffs.item.multitool.SwitchMultitoolItem;
 import dev.craft.mffs.item.multitool.WrenchMultitoolItem;
 import net.minecraft.world.item.BlockItem;
@@ -31,6 +38,14 @@ public final class MffsItems {
     public static final DeferredItem<BlockItem> CAPACITOR = ITEMS.registerSimpleBlockItem(MffsBlocks.CAPACITOR);
     public static final DeferredItem<BlockItem> CONVERTER = ITEMS.registerSimpleBlockItem(MffsBlocks.CONVERTER);
     public static final DeferredItem<BlockItem> PROJECTOR = ITEMS.registerSimpleBlockItem(MffsBlocks.PROJECTOR);
+    public static final DeferredItem<BlockItem> DEFENSE_STATION =
+            ITEMS.registerSimpleBlockItem(MffsBlocks.DEFENSE_STATION);
+    public static final DeferredItem<BlockItem> SECURITY_STATION =
+            ITEMS.registerSimpleBlockItem(MffsBlocks.SECURITY_STATION);
+    public static final DeferredItem<BlockItem> SECURITY_STORAGE =
+            ITEMS.registerSimpleBlockItem(MffsBlocks.SECURITY_STORAGE);
+    public static final DeferredItem<BlockItem> CONTROL_SYSTEM =
+            ITEMS.registerSimpleBlockItem(MffsBlocks.CONTROL_SYSTEM);
 
     public static final DeferredItem<Item> FORCICIUM = ITEMS.registerSimpleItem("forcicium");
     public static final DeferredItem<ForciciumCellItem> FORCICIUM_CELL = ITEMS.registerItem("forcicium_cell",
@@ -54,12 +69,26 @@ public final class MffsItems {
             PowerLinkCardItem::new, new Item.Properties().stacksTo(1));
     public static final DeferredItem<InfinitePowerCardItem> CARD_INFINITE_POWER = ITEMS.registerItem(
             "mffs_card_infinite_power", InfinitePowerCardItem::new, new Item.Properties().stacksTo(1));
+    public static final DeferredItem<PersonalIdCardItem> CARD_PERSONAL_ID = ITEMS.registerItem(
+            "mffs_card_personal_id", PersonalIdCardItem::new, new Item.Properties().stacksTo(1));
+    public static final DeferredItem<SecurityLinkCardItem> CARD_SECURITY_LINK = ITEMS.registerItem(
+            "mffs_card_security_link", SecurityLinkCardItem::new, new Item.Properties().stacksTo(1));
+    public static final DeferredItem<AccessCardItem> CARD_ACCESS = ITEMS.registerItem("mffs_card_access",
+            AccessCardItem::new, new Item.Properties().stacksTo(1));
+    public static final DeferredItem<DataLinkCardItem> CARD_DATA_LINK = ITEMS.registerItem("mffs_card_data_link",
+            DataLinkCardItem::new, new Item.Properties().stacksTo(1));
     public static final DeferredItem<WrenchMultitoolItem> MULTITOOL_WRENCH = ITEMS.registerItem(
             "mffs_multitool_wrench", WrenchMultitoolItem::new, new Item.Properties().stacksTo(1));
     public static final DeferredItem<SwitchMultitoolItem> MULTITOOL_SWITCH = ITEMS.registerItem(
             "mffs_multitool_switch", SwitchMultitoolItem::new, new Item.Properties().stacksTo(1));
     public static final DeferredItem<FieldTeleporterMultitoolItem> MULTITOOL_FIELD_TELEPORTER = ITEMS.registerItem(
             "mffs_multitool_field_teleporter", FieldTeleporterMultitoolItem::new, new Item.Properties().stacksTo(1));
+    public static final DeferredItem<IdWriterMultitoolItem> MULTITOOL_ID_WRITER = ITEMS.registerItem(
+            "mffs_multitool_id_writer", IdWriterMultitoolItem::new, new Item.Properties().stacksTo(1));
+    public static final DeferredItem<GuideMultitoolItem> MULTITOOL_GUIDE = ITEMS.registerItem(
+            "mffs_multitool_guide", GuideMultitoolItem::new, new Item.Properties().stacksTo(1));
+    public static final DeferredItem<DebuggerMultitoolItem> MULTITOOL_DEBUGGER = ITEMS.registerItem(
+            "mffs_multitool_debugger", DebuggerMultitoolItem::new, new Item.Properties().stacksTo(1));
 
     /** Projector modules (stack 8), registry {@code projector_module_<shape>}. */
     public static final Map<ProjectorModule, DeferredItem<ProjectorModuleItem>> MODULES = new EnumMap<>(

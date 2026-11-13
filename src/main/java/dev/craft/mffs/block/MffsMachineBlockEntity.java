@@ -5,6 +5,9 @@ import dev.craft.mffs.MffsChunkLoading;
 import dev.craft.mffs.MffsDevices;
 import dev.craft.mffs.MffsItems;
 import dev.craft.mffs.item.CardItem;
+import dev.craft.mffs.item.PersonalIdCardItem;
+import java.util.List;
+import net.minecraft.server.level.ServerPlayer;
 import dev.craft.mffs.security.MffsSecurity;
 import dev.craft.mffs.security.SecurityRight;
 import net.minecraft.core.BlockPos;
@@ -74,6 +77,11 @@ public abstract class MffsMachineBlockEntity extends BlockEntity implements Menu
     public abstract boolean isItemValid(int slot, ItemStack stack);
 
     public abstract int getSlotStackLimit(int slot);
+
+    /** {@code SlotHelper.isItemValid}: what the GUI slots take (automation may differ, e.g. defence storage). */
+    public boolean mayPlaceInGui(int slot, ItemStack stack) {
+        return isItemValid(slot, stack);
+    }
 
     /** The machine's own work, after the device has been registered. */
     protected abstract void tickMachine();
@@ -182,6 +190,29 @@ public abstract class MffsMachineBlockEntity extends BlockEntity implements Menu
         return level != null && level.hasNeighborSignal(worldPosition);
     }
 
+    /** {@code getLinkedSecurityStation}: the station deciding the rights for this machine, or null. */
+    public SecurityStationBlockEntity getLinkedSecurityStation() {
+        return null;
+    }
+
+    /** {@code hasPowerSource}: machines without a power link slot have none. */
+    public boolean hasPowerSource() {
+        return false;
+    }
+
+    /** {@code getPercentageCapacity}: fill of the power source in percent. */
+    public int getPercentageCapacity() {
+        return 0;
+    }
+
+    /**
+     * Rights needed to open the GUI ({@code BlockMFFSBase.onBlockActivated}): EB; an active security station also
+     * CSR, the control system also UCS.
+     */
+    public List<SecurityRight> getOpenRights() {
+        return List.of(SecurityRight.EB);
+    }
+
     public boolean isActive() {
         return active;
     }
@@ -204,6 +235,10 @@ public abstract class MffsMachineBlockEntity extends BlockEntity implements Menu
     }
 
     /** GUI events of the original network handler; the machine kinds add their own keys. */
+    public void handleEvent(int key, String value, ServerPlayer player) {
+        handleEvent(key, value);
+    }
+
     public void handleEvent(int key, String value) {
         switch (key) {
             case EVENT_SWITCH_MODE -> toggleSwitchMode();
@@ -241,7 +276,8 @@ public abstract class MffsMachineBlockEntity extends BlockEntity implements Menu
         if (level == null || stack.isEmpty()) {
             return;
         }
-        ItemStack drop = stack.getItem() instanceof CardItem ? new ItemStack(MffsItems.CARD_BLANK.get()) : stack;
+        ItemStack drop = stack.getItem() instanceof CardItem || stack.getItem() instanceof PersonalIdCardItem
+                ? new ItemStack(MffsItems.CARD_BLANK.get()) : stack;
         inventory.setStackInSlot(slot, ItemStack.EMPTY);
         Containers.dropItemStack(level, worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(), drop);
     }

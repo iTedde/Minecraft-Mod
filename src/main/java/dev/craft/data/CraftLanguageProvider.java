@@ -1,9 +1,11 @@
 package dev.craft.data;
 
 import dev.craft.mffs.MffsBlocks;
+import dev.craft.mffs.MffsDevices;
 import dev.craft.mffs.MffsItems;
 import dev.craft.mffs.field.ProjectorModule;
 import dev.craft.mffs.field.ProjectorUpgrade;
+import dev.craft.mffs.security.SecurityRight;
 import java.util.Arrays;
 import java.util.Locale;
 import java.util.function.Supplier;
@@ -800,6 +802,167 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
         add("death.attack.craft.field_shock.player", german ? "%1$s wurde von einem Kraftfeld gegrillt"
                 : "%1$s was fried by a forcefield");
         add("gui.craft.mffs.online", "ONLINE");
+        mffsSecurity(german);
+    }
+
+    /** MFFS security, phase 48.4 (spec 48 §7, §8, §10, §13). */
+    private void mffsSecurity(boolean german) {
+        block(MffsBlocks.DEFENSE_STATION, german ? "MFFS-Verteidigungsstation" : "MFFS Defence Station");
+        block(MffsBlocks.SECURITY_STATION, german ? "MFFS-Sicherheitsstation" : "MFFS Security Station");
+        block(MffsBlocks.SECURITY_STORAGE, german ? "MFFS-Sicherheitsspeicher" : "MFFS Security Storage");
+        block(MffsBlocks.CONTROL_SYSTEM, german ? "MFFS-Steuerungssystem" : "MFFS Control System");
+        item(MffsItems.CARD_PERSONAL_ID, german ? "MFFS-Karte ‹Personalausweis›" : "MFFS Card <Personal ID>");
+        item(MffsItems.CARD_SECURITY_LINK, german ? "MFFS-Karte ‹Sicherheitsstations-Link›"
+                : "MFFS Card <Security Station Link>");
+        item(MffsItems.CARD_ACCESS, german ? "MFFS-Karte ‹Zugangslizenz›" : "MFFS Card <Access license>");
+        item(MffsItems.CARD_DATA_LINK, german ? "MFFS-Karte ‹Datenlink›" : "MFFS Card <Data Link>");
+        item(MffsItems.MULTITOOL_ID_WRITER, german ? "MFFS-Multiwerkzeug ‹Ausweis- & Datenlink-Kodierer›"
+                : "MFFS MultiTool <PersonalID & Data Link Coder>");
+        item(MffsItems.MULTITOOL_GUIDE, german ? "MFFS-Multiwerkzeug ‹Handbuch›" : "MFFS MultiTool <Guide>");
+        item(MffsItems.MULTITOOL_DEBUGGER, german ? "MFFS-Multiwerkzeug ‹Debugger›" : "MFFS MultiTool <Debugger>");
+        String[][] rights = {
+                {"FFB", "Kraftfeld-Durchgang"}, {"EB", "MFFS-Block bearbeiten"}, {"CSR", "Sicherheitsrechte vergeben"},
+                {"SR", "Im Gebiet bleiben"}, {"OSS", "Sicherheitsspeicher öffnen"}, {"RPB", "Geschützten Block ändern"},
+                {"AAI", "Alle Gegenstände erlaubt"}, {"UCS", "Steuerungssystem benutzen"}};
+        for (String[] right : rights) {
+            SecurityRight value = SecurityRight.byKey(right[0]);
+            add(value.translationKey(), german ? right[1] : value.getDisplayName());
+        }
+        String[][] kinds = {
+                {"PROJECTOR", "Projector", "Projektor"}, {"EXTRACTOR", "Extractor", "Extraktor"},
+                {"CAPACITOR", "Capacitor", "Kondensator"}, {"CONVERTER", "Converter", "Konverter"},
+                {"DEFENSE_STATION", "Defence Station", "Verteidigungsstation"},
+                {"SECURITY_STATION", "Security Station", "Sicherheitsstation"},
+                {"SECURITY_STORAGE", "Security Storage", "Sicherheitsspeicher"},
+                {"CONTROL_SYSTEM", "Control System", "Steuerungssystem"}};
+        for (String[] kind : kinds) {
+            add(MffsDevices.Kind.byName(kind[0]).translationKey(), german ? kind[2] : kind[1]);
+        }
+        add("tooltip.craft.mffs.owner", german ? "Besitzer: %s" : "Owner: %s");
+        add("tooltip.craft.mffs.rights_hint", german ? "Rechte: (Umschalt halten)" : "Rights: (Hold Shift)");
+        add("tooltip.craft.mffs.rights", german ? "Rechte:" : "Rights:");
+        add("tooltip.craft.mffs.security_area", german ? "Sicherheitsbereich: %s" : "Security Area: %s");
+        add("tooltip.craft.mffs.validity", german ? "Gültigkeit: %s min" : "period of validity: %s min");
+        add("tooltip.craft.mffs.device_type", german ? "Gerätetyp: %s" : "DeviceTyp: %s");
+        add("tooltip.craft.mffs.device_name", german ? "Gerätename: %s" : "DeviceName: %s");
+        add("message.craft.mffs.license_expired", german
+                ? "[Sicherheitsstation] Gültigkeit abgelaufen <Zugangslizenz>"
+                : "[Security Station] expired validity <Access license>");
+        add("message.craft.mffs.station_must_be_active", german
+                ? "[Sicherheitsstation] Fehler: Sicherheitsstation muss zum Erstellen aktiv sein"
+                : "[Security Station] Fail: Security Station must be Active  for create");
+        add("message.craft.mffs.security_link_created", german
+                ? "[Sicherheitsstation] Erfolg: <Sicherheitsstations-Link>-Karte erstellt"
+                : "[Security Station] Success: <Security Station Link>  Card create");
+        add("message.craft.mffs.multitool.need_blank_card", german
+                ? "[Multiwerkzeug] Fehler: MFFS-Karte ‹leer› im Inventar nötig"
+                : "[MultiTool] Fail: need MFFS Card <blank> in  Inventory");
+        add("message.craft.mffs.multitool.id_card_created", german ? "[Multiwerkzeug] Erfolg: Ausweis erstellt"
+                : "[MultiTool] Success: ID-Card create");
+        add("message.craft.mffs.multitool.data_link_created", german
+                ? "[Multiwerkzeug] Erfolg: Datenlink-Karte erstellt" : "[MultiTool] Success: DataLink-Card create");
+        add("message.craft.mffs.defence.warning", german
+                ? "!!! [Sicherheitsstation][%s] Warnung: du bist in meinem Scanbereich !!!"
+                : "!!! [Security Station][%s] Warning you now in me Scanning range!!!");
+        add("message.craft.mffs.defence.get_out", german
+                ? "!!! [Gebietsverteidigung] Verschwinde sofort, du hast hier kein Recht zu sein !!!"
+                : "!!! [Area Defence]  get out immediately you have no right to be here!!!");
+        add("message.craft.mffs.defence.bye", german ? "!!! [Gebietsverteidigung] Du wurdest gewarnt – TSCHÜSS !!!"
+                : "!!! [Area Defence] you have been warned BYE BYE!!!");
+        add("message.craft.mffs.defence.illegal", german
+                ? "!!! [Gebietsverteidigung] Du hast verbotene Ware <%s> – sie wird beschlagnahmt !!!"
+                : "!!! [Area Defence] You  have illegal goods <%s> will be confiscated!!!");
+        add("death.attack.craft.area_defense", german ? "%1$s hat Warnungen missachtet und wurde gegrillt"
+                : "%1$s disregarded warnings and was fried");
+        add("death.attack.craft.area_defense.player", german ? "%1$s hat Warnungen missachtet und wurde gegrillt"
+                : "%1$s disregarded warnings and was fried");
+        add("gui.craft.mffs.security_station", german ? "MFFS-Sicherheitsstation:" : "MFFS Security Station:");
+        add("gui.craft.mffs.master", german ? "Meister" : "Master");
+        add("gui.craft.mffs.rights_allocation", german ? "Rechtevergabe" : "Rights Allocation");
+        add("gui.craft.mffs.copy", german ? "Kopie->" : "Copy->");
+        add("gui.craft.mffs.validity", german ? "Gültigkeit" : "validity");
+        add("gui.craft.mffs.security_storage", german ? "MFFS-Sicherheitsspeicher" : "MFFS Security Storage");
+        add("gui.craft.mffs.control_system", german ? "MFFS-Steuerungssystem" : "MFFS Control System");
+        add("gui.craft.mffs.data_link", german ? "Datenlink" : "DataLink");
+        add("gui.craft.mffs.reader", german ? "Leser" : "Reader");
+        add("gui.craft.mffs.remote_name", german ? "Name: %s" : "Name: %s");
+        add("gui.craft.mffs.remote_type", german ? "Typ:  %s" : "Type:  %s");
+        add("gui.craft.mffs.linked", german ? "verbunden" : "linked");
+        add("gui.craft.mffs.power_left", german ? "Energie übrig: %s%%" : "Power left: %s%%");
+        add("gui.craft.mffs.open_remote_gui", german ? "Fern-GUI öffnen" : "Open Remote Gui");
+        add("gui.craft.mffs.defense_station", german ? "MFFS-Verteidigungsstation" : "MFFS Defence Station");
+        add("gui.craft.mffs.action_desc", german ? "Aktion:" : "Action desc:");
+        add("gui.craft.mffs.items", german ? "Gegenst." : "items");
+        add("gui.craft.mffs.allowed", german ? "erlaubt" : "allowed");
+        add("gui.craft.mffs.banned", german ? "verboten" : "banned");
+        add("gui.craft.mffs.fe_percent", german ? "KE: %s %%" : "FE: %s %%");
+        add("gui.craft.mffs.warning", german ? "Warn-" : "warning");
+        add("gui.craft.mffs.action", german ? "Aktions-" : "action");
+        add("gui.craft.mffs.perimeter", german ? "bereich: %s" : "perimeter: %s");
+        add("gui.craft.mffs.inventory", german ? "Lager" : "inventory ");
+        String[][] modes = german ? new String[][] {
+                {"informieren", " sendet Info", " an Spieler", " ohne (SR)", " Bleiberecht"},
+                {"töten", " tötet Spieler", " ohne (SR),", " sammelt seine", " Ausrüstung"},
+                {"durchsuchen", "durchsucht", "Spieler ohne", "(AAI), nimmt", "Verbotenes"},
+                {"NPCs töten", "tötet jeden NPC", "freundlich oder", "feindlich"},
+                {"NPCs töten", "tötet nur", "feindliche NPCs"},
+                {"NPCs töten", "tötet nur", "freundliche NPCs"}}
+                : new String[][] {
+                {"inform", " send Info", " to player ", " without (SR)", " Stay Right"},
+                {"kill", " kill player", " without (SR)", " gathers his", " equipment"},
+                {"search", "scans player", "without (AAI)", "and remove", "banned items"},
+                {"NPC kill", "kill any NPC", "friendly or", "hostile"},
+                {"NPC kill", "kill only", "hostile NPCs"},
+                {"NPC kill", "kill only", "friendly NPCs"}};
+        for (int mode = 0; mode < modes.length; mode++) {
+            add("gui.craft.mffs.action_mode." + mode, modes[mode][0]);
+            for (int line = 1; line < modes[mode].length; line++) {
+                add("gui.craft.mffs.action_mode." + mode + "." + (line - 1), modes[mode][line]);
+            }
+        }
+        add("gui.craft.mffs.guide", german ? "Modular-Force-Field-System-Handbuch" : "ModularForceFieldSystem Guide");
+        add("gui.craft.mffs.guide.page", german ? "Seite [%s] :%s" : "Page [%s] :%s");
+        add("gui.craft.mffs.guide.contents", german ? "Inhaltsverzeichnis" : "Table of Contents");
+        add("gui.craft.mffs.guide.title.toc", german ? "Inhalt" : "Table of Content");
+        add("gui.craft.mffs.guide.title.monazit", german ? "Monazit/Forcicium/-Zelle" : "Monazit/Forcicium/-Cell");
+        add("gui.craft.mffs.guide.title.cards_1", german ? "Kartenübersicht(1)" : "Card Overview(1)");
+        add("gui.craft.mffs.guide.title.cards_2", german ? "Kartenübersicht(2)" : "Card Overview(2)");
+        String[] monazit = german ? new String[] {
+                "Monazit-Erz (Block/Weltgen)", "Forcicium (Item/zum Craften)", "Forcicium-Zelle (Item/gecraftet)",
+                "Monazit liegt zwischen Höhe 80 und 0", "Im Ofen gibt es 4 Forcicium", "Im IC-Macerator 8 Forcicium",
+                "Die Zelle speichert 1k Forcicium", "in der Hand Rechtsklick: aktivieren", "aktiv zieht sie Forcicium aus",
+                "dem Spielerinventar und speichert es"}
+                : new String[] {
+                "Monazit Ore (Block/WorldGen)", "Forcicium (Item/for Crafting)", "Forcicium Cell (Item/from Crafting)",
+                "Monazite can be found between 80 and 0", "Use furnace to get 4 Forcicium",
+                "Use IC Macerator to get 8 Forcicium", "Forcicium Cell can store 1kForcicium",
+                "if in hand right click to activate", "when active remove Forcicium from  ",
+                "Player Inventory and stores it"};
+        String[] cards1 = german ? new String[] {
+                "Karte ‹leer› aus der Werkbank, stapelbar", "bis 16, nötig für alle Karten",
+                "Karte ‹Power-Link› per Rechtsklick auf", "Kondensator mit einer", "Karte ‹Sicherheitsstations-Link›",
+                "per Rechtsklick auf", "Sicherheitsstation mit"}
+                : new String[] {
+                "Card <blank> get from Crafting stackable ", "up to 16 need for create all Cards ",
+                "Card <Power Link> get from right click", "Capacitor with a ", "Card <Security Station Link> get from",
+                "right click", "SecurityStation with a "};
+        String[] cards2 = german ? new String[] {
+                "Karte ‹Zugangslizenz› entsteht in einer", "Sicherheitsstation mit", "Karte ‹Personalausweis› mit dem",
+                "Multiwerkzeug: Rechtsklick für sich", "oder Linksklick für einen Spieler",
+                "Karte ‹Datenlink› mit dem", "Multiwerkzeug: Rechtsklick auf eine", "MFFS-Maschine",
+                "Admin-Karte für unendliche Kraftenergie"}
+                : new String[] {
+                "Card <Access license> create inside a  ", "SecurityStation with a", "Card <Personal ID> create with help  ",
+                "MultiTool right click create self", "or left click for another Player",
+                "Card <Data Link> create with help  ", "MultiTool right click any ", "MFFS Maschine ",
+                "Admin Infinite Force Energy Card"};
+        String[][] pages = {monazit, cards1, cards2};
+        String[] pageNames = {"monazit", "cards_1", "cards_2"};
+        for (int page = 0; page < pages.length; page++) {
+            for (int line = 0; line < pages[page].length; line++) {
+                add("gui.craft.mffs.guide." + pageNames[page] + "." + line, pages[page][line]);
+            }
+        }
     }
 
     protected void chargePads(boolean german) {

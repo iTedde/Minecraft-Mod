@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "tag": "c:ingots/refined_iron"
+    },
+    "C": {
+      "item": "craft:electronic_circuit"
+    },
+    "F": {
+      "item": "craft:advanced_machine_casing"
+    },
+    "a": {
+      "item": "minecraft:ender_pearl"
+    }
+  },
+  "pattern": [
+    "aCa",
+    "AFA",
+    "ACA"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:mffs_control_system"
+  }
+}

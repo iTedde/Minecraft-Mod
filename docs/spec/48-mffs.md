@@ -238,6 +238,11 @@ bzw. Extraktor/Konverter über die Station ihres Kondensators. Projektor: Zugrif
   Plätze 2–33 Ablage (Ausweise zählen für Rechte), 38 leere Karte + 39 Ausweis → **Kopie** des Ausweises in 38.
   Erlaubt nur Ausweise und leere Karten (39: nur Ausweis, keine Lizenz).
 - Wrench kann die Station nicht drehen; aktiv nicht abbaubar.
+- Takt: alle 10 Ticks erst „aktiv, wenn Hauptnutzer bekannt“, danach `checkslots` (liest Platz 0). Ein frisch
+  eingelegter Hauptnutzer-Ausweis wirkt daher erst bei der übernächsten Prüfung (bis zu 20 Ticks). Rechte-Suche in
+  den Plätzen **35 → 1**: der erste Ausweis des Spielers von oben entscheidet, auch wenn ein weiter unten liegender
+  das Recht hätte. Zugangslizenzen im Spielerinventar (auch abgelaufene fremder Stationen) werden in Inventar-
+  reihenfolge geprüft; ein Debugger dort gewährt alles.
 - Zugangslizenz: Gültigkeit sinkt um 1 je Minute im Inventar; Tooltip „Security Area“, „period of validity: n min“,
   Rechte (Shift).
 
@@ -254,6 +259,9 @@ modus/-wert, Station verlinkt, Energiequelle, Energie %, „OK“/„OOR“ (≤
 Schaltwert umschalten, „Open Remote Gui“ (nur ≤ 61 Blöcke). Ziel weg → Karte wird leere Karte.
 Datenlink-Karte: Multiwerkzeug ‹Ausweis-Kodierer› Rechtsklick auf eine MFFS-Maschine (Recht UCS, 1 000 FE, leere Karte
 im Inventar).
+Platz 0 nimmt (Original-Durchfall im `switch`) auch Datenlink-Karten. „Open Remote Gui“ öffnet das GUI des Ziels,
+der Container prüft aber wie jeder MFFS-Container 8 Blöcke Abstand zum Ziel – weiter weg schließt es sofort wieder
+(Original ebenso). Ohne Ziel setzt die Anzeige nur Name, Typ, Aktiv und Schaltmodus zurück. Kein Umschalt-Klick.
 
 ### 7.5 Zugriffsarten des Projektors (`accesstyp`)
 
@@ -401,6 +409,12 @@ Ablauf im Detail (nachgetragen 48.3, `TileEntityProjector`):
   der Liste (Erlaubtliste, Kontratyp 0) werden beschlagnahmt, je 1 000 FE), 3 **alle NPCs töten**, 4 **feindliche NPCs
   töten**, 5 **freundliche NPCs töten** (je 10 000 FE, sofort Leben 0).
 - Lager voll → Rest ins größte angrenzende Inventar; passt es nicht, geht es verloren.
+- NPC-Liste: alle `EntityLiving` außer Spielern (1.21: `Mob`). Modus 4 „feindlich“ = `EntityMob`, `EntityAmbientCreature`
+  (Fledermaus), `EntitySlime`, `EntityGhast`; Modus 5 „freundlich“ = alles außer `EntityMob`/`EntitySlime`/`EntityGhast`
+  (Fledermäuse zählen zu beiden). Töten: Leben 0, 10 000 FE werden in Modus 3–5 ohne Prüfung abgezogen.
+- Spieler „töten“: erst Rüstung (4), dann die 36 Hauptplätze ins Lager, dann Leben 0 (Todesmeldung „disregarded
+  warnings and was fried“). Im GUI lassen sich ins Beschlagnahme-Lager keine Items legen, Automation (alle Seiten,
+  15–34) kann hinein und heraus. Gegenstandsliste: das GUI zeigt nur 5–12, die Prüfung liest 5–14. Kein Umschalt-Klick.
 
 ## 11 Entscheidungen (alle wie vorgeschlagen freigegeben, Nutzer 2026-11-12)
 
@@ -496,6 +510,12 @@ Sicherheitsspeicher (6×9), Steuerungssystem (Datenlink-Leser, Ablage 7×4, Fern
 - Chunkloading über NeoForge-`TicketController` (wie Quarry).
 - MultiTool-Modi als eigene Items (wie im Original), Umschalten ersetzt das Item in der Hand mit gleicher Ladung.
 - IC2-Wrench-Schnittstelle → Craft-Schraubenschlüssel-Logik; BC-Wrench → Craft-BC-Wrench-Tag.
+- Sicherheit: Ausweise/Lizenzen als Data Components `craft:id_card` (Name, UUID, Rechte als Bitmaske) und
+  `craft:access_license` (Gültigkeit, Station, Name, Spielzeit des letzten Minutenschritts); Datenlink-Karte merkt die
+  Geräteart als `craft:device_kind`. Hauptnutzer der Station als Name + UUID. Spieler „töten“ der Verteidigungsstation:
+  Leben 0 und `die()` (1.21 braucht den Tod-Aufruf für den Todesbildschirm); die Nebenhand wird wie das Inventar
+  beschlagnahmt/durchsucht (gab es 1.4.7 nicht). Handbuch als reiner Client-Screen (Original: Container-GUI ohne Plätze).
+  Debugger-Klick schreibt den Aktiv-Zustand ins Log statt auf die Konsole.
 - Kein UE-Teil, kein ICBM-EMP (`weakenForceField`), kein EE3-Schutz (RPB ohne Wirkung), keine Versionsprüfung.
 - Netzwerk über Payloads (Knöpfe, Namenseingabe) und Menüdaten statt Feld-Updates per Name.
 
@@ -510,5 +530,5 @@ Sicherheitsspeicher (6×9), Steuerungssystem (Datenlink-Leser, Ablage 7×4, Fern
   (erledigt 2026-11-13; Rezept Verteidigungsstation-Upgrade, Admin-/Debugger-Freibrief und Stationsprüfung der
   Verteidigung folgen mit 48.4)
 - **48.4** Sicherheit: Sicherheitsstation, Ausweis/Lizenz/Link-/Datenlink-Karten, Rechte, Kodierer, Sicherheitsspeicher,
-  Steuerungssystem, Verteidigungsstation, Handbuch, Debugger, GameTests.
+  Steuerungssystem, Verteidigungsstation, Handbuch, Debugger, GameTests. (erledigt 2026-11-13)
 - **48.5** EMI (Info-Seiten), Herkunft, Wiki, Testplan, Craft-Version + Paket.

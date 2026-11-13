@@ -24,13 +24,18 @@ public final class Mffs {
 
     /**
      * {@code ISidedInventory}: the extractor takes forcicium in slot 0 from every side, the converter exposes its
-     * hidden slot 1, the capacitor nothing. The extractor also takes MJ.
+     * hidden slot 1, the security storage slots 1–54 while inactive, the defence station its storage 15–34, the
+     * capacitor nothing. The extractor also takes MJ.
      */
     private static void registerCapabilities(RegisterCapabilitiesEvent event) {
         event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, MffsBlockEntityTypes.EXTRACTOR.get(),
                 (extractor, side) -> new RangedWrapper(extractor.getInventory(), 0, 1));
         event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, MffsBlockEntityTypes.CONVERTER.get(),
                 (converter, side) -> new RangedWrapper(converter.getInventory(), 1, 2));
+        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, MffsBlockEntityTypes.SECURITY_STORAGE.get(),
+                (storage, side) -> storage.getAutomationHandler());
+        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, MffsBlockEntityTypes.DEFENSE_STATION.get(),
+                (station, side) -> station.getAutomationHandler());
         event.registerBlockEntity(BcCapabilities.POWER_RECEPTOR, MffsBlockEntityTypes.EXTRACTOR.get(),
                 (extractor, side) -> extractor);
     }

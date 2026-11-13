@@ -107,7 +107,7 @@ public abstract class MffsMachineMenu extends AbstractContainerMenu {
 
         @Override
         public boolean mayPlace(ItemStack stack) {
-            return machine == null || machine.isItemValid(getSlotIndex(), stack);
+            return machine == null || machine.mayPlaceInGui(getSlotIndex(), stack);
         }
 
         @Override

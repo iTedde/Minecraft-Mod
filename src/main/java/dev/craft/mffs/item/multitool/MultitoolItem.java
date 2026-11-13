@@ -24,12 +24,10 @@ public abstract class MultitoolItem extends Item implements ForceEnergyItem {
         super(properties);
     }
 
-    /**
-     * Modes in switching order; the debugger is not part of it. The ID writer (between switch and field teleporter)
-     * and the guide (last) follow in phase 48.4.
-     */
+    /** Modes in switching order; the debugger is not part of it. */
     private static List<Supplier<? extends MultitoolItem>> modes() {
-        return List.of(MffsItems.MULTITOOL_WRENCH, MffsItems.MULTITOOL_SWITCH, MffsItems.MULTITOOL_FIELD_TELEPORTER);
+        return List.of(MffsItems.MULTITOOL_WRENCH, MffsItems.MULTITOOL_SWITCH, MffsItems.MULTITOOL_ID_WRITER,
+                MffsItems.MULTITOOL_FIELD_TELEPORTER, MffsItems.MULTITOOL_GUIDE);
     }
 
     @Override

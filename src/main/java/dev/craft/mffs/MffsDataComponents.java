@@ -2,7 +2,9 @@ package dev.craft.mffs;
 
 import com.mojang.serialization.Codec;
 import dev.craft.Craft;
+import dev.craft.mffs.item.AccessLicense;
 import dev.craft.mffs.item.CardLink;
+import dev.craft.mffs.item.IdCardData;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.neoforged.neoforge.registries.DeferredHolder;
@@ -35,6 +37,24 @@ public final class MffsDataComponents {
             COMPONENTS.registerComponentType("card_link", builder -> builder
                     .persistent(CardLink.CODEC)
                     .networkSynchronized(CardLink.STREAM_CODEC));
+
+    /** Owner and rights of a personal ID card or access license ({@code name}, {@code rights}). */
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<IdCardData>> ID_CARD =
+            COMPONENTS.registerComponentType("id_card", builder -> builder
+                    .persistent(IdCardData.CODEC)
+                    .networkSynchronized(IdCardData.STREAM_CODEC));
+
+    /** Validity and station of an access license. */
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<AccessLicense>> ACCESS_LICENSE =
+            COMPONENTS.registerComponentType("access_license", builder -> builder
+                    .persistent(AccessLicense.CODEC)
+                    .networkSynchronized(AccessLicense.STREAM_CODEC));
+
+    /** Device kind of a data link card ({@code displayName}: the {@link MffsDevices.Kind} name). */
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<String>> DEVICE_KIND =
+            COMPONENTS.registerComponentType("device_kind", builder -> builder
+                    .persistent(Codec.STRING)
+                    .networkSynchronized(ByteBufCodecs.STRING_UTF8));
 
     private MffsDataComponents() {
     }

@@ -4020,3 +4020,38 @@ Nutzer: „Weiter gehts“.
   nach Rückfrage.
 - Tesserakt-Tests weiter beobachten (diesmal beide rot).
 - Phase 51 (Leuchtschild „wie Blendgranate“): Umfang klären.
+
+# Phase 48.4 – MFFS-Sicherheit und Verteidigung (2026-11-13)
+
+Nutzer: „Nächste Phase“.
+
+## Erledigt
+- [x] **Rechte** 1:1 nach `SecurityHelper`/`TileEntityAdvSecurityStation`: Station inaktiv → alles; Hauptnutzer;
+  erster Ausweis des Spielers in Platz 35 → 1 entscheidet; sonst gültige Zugangslizenz dieser Station oder Debugger im
+  Inventar (abgelaufene Lizenzen werden zur leeren Karte). Speicher/Steuerungssystem ohne Station: nur Server;
+  Projektor nach Zugriffsart (2 Kondensator-Station, 3 eigene). GUI-Öffnen: EB, aktive Station zusätzlich CSR,
+  Steuerungssystem UCS, Speicher nur OSS.
+- [x] **Sicherheitsstation** (40 Plätze, Hauptnutzer bekommt CSR, Rechte-Knöpfe sortiert nach Schlüssel mit Symbolen
+  aus `AdvSecStationButtons.png`, Lizenz ±5 min, Kopie 39 → 38), **Karten** Personalausweis, Zugangslizenz
+  (Minuten je Item), Sicherheitsstations-Link (folgt verschobener Station über die ID, sonst leere Karte), Datenlink;
+  leere Karte auf aktiver Station → Link-Karte; alle Datenkarten formlos → leere Karte.
+- [x] **Sicherheitsspeicher** (Automation 1–54 nur inaktiv; Blockbrecher und Verteidigung überspringen Platz 0),
+  **Steuerungssystem** (Ferndaten alle 20 Ticks, Ziel-Schaltmodus/-wert, „Open Remote Gui“), **Verteidigungsstation**
+  (Warn-/Aktionsbereich, Kugel/Würfel, Modi informieren/töten/durchsuchen/NPCs, Beschlagnahme ins Lager bzw.
+  größte Nachbarinventar, `craft:area_defense`), Stations-Links von Kondensator/Extraktor/Konverter/Projektor.
+- [x] **Multiwerkzeug** Kodierer (Ausweis für sich/Linksklick-Spieler, Datenlink auf Maschine), Handbuch (4 Seiten,
+  ohne Changelog/Versionsprüfung), Debugger (nur Kreativ, Freibrief, nicht im Modus-Kreis); Rezepte Station,
+  Speicher, Steuerungssystem, Verteidigungsstation, Upgrade ‹Verteidigungsstation›. Texturen/GUIs per
+  `tools/scripts/mffs_textures.py`.
+- [x] 6 GameTests `MffsSecurityGameTests` (Station/Ausweise, Lizenz, Maschinen + Debugger, Speicher-Automation,
+  Steuerungssystem, Beschlagnahme) grün; Lauf 645 Tests, rot nur die drei Tesserakte. `runData`, danach `build` grün.
+- Doku: Spec 48 §7.2/§7.4/§10/§14/§15, `abweichungen.md`, `architektur.md`, CLAUDE.md. Nicht im Client gestartet
+  (GUIs daher ungesehen).
+
+## Nächste Schritte
+- **48.5** EMI (Info-Seiten), Herkunft (`SourceTexts` für alle MFFS-Items inkl. der neuen Karten/Stationen), Wiki,
+  Testplan, Craft-Version + Paket.
+- Client-Test MFFS (Grundlagen, Projektor, Tarnung, Sicherheitsstation-GUI mit Rechte-Knöpfen, Steuerungssystem,
+  Verteidigungsstation, Handbuch), ChargePads (Testplan 24), Nuclear Control (Testplan 23) – nur nach Rückfrage.
+- Tesserakt-Tests weiter beobachten (diesmal alle drei rot: Energie, Flüssigkeit, Item).
+- Phase 51 (Leuchtschild „wie Blendgranate“): Umfang klären.

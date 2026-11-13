@@ -3690,11 +3690,34 @@ public final class CraftRecipeProvider extends RecipeProvider {
         mffsShaped(npcDefense, 1, npcDefense.getId().getPath(), "fgf", "hQh", "jgj").define('f', Items.BONE)
                 .define('g', Items.BLAZE_ROD).define('h', Items.ROTTEN_FLESH).define('j', Items.SPIDER_EYE)
                 .define('Q', machine(Ic2Machine.TESLA_COIL)).save(output, id(npcDefense.getId().getPath()));
-        // The defence station upgrade needs the personal ID card (phase 48.4).
+        var defenseUpgrade = MffsItems.upgrade(ProjectorUpgrade.DEFENSE_STATION);
+        mffsShaped(defenseUpgrade, 1, defenseUpgrade.getId().getPath(), " z ", "CQC", " z ")
+                .define('z', MffsItems.CARD_PERSONAL_ID).define('C', Ic2Items.ELECTRONIC_CIRCUIT)
+                .define('Q', machine(Ic2Machine.TESLA_COIL)).save(output, id(defenseUpgrade.getId().getPath()));
+        // Security (phase 48.4): K advanced alloy, C electronic circuit, F advanced machine casing, J frequency
+        // transmitter, A refined iron, a ender pearl, E carbon plate.
+        mffsShaped(MffsItems.SECURITY_STATION, 1, "mffs_security_station", "KCK", "CFC", "KJK").define('K', alloy)
+                .define('C', Ic2Items.ELECTRONIC_CIRCUIT).define('F', Ic2Items.ADVANCED_MACHINE_CASING)
+                .define('J', Ic2Items.FREQUENCY_TRANSMITTER).save(output, id("mffs_security_station"));
+        mffsShaped(MffsItems.SECURITY_STORAGE, 1, "mffs_security_storage", "AAA", "ACA", "AAA").define('A', refinedIron)
+                .define('C', Ic2Items.ELECTRONIC_CIRCUIT).save(output, id("mffs_security_storage"));
+        mffsShaped(MffsItems.CONTROL_SYSTEM, 1, "mffs_control_system", "aCa", "AFA", "ACA")
+                .define('a', Items.ENDER_PEARL).define('C', Ic2Items.ELECTRONIC_CIRCUIT).define('A', refinedIron)
+                .define('F', Ic2Items.ADVANCED_MACHINE_CASING).save(output, id("mffs_control_system"));
+        mffsShaped(MffsItems.DEFENSE_STATION, 1, "mffs_defense_station", " J ", "aFa", " E ")
+                .define('J', Ic2Items.FREQUENCY_TRANSMITTER).define('a', Items.ENDER_PEARL)
+                .define('F', Ic2Items.ADVANCED_MACHINE_CASING).define('E', Ic2Items.CARBON_PLATE)
+                .save(output, id("mffs_defense_station"));
         // Data cards back to blank cards (the recipe clears them).
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, MffsItems.CARD_BLANK.get())
                 .requires(MffsItems.CARD_POWER_LINK.get()).unlockedBy("has_card", has(MffsItems.CARD_POWER_LINK.get()))
                 .save(output, id("mffs_card_blank_from_power_link"));
+        for (var card : List.of(MffsItems.CARD_PERSONAL_ID, MffsItems.CARD_SECURITY_LINK, MffsItems.CARD_ACCESS,
+                MffsItems.CARD_DATA_LINK)) {
+            String from = card.getId().getPath().substring("mffs_card_".length());
+            ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, MffsItems.CARD_BLANK.get()).requires(card.get())
+                    .unlockedBy("has_card", has(card.get())).save(output, id("mffs_card_blank_from_" + from));
+        }
         Ingredient ore = Ingredient.of(MffsItems.MONAZIT_ORE, MffsItems.DEEPSLATE_MONAZIT_ORE);
         smelt("forcicium_from_monazit_ore", ore, MffsItems.FORCICIUM, 4, 0.5F);
         machine(MachineRecipe.Kind.MACERATOR, "monazit_ore", ore, 1, MffsItems.FORCICIUM, 8);

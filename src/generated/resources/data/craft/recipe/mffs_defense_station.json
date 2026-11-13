@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "E": {
+      "item": "craft:carbon_plate"
+    },
+    "F": {
+      "item": "craft:advanced_machine_casing"
+    },
+    "J": {
+      "item": "craft:frequency_transmitter"
+    },
+    "a": {
+      "item": "minecraft:ender_pearl"
+    }
+  },
+  "pattern": [
+    " J ",
+    "aFa",
+    " E "
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:mffs_defense_station"
+  }
+}

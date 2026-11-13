@@ -4,6 +4,7 @@ import com.mojang.serialization.MapCodec;
 import dev.craft.mffs.item.BlankCardItem;
 import dev.craft.mffs.item.PowerLinkCardItem;
 import dev.craft.mffs.item.ProjectorModuleItem;
+import dev.craft.mffs.item.SecurityLinkCardItem;
 import dev.craft.mffs.item.multitool.MultitoolItem;
 import dev.craft.mffs.security.MffsSecurity;
 import dev.craft.mffs.security.SecurityRight;
@@ -125,8 +126,15 @@ public class MffsMachineBlock extends BaseEntityBlock {
     @Override
     protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos,
                                               Player player, InteractionHand hand, BlockHitResult hit) {
-        if (stack.getItem() instanceof MultitoolItem || stack.getItem() instanceof BlankCardItem
-                || stack.getItem() instanceof PowerLinkCardItem || stack.getItem() instanceof ProjectorModuleItem
+        if (stack.getItem() instanceof MultitoolItem) {
+            return ItemInteractionResult.SKIP_DEFAULT_BLOCK_INTERACTION;
+        }
+        // BlockSecurtyStorage only keeps the GUI closed for the multitool.
+        if (level.getBlockEntity(pos) instanceof SecurityStorageBlockEntity) {
+            return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+        }
+        if (stack.getItem() instanceof BlankCardItem || stack.getItem() instanceof PowerLinkCardItem
+                || stack.getItem() instanceof SecurityLinkCardItem || stack.getItem() instanceof ProjectorModuleItem
                 || stack.is(Items.LEVER)) {
             return ItemInteractionResult.SKIP_DEFAULT_BLOCK_INTERACTION;
         }
@@ -142,8 +150,12 @@ public class MffsMachineBlock extends BaseEntityBlock {
         if (level.isClientSide()) {
             return InteractionResult.SUCCESS;
         }
-        if (level.getBlockEntity(pos) instanceof MffsMachineBlockEntity machine && player instanceof ServerPlayer
-                && MffsSecurity.checkAccess(machine, player, SecurityRight.EB)) {
+        if (level.getBlockEntity(pos) instanceof MffsMachineBlockEntity machine && player instanceof ServerPlayer) {
+            for (SecurityRight right : machine.getOpenRights()) {
+                if (!MffsSecurity.checkAccess(machine, player, right)) {
+                    return InteractionResult.CONSUME;
+                }
+            }
             player.openMenu(machine, buf -> buf.writeBlockPos(pos));
         }
         return InteractionResult.CONSUME;

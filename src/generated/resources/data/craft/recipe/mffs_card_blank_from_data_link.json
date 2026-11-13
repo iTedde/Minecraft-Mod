@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "craft:mffs_card_data_link"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:mffs_card_blank"
+  }
+}

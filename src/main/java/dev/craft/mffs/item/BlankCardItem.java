@@ -2,6 +2,7 @@ package dev.craft.mffs.item;
 
 import dev.craft.mffs.MffsItems;
 import dev.craft.mffs.block.CapacitorBlockEntity;
+import dev.craft.mffs.block.SecurityStationBlockEntity;
 import dev.craft.mffs.security.MffsSecurity;
 import dev.craft.mffs.security.SecurityRight;
 import net.minecraft.network.chat.Component;
@@ -14,8 +15,8 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 
 /**
- * {@code ItemCardEmpty} (spec 48 §6.2): right-click on a capacitor (right EB) makes a power link card; the security
- * station link follows in phase 48.4.
+ * {@code ItemCardEmpty} (spec 48 §6.2): right-click on a capacitor (right EB) makes a power link card, on an active
+ * security station (right CSR) a security station link card.
  */
 public class BlankCardItem extends Item {
     public BlankCardItem(Properties properties) {
@@ -27,6 +28,20 @@ public class BlankCardItem extends Item {
         Level level = context.getLevel();
         Player player = context.getPlayer();
         if (level.isClientSide() || player == null) {
+            return InteractionResult.PASS;
+        }
+        if (level.getBlockEntity(context.getClickedPos()) instanceof SecurityStationBlockEntity station) {
+            if (!station.isActive()) {
+                player.sendSystemMessage(Component.translatable("message.craft.mffs.station_must_be_active"));
+                return InteractionResult.PASS;
+            }
+            if (MffsSecurity.checkAccess(station, player, SecurityRight.CSR)) {
+                ItemStack card = new ItemStack(MffsItems.CARD_SECURITY_LINK.get());
+                CardItem.link(card, station, station.getDeviceId(), station.getDeviceName());
+                giveCard(player, context.getHand(), context.getItemInHand(), card);
+                player.sendSystemMessage(Component.translatable("message.craft.mffs.security_link_created"));
+                return InteractionResult.SUCCESS;
+            }
             return InteractionResult.PASS;
         }
         if (level.getBlockEntity(context.getClickedPos()) instanceof CapacitorBlockEntity capacitor

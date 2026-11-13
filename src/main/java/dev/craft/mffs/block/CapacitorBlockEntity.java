@@ -7,6 +7,7 @@ import dev.craft.mffs.energy.ForceEnergyItem;
 import dev.craft.mffs.energy.ForceEnergyStorage;
 import dev.craft.mffs.energy.PowerLinkItem;
 import dev.craft.mffs.item.PowerLinkCardItem;
+import dev.craft.mffs.item.SecurityLinkCardItem;
 import dev.craft.mffs.menu.CapacitorMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
@@ -44,6 +45,11 @@ public class CapacitorBlockEntity extends FePoweredBlockEntity implements ForceE
     }
 
     @Override
+    public SecurityStationBlockEntity getLinkedSecurityStation() {
+        return SecurityLinkCardItem.getLinkedStation(this, SLOT_SECURITY_LINK);
+    }
+
+    @Override
     public MffsDevices.Kind getDeviceKind() {
         return MffsDevices.Kind.CAPACITOR;
     }
@@ -69,7 +75,7 @@ public class CapacitorBlockEntity extends FePoweredBlockEntity implements ForceE
             case SLOT_CAPACITY -> stack.is(MffsItems.CAPACITOR_UPGRADE_CAPACITY.get());
             case SLOT_RANGE -> stack.is(MffsItems.CAPACITOR_UPGRADE_RANGE.get());
             case SLOT_LINK -> stack.getItem() instanceof ForceEnergyItem || stack.getItem() instanceof PowerLinkItem;
-            case SLOT_SECURITY_LINK -> false; // security link card: phase 48.4
+            case SLOT_SECURITY_LINK -> stack.getItem() instanceof SecurityLinkCardItem;
             default -> false;
         };
     }

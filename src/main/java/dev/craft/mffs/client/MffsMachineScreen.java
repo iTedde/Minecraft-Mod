@@ -86,7 +86,7 @@ public abstract class MffsMachineScreen<T extends MffsMachineMenu> extends Abstr
     protected void renderBg(GuiGraphics graphics, float partialTick, int mouseX, int mouseY) {
         graphics.blit(background, leftPos, topPos, 0, 0, imageWidth, imageHeight, 256, 256);
         MffsMachineBlockEntity machine = machine();
-        if (machine != null) {
+        if (machine != null && switchX >= 0) {
             icon(graphics, switchX, switchY, 80 + machine.getSwitchMode() * 16, 112);
         }
         renderMachineBg(graphics);
@@ -106,7 +106,7 @@ public abstract class MffsMachineScreen<T extends MffsMachineMenu> extends Abstr
             send(MffsMachineBlockEntity.EVENT_NAME_CLEAR, "");
             editMode = true;
         }
-        if (inside(mouseX, mouseY, switchX, switchY, switchX + 15, switchY + 15)) {
+        if (switchX >= 0 && inside(mouseX, mouseY, switchX, switchY, switchX + 15, switchY + 15)) {
             send(MffsMachineBlockEntity.EVENT_SWITCH_MODE, "");
             return true;
         }

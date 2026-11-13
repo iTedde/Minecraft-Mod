@@ -20,7 +20,21 @@ public final class MffsDevices {
 
     /** Device kinds with a list of their own (each kind has its own ID space). */
     public enum Kind {
-        PROJECTOR, EXTRACTOR, CAPACITOR, CONVERTER, DEFENSE_STATION, SECURITY_STATION, SECURITY_STORAGE, CONTROL_SYSTEM
+        PROJECTOR, EXTRACTOR, CAPACITOR, CONVERTER, DEFENSE_STATION, SECURITY_STATION, SECURITY_STORAGE, CONTROL_SYSTEM;
+
+        /** {@code MFFSMaschines.displayName}, shown by data link cards and the control system. */
+        public String translationKey() {
+            return "gui.craft.mffs.kind." + name().toLowerCase(java.util.Locale.ROOT);
+        }
+
+        public static Kind byName(String name) {
+            for (Kind kind : values()) {
+                if (kind.name().equals(name)) {
+                    return kind;
+                }
+            }
+            return null;
+        }
     }
 
     private MffsDevices() {

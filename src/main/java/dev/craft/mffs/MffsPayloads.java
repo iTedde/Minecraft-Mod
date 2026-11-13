@@ -9,6 +9,7 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.neoforge.network.PacketDistributor;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
@@ -35,7 +36,7 @@ public final class MffsPayloads {
             return;
         }
         if (context.player().level().getBlockEntity(payload.pos()) instanceof MffsMachineBlockEntity machine) {
-            machine.handleEvent(payload.key(), payload.value());
+            machine.handleEvent(payload.key(), payload.value(), (ServerPlayer) context.player());
         }
     }
 

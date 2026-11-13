@@ -56,6 +56,14 @@ public class ExtractorBlockEntity extends FePoweredBlockEntity implements Energy
         powerProvider.configure(2, mj, mj, mj);
     }
 
+    /** {@code getLinkedSecurityStation}: the station of the linked capacitor. */
+    @Override
+    public SecurityStationBlockEntity getLinkedSecurityStation() {
+        return level != null && MffsDevices.get(level, MffsDevices.Kind.CAPACITOR,
+                getPowerSourceId()) instanceof CapacitorBlockEntity capacitor
+                ? capacitor.getLinkedSecurityStation() : null;
+    }
+
     @Override
     public MffsDevices.Kind getDeviceKind() {
         return MffsDevices.Kind.EXTRACTOR;

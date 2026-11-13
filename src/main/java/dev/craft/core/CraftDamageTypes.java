@@ -22,6 +22,8 @@ public final class CraftDamageTypes {
     public static final ResourceKey<DamageType> FIELD_SHOCK = key("field_shock");
     /** MFFS {@code fieldDefense}: NPC defence and defence station upgrades (spec 48 §9.3), ignores armour. */
     public static final ResourceKey<DamageType> FIELD_DEFENSE = key("field_defense");
+    /** MFFS {@code areaDefense}: defence station warning and kill (spec 48 §10), ignores armour. */
+    public static final ResourceKey<DamageType> AREA_DEFENSE = key("area_defense");
 
     private CraftDamageTypes() {
     }
@@ -38,5 +40,6 @@ public final class CraftDamageTypes {
         context.register(EMITTER_RADIATION, new DamageType("craft.emitter_radiation", 0.1F));
         context.register(FIELD_SHOCK, new DamageType("craft.field_shock", 0.1F));
         context.register(FIELD_DEFENSE, new DamageType("craft.field_defense", 0.1F));
+        context.register(AREA_DEFENSE, new DamageType("craft.area_defense", 0.1F));
     }
 }

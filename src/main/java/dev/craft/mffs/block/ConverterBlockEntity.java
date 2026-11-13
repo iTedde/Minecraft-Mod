@@ -39,6 +39,14 @@ public class ConverterBlockEntity extends FePoweredBlockEntity implements Energy
         super(MffsBlockEntityTypes.CONVERTER.get(), pos, state, 4);
     }
 
+    /** {@code getLinkedSecurityStation}: the station of the linked capacitor. */
+    @Override
+    public SecurityStationBlockEntity getLinkedSecurityStation() {
+        return level != null && MffsDevices.get(level, MffsDevices.Kind.CAPACITOR,
+                getPowerSourceId()) instanceof CapacitorBlockEntity capacitor
+                ? capacitor.getLinkedSecurityStation() : null;
+    }
+
     @Override
     public MffsDevices.Kind getDeviceKind() {
         return MffsDevices.Kind.CONVERTER;
