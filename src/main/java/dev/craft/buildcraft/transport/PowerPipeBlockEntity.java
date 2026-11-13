@@ -1,5 +1,6 @@
 package dev.craft.buildcraft.transport;
 
+import dev.craft.core.CraftNetwork;
 import java.util.Arrays;
 
 import javax.annotation.Nullable;
@@ -18,11 +19,9 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.network.PacketDistributor;
 
 /**
  * BuildCraft {@code PipeTransportPower} with {@code PipePowerWood}: double-buffered power and requests per side,
@@ -180,7 +179,7 @@ public class PowerPipeBlockEntity extends PipeBlockEntity {
         }
 
         if (tracker.markTimeIfDelay(level, UPDATE_DELAY) && level instanceof ServerLevel serverLevel) {
-            PacketDistributor.sendToPlayersTrackingChunk(serverLevel, new ChunkPos(worldPosition),
+            CraftNetwork.sendToTracking(serverLevel, worldPosition,
                     new PipePowerPayload(worldPosition, displayBytes(), overload));
         }
     }

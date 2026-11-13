@@ -16,6 +16,12 @@ public final class LsDataComponents {
                     .persistent(Codec.BOOL)
                     .networkSynchronized(ByteBufCodecs.BOOL));
 
+    /** Flashlight range and width (spec 51 §2); missing means {@link Flashlight#DEFAULT}. */
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Flashlight>> FLASHLIGHT =
+            COMPONENTS.registerComponentType("flashlight", builder -> builder
+                    .persistent(Flashlight.CODEC)
+                    .networkSynchronized(Flashlight.STREAM_CODEC));
+
     private LsDataComponents() {
     }
 }

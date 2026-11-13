@@ -103,6 +103,3 @@ config="${mod_id}.epl.mixins.json"
 #[features.${mod_id}]
 #openGLVersion="[3.2,)"
 
-# LambDynamicLights picks up the light shield cone; ignored without LDL (spec 30 §3a)
-[[modproperties.${mod_id}."yumi:entrypoints"."lambdynlights:initializer"]]
-    value="dev.craft.lightshield.client.compat.LightShieldDynamicLights"

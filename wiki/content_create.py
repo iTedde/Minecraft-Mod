@@ -80,7 +80,7 @@ Mahlen, Waschen, Fertigungsketten …).</p>
     ['<b>Mekanism</b> + Mekanism Generators', 'Unabhängig von Create: Technik-Mod mit eigener Erzverarbeitung (bis 5× Ausbeute), Maschinen, Gas-Chemie, Energiespeichern und Generatoren (Solar, Wind, Wärme, Gas, Fusion); Energie als FE/Joule, nicht EU. Craft-Strom über den FE Producer (ab Paket 1.2.4)'],
     ['Armor Hider (+ Eunomia)', 'Unabhängig von Create: getragene Rüstung je Slot ausblenden oder durchsichtig machen, auch für andere sichtbar (ab Paket 1.2.2)'],
     ['GraveStone Mod', 'Unabhängig von Create: beim Tod landet das Inventar in einem Grabstein statt am Boden'],
-    ['LambDynamicLights', 'Unabhängig von Create: dynamisches Licht (Fackel in der Hand, brennende Mobs …) und das Licht des Elektrischen Leuchtschilds'],
+    ['LambDynamicLights', 'Unabhängig von Create: dynamisches Licht (Fackel in der Hand, brennende Mobs …)'],
     ['Forgematica (+ MaFgLib)', 'Unabhängig von Create: Litematica für NeoForge – Schaltpläne speichern, als Geisterbild einblenden und nachbauen'],
     ['Enhanced Player List', 'Unabhängig von Create: Tab-Liste mit Spielzeit, Toden, Strecke, abgebauten Blöcken u. a. für alle Spieler, auch offline'],
     ['Subtle Effects (+ Fzzy Config), Particle Rain', 'Unabhängig von Create: Umgebungs-, Regen- und Schneepartikel'],

@@ -23,16 +23,14 @@ import net.neoforged.neoforge.common.ItemAbilities;
 import net.neoforged.neoforge.common.ItemAbility;
 
 /**
- * Electric light shield (spec 30): a shield that runs on EU instead of durability and lights its surroundings while
- * held. Empty, it cannot block at all.
+ * Electric light shield (spec 30, flashlight since spec 51): a shield that runs on EU instead of durability and shines
+ * an adjustable light cone while held. Empty, it cannot block at all.
  */
 public class ElectricLightShieldItem extends ShieldItem implements ElectricItem {
-    public static final int MAX_CHARGE = 10000;
+    public static final int MAX_CHARGE = 100000;
     public static final int TRANSFER_LIMIT = 100;
     /** EU per durability point a vanilla shield would have lost. */
     public static final int EU_PER_POINT = 100;
-    /** Light costs 1 EU every this many ticks (like the luminator). */
-    public static final int LIGHT_INTERVAL = 4;
     /** Mending: one XP point repairs two durability points, i.e. 2 × {@link #EU_PER_POINT}. */
     public static final int EU_PER_XP = 2 * EU_PER_POINT;
 
@@ -64,16 +62,29 @@ public class ElectricLightShieldItem extends ShieldItem implements ElectricItem 
         return stack.getOrDefault(LsDataComponents.LIGHT_ON.get(), true);
     }
 
+    public static Flashlight flashlight(ItemStack stack) {
+        return stack.getOrDefault(LsDataComponents.FLASHLIGHT.get(), Flashlight.DEFAULT);
+    }
+
     /** Whether {@code stack} is a switched-on, charged light shield. */
     public static boolean isLit(ItemStack stack) {
         return stack.getItem() instanceof ElectricLightShieldItem && isLightOn(stack)
                 && ElectricItems.getCharge(stack) > 0;
     }
 
-    /** Mode key + right click toggles the light; otherwise blocks like a shield, but only with charge. */
+    /**
+     * Mode key + sneak + right click opens the flashlight GUI, mode key + right click toggles the light; otherwise
+     * blocks like a shield, but only with charge.
+     */
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
+        if (Ic2Keyboard.isModeSwitchKeyDown(player) && player.isShiftKeyDown()) {
+            if (level.isClientSide()) {
+                dev.craft.lightshield.client.FlashlightScreen.open();
+            }
+            return InteractionResultHolder.sidedSuccess(stack, level.isClientSide());
+        }
         if (Ic2Keyboard.isModeSwitchKeyDown(player)) {
             if (!level.isClientSide()) {
                 boolean on = !isLightOn(stack);
@@ -167,6 +178,10 @@ public class ElectricLightShieldItem extends ShieldItem implements ElectricItem 
         super.appendHoverText(stack, context, tooltip, flag);
         tooltip.add(Component.translatable(isLightOn(stack)
                 ? "tooltip.craft.light_shield.on" : "tooltip.craft.light_shield.off").withStyle(ChatFormatting.GRAY));
+        Flashlight setting = flashlight(stack);
+        tooltip.add(Component.translatable("tooltip.craft.light_shield.flashlight", setting.rangeBlocks(),
+                setting.widthDegrees(), setting.euPerTickText()).withStyle(ChatFormatting.GRAY));
+        tooltip.add(Component.translatable("tooltip.craft.light_shield.settings").withStyle(ChatFormatting.DARK_GRAY));
     }
 
     @Override

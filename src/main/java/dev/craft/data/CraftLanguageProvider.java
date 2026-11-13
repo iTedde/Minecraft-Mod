@@ -1379,6 +1379,14 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
                 : "Light on (mode key + right click)");
         add("tooltip.craft.light_shield.off", german ? "Licht aus (Modus-Taste + Rechtsklick)"
                 : "Light off (mode key + right click)");
+        add("tooltip.craft.light_shield.flashlight", german ? "Reichweite %s · Kegel %s° · %s EU/t"
+                : "Range %s · cone %s° · %s EU/t");
+        add("tooltip.craft.light_shield.settings", german ? "Einstellen: Modus-Taste + Schleichen + Rechtsklick"
+                : "Adjust: mode key + sneak + right click");
+        add("gui.craft.flashlight", german ? "Taschenlampe" : "Flashlight");
+        add("gui.craft.flashlight.range", german ? "Reichweite: %s Blöcke" : "Range: %s blocks");
+        add("gui.craft.flashlight.width", german ? "Kegel: %s°" : "Cone: %s°");
+        add("gui.craft.flashlight.cost", german ? "%s EU/t · Laufzeit %s:%s:%s" : "%s EU/t · runtime %s:%s:%s");
         add("emi.craft.info.distribution_transport_pipe", german
                 ? "Item-Rohr, das Items nach Anteilen auf die Seiten verteilt. Rechtsklick: je Seite 0–100 % "
                 + "(Umschalt-Klick: 0 bzw. 100). Die Werte sind Gewichte unter den gerade erreichbaren Seiten, "
@@ -1391,16 +1399,20 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
                 + "(64 at 50/30/20 → 32/19/13). Full targets are skipped without catching up later; with no free "
                 + "target items go back.");
         add("emi.craft.info.electric_light_shield", german
-                ? "Elektrischer Schild (10 000 EU, Stufe 1), lädt wie LV-Werkzeuge. In Haupt- oder Nebenhand leuchtet er "
-                + "wie eine Fackel in der Hand (Licht 14 ringsum; nur sichtbar mit LambDynamicLights, rein optisch, "
-                + "Mobs spawnen weiter). Kostet 1 EU je 4 Ticks; "
-                + "Modus-Taste + Rechtsklick schaltet das Licht. Geblockte Treffer kosten 100 EU je Haltbarkeitspunkt statt Haltbarkeit; leer lässt er "
-                + "sich nicht heben. Haltbarkeit spart EU, Reparatur lädt mit Erfahrung (1 XP = 200 EU)."
-                : "Electric shield (10,000 EU, tier 1), charges like LV tools. In main or off hand it shines like a "
-                + "held torch (light 14 all around; visible with LambDynamicLights only, purely visual, mobs still "
-                + "spawn). Costs 1 EU per 4 ticks; mode key + right click toggles the "
-                + "light. Blocked hits cost 100 EU per durability point instead of durability; empty it cannot be raised. Unbreaking "
-                + "saves EU, Mending charges it with experience (1 XP = 200 EU).");
+                ? "Elektrischer Schild (100 000 EU, Stufe 1), lädt wie LV-Werkzeuge. In Haupt- oder Nebenhand ist er eine "
+                + "Taschenlampe mit echtem Licht: heller Kegel in Blickrichtung (Licht 15, am Ende 11) plus Schein 14 "
+                + "um den Träger; im Licht spawnen keine Monster. Reichweite 16/32/48/64 Blöcke und Kegel 15/30/45/60° "
+                + "im GUI (Modus-Taste + Schleichen + Rechtsklick); kostet Reichweitenstufe × Kegelstufe EU je 2 Ticks "
+                + "(0,5–8 EU/t). Modus-Taste + Rechtsklick schaltet das Licht. Geblockte Treffer kosten 100 EU je "
+                + "Haltbarkeitspunkt statt Haltbarkeit; leer lässt er sich nicht heben. Haltbarkeit spart EU, "
+                + "Reparatur lädt mit Erfahrung (1 XP = 200 EU)."
+                : "Electric shield (100,000 EU, tier 1), charges like LV tools. In main or off hand it is a flashlight "
+                + "with real light: a bright cone where you look (light 15, 11 at the end) plus a glow of 14 around "
+                + "the holder; no monsters spawn in the light. Range 16/32/48/64 blocks and cone 15/30/45/60° in the "
+                + "GUI (mode key + sneak + right click); costs range stage × cone stage EU per 2 ticks (0.5–8 EU/t). "
+                + "Mode key + right click toggles the light. Blocked hits cost 100 EU per durability point instead of "
+                + "durability; empty it cannot be raised. Unbreaking saves EU, Mending charges it with experience "
+                + "(1 XP = 200 EU).");
         add("emi.craft.info.fe_producer", german
                 ? "Bauteil der Power Converters: gibt Strom aus einer angrenzenden Energy Bridge als FE ab "
                 + "(1 EU = 4 FE, 1 MJ ≈ 9,7 FE). Aufbau: EU-Kabel → IC2 Consumer → Energy Bridge → FE Producer → "

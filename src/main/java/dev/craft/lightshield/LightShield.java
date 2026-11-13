@@ -9,6 +9,8 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.entity.living.LivingShieldBlockEvent;
+import net.neoforged.neoforge.event.entity.player.PlayerEvent;
+import net.neoforged.neoforge.event.server.ServerStoppingEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 
 /** Entry point of the electric light shield (spec 30, new content without pack original). */
@@ -21,6 +23,10 @@ public final class LightShield {
         LsBlocks.BLOCKS.register(modBus);
         LsItems.ITEMS.register(modBus);
         modBus.addListener(LightShield::addToCreativeTab);
+        modBus.addListener(FlashlightPayload::register);
+        NeoForge.EVENT_BUS.addListener((PlayerEvent.PlayerLoggedOutEvent event) ->
+                ShieldLights.remove(event.getEntity().getServer(), event.getEntity().getUUID()));
+        NeoForge.EVENT_BUS.addListener((ServerStoppingEvent event) -> ShieldLights.removeAll(event.getServer()));
         NeoForge.EVENT_BUS.addListener(LightShield::playerTick);
         NeoForge.EVENT_BUS.addListener(LightShield::shieldBlock);
     }

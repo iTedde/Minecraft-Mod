@@ -64,6 +64,9 @@ unterdrückt). Vanilla 1.21.1 hat kein bewegliches Licht; deshalb ein unsichtbar
 
 ## 3b Licht wie eine Fackel (ab 30.6)
 
+> **Ersetzt durch `51-leuchtschild-taschenlampe.md` (Phase 51, 2026-11-13):** echte Taschenlampe mit Lichtblöcken,
+> 100 000 EU, LDL-Anbindung entfernt.
+
 Nutzer, 2026-10-25: „Das mit dem Lichtschild funktioniert noch gar nicht. Mach das einfach so, als wäre es eine
 Fackel.“ **Ersetzt den Kegel aus §3a** (Form, Wand-Prüfung, Neuberechnung); weiterhin gilt aus §3a: LambDynamicLights
 optional, rein clientseitig und optisch (Mobs spawnen weiter), für alle Spieler in Sichtweite, Energie unverändert.

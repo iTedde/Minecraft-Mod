@@ -1,5 +1,6 @@
 package dev.craft.buildcraft.transport;
 
+import dev.craft.core.CraftNetwork;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -43,7 +44,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.Containers;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -52,7 +52,6 @@ import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.IItemHandlerModifiable;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
 import net.neoforged.neoforge.items.ItemStackHandler;
-import net.neoforged.neoforge.network.PacketDistributor;
 
 /**
  * BuildCraft {@code PipeTransportItems} with the hooks of the item pipes ({@code PipeItemsWood}, {@code
@@ -811,7 +810,7 @@ public class ItemPipeBlockEntity extends PipeBlockEntity implements MenuProvider
 
     private void sendItemPacket(TravelingItem item) {
         if (level instanceof ServerLevel serverLevel) {
-            PacketDistributor.sendToPlayersTrackingChunk(serverLevel, new ChunkPos(worldPosition), PipeItemPayload.of(worldPosition, item));
+            CraftNetwork.sendToTracking(serverLevel, worldPosition, PipeItemPayload.of(worldPosition, item));
         }
     }
 

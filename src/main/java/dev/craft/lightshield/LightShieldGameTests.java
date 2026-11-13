@@ -2,6 +2,7 @@ package dev.craft.lightshield;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import dev.craft.Craft;
 import dev.craft.ic2.Ic2Items;
@@ -79,15 +80,100 @@ public final class LightShieldGameTests {
         });
     }
 
+    /** Spec 51 §1: range stage × width stage EU every 2 ticks; default 2 × 2, largest 4 × 4. */
     @GameTest(template = EMPTY)
-    public static void lightCostsOneEuEveryFourTicks(GameTestHelper helper) {
-        Player player = holder(helper, shield(1000));
-        helper.onEachTick(() -> ShieldLights.tick(player));
+    public static void lightCostsRangeTimesWidth(GameTestHelper helper) {
+        floor(helper);
+        Player player = holder(helper, shield(10000));
+        lookDown(player);
+        Player big = holder(helper, shield(10000));
+        lookDown(big);
+        big.getOffhandItem().set(LsDataComponents.FLASHLIGHT.get(), Flashlight.of(4, 4));
+        helper.onEachTick(() -> {
+            ShieldLights.tick(player);
+            ShieldLights.tick(big);
+        });
         helper.runAfterDelay(40, () -> {
-            int used = 1000 - ElectricItems.getCharge(player.getOffhandItem());
-            helper.assertTrue(used >= 9 && used <= 11, "10 EU in 40 ticks, got " + used);
+            int used = 10000 - ElectricItems.getCharge(player.getOffhandItem());
+            int usedBig = 10000 - ElectricItems.getCharge(big.getOffhandItem());
+            ShieldLights.remove(helper.getLevel().getServer(), player.getUUID());
+            ShieldLights.remove(helper.getLevel().getServer(), big.getUUID());
+            helper.assertTrue(used >= 76 && used <= 84, "default 2 EU/t: 80 EU in 40 ticks, got " + used);
+            helper.assertTrue(usedBig >= 304 && usedBig <= 336, "largest 8 EU/t: 320 EU in 40 ticks, got " + usedBig);
             helper.succeed();
         });
+    }
+
+    /** Payload: clamped to stages 1–4, only on a held shield. */
+    @GameTest(template = EMPTY)
+    public static void flashlightPayloadClamps(GameTestHelper helper) {
+        Player player = holder(helper, shield(1000));
+        FlashlightPayload.handle(player, new Flashlight(9, 0));
+        helper.assertTrue(ElectricLightShieldItem.flashlight(player.getOffhandItem()).equals(new Flashlight(4, 1)),
+                "clamped to 4/1");
+        Player empty = helper.makeMockPlayer(GameType.SURVIVAL);
+        empty.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.SHIELD));
+        FlashlightPayload.handle(empty, Flashlight.of(4, 4));
+        helper.assertFalse(empty.getMainHandItem().has(LsDataComponents.FLASHLIGHT.get()), "not on other items");
+        helper.assertTrue(Flashlight.of(1, 1).euPerTickText().equals("0.5") && Flashlight.of(4, 4).euPerTickText()
+                .equals("8"), "EU/t text");
+        helper.succeed();
+    }
+
+    /** Spec 51 §3: a wall 4 blocks ahead gets light 15 in the block in front of it, plus the glow at the eyes. */
+    @GameTest(template = EMPTY)
+    public static void coneLightsWallAhead(GameTestHelper helper) {
+        for (int y = 1; y <= 3; y++) {
+            for (int z = 0; z < 8; z++) {
+                helper.setBlock(new BlockPos(7, y, z), Blocks.STONE);
+            }
+        }
+        Vec3 eye = helper.absoluteVec(new Vec3(2.5, 2.62, 2.5));
+        Map<BlockPos, Integer> lights = ShieldLights.compute(helper.getLevel(), eye, new Vec3(1, 0, 0),
+                Flashlight.of(1, 1));
+        Integer front = lights.get(helper.absolutePos(new BlockPos(6, 2, 2)));
+        helper.assertTrue(front != null && front == 15, "light 15 before the wall, got " + front);
+        helper.assertTrue(lights.get(helper.absolutePos(EYE)) == ShieldLights.GLOW_LEVEL, "glow at the eyes");
+        helper.assertTrue(lights.size() <= ShieldLights.MAX_LIGHTS, "capped");
+        helper.assertTrue(ShieldLights.lightAt(8, 16) == 15 && ShieldLights.lightAt(16, 16) == 11
+                && ShieldLights.lightAt(12, 16) == 13, "falloff 15 → 11");
+        helper.succeed();
+    }
+
+    /** Placed by the server, follow the holder and vanish when switched off. */
+    @GameTest(template = EMPTY)
+    public static void lightBlocksPlacedAndRemoved(GameTestHelper helper) {
+        floor(helper);
+        Player player = holder(helper, shield(10000));
+        lookDown(player);
+        helper.onEachTick(() -> ShieldLights.tick(player));
+        helper.runAfterDelay(2, () -> {
+            helper.assertBlockPresent(LsBlocks.SHIELD_LIGHT.get(), EYE);
+            helper.assertBlockPresent(LsBlocks.SHIELD_LIGHT.get(), new BlockPos(2, 1, 2));
+            helper.assertTrue(helper.getBlockState(new BlockPos(2, 1, 2)).getValue(ShieldLightBlock.LEVEL) == 15,
+                    "cone light 15 on the floor");
+            helper.assertTrue(helper.getBlockState(EYE).getValue(ShieldLightBlock.LEVEL) == ShieldLights.GLOW_LEVEL,
+                    "glow 14 at the eyes");
+            player.getOffhandItem().set(LsDataComponents.LIGHT_ON.get(), false);
+        });
+        helper.runAfterDelay(4, () -> {
+            helper.assertBlockNotPresent(LsBlocks.SHIELD_LIGHT.get(), EYE);
+            helper.assertBlockNotPresent(LsBlocks.SHIELD_LIGHT.get(), new BlockPos(2, 1, 2));
+            helper.succeed();
+        });
+    }
+
+    private static void floor(GameTestHelper helper) {
+        for (int x = 0; x < 8; x++) {
+            for (int z = 0; z < 8; z++) {
+                helper.setBlock(new BlockPos(x, 0, z), Blocks.STONE);
+            }
+        }
+    }
+
+    private static void lookDown(Player player) {
+        player.setXRot(90.0F);
+        player.setYRot(0.0F);
     }
 
     @GameTest(template = EMPTY)
@@ -149,9 +235,9 @@ public final class LightShieldGameTests {
         Player player = holder(helper, stack);
         helper.assertTrue(ElectricLightShieldItem.repairWithXp(player, 10) == 0, "all XP used");
         helper.assertTrue(ElectricItems.getCharge(stack) == 2000, "10 XP = 2000 EU");
-        ElectricItems.charge(stack, 7900, Integer.MAX_VALUE, true, false);
+        ElectricItems.charge(stack, 97900, Integer.MAX_VALUE, true, false);
         helper.assertTrue(ElectricLightShieldItem.repairWithXp(player, 10) == 9, "100 EU missing takes 1 XP");
-        helper.assertTrue(ElectricItems.getCharge(stack) == 10000, "full");
+        helper.assertTrue(ElectricItems.getCharge(stack) == 100000, "full");
         ItemStack plain = shield(0);
         player.setItemInHand(InteractionHand.OFF_HAND, plain);
         helper.assertTrue(ElectricLightShieldItem.repairWithXp(player, 10) == 10, "no Mending, no charge");

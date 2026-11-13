@@ -89,6 +89,8 @@ Neuer Inhalt ohne Pack-Vorbild (`spec/30-leuchtschild.md`): LV-Schild mit 10 000
 1 EU je 4 Ticks wie der Luminator (≈ 33 min je Ladung), geblockter Treffer 100 EU je Haltbarkeitspunkt eines
 Vanilla-Schilds; leer blockt er nicht. Ab 30.4 ist das Licht rein optisch über
 LambDynamicLights, seit 30.6 wie eine Fackel in der Hand (Licht 14 ringsum statt Kegel); der Verbrauch bleibt.
+**Seit Phase 51 (Nutzer, 2026-11-13; `spec/51-leuchtschild-taschenlampe.md`):** 100 000 EU, echte Licht-Taschenlampe
+(Kegel 16–64 Blöcke, 15–60°, Schein 14) für Reichweitenstufe × Kegelstufe EU je 2 Ticks (0,5–8 EU/t).
 
 ## 4. Vergleichstabelle (Vorschlag, gerundet)
 

@@ -4103,3 +4103,34 @@ Loot), Musik in der Mod-Jar, dafür Repo auf **privat** gestellt (Nutzer, 2026-1
 - Craft-Version + Paket mit Musik auf Wunsch.
 - Client-Test MFFS (Testplan 25), ChargePads (Testplan 24), Nuclear Control (Testplan 23) – nur nach Rückfrage.
 - Phase 50 mit Spezifikation beginnen; Phase 51 Umfang klären; Tesserakt-Tests beobachten.
+
+# Phase 51 – Leuchtschild als Taschenlampe (2026-11-13)
+
+Nutzer: „Mache jetzt die letzten beiden Phasen noch eben“; Phase 51 präzisiert: „Einfach viel heller, wie so eine große
+anpassbare Taschenlampe“, kein Blendeffekt; echtes Licht, Reichweite + Kegel, GUI, Schein bleibt, „gib dem Schild mehr
+Speicher und Stromverbrauch, vielleicht so 100000“.
+
+## Erledigt
+- [x] 51.0 Spezifikation `docs/spec/51-leuchtschild-taschenlampe.md` (ersetzt Spec 30 §3b).
+- [x] 51.1 `ShieldLights` neu: Strahlenfächer über den Kegel (Strahlabstand ≤ 6 Blöcke am Ende, `COLLIDER`, Wasser
+  durchlässig), Lichtblock vor der Trefferfläche bzw. am Strahlende, 15 bis halbe Reichweite → 11, Schein 14 im
+  Augen-/Fußblock, max. 160 je Spieler; Nachführen alle 5 Ticks bei Bewegung ≥ 0,25 / Drehung ≥ 2°, sonst alle 20,
+  nur Differenz; Lichtliste je Spieler, Überlappung mehrerer Spieler per Maximum. `ShieldLightBlock` mit `level`
+  1–15, bleibt nur, solange ein Spieler ihn will. Aufräumen bei Weglegen/Ausschalten/Dimensionswechsel/Abmelden/
+  Serverende.
+- [x] `Flashlight` (`craft:flashlight`, Stufen 1–4, Standard 2/2), `FlashlightPayload`, GUI `FlashlightScreen`
+  (Modus-Taste + Schleichen + Rechtsklick; zwei Regler, Verbrauch + Laufzeit). 100 000 EU, R × B EU je 2 Ticks.
+  Tooltip mit Einstellung. LDL-Initializer und Entrypoint entfernt.
+- [x] Befund nebenbei: durch die neuen Testplätze stand ein Mock-Spieler neben einem Leistungsrohr → Absturz
+  „Payload craft:pipe_power may not be sent to the client“ (2 von 3 Läufen). Neu `core/CraftNetwork.sendToTracking`
+  (nur an Verbindungen mit Kanal) für Item-/Flüssigkeits-/Leistungsrohre.
+- [x] GameTests: Verbrauch 2 und 8 EU/t, Payload begrenzt, Kegel an Wand, Lichtblöcke gesetzt und entfernt
+  (+3, Verbrauchstest ersetzt). **Alle 648 grün.** `runData`, danach `build` grün.
+- [x] 51.2 EMI-Info, Wiki (Leuchtschild, Energie, Paket-Mods; DE + EN-Namen), `balancing.md` §3.9, `architektur.md`,
+  Testplan 13.2, Spec 30 Verweis, CLAUDE.md. Nicht im Client gestartet, keine neue Version.
+- **Phase 51 erledigt, Client-Test offen** (Testplan 13.2; v. a. Performance bei 64/60°).
+
+## Nächste Schritte
+- Phase 50 (Omnitools, Obsidian Pressure Plates, Gravity Gun, Secret Rooms): dekompilieren, Spezifikation.
+- Client-Test Leuchtschild-Taschenlampe, Schallplatten, MFFS, ChargePads, Nuclear Control – nur nach Rückfrage.
+- Craft-Version + Paket (Musik, Taschenlampe) auf Wunsch.

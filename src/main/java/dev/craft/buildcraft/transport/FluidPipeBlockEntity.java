@@ -1,5 +1,6 @@
 package dev.craft.buildcraft.transport;
 
+import dev.craft.core.CraftNetwork;
 import java.util.Arrays;
 import java.util.List;
 import javax.annotation.Nullable;
@@ -13,12 +14,10 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
-import net.neoforged.neoforge.network.PacketDistributor;
 
 /**
  * BuildCraft {@code PipeTransportLiquids} with {@code PipeLiquidsWood}/{@code PipeLiquidsEmerald} (extraction),
@@ -153,7 +152,7 @@ public class FluidPipeBlockEntity extends PipeBlockEntity {
                 init = true;
             }
             if (computeLiquidUpdate(init) && level instanceof ServerLevel serverLevel) {
-                PacketDistributor.sendToPlayersTrackingChunk(serverLevel, new ChunkPos(worldPosition),
+                CraftNetwork.sendToTracking(serverLevel, worldPosition,
                         new PipeFluidPayload(worldPosition, List.of(renderCache)));
             }
         }

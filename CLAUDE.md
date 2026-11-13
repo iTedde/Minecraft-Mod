@@ -138,7 +138,7 @@ MJ und EU bleiben getrennte Systeme; Verbindung nur über Electrical Engine (EU�
 | 48 | Modular Force Field System (aus dem Pack, Nutzer 2026-11-12; `docs/spec/48-mffs.md`, Paket `…mffs`): 48.0 Spezifikation (erledigt; §11 freigegeben 2026-11-12: alles wie vorgeschlagen) · 48.1 Grundlagen/Energie (erledigt, Client offen) · 48.2 Projektor + Kraftfeld (erledigt, Client offen) · 48.3 Projektor-Upgrades (erledigt, Client offen) · 48.4 Sicherheit/Verteidigung (erledigt, Client offen) · 48.5 EMI/Herkunft/Wiki/Paket (erledigt, Craft 1.2.9 / Paket 1.2.12) | **erledigt** (Client-Test offen) |
 | 49 | Wireless Redstone (aus dem Pack, inkl. Addons, Nutzer 2026-11-12) – **verworfen** (Nutzer, 2026-11-13) | **verworfen** |
 | 50 | Kleinkram aus dem Pack (Nutzer 2026-11-12): Omnitools, Obsidian Pressure Plates, Gravity Gun, Secret Rooms | offen |
-| 51 | Leuchtschild viel heller, „wie so ne Blendgranate“ (Nutzer, 2026-11-12; Ausbau von Phase 30) – Umfang offen | offen |
+| 51 | Leuchtschild als große einstellbare Taschenlampe (Nutzer, 2026-11-12/13; Ausbau von Phase 30; `docs/spec/51-leuchtschild-taschenlampe.md`): Entschieden: echtes Licht (Lichtblöcke, ohne LDL), Reichweite 16–64 + Kegel 15–60° per GUI, 100 000 EU, R × B EU/2 Ticks, Schein bleibt, kein Blendeffekt. 51.0 Spezifikation (erledigt) · 51.1 Umsetzung (erledigt, Client offen) · 51.2 EMI/Wiki/Doku (erledigt) | **erledigt** (Client-Test offen) |
 
 Phasen-Umnummerierung (Nutzer, 2026-10-16): Phase 8 „GT-Nachträge“ eingeschoben; die bisherigen Phasen 8/9/10
 (Kraftwerke, Rohre, Feinschliff) heißen jetzt 9/10/11. Ältere Einträge in `docs/STATUS.md` sind entsprechend

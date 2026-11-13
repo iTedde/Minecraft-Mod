@@ -16,6 +16,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -23,19 +24,19 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 /**
- * Invisible light source the light shield placed at its holder up to Craft 1.0.8 (spec 30 §3). Nothing places it any
- * more (the light is a client side cone since §3a); it stays registered so old worlds load, and removes itself on its
- * next scheduled or random tick.
+ * Invisible light block of the light shield's flashlight cone and glow (spec 51 §3), level 1–15. Every 20 ticks (and
+ * on random ticks) it checks whether a holder still wants it and removes itself otherwise, so nothing stays behind
+ * after a crash, logout or dimension change. Old blocks from Craft 1.0.8 load with level 14 and vanish the same way.
  */
 public class ShieldLightBlock extends Block implements SimpleWaterloggedBlock {
     public static final MapCodec<ShieldLightBlock> CODEC = simpleCodec(ShieldLightBlock::new);
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
-    public static final int LIGHT_LEVEL = 14;
+    public static final IntegerProperty LEVEL = IntegerProperty.create("level", 1, 15);
     public static final int CHECK_INTERVAL = 20;
 
     public ShieldLightBlock(Properties properties) {
         super(properties);
-        registerDefaultState(stateDefinition.any().setValue(WATERLOGGED, false));
+        registerDefaultState(stateDefinition.any().setValue(WATERLOGGED, false).setValue(LEVEL, 14));
     }
 
     @Override
@@ -45,7 +46,7 @@ public class ShieldLightBlock extends Block implements SimpleWaterloggedBlock {
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(WATERLOGGED);
+        builder.add(WATERLOGGED, LEVEL);
     }
 
     @Override
@@ -86,7 +87,11 @@ public class ShieldLightBlock extends Block implements SimpleWaterloggedBlock {
 
     @Override
     protected void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
-        clear(level, pos, state);
+        if (ShieldLights.wantedLevel(level, pos) > 0) {
+            level.scheduleTick(pos, this, CHECK_INTERVAL);
+        } else {
+            clear(level, pos, state);
+        }
     }
 
     /** Fallback for a light whose scheduled tick got lost. */
@@ -97,7 +102,9 @@ public class ShieldLightBlock extends Block implements SimpleWaterloggedBlock {
 
     @Override
     protected void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
-        clear(level, pos, state);
+        if (ShieldLights.wantedLevel(level, pos) == 0) {
+            clear(level, pos, state);
+        }
     }
 
     /** Removes the light, giving back the water it replaced. */

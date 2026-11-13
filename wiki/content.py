@@ -76,7 +76,7 @@ dazu kommen <a href="#/aenderungen">neue Kraftwerke und eine Mining-Dimension</a
 {card('wasserturbine', 'craft:water_turbine', 'Wasserturbine', 'Bis 32 EU/t Grundlast aus fließendem Wasser, im Fluss-Biom bis 48.', NEW)}
 {card('grosskraftwerke', 'craft:large_steam_turbine', 'Großkraftwerke', 'Hochdruckkessel, große Dampf-, Wasser- und Windturbine: bis 192–512 EU/t.', NEW)}
 {card('mining-dimension', 'craft:mining_portal', 'Mining-Dimension', 'Flache Steinwelt voller Erze, Portal aus Glattem Stein.', NEW)}
-{card('leuchtschild', 'craft:electric_light_shield', 'Elektrischer Leuchtschild', 'Schild mit EU statt Haltbarkeit, leuchtet wie eine Fackel.', NEW)}
+{card('leuchtschild', 'craft:electric_light_shield', 'Elektrischer Leuchtschild', 'Schild mit EU statt Haltbarkeit und einstellbarer Taschenlampe.', NEW)}
 {card('zusatzmods', 'craft:cropnalyzer', 'EMI, Xaero & CC: Tweaked', 'Rezeptanzeige, Minimap und Turtles im Paket.', TECH)}
 </div>
 
@@ -770,13 +770,12 @@ bauen sie nicht ab. Turtles brauchen Treibstoff (wie im Pack).</p>
     shield = f'''<h1>Elektrischer Leuchtschild</h1>
 {h.infobox('Elektrischer Leuchtschild', 'craft:electric_light_shield', [
     ('Herkunft', NEW + ' Craft (kein Pack-Vorbild)'), ('ID', '<code>craft:electric_light_shield</code>'),
-    ('Speicher', '10 000 EU'), ('Stufe', '1 (LV), Laden max. 100 EU/t'), ('Licht', '14 wie eine Fackel<br>(mit LambDynamicLights)'),
-    ('Verbrauch', '1 EU je 4 Ticks Licht,<br>100 EU je Blockpunkt'), ('Kreativ-Tab', 'IC2 (leer und voll)'),
+    ('Speicher', '100 000 EU'), ('Stufe', '1 (LV), Laden max. 100 EU/t'), ('Licht', 'Kegel 15 (bis 64 Blöcke)<br>+ Schein 14'),
+    ('Verbrauch', '0,5–8 EU/t Licht,<br>100 EU je Blockpunkt'), ('Kreativ-Tab', 'IC2 (leer und voll)'),
 ])}
-<p class="lead">Ein Schild, der statt Haltbarkeit <b>EU</b> verbraucht und in der Hand <b>wie eine Fackel leuchtet</b> – auch für
-andere Spieler sichtbar. Das Licht ist rein optisch (dynamisches Licht über
-LambDynamicLights), Mobs spawnen also weiter. Die Werte orientieren sich am Luminator und an den
-LV-Elektrowerkzeugen.</p>
+<p class="lead">Ein Schild, der statt Haltbarkeit <b>EU</b> verbraucht und in der Hand eine <b>große, einstellbare
+Taschenlampe</b> ist (seit Phase 51): ein heller Lichtkegel in Blickrichtung plus Schein rund um den Träger. Das Licht ist
+<b>echtes Licht</b> – alle Spieler sehen es ohne Zusatzmod, und im Lichtkegel spawnen keine Monster.</p>
 
 <h2 id="ls--rezept">Rezept</h2>
 {h.recipe(['ALA', 'ASA', ' R '], {'A': ('craft:advanced_alloy', None), 'L': ('craft:luminator', None), 'S': ('minecraft:shield', 'Schild'), 'R': ('craft:re_battery', None)}, ('craft:electric_light_shield', None))}
@@ -786,13 +785,16 @@ Ladegerät, Batterie-Slot der Maschinen oder BatPack/LapPack auf dem Rücken.</p
 <h2 id="ls--licht">Licht</h2>
 <ul>
 <li>Leuchtet in <b>Haupt- oder Nebenhand</b>, solange das Licht eingeschaltet und Ladung vorhanden ist (nicht im Zuschauermodus).</li>
-<li>Licht <b>14 rund um den Träger</b>, genau wie eine Fackel in der Hand. Anders als die Fackel leuchtet der Schild auch
-unter Wasser.</li>
-<li>Das Licht ist <b>dynamisches Licht</b> und braucht die Mod <b>LambDynamicLights</b> (ab Paket 1.0.12 mitinstalliert). Ohne sie
-leuchtet nur die Fläche am Schild. Es ändert das Licht der Welt nicht: <b>Mobs spawnen weiter</b>, Pflanzen wachsen nicht davon.</li>
-<li>Kosten: <b>1 EU je 4 Ticks</b> (5 EU/s) – voll geladen reicht das für rund 33 Minuten.</li>
-<li><b>Modus-Taste + Rechtsklick</b> schaltet das Licht an/aus („Licht: an/aus“); der Tooltip zeigt den Zustand. Rechtsklick allein blockt.</li>
-<li>Bis Craft 1.0.8 war das Licht ein unsichtbarer Block am Spieler. Solche Reste in alten Welten verschwinden von selbst.</li>
+<li><b>Lichtkegel</b> in Blickrichtung: Wände, Boden und Decke im Kegel werden mit <b>Licht 15</b> beleuchtet, ab der halben
+Reichweite abnehmend bis 11 am Ende. Dazu <b>Schein 14</b> rund um den Träger wie eine Fackel – auch unter Wasser.</li>
+<li><b>Einstellbar</b> per <b>Modus-Taste + Schleichen + Rechtsklick</b> (Fenster „Taschenlampe“ mit zwei Schiebereglern):
+Reichweite <b>16 / 32 / 48 / 64 Blöcke</b> und Kegel <b>15° / 30° / 45° / 60°</b>. Das Fenster zeigt Verbrauch und
+Restlaufzeit; der Tooltip die aktuelle Einstellung.</li>
+<li>Kosten: <b>Reichweitenstufe × Kegelstufe EU je 2 Ticks</b>, also 0,5 EU/t (16 Blöcke, 15°) bis 8 EU/t (64 Blöcke, 60°).
+Voll geladen (100 000 EU) reicht das für 2 h 47 min bis gut 10 Minuten; Standard (32 Blöcke, 30°) 2 EU/t ≈ 42 Minuten.</li>
+<li>Technik: unsichtbare Lichtblöcke, die der Server etwa viermal pro Sekunde nachführt; beim schnellen Drehen zieht der
+Kegel kurz nach. Sie verschwinden beim Weglegen, Ausschalten, Abmelden oder Dimensionswechsel von selbst.</li>
+<li><b>Modus-Taste + Rechtsklick</b> schaltet das Licht an/aus („Licht: an/aus“). Rechtsklick allein blockt.</li>
 </ul>
 
 <h2 id="ls--blocken">Blocken</h2>
