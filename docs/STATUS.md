@@ -4164,3 +4164,27 @@ Speicher und Stromverbrauch, vielleicht so 100000“.
 
 ## Nächste Schritte
 - 50.2 Mystischer Sockel + Forge Lexicon.
+
+# Phase 50.2 – Mystischer Sockel + Forge Lexicon (2026-11-13)
+
+## Erledigt
+- [x] `LexiconGroups`: Pack-Whitelist (Erze, Stäube, kleine Stäube, Barren) → `c:`-Tags, „aluminium“ → „aluminum“,
+  IC2-Speichernamen entfallen; Gruppe zählt nur mit ≥ 2 Items.
+- [x] `LexiconInventory` (Eingang/Ausgang, gemerkte Wahl; Vorschau abgeleitet), `LexiconMenu` (Slots wie
+  `ContainerLexicon`, Knöpfe 0/1/2 über `clickMenuButton`, Vorschau als gesperrter Slot), `LexiconScreen` (GUI
+  `gui_lexicon.png` aus dem Pack, Pfeile/Knopf nur aktiv wenn möglich, Gruppenname = Tag).
+- [x] `PlinthBlock` (Eigenschaft `lexicon`, ¾ hoch, Licht 15 mit Lexicon, Block-Entity nur mit Lexicon; Schleichen +
+  Schraubenschlüssel nimmt Lexicon samt Inhalt ab bzw. baut den leeren Sockel ab), `LexiconBlockEntity` (Inhalt,
+  Buch-Animation wie Zaubertisch, 3 Blöcke), `LexiconRenderer` (Vanilla-Buchmodell, Textur `entity_lexicon.png`),
+  `ForgeLexiconItem` (Schleichen + Rechtsklick: tragbares Lexicon, Inhalt zurück beim Schließen; Rechtsklick auf
+  leeren Sockel: Blitz nur optisch + Explosionspartikel/-knall, Lexicon wird verbraucht).
+- [x] Rezepte Sockel `GWG / OOO`, Lexicon formlos (Buch, Gold, Eisen, cyanfarbene Wolle); Modelle, Loot, Tags, Lang,
+  EMI-Infoseiten.
+- [x] GameTests `LexiconGameTests` (ganzer Stapel, Ausgang voll → Rest bleibt, Wahl gemerkt; Menüknöpfe; Sockel
+  nimmt/gibt Lexicon samt Inhalt). Alle 654 grün (vorher einmal die bekannten Wackler `plasmaCannon`,
+  `harvestAndPickWheat`). `runData`, danach `build` grün.
+- Hinweis: Rückgabe beim Schließen (`clearContainer`) greift in Vanilla nur für echte `ServerPlayer` – im Test nicht
+  prüfbar, im Client prüfen.
+
+## Nächste Schritte
+- 50.3 Gravity Gun.

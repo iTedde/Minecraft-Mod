@@ -112,6 +112,8 @@ public final class CraftItemModelProvider extends ItemModelProvider {
         getBuilder("omniwrench").parent(new ModelFile.UncheckedModelFile("item/handheld"))
                 .texture("layer0", modLoc("item/omnitools/omniwrench"));
         withExistingParent("obsidian_pressure_plate", modLoc("block/obsidian_pressure_plate"));
+        getBuilder("forge_lexicon").parent(new ModelFile.UncheckedModelFile("item/generated"))
+                .texture("layer0", modLoc("item/omnitools/forge_lexicon"));
         MusicDiscs.tracks().forEach(track -> withExistingParent(track.disc().getId().getPath(), mcLoc("item/generated"))
                 .texture("layer0", modLoc("item/music/" + track.disc().getId().getPath())));
         for (ChestUpgradeType type : ChestUpgradeType.values()) {

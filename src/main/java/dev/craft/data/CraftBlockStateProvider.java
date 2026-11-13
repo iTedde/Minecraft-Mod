@@ -171,6 +171,7 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
         chargePads();
         mffs();
         pressurePlateBlock(dev.craft.obsidiplates.ObsidiPlates.OBSIDIAN_PRESSURE_PLATE.get(), mcLoc("block/obsidian"));
+        plinth();
     }
 
     /** BuildCraft {@code RenderingMarkers}: a torch-like stick, turned so that it points away from its support. */
@@ -1021,6 +1022,32 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
      * MFFS (spec 48 §5): ores; machines with front (north in the model), back and side textures, active variants,
      * turned to the six facings.
      */
+    /** Mystical Plinth (spec 50 §1.2): 12 px high, sides cut from the lower ¾ of the side tile, top per lexicon. */
+    private void plinth() {
+        var block = dev.craft.omnitools.OmniTools.MYSTICAL_PLINTH.get();
+        ModelFile empty = plinthModel("mystical_plinth", "plinth_top");
+        ModelFile lexicon = plinthModel("mystical_plinth_lexicon", "plinth_top_lexicon");
+        getVariantBuilder(block).forAllStates(state -> ConfiguredModel.builder()
+                .modelFile(state.getValue(dev.craft.omnitools.PlinthBlock.LEXICON) ? lexicon : empty).build());
+        simpleBlockItem(block, empty);
+    }
+
+    private ModelFile plinthModel(String name, String top) {
+        return models().withExistingParent(name, mcLoc("block/block"))
+                .texture("particle", modLoc("block/omnitools/plinth_side"))
+                .texture("bottom", modLoc("block/omnitools/plinth_bottom"))
+                .texture("side", modLoc("block/omnitools/plinth_side"))
+                .texture("top", modLoc("block/omnitools/" + top))
+                .element().from(0, 0, 0).to(16, 12, 16)
+                .face(Direction.DOWN).uvs(0, 0, 16, 16).texture("#bottom").cullface(Direction.DOWN).end()
+                .face(Direction.UP).uvs(0, 0, 16, 16).texture("#top").end()
+                .face(Direction.NORTH).uvs(0, 4, 16, 16).texture("#side").cullface(Direction.NORTH).end()
+                .face(Direction.SOUTH).uvs(0, 4, 16, 16).texture("#side").cullface(Direction.SOUTH).end()
+                .face(Direction.WEST).uvs(0, 4, 16, 16).texture("#side").cullface(Direction.WEST).end()
+                .face(Direction.EAST).uvs(0, 4, 16, 16).texture("#side").cullface(Direction.EAST).end()
+                .end();
+    }
+
     private void mffs() {
         for (Block ore : List.of(MffsBlocks.MONAZIT_ORE.get(), MffsBlocks.DEEPSLATE_MONAZIT_ORE.get())) {
             String name = BuiltInRegistries.BLOCK.getKey(ore).getPath();

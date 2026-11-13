@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lexicon=false": {
+      "model": "craft:block/mystical_plinth"
+    },
+    "lexicon=true": {
+      "model": "craft:block/mystical_plinth_lexicon"
+    }
+  }
+}

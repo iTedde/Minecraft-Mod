@@ -2190,6 +2190,13 @@ public final class CraftRecipeProvider extends RecipeProvider {
                 .pattern("D D").pattern(" G ").pattern(" W ").define('D', Items.DIAMOND).define('G', Items.GOLD_INGOT)
                 .define('W', Items.CYAN_WOOL)
                 .unlockedBy("has_diamond", has(Items.DIAMOND)).save(output, id("omniwrench"));
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, dev.craft.omnitools.OmniTools.MYSTICAL_PLINTH_ITEM)
+                .pattern("GWG").pattern("OOO").define('G', Items.GOLD_INGOT).define('W', Items.CYAN_WOOL)
+                .define('O', Items.OBSIDIAN)
+                .unlockedBy("has_obsidian", has(Items.OBSIDIAN)).save(output, id("mystical_plinth"));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.TOOLS, dev.craft.omnitools.OmniTools.FORGE_LEXICON)
+                .requires(Items.BOOK).requires(Items.GOLD_INGOT).requires(Items.IRON_INGOT).requires(Items.CYAN_WOOL)
+                .unlockedBy("has_book", has(Items.BOOK)).save(output, id("forge_lexicon"));
     }
 
     /** Electric light shield (spec 30 §6): vanilla recipe without charge transfer, so the shield comes out empty. */

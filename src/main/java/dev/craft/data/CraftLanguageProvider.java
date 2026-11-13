@@ -1375,6 +1375,26 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
         add(dev.craft.obsidiplates.ObsidiPlates.OBSIDIAN_PRESSURE_PLATE.get(), german ? "Obsidian-Druckplatte"
                 : "Obsidian Pressure Plate");
         item(dev.craft.omnitools.OmniTools.OMNIWRENCH, german ? "Prototyp-OmniWrench" : "Prototype OmniWrench");
+        add(dev.craft.omnitools.OmniTools.MYSTICAL_PLINTH.get(), german ? "Mystischer Sockel" : "Mystical Plinth");
+        item(dev.craft.omnitools.OmniTools.FORGE_LEXICON, german ? "Forge-Lexikon" : "Forge Lexicon");
+        add("gui.craft.forge_lexicon.no_conversion", german ? "Keine Umwandlung nötig." : "No conversion necessary.");
+        add("emi.craft.info.forge_lexicon", german
+                ? "Wandelt Erze, Staub, kleine Stäube und Barren zwischen gleichwertigen Varianten verschiedener Mods "
+                + "um (gemeinsamer c:-Tag, z. B. Craft-Zinnbarren ↔ Mekanism-Zinnbarren; Gruppen nach der Whitelist des "
+                + "Packs). Schleichen + Rechtsklick öffnet es überall; auf einem Mystischen Sockel abgelegt (Rechtsklick "
+                + "auf den Sockel) bleibt es dort aufgeschlagen. Pfeile wählen die Zielvariante, der Knopf wandelt den "
+                + "ganzen Stapel um."
+                : "Converts ores, dusts, small dusts and ingots between equivalent variants of different mods (shared "
+                + "c: tag, e.g. Craft tin ingot ↔ Mekanism tin ingot; groups follow the pack's whitelist). Sneak + right "
+                + "click opens it anywhere; placed on a Mystical Plinth (right click the plinth) it stays there open. "
+                + "The arrows pick the target variant, the button converts the whole stack.");
+        add("emi.craft.info.mystical_plinth", german
+                ? "Sockel für das Forge-Lexikon: Rechtsklick mit dem Lexikon legt es mit Blitz und Knall (harmlos) "
+                + "darauf, dann leuchtet er (15) und öffnet per Rechtsklick das Lexikon. Schleichen + Schraubenschlüssel "
+                + "nimmt das Lexikon samt Inhalt wieder ab bzw. baut den leeren Sockel ab."
+                : "Plinth for the Forge Lexicon: right click with the lexicon puts it on with a (harmless) lightning "
+                + "strike and bang; then it glows (15) and right click opens the lexicon. Sneak + wrench takes the "
+                + "lexicon and its contents off again, or dismantles the empty plinth.");
         add("emi.craft.info.omniwrench", german
                 ? "Unzerstörbarer Universal-Schraubenschlüssel ohne Strom. Dreht Vanilla-Blöcke (Schleichen: "
                 + "andersherum), dreht IC2-Maschinen auf die geklickte Seite (Schleichen: Gegenseite) und baut sie per "

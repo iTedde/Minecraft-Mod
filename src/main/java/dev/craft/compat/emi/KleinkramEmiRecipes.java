@@ -16,6 +16,8 @@ final class KleinkramEmiRecipes {
     static void register(EmiRegistry registry) {
         info(registry, dev.craft.omnitools.OmniTools.OMNIWRENCH.get(), "omniwrench");
         info(registry, dev.craft.obsidiplates.ObsidiPlates.OBSIDIAN_PRESSURE_PLATE.get(), "obsidian_pressure_plate");
+        info(registry, dev.craft.omnitools.OmniTools.FORGE_LEXICON.get(), "forge_lexicon");
+        info(registry, dev.craft.omnitools.OmniTools.MYSTICAL_PLINTH.get(), "mystical_plinth");
     }
 
     static void info(EmiRegistry registry, ItemLike item, String key) {
