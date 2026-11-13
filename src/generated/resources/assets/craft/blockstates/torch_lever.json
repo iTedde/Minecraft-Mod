@@ -1,0 +1,40 @@
+{
+  "variants": {
+    "facing=east,powered=false": {
+      "model": "craft:secretrooms/torch_lever_wall"
+    },
+    "facing=east,powered=true": {
+      "model": "craft:secretrooms/torch_lever_wall"
+    },
+    "facing=north,powered=false": {
+      "model": "craft:secretrooms/torch_lever_wall",
+      "y": 270
+    },
+    "facing=north,powered=true": {
+      "model": "craft:secretrooms/torch_lever_wall",
+      "y": 270
+    },
+    "facing=south,powered=false": {
+      "model": "craft:secretrooms/torch_lever_wall",
+      "y": 90
+    },
+    "facing=south,powered=true": {
+      "model": "craft:secretrooms/torch_lever_wall",
+      "y": 90
+    },
+    "facing=up,powered=false": {
+      "model": "craft:secretrooms/torch_lever"
+    },
+    "facing=up,powered=true": {
+      "model": "craft:secretrooms/torch_lever"
+    },
+    "facing=west,powered=false": {
+      "model": "craft:secretrooms/torch_lever_wall",
+      "y": 180
+    },
+    "facing=west,powered=true": {
+      "model": "craft:secretrooms/torch_lever_wall",
+      "y": 180
+    }
+  }
+}

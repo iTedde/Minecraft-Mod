@@ -4232,3 +4232,23 @@ Speicher und Stromverbrauch, vielleicht so 100000“.
 
 ## Nächste Schritte
 - 50.5 Secret Rooms: Redstone-Block, Hebel, Knopf, Druckplatten, Treppe, Kiste, Tor, Türen, Falltür, Fackel-Hebel.
+
+# Phase 50.5 – Secret Rooms: Tarn-Varianten (2026-11-13)
+
+## Erledigt
+- [x] `CamoRedstoneBlock` (merkt die speisende Seite, gibt 15 stark an alle anderen, verlustfrei, Ketten leiten in
+  eine Richtung), `CamoSwitchBlock` (Hebel, Knopf 20 Ticks, Druckplatte alle/Spieler: Auslösen beim Draufstehen,
+  Nachprüfen alle 20 Ticks; schwach 15 überall, stark in den Block, an den gesetzt wurde), `CamoStairsBlock` (voller
+  Umriss, Treppen-Kollision), `CamoChestBlock` (27 Plätze, eigene BE `camo_chest`, Katze darauf sperrt),
+  `CamoGateBlock` + Verlängerung (bis 10 in Richtung zum Setzenden, erste Stelle auch über nicht volle Blöcke,
+  nach unten gerichtet zieht nicht zurück – beides 1:1), `CamoDoorBlock` Holz/Eisen (Tarnung der Wand, beide
+  Hälften), `CamoTrapDoorBlock` (Tarnung des Blocks am Scharnier), `TorchLeverBlock` (Fackel, Licht 14, schaltet
+  wie ein Hebel).
+- [x] `CamoBakedModel`: Türen/Falltür behalten die Form, ihre Flächen bekommen das Tarn-Sprite derselben Richtung
+  (relative UV, Tönung). Rezepte wie `SecretRooms.addRecipes` (je mit verrottetem Fleisch oder Wolle; Holztreppe →
+  9 Paste übernommen), Loot (Türen als Türtabelle, Verlängerung ohne Drop), Lang, EMI-Infoseiten, Türsymbole.
+- [x] GameTests `SecretRoomsRedstoneGameTests` (Redstone-Kette mit Lampe an/aus, Hebel/Knopf, Tor aus/ein,
+  Treppen-Kollision, Fackel-Hebel). Alle 667 grün. `runData`, danach `build` grün. **Im Client ungesehen.**
+
+## Nächste Schritte
+- 50.6 Herkunft (`SourceTexts`), Wiki, Testplan; Craft-Version + Paket erst nach Client-Test (Tarnmodell ungesehen).

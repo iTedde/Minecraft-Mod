@@ -2235,6 +2235,51 @@ public final class CraftRecipeProvider extends RecipeProvider {
         }
         ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, oneWay).requires(paste)
                 .requires(Items.GLASS).unlockedBy("has_paste", has(paste)).save(output, id("one_way_glass_single"));
+        ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, dev.craft.secretrooms.SecretRooms.CAMO_GATE).pattern("#0#").pattern("0A0")
+                .pattern("#@#").define('#', ItemTags.PLANKS).define('0', paste).define('@', Items.REDSTONE)
+                .define('A', Items.ENDER_PEARL).unlockedBy("has_paste", has(paste)).save(output, id("camo_gate"));
+        ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, dev.craft.secretrooms.SecretRooms.TORCH_LEVER).pattern("#").pattern("X")
+                .define('#', Items.TORCH).define('X', Items.REDSTONE)
+                .unlockedBy("has_torch", has(Items.TORCH)).save(output, id("torch_lever"));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.REDSTONE, dev.craft.secretrooms.SecretRooms.CAMO_WOODEN_DOOR.get()).requires(paste)
+                .requires(Items.OAK_DOOR).unlockedBy("has_paste", has(paste)).save(output, id("camo_wooden_door"));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.REDSTONE, dev.craft.secretrooms.SecretRooms.CAMO_IRON_DOOR.get()).requires(paste)
+                .requires(Items.IRON_DOOR).unlockedBy("has_paste", has(paste)).save(output, id("camo_iron_door"));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.REDSTONE, dev.craft.secretrooms.SecretRooms.CAMO_TRAPDOOR).requires(paste)
+                .requires(Items.OAK_TRAPDOOR).unlockedBy("has_paste", has(paste)).save(output, id("camo_trapdoor"));
+        // "X0X / 0@0 / X0X" with rotten flesh or wool around the middle item, as in SecretRooms.addRecipes.
+        record Ring(net.minecraft.world.level.ItemLike result, int count, net.minecraft.world.item.crafting.Ingredient middle,
+                    String name) {
+        }
+        var rings = List.of(
+                new Ring(dev.craft.secretrooms.SecretRooms.CAMO_REDSTONE, 1, Ingredient.of(Items.REDSTONE), "camo_redstone"),
+                new Ring(dev.craft.secretrooms.SecretRooms.CAMO_LEVER, 1, Ingredient.of(Items.LEVER), "camo_lever"),
+                new Ring(dev.craft.secretrooms.SecretRooms.CAMO_BUTTON, 1, Ingredient.of(Items.STONE_BUTTON), "camo_button"),
+                new Ring(paste, 9, Ingredient.of(ItemTags.WOODEN_STAIRS), "camo_paste_from_wooden_stairs"),
+                new Ring(dev.craft.secretrooms.SecretRooms.CAMO_STAIRS, 4, Ingredient.of(Items.COBBLESTONE_STAIRS), "camo_stairs"),
+                new Ring(dev.craft.secretrooms.SecretRooms.CAMO_CHEST, 1, Ingredient.of(Items.CHEST), "camo_chest"));
+        for (var ring : rings) {
+            for (var filler : List.of(Ingredient.of(Items.ROTTEN_FLESH), Ingredient.of(ItemTags.WOOL))) {
+                String suffix = filler.test(new net.minecraft.world.item.ItemStack(Items.ROTTEN_FLESH))
+                        ? "_rotten_flesh" : "_wool";
+                ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, ring.result(), ring.count()).pattern("X0X")
+                        .pattern("0@0").pattern("X0X").define('X', paste).define('0', filler)
+                        .define('@', ring.middle()).unlockedBy("has_paste", has(paste))
+                        .save(output, id(ring.name() + suffix));
+            }
+        }
+        for (var filler : List.of(Ingredient.of(Items.ROTTEN_FLESH), Ingredient.of(ItemTags.WOOL))) {
+            String suffix = filler.test(new net.minecraft.world.item.ItemStack(Items.ROTTEN_FLESH))
+                    ? "_rotten_flesh" : "_wool";
+            ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, dev.craft.secretrooms.SecretRooms.CAMO_PRESSURE_PLATE).pattern("X@X")
+                    .pattern("0 0").pattern("X0X").define('X', paste).define('0', filler)
+                    .define('@', Items.OAK_PRESSURE_PLATE).unlockedBy("has_paste", has(paste))
+                    .save(output, id("camo_pressure_plate" + suffix));
+            ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, dev.craft.secretrooms.SecretRooms.CAMO_PLAYER_PRESSURE_PLATE).pattern("X@X")
+                    .pattern("0#0").pattern("X0X").define('X', paste).define('0', filler)
+                    .define('@', Items.OAK_PRESSURE_PLATE).define('#', Items.IRON_INGOT)
+                    .unlockedBy("has_paste", has(paste)).save(output, id("camo_player_pressure_plate" + suffix));
+        }
     }
 
     /** Electric light shield (spec 30 §6): vanilla recipe without charge transfer, so the shield comes out empty. */

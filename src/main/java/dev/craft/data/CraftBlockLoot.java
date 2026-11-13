@@ -87,7 +87,13 @@ public final class CraftBlockLoot extends BlockLootSubProvider {
         NcBlocks.BLOCKS.getEntries().forEach(block -> dropSelf(block.get()));
         dropSelf(dev.craft.obsidiplates.ObsidiPlates.OBSIDIAN_PRESSURE_PLATE.get());
         dropSelf(dev.craft.omnitools.OmniTools.MYSTICAL_PLINTH.get());
-        dev.craft.secretrooms.SecretRooms.BLOCKS.getEntries().forEach(block -> dropSelf(block.get()));
+        for (var block : dev.craft.secretrooms.SecretRooms.BLOCKS.getEntries()) {
+            if (block.get() instanceof net.minecraft.world.level.block.DoorBlock door) {
+                add(door, createDoorTable(door));
+            } else if (block != dev.craft.secretrooms.SecretRooms.CAMO_GATE_EXTENSION) {
+                dropSelf(block.get());
+            }
+        }
         // Charge pads: canHarvestBlock = false, only the wrench gets them back (spec 47 §2.1).
         CpBlocks.BLOCKS.getEntries().forEach(block -> add(block.get(), noDrop()));
         // MFFS: the ore drops itself (no fortune); machines drop themselves (IC2 wrench path, spec 48 §5).

@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "ingredients": [
+    {
+      "item": "craft:camo_paste"
+    },
+    {
+      "item": "minecraft:oak_trapdoor"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:camo_trapdoor"
+  }
+}

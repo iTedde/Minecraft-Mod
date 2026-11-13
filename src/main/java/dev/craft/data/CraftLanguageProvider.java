@@ -1384,6 +1384,45 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
         add(dev.craft.secretrooms.SecretRooms.GHOST_BLOCK.get(), german ? "Geisterblock" : "Ghost Block");
         add(dev.craft.secretrooms.SecretRooms.ONE_WAY_GLASS.get(), german ? "Einwegglas" : "One-Way Glass");
         add("key.craft.one_way_facing", german ? "Einwegglas-Richtung umschalten" : "Toggle one-way glass facing");
+        add(dev.craft.secretrooms.SecretRooms.CAMO_REDSTONE.get(), german ? "Getarnter Redstone-Block" : "Camouflaged Redstone");
+        add(dev.craft.secretrooms.SecretRooms.CAMO_LEVER.get(), german ? "Getarnter Hebel" : "Camouflaged Lever");
+        add(dev.craft.secretrooms.SecretRooms.CAMO_BUTTON.get(), german ? "Getarnter Knopf" : "Camouflaged Button");
+        add(dev.craft.secretrooms.SecretRooms.CAMO_PRESSURE_PLATE.get(), german ? "Getarnte Druckplatte" : "Camouflaged Pressure Plate");
+        add(dev.craft.secretrooms.SecretRooms.CAMO_PLAYER_PRESSURE_PLATE.get(), german ? "Getarnte Spieler-Druckplatte" : "Camouflaged Player Pressure Plate");
+        add(dev.craft.secretrooms.SecretRooms.CAMO_STAIRS.get(), german ? "Getarnte Treppe" : "Camouflaged Stairs");
+        add(dev.craft.secretrooms.SecretRooms.CAMO_CHEST.get(), german ? "Getarnte Truhe" : "Camouflaged Chest");
+        add(dev.craft.secretrooms.SecretRooms.CAMO_GATE.get(), german ? "Getarntes Tor" : "Camouflaged Gate");
+        add(dev.craft.secretrooms.SecretRooms.CAMO_GATE_EXTENSION.get(), german ? "Tor-Verlängerung" : "Gate Extension");
+        add(dev.craft.secretrooms.SecretRooms.CAMO_WOODEN_DOOR.get(), german ? "Getarnte Holztür" : "Camouflaged Wooden Door");
+        add(dev.craft.secretrooms.SecretRooms.CAMO_IRON_DOOR.get(), german ? "Getarnte Eisentür" : "Camouflaged Iron Door");
+        add(dev.craft.secretrooms.SecretRooms.CAMO_TRAPDOOR.get(), german ? "Getarnte Falltür" : "Camouflaged Trapdoor");
+        add(dev.craft.secretrooms.SecretRooms.TORCH_LEVER.get(), german ? "Fackel-Hebel" : "Torch Lever");
+        add("emi.craft.info.camo_redstone", german
+                ? "Getarnter Block, der ein Redstone-Signal verlustfrei weitergibt: von der Seite, die ihn speist, an "
+                + "alle anderen Seiten (Stärke 15). Ketten aus getarntem Redstone leiten in eine Richtung."
+                : "Camouflaged block that passes a redstone signal on without loss: from the side feeding it to all "
+                + "other sides (strength 15). Chains of camouflaged redstone conduct in one direction.");
+        add("emi.craft.info.camo_switches", german
+                ? "Getarnte Hebel, Knöpfe und Druckplatten schalten wie ihre Vorbilder (Signal 15, stark in den Block, "
+                + "an den sie gesetzt wurden). Druckplatten lösen aus, wenn man auf dem Block steht – die Spieler-"
+                + "Variante nur für Spieler."
+                : "Camouflaged levers, buttons and pressure plates switch like their models (signal 15, strong into the "
+                + "block they were placed against). Pressure plates trigger when standing on the block – the player "
+                + "variant only for players.");
+        add("emi.craft.info.camo_gate", german
+                ? "Redstone am Tor oder am Block darüber schiebt bis zu 10 getarnte Blöcke in Blickrichtung zum "
+                + "Setzenden heraus (nur in Luft, der erste auch über nicht volle Blöcke); ohne Signal verschwinden sie "
+                + "wieder. Nach unten gerichtete Tore ziehen ihre Wand nicht zurück (wie im Original)."
+                : "Redstone at the gate or the block above pushes out up to 10 camouflaged blocks towards the player "
+                + "who placed it (into air only, the first one also over non-full blocks); without signal they vanish "
+                + "again. Downward gates do not pull their wall back (as in the original).");
+        add("emi.craft.info.camo_doors", german
+                ? "Türen, Falltür, Treppe und Truhe mit Tarnung: Türen sehen aus wie die Wand um sie, die Falltür wie der "
+                + "Block an ihrem Scharnier. Die getarnte Treppe sieht aus wie ein voller Block, man läuft aber wie auf "
+                + "Stufen. Der Fackel-Hebel ist eine Fackel, die per Rechtsklick wie ein Hebel schaltet."
+                : "Doors, trapdoor, stairs and chest with camouflage: doors look like the wall around them, the trapdoor "
+                + "like the block at its hinge. The camouflaged stairs look like a full block but you walk on them like "
+                + "steps. The torch lever is a torch that switches like a lever on right click.");
         add("message.craft.secret_rooms.facing_towards", german ? "Einwegglas: Tarnseite zu dir"
                 : "One-way glass: camouflage towards you");
         add("message.craft.secret_rooms.facing_away", german ? "Einwegglas: Tarnseite von dir weg"

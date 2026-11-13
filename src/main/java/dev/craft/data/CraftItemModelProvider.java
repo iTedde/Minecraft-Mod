@@ -116,6 +116,13 @@ public final class CraftItemModelProvider extends ItemModelProvider {
                 .texture("layer0", modLoc("item/omnitools/forge_lexicon"));
         getBuilder("camo_paste").parent(new ModelFile.UncheckedModelFile("item/generated"))
                 .texture("layer0", modLoc("item/secretrooms/camo_paste"));
+        for (String door : List.of("camo_wooden_door", "camo_iron_door")) {
+            getBuilder(door).parent(new ModelFile.UncheckedModelFile("item/generated"))
+                    .texture("layer0", modLoc("item/secretrooms/" + door));
+        }
+        withExistingParent("camo_trapdoor", modLoc("block/camo_trapdoor_bottom"));
+        getBuilder("torch_lever").parent(new ModelFile.UncheckedModelFile("item/generated"))
+                .texture("layer0", mcLoc("block/torch"));
         for (String gun : List.of("gravity_gun", "charged_gravity_gun")) {
             getBuilder(gun).parent(new ModelFile.UncheckedModelFile("item/handheld"))
                     .texture("layer0", modLoc("item/gravitygun/" + gun));

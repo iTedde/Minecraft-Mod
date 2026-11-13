@@ -1061,6 +1061,30 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
                 .renderType("cutout");
         directionalBlock(dev.craft.secretrooms.SecretRooms.ONE_WAY_GLASS.get(), glass);
         simpleBlockItem(dev.craft.secretrooms.SecretRooms.ONE_WAY_GLASS.get(), glass);
+        for (var block : List.of(dev.craft.secretrooms.SecretRooms.CAMO_REDSTONE, dev.craft.secretrooms.SecretRooms.CAMO_LEVER,
+                dev.craft.secretrooms.SecretRooms.CAMO_BUTTON, dev.craft.secretrooms.SecretRooms.CAMO_PRESSURE_PLATE,
+                dev.craft.secretrooms.SecretRooms.CAMO_PLAYER_PRESSURE_PLATE, dev.craft.secretrooms.SecretRooms.CAMO_STAIRS,
+                dev.craft.secretrooms.SecretRooms.CAMO_CHEST, dev.craft.secretrooms.SecretRooms.CAMO_GATE,
+                dev.craft.secretrooms.SecretRooms.CAMO_GATE_EXTENSION)) {
+            getVariantBuilder(block.get()).forAllStates(state -> ConfiguredModel.builder().modelFile(camo).build());
+            simpleBlockItem(block.get(), camo);
+        }
+        doorBlockWithRenderType(dev.craft.secretrooms.SecretRooms.CAMO_WOODEN_DOOR.get(), mcLoc("block/oak_door_bottom"),
+                mcLoc("block/oak_door_top"), "cutout");
+        doorBlockWithRenderType(dev.craft.secretrooms.SecretRooms.CAMO_IRON_DOOR.get(), mcLoc("block/iron_door_bottom"),
+                mcLoc("block/iron_door_top"), "cutout");
+        trapdoorBlockWithRenderType(dev.craft.secretrooms.SecretRooms.CAMO_TRAPDOOR.get(), mcLoc("block/oak_trapdoor"),
+                true, "cutout");
+        ModelFile torch = models().withExistingParent("secretrooms/torch_lever", mcLoc("block/template_torch"))
+                .texture("torch", mcLoc("block/torch")).renderType("cutout");
+        ModelFile wallTorch = models().withExistingParent("secretrooms/torch_lever_wall",
+                mcLoc("block/template_torch_wall")).texture("torch", mcLoc("block/torch")).renderType("cutout");
+        getVariantBuilder(dev.craft.secretrooms.SecretRooms.TORCH_LEVER.get()).forAllStates(state -> {
+            Direction facing = state.getValue(dev.craft.secretrooms.TorchLeverBlock.FACING);
+            return facing == Direction.UP ? ConfiguredModel.builder().modelFile(torch).build()
+                    : ConfiguredModel.builder().modelFile(wallTorch)
+                    .rotationY(((int) facing.toYRot() + 90) % 360).build();
+        });
     }
 
     private void mffs() {

@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "#": {
+      "item": "minecraft:iron_ingot"
+    },
+    "0": {
+      "tag": "minecraft:wool"
+    },
+    "@": {
+      "item": "minecraft:oak_pressure_plate"
+    },
+    "X": {
+      "item": "craft:camo_paste"
+    }
+  },
+  "pattern": [
+    "X@X",
+    "0#0",
+    "X0X"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:camo_player_pressure_plate"
+  }
+}

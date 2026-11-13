@@ -2,6 +2,18 @@
   "values": [
     "craft:ghost_block",
     "craft:one_way_glass",
+    "craft:camo_redstone",
+    "craft:camo_lever",
+    "craft:camo_button",
+    "craft:camo_pressure_plate",
+    "craft:camo_player_pressure_plate",
+    "craft:camo_stairs",
+    "craft:camo_chest",
+    "craft:camo_gate",
+    "craft:camo_gate_extension",
+    "craft:camo_wooden_door",
+    "craft:camo_trapdoor",
+    "craft:torch_lever",
     "craft:wooden_scaffold",
     "craft:auto_workbench",
     "craft:rubber_wood"

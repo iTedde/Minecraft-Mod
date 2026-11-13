@@ -14,6 +14,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockAndTintGetter;
+import net.minecraft.world.level.block.DoorBlock;
+import net.minecraft.world.level.block.TrapDoorBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.client.ChunkRenderTypeSet;
 import net.neoforged.neoforge.client.model.BakedModelWrapper;
@@ -47,6 +49,16 @@ public class CamoBakedModel extends BakedModelWrapper<BakedModel> {
         BakedModel camoModel = modelOf(camo);
         boolean camoType = renderType == null || camoModel.getRenderTypes(camo, rand, ModelData.EMPTY)
                 .contains(renderType);
+        if (state != null && (state.getBlock() instanceof DoorBlock || state.getBlock() instanceof TrapDoorBlock)) {
+            if (!camoType) {
+                return List.of();
+            }
+            List<BakedQuad> quads = new ArrayList<>();
+            for (BakedQuad quad : originalModel.getQuads(state, side, rand, data, null)) {
+                quads.add(retexture(quad, camo, camoModel, rand));
+            }
+            return quads;
+        }
         if (state != null && state.getBlock() instanceof OneWayGlassBlock) {
             Direction facing = state.getValue(OneWayGlassBlock.FACING);
             List<BakedQuad> quads = new ArrayList<>();
@@ -60,6 +72,31 @@ public class CamoBakedModel extends BakedModelWrapper<BakedModel> {
             return quads;
         }
         return camoType ? camoModel.getQuads(camo, side, rand, ModelData.EMPTY, renderType) : List.of();
+    }
+
+    /**
+     * Door and trapdoor keep their shape: each quad gets the camouflage sprite of its direction, at the same relative
+     * position in the sprite, and that face's tint.
+     */
+    private static BakedQuad retexture(BakedQuad quad, BlockState camo, BakedModel camoModel, RandomSource rand) {
+        List<BakedQuad> faces = camoModel.getQuads(camo, quad.getDirection(), rand, ModelData.EMPTY, null);
+        if (faces.isEmpty()) {
+            faces = camoModel.getQuads(camo, null, rand, ModelData.EMPTY, null);
+        }
+        TextureAtlasSprite target = faces.isEmpty() ? camoModel.getParticleIcon(ModelData.EMPTY)
+                : faces.get(0).getSprite();
+        int tint = faces.isEmpty() ? -1 : faces.get(0).getTintIndex();
+        TextureAtlasSprite source = quad.getSprite();
+        int[] vertices = quad.getVertices().clone();
+        int stride = vertices.length / 4;
+        for (int v = 0; v < 4; v++) {
+            int u = v * stride + 4;
+            float relU = (Float.intBitsToFloat(vertices[u]) - source.getU0()) / (source.getU1() - source.getU0());
+            float relV = (Float.intBitsToFloat(vertices[u + 1]) - source.getV0()) / (source.getV1() - source.getV0());
+            vertices[u] = Float.floatToRawIntBits(target.getU0() + relU * (target.getU1() - target.getU0()));
+            vertices[u + 1] = Float.floatToRawIntBits(target.getV0() + relV * (target.getV1() - target.getV0()));
+        }
+        return new BakedQuad(vertices, tint, quad.getDirection(), target, quad.isShade());
     }
 
     @Override

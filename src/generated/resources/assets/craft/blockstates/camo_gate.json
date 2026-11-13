@@ -1,0 +1,22 @@
+{
+  "variants": {
+    "facing=down": {
+      "model": "craft:secretrooms/camo_block"
+    },
+    "facing=east": {
+      "model": "craft:secretrooms/camo_block"
+    },
+    "facing=north": {
+      "model": "craft:secretrooms/camo_block"
+    },
+    "facing=south": {
+      "model": "craft:secretrooms/camo_block"
+    },
+    "facing=up": {
+      "model": "craft:secretrooms/camo_block"
+    },
+    "facing=west": {
+      "model": "craft:secretrooms/camo_block"
+    }
+  }
+}
