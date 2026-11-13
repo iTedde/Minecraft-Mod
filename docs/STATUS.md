@@ -4188,3 +4188,26 @@ Speicher und Stromverbrauch, vielleicht so 100000“.
 
 ## Nächste Schritte
 - 50.3 Gravity Gun.
+
+# Phase 50.3 – Gravity Gun (2026-11-13)
+
+## Erledigt
+- [x] `gravitygun/GravityGun` (Items `gravity_gun`, `charged_gravity_gun`, Entity `grabbed_block`, Events),
+  `GravityGunHandler` (`EntityHelper`/`TickHandlerServer` mit Pack-Config: kein Treibstoff, Blöcke fallen beim
+  Loslassen, Spieler greifbar, Creeper explodieren nur von der aufgeladenen Kanone): Greifen in 4 Blöcken
+  (Entity, sonst Block: voll, Truhen, Glas, Glowstone, Kuchen, TNT, Eis, Laub, Amboss; nicht Grundgestein; Zombies
+  nur mit `mobGriefing`), gedrückt halten zieht aus 10/15 heran (0,01/0,02 × Reichweite/Abstand, Fang bei 4;
+  aufgeladen reißt Blöcke los), Halten 3,5 vor den Augen (zu weit → Teleport zum Halter, Enderman > 6 lässt los),
+  Werfen (10/12 ÷ Abstand × 0,3, y × 0,52), Aufprallschaden ⌊2,5 × Tempo⌋ mit Größenverhältnis an Getroffenem bzw.
+  sich selbst, Feuerbälle umgelenkt. Blitz (EntityStruckByLightningEvent) lädt Kanonen im Hauptinventar auf;
+  Zombies mit Kanone greifen/werfen zu 0,8 % je Tick; Entity-Interaktion mit Kanone in der Hand gesperrt.
+- [x] `GrabbedBlock` (Block + Block-Entity-Daten, fällt und setzt sich ab, sonst Item + Inventar), Renderer wie
+  fallender Block. Client `GravityGunClient`: Angriff/Benutzen abgefangen (nur Tastendruck, kein Abbauen/Setzen),
+  Loslassen beendet Ziehen; Payload `craft:gravity_gun` (1/2/3 wie `sendKeybind`).
+- [x] Eigene Texturen (Python, `kleinkram_textures.py`), Vanilla-Klänge (Beacon/Feuerwerk) – nichts aus HL2.
+  Equip-Klang des Originals entfällt. Rezepte `DEI / EGE / IEO` (Glowstone bzw. Netherstern), Lang, EMI-Infoseiten.
+- [x] GameTests `GravityGunGameTests` (Greifregeln, Truhe landet mit Inhalt, Greifen/Halten/Loslassen, Stoß,
+  Aufladen). Alle 659 grün. `runData`, danach `build` grün.
+
+## Nächste Schritte
+- 50.4 Secret Rooms: Tarn-Grundlage (Modell, Paste, Geisterblock, Einwegglas).

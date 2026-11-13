@@ -2197,6 +2197,14 @@ public final class CraftRecipeProvider extends RecipeProvider {
         ShapelessRecipeBuilder.shapeless(RecipeCategory.TOOLS, dev.craft.omnitools.OmniTools.FORGE_LEXICON)
                 .requires(Items.BOOK).requires(Items.GOLD_INGOT).requires(Items.IRON_INGOT).requires(Items.CYAN_WOOL)
                 .unlockedBy("has_book", has(Items.BOOK)).save(output, id("forge_lexicon"));
+        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, dev.craft.gravitygun.GravityGun.GRAVITY_GUN)
+                .pattern("DEI").pattern("EGE").pattern("IEO").define('D', Items.DIAMOND).define('E', Items.ENDER_PEARL)
+                .define('I', Items.IRON_INGOT).define('O', Items.OBSIDIAN).define('G', Items.GLOWSTONE)
+                .unlockedBy("has_ender_pearl", has(Items.ENDER_PEARL)).save(output, id("gravity_gun"));
+        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, dev.craft.gravitygun.GravityGun.CHARGED_GRAVITY_GUN)
+                .pattern("DEI").pattern("EGE").pattern("IEO").define('D', Items.DIAMOND).define('E', Items.ENDER_PEARL)
+                .define('I', Items.IRON_INGOT).define('O', Items.OBSIDIAN).define('G', Items.NETHER_STAR)
+                .unlockedBy("has_nether_star", has(Items.NETHER_STAR)).save(output, id("charged_gravity_gun"));
     }
 
     /** Electric light shield (spec 30 §6): vanilla recipe without charge transfer, so the shield comes out empty. */

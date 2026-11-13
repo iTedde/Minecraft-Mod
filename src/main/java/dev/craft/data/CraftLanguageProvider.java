@@ -1378,6 +1378,32 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
         add(dev.craft.omnitools.OmniTools.MYSTICAL_PLINTH.get(), german ? "Mystischer Sockel" : "Mystical Plinth");
         item(dev.craft.omnitools.OmniTools.FORGE_LEXICON, german ? "Forge-Lexikon" : "Forge Lexicon");
         add("gui.craft.forge_lexicon.no_conversion", german ? "Keine Umwandlung nötig." : "No conversion necessary.");
+        item(dev.craft.gravitygun.GravityGun.GRAVITY_GUN, german ? "Gravitationskanone" : "Gravity Gun");
+        item(dev.craft.gravitygun.GravityGun.CHARGED_GRAVITY_GUN, german ? "Aufgeladene Gravitationskanone"
+                : "Charged Gravity Gun");
+        add(dev.craft.gravitygun.GravityGun.GRABBED_BLOCK.get(), german ? "Gegriffener Block" : "Grabbed Block");
+        add("tooltip.craft.gravity_gun", german ? "Benutzen: greifen/loslassen · Angriff: werfen"
+                : "Use: grab/drop · Attack: throw");
+        add("tooltip.craft.gravity_gun.charged", german
+                ? "Benutzen: greifen/loslassen (auch Blöcke aus 15 Blöcken) · Angriff: werfen"
+                : "Use: grab/drop (blocks from 15 blocks away too) · Attack: throw");
+        add("emi.craft.info.gravity_gun", german
+                ? "Benutzen-Taste: Entity oder Block in bis zu 4 Blöcken greifen und 3,5 Blöcke vor sich halten, erneut "
+                + "drücken lässt los; gedrückt halten zieht Entities aus 10 Blöcken heran. Angriffstaste wirft das "
+                + "Gehaltene bzw. stößt ein Ziel an. Geworfenes richtet beim Aufprall Schaden an (2,5 je Block/Tick "
+                + "Tempo). Greift volle Blöcke, Truhen (mit Inhalt), Glas, Glowstone, Kuchen, TNT, Eis, Laub, Ambosse; "
+                + "losgelassene Blöcke fallen und setzen sich ab. Ein Blitz in der Nähe lädt die Kanone auf."
+                : "Use key: grab an entity or block within 4 blocks and hold it 3.5 blocks ahead, press again to drop; "
+                + "holding the key pulls entities in from 10 blocks. Attack throws what you hold or punts a target. "
+                + "Thrown things deal impact damage (2.5 per block/tick of speed). Grabs full blocks, chests (with "
+                + "contents), glass, glowstone, cake, TNT, ice, leaves, anvils; released blocks fall and set down. "
+                + "Lightning nearby charges the gun.");
+        add("emi.craft.info.charged_gravity_gun", german
+                ? "Wie die Gravitationskanone, aber Reichweite 15, zieht doppelt so stark, wirft stärker (12 statt 10) "
+                + "und reißt beim Heranziehen auch Blöcke aus 15 Blöcken los. Von ihr geworfene Creeper explodieren "
+                + "beim Aufprall."
+                : "Like the gravity gun, but range 15, pulls twice as hard, throws harder (12 instead of 10) and also "
+                + "tears blocks loose from 15 blocks away while pulling. Creepers it throws explode on impact.");
         add("emi.craft.info.forge_lexicon", german
                 ? "Wandelt Erze, Staub, kleine Stäube und Barren zwischen gleichwertigen Varianten verschiedener Mods "
                 + "um (gemeinsamer c:-Tag, z. B. Craft-Zinnbarren ↔ Mekanism-Zinnbarren; Gruppen nach der Whitelist des "

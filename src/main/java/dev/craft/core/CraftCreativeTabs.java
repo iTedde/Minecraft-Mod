@@ -317,6 +317,7 @@ public final class CraftCreativeTabs {
                     .withTabsBefore(ResourceLocation.fromNamespaceAndPath(Craft.MODID, "mffs"))
                     .displayItems((parameters, output) -> {
                         dev.craft.omnitools.OmniTools.ITEMS.getEntries().forEach(holder -> output.accept(holder.get()));
+                        dev.craft.gravitygun.GravityGun.ITEMS.getEntries().forEach(holder -> output.accept(holder.get()));
                         dev.craft.obsidiplates.ObsidiPlates.ITEMS.getEntries()
                                 .forEach(holder -> output.accept(holder.get()));
                     })

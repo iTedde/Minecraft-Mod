@@ -18,6 +18,8 @@ final class KleinkramEmiRecipes {
         info(registry, dev.craft.obsidiplates.ObsidiPlates.OBSIDIAN_PRESSURE_PLATE.get(), "obsidian_pressure_plate");
         info(registry, dev.craft.omnitools.OmniTools.FORGE_LEXICON.get(), "forge_lexicon");
         info(registry, dev.craft.omnitools.OmniTools.MYSTICAL_PLINTH.get(), "mystical_plinth");
+        info(registry, dev.craft.gravitygun.GravityGun.GRAVITY_GUN.get(), "gravity_gun");
+        info(registry, dev.craft.gravitygun.GravityGun.CHARGED_GRAVITY_GUN.get(), "charged_gravity_gun");
     }
 
     static void info(EmiRegistry registry, ItemLike item, String key) {
