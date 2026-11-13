@@ -50,6 +50,7 @@ public class CraftEmiPlugin implements EmiPlugin {
         PcEmiRecipes.register(registry);
         NcEmiRecipes.register(registry);
         CpEmiRecipes.register(registry);
+        MffsEmiRecipes.register(registry);
         registry.addWorkstation(VanillaEmiRecipeCategories.CRAFTING, EmiStack.of(RpItems.PROJECT_TABLE.get()));
         registry.addWorkstation(VanillaEmiRecipeCategories.CRAFTING, EmiStack.of(RpItems.LARGE_PROJECT_TABLE.get()));
         registry.addRecipe(new EmiInfoRecipe(List.of(EmiStack.of(RpItems.PROJECT_TABLE.get()),

@@ -532,3 +532,9 @@ Sicherheitsspeicher (6×9), Steuerungssystem (Datenlink-Leser, Ablage 7×4, Fern
 - **48.4** Sicherheit: Sicherheitsstation, Ausweis/Lizenz/Link-/Datenlink-Karten, Rechte, Kodierer, Sicherheitsspeicher,
   Steuerungssystem, Verteidigungsstation, Handbuch, Debugger, GameTests. (erledigt 2026-11-13)
 - **48.5** EMI (Info-Seiten), Herkunft, Wiki, Testplan, Craft-Version + Paket.
+  Umgesetzt 2026-11-13: 14 EMI-Info-Seiten (`compat/emi/MffsEmiRecipes`: Forcicium/Zelle/Kristall, Extraktor,
+  Kondensator, Konverter, Maschinen allgemein, Karten, Projektor, Module, Upgrades, Sicherheitsstation,
+  Sicherheitsspeicher, Steuerungssystem, Verteidigungsstation, Multiwerkzeug); Herkunft für die rezeptlosen Karten
+  (Power-Link, Sicherheits-Link, Ausweis, Zugangslizenz, Datenlink), die umgeschalteten Multiwerkzeug-Modi und die
+  Kreativ-Teile; Wiki-Gruppe „MFFS“ (Module/Upgrades über `SUFFIX_GROUPS`) und Seite „Modular Force Field System“;
+  Testplan Abschnitt 25; Craft 1.2.9, Paket 1.2.12.

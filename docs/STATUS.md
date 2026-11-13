@@ -4055,3 +4055,30 @@ Nutzer: „Nächste Phase“.
   Verteidigungsstation, Handbuch), ChargePads (Testplan 24), Nuclear Control (Testplan 23) – nur nach Rückfrage.
 - Tesserakt-Tests weiter beobachten (diesmal alle drei rot: Energie, Flüssigkeit, Item).
 - Phase 51 (Leuchtschild „wie Blendgranate“): Umfang klären.
+
+# Phase 48.5 – MFFS: EMI, Herkunft, Wiki, Paket (2026-11-13)
+
+Nutzer: „Nächste Phase“.
+
+## Erledigt
+- [x] EMI: 14 Info-Seiten (`compat/emi/MffsEmiRecipes`): Forcicium/Zelle/Kristall, Extraktor, Kondensator, Konverter,
+  Maschinen allgemein (Abbau, Schaltmodus, Chunkloading), Karten, Projektor, Module, Upgrades, Sicherheitsstation,
+  Sicherheitsspeicher, Steuerungssystem, Verteidigungsstation, Multiwerkzeug; Texte DE/EN in
+  `CraftLanguageProvider.mffsInfo` (Rechte-Namen wie in der GUI: „Im Gebiet bleiben“ / „Stay in Area“).
+- [x] Herkunft: Power-Link-, Sicherheits-Link-, Ausweis-, Zugangslizenz-, Datenlink-Karte, umgeschaltete
+  Multiwerkzeug-Modi, Kreativ-Teile (Unendlich-Karte, Debugger); verrutschter Javadoc in `SourceTexts` korrigiert.
+- [x] Wiki: Gruppe „MFFS“ (51 Einträge; Module/Upgrades über `SUFFIX_GROUPS`), Seite „Modular Force Field System“
+  (Energie, Karten, Projektor/Module, Upgrades, Sicherheit, Multiwerkzeug); DE + EN-Namen neu erzeugt.
+  `testplan.md` Abschnitt 25, Spec 48 §15, `architektur.md`, CLAUDE.md.
+- [x] Craft **1.2.9** (`releases/craft-1.2.9.jar`), `gradlew runData`, danach `build` grün. GameTests nicht erneut
+  gelaufen (nur EMI/Sprache/Wiki geändert; letzter Lauf in 48.4).
+- [x] Paket `releases/Craft-1.2.12-curseforge.zip` (10,2 MB): wie 1.2.11, nur Craft 1.2.8 → 1.2.9; Manifest
+  unverändert (113 Einträge). Nicht im Client gestartet.
+- **Phase 48 erledigt, Client-Test offen** (Testplan 25.1–25.5).
+
+## Nächste Schritte
+- Client-Test MFFS (Testplan 25), ChargePads (Testplan 24), Nuclear Control (Testplan 23) – nur nach Rückfrage;
+  Paket 1.2.12 im CurseForge-Launcher.
+- Phase 50 (Kleinkram: Omnitools, Obsidian Pressure Plates, Gravity Gun, Secret Rooms) mit Spezifikation beginnen.
+- Phase 51 (Leuchtschild „wie Blendgranate“): Umfang klären.
+- Tesserakt-Tests weiter beobachten.

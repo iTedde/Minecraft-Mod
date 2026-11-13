@@ -315,6 +315,16 @@ Testwelt. Sprache einmal Deutsch, einmal Englisch prüfen. EMI und Xaero's Minim
 | 24.4 | Module: Nahbereich/Breitband (Hotbar), Rüstungsvorrang, Feldausdehnung (Funkenfläche größer), Entladung (gelbe Funken), Schaden (rote Funken, Gift); mit Entladungs-/Schadensmodul GUI nur von unten | 47.2 | |
 | 24.5 | Ausbausätze: Werkbank und Rechtsklick auf die Unterseite (Speicher bleibt, Upgrade landet im Feld-Platz), aktiver Pad → Meldung + Schaden; Schraubenschlüssel gibt den Pad, Spitzhacke → Stromschlag + Inventarverlust; Fall aus 4 Blöcken → Zusatzschaden | 47.1, 47.2 | |
 
+## 25. Modular Force Field System (Phase 48)
+
+| Nr | Test | Herkunft | OK |
+|---|---|---|---|
+| 25.1 | Monazit-Erz in der Welt (y 0–79) und Mining-Dimension; Ofen/Macerator/Grinder → Forcicium; alle Blöcke/Items im Tab „Craft: Modular Force Field System“, Texturen; Rezepte und 14 Info-Seiten in EMI, Herkunft der Karten (Shift-Tooltip) | 48.1–48.5 | |
+| 25.2 | Extraktor mit Kabel (EU) und Engine (MJ) + Forcicium, Beschleuniger; Forcicium-Zelle füllen (Inventar aktiv, Extraktor rechts); Kondensator mit Power-Link-Karte, Upgrades, Kristall laden/entladen, Weitergabe an zweiten Kondensator; Konverter KE → EU an Kabel | 48.1 | |
+| 25.3 | Projektor: alle 8 Module mit Modulatoren/Fokusmatrizen (Form sichtbar), Einschalten/Unterhalt, Feld ersetzt Wasser, kein Abbau, Explosion prallt ab; Zugriffsarten (Linksklick-Schock), Abschalten bei leerem Kondensator | 48.2 | |
+| 25.4 | Upgrades: Tarnung (Block, Wasser-/Lavaeimer, Wechsel sofort), Berührungsschaden, Schwamm, Kuppel, Blockbrecher (1 Item ins Nachbarinventar), Störsender brennt fremden Projektor aus + Reparatur, Feldfusion, NPC-Abwehr; Feld-Teleporter durch eine Wand | 48.3 | |
+| 25.5 | Sicherheitsstation-GUI (Master, 8 Rechte-Knöpfe mit Symbolen, Lizenz ±, Kopie), Kodierer (eigener/fremder Ausweis, Datenlink), Rechte wirken (GUI gesperrt, Feld-Durchgang); Sicherheitsspeicher (Trichter nur ausgeschaltet), Steuerungssystem (Ferndaten, Schalten, Remote-GUI), Verteidigungsstation (Warnung, Modi informieren/durchsuchen/töten, NPCs), Handbuch, Debugger | 48.4 | |
+
 ## Befunde
 
 | Nr | Datum | Befund | Status |

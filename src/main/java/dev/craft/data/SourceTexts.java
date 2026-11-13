@@ -1106,8 +1106,7 @@ public final class SourceTexts {
                 "rich_slag");
     }
 
-    /** IC2 Nuclear Control (spec 46): cards without a crafting recipe. */
-    /** Modular Force Field System (spec 48 §2). */
+    /** Modular Force Field System (spec 48 §2, §6–§8): ore, cell and items without a crafting recipe. */
     private static void mffs() {
         add("Oberwelt und Mining-Dimension (doppelt), y 0–79, 5 Adern (Größe 5) je Chunk (MFFS). Spitzhacke, droppt "
                         + "sich selbst. Ofen → 4 Forcicium; Macerator/Pulverisierer → 8 Forcicium; Industrial Grinder → "
@@ -1121,8 +1120,38 @@ public final class SourceTexts {
                 "Recipe (refined iron, force energy crystal, advanced circuit). Fills itself with forcicium from the "
                         + "inventory while active, or in the extractor (right slot, 200,000 EU per forcicium).",
                 "forcicium_cell");
+        add("Kein Rezept: Mit einer leeren MFFS-Karte auf einen MFFS-Kondensator rechtsklicken.",
+                "No recipe: right click an MFFS capacitor with a blank MFFS card.",
+                "mffs_card_power_link");
+        add("Kein Rezept: Mit einer leeren MFFS-Karte auf eine aktive MFFS-Sicherheitsstation rechtsklicken.",
+                "No recipe: right click an active MFFS security station with a blank MFFS card.",
+                "mffs_card_security_link");
+        add("Kein Rezept: Multiwerkzeug ‹Kodierer› in die Luft (eigener Ausweis) oder Linksklick auf einen Spieler "
+                        + "(1 000 KE + leere Karte im Inventar); Kopie in der Sicherheitsstation.",
+                "No recipe: multitool <coder> into the air (own ID card) or left click a player (1,000 FE + blank card "
+                        + "in the inventory); copies in the security station.",
+                "mffs_card_personal_id");
+        add("Kein Rezept: Leere Karte in den Bearbeitungsplatz einer aktiven Sicherheitsstation legen und „+“ "
+                        + "drücken (5 min, je Klick ±5 min).",
+                "No recipe: put a blank card into the edit slot of an active security station and press \"+\" (5 min, "
+                        + "±5 min per click).",
+                "mffs_card_access");
+        add("Kein Rezept: Multiwerkzeug ‹Kodierer› auf eine MFFS-Maschine rechtsklicken (1 000 KE + leere Karte im "
+                        + "Inventar).",
+                "No recipe: right click an MFFS machine with the multitool <coder> (1,000 FE + blank card in the "
+                        + "inventory).",
+                "mffs_card_data_link");
+        add("Kein Rezept: Multiwerkzeug ‹Schraubenschlüssel› bauen und mit Schleichen + Rechtsklick in diesen Modus "
+                        + "umschalten.",
+                "No recipe: craft the multitool <wrench> and switch to this mode with sneak + right click.",
+                "mffs_multitool_switch", "mffs_multitool_id_writer", "mffs_multitool_field_teleporter",
+                "mffs_multitool_guide");
+        add("Nur im Kreativmodus (wie im Pack).",
+                "Creative mode only (as in the pack).",
+                "mffs_card_infinite_power", "mffs_multitool_debugger");
     }
 
+    /** IC2 Nuclear Control (spec 46): cards without a crafting recipe. */
     private static void nuclearControl() {
         add("Kein Rezept: Mit dem Reaktor-Sensorkit auf einen Reaktor oder eine Reaktorkammer rechtsklicken.",
                 "No recipe: right click a reactor or reactor chamber with the remote sensor kit.",

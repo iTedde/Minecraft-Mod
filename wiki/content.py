@@ -1223,6 +1223,76 @@ Stromschlag. Wie im Original landet das Upgrade des statischen Pads im Feld-Plat
 ein Teil des Inventars geht verloren, der Pad selbst droppt nicht.</li>
 <li>Wer aus mehr als 3,5 / 2,5 / 1,5 Blöcken auf den Pad fällt, bekommt 3 / 6 / 9 Schaden extra.</li></ul>""")
 
+    modpage('mod-mffs', 'Modular Force Field System', 'craft:mffs_projector',
+            'Modular Force Field System (MFFS) aus dem Pack: <b>Kraftfelder</b> aus unzerstörbaren Feldblöcken in acht Formen, '
+            'gespeist mit <b>Kraftenergie (KE)</b> aus Forcicium und EU, dazu Upgrades (Tarnung, Schaden, Störsender …), eine '
+            '<b>Sicherheitsstation</b> mit Ausweisen und Rechten, Fernsteuerung und eine <b>Verteidigungsstation</b>. Alle Teile '
+            'liegen im eigenen Kreativ-Tab „Craft: Modular Force Field System“.',
+            [('Vorlage', 'Modular ForceField System V2 2.2.8.3.6 (FTB Ultimate)'), ('Energie', 'Kraftenergie (KE) aus EU/MJ + Forcicium'),
+             ('Umrechnung', '4 000 EU → 12 000 KE; 3 KE → 1 EU'), ('Kreativ-Tab', 'Craft: Modular Force Field System')],
+            [('spec-48', '48 – Modular Force Field System')],
+            f"""<h2 id="mod-mffs--energie">Forcicium und Kraftenergie</h2>
+<ul><li>{c('monazit_ore')}: Oberwelt (y 0–79, 5 kleine Adern je Chunk) und Mining-Dimension (doppelt). Ofen → 4, Macerator/Pulverisierer
+→ 8, Industrial Grinder → 10 {c('forcicium')} + 2 Thoriumstaub.</li>
+<li>{c('mffs_extractor')}: EU (bis 2 048 EU/Paket) oder MJ + Forcicium → KE. 1 Forcicium = 250 Takte à 4 000 EU → 12 000 KE,
+also 3 Mio. KE aus 1 Mio. EU. Takt alle 20 Ticks, je {c('mffs_extractor_booster')} einen Tick schneller (max. 19).</li>
+<li>{c('forcicium_cell')}: trägt 1 000 Forcicium; aktiv (Rechtsklick) sammelt sie Forcicium aus dem Inventar. Im Extraktor rechts
+gefüllt kostet sie 200 000 EU je Forcicium.</li>
+<li>{c('mffs_capacitor')}: 10 Mio. KE (+2 Mio. je {c('mffs_capacitor_upgrade_capacity')}), versorgt drahtlos alle Geräte mit seiner
+{c('mffs_card_power_link')} im Umkreis von 8 Blöcken (+8 je {c('mffs_capacitor_upgrade_range')}, max. 80).
+{c('force_energy_crystal')} (5 Mio. KE) und Multiwerkzeug lädt bzw. entlädt er.</li>
+<li>{c('mffs_converter')}: KE → EU (3 KE je EU), Paketgröße 1–2 048 EU, 1–9 Pakete je Tick. Extraktor + Konverter = drahtlose EU-Leitung ohne Verlust.</li></ul>
+{h.note('info', 'Alle MFFS-Maschinen sind unzerstörbar: abbauen mit dem Multiwerkzeug ‹Schraubenschlüssel› (Vorderseite anklicken) oder dem IC2-Schraubenschlüssel, nur ausgeschaltet. Schaltmodus Redstone, Schalter oder Steuerungssystem. Jede Maschine hält ihren Chunk geladen.')}
+<h2 id="mod-mffs--karten">Karten</h2>
+<p>{c('mffs_card_blank')} auf einen Kondensator → {c('mffs_card_power_link')}, auf eine aktive Sicherheitsstation →
+{c('mffs_card_security_link')}. Mit der Karte auf eine Maschine rechtsklicken setzt sie ein. Karten folgen ihrem Ziel auch nach dem
+Verschieben; jede Datenkarte allein in der Werkbank wird wieder leer. {c('mffs_card_infinite_power')} gibt es nur im Kreativmodus.</p>
+<h2 id="mod-mffs--projektor">Projektor und Kraftfeld</h2>
+<p>{c('mffs_projector')}: Energiequelle, Modul, dazu {c('field_modulator_distance')} (D), {c('field_modulator_strength')} (S) und
+{c('projector_focus_matrix')} (oben/unten/rechts/links). Einschalten kostet 10 KE je Feldblock, danach 1 KE je Feldblock alle
+20 Ticks (Wand, Deflektor und diagonale Wand ohne Upgrade wie im Original doppelt). Feldblöcke ersetzen nur Luft und Flüssigkeiten.</p>
+{h.table(['Modul', 'Form'], [
+    [c('projector_module_wall'), 'Kreuz aus den Fokusmatrizen, S+1 tief, ab D+1 vor dem Projektor'],
+    [c('projector_module_diagonal_wall'), 'wie Wand, aber Diagonalen'],
+    [c('projector_module_deflector'), 'Fläche aus den Fokusmatrizen, Abstand D+1, 1 dick'],
+    [c('projector_module_tube'), 'offene Röhre um den Projektor, Querschnitt ±(D+2), Länge ±S'],
+    [c('projector_module_cube'), 'Hohlwürfel, Radius D+4'],
+    [c('projector_module_sphere'), 'Kugelschale, Radius D+4, Dicke S+1'],
+    [c('projector_module_containment'), 'Hohlquader vor dem Projektor'],
+    [c('projector_module_adv_cube'), 'Hohlquader um den Projektor aus Fokusmatrizen und S'],
+])}
+<p>Zugriffsart: kein Zutritt (Feld schockt jeden beim Anfassen), frei, über die Sicherheitsstation des Kondensators oder eine
+eigene Station ({c('mffs_card_security_link')} im Projektor). {c('mffs_multitool_field_teleporter')} bringt berechtigte Spieler
+durch ein Feld bis 5 Blöcke Dicke (10 000 KE).</p>
+<h2 id="mod-mffs--upgrades">Upgrades</h2>
+{h.table(['Upgrade', 'Wirkung'], [
+    [c('projector_upgrade_touch_damage'), '10 Schaden bei Berührung (ignoriert Rüstung)'],
+    [c('projector_upgrade_sponge'), 'entfernt Flüssigkeiten im Innenraum'],
+    [c('projector_upgrade_field_manipulator'), 'Kuppel bzw. Halbform'],
+    [c('projector_upgrade_block_breaker'), 'räumt Blöcke auf Feldplätzen ab (bei Wänden 1 Item ins Nachbarinventar, Rest verloren – Originalfehler)'],
+    [c('projector_upgrade_field_jammer'), 'fremde Projektoren mit Feldpunkten im Innenraum brennen aus (Reparatur mit dem Schraubenschlüssel-Multiwerkzeug)'],
+    [c('projector_upgrade_camouflage'), 'Feld sieht aus wie der Block im Tarnplatz (auch Wasser/Lava per Eimer)'],
+    [c('projector_upgrade_field_fusion'), 'Felder am selben Kondensator verschmelzen'],
+    [c('projector_upgrade_npc_defense'), '10 Schaden an Monstern im Feld alle 20 Ticks, je 10 000 KE'],
+    [c('projector_upgrade_defense_station'), '10 Schaden an Spielern ohne Recht „Im Gebiet bleiben“, je 10 000 KE'],
+])}
+<h2 id="mod-mffs--sicherheit">Sicherheit</h2>
+<ul><li>{c('mffs_security_station')}: aktiv mit einem {c('mffs_card_personal_id')} im Master-Platz (der Besitzer darf alles).
+Ausweise im Bearbeitungsplatz bekommen per Knopf die 8 Rechte (Kraftfeld-Durchgang, Block bearbeiten, Rechte vergeben, Im Gebiet
+bleiben, Speicher öffnen, Geschützten Block ändern – ohne Wirkung, Alle Gegenstände erlaubt, Steuerungssystem benutzen).
+Leere Karte + „+“ → {c('mffs_card_access')} (5 min, ±5 min). Inaktive Station = alles erlaubt.</li>
+<li>{c('mffs_multitool_id_writer')}: Ausweis für sich (Luft) oder einen anderen Spieler (Linksklick), {c('mffs_card_data_link')} auf einer Maschine.</li>
+<li>{c('mffs_security_storage')}: 54 gesicherte Plätze; eingeschaltet für Trichter/Rohre gesperrt.</li>
+<li>{c('mffs_control_system')}: zeigt und schaltet Maschinen über Datenlink-Karten aus der Ferne (bis 61 Blöcke).</li>
+<li>{c('mffs_defense_station')}: Warnbereich (Warnung + 1 Schaden) und Aktionsbereich aus Distanz-Modulatoren, 10 KE × Warnradius je
+Tick. Modi: informieren, Spieler töten (Inventar wird beschlagnahmt), durchsuchen (Verbots- oder Erlaubtliste) oder NPCs töten
+(alle/feindliche/freundliche).</li></ul>
+{h.note('warn', 'Verteidigungsstation, Feldschock und Störsender sind wie im Pack scharf: ohne Rechte kann man sterben und das Inventar verlieren.')}
+<h2 id="mod-mffs--multiwerkzeug">Multiwerkzeug</h2>
+<p>{c('mffs_multitool_wrench')} wird gebaut; Schleichen + Rechtsklick wechselt zu {c('mffs_multitool_switch')},
+{c('mffs_multitool_id_writer')}, {c('mffs_multitool_field_teleporter')} und {c('mffs_multitool_guide')} (Ladung bleibt, 1 Mio. KE).
+{c('mffs_multitool_debugger')} gibt es nur im Kreativmodus; er gilt bei jeder Sicherheitsprüfung als Freibrief.</p>""")
+
     # ------------------------------------------------------------------ Items
     page('items', 'Gegenstände & Blöcke', 'Allgemein', f'''<h1>Gegenstände & Blöcke</h1>
 <p class="lead">Alle {stats['items']} registrierten Blöcke und Items von Craft mit deutschem und englischem Namen. Jeder Eintrag hat eine eigene Seite

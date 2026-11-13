@@ -1676,6 +1676,155 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
                 + "the crafting table they come apart into 8 of the tier below.");
         nuclearControlInfo(german);
         chargePadInfo(german);
+        mffsInfo(german);
+    }
+
+    /** EMI info pages of the Modular Force Field System (spec 48). */
+    private void mffsInfo(boolean german) {
+        add("emi.craft.info.mffs_forcicium", german
+                ? "Forcicium aus Monazit-Erz ist der Brennstoff von MFFS: Im Extraktor gibt 1 Forcicium 250 Takte "
+                + "à 12 000 KE = 3 Mio. Kraftenergie (KE). Kompakte Forcicium-Zelle: hält 1 000 Forcicium; "
+                + "Rechtsklick in der Luft schaltet aktiv, dann zieht sie Forcicium aus dem Inventar. Im Extraktor "
+                + "liefert sie 230 Takte je Forcicium. Kraftenergie-Kristall: tragbarer Speicher (5 Mio. KE), im "
+                + "Kondensator laden/entladen oder direkt als Energiequelle in Projektor & Co. einsetzen."
+                : "Forcicium from monazit ore is the fuel of MFFS: in the extractor 1 forcicium gives 250 cycles of "
+                + "12,000 FE = 3 million force energy (FE). Compact forcicium cell: holds 1,000 forcicium; right "
+                + "click in the air makes it active, then it pulls forcicium from the inventory. In the extractor it "
+                + "gives 230 cycles per forcicium. Force energy crystal: portable storage (5 million FE), charge/"
+                + "discharge it in the capacitor or use it directly as power source in the projector etc.");
+        add("emi.craft.info.mffs_extractor", german
+                ? "Wandelt EU (alle Seiten, bis 2 048 EU/Paket, sonst Explosion) oder MJ (1 MJ = 2,5 EU) + Forcicium "
+                + "in Kraftenergie: 4 000 EU → 12 000 KE je Takt, Takt alle 20 Ticks, je Beschleuniger 1 Tick "
+                + "schneller (max. 19). Power-Link-Karte einlegen, dann schickt er die KE an den Kondensator. "
+                + "Kapazitäts-Upgrade +100 000 KE Puffer. Mit einer Forcicium-Zelle rechts füllt er stattdessen die "
+                + "Zelle (200 000 EU je Forcicium)."
+                : "Turns EU (all sides, up to 2,048 EU/packet, else explosion) or MJ (1 MJ = 2.5 EU) + forcicium into "
+                + "force energy: 4,000 EU → 12,000 FE per cycle, one cycle every 20 ticks, 1 tick faster per booster "
+                + "(max. 19). Insert a power link card and it sends the FE to the capacitor. Capacity upgrade +100,000 "
+                + "FE buffer. With a forcicium cell in the right slot it fills the cell instead (200,000 EU per "
+                + "forcicium).");
+        add("emi.craft.info.mffs_capacitor", german
+                ? "Speichert 10 Mio. KE (+2 Mio. je Kapazitäts-Upgrade, max. 9) und versorgt drahtlos alle Geräte mit "
+                + "seiner Power-Link-Karte in Reichweite: 8 Blöcke, +8 je Reichweiten-Upgrade (max. 80). Mittlerer "
+                + "Platz: Kristall/Multiwerkzeug laden oder entladen, oder Power-Link zu einem anderen Kondensator "
+                + "(bei ≥ 95 % weitergeben, ausgleichen, alles weitergeben)."
+                : "Stores 10 million FE (+2 million per capacity upgrade, max. 9) and wirelessly powers every device "
+                + "holding its power link card within range: 8 blocks, +8 per range upgrade (max. 80). Middle slot: "
+                + "charge or discharge a crystal/multitool, or a power link to another capacitor (pass on at ≥ 95 %, "
+                + "balance, pass on everything).");
+        add("emi.craft.info.mffs_converter", german
+                ? "Wandelt Kraftenergie zurück in EU: 3 KE je EU. Power-Link-Karte einlegen, Paketgröße (1/32/128/512/"
+                + "2 048 EU) und Pakete je Tick (1–9) bei ausgeschaltetem Ausgang wählen, dann „IC 2“ einschalten. "
+                + "Gibt an alle Seiten ab. Extraktor + Konverter übertragen EU drahtlos und verlustfrei (bis 80 "
+                + "Blöcke)."
+                : "Turns force energy back into EU: 3 FE per EU. Insert a power link card, choose packet size (1/32/"
+                + "128/512/2,048 EU) and packets per tick (1–9) while the output is off, then switch \"IC 2\" on. "
+                + "Outputs to all sides. Extractor + converter move EU wirelessly and without loss (up to 80 blocks).");
+        add("emi.craft.info.mffs_machine", german
+                ? "MFFS-Maschinen sind unzerstörbar: Abbau mit dem Multiwerkzeug ‹Schraubenschlüssel› (Vorderseite "
+                + "anklicken; andere Seite dreht) oder dem IC2-Schraubenschlüssel, nur ausgeschaltet. Schaltmodus "
+                + "(Knopf oben rechts): Redstone, Schalter (Multiwerkzeug ‹Schalter›) oder Steuerungssystem. Jede "
+                + "Maschine hält ihren Chunk geladen. Name per Tastatur im GUI. Karten mit Daten fallen beim Abbau "
+                + "als leere Karte heraus."
+                : "MFFS machines are unbreakable: remove them with the multitool <wrench> (click the front; another "
+                + "side rotates) or the IC2 wrench, only while off. Switch mode (button top right): redstone, switch "
+                + "(multitool <switch>) or control system. Every machine keeps its chunk loaded. Name by typing in "
+                + "the GUI. Cards with data drop as blank cards when removed.");
+        add("emi.craft.info.mffs_cards", german
+                ? "Leere Karte auf einen Kondensator → Power-Link-Karte, auf eine aktive Sicherheitsstation → "
+                + "Sicherheits-Link-Karte. Rechtsklick mit der Karte auf eine Maschine setzt sie ein (liegt dort eine "
+                + "leere Karte, wird kopiert). Gültig, solange das Ziel existiert und in Reichweite ist (folgt ihm "
+                + "auch nach dem Verschieben). Jede Datenkarte allein in der Werkbank → leere Karte. "
+                + "Unendlich-Energie-Karte: nur Kreativ, immer 10 Mio. KE."
+                : "Blank card on a capacitor → power link card, on an active security station → security station link "
+                + "card. Right clicking a machine with the card inserts it (a blank card already there gets a copy). "
+                + "Valid while the target exists and is in range (follows it even after moving). Any data card alone "
+                + "in the crafting grid → blank card. Infinite power card: creative only, always 10 million FE.");
+        add("emi.craft.info.mffs_projector", german
+                ? "Erzeugt das Kraftfeld: Power-Link-Karte (oder Kristall), Modul in der Mitte, dann Distanz-/"
+                + "Stärke-Modulatoren und Fokusmatrizen (oben/unten/rechts/links) je nach Modul. Einschalten kostet "
+                + "10 KE je Feldblock, Unterhalt 1 KE je Feldblock alle 20 Ticks (Wand/Deflektor ohne Upgrade ×2). "
+                + "Feldblöcke ersetzen nur Luft und Flüssigkeit, höchstens 5 000 je Durchlauf. Zugriffsart: kein "
+                + "Zutritt, frei, Station des Kondensators oder eigene Station (Sicherheits-Link-Karte)."
+                : "Creates the force field: power link card (or crystal), module in the middle, then distance/strength "
+                + "modulators and focus matrices (up/down/right/left) depending on the module. Switching on costs 10 "
+                + "FE per field block, upkeep 1 FE per field block every 20 ticks (wall/deflector without upgrade ×2). "
+                + "Field blocks only replace air and liquids, at most 5,000 per pass. Access: none, free, capacitor's "
+                + "station or own station (security station link card).");
+        add("emi.craft.info.mffs_modules", german
+                ? "D = Distanz-, S = Stärke-Modulatoren. Wand/Diagonale Wand: Kreuz bzw. Diagonalen aus den "
+                + "Fokusmatrizen, S+1 tief, ab D+1 vor dem Projektor. Deflektor: Fläche aus den Fokusmatrizen im "
+                + "Abstand D+1. Röhre: offener Hohlquader um den Projektor (±(D+2), Länge ±S). Würfel: Hohlwürfel "
+                + "Radius D+4. Kugel: Schale Radius D+4, Dicke S+1. Eindämmung: Hohlquader vor dem Projektor. "
+                + "Erw. Würfel: Hohlquader um den Projektor aus den Fokusmatrizen und S."
+                : "D = distance, S = strength modulators. Wall/diagonal wall: cross or diagonals from the focus "
+                + "matrices, S+1 deep, from D+1 in front of the projector. Deflector: area from the focus matrices at "
+                + "distance D+1. Tube: open hollow box around the projector (±(D+2), length ±S). Cube: hollow cube "
+                + "radius D+4. Sphere: shell radius D+4, thickness S+1. Containment: hollow box in front of the "
+                + "projector. Adv. cube: hollow box around the projector from the focus matrices and S.");
+        add("emi.craft.info.mffs_upgrades", german
+                ? "Bis zu 3 Upgrades, nur bei ausgeschaltetem Projektor und passendem Modul. Berührungsschaden: 10 "
+                + "Schaden je Berührung. Schwamm: entfernt Flüssigkeiten im Innenraum. Feldmanipulator: Kuppel/"
+                + "Halbform. Blockbrecher: räumt Blöcke auf Feldplätzen ab. Störsender: andere Projektoren mit "
+                + "Feldpunkten im Innenraum brennen aus (Reparatur mit Multiwerkzeug ‹Schraubenschlüssel›). Tarnung: "
+                + "Feld sieht aus wie der Block im Tarnplatz. Feldfusion: Felder am selben Kondensator verschmelzen. "
+                + "NPC-Abwehr: 10 Schaden an Monstern im Feld. Verteidigungsstation: 10 Schaden an Spielern ohne "
+                + "Recht „Im Gebiet bleiben“. Abwehr je 10 000 KE."
+                : "Up to 3 upgrades, only while the projector is off and the module supports them. Touch damage: 10 "
+                + "damage per touch. Sponge: removes liquids inside. Field manipulator: dome/half shape. Block "
+                + "breaker: clears blocks on field positions. Jammer: other projectors with field points inside burn "
+                + "out (repair with multitool <wrench>). Camouflage: the field looks like the block in the camouflage "
+                + "slot. Field fusion: fields on the same capacitor merge. NPC defense: 10 damage to monsters in the "
+                + "field. Defense station: 10 damage to players without the \"Stay in Area\" right. Defense costs "
+                + "10,000 FE each.");
+        add("emi.craft.info.mffs_security_station", german
+                ? "Aktiv, sobald ein Personalausweis im Master-Platz liegt (dessen Besitzer hat alle Rechte). Ausweis "
+                + "in den Bearbeitungsplatz: Rechte-Knöpfe schalten die 8 Rechte. Leere Karte dort + „+“ → "
+                + "Zugangslizenz (5 min, ±5 min je Klick). Ausweise in der Ablage zählen. Leere Karte + Ausweis "
+                + "rechts unten → Kopie. Ausweise macht das Multiwerkzeug ‹Kodierer›. Inaktive Station = alles erlaubt."
+                : "Active as soon as a personal ID card lies in the master slot (its owner has every right). ID card "
+                + "in the edit slot: the right buttons toggle the 8 rights. Blank card there + \"+\" → access license "
+                + "(5 min, ±5 min per click). ID cards in storage count. Blank card + ID card bottom right → copy. ID "
+                + "cards come from the multitool <coder>. Inactive station = everything allowed.");
+        add("emi.craft.info.mffs_security_storage", german
+                ? "54 Plätze, gesichert über eine Sicherheits-Link-Karte; öffnen nur mit Recht „Sicherheitsspeicher "
+                + "öffnen“. Eingeschaltet (Schalter/Steuerungssystem) sperrt er Trichter und Rohre, ausgeschaltet "
+                + "nehmen und geben sie wie bei einer Truhe."
+                : "54 slots, secured by a security station link card; opening needs the \"Open Secure Storage\" "
+                + "right. Switched on (switch/control system) it blocks hoppers and pipes, switched off they insert "
+                + "and extract like a chest.");
+        add("emi.craft.info.mffs_control_system", german
+                ? "Fernsteuerung: Sicherheits-Link-Karte einlegen, Datenlink-Karten in die Ablage, die aktive in den "
+                + "Leser. Zeigt Name, Typ, Zustand, Energie und Schaltmodus des Ziels; schaltet Modus und Wert um und "
+                + "öffnet dessen GUI (bis 61 Blöcke, das GUI bleibt nur bis 8 Blöcke offen). Datenlink-Karte: "
+                + "Multiwerkzeug ‹Kodierer› auf eine Maschine (1 000 KE + leere Karte)."
+                : "Remote control: insert a security station link card, data link cards into storage, the active one "
+                + "into the reader. Shows name, type, state, energy and switch mode of the target; toggles mode and "
+                + "value and opens its GUI (up to 61 blocks, the GUI only stays open within 8 blocks). Data link card: "
+                + "multitool <coder> on a machine (1,000 FE + blank card).");
+        add("emi.craft.info.mffs_defense_station", german
+                ? "Braucht Power-Link- und Sicherheits-Link-Karte. Distanz-Modulatoren: Aktionsbereich und "
+                + "Warnbereich (Zusatz: Aktionsbereich + diese + 3). Kostet 10 KE × Warnradius je Tick. Im Warnbereich: "
+                + "Warnung + 1 Schaden. Im Aktionsbereich je Modus: informieren, Spieler töten (Inventar ins Lager), "
+                + "durchsuchen (Gegenstände der Liste bzw. nicht auf der Liste beschlagnahmen) oder alle/feindliche/"
+                + "freundliche NPCs töten. Recht „Im Gebiet bleiben“ schützt."
+                : "Needs a power link and a security station link card. Distance modulators: action range and "
+                + "warning range (extra: action range + these + 3). Costs 10 FE × warning radius per tick. In the warning "
+                + "range: warning + 1 damage. In the action range depending on mode: inform, kill players (inventory "
+                + "into storage), search (confiscate items on or not on the list) or kill all/hostile/friendly NPCs. "
+                + "The \"Stay in Area\" right protects.");
+        add("emi.craft.info.mffs_multitool", german
+                ? "Ein Werkzeug, mehrere Modi: Schleichen + Rechtsklick wechselt Schraubenschlüssel → Schalter → "
+                + "Kodierer → Feld-Teleporter → Handbuch (Ladung bleibt, 1 Mio. KE, im Kondensator laden). "
+                + "Schraubenschlüssel dreht/baut ab (1 000 KE) und repariert ausgebrannte Projektoren (10 000 KE). "
+                + "Schalter schaltet Maschinen im Schaltermodus. Kodierer: Luft → eigener Ausweis, Linksklick auf "
+                + "Spieler → seiner, Maschine → Datenlink. Feld-Teleporter: durch ein Feld bis 5 dick (10 000 KE). "
+                + "Debugger nur Kreativ, gilt als Freibrief."
+                : "One tool, several modes: sneak + right click cycles wrench → switch → coder → field teleporter → "
+                + "guide (charge is kept, 1 million FE, charge in the capacitor). Wrench rotates/removes (1,000 FE) "
+                + "and repairs burnt out projectors (10,000 FE). Switch toggles machines in switch mode. Coder: air → "
+                + "own ID card, left click a player → theirs, machine → data link. Field teleporter: through a field up "
+                + "to 5 thick (10,000 FE). Debugger creative only, counts as full access.");
     }
 
     /** EMI info pages of ChargePads (spec 47). */
