@@ -4134,3 +4134,16 @@ Speicher und Stromverbrauch, vielleicht so 100000“.
 - Phase 50 (Omnitools, Obsidian Pressure Plates, Gravity Gun, Secret Rooms): dekompilieren, Spezifikation.
 - Client-Test Leuchtschild-Taschenlampe, Schallplatten, MFFS, ChargePads, Nuclear Control – nur nach Rückfrage.
 - Craft-Version + Paket (Musik, Taschenlampe) auf Wunsch.
+
+# Phase 50.0 – Kleinkram: Spezifikation (2026-11-13)
+
+## Erledigt
+- [x] OmniTools 3.0.4, ObsidiPlates 1.2.0, GraviGun 1.4.7v2, SecretRoomsMod mit Vineflower nach
+  `reference/decompiled/{omnitools,obsidiplates,gravitygun,secretrooms}` (ohne Remapping – SpecialSource/MCP liegen
+  nicht mehr in `tools/`). Vanilla-Namen über `instmods/minecraft.jar` (amq/up dekompiliert) aufgelöst.
+- [x] Spec `docs/spec/50-kleinkram.md`: OmniWrench, Mystischer Sockel, Forge Lexicon (c:-Tags), Obsidian-Druckplatte
+  (nur Spieler), Gravity Gun normal/aufgeladen (Pack-Config: kein Treibstoff, Creeper explodieren nur aufgeladen),
+  Secret Rooms (Tarnung nach Nachbarn, 14 Blöcke/Items). §11 entschieden (Nutzer, alle Vorschläge).
+
+## Nächste Schritte
+- 50.1 Obsidian-Druckplatte + OmniWrench.
