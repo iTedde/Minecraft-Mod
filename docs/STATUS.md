@@ -4263,7 +4263,19 @@ Speicher und Stromverbrauch, vielleicht so 100000“.
   Keine neue Craft-Version / kein Paket (erst nach dem Client-Test).
 
 ## Nächste Schritte
-- Client-Test (nur nach Rückfrage): Testplan 26 (Phase 50), 13.2 (Leuchtschild-Taschenlampe), Schallplatten, MFFS,
-  ChargePads, Nuclear Control.
-- Danach Craft-Version + CurseForge-Paket (Musik, Taschenlampe, Phase 50).
+- Client-Test (Nutzer, 2026-11-13: erst Paket, dann Client-Test).
+
+# Craft 1.2.10 / Paket 1.2.13 (2026-11-13)
+
+Nutzer: „Mach das Paket und dann die Clienttests“ – Paket also vor dem Client-Test.
+
+## Erledigt
+- [x] Craft **1.2.10** (`releases/craft-1.2.10.jar`, 40,9 MB wegen der Schallplatten): Musik, Leuchtschild-Taschenlampe
+  (Phase 51), Kleinkram + Secret Rooms (Phase 50). `gradlew runData`, danach `build` grün.
+- [x] Paket `releases/Craft-1.2.13-curseforge.zip` (41,7 MB, > 20 MB wie freigegeben): wie 1.2.12, nur Craft 1.2.9 →
+  1.2.10; Manifest unverändert (113 Einträge).
+
+## Nächste Schritte
+- Client-Test: Testplan 26 (Phase 50), 13.2 (Leuchtschild-Taschenlampe), Schallplatten, MFFS, ChargePads,
+  Nuclear Control.
 - Tesserakt- und `plasmaCannon`-/`harvestAndPickWheat`-Wackler weiter beobachten.
