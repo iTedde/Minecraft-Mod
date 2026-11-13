@@ -3984,3 +3984,4 @@ Nutzer: „wo waren wir stehengeblieben? Führe dort fort“.
 - Client-Test MFFS (Grundlagen + Projektor), ChargePads (Testplan 24), Nuclear Control (Testplan 23) – nur nach
   Rückfrage.
 - Phase 51 (Leuchtschild „wie Blendgranate“): Umfang klären.
+- Phase 49 (Wireless Redstone) **verworfen** (Nutzer, 2026-11-13: „Streich Phase 49“).
