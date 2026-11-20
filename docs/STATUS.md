@@ -4515,3 +4515,23 @@ Nutzer: „weiter gehts“ → 53.4 laut Plan.
 
 ## Nächste Schritte
 - 52.0 Planung/Spezifikation Psychedelicraft-Port (eigene Sitzung).
+
+# Phase 52.0 – Psychedelicraft: Spezifikation (2026-11-20)
+
+Nutzer: „Nächste Phase“ → 52.0 laut Plan.
+
+## Erledigt
+- [x] Vorlage geholt (nicht im Git, `reference/` ignoriert): Quellcode Branch `1.21` (Commit `678cfa56`),
+  Release-Jar 1.8.9+1.21 (enthält generierte Daten: 125 Rezepte, 107 Blockstates, Weltgen, 15 Dorf-Strukturen),
+  Upstream-Wiki – alles unter `reference/source/psychedelicraft/`.
+- [x] Bestandsaufnahme: 416 Dateien/~40 000 Zeilen Yarn-Code, 33 Mixins, Fabric Transfer API (12 Dateien), Kirin,
+  Fabwork, Terraform Wood API, TLA-API; Sodium/Iris-Kompat für 0.6.9/1.8.8 (Paket hat Sodium 0.8.12 + Iris).
+- [x] `docs/spec/52-psychedelicraft.md`: Ersatz je Fabric-Teil (Yarn → Mojang per Loom `migrateMappings`, Datagen
+  nicht portiert, generierte JSONs übernehmen), Projektaufbau `psychedelicraft/`, Teilpakete 52.1–52.6,
+  Kater-Zahlen (Vorschlag), Zusammenspiel mit Craft. Spec-README, Phasentabelle.
+
+## Offen (Nutzer)
+- Fragen `spec/52` §8: Kater-Zahlen, Sodium/Iris-Rückfallebene, doppelte Pflanzen getrennt / Kater nur von PS-Alkohol.
+
+## Nächste Schritte
+- 52.1 Quellimport + Umstellung, bis es kompiliert und der Server startet (eigene Sitzung, groß).

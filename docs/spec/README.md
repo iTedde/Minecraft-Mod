@@ -59,6 +59,7 @@ Vanilla-Klassen/-Felder tragen lesbare Namen (`Block.cobblestone`, `Item.redston
 | `46-nuclear-control.md` | IC2 Nuclear Control 1.4.5: Thermomonitore, Alarme, Infotafel mit Karten, Energie-/Durchschnittszähler, Bereichsauslöser, GT-Sensorkit (Phase 46) |
 | `47-chargepads.md` | Charge Pads 2.4.1: drei Ladepads (Static/Crystalizor/Lapotronic) laden Elektro-Items im Stehen, Upgrades, Emitter-Module, Ausbausätze, Zaps (Phase 47) |
 | `48-mffs.md` | Modular ForceField System 2.2.8.3.6: Monazit/Forcicium, Kraftenergie (Extraktor, Kondensator, Konverter), Projektor mit 8 Feldformen und 9 Upgrades, Kraftfeld, Sicherheitssystem (Station, Karten, Rechte), Verteidigungsstation, Multiwerkzeug (Phase 48) |
+| `52-psychedelicraft.md` | Port von Psychedelicraft (Fabric, MIT) nach NeoForge 1.21.1 als eigene Mod im Unterordner `psychedelicraft/`: Vorlage, Ersatz der Fabric-Bibliotheken, Teilpakete 52.1–52.6, Kater-Ausbau, Zusammenspiel mit Craft – Entwurf 2026-11-20 (Phase 52) |
 | `53-farming-dimension.md` | Farming-Welt: eigene Dimension mit Portal (Bemooster Bruchstein), in der **alle** Pflanzen aller Mods (auch IC2-Crops) in einem festen Gartenraster wachsen – freigegeben 2026-11-20 (Phase 53) |
 | `38-solarfeld-leitung.md` | Solarpanels leiten verlustfrei untereinander (nur von Panels), ein Kabel an einem Feld sammelt alles – freigegeben 2026-10-29 (Phase 38) |
 
