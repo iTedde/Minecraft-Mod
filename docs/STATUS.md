@@ -4738,3 +4738,33 @@ Nutzer: „Mache die nächste Phase weiter“ → offene Punkte aus 52.3 ohne Cl
 
 ## Nächste Schritte
 - 52.3 Client-Lauf Craft + Psychedelicraft, sobald der Nutzer zustimmt; danach Sodium/Iris.
+
+# Phase 52.3 – Psychedelicraft: Client-Test mit Craft, Bewegungsunschärfe, Paket 1.2.20 (2026-11-20)
+
+Nutzer: „Ja, mach den Clienttest“.
+
+## Erledigt
+- [x] Craft + Psychedelicraft zusammen: Welt `run/saves/psytest` mit dem Craft-Server erzeugt (RCON zum Stoppen),
+  Testablauf als Datenpaket (`#minecraft:load` → `schedule`-Kette, braucht keine Cheats): nüchtern, Alkohol, Cannabis,
+  Pilze, LSD, Peyote+Harmonium, alle Drogen, Kater III mittags, Übergeben. Server-Log: Farming-Welt findet 13
+  Psychedelicraft-Pflanzen. Keine Exception, kein Shaderfehler.
+- [x] **Bewegungsunschärfe** (Alkohol) bleichte das Bild nach ~10 s zum Weiß aus und verdeckte Hotbar/Chat
+  (Vorlagenfehler: 30 Bildkopien mit Tiefentest, Rückkopplung). Neu als ein Verlaufspuffer ohne Tiefentest; mit F2-
+  Screenshots im Testraum geprüft: Alkohol violett/verschwommen, HUD scharf, kein Ausbleichen. `abweichungen.md` ergänzt.
+- [x] EMI: Tag-Übersetzung `tag.item.psychedelicraft.hangover_relief` (en „Hangover Relief“, de „Katermittel“).
+- [x] GameTests Psychedelicraft 23/23 grün; `releases/psychedelicraft-1.8.9-neoforge.3.jar`.
+- [x] Paket `releases/Craft-1.2.20-curseforge.zip` (46,5 MB): wie 1.2.19, Psychedelicraft neoforge.2 → neoforge.3.
+
+## Beobachtungen
+- Alle Drogen auf 1,0 töten den Spieler auch im Kreativmodus („lungs collapsed“) – Verhalten der Vorlage
+  (Schaden umgeht Unverwundbarkeit), nicht geändert.
+- Fensteraufnahmen sind seit der HDR-Umstellung des Nutzers stark aufgehellt; für Bildprüfungen F2-Screenshots nehmen.
+- quickPlay stürzte zweimal mit dem bekannten IPN-Fehler ab; ohne quickPlay durchgeklickt.
+
+## Offen
+- Sichtprüfung durch den Nutzer (Testplan 28.1–28.6), besonders Pilze (graue Welle mit Helligkeitspulsen) und
+  Peyote+Harmonium (im dunklen Raum fast schwarz, im Schnee schwarz-weiß).
+- Sodium/Iris-Anpassung (`abweichungen.md`).
+
+## Nächste Schritte
+- Sichtprüfung durch den Nutzer; danach Sodium/Iris oder Phase 52 abschließen.
