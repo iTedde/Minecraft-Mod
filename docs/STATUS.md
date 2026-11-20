@@ -4820,3 +4820,19 @@ Nutzer: „Fehlt noch was?“ → „Jo“ (EMI-Anzeige und Farming-Welt mit Psy
 
 ## Nächste Schritte
 - Nach der Sichtprüfung Phase 52 als erledigt eintragen.
+
+# Paket 1.3.0 (2026-11-20)
+
+Nutzer: „Mach nen neues paket. 1.3.0“.
+
+## Erledigt
+- [x] Craft **1.3.0** (`releases/craft-1.3.0.jar`; Code wie 1.2.14, Version wie bei 1.1.0/1.2.0 mit dem Paket
+  gleichgezogen).
+- [x] Paket `releases/Craft-1.3.0-curseforge.zip` (46,5 MB): wie 1.2.22 mit Craft 1.3.0 und Psychedelicraft
+  neoforge.4; Manifest nur Name/Version geändert. Nicht im Client gestartet.
+
+## Offen
+- Sichtprüfung Psychedelicraft durch den Nutzer (Testplan 28.1–28.6), danach Phase 52 abschließen.
+
+## Nächste Schritte
+- Nach der Sichtprüfung Phase 52 als erledigt eintragen.
