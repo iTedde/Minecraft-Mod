@@ -4925,5 +4925,12 @@ psychedelicraft:entity.player.heartbeat`).
   nur `psychedelicraft-1.8.9-neoforge.4.jar` → `neoforge.5` getauscht; Zip geprüft (80 Einträge, 187 MB, LFS).
 - Nicht im Client geprüft.
 
+- [x] Danach nächster Absturz beim Mod-Laden: Mixin `PackagerFilterMixin` von Create: Logistics Control (steckt als
+  Jar-in-Jar in **Create: Factory Controller**) kann nicht in `PackagerBlockEntity.attemptToSend` injizieren, das
+  Create Factory Logistics (seit Paket 1.2.15) überschreibt. Nutzer: Factory Controller entfernen.
+- [x] Factory Controller (CurseForge-ID 1573767) aus `manifest.json` von 1.3.2 entfernt (119 Mods), Zip geprüft;
+  in der Instanz nach `mods-backup` verschoben. Factory Routing hängt nur optional davon ab.
+- Nicht im Client geprüft.
+
 ## Nächste Schritte
-- Nutzer startet die Instanz bzw. importiert das neue Paket.
+- Nutzer startet die Instanz; weitere Abstürze anhand der Crash-Reports beheben.
