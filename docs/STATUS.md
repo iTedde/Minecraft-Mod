@@ -4874,3 +4874,17 @@ weitere hinzufügen“.
 
 ## Nächste Schritte
 - Entscheidung zu großen Paketen; Sichtprüfung Psychedelicraft.
+
+# Git LFS für große Pakete (2026-11-20)
+
+Nutzer: „LFS Einrichten“.
+
+## Erledigt
+- [x] `git lfs install --local`; in `.gitattributes` nur `releases/Craft-1.3.1-curseforge.zip` (filter=lfs). Ältere
+  Pakete bleiben normale Git-Objekte (alles umstellen hätte ~60 Zips nach LFS geladen, über dem 1-GB-Freikontingent).
+- [x] 1.3.1 committet und gepusht, LFS-Objekt hochgeladen (`git lfs status`: nichts mehr ausstehend).
+- Künftige Pakete über 100 MB einzeln mit `git lfs track "releases/<Zip>"` eintragen (Zeilenende in `.gitattributes`
+  auf LF halten). GitHub-Freikontingent: 1 GB LFS-Speicher und 1 GB Download im Monat ≈ 7 Pakete dieser Größe.
+
+## Offen
+- Sichtprüfung Psychedelicraft durch den Nutzer, danach Phase 52 abschließen.
