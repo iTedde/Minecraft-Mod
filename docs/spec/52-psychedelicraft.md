@@ -1,8 +1,8 @@
 # 52 – Psychedelicraft auf NeoForge 1.21.1 (Phase 52)
 
 Port der Fabric-Mod **Psychedelicraft** (Ivorius, Sollace; MIT) nach NeoForge 1.21.1 als **eigene Mod** im
-Craft-Repo (Nutzer, 2026-11-20). Stand: **Entwurf 52.0 (2026-11-20)** – Kater-Grundzüge freigegeben, Zahlen und
-§8 offen.
+Craft-Repo (Nutzer, 2026-11-20). Stand: **freigegeben 2026-11-20** (Nutzer: „Passt so“ – Kater-Zahlen §6, Sodium/Iris-Rückfallebene
+und §7 wie vorgeschlagen).
 
 ## 1. Entscheidungen (bereits getroffen)
 
@@ -81,7 +81,7 @@ psychedelicraft/
 | 52.5 | EMI-Plugin (alle Rezepttypen), Zusammenspiel mit Craft (§7) | `runClient` mit EMI |
 | 52.6 | Craft-Wiki: Abschnitt „Psychedelicraft“ (Pflanzen + Fundorte, Verarbeitungsketten, Getränke/Reife, Drogen + Wirkung, Kater, Halluzinationen), Testplan, Paket | Wiki erzeugt, Paket gebaut |
 
-## 6. Kater (*Vorschlag für die Zahlen*)
+## 6. Kater (freigegeben 2026-11-20)
 
 Im Original nur: beim Aufwachen mit Alkoholwert > 0 Schadensanimation, Schlafmangel +0,25, Fortschritt „Hangover“.
 Neu: Statuseffekt `psychedelicraft:hangover` (Stufe I–III, im Inventar sichtbar, **Milch heilt ihn nicht**).
@@ -106,7 +106,7 @@ Neuer Alkohol während des Katers: Kater ruht (Effekte aus, Zeit läuft nicht), 
 | Kaffee (Psychedelicraft, Craft/IC2-Kaffee über den Tag) | −5 min Restdauer, Stufe −1 (nicht unter I) |
 | Schlafen | Original-Verhalten (Schlafmangel) bleibt, Kater läuft weiter |
 
-## 7. Zusammenspiel mit Craft und dem Paket (*Vorschlag*)
+## 7. Zusammenspiel mit Craft und dem Paket (freigegeben 2026-11-20)
 
 - **Farming-Welt** (Phase 53): Psychedelicraft-Pflanzen kommen über die automatische Pflanzenliste von selbst dazu;
   Sonderfälle (Spalier, Wacholder, Peyote auf Sand) per `#craft:farming_extra`/`#craft:farming_excluded` prüfen.
@@ -115,7 +115,7 @@ Neuer Alkohol während des Katers: Kater ruht (Effekte aus, Zeit läuft nicht), 
 - **Kater nur von Psychedelicraft-Alkohol.** Brewery hat einen eigenen Rausch; Craft-Bier/-Rum (IC2-Fass) bleiben wie sie sind.
 - Keine Abhängigkeit in beide Richtungen; Craft-Kaffee kommt per Tag-Datei in den Linderungs-Tag (Datenpaket in Craft).
 
-## 8. Offene Fragen an den Nutzer
+## 8. Fragen an den Nutzer (alle mit „ja“ beantwortet, 2026-11-20)
 
 1. Kater-Zahlen §6 (Schwellen 0,2/0,5/0,8, Dauer `peak` × 1 MC-Tag, Linderung −2/−5 min, Milch heilt nicht) – so?
 2. Sodium/Iris: Original-Kompat auf Sodium 0.8.12/Iris anpassen; **falls das nicht geht**, Psychedelicraft-Shader bei

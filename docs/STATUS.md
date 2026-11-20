@@ -4530,8 +4530,8 @@ Nutzer: „Nächste Phase“ → 52.0 laut Plan.
   nicht portiert, generierte JSONs übernehmen), Projektaufbau `psychedelicraft/`, Teilpakete 52.1–52.6,
   Kater-Zahlen (Vorschlag), Zusammenspiel mit Craft. Spec-README, Phasentabelle.
 
-## Offen (Nutzer)
-- Fragen `spec/52` §8: Kater-Zahlen, Sodium/Iris-Rückfallebene, doppelte Pflanzen getrennt / Kater nur von PS-Alkohol.
+- [x] **Freigegeben 2026-11-20** (Nutzer: „Passt so“): Kater-Zahlen §6, Sodium/Iris anpassen mit Rückfallebene
+  (PS-Shader bei aktivem Iris-Shaderpack aus), doppelte Pflanzen getrennt, Kater nur von PS-Alkohol.
 
 ## Nächste Schritte
 - 52.1 Quellimport + Umstellung, bis es kompiliert und der Server startet (eigene Sitzung, groß).
