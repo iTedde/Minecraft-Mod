@@ -10,10 +10,11 @@ import ivorius.psychedelicraft.Psychedelicraft;
 import net.minecraft.client.renderer.ShaderInstance;
 
 public interface PSShaders {
+    // Must be initialised before the shader fields below, which add to it.
+    java.util.List<java.util.function.Consumer<net.neoforged.neoforge.client.event.RegisterShadersEvent>> REGISTRATIONS = new java.util.ArrayList<>();
+
     @Nullable
     Supplier<ShaderInstance> ZERO_MATTER = register("rendertype_zero_matter", DefaultVertexFormat.POSITION_COLOR);
-
-    java.util.List<java.util.function.Consumer<net.neoforged.neoforge.client.event.RegisterShadersEvent>> REGISTRATIONS = new java.util.ArrayList<>();
 
     static void bootstrap() {}
 

@@ -4696,3 +4696,22 @@ Nutzer: „Nächste Phase“ → 52.6 laut `spec/52` §5 (52.3 Client weiter zur
 ## Nächste Schritte
 - 52.3 Client (Renderer, Shader, Halluzinationen, Sodium/Iris), sobald der Nutzer Client-Tests wieder möchte – damit
   wäre Phase 52 komplett.
+
+# Phase 52.3 – Psychedelicraft: Client-Test (Zwischenstand 2026-11-20)
+
+Nutzer: „Mach die Clienttest“ → Client-Tests wieder erlaubt.
+
+## Erledigt
+- [x] Absturz beim Client-Start behoben: `PSShaders.REGISTRATIONS` wurde nach `ZERO_MATTER` initialisiert (NPE im
+  `RegisterShadersEvent` → Ladefehler-Bildschirm). **Die Jar in Paket 1.2.18 hat diesen Fehler noch.**
+- [x] Fehlender Untertitel `subtitles.psychedelicraft.entity.player.squeak` (en_us) ergänzt.
+- [x] `psychedelicraft/build.gradle`: `runClient -PquickPlay=<Welt>` für automatische Client-Läufe.
+- [x] Psychedelicraft allein: Client bis in die Welt (Welt per `runServer` erzeugt, nach `run/saves/qtest` kopiert,
+  `onboardAccessibility:false`), Datapack-Zyklus Alkohol, Cannabis, Pilze, LSD, Peyote+Harmonium, alle
+  Halluzinationen, alle Drogen 1,0, Kater III mittags, Übergeben – keine Exception, kein Shaderfehler im Log.
+
+## Offen
+- Wirkung der Befehle nicht nachgewiesen (Funktionen geben keine Rückmeldung); Sichtprüfung durch den Nutzer.
+- Craft + Psychedelicraft zusammen: Client blieb mit einer ohne Craft erzeugten Welt vor dem Laden auf einem
+  Bestätigungsbildschirm stehen; Welt mit Craft-Server erzeugen und erneut laufen lassen.
+- Psychedelicraft-Jar neu bauen, Paket 1.2.19.

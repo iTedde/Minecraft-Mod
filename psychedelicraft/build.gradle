@@ -33,6 +33,10 @@ neoForge {
         client {
             client()
             systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
+            // Automated client smoke test: ./gradlew runClient -PquickPlay=<world in run/saves>
+            if (project.hasProperty('quickPlay')) {
+                programArguments.addAll('--quickPlaySingleplayer', project.property('quickPlay').toString())
+            }
         }
         server {
             server()
