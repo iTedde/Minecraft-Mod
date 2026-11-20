@@ -4668,3 +4668,31 @@ Nutzer: „nächste Phase“ → 52.5 laut `spec/52` §5 (52.3 Client weiter zur
 ## Nächste Schritte
 - 52.6 Craft-Wiki (Abschnitt Psychedelicraft), `abweichungen.md`, Testplan, Paket.
 - 52.3 Client, sobald der Nutzer Client-Tests wieder möchte.
+
+# Phase 52.6 – Psychedelicraft: Wiki, Abweichungen, Testplan, Craft 1.2.13 / Paket 1.2.18 (2026-11-20)
+
+Nutzer: „Nächste Phase“ → 52.6 laut `spec/52` §5 (52.3 Client weiter zurückgestellt).
+
+## Erledigt
+- [x] Wiki: neue Gruppe „Psychedelicraft“ mit drei Seiten (`wiki/content_psychedelicraft.py`): Überblick & Pflanzen
+  (Weg in Kürze, Fundorte je Pflanze aus Weltgen/Biom-Tags, Truhen-Beute, Zusammenspiel mit Craft), Verarbeitung
+  (Trockentisch mit Sonne/Ofen, Rauchwaren, Maischen → Gären → Reifen → Brennen mit Getränketabelle je Zutat, Chemie
+  mit Kolben/Tablett/Bunsenbrenner, Tee/Kaffee), Drogen/Wirkung/Kater (Wirkung je Droge aus den Drogen-Attributen,
+  Halluzinationsarten, Kater-Stufen und Linderung). Icons aus den Psychedelicraft-Assets (`load_res` kennt den
+  Namensraum `psychedelicraft`). DE + EN-Namen neu erzeugt (102 Seiten).
+- [x] `abweichungen.md`: Abschnitt „Psychedelicraft“ (Flüssigkeiten, Transfer, Konfig, Kater, Wasser in Gefäßen,
+  EMI statt TLA, Netzwerk, Sodium/Iris offen, keine Sucht).
+- [x] Testplan Abschnitt 28 (Psychedelicraft, 28.1–28.6).
+- [x] Craft **1.2.13** (`releases/craft-1.2.13.jar`): Kater-Linderung durch Craft-Kaffee, `#craft:farming_extra` mit
+  optionalen Psychedelicraft-Pflanzen (52.4/52.5). `runData`, `build` grün; GameTests: erster Lauf 1 sporadischer
+  Fehlschlag (nicht wiederholbar), zweiter Lauf alle **679** grün.
+- [x] Psychedelicraft `releases/psychedelicraft-1.8.9-neoforge.1.jar` (braucht nur NeoForge; EMI optional).
+- [x] Paket `releases/Craft-1.2.18-curseforge.zip` (46,5 MB): wie 1.2.17, Craft 1.2.12 → 1.2.13, dazu Psychedelicraft in
+  `overrides/mods`; Manifest unverändert bis auf Name/Version. Nicht im Client gestartet.
+
+## Im Client prüfen (Sammeltest)
+- Testplan 28.1–28.6 (zusammen mit 52.3).
+
+## Nächste Schritte
+- 52.3 Client (Renderer, Shader, Halluzinationen, Sodium/Iris), sobald der Nutzer Client-Tests wieder möchte – damit
+  wäre Phase 52 komplett.

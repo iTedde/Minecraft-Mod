@@ -24,6 +24,7 @@ DOCS = os.path.join(MOD, 'docs')
 ASSETS_MAIN = os.path.join(MOD, 'src', 'main', 'resources', 'assets', 'craft')
 ASSETS_GEN = os.path.join(MOD, 'src', 'generated', 'resources', 'assets', 'craft')
 JAVA = os.path.join(MOD, 'src', 'main', 'java', 'dev', 'craft')
+PS_ASSETS = os.path.join(MOD, 'psychedelicraft', 'src', 'main', 'resources', 'assets', 'psychedelicraft')
 VANILLA_JAR = os.path.join(MOD, 'build', 'moddev', 'artifacts',
                            'neoforge-21.1.259-client-extra-aka-minecraft-resources.jar')
 EN_NAMES = '--en-names' in sys.argv
@@ -203,6 +204,12 @@ def load_res(ns, kind, path):
             if os.path.exists(p):
                 with open(p, 'rb') as f:
                     return f.read()
+        return None
+    if ns == 'psychedelicraft':  # separate port mod in the same repo (phase 52)
+        p = os.path.join(PS_ASSETS, kind, *path.split('/')) + ext
+        if os.path.exists(p):
+            with open(p, 'rb') as f:
+                return f.read()
         return None
     if VJAR is None:
         return None
@@ -631,6 +638,8 @@ def main():
     hand += content_energie.pages(sys.modules[__name__], stats)
     import content_create
     hand += content_create.pages(sys.modules[__name__], stats)
+    import content_psychedelicraft
+    hand += content_psychedelicraft.pages(sys.modules[__name__], stats)
     strom = next(p for p in hand if p['id'] == 'strom')
     hand.remove(strom)
     strom['group'] = 'Anleitungen'

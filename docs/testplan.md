@@ -347,6 +347,17 @@ Testwelt. Sprache einmal Deutsch, einmal Englisch prüfen. EMI und Xaero's Minim
 | 27.4 | IC2-Beete: 21 Sorten, Sprites ausgewachsen, Schild mit Sortennamen, Erz unter Ferru/Aurelia; Linksklick gibt je Pflanze sicher einen Saatbeutel 1/1/1, Rechtsklick erntet | 53.3 | |
 | 27.5 | EMI: Info-Seiten an Glattem Stein, Bemoostem Bruchstein, Feuerzeug und Saatbeutel; Herkunft von Kaffeebohnen/Hopfen/Terra-Warze nennt die Farming-Welt; Wiki-Seite „Farming-Welt“ | 53.4 | |
 
+### 28 Psychedelicraft (Phase 52, eigene Mod)
+
+| Nr. | Prüfung | Phase | Ergebnis |
+|---|---|---|---|
+| 28.1 | Client startet mit Craft + Psychedelicraft bis in die Welt; Tab, Texturen, Modelle der Block-Entities (Fass, Bottich, Destille, Kolben, Trockentisch), Einstellungsbildschirm in der Modliste | 52.1/52.3 | |
+| 28.2 | Wildwuchs: Hanf-/Tabakfelder in Ebene/Wald, Prunkwinde im Blumenwald, Peyote/Agave in der Savanne, Wacholderbäume; Truhen-Beute (Mine, Verlies, Wüstentempel); Weintrauben aufs Spalier setzen, mit der Schere ernten | 52.2 | |
+| 28.3 | Kette Bier: Bottich (3×3) mit Wasser + 6 Weizen + 2 Hopfen → Gärung (Anzeige), Fass, Krug füllen und trinken; Destille auf Lagerfeuer → Kolben; Trockentisch in der Sonne; Joint drehen und rauchen | 52.2 | |
+| 28.4 | Halluzinationen sichtbar (Alkohol: Doppelbilder; Cannabis; Zauberpilze; LSD-Wellen), Sounds (Herzschlag), Stärke-Regler wirkt; mit Iris-Shaderpack kein Absturz | 52.3 | |
+| 28.5 | Kater: nach starkem Rausch Effekt „Kater III“ mit Restzeit, Übelkeit in Schüben, Blendung am Tag unter freiem Himmel (Schatten hilft), Übergeben; Wasserflasche/IC2-Kaffee verkürzen, Milch nicht | 52.4 | |
+| 28.6 | EMI: Kategorien Trocknen, Einweichen, Fass/Destille/Kolben, Backen, Flüssigkeits-Zubereitung, Welt-Interaktion (Layout, Tank-Anzeige in mB, Tooltips); Farming-Welt im Paket enthält die Psychedelicraft-Pflanzen; Wiki-Abschnitt „Psychedelicraft“ | 52.5/52.6 | |
+
 ## Befunde
 
 | Nr | Datum | Befund | Status |
