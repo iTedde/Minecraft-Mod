@@ -39,7 +39,12 @@
     "client.MixinInGameHud",
     "client.MixinItemModels",
     "client.MixinLivingEntityRenderer",
-    "client.SoundsAccessor"
+    "client.SoundsAccessor",
+    "client.sodium.MixinGlProgram",
+    "client.sodium.MixinGlProgram_Builder",
+    "client.sodium.MixinShaderLoader",
+    "client.iris.MixinCommonUniforms",
+    "client.iris.MixinProgramSource"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -4768,3 +4768,28 @@ Nutzer: „Ja, mach den Clienttest“.
 
 ## Nächste Schritte
 - Sichtprüfung durch den Nutzer; danach Sodium/Iris oder Phase 52 abschließen.
+
+# Phase 52.3 – Psychedelicraft: Sodium/Iris, Paket 1.2.21 (2026-11-20)
+
+Nutzer: „Weiter gehts“ → letzter offener Punkt aus 52.3.
+
+## Erledigt
+- [x] Die 5 Kompat-Mixins der Vorlage (Upstream-Commit `678cfa56`, von GitHub; `reference/source/` existiert nicht
+  mehr) nach `mixin/client/sodium` + `mixin/client/iris` portiert: Mojang-Namen, nur `net.caffeinemc`-Ziele,
+  Iris-Programmnamen über `ResourceLocation.tryParse` abgesichert. Signaturen mit `javap` gegen Sodium 0.8.12 /
+  Iris 1.8.14-beta.1 aus der Nutzer-Instanz geprüft. Mixin-Plugin lädt sie nur, wenn die Mods vorhanden sind.
+- [x] Client-Test im Psychedelicraft-Dev-Lauf (Welt `psychedelicraft/run/saves/psyiris`, Testraum-Datenpaket, F2-Bilder):
+  - Sodium (Shader aus): Wände bei Pilzen/LSD sichtbar gewellt → Chunk-Shader-Injektion wirkt.
+  - Iris + Complementary Reimagined 5.9.3: kein Kompilierfehler, Injektion in alle Pack-Programme
+    (`printsShaderSources`-Export geprüft, u. a. `gbuffers_terrain`); Bildeffekte/Halluzinationen laufen, Wellen aus
+    wie in der Vorlage.
+  - Ohne Sodium/Iris: Client startet normal, Mixins übersprungen.
+- [x] „Iris is initialising too early“ nur noch einmal (vorher 128 Zeilen je Pack-Ladevorgang).
+- [x] GameTests 23/23 grün; `releases/psychedelicraft-1.8.9-neoforge.4.jar`; Paket
+  `releases/Craft-1.2.21-curseforge.zip` (46,5 MB, wie 1.2.20 mit neoforge.4).
+
+## Offen
+- Sichtprüfung durch den Nutzer (Testplan 28.1–28.6; Pilze, Peyote+Harmonium), dann Phase 52 abschließen.
+
+## Nächste Schritte
+- Nach der Sichtprüfung Phase 52 als erledigt eintragen.
