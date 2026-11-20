@@ -4384,3 +4384,10 @@ automatische Pflanzenliste); „Klingt gut, trag es erstmal so ein“.
 - Beim Umsetzen prüfen: Serene-Seasons-Whitelist (nur Oberwelt?); Abweichung „IC2-Crops wild + Saatbeutel“ in
   `abweichungen.md`.
 - Offen weiterhin: Phase 52 (Psychedelicraft) – Weg (eigene Port-Mod oder Nachbau in Craft) und Kater-Ausbau.
+
+# Phase 52 – Psychedelicraft: Weg entschieden (2026-11-20)
+
+- Nutzer: „Port Mod, würde ich sagen“ → **eigene Port-Mod**: Fabric-Code (`Sollace/Psychedelicraft`, Branch `1.21`,
+  MIT) nach NeoForge 1.21.1 umschreiben, eigenes Projekt außerhalb von Craft; Grundregel 3 (nicht übersetzen) gilt
+  dafür nicht. Ins Paket über `overrides/mods` (MIT erlaubt das).
+- Offen: Projektort/Repo, Kater-Ausbau (Vorschlag folgt).
