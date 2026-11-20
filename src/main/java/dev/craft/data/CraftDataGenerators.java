@@ -6,6 +6,7 @@ import java.util.concurrent.CompletableFuture;
 
 import dev.craft.Craft;
 import dev.craft.core.CraftDamageTypes;
+import dev.craft.mining.FarmingDimension;
 import dev.craft.mining.MiningDimension;
 import dev.craft.music.MusicDiscs;
 import net.minecraft.core.HolderLookup;
@@ -29,10 +30,22 @@ public final class CraftDataGenerators {
             .add(Registries.JUKEBOX_SONG, MusicDiscs::bootstrapSongs)
             .add(Registries.CONFIGURED_FEATURE, CraftWorldGen::bootstrapConfigured)
             .add(Registries.PLACED_FEATURE, CraftWorldGen::bootstrapPlaced)
-            .add(Registries.DIMENSION_TYPE, MiningDimension::bootstrapType)
-            .add(Registries.NOISE_SETTINGS, MiningDimension::bootstrapNoiseSettings)
-            .add(Registries.BIOME, MiningDimension::bootstrapBiome)
-            .add(Registries.LEVEL_STEM, MiningDimension::bootstrapStem)
+            .add(Registries.DIMENSION_TYPE, context -> {
+                MiningDimension.bootstrapType(context);
+                FarmingDimension.bootstrapType(context);
+            })
+            .add(Registries.NOISE_SETTINGS, context -> {
+                MiningDimension.bootstrapNoiseSettings(context);
+                FarmingDimension.bootstrapNoiseSettings(context);
+            })
+            .add(Registries.BIOME, context -> {
+                MiningDimension.bootstrapBiome(context);
+                FarmingDimension.bootstrapBiome(context);
+            })
+            .add(Registries.LEVEL_STEM, context -> {
+                MiningDimension.bootstrapStem(context);
+                FarmingDimension.bootstrapStem(context);
+            })
             .add(NeoForgeRegistries.Keys.BIOME_MODIFIERS, CraftWorldGen::bootstrapBiomeModifiers);
 
     private CraftDataGenerators() {

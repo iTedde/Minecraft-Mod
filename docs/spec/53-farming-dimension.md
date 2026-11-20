@@ -139,7 +139,7 @@ kopieren.
 | Teil | Inhalt |
 |---|---|
 | 53.0 | diese Spezifikation |
-| 53.1 | Dimension, Biom, Gelände, Portal (Mining-Portal verallgemeinert), GameTests |
+| 53.1 | Dimension, Biom, Gelände, Portal (Mining-Portal verallgemeinert), GameTests – **erledigt** |
 | 53.2 | Pflanzenliste, Untergrund-Ermittlung, Gartenraster (Feature), Schilder, Log |
 | 53.3 | IC2-Crops in den Gärten, garantierter Saatbeutel |
 | 53.4 | Wiki, EMI, Herkunft, Testplan, Craft-Version + Paket |

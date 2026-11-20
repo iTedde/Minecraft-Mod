@@ -107,7 +107,7 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
 
     @Override
     protected void registerStatesAndModels() {
-        miningPortal();
+        craftPortals();
         for (CableType type : CableType.values()) {
             BlockModelBuilder model = models().getBuilder("block/cable/" + type.getName())
                     .texture("particle", CableModel.cableTexture(type, 0))
@@ -864,14 +864,19 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
         simpleBlockItem(block, models().cubeAll(name, texture));
     }
 
-    /** Nether portal models with the mining portal texture (spec 18 §4.2). */
-    private void miningPortal() {
-        ResourceLocation texture = modLoc("block/mining_portal");
-        BlockModelBuilder alongX = models().withExistingParent("mining_portal_ns", mcLoc("block/nether_portal_ns"))
+    /** Nether portal models with the mining (spec 18 §4.2) and farming portal textures (spec 53 §4). */
+    private void craftPortals() {
+        craftPortal(MiningBlocks.MINING_PORTAL.get(), "mining_portal");
+        craftPortal(MiningBlocks.FARMING_PORTAL.get(), "farming_portal");
+    }
+
+    private void craftPortal(Block block, String name) {
+        ResourceLocation texture = modLoc("block/" + name);
+        BlockModelBuilder alongX = models().withExistingParent(name + "_ns", mcLoc("block/nether_portal_ns"))
                 .texture("particle", texture).texture("portal", texture).renderType("translucent");
-        BlockModelBuilder alongZ = models().withExistingParent("mining_portal_ew", mcLoc("block/nether_portal_ew"))
+        BlockModelBuilder alongZ = models().withExistingParent(name + "_ew", mcLoc("block/nether_portal_ew"))
                 .texture("particle", texture).texture("portal", texture).renderType("translucent");
-        getVariantBuilder(MiningBlocks.MINING_PORTAL.get()).forAllStates(state -> ConfiguredModel.builder()
+        getVariantBuilder(block).forAllStates(state -> ConfiguredModel.builder()
                 .modelFile(state.getValue(NetherPortalBlock.AXIS) == Direction.Axis.X ? alongX : alongZ).build());
     }
 

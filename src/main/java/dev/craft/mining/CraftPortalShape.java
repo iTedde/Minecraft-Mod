@@ -8,19 +8,19 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.NetherPortalBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
 /**
- * Rectangular smooth stone frame with an inner size of 2×3 up to 21×21, standing along X or Z (spec 18 §4.1); same
- * rules as the nether portal frame, corners optional.
+ * Rectangular portal frame of the link's frame block with an inner size of 2×3 up to 21×21, standing along X or Z
+ * (spec 18 §4.1, spec 53 §4); same rules as the nether portal frame, corners optional.
  */
-public final class MiningPortalShape {
+public final class CraftPortalShape {
     public static final int MAX_SIZE = 21;
     private static final int MIN_WIDTH = 2;
     private static final int MIN_HEIGHT = 3;
 
+    private final PortalLink link;
     private final LevelAccessor level;
     private final Direction.Axis axis;
     private final Direction right;
@@ -30,7 +30,8 @@ public final class MiningPortalShape {
     private final int height;
     private int portalBlocks;
 
-    public MiningPortalShape(LevelAccessor level, BlockPos pos, Direction.Axis axis) {
+    public CraftPortalShape(PortalLink link, LevelAccessor level, BlockPos pos, Direction.Axis axis) {
+        this.link = link;
         this.level = level;
         this.axis = axis;
         this.right = axis == Direction.Axis.X ? Direction.WEST : Direction.SOUTH;
@@ -40,22 +41,23 @@ public final class MiningPortalShape {
     }
 
     /** An empty, valid frame around {@code pos} along either axis (the given one first). */
-    public static Optional<MiningPortalShape> findEmpty(LevelAccessor level, BlockPos pos, Direction.Axis axis) {
-        MiningPortalShape shape = new MiningPortalShape(level, pos, axis);
+    public static Optional<CraftPortalShape> findEmpty(PortalLink link, LevelAccessor level, BlockPos pos,
+                                                       Direction.Axis axis) {
+        CraftPortalShape shape = new CraftPortalShape(link, level, pos, axis);
         if (shape.isValid() && shape.portalBlocks == 0) {
             return Optional.of(shape);
         }
         Direction.Axis other = axis == Direction.Axis.X ? Direction.Axis.Z : Direction.Axis.X;
-        shape = new MiningPortalShape(level, pos, other);
+        shape = new CraftPortalShape(link, level, pos, other);
         return shape.isValid() && shape.portalBlocks == 0 ? Optional.of(shape) : Optional.empty();
     }
 
-    public static boolean isFrame(BlockState state) {
-        return state.is(Blocks.SMOOTH_STONE);
+    private boolean isFrame(BlockState state) {
+        return link.isFrame(state);
     }
 
-    private static boolean isEmpty(BlockState state) {
-        return state.isAir() || state.is(BlockTags.FIRE) || state.is(MiningBlocks.MINING_PORTAL.get());
+    private boolean isEmpty(BlockState state) {
+        return state.isAir() || state.is(BlockTags.FIRE) || link.isPortal(state);
     }
 
     @Nullable
@@ -104,7 +106,7 @@ public final class MiningPortalShape {
                 if (!isEmpty(state)) {
                     break rows;
                 }
-                if (state.is(MiningBlocks.MINING_PORTAL.get())) {
+                if (link.isPortal(state)) {
                     portalBlocks++;
                 }
             }
@@ -129,7 +131,7 @@ public final class MiningPortalShape {
     }
 
     public void createPortalBlocks() {
-        BlockState portal = MiningBlocks.MINING_PORTAL.get().defaultBlockState().setValue(NetherPortalBlock.AXIS, axis);
+        BlockState portal = link.portal().get().defaultBlockState().setValue(NetherPortalBlock.AXIS, axis);
         BlockPos.betweenClosed(bottomLeft, bottomLeft.relative(Direction.UP, height - 1).relative(right, width - 1))
                 .forEach(pos -> level.setBlock(pos, portal, 18));
     }

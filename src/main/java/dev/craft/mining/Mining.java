@@ -1,5 +1,7 @@
 package dev.craft.mining;
 
+import java.util.List;
+
 import net.minecraft.core.Direction;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.Level;
@@ -8,9 +10,16 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.level.BlockEvent;
 
-/** Entry point of the mining dimension (spec 18): portal block, its POI and portal ignition. */
+/**
+ * Entry point of the Craft dimensions: mining (spec 18) and farming (spec 53) – portal blocks, their POIs and portal
+ * ignition.
+ */
 public final class Mining {
     private Mining() {
+    }
+
+    public static List<PortalLink> links() {
+        return List.of(MiningBlocks.MINING_LINK, MiningBlocks.FARMING_LINK);
     }
 
     public static void init(IEventBus modBus) {
@@ -20,16 +29,23 @@ public final class Mining {
     }
 
     /**
-     * Fire placed inside a smooth stone frame (flint and steel, fire charge …) turns into the mining portal, in the
-     * overworld and the mining dimension (spec 18 §4.1). Runs after the fire block's own nether portal check.
+     * Fire placed inside a portal frame (flint and steel, fire charge …) turns into that frame's portal, in the
+     * overworld and the link's own dimension only (spec 18 §4.1, spec 53 §4). Runs after the fire block's own nether
+     * portal check.
      */
     private static void lightPortal(BlockEvent.NeighborNotifyEvent event) {
         LevelAccessor level = event.getLevel();
-        if (level.isClientSide() || !event.getState().is(BlockTags.FIRE) || !(level instanceof Level world)
-                || (world.dimension() != Level.OVERWORLD && world.dimension() != MiningDimension.LEVEL)) {
+        if (level.isClientSide() || !event.getState().is(BlockTags.FIRE) || !(level instanceof Level world)) {
             return;
         }
-        MiningPortalShape.findEmpty(level, event.getPos(), Direction.Axis.X)
-                .ifPresent(MiningPortalShape::createPortalBlocks);
+        for (PortalLink link : links()) {
+            if (link.connects(world.dimension())) {
+                var shape = CraftPortalShape.findEmpty(link, level, event.getPos(), Direction.Axis.X);
+                if (shape.isPresent()) {
+                    shape.get().createPortalBlocks();
+                    return;
+                }
+            }
+        }
     }
 }

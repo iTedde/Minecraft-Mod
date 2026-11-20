@@ -26,20 +26,28 @@ import org.slf4j.Logger;
 import javax.annotation.Nullable;
 
 /**
- * Mining portal (spec 18 §4.2): behaves like the nether portal block, but links the overworld and the mining dimension
- * 1:1 and spawns no zombified piglins.
+ * Portal of a {@link PortalLink} (mining portal spec 18 §4.2, farming portal spec 53 §4): behaves like the nether portal
+ * block, but links the overworld and the link's dimension 1:1 and spawns no zombified piglins.
  */
-public final class MiningPortalBlock extends NetherPortalBlock {
-    public static final MapCodec<NetherPortalBlock> CODEC = simpleCodec(MiningPortalBlock::new);
+public final class CraftPortalBlock extends NetherPortalBlock {
     private static final Logger LOGGER = LogUtils.getLogger();
 
-    public MiningPortalBlock(Properties properties) {
+    private final PortalLink link;
+    private final MapCodec<NetherPortalBlock> codec;
+
+    public CraftPortalBlock(Properties properties, PortalLink link) {
         super(properties);
+        this.link = link;
+        this.codec = simpleCodec(p -> new CraftPortalBlock(p, link));
+    }
+
+    public PortalLink link() {
+        return link;
     }
 
     @Override
     public MapCodec<NetherPortalBlock> codec() {
-        return CODEC;
+        return codec;
     }
 
     @Override
@@ -51,7 +59,7 @@ public final class MiningPortalBlock extends NetherPortalBlock {
                                      BlockPos pos, BlockPos facingPos) {
         Direction.Axis axis = state.getValue(AXIS);
         boolean sideways = facing.getAxis() != axis && facing.getAxis().isHorizontal();
-        if (!sideways && !facingState.is(this) && !new MiningPortalShape(level, pos, axis).isComplete()) {
+        if (!sideways && !facingState.is(this) && !new CraftPortalShape(link, level, pos, axis).isComplete()) {
             return Blocks.AIR.defaultBlockState();
         }
         return state;
@@ -60,27 +68,27 @@ public final class MiningPortalBlock extends NetherPortalBlock {
     @Nullable
     @Override
     public DimensionTransition getPortalDestination(ServerLevel level, Entity entity, BlockPos pos) {
-        ResourceKey<Level> targetKey = level.dimension() == MiningDimension.LEVEL ? Level.OVERWORLD : MiningDimension.LEVEL;
+        ResourceKey<Level> targetKey = link.destination(level.dimension());
         ServerLevel target = level.getServer().getLevel(targetKey);
         if (target == null) {
             return null;
         }
         WorldBorder border = target.getWorldBorder();
         BlockPos exit = border.clampToBounds(entity.getX(), entity.getY(), entity.getZ());
-        Optional<BlockPos> existing = MiningPortalForcer.findClosestPortal(target, exit);
+        Optional<BlockPos> existing = CraftPortalForcer.findClosestPortal(link, target, exit);
         BlockUtil.FoundRectangle rectangle;
         DimensionTransition.PostDimensionTransition after;
         if (existing.isPresent()) {
             BlockPos found = existing.get();
             BlockState foundState = target.getBlockState(found);
-            rectangle = BlockUtil.getLargestRectangleAround(found, foundState.getValue(AXIS), MiningPortalShape.MAX_SIZE,
-                    Direction.Axis.Y, MiningPortalShape.MAX_SIZE, p -> target.getBlockState(p) == foundState);
+            rectangle = BlockUtil.getLargestRectangleAround(found, foundState.getValue(AXIS), CraftPortalShape.MAX_SIZE,
+                    Direction.Axis.Y, CraftPortalShape.MAX_SIZE, p -> target.getBlockState(p) == foundState);
             after = DimensionTransition.PLAY_PORTAL_SOUND.then(e -> e.placePortalTicket(found));
         } else {
             Direction.Axis axis = level.getBlockState(pos).getOptionalValue(AXIS).orElse(Direction.Axis.X);
-            Optional<BlockUtil.FoundRectangle> created = MiningPortalForcer.createPortal(target, exit, axis);
+            Optional<BlockUtil.FoundRectangle> created = CraftPortalForcer.createPortal(link, target, exit, axis);
             if (created.isEmpty()) {
-                LOGGER.error("Unable to create a mining portal, likely target out of world border");
+                LOGGER.error("Unable to create a {} portal, likely target out of world border", link.dimension().location());
                 return null;
             }
             rectangle = created.get();
@@ -97,8 +105,8 @@ public final class MiningPortalBlock extends NetherPortalBlock {
         Vec3 offset = new Vec3(0.5, 0.0, 0.0);
         if (state.hasProperty(AXIS)) {
             axis = state.getValue(AXIS);
-            BlockUtil.FoundRectangle source = BlockUtil.getLargestRectangleAround(pos, axis, MiningPortalShape.MAX_SIZE,
-                    Direction.Axis.Y, MiningPortalShape.MAX_SIZE, p -> entity.level().getBlockState(p) == state);
+            BlockUtil.FoundRectangle source = BlockUtil.getLargestRectangleAround(pos, axis, CraftPortalShape.MAX_SIZE,
+                    Direction.Axis.Y, CraftPortalShape.MAX_SIZE, p -> entity.level().getBlockState(p) == state);
             offset = entity.getRelativePortalPosition(axis, source);
         }
         BlockPos corner = rectangle.minCorner;

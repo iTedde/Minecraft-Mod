@@ -4396,3 +4396,35 @@ automatische Pflanzenliste); „Klingt gut, trag es erstmal so ein“.
   eigenes GitHub-Repo. Paketstruktur in `CLAUDE.md` ergänzt.
 - **Kater freigegeben** (Nutzer, 2026-11-20: „Klingt gut“): leicht = Übelkeit + Abbau langsamer; mittel = + Langsamkeit, Hunger,
   Blendung im Sonnenlicht; schwer = + Schwäche, Übergeben; Wasser/Kaffee lindert; Dauer bis 1 MC-Tag).
+
+# Phase 53.1 – Farming-Welt: Dimension + Portal (2026-11-20)
+
+Nutzer: „Weiter gehts mit Phase 52 und 53“ → zuerst 53.1 (eine Sitzung je Teilpaket), 52.0 als nächstes Paket.
+
+## Erledigt
+- [x] `FarmingDimension`: Typ (y 0–256, immer Mittag 6000, Umgebungslicht 0, Betten gehen, keine Monster),
+  flaches Gelände (Grundgestein y 0, Stein bis 60, Erde 61–63, Gras 64, keine Höhlen/Aquifere/Erzadern), Biom
+  `craft:farming` (0,8 / 0,4, kein Regen, Ebenen-Himmel, keine Spawns, keine Features, in keinem Biom-Tag).
+  Datagen: `dimension_type`, `noise_settings`, `biome`, `dimension` `craft:farming`.
+- [x] Portal verallgemeinert: `PortalLink` (Rahmen, Portalblock, POI, Dimension) + `CraftPortalBlock`/
+  `CraftPortalShape`/`CraftPortalForcer` (vorher `MiningPortal*`); `Mining.links()` = Mining (Glatter Stein) und
+  Farming (**Bemooster Bruchstein**). Zünden nur in der Oberwelt und der eigenen Dimension – in der Mining-Welt lässt
+  sich das Farming-Portal nicht zünden und umgekehrt. Ausgangsportal und Notplattform aus dem Rahmenblock des Links.
+- [x] Block `craft:farming_portal` (Nether-Portal-Eigenschaften, Licht 11), POI `craft:farming_portal`, grüne
+  animierte Textur (aus der Mining-Portal-Textur umgefärbt), Modelle/Blockstate per Datagen, Lang
+  „Farming-Portal“/„Farming Portal“, Biom „Farming-Welt“/„Farming World“.
+- [x] GameTests `PortalGameTests` (5): Mining- und Farming-Portal zünden, Bruchstein-Rahmen bleibt aus,
+  Farming-Portal zerfällt mit dem Rahmen, Dimensionstyp/Biom/Rauschsäule (der GameTest-Server lädt nur die Oberwelt,
+  daher Säule direkt aus den Rauschdaten). Alle **672** GameTests grün, `gradlew build` grün, `runClient` bis
+  Hauptmenü ohne Fehler.
+
+## Im Client prüfen (Sammeltest)
+- Farming-Portal bauen (Bemooster Bruchstein, 4×5) und zünden, Reise hin und zurück, Gelände (Gras/Erde), immer
+  Mittag, kein Regen, keine Mobs; Mining-Portal funktioniert weiter wie vorher (bestehende Portale bleiben, POI gleich).
+- Serene Seasons: Jahreszeiten in `craft:farming`? (Whitelist im Paket prüfen – 53.4).
+
+## Nächste Schritte
+- 53.2 Pflanzenliste, Untergrund, Gartenraster, Schilder, Log. Dabei: Ausgangsportal in der Farming-Welt auf ein
+  Wegstück statt in ein Beet setzen (`CraftPortalForcer` bekommt dafür einen Hook je Link).
+- 52.0 Planung/Spezifikation Psychedelicraft-Port (eigene Sitzung).
+

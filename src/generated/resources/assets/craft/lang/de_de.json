@@ -1,4 +1,5 @@
 {
+  "biome.craft.farming": "Farming-Welt",
   "biome.craft.mining": "Mining-Welt",
   "block.craft.advanced_machine_casing": "Fortgeschrittener Maschinenblock",
   "block.craft.aqueous_accumulator": "Wassersammler",
@@ -81,6 +82,7 @@
   "block.craft.energy_tesseract": "Energie-Tesserakt",
   "block.craft.exposed_copper_chest": "Angelaufene Kupferkiste",
   "block.craft.extractor": "Extraktor",
+  "block.craft.farming_portal": "Farming-Portal",
   "block.craft.fe_producer": "FE Producer",
   "block.craft.force_field": "Kraftfeld",
   "block.craft.frame": "Rahmen",

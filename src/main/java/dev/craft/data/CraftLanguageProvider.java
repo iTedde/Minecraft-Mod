@@ -1559,7 +1559,9 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
 
     protected void mining(boolean german) {
         add("biome.craft.mining", german ? "Mining-Welt" : "Mining World");
+        add("biome.craft.farming", german ? "Farming-Welt" : "Farming World");
         add(MiningBlocks.MINING_PORTAL.get(), german ? "Mining-Portal" : "Mining Portal");
+        add(MiningBlocks.FARMING_PORTAL.get(), german ? "Farming-Portal" : "Farming Portal");
     }
 
     protected void recipeViewer(boolean german) {

@@ -1,0 +1,11 @@
+{
+  "type": "craft:farming",
+  "generator": {
+    "type": "minecraft:noise",
+    "biome_source": {
+      "type": "minecraft:fixed",
+      "biome": "craft:farming"
+    },
+    "settings": "craft:farming"
+  }
+}
