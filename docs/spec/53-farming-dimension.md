@@ -1,7 +1,7 @@
 # 53 – Farming-Dimension (Phase 53)
 
 Neuer Inhalt ohne Pack-Vorbild (Nutzer, 2026-11-20), Paket `dev.craft.mining` (gemeinsam mit der Mining-Welt,
-`spec/18`). Stand: **Entwurf, wartet auf Freigabe.**
+`spec/18`). Stand: **freigegeben 2026-11-20** (Nutzer: „Klingt gut, trag es erstmal so ein“ – alle *Vorschläge* angenommen).
 
 ## 1. Zweck und Entscheidungen
 
@@ -118,7 +118,7 @@ in die Welt.
 Wie das Mining-Portal (`spec/18` §4: Rahmenform, Zünden mit Feuerzeug/Feuerkugel, 80 Ticks, POI-Suche im Umkreis 16,
 Portalerzeugung), mit diesen Unterschieden:
 
-- Rahmen aus **Bemoostem Bruchstein** (`minecraft:mossy_cobblestone`) (*Vorschlag*: grün, früh verfügbar, brennt nicht).
+- Rahmen aus **Bemoostem Bruchstein** (`minecraft:mossy_cobblestone`) (grün, früh verfügbar, brennt nicht; Vanilla-Rezept: Bruchstein + Ranken oder Bruchstein + Moosblock, formlos; auch in Verliesen und Dschungeltempeln).
 - Portalblock `craft:farming_portal`, Animation wie das Nether-Portal in **Grün** umgefärbt, Licht 11.
 - Verbindet nur Oberwelt ↔ `craft:farming`. In der Mining-Welt und der Farming-Welt lässt sich das jeweils andere
   Portal nicht zünden.

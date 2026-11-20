@@ -4365,3 +4365,22 @@ dazu „Will so richtig Kater und Halluzinationen usw. drinhaben“.
 - Paket 1.2.16 im CurseForge-Launcher starten (Brauen, Rausch, Radio-Sender).
 - Phase 52.0: Spezifikation Psychedelicraft (Drogen, Pflanzen, Verarbeitung, Effekte, Kater-Vorschlag), sobald der Weg
   entschieden ist.
+
+# Phase 53.0 – Farming-Welt: Spezifikation (2026-11-20)
+
+Nutzer: „Erstelle mal eine weitere Dimension. Die Farming Dimension. Nicht zum Farmen selbst, sondern eine Dimension,
+wo man alle Crops finden kann“; „Alle Pflanzen sollen da wachsen“ (auch IC2-Crops); Aufbau „2 ist gut“ (eigenes Biom,
+automatische Pflanzenliste); „Klingt gut, trag es erstmal so ein“.
+
+## Erledigt
+- [x] `docs/spec/53-farming-dimension.md`, **freigegeben 2026-11-20** mit allen Vorschlägen: Rahmen Bemooster
+  Bruchstein, Schild je Beet, keine Tiere, IC2-Crops ausgewachsen 1/1/1 mit garantiertem Saatbeutel beim ersten
+  Abbauen, Erzblock unter Ferru/Aurelia, Wasser in der Beetmitte mit Seerose abgedeckt.
+- [x] Spec-README, Phasentabelle (Phase 53).
+
+## Nächste Schritte
+- Umsetzung erst auf Wunsch des Nutzers („erstmal so eintragen“): 53.1 Dimension + Portal (Mining-Portal
+  verallgemeinern) · 53.2 Pflanzenliste + Gartenraster · 53.3 IC2-Crops · 53.4 Wiki/EMI/Herkunft/Paket.
+- Beim Umsetzen prüfen: Serene-Seasons-Whitelist (nur Oberwelt?); Abweichung „IC2-Crops wild + Saatbeutel“ in
+  `abweichungen.md`.
+- Offen weiterhin: Phase 52 (Psychedelicraft) – Weg (eigene Port-Mod oder Nachbau in Craft) und Kater-Ausbau.
