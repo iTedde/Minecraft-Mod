@@ -4852,3 +4852,25 @@ Nutzer: „Ist das mit dem Radio schon drin?“ → „Kannst du das Testen?“
 
 ## Nächste Schritte
 - Sichtprüfung Psychedelicraft durch den Nutzer, danach Phase 52 abschließen.
+
+# Paket 1.3.1 – eigene Musik für Project Radio (2026-11-20)
+
+Nutzer: MP3s aus dem Musikordner in den MP3-Ordner von Project Radio – „Ja mach das mal, würde dann später noch
+weitere hinzufügen“.
+
+## Erledigt
+- [x] Project Radio liest lokale MP3s aus `config/project_radio/my_music` (≤ 64 MiB je Datei; aus den Texten der Mod,
+  `MusicLibraryScreen`), „Import all“ lädt sie in die Server-Bibliothek (Reiter „Server“, für alle hörbar).
+- [x] Skript `tools/scripts/pack_radio_music.py <Quell-Zip> <Ziel-Zip> <Musikordner> <Version>` (lokal, `tools/` ist nicht im Git): übernimmt das Paket,
+  ersetzt `overrides/config/project_radio/my_music/` durch alle `.mp3` des Ordners (unkomprimiert), setzt Name/Version.
+  Neue Songs: in `X:\Craft\Musik` legen und das Skript mit neuer Version erneut laufen lassen.
+- [x] Paket `releases/Craft-1.3.1-curseforge.zip` (137 MB): wie 1.3.0 plus 18 Songs (86,6 MiB). Zip geprüft.
+  **Nicht im Git**: GitHub lehnt Dateien über 100 MB ab, Git LFS ist nicht eingerichtet (Entscheidung Nutzer offen).
+- Nicht im Client geprüft, ob die Songs in der MP3-Bibliothek erscheinen.
+
+## Offen
+- Große Pakete: Git LFS einrichten oder nur lokal aufbewahren (Nutzer).
+- Sichtprüfung Psychedelicraft durch den Nutzer, danach Phase 52 abschließen.
+
+## Nächste Schritte
+- Entscheidung zu großen Paketen; Sichtprüfung Psychedelicraft.
