@@ -37,15 +37,15 @@
   "gui.psychedelicraft.recipe.stewing_time": "%s sekund",
   "gui.psychedelicraft.recipe.fluid_process": "%s przez %s",
 
-  "tla.category.psychedelicraft.drying_table": "Suszenie",
-  "tla.category.psychedelicraft.wooden_vat": "Moczenie",
-  "tla.category.psychedelicraft.barrel": "Interakcja z beczką",
-  "tla.category.psychedelicraft.distillery": "Interakcja z destylarnią",
-  "tla.category.psychedelicraft.flask": "Interakcja z kolbą",
-  "tla.category.psychedelicraft.fluid_preparation": "Przygotowywanie płynu",
+  "emi.category.psychedelicraft.drying_table": "Suszenie",
+  "emi.category.psychedelicraft.wooden_vat": "Moczenie",
+  "emi.category.psychedelicraft.barrel": "Interakcja z beczką",
+  "emi.category.psychedelicraft.distillery": "Interakcja z destylarnią",
+  "emi.category.psychedelicraft.flask": "Interakcja z kolbą",
+  "emi.category.psychedelicraft.fluid_preparation": "Przygotowywanie płynu",
 
-  "psychedelicraft.recipe.experience": "%d XP",
-  "psychedelicraft.recipe.drying_time": "%d minut przy pełnym nasłonecznieniu",
+  "psychedelicraft.recipe.experience": "%s XP",
+  "psychedelicraft.recipe.drying_time": "%s minut przy pełnym nasłonecznieniu",
 
   "item.psychedelicraft.tobacco_seeds": "Nasiona tytoniu",
   "item.psychedelicraft.tobacco": "Liść tytoniu",

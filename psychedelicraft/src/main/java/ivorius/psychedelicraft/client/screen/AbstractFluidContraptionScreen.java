@@ -82,19 +82,24 @@ public abstract class AbstractFluidContraptionScreen<T extends FluidContraptionS
 
     public static void drawTankTooltip(GuiGraphics context, ItemFluids fluids, long capacity, int x, int y, int width, int height, int mouseX, int mouseY, List<Component> details) {
         if (rectContains(mouseX, mouseY, x, y, width, height)) {
-            List<Component> tooltip = new ArrayList<>();
-            tooltip.add(fluids.getName());
-            if (!fluids.isEmpty()) {
-                if (capacity <= 0) {
-                    tooltip.add(Component.translatable("psychedelicraft.container.amount", FluidVolumes.format(fluids.amount())).withStyle(ChatFormatting.GRAY));
-                } else {
-                    tooltip.add(Component.translatable("psychedelicraft.container.levels", FluidVolumes.format(fluids.amount()), FluidVolumes.format(capacity)).withStyle(ChatFormatting.GRAY));
-                }
-            }
-            fluids.addToTooltip(Item.TooltipContext.EMPTY, tooltip::add, TooltipFlag.NORMAL);
-            tooltip.addAll(details);
-            context.renderComponentTooltip(Minecraft.getInstance().font, tooltip, mouseX, mouseY);
+            context.renderComponentTooltip(Minecraft.getInstance().font, getTankTooltip(fluids, capacity, details), mouseX, mouseY);
         }
+    }
+
+    /** Tooltip lines of a tank; also used by the EMI plugin. */
+    public static List<Component> getTankTooltip(ItemFluids fluids, long capacity, List<Component> details) {
+        List<Component> tooltip = new ArrayList<>();
+        tooltip.add(fluids.getName());
+        if (!fluids.isEmpty()) {
+            if (capacity <= 0) {
+                tooltip.add(Component.translatable("psychedelicraft.container.amount", FluidVolumes.format(fluids.amount())).withStyle(ChatFormatting.GRAY));
+            } else {
+                tooltip.add(Component.translatable("psychedelicraft.container.levels", FluidVolumes.format(fluids.amount()), FluidVolumes.format(capacity)).withStyle(ChatFormatting.GRAY));
+            }
+        }
+        fluids.addToTooltip(Item.TooltipContext.EMPTY, tooltip::add, TooltipFlag.NORMAL);
+        tooltip.addAll(details);
+        return tooltip;
     }
 
     public static boolean rectContains(int x, int y, int rectX, int rectY, int width, int height) {

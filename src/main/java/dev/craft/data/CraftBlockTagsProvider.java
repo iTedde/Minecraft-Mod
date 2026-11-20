@@ -84,7 +84,12 @@ public final class CraftBlockTagsProvider extends BlockTagsProvider {
     @Override
     protected void addTags(HolderLookup.Provider provider) {
         tag(Ic2Explosion.WHITELIST).add(Blocks.BEDROCK);
-        tag(dev.craft.mining.FarmingPlants.EXTRA);
+        // Psychedelicraft plants that are no CropBlock/flower/sapling by class (spec 52 §7); optional, no dependency
+        var farmingExtra = tag(dev.craft.mining.FarmingPlants.EXTRA);
+        for (String plant : new String[] {"agave_plant", "peyote", "jimsonweed", "belladonna", "tomatoes",
+                "morning_glory", "wine_grape_lattice"}) {
+            farmingExtra.addOptional(ResourceLocation.fromNamespaceAndPath("psychedelicraft", plant));
+        }
         tag(dev.craft.mining.FarmingPlants.EXCLUDED);
         for (Ic2Machine machine : Ic2Machine.values()) {
             tag(BlockTags.MINEABLE_WITH_PICKAXE).add(Ic2Blocks.machine(machine).get());

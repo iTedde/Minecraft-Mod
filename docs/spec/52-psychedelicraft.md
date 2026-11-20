@@ -121,6 +121,13 @@ der Nebenhand statt Erbrochenes fallen zu lassen.
 - **Kater nur von Psychedelicraft-Alkohol.** Brewery hat einen eigenen Rausch; Craft-Bier/-Rum (IC2-Fass) bleiben wie sie sind.
 - Keine Abhängigkeit in beide Richtungen; Craft-Kaffee kommt per Tag-Datei in den Linderungs-Tag (Datenpaket in Craft).
 
+Umsetzung (52.5): Die Farming-Welt nimmt Cannabis, Hopfen, Tabak, Koka, Kaffee (`CropBlock`) und den
+Wacholder-Setzling (`#minecraft:saplings`) von selbst auf. Agave, Peyote (Block-Entity), Stechapfel, Tollkirsche,
+Tomate (`BushBlock`), Prunkwinde (nicht in `#minecraft:small_flowers`) und das Weinreben-Spalier trägt Craft als
+**optionale** Einträge in `#craft:farming_extra` ein. Das EMI-Plugin (`compat/emi`, ersetzt die TLA-Klassen) zeigt
+Trockentisch, Maischbottich, Fässer, Destille, Kolben, Tablett, die Verarbeitungsstufen der Flüssigkeiten und die
+Welt-Interaktionen (Scheren an Spalier/Wacholder, Eimer füllen mit Flüssigkeits-Komponente) wie die Vorlage.
+
 ## 8. Fragen an den Nutzer (alle mit „ja“ beantwortet, 2026-11-20)
 
 1. Kater-Zahlen §6 (Schwellen 0,2/0,5/0,8, Dauer `peak` × 1 MC-Tag, Linderung −2/−5 min, Milch heilt nicht) – so?

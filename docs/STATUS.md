@@ -4637,3 +4637,34 @@ Nutzer: „Weiter gehts“ → 52.3 ist Client (vorerst keine Client-Tests), dah
 - 52.5 EMI-Plugin + Zusammenspiel mit Craft (§7) – EMI-Prüfung braucht eigentlich `runClient`; ohne Client-Tests nur
   Kompilieren/Registrierung prüfen.
 - 52.3 Client, sobald der Nutzer Client-Tests wieder möchte.
+
+# Phase 52.5 – Psychedelicraft: EMI-Plugin + Zusammenspiel mit Craft (2026-11-20)
+
+Nutzer: „nächste Phase“ → 52.5 laut `spec/52` §5 (52.3 Client weiter zurückgestellt, keine Client-Tests).
+
+## Erledigt
+- [x] EMI-Plugin `ivorius.psychedelicraft.compat.emi` (`@EmiEntrypoint`, ersetzt `compat/tia`): Kategorien Trocknen,
+  Einweichen (Maischbottich), Fass/Destille/Kolben (Abfüllen), Backen (Tablett + Bunsenbrenner),
+  Flüssigkeits-Zubereitung (Stufen, ähnliche Prozesse zusammengefasst); Arbeitsstationen wie die Vorlage;
+  Welt-Interaktion: Scheren an Prunkwinden-/Weinreben-Spalier und fruchtendem Wacholder, Eimer füllen mit
+  Flüssigkeits-Komponente (EMIs generisches Eimerfüllen für diese Flüssigkeiten entfernt); Vergleich über die
+  Flüssigkeits-Komponente bei Gefäßen und Flüssigkeiten. Mengen: intern Tropfen, in EMI mB (÷ 81).
+- [x] Tank-Tooltip aus `AbstractFluidContraptionScreen.getTankTooltip` (für EMI als Widget-Tooltip statt Zeichnen).
+- [x] Lang: `tla.category.*` → `emi.category.*`; `psychedelicraft.recipe.experience`/`drying_time` mit `%s` statt
+  `%d` (Vorlage übergab Kommazahl bzw. Text → Formatfehler).
+- [x] Craft: `#craft:farming_extra` mit optionalen Psychedelicraft-Pflanzen (Agave, Peyote, Stechapfel, Tollkirsche,
+  Tomate, Prunkwinde, Weinreben-Spalier); die übrigen kommen automatisch (`spec/52` §7).
+- [x] Psychedelicraft: `gradlew build` grün, 23 GameTests grün. Craft: `runData build` grün, alle 679 GameTests grün
+  (ein Lauf davor mit dem bekannten Ausreißer `plasmacannon`).
+
+## Abweichungen (für `abweichungen.md`, Abschnitt Psychedelicraft, in 52.6)
+- Rezeptanzeige direkt über EMI statt TLA-API; REI entfällt. Pfeil-Animationen dauern 1–20 s (Vorlage gemischt Ticks/ms).
+
+## Offen
+- EMI-Anzeige im Client nicht geprüft (Layout, Tank-Darstellung, Tooltips) – mit 52.3 zusammen testen.
+- Farming-Welt mit Psychedelicraft zusammen nicht geprüft (nur im Paket mit beiden Mods möglich; Log
+  „Farming dimension: …“ zeigt die Liste je Mod).
+
+## Nächste Schritte
+- 52.6 Craft-Wiki (Abschnitt Psychedelicraft), `abweichungen.md`, Testplan, Paket.
+- 52.3 Client, sobald der Nutzer Client-Tests wieder möchte.
