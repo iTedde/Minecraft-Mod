@@ -182,6 +182,8 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
             add("tag.item.c.gems." + gem[0], german ? gem[2] : gem[1]);
         }
         add("tag.item.c.coal_coke", german ? "Koks" : "Coal Coke");
+        add("tag.item.c.gems.forcicium", german ? "Forcicium" : "Forcicium");
+        add("tag.item.c.ores.monazit", german ? "Monaziterze" : "Monazit Ores");
         add("tag.item.craft.crafting_100k_eu_store", german ? "100k-EU-Speicher" : "100k EU Storage");
         add("tag.item.craft.crafting_grinder", german ? "Mahlwerkzeuge" : "Grinders");
         add("tag.item.craft.item_lazurite", german ? "Lazurit" : "Lazurite");

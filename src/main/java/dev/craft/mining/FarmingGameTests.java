@@ -309,4 +309,23 @@ public final class FarmingGameTests {
         }
         helper.succeed();
     }
+
+    /**
+     * Bed signs are labelled while their chunk is generated, before the sign has a level (regression 2026-11-20:
+     * {@code setText} crashed every new farming chunk). The game test server has no farming dimension, so the sign is
+     * labelled detached, exactly as during chunk generation.
+     */
+    @GameTest(template = EMPTY)
+    public static void bedSignLabelledWithoutLevel(GameTestHelper helper) {
+        Plant plant = plant(helper, Blocks.WHEAT);
+        SignBlockEntity sign = new SignBlockEntity(BlockPos.ZERO, Blocks.OAK_SIGN.defaultBlockState());
+        helper.assertTrue(sign.getLevel() == null, "detached sign");
+        FarmingGardens.labelSign(sign, plant.name(), helper.getLevel().registryAccess());
+        helper.assertTrue(sign.getFrontText().getMessage(1, false).getString().equals(plant.name().getString()),
+                "front text " + sign.getFrontText().getMessage(1, false).getString());
+        helper.assertTrue(sign.getBackText().getMessage(1, false).getString().equals(plant.name().getString()),
+                "back text");
+        helper.assertTrue(sign.isWaxed(), "sign waxed");
+        helper.succeed();
+    }
 }

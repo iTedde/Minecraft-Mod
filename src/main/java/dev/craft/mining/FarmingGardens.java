@@ -10,11 +10,16 @@ import dev.craft.mining.FarmingPlants.PlantList;
 import dev.craft.mining.FarmingPlants.Soil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtOps;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.StandingSignBlock;
 import net.minecraft.world.level.block.entity.SignBlockEntity;
+import net.minecraft.world.level.block.entity.SignText;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.levelgen.feature.Feature;
@@ -213,10 +218,22 @@ public final class FarmingGardens extends Feature<NoneFeatureConfiguration> {
     private static void placeSign(WorldGenLevel level, BlockPos pos, Plant plant) {
         set(level, pos, Blocks.OAK_SIGN.defaultBlockState().setValue(StandingSignBlock.ROTATION, SIGN_ROTATION));
         if (level.getBlockEntity(pos) instanceof SignBlockEntity sign) {
-            sign.setText(sign.getFrontText().setMessage(1, plant.name()), true);
-            sign.setText(sign.getBackText().setMessage(1, plant.name()), false);
-            sign.setWaxed(true);
+            labelSign(sign, plant.name(), level.registryAccess());
         }
+    }
+
+    /**
+     * Writes the plant name on both sides and waxes the sign. During chunk generation the sign has no level yet and
+     * {@code setText}/{@code setWaxed} would crash in {@code markUpdated}, so the texts go through the saved data.
+     */
+    static void labelSign(SignBlockEntity sign, Component name, HolderLookup.Provider registries) {
+        CompoundTag tag = sign.saveWithoutMetadata(registries);
+        tag.put("front_text", SignText.DIRECT_CODEC.encodeStart(NbtOps.INSTANCE,
+                sign.getFrontText().setMessage(1, name)).getOrThrow());
+        tag.put("back_text", SignText.DIRECT_CODEC.encodeStart(NbtOps.INSTANCE,
+                sign.getBackText().setMessage(1, name)).getOrThrow());
+        tag.putBoolean("is_waxed", true);
+        sign.loadWithComponents(tag, registries);
     }
 
     private static void set(WorldGenLevel level, BlockPos pos, BlockState state) {

@@ -4793,3 +4793,30 @@ Nutzer: „Weiter gehts“ → letzter offener Punkt aus 52.3.
 
 ## Nächste Schritte
 - Nach der Sichtprüfung Phase 52 als erledigt eintragen.
+
+# Phase 52.5/53 – Client: EMI-Anzeige Psychedelicraft, Farming-Welt; Absturz behoben, Craft 1.2.14 / Paket 1.2.22 (2026-11-20)
+
+Nutzer: „Fehlt noch was?“ → „Jo“ (EMI-Anzeige und Farming-Welt mit Psychedelicraft im Client prüfen).
+
+## Erledigt
+- [x] **Absturz Farming-Welt (Phase 53):** jeder neu erzeugte Chunk stürzte ab („Feature placement“,
+  `craft:farming_gardens`): `FarmingGardens.placeSign` rief `SignBlockEntity.setText`/`setWaxed` auf, die
+  `markUpdated` → `level.sendBlockUpdated` brauchen; beim Erzeugen hat das Schild noch kein Level. Jetzt
+  `FarmingGardens.labelSign` über die gespeicherten Daten (`loadWithComponents`). Die bisherigen GameTests setzten Beete
+  nur in eine fertige Welt und fanden das nicht; neuer GameTest `bedSignLabelledWithoutLevel` (Schild ohne Level).
+  GameTests Craft **680** grün.
+- [x] Client (Craft + Psychedelicraft, Welt `psytest`): Farming-Welt per Datenpaket im Zuschauermodus besucht, Gärten
+  mit Schildern und vollen Beeten auch in den Reihen der 13 Psychedelicraft-Pflanzen (Listenplätze 60–72, Beetreihen
+  z 42–55 je Garten); kein Absturz mehr.
+- [x] EMI im Client: `@psychedelicraft` 12 Seiten; Werkbank-Rezept und Tooltip (Füllstand) des Wacholderfasses,
+  Verwendungen „Barrel Interaction“ (131 Seiten, Tank mit Flüssigkeit, Rohre, Gefäße) und „Fluid Preparation“
+  (25 Seiten) sauber dargestellt.
+- [x] EMI-Warnungen für Craft-Tags `#c:gems/forcicium`, `#c:ores/monazit` per Übersetzung behoben.
+- [x] Craft **1.2.14** (`releases/craft-1.2.14.jar`), Paket `releases/Craft-1.2.22-curseforge.zip` (46,5 MB; wie
+  1.2.21 mit Craft 1.2.14).
+
+## Offen
+- Sichtprüfung Psychedelicraft durch den Nutzer (Testplan 28.1–28.6), danach Phase 52 abschließen.
+
+## Nächste Schritte
+- Nach der Sichtprüfung Phase 52 als erledigt eintragen.
