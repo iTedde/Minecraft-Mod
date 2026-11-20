@@ -1,5 +1,8 @@
 package dev.craft.mining;
 
+import dev.craft.ic2.Ic2Blocks;
+import dev.craft.ic2.crop.CropCard;
+import dev.craft.ic2.crop.Crops;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashSet;
@@ -144,9 +147,10 @@ public final class FarmingPlants {
      * @param sparse only every other cell, for plants that cannot stand next to each other (cactus)
      * @param wet    needs water next to its soil (sugar cane): the bed gets a water row in the middle
      * @param name   sign text
+     * @param ic2    IC2 crop species planted on crop sticks in this bed, null for block plants
      */
     public record Plant(Block block, Soil soil, BlockState state, @Nullable BlockState fruit, int height,
-                        boolean sparse, boolean wet, Component name) {
+                        boolean sparse, boolean wet, Component name, @Nullable CropCard ic2) {
         public boolean isDouble() {
             return state.hasProperty(BlockStateProperties.DOUBLE_BLOCK_HALF);
         }
@@ -233,6 +237,12 @@ public final class FarmingPlants {
             plants.add(plant);
             perMod.merge(id.getNamespace(), 1, Integer::sum);
         }
+        for (CropCard crop : Crops.all()) {
+            if (crop != Crops.WEED) {
+                plants.add(ic2Plant(crop));
+                perMod.merge("ic2 crops", 1, Integer::sum);
+            }
+        }
         int side = Math.max(1, (int) Math.ceil(Math.sqrt(plants.size())));
         LOGGER.info("Farming dimension: {} plants in gardens of {}x{} beds, per mod {}", plants.size(), side, side,
                 perMod);
@@ -242,7 +252,16 @@ public final class FarmingPlants {
         return new PlantList(List.copyOf(plants), side);
     }
 
-    /** Selection rules of spec 53 §3.1 (without the IC2 crops, 53.3). */
+    /**
+     * IC2 crop bed (spec 53 §3.4): crop sticks on farmland, after the block plants in crop id order. The weed is
+     * left out.
+     */
+    static Plant ic2Plant(CropCard crop) {
+        return new Plant(Ic2Blocks.CROP.get(), Soil.FARMLAND, Ic2Blocks.CROP.get().defaultBlockState(), null, 1, false,
+                false, crop.displayName(), crop);
+    }
+
+    /** Selection rules of spec 53 §3.1 for block plants; the IC2 crops come from {@link Crops} (§3.4). */
     static boolean isPlant(Block block) {
         if (BuiltInRegistries.BLOCK.getKey(block).getPath().startsWith("wild_")) {
             return true;
@@ -299,7 +318,7 @@ public final class FarmingPlants {
                         && stacks(probe, soil, state, wet)) {
                     height = STACK;
                 }
-                return new Plant(block, soil, state, fruit, height, sparse, wet, name);
+                return new Plant(block, soil, state, fruit, height, sparse, wet, name, null);
             }
         }
         return null;

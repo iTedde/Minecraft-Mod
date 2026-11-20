@@ -6,6 +6,12 @@ import java.util.Map;
 
 import dev.craft.Craft;
 import dev.craft.ic2.Ic2Blocks;
+import dev.craft.ic2.Ic2Items;
+import dev.craft.ic2.crop.CropBlockEntity;
+import dev.craft.ic2.crop.CropCard;
+import dev.craft.ic2.crop.CropSeedItem;
+import dev.craft.ic2.crop.Crops;
+import dev.craft.ic2.crop.MetalCrop;
 import dev.craft.mining.FarmingPlants.Plant;
 import dev.craft.mining.FarmingPlants.PlantList;
 import dev.craft.mining.FarmingPlants.Soil;
@@ -15,15 +21,20 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CocoaBlock;
 import net.minecraft.world.level.block.CropBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.SignBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.phys.AABB;
 import net.neoforged.neoforge.gametest.GameTestHolder;
 import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
+import org.jetbrains.annotations.Nullable;
 
 /** Plant list and garden grid of the farming dimension (spec 53 §3, §4). */
 @GameTestHolder(Craft.MODID)
@@ -92,7 +103,7 @@ public final class FarmingGameTests {
         helper.assertTrue(plants(helper).find(Blocks.ATTACHED_MELON_STEM).isEmpty(), "no attached stem entry");
         helper.assertTrue(plants(helper).find(Blocks.KELP_PLANT).isEmpty(), "no kelp body (no item)");
         helper.assertTrue(plants(helper).find(Blocks.FIRE).isEmpty(), "no fire");
-        List<Plant> list = plants(helper).plants();
+        List<Plant> list = plants(helper).plants().stream().filter(plant -> plant.ic2() == null).toList();
         for (int i = 1; i < list.size(); i++) {
             String before = BuiltInRegistries.BLOCK.getKey(list.get(i - 1).block()).toString();
             String after = BuiltInRegistries.BLOCK.getKey(list.get(i).block()).toString();
@@ -138,6 +149,10 @@ public final class FarmingGameTests {
         helper.succeed();
     }
 
+    private static @Nullable BlockEntity blockEntity(GameTestHelper helper, BlockPos relative) {
+        return helper.getLevel().getBlockEntity(helper.absolutePos(relative));
+    }
+
     private static void clear(ServerLevel level, BlockPos corner) {
         for (BlockPos pos : BlockPos.betweenClosed(corner.offset(0, -1, 0),
                 corner.offset(FarmingGardens.BED - 1, 5, FarmingGardens.BED - 1))) {
@@ -181,7 +196,7 @@ public final class FarmingGameTests {
         int garden = FarmingGardens.BED * list.side();
         helper.assertTrue(list.side() * list.side() >= list.plants().size()
                 && (list.side() - 1) * (list.side() - 1) < list.plants().size(), "side = ceil(sqrt(n))");
-        Map<Block, Integer> count = new HashMap<>();
+        Map<Plant, Integer> count = new HashMap<>();
         int originX = -3 * garden;
         int originZ = 5 * garden;
         for (int bx = 0; bx < list.side(); bx++) {
@@ -190,7 +205,7 @@ public final class FarmingGameTests {
                 int z = originZ + bz * FarmingGardens.BED + 3;
                 Plant plant = FarmingGardens.bedPlant(list, x, z);
                 if (plant != null) {
-                    count.merge(plant.block(), 1, Integer::sum);
+                    count.merge(plant, 1, Integer::sum);
                 }
                 helper.assertTrue(plant == FarmingGardens.bedPlant(list, x + garden, z - 7 * garden),
                         "gardens repeat");
@@ -198,6 +213,84 @@ public final class FarmingGameTests {
         }
         helper.assertTrue(count.size() == list.plants().size() && count.values().stream().allMatch(c -> c == 1),
                 "each plant once per garden");
+        helper.succeed();
+    }
+
+    /**
+     * IC2 crops (spec 53 §3.4): every species but the weed, after the block plants in crop id order; each bed holds
+     * 24 grown crop sticks with stats 1/1/1, unscanned and wild; metal crops stand over their ore.
+     */
+    @GameTest(template = EMPTY)
+    public static void ic2CropBeds(GameTestHelper helper) {
+        List<Plant> list = plants(helper).plants();
+        List<Plant> ic2 = list.stream().filter(plant -> plant.ic2() != null).toList();
+        List<CropCard> expected = Crops.all().stream().filter(crop -> crop != Crops.WEED).toList();
+        helper.assertTrue(ic2.stream().map(Plant::ic2).toList().equals(expected), "IC2 crops in crop id order");
+        helper.assertTrue(list.subList(list.size() - ic2.size(), list.size()).equals(ic2), "IC2 crops at the end");
+        for (Plant plant : ic2) {
+            CropCard crop = plant.ic2();
+            helper.assertTrue(plant.soil() == Soil.FARMLAND && plant.name().equals(crop.displayName()),
+                    crop.name() + " on farmland with its name");
+            clear(helper.getLevel(), helper.absolutePos(BED));
+            FarmingGardens.placeBed(helper.getLevel(), helper.absolutePos(BED), plant);
+            int sticks = 0;
+            for (int x = 1; x <= 5; x++) {
+                for (int z = 1; z <= 5; z++) {
+                    if (!(blockEntity(helper, BED.offset(x, 1, z)) instanceof CropBlockEntity entity)) {
+                        continue;
+                    }
+                    sticks++;
+                    helper.assertTrue(entity.crop() == crop && entity.getSize() == crop.matureSize()
+                            && entity.getGrowth() == 1 && entity.getGain() == 1 && entity.getResistance() == 1
+                            && entity.getScanLevel() == 0 && entity.isWild(), crop.name() + " planted wild");
+                    helper.assertTrue(crop.canBeHarvested(entity), crop.name() + " ripe");
+                    helper.assertTrue(helper.getBlockState(BED.offset(x, 1, z)).getValue(
+                            dev.craft.ic2.crop.CropBlock.SPRITE) == entity.getSprite(), crop.name() + " sprite");
+                    if (crop instanceof MetalCrop metal) {
+                        helper.assertBlockPresent(metal.ore(), BED.offset(x, -1, z));
+                    }
+                }
+            }
+            helper.assertTrue(sticks == 24, crop.name() + ": 24 crops, got " + sticks);
+        }
+        clear(helper.getLevel(), helper.absolutePos(BED));
+        helper.succeed();
+    }
+
+    /**
+     * The first pick of a wild crop drops a 1/1/1 seed bag for sure, even for Ferru (tier 6, low chance); the crop
+     * stick is no longer wild afterwards and the mark survives saving.
+     */
+    @GameTest(template = EMPTY)
+    public static void wildCropDropsSeedOnFirstPick(GameTestHelper helper) {
+        Plant ferru = plants(helper).plants().stream().filter(plant -> plant.ic2() == Crops.FERRU).findFirst()
+                .orElseThrow();
+        FarmingGardens.placeBed(helper.getLevel(), helper.absolutePos(BED), ferru);
+        CropBlockEntity first = (CropBlockEntity) helper.getBlockEntity(BED.offset(1, 1, 1));
+        helper.assertTrue(first.saveWithoutMetadata(helper.getLevel().registryAccess()).getBoolean("wild"),
+                "wild mark saved");
+        int picked = 0;
+        for (int x = 1; x <= 5; x++) {
+            for (int z = 1; z <= 5; z++) {
+                if (blockEntity(helper, BED.offset(x, 1, z)) instanceof CropBlockEntity entity) {
+                    entity.pick(true);
+                    helper.assertTrue(!entity.isWild() && entity.getCropId() < 0, "picked and no longer wild");
+                    picked++;
+                }
+            }
+        }
+        int bags = 0;
+        for (ItemEntity item : helper.getLevel().getEntitiesOfClass(ItemEntity.class,
+                new AABB(helper.absolutePos(BED)).inflate(10))) {
+            ItemStack stack = item.getItem();
+            if (stack.is(Ic2Items.CROP_SEED_BAG.get())) {
+                CropSeedItem.Seed seed = CropSeedItem.getSeed(stack);
+                helper.assertTrue(seed.id() == Crops.FERRU.getId() && seed.growth() == 1 && seed.gain() == 1
+                        && seed.resistance() == 1 && seed.scan() == 0, "ferru seed bag 1/1/1");
+                bags += stack.getCount();
+            }
+        }
+        helper.assertTrue(picked == 24 && bags >= 24, "a seed bag per wild crop, got " + bags + " of " + picked);
         helper.succeed();
     }
 

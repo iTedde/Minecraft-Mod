@@ -4460,3 +4460,32 @@ Nutzer: „Weiter gehts“ → 53.2 laut Plan.
 ## Nächste Schritte
 - 53.3 IC2-Crops in den Gärten, garantierter Saatbeutel.
 - 52.0 Planung/Spezifikation Psychedelicraft-Port (eigene Sitzung).
+
+
+# Phase 53.3 – Farming-Welt: IC2-Crops (2026-11-20)
+
+Nutzer: „Weiter gehts“ → 53.3 laut Plan.
+
+## Erledigt
+- [x] `CropCard.matureSize()` (ausgewachsene Größe je Sorte, Venomilia 5 = Grinpulver), `MetalCrop.ore()`.
+- [x] `CropBlockEntity.plantWild` + Kennzeichen `wild` (gespeichert): erstes `pick` gibt garantiert einen Saatbeutel
+  1/1/1, `reset` löscht es.
+- [x] `FarmingPlants`: 21 IC2-Beete (alle außer Unkraut) hinter den Block-Pflanzen in Crop-ID-Reihenfolge
+  (`Plant.ic2`); ohne Zusatzmods 81 Beete, Garten 9 × 9.
+- [x] `FarmingGardens`: 24 Crop-Stäbe je Beet, Sprite schon beim Setzen richtig, Erz unter Ferru/Aurelia.
+- [x] `spec/53` §3.4 (Umsetzung), `abweichungen.md`.
+- [x] GameTests: `ic2CropBeds`, `wildCropDropsSeedOnFirstPick`; Sortier-/Garten-Tests berücksichtigen die IC2-Beete.
+  Alle **679** GameTests grün (`-PgameTestDir=run-gametest`), `gradlew build` grün, `runClient` bis Hauptmenü ohne
+  Fehler.
+- Hinweis: `runGameTestServer` **ohne** `-PgameTestDir` nutzt `run/world`; fehlgeschlagene Teststrukturen bleiben dort
+  in zwangsgeladenen Chunks, ihre Tesserakte (Frequenz 901/902) hängen beim nächsten Lauf wieder im Register und lassen
+  `energyTesseractCarriesEnergy`/`liquidTesseractFillsRemoteTank` scheitern. Immer mit `-PgameTestDir=run-gametest`
+  testen.
+
+## Im Client prüfen (Sammeltest)
+- IC2-Gärten in der Farming-Welt: Sprites ausgewachsen, Schilder mit Sortennamen, Rechtsklick erntet, Linksklick gibt
+  einen Saatbeutel (auch bei Ferru/Aurelia), Erz unter Ferru/Aurelia.
+
+## Nächste Schritte
+- 53.4 Wiki, EMI-Info zum Portal, Herkunft der IC2-Saatbeutel, Testplan, Craft-Version + Paket.
+- 52.0 Planung/Spezifikation Psychedelicraft-Port (eigene Sitzung).

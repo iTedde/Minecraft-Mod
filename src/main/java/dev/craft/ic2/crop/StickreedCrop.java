@@ -45,6 +45,11 @@ public class StickreedCrop extends CropCard {
     }
 
     @Override
+    public int matureSize() {
+        return 4;
+    }
+
+    @Override
     public boolean canGrow(CropBlockEntity crop) {
         return crop.getSize() < 4;
     }

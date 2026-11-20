@@ -113,6 +113,18 @@ in die Welt.
   gelten nur fürs Wachsen; ausgewachsen gesetzt sind sie trotzdem erntbar. Für Ferru/Aurelia wird *zusätzlich* der
   passende Erzblock unter den Ackerboden gesetzt, damit man ihr Verhalten sieht (*Vorschlag*).
 
+**Umsetzung (53.3):**
+
+- Die IC2-Beete stehen **hinter** allen Block-Pflanzen der Liste, in der Reihenfolge der Crop-IDs (Weizen 1 … Kartoffel
+  21); ohne Zusatzmods 60 + 21 = **81 Beete, Garten 9 × 9**. Im Log zählt die Liste sie als „ic2 crops“.
+- Beet wie Weizen: feuchter Ackerboden, Wasser + Seerose in der Mitte, **24 Crop-Stäbe**, Schild mit dem Sortennamen.
+- **Ausgewachsen** = `CropCard.matureSize()` (neu, kein IC2-Gegenstück): die letzte Größe, zu der `canGrow` führt –
+  Weizen/Hopfen/Rotweizen 7, Kaffee 5, Karotte/Kartoffel/Netherwarze/Terrawarze/Zuckerrohr 3, alle übrigen 4.
+  **Venomilia 5** (Grinpulver-Stufe; sie wüchse in IC2 noch auf 6, wo sie nur noch lila Farbstoff gibt).
+- Ferru/Aurelia: Eisen- bzw. Golderz (Stein-Variante) direkt unter dem Ackerboden.
+- Kennzeichen `wild` im Block-Entity (gespeichert als `wild`): `pick` lässt mindestens einen Saatbeutel fallen, `reset`
+  löscht das Kennzeichen. Rechtsklick-Ernte lässt es stehen – garantiert ist der Saatbeutel beim ersten Abbauen.
+
 ### 3.5 Umsetzung (53.2)
 
 Festgelegt beim Umsetzen (Entscheidungen aus §7):
@@ -172,7 +184,7 @@ kopieren.
 | 53.0 | diese Spezifikation |
 | 53.1 | Dimension, Biom, Gelände, Portal (Mining-Portal verallgemeinert), GameTests – **erledigt** |
 | 53.2 | Pflanzenliste, Untergrund-Ermittlung, Gartenraster (Feature), Schilder, Log – **erledigt** (Client offen) |
-| 53.3 | IC2-Crops in den Gärten, garantierter Saatbeutel |
+| 53.3 | IC2-Crops in den Gärten, garantierter Saatbeutel – **erledigt** (Client offen) |
 | 53.4 | Wiki, EMI, Herkunft, Testplan, Craft-Version + Paket |
 
 ## 7. Für die Umsetzung offen (Entscheidung des Umsetzenden)

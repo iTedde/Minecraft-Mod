@@ -49,6 +49,11 @@ public class CoffeeCrop extends CropCard {
     }
 
     @Override
+    public int matureSize() {
+        return 5;
+    }
+
+    @Override
     public boolean canGrow(CropBlockEntity crop) {
         return crop.getSize() < 5 && crop.getLightLevel() >= 9;
     }

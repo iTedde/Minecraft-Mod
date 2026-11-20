@@ -1,5 +1,10 @@
 package dev.craft.mining;
 
+import dev.craft.ic2.Ic2Blocks;
+import dev.craft.ic2.crop.CropBlock;
+import dev.craft.ic2.crop.CropBlockEntity;
+import dev.craft.ic2.crop.CropCard;
+import dev.craft.ic2.crop.MetalCrop;
 import dev.craft.mining.FarmingPlants.Plant;
 import dev.craft.mining.FarmingPlants.PlantList;
 import dev.craft.mining.FarmingPlants.Soil;
@@ -173,6 +178,10 @@ public final class FarmingGardens extends Feature<NoneFeatureConfiguration> {
         if (skip || plant.wet() && Math.abs(j - CENTER) != 1) {
             return;
         }
+        if (plant.ic2() != null) {
+            placeIc2Crop(level, pos, x, z, surface, plant.ic2());
+            return;
+        }
         set(level, pos.set(x, surface + 1, z), plant.state());
         if (plant.isDouble()) {
             set(level, pos.set(x, surface + 2, z), plant.upper());
@@ -180,6 +189,24 @@ public final class FarmingGardens extends Feature<NoneFeatureConfiguration> {
             for (int h = 2; h <= plant.height(); h++) {
                 set(level, pos.set(x, surface + h, z), plant.state());
             }
+        }
+    }
+
+    /**
+     * Grown IC2 crop on a crop stick (spec 53 §3.4); metal crops get their ore block under the farmland so the last
+     * stage could grow back.
+     */
+    private static void placeIc2Crop(WorldGenLevel level, BlockPos.MutableBlockPos pos, int x, int z, int surface,
+                                     CropCard crop) {
+        if (crop instanceof MetalCrop metal) {
+            set(level, pos.set(x, surface - 1, z), metal.ore().defaultBlockState());
+        }
+        pos.set(x, surface + 1, z);
+        CropBlockEntity probe = new CropBlockEntity(pos.immutable(), Ic2Blocks.CROP.get().defaultBlockState());
+        probe.plantWild(crop);
+        set(level, pos, Ic2Blocks.CROP.get().defaultBlockState().setValue(CropBlock.SPRITE, probe.getSprite()));
+        if (level.getBlockEntity(pos) instanceof CropBlockEntity entity) {
+            entity.plantWild(crop);
         }
     }
 
