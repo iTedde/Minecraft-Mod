@@ -4325,3 +4325,43 @@ Nutzer: „Update: create factory logistics, add: Create factory routing, add: p
 - Paket 1.2.15 im CurseForge-Launcher starten (Create-Fabrik, Polymorph-Rezeptauswahl, Leistung mit Stellar).
 - Bei einem Update von Create auf 6.0.11+ blockiert Factory Routing (`[6.0.10]`).
 - GameTests beim nächsten Lauf mitnehmen (`omniwrenchRotatesVanillaBlocks` geändert).
+
+# Paket 1.2.16 – Brewery, Project Radio; Plan Psychedelicraft (2026-11-20)
+
+Nutzer: Frage nach Alkohol-/Drogen-Mod und Webradio für 1.21.1; meine Empfehlung (Brewery, Project Radio,
+Psychedelicraft portieren) → „Machen wir das so, halte das so fest. Wichtig wäre noch, wie man das dann herstellt“;
+dazu „Will so richtig Kater und Halluzinationen usw. drinhaben“.
+
+## Erledigt
+- [x] Geprüft (cfwidget/Modrinth, `neoforge.mods.toml`):
+  - [Let's Do] Brewery: neueste 2.1.12/2.1.13 verlangen **Foundation ≥ 1.0.6**, das es für NeoForge nicht gibt
+    (Modrinth nur 1.0.4, CurseForge 1733606 nur Fabric) → **Brewery 2.1.11** (1038106/8932247) mit **Farm & Charm
+    1.1.26** (1038103/8967051), beide ohne Foundation, nur Architectury ≥ 9.0.8 (im Paket). Erst auf neuere Versionen
+    gehen, wenn Foundation ≥ 1.0.7 für NeoForge erscheint.
+  - Project Radio 2.0.3 (1466847/9436386, ARR → nur Manifest): bringt JLayer und Veil 4.5.2 im Jar mit, NeoForge
+    21.1.219–21.2.
+- [x] `releases/Craft-1.2.16-curseforge.zip` (39,8 MB): wie 1.2.15 + 3 Einträge (120). Nicht im Client gestartet.
+- [x] Wiki „Create & Paket-Mods“: Zeilen für 1.2.15/1.2.16, mit **Herstellung** (Hopfen/Hefe/Braustation/Bier;
+  Radio, tragbares Radio, Walkman, Lautsprecher, Fernbedienung – Rezepte aus den Jars); DE + EN neu erzeugt.
+- [x] Psychedelicraft geprüft (Repo `Sollace/Psychedelicraft`, **MIT**): Branch `1.21` = MC 1.21–1.21.1, Fabric,
+  Yarn, 416 Java-Dateien, 33 Mixins, 14 Shader. Bibliotheken: Fabwork (Netzwerk, 28 Klassen, MIT), Kirin (GUI,
+  68 Klassen, MIT), Terraform Wood API (Bäume), TLA-API (EMI/REI), Sodium/Iris-Kompatibilität (glsl-transformer).
+  Drogen: Alkohol, Cannabis, Tabak, Kokain, LSD, Pilze, Peyote, Morphin, Koffein, Kava, Badesalz u. a.,
+  Halluzinationen (Wesen, Identitätstausch, Kamera-Drift, Farbwechsel, Chat-Verzerrung), Sucht. **Kater** im Original
+  nur schwach (`AlcoholDrug.onWakeUp`: nach dem Aufwachen mit Wahrscheinlichkeit = Pegel Schaden-Animation +
+  Schlafmangel 0,25).
+
+## Entschieden (Nutzer, 2026-11-20)
+- Alkohol: Brewery; Radio: Project Radio; Drogen: **Psychedelicraft auf NeoForge 1.21.1 bringen** (Phase 52).
+- Wichtig: richtiger **Kater** und **Halluzinationen**; im Wiki muss die **Herstellung** (Anbau, Verarbeitung,
+  Rezepte) erklärt sein.
+
+## Offen (Phase 52, vor Beginn klären)
+- Weg: (1) eigenständiger Port des Fabric-Codes als eigene Mod (MIT) oder (2) Nachbau in Craft (`…psychedelicraft`,
+  Spezifikation + eigener Code nach Grundregel 3).
+- Kater ausbauen (Original zu schwach): Umfang/Werte vorschlagen und freigeben lassen.
+
+## Nächste Schritte
+- Paket 1.2.16 im CurseForge-Launcher starten (Brauen, Rausch, Radio-Sender).
+- Phase 52.0: Spezifikation Psychedelicraft (Drogen, Pflanzen, Verarbeitung, Effekte, Kater-Vorschlag), sobald der Weg
+  entschieden ist.

@@ -85,6 +85,18 @@ Mahlen, Waschen, Fertigungsketten …).</p>
     ['Enhanced Player List', 'Unabhängig von Create: Tab-Liste mit Spielzeit, Toden, Strecke, abgebauten Blöcken u. a. für alle Spieler, auch offline'],
     ['Subtle Effects (+ Fzzy Config), Particle Rain', 'Unabhängig von Create: Umgebungs-, Regen- und Schneepartikel'],
     ['Pick Up Notifier, Armor Stand Arms', 'Unabhängig von Create: Einblendung aufgehobener Items; Rüstungsständer mit Armen'],
+    ['Create Factory Logistics, Create: Factory Routing', 'Erweiterungen für die Create-Fabriklogistik (Fabrik-Anzeigen, Pakete, Verteilung) (ab Paket 1.2.15)'],
+    ['StellarCreateOptimization', 'Mehr Bildrate bei großen Create-Anlagen (ab Paket 1.2.15)'],
+    ['Polymorph', 'Unabhängig von Create: Wenn mehrere Rezepte dasselbe Raster haben, erscheint an der Werkbank ein Knopf zur Auswahl des Ergebnisses (ab Paket 1.2.15)'],
+    ['<b>[Let\'s Do] Brewery</b> (+ Farm &amp; Charm)', 'Unabhängig von Create: Bier und Whiskey brauen, Rausch mit schwankender Kamera, Alkoholtester; Bierfest-Kleidung, Kneipenmöbel. '
+     '<b>Herstellung:</b> <b>Hopfen</b> wächst wild in Taiga-Biomen, Gerste/Hafer/Mais u. a. wild in der Welt (Farm &amp; Charm). '
+     '<b>Hefe</b> im Kochtopf (Farm &amp; Charm): Zucker + Wasserflasche + Weizen, mit Schüssel → 12 Hefe. '
+     '<b>Holz-Braustation</b>: <kbd>_ _ E / O K K / B B B</kbd> (E Eisenbarren, O Ofen, K Kessel, B Bretter); per Schmiedetisch zu Kupfer und Netherit aufwerten (Whiskey braucht Kupfer). '
+     'Bierkrüge: 8 aus 7 Brettern; Fass: 4 Fässer. Beispiel: Hopfenbier = 2 Hopfen + Hefe in der Holz-Braustation (ab Paket 1.2.16)'],
+    ['<b>Project Radio</b>', 'Unabhängig von Create: <b>echtes Internetradio</b> – Radioblock mit Senderwahl, tragbares Radio und Walkman, alle Spieler hören synchron; dazu Lautsprecher, DJ-Pult, Bühnenlicht, Nebelmaschine, Tanzfläche. '
+     '<b>Herstellung:</b> <b>Radio</b> <kbd>E E E / R J R / E G E</kbd> (E Eisenbarren, R Redstone, J Plattenspieler, G Goldnugget); '
+     '<b>tragbares Radio</b>: Leder über Radio über Kompass; <b>Walkman</b>: Eisen rundum, Glasscheibe + Redstone in der Mitte; '
+     '<b>Lautsprecher</b>: Notenblock in 8 Eichenbrettern; <b>Fernbedienung</b>: Steinknopf, Eisen/Redstone/Eisen, Eisen (ab Paket 1.2.16)'],
 ])}
 <h2 id="cr--craft">Zusammenspiel mit Craft</h2>
 <ul>
