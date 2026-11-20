@@ -337,6 +337,16 @@ Testwelt. Sprache einmal Deutsch, einmal Englisch prüfen. EMI und Xaero's Minim
 | 26.5 | Secret Rooms: Tab, Paste; Geisterblock in Stein-/Holzwand sieht aus wie die Wand (Paar-Regel), durchlaufbar, mit Hebel fest; Einwegglas in Wand: von außen getarnt, von innen durchsichtig, Taste „\\“ dreht die Richtung; Grasblock-Tarnung mit Biomfarbe | 50.4 | |
 | 26.6 | Getarnter Redstone (Kette zur Lampe), Hebel/Knopf/Druckplatten (Spieler-Variante), Treppe (begehbar, sieht voll aus), Truhe (Inhalt, Katze), Tor (Wand aus 10 Blöcken heraus/hinein), Holz-/Eisentür und Falltür in Tarnung (offen/zu, Form stimmt), Fackel-Hebel (Licht, schaltet) | 50.5 | |
 
+### 27 Farming-Welt (Phase 53)
+
+| Nr. | Prüfung | Phase | Ergebnis |
+|---|---|---|---|
+| 27.1 | Farming-Portal aus Bemoostem Bruchstein (4×5) zünden, Reise hin und zurück; grünes Portal, Licht; in der Mining-Welt nicht zündbar (und Mining-Portal nicht in der Farming-Welt); bestehende Mining-Portale gehen weiter; neues Zielportal steht auf einem Weg | 53.1–53.2 | |
+| 27.2 | Welt: Grasebene, immer Mittag, kein Regen, keine Mobs; Gärten mit Wegen und lesbaren Schildern; Wasser/Seerosen, Kakao-Säule, Moosdecke, Zuckerrohr/Kaktus/Bambus 3 hoch, Melone/Kürbis mit Stängel; nichts fällt beim Hinlaufen ab | 53.2 | |
+| 27.3 | Im Paket: Log-Zeile „Farming dimension: N plants …“ und „left out …“; Pflanzen der Paket-Mods (Farmer's Delight, Brewery …) stehen in Beeten | 53.2 | |
+| 27.4 | IC2-Beete: 21 Sorten, Sprites ausgewachsen, Schild mit Sortennamen, Erz unter Ferru/Aurelia; Linksklick gibt je Pflanze sicher einen Saatbeutel 1/1/1, Rechtsklick erntet | 53.3 | |
+| 27.5 | EMI: Info-Seiten an Glattem Stein, Bemoostem Bruchstein, Feuerzeug und Saatbeutel; Herkunft von Kaffeebohnen/Hopfen/Terra-Warze nennt die Farming-Welt; Wiki-Seite „Farming-Welt“ | 53.4 | |
+
 ## Befunde
 
 | Nr | Datum | Befund | Status |

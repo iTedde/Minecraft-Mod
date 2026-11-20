@@ -175,7 +175,11 @@ kopieren.
 - Lang (de/en): „Farming-Portal“ / „Farming Portal“, Dimension „Farming-Welt“ / „Farming World“.
 - Wiki: neue Seite „Farming-Welt“ (Zweck, Portalbau, Gartenraster, IC2-Saatbeutel, Hinweis auf Schilder) neben der
   Mining-Welt; Herkunftstexte (`spec/24`) der IC2-Saatbeutel ergänzen: „wild in der Farming-Welt“.
-- EMI: Info-Seite zum Portal (wie Mining-Portal).
+- EMI: Info-Seite zum Portal (wie Mining-Portal). Umgesetzt (53.4): Die Portalblöcke haben kein Item, daher hängen
+  die Seiten am Rahmenblock und am Feuerzeug (`emi.craft.info.mining_portal`/`farming_portal`; die Mining-Seite gab
+  es vorher nicht), dazu eine Seite am Saatbeutel (`farming_seed_bag`). Herkunftstexte Kaffeebohnen, Hopfen,
+  Terra-Warze nennen die Farming-Welt. Serene Seasons: Standard-Whitelist nur Oberwelt – keine Jahreszeiten in
+  `craft:farming` (unerheblich, dort wächst nichts nach).
 
 ## 6. Teilphasen
 
@@ -185,7 +189,7 @@ kopieren.
 | 53.1 | Dimension, Biom, Gelände, Portal (Mining-Portal verallgemeinert), GameTests – **erledigt** |
 | 53.2 | Pflanzenliste, Untergrund-Ermittlung, Gartenraster (Feature), Schilder, Log – **erledigt** (Client offen) |
 | 53.3 | IC2-Crops in den Gärten, garantierter Saatbeutel – **erledigt** (Client offen) |
-| 53.4 | Wiki, EMI, Herkunft, Testplan, Craft-Version + Paket |
+| 53.4 | Wiki, EMI, Herkunft, Testplan, Craft-Version + Paket – **erledigt** (Craft 1.2.12 / Paket 1.2.17) |
 
 ## 7. Für die Umsetzung offen (Entscheidung des Umsetzenden)
 

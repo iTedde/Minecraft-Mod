@@ -4489,3 +4489,29 @@ Nutzer: „Weiter gehts“ → 53.3 laut Plan.
 ## Nächste Schritte
 - 53.4 Wiki, EMI-Info zum Portal, Herkunft der IC2-Saatbeutel, Testplan, Craft-Version + Paket.
 - 52.0 Planung/Spezifikation Psychedelicraft-Port (eigene Sitzung).
+
+
+# Phase 53.4 – Farming-Welt: Wiki, EMI, Herkunft, Craft 1.2.12 / Paket 1.2.17 (2026-11-20)
+
+Nutzer: „weiter gehts“ → 53.4 laut Plan.
+
+## Erledigt
+- [x] EMI (`WorldEmiRecipes`): Info-Seiten Mining-Portal (Glatter Stein + Feuerzeug, gab es vorher nicht),
+  Farming-Portal (Bemooster Bruchstein + Feuerzeug), IC2-Saatbeutel in der Farming-Welt.
+- [x] Herkunft (`SourceTexts`): Kaffeebohnen, Hopfen, Terra-Warze „wächst wild in der Farming-Welt“.
+- [x] Wiki: neue Seite „Farming-Welt“ (Portal, Gärten/Beete, IC2-Crops, Welt) neben der Mining-Dimension, Karte und
+  Zeile auf den Übersichtsseiten, Hinweise Farming-Portal/Saatbeutel, Energie-Steckbrief; DE + EN-Namen neu erzeugt
+  (98 Seiten). Auf diesem Rechner läuft der Generator mit Python 3.13 (`markdown`, `pillow`,
+  `mdx_truly_sane_lists` per `pip install --user` nachinstalliert).
+- [x] Testplan Abschnitt 27 (Farming-Welt).
+- [x] Serene Seasons: keine Config im Paket, Standard-Whitelist nur Oberwelt → keine Jahreszeiten in der Farming-Welt.
+- [x] Craft **1.2.12** (`releases/craft-1.2.12.jar`): Farming-Welt (Phase 53). `runData`, `build`, alle **679**
+  GameTests grün (`-PgameTestDir=run-gametest`).
+- [x] Paket `releases/Craft-1.2.17-curseforge.zip` (41,8 MB): wie 1.2.16, nur Craft 1.2.11 → 1.2.12; Manifest
+  unverändert (120 Einträge). Nicht im Client gestartet.
+
+## Im Client prüfen (Sammeltest)
+- Testplan 27.1–27.5.
+
+## Nächste Schritte
+- 52.0 Planung/Spezifikation Psychedelicraft-Port (eigene Sitzung).

@@ -47,7 +47,8 @@ SOURCES = {k[7:].replace('.', ':', 1): v for k, v in LANG_DE.items() if k.starts
 WIKI_NOTES = {
     'craft:booze_mug': 'Steinkrug per Rechtsklick an einem Fass mit fertigem Bier oder Rum füllen.',
     'craft:crop_seed_bag': 'Gewachsene Pflanze auf einem Crop-Stab pflücken (Linksklick) → mit etwas Glück ein Saatbeutel; '
-                           'im Cropnalyzer auswerten. Nicht im Kreativ-Inventar (wie IC2).',
+                           'in der Farming-Welt gibt jede wilde IC2-Pflanze beim ersten Pflücken sicher einen. '
+                           'Im Cropnalyzer auswerten. Nicht im Kreativ-Inventar (wie IC2).',
     'craft:construction_foam_wall': 'Entsteht, wenn gesetzter Bauschaum aushärtet; lässt sich mit Farbstoff einfärben. Kein Item.',
     'craft:dynamite_stick': 'Gesetztes Dynamit (Block). Das Item heißt Dynamit und wird in der Werkbank hergestellt.',
     'craft:dynamite_stick_with_remote': 'Gesetztes Dynamit, das mit einem Fernzünder verbunden ist (Block).',
@@ -55,6 +56,7 @@ WIKI_NOTES = {
     'craft:ic2_mining_tip': 'Spitze des Bergbaurohrs, die Miner und IC2-Pumpe setzen; droppt ein Bergbaurohr. Kein Item.',
     'craft:mining_pipe': 'Rohr der Mining Well und der BuildCraft-Pumpe; wird von ihnen gesetzt und droppt nichts.',
     'craft:mining_portal': 'Portalfläche: Rahmen aus Glattem Stein bauen und mit dem Feuerzeug zünden.',
+    'craft:farming_portal': 'Portalfläche: Rahmen aus Bemoostem Bruchstein bauen und mit dem Feuerzeug zünden.',
     'craft:nightvision_goggles': 'Kein Rezept – auch im Pack nicht (IC2 1.115 hat keins). Nur im Kreativmodus.',
     'craft:component_carbon_myofiber': 'Kein Rezept und keine Verwendung – auch im Pack nicht (Modular Powersuits 0.3.2). Nur im Kreativmodus.',
     'craft:component_myofiber_gel': 'Kein Rezept und keine Verwendung – auch im Pack nicht (Modular Powersuits 0.3.2). Nur im Kreativmodus.',
@@ -104,6 +106,7 @@ NEW_PAGES = {
     'turbine_casing': 'kohlekraftwerk', 'turbine_rotor': 'kohlekraftwerk',
     'water_turbine': 'wasserturbine', 'water_turbine_casing': 'wasserturbine',
     'mining_portal': 'mining-dimension',
+    'farming_portal': 'farming-dimension',
     'electric_light_shield': 'leuchtschild',
 }
 

@@ -48,6 +48,7 @@ public class CraftEmiPlugin implements EmiPlugin {
         LightShieldEmiRecipes.register(registry);
         KleinkramEmiRecipes.register(registry);
         CopperGolemEmiRecipes.register(registry);
+        WorldEmiRecipes.register(registry);
         PcEmiRecipes.register(registry);
         NcEmiRecipes.register(registry);
         CpEmiRecipes.register(registry);

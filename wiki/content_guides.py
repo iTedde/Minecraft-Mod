@@ -599,7 +599,7 @@ dauerhaft hell. Man steht oben auf der Ebene (y 65) und baut mit Quarry, Miner o
     'Hineinstellen und 4 Sekunden warten (im Kreativmodus sofort).',
 ])}
 <ul>
-<li>Ein Obsidian-Rahmen bleibt ein Nether-Portal. Nether-Portale lassen sich in der Mining-Welt nicht zünden.</li>
+<li>Ein Obsidian-Rahmen bleibt ein Nether-Portal. Nether- und <a href="#/farming-dimension">Farming-Portale</a> lassen sich in der Mining-Welt nicht zünden.</li>
 <li>Das Portal zerfällt, wenn der Rahmen beschädigt wird. Es lässt sich nicht als Item abbauen.</li>
 <li>Alle Entities reisen mit: Spieler, Tiere, Items, Loren.</li>
 <li>Beim Durchgehen erscheint das lila Nether-Overlay – das ist im Vanilla-Client fest eingebaut.</li>
@@ -643,5 +643,64 @@ Die Quarry hält ihre Chunks selbst geladen (max. 25 Chunks).</li>
 <p>Spezifikation: <a href="#/spec-18">18 – Mining-Dimension</a>.</p>
 '''
     page('mining-dimension', 'Mining-Dimension', 'Neu & geändert', mining)
+
+    # ================================================================== Farming
+    fk = {'M': ('minecraft:mossy_cobblestone', 'Bemooster Bruchstein', ''), 'P': ('tex:craft:block/farming_portal', 'Farming-Portal', '')}
+    if not h.texture('craft:block/farming_portal'):
+        fk['P'] = ('craft:farming_portal', 'Farming-Portal', '')
+    farming = f'''<h1>Farming-Welt</h1>
+{h.infobox('Farming-Welt', 'craft:farming_portal', [
+    ('Herkunft', NEW + ' Craft (kein Pack-Vorbild)'), ('ID', '<code>craft:farming</code>'), ('Portal', 'Rahmen aus Bemoostem Bruchstein,<br>mit Feuerzeug zünden'),
+    ('Koordinaten', '1:1 zur Oberwelt'), ('Gelände', 'flache Grasebene, Oberfläche y 64'), ('Licht', 'immer Mittag'),
+    ('Wetter', 'kein Regen'), ('Mobs', 'keine'), ('Pflanzen', 'alle Pflanzen aller Mods + alle IC2-Crops'),
+])}
+<p class="lead">Eine Dimension, in der man <b>jede Pflanze findet</b> – nicht zum Anbauen, sondern zum Mitnehmen: Saatgut, Setzlinge, Blumen,
+Pilze, Wasserpflanzen und die IC2-Crops, die es sonst nur durch Kreuzen gibt. Die Welt ist in Gärten aus Beeten eingeteilt, jede Pflanze
+steht in jedem Garten genau einmal.</p>
+<div class="tocpos"></div>
+<h2 id="fa--portal">Portal bauen und zünden</h2>
+<div class="layers">{h.layer(['MMMM', 'MPPM', 'MPPM', 'MPPM', 'MMMM'], fk, 'kleinstes Portal: Rahmen 4×5, Innenraum 2×3', 36)}<div>{h.legend(fk)}</div></div>
+{steps([
+    f"{v('minecraft:mossy_cobblestone', 'Bemoosten Bruchstein')} herstellen: Bruchstein + Ranken oder Bruchstein + Moosblock (formlos). Er liegt auch in Verliesen und Dschungeltempeln.",
+    'Einen <b>senkrechten</b> Rahmen bauen wie beim Nether-Portal: Innenraum mindestens 2 breit und 3 hoch, höchstens 21×21. Die Ecken dürfen fehlen.',
+    f"Mit einem {v('minecraft:flint_and_steel', 'Feuerzeug')} (oder einer Feuerkugel) an die Innenseite klicken – in der Oberwelt oder in der Farming-Welt.",
+    'Hineinstellen und 4 Sekunden warten (im Kreativmodus sofort).',
+])}
+<ul>
+<li>Sonst alles wie beim <a href="#/mining-dimension">Mining-Portal</a>: 1:1-Koordinaten, Zielportal im Umkreis von 16 Blöcken, zerfällt mit dem Rahmen.</li>
+<li>In der Mining-Welt lässt sich das Farming-Portal nicht zünden und umgekehrt.</li>
+<li>Ein neues Portal in der Farming-Welt entsteht immer auf einem Weg, nie mitten in einem Beet.</li>
+</ul>
+<h2 id="fa--gaerten">Gärten und Beete</h2>
+<ul>
+<li>Ein <b>Beet</b> ist 7 × 7 Blöcke: 5 × 5 Pflanzfläche, rundum ein Trampelpfad. Jedes Beet hat <b>eine</b> Pflanze, ausgewachsen.</li>
+<li>An der Nordwest-Ecke jedes Beets steht ein <b>Schild</b> mit dem Namen der Pflanze (lange Namen werden abgeschnitten).</li>
+<li>Ein <b>Garten</b> ist ein Quadrat aus k × k Beeten (k = aufgerundete Wurzel der Pflanzenzahl). Ohne Zusatzmods sind es 81 Beete
+(9 × 9 = 63 × 63 Blöcke), mit den Mods des Pakets mehr. Die Gärten wiederholen sich lückenlos, die Reihenfolge ist überall gleich.</li>
+<li>Jedes Beet hat den passenden Untergrund: Ackerboden (mit abgedecktem Wasser in der Mitte), Gras, Sand, Seelensand, Myzel, Podsol, Moos, Nezel,
+Endstein, ein Wasserbecken, eine Dschungelstamm-Säule (Kakao) oder eine Moosdecke (Leuchtbeeren, Sporenblüte).</li>
+<li>Bäume stehen als Setzlinge da. Zuckerrohr, Kaktus und Bambus sind 3 hoch.</li>
+<li><b>Nichts wächst nach.</b> Ein Beet wird nur beim Erzeugen der Welt gesetzt. Abgeerntet? Zum nächsten Garten gehen.</li>
+<li>Welche Pflanzen dabei sind, ermittelt der Server beim Start aus allen geladenen Mods; das Log zeigt die Zahl je Mod und was ausgelassen wurde.</li>
+</ul>
+<h2 id="fa--ic2">IC2-Crops</h2>
+<ul>
+<li>Alle 21 IC2-Sorten außer Unkraut stehen in eigenen Beeten am Ende jedes Gartens: 24 {c('crop')} auf Ackerboden, ausgewachsen, Werte 1/1/1, ungescannt.</li>
+<li>Jede hier entstandene Pflanze lässt beim <b>ersten Pflücken</b> (Linksklick) <b>sicher</b> einen {c('crop_seed_bag')} fallen – auch Ferru und Aurelia,
+bei denen es sonst kaum klappt. Danach gilt die normale IC2-Regel. Rechtsklick erntet wie gewohnt.</li>
+<li>Ferru und Aurelia stehen über Eisen- bzw. Golderz, damit sie nach der Ernte wieder ausreifen könnten.</li>
+<li>Den Saatbeutel im {c('cropnalyzer')} auswerten und zu Hause auf Crop-Stäben weiterzüchten.</li>
+</ul>
+<h2 id="fa--welt">Die Welt</h2>
+{h.table(['Eigenschaft', 'Wert', 'Was das für dich heißt'], [
+    ['Gelände', 'Gras auf y 64, darunter Erde und Stein, keine Höhlen und Erze', 'nur zum Sammeln, Bergbau lohnt nicht'],
+    ['Licht und Zeit', 'immer Mittag', 'Pflanzen und Wege sind immer gut zu sehen'],
+    ['Wetter', 'kein Regen', ''],
+    ['Mobs', 'keine Spawns', 'sicheres Sammeln'],
+    ['Betten', 'funktionieren', 'Spawnpunkt setzen geht'],
+])}
+<p>Spezifikation: <a href="#/spec-53">53 – Farming-Dimension</a>.</p>
+'''
+    page('farming-dimension', 'Farming-Welt', 'Neu & geändert', farming)
 
     return P

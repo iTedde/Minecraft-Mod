@@ -76,6 +76,7 @@ dazu kommen <a href="#/aenderungen">neue Kraftwerke und eine Mining-Dimension</a
 {card('wasserturbine', 'craft:water_turbine', 'Wasserturbine', 'Bis 32 EU/t Grundlast aus fließendem Wasser, im Fluss-Biom bis 48.', NEW)}
 {card('grosskraftwerke', 'craft:large_steam_turbine', 'Großkraftwerke', 'Hochdruckkessel, große Dampf-, Wasser- und Windturbine: bis 192–512 EU/t.', NEW)}
 {card('mining-dimension', 'craft:mining_portal', 'Mining-Dimension', 'Flache Steinwelt voller Erze, Portal aus Glattem Stein.', NEW)}
+{card('farming-dimension', 'craft:farming_portal', 'Farming-Welt', 'Gärten mit allen Pflanzen und IC2-Crops, Portal aus Bemoostem Bruchstein.', NEW)}
 {card('leuchtschild', 'craft:electric_light_shield', 'Elektrischer Leuchtschild', 'Schild mit EU statt Haltbarkeit und einstellbarer Taschenlampe.', NEW)}
 {card('zusatzmods', 'craft:cropnalyzer', 'EMI, Xaero & CC: Tweaked', 'Rezeptanzeige, Minimap und Turtles im Paket.', TECH)}
 </div>
@@ -190,6 +191,7 @@ Engine, Power Converters und der Kernreaktor.</p>
     row('Wasserturbine', 'Multiblock 3×3×3 in fließendem Wasser', '0,25 EU/t je fließendem Wasserblock bis 5 Blöcke um und 20 über der Turbine, bis 32 EU/t (Fluss-Biom 48)', 'wasserturbine', NEW),
     row('Großkraftwerke', 'zweite Ausbaustufe für Kohle, Wasser und Wind', 'Hochdruckkessel + Große Dampfturbine bis 512 EU/t, Große Wasserturbine bis 256 EU/t (Fluss-Biom 384), Große Windturbine bis 192 EU/t', 'grosskraftwerke', NEW),
     row('Mining-Dimension', 'eigene Dimension, Portal aus Glattem Stein', 'flache Steinwelt bis y 64 mit allen Oberwelt-Erzen, hell, ohne Mobs', 'mining-dimension', NEW),
+    row('Farming-Welt', 'eigene Dimension, Portal aus Bemoostem Bruchstein', 'Gärten mit jeder Pflanze aller Mods und allen IC2-Crops (erstes Pflücken gibt sicher einen Saatbeutel)', 'farming-dimension', NEW),
     row('Dampf', 'Flüssigkeit <code>craft:steam</code>', 'nur in Tanks und Rohren, kein Eimer', 'kohlekraftwerk', NEW),
     row('CC: Tweaked', 'mitinstallierter Mod', 'Computer und Turtles (Ersatz für ComputerCraft 1.5 im Pack)', 'zusatzmods', NEW),
     row('Verteiler-Transportrohr', 'Item-Rohr mit Anteil je Seite', 'Diamant-Transportrohr + Komparator; exakte Aufteilung nach eingestellten Prozent', 'mod-buildcraft', NEW),
@@ -765,6 +767,7 @@ bauen sie nicht ab. Turtles brauchen Treibstoff (wie im Pack).</p>
 <p>Spezifikation: <a href="#/spec-18">18 – Mining-Dimension</a>.</p>
 '''
     page('mining-dimension', 'Mining-Dimension', 'Neu & geändert', mining)
+    page('farming-dimension', 'Farming-Welt', 'Neu & geändert', '<h1>Farming-Welt</h1>')
 
     # ------------------------------------------------------------------ Leuchtschild
     shield = f'''<h1>Elektrischer Leuchtschild</h1>

@@ -455,4 +455,7 @@ MACHINES = {
     'craft:mining_portal': (
         'Portal zur Mining-Dimension (Rahmen aus Glattem Stein, mit Feuerzeug zünden).',
         'Erze abbauen, ohne die Oberwelt zu durchlöchern.'),
+    'craft:farming_portal': (
+        'Portal zur Farming-Welt (Rahmen aus Bemoostem Bruchstein, mit Feuerzeug zünden).',
+        'Jede Pflanze und jede IC2-Crop-Sorte finden, ohne lange zu suchen.'),
 }

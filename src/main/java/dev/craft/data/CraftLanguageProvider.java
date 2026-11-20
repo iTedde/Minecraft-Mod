@@ -506,6 +506,36 @@ public abstract class CraftLanguageProvider extends LanguageProvider {
         // Copper golem (spec 35 §3).
         addEntityType(CopperGolems.COPPER_GOLEM, german ? "Kupfergolem" : "Copper Golem");
         item(CopperGolems.SPAWN_EGG, german ? "Kupfergolem-Spawn-Ei" : "Copper Golem Spawn Egg");
+        add("emi.craft.info.mining_portal", german
+                ? "Mining-Portal: senkrechten Rahmen aus Glattem Stein bauen wie beim Nether-Portal (Innenraum 2×3 bis "
+                + "21×21, Ecken dürfen fehlen) und innen mit Feuerzeug oder Feuerkugel zünden – nur in der Oberwelt und "
+                + "in der Mining-Welt. Führt 1:1 in die Mining-Welt: flache Steinwelt voller Erze, immer hell, keine "
+                + "Monster. Ein Zielportal im Umkreis von 16 Blöcken wird genommen, sonst entsteht eins auf y 65."
+                : "Mining portal: build an upright frame of smooth stone like a nether portal (inside 2×3 up to 21×21, "
+                + "corners may be missing) and light it inside with flint and steel or a fire charge – only in the "
+                + "overworld and the mining world. Leads 1:1 into the mining world: a flat stone world full of ores, "
+                + "always bright, no monsters. A target portal within 16 blocks is used, otherwise one is built at "
+                + "y 65.");
+        add("emi.craft.info.farming_portal", german
+                ? "Farming-Portal: Rahmen aus Bemoostem Bruchstein, sonst wie das Mining-Portal (nur in der Oberwelt "
+                + "und in der Farming-Welt zündbar). Die Farming-Welt ist eine flache Grasebene mit Gärten aus Beeten "
+                + "(7×7, Schild mit dem Namen an der Ecke): Jede Pflanze aller Mods wächst dort einmal je Garten, "
+                + "ausgewachsen, dazu alle IC2-Crops. Die Beete wachsen nicht nach – abgeerntet? Zum nächsten Garten "
+                + "gehen. Immer Mittag, kein Regen, keine Monster."
+                : "Farming portal: frame of mossy cobblestone, otherwise like the mining portal (lights only in the "
+                + "overworld and the farming world). The farming world is a flat grass plain with gardens of beds "
+                + "(7×7, sign with the name at the corner): every plant of every mod grows there once per garden, "
+                + "fully grown, plus all IC2 crops. Beds do not grow back – harvested everything? Walk to the next "
+                + "garden. Always noon, no rain, no monsters.");
+        add("emi.craft.info.farming_seed_bag", german
+                ? "Alle IC2-Crop-Sorten (außer Unkraut) wachsen ausgewachsen in den Gärten der Farming-Welt (Portal aus "
+                + "Bemoostem Bruchstein), Werte 1/1/1. Jede dort entstandene Pflanze gibt beim ersten Pflücken "
+                + "(Linksklick) sicher einen Saatbeutel; Ferru und Aurelia stehen über ihrem Erz. Sonst: gewachsene "
+                + "Pflanze pflücken gibt nur mit etwas Glück einen Saatbeutel."
+                : "Every IC2 crop species (but weed) grows fully grown in the gardens of the farming world (portal of "
+                + "mossy cobblestone), stats 1/1/1. Each plant generated there gives a seed bag for sure on its first "
+                + "pick (left click); Ferru and Aurelia stand above their ore. Otherwise picking a grown crop gives a "
+                + "seed bag only with some luck.");
         add("emi.craft.info.copper_golem_build", german
                 ? "Kupfergolem bauen: Kupferblock (jede Stufe, auch gewachst) setzen, dann einen geschnitzten Kürbis "
                 + "oder eine Kürbislaterne daran – oben, seitlich oder darunter, der Kürbis muss zuletzt kommen (auch "

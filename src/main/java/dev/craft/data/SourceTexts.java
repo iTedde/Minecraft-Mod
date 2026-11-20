@@ -230,24 +230,25 @@ public final class SourceTexts {
                 "Mass fabricator: 1,000,000 EU per UU-matter. Scrap (5000) or a scrap box (45,000) as amplifier makes "
                         + "every EU count six times until the value is used up. EMI shows what it makes under \"Uses\".",
                 "uu_matter");
-        add("Ernte der Crop-Sorte Kaffee (bei Größe 5: 3 Bohnen). Die Sorte entsteht nur durch Kreuzen auf einem "
-                        + "Kreuzungsstab (Sorten mit gemeinsamen Attributen kreuzen leichter); danach lassen sich die "
-                        + "Bohnen selbst auf Crop-Stäbe pflanzen. Macerator → 3 Kaffeepulver.",
-                "Harvest of the coffee crop (at size 5: 3 beans). The crop only appears by cross-breeding on a "
-                        + "cross-breeding crop (crops with shared attributes cross more easily); afterwards the beans "
-                        + "themselves can be planted on crops. Macerator → 3 coffee powder.",
+        add("Ernte der Crop-Sorte Kaffee (bei Größe 5: 3 Bohnen). Die Sorte entsteht durch Kreuzen auf einem "
+                        + "Kreuzungsstab oder wächst wild in der Farming-Welt (Saatbeutel beim ersten Pflücken); danach "
+                        + "lassen sich die Bohnen selbst auf Crop-Stäbe pflanzen. Macerator → 3 Kaffeepulver.",
+                "Harvest of the coffee crop (at size 5: 3 beans). The crop appears by cross-breeding on a "
+                        + "cross-breeding crop or grows wild in the farming world (seed bag on the first pick); "
+                        + "afterwards the beans themselves can be planted on crops. Macerator → 3 coffee powder.",
                 "coffee_beans");
-        add("Ernte der Crop-Sorte Hopfen (bei Größe 7: 3 Hopfen). Die Sorte entsteht nur durch Kreuzen auf einem "
-                        + "Kreuzungsstab (Sorten mit gemeinsamen Attributen kreuzen leichter). Zutat für Bier im Fass.",
-                "Harvest of the hops crop (at size 7: 3 hops). The crop only appears by cross-breeding on a "
-                        + "cross-breeding crop (crops with shared attributes cross more easily). Ingredient for beer "
-                        + "in the barrel.",
+        add("Ernte der Crop-Sorte Hopfen (bei Größe 7: 3 Hopfen). Die Sorte entsteht durch Kreuzen auf einem "
+                        + "Kreuzungsstab oder wächst wild in der Farming-Welt (Saatbeutel beim ersten Pflücken). Zutat "
+                        + "für Bier im Fass.",
+                "Harvest of the hops crop (at size 7: 3 hops). The crop appears by cross-breeding on a "
+                        + "cross-breeding crop or grows wild in the farming world (seed bag on the first pick). "
+                        + "Ingredient for beer in the barrel.",
                 "hops");
         add("Netherwarze auf einen Crop-Stab über einem Schneeblock pflanzen: Sie wird mit der Zeit zur Terra-Warze "
-                        + "(Ernte bei Größe 3). Danach lässt sich die Terra-Warze selbst pflanzen. Zentrifuge: 16 + 1 "
+                        + "(Ernte bei Größe 3); wächst auch wild in der Farming-Welt. Danach lässt sich die Terra-Warze selbst pflanzen. Zentrifuge: 16 + 1 "
                         + "Zelle → Methanzelle.",
                 "Plant nether wart on a crop above a snow block: in time it turns into terra wart (harvest at size "
-                        + "3). Afterwards terra wart itself can be planted. Centrifuge: 16 + 1 cell → methane cell.",
+                        + "3); also grows wild in the farming world. Afterwards terra wart itself can be planted. Centrifuge: 16 + 1 cell → methane cell.",
                 "terra_wart");
         add("BuildCraft-Öl, nur in der Oberwelt: kleine Pfützen in Wüsten (etwa 3 % der Chunks), sehr selten "
                         + "unterirdische Ölkugeln (y 20–29) mit Fontäne bis an die Oberfläche. Mit Eimer schöpfen oder "
