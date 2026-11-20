@@ -4303,3 +4303,25 @@ Nutzer: „Teste alles außer Redstone“, danach „Reicht jetzt, ist alles abg
 ## Nächste Schritte
 - GameTests beim nächsten Lauf mitnehmen (`omniwrenchRotatesVanillaBlocks` geändert).
 - Tesserakt- und `plasmaCannon`-/`harvestAndPickWheat`-Wackler weiter beobachten.
+
+# Paket 1.2.15 – Create-Addons, Polymorph (2026-11-20)
+
+Nutzer: „Update: create factory logistics, add: Create factory routing, add: polymorph“ und StellarCreateOptimization
+„muss auch auf jeden Fall noch rein“. Create Factory Logistics war noch nicht im Manifest → neu aufgenommen.
+
+## Erledigt
+- [x] Geprüft über api.cfwidget.com, Abhängigkeiten aus den `neoforge.mods.toml`:
+  - Create Factory Logistics 1.6.1 (1218807/9073275, beta): Create ≥ 6.0.10; Create Factory Abstractions und
+    MixinExtras stecken im Jar (jarjar).
+  - Create: Factory Routing 0.2.0 (1647413/9301428): Create genau 6.0.10 (im Paket), Factory Controller optional
+    1.2.1–1.2.3 (im Paket 1.2.3).
+  - Polymorph 1.2.0 (388800/8849478, beta): nur JEI optional.
+  - StellarCreateOptimization 1.1.3 (1637437/9647977): Create 6.0.4–6.1, Client: Flywheel (in Create) und
+    Sodium ≥ 0.6.9 (im Paket 0.8.12).
+- [x] `releases/Craft-1.2.15-curseforge.zip` (39,8 MB, Inhalt wie 1.2.14 mit Craft 1.2.11): Manifest + 4 Einträge
+  (117). Nicht im Client gestartet.
+
+## Nächste Schritte
+- Paket 1.2.15 im CurseForge-Launcher starten (Create-Fabrik, Polymorph-Rezeptauswahl, Leistung mit Stellar).
+- Bei einem Update von Create auf 6.0.11+ blockiert Factory Routing (`[6.0.10]`).
+- GameTests beim nächsten Lauf mitnehmen (`omniwrenchRotatesVanillaBlocks` geändert).
