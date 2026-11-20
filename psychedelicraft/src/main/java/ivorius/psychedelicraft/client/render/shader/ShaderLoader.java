@@ -127,7 +127,8 @@ public class ShaderLoader implements ResourceManagerReloadListener {
                     }))
             .addShader("ps_bloom", UniformBinding.start()
                     .program("ps_bloom", (setter, tickDelta, screenWidth, screenHeight, pass) -> {
-                        float bloom = ShaderContext.hallucinations().get(Drug.BLOOM_HALLUCINATION_STRENGTH);
+                        float bloom = ShaderContext.hallucinations().get(Drug.BLOOM_HALLUCINATION_STRENGTH)
+                                + ivorius.psychedelicraft.client.render.effect.HangoverGlareScreenEffect.getBloom(tickDelta);
                         if (bloom > 0) {
                             setter.set("pixelSize", 1F / screenWidth * 2F, 1F / screenHeight * 2F);
                             for (int n = 0; n < Mth.ceil(bloom); n++) {

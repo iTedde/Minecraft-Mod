@@ -133,20 +133,31 @@ public class Stomach implements NbtSerialisable {
         }
     }
 
-    public void vomit() {
+    /**
+     * Vomits into an empty paper bag held in the off hand.
+     *
+     * @return true if a bag was filled
+     */
+    public boolean vomitIntoBag() {
         ItemStack heldItem = entity.getItemInHand(InteractionHand.OFF_HAND);
-        if (heldItem.is(PSItems.PAPER_BAG) && BagContentsComponent.get(heldItem).isEmpty()) {
-            playBarfNoise();
+        if (!heldItem.is(PSItems.PAPER_BAG) || !BagContentsComponent.get(heldItem).isEmpty()) {
+            return false;
+        }
+        playBarfNoise();
 
-            if (!entity.isCreative()) {
-                heldItem.shrink(1);
-            }
-            if (heldItem.isEmpty()) {
-                entity.setItemInHand(InteractionHand.OFF_HAND, PSItems.BAG_O_VOMIT.getDefaultInstance());
-            } else {
-                entity.getInventory().placeItemBackInInventory(PSItems.BAG_O_VOMIT.getDefaultInstance());
-            }
+        if (!entity.isCreative()) {
+            heldItem.shrink(1);
+        }
+        if (heldItem.isEmpty()) {
+            entity.setItemInHand(InteractionHand.OFF_HAND, PSItems.BAG_O_VOMIT.getDefaultInstance());
         } else {
+            entity.getInventory().placeItemBackInInventory(PSItems.BAG_O_VOMIT.getDefaultInstance());
+        }
+        return true;
+    }
+
+    public void vomit() {
+        if (!vomitIntoBag()) {
             vomitingTicks = entity.level().random.nextIntBetweenInclusive(10, 100);
             if (++vomitCount > 16) {
                 entity.hurt(properties.damageOf(PSDamageTypes.OVER_EATING), Integer.MAX_VALUE);
@@ -157,7 +168,7 @@ public class Stomach implements NbtSerialisable {
         properties.markDirty();
     }
 
-    private void playBarfNoise() {
+    public void playBarfNoise() {
         entity.level().playSound(null, entity, SoundEvents.VILLAGER_DEATH, entity.getSoundSource(), 1, (float)entity.level().random.triangle(0.5, 0.25));
     }
 

@@ -4598,3 +4598,42 @@ Nutzer: „weiter gehts“ → 52.2 laut `spec/52` §5.
 
 ## Nächste Schritte
 - 52.3 Client (erst wenn der Nutzer Client-Tests wieder möchte) – sonst zuerst 52.4 Kater (+ GameTests).
+
+# Phase 52.4 – Psychedelicraft: Kater (2026-11-20)
+
+Nutzer: „Weiter gehts“ → 52.3 ist Client (vorerst keine Client-Tests), daher 52.4 laut `spec/52` §6.
+
+## Erledigt
+- [x] `entity/drug/Hangover` (Zustand in `DrugProperties`, gespeichert unter `hangover`, bleibt beim Dimensionswechsel,
+  Tod setzt zurück): `peak` = höchster Alkoholwert seit dem letzten Nüchternsein; unter 0,05 (Schlafen setzt Alkohol
+  auf 0) beginnt der Kater, Stufe I/II/III ab 0,2/0,5/0,8, Dauer `peak` × 24 000 Ticks (max. 1 MC-Tag). Neuer
+  Alkohol ≥ 0,05 lässt ihn ruhen (Anzeige weg, Zeit steht), danach weiter mit höherer Stufe/längerer Dauer.
+  Kreativ/Zuschauer: kein Kater.
+- [x] Statuseffekt `psychedelicraft:hangover` (Stufe = Verstärker, Restzeit = Effektdauer, Icon 18×18, Lang en/de),
+  **Milch heilt nicht** (`fillEffectCures` leer). Wirkungen als kurze Effekte ohne Partikel/Icon, jede Sekunde
+  aufgefrischt: Abbaulähmung I (ab I), Langsamkeit I + Hunger I (ab II), Schwäche I (III); Übelkeit 6 s alle
+  60–120 s; Stufe III übergibt sich alle 2–5 min (−4 Hunger, Übelkeit 8 s, 3× `vomit` am Boden oder in die
+  Papiertüte in der Nebenhand – `Stomach.vomitIntoBag()` aus `vomit()` herausgelöst, zählt nicht zum
+  Überess-Tod).
+- [x] Blendung (Client, **nicht getestet**): `HangoverGlareScreenEffect` ab Stufe II am Tag unter freiem Himmel weiße
+  Überblendung (bis 45 %, bei Regen schwächer) + Zusatz-Bloom im Original-Bloom-Shader; Schatten hilft.
+- [x] Linderung: Wasserflasche (Vanilla, über `LivingEntityUseItemEvent.Finish`) und Wasser aus Psychedelicraft-Gefäßen
+  −2 min; Psychedelicraft-Kaffee und Item-Tag `psychedelicraft:hangover_relief` −5 min + Stufe −1 (nicht unter I).
+  Craft trägt `craft:coffee`/`dark_coffee`/`cold_coffee` per Tag-Datei in `src/main/resources` ein (keine Abhängigkeit).
+- [x] GameTests `HangoverGameTests` (10): Stufen/Dauer, schwerer Kater mit allen Wirkungen, leichter Kater endet, unter
+  0,2 kein Kater, Milch, Pause + höhere Stufe, Schlafen, Wasser/Kaffee, Wasser ohne Kater nicht trinkbar,
+  Übergeben. Alle 23 GameTests grün, `gradlew build` grün.
+
+## Abweichungen (für `abweichungen.md`, Abschnitt Psychedelicraft, in 52.6)
+- Kater ist Craft-Zusatz (Original nur Aufwach-Animation + Schlafmangel, beides bleibt).
+- Wasser in Psychedelicraft-Gefäßen ist nur mit Kater trinkbar (sonst wie im Original nicht).
+- Der Linderungs-Tag enthält nur „Kaffee-Stärke“; Wasserflaschen erkennt der Code (Tags unterscheiden keine Tränke).
+
+## Befunde
+- `smokingJointRaisesCannabisAndWearsOff` schlug einmal sporadisch fehl („Start element … is larger than end element“,
+  Testposition bei x ≈ −13 Mio.), im nächsten Lauf grün; nicht vom Kater (kein Alkohol beteiligt). Beobachten.
+
+## Nächste Schritte
+- 52.5 EMI-Plugin + Zusammenspiel mit Craft (§7) – EMI-Prüfung braucht eigentlich `runClient`; ohne Client-Tests nur
+  Kompilieren/Registrierung prüfen.
+- 52.3 Client, sobald der Nutzer Client-Tests wieder möchte.

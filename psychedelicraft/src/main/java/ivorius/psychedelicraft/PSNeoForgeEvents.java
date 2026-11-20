@@ -3,8 +3,15 @@ package ivorius.psychedelicraft;
 import java.util.ArrayList;
 import java.util.List;
 
+import ivorius.psychedelicraft.entity.drug.DrugProperties;
 import ivorius.psychedelicraft.util.PSHooks;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.entity.npc.VillagerTrades;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.alchemy.PotionContents;
+import net.minecraft.world.item.alchemy.Potions;
+import net.neoforged.neoforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -59,6 +66,20 @@ public final class PSNeoForgeEvents {
                 // Fabric: level 1 = generic offers, level 2 = rare offers
                 (level <= 1 ? event.getGenericTrades() : event.getRareTrades()).addAll(listings);
             });
+        });
+
+        // Craft addition (spec 52 §6): water bottles and coffee items relieve a hangover
+        gameBus.addListener(LivingEntityUseItemEvent.Finish.class, event -> {
+            if (event.getEntity().level().isClientSide) {
+                return;
+            }
+            ItemStack stack = event.getItem();
+            boolean coffee = stack.is(PSTags.Items.HANGOVER_RELIEF);
+            boolean water = stack.is(Items.POTION)
+                    && stack.getOrDefault(DataComponents.POTION_CONTENTS, PotionContents.EMPTY).is(Potions.WATER);
+            if (coffee || water) {
+                DrugProperties.of(event.getEntity()).ifPresent(p -> p.getHangover().relieve(coffee));
+            }
         });
     }
 }

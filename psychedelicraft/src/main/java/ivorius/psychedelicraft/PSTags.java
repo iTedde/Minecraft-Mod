@@ -29,6 +29,8 @@ public interface PSTags {
         TagKey<Item> SUITABLE_SHOT_GLASS_RECEPTICALTS = of("receptical/suitable_for_shots");
         TagKey<Item> CAN_GO_INTO_PAPER_BAG = of("can_go_into_paper_bag");
         TagKey<Item> DRUG_CROP_SEEDS = of("drug_crop_seeds");
+        /** Items that relieve a hangover like coffee (shorter and one level lighter). */
+        TagKey<Item> HANGOVER_RELIEF = of("hangover_relief");
 
         TagKey<Item> MORNING_GLORY_INGREDIENTS = of("ingredients/morning_glory");
 

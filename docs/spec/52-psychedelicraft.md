@@ -106,6 +106,12 @@ Neuer Alkohol während des Katers: Kater ruht (Effekte aus, Zeit läuft nicht), 
 | Kaffee (Psychedelicraft, Craft/IC2-Kaffee über den Tag) | −5 min Restdauer, Stufe −1 (nicht unter I) |
 | Schlafen | Original-Verhalten (Schlafmangel) bleibt, Kater läuft weiter |
 
+Umsetzung (52.4): Der Tag `psychedelicraft:hangover_relief` enthält die Mittel mit Kaffee-Wirkung (Craft trägt
+`craft:coffee`, `dark_coffee`, `cold_coffee` ein); Wasserflaschen erkennt der Code, weil Tags keine Trank-Inhalte
+unterscheiden. Wasser in Psychedelicraft-Gefäßen ist nur mit Kater trinkbar. Die Einzelwirkungen laufen als kurze
+Effekte ohne Icon; sichtbar ist nur der Kater-Effekt mit Stufe und Restzeit. Übergeben füllt eine leere Papiertüte in
+der Nebenhand statt Erbrochenes fallen zu lassen.
+
 ## 7. Zusammenspiel mit Craft und dem Paket (freigegeben 2026-11-20)
 
 - **Farming-Welt** (Phase 53): Psychedelicraft-Pflanzen kommen über die automatische Pflanzenliste von selbst dazu;

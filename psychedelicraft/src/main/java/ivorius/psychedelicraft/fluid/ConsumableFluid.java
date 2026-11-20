@@ -5,6 +5,7 @@
 
 package ivorius.psychedelicraft.fluid;
 
+import ivorius.psychedelicraft.entity.drug.DrugProperties;
 import ivorius.psychedelicraft.item.component.ItemFluids;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.server.level.ServerPlayer;
@@ -46,6 +47,9 @@ public interface ConsumableFluid {
                 ItemFluids withdrawn = transaction.withdraw(maxConsumed);
                 if (!withdrawn.isEmpty()) {
                     consumable.consume(withdrawn, entity, type);
+                    if (type == ConsumptionType.DRINK && !entity.level().isClientSide) {
+                        relieveHangover(withdrawn.fluid(), entity);
+                    }
                     if (entity instanceof ServerPlayer player) {
                         CriteriaTriggers.CONSUME_ITEM.trigger(player, stack);
                     }
@@ -55,6 +59,17 @@ public interface ConsumableFluid {
         }
 
         return stack;
+    }
+
+    /**
+     * Hangover relief (spec 52 §6): coffee and water drunk from a Psychedelicraft vessel.
+     */
+    private static void relieveHangover(SimpleFluid fluid, LivingEntity entity) {
+        if (fluid == PSFluids.COFFEE) {
+            DrugProperties.of(entity).ifPresent(p -> p.getHangover().relieve(true));
+        } else if (VanillaFluid.isWater(fluid)) {
+            DrugProperties.of(entity).ifPresent(p -> p.getHangover().relieve(false));
+        }
     }
 
     public enum ConsumptionType {

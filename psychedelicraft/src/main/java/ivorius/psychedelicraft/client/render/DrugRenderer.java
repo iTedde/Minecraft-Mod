@@ -47,6 +47,7 @@ public class DrugRenderer {
             new PowerOverlayScreenEffect(),
             environmentalEffects,
             new TirednessScreenEffect(),
+            new HangoverGlareScreenEffect(),
             new MotionBlurScreenEffect()
     );
 

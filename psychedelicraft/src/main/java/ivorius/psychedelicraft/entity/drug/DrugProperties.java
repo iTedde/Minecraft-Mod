@@ -78,6 +78,7 @@ public class DrugProperties implements NbtSerialisable {
     private final Player entity;
 
     private final Stomach stomach;
+    private final Hangover hangover;
 
     private float teethGrindingRate;
     private int pacifierSqueakDelay = -1;
@@ -95,6 +96,7 @@ public class DrugProperties implements NbtSerialisable {
     public DrugProperties(Player entity) {
         this.entity = entity;
         this.stomach = new Stomach(this);
+        this.hangover = new Hangover(this);
     }
 
     public static DrugProperties of(Player player) {
@@ -121,6 +123,10 @@ public class DrugProperties implements NbtSerialisable {
 
     public DamageSource damageOf(ResourceKey<DamageType> type) {
         return PSDamageTypes.create(entity.level(), type);
+    }
+
+    public Hangover getHangover() {
+        return hangover;
     }
 
     public Stomach getStomach() {
@@ -329,6 +335,7 @@ public class DrugProperties implements NbtSerialisable {
         drugs.values().forEach(drug -> drug.update(this));
 
         stomach.onTick();
+        hangover.onTick();
         soundManager.update();
 
         RandomSource random = entity.getRandom();
@@ -454,6 +461,7 @@ public class DrugProperties implements NbtSerialisable {
         DRUGS_CODEC.encodeStart(NbtOps.INSTANCE, drugs).result().ifPresent(drugs -> compound.put("Drugs", drugs));
         DrugInfluenceInstance.LIST_CODEC.encodeStart(NbtOps.INSTANCE, influences).result().ifPresent(influenceTagList -> compound.put("drugInfluences", influenceTagList));
         compound.put("stomach", stomach.toNbt(lookup));
+        compound.put("hangover", hangover.toNbt(lookup));
         compound.putInt("cancerCountdown", cancerCountdown);
         compound.putFloat("teethGrindingRate", teethGrindingRate);
         if (initial) {
@@ -471,6 +479,7 @@ public class DrugProperties implements NbtSerialisable {
         influences.clear();
         DrugInfluenceInstance.LIST_CODEC.decode(NbtOps.INSTANCE, compound.getList("drugInfluences", Tag.TAG_COMPOUND)).result().map(Pair::getFirst).ifPresent(influences::addAll);
         stomach.fromNbt(compound.getCompound("stomach"), lookup);
+        hangover.fromNbt(compound.getCompound("hangover"), lookup);
         cancerCountdown = compound.contains("cancerCountdown", Tag.TAG_INT) ? compound.getInt("cancerCountdown") : -1;
         teethGrindingRate = compound.getFloat("teethGrindingRate");
         if (compound.contains("soundManager", Tag.TAG_COMPOUND)) {
@@ -508,6 +517,7 @@ public class DrugProperties implements NbtSerialisable {
         }
         soundManager.copyFrom(old.soundManager, alive);
         stomach.copyFrom(old.getStomach(), alive);
+        hangover.copyFrom(old.getHangover(), alive);
         markDirty();
     }
 

@@ -5,6 +5,7 @@ import java.util.function.Supplier;
 import com.google.common.base.Suppliers;
 
 import ivorius.psychedelicraft.Psychedelicraft;
+import ivorius.psychedelicraft.entity.effect.PSEffects;
 import ivorius.psychedelicraft.fluid.physical.PhysicalFluid;
 import ivorius.psychedelicraft.fluid.physical.PlacedFluid;
 import ivorius.psychedelicraft.item.PSItems;
@@ -87,7 +88,15 @@ public class VanillaFluid extends SimpleFluid implements ConsumableFluid {
 
     @Override
     public boolean canConsume(ItemStack stack, LivingEntity entity, ConsumptionType type) {
+        if (type == ConsumptionType.DRINK && getPhysical().isIn(FluidTags.WATER)) {
+            // Craft addition (spec 52 §6): water can be drunk from vessels to relieve a hangover
+            return entity.hasEffect(PSEffects.HANGOVER);
+        }
         return getPhysical().isIn(FluidTags.LAVA) && type == ConsumptionType.INJECT;
+    }
+
+    public static boolean isWater(SimpleFluid fluid) {
+        return fluid instanceof VanillaFluid vanilla && vanilla.getPhysical().isIn(FluidTags.WATER);
     }
 
     @Override
