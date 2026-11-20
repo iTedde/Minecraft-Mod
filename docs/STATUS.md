@@ -4921,7 +4921,9 @@ psychedelicraft:entity.player.heartbeat`).
 - [x] `Psychedelicraft.isBootstrapped()`; der Resize-Mixin tut vor dem Bootstrap nichts (Shader sind dann ohnehin nicht
   geladen). `psychedelicraft-1.8.9-neoforge.5.jar`, Build grün.
 - [x] Jar direkt in die CurseForge-Instanz „Craft 1.3.2“ getauscht (alte Jar in `mods-backup`).
-- Nicht im Client geprüft; kein neues Paket.
+- [x] Paket `releases/Craft-1.3.2-curseforge.zip` neu erzeugt (Nutzer: „Mach nochmal neu 1.3.2“): gleiche Version,
+  nur `psychedelicraft-1.8.9-neoforge.4.jar` → `neoforge.5` getauscht; Zip geprüft (80 Einträge, 187 MB, LFS).
+- Nicht im Client geprüft.
 
 ## Nächste Schritte
-- Nutzer startet die Instanz; bei Erfolg Paket 1.3.3 mit neoforge.5.
+- Nutzer startet die Instanz bzw. importiert das neue Paket.
