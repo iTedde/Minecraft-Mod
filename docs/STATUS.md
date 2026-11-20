@@ -4571,3 +4571,30 @@ Nutzer: „weiter gehts“ → 52.1 laut `spec/52` §5.
 ## Nächste Schritte
 - 52.2 Spielmechanik mit GameTests (Anbau, Trockentisch, Maischbottich, Fass, Destille, Gefäße, Konsum, Sucht).
 - 52.3 Client (erst wenn der Nutzer Client-Tests wieder möchte): Renderer, Shader, Halluzinationen, Sodium/Iris.
+
+# Phase 52.2 – Psychedelicraft: Spielmechanik mit GameTests (2026-11-20)
+
+Nutzer: „weiter gehts“ → 52.2 laut `spec/52` §5.
+
+## Erledigt
+- [x] GameTests `MechanicsGameTests` (9), lange Laufzeiten per Fortschrittszähler übersprungen, der Verarbeitungsschritt
+  selbst läuft über den normalen Block-Entity-Tick:
+  - Anbau: Hanf wächst auf Ackerboden bis 3 Blöcke hoch, ausgewachsen Drops (Blatt/Samen).
+  - Trockentisch: 9 Hanfblüten → 3 getrocknete (Wärme über befeuerten Ofen 2 Blöcke daneben, wie im Original).
+  - Maischbottich: Wasser + 8 eingeworfene Weintrauben (Item-Entity) → Traubenmost; 2 Gärstufen, dann Essig.
+  - Fass: reift nur Vergorenes (2 Reifestufen); Destille über Lagerfeuer: 2 Destillationen, mehr Alkohol, Schlempe in
+    den Kolben, Unvergorenes wird nicht destilliert.
+  - Konsum: Wein aus dem Holzkrug hebt den Alkoholwert (Most nicht), Joint hebt Cannabis und klingt ab.
+  - Erbrechen: Papiertüte in der Nebenhand → Tüte mit Erbrochenem + Übelkeit; ohne Tüte fällt `vomit`.
+- [x] Fix Netzwerk: Pakete an Spieler ohne ausgehandelten Kanal (FakePlayer, Mock-Spieler) werden übersprungen statt
+  zu werfen; „an Umgebung“ jetzt eigene Schleife über Spieler in Tracking-Reichweite (gleiche Empfänger).
+- [x] Alle 13 GameTests grün, `gradlew build` grün.
+
+## Befunde
+- **Sucht/Entzug gibt es in der 1.21-Vorlage nicht** (nur der Dorfbewohner „Süchtiger“ als Händler). Nichts nachgebaut
+  (Grundsatz Port); falls gewünscht, eigene Phase.
+- Wein/Bier haben Nährwert und lassen sich – wie im Original – nur mit Hunger trinken.
+- Mock-Spieler der GameTest-API gelten fest als Kreativ-Spieler; Tests nutzen deshalb `FakePlayer` im Überlebensmodus.
+
+## Nächste Schritte
+- 52.3 Client (erst wenn der Nutzer Client-Tests wieder möchte) – sonst zuerst 52.4 Kater (+ GameTests).

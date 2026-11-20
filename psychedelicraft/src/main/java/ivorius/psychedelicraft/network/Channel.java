@@ -7,6 +7,7 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
@@ -55,11 +56,22 @@ public interface Channel {
         }
 
         public void sendToPlayer(T packet, ServerPlayer player) {
-            PacketDistributor.sendToPlayer(player, packet);
+            // fake/mock players (GameTests, automation) never negotiated the channel; NeoForge would throw
+            if (!(player instanceof net.neoforged.neoforge.common.util.FakePlayer) && player.connection != null && player.connection.hasChannel(packet)) {
+                PacketDistributor.sendToPlayer(player, packet);
+            }
         }
 
         public void sendToSurroundingPlayers(T packet, Entity entity) {
-            PacketDistributor.sendToPlayersTrackingEntityAndSelf(entity, packet);
+            if (!(entity.level() instanceof ServerLevel level)) {
+                return;
+            }
+            double range = entity.getType().clientTrackingRange() * 16D;
+            for (ServerPlayer player : level.players()) {
+                if (player == entity || player.distanceToSqr(entity) <= range * range) {
+                    sendToPlayer(packet, player);
+                }
+            }
         }
     }
 }
