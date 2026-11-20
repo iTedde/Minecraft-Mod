@@ -4888,3 +4888,24 @@ Nutzer: „LFS Einrichten“.
 
 ## Offen
 - Sichtprüfung Psychedelicraft durch den Nutzer, danach Phase 52 abschließen.
+
+# Neue Songs: Schallplatten + Radio, Craft 1.3.1 / Paket 1.3.2 (2026-11-21)
+
+Nutzer: „hab neue Song ins Musik hinzugefügt. Mach sie rein als Schallplatte und fürs Radio“.
+
+## Erledigt
+- [x] 7 neue Titel aus `X:\Craft\Musik`: BR3ATH3, Creeper Awww Maaan, Go Easy, Mine All Day, Rettungsschwimmer,
+  Rettungsschwimmer (Kollegah), Schattenklinge – wie gehabt Mono-OGG 44,1 kHz / 64 kbit/s (zusammen 12,6 MB),
+  Etikettfarben neu verteilt (7 Farbtöne). In `MusicDiscs` **angehängt**, damit die Komparatorstufen der ersten 18
+  Platten gleich bleiben. Jetzt 25 Schallplatten.
+- [x] `runData`, danach `build` grün. Craft **1.3.1** (`releases/craft-1.3.1.jar`, 53,6 MB).
+- [x] `tools/scripts/pack_radio_music.py` kann optional die Craft-Jar austauschen (5. Argument).
+- [x] Paket `releases/Craft-1.3.2-curseforge.zip` (187 MB): wie 1.3.1, Craft 1.3.0 → 1.3.1, alle 25 MP3s (122,3 MiB)
+  in `my_music`. Zip geprüft; per Git LFS (einzeln in `.gitattributes`).
+- Nicht im Client geprüft.
+
+## Offen
+- Sichtprüfung Psychedelicraft durch den Nutzer, danach Phase 52 abschließen.
+
+## Nächste Schritte
+- Client-Test Schallplatten/Radio-Bibliothek nur nach Rückfrage.

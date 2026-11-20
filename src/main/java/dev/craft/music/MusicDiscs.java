@@ -56,6 +56,14 @@ public final class MusicDiscs {
         track("toter_schmetterling", "Toter Schmetterling", 234);
         track("training_season", "Training Season", 211);
         track("were_good", "We're Good", 192);
+        // Added 2026-11-21 (appended so the comparator levels of the first 18 stay unchanged)
+        track("br3ath3", "BR3ATH3", 289);
+        track("creeper_awww_maaan", "Creeper Awww Maaan", 265);
+        track("go_easy", "Go Easy", 192);
+        track("mine_all_day", "Mine All Day", 255);
+        track("rettungsschwimmer", "Rettungsschwimmer", 263);
+        track("rettungsschwimmer_kollegah", "Rettungsschwimmer (Kollegah)", 90);
+        track("schattenklinge", "Schattenklinge", 261);
     }
 
     private MusicDiscs() {

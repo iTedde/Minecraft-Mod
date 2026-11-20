@@ -1,0 +1,8 @@
+{
+  "comparator_output": 10,
+  "description": {
+    "translate": "jukebox_song.craft.schattenklinge"
+  },
+  "length_in_seconds": 261.0,
+  "sound_event": "craft:records/schattenklinge"
+}

@@ -127,10 +127,26 @@
       }
     ]
   },
+  "records/br3ath3": {
+    "sounds": [
+      {
+        "name": "craft:records/br3ath3",
+        "stream": true
+      }
+    ]
+  },
   "records/break_my_heart": {
     "sounds": [
       {
         "name": "craft:records/break_my_heart",
+        "stream": true
+      }
+    ]
+  },
+  "records/creeper_awww_maaan": {
+    "sounds": [
+      {
+        "name": "craft:records/creeper_awww_maaan",
         "stream": true
       }
     ]
@@ -147,6 +163,14 @@
     "sounds": [
       {
         "name": "craft:records/fever",
+        "stream": true
+      }
+    ]
+  },
+  "records/go_easy": {
+    "sounds": [
+      {
+        "name": "craft:records/go_easy",
         "stream": true
       }
     ]
@@ -199,6 +223,14 @@
       }
     ]
   },
+  "records/mine_all_day": {
+    "sounds": [
+      {
+        "name": "craft:records/mine_all_day",
+        "stream": true
+      }
+    ]
+  },
   "records/new_rules": {
     "sounds": [
       {
@@ -227,6 +259,30 @@
     "sounds": [
       {
         "name": "craft:records/physical",
+        "stream": true
+      }
+    ]
+  },
+  "records/rettungsschwimmer": {
+    "sounds": [
+      {
+        "name": "craft:records/rettungsschwimmer",
+        "stream": true
+      }
+    ]
+  },
+  "records/rettungsschwimmer_kollegah": {
+    "sounds": [
+      {
+        "name": "craft:records/rettungsschwimmer_kollegah",
+        "stream": true
+      }
+    ]
+  },
+  "records/schattenklinge": {
+    "sounds": [
+      {
+        "name": "craft:records/schattenklinge",
         "stream": true
       }
     ]
