@@ -1,0 +1,45 @@
+{
+  "parent": "psychedelicraft:first_batch",
+  "criteria": {
+    "has_crack_cocain": {
+      "conditions": {
+        "items": [
+          {
+            "items": "psychedelicraft:crack_cocaine"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_heroine_powder": {
+      "conditions": {
+        "items": [
+          {
+            "items": "psychedelicraft:heroine_powder"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "background": "minecraft:textures/gui/advancements/backgrounds/stone.png",
+    "description": {
+      "translate": "advancements.psychedelicraft.hows_it_cracking.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "psychedelicraft:crack_cocaine"
+    },
+    "title": {
+      "translate": "advancements.psychedelicraft.hows_it_cracking.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_heroine_powder",
+      "has_crack_cocain"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

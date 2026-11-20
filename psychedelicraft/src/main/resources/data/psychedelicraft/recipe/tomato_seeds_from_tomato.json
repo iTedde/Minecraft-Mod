@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "seeds",
+  "ingredients": [
+    {
+      "item": "psychedelicraft:tomato"
+    }
+  ],
+  "result": {
+    "count": 6,
+    "id": "psychedelicraft:tomato_seeds"
+  }
+}

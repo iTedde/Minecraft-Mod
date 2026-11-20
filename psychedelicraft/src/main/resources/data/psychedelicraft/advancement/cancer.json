@@ -1,0 +1,32 @@
+{
+  "parent": "psychedelicraft:root",
+  "criteria": {
+    "has_side_effect": {
+      "conditions": {
+        "event": "cancer"
+      },
+      "trigger": "psychedelicraft:custom"
+    }
+  },
+  "display": {
+    "background": "minecraft:textures/gui/advancements/backgrounds/stone.png",
+    "description": {
+      "translate": "advancements.psychedelicraft.cancer.description"
+    },
+    "frame": "challenge",
+    "hidden": true,
+    "icon": {
+      "count": 1,
+      "id": "psychedelicraft:cigarette"
+    },
+    "title": {
+      "translate": "advancements.psychedelicraft.cancer.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_side_effect"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

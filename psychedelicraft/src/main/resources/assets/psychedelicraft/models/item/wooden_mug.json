@@ -1,0 +1,20 @@
+{
+  "parent": "minecraft:item/generated",
+  "overrides": [
+    {
+      "model": "psychedelicraft:item/wooden_mug_filled",
+      "predicate": {
+        "psychedelicraft:filled": 1.0
+      }
+    },
+    {
+      "model": "psychedelicraft:item/wooden_mug_filled_with_lava",
+      "predicate": {
+        "psychedelicraft:filled_with_lava": 1.0
+      }
+    }
+  ],
+  "textures": {
+    "layer0": "psychedelicraft:item/wooden_mug"
+  }
+}

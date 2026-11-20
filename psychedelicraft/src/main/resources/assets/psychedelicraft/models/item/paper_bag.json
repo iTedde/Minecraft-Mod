@@ -1,0 +1,26 @@
+{
+  "parent": "minecraft:item/generated",
+  "overrides": [
+    {
+      "model": "psychedelicraft:item/paper_bag_filled",
+      "predicate": {
+        "psychedelicraft:filled": 0.5
+      }
+    },
+    {
+      "model": "psychedelicraft:item/paper_bag_overflowing",
+      "predicate": {
+        "psychedelicraft:filled": 0.75
+      }
+    },
+    {
+      "model": "psychedelicraft:item/paper_bag_bursting",
+      "predicate": {
+        "psychedelicraft:filled": 1.0
+      }
+    }
+  ],
+  "textures": {
+    "layer0": "psychedelicraft:item/paper_bag"
+  }
+}

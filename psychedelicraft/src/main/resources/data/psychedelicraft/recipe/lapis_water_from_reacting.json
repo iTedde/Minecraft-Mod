@@ -1,0 +1,20 @@
+{
+  "type": "psychedelicraft:reacting",
+  "group": "impurities",
+  "ingredients": {
+    "solids": [
+      {
+        "item": "minecraft:lapis_lazuli"
+      }
+    ]
+  },
+  "reaction_type": "additions",
+  "result": {
+    "by_product": {},
+    "fluid": {
+      "amount": 5,
+      "fluid": "minecraft:water"
+    },
+    "impurity": "lapis_lazuli"
+  }
+}

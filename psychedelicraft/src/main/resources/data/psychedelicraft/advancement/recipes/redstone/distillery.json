@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_flask": {
+      "conditions": {
+        "items": [
+          {
+            "items": "psychedelicraft:flask"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "psychedelicraft:distillery"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_flask"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "psychedelicraft:distillery"
+    ]
+  }
+}

@@ -1,0 +1,112 @@
+{
+  "values": {
+    "psychedelicraft:cannabis_buds": {
+      "chance": 0.2
+    },
+    "psychedelicraft:dried_cannabis_buds": {
+      "chance": 0.2
+    },
+    "psychedelicraft:hop_cones": {
+      "chance": 0.2
+    },
+    "psychedelicraft:jimsonweed_seed_pod": {
+      "chance": 0.2
+    },
+    "psychedelicraft:wine_grapes": {
+      "chance": 0.65
+    },
+    "psychedelicraft:tomato": {
+      "chance": 0.65
+    },
+    "psychedelicraft:belladonna_berries": {
+      "chance": 0.65
+    },
+    "psychedelicraft:agave_leaf": {
+      "chance": 0.65
+    },
+    "psychedelicraft:juniper_berries": {
+      "chance": 0.65
+    },
+    "psychedelicraft:coffea_cherries": {
+      "chance": 0.65
+    },
+    "psychedelicraft:coffee_beans": {
+      "chance": 0.65
+    },
+    "psychedelicraft:peyote": {
+      "chance": 0.65
+    },
+    "psychedelicraft:dried_peyote": {
+      "chance": 0.65
+    },
+    "psychedelicraft:cannabis_seeds": {
+      "chance": 0.3
+    },
+    "psychedelicraft:tobacco_seeds": {
+      "chance": 0.3
+    },
+    "psychedelicraft:coca_seeds": {
+      "chance": 0.3
+    },
+    "psychedelicraft:hop_seeds": {
+      "chance": 0.3
+    },
+    "psychedelicraft:morning_glory_seeds": {
+      "chance": 0.3
+    },
+    "psychedelicraft:jimsonweed_seeds": {
+      "chance": 0.3
+    },
+    "psychedelicraft:tomato_seeds": {
+      "chance": 0.3
+    },
+    "psychedelicraft:belladonna_seeds": {
+      "chance": 0.3
+    },
+    "psychedelicraft:juniper_leaves": {
+      "chance": 0.3
+    },
+    "psychedelicraft:fruiting_juniper_leaves": {
+      "chance": 0.3
+    },
+    "psychedelicraft:juniper_sapling": {
+      "chance": 0.3
+    },
+    "psychedelicraft:cannabis_leaf": {
+      "chance": 0.6
+    },
+    "psychedelicraft:tobacco": {
+      "chance": 0.6
+    },
+    "psychedelicraft:coca_leaves": {
+      "chance": 0.6
+    },
+    "psychedelicraft:jimsonweed_leaf": {
+      "chance": 0.6
+    },
+    "psychedelicraft:tomato_leaf": {
+      "chance": 0.6
+    },
+    "psychedelicraft:belladonna_leaf": {
+      "chance": 0.6
+    },
+    "psychedelicraft:morning_glory": {
+      "chance": 0.6
+    },
+    "psychedelicraft:dried_cannabis_leaf": {
+      "chance": 0.4
+    },
+    "psychedelicraft:dried_tobacco": {
+      "chance": 0.4
+    },
+    "psychedelicraft:dried_coca_leaves": {
+      "chance": 0.4
+    },
+    "psychedelicraft:dried_jimsonweed_leaf": {
+      "chance": 0.4
+    },
+    "psychedelicraft:dried_belladonna_leaf": {
+      "chance": 0.4
+    }
+  }
+}

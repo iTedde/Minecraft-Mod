@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_cocaine_powder": {
+      "conditions": {
+        "items": [
+          {
+            "items": "psychedelicraft:cocaine_powder"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "psychedelicraft:crack_cocaine_from_tray"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_cocaine_powder"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "psychedelicraft:crack_cocaine_from_tray"
+    ]
+  }
+}

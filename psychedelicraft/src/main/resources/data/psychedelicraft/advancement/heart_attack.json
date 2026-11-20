@@ -1,0 +1,31 @@
+{
+  "parent": "psychedelicraft:root",
+  "criteria": {
+    "has_side_effect": {
+      "conditions": {
+        "event": "heart_attack"
+      },
+      "trigger": "psychedelicraft:custom"
+    }
+  },
+  "display": {
+    "background": "minecraft:textures/gui/advancements/backgrounds/stone.png",
+    "description": {
+      "translate": "advancements.psychedelicraft.heart_attack.description"
+    },
+    "hidden": true,
+    "icon": {
+      "count": 1,
+      "id": "minecraft:skeleton_skull"
+    },
+    "title": {
+      "translate": "advancements.psychedelicraft.heart_attack.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_side_effect"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

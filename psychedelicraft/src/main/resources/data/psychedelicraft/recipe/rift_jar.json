@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "-": {
+      "tag": "minecraft:planks"
+    },
+    "G": {
+      "item": "minecraft:gold_ingot"
+    },
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "O": {
+      "tag": "c:glass_blocks"
+    }
+  },
+  "pattern": [
+    "O-O",
+    "GO ",
+    "OIO"
+  ],
+  "result": {
+    "count": 1,
+    "id": "psychedelicraft:rift_jar"
+  }
+}

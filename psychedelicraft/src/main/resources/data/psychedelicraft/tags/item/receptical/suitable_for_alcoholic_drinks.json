@@ -1,0 +1,10 @@
+{
+  "values": [
+    "psychedelicraft:shot_glass",
+    "psychedelicraft:glass_chalice",
+    "psychedelicraft:wooden_mug",
+    "psychedelicraft:filled_bowl",
+    "minecraft:bowl",
+    "#psychedelicraft:bottle_rack_insertable"
+  ]
+}

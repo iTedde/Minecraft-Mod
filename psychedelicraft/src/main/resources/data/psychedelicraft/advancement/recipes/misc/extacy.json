@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_methamphetamine_powder": {
+      "conditions": {
+        "items": [
+          {
+            "items": "psychedelicraft:methamphetamine_powder"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "psychedelicraft:extacy"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_methamphetamine_powder"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "psychedelicraft:extacy"
+    ]
+  }
+}

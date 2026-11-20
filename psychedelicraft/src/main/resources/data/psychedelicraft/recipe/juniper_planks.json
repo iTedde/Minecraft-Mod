@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "planks",
+  "ingredients": [
+    {
+      "tag": "psychedelicraft:juniper_logs"
+    }
+  ],
+  "result": {
+    "count": 4,
+    "id": "psychedelicraft:juniper_planks"
+  }
+}

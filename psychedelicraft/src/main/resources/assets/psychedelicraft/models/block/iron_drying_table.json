@@ -1,0 +1,8 @@
+{
+  "parent": "psychedelicraft:block/drying_table_template",
+  "textures": {
+    "bottom": "psychedelicraft:block/iron_drying_table_bottom",
+    "side": "psychedelicraft:block/iron_drying_table_side",
+    "top": "psychedelicraft:block/iron_drying_table_top"
+  }
+}

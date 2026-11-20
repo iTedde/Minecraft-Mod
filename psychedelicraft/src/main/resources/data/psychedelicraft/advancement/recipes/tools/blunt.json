@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_dried_cannabis_leaf": {
+      "conditions": {
+        "items": [
+          {
+            "items": "psychedelicraft:dried_cannabis_leaf"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_dried_tobacco": {
+      "conditions": {
+        "items": [
+          {
+            "items": "psychedelicraft:dried_tobacco"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "psychedelicraft:blunt"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_dried_tobacco",
+      "has_dried_cannabis_leaf"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "psychedelicraft:blunt"
+    ]
+  }
+}

@@ -1,0 +1,260 @@
+package ivorius.psychedelicraft.client.render.shader;
+
+import java.io.IOException;
+import java.util.*;
+
+import org.joml.Vector4fc;
+import org.slf4j.Logger;
+
+import com.google.gson.JsonSyntaxException;
+import com.mojang.logging.LogUtils;
+
+import ivorius.psychedelicraft.Psychedelicraft;
+import ivorius.psychedelicraft.client.PsychedelicraftClient;
+import ivorius.psychedelicraft.client.render.DrugRenderer;
+import ivorius.psychedelicraft.client.render.GLStateProxy;
+import ivorius.psychedelicraft.client.render.RenderPhase;
+import ivorius.psychedelicraft.entity.drug.Drug;
+import ivorius.psychedelicraft.entity.drug.DrugType;
+import ivorius.psychedelicraft.util.MathUtils;
+import net.minecraft.client.Minecraft;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraft.server.packs.resources.ResourceManagerReloadListener;
+import net.minecraft.util.Mth;
+
+public class ShaderLoader implements ResourceManagerReloadListener {
+    private static final Logger LOGGER = LogUtils.getLogger();
+
+    public static final ShaderLoader POST_EFFECTS = new ShaderLoader(DrugRenderer.INSTANCE.getPostEffects())
+            // Add order = Application order!
+            .addShader("heat_distortion", UniformBinding.start()
+                    .program("heat_distortion", (setter, tickDelta, screenWidth, screenHeight, pass) -> {
+                        float water = DrugRenderer.INSTANCE.getEnvironmentalEffects().getWaterDistortion();
+                        float strength = Math.max(
+                                DrugRenderer.INSTANCE.getEnvironmentalEffects().getHeatDistortion(),
+                                water
+                        );
+
+                        if (strength <= 0) {
+                            return;
+                        }
+
+                        setter.set("pixelSize", 1F / screenWidth, 1F / screenHeight);
+                        setter.set("strength", strength);
+                        setter.set("ticks", ShaderContext.ticks() * (water > 0 ? 0.03f : 0.15F));
+                        pass.run();
+                    }))
+            .addShader("simple_effects", UniformBinding.start()
+                    .bind((setter, tickDelta, screenWidth, screenHeight, pass) -> {
+                        setter.set("ticks", ShaderContext.ticks());
+                        pass.run();
+                    })
+                    .program("simple_effects", (setter, tickDelta, screenWidth, screenHeight, pass) -> {
+                        var h = ShaderContext.hallucinations();
+                        if (setter.setIfNonZero("quickColorRotation", h.get(Drug.FAST_COLOR_ROTATION))
+                         | setter.setIfNonZero("slowColorRotation", h.get(Drug.SLOW_COLOR_ROTATION))
+                         | setter.setIfNonZero("desaturation", h.get(Drug.DESATURATION_HALLUCINATION_STRENGTH))
+                         | setter.setIfNonZero("colorIntensification", h.get(Drug.SUPER_SATURATION_HALLUCINATION_STRENGTH))
+                         | setter.setIfNonZero("inversion", h.get(Drug.INVERSION_HALLUCINATION_STRENGTH))
+                         | h.getPulseColor(tickDelta, RenderPhase.current() == RenderPhase.SKY).w() > 0
+                         | h.getContrastColorization(tickDelta).w() > 0) {
+                            pass.run();
+                        }
+                    })
+                    .program("simple_effects_depth", (setter, tickDelta, screenWidth, screenHeight, pass) -> {
+                        var h = ShaderContext.hallucinations();
+                        // var pulses = h.getPulseColor(tickDelta);
+                        var worldColorization = h.getContrastColorization(tickDelta);
+                        if (h.get(Drug.FAST_COLOR_ROTATION) > 0
+                         | h.get(Drug.SLOW_COLOR_ROTATION) > 0
+                         | h.get(Drug.DESATURATION_HALLUCINATION_STRENGTH) > 0
+                         | h.get(Drug.SUPER_SATURATION_HALLUCINATION_STRENGTH) > 0
+                         | h.get(Drug.INVERSION_HALLUCINATION_STRENGTH) > 0
+                         // | pulses[3] > 0
+                         | worldColorization.w() > 0) {
+                            //setter.set("pulses", pulses);
+                            setter.set("colorSafeMode", GLStateProxy.isColorSafeMode() ? 1 : 0);
+                            setter.set("worldColorization", worldColorization);
+                            pass.run();
+                        }
+                    }))
+            .addShader("ps_blur", UniformBinding.start()
+                    .program("ps_blur", (setter, tickDelta, screenWidth, screenHeight, pass) -> {
+                        float[] blur = ShaderContext.hallucinations().getBlur();
+
+                        if (blur[0] > 0 || blur[1] > 0) {
+                            setter.set("pixelSize", 1F / screenWidth, 1F / screenHeight);
+                            setter.set("hBlur", blur[0]);
+                            setter.set("vBlur", blur[1]);
+                            setter.set("repeats", Mth.ceil(Math.max(blur[0], blur[1])));
+                            pass.run();
+                        }
+                    }))
+            .addShader("depth_of_field", UniformBinding.start()
+                    .program("depth_of_field", (setter, tickDelta, screenWidth, screenHeight, pass) -> {
+                        var config = PsychedelicraftClient.getConfig();
+
+                        float zNear = 0.05F;
+                        float zFar = ShaderContext.viewDistace();
+
+                        float focalPointNear = config.dofFocalPointNear.get() / zFar;
+                        float focalPointFar = config.dofFocalPointFar.get() / zFar;
+                        float focalBlurFar = config.dofFocalBlurFar.get();
+                        float focalBlurNear = config.dofFocalBlurNear.get();
+
+                        setter.set("pixelSize", 1F / screenWidth, 1F / screenHeight);
+                        setter.set("focalPointNear", Math.min(focalPointNear, focalPointFar));
+                        setter.set("focalPointFar", Math.max(focalPointNear, focalPointFar) * 0.9F);
+                        setter.set("depthRange", zNear, zFar);
+
+                        float maxDof = Math.max(focalBlurFar, focalBlurNear);
+
+                        for (int n = 0; n < Mth.ceil(maxDof); n++) {
+                            float curBlurNear = Mth.clamp(focalBlurNear - n, 0, 1);
+                            float curBlurFar = Mth.clamp(focalBlurFar - n, 0, 1);
+
+                            if (curBlurNear > 0.0f || curBlurFar > 0.0f) {
+                                setter.set("focalBlurNear", curBlurNear);
+                                setter.set("focalBlurFar", curBlurFar);
+
+                                for (int i = 0; i < 2; i++) {
+                                    setter.set("vertical", i);
+                                    pass.run();
+                                }
+                            }
+                        }
+                    }))
+            .addShader("ps_bloom", UniformBinding.start()
+                    .program("ps_bloom", (setter, tickDelta, screenWidth, screenHeight, pass) -> {
+                        float bloom = ShaderContext.hallucinations().get(Drug.BLOOM_HALLUCINATION_STRENGTH);
+                        if (bloom > 0) {
+                            setter.set("pixelSize", 1F / screenWidth * 2F, 1F / screenHeight * 2F);
+                            for (int n = 0; n < Mth.ceil(bloom); n++) {
+                                setter.set("totalAlpha", Math.min(1, bloom - n));
+                                for (int i = 0; i < 2; i++) {
+                                    setter.set("vertical", i);
+                                    pass.run();
+                                }
+                            }
+                        }
+                    }))
+            .addShader("ps_colored_bloom", UniformBinding.start()
+                    .program("ps_colored_bloom", (setter, tickDelta, screenWidth, screenHeight, pass) -> {
+                        Vector4fc color = ShaderContext.hallucinations().getColorBloom(tickDelta, RenderPhase.current() == RenderPhase.SKY);
+                        if (color.w() <= 0) {
+                            return;
+                        }
+
+                        setter.set("bloomColor", color.x(), color.y(), color.z());
+                        setter.set("pixelSize", 1F / screenWidth, 1F / screenHeight);
+
+                        for (int n = 0; n < Mth.ceil(color.w()); n++) {
+                            setter.set("totalAlpha", Math.max(1, color.w() - n));
+                            for (int i = 0; i < 2; i++) {
+                                setter.set("vertical", i);
+                                pass.run();
+                            }
+                        }
+                    }))
+            .addShader("double_vision", UniformBinding.start()
+                    .program("double_vision", (setter, tickDelta, screenWidth, screenHeight, pass) -> {
+                        float strength = ShaderContext.modifier(Drug.DOUBLE_VISION);
+
+                        if (strength > 0) {
+                            setter.set("totalAlpha", strength);
+                            setter.set("distance", Mth.sin(ShaderContext.ticks() / 20F) * 0.05f * strength);
+                            setter.set("stretch", 1 + strength);
+                            pass.run();
+                        }
+                    }))
+            .addShader("ps_blur_noise", UniformBinding.start()
+                    .program("ps_blur_noise", (setter, tickDelta, screenWidth, screenHeight, pass) -> {
+                        float strength = ShaderContext.drug(DrugType.POWER) * 0.6F;
+
+                        if (strength <= 0) {
+                            return;
+                        }
+
+                        setter.set("pixelSize", 1F / screenWidth, 1F / screenHeight);
+                        setter.set("strength", strength);
+                        setter.set("seed", new Random((long) (ShaderContext.ticks() * 1000.0)).nextFloat() * 9 + 1);
+                        pass.run();
+                    }))
+            .addShader("underwater_overlay", UniformBinding.start()
+                    .program("distortion_map", (setter, tickDelta, screenWidth, screenHeight, pass) -> {
+                        float strength = DrugRenderer.INSTANCE.getEnvironmentalEffects().getWaterScreenDistortion();
+
+                        if (strength > 0) {
+                            setter.set("totalAlpha", strength);
+                            setter.set("strength", strength * 0.2F);
+                            setter.set("texTranslation0", 0, ShaderContext.ticks() * 0.005F);
+                            setter.set("texTranslation1", 0.5F, ShaderContext.ticks() * 0.007F);
+                            pass.run();
+                        }
+                    }))
+            .addShader("digital", UniformBinding.start()
+                    .program("digital_depth", (setter, tickDelta, screenWidth, screenHeight, pass) -> {
+                        float digital = ShaderContext.drug(DrugType.ZERO);
+                        if (digital <= 0) {
+                            return;
+                        }
+
+                        float[] maxDownscale = PsychedelicraftClient.getConfig().getDigitalEffectPixelResize();
+                        float downscale = MathUtils.mixEaseInOut(0, 0.95F, Math.min(digital * 3, 1));
+                        downscale += digital * 0.05f; //Bigger pixels!
+
+                        float textProgress = MathUtils.easeZeroToOne((digital - 0.2F) * 5);
+                        float binaryProgress = MathUtils.easeZeroToOne((digital - 0.8F) * 10);
+
+                        setter.set("newResolution",
+                                screenWidth * (1 + (maxDownscale[0] - 1) * downscale),
+                                screenHeight * (1 + (maxDownscale[1] - 1) * downscale)
+                        );
+                        setter.set("totalAlpha", 1F);
+                        setter.set("textProgress", textProgress + binaryProgress);
+                        setter.set("maxColors", digital > 0.4F ? (Math.max(256F / ((digital - 0.4F) * 640 + 1), 2)) : -1); //Step 3, 0.2 is enough for only 2 colors
+                        setter.set("saturation", 1 - MathUtils.easeZeroToOne((digital - 0.6F) * 5));
+                        setter.set("depthRange", 0.05F, ShaderContext.viewDistace());
+                        pass.run();
+                    }))
+        ;
+
+
+    private final Minecraft client = Minecraft.getInstance();
+
+    private static final ResourceLocation ID = Psychedelicraft.id("post_effect_shaders");
+
+    private final Map<ResourceLocation, UniformBinding.Set> activeShaderIds = new HashMap<>();
+
+    private final PostEffectRenderer renderer;
+
+    public ShaderLoader(PostEffectRenderer renderer) {
+        this.renderer = renderer;
+    }
+
+    public ShaderLoader addShader(ResourceLocation id, UniformBinding.Set bindings) {
+        activeShaderIds.put(id, bindings);
+        return this;
+    }
+
+    public ShaderLoader addShader(String id, UniformBinding.Set bindings) {
+        return addShader(Psychedelicraft.id("shaders/post/" + id + ".json"), bindings);
+    }
+
+    @Override
+    public void onResourceManagerReload(ResourceManager manager) {
+        renderer.onShadersLoaded(activeShaderIds.entrySet().stream().map(this::loadShader).filter(Objects::nonNull).toList());
+    }
+
+    public LoadedShader loadShader(Map.Entry<ResourceLocation, UniformBinding.Set> entry) {
+        try {
+            return new LoadedShader(client, entry.getKey(), entry.getValue());
+        } catch (IOException e) {
+            LOGGER.warn("Failed to load shader: {}", entry.getKey(), e);
+        } catch (JsonSyntaxException e) {
+            LOGGER.warn("Failed to parse shader: {}", entry.getKey(), e);
+        }
+        return null;
+    }
+}

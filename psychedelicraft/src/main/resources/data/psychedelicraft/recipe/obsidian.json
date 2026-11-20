@@ -1,0 +1,37 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "psychedelicraft:obsidian_bottle"
+    },
+    {
+      "item": "psychedelicraft:obsidian_bottle"
+    },
+    {
+      "item": "psychedelicraft:obsidian_bottle"
+    },
+    {
+      "item": "psychedelicraft:obsidian_bottle"
+    },
+    {
+      "item": "psychedelicraft:obsidian_bottle"
+    },
+    {
+      "item": "psychedelicraft:obsidian_bottle"
+    },
+    {
+      "item": "psychedelicraft:obsidian_bottle"
+    },
+    {
+      "item": "psychedelicraft:obsidian_bottle"
+    },
+    {
+      "item": "psychedelicraft:obsidian_bottle"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "minecraft:obsidian"
+  }
+}

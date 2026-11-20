@@ -1,0 +1,27 @@
+{
+  "variants": {
+    "facing=down": {
+      "model": "psychedelicraft:block/pump_head",
+      "x": 90
+    },
+    "facing=east": {
+      "model": "psychedelicraft:block/pump_head",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "psychedelicraft:block/pump_head"
+    },
+    "facing=south": {
+      "model": "psychedelicraft:block/pump_head",
+      "y": 180
+    },
+    "facing=up": {
+      "model": "psychedelicraft:block/pump_head",
+      "x": 270
+    },
+    "facing=west": {
+      "model": "psychedelicraft:block/pump_head",
+      "y": 270
+    }
+  }
+}

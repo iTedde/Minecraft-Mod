@@ -1,0 +1,31 @@
+{
+  "parent": "psychedelicraft:grapes",
+  "criteria": {
+    "mashed_item": {
+      "conditions": {
+        "fermentation": 0,
+        "fluid": "psychedelicraft:red_grapes"
+      },
+      "trigger": "psychedelicraft:mashed_item"
+    }
+  },
+  "display": {
+    "background": "minecraft:textures/gui/advancements/backgrounds/stone.png",
+    "description": {
+      "translate": "advancements.psychedelicraft.wash_grapes.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "psychedelicraft:wine_grapes"
+    },
+    "title": {
+      "translate": "advancements.psychedelicraft.wash_grapes.title"
+    }
+  },
+  "requirements": [
+    [
+      "mashed_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

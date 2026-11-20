@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_foods/honey": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#c:foods/honey"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "psychedelicraft:honey_from_mashing"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_foods/honey"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "psychedelicraft:honey_from_mashing"
+    ]
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "G": {
+      "item": "minecraft:glass"
+    },
+    "P": {
+      "item": "minecraft:glass_pane"
+    }
+  },
+  "pattern": [
+    " P ",
+    "G G",
+    "GGG"
+  ],
+  "result": {
+    "count": 1,
+    "id": "psychedelicraft:bong"
+  }
+}

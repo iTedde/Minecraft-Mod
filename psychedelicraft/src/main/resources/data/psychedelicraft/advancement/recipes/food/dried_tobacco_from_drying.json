@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "psychedelicraft:dried_tobacco_from_drying"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_tobacco": {
+      "conditions": {
+        "items": [
+          {
+            "items": "psychedelicraft:tobacco"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_tobacco"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "psychedelicraft:dried_tobacco_from_drying"
+    ]
+  }
+}

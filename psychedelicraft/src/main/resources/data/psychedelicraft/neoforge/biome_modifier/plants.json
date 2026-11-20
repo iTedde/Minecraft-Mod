@@ -1,0 +1,18 @@
+{
+  "type": "psychedelicraft:plants",
+  "features": [
+    "psychedelicraft:agave_patch_checked",
+    "psychedelicraft:belladonna_patch_checked",
+    "psychedelicraft:cannabis_tilled_patch_checked",
+    "psychedelicraft:coca_tilled_patch_checked",
+    "psychedelicraft:coffea_tilled_patch_checked",
+    "psychedelicraft:dense_juniper_tree_checked",
+    "psychedelicraft:hop_tilled_patch_checked",
+    "psychedelicraft:jimsonweed_patch_checked",
+    "psychedelicraft:morning_glory_patch_checked",
+    "psychedelicraft:peyote_patch_checked",
+    "psychedelicraft:sparce_juniper_tree_checked",
+    "psychedelicraft:tobacco_tilled_patch_checked",
+    "psychedelicraft:tomato_patch_checked"
+  ]
+}

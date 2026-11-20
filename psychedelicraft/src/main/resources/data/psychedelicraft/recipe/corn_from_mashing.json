@@ -1,0 +1,22 @@
+{
+  "type": "psychedelicraft:mashing",
+  "base_fluid": {
+    "amount": {
+      "min": 182250
+    },
+    "fluid": [
+      "minecraft:water"
+    ]
+  },
+  "ingredients": [
+    {
+      "count": 8,
+      "ingredient": {
+        "tag": "c:foods/corn"
+      }
+    }
+  ],
+  "result": {
+    "fluid": "psychedelicraft:corn"
+  }
+}

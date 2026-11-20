@@ -1,0 +1,17 @@
+{
+  "type": "psychedelicraft:hardening",
+  "amount": {
+    "type": "minecraft:uniform",
+    "max_inclusive": 6,
+    "min_inclusive": 3
+  },
+  "core_fluid": {
+    "fluid": "minecraft:water"
+  },
+  "group": "",
+  "result": {
+    "count": 1,
+    "id": "minecraft:sugar"
+  },
+  "solutions": []
+}

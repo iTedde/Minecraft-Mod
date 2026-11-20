@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_jimsonweed_seeds": {
+      "conditions": {
+        "items": [
+          {
+            "items": "psychedelicraft:jimsonweed_seeds"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "psychedelicraft:jimsonweed_extract_from_reacting"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_jimsonweed_seeds"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "psychedelicraft:jimsonweed_extract_from_reacting"
+    ]
+  }
+}

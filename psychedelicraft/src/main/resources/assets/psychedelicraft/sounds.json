@@ -1,0 +1,410 @@
+{
+  "block.bunsen_burner.fill": {
+    "category": "block",
+    "sounds": [
+      "minecraft:item/armor/equip_leather1",
+      "minecraft:item/armor/equip_leather2",
+      "minecraft:item/armor/equip_leather3",
+      "minecraft:item/armor/equip_leather4",
+      "minecraft:item/armor/equip_leather5",
+      "minecraft:item/armor/equip_leather6"
+    ],
+    "subtitle": "subtitles.psychedelicraft.block.bunsen_burner.fill"
+  },
+  "block.bunsen_burner.overheat": {
+    "category": "block",
+    "sounds": [
+      "minecraft:fire/fire"
+    ],
+    "subtitle": "subtitles.psychedelicraft.block.bunsen_burner.overheat"
+  },
+  "block.bunsen_burner.work": {
+    "category": "block",
+    "sounds": [
+      {
+        "attenuation_distance": 8,
+        "name": "minecraft:block/candle/extinguish1"
+      },
+      {
+        "attenuation_distance": 8,
+        "name": "minecraft:block/candle/extinguish1",
+        "volume": 0.9
+      },
+      {
+        "attenuation_distance": 8,
+        "name": "minecraft:block/candle/extinguish1",
+        "pitch": 0.9
+      },
+      {
+        "attenuation_distance": 8,
+        "name": "minecraft:block/candle/extinguish1",
+        "pitch": 0.9,
+        "volume": 0.9
+      },
+      {
+        "attenuation_distance": 8,
+        "name": "minecraft:block/candle/extinguish1",
+        "pitch": 1.1
+      },
+      {
+        "attenuation_distance": 8,
+        "name": "minecraft:block/candle/extinguish1",
+        "pitch": 1.1,
+        "volume": 0.9
+      },
+      {
+        "attenuation_distance": 8,
+        "name": "minecraft:block/candle/extinguish2"
+      },
+      {
+        "attenuation_distance": 8,
+        "name": "minecraft:block/candle/extinguish2",
+        "volume": 0.9
+      },
+      {
+        "attenuation_distance": 8,
+        "name": "minecraft:block/candle/extinguish2",
+        "pitch": 0.9
+      },
+      {
+        "attenuation_distance": 8,
+        "name": "minecraft:block/candle/extinguish2",
+        "pitch": 0.9,
+        "volume": 0.9
+      },
+      {
+        "attenuation_distance": 8,
+        "name": "minecraft:block/candle/extinguish2",
+        "pitch": 1.1
+      },
+      {
+        "attenuation_distance": 8,
+        "name": "minecraft:block/candle/extinguish2",
+        "pitch": 1.1,
+        "volume": 0.9
+      },
+      {
+        "attenuation_distance": 8,
+        "name": "minecraft:block/candle/extinguish3"
+      },
+      {
+        "attenuation_distance": 8,
+        "name": "minecraft:block/candle/extinguish3",
+        "volume": 0.9
+      },
+      {
+        "attenuation_distance": 8,
+        "name": "minecraft:block/candle/extinguish3",
+        "pitch": 0.9
+      },
+      {
+        "attenuation_distance": 8,
+        "name": "minecraft:block/candle/extinguish3",
+        "pitch": 0.9,
+        "volume": 0.9
+      },
+      {
+        "attenuation_distance": 8,
+        "name": "minecraft:block/candle/extinguish3",
+        "pitch": 1.1
+      },
+      {
+        "attenuation_distance": 8,
+        "name": "minecraft:block/candle/extinguish3",
+        "pitch": 1.1,
+        "volume": 0.9
+      }
+    ],
+    "subtitle": "subtitles.psychedelicraft.block.bunsen_burner.work"
+  },
+  "block.rift_jar.close": {
+    "category": "block",
+    "sounds": [
+      "psychedelicraft:rift_jar/jar_open"
+    ],
+    "subtitle": "subtitles.psychedelicraft.block.rift_jar.close"
+  },
+  "block.rift_jar.open": {
+    "category": "block",
+    "sounds": [
+      "psychedelicraft:rift_jar/jar_open"
+    ],
+    "subtitle": "subtitles.psychedelicraft.block.rift_jar.open"
+  },
+  "block.rift_jar.toggle": {
+    "category": "block",
+    "sounds": [
+      "minecraft:block/end_portal/eyeplace1",
+      "minecraft:block/end_portal/eyeplace2",
+      "minecraft:block/end_portal/eyeplace3"
+    ],
+    "subtitle": "subtitles.psychedelicraft.block.rift_jar.toggle"
+  },
+  "block.tray.harden": {
+    "category": "block",
+    "sounds": [
+      "minecraft:mob/turtle/egg/egg_crack1",
+      "minecraft:mob/turtle/egg/egg_crack2",
+      "minecraft:mob/turtle/egg/egg_crack3",
+      "minecraft:mob/turtle/egg/egg_crack4",
+      "minecraft:mob/turtle/egg/egg_crack5"
+    ],
+    "subtitle": "subtitles.psychedelicraft.block.tray.harden"
+  },
+  "block.valve.close": {
+    "category": "block",
+    "sounds": [
+      {
+        "name": "minecraft:mob/parrot/idle1",
+        "volume": 0.7
+      }
+    ],
+    "subtitle": "subtitles.psychedelicraft.block.valve.close"
+  },
+  "block.valve.open": {
+    "category": "block",
+    "sounds": [
+      {
+        "name": "minecraft:mob/parrot/idle1",
+        "volume": 0.7
+      }
+    ],
+    "subtitle": "subtitles.psychedelicraft.block.valve.open"
+  },
+  "drug.alcohol": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "psychedelicraft:drugs/generic",
+        "stream": true
+      }
+    ]
+  },
+  "drug.atropine": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "psychedelicraft:drugs/generic",
+        "stream": true
+      }
+    ]
+  },
+  "drug.bath_salts": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "psychedelicraft:drugs/generic",
+        "stream": true
+      }
+    ]
+  },
+  "drug.brown_shrooms": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "psychedelicraft:drugs/generic",
+        "stream": true
+      }
+    ]
+  },
+  "drug.caffeine": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "psychedelicraft:drugs/generic",
+        "stream": true
+      }
+    ]
+  },
+  "drug.cannabis": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "psychedelicraft:drugs/generic",
+        "stream": true
+      }
+    ]
+  },
+  "drug.coccaine": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "psychedelicraft:drugs/generic",
+        "stream": true
+      }
+    ]
+  },
+  "drug.harmonium": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "psychedelicraft:drugs/generic",
+        "stream": true
+      }
+    ]
+  },
+  "drug.kava": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "psychedelicraft:drugs/generic",
+        "stream": true
+      }
+    ]
+  },
+  "drug.lsd": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "psychedelicraft:drugs/generic",
+        "stream": true
+      }
+    ]
+  },
+  "drug.methamphetamine": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "psychedelicraft:drugs/generic",
+        "stream": true
+      }
+    ]
+  },
+  "drug.morphine": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "psychedelicraft:drugs/generic",
+        "stream": true
+      }
+    ]
+  },
+  "drug.peyote": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "psychedelicraft:drugs/generic",
+        "stream": true
+      }
+    ]
+  },
+  "drug.power": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "psychedelicraft:drugs/generic",
+        "stream": true
+      }
+    ]
+  },
+  "drug.red_shrooms": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "psychedelicraft:drugs/generic",
+        "stream": true
+      }
+    ]
+  },
+  "drug.sleep_deprivation": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "psychedelicraft:drugs/generic",
+        "stream": true
+      }
+    ]
+  },
+  "drug.sugar": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "psychedelicraft:drugs/generic",
+        "stream": true
+      }
+    ]
+  },
+  "drug.tobacco": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "psychedelicraft:drugs/generic",
+        "stream": true
+      }
+    ]
+  },
+  "drug.warmth": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "psychedelicraft:drugs/generic",
+        "stream": true
+      }
+    ]
+  },
+  "drug.zero": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "psychedelicraft:drugs/generic",
+        "stream": true
+      }
+    ]
+  },
+  "entity.player.breath": {
+    "category": "player",
+    "sounds": [
+      "psychedelicraft:breath"
+    ],
+    "subtitle": "subtitles.psychedelicraft.entity.player.breath"
+  },
+  "entity.player.heartbeat": {
+    "category": "player",
+    "sounds": [
+      "psychedelicraft:heart_beat"
+    ],
+    "subtitle": "subtitles.psychedelicraft.entity.player.heartbeat"
+  },
+  "entity.player.pacify": {
+    "category": "player",
+    "sounds": [
+      "psychedelicraft:pacifier/pacifier1",
+      "psychedelicraft:pacifier/pacifier2",
+      "psychedelicraft:pacifier/pacifier3",
+      "psychedelicraft:pacifier/pacifier4",
+      "psychedelicraft:pacifier/pacifier5",
+      "psychedelicraft:pacifier/pacifier6",
+      "psychedelicraft:pacifier/pacifier7",
+      "psychedelicraft:pacifier/pacifier8",
+      "psychedelicraft:pacifier/pacifier9"
+    ],
+    "subtitle": "subtitles.psychedelicraft.entity.player.pacify"
+  },
+  "entity.player.squeak": {
+    "category": "player",
+    "sounds": [
+      "psychedelicraft:squeak/squeak1",
+      "psychedelicraft:squeak/squeak2",
+      "psychedelicraft:squeak/squeak3"
+    ],
+    "subtitle": "subtitles.psychedelicraft.entity.player.squeak"
+  },
+  "item.broken_glass.eat": {
+    "category": "player",
+    "sounds": [
+      "psychedelicraft:broken_glass/glass1",
+      "psychedelicraft:broken_glass/glass2",
+      "psychedelicraft:broken_glass/glass3",
+      "psychedelicraft:broken_glass/glass4"
+    ],
+    "subtitle": "subtitles.psychedelicraft.item.broken_glass.eat"
+  },
+  "item.syringe.inject": {
+    "category": "player",
+    "sounds": [
+      "psychedelicraft:inject/inject1",
+      "psychedelicraft:inject/inject2"
+    ],
+    "subtitle": "subtitles.psychedelicraft.item.syringe.inject"
+  }
+}

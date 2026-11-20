@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "seeds",
+  "ingredients": [
+    {
+      "item": "psychedelicraft:morning_glory"
+    }
+  ],
+  "result": {
+    "count": 6,
+    "id": "psychedelicraft:morning_glory_seeds"
+  }
+}

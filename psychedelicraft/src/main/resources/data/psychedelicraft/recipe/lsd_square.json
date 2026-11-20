@@ -1,0 +1,23 @@
+{
+  "type": "psychedelicraft:crafting_shapeless_fluid",
+  "category": "misc",
+  "ingredients": [
+    {
+      "receptical": {
+        "item": "minecraft:paper"
+      }
+    },
+    {
+      "fluid": {
+        "attributes": {
+          "distillation": 2
+        },
+        "fluid": "psychedelicraft:morning_glory_extract"
+      }
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "psychedelicraft:lsd_square"
+  }
+}

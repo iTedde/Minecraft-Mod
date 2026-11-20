@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "drugs",
+  "ingredients": [
+    {
+      "item": "psychedelicraft:dried_coca_leaves"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "psychedelicraft:cocaine_powder"
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "parent": "psychedelicraft:root",
+  "criteria": {
+    "has_the_thing": {
+      "conditions": {
+        "items": [
+          {
+            "items": "psychedelicraft:tray"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "background": "minecraft:textures/gui/advancements/backgrounds/stone.png",
+    "description": {
+      "translate": "advancements.psychedelicraft.time_to_cook.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "psychedelicraft:tray"
+    },
+    "title": {
+      "translate": "advancements.psychedelicraft.time_to_cook.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_thing"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

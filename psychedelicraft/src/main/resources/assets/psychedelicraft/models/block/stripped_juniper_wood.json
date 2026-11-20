@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "psychedelicraft:block/stripped_juniper_log",
+    "side": "psychedelicraft:block/stripped_juniper_log"
+  }
+}

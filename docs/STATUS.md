@@ -4535,3 +4535,39 @@ Nutzer: „Nächste Phase“ → 52.0 laut Plan.
 
 ## Nächste Schritte
 - 52.1 Quellimport + Umstellung, bis es kompiliert und der Server startet (eigene Sitzung, groß).
+
+# Phase 52.1 – Psychedelicraft: Quellimport, kompiliert, Server startet (2026-11-20)
+
+Nutzer: „weiter gehts“ → 52.1 laut `spec/52` §5.
+
+## Erledigt
+- [x] Yarn → Mojang-Namen per Loom `migrateMappings` im Referenz-Klon (`reference/source/psychedelicraft/src-1.21/remappedSrc`),
+  nach `psychedelicraft/src/main/java` übernommen; Ressourcen aus dem 1.8.9-Jar (generierte Daten), Datagen und
+  TLA/Mod-Menu-Kompat nicht übernommen (EMI folgt in 52.5).
+- [x] Gradle-Gerüst `psychedelicraft/` (ModDevGradle 2.0.148, NeoForge 21.1.259, Parchment), `neoforge.mods.toml`
+  (Vorlage), Mixin-Konfig + Plugin (Sodium/Iris-Mixins vorerst entfernt → 52.3), Access Transformer statt Access
+  Widener, Enum-Erweiterung `Boat.Type` für das Wacholder-Boot, LICENSE/NOTICE in der Jar. Version `1.8.9-neoforge.1`.
+- [x] Ersetzt: Kirin-Konfig (`util/settings`, gleiches JSON-Layout) + Einstellungsbildschirm (Vanilla-Optionsliste,
+  Modliste), Fabwork → NeoForge-Payloads, Fabric Transfer API → eigene `FluidVariant` + `IFluidHandler`/
+  `IFluidHandlerItem`-Capabilities (intern weiter 81 000 Tropfen je Eimer), eigene Registries (`PSRegistries`,
+  NewRegistryEvent), Custom Ingredients → `ICustomIngredient`, BiomeModifications → Biome-Modifier
+  `psychedelicraft:plants`, Loot-Events → `neoforge:add_table`-Loot-Modifier, Dorf-Pools beim Serverstart
+  zusammengeführt, Brennstoff/Kompost → Data Maps, Brennbarkeit/Entrinden/Handel → `PSHooks` + Events, eigener
+  `FluidType` je Flüssigkeit (Name, Farbe, Textur), Client-Registrierungen auf NeoForge-Client-Events.
+- [x] Bootstrap läuft im RegisterEvent der eigenen Flüssigkeits-Registry (alle Registries offen, NeoForge-Attribute
+  und Fremd-Flüssigkeiten schon da).
+- [x] Mixin-Ziele (Strings) per Skript aus Yarn- und Mojang-Mappings übersetzt, Shadow-/Accessor-Namen korrigiert,
+  `MixinEntity` auf NeoForges FluidType-Flüssigkeitsphysik umgestellt.
+- [x] GameTests `PortGameTests` (4): Registries, Rezepte/Weltgen-Daten, Block-Entities, Fluid-Capability – alle grün
+  (`-PgameTestDir=run-gametest`), `gradlew build` grün (`psychedelicraft/build/libs/psychedelicraft-1.8.9-neoforge.1.jar`).
+- [x] Client-Start: erster Fehler (Client-Konfig lud `DrugType` vor der Registrierung) behoben; **Client nicht weiter
+  getestet** (Nutzer: „mach mal keine Client tests erstmal wieder“).
+
+## Abweichungen (für `abweichungen.md`, Abschnitt Psychedelicraft, in 52.6)
+- Psychedelicraft-Flüssigkeiten haben eigene FluidTypes (schwimmen/ertrinken/löschen wie Wasser), zählen aber nicht
+  als NeoForge-Wasser (`isInWater`).
+- Konfig-Kommentare stehen als `"name.comment"`-Arrays im JSON.
+
+## Nächste Schritte
+- 52.2 Spielmechanik mit GameTests (Anbau, Trockentisch, Maischbottich, Fass, Destille, Gefäße, Konsum, Sucht).
+- 52.3 Client (erst wenn der Nutzer Client-Tests wieder möchte): Renderer, Shader, Halluzinationen, Sodium/Iris.

@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "seeds",
+  "ingredients": [
+    {
+      "item": "psychedelicraft:jimsonweed_seed_pod"
+    }
+  ],
+  "result": {
+    "count": 6,
+    "id": "psychedelicraft:jimsonweed_seeds"
+  }
+}

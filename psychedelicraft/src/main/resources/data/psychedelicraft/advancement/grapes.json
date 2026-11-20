@@ -1,0 +1,34 @@
+{
+  "parent": "psychedelicraft:make_mash_tub",
+  "criteria": {
+    "has_the_thing": {
+      "conditions": {
+        "items": [
+          {
+            "items": "psychedelicraft:wine_grapes"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "background": "minecraft:textures/gui/advancements/backgrounds/stone.png",
+    "description": {
+      "translate": "advancements.psychedelicraft.grapes.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "psychedelicraft:wine_grapes"
+    },
+    "title": {
+      "translate": "advancements.psychedelicraft.grapes.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_thing"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

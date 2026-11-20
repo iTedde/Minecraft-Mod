@@ -1,0 +1,23 @@
+{
+  "type": "psychedelicraft:reacting",
+  "ingredients": {
+    "fluids": [
+      {
+        "fluid": "minecraft:water"
+      }
+    ],
+    "solids": [
+      {
+        "item": "minecraft:charcoal"
+      }
+    ]
+  },
+  "result": {
+    "by_product": {},
+    "fluid": {
+      "amount": 5,
+      "fluid": "psychedelicraft:petrolium"
+    },
+    "impurity": "carbon"
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_coffee_beans": {
+      "conditions": {
+        "items": [
+          {
+            "items": "psychedelicraft:coffee_beans"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "psychedelicraft:coffee_from_mixing"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_coffee_beans"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "psychedelicraft:coffee_from_mixing"
+    ]
+  }
+}

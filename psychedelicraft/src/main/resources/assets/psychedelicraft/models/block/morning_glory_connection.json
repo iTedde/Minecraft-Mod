@@ -1,0 +1,6 @@
+{
+  "parent": "psychedelicraft:block/vine_connection_template",
+  "textures": {
+    "connection": "psychedelicraft:block/morning_glory_connection"
+  }
+}

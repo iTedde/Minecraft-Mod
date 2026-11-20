@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_obsidian_bottle": {
+      "conditions": {
+        "items": [
+          {
+            "items": "psychedelicraft:obsidian_bottle"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:obsidian_dust_from_obsidian_bottle"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_obsidian_bottle"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:obsidian_dust_from_obsidian_bottle"
+    ]
+  }
+}

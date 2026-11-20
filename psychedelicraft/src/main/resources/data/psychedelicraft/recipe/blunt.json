@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "C": {
+      "item": "psychedelicraft:dried_cannabis_leaf"
+    },
+    "T": {
+      "item": "psychedelicraft:dried_tobacco"
+    }
+  },
+  "pattern": [
+    "TTT",
+    "TTT",
+    "CCC"
+  ],
+  "result": {
+    "count": 1,
+    "id": "psychedelicraft:blunt"
+  }
+}

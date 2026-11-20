@@ -1,0 +1,26 @@
+{
+  "type": "psychedelicraft:fill_receptical",
+  "category": "misc",
+  "ingredients": [
+    {
+      "type": "psychedelicraft:fluid",
+      "fluid": "minecraft:lava",
+      "level": 27000
+    },
+    {
+      "item": "psychedelicraft:obsidian_dust"
+    }
+  ],
+  "receptical": {
+    "type": "psychedelicraft:optional_fluid",
+    "fluid": {
+      "fluid": "minecraft:water"
+    },
+    "receptical": {
+      "tag": "psychedelicraft:receptical/drugs"
+    }
+  },
+  "result": {
+    "fluid": "psychedelicraft:bath_salts"
+  }
+}

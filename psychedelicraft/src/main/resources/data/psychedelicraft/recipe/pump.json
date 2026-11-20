@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "tag": "minecraft:stone_crafting_materials"
+    },
+    "*": {
+      "item": "minecraft:redstone"
+    },
+    "-": {
+      "item": "psychedelicraft:glass_tube"
+    }
+  },
+  "pattern": [
+    "###",
+    "#-#",
+    "#*#"
+  ],
+  "result": {
+    "count": 1,
+    "id": "psychedelicraft:pump"
+  }
+}

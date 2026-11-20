@@ -1,0 +1,22 @@
+{
+  "type": "psychedelicraft:mashing",
+  "base_fluid": {
+    "amount": {
+      "min": 182250
+    },
+    "fluid": [
+      "minecraft:water"
+    ]
+  },
+  "ingredients": [
+    {
+      "count": 8,
+      "ingredient": {
+        "item": "psychedelicraft:agave_leaf"
+      }
+    }
+  ],
+  "result": {
+    "fluid": "psychedelicraft:agave"
+  }
+}

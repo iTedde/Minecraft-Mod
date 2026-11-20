@@ -1,0 +1,30 @@
+{
+  "parent": "psychedelicraft:time_to_cook",
+  "criteria": {
+    "done_the_thing": {
+      "conditions": {
+        "event": "tray_harden"
+      },
+      "trigger": "psychedelicraft:custom"
+    }
+  },
+  "display": {
+    "background": "minecraft:textures/gui/advancements/backgrounds/stone.png",
+    "description": {
+      "translate": "advancements.psychedelicraft.first_batch.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "psychedelicraft:methamphetamine_powder"
+    },
+    "title": {
+      "translate": "advancements.psychedelicraft.first_batch.title"
+    }
+  },
+  "requirements": [
+    [
+      "done_the_thing"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

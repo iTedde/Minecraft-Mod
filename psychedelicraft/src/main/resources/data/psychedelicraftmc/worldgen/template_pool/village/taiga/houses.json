@@ -1,0 +1,16 @@
+{
+  "elements": [
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "psychedelicraft:village/taiga/houses/taiga_drying_house_4",
+        "processors": {
+          "processors": []
+        },
+        "projection": "rigid"
+      },
+      "weight": 25
+    }
+  ],
+  "fallback": "minecraft:empty"
+}

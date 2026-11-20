@@ -1,0 +1,37 @@
+{
+  "values": {
+    "psychedelicraft:cannabis_buds": {
+      "burn_time": 5
+    },
+    "psychedelicraft:dried_cannabis_buds": {
+      "burn_time": 5
+    },
+    "psychedelicraft:hop_cones": {
+      "burn_time": 5
+    },
+    "psychedelicraft:jimsonweed_seed_pod": {
+      "burn_time": 5
+    },
+    "psychedelicraft:lattice": {
+      "burn_time": 700
+    },
+    "psychedelicraft:smoking_pipe": {
+      "burn_time": 200
+    },
+    "psychedelicraft:joint": {
+      "burn_time": 20
+    },
+    "psychedelicraft:peyote_joint": {
+      "burn_time": 20
+    },
+    "psychedelicraft:cigar": {
+      "burn_time": 80
+    },
+    "psychedelicraft:cigarette": {
+      "burn_time": 50
+    },
+    "psychedelicraft:wooden_mug": {
+      "burn_time": 50
+    }
+  }
+}

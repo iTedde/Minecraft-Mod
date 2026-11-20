@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "P": {
+      "item": "minecraft:paper"
+    },
+    "T": {
+      "item": "psychedelicraft:dried_tobacco"
+    }
+  },
+  "pattern": [
+    "TTT",
+    "TTT",
+    "PPP"
+  ],
+  "result": {
+    "count": 1,
+    "id": "psychedelicraft:cigar"
+  }
+}

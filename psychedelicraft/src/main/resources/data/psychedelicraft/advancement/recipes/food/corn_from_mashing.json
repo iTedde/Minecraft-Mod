@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_foods/corn": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#c:foods/corn"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "psychedelicraft:corn_from_mashing"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_foods/corn"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "psychedelicraft:corn_from_mashing"
+    ]
+  }
+}

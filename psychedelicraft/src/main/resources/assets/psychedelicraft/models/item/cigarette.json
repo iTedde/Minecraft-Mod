@@ -1,0 +1,14 @@
+{
+  "parent": "psychedelicraft:item/smokeable_template",
+  "overrides": [
+    {
+      "model": "psychedelicraft:item/cigarette_using",
+      "predicate": {
+        "psychedelicraft:using": 1.0
+      }
+    }
+  ],
+  "textures": {
+    "layer0": "psychedelicraft:item/cigarette"
+  }
+}

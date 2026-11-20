@@ -1,0 +1,146 @@
+{
+  "parent": "psychedelicraft:root",
+  "criteria": {
+    "have_all_effects": {
+      "conditions": {
+        "drugs": [
+          {
+            "id": "psychedelicraft:alcohol",
+            "value": {
+              "min": 9.999999747378752E-6
+            }
+          },
+          {
+            "id": "psychedelicraft:cannabis",
+            "value": {
+              "min": 9.999999747378752E-6
+            }
+          },
+          {
+            "id": "psychedelicraft:brown_shrooms",
+            "value": {
+              "min": 9.999999747378752E-6
+            }
+          },
+          {
+            "id": "psychedelicraft:red_shrooms",
+            "value": {
+              "min": 9.999999747378752E-6
+            }
+          },
+          {
+            "id": "psychedelicraft:tobacco",
+            "value": {
+              "min": 9.999999747378752E-6
+            }
+          },
+          {
+            "id": "psychedelicraft:coccaine",
+            "value": {
+              "min": 9.999999747378752E-6
+            }
+          },
+          {
+            "id": "psychedelicraft:caffeine",
+            "value": {
+              "min": 9.999999747378752E-6
+            }
+          },
+          {
+            "id": "psychedelicraft:sugar",
+            "value": {
+              "min": 9.999999747378752E-6
+            }
+          },
+          {
+            "id": "psychedelicraft:bath_salts",
+            "value": {
+              "min": 9.999999747378752E-6
+            }
+          },
+          {
+            "id": "psychedelicraft:lsd",
+            "value": {
+              "min": 9.999999747378752E-6
+            }
+          },
+          {
+            "id": "psychedelicraft:atropine",
+            "value": {
+              "min": 9.999999747378752E-6
+            }
+          },
+          {
+            "id": "psychedelicraft:morphine",
+            "value": {
+              "min": 9.999999747378752E-6
+            }
+          },
+          {
+            "id": "psychedelicraft:methamphetamine",
+            "value": {
+              "min": 9.999999747378752E-6
+            }
+          },
+          {
+            "id": "psychedelicraft:kava",
+            "value": {
+              "min": 9.999999747378752E-6
+            }
+          },
+          {
+            "id": "psychedelicraft:warmth",
+            "value": {
+              "min": 9.999999747378752E-6
+            }
+          },
+          {
+            "id": "psychedelicraft:peyote",
+            "value": {
+              "min": 9.999999747378752E-6
+            }
+          },
+          {
+            "id": "psychedelicraft:zero",
+            "value": {
+              "min": 9.999999747378752E-6
+            }
+          },
+          {
+            "id": "psychedelicraft:power",
+            "value": {
+              "min": 9.999999747378752E-6
+            }
+          },
+          {
+            "id": "psychedelicraft:harmonium",
+            "value": {
+              "min": 9.999999747378752E-6
+            }
+          }
+        ]
+      },
+      "trigger": "psychedelicraft:drug_effects_changed"
+    }
+  },
+  "display": {
+    "background": "minecraft:textures/gui/advancements/backgrounds/stone.png",
+    "description": {
+      "translate": "advancements.psychedelicraft.all_drugs.description"
+    },
+    "frame": "challenge",
+    "icon": {
+      "count": 1,
+      "id": "psychedelicraft:jolly_rancher"
+    },
+    "title": {
+      "translate": "advancements.psychedelicraft.all_drugs.title"
+    }
+  },
+  "requirements": [
+    [
+      "have_all_effects"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -1,0 +1,134 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 3.0,
+                "min": 1.0
+              },
+              "function": "minecraft:set_count"
+            },
+            {
+              "attributes": {
+                "distillation": {
+                  "type": "minecraft:uniform",
+                  "max": 16.0,
+                  "min": 8.0
+                },
+                "fermentation": 2.0
+              },
+              "fluid": [
+                "psychedelicraft:sugar_cane"
+              ],
+              "function": "psychedelicraft:set_fluids"
+            }
+          ],
+          "name": "psychedelicraft:wooden_mug"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 3.0,
+                "min": 1.0
+              },
+              "function": "minecraft:set_count"
+            },
+            {
+              "attributes": {
+                "distillation": {
+                  "type": "minecraft:uniform",
+                  "max": 16.0,
+                  "min": 8.0
+                },
+                "fermentation": 2.0,
+                "maturation": {
+                  "type": "minecraft:uniform",
+                  "max": 16.0,
+                  "min": 8.0
+                }
+              },
+              "fluid": [
+                "psychedelicraft:sugar_cane"
+              ],
+              "function": "psychedelicraft:set_fluids"
+            }
+          ],
+          "name": "psychedelicraft:wooden_mug"
+        }
+      ],
+      "rolls": {
+        "type": "minecraft:uniform",
+        "max": 2.0,
+        "min": 1.0
+      }
+    },
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:tag",
+          "expand": true,
+          "functions": [
+            {
+              "add": false,
+              "count": 1.0,
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "psychedelicraft:barrels"
+        },
+        {
+          "type": "minecraft:tag",
+          "expand": true,
+          "functions": [
+            {
+              "add": false,
+              "count": 1.0,
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "psychedelicraft:bottle_rack_insertable"
+        }
+      ],
+      "functions": [
+        {
+          "attributes": {
+            "distillation": {
+              "type": "minecraft:uniform",
+              "max": 16.0,
+              "min": 8.0
+            },
+            "fermentation": 2.0,
+            "maturation": {
+              "type": "minecraft:uniform",
+              "max": 16.0,
+              "min": 8.0
+            }
+          },
+          "fluid": [
+            "psychedelicraft:sugar_cane",
+            "psychedelicraft:red_grapes"
+          ],
+          "function": "psychedelicraft:set_fluids"
+        }
+      ],
+      "rolls": {
+        "type": "minecraft:uniform",
+        "max": 1.0,
+        "min": 0.0
+      }
+    }
+  ]
+}
