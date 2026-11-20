@@ -4909,3 +4909,19 @@ Nutzer: „hab neue Song ins Musik hinzugefügt. Mach sie rein als Schallplatte 
 
 ## Nächste Schritte
 - Client-Test Schallplatten/Radio-Bibliothek nur nach Rückfrage.
+
+# Korrektur: Startabsturz Psychedelicraft im CurseForge-Paket (2026-11-21)
+
+Nutzer: „Das Spiel stürzt noch ab“ (Instanz Craft 1.3.2, Absturz beim Start, `Registry is already frozen …
+psychedelicraft:entity.player.heartbeat`).
+
+## Erledigt
+- [x] Ursache: Der `GameRenderer.resize`-Mixin lief schon im `Minecraft`-Konstruktor (vor dem Mod-Laden) und lud
+  `DrugRenderer` → `DrugType` → `PSSounds`, deren statische Initialisierer in die eingefrorenen Registries schreiben.
+- [x] `Psychedelicraft.isBootstrapped()`; der Resize-Mixin tut vor dem Bootstrap nichts (Shader sind dann ohnehin nicht
+  geladen). `psychedelicraft-1.8.9-neoforge.5.jar`, Build grün.
+- [x] Jar direkt in die CurseForge-Instanz „Craft 1.3.2“ getauscht (alte Jar in `mods-backup`).
+- Nicht im Client geprüft; kein neues Paket.
+
+## Nächste Schritte
+- Nutzer startet die Instanz; bei Erfolg Paket 1.3.3 mit neoforge.5.

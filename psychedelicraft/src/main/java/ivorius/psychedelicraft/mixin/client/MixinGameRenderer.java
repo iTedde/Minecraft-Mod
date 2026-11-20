@@ -35,6 +35,11 @@ abstract class MixinGameRenderer {
 
     @Inject(method = "resize", at = @At("HEAD"))
     private void onResized(int width, int height, CallbackInfo info) {
+        // Minecraft's constructor resizes the window before mods are loaded; DrugRenderer's static init would then
+        // register DrugTypes/sounds into frozen registries and crash the game. Shaders are not loaded yet anyway.
+        if (!ivorius.psychedelicraft.Psychedelicraft.isBootstrapped()) {
+            return;
+        }
         DrugRenderer.INSTANCE.getPostEffects().setupDimensions(width, height);
     }
 }

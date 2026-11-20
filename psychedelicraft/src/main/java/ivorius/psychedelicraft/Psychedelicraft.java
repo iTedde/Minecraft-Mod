@@ -74,7 +74,16 @@ public class Psychedelicraft {
         return ResourceLocation.fromNamespaceAndPath(DEFAULT_NAMESPACE, name);
     }
 
-    private static boolean bootstrapped;
+    private static volatile boolean bootstrapped;
+
+    /**
+     * True once the registry bootstrap ran. Client code reachable before mod loading (e.g. the window resize in the
+     * Minecraft constructor) must not touch classes like DrugRenderer before that, or their static initialisers try
+     * to register into frozen registries.
+     */
+    public static boolean isBootstrapped() {
+        return bootstrapped;
+    }
 
     public Psychedelicraft(IEventBus modBus, ModContainer container) {
         modBus.addListener(PSRegistries::register);
