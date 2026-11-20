@@ -4715,3 +4715,26 @@ Nutzer: „Mach die Clienttest“ → Client-Tests wieder erlaubt.
 - Craft + Psychedelicraft zusammen: Client blieb mit einer ohne Craft erzeugten Welt vor dem Laden auf einem
   Bestätigungsbildschirm stehen; Welt mit Craft-Server erzeugen und erneut laufen lassen.
 - Psychedelicraft-Jar neu bauen, Paket 1.2.19.
+
+# Phase 52.3 – Psychedelicraft: Jar neoforge.2, Paket 1.2.19 (Zwischenstand 2, 2026-11-20)
+
+Nutzer: „Mache die nächste Phase weiter“ → offene Punkte aus 52.3 ohne Client.
+
+## Erledigt
+- [x] Sporadischer GameTest-Fehler `smokingjointraisescannabisandwearsoff` (2 von 3 Läufen) war ein echter
+  Vorlagenfehler: `RaytraceUtil.raycastEntities` spannte die Suchbox mit der skalierten absoluten Endposition auf
+  (Box über Millionen Blöcke) → bei großen Koordinaten `IllegalArgumentException` aus `EntitySectionStorage` beim
+  Rauchen, sonst nur langsam. Box jetzt entlang der Blickrichtung; `abweichungen.md` ergänzt.
+- [x] GameTests Psychedelicraft danach 8 Läufe hintereinander alle **23** grün.
+- [x] `releases/psychedelicraft-1.8.9-neoforge.2.jar` (mit Shader-Start-Korrektur und Rauch-Korrektur).
+- [x] Paket `releases/Craft-1.2.19-curseforge.zip` (46,5 MB): wie 1.2.18, Psychedelicraft neoforge.1 → neoforge.2;
+  Manifest nur Name/Version geändert (120 Einträge). Nicht im Client gestartet.
+
+## Offen
+- Craft + Psychedelicraft zusammen im Client (Welt mit Craft-Server erzeugen, dann quickPlay) – wartet auf Freigabe
+  des Nutzers für einen Client-Lauf.
+- Sichtprüfung der Halluzinationen/Shader und Testplan 28.1–28.6 durch den Nutzer.
+- Sodium/Iris-Anpassung (`abweichungen.md`).
+
+## Nächste Schritte
+- 52.3 Client-Lauf Craft + Psychedelicraft, sobald der Nutzer zustimmt; danach Sodium/Iris.

@@ -425,4 +425,5 @@ MIT); Port nach NeoForge 1.21.1 unter `psychedelicraft/` (`docs/spec/52-psychede
 | Rezeptanzeige | TLA-API (EMI/REI/JEI über TLA) | eigenes EMI-Plugin `compat/emi`; REI entfällt; Pfeil-Animationen 1–20 s (Vorlage mischte Ticks und ms) | EMI ist im Paket, TLA nicht | **umgesetzt** (52.5, Client offen) |
 | Netzwerk | Fabwork | NeoForge-Payloads; Pakete an Spieler ohne ausgehandelten Kanal (FakePlayer) werden übersprungen | Fabwork gibt es nicht für NeoForge | **umgesetzt** (52.1/52.2) |
 | Sodium/Iris | Mixins für Sodium 0.6.9 / Iris 1.8.8 | vorerst entfernt; vorgesehen: an Sodium 0.8.12/Iris anpassen, sonst Psychedelicraft-Shader bei aktivem Iris-Shaderpack aus | Versionen im Paket neuer | *entschieden* (52.3 offen) |
+| Rauch auf Wesen pusten | Suchbox um `Ende × √Reichweite` (absolute Weltposition skaliert) | Suchbox entlang der Blickrichtung (Reichweite √3 Blöcke wie Vorlage) | Vorlagenfehler: riesige Box, bei großen Koordinaten Absturz (`IllegalArgumentException` beim Rauchen), sonst unnötig langsam | **umgesetzt** (52.3) |
 | Sucht/Entzug | in der 1.21-Vorlage nicht vorhanden (nur Händler „Süchtiger“) | nicht nachgebaut | Grundsatz Port | – |
