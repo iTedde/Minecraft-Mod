@@ -4394,5 +4394,5 @@ automatische Pflanzenliste); „Klingt gut, trag es erstmal so ein“.
 - Nutzer: „Mach die Anpassung auch ins Craft Repo mit rein, als eigener Abschnitt“ → Port im Craft-Repo, Unterordner
   `psychedelicraft/` mit eigenem Gradle-Build (eigene Jar, Mod-ID `psychedelicraft`, nicht Teil von `dev.craft`); kein
   eigenes GitHub-Repo. Paketstruktur in `CLAUDE.md` ergänzt.
-- Offen: Kater-Ausbau (Vorschlag 2026-11-20: leicht = Übelkeit + Abbau langsamer; mittel = + Langsamkeit, Hunger,
+- **Kater freigegeben** (Nutzer, 2026-11-20: „Klingt gut“): leicht = Übelkeit + Abbau langsamer; mittel = + Langsamkeit, Hunger,
   Blendung im Sonnenlicht; schwer = + Schwäche, Übergeben; Wasser/Kaffee lindert; Dauer bis 1 MC-Tag).
