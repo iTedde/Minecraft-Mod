@@ -4836,3 +4836,19 @@ Nutzer: „Mach nen neues paket. 1.3.0“.
 
 ## Nächste Schritte
 - Nach der Sichtprüfung Phase 52 als erledigt eintragen.
+
+# Client-Test Project Radio (2026-11-20)
+
+Nutzer: „Ist das mit dem Radio schon drin?“ → „Kannst du das Testen?“
+
+## Erledigt
+- [x] Project Radio 2.0.3 steht seit Paket 1.2.16 im Manifest (1466847/9436386, auch in 1.3.0).
+- [x] Client-Test: genau diese Datei von CurseForge geladen, nur für den Test in `run/mods` gelegt (danach wieder
+  entfernt), Hi-Fi-Turm (`project_radio:radio_block`) im Testraum per Datenpaket gesetzt, GUI per Rechtsklick,
+  voreingestellter Sender „Hyrule Radio“, Lautstärke 19 %, Play → GUI „Playing · MP3“, Log „decoded PCM output
+  started“, keine Fehler; Stop funktioniert.
+- Beobachtung: Veil (kommt mit Project Radio) meldet beim Start fehlende Uniforms im CC:Tweaked-Monitor-Shader
+  (`computercraft/monitor_tbo`) – nur Warnungen; CC-Monitore mit Project Radio im Paket nicht geprüft.
+
+## Nächste Schritte
+- Sichtprüfung Psychedelicraft durch den Nutzer, danach Phase 52 abschließen.
