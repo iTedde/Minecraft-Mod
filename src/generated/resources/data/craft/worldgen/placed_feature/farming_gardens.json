@@ -1,0 +1,8 @@
+{
+  "feature": "craft:farming_gardens",
+  "placement": [
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

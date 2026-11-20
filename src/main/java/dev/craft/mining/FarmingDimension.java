@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.OptionalLong;
 
 import dev.craft.Craft;
+import dev.craft.data.CraftWorldGen;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
@@ -20,6 +21,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.dimension.BuiltinDimensionTypes;
 import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.level.dimension.LevelStem;
+import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.DensityFunction;
 import net.minecraft.world.level.levelgen.DensityFunctions;
 import net.minecraft.world.level.levelgen.NoiseBasedChunkGenerator;
@@ -31,7 +33,8 @@ import net.minecraft.world.level.levelgen.VerticalAnchor;
 
 /**
  * Farming dimension (spec 53 §2): flat grass world at y 64 over dirt and stone, always noon, no rain, no mobs, one
- * plains-like biome that is in no biome tag so other mods' biome modifiers stay out. The gardens follow in 53.2.
+ * plains-like biome that is in no biome tag so other mods' biome modifiers stay out. The gardens come from
+ * {@link FarmingGardens}.
  */
 public final class FarmingDimension {
     public static final ResourceKey<DimensionType> TYPE = ResourceKey.create(Registries.DIMENSION_TYPE, id());
@@ -82,10 +85,11 @@ public final class FarmingDimension {
                 true, false, false, false));
     }
 
-    /** Plains climate without rain, empty spawns and no features yet (gardens: 53.2). */
+    /** Plains climate without rain, empty spawns and only the garden grid (spec 53 §3.3). */
     public static void bootstrapBiome(BootstrapContext<Biome> context) {
         BiomeGenerationSettings.Builder generation = new BiomeGenerationSettings.Builder(
                 context.lookup(Registries.PLACED_FEATURE), context.lookup(Registries.CONFIGURED_CARVER));
+        generation.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, CraftWorldGen.FARMING_GARDENS);
         BiomeSpecialEffects effects = new BiomeSpecialEffects.Builder().fogColor(FOG).skyColor(SKY)
                 .waterColor(4159204).waterFogColor(329011).build();
         context.register(BIOME, new Biome.BiomeBuilder().hasPrecipitation(false).temperature(0.8F).downfall(0.4F)

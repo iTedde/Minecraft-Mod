@@ -9,6 +9,7 @@ import net.minecraft.world.level.LevelAccessor;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.level.BlockEvent;
+import net.neoforged.neoforge.event.server.ServerAboutToStartEvent;
 
 /**
  * Entry point of the Craft dimensions: mining (spec 18) and farming (spec 53) – portal blocks, their POIs and portal
@@ -25,6 +26,9 @@ public final class Mining {
     public static void init(IEventBus modBus) {
         MiningBlocks.BLOCKS.register(modBus);
         MiningBlocks.POI_TYPES.register(modBus);
+        MiningBlocks.FEATURES.register(modBus);
+        NeoForge.EVENT_BUS.addListener((ServerAboutToStartEvent event) ->
+                FarmingPlants.get(event.getServer().registryAccess()));
         NeoForge.EVENT_BUS.addListener(Mining::lightPortal);
     }
 

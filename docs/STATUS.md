@@ -4428,3 +4428,35 @@ Nutzer: „Weiter gehts mit Phase 52 und 53“ → zuerst 53.1 (eine Sitzung je 
   Wegstück statt in ein Beet setzen (`CraftPortalForcer` bekommt dafür einen Hook je Link).
 - 52.0 Planung/Spezifikation Psychedelicraft-Port (eigene Sitzung).
 
+
+# Phase 53.2 – Farming-Welt: Pflanzenliste + Gartenraster (2026-11-20)
+
+Nutzer: „Weiter gehts“ → 53.2 laut Plan.
+
+## Erledigt
+- [x] `FarmingPlants`: Liste beim Serverstart (`ServerAboutToStartEvent`, sonst beim ersten Chunk) aus allen Blöcken
+  nach `spec/53` §3.1 (Wildpflanzen `wild_*` ersetzen ihre Feldfrucht, Feldfrüchte, Setzlinge/Blumen/Pilze,
+  Wasserpflanzen), Tags `#craft:farming_extra`/`#craft:farming_excluded`, ohne Item/mit Block-Entity ausgelassen,
+  sortiert nach ID; Log mit Anzahl je Mod und Ausgelassenem. Ohne Zusatzmods: **60 Pflanzen, Garten 8×8 Beete**.
+- [x] `FarmingProbe` (Mini-Welt für `canSurvive`): Untergrund je Pflanze, „braucht Wasser daneben“, „nur jedes zweite
+  Feld“, „stapelbar (3 hoch)“. Details und Abweichung von der Reihenfolge (Gras vor Ackerboden, Moosblock ergänzt)
+  in `spec/53` §3.5.
+- [x] `FarmingGardens` (Feature `craft:farming_gardens` im Biom `craft:farming`): Beete 7×7 mit Trampelpfad,
+  Beet-Formen je Untergrund, gewachstes Schild mit Pflanzenname an der Nordwest-Ecke.
+- [x] Ausgangsportal in der Farming-Welt auf der nächsten Weglinie (`PortalLink.ExitPlacement`).
+- [x] AT: `StemBlock.fruit`/`attachedStem` (Melone/Kürbis als angewachsener Stängel + Frucht).
+- [x] GameTests `FarmingGameTests` (5): Untergründe der Vanilla-Fälle, **jedes Beet der Liste aufbauen und jede
+  Pflanze bleibt stehen**, Weizenbeet + Schild, jede Pflanze genau einmal je Garten, Portal auf dem Weg. Alle **677**
+  GameTests grün (ein Lauf mit dem bekannten Ausreißer `plasmacannon`), `gradlew runData build` grün, `runClient` bis
+  Hauptmenü ohne Fehler.
+
+## Im Client prüfen (Sammeltest)
+- Farming-Welt neu betreten (vorher erzeugte Chunks aus 53.1 bleiben leeres Gras – dafür neue Welt oder weit weg
+  gehen): Gärten, Wege, Schilder lesbar (lange Namen werden abgeschnitten), Wasser/Seerosen, Kakao-Säule, Moosdecke,
+  nichts fällt beim Hinlaufen ab; Ausgangsportal steht auf einem Weg.
+- Im Paket (mit Farmer's Delight, Brewery usw.): Log-Zeile „Farming dimension: N plants …“ und „left out …“ ansehen,
+  ggf. Einträge für `#craft:farming_excluded` sammeln.
+
+## Nächste Schritte
+- 53.3 IC2-Crops in den Gärten, garantierter Saatbeutel.
+- 52.0 Planung/Spezifikation Psychedelicraft-Port (eigene Sitzung).

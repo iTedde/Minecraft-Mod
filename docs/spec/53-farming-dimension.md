@@ -113,6 +113,37 @@ in die Welt.
   gelten nur fürs Wachsen; ausgewachsen gesetzt sind sie trotzdem erntbar. Für Ferru/Aurelia wird *zusätzlich* der
   passende Erzblock unter den Ackerboden gesetzt, damit man ihr Verhalten sieht (*Vorschlag*).
 
+### 3.5 Umsetzung (53.2)
+
+Festgelegt beim Umsetzen (Entscheidungen aus §7):
+
+- **Reihenfolge der Untergründe:** Grasblock **vor** Ackerboden – sonst stünden alle Blumen, Setzlinge und Pilze auf
+  Ackerboden (Vanilla-`BushBlock` erlaubt ihn). Feldfrüchte (`CropBlock`) wachsen nur auf Ackerboden und landen
+  trotzdem dort. Ergänzt: **Moosblock** nach Podsol (Kleines Tropfblatt wächst weder auf Gras noch auf Erde). Ganze
+  Reihenfolge: Gras → Ackerboden → Sand → Seelensand → Myzel → Podsol → Moosblock → Karmesin-/Wirr-Nezel → Endstein →
+  auf Wasser → unter Wasser (Erde) → am Dschungelstamm → unter Moosdecke. Pflanzen, die von sich aus Wasser enthalten
+  (Seegras, Seetang, Meeresgurke, Reis …), versuchen „unter Wasser“ zuerst.
+- **Jeder Untergrund erst trocken, dann mit Wasser daneben** (Zuckerrohr): solche Beete bekommen eine mit Seerosen
+  abgedeckte Wasserreihe in der Mitte, gepflanzt wird in den beiden Nachbarreihen.
+- **Probe:** `FarmingProbe`, eine leere, voll beleuchtete Mini-Welt (`LevelReader`), fragt `canSurvive` ab. Dieselbe
+  Probe ermittelt, ob die Pflanze neben sich selbst stehen kann (sonst nur jedes zweite Feld, z. B. Kaktus), und ob sie
+  auf sich selbst wächst (dann 3 hoch: Zuckerrohr, Kaktus, Bambus).
+- **Blöcke mit Block-Entity** werden ausgelassen (Forestry-Setzlinge mit Genom u. Ä.), außer sie stehen in
+  `#craft:farming_extra`. Ausgelassenes steht im Log („Farming dimension: left out …“).
+- **Ausgewachsen:** höchstes `age` (bei `CropBlock` über `getMaxAge`), Leuchtbeeren mit Beeren; Zuckerrohr, Kaktus,
+  Bambus, Ranken, Chorusblüte und Mangroven-Keimling bleiben im Grundzustand (ihr `age` ist ein Wachstumszähler bzw.
+  „abgestorben“).
+- **Beet-Formen:** Ackerboden mit Wasser + Seerose in der Mitte (24 Pflanzen); Melone/Kürbis als angewachsener Stängel
+  + Frucht in den Spalten 1–2 und 4–5; Seerose auf einem 5×5-Becken; Wasserpflanzen im 1 tiefen Becken; Kakao an einer
+  3 hohen Dschungelstamm-Säule in der Mitte (12 Schoten); hängende Pflanzen unter einer Moosdecke auf 4 Eckpfeilern
+  aus Moosblock; doppelt hohe Pflanzen mit beiden Hälften.
+- **Raster:** Garten-Ursprung bei x = z = 0; Beet-Ecke (Schild) bei x, z ≡ 0 (mod 7). Schild: Eichenschild, gewachst,
+  Pflanzenname (Item-Name, übersetzt beim Spieler) vorne und hinten in Zeile 2.
+- **Gartenraster als `Feature`** (`craft:farming_gardens`, Schritt Vegetation, nur im Biom `craft:farming`); jede
+  Spalte wird nur aus ihren eigenen Koordinaten gefüllt, Chunks passen in jeder Reihenfolge zusammen.
+- **Ausgangsportal** in der Farming-Welt: auf der nächsten Weglinie (x bzw. z ≡ 0 mod 7) quer zur Portalachse, auf
+  Höhe 65 (Rahmen ersetzt den Weg).
+
 ## 4. Portal
 
 Wie das Mining-Portal (`spec/18` §4: Rahmenform, Zünden mit Feuerzeug/Feuerkugel, 80 Ticks, POI-Suche im Umkreis 16,
@@ -140,7 +171,7 @@ kopieren.
 |---|---|
 | 53.0 | diese Spezifikation |
 | 53.1 | Dimension, Biom, Gelände, Portal (Mining-Portal verallgemeinert), GameTests – **erledigt** |
-| 53.2 | Pflanzenliste, Untergrund-Ermittlung, Gartenraster (Feature), Schilder, Log |
+| 53.2 | Pflanzenliste, Untergrund-Ermittlung, Gartenraster (Feature), Schilder, Log – **erledigt** (Client offen) |
 | 53.3 | IC2-Crops in den Gärten, garantierter Saatbeutel |
 | 53.4 | Wiki, EMI, Herkunft, Testplan, Craft-Version + Paket |
 

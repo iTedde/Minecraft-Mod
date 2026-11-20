@@ -59,11 +59,15 @@ public final class CraftWorldGen {
     public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_URANIUM_CONFIGURED = configuredKey("ore_uranium");
     public static final ResourceKey<ConfiguredFeature<?, ?>> RUBBER_TREE_CONFIGURED = configuredKey("rubber_tree");
     public static final ResourceKey<ConfiguredFeature<?, ?>> OIL_CONFIGURED = configuredKey("oil");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> FARMING_GARDENS_CONFIGURED =
+            configuredKey("farming_gardens");
     public static final ResourceKey<PlacedFeature> ORE_TIN = placedKey("ore_tin");
     public static final ResourceKey<PlacedFeature> ORE_COPPER = placedKey("ore_copper");
     public static final ResourceKey<PlacedFeature> ORE_URANIUM = placedKey("ore_uranium");
     public static final ResourceKey<PlacedFeature> RUBBER_TREE = placedKey("rubber_tree");
     public static final ResourceKey<PlacedFeature> OIL = placedKey("oil");
+    /** Garden grid of the farming dimension (spec 53 §3.3), only in its biome. */
+    public static final ResourceKey<PlacedFeature> FARMING_GARDENS = placedKey("farming_gardens");
     public static final ResourceKey<BiomeModifier> ADD_ORES = modifierKey("add_ores");
     public static final ResourceKey<BiomeModifier> REMOVE_VANILLA_COPPER = modifierKey("remove_vanilla_copper");
     public static final ResourceKey<BiomeModifier> ADD_RUBBER_TREES = modifierKey("add_rubber_trees");
@@ -131,6 +135,8 @@ public final class CraftWorldGen {
                 OreConfiguration.target(deepslate, Ic2Blocks.DEEPSLATE_URANIUM_ORE.get().defaultBlockState())), 3));
         register(context, RUBBER_TREE_CONFIGURED, Ic2Features.RUBBER_TREE.get(), NoneFeatureConfiguration.INSTANCE);
         register(context, OIL_CONFIGURED, BcFeatures.OIL.get(), NoneFeatureConfiguration.INSTANCE);
+        register(context, FARMING_GARDENS_CONFIGURED, dev.craft.mining.MiningBlocks.FARMING_GARDENS.get(),
+                NoneFeatureConfiguration.INSTANCE);
         register(context, GT_GALENA_CONFIGURED, Feature.ORE, new OreConfiguration(gtTargets(GtOre.GALENA), 16));
         register(context, GT_IRIDIUM_CONFIGURED, Feature.REPLACE_SINGLE_BLOCK,
                 new ReplaceBlockConfiguration(gtTargets(GtOre.IRIDIUM)));
@@ -183,6 +189,8 @@ public final class CraftWorldGen {
                         VerticalAnchor.absolute(64))));
         context.register(RUBBER_TREE, new PlacedFeature(configured.getOrThrow(RUBBER_TREE_CONFIGURED), List.of()));
         context.register(OIL, new PlacedFeature(configured.getOrThrow(OIL_CONFIGURED), List.of()));
+        context.register(FARMING_GARDENS,
+                new PlacedFeature(configured.getOrThrow(FARMING_GARDENS_CONFIGURED), List.of(BiomeFilter.biome())));
         // GT_Worldgenerator.generateSurface: galena 1 vein y = rand(32); iridium rand(100) < 20, y = rand(99);
         // ruby/sapphire 8 blocks y = rand(32), bauxite 2 veins y = 32 + rand(48), by the biome at chunk + 8.
         registerOre(context, GT_GALENA, configured.getOrThrow(GT_GALENA_CONFIGURED), List.of(

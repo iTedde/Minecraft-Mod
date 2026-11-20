@@ -7,7 +7,20 @@
     "water_color": 4159204,
     "water_fog_color": 329011
   },
-  "features": [],
+  "features": [
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [
+      "craft:farming_gardens"
+    ]
+  ],
   "has_precipitation": false,
   "spawn_costs": {},
   "spawners": {

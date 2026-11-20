@@ -84,6 +84,8 @@ public final class CraftBlockTagsProvider extends BlockTagsProvider {
     @Override
     protected void addTags(HolderLookup.Provider provider) {
         tag(Ic2Explosion.WHITELIST).add(Blocks.BEDROCK);
+        tag(dev.craft.mining.FarmingPlants.EXTRA);
+        tag(dev.craft.mining.FarmingPlants.EXCLUDED);
         for (Ic2Machine machine : Ic2Machine.values()) {
             tag(BlockTags.MINEABLE_WITH_PICKAXE).add(Ic2Blocks.machine(machine).get());
         }

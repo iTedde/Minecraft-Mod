@@ -42,7 +42,10 @@ public final class CraftPortalForcer {
     public static Optional<BlockUtil.FoundRectangle> createPortal(PortalLink link, ServerLevel level, BlockPos pos,
                                                                 Direction.Axis axis) {
         Direction along = Direction.get(Direction.AxisDirection.POSITIVE, axis);
-        BlockPos corner = findFreeSpot(level, pos, along);
+        BlockPos corner = link.exit().corner(level, pos, axis);
+        if (corner == null) {
+            corner = findFreeSpot(level, pos, along);
+        }
         if (corner == null) {
             int top = Math.min(level.getMaxBuildHeight(), level.getMinBuildHeight() + level.getLogicalHeight()) - 1;
             int minY = Math.max(level.getMinBuildHeight() + 1, 70);
