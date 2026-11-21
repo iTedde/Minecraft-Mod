@@ -4938,5 +4938,9 @@ psychedelicraft:entity.player.heartbeat`).
 - CurseForge entfernt fremde Ordner in der Instanz (`mods-backup` verschwand zweimal) – Sicherungen außerhalb ablegen.
 - Nicht im Client geprüft (Nutzer spielte gerade; Änderung wirkt beim nächsten Start).
 
+- [x] Nutzer: „Distant horizon soll noch raus, dauerhaft“ → Distant Horizons (508933) aus dem Manifest von 1.3.2
+  (118 Mods) und aus der Instanz entfernt (Jar in `X:\Craft\mod-backup`). Kommt in keine künftigen Pakete mehr
+  (in `CLAUDE.md` vermerkt).
+
 ## Nächste Schritte
 - Nutzer startet die Instanz neu.
