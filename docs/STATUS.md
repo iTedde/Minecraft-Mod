@@ -4932,5 +4932,11 @@ psychedelicraft:entity.player.heartbeat`).
   in der Instanz nach `mods-backup` verschoben. Factory Routing hängt nur optional davon ab.
 - Nicht im Client geprüft.
 
+- [x] Nutzer: „Klappt jetzt, Factory Controler wieder rein, das andere dann raus“ → im Paket 1.3.2 Factory Controller
+  (1573767, Datei 9224923) wieder im Manifest, **Create Factory Logistics** (1218807) entfernt (weiter 119 Mods).
+  Nichts hängt von Factory Logistics ab. In der Instanz ebenso getauscht (Factory-Logistics-Jar in `X:\Craft\mod-backup`).
+- CurseForge entfernt fremde Ordner in der Instanz (`mods-backup` verschwand zweimal) – Sicherungen außerhalb ablegen.
+- Nicht im Client geprüft (Nutzer spielte gerade; Änderung wirkt beim nächsten Start).
+
 ## Nächste Schritte
-- Nutzer startet die Instanz; weitere Abstürze anhand der Crash-Reports beheben.
+- Nutzer startet die Instanz neu.
