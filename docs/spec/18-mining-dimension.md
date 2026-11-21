@@ -125,9 +125,10 @@ Oberwelt ↔ `craft:mining`, Koordinaten **1:1**.
 
 - Datapack-Einträge per Datagen (`DatapackBuiltinEntriesProvider`): `dimension_type`, `worldgen/noise_settings`,
   `worldgen/biome`, `dimension` (`craft:mining` mit `fixed`-Biomquelle) – neue Datagen-Klasse für das Mining-Paket.
-- Paket `dev.craft.mining` (neue Inhalte, kein Ursprungs-Mod): `MiningDimension` (Keys), `MiningPortalBlock`
-  (implementiert `net.minecraft.world.level.block.Portal`), `MiningPortalShape` (Rahmenprüfung nach dem Muster von
-  `PortalShape`, aber eigener Code), `MiningPortalForcer`, POI-Registrierung; Zünden über
+- Paket `dev.craft.mining` (neue Inhalte, kein Ursprungs-Mod): `MiningDimension` (Keys), seit Phase 53.1
+  verallgemeinert für mehrere Portale: `PortalLink` (Rahmenblock, Portalblock, POI, Ziel-Dimension), `CraftPortalBlock`
+  (implementiert `net.minecraft.world.level.block.Portal`), `CraftPortalShape` (Rahmenprüfung nach dem Muster von
+  `PortalShape`, aber eigener Code), `CraftPortalForcer`, POI-Registrierung; Zünden über
   `BlockEvent.NeighborNotifyEvent` (jedes gesetzte Feuer in Oberwelt/Mining-Dimension prüft den Rahmen).
 - Lang (de/en): „Mining-Portal“ / „Mining Portal“, Dimension „Mining-Welt“ / „Mining World“.
 - Abweichungen (`docs/abweichungen.md`): Mining-Dimension und CC: Tweaked als neue Inhalte ohne Pack-Vorbild.

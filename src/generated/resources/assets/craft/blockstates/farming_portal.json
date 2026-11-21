@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "craft:block/farming_portal_ns"
+    },
+    "axis=z": {
+      "model": "craft:block/farming_portal_ew"
+    }
+  }
+}

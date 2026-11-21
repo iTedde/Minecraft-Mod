@@ -91,7 +91,7 @@ Fass (Brauen), Crops (Basissaaten → Sorte, Ernte als Infoseite), Terraformer-B
 | 12.7a | Crops Grundgerüst: Crop-Stab, Umwelt/Wachstum/Kreuzung/Ernte, Saatbeutel, Pflege-Items, Cropnalyzer, Weed |
 | 12.7b | alle übrigen Crop-Sorten |
 | 12.7c | Crop-Matron |
-| 12.8 | Kaffee, Hopfen, Fass, Bier/Rum |
+| 12.8 | Kaffee, Hopfen, Fass, Bier/Rum (Kaffee seit Phase 37 Sättigung statt Tempo, `spec/37` §3.7) |
 | 12.9 | Dynamit, Klebedynamit, Dynamit-Block, Fernzünder |
 | 12.10 | GT-Änderungen §3, Testplan ergänzen, Abschluss |
 

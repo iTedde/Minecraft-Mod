@@ -29,8 +29,8 @@ import org.jetbrains.annotations.Nullable;
  * Water turbine (spec 14 §5): a full 3×3×3 cube of water turbine casings, the controller in the middle of one side.
  * Counts the flowing (non-source) water around and above the cube every {@link #COUNT_INTERVAL} ticks – up to
  * {@link #AREA_RADIUS} blocks out from every side face and from the bottom layer up to {@link #AREA_HEIGHT} blocks
- * above the top layer, the cube itself excluded – and produces 0.25 EU/t per flowing block from {@link #MIN_FLOWING} blocks on (× 1.5 in river biomes, at most 32 EU/t),
- * emitted from the controller and every casing block in packets of up to 32 EU (LV). No menu; right-clicking
+ * above the top layer, the cube itself excluded – and produces 0.25 EU/t per flowing block from {@link #MIN_FLOWING} blocks on (× 1.5 in river biomes, at most 32 EU/t, 48 EU/t in
+ * rivers – spec 32 §3), emitted from the controller and every casing block in packets of up to 32 EU (LV). No menu; right-clicking
  * reports the state in chat. The large turbine only changes the values ({@link WaterTurbineTier}).
  */
 public class WaterTurbineBlockEntity extends PlantControllerBlockEntity implements EnergySource, OutputReadout {
@@ -44,13 +44,13 @@ public class WaterTurbineBlockEntity extends PlantControllerBlockEntity implemen
     public static final double YIELD_PER_BLOCK = 0.25;
     public static final double RIVER_FACTOR = 1.5;
     public static final int MAX_OUTPUT = 32;
-    /** Accumulated EU are capped here so fractions carry over without piling up. */
-    public static final int BUFFER_CAPACITY = 2 * MAX_OUTPUT;
 
     private int ticker = -1;
     private int flowing;
     /** EU/t from the last water count. */
     private double flow;
+    /** River biome at the controller, from the last water count. */
+    private boolean river;
     private double buffer;
     private final OutputMeter outputMeter = new OutputMeter();
 
@@ -74,6 +74,13 @@ public class WaterTurbineBlockEntity extends PlantControllerBlockEntity implemen
 
     public int getFlowing() {
         return flowing;
+    }
+
+    /** GameTests: a given output as if counted in or outside a river (test biomes are never rivers). */
+    public void setFlowForTest(double flow, boolean river) {
+        this.flow = flow;
+        this.river = river;
+        ticker = 1;
     }
 
     public double getFlow() {
@@ -111,7 +118,8 @@ public class WaterTurbineBlockEntity extends PlantControllerBlockEntity implemen
             }
         }
         flowing = count;
-        flow = tier.output(count, isInRiver());
+        river = isInRiver();
+        flow = tier.output(count, river);
         setChanged();
     }
 
@@ -133,9 +141,15 @@ public class WaterTurbineBlockEntity extends PlantControllerBlockEntity implemen
         double bufferBefore = buffer;
         buffer = Math.min(buffer + flow, tier.bufferCapacity());
         outputMeter.record(level, buffer - bufferBefore);
-        int output = Math.min((int) buffer, tier.maxOutput());
-        if (output > 0) {
-            buffer += EnergyNets.emit(level, this, output) - output;
+        int output = Math.min((int) buffer, tier.maxOutput(river));
+        while (output > 0) {
+            int packet = Math.min(output, tier.packetSize());
+            int rest = EnergyNets.emit(level, this, packet);
+            buffer -= packet - rest;
+            output -= packet;
+            if (rest > 0) {
+                break;
+            }
         }
         setActive(flow > 0);
         setChanged();
@@ -198,7 +212,7 @@ public class WaterTurbineBlockEntity extends PlantControllerBlockEntity implemen
 
     @Override
     public int getMaxEnergyOutput() {
-        return getTier().maxOutput();
+        return getTier().packetSize();
     }
 
     @Override
@@ -206,6 +220,7 @@ public class WaterTurbineBlockEntity extends PlantControllerBlockEntity implemen
         super.loadAdditional(tag, registries);
         flowing = tag.getInt("flowing");
         flow = tag.getDouble("flow");
+        river = tag.getBoolean("river");
         buffer = tag.getDouble("buffer");
     }
 
@@ -214,6 +229,7 @@ public class WaterTurbineBlockEntity extends PlantControllerBlockEntity implemen
         super.saveAdditional(tag, registries);
         tag.putInt("flowing", flowing);
         tag.putDouble("flow", flow);
+        tag.putBoolean("river", river);
         tag.putDouble("buffer", buffer);
     }
 

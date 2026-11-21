@@ -1,0 +1,6 @@
+{
+  "parent": "psychedelicraft:block/lattice_template",
+  "textures": {
+    "lattice": "psychedelicraft:block/lattice"
+  }
+}

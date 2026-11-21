@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "tag": "c:ingots/refined_iron"
+    },
+    "D": {
+      "item": "craft:advanced_circuit"
+    },
+    "x": {
+      "item": "craft:force_energy_crystal"
+    }
+  },
+  "pattern": [
+    "AAA",
+    "AxA",
+    "ADA"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:forcicium_cell"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "#": {
+      "item": "craft:mfe"
+    },
+    "*": {
+      "item": "craft:electronic_circuit"
+    },
+    "W": {
+      "item": "craft:electric_wrench"
+    }
+  },
+  "pattern": [
+    "W",
+    "*",
+    "#"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:crystalizor_upgrade_kit"
+  }
+}

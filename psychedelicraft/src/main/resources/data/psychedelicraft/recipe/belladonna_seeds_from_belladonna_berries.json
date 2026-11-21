@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "seeds",
+  "ingredients": [
+    {
+      "item": "psychedelicraft:belladonna_berries"
+    }
+  ],
+  "result": {
+    "count": 6,
+    "id": "psychedelicraft:belladonna_seeds"
+  }
+}

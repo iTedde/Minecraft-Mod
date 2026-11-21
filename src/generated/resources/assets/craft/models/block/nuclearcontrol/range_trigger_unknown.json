@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "craft:block/nuclearcontrol/remote_thermal_monitor_side",
+    "east": "craft:block/nuclearcontrol/remote_thermal_monitor_side",
+    "north": "craft:block/nuclearcontrol/range_trigger_unknown",
+    "particle": "craft:block/nuclearcontrol/remote_thermal_monitor_side",
+    "south": "craft:block/nuclearcontrol/remote_thermal_monitor_back",
+    "up": "craft:block/nuclearcontrol/remote_thermal_monitor_side",
+    "west": "craft:block/nuclearcontrol/remote_thermal_monitor_side"
+  }
+}

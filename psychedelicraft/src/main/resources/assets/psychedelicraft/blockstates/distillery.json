@@ -1,0 +1,45 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "psychedelicraft:block/distillery"
+      }
+    },
+    {
+      "apply": {
+        "model": "psychedelicraft:block/distillery_condenser",
+        "y": 270
+      },
+      "when": {
+        "facing": "east"
+      }
+    },
+    {
+      "apply": {
+        "model": "psychedelicraft:block/distillery_condenser",
+        "y": 180
+      },
+      "when": {
+        "facing": "north"
+      }
+    },
+    {
+      "apply": {
+        "model": "psychedelicraft:block/distillery_condenser",
+        "y": 0
+      },
+      "when": {
+        "facing": "south"
+      }
+    },
+    {
+      "apply": {
+        "model": "psychedelicraft:block/distillery_condenser",
+        "y": 90
+      },
+      "when": {
+        "facing": "west"
+      }
+    }
+  ]
+}

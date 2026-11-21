@@ -43,6 +43,25 @@ Vanilla-Klassen/-Felder tragen lesbare Namen (`Block.cobblestone`, `Item.redston
 | `25-advanced-machines.md` | Advanced Machines 4.7b: Rotations-Macerator, Singularitätskompressor, Zentrifugalextraktor, Raffinierter Eisenstaub (Phase 24) |
 | `26-thermal-expansion.md` | Thermal Expansion 2.2.2.2: Entscheidungen, Inhalt, Materialzuordnung, Silber-/Blei-/Nickelerz, Maschinenbasis (MJ), Rezepte, Energie/Transport, Teilphasen (Phase 25) |
 | `27-enderstorage.md` | EnderStorage 1.4.1.5: Ender Chest, Ender Pouch, Ender Tank mit 3-Farben-Frequenz und persönlichem Schloss, Rezepte, Teilphasen (Phase 26) |
+| `28-gravisuite.md` | GraviSuite 1.8: Gravitations-Brustplatte, Fortg./Ultimatives LapPack, Fortg. Jetpack, Fortg. Nano-Brustplatte, Ultimativer Solarhelm, Vajra, GraviTool, Fortg. Bohrer/Kettensäge, Bauteile, Rezepte, Teilphasen (Phase 27) |
+| `29-modular-powersuits.md` | Modular Powersuits 0.3.2: Power-Rüstung + Power Tool, Tinker Table, 18 Bauteile, 35 Module mit Pack-Werten, Energie in Joule (50 J/EU), Bewegung/Umwelt/Werkzeug, Rezepte (im Pack baubar), Entscheidungen, Teilphasen (Phase 28) |
+| `30-leuchtschild.md` | Elektrischer Leuchtschild (neuer Inhalt): EU-Schild, folgendes Licht über unsichtbaren Lichtblock, Ein/Aus per Modus-Taste, Verzauberungen auf Energie, Rezept – Vorschlag zur Freigabe (Phase 30) |
+| `31-verteilerrohr.md` | Verteiler-Transportrohr (neuer Inhalt): Item-Rohr mit Prozentwert je Seite, exakte Aufteilung, Stapel werden geteilt, GUI, Rezept – freigegeben 2026-10-26 (Phase 31) |
+| `32-kraftwerke-ausgleich.md` | Ausgleich der Großkraftwerke (gleiche Preis-Leistung, Wind knapp über MV und am billigsten) und Fluss-Bonus ×1,5 auf den Deckel der Wasserturbinen – freigegeben 2026-10-26 (Phase 32) |
+| `33-fe-producer.md` | FE Producer (neuer Inhalt): Power-Converters-Bauteil EU → FE (1 EU = 4 FE) für AE2 & Co., Push + Pull über die NeoForge-Capability, Rezept – freigegeben 2026-10-26 (Phase 33) |
+| `34-grosser-projekttisch.md` | Großer Projekttisch (neuer Inhalt): teurerer Projekttisch mit 27 Vorratsplätzen wie eine Holztruhe, sonst wie der Projekttisch – freigegeben 2026-10-27 (Phase 34) |
+| `35-kupfergolem.md` | Kupfergolem (Nachbau aus MC 1.21.9): holt aus der Iron-Chest-Kupferkiste (neu mit Oxidation) und sortiert in Iron Chests, Truhen und Fässer im Bereich ±32, ohne Statue – freigegeben 2026-10-29 (Phase 35) |
+| `37-kein-tempo.md` | Nichts macht mehr schneller: Deckel auf Sprinttempo für Quanten-, Gravi-, Jetpack- und MPS-Bewegung, Kaffee ohne Tempo, Ausgleich je Teil – freigegeben 2026-10-29 (Phase 37) |
+| `39-zusatzmods.md` | Zusatzmods im Paket (Forgematica, Armor Stand Arms, Subtle Effects, Particle Rain, Pick Up Notifier, Enhanced Player List) und Spalte „abgebaute Blöcke“ in der EPL-Tab-Liste (Phase 39) |
+| `42-farbroller-alle-bloecke.md` | Farbroller färbt alle Baublöcke: echte Vanilla-Farbvarianten tauschen, sonst volle Blöcke tönen (Drop = Original) – verworfen 2026-11-06, stattdessen Chisel Reborn (Phase 42) |
+| `43-oml-eu.md` | EU-Eingang für die elektrischen Lichter von Open Modular Lighting: 1 EU = 1 FE, LV (über 32 EU explodiert), FE bleibt; Kabel verbinden sich (Phase 43) |
+| `45-fe-eu-eingang.md` | EU-Eingang für Ad-Astra-Maschinen und AE2 (Controller, Energieakzeptor, Auflader, Prägepresse …): 1 EU = 4 FE, LV mit Explosion, ohne Speicher/Kabel (Phase 45) |
+| `46-nuclear-control.md` | IC2 Nuclear Control 1.4.5: Thermomonitore, Alarme, Infotafel mit Karten, Energie-/Durchschnittszähler, Bereichsauslöser, GT-Sensorkit (Phase 46) |
+| `47-chargepads.md` | Charge Pads 2.4.1: drei Ladepads (Static/Crystalizor/Lapotronic) laden Elektro-Items im Stehen, Upgrades, Emitter-Module, Ausbausätze, Zaps (Phase 47) |
+| `48-mffs.md` | Modular ForceField System 2.2.8.3.6: Monazit/Forcicium, Kraftenergie (Extraktor, Kondensator, Konverter), Projektor mit 8 Feldformen und 9 Upgrades, Kraftfeld, Sicherheitssystem (Station, Karten, Rechte), Verteidigungsstation, Multiwerkzeug (Phase 48) |
+| `52-psychedelicraft.md` | Port von Psychedelicraft (Fabric, MIT) nach NeoForge 1.21.1 als eigene Mod im Unterordner `psychedelicraft/`: Vorlage, Ersatz der Fabric-Bibliotheken, Teilpakete 52.1–52.6, Kater-Ausbau, Zusammenspiel mit Craft – freigegeben 2026-11-20 (Phase 52) |
+| `53-farming-dimension.md` | Farming-Welt: eigene Dimension mit Portal (Bemooster Bruchstein), in der **alle** Pflanzen aller Mods (auch IC2-Crops) in einem festen Gartenraster wachsen – freigegeben 2026-11-20 (Phase 53) |
+| `38-solarfeld-leitung.md` | Solarpanels leiten verlustfrei untereinander (nur von Panels), ein Kabel an einem Feld sammelt alles – freigegeben 2026-10-29 (Phase 38) |
 
 Ergänzend: `docs/balancing.md` (Vorschlag, nicht freigegeben), `docs/abweichungen.md`.
 

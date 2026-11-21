@@ -24,6 +24,7 @@ DOCS = os.path.join(MOD, 'docs')
 ASSETS_MAIN = os.path.join(MOD, 'src', 'main', 'resources', 'assets', 'craft')
 ASSETS_GEN = os.path.join(MOD, 'src', 'generated', 'resources', 'assets', 'craft')
 JAVA = os.path.join(MOD, 'src', 'main', 'java', 'dev', 'craft')
+PS_ASSETS = os.path.join(MOD, 'psychedelicraft', 'src', 'main', 'resources', 'assets', 'psychedelicraft')
 VANILLA_JAR = os.path.join(MOD, 'build', 'moddev', 'artifacts',
                            'neoforge-21.1.259-client-extra-aka-minecraft-resources.jar')
 EN_NAMES = '--en-names' in sys.argv
@@ -47,7 +48,8 @@ SOURCES = {k[7:].replace('.', ':', 1): v for k, v in LANG_DE.items() if k.starts
 WIKI_NOTES = {
     'craft:booze_mug': 'Steinkrug per Rechtsklick an einem Fass mit fertigem Bier oder Rum füllen.',
     'craft:crop_seed_bag': 'Gewachsene Pflanze auf einem Crop-Stab pflücken (Linksklick) → mit etwas Glück ein Saatbeutel; '
-                           'im Cropnalyzer auswerten. Nicht im Kreativ-Inventar (wie IC2).',
+                           'in der Farming-Welt gibt jede wilde IC2-Pflanze beim ersten Pflücken sicher einen. '
+                           'Im Cropnalyzer auswerten. Nicht im Kreativ-Inventar (wie IC2).',
     'craft:construction_foam_wall': 'Entsteht, wenn gesetzter Bauschaum aushärtet; lässt sich mit Farbstoff einfärben. Kein Item.',
     'craft:dynamite_stick': 'Gesetztes Dynamit (Block). Das Item heißt Dynamit und wird in der Werkbank hergestellt.',
     'craft:dynamite_stick_with_remote': 'Gesetztes Dynamit, das mit einem Fernzünder verbunden ist (Block).',
@@ -55,7 +57,10 @@ WIKI_NOTES = {
     'craft:ic2_mining_tip': 'Spitze des Bergbaurohrs, die Miner und IC2-Pumpe setzen; droppt ein Bergbaurohr. Kein Item.',
     'craft:mining_pipe': 'Rohr der Mining Well und der BuildCraft-Pumpe; wird von ihnen gesetzt und droppt nichts.',
     'craft:mining_portal': 'Portalfläche: Rahmen aus Glattem Stein bauen und mit dem Feuerzeug zünden.',
+    'craft:farming_portal': 'Portalfläche: Rahmen aus Bemoostem Bruchstein bauen und mit dem Feuerzeug zünden.',
     'craft:nightvision_goggles': 'Kein Rezept – auch im Pack nicht (IC2 1.115 hat keins). Nur im Kreativmodus.',
+    'craft:component_carbon_myofiber': 'Kein Rezept und keine Verwendung – auch im Pack nicht (Modular Powersuits 0.3.2). Nur im Kreativmodus.',
+    'craft:component_myofiber_gel': 'Kein Rezept und keine Verwendung – auch im Pack nicht (Modular Powersuits 0.3.2). Nur im Kreativmodus.',
     'craft:plan': 'Projekttisch: Rezept auslegen, leeren Bauplan einlegen und den Bauplan entnehmen.',
     'craft:resin_sheet': 'Harz per Rechtsklick auf die Oberseite eines festen Blocks setzen. Kein eigenes Item.',
     'craft:water': 'Anzeige-Item für Wasser im Tank des Elektrolyseurs; nicht erhältlich.',
@@ -63,10 +68,20 @@ WIKI_NOTES = {
 }
 
 GROUPS = [
+    ('secretrooms', 'Secret Rooms'),
+    ('gravitygun', 'Kleinkram'),
+    ('obsidiplates', 'Kleinkram'),
+    ('omnitools', 'Kleinkram'),
+    ('mffs', 'MFFS'),
+    ('chargepads', 'ChargePads'),
+    ('nuclearcontrol', 'Nuclear Control'),
+    ('mps', 'Modular Powersuits'),
+    ('gravisuite', 'GraviSuite'),
     ('enderstorage', 'EnderStorage'),
     ('thermalexpansion', 'Thermal Expansion'),
     ('advancedmachines', 'Advanced Machines'),
     ('ironchest', 'Iron Chests'),
+    ('lightshield', 'Leuchtschild (neu)'),
     ('powerplants', 'Kraftwerke (neu)'),
     ('mining', 'Mining-Dimension (neu)'),
     ('compactsolars', 'Compact Solars'),
@@ -77,13 +92,13 @@ GROUPS = [
     ('ic2', 'IndustrialCraft 2'),
 ]
 GROUP_ORDER = ['IndustrialCraft 2', 'GregTech', 'BuildCraft', 'Forestry', 'Power Converters',
-               'Compact Solars', 'Kraftwerke (neu)', 'Mining-Dimension (neu)', 'Iron Chests', 'Advanced Machines',
-               'Thermal Expansion', 'EnderStorage',
+               'Compact Solars', 'Kraftwerke (neu)', 'Mining-Dimension (neu)', 'Leuchtschild (neu)', 'Iron Chests', 'Advanced Machines',
+               'Thermal Expansion', 'EnderStorage', 'GraviSuite', 'Modular Powersuits', 'Nuclear Control', 'ChargePads', 'MFFS', 'Kleinkram', 'Secret Rooms',
                'Sonstiges']
 
 # items whose behaviour was changed on purpose or which are new content
 CHANGED = {
-    'lv_solar_array': 'solar-arrays', 'mv_solar_array': 'solar-arrays', 'hv_solar_array': 'solar-arrays',
+    'solar_panel': 'solar-arrays', 'lv_solar_array': 'solar-arrays', 'mv_solar_array': 'solar-arrays', 'hv_solar_array': 'solar-arrays',
     'water_mill': 'wassermuehle', 'wind_mill': 'windmuehle',
 }
 NEW_PAGES = {
@@ -92,6 +107,8 @@ NEW_PAGES = {
     'turbine_casing': 'kohlekraftwerk', 'turbine_rotor': 'kohlekraftwerk',
     'water_turbine': 'wasserturbine', 'water_turbine_casing': 'wasserturbine',
     'mining_portal': 'mining-dimension',
+    'farming_portal': 'farming-dimension',
+    'electric_light_shield': 'leuchtschild',
 }
 
 
@@ -101,7 +118,7 @@ GUIDE_PAGES = {
     'oil': 'quarry', 'oil_bucket': 'quarry', 'fuel_bucket': 'quarry', 'bc_wrench': 'quarry',
     'nuclear_reactor': 'reaktor', 'reactor_chamber': 'reaktor',
     'electrical_engine': 'umwandlung', 'energy_bridge': 'umwandlung', 'universal_charger': 'umwandlung',
-    'bc_consumer': 'umwandlung', 'bc_producer': 'umwandlung',
+    'bc_consumer': 'umwandlung', 'bc_producer': 'umwandlung', 'fe_producer': 'umwandlung',
     'electric_furnace': 'ic2-maschinen', 'macerator': 'ic2-maschinen', 'extractor': 'ic2-maschinen',
     'compressor': 'ic2-maschinen', 'recycler': 'ic2-maschinen', 'overclocker_upgrade': 'ic2-maschinen',
     'transformer_upgrade': 'ic2-maschinen', 'energy_storage_upgrade': 'ic2-maschinen',
@@ -136,6 +153,9 @@ def registry_texts():
 
 
 SUFFIX_GROUPS = [
+    (r'^projector_(module|upgrade)_', 'MFFS'),
+    (r'^(drain_conversion|damage_conversion|armour_priority|proximity_booster|wide_band_booster|field_expansion)_module', 'ChargePads'),
+    (r'^component_', 'Modular Powersuits'),
     (r'_chest$|^(iron|gold|copper|silver|wood|diamond)_[a-z]+_upgrade$', 'Iron Chests'),
     (r'_electron_tube$|circuit_board$|^soldering|^sturdy', 'Forestry'),
     (r'_pipe$|^pipe_|engine$|^landmark|_gear$', 'BuildCraft'),
@@ -184,6 +204,12 @@ def load_res(ns, kind, path):
             if os.path.exists(p):
                 with open(p, 'rb') as f:
                     return f.read()
+        return None
+    if ns == 'psychedelicraft':  # separate port mod in the same repo (phase 52)
+        p = os.path.join(PS_ASSETS, kind, *path.split('/')) + ext
+        if os.path.exists(p):
+            with open(p, 'rb') as f:
+                return f.read()
         return None
     if VJAR is None:
         return None
@@ -260,9 +286,33 @@ def png_data_uri(ns, tpath):
     return 'data:image/png;base64,' + base64.b64encode(buf.getvalue()).decode()
 
 
+# items rendered from an entity model (builtin/entity): (texture, crop box of the front face)
+ENTITY_ICONS = {
+    'craft:electric_light_shield': ('entity/electric_light_shield', (1, 1, 13, 23)),  # vanilla shield plate
+}
+
+
+def entity_icon(ref):
+    tpath, box = ENTITY_ICONS[ref]
+    data = load_res('craft', 'textures', tpath)
+    if data is None:
+        return None
+    face = Image.open(io.BytesIO(data)).convert('RGBA').crop(box)
+    side = max(face.size)
+    img = Image.new('RGBA', (side, side))
+    img.paste(face, ((side - face.size[0]) // 2, (side - face.size[1]) // 2))
+    img = img.resize((32, 32), Image.NEAREST)
+    buf = io.BytesIO()
+    img.save(buf, 'PNG', optimize=True)
+    return 'data:image/png;base64,' + base64.b64encode(buf.getvalue()).decode()
+
+
 def icon(ref):
     """ref like 'craft:coke' or 'minecraft:brick' -> data uri or None."""
     if ref in ICON_CACHE:
+        return ICON_CACHE[ref]
+    if ref in ENTITY_ICONS:
+        ICON_CACHE[ref] = entity_icon(ref)
         return ICON_CACHE[ref]
     ns, p = split_ref(ref, 'craft')
     uri = None
@@ -588,6 +638,8 @@ def main():
     hand += content_energie.pages(sys.modules[__name__], stats)
     import content_create
     hand += content_create.pages(sys.modules[__name__], stats)
+    import content_psychedelicraft
+    hand += content_psychedelicraft.pages(sys.modules[__name__], stats)
     strom = next(p for p in hand if p['id'] == 'strom')
     hand.remove(strom)
     strom['group'] = 'Anleitungen'
@@ -623,8 +675,14 @@ def main():
     refs = {r: v for r, v in col.ref_table().items() if not (r.startswith('craft:') and r[6:] in ITEMS)}
     tags = {t: v for t, v in col.tags.items()}
     sources = {**SOURCES, **WIKI_NOTES}
+    import content_maschinen
+    machines = {ref: list(texts) for ref, texts in content_maschinen.MACHINES.items() if ref[6:] in ITEMS}
+    unknown = [ref for ref in content_maschinen.MACHINES if ref[6:] not in ITEMS]
+    if unknown:
+        print('machine texts without item:', unknown)
     if terms:
         recipe_list, refs, sources = terms.deep(recipe_list), terms.deep(refs), terms.deep(sources)
+        machines = terms.deep(machines)
     print(f'recipes: {len(recipe_list)}, foreign refs: {len(refs)}, tags: {len(tags)}')
 
     nav_groups = []
@@ -651,6 +709,7 @@ def main():
               .replace('{{RECIPES}}', json.dumps(recipe_list, ensure_ascii=False, separators=(',', ':')).replace('</', '<\\/'))
               .replace('{{REFS}}', json.dumps(refs, ensure_ascii=False, separators=(',', ':')).replace('</', '<\\/'))
               .replace('{{SOURCES}}', json.dumps(sources, ensure_ascii=False, separators=(',', ':')).replace('</', '<\\/'))
+              .replace('{{MACHINES}}', json.dumps(machines, ensure_ascii=False, separators=(',', ':')).replace('</', '<\\/'))
               .replace('{{LOGO}}', logo)
               .replace('{{BUILD}}', esc(f'Stand {glast} · Craft 0.3.0' + (' · englische Namen' if EN_NAMES else ''))))
     with open(OUT, 'w', encoding='utf-8') as f:

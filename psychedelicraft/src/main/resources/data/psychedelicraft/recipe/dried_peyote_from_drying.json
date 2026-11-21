@@ -1,0 +1,13 @@
+{
+  "type": "psychedelicraft:drying",
+  "cookingTime": 1.5,
+  "experience": 0.2,
+  "group": "peyote",
+  "ingredient": {
+    "item": "psychedelicraft:peyote"
+  },
+  "result": {
+    "count": 3,
+    "id": "psychedelicraft:dried_peyote"
+  }
+}

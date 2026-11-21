@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "craft:mps_plating_basic",
+  "key": {
+    "C": {
+      "item": "craft:component_wiring"
+    },
+    "I": {
+      "item": "minecraft:iron_ingot"
+    }
+  },
+  "pattern": [
+    "II",
+    "CI",
+    "II"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:component_plating_basic"
+  }
+}

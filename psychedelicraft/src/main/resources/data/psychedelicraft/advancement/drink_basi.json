@@ -1,0 +1,52 @@
+{
+  "parent": "psychedelicraft:wash_sugar_cane",
+  "criteria": {
+    "drink_basi": {
+      "conditions": {
+        "item": {
+          "predicates": {
+            "psychedelicraft:drink_type": {
+              "drink_name": "basi",
+              "fluids": {
+                "amount": {
+                  "min": 1
+                },
+                "fluid": [
+                  "psychedelicraft:sugar_cane"
+                ]
+              }
+            }
+          }
+        }
+      },
+      "trigger": "minecraft:consume_item"
+    }
+  },
+  "display": {
+    "background": "minecraft:textures/gui/advancements/backgrounds/stone.png",
+    "description": {
+      "translate": "advancements.psychedelicraft.drink_basi.description"
+    },
+    "icon": {
+      "components": {
+        "psychedelicraft:fluids": {
+          "attributes": {
+            "fermentation": 2
+          },
+          "fluid": "psychedelicraft:sugar_cane"
+        }
+      },
+      "count": 1,
+      "id": "psychedelicraft:wooden_mug"
+    },
+    "title": {
+      "translate": "advancements.psychedelicraft.drink_basi.title"
+    }
+  },
+  "requirements": [
+    [
+      "drink_basi"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

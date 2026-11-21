@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "psychedelicraft:item/dark_oak_barrel"
+  }
+}

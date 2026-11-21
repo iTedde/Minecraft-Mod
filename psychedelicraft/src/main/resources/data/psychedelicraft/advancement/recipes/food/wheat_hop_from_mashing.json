@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_hop_cones": {
+      "conditions": {
+        "items": [
+          {
+            "items": "psychedelicraft:hop_cones"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "psychedelicraft:wheat_hop_from_mashing"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_hop_cones"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "psychedelicraft:wheat_hop_from_mashing"
+    ]
+  }
+}

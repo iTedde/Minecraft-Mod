@@ -1,0 +1,50 @@
+{
+  "variants": {
+    "facing=down,lit=false": {
+      "model": "craft:block/nuclearcontrol/information_panel",
+      "x": 90
+    },
+    "facing=down,lit=true": {
+      "model": "craft:block/nuclearcontrol/information_panel",
+      "x": 90
+    },
+    "facing=east,lit=false": {
+      "model": "craft:block/nuclearcontrol/information_panel",
+      "y": 90
+    },
+    "facing=east,lit=true": {
+      "model": "craft:block/nuclearcontrol/information_panel",
+      "y": 90
+    },
+    "facing=north,lit=false": {
+      "model": "craft:block/nuclearcontrol/information_panel"
+    },
+    "facing=north,lit=true": {
+      "model": "craft:block/nuclearcontrol/information_panel"
+    },
+    "facing=south,lit=false": {
+      "model": "craft:block/nuclearcontrol/information_panel",
+      "y": 180
+    },
+    "facing=south,lit=true": {
+      "model": "craft:block/nuclearcontrol/information_panel",
+      "y": 180
+    },
+    "facing=up,lit=false": {
+      "model": "craft:block/nuclearcontrol/information_panel",
+      "x": 270
+    },
+    "facing=up,lit=true": {
+      "model": "craft:block/nuclearcontrol/information_panel",
+      "x": 270
+    },
+    "facing=west,lit=false": {
+      "model": "craft:block/nuclearcontrol/information_panel",
+      "y": 270
+    },
+    "facing=west,lit=true": {
+      "model": "craft:block/nuclearcontrol/information_panel",
+      "y": 270
+    }
+  }
+}

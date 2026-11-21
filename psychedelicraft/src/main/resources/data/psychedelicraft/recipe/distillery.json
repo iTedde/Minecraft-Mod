@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "#": {
+      "item": "minecraft:copper_ingot"
+    },
+    "D": {
+      "item": "psychedelicraft:flask"
+    }
+  },
+  "pattern": [
+    "##",
+    "D "
+  ],
+  "result": {
+    "count": 1,
+    "id": "psychedelicraft:distillery"
+  }
+}

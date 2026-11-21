@@ -37,6 +37,11 @@ repositories {
         url = 'https://api.modrinth.com/maven'
         content { includeGroup 'maven.modrinth' }
     }
+    maven {
+        name = 'Gegy'
+        url = 'https://maven.gegy.dev/releases/'
+        content { includeGroup 'dev.lambdaurora.lambdynamiclights' }
+    }
 }
 
 base {
@@ -144,6 +149,10 @@ dependencies {
     // EMI recipe viewer: API at compile time, full mod only in our own runs (optional dependency)
     compileOnly "dev.emi:emi-neoforge:${emi_version}:api"
     localRuntime "dev.emi:emi-neoforge:${emi_version}"
+    // LambDynamicLights: API only, light shield cone as optional dynamic light (spec 30 §3a)
+    compileOnly("dev.lambdaurora.lambdynamiclights:lambdynamiclights-api:${lambdynamiclights_version}:mojmap") {
+        transitive = false
+    }
     // Xaero's Minimap: only installed alongside in our own runs, no integration
     localRuntime "maven.modrinth:xaeros-minimap:${xaeros_minimap_version}"
     // CC: Tweaked (computers and turtles): only installed alongside in our own runs, no integration (spec 18 §5)
@@ -157,6 +166,9 @@ dependencies {
     localRuntime "maven.modrinth:architectury-api:${architectury_version}"
     localRuntime "maven.modrinth:trading-post:${tradingpost_version}"
     localRuntime "maven.modrinth:puzzles-lib:${puzzleslib_version}"
+    // Phase 39: Enhanced Player List, mixins add the "mined blocks" column (spec 39 §3); optional at runtime
+    compileOnly "maven.modrinth:enhanced-player-list:${enhancedplayerlist_version}"
+    localRuntime "maven.modrinth:enhanced-player-list:${enhancedplayerlist_version}"
 
     // Example optional mod dependency with JEI
     // The JEI API is declared for compile time use, while the full JEI artifact is used at runtime
@@ -219,5 +231,14 @@ idea {
     module {
         downloadSources = true
         downloadJavadoc = true
+    }
+}
+
+// Fresh world for every test run in an own game directory: tests share global state such as tesseract frequencies,
+// and set-ups left over from the previous run would interfere. Never touches run/.
+tasks.named('runGameTestServer') {
+    File testWorld = project.hasProperty('gameTestDir') ? file("${project.property('gameTestDir')}/world") : null
+    doFirst {
+        testWorld?.deleteDir()
     }
 }

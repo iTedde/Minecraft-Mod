@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "craft:mps_plating_advanced",
+  "key": {
+    "C": {
+      "item": "craft:component_solenoid"
+    },
+    "I": {
+      "item": "minecraft:diamond"
+    }
+  },
+  "pattern": [
+    "II",
+    "CI",
+    "II"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:component_plating_advanced"
+  }
+}

@@ -47,17 +47,61 @@ Mahlen, Waschen, Fertigungsketten …).</p>
     ['Copycats+', 'Kopierblöcke in vielen Formen (Stufen, Zäune, Platten …), die das Aussehen eines anderen Blocks übernehmen'],
     ['Mechanical Extruder', 'Erzeugt Blöcke (z. B. Bruchstein, Basalt) automatisch aus Flüssigkeiten – wie ein Bruchsteingenerator als Maschine'],
     ['Create Ore Excavation', 'Bohrt unerschöpfliche Erzvorkommen mit Drehkraft ab'],
-    ['Applied Kinetics (+ AE2)', 'Applied Energistics 2: digitales Lager; Applied Kinetics betreibt AE2-Teile mit Drehkraft'],
+    ['Applied Kinetics (+ AE2)', 'Applied Energistics 2: digitales Lager; Applied Kinetics betreibt AE2-Teile mit Drehkraft; mit Craft ab 1.2.6 nehmen Controller, Energieakzeptor, Auflader, Prägepresse, Wachstumsbeschleuniger und ME-Truhe <b>EU</b> direkt am Craft-Kabel (1 EU = 4 FE, höchstens LV)'],
     ['New Furnitures', 'Möbel im Create-Stil'],
     ['Create Better FPS (+ Sodium)', 'Leistung: schnellere Darstellung von Create-Anlagen'],
-    ['<b>Ad Astra</b>', 'Raumfahrt: Raketen, Mond, Mars und weitere Planeten, Sauerstoff, Raumanzüge (läuft mit FE-Strom)'],
+    ['<b>Ad Astra</b>', 'Raumfahrt: Raketen, Mond, Mars und weitere Planeten, Sauerstoff, Raumanzüge (läuft mit FE-Strom; mit Craft ab 1.2.6 nehmen die Maschinen auch <b>EU</b> direkt am Craft-Kabel, 1 EU = 4 FE, höchstens LV); Industrielampen leuchten mit Craft ab 1.2.1 voll (Licht 15)'],
     ['Industrial Foregoing (+ Titanium)', 'Automatisierung mit FE: Farmen, Mob-Verarbeitung, Laserbohrer'],
+    ['<b>Create: Integrated Farming</b> (+ Create: Dragons Plus)', 'Farm-Automatisierung mit Create: Pflanzen, Tiere und Fischerei in Maschinen'],
+    ['<b>Create: Protection Pixel</b>', 'Rüstungen im Steampunk-/Create-Stil aus Messing und Legierungen, einige mit Sonderfunktionen'],
+    ['<b>Sophisticated Storage Create Integration</b> (+ Sophisticated Storage/Core)', 'Sophisticated-Truhen und -Fässer auf Create-Zügen und -Contraptions nutzbar'],
+    ['<b>Create: Hypertubes</b>', 'Röhrennetz, durch das man (und Pakete) schnell durch die Welt reisen'],
+    ['Create: Additional Logistics, Create Stock Bridge', 'Neue Logistik-Blöcke (auch mit regulären Ausdrücken als Filter); Stock Bridge verbindet das Create-Lagernetz mit AE2 (ab Paket 1.2.1)'],
+    ['Create: Factory Controller', 'Alle Fabrik-Anzeigen (Factory Gauges) zentral auf einem virtuellen Dashboard verwalten (ab Paket 1.2.1)'],
+    ['Create: Ultimate Factory', 'Rund 30 zusätzliche Create-Rezepte, die mehr automatisierbar machen (ab Paket 1.2.1)'],
+    ['Create: Bits \'n\' Bobs (+ Azimuth, Strut Your Stuff)', 'Deko- und Mechanik-Erweiterungen für Create, u. a. Träger-Streben (ab Paket 1.2.1)'],
+    ['Create: Transmission', 'Ein Block: die Transmission-Kette – treibt Förderbänder sauberer an als ein verkleideter Kettenantrieb (ab Paket 1.2.1)'],
+    ['<b>Create: FluidLogistics</b>', 'Flüssigkeiten im Create-Logistiknetz: Flüssigkeiten wie Pakete bestellen, lagern und verschicken (ab Paket 1.2.5)'],
+    ['<b>Create: Mobile Packages</b>', 'Pakete per Drohne/Roboter direkt zum Spieler liefern lassen, auch unterwegs bestellen (ab Paket 1.2.5)'],
+    ['<b>Create: Enchantment Industry</b>', 'Erfahrung als Flüssigkeit: XP sammeln, abfüllen und Gegenstände automatisch verzaubern (Blaze-Verzauberer), Bücher kopieren (ab Paket 1.2.5)'],
+    ['<b>Open Modular Lighting</b>', 'Unabhängig von Create: Flutlichter (Strahl 64 Blöcke oder Kegel 32/8), Brennstoff-Flutlicht, UV-Strahler gegen Mobs, Pflanzenlicht, Leuchtstoffröhren; elektrisch mit FE oder – mit Craft ab 1.2.5 – direkt mit <b>EU</b> am Craft-Kabel: 1 EU = 1 FE (Flutlicht 10 EU/t, Kegel 20, UV 60, Pflanzenlicht 25), höchstens LV (32 EU), darüber explodiert das Licht (ab Paket 1.2.5)'],
+    ['<b>Storage Drawers</b>', 'Unabhängig von Create: Schubladen für große Mengen weniger Itemsorten, mit Controller als gemeinsamer Zugang (ab Paket 1.2.6)'],
+    ['<b>Farmer\'s Delight</b>', 'Unabhängig von Create: Kochen, Kochtopf, Pfanne, Schneidebrett, neue Feldfrüchte und Mahlzeiten mit Effekten (ab Paket 1.2.6)'],
+    ['<b>Supplementaries</b> (+ Moonlight Lib)', 'Unabhängig von Create: Deko und Kleinkram – Regale, Schilder, Gläser, Laternen, Seilrollen, Schleudern, Wetterfahnen u. v. m. (ab Paket 1.2.6)'],
+    ['<b>Reliquary Reincarnations</b>', 'Unabhängig von Create: magische Gegenstände und Waffen aus Mob-Drops, z. B. Handkanone, Wiederbelebungs-Engel, Zauberstäbe (Nachfolger von XReliquary aus FTB Ultimate; ab Paket 1.2.6)'],
+    ['<b>Forestry Community Edition</b> (+ Patchouli)', 'Unabhängig von Create: Bienenzucht, Bäume züchten, Schmetterlinge, Farmen (Alpha-Version!). Craft hat eigene Forestry-Teile (Electrical Engine, Carpenter, Thermionic Fabricator) – die Forestry-CE-Versionen sind davon getrennt (ab Paket 1.2.6)'],
+    ['<b>Terralith</b> (+ Lithostitched)', 'Unabhängig von Create: rund 100 neue und überarbeitete Oberwelt-Biome. Wirkt nur in <b>neu erzeugten</b> Chunks; Mining-Dimension unverändert (ab Paket 1.2.7)'],
+    ['<b>Serene Seasons</b> (+ GlitchCore)', 'Unabhängig von Create: Jahreszeiten – Pflanzen wachsen nur in passender Saison, Schnee im Winter; Jahreszeitensensor und Kalender (ab Paket 1.2.7)'],
+    ['<b>Distant Horizons</b>', 'Unabhängig von Create: riesige Sichtweite über vereinfachte Landschaft (LOD) weit hinter der normalen Renderdistanz (ab Paket 1.2.7)'],
+    ['Torchmaster', 'Unabhängig von Create: Megafackel verhindert Mob-Spawns im großen Umkreis, Schreckenslampe hält auch friedliche Tiere fern (ab Paket 1.2.7)'],
+    ['Macaw\'s Bridges, Macaw\'s Roofs, Handcrafted', 'Unabhängig von Create: Brücken, Dächer und Möbel zum Bauen (ab Paket 1.2.7)'],
+    ['spark', 'Unabhängig von Create: Leistungsanalyse – <kbd>/spark profiler</kbd> zeigt, was Server oder Client ausbremst (ab Paket 1.2.7)'],
+    ['<b>Chisel Reborn</b> (+ Cryonic Config)', 'Unabhängig von Create: Meißel – Steine, Holz, Glas, Wolle und <b>Beton</b> (32 Muster je Farbe) in Ziermuster umwandeln (ab Paket 1.2.3)'],
+    ['<b>Mekanism</b> + Mekanism Generators', 'Unabhängig von Create: Technik-Mod mit eigener Erzverarbeitung (bis 5× Ausbeute), Maschinen, Gas-Chemie, Energiespeichern und Generatoren (Solar, Wind, Wärme, Gas, Fusion); Energie als FE/Joule, nicht EU. Craft-Strom über den FE Producer (ab Paket 1.2.4)'],
+    ['Armor Hider (+ Eunomia)', 'Unabhängig von Create: getragene Rüstung je Slot ausblenden oder durchsichtig machen, auch für andere sichtbar (ab Paket 1.2.2)'],
+    ['GraveStone Mod', 'Unabhängig von Create: beim Tod landet das Inventar in einem Grabstein statt am Boden'],
+    ['LambDynamicLights', 'Unabhängig von Create: dynamisches Licht (Fackel in der Hand, brennende Mobs …)'],
+    ['Forgematica (+ MaFgLib)', 'Unabhängig von Create: Litematica für NeoForge – Schaltpläne speichern, als Geisterbild einblenden und nachbauen'],
+    ['Enhanced Player List', 'Unabhängig von Create: Tab-Liste mit Spielzeit, Toden, Strecke, abgebauten Blöcken u. a. für alle Spieler, auch offline'],
+    ['Subtle Effects (+ Fzzy Config), Particle Rain', 'Unabhängig von Create: Umgebungs-, Regen- und Schneepartikel'],
+    ['Pick Up Notifier, Armor Stand Arms', 'Unabhängig von Create: Einblendung aufgehobener Items; Rüstungsständer mit Armen'],
+    ['Create Factory Logistics, Create: Factory Routing', 'Erweiterungen für die Create-Fabriklogistik (Fabrik-Anzeigen, Pakete, Verteilung) (ab Paket 1.2.15)'],
+    ['StellarCreateOptimization', 'Mehr Bildrate bei großen Create-Anlagen (ab Paket 1.2.15)'],
+    ['Polymorph', 'Unabhängig von Create: Wenn mehrere Rezepte dasselbe Raster haben, erscheint an der Werkbank ein Knopf zur Auswahl des Ergebnisses (ab Paket 1.2.15)'],
+    ['<b>[Let\'s Do] Brewery</b> (+ Farm &amp; Charm)', 'Unabhängig von Create: Bier und Whiskey brauen, Rausch mit schwankender Kamera, Alkoholtester; Bierfest-Kleidung, Kneipenmöbel. '
+     '<b>Herstellung:</b> <b>Hopfen</b> wächst wild in Taiga-Biomen, Gerste/Hafer/Mais u. a. wild in der Welt (Farm &amp; Charm). '
+     '<b>Hefe</b> im Kochtopf (Farm &amp; Charm): Zucker + Wasserflasche + Weizen, mit Schüssel → 12 Hefe. '
+     '<b>Holz-Braustation</b>: <kbd>_ _ E / O K K / B B B</kbd> (E Eisenbarren, O Ofen, K Kessel, B Bretter); per Schmiedetisch zu Kupfer und Netherit aufwerten (Whiskey braucht Kupfer). '
+     'Bierkrüge: 8 aus 7 Brettern; Fass: 4 Fässer. Beispiel: Hopfenbier = 2 Hopfen + Hefe in der Holz-Braustation (ab Paket 1.2.16)'],
+    ['<b>Project Radio</b>', 'Unabhängig von Create: <b>echtes Internetradio</b> – Radioblock mit Senderwahl, tragbares Radio und Walkman, alle Spieler hören synchron; dazu Lautsprecher, DJ-Pult, Bühnenlicht, Nebelmaschine, Tanzfläche. '
+     '<b>Herstellung:</b> <b>Radio</b> <kbd>E E E / R J R / E G E</kbd> (E Eisenbarren, R Redstone, J Plattenspieler, G Goldnugget); '
+     '<b>tragbares Radio</b>: Leder über Radio über Kompass; <b>Walkman</b>: Eisen rundum, Glasscheibe + Redstone in der Mitte; '
+     '<b>Lautsprecher</b>: Notenblock in 8 Eichenbrettern; <b>Fernbedienung</b>: Steinknopf, Eisen/Redstone/Eisen, Eisen (ab Paket 1.2.16)'],
 ])}
 <h2 id="cr--craft">Zusammenspiel mit Craft</h2>
 <ul>
 <li><b>Energie ist getrennt.</b> Craft arbeitet mit <b>EU</b> (IC2) und <b>MJ</b> (BuildCraft), Create mit <b>Drehkraft</b> (Stress-Einheiten SU),
-Crafts & Additions, Ad Astra und Industrial Foregoing mit <b>FE</b>. Es gibt <b>keinen Wandler zwischen EU/MJ und Drehkraft oder FE</b> –
-jedes System braucht seine eigene Stromquelle.</li>
+Crafts & Additions, Ad Astra, Industrial Foregoing und AE2 mit <b>FE</b>. <b>Craft-Strom → FE</b> geht über den <a href="#/umwandlung">FE Producer</a> (ab Craft 1.1.1): IC2 Consumer → Energy Bridge → FE Producer, <b>1 EU = 4 FE</b>. Nur diese Richtung – FE und Drehkraft kommen nicht ins EU-/MJ-Netz, und zwischen EU/MJ und Drehkraft gibt es keinen Wandler.</li>
 <li><b>Items fließen frei.</b> Create-Trichter (Funnels), Rutschen (Chutes), Förderbänder und Trichter arbeiten mit allen Craft-Maschinen
 und -Kisten zusammen. Es gelten die Seiten der Maschine (siehe unten), wie bei Rohren und Trichtern.</li>
 <li><b>Craft-Maschinen nehmen Items seitenrichtig an:</b> Ein Create-Trichter an der Seite eines Macerators füllt den Eingabe- bzw.
@@ -135,7 +179,7 @@ Munition (Kugeln, Granaten, Pulverladungen) wird hergestellt und geladen. Achtun
 <h2 id="ca--strom">Crafts & Additions und Diesel Generators – Strom und Treibstoff</h2>
 <ul>
 <li><b>Lichtmaschine</b> (Alternator): Drehkraft → FE. <b>Elektromotor</b>: FE → Drehkraft. Dazu Kabel/Verbinder, Akkus und ein Walzwerk für Drähte.</li>
-<li>FE ist <b>nicht</b> EU – Craft-Maschinen lassen sich damit nicht betreiben. FE nutzen Ad Astra, Industrial Foregoing und AE2-Teile.</li>
+<li>FE ist <b>nicht</b> EU – Craft-Maschinen lassen sich damit nicht betreiben. FE nutzen Ad Astra, Industrial Foregoing und AE2-Teile. Umgekehrt liefert der <a href="#/umwandlung">FE Producer</a> Craft-Strom als FE (1 EU = 4 FE).</li>
 <li><b>Diesel Generators:</b> Motoren verbrennen Treibstoff zu Drehkraft. Pflanzenöl aus Samen pressen, weiter zu Biodiesel verarbeiten; Erdöl über Pumpjack und Destillation.</li>
 </ul>
 <h2 id="ca--bau">Bauteile und Deko</h2>
@@ -144,22 +188,62 @@ Munition (Kugeln, Granaten, Pulverladungen) wird hergestellt und geladen. Achtun
 <li><b>Holz-Wellen und Holz-Zahnräder von Create Encased</b> (ab Paket 1.0.4): <b>8 Wellen bzw. 8 Zahnräder um 1 Brett</b> der Holzart →
 8 Stück. Das Original-Rezept (Welle + Brett) überschnitt sich mit Create (Welle + Brett = Zahnrad, Zahnrad + Brett = großes Zahnrad);
 Craft ersetzt es deshalb. Mit dem Einsetzer (Brett auf die Welle) geht es weiterhin einzeln.</li>
+<li><b>Trichter (Vanilla)</b> (ab Paket 1.0.14): lassen sich <b>nicht mehr per Redstone abschalten</b> – sie arbeiten immer, auch neben Redstone-Blöcken, Fackeln oder Create-Signalen. Früher abgeschaltete Trichter laufen sofort wieder. Trichterloren (Aktivierungsschiene) sind nicht betroffen.</li>
 <li><b>Copycats+</b> – Kopierblöcke: Block in der Hand auf den Kopierblock → er sieht aus wie dieser Block.</li>
 <li><b>New Furnitures</b> – Möbel im Create-Stil.</li>
 </ul>
 <h2 id="ca--rohstoffe">Rohstoffe: Mechanical Extruder und Ore Excavation</h2>
 <ul>
 <li><b>Mechanical Extruder</b> erzeugt Blöcke aus zwei angrenzenden Flüssigkeiten (z. B. Wasser + Lava → Bruchstein) und schiebt sie aus – ohne Spielerhand.</li>
+<li><b>Andesit, Granit und Tuff</b> (ab Paket 1.0.13): Wasser + Lava an den Seiten und <b>derselbe Block als Katalysator unter dem Extruder</b> – in jeder Höhe (die Mod-Vorgabe Y 0–60 entfällt für Andesit und Granit; Diorit bleibt so). Der Katalysator wird nicht verbraucht. Am besten das gewünschte Ergebnis im Filter des Extruders einstellen, sonst kann er auch Bruchstein liefern. Ochrum: Goldblock + Lava (unverändert).</li>
 <li><b>Ore Excavation</b>: In der Welt gibt es unterirdische Erzvorkommen, die ein Bohrgerät mit Drehkraft dauerhaft abbaut. Vorkommen findet man mit einem Suchgerät aus dem Mod.</li>
 </ul>
 <h2 id="ca--ae2">Applied Energistics 2 und Applied Kinetics</h2>
 <p>AE2 speichert Items digital in Laufwerken und kann automatisch herstellen. Es braucht normalerweise FE; <b>Applied Kinetics</b> erlaubt,
 AE2-Teile mit Create-Drehkraft zu versorgen. Das Ingame-Handbuch von AE2 (GuideME) erklärt den Einstieg.</p>
+<p><b>Mit Craft-Strom:</b> EU-Kabel → IC2 Consumer → Energy Bridge → <a href="#/umwandlung">FE Producer</a> → AE2 <b>Energy Acceptor</b> (oder Controller) direkt daneben. 128 EU/t ergeben 512 FE/t ≈ 256 AE/t (AE2: 1 AE = 2 FE).</p>
+<p><b>Direkt am EU-Kabel</b> (ab Craft 1.2.6): ME-Controller, Energieakzeptor (Block), Auflader, Prägepresse, Wachstumsbeschleuniger und ME-Truhe nehmen EU – <b>1 EU = 4 FE = 2 AE</b>. Höchstens <b>LV (32 EU je Paket)</b>, ein MV-Paket lässt den Block explodieren; vor MV-/HV-Netzen einen LV-Trafo setzen. Der Energieakzeptor als Kabel-Part (auf einem ME-Kabel) und die Energiezellen nehmen kein EU – dafür den Energieakzeptor-Block nehmen.</p>
 <h2 id="ca--astra">Ad Astra – Raumfahrt</h2>
 <p>Raketen bauen, betanken und zu Mond, Mars, Venus, Merkur und Glacio fliegen. Auf den Planeten braucht man <b>Raumanzug und Sauerstoff</b>.
-Maschinen laufen mit FE. Neue Erze und Metalle (z. B. Desh, Ostrum, Calorite) gibt es nur dort.</p>
+Maschinen laufen mit FE; ab Craft 1.2.6 nehmen Kompressor, Treibstoffraffinerie, Sauerstofflader, Sauerstoffverteiler, Wasserpumpe, Kryo-Gefrierer, Schwerkraft-Normalisierer und Etrionischer Hochofen auch <b>EU direkt am Craft-Kabel</b> (1 EU = 4 FE, höchstens LV 32 EU – darüber explodieren sie). Generatoren, Energizer und Ad-Astra-Kabel bleiben reine FE-Blöcke. Neue Erze und Metalle (z. B. Desh, Ostrum, Calorite) gibt es nur dort.</p>
 <h2 id="ca--if">Industrial Foregoing</h2>
 <p>Automatisierung mit FE: Pflanzen- und Baumfarmen, Mob-Verarbeitung, Laserbohrer für Erze, Flüssigkeitsverarbeitung. Unabhängig von Create.</p>
+<h2 id="ca--farming">Create: Integrated Farming</h2>
+<p>Farmen mit Create-Mitteln automatisieren: Pflanzen, Tierhaltung und Fischerei in Maschinen. Ab Paket <b>1.0.7</b>; braucht die
+Bibliothek Create: Dragons Plus (mitinstalliert). Aufbau zeigen Ponder und EMI.</p>
+<h2 id="ca--pixel">Create: Protection Pixel</h2>
+<p>Rüstungsteile im Steampunk-Stil (Helme, Brustplatten mit Sonderfunktionen wie Jetpack oder Schild), hergestellt aus Messing und
+Legierungen. Ab Paket <b>1.0.7</b>. Rezepte in EMI.</p>
+<h2 id="ca--sophisticated">Sophisticated Storage Create Integration</h2>
+<p>Bringt Sophisticated Storage (aufrüstbare Truhen, Fässer und Kisten mit Upgrades) samt Sophisticated Core ins Paket und
+macht diese Speicher auf Create-Zügen und Contraptions nutzbar. Ab Paket <b>1.1.3</b>.</p>
+<h2 id="ca--hypertubes">Create: Hypertubes</h2>
+<p>Röhren, durch die Spieler (und Create-Pakete) mit hohem Tempo durch die Welt gezogen werden; Anbauteile wie ein Scanner mit
+Redstone-Signal. Ab Paket <b>1.1.3</b>. Rezepte in EMI, Aufbau im Ponder.</p>
+<h2 id="ca--grave">GraveStone Mod</h2>
+<p>Stirbt man, erscheint an der Stelle ein Grabstein mit dem gesamten Inventar; Rechtsklick holt die Sachen zurück. Ab Paket <b>1.0.7</b>.</p>
+<h2 id="ca--ldl">LambDynamicLights</h2>
+<p>Dynamisches Licht: Fackeln und andere leuchtende Items in der Hand, brennende Mobs und Ähnliches erhellen die Umgebung, ohne
+das Licht der Welt zu ändern. Craft nutzt es für das Licht des <a href="#/leuchtschild">Elektrischen Leuchtschilds</a>.
+Ab Paket <b>1.0.12</b>; Einstellungen unter Optionen → Grafik (mit Sodium in dessen Menü).</p>
+<h2 id="ca--litematica">Forgematica (Litematica)</h2>
+<p>Der NeoForge-Port von Litematica (mit MaFgLib statt MaLiLib): Mit dem Auswahlwerkzeug (Holzstock) einen Bereich als
+Schaltplan speichern, Schaltpläne als Geisterbild in die Welt legen und Block für Block nachbauen; fehlende oder falsche Blöcke
+werden farbig markiert. Menü mit <b>M</b> – das ist auch die IC2-Modus-Taste; eine der beiden in den Einstellungen umlegen.
+Schaltpläne liegen im Ordner <code>schematics</code> der Instanz. Ab Paket <b>1.1.4</b>.</p>
+<h2 id="ca--epl">Enhanced Player List – Spielerstatistik</h2>
+<p>Beim Halten der Tab-Taste erscheint eine Tabelle aller Spieler, die je auf dem Server waren (offline grau): Spielzeit, Tode,
+Strecke, <b>abgebaute Blöcke</b> (Spalte „Mined“), Sprünge, ausgeteilter/erlittener Schaden und zuletzt gesehen. Die Spalte
+„Mined“ ergänzt Craft: Sie zählt alle von Hand bzw. mit Werkzeug abgebauten Blöcke (Maschinen wie Quarry oder Miner zählen
+nicht) und gilt auch rückwirkend für bestehende Welten. Die Werte aktualisieren sich, wenn der Server speichert. Spalten wählt
+man in <code>config/enhancedplayerlist-common.toml</code> (<code>visibleStats</code>). Der Mod muss auch auf dem Server liegen.
+Ab Paket <b>1.1.4</b>.</p>
+<h2 id="ca--optik">Subtle Effects, Particle Rain, Pick Up Notifier, Armor Stand Arms</h2>
+<ul><li><b>Subtle Effects</b>: viele kleine Partikel- und Klangdetails an Blöcken, Mobs und in der Umgebung, einstellbar über Fzzy Config.</li>
+<li><b>Particle Rain</b>: Regen, Schnee und Sandstürme als Partikel mit Nebel statt der Vanilla-Regenstreifen.</li>
+<li><b>Pick Up Notifier</b>: unten rechts erscheint kurz, welche Items (und wie viele) man aufgehoben hat.</li>
+<li><b>Armor Stand Arms</b>: Rüstungsständer bekommen beim Aufstellen Arme und können Items in den Händen halten.</li></ul>
+<p>Alle ab Paket <b>1.1.4</b>.</p>
 '''
     page('create-addons', 'Addons', addons)
     return P

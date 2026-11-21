@@ -1,0 +1,34 @@
+{
+  "parent": "psychedelicraft:cannabis_buds",
+  "criteria": {
+    "has_the_thing": {
+      "conditions": {
+        "items": [
+          {
+            "items": "psychedelicraft:dried_cannabis_buds"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "background": "minecraft:textures/gui/advancements/backgrounds/stone.png",
+    "description": {
+      "translate": "advancements.psychedelicraft.dry_cannabis_buds.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "psychedelicraft:dried_cannabis_buds"
+    },
+    "title": {
+      "translate": "advancements.psychedelicraft.dry_cannabis_buds.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_thing"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

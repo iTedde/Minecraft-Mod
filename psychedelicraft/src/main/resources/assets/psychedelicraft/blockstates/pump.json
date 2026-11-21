@@ -1,0 +1,50 @@
+{
+  "variants": {
+    "facing=down,powered=false": {
+      "model": "psychedelicraft:block/pump",
+      "x": 90
+    },
+    "facing=down,powered=true": {
+      "model": "psychedelicraft:block/pump_extended",
+      "x": 90
+    },
+    "facing=east,powered=false": {
+      "model": "psychedelicraft:block/pump",
+      "y": 90
+    },
+    "facing=east,powered=true": {
+      "model": "psychedelicraft:block/pump_extended",
+      "y": 90
+    },
+    "facing=north,powered=false": {
+      "model": "psychedelicraft:block/pump"
+    },
+    "facing=north,powered=true": {
+      "model": "psychedelicraft:block/pump_extended"
+    },
+    "facing=south,powered=false": {
+      "model": "psychedelicraft:block/pump",
+      "y": 180
+    },
+    "facing=south,powered=true": {
+      "model": "psychedelicraft:block/pump_extended",
+      "y": 180
+    },
+    "facing=up,powered=false": {
+      "model": "psychedelicraft:block/pump",
+      "x": 270
+    },
+    "facing=up,powered=true": {
+      "model": "psychedelicraft:block/pump_extended",
+      "x": 270
+    },
+    "facing=west,powered=false": {
+      "model": "psychedelicraft:block/pump",
+      "y": 270
+    },
+    "facing=west,powered=true": {
+      "model": "psychedelicraft:block/pump_extended",
+      "y": 270
+    }
+  }
+}

@@ -1,6 +1,7 @@
 package dev.craft.thermalexpansion.item;
 
 import dev.craft.buildcraft.item.BcWrenchItem;
+import dev.craft.buildcraft.item.ToolWrench;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.sounds.SoundSource;
@@ -22,9 +23,9 @@ public class CrescentHammerItem extends BcWrenchItem {
         super(properties);
     }
 
-    /** {@code Utils.isHoldingWrench}: any BuildCraft-style wrench. */
+    /** {@code Utils.isHoldingWrench}: any BuildCraft-style wrench ({@code IToolWrench}). */
     public static boolean isWrench(ItemStack stack) {
-        return stack.getItem() instanceof BcWrenchItem;
+        return ToolWrench.isWrench(stack);
     }
 
     /** CoFH {@code BlockUtils.rotateVanillaBlock}: vanilla blocks only, sneaking turns them back. */

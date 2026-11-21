@@ -6,7 +6,7 @@ import net.minecraft.world.item.Item;
  * BuildCraft wrench ({@code ItemWrench}, {@code IToolWrench}). The blocks check for it themselves: engines turn their
  * output, the quarry re-initialises.
  */
-public class BcWrenchItem extends Item {
+public class BcWrenchItem extends Item implements ToolWrench {
     public BcWrenchItem(Properties properties) {
         super(properties);
     }

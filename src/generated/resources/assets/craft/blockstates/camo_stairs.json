@@ -1,0 +1,28 @@
+{
+  "variants": {
+    "facing=east,half=bottom": {
+      "model": "craft:secretrooms/camo_block"
+    },
+    "facing=east,half=top": {
+      "model": "craft:secretrooms/camo_block"
+    },
+    "facing=north,half=bottom": {
+      "model": "craft:secretrooms/camo_block"
+    },
+    "facing=north,half=top": {
+      "model": "craft:secretrooms/camo_block"
+    },
+    "facing=south,half=bottom": {
+      "model": "craft:secretrooms/camo_block"
+    },
+    "facing=south,half=top": {
+      "model": "craft:secretrooms/camo_block"
+    },
+    "facing=west,half=bottom": {
+      "model": "craft:secretrooms/camo_block"
+    },
+    "facing=west,half=top": {
+      "model": "craft:secretrooms/camo_block"
+    }
+  }
+}

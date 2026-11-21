@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "craft:mps_solenoid",
+  "key": {
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "W": {
+      "item": "craft:component_wiring"
+    }
+  },
+  "pattern": [
+    "WIW",
+    "WIW",
+    "WIW"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:component_solenoid"
+  }
+}

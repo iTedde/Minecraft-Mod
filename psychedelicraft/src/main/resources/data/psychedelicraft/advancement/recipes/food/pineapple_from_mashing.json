@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_foods/pineapple": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#c:foods/pineapple"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "psychedelicraft:pineapple_from_mashing"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_foods/pineapple"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "psychedelicraft:pineapple_from_mashing"
+    ]
+  }
+}

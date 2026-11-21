@@ -1,0 +1,29 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "A": {
+      "item": "craft:carbon_plate"
+    },
+    "B": {
+      "item": "craft:advanced_jetpack"
+    },
+    "C": {
+      "item": "craft:nano_chestplate"
+    },
+    "D": {
+      "item": "craft:glass_fibre_cable"
+    },
+    "F": {
+      "item": "craft:advanced_circuit"
+    }
+  },
+  "pattern": [
+    "ABA",
+    "ACA",
+    "DFD"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:advanced_nano_chestplate"
+  }
+}

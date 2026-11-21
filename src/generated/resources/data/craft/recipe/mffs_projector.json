@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "F": {
+      "item": "craft:advanced_machine_casing"
+    },
+    "J": {
+      "item": "craft:frequency_transmitter"
+    },
+    "K": {
+      "item": "craft:advanced_alloy"
+    },
+    "y": {
+      "item": "craft:projector_focus_matrix"
+    }
+  },
+  "pattern": [
+    "KyK",
+    "yFy",
+    "KJK"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:mffs_projector"
+  }
+}

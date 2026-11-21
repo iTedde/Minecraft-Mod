@@ -1,0 +1,26 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "B": {
+      "item": "craft:superconductor"
+    },
+    "C": {
+      "item": "craft:cooling_core"
+    },
+    "D": {
+      "item": "craft:hv_transformer"
+    },
+    "R": {
+      "item": "craft:tesla_coil"
+    }
+  },
+  "pattern": [
+    "RBR",
+    "CDC",
+    "RBR"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:gravitation_engine"
+  }
+}

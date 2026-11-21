@@ -1,17 +1,17 @@
 {
   "type": "craft:ic2_shaped",
   "key": {
-    "R": {
-      "tag": "c:ingots/refined_iron"
+    "S": {
+      "tag": "c:plates/steel"
     }
   },
   "pattern": [
-    "R R",
-    "RRR",
-    "R R"
+    "S S",
+    "SSS",
+    "S S"
   ],
   "result": {
-    "count": 8,
+    "count": 4,
     "id": "craft:wind_turbine_mast"
   }
 }

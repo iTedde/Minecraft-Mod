@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "D": {
+      "item": "craft:advanced_circuit"
+    },
+    "E": {
+      "item": "craft:carbon_plate"
+    },
+    "H": {
+      "item": "craft:copper_cable"
+    },
+    "I": {
+      "item": "craft:insulated_copper_cable"
+    }
+  },
+  "pattern": [
+    "HHH",
+    "EIE",
+    "EDE"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:mffs_capacitor_upgrade_range"
+  }
+}

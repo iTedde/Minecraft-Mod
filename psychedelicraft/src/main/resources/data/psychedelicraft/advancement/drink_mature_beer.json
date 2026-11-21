@@ -1,0 +1,58 @@
+{
+  "parent": "psychedelicraft:drink_beer",
+  "criteria": {
+    "drink_beer": {
+      "conditions": {
+        "item": {
+          "predicates": {
+            "psychedelicraft:drink_type": {
+              "drink_name": "beer",
+              "fluids": {
+                "amount": {
+                  "min": 1
+                },
+                "attributes": {
+                  "maturation": {
+                    "min": 7
+                  }
+                },
+                "fluid": [
+                  "psychedelicraft:wheat",
+                  "psychedelicraft:wheat_hop"
+                ]
+              }
+            }
+          }
+        }
+      },
+      "trigger": "minecraft:consume_item"
+    }
+  },
+  "display": {
+    "background": "minecraft:textures/gui/advancements/backgrounds/stone.png",
+    "description": {
+      "translate": "advancements.psychedelicraft.drink_mature_beer.description"
+    },
+    "icon": {
+      "components": {
+        "psychedelicraft:fluids": {
+          "attributes": {
+            "fermentation": 2
+          },
+          "fluid": "psychedelicraft:wheat_hop"
+        }
+      },
+      "count": 1,
+      "id": "psychedelicraft:wooden_mug"
+    },
+    "title": {
+      "translate": "advancements.psychedelicraft.drink_mature_beer.title"
+    }
+  },
+  "requirements": [
+    [
+      "drink_beer"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

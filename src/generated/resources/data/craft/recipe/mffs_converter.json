@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "tag": "c:ingots/refined_iron"
+    },
+    "J": {
+      "item": "craft:frequency_transmitter"
+    },
+    "M": {
+      "item": "craft:glass_fibre_cable"
+    },
+    "N": {
+      "item": "craft:lv_transformer"
+    },
+    "O": {
+      "item": "craft:mv_transformer"
+    },
+    "P": {
+      "item": "craft:hv_transformer"
+    }
+  },
+  "pattern": [
+    "ANA",
+    "JOM",
+    "APA"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:mffs_converter"
+  }
+}

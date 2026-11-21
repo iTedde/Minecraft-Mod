@@ -1,0 +1,11 @@
+{
+  "values": [
+    "minecraft:apple",
+    "minecraft:golden_apple",
+    "minecraft:enchanted_golden_apple",
+    {
+      "id": "croptopia:apple",
+      "required": false
+    }
+  ]
+}

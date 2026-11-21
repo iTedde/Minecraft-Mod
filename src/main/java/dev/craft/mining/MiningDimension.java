@@ -185,7 +185,7 @@ public final class MiningDimension {
                 OrePlacements.ORE_LAPIS_BURIED, OrePlacements.ORE_EMERALD, CraftWorldGen.ORE_COPPER,
                 CraftWorldGen.ORE_TIN, CraftWorldGen.ORE_URANIUM, CraftWorldGen.GT_GALENA, CraftWorldGen.GT_IRIDIUM,
                 CraftWorldGen.GT_RUBY, CraftWorldGen.GT_SAPPHIRE, CraftWorldGen.GT_BAUXITE, CraftWorldGen.TE_SILVER,
-                CraftWorldGen.TE_LEAD, CraftWorldGen.TE_NICKEL);
+                CraftWorldGen.TE_LEAD, CraftWorldGen.TE_NICKEL, CraftWorldGen.MFFS_MONAZIT);
         for (ResourceKey<PlacedFeature> ore : ores) {
             generation.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, placed.getOrThrow(doubled(ore)));
         }

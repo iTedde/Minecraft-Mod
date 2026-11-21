@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_coffea_cherries": {
+      "conditions": {
+        "items": [
+          {
+            "items": "psychedelicraft:coffea_cherries"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:coffee_beans_from_smelting_coffea_cherries"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_coffea_cherries"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:coffee_beans_from_smelting_coffea_cherries"
+    ]
+  }
+}

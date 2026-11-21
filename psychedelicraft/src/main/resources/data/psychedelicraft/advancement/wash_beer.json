@@ -1,0 +1,31 @@
+{
+  "parent": "psychedelicraft:make_mash_tub",
+  "criteria": {
+    "mashed_item": {
+      "conditions": {
+        "fermentation": 2,
+        "fluid": "psychedelicraft:wheat"
+      },
+      "trigger": "psychedelicraft:mashed_item"
+    }
+  },
+  "display": {
+    "background": "minecraft:textures/gui/advancements/backgrounds/stone.png",
+    "description": {
+      "translate": "advancements.psychedelicraft.wash_beer.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "minecraft:wheat"
+    },
+    "title": {
+      "translate": "advancements.psychedelicraft.wash_beer.title"
+    }
+  },
+  "requirements": [
+    [
+      "mashed_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

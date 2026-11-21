@@ -1,0 +1,13 @@
+{
+  "type": "psychedelicraft:drying",
+  "cookingTime": 1.1,
+  "experience": 0.2,
+  "group": "leaves",
+  "ingredient": {
+    "item": "psychedelicraft:jimsonweed_leaf"
+  },
+  "result": {
+    "count": 3,
+    "id": "psychedelicraft:dried_jimsonweed_leaf"
+  }
+}

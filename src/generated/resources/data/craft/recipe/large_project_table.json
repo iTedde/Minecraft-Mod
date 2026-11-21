@@ -1,0 +1,23 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "C": {
+      "tag": "c:chests/wooden"
+    },
+    "I": {
+      "tag": "c:ingots/iron"
+    },
+    "P": {
+      "item": "craft:project_table"
+    }
+  },
+  "pattern": [
+    "III",
+    "CPC",
+    "III"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:large_project_table"
+  }
+}

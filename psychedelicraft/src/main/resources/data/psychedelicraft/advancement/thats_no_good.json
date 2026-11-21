@@ -1,0 +1,30 @@
+{
+  "parent": "psychedelicraft:the_good_stuff",
+  "criteria": {
+    "has_side_effect": {
+      "conditions": {
+        "event": "side_effect"
+      },
+      "trigger": "psychedelicraft:custom"
+    }
+  },
+  "display": {
+    "background": "minecraft:textures/gui/advancements/backgrounds/stone.png",
+    "description": {
+      "translate": "advancements.psychedelicraft.thats_no_good.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "psychedelicraft:vomit"
+    },
+    "title": {
+      "translate": "advancements.psychedelicraft.thats_no_good.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_side_effect"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

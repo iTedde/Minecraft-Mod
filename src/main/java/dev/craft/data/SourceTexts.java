@@ -27,6 +27,8 @@ public final class SourceTexts {
         fuelRods();
         misc();
         thermalExpansion();
+        nuclearControl();
+        mffs();
     }
 
     private SourceTexts() {
@@ -228,24 +230,25 @@ public final class SourceTexts {
                 "Mass fabricator: 1,000,000 EU per UU-matter. Scrap (5000) or a scrap box (45,000) as amplifier makes "
                         + "every EU count six times until the value is used up. EMI shows what it makes under \"Uses\".",
                 "uu_matter");
-        add("Ernte der Crop-Sorte Kaffee (bei Größe 5: 3 Bohnen). Die Sorte entsteht nur durch Kreuzen auf einem "
-                        + "Kreuzungsstab (Sorten mit gemeinsamen Attributen kreuzen leichter); danach lassen sich die "
-                        + "Bohnen selbst auf Crop-Stäbe pflanzen. Macerator → 3 Kaffeepulver.",
-                "Harvest of the coffee crop (at size 5: 3 beans). The crop only appears by cross-breeding on a "
-                        + "cross-breeding crop (crops with shared attributes cross more easily); afterwards the beans "
-                        + "themselves can be planted on crops. Macerator → 3 coffee powder.",
+        add("Ernte der Crop-Sorte Kaffee (bei Größe 5: 3 Bohnen). Die Sorte entsteht durch Kreuzen auf einem "
+                        + "Kreuzungsstab oder wächst wild in der Farming-Welt (Saatbeutel beim ersten Pflücken); danach "
+                        + "lassen sich die Bohnen selbst auf Crop-Stäbe pflanzen. Macerator → 3 Kaffeepulver.",
+                "Harvest of the coffee crop (at size 5: 3 beans). The crop appears by cross-breeding on a "
+                        + "cross-breeding crop or grows wild in the farming world (seed bag on the first pick); "
+                        + "afterwards the beans themselves can be planted on crops. Macerator → 3 coffee powder.",
                 "coffee_beans");
-        add("Ernte der Crop-Sorte Hopfen (bei Größe 7: 3 Hopfen). Die Sorte entsteht nur durch Kreuzen auf einem "
-                        + "Kreuzungsstab (Sorten mit gemeinsamen Attributen kreuzen leichter). Zutat für Bier im Fass.",
-                "Harvest of the hops crop (at size 7: 3 hops). The crop only appears by cross-breeding on a "
-                        + "cross-breeding crop (crops with shared attributes cross more easily). Ingredient for beer "
-                        + "in the barrel.",
+        add("Ernte der Crop-Sorte Hopfen (bei Größe 7: 3 Hopfen). Die Sorte entsteht durch Kreuzen auf einem "
+                        + "Kreuzungsstab oder wächst wild in der Farming-Welt (Saatbeutel beim ersten Pflücken). Zutat "
+                        + "für Bier im Fass.",
+                "Harvest of the hops crop (at size 7: 3 hops). The crop appears by cross-breeding on a "
+                        + "cross-breeding crop or grows wild in the farming world (seed bag on the first pick). "
+                        + "Ingredient for beer in the barrel.",
                 "hops");
         add("Netherwarze auf einen Crop-Stab über einem Schneeblock pflanzen: Sie wird mit der Zeit zur Terra-Warze "
-                        + "(Ernte bei Größe 3). Danach lässt sich die Terra-Warze selbst pflanzen. Zentrifuge: 16 + 1 "
+                        + "(Ernte bei Größe 3); wächst auch wild in der Farming-Welt. Danach lässt sich die Terra-Warze selbst pflanzen. Zentrifuge: 16 + 1 "
                         + "Zelle → Methanzelle.",
                 "Plant nether wart on a crop above a snow block: in time it turns into terra wart (harvest at size "
-                        + "3). Afterwards terra wart itself can be planted. Centrifuge: 16 + 1 cell → methane cell.",
+                        + "3); also grows wild in the farming world. Afterwards terra wart itself can be planted. Centrifuge: 16 + 1 cell → methane cell.",
                 "terra_wart");
         add("BuildCraft-Öl, nur in der Oberwelt: kleine Pfützen in Wüsten (etwa 3 % der Chunks), sehr selten "
                         + "unterirdische Ölkugeln (y 20–29) mit Fontäne bis an die Oberfläche. Mit Eimer schöpfen oder "
@@ -995,6 +998,11 @@ public final class SourceTexts {
 
     /** Coal chain, carbon, coke, ash, plants, rubber, alloys, fuel (phase 23.4). */
     private static void misc() {
+        add("Nur im Kreativmodus. Im Überlebensmodus baut man den Kupfergolem aus einem Kupferblock und einem "
+                        + "geschnitzten Kürbis (zuletzt gesetzt).",
+                "Creative mode only. In survival the copper golem is built from a copper block and a carved pumpkin "
+                        + "(placed last).",
+                "copper_golem_spawn_egg");
         add("Werkbank: 8 Kohlestaub um einen Feuerstein → 1.",
                 "Crafting: 8 coal dust around a flint → 1.",
                 "coal_ball");
@@ -1097,5 +1105,76 @@ public final class SourceTexts {
                         + "also raw metal) + sand → 2 ingots + rich slag (5 %); pyrite ore + sand (10 %). Added to ore instead "
                         + "of sand: 3 ingots + slag.",
                 "rich_slag");
+    }
+
+    /** Modular Force Field System (spec 48 §2, §6–§8): ore, cell and items without a crafting recipe. */
+    private static void mffs() {
+        add("Oberwelt und Mining-Dimension (doppelt), y 0–79, 5 Adern (Größe 5) je Chunk (MFFS). Spitzhacke, droppt "
+                        + "sich selbst. Ofen → 4 Forcicium; Macerator/Pulverisierer → 8 Forcicium; Industrial Grinder → "
+                        + "10 Forcicium + 2 Thoriumstaub.",
+                "Overworld and mining dimension (doubled), y 0–79, 5 veins (size 5) per chunk (MFFS). Pickaxe, drops "
+                        + "itself. Furnace → 4 forcicium; macerator/pulverizer → 8 forcicium; industrial grinder → "
+                        + "10 forcicium + 2 thorium dust.",
+                "monazit_ore", "deepslate_monazit_ore");
+        add("Rezept (Raffiniertes Eisen, Kraftenergie-Kristall, Fortgeschrittener Schaltkreis). Füllt sich aktiv mit "
+                        + "Forcicium aus dem Inventar oder im Extraktor (Platz rechts, 200 000 EU je Forcicium).",
+                "Recipe (refined iron, force energy crystal, advanced circuit). Fills itself with forcicium from the "
+                        + "inventory while active, or in the extractor (right slot, 200,000 EU per forcicium).",
+                "forcicium_cell");
+        add("Kein Rezept: Mit einer leeren MFFS-Karte auf einen MFFS-Kondensator rechtsklicken.",
+                "No recipe: right click an MFFS capacitor with a blank MFFS card.",
+                "mffs_card_power_link");
+        add("Kein Rezept: Mit einer leeren MFFS-Karte auf eine aktive MFFS-Sicherheitsstation rechtsklicken.",
+                "No recipe: right click an active MFFS security station with a blank MFFS card.",
+                "mffs_card_security_link");
+        add("Kein Rezept: Multiwerkzeug ‹Kodierer› in die Luft (eigener Ausweis) oder Linksklick auf einen Spieler "
+                        + "(1 000 KE + leere Karte im Inventar); Kopie in der Sicherheitsstation.",
+                "No recipe: multitool <coder> into the air (own ID card) or left click a player (1,000 FE + blank card "
+                        + "in the inventory); copies in the security station.",
+                "mffs_card_personal_id");
+        add("Kein Rezept: Leere Karte in den Bearbeitungsplatz einer aktiven Sicherheitsstation legen und „+“ "
+                        + "drücken (5 min, je Klick ±5 min).",
+                "No recipe: put a blank card into the edit slot of an active security station and press \"+\" (5 min, "
+                        + "±5 min per click).",
+                "mffs_card_access");
+        add("Kein Rezept: Multiwerkzeug ‹Kodierer› auf eine MFFS-Maschine rechtsklicken (1 000 KE + leere Karte im "
+                        + "Inventar).",
+                "No recipe: right click an MFFS machine with the multitool <coder> (1,000 FE + blank card in the "
+                        + "inventory).",
+                "mffs_card_data_link");
+        add("Kein Rezept: Multiwerkzeug ‹Schraubenschlüssel› bauen und mit Schleichen + Rechtsklick in diesen Modus "
+                        + "umschalten.",
+                "No recipe: craft the multitool <wrench> and switch to this mode with sneak + right click.",
+                "mffs_multitool_switch", "mffs_multitool_id_writer", "mffs_multitool_field_teleporter",
+                "mffs_multitool_guide");
+        add("Nur im Kreativmodus (wie im Pack).",
+                "Creative mode only (as in the pack).",
+                "mffs_card_infinite_power", "mffs_multitool_debugger");
+    }
+
+    /** IC2 Nuclear Control (spec 46): cards without a crafting recipe. */
+    private static void nuclearControl() {
+        add("Kein Rezept: Mit dem Reaktor-Sensorkit auf einen Reaktor oder eine Reaktorkammer rechtsklicken.",
+                "No recipe: right click a reactor or reactor chamber with the remote sensor kit.",
+                "reactor_sensor_location_card");
+        add("Kein Rezept: Mit dem Energie-Sensorkit auf BatBox, MFE, MFSU, eine GT-Maschine oder einen "
+                        + "BuildCraft-Empfänger (MJ) rechtsklicken.",
+                "No recipe: right click a BatBox, MFE, MFSU, GT machine or BuildCraft receiver (MJ) with the energy "
+                        + "sensor kit.",
+                "energy_sensor_location_card");
+        add("Kein Rezept: Mit dem Flüssigkeits-Sensorkit auf einen Block mit Tank rechtsklicken.",
+                "No recipe: right click a block with a tank with the liquid sensor kit.",
+                "liquid_sensor_location_card");
+        add("Kein Rezept: Mit dem Zähler-Sensorkit auf einen Energie- oder Durchschnittszähler rechtsklicken.",
+                "No recipe: right click an energy or average counter with the counter sensor kit.",
+                "counter_sensor_location_card");
+        add("Kein Rezept: Mit dem GregTech-Sensorkit auf eine GT-Maschine mit Fortschritt rechtsklicken "
+                        + "(Hochofen, Grinder, Zentrifuge, Elektrolyseur, Implosionskompressor, Vakuumgefrierer).",
+                "No recipe: right click a GT machine with progress with the GregTech sensor kit (blast furnace, "
+                        + "grinder, centrifuge, electrolyzer, implosion compressor, vacuum freezer).",
+                "gt_sensor_card");
+        add("Werkbank, formlos: 2–6 Energie-Sensorkarten → 1 (weitere Karten dazulegen, höchstens 6 Ziele).",
+                "Crafting, shapeless: 2–6 energy sensor location cards → 1 (add more cards, at most 6 targets).",
+                "energy_array_location_card");
     }
 }

@@ -1,0 +1,22 @@
+{
+  "parent": "minecraft:item/generated",
+  "overrides": [
+    {
+      "model": "psychedelicraft:item/bottle_filled",
+      "predicate": {
+        "psychedelicraft:filled": 1.0
+      }
+    },
+    {
+      "model": "psychedelicraft:item/bottle_filled_with_lava",
+      "predicate": {
+        "psychedelicraft:filled_with_lava": 1.0
+      }
+    }
+  ],
+  "textures": {
+    "layer0": "psychedelicraft:item/bottle",
+    "layer1": "psychedelicraft:item/bottle_overlay",
+    "layer2": "psychedelicraft:item/bottle_overlay"
+  }
+}

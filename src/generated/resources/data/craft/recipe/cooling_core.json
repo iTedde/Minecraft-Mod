@@ -1,0 +1,34 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "B": {
+      "type": "neoforge:components",
+      "components": {
+        "minecraft:damage": 0
+      },
+      "items": "craft:advanced_heat_exchanger"
+    },
+    "C": {
+      "item": "craft:heat_capacity_reactor_plating"
+    },
+    "D": {
+      "item": "craft:iridium_plate"
+    },
+    "R": {
+      "type": "neoforge:components",
+      "components": {
+        "minecraft:damage": 0
+      },
+      "items": "craft:coolant_cell_60k"
+    }
+  },
+  "pattern": [
+    "RBR",
+    "CDC",
+    "RBR"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:cooling_core"
+  }
+}

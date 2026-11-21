@@ -6,7 +6,9 @@ import java.util.concurrent.CompletableFuture;
 
 import dev.craft.Craft;
 import dev.craft.core.CraftDamageTypes;
+import dev.craft.mining.FarmingDimension;
 import dev.craft.mining.MiningDimension;
+import dev.craft.music.MusicDiscs;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
@@ -25,12 +27,25 @@ import net.neoforged.neoforge.registries.NeoForgeRegistries;
 public final class CraftDataGenerators {
     private static final RegistrySetBuilder DATAPACK_ENTRIES = new RegistrySetBuilder()
             .add(Registries.DAMAGE_TYPE, CraftDamageTypes::bootstrap)
+            .add(Registries.JUKEBOX_SONG, MusicDiscs::bootstrapSongs)
             .add(Registries.CONFIGURED_FEATURE, CraftWorldGen::bootstrapConfigured)
             .add(Registries.PLACED_FEATURE, CraftWorldGen::bootstrapPlaced)
-            .add(Registries.DIMENSION_TYPE, MiningDimension::bootstrapType)
-            .add(Registries.NOISE_SETTINGS, MiningDimension::bootstrapNoiseSettings)
-            .add(Registries.BIOME, MiningDimension::bootstrapBiome)
-            .add(Registries.LEVEL_STEM, MiningDimension::bootstrapStem)
+            .add(Registries.DIMENSION_TYPE, context -> {
+                MiningDimension.bootstrapType(context);
+                FarmingDimension.bootstrapType(context);
+            })
+            .add(Registries.NOISE_SETTINGS, context -> {
+                MiningDimension.bootstrapNoiseSettings(context);
+                FarmingDimension.bootstrapNoiseSettings(context);
+            })
+            .add(Registries.BIOME, context -> {
+                MiningDimension.bootstrapBiome(context);
+                FarmingDimension.bootstrapBiome(context);
+            })
+            .add(Registries.LEVEL_STEM, context -> {
+                MiningDimension.bootstrapStem(context);
+                FarmingDimension.bootstrapStem(context);
+            })
             .add(NeoForgeRegistries.Keys.BIOME_MODIFIERS, CraftWorldGen::bootstrapBiomeModifiers);
 
     private CraftDataGenerators() {
@@ -49,7 +64,8 @@ public final class CraftDataGenerators {
         generator.addProvider(event.includeServer(), new LootTableProvider(output, Set.of(), List.of(
                 new LootTableProvider.SubProviderEntry(CraftBlockLoot::new, LootContextParamSets.BLOCK),
                 new LootTableProvider.SubProviderEntry(CraftBlockLoot.Vanilla::new, LootContextParamSets.BLOCK),
-                new LootTableProvider.SubProviderEntry(CraftScrapBoxLoot::new, LootContextParamSets.EMPTY)),
+                new LootTableProvider.SubProviderEntry(CraftScrapBoxLoot::new, LootContextParamSets.EMPTY),
+                new LootTableProvider.SubProviderEntry(CraftEntityLoot::new, LootContextParamSets.ENTITY)),
                 lookup));
         CraftBlockTagsProvider blockTags = generator.addProvider(event.includeServer(),
                 new CraftBlockTagsProvider(output, lookup, files));

@@ -35,6 +35,9 @@ public final class ElectricItems {
     }
 
     public static int getCharge(ItemStack stack) {
+        if (stack.getItem() instanceof CustomElectricItem custom) {
+            return custom.getCharge(stack);
+        }
         return stack.getOrDefault(Ic2DataComponents.CHARGE.get(), 0);
     }
 
@@ -53,6 +56,9 @@ public final class ElectricItems {
      * @return EU actually (or, when simulating, possibly) transferred
      */
     public static int charge(ItemStack stack, int amount, int tier, boolean ignoreTransferLimit, boolean simulate) {
+        if (stack.getItem() instanceof CustomElectricItem custom) {
+            return custom.charge(stack, amount, tier, ignoreTransferLimit, simulate);
+        }
         if (!(stack.getItem() instanceof ElectricItem item) || amount < 0 || stack.getCount() > 1
                 || item.getTier() > tier) {
             return 0;
@@ -76,6 +82,9 @@ public final class ElectricItems {
      * @return EU actually (or, when simulating, possibly) transferred
      */
     public static int discharge(ItemStack stack, int amount, int tier, boolean ignoreTransferLimit, boolean simulate) {
+        if (stack.getItem() instanceof CustomElectricItem custom) {
+            return custom.discharge(stack, amount, tier, ignoreTransferLimit, simulate);
+        }
         if (!(stack.getItem() instanceof ElectricItem item) || amount < 0 || stack.getCount() > 1
                 || item.getTier() > tier) {
             return 0;
@@ -94,6 +103,9 @@ public final class ElectricItems {
     }
 
     public static boolean canUse(ItemStack stack, int amount) {
+        if (stack.getItem() instanceof CustomElectricItem custom) {
+            return custom.canUse(stack, amount);
+        }
         return isElectric(stack) && getCharge(stack) >= amount;
     }
 

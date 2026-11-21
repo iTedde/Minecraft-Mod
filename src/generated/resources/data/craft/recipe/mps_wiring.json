@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "craft:mps_wiring",
+  "key": {
+    "G": {
+      "item": "minecraft:gold_nugget"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    }
+  },
+  "pattern": [
+    "GRG"
+  ],
+  "result": {
+    "count": 8,
+    "id": "craft:component_wiring"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "craft:block/nuclearcontrol/average_counter",
+    "east": "craft:block/nuclearcontrol/average_counter",
+    "north": "craft:block/nuclearcontrol/counter_input",
+    "particle": "craft:block/nuclearcontrol/average_counter",
+    "south": "craft:block/nuclearcontrol/average_counter",
+    "up": "craft:block/nuclearcontrol/average_counter",
+    "west": "craft:block/nuclearcontrol/average_counter"
+  }
+}

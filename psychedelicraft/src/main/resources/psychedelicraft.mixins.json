@@ -1,0 +1,52 @@
+{
+  "required": true,
+  "minVersion": "0.7",
+  "package": "ivorius.psychedelicraft.mixin",
+  "plugin": "ivorius.psychedelicraft.PsychedelicraftMixinPlugin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "MixinAbstractBlockSettings",
+    "MixinAbstractFurnaceBlockEntity",
+    "MixinEntity",
+    "MixinFluidState",
+    "MixinItemEntity",
+    "MixinLivingEntity",
+    "MixinLoseJobOnSiteLossTask",
+    "MixinPlayerEntity",
+    "MixinStructurePool",
+    "MixinVillagerEntity",
+    "MixinVillagerTaskListProvider",
+    "MixinVoxelShape",
+    "MixinHungerManager",
+    "MixinBlockEntityType",
+    "datafix.MixinItemStackComponentizationFix"
+  ],
+  "client": [
+    "client.MixinCamera",
+    "client.MixinChatMessages",
+    "client.MixinClientRecipeBook",
+    "client.MixinRecipeBookWidget",
+    "client.MixinChatScreen",
+    "client.MixinEntityRenderDispatcher",
+    "client.MixinMouse",
+    "client.MixinGLImportProcessor",
+    "client.MixinShaderProgram",
+    "client.MixinShaderStage",
+    "client.MixinSoundSystem",
+    "client.MixinGameRenderer",
+    "client.MixinWorldRenderer",
+    "client.MixinHeldItemRenderer",
+    "client.MixinInGameHud",
+    "client.MixinItemModels",
+    "client.MixinLivingEntityRenderer",
+    "client.SoundsAccessor",
+    "client.sodium.MixinGlProgram",
+    "client.sodium.MixinGlProgram_Builder",
+    "client.sodium.MixinShaderLoader",
+    "client.iris.MixinCommonUniforms",
+    "client.iris.MixinProgramSource"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

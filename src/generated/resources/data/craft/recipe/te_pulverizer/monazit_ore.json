@@ -1,0 +1,23 @@
+{
+  "type": "craft:te_pulverizer",
+  "chance": 0,
+  "energy": 100,
+  "inputs": [
+    {
+      "type": "neoforge:compound",
+      "children": [
+        {
+          "item": "craft:monazit_ore"
+        },
+        {
+          "item": "craft:deepslate_monazit_ore"
+        }
+      ],
+      "count": 1
+    }
+  ],
+  "primary": {
+    "count": 8,
+    "id": "craft:forcicium"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "attributes": {
+                "fermentation": 2.0
+              },
+              "fluid": [
+                "psychedelicraft:milk"
+              ],
+              "function": "psychedelicraft:set_fluids"
+            }
+          ],
+          "name": "minecraft:bucket"
+        }
+      ],
+      "rolls": {
+        "type": "minecraft:uniform",
+        "max": 4.0,
+        "min": 2.0
+      }
+    }
+  ]
+}

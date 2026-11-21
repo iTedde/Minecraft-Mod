@@ -1,0 +1,29 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "C": {
+      "item": "craft:electronic_circuit"
+    },
+    "I": {
+      "tag": "c:dyes/black"
+    },
+    "L": {
+      "tag": "c:dyes/lime"
+    },
+    "P": {
+      "item": "minecraft:glass_pane"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    }
+  },
+  "pattern": [
+    "PPP",
+    "LCL",
+    "IRI"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:information_panel"
+  }
+}

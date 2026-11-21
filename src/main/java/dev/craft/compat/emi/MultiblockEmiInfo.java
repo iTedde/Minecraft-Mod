@@ -2,10 +2,7 @@ package dev.craft.compat.emi;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
-import dev.craft.compactsolars.CsItems;
-import dev.craft.compactsolars.SolarArrayType;
 import dev.craft.gregtech.GtItems;
 import dev.craft.gregtech.GtMachine;
 import dev.craft.gregtech.block.GtCasingBlock;
@@ -49,15 +46,7 @@ final class MultiblockEmiInfo {
                 casing(GtCasingBlock.Type.STANDARD), casing(GtCasingBlock.Type.REINFORCED));
         info(registry, "vacuum_freezer", GtItems.machine(GtMachine.VACUUM_FREEZER).get(),
                 casing(GtCasingBlock.Type.REINFORCED), casing(GtCasingBlock.Type.ADVANCED));
-        for (SolarArrayType type : SolarArrayType.values()) {
-            List<ItemLike> items = new ArrayList<>();
-            items.add(CsItems.array(type).get());
-            items.add(Ic2Items.machine(Ic2Machine.SOLAR_PANEL).get());
-            for (int i = 0; i < type.ordinal(); i++) {
-                items.add(CsItems.array(SolarArrayType.values()[i]).get());
-            }
-            info(registry, type.name().toLowerCase(Locale.ROOT) + "_solar_array", items.toArray(ItemLike[]::new));
-        }
+        info(registry, "solar_field", Ic2Items.machine(Ic2Machine.SOLAR_PANEL).get());
     }
 
     /** Info pages of the terraformer blueprints (spec 17 §4), text in {@code emi.craft.info.<blueprint>}. */
@@ -78,6 +67,13 @@ final class MultiblockEmiInfo {
                 Ic2Items.TREETAP.get(), Ic2Items.STONE_MUG.get(), Ic2Items.HOPS.get());
         info(registry, "booze_mug", Ic2Items.BOOZE_MUG.get());
         info(registry, "coffee", Ic2Items.COLD_COFFEE.get(), Ic2Items.DARK_COFFEE.get(), Ic2Items.COFFEE.get());
+    }
+
+    /** Info pages of the IC2 armor changed by spec 37 (no speed boosts, compensation instead). */
+    static void registerArmor(EmiRegistry registry) {
+        info(registry, "quantum_leggings", Ic2Items.QUANTUM_LEGGINGS.get());
+        info(registry, "quantum_boots", Ic2Items.QUANTUM_BOOTS.get());
+        info(registry, "jetpack", Ic2Items.JETPACK.get(), Ic2Items.ELECTRIC_JETPACK.get());
     }
 
     private static ItemLike casing(GtCasingBlock.Type type) {

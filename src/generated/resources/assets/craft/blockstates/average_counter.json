@@ -1,0 +1,27 @@
+{
+  "variants": {
+    "facing=down": {
+      "model": "craft:block/nuclearcontrol/average_counter",
+      "x": 90
+    },
+    "facing=east": {
+      "model": "craft:block/nuclearcontrol/average_counter",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "craft:block/nuclearcontrol/average_counter"
+    },
+    "facing=south": {
+      "model": "craft:block/nuclearcontrol/average_counter",
+      "y": 180
+    },
+    "facing=up": {
+      "model": "craft:block/nuclearcontrol/average_counter",
+      "x": 270
+    },
+    "facing=west": {
+      "model": "craft:block/nuclearcontrol/average_counter",
+      "y": 270
+    }
+  }
+}

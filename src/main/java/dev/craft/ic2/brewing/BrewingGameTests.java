@@ -185,16 +185,16 @@ public final class BrewingGameTests {
     }
 
     @GameTest(template = EMPTY)
-    public static void coffeeRaisesSpeedAndHaste(GameTestHelper helper) {
+    public static void coffeeRaisesSaturationAndHaste(GameTestHelper helper) {
         Player player = helper.makeMockPlayer(GameType.SURVIVAL);
         ItemStack coffee = new ItemStack(Ic2Items.DARK_COFFEE.get());
         ItemStack result = coffee.finishUsingItem(helper.getLevel(), player);
         helper.assertTrue(result.is(Ic2Items.STONE_MUG.get()), "empty mug back");
-        MobEffectInstance speed = player.getEffect(MobEffects.MOVEMENT_SPEED);
-        helper.assertTrue(speed != null && speed.getDuration() == 300 && speed.getAmplifier() == 0, "fresh speed");
+        MobEffectInstance speed = player.getEffect(MobEffects.SATURATION);
+        helper.assertTrue(speed != null && speed.getDuration() == 300 && speed.getAmplifier() == 0, "fresh saturation");
         coffee.finishUsingItem(helper.getLevel(), player);
         coffee.finishUsingItem(helper.getLevel(), player);
-        speed = player.getEffect(MobEffects.MOVEMENT_SPEED);
+        speed = player.getEffect(MobEffects.SATURATION);
         helper.assertTrue(speed.getAmplifier() == 2 && speed.getDuration() == 2700, "dark coffee +1 level, +1200");
         helper.assertFalse(player.hasEffect(MobEffects.CONFUSION), "no nausea below level 3");
         coffee.finishUsingItem(helper.getLevel(), player);
@@ -205,6 +205,8 @@ public final class BrewingGameTests {
             cold.finishUsingItem(helper.getLevel(), other);
         }
         helper.assertValueEqual(other.getEffect(MobEffects.DIG_SPEED).getAmplifier(), 1, "cold coffee caps at 1");
+        helper.assertFalse(player.hasEffect(MobEffects.MOVEMENT_SPEED) || other.hasEffect(MobEffects.MOVEMENT_SPEED),
+                "no speed (spec 37)");
         helper.succeed();
     }
 }

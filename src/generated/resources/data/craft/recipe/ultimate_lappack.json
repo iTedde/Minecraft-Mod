@@ -1,0 +1,31 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "A": {
+      "item": "craft:superconductor"
+    },
+    "B": {
+      "item": "craft:iridium_plate"
+    },
+    "D": [
+      {
+        "item": "craft:lappack"
+      },
+      {
+        "item": "craft:advanced_lappack"
+      }
+    ],
+    "R": {
+      "item": "craft:lapotron_crystal"
+    }
+  },
+  "pattern": [
+    "RBR",
+    "RDR",
+    "RAR"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:ultimate_lappack"
+  }
+}

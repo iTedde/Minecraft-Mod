@@ -1,0 +1,82 @@
+{
+  "variants": {
+    "facing=down,lamp=0": {
+      "model": "craft:block/nuclearcontrol/howler_alarm_front",
+      "x": 180
+    },
+    "facing=down,lamp=1": {
+      "model": "craft:block/nuclearcontrol/howler_alarm_front",
+      "x": 180
+    },
+    "facing=down,lamp=2": {
+      "model": "craft:block/nuclearcontrol/howler_alarm_front",
+      "x": 180
+    },
+    "facing=east,lamp=0": {
+      "model": "craft:block/nuclearcontrol/howler_alarm_front",
+      "x": 90,
+      "y": 90
+    },
+    "facing=east,lamp=1": {
+      "model": "craft:block/nuclearcontrol/howler_alarm_front",
+      "x": 90,
+      "y": 90
+    },
+    "facing=east,lamp=2": {
+      "model": "craft:block/nuclearcontrol/howler_alarm_front",
+      "x": 90,
+      "y": 90
+    },
+    "facing=north,lamp=0": {
+      "model": "craft:block/nuclearcontrol/howler_alarm_front",
+      "x": 90
+    },
+    "facing=north,lamp=1": {
+      "model": "craft:block/nuclearcontrol/howler_alarm_front",
+      "x": 90
+    },
+    "facing=north,lamp=2": {
+      "model": "craft:block/nuclearcontrol/howler_alarm_front",
+      "x": 90
+    },
+    "facing=south,lamp=0": {
+      "model": "craft:block/nuclearcontrol/howler_alarm_front",
+      "x": 90,
+      "y": 180
+    },
+    "facing=south,lamp=1": {
+      "model": "craft:block/nuclearcontrol/howler_alarm_front",
+      "x": 90,
+      "y": 180
+    },
+    "facing=south,lamp=2": {
+      "model": "craft:block/nuclearcontrol/howler_alarm_front",
+      "x": 90,
+      "y": 180
+    },
+    "facing=up,lamp=0": {
+      "model": "craft:block/nuclearcontrol/howler_alarm_front"
+    },
+    "facing=up,lamp=1": {
+      "model": "craft:block/nuclearcontrol/howler_alarm_front"
+    },
+    "facing=up,lamp=2": {
+      "model": "craft:block/nuclearcontrol/howler_alarm_front"
+    },
+    "facing=west,lamp=0": {
+      "model": "craft:block/nuclearcontrol/howler_alarm_front",
+      "x": 90,
+      "y": 270
+    },
+    "facing=west,lamp=1": {
+      "model": "craft:block/nuclearcontrol/howler_alarm_front",
+      "x": 90,
+      "y": 270
+    },
+    "facing=west,lamp=2": {
+      "model": "craft:block/nuclearcontrol/howler_alarm_front",
+      "x": 90,
+      "y": 270
+    }
+  }
+}

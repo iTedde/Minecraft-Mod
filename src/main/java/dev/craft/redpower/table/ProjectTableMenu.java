@@ -2,6 +2,7 @@ package dev.craft.redpower.table;
 
 import static dev.craft.redpower.table.ProjectTableBlockEntity.GRID_SIZE;
 import static dev.craft.redpower.table.ProjectTableBlockEntity.PLAN_SLOT;
+import static dev.craft.redpower.table.ProjectTableBlockEntity.LARGE_STORAGE_SIZE;
 import static dev.craft.redpower.table.ProjectTableBlockEntity.STORAGE_SIZE;
 import static dev.craft.redpower.table.ProjectTableBlockEntity.STORAGE_START;
 
@@ -13,6 +14,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.DataSlot;
+import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.ResultContainer;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
@@ -22,14 +24,13 @@ import net.neoforged.neoforge.items.SlotItemHandler;
 import org.jetbrains.annotations.Nullable;
 
 /**
- * RedPower {@code ContainerAdvBench}. Menu slots: 0–8 grid, 9 plan, 10 result, 11–28 storage, 29–55 player inventory,
- * 56–64 hotbar. The result is computed on the server whenever the table's inventory changed.
+ * RedPower {@code ContainerAdvBench}. Menu slots: 0–8 grid, 9 plan, 10 result, then the storage (18 slots, 27 for the
+ * large project table), the player inventory and the hotbar. The result is computed on the server whenever the
+ * table's inventory changed.
  */
 public class ProjectTableMenu extends AbstractContainerMenu {
     public static final int RESULT = 10;
     public static final int STORAGE = 11;
-    public static final int PLAYER = STORAGE + STORAGE_SIZE;
-    public static final int END = PLAYER + 36;
     /** Menu button: write the blank plan. */
     public static final int BUTTON_WRITE_PLAN = 0;
 
@@ -39,22 +40,39 @@ public class ProjectTableMenu extends AbstractContainerMenu {
     private final ResultContainer result = new ResultContainer();
     private final ProjectTableResultSlot resultSlot;
     private final DataSlot satisfyMask = DataSlot.standalone();
+    /** First player inventory slot and end of the menu slots. */
+    private final int playerStart;
+    private final int end;
     private int seenChanges = -1;
 
     public ProjectTableMenu(int id, Inventory playerInventory, ProjectTableBlockEntity table) {
-        this(id, playerInventory, table, table.getInventory());
+        this(table.getStorageSize() == LARGE_STORAGE_SIZE ? RpMenus.LARGE_PROJECT_TABLE.get()
+                : RpMenus.PROJECT_TABLE.get(), id, playerInventory, table, table.getInventory());
     }
 
-    public ProjectTableMenu(int id, Inventory playerInventory) {
-        this(id, playerInventory, null, ProjectTableBlockEntity.createInventory(() -> {
-        }));
+    /** Client side: the project table. */
+    public static ProjectTableMenu client(int id, Inventory playerInventory) {
+        return new ProjectTableMenu(RpMenus.PROJECT_TABLE.get(), id, playerInventory, null,
+                ProjectTableBlockEntity.createInventory(STORAGE_SIZE, () -> {
+                }));
     }
 
-    private ProjectTableMenu(int id, Inventory playerInventory, @Nullable ProjectTableBlockEntity table,
-                             ItemStackHandler inventory) {
-        super(RpMenus.PROJECT_TABLE.get(), id);
+    /** Client side: the large project table. */
+    public static ProjectTableMenu clientLarge(int id, Inventory playerInventory) {
+        return new ProjectTableMenu(RpMenus.LARGE_PROJECT_TABLE.get(), id, playerInventory, null,
+                ProjectTableBlockEntity.createInventory(LARGE_STORAGE_SIZE, () -> {
+                }));
+    }
+
+    private ProjectTableMenu(MenuType<?> type, int id, Inventory playerInventory,
+                             @Nullable ProjectTableBlockEntity table, ItemStackHandler inventory) {
+        super(type, id);
         this.table = table;
         this.inventory = inventory;
+        int storageRows = (inventory.getSlots() - STORAGE_START) / 9;
+        playerStart = STORAGE + storageRows * 9;
+        end = playerStart + 36;
+        int playerY = 140 + (storageRows - 2) * 18;
         for (int row = 0; row < 3; row++) {
             for (int column = 0; column < 3; column++) {
                 addSlot(new SlotItemHandler(inventory, column + row * 3, 48 + column * 18, 18 + row * 18));
@@ -63,7 +81,7 @@ public class ProjectTableMenu extends AbstractContainerMenu {
         addSlot(new SlotItemHandler(inventory, PLAN_SLOT, 17, 36));
         resultSlot = new ProjectTableResultSlot(this, playerInventory.player, result, 143, 36);
         addSlot(resultSlot);
-        for (int row = 0; row < 2; row++) {
+        for (int row = 0; row < storageRows; row++) {
             for (int column = 0; column < 9; column++) {
                 addSlot(new SlotItemHandler(inventory, STORAGE_START + column + row * 9, 8 + column * 18,
                         90 + row * 18));
@@ -71,14 +89,29 @@ public class ProjectTableMenu extends AbstractContainerMenu {
         }
         for (int row = 0; row < 3; row++) {
             for (int column = 0; column < 9; column++) {
-                addSlot(new Slot(playerInventory, column + row * 9 + 9, 8 + column * 18, 140 + row * 18));
+                addSlot(new Slot(playerInventory, column + row * 9 + 9, 8 + column * 18, playerY + row * 18));
             }
         }
         for (int column = 0; column < 9; column++) {
-            addSlot(new Slot(playerInventory, column, 8 + column * 18, 198));
+            addSlot(new Slot(playerInventory, column, 8 + column * 18, playerY + 58));
         }
         addDataSlot(satisfyMask);
         updateResult();
+    }
+
+    /** First player inventory slot. */
+    public int playerStart() {
+        return playerStart;
+    }
+
+    /** End of the menu slots (after the hotbar). */
+    public int end() {
+        return end;
+    }
+
+    /** Storage rows (2 for the project table, 3 for the large one). */
+    public int storageRows() {
+        return (playerStart - STORAGE) / 9;
     }
 
     /** The plan items of the plan slot, or {@code null} without a written plan (client side for the ghost items). */
@@ -148,11 +181,11 @@ public class ProjectTableMenu extends AbstractContainerMenu {
         ItemStack original = stack.copy();
         boolean moved;
         if (index < GRID_SIZE) {
-            moved = moveItemStackTo(stack, STORAGE, PLAYER, false);
-        } else if (index < PLAYER) {
-            moved = moveItemStackTo(stack, PLAYER, END, true);
+            moved = moveItemStackTo(stack, STORAGE, playerStart, false);
+        } else if (index < playerStart) {
+            moved = moveItemStackTo(stack, playerStart, end, true);
         } else {
-            moved = moveItemStackTo(stack, STORAGE, PLAYER, false);
+            moved = moveItemStackTo(stack, STORAGE, playerStart, false);
         }
         if (!moved) {
             return ItemStack.EMPTY;
@@ -196,7 +229,7 @@ public class ProjectTableMenu extends AbstractContainerMenu {
     /** {@code canFit}: an empty player slot, or enough room in stacks of the same item. */
     private boolean canFit(ItemStack stack) {
         int room = 0;
-        for (int i = PLAYER; i < END; i++) {
+        for (int i = playerStart; i < end; i++) {
             ItemStack other = slots.get(i).getItem();
             if (other.isEmpty()) {
                 return true;
@@ -214,7 +247,7 @@ public class ProjectTableMenu extends AbstractContainerMenu {
     /** {@code fitItem}: fills stacks of the same item first, the rest goes to the first empty slot. */
     private void fitItem(ItemStack stack) {
         if (stack.isStackable()) {
-            for (int i = PLAYER; i < END && !stack.isEmpty(); i++) {
+            for (int i = playerStart; i < end && !stack.isEmpty(); i++) {
                 Slot slot = slots.get(i);
                 ItemStack other = slot.getItem();
                 if (!other.isEmpty() && ItemStack.isSameItemSameComponents(other, stack)) {
@@ -230,7 +263,7 @@ public class ProjectTableMenu extends AbstractContainerMenu {
         if (stack.isEmpty()) {
             return;
         }
-        for (int i = PLAYER; i < END; i++) {
+        for (int i = playerStart; i < end; i++) {
             Slot slot = slots.get(i);
             if (!slot.hasItem()) {
                 slot.setByPlayer(stack);

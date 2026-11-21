@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "craft:block/mffs/mffs_converter_side_active",
+    "east": "craft:block/mffs/mffs_converter_side_active",
+    "north": "craft:block/mffs/mffs_converter_front_active",
+    "particle": "craft:block/mffs/mffs_converter_side_active",
+    "south": "craft:block/mffs/mffs_converter_back_active",
+    "up": "craft:block/mffs/mffs_converter_side_active",
+    "west": "craft:block/mffs/mffs_converter_side_active"
+  }
+}

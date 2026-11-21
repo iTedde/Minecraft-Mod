@@ -4,14 +4,17 @@
     "A": {
       "item": "craft:advanced_machine_casing"
     },
+    "I": {
+      "tag": "c:plates/refined_iron"
+    },
     "P": {
       "tag": "c:plates/steel"
     }
   },
   "pattern": [
-    "PPP",
-    "PAP",
-    "PPP"
+    "PIP",
+    "IAI",
+    "PIP"
   ],
   "result": {
     "count": 8,

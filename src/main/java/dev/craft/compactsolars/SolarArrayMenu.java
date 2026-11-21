@@ -8,13 +8,13 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Inventory;
 import org.jetbrains.annotations.Nullable;
 
-/** Solar array GUI, laid out like the IC2 solar panel ({@code ContainerSolarGenerator}): one charge slot. */
+/** GUI of a leftover solar array, laid out like the IC2 solar panel: its charge slot, the sun symbol stays off. */
 public class SolarArrayMenu extends MachineMenu<SolarArrayBlockEntity> {
     private final SolarArrayType type;
 
     public SolarArrayMenu(int id, Inventory inventory, SolarArrayBlockEntity array) {
         this(id, inventory, array, array.getArrayType(), array.getBlockPos(),
-                new SyncedInts(() -> array.isDelivering() ? 1 : 0));
+                new SyncedInts(() -> 0));
     }
 
     public SolarArrayMenu(int id, Inventory inventory, BlockPos pos, SolarArrayType type) {

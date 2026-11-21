@@ -4,7 +4,14 @@
   "package": "dev.craft.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "CraftingInputMixin"
+    "BlockStateBaseAccessor",
+    "CraftingInputMixin",
+    "ExperienceOrbMixin",
+    "HopperBlockEntityMixin",
+    "HopperBlockMixin",
+    "PlayerFlyingSpeedMixin",
+    "SprintExhaustionMixin",
+    "SprintJumpExhaustionMixin"
   ],
   "injectors": {
     "defaultRequire": 1

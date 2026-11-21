@@ -1,0 +1,26 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "*": {
+      "item": "craft:energy_crystal"
+    },
+    "@": {
+      "item": "craft:proximity_booster_module"
+    },
+    "A": {
+      "item": "craft:advanced_circuit"
+    },
+    "s": {
+      "item": "craft:splitter_cable"
+    }
+  },
+  "pattern": [
+    "A@A",
+    "*s*",
+    "A@A"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:wide_band_booster_module"
+  }
+}

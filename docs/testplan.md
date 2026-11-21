@@ -147,7 +147,8 @@ Testwelt. Sprache einmal Deutsch, einmal Englisch prüfen. EMI und Xaero's Minim
 
 | Nr | Test | Herkunft | OK |
 |---|---|---|---|
-| 8.1 | Solar Arrays (3×3, 2026-10-20): Rezepte SSS/SXS/SSS; LV + 8 Panels: Sonnensymbol am Tag, BatBox lädt mit 19 EU/t, Panel abdecken → weniger; einzelnes Array liefert nichts; MV mit 8 LV-Arrays 179 EU/t (Ring-Arrays liefern selbst nichts), HV mit 8 MV-Arrays 1536 EU/t (Glasfaser/MFSU); HV-Array im MV-Ring → nicht geformt; zweites Feld, das einen Randblock mit einem ersten teilt, liefert nichts (nach Abbau des ersten schon); ein laufendes Feld wird nicht Teil eines anderen; Lade-Slot; Abbau droppt das Array; Texturen | 6.4b, Nachtrag 2026-10-20 | x |
+| 8.1b | Solar seit 2026-10-24: 9×9 aus Solarpanels, BatBox unter einem Panel im Feld lädt 3 EU/t (150 EU in 50 Ticks, seit Phase 40), einzelnes Panel 2 EU/t; Lücke im 9×9 → kein Bonus; altes Array liefert nichts, zerfällt in der Werkbank in 8 der Stufe darunter, nicht in EMI/Kreativtab; Lade-Slot eines alten Arrays entnehmbar | Solar-Umbau 2026-10-24 | |
+| 8.1 | (überholt seit 2026-10-24) Solar Arrays (3×3, 2026-10-20): Rezepte SSS/SXS/SSS; LV + 8 Panels: Sonnensymbol am Tag, BatBox lädt mit 19 EU/t, Panel abdecken → weniger; einzelnes Array liefert nichts; MV mit 8 LV-Arrays 179 EU/t (Ring-Arrays liefern selbst nichts), HV mit 8 MV-Arrays 1536 EU/t (Glasfaser/MFSU); HV-Array im MV-Ring → nicht geformt; zweites Feld, das einen Randblock mit einem ersten teilt, liefert nichts (nach Abbau des ersten schon); ein laufendes Feld wird nicht Teil eines anderen; Lade-Slot; Abbau droppt das Array; Texturen | 6.4b, Nachtrag 2026-10-20 | x |
 | 8.2 | Wassermühle an fließendem Wasser/im Fluss, zwei Mühlen nebeneinander; Windmühle in großer Höhe bei Gewitter (zerfällt nie) | 9.1 | |
 | 8.3 | Koksofen bauen, Kohle per Trichter einspeisen, Koks unten abziehen | 9.2 | |
 | 8.4 | Kessel: Wasser per Eimer/IC2-Pumpe, Kohle/Koks nachlegen, Temperaturbalken und Tanks in der GUI, Dampf in BC-Tank daneben; Explosion (Wasser auf trockenen heißen Kessel) aus sicherer Entfernung | 9.3a | |
@@ -178,6 +179,185 @@ Testwelt. Sprache einmal Deutsch, einmal Englisch prüfen. EMI und Xaero's Minim
 | 10.3 | Upgrades: Holzkiste (auch eine Hälfte einer Doppelkiste) → Eisen/Kupfer, Eisen → Gold → Diamant → Kristall/Obsidian; Inhalt und Blickrichtung bleiben, Upgrade verbraucht; falsches Upgrade öffnet nur die Kiste | 20.4 | x |
 | 10.4 | Obsidiankiste neben TNT bleibt stehen; Abbau mit Spitzhacke droppt Kiste und Inhalt; Trichter/BC-Rohr füllt und leert; Komparator zeigt den Füllstand; zahme Katze setzt sich auf eine Iron Chest; Items im Inventar/in der Hand als Kiste dargestellt | 20.4 | x |
 
+## 11. GraviSuite (Phase 27)
+
+| Nr | Test | Herkunft | OK |
+|---|---|---|---|
+| 11.1 | Alle Items im IC2-Tab (geladen + leer), Texturen, Rüstungsmodelle (Jetpack, Nano-, Gravitations-Brustplatte, LapPacks, Solarhelm); HUD oben rechts neben Xaero | 27.1–27.3 | |
+| 11.2 | Fortg. Jetpack/Nano-Brustplatte: G schaltet Triebwerk (Meldung), Springen hebt mit Loop-Sound, Strg-Boost, M beim Springen = Schwebemodus | 27.2 | |
+| 11.3 | Gravitations-Brustplatte: G ab 80 000 EU Flug (Meldung), Boost mit Strg/Leertaste/Schleichen, Abschalten bei leerer Ladung, Ablegen nimmt den Flug, Welt neu laden | 27.3 | |
+| 11.4 | Fortg. Bohrer/Kettensäge (Tempo, Wolle), Vajra: Sofortabbau, Rechtsklick entfernt Block mit Drops und Geräusch, Grundgestein bleibt | 27.4 | |
+| 11.5 | GraviTool: M + Rechtsklick wechselt Modus (Meldung, Sound, Modell und Name wechseln); Hacke, Baumzapfer am Gummibaum, Schraubenschlüssel an IC2-Maschine (verlustfrei) und BC-Motor (dreht, 500 EU), Schraubendreher an Verstärker/Werfer/Kolben | 27.5 | |
+| 11.6 | Ultimativer Solarhelm (Kreativ): lädt am Tag unter freiem Himmel schnell, nachts langsam, unter Dach nicht; EMI-Info-Seiten aller GraviSuite-Items | 27.6 | |
+
+## 12. Modular Powersuits (Phase 28)
+
+| Nr | Test | Herkunft | OK |
+|---|---|---|---|
+| 12.1 | Kreativ-Tab „Craft: Modular Powersuits“, Texturen der Bauteile/Teile, Tinker Table (Modell, leuchtender Würfel, Item in der Hand); Rezepte in EMI inkl. der 4 GT-Rezepte, Info-Seiten | 28.1, 28.5 | |
+| 12.2 | Tinker Table: Teil wählen, Batterie einbauen (Bauteile weg, Ladebonus), Regler (Werte im Info-Rahmen), Ausbauen (90 %-Rückgabe, Kondensator weg); Power-Rüstung am IC2-Speicher laden, Tooltip „Energie“ | 28.1 | |
+| 12.3 | Bewegung: Sprint-/Sprunghilfe, Stufenhilfe, Jetpack + Düsenstiefel mit/ohne Flugsteuerung (Schweben, Z runter), Gleiter/Fallschirm beim Schleichen, Schwimmhilfe, Stoßdämpfer, Gewicht > 25 kg bremst | 28.2 | |
+| 12.4 | Umwelt: Nachtsicht, Tarnung (Effekte ohne Partikel), Auto-Feeder isst bei Hunger (Meldung), Elektrolyseur unter Wasser, Solar/Kinetik laden; K-GUI: Taste anlegen, Modul binden, Taste schaltet aus/an (Meldung), Datei bleibt nach Neustart | 28.3 | |
+| 12.5 | Kosmetik: Farbmodul färbt Icon und getragene Rüstung, Durchsichtig blendet aus, Citizen-Joe-Textur | 28.3 | |
+| 12.6 | Power-Werkzeug: Stein/Erde/Holz/Obsidian abbauen (Tempo, Energie je Block), Nahkampfhilfe; Schleichen + Mausrad wechselt Modus (Icons über der Hotbar, Hotbar bleibt), Railgun (Partikelspur, Rückstoß), Blink Drive, Plasmakanone (aufladen, Kugel, Explosion), In-Place Assembler (Werkbank bleibt offen) | 28.4 | |
+
+## 13. Elektrischer Leuchtschild (Phase 30)
+
+| Nr | Test | Herkunft | OK |
+|---|---|---|---|
+| 13.1 | IC2-Tab (leer + voll), Rezept und Info-Seite in EMI; Modell im Inventar, in Haupt-/Nebenhand (1./3. Person), Blocken-Pose, Leuchtfläche bei Licht an hell, bei aus normal; Ladebalken, Tooltip „Licht an/aus“ | 30.1, 30.2 | |
+| 13.2 | Taschenlampe (ab Phase 51, ohne LambDynamicLights): nachts/in einer Höhle mit Schild in Haupt- oder Nebenhand heller Kegel in Blickrichtung, Wand in 30 Blöcken hell, Schein ringsum, auch unter Wasser; folgt beim Laufen/Drehen (kurzes Nachziehen ok); Modus-Taste + Schleichen + Rechtsklick → Fenster Taschenlampe, Regler Reichweite 16–64 / Kegel 15–60° wirken sofort, Verbrauch/Laufzeit stimmen, Tooltip zeigt Einstellung; zweiter Spieler sieht das Licht; im Kegel spawnen keine Monster; Schild weglegen/leer/Modus-Taste + Rechtsklick (Meldung) → alles dunkel, keine Lichtreste (auch nach Abmelden, Dimensionswechsel); Performance mit 64/60° beim Laufen | 51.1 | |
+| 13.3 | Blocken: Zombie-/Skelett-Treffer kosten EU, leer lässt er sich nicht heben, beim Leerlaufen senkt er sich; Axt sperrt ihn | 30.1 | x 2026-10-24 (Zombie: 10 000 → 7 544 EU, keine Herzen; leer nicht hebbar, trifft durch); Axt/Skelett offen |
+| 13.4 | Zaubertisch bietet Haltbarkeit an; Amboss mit Reparatur-Buch, Erfahrung lädt den Schild; BatBox/Ladegerät lädt | 30.1 | teilweise 2026-10-24: Zaubertisch bietet Haltbarkeit I, /enchant Haltbarkeit III + Reparatur ok, Schärfe abgelehnt; Amboss/XP-Laden/BatBox offen |
+
+## 14. Verteiler-Transportrohr (Phase 31)
+
+| Nr | Test | Herkunft | OK |
+|---|---|---|---|
+| 14.1 | BC-Tab, Rezept (Diamant-Transportrohr + Komparator) und Info-Seite in EMI, Tooltip; Modell: Kern mit roten Punkten, Arme in Diamantrohr-Farben | 31.1, 31.2 | |
+| 14.2 | Rechtsklick → GUI: Knöpfe −10/−1/+1/+10, Umschalt-Klick 0/100, Anteil in Klammern nur für angeschlossene Seiten, Summe; Werte bleiben nach Neuladen der Welt | 31.1 | |
+| 14.3 | Holzrohr aus Truhe → Verteilerrohr → drei Truhen bei 50/30/20: 100 Items kommen 50/30/20 an; ein 64er-Stapel 32/19/13 | 31.1 | |
+| 14.4 | 0 % sperrt eine Seite; alle 0 → normales Rohr; volle Zieltruhe → Rest geht an die anderen, nach dem Leeren kein Schwall | 31.1 | |
+
+## 15. Ausgleich Großkraftwerke (Phase 32)
+
+| Nr | Test | Herkunft | OK |
+|---|---|---|---|
+| 15.1 | EMI: neue Rezepte (Mast ×4 aus Stahlplatten, Große Windturbine `WAW/AHA/WAW`, Stahl-Windrotor aus 8 Stahlplatten, Großes Wasserturbinengehäuse ×6, Großes Turbinengehäuse `PIP/IAI/PIP`, Großer Turbinenrotor `STS/SRS/STS`), Info-Seiten mit neuen Werten | 32.1, 32.2 | |
+| 15.2 | Große Windturbine: mit 8 Masten „Struktur unvollständig“, mit 24 Masten vollständig; Carbon-Rotor bei y ≈ 200 ≈ 82 EU/t (Rechtsklick), bei Gewitter höchstens 192; MFE/MFSU am Mastfuß lädt, kein Kabel brennt | 32.1 | |
+| 15.3 | Wasserturbine im Fluss-Biom mit Wasser auf dem Deckel: Rechtsklick zeigt bis 48 EU/t, BatBox und Kupferkabel daran explodieren nicht | 32.1 | |
+| 15.4 | Große Wasserturbine im Fluss-Biom: mit 256 fließenden Blöcken 384 EU/t; außerhalb höchstens 256 | 32.1 | |
+
+## 16. FE Producer (Phase 33)
+
+| Nr | Test | Herkunft | OK |
+|---|---|---|---|
+| 16.1 | Power-Converters-Tab, Rezept (4 Gold + Redstone-Block) und Info-Seite in EMI, Tooltip; Textur mit rotem Rahmen, „verbunden“-Seite zum FE-Gerät | 33.1, 33.2 | |
+| 16.2 | EU-Kabel → IC2 Consumer → Energy Bridge → FE Producer → AE2 Energy Acceptor: AE2-Netz läuft, Bridge-GUI zeigt „FE OUT“ mit FE/t (128 EU/t → 512 FE/t) | 33.1 | |
+| 16.3 | Zwei FE-Empfänger (z. B. Energy Acceptor + Ad-Astra-/IF-Gerät) am selben FE Producer bekommen beide Strom; ohne Empfänger füllt sich nur die Bridge | 33.1 | |
+| 16.4 | FE-Kabel eines anderen Mods (z. B. Crafts & Additions) am FE Producer zieht Strom; EU-Kabel/Maschinen nehmen kein FE an | 33.1 | |
+
+## 17. Kupfergolem (Phase 35)
+
+| Nr | Test | Herkunft | OK |
+|---|---|---|---|
+| 17.1 | Kupferkiste oxidiert über Zeit (Textur je Stufe), Honigwabe wachst (Partikel), Axt schleichend schabt ab, ohne Schleichen öffnet die GUI; Inhalt bleibt; Abbau droppt frische Kiste; EMI-Info an der Kupferkiste | 35.1, 35.4 | |
+| 17.2 | Kupferblock + geschnitzter Kürbis (oben, seitlich) bzw. Kürbislaterne per Werfer: Block wird Kupferkiste gleicher Stufe, Golem gleicher Stufe am Kürbis; Kürbis zuerst = nichts; Schnee-/Eisengolem gehen weiter | 35.2 | |
+| 17.3 | Golem: Modell und Textur je Stufe, Laufanimation, Geräusche höher als Eisengolem; Honigwabe/Axt am Golem mit Partikeln; Spawn-Ei im Tab Iron Chests hinter den Kisten | 35.2 | |
+| 17.4 | Transport: Golem holt 16 aus der Kupferkiste, Deckel geht auf, Animation „Kiste untersuchen“, legt in Truhe/Fass/Diamantkiste mit gleichem Item bzw. leere, nie in Kupferkiste, Ofen oder fremd belegtes Fass; Item in der Hand sichtbar; Rechtsklick nimmt es ab | 35.3 | |
+| 17.5 | Reichweite: Kiste 30 Blöcke entfernt (auch 20 höher) wird angelaufen; Deckel einer Truhe, die gleichzeitig ein Spieler offen hat, schließt nicht vorzeitig | 35.3 | |
+| 17.6 | EMI-Info am Spawn-Ei (Bau, Verhalten), Herkunftstext beim Spawn-Ei; Wiki-Abschnitt „Kupfergolem“ auf der Iron-Chests-Seite | 35.4 | |
+
+## 18. Großer Projekttisch (Phase 34)
+
+| Nr | Test | Herkunft | OK |
+|---|---|---|---|
+| 18.1 | Rezept `III/CPC/III` in EMI, Block mit Eisenrand im Tab RedPower hinter dem Projekttisch, Tooltip „27 Vorratsplätze“, Ausrichtung zum Spieler | 34.1 | |
+| 18.2 | GUI 176 × 240: Raster, Bauplan-Slot, Ergebnis, 3 Vorratsreihen, Spielerinventar passen zum Hintergrund; Shift-Klick zwischen Vorrat und Inventar | 34.1 | |
+| 18.3 | Nachschub aus der dritten Vorratsreihe, Bauplan beschreiben und ohne Raster herstellen; EMI-„+“ (auch Shift-+) füllt aus Vorrat und Inventar | 34.1 | |
+| 18.4 | Holzrohr/Trichter an jeder Seite erreicht nur die 27 Vorratsplätze; Abbau droppt alle 37 Slots | 34.1 | |
+| 18.5 | EMI-Info-Seite an beiden Projekttischen; Wiki: Zeile in „Komplett neue Inhalte“, Maschinentext, EMI-„+“-Hinweis | 34.2 | |
+
+## 19. Nichts macht schneller (Phase 37)
+
+| Nr | Test | Herkunft | OK |
+|---|---|---|---|
+| 19.1 | Quantenhose: Sprinten normal schnell (auch im Wasser), Hungerleiste sinkt beim Sprinten/Sprint-Springen nicht, kein Rückstoß bei Treffern; ohne Ladung wieder normal | 37.1 | |
+| 19.2 | Quantenstiefel: Strg + Springen hoch wie bisher, aber kein Weitsprung; Jetpack/Elektro-Jetpack nicht schneller als Sprinten | 37.1 | |
+| 19.3 | Kaffee: Sättigung + Eile, Stufe steigt je Tasse, Übelkeit/Schaden ab der Überdosis | 37.1 | |
+| 19.4 | Fortg. Jetpack/Nano-Brustplatte: Strg ohne Wirkung, vorwärts höchstens Sprinttempo, Verbrauch 6 EU/t | 37.2 | |
+| 19.5 | Gravi-Brustplatte: Flug so schnell wie Sprinten, Sprint-Fliegen ohne Wirkung, Steigen/Sinken normal; Strg + M schaltet Magnet (Meldung, HUD-Zeile), zieht Items (−50 EU je Stapel, nicht bei vollem Inventar) und XP im Umkreis 8, auch am Boden | 37.2 | |
+| 19.6 | MPS: Sprinthilfe ohne Tempo, Eigenschaft „Tragkraft“ im Tinker Table, Rüstung über 25 kg bremst mit Modul weniger; Sprunghilfe springt hoch ohne Luftsteuerung; Schwimmhilfe: Abbau unter Wasser (auch schwimmend) wie an Land; Jetpack/Düsenstiefel/Gleiter nicht schneller als Sprinten | 37.3 | |
+| 19.7 | EMI-Infoseiten Quantenhose, Quantenstiefel, Jetpack, Gravi-Brustplatte, Fortg. Jetpack, Kaffee; Modulbeschreibungen Sprint-/Schwimmhilfe/Gleiter; Wiki „Alle Änderungen“ §1a, GraviSuite-/MPS-Seite | 37.4 | |
+
+## 20. Solarpanels leiten untereinander (Phase 38)
+
+| Nr | Test | Herkunft | OK |
+|---|---|---|---|
+| 20.1 | 9×9-Feld, ein Kabel an einem Eckpanel → BatBox: am Tag 243 EU/t (EU-Meter, seit Phase 40); Reihe aus 5 Panels mit Kabel am Ende 10 EU/t | 38.1 | bestanden 2026-11-06 (Nutzer) |
+| 20.2 | Generator hinter einem Panel erreicht die BatBox auf der anderen Seite nicht; kein Stromschlag an den Panels | 38.1 | bestanden 2026-11-06 (Nutzer) |
+| 20.3 | EMI-Infoseite Solarpanel nennt die Leitung; Wiki-Seite Solar (Regel, Schritt-für-Schritt, Fehlersuche) | 38.2 | bestanden 2026-11-06 (Nutzer) |
+
+## 21. Zusatzmods und Spalte „abgebaute Blöcke“ (Phase 39)
+
+| Nr | Test | Herkunft | OK |
+|---|---|---|---|
+| 21.1 | Paket startet mit allen neuen Mods (Forgematica, MaFgLib, Armor Stand Arms, Subtle Effects, Fzzy Config, Particle Rain, Pick Up Notifier, Enhanced Player List) ohne Fehler | 39.2 | bestanden 2026-11-06 (Nutzer) |
+| 21.2 | Tab halten: EPL-Tabelle mit Spalte „Mined“ hinter „Distance“; Zahl steigt nach Abbauen und Speichern (`/save-all`); bestehende Welt zeigt sofort die bisherige Summe; offline Spieler grau | 39.1 | bestanden 2026-11-06 (Nutzer) |
+| 21.3 | Forgematica: Menü (M) öffnet, Taste kollidiert mit der IC2-Modus-Taste → eine umlegen; Schaltplan speichern und einblenden | 39.2 | bestanden 2026-11-06 (Nutzer) |
+| 21.4 | Rüstungsständer mit Armen, Regenpartikel, Aufhebe-Einblendung, Subtle-Effects-Partikel sichtbar | 39.2 | bestanden 2026-11-06 (Nutzer) |
+
+## 22. Fortgeschrittener Diamantbohrer (Phase 41)
+
+| Nr | Test | Herkunft | OK |
+|---|---|---|---|
+| 22.1 | Bohrer lädt bis 1 000 000 EU (MFSU), Ladeanzeige/Tooltip; Tooltip „3×3-Modus: aus“ | 41 | bestanden 2026-11-06 (Nutzer) |
+| 22.2 | M + Rechtsklick: Meldung „3×3-Modus AN/AUS“; an Wand, Boden und Decke jeweils 3×3 quer zur Blickrichtung, Drops (mit Glück/Behutsamkeit), 160 EU je Block | 41 | bestanden 2026-11-06 (Nutzer) |
+| 22.3 | Stein mit Obsidian daneben: Obsidian bleibt; Erz neben Stein geht mit; Grundgestein nie; leerer Bohrer baut nur noch Einzelblöcke; EMI-Infoseite | 41 | bestanden 2026-11-06 (Nutzer) |
+
+## 23. IC2 Nuclear Control (Phase 46)
+
+| Nr | Test | Herkunft | OK |
+|---|---|---|---|
+| 23.1 | Texturen/Modelle aller Blöcke und Items im IC2-Tab (GT-Sensorkit im GT-Tab); Rezepte in EMI, Info-Seiten und Herkunft der Karten | 46.1–46.4 | |
+| 23.2 | Thermometer/Digitalthermometer am Reaktor (Meldung, Haltbarkeit, 50 EU); Thermomonitor an Reaktor/Kammer (Schwelle per GUI, Front grün/rot/grau, Redstone, Invertieren, Zahl oben); Fern-Thermomonitor mit Karte, Batterie, Upgrades, Anzeige auf der Front | 46.1 | |
+| 23.3 | Heul- und Industriealarm an Wand/Boden/Decke: Ton (Standard/Sci-Fi), Reichweite, Licht blinkt; fällt ab ohne Halt | 46.1 | |
+| 23.4 | Infotafel mit Erweiterungen (Rahmen, Farben mit Farb-Upgrade, Licht nur mit Redstone, Text an Wand/Boden/Decke, Shift + Schraubenschlüssel dreht); alle Karten (Reaktor, Energie EU/MJ, Feld, Flüssigkeit, Zähler, GT, Text, Zeit), Zeilen-Häkchen, Titel, „Außer Reichweite“ | 46.2, 46.3 | |
+| 23.5 | Energie-/Durchschnittszähler zwischen Kabeln (Eingang Front, Zählerstand, Reset, Zeitraum 1/3/5/10, Explosion bei zu großem Paket); Bereichsauslöser (Ziffern ±, Umkehr, Texturen je Zustand, Redstone) | 46.3 | |
+
+## 24. ChargePads (Phase 47)
+
+| Nr | Test | Herkunft | OK |
+|---|---|---|---|
+| 24.1 | Texturen/Modelle der 3 Pads (flach, Oberseite aktiv/inaktiv) und aller 12 Items im IC2-Tab; Rezepte und 6 Info-Seiten in EMI; Effizienz-Upgrade nur mit vollem RE-Akku | 47.1–47.3 | |
+| 24.2 | Pad mit Kabel von unten (von der Seite nimmt er nichts), GUI (Energie, Max., Eingang, gesperrte Plätze), Batterieslot mit Akku/Redstone; zu großes Paket → Explosion | 47.1 | |
+| 24.3 | Draufstellen: Klick, Funken, Redstone 15 unten/seitlich; Hand-Item lädt, danach Rüstung; Übertakter/Effizienz/Speicher/Transformer wirken; Abschalten beim Weggehen | 47.1, 47.2 | |
+| 24.4 | Module: Nahbereich/Breitband (Hotbar), Rüstungsvorrang, Feldausdehnung (Funkenfläche größer), Entladung (gelbe Funken), Schaden (rote Funken, Gift); mit Entladungs-/Schadensmodul GUI nur von unten | 47.2 | |
+| 24.5 | Ausbausätze: Werkbank und Rechtsklick auf die Unterseite (Speicher bleibt, Upgrade landet im Feld-Platz), aktiver Pad → Meldung + Schaden; Schraubenschlüssel gibt den Pad, Spitzhacke → Stromschlag + Inventarverlust; Fall aus 4 Blöcken → Zusatzschaden | 47.1, 47.2 | |
+
+## 25. Modular Force Field System (Phase 48)
+
+| Nr | Test | Herkunft | OK |
+|---|---|---|---|
+| 25.1 | Monazit-Erz in der Welt (y 0–79) und Mining-Dimension; Ofen/Macerator/Grinder → Forcicium; alle Blöcke/Items im Tab „Craft: Modular Force Field System“, Texturen; Rezepte und 14 Info-Seiten in EMI, Herkunft der Karten (Shift-Tooltip) | 48.1–48.5 | |
+| 25.2 | Extraktor mit Kabel (EU) und Engine (MJ) + Forcicium, Beschleuniger; Forcicium-Zelle füllen (Inventar aktiv, Extraktor rechts); Kondensator mit Power-Link-Karte, Upgrades, Kristall laden/entladen, Weitergabe an zweiten Kondensator; Konverter KE → EU an Kabel | 48.1 | |
+| 25.3 | Projektor: alle 8 Module mit Modulatoren/Fokusmatrizen (Form sichtbar), Einschalten/Unterhalt, Feld ersetzt Wasser, kein Abbau, Explosion prallt ab; Zugriffsarten (Linksklick-Schock), Abschalten bei leerem Kondensator | 48.2 | |
+| 25.4 | Upgrades: Tarnung (Block, Wasser-/Lavaeimer, Wechsel sofort), Berührungsschaden, Schwamm, Kuppel, Blockbrecher (1 Item ins Nachbarinventar), Störsender brennt fremden Projektor aus + Reparatur, Feldfusion, NPC-Abwehr; Feld-Teleporter durch eine Wand | 48.3 | |
+| 25.5 | Sicherheitsstation-GUI (Master, 8 Rechte-Knöpfe mit Symbolen, Lizenz ±, Kopie), Kodierer (eigener/fremder Ausweis, Datenlink), Rechte wirken (GUI gesperrt, Feld-Durchgang); Sicherheitsspeicher (Trichter nur ausgeschaltet), Steuerungssystem (Ferndaten, Schalten, Remote-GUI), Verteidigungsstation (Warnung, Modi informieren/durchsuchen/töten, NPCs), Handbuch, Debugger | 48.4 | |
+
+
+### 26 Kleinkram und Secret Rooms (Phase 50)
+
+| Nr. | Prüfung | Phase | Ergebnis |
+|---|---|---|---|
+| 26.1 | Tab „Craft: Kleinkram“: OmniWrench, Sockel, Forge-Lexikon, Gravitationskanonen, Obsidian-Druckplatte mit Texturen; Rezepte und Infoseiten in EMI | 50.1–50.3 | |
+| 26.2 | OmniWrench: Ofen/Treppe drehen (Schleichen andersherum), Macerator über die Front verlustfrei abbauen (drehen wie im Original nicht), BuildCraft-Motor/TE-Maschine drehen, Infotafel drehen; Obsidian-Druckplatte: Spieler löst aus, Schwein/Item nicht | 50.1 | |
+| 26.3 | Forge-Lexikon tragbar (Schleichen + Rechtsklick): Craft-Zinnbarren ↔ Mekanism-Zinnbarren, Erz ↔ Tiefschiefer-Erz, Pfeile, Gruppenname, Knopf; Inhalt beim Schließen zurück. Sockel: Lexikon auflegen (Blitz, Knall, Licht 15, Buch dreht sich zum Spieler), GUI, Schleichen + Schlüssel nimmt es samt Inhalt ab | 50.2 | |
+| 26.4 | Gravitationskanone: Benutzen greift Schwein/Block/Truhe (Inhalt bleibt), hält 3,5 vor dir, erneut lässt los (Block fällt und setzt sich), Taste halten zieht aus 10 heran, Angriff wirft (Aufprallschaden), keine Block-Abbau-/Setz-Aktion mit der Kanone; aufgeladen: 15 Blöcke, reißt Blöcke los, geworfener Creeper explodiert; Blitz lädt auf; Mitspieler greifen | 50.3 | |
+| 26.5 | Secret Rooms: Tab, Paste; Geisterblock in Stein-/Holzwand sieht aus wie die Wand (Paar-Regel), durchlaufbar, mit Hebel fest; Einwegglas in Wand: von außen getarnt, von innen durchsichtig, Taste „\\“ dreht die Richtung; Grasblock-Tarnung mit Biomfarbe | 50.4 | |
+| 26.6 | Getarnter Redstone (Kette zur Lampe), Hebel/Knopf/Druckplatten (Spieler-Variante), Treppe (begehbar, sieht voll aus), Truhe (Inhalt, Katze), Tor (Wand aus 10 Blöcken heraus/hinein), Holz-/Eisentür und Falltür in Tarnung (offen/zu, Form stimmt), Fackel-Hebel (Licht, schaltet) | 50.5 | |
+
+### 27 Farming-Welt (Phase 53)
+
+| Nr. | Prüfung | Phase | Ergebnis |
+|---|---|---|---|
+| 27.1 | Farming-Portal aus Bemoostem Bruchstein (4×5) zünden, Reise hin und zurück; grünes Portal, Licht; in der Mining-Welt nicht zündbar (und Mining-Portal nicht in der Farming-Welt); bestehende Mining-Portale gehen weiter; neues Zielportal steht auf einem Weg | 53.1–53.2 | |
+| 27.2 | Welt: Grasebene, immer Mittag, kein Regen, keine Mobs; Gärten mit Wegen und lesbaren Schildern; Wasser/Seerosen, Kakao-Säule, Moosdecke, Zuckerrohr/Kaktus/Bambus 3 hoch, Melone/Kürbis mit Stängel; nichts fällt beim Hinlaufen ab | 53.2 | |
+| 27.3 | Im Paket: Log-Zeile „Farming dimension: N plants …“ und „left out …“; Pflanzen der Paket-Mods (Farmer's Delight, Brewery …) stehen in Beeten | 53.2 | |
+| 27.4 | IC2-Beete: 21 Sorten, Sprites ausgewachsen, Schild mit Sortennamen, Erz unter Ferru/Aurelia; Linksklick gibt je Pflanze sicher einen Saatbeutel 1/1/1, Rechtsklick erntet | 53.3 | |
+| 27.5 | EMI: Info-Seiten an Glattem Stein, Bemoostem Bruchstein, Feuerzeug und Saatbeutel; Herkunft von Kaffeebohnen/Hopfen/Terra-Warze nennt die Farming-Welt; Wiki-Seite „Farming-Welt“ | 53.4 | |
+
+### 28 Psychedelicraft (Phase 52, eigene Mod)
+
+| Nr. | Prüfung | Phase | Ergebnis |
+|---|---|---|---|
+| 28.1 | Client startet mit Craft + Psychedelicraft bis in die Welt; Tab, Texturen, Modelle der Block-Entities (Fass, Bottich, Destille, Kolben, Trockentisch), Einstellungsbildschirm in der Modliste | 52.1/52.3 | |
+| 28.2 | Wildwuchs: Hanf-/Tabakfelder in Ebene/Wald, Prunkwinde im Blumenwald, Peyote/Agave in der Savanne, Wacholderbäume; Truhen-Beute (Mine, Verlies, Wüstentempel); Weintrauben aufs Spalier setzen, mit der Schere ernten | 52.2 | |
+| 28.3 | Kette Bier: Bottich (3×3) mit Wasser + 6 Weizen + 2 Hopfen → Gärung (Anzeige), Fass, Krug füllen und trinken; Destille auf Lagerfeuer → Kolben; Trockentisch in der Sonne; Joint drehen und rauchen | 52.2 | |
+| 28.4 | Halluzinationen sichtbar (Alkohol: Doppelbilder; Cannabis; Zauberpilze; LSD-Wellen), Sounds (Herzschlag), Stärke-Regler wirkt; mit Iris-Shaderpack kein Absturz | 52.3 | |
+| 28.5 | Kater: nach starkem Rausch Effekt „Kater III“ mit Restzeit, Übelkeit in Schüben, Blendung am Tag unter freiem Himmel (Schatten hilft), Übergeben; Wasserflasche/IC2-Kaffee verkürzen, Milch nicht | 52.4 | |
+| 28.6 | EMI: Kategorien Trocknen, Einweichen, Fass/Destille/Kolben, Backen, Flüssigkeits-Zubereitung, Welt-Interaktion (Layout, Tank-Anzeige in mB, Tooltips); Farming-Welt im Paket enthält die Psychedelicraft-Pflanzen; Wiki-Abschnitt „Psychedelicraft“ | 52.5/52.6 | |
+
 ## Befunde
 
 | Nr | Datum | Befund | Status |
@@ -187,6 +367,7 @@ Testwelt. Sprache einmal Deutsch, einmal Englisch prüfen. EMI und Xaero's Minim
 | B4 | 2026-10-20 | Zahme Katzen setzten sich nicht auf Iron Chests, sondern blieben davor stehen: `IronChestBlock` meldete der Wegfindung „begehbar“ (Standard für nicht volle Blöcke), die Katze plante den Weg durch die Kiste. Vanilla-Truhe: `isPathfindable` = false | behoben (0.4.2, `isPathfindable` = false, GameTest `catsSitOnIronChests` prüft die Wegfindung) |
 | B5 | 2026-10-20 | Ladeanzeige (HUD oben links) liegt über der Xaero-Minimap, die ebenfalls oben links sitzt | behoben 2026-10-20: HUD links neben die Hotbar verschoben (Nutzer); Client-Prüfung offen |
 | B6 | 2026-10-20 | Shift-„+“ in EMI leert ein Raster, in dem schon ein Rezept liegt, statt es aufzufüllen (Projekttisch, Automatische Werkbank) | kein Mod-Fehler: Vanilla-Werkbank verhält sich in EMI 1.1.22 genauso; bei leerem Raster füllt Shift-„+“ korrekt |
+| B7 | 2026-10-24 | EMI meldet 8 unübersetzte Tags: `c:dusts/invar`, `c:gears/copper`, `c:gears/invar`, `c:gears/tin`, `c:ingots/invar`, `c:ores/lead`, `c:ores/nickel`, `c:ores/silver` (Thermal-Expansion-Materialien) | behoben (2026-10-27, Tag-Namen de/en in `CraftLanguageProvider.itemTags`, Client-Test offen) |
 | B3 | 2026-10-17 | Nachtsichtbrille: Icon ist eine lila Fläche – im Pack identisch (`item_0.png` Index 232 ist dort Platzhalter) | behoben: eigenes Icon (Nutzerwunsch 2026-10-17, `abweichungen.md`) |
 
 ## Durchlauf 2026-10-17 (automatisiert im echten Client)

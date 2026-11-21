@@ -1,0 +1,27 @@
+{
+  "variants": {
+    "facing=down": {
+      "model": "craft:block/nuclearcontrol/remote_thermal_monitor",
+      "x": 90
+    },
+    "facing=east": {
+      "model": "craft:block/nuclearcontrol/remote_thermal_monitor",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "craft:block/nuclearcontrol/remote_thermal_monitor"
+    },
+    "facing=south": {
+      "model": "craft:block/nuclearcontrol/remote_thermal_monitor",
+      "y": 180
+    },
+    "facing=up": {
+      "model": "craft:block/nuclearcontrol/remote_thermal_monitor",
+      "x": 270
+    },
+    "facing=west": {
+      "model": "craft:block/nuclearcontrol/remote_thermal_monitor",
+      "y": 270
+    }
+  }
+}

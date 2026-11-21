@@ -15,5 +15,6 @@ public final class RedPowerClient {
     @SubscribeEvent
     public static void registerScreens(RegisterMenuScreensEvent event) {
         event.register(RpMenus.PROJECT_TABLE.get(), ProjectTableScreen::new);
+        event.register(RpMenus.LARGE_PROJECT_TABLE.get(), ProjectTableScreen::new);
     }
 }

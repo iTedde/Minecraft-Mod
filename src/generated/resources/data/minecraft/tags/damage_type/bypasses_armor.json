@@ -1,5 +1,9 @@
 {
   "values": [
-    "craft:radiation"
+    "craft:radiation",
+    "craft:electrocution",
+    "craft:field_shock",
+    "craft:field_defense",
+    "craft:area_defense"
   ]
 }

@@ -1,0 +1,8 @@
+{
+  "comparator_output": 12,
+  "description": {
+    "translate": "jukebox_song.craft.no_lie"
+  },
+  "length_in_seconds": 229.0,
+  "sound_event": "craft:records/no_lie"
+}

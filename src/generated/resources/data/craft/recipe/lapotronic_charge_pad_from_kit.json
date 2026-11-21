@@ -1,0 +1,15 @@
+{
+  "type": "craft:ic2_shapeless",
+  "ingredients": [
+    {
+      "item": "craft:crystalizor_charge_pad"
+    },
+    {
+      "item": "craft:lapotronic_upgrade_kit"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:lapotronic_charge_pad"
+  }
+}

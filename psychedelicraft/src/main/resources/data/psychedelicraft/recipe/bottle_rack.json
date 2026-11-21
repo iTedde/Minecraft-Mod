@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "tag": "minecraft:planks"
+    },
+    "I": {
+      "tag": "c:rods/wooden"
+    }
+  },
+  "pattern": [
+    "I#I",
+    "#I#",
+    "I#I"
+  ],
+  "result": {
+    "count": 1,
+    "id": "psychedelicraft:bottle_rack"
+  }
+}

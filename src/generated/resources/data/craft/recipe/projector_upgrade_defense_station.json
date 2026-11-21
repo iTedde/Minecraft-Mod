@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "craft:electronic_circuit"
+    },
+    "Q": {
+      "item": "craft:tesla_coil"
+    },
+    "z": {
+      "item": "craft:mffs_card_personal_id"
+    }
+  },
+  "pattern": [
+    " z ",
+    "CQC",
+    " z "
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:projector_upgrade_defense_station"
+  }
+}

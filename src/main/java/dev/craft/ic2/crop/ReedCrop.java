@@ -41,6 +41,11 @@ public class ReedCrop extends CropCard {
     }
 
     @Override
+    public int matureSize() {
+        return 3;
+    }
+
+    @Override
     public boolean canGrow(CropBlockEntity crop) {
         return crop.getSize() < 3;
     }

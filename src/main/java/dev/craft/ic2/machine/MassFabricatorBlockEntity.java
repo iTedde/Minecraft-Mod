@@ -1,5 +1,6 @@
 package dev.craft.ic2.machine;
 
+import dev.craft.mffs.MffsItems;
 import java.util.Map;
 
 import dev.craft.core.energy.ConsumptionReadout;
@@ -67,6 +68,8 @@ public class MassFabricatorBlockEntity extends MachineBlockEntity implements Ene
                 Map.entry(Ic2Items.SCRAP.get(), 5000),
                 Map.entry(Ic2Items.SCRAP_BOX.get(), 45000),
                 Map.entry(Items.REDSTONE, 5000),
+                // MFFS: forcicium as amplifier (Recipes.matterAmplifier, 5000).
+                Map.entry(MffsItems.FORCICIUM.get(), 5000),
                 Map.entry(Items.GLOWSTONE_DUST, 25000),
                 Map.entry(GtItems.DIAMOND_DUST.get(), 125000),
                 Map.entry(GtItems.EMERALD_DUST.get(), 50000),

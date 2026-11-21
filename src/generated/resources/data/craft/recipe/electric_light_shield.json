@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "A": {
+      "item": "craft:advanced_alloy"
+    },
+    "L": {
+      "item": "craft:luminator"
+    },
+    "R": {
+      "item": "craft:re_battery"
+    },
+    "S": {
+      "item": "minecraft:shield"
+    }
+  },
+  "pattern": [
+    "ALA",
+    "ASA",
+    " R "
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:electric_light_shield"
+  }
+}

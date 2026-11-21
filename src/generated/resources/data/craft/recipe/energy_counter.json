@@ -1,0 +1,22 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "A": {
+      "item": "craft:advanced_circuit"
+    },
+    "F": {
+      "item": "craft:glass_fibre_cable"
+    },
+    "T": {
+      "item": "craft:mv_transformer"
+    }
+  },
+  "pattern": [
+    " A ",
+    "FTF"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:energy_counter"
+  }
+}

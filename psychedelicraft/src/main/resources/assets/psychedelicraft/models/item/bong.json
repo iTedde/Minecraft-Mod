@@ -1,0 +1,22 @@
+{
+  "parent": "psychedelicraft:item/smokeable_template",
+  "overrides": [
+    {
+      "model": "psychedelicraft:item/bong_filled",
+      "predicate": {
+        "psychedelicraft:filled": 1.0,
+        "psychedelicraft:using": 0.0
+      }
+    },
+    {
+      "model": "psychedelicraft:item/bong_filled_using",
+      "predicate": {
+        "psychedelicraft:filled": 1.0,
+        "psychedelicraft:using": 1.0
+      }
+    }
+  ],
+  "textures": {
+    "layer0": "psychedelicraft:item/bong"
+  }
+}

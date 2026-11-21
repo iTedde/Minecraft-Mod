@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "active=false": {
+      "model": "craft:block/chargepads/crystalizor_charge_pad"
+    },
+    "active=true": {
+      "model": "craft:block/chargepads/crystalizor_charge_pad_active"
+    }
+  }
+}

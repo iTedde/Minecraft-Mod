@@ -1,0 +1,30 @@
+{
+  "parent": "minecraft:item/generated",
+  "overrides": [
+    {
+      "model": "psychedelicraft:item/molotov_cocktail_filled",
+      "predicate": {
+        "psychedelicraft:filled": 1.0,
+        "psychedelicraft:flying": 0.0
+      }
+    },
+    {
+      "model": "psychedelicraft:item/molotov_cocktail_filled_lava",
+      "predicate": {
+        "psychedelicraft:filled_with_lava": 1.0,
+        "psychedelicraft:flying": 0.0
+      }
+    },
+    {
+      "model": "psychedelicraft:item/molotov_cocktail_thrown",
+      "predicate": {
+        "psychedelicraft:flying": 1.0
+      }
+    }
+  ],
+  "textures": {
+    "layer0": "psychedelicraft:item/molotov_cocktail",
+    "layer1": "psychedelicraft:item/molotov_cocktail_overlay",
+    "layer2": "psychedelicraft:item/molotov_cocktail_overlay"
+  }
+}

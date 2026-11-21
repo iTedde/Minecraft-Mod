@@ -65,6 +65,11 @@ public class MetalCrop extends CropCard {
         return crop.getSize() == 4 ? ripeSprite : 31 + crop.getSize();
     }
 
+    /** Ore block the crop needs below its farmland for the last stage (the stone variant). */
+    public Block ore() {
+        return ores[0];
+    }
+
     @Override
     public boolean canGrow(CropBlockEntity crop) {
         return crop.getSize() < 3 || crop.getSize() == 3 && crop.isBlockBelow(ores);

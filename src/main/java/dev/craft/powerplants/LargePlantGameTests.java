@@ -215,7 +215,7 @@ public final class LargePlantGameTests {
 
     // --- large water turbine ---
 
-    /** 1 EU/t per flowing block from 64 blocks on, × 1.5 in rivers, at most 256 EU/t. */
+    /** 1 EU/t per flowing block from 64 blocks on, × 1.5 in rivers, at most 256 EU/t (384 in rivers). */
     @GameTest(template = EMPTY)
     public static void largeWaterTurbineOutput(GameTestHelper helper) {
         WaterTurbineTier tier = WaterTurbineTier.LARGE;
@@ -223,7 +223,9 @@ public final class LargePlantGameTests {
         helper.assertValueEqual(tier.output(64, false), 64.0, "64 flowing");
         helper.assertValueEqual(tier.output(100, true), 150.0, "river");
         helper.assertValueEqual(tier.output(256, false), 256.0, "cap reached");
-        helper.assertValueEqual(tier.output(400, true), 256.0, "cap");
+        helper.assertValueEqual(tier.output(400, false), 256.0, "cap");
+        helper.assertValueEqual(tier.output(300, true), 384.0, "river cap");
+        helper.assertValueEqual(tier.packetSize(), 384, "HV packets");
         helper.succeed();
     }
 
@@ -256,17 +258,19 @@ public final class LargePlantGameTests {
 
     // --- large wind turbine ---
 
-    /** 20 × the wind mill formula × rotor factor: y 128 → 64, y 200 → 136, thunder capped at 384. */
+    /** 12 × the wind mill formula × rotor factor (spec 32 §2): y 128 → 38.4, y 200 → 81.6, y 319 → 153, cap 192. */
     @GameTest(template = EMPTY)
     public static void largeWindTurbineOutput(GameTestHelper helper) {
         helper.assertValueEqual(Math.round(LargeWindTurbineBlockEntity.output(15, 128, 0, false, false, 1.0) * 100),
-                6400L, "y 128 carbon");
+                3840L, "y 128 carbon");
         helper.assertValueEqual(Math.round(LargeWindTurbineBlockEntity.output(15, 200, 0, false, false, 1.0) * 100),
-                13600L, "y 200 carbon");
-        helper.assertValueEqual(LargeWindTurbineBlockEntity.output(15, 200, 0, true, false, 1.0), 384.0,
+                8160L, "y 200 carbon");
+        helper.assertValueEqual(Math.round(LargeWindTurbineBlockEntity.output(15, 319, 0, false, false, 1.0) * 100),
+                15300L, "y 319 carbon");
+        helper.assertValueEqual(LargeWindTurbineBlockEntity.output(15, 200, 0, true, false, 1.0), 192.0,
                 "thunder cap");
         helper.assertValueEqual(Math.round(LargeWindTurbineBlockEntity.output(15, 128, 0, false, false, 0.5) * 100),
-                3200L, "iron rotor");
+                1920L, "iron rotor");
         helper.assertValueEqual(LargeWindTurbineBlockEntity.output(15, 128, 0, false, false, 0.0), 0.0, "no rotor");
         helper.assertValueEqual(LargeWindTurbineBlockEntity.output(15, 70, 10, false, false, 1.0), 0.0,
                 "obstructed");
@@ -274,12 +278,12 @@ public final class LargePlantGameTests {
     }
 
     /**
-     * The nacelle on 8 masts forms, takes a rotor and delivers its output through the mast foot; a missing mast
+     * The nacelle on 24 masts forms, takes a rotor and delivers its output through the mast foot; a missing mast
      * stops it.
      */
-    @GameTest(template = "empty_16x16x16", timeoutTicks = 80)
+    @GameTest(template = "empty_16x32x16", timeoutTicks = 80)
     public static void largeWindTurbineDeliversThroughTheMast(GameTestHelper helper) {
-        BlockPos nacelle = new BlockPos(4, 9, 4);
+        BlockPos nacelle = new BlockPos(4, LargeWindTurbineBlockEntity.MAST_HEIGHT + 1, 4);
         for (int y = 1; y <= LargeWindTurbineBlockEntity.MAST_HEIGHT; y++) {
             helper.setBlock(new BlockPos(4, y, 4), PpBlocks.WIND_TURBINE_MAST.get());
         }

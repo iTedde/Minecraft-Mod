@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "craft:block/nuclearcontrol/information_panel_extender_side",
+    "east": "craft:block/nuclearcontrol/information_panel_extender_side",
+    "north": "craft:block/nuclearcontrol/information_panel_front",
+    "particle": "craft:block/nuclearcontrol/information_panel_extender_side",
+    "south": "craft:block/nuclearcontrol/information_panel_extender_back",
+    "up": "craft:block/nuclearcontrol/information_panel_extender_side",
+    "west": "craft:block/nuclearcontrol/information_panel_extender_side"
+  }
+}

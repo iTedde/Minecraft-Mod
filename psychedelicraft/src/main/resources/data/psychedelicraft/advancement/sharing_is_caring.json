@@ -1,0 +1,346 @@
+{
+  "parent": "psychedelicraft:make_drying_table",
+  "criteria": {
+    "breathed_smoke_on_bogged": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "minecraft:bogged"
+            }
+          }
+        ],
+        "event": "breathe_smoke_on_bogged"
+      },
+      "trigger": "psychedelicraft:custom"
+    },
+    "breathed_smoke_on_camel": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "minecraft:camel"
+            }
+          }
+        ],
+        "event": "breathe_smoke_on_camel"
+      },
+      "trigger": "psychedelicraft:custom"
+    },
+    "breathed_smoke_on_cat": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "minecraft:cat"
+            }
+          }
+        ],
+        "event": "breathe_smoke_on_cat"
+      },
+      "trigger": "psychedelicraft:custom"
+    },
+    "breathed_smoke_on_cow": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "minecraft:cow"
+            }
+          }
+        ],
+        "event": "breathe_smoke_on_cow"
+      },
+      "trigger": "psychedelicraft:custom"
+    },
+    "breathed_smoke_on_enderman": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "minecraft:enderman"
+            }
+          }
+        ],
+        "event": "breathe_smoke_on_enderman"
+      },
+      "trigger": "psychedelicraft:custom"
+    },
+    "breathed_smoke_on_husk": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "minecraft:husk"
+            }
+          }
+        ],
+        "event": "breathe_smoke_on_husk"
+      },
+      "trigger": "psychedelicraft:custom"
+    },
+    "breathed_smoke_on_pig": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "minecraft:pig"
+            }
+          }
+        ],
+        "event": "breathe_smoke_on_pig"
+      },
+      "trigger": "psychedelicraft:custom"
+    },
+    "breathed_smoke_on_piglin": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "minecraft:piglin"
+            }
+          }
+        ],
+        "event": "breathe_smoke_on_piglin"
+      },
+      "trigger": "psychedelicraft:custom"
+    },
+    "breathed_smoke_on_piglin_brute": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "minecraft:piglin_brute"
+            }
+          }
+        ],
+        "event": "breathe_smoke_on_piglin_brute"
+      },
+      "trigger": "psychedelicraft:custom"
+    },
+    "breathed_smoke_on_pillager": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "minecraft:pillager"
+            }
+          }
+        ],
+        "event": "breathe_smoke_on_pillager"
+      },
+      "trigger": "psychedelicraft:custom"
+    },
+    "breathed_smoke_on_sheep": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "minecraft:sheep"
+            }
+          }
+        ],
+        "event": "breathe_smoke_on_sheep"
+      },
+      "trigger": "psychedelicraft:custom"
+    },
+    "breathed_smoke_on_skeleton": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "minecraft:skeleton"
+            }
+          }
+        ],
+        "event": "breathe_smoke_on_skeleton"
+      },
+      "trigger": "psychedelicraft:custom"
+    },
+    "breathed_smoke_on_spider": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "minecraft:spider"
+            }
+          }
+        ],
+        "event": "breathe_smoke_on_spider"
+      },
+      "trigger": "psychedelicraft:custom"
+    },
+    "breathed_smoke_on_villager": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "minecraft:villager"
+            }
+          }
+        ],
+        "event": "breathe_smoke_on_villager"
+      },
+      "trigger": "psychedelicraft:custom"
+    },
+    "breathed_smoke_on_vindicator": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "minecraft:vindicator"
+            }
+          }
+        ],
+        "event": "breathe_smoke_on_vindicator"
+      },
+      "trigger": "psychedelicraft:custom"
+    },
+    "breathed_smoke_on_zoglin": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "minecraft:zoglin"
+            }
+          }
+        ],
+        "event": "breathe_smoke_on_zoglin"
+      },
+      "trigger": "psychedelicraft:custom"
+    },
+    "breathed_smoke_on_zombie": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "minecraft:zombie"
+            }
+          }
+        ],
+        "event": "breathe_smoke_on_zombie"
+      },
+      "trigger": "psychedelicraft:custom"
+    },
+    "breathed_smoke_on_zombified_piglin": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "minecraft:zombified_piglin"
+            }
+          }
+        ],
+        "event": "breathe_smoke_on_zombified_piglin"
+      },
+      "trigger": "psychedelicraft:custom"
+    }
+  },
+  "display": {
+    "background": "minecraft:textures/gui/advancements/backgrounds/stone.png",
+    "description": {
+      "translate": "advancements.psychedelicraft.sharing_is_caring.description"
+    },
+    "frame": "challenge",
+    "icon": {
+      "count": 1,
+      "id": "psychedelicraft:cigarette"
+    },
+    "title": {
+      "translate": "advancements.psychedelicraft.sharing_is_caring.title"
+    }
+  },
+  "requirements": [
+    [
+      "breathed_smoke_on_pig"
+    ],
+    [
+      "breathed_smoke_on_cow"
+    ],
+    [
+      "breathed_smoke_on_sheep"
+    ],
+    [
+      "breathed_smoke_on_villager"
+    ],
+    [
+      "breathed_smoke_on_pillager"
+    ],
+    [
+      "breathed_smoke_on_vindicator"
+    ],
+    [
+      "breathed_smoke_on_camel"
+    ],
+    [
+      "breathed_smoke_on_cat"
+    ],
+    [
+      "breathed_smoke_on_spider"
+    ],
+    [
+      "breathed_smoke_on_zombie"
+    ],
+    [
+      "breathed_smoke_on_skeleton"
+    ],
+    [
+      "breathed_smoke_on_enderman"
+    ],
+    [
+      "breathed_smoke_on_bogged"
+    ],
+    [
+      "breathed_smoke_on_husk"
+    ],
+    [
+      "breathed_smoke_on_zoglin"
+    ],
+    [
+      "breathed_smoke_on_piglin"
+    ],
+    [
+      "breathed_smoke_on_piglin_brute"
+    ],
+    [
+      "breathed_smoke_on_zombified_piglin"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

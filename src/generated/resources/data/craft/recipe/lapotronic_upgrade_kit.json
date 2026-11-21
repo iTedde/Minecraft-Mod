@@ -1,0 +1,25 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "#": {
+      "item": "craft:mfs_unit_upgrade"
+    },
+    "*": {
+      "item": "craft:advanced_circuit"
+    },
+    "@": {
+      "item": "craft:carbon_plate"
+    },
+    "W": {
+      "item": "craft:electric_wrench"
+    }
+  },
+  "pattern": [
+    "*W*",
+    "@#@"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:lapotronic_upgrade_kit"
+  }
+}

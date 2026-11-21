@@ -1,0 +1,20 @@
+{
+  "type": "psychedelicraft:reacting",
+  "group": "impurities",
+  "ingredients": {
+    "solids": [
+      {
+        "item": "minecraft:sugar"
+      }
+    ]
+  },
+  "reaction_type": "additions",
+  "result": {
+    "by_product": {},
+    "fluid": {
+      "amount": 5,
+      "fluid": "minecraft:water"
+    },
+    "impurity": "sugar"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "type": "craft:ic2_shapeless",
+  "ingredients": [
+    {
+      "item": "craft:static_charge_pad"
+    },
+    {
+      "item": "craft:crystalizor_upgrade_kit"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:crystalizor_charge_pad"
+  }
+}

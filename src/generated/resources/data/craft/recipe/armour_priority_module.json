@@ -1,0 +1,25 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "@": {
+      "item": "craft:proximity_booster_module"
+    },
+    "E": {
+      "item": "minecraft:ender_pearl"
+    },
+    "g": {
+      "item": "craft:double_insulated_gold_cable"
+    },
+    "v": {
+      "item": "minecraft:glowstone_dust"
+    }
+  },
+  "pattern": [
+    "vEv",
+    "g@g"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:armour_priority_module"
+  }
+}

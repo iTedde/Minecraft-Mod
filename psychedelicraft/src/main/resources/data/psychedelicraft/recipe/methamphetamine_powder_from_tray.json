@@ -1,0 +1,22 @@
+{
+  "type": "psychedelicraft:hardening",
+  "amount": {
+    "type": "minecraft:uniform",
+    "max_inclusive": 6,
+    "min_inclusive": 3
+  },
+  "core_fluid": {
+    "fluid": "psychedelicraft:morning_glory_extract"
+  },
+  "group": "",
+  "impurities": {
+    "reject": [
+      "lapis_lazuli"
+    ]
+  },
+  "result": {
+    "count": 1,
+    "id": "psychedelicraft:methamphetamine_powder"
+  },
+  "solutions": []
+}

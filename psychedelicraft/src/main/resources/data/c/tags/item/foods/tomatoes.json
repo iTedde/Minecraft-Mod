@@ -1,0 +1,13 @@
+{
+  "values": [
+    "psychedelicraft:tomato",
+    {
+      "id": "croptopia:tomato",
+      "required": false
+    },
+    {
+      "id": "farmersdelight:tomato",
+      "required": false
+    }
+  ]
+}

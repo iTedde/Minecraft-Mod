@@ -1,0 +1,7 @@
+{
+  "type": "psychedelicraft:tilled_patch",
+  "config": {
+    "block": "psychedelicraft:coca",
+    "needsWater": true
+  }
+}

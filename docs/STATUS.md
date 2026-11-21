@@ -2377,3 +2377,2577 @@ Befund (Nutzer): „Die Waterproof Pipes … können z. B. nicht aus der Pump Wa
 ## Erledigt (Turbinengehäuse ×6, Nutzer, 2026-10-23)
 Nutzerwunsch: „Bei Turbine Casing mach, dass man wenigstens 6 Stück sofort draus kriegt. Ist sonst sehr teuer.“
 - [x] Rezept Turbinengehäuse (Dampfturbine) `PPP/PMP/PPP` ergibt **6** statt 4 (`spec/14` §Rezepte, Wiki).
+
+## Erledigt (Paket 1.0.7: GraveStone, Integrated Farming, Protection Pixel, Nutzer, 2026-10-24)
+Nutzerwunsch; nur mitinstalliert per `manifest.json` `files` (keine Integration, Craft-Jar unverändert 1.0.4).
+- [x] `releases/Craft-1.0.7-curseforge.zip` (wie 1.0.6, 67 Manifest-Einträge, 8,6 MB): GraveStone Mod 1.0.40 (CurseForge
+  238551, Datei 8671622), Create: Integrated Farming 1.4.3 (1249131, 8937623) mit der Pflicht-Abhängigkeit Create: Dragons
+  Plus 1.11.9 (1216624, 8900055; braucht Create ≥ 6.0.10), Create: Protection Pixel 2.2.1 (1023409, 7549821; Create nur
+  optional).
+- [x] Geprüft: dedizierter NeoForge-21.1.259-Server mit Craft 1.0.4 + Create 6.0.10 + den vier Mods startet („Done“),
+  keine Fehler. Rezeptkonflikte mit den übrigen Paket-Mods nicht geprüft.
+- [x] Wiki „Create & Paket-Mods“: Tabelle und Abschnitte auf „Addons“ ergänzt, neu erzeugt (DE + EN-Namen).
+- **Client-Test offen** (Paket 1.0.7 importieren).
+- Neu geplant: „Advanced Jetpack“ = GraviSuite aus dem Pack → **Phase 27** (kompletter Umfang); „Tech-Rüstung“ =
+  Modular Powersuits aus dem Pack → **Phase 28**. Beide zuerst Spezifikation.
+
+## Erledigt (Phase 29.1 Solar-Umbau, Nutzer, 2026-10-24)
+Nutzerwunsch: „Es soll nur Solarpanels geben … Die sollen auch alle liefern … ab z. B. 9×9 Felder ein kleiner Bonus für
+alle, z. B. ×1,2.“ Entscheidungen Nutzer: Bonus für Panels in einem **lückenlosen 9×9-Quadrat** auf derselben Höhe, nur
+**eine Stufe** (×1,2); alte Arrays **zurückbauen** statt löschen.
+- [x] `SolarPanelBlockEntity`: jedes Panel liefert selbst (Lease der Arrays entfernt); `isInField` prüft alle 128 Ticks
+  (mit der Sonne, dazu beim ersten Tick) per Präfixsummen über die 17×17-Umgebung; im Feld jeden 5. besonnten Tick
+  2 EU statt 1, Paketgröße 1/2, Puffer 2.
+- [x] Arrays stillgelegt: Block-Entity nur noch mit Lade-Slot/GUI (keine Leistung, kein Netz), `SolarArrayPatterns`
+  entfernt, kein Rezept, Kreativtab „Compact Solars“ entfällt, in EMI ausgeblendet; Zerlege-Rezepte
+  `craft:<lv|mv|hv>_solar_array_disassembly` (1 → 8 der Stufe darunter). EMI-Info „Solarfeld“ am Solarpanel.
+- [x] Doku: `balancing.md` §3.1/§4, `spec/11` §4 neu, `abweichungen.md`, `architektur.md`, `testplan.md` 8.1b; Wiki-Seite
+  „Solar“ (Regel, Bauanleitung, Rechner Breite × Länge, alte Arrays), Vergleichstabellen, Energie-Steckbrief.
+- [x] GameTests `CompactSolarsGameTests` neu (5: Feld, Lücke/10×10, 60 EU in 50 Ticks im Feld gegen 50 einzeln,
+  Array liefert nichts, Zerlegen/kein Array-Rezept); Unit-Test `SolarArrayPatternsTest` entfernt. Alle 455 grün,
+  `gradlew runData build` grün.
+- [x] Craft **1.0.5** (`releases/craft-1.0.5.jar`), Paket `releases/Craft-1.0.8-curseforge.zip` (wie 1.0.7 mit Craft 1.0.5);
+  Testserver mit Create + neuen Paket-Mods startet („Done“).
+- Folge: Die Großkraftwerke (gegen ein HV-Feld mit 1536 EU/t ausgelegt) liegen jetzt weit über Solar (9×9 = 97 EU/t).
+- **Client-Test offen** (Testplan 8.1b).
+
+## Erledigt (27.0 Spezifikation GraviSuite, 2026-10-24)
+- [x] `ftb ultimate/mods/gravisuite.zip` (GraviSuite 1.8) nach `reference/decompiled/gravisuite/` dekompiliert
+  (Vineflower ohne Remapping); Vanilla-Namen über `minecraft.jar` aufgelöst.
+- [x] `docs/spec/28-gravisuite.md`: 10 Ausrüstungsteile + 7 Bauteile mit allen Werten, Schutzformeln (inkl. zwei
+  fehlender ×25), Jetpack-/Gravi-Flug, Solarhelm, Werkzeuge (Bohrer 35/160 EU, Kettensäge, Vajra mit
+  Präzisionsmodus, GraviTool mit vier Modi), Tasten/HUD, 17 Rezepte, Originalfehler, Abweichungen 1.21, Tests,
+  Teilphasen 27.1–27.6.
+- [x] Entscheidungen Nutzer: Ultimativer Solarhelm wie im Pack (kein Rezept, nur Kreativ, 512/64 EU/t); HUD oben
+  rechts (Xaero sitzt oben links).
+- Eigenmächtig gewählt (in der Spec als Abweichung): Flug-Taste Standard G statt F (F = Hand wechseln).
+
+## Erledigt (27.1 GraviSuite: Bauteile, LapPacks, Rezepte, 2026-10-24)
+- [x] Paket `dev.craft.gravisuite`: `GraviSuite` (Init, Einträge im IC2-Kreativtab, elektrische Teile geladen + leer),
+  `GsItems` (7 Bauteile, Rüstungsmaterialien je Rüstungstextur), Fortg. LapPack (1 000 000 EU, Transfer 1 000) und
+  Ultimatives LapPack (10 000 000 EU, Transfer 20 000) als `EnergyPackItem` (Tier 2, liefert Energie, kein Schutz).
+- [x] Rezepte der vorhandenen Items (spec 28 §10): Supraleiter-Hülle/Supraleiter (Vanilla), Magnetron (Tags Raff.
+  Eisen/Kupfer), sonst IC2-Rezepte mit Ladungsübertrag; Kühlzelle/Wärmetauscher/Wärmeableiter nur unbenutzt.
+  Rezepte für Jetpack, Brustplatten, Werkzeuge folgen mit ihren Items (27.2–27.5).
+- [x] Texturen aus `gravisuite.zip` (alle 20 Item-Sprites nach `item/gravisuite/`, 6 Rüstungstexturen; Skript
+  `tools/scripts/gravisuite_textures.py`), Lang DE/EN.
+- [x] HUD-Grundgerüst `gravisuite/client/GraviSuiteHud`: oben rechts „Energy level: n%“ beim Tragen eines LapPacks
+  (nur „n%“ eingefärbt wie im Pack), Statuszeilen folgen in 27.2/27.3.
+- [x] GameTests `GraviSuiteGameTests` (5: Werte, Ladungsübertrag mit Deckel 1 000 000, Summe 6 300 000 aus
+  Kristallen + LapPack, Bauteil-Rezepte inkl. benutzter Kühlzelle, Laden von Werkzeugen aus beiden LapPacks).
+  Alle 460 grün, `gradlew runData build` grün.
+- Ore-Dict `itemSuperconductor` nicht als Tag nachgebaut (kein Rezept im Mod nutzt es).
+- **Client-Test offen.**
+
+## Erledigt (27.2 Fortg. Jetpack + Fortg. Nano-Brustplatte, 2026-10-24)
+- [x] `gravisuite/item/AdvancedJetpackItem` (1 000 000 EU, Transfer 1 000, Tier 2, liefert Energie): Triebwerk an/aus
+  (Datenkomponente `craft:fly_active`), Schwebemodus (IC2-Komponenten `hover_mode`/`toggle_timer`), Schub 12 EU/Tick,
+  Boost +60 EU, Leistungsabfall ≤ 1 000 EU (Originalfehler), Höhengrenze `maxBuildHeight`, Fallhöhe/Schrittweg 0;
+  Sound über den IC2-Jetpack-Loop (bytegleiche Datei).
+- [x] `AdvancedNanoChestplateItem` erbt das Jetpack, Schutz 0,4 × 0,9, 800 EU je Schaden, AbsorbMax `ladung/800`
+  (Originalfehler ohne ×25), Anzeige 7 ab 800 EU.
+- [x] Tasten: „Gravi-Flugtaste“ (Standard G, Kategorie „Craft“) und Flanke der IC2-Modus-Taste als Payload
+  `craft:gravisuite_key` (`GsKeyPayload`, Server prüft Brustteil bzw. gehaltenen Sprung); Client `GsKeyMappings`.
+- [x] HUD: „§eJetpack §aengine ON“ (+ „(Hover mode)“) über der Energiezeile; Meldungen DE/EN.
+- [x] Rezepte Fortg. Jetpack (Ladung aus Fortg. LapPack) und Fortg. Nano-Brustplatte; Rüstungstexturen aus 27.1.
+- [x] GameTests `GraviSuiteJetpackGameTests` (7: ohne Triebwerk nichts, Schub/Boost/Fallhöhe, Schweben, Leistungsabfall
+  und < 12 EU, Tasten, Schutzwerte, Rezepte mit Ladung). Alle 467 grün, `gradlew runData build` grün.
+- Doku: `abweichungen.md` (Flug-Taste G, Höhengrenze, Zustand je Spieler, Meldungen übersetzbar).
+- **Client-Test offen** (auch 27.1).
+
+## Erledigt (27.3 Gravitations-Brustplatte, 2026-10-24)
+- [x] `gravisuite/item/GraviChestplateItem` (10 000 000 EU, Transfer 20 000, Tier 2, liefert Energie, epic): Flug-Taste
+  schaltet ab 80 000 EU ein (`mayfly`/`flying`), 416 EU/Tick auch am Boden (Tier 3, ohne Transferlimit), Abschalten
+  unter 416 EU mit Warnung, Fallhöhe 0, Boost in der Luft 2 × 1 248 EU (Originalfehler) mit Bewegung 0,11 und
+  ±0,14 vertikal auf dem Client, Höhengrenze `maxBuildHeight + 6`.
+- [x] Kreativ-Wechsel, Ablegen („zuletzt ausgezogen“), Welt-Laden (Aus/Ein mit Mindestladung beim Einloggen) über
+  einen nicht gespeicherten Datenanhang je Spieler; Fähigkeiten jeden Tick an den Client wie im Pack.
+- [x] Schutz 0,4 × 1,1, 900 EU je Schaden, AbsorbMax `25·ladung/900`, Rüstungsanzeige immer 9.
+- [x] Rezept `RAR/DBD/RCR` (Ladung aus Quanten-Brustplatte + Ultimativem LapPack), Lang DE/EN, Modell/Rüstungstextur
+  aus 27.1, HUD „§aGravitation engine ON“ + Energiezeile, Flug-Taste auch für die Platte.
+- [x] GameTests `GraviSuiteGraviGameTests` (7: Mindestladung, Verbrauch/Abschalten, Boost-Kosten, Ablegen/Kreativ,
+  Höhengrenze/Welt-Laden, Schutz/Werkzeug laden, Rezept). Alle 474 grün, `gradlew runData build` grün.
+- Doku: `abweichungen.md` (Höhengrenze, Zustand je Spieler, Server maßgeblich, Boost-Meldung in der Aktionsleiste),
+  Spec §5 (Originalfehler `mayfly` nach Welt-Laden).
+- **Client-Test offen** (auch 27.1/27.2).
+
+## Erledigt (27.4 Fortg. Diamantbohrer, Fortg. Kettensäge, Vajra, 2026-10-24)
+- [x] `gravisuite/item/AdvancedDrillItem` (15 000 EU, Transfer 500, Tier 2, Effizienz 35, 160 EU/Block, Abbauliste
+  des Diamantbohrers), `AdvancedChainsawItem` (15 000 EU, Effizienz 35, 100 EU/Block, Tag
+  `craft:mineable/advanced_chainsaw` = Kettensäge + Wolle/Kürbis/Melone/Kaktus/Schneedecke; Schlag 2 × 100 EU → 13,
+  Blöcke scheren 2 × 100 EU ohne Rüstungs-Nachladen, Entities 200 EU vor der Prüfung), `VajraItem` (1 000 000 EU,
+  Transfer 10 000, Effizienz 20 000 auf alles, ohne 3 333 EU 0,5; 3 333 EU je Block auch bei Härte 0; Schlag
+  6 666 EU → 25; Präzisionsmodus per Rechtsklick mit Drops, Schrittgeräusch, Break-Event).
+- [x] `GsDrops.dropAsEntity` (für GraviTool in 27.5 wiederverwendbar), Handheld-Modelle, Lang DE/EN, Rezepte
+  (Ladungsübertrag von Diamantbohrer/Kettensäge).
+- [x] GameTests `GraviSuiteToolGameTests` (5: Bohrer, Kettensäge inkl. Treffer, Vajra Abbau/Treffer,
+  Präzisionsmodus mit Grundgestein/Barriere, Rezepte). Alle 479 grün (im ersten Lauf schlug einmal der zufallsabhängige
+  `harvestandpickwheat` fehl, im zweiten grün), `gradlew runData build` grün.
+- Doku: `abweichungen.md` (Präzisionsmodus-Ausnahmen, Bohrer-Muster, Scheren über Tag).
+- **Client-Test offen** (auch 27.1–27.3).
+
+## Nutzerwunsch (2026-10-24): Phase 30 Elektrischer Leuchtschild
+- Entschieden (Nutzer): kein Pack-Vorbild (neuer Inhalt), leuchtet wie eine Fackel (echtes Licht), elektrisch mit EU,
+  verzauberbar, eigene Phase. Offen: Werte, Rezept, Einordnung (vor/nach Phase 28) – Vorschlag an den Nutzer.
+
+## Erledigt (27.5 GraviTool, 2026-10-24)
+- [x] `gravisuite/item/GraviToolItem` (100 000 EU, Transfer 10 000, Tier 2, uncommon, kein Abbau-/Treffer-Verbrauch):
+  Modus-Taste + Rechtsklick Hacke → Baumzapfer → Schraubenschlüssel → Schraubendreher (Meldung, `toolChange.ogg`),
+  Modus als Data Component `craft:tool_mode` (ungültig → Hacke), Name „GraviTool (…)“ erst mit gespeichertem Modus,
+  Modell je Modus über Item-Property.
+- [x] Hacke 50 EU (Erde immer, auch von unten/mit Block darüber – Originalfehler), Baumzapfer 50 EU je Erfolg
+  (Fass ohne Wirkung, Trockenloch-Fehler mit 2 Harz), Schraubenschlüssel 50/500 EU und immer verlustfrei
+  (10 000 EU, sonst Meldung), Schraubendreher 500 EU (Verstärker, Werfer, Kolben; ausgefahrene Kolben nicht).
+- [x] BuildCraft-`IToolWrench` als `buildcraft/item/ToolWrench`: GraviTool nur im Schraubenschlüssel-Modus mit
+  500 EU (je Nutzung 500 EU); BC-Blöcke nutzen `canWrench`/`wrenchUsed`, Forestry/TE `isWrench`; Schleich-Klick geht
+  an den Block.
+- [x] Rezept `ABA/CDC/EFG`, Lang DE/EN, Sound `gravisuite/tool_change` (`GsSounds`).
+- [x] GameTests `GraviSuiteGraviToolGameTests` (7: Moduswechsel, Hacke, Baumzapfer, Schraubenschlüssel, BC-Schlüssel,
+  Schraubendreher, Rezept). Alle 487 grün, `gradlew runData build` grün.
+- Doku: `abweichungen.md` (Name/Textur, Meldungen/Sounds, Hacken-Event, Schraubendreher, `IToolWrench`), Spec §12.7
+  (Werfer senkrecht: unten → Nord, oben → Süd laut Formel).
+- **Client-Test offen** (auch 27.1–27.4).
+
+## Erledigt (27.6 Solarhelm, EMI, Herkunft, Wiki, Paket, 2026-10-24)
+- [x] `gravisuite/item/UltimateSolarHelmetItem` (1 000 000 EU, Transfer 20 000, Tier 2, epic, kein Rezept, nur
+  IC2-Kreativtab): 512 EU/t bei Sonne + Himmel, 64 EU/t nur Himmel, sonst 0; Sichtprüfung alle 128 Ticks (Zustand je
+  Spieler); Verteilung Rüstung Füße → Kopf (auch der Helm selbst), dann Hauptinventar, Tier 3 mit Transferlimit, Rest
+  verfällt. Schutz 0,15 mit AbsorbMax `ladung/900` (Originalfehler ohne ×25), Rüstungsanzeige immer 3, liefert keine
+  Energie.
+- [x] EMI: `compat/emi/GraviSuiteEmiRecipes` – Info-Seiten Gravitations-Brustplatte, Fortg. Jetpack/Nano-Brustplatte,
+  LapPacks, Solarhelm, Vajra, GraviTool (Tasten, Verbrauch, Modi).
+- [x] Herkunft: keine neuen Rohstoffe (alle GraviSuite-Items aus Craft-Zutaten; Solarhelm nur Kreativ, Hinweis auf der
+  EMI-Seite und im Wiki).
+- [x] Wiki: Gruppe „GraviSuite“, Seite „GraviSuite“ (Fliegen, Werkzeuge, Solarhelm), Hinweis „kein Rezept“ am
+  Solarhelm; neu erzeugt (DE + EN-Namen). `testplan.md` Abschnitt 11 (GraviSuite-Client-Test).
+- [x] GameTests `GraviSuiteSolarHelmetGameTests` (3: Erzeugung inkl. Dach, Verteilung, Schutz/kein Rezept). Alle 490
+  grün, `gradlew runData build` grün.
+- [x] Craft **1.0.6** (`releases/craft-1.0.6.jar`), Paket `releases/Craft-1.0.9-curseforge.zip` (wie 1.0.8 mit Craft
+  1.0.6; 8,7 MB).
+- Doku: `abweichungen.md` (Solarhelm-Zustand je Spieler), `architektur.md` (GraviSuite, `ToolWrench`).
+- **Phase 27 erledigt, Client-Test offen** (Testplan 11.1–11.6).
+
+## Erledigt (28.0 Spezifikation Modular Powersuits, 2026-10-24)
+- [x] `ftb ultimate/mods/ModularPowersuits.jar` (MPS 0.3.2-199) nach `reference/decompiled/modularpowersuits/`
+  dekompiliert (Vineflower ohne Remapping, mitgelieferte API-Pakete entfernt).
+- [x] `docs/spec/29-modular-powersuits.md`: 5 modulare Items + Tinker Table, 18 Bauteile, 35 Module mit Pack-Config-
+  Werten (Config schlägt Code: z. B. Solar 100/10 J, Werkzeuge 100+900 J / 8+17×, Plasma ×18), Energie in J
+  (50 J/EU, gemeinsamer Vorrat, Ladebonus beim Einbau), Ein-/Ausbau (90 %, Kondensatoren verloren), Rüstungsformel
+  (min 6 je Teil, 0,04 × Schutz), Bewegung/Umwelt/Werkzeug-Mechanik, Tasten (Mausrad, Z, K-GUI), Tests,
+  Abweichungen, Teilphasen 28.1–28.5.
+- [x] Befund Rezepte: Pack registriert Vanilla- und GT-Satz; die meisten GT-Rezepte nutzen nicht registrierte
+  Ore-Namen (`circuitTier04` statt `craftingCircuitTier04`, `plateIridium` …) und sind unbaubar.
+- [x] Entscheidungen Nutzer: alle Module außer Aurameter/Multimeter/Strahlenschutz; Rezepte wie im Pack baubar
+  (Vanilla-Satz + Verdrahtung/Fallschirm/Hologrammemitter/Magnetspule aus GT); Fallhöhen-Neuberechnung nur mit
+  getragenem MPS-Teil.
+
+## Erledigt (28.1 Modular Powersuits: Grundgerüst, Tinker Table, Rezepte, 2026-10-24)
+- [x] Paket `dev.craft.mps`: 18 Bauteile, Power-Rüstung (4 Teile, Textur `sebkarmor`/`sebkarmorpants`), Power-Werkzeug,
+  Tinker Table; eigener Kreativ-Tab „Craft: Modular Powersuits“.
+- [x] Modulsystem: alle 35 Module mit Pack-Config-Werten (`MpsModules`), Rechnung Grundwert + Regler × Multiplikator nur
+  für aktive Module, Rechtsklick-Module nur als Modus; Data Components `craft:mps_modules`/`mps_energy`/`mps_mode`.
+- [x] Energie in Joule: gemeinsamer Vorrat (Füße → Hand), IC2-Laden 50 J/EU (Rüstung max. Kapazität/200 je Aufruf,
+  Werkzeug ohne Grenze) über neuen IC2-Haken `CustomElectricItem`; Lade-HUD zeigt MPS-Teile mit eigener Kapazität.
+- [x] Rüstung: Schutz min(6, Panzerung + Energieschild), Absorption 0,04 × Schutz, AbsorbMax (int)·75, Schaden kostet
+  Energie je Schaden aus dem Vorrat.
+- [x] Tinker Table: Block-Entity-Renderer mit den 1.4.7-Quadern (Bildschirme/Würfel leuchtend, Würfel dreht sich),
+  GUI wie im Original (Itemspalte, Kategorien, Einbauen/Ausbauen mit Kosten, Info, Regler) mit Payloads; Einbau-
+  Ladebonus der Kondensatoren, Ausbau 90 % je Teil, Kondensatoren verloren, Kreativ kostenlos.
+- [x] Rezepte wie im Pack baubar: Vanilla-Satz (23) + 4 GT-Rezepte; Texturen per `tools/scripts/mps_textures.py`;
+  Sprache DE/EN (Module, Kategorien, Regler, Werte, Bauteil-Beschreibungen).
+- [x] GameTests `MpsGameTests` (7: Modulwerte, Energievorrat, IC2-Laden, Ein-/Ausbau, Rückgabe-Chance, Rüstungswerte,
+  Rezepte). Alle 497 grün, `gradlew runData build` grün.
+- [x] Client-Start geprüft (2026-10-24, mit Freigabe): Tisch-Modell, GUI (Werkzeug wählen, Batterie einbauen,
+  Regler → 80,1 kJ / 8,01 kg vom Server), Rüstungstextur am Spieler; Rahmenfarben/Textgröße danach korrigiert und
+  erneut geprüft.
+- Doku: `abweichungen.md` (7 MPS-Zeilen), `architektur.md`, Spec §4/§14.
+
+## Erledigt (28.2 Modular Powersuits: Bewegung, 2026-10-24)
+- [x] `MpsMovement` (MPS `PlayerTickHandler`/`MovementManager`): Spieler-Tick (Pre) auf Client und Server mit der
+  letzten Eingabe; Sammelkosten am Tick-Ende, Energie/Erschöpfung nur serverseitig.
+- [x] Eingabe `MpsInput` (vor/seit/springen/schleichen/runter) + Bewegung per Payload `mps_input` (nur mit MPS-Teil),
+  Server übernimmt die Client-Bewegung wie im Original; Taste „Power-Rüstung: Runter (Flugsteuerung)“ (Standard Z).
+- [x] Gewicht (Tragkraft 25 kg, Bremse horizontal), Sprint/Gehen-Assist (Modifikator auf `movement_speed`, sofort
+  bezahlt), Luftbeschleunigung per Mixin `PlayerFlyingSpeedMixin`, Jump Assist (Sprung-Event, Zähler, Kompensation),
+  Uphill Step Assist (`step_height` 1,001), Jetpack/Jet Boots mit/ohne Flight Control (inkl. Original-Fehler beim
+  Bremsen), Gleiter, Fallschirm, Swim Boost, Shock Absorber (Fall-Event), Fallhöhe aus der Fallgeschwindigkeit nur mit
+  MPS-Teil; Flug-Kick-Zähler wird mit Schub zurückgesetzt.
+- [x] Befund: MPS 0.3.2 spielt keinen seiner Sounds ab → keine Bewegungs-Sounds (Spec §11 korrigiert).
+- [x] GameTests `MpsMovementGameTests` (8: Jetpack-Schub, Flight-Control-Schweben, Gleiter/Fallschirm, Jump Assist,
+  Sprint Assist, Stufenhöhe, Stoßdämpfer, Fallhöhe/Gewicht). Alle 505 grün, `gradlew runData build` grün.
+- [ ] Client-Test (Flug, Schweben, Sprint, Sprung) – nur nach Rückfrage.
+- Doku: `abweichungen.md` (5 MPS-Zeilen), `architektur.md`, Spec §6/§9/§11.
+
+## Erledigt (28.3 Modular Powersuits: Umwelt, Tasten, Kosmetik, 2026-10-24)
+- [x] `MpsEnvironment`: Nachtsicht (5 J) und Tarnung (50 J) als eigene Effekte (500 Ticks, ohne Partikel, erneuert
+  unter 210) samt Schleifenfehler (mit beiden Effekten wird die Tarnung jeden Tick erneuert), Auto-Feeder (Puffer
+  `craft:mps_food`, isst aus dem Inventar, Originalformel), Wasser-Elektrolyseur (Luft < 10 → 300 für 1 000 J),
+  Solar (alle 80 Ticks, Himmel + kein Regen, Tag 100/Nacht 10 J), Kinetik (250 J je 5 Blöcke, `craft:mps_kinetic`).
+- [x] Befund: Entity-Feld `am` = `isAirBorne` (javap auf `minecraft.jar`) → `hasImpulse`; erster Tastendruck
+  schaltet **aus** (Spec §9 korrigiert).
+- [x] Tastenbelegungs-GUI (Taste K, „Power-Rüstung: Tastenbelegung“): neue Taste, Module per Ziehen binden, Müll,
+  Anziehen/Abstoßen wie im Original; Datei `config/craft-mps-keybinds.txt`; Umschalten lokal + Payload `mps_toggle`
+  (Server schaltet nur schaltbare Module), Chat „… eingeschaltet/ausgeschaltet“.
+- [x] Kosmetik: Färbung (Farbmodul) für Rüstungs-/Werkzeug-Icon und getragene Rüstung, Durchsichtige Rüstung
+  (`power_armor_blank`), Citizen-Joe-Texturen (`tools/scripts/mps_textures.py`).
+- [x] GameTests `MpsEnvironmentGameTests` (7: Nachtsicht/Tarnung, Auto-Feeder, Elektrolyseur, Solar, Kinetik,
+  Umschalten, Kosmetik). Alle 512 grün, `gradlew runData build` grün.
+- [ ] Client-Test (Effekte, Feeder-Meldung, Tasten-GUI, Färbung/Texturen) – nur nach Rückfrage.
+- Doku: `abweichungen.md` (5 MPS-Zeilen), `architektur.md`, Spec §7/§9.
+
+## Erledigt (28.4 Modular Powersuits: Power Tool, 2026-10-24)
+- [x] `MpsTool`: Werkzeugtyp Pickaxe → Shovel → Axe → Diamond über Block-Tags, Harvest-Check (Vorrat > Verbrauch),
+  Abbautempo × Harvest Speed (sonst 1), Aqua Affinity unter Wasser, Kosten je abgebautem Block; Nahkampfhilfe
+  (zweiter Treffer + Rückstoß).
+- [x] Befund: Forge 1.4.7 prüft bei `isToolEffective` keine Abbaustufe → schon das Pickaxe-Modul baut Obsidian, das
+  Diamond Drill Upgrade wirkt nur ohne Spitzhacke (Tempo 0) – wie im Pack übernommen, Spec §8.1/§13 korrigiert.
+- [x] Modi: Schleichen + Mausrad (Payload `mps_mode_change`), Modus-Icons über der Hotbar mit Gleitanimation;
+  Railgun (Impuls/100 Schaden, Rückstoß, Partikelspur), Blink Drive (Teleport vor die getroffene Fläche),
+  Plasmakanone (Aufladen wie Bogen, Geschoss `craft:plasma_bolt` mit Explosion, eigener Renderer), In-Place
+  Assembler (3×3-Werkbank).
+- [x] GameTests `MpsToolGameTests` (8: Werkzeugtypen, Tempo/Abbaubarkeit, Kosten, Nahkampf, Modi, Railgun, Blink
+  Drive, Plasmakanone). Alle 520 grün, `gradlew runData build` grün.
+- [ ] Client-Test (Abbau, Mausrad-HUD, Plasma-Renderer, Railgun-Partikel, Werkbank) – nur nach Rückfrage.
+- Doku: `abweichungen.md` (5 MPS-Zeilen), `architektur.md`, Spec §8.1/§13.
+
+## Erledigt (28.5 Modular Powersuits: EMI, Herkunft, Wiki, Paket, 2026-10-24)
+- [x] EMI: `compat/emi/MpsEmiRecipes` – Info-Seiten Tinker Table, Power-Rüstung (Energie, Gewicht, Tasten),
+  Power-Werkzeug (Abbau, Modi), Kohlenstoff-Myofaser/Myofaser-Gel (kein Rezept, keine Verwendung).
+- [x] Herkunft: keine neuen Rohstoffe (alle Rezepte aus Vanilla-/Craft-Zutaten); die zwei unbenutzten Bauteile mit
+  Hinweis in EMI und Wiki.
+- [x] Wiki: Gruppe „Modular Powersuits“ (auch die `component_*`-Bauteile), Seite „Modular Powersuits“ (Tisch, Energie,
+  Module, Tasten), Energie-Steckbrief ohne die irreführende IC2-Sicht der MPS-Teile (Hinweis auf Joule); neu erzeugt
+  (DE + EN-Namen). `testplan.md` Abschnitt 12 (MPS-Client-Test).
+- [x] Alle 520 GameTests grün, `gradlew runData build` grün.
+- [x] Craft **1.0.7** (`releases/craft-1.0.7.jar`), Paket `releases/Craft-1.0.10-curseforge.zip` (wie 1.0.9 mit Craft
+  1.0.7; 9,0 MB).
+- **Phase 28 erledigt, Client-Test offen** (Testplan 12.1–12.6).
+
+## Erledigt (30.0 Elektrischer Leuchtschild: Spezifikation, 2026-10-24)
+- [x] `docs/spec/30-leuchtschild.md`: Vorschlag 10 000 EU / Stufe 1 / Transfer 100, Licht 1 EU je 4 Ticks (wie
+  Luminator), Block 100 EU je Haltbarkeitspunkt, Licht über unsichtbaren Block `craft:shield_light` (Augen-/Fußblock,
+  auch unter Wasser, Selbst-Aufräumen), Ein/Aus per Modus-Taste + Rechtsklick, Haltbarkeit/Reparatur wirken auf EU,
+  Rezept `ALA/ASA/ R` (Legierung, Luminator, Schild, RE-Batterie), Paket `…lightshield`.
+- **Wartet auf Freigabe** (Spec §8: Werte, Verhalten leer, Lichtlevel, Verzauberungen, Rezept, Teilphasen).
+
+## Erledigt (30.1 Elektrischer Leuchtschild: Umsetzung, 2026-10-24)
+- [x] Freigabe Spec 30 (Nutzer): LV-Werte wie Vorschlag, **leer kein Blocken** (§8.2 B), Licht 14, Verzauberungen,
+  Rezept und Teilphasen wie Vorschlag; Spec angepasst.
+- [x] Paket `dev.craft.lightshield`: `ElectricLightShieldItem` (10 000 EU, Stufe 1, Transfer 100; Blocken nur mit
+  Ladung, leer lässt er sich nicht heben und senkt sich beim Leerlaufen; 100 EU je Blockpunkt ab 3 Schaden, Kreativ
+  gratis), Licht-Ein/Aus per Modus-Taste + Rechtsklick (`craft:light_on`), Tooltip-Zeile.
+- [x] Licht: unsichtbarer Block `craft:shield_light` (Licht 14, wasserbeständig) am Augen- bzw. Fußblock, folgt dem
+  Spieler jeden Tick, 1 EU je 4 Ticks; Aufräumen beim Weglegen/Abmelden/Serverende, verwaiste Blöcke entfernen sich
+  nach ≤ 20 Ticks selbst.
+- [x] Verzauberungen: Tags `enchantable/durability` + `vanishing`, Verzauberbarkeit 10; Haltbarkeit über
+  `processDurabilityChange`, Reparatur über `mixin/ExperienceOrbMixin` (1 XP = 200 EU).
+- [x] Rezept `ALA/ASA/ R` (Vanilla-Rezept, Schild kommt leer), Textur (`tools/scripts/light_shield_texture.py`),
+  BEWLR mit Vanilla-Schildmodell, Leuchtfläche bei eingeschaltetem Licht voll hell; Modelle mit Vanilla-Transforms.
+- [x] GameTests `LightShieldGameTests` (12). Alle 532 grün, `gradlew runData build` grün.
+- [ ] Client-Test (Modell/Halten/Blocken-Pose, Licht in der Welt, Leuchtfläche, Zaubertisch/Amboss) – nur nach Rückfrage.
+- Doku: Spec §1/§5/§8, `balancing.md` §3.9, `architektur.md`, CLAUDE.md.
+
+## Erledigt (30.2 Elektrischer Leuchtschild: EMI, Wiki, Paket, 2026-10-24)
+- [x] EMI: `compat/emi/LightShieldEmiRecipes` – Info-Seite (Energie, Licht, Modus-Taste, Blocken, Verzauberungen); Rezept
+  zeigt EMI ohnehin, `craft:shield_light` hat kein Item (nichts auszublenden).
+- [x] Herkunft: keine neuen Rohstoffe.
+- [x] Wiki: Seite „Elektrischer Leuchtschild“ (Neu & geändert, Karte auf der Startseite), Item-Gruppe „Leuchtschild (neu)“,
+  Hinweis im Energie-Steckbrief (der Schild steht dort schon automatisch); Icon aus der Vorderseite der Entity-Textur
+  (`ENTITY_ICONS` in `build_wiki.py`, weil das Item-Modell `builtin/entity` ist). Neu erzeugt (DE + EN-Namen).
+- [x] `testplan.md` Abschnitt 13 (Leuchtschild-Client-Test).
+- [x] Alle 532 GameTests grün, `gradlew runData build` grün.
+- [x] Craft **1.0.8** (`releases/craft-1.0.8.jar`), Paket `releases/Craft-1.0.11-curseforge.zip` (wie 1.0.10 mit Craft
+  1.0.8; 9,0 MB).
+- **Phase 30 erledigt, Client-Test offen** (Testplan 13.1–13.4).
+
+## Erledigt (30.3 Leuchtschild: Lichtkegel, Spezifikation, 2026-10-24)
+- [x] Befund: Jade 15.10.6 zeigt den Lichtblock nicht (Strahl mit `ClipContext.Block.OUTLINE`, Umriss leer).
+- [x] Befund: LambDynamicLights 4.8.11+1.21.1 (NeoForge, in der Nutzer-Instanz mit Sodium/Iris) hat mit
+  `DynamicLightBehavior` eine API für eigene Lichtformen; Anmeldung per `modproperties` `yumi:entrypoints`
+  `lambdynlights:initializer` in `neoforge.mods.toml`, ohne LDL wirkungslos.
+- [x] Entscheidung Nutzer: nur dynamisches Licht als Taschenlampen-Kegel (16 Blöcke, 30°, Schein 7 um den Träger,
+  Wände blockieren), Mobs spawnen weiter, LDL ins CurseForge-Paket. Spec `30-leuchtschild.md` §3a, §8; alter §3 als
+  Historie, `craft:shield_light` bleibt als sich selbst entfernende Altlast.
+
+## Erledigt (30.4 Leuchtschild: Lichtkegel, Umsetzung, 2026-10-24)
+- [x] `LightCone`: Kegelwerte (14 bis 4 Blöcke, linear auf 0 bei 16; voll bis 10°, Randabfall bis 15°), Schein
+  7 − Abstand; Tabelle beleuchteter Blöcke per Strahlenfächer (Abstand 0,5 an der Basis, `COLLIDER`, Flüssigkeiten
+  durchlässig, getroffener Block hell) und Schein per Flutfüllung durch kollisionsfreie Blöcke (Spec §3a ergänzt).
+- [x] LambDynamicLights: API `compileOnly` (`dev.lambdaurora.lambdynamiclights:lambdynamiclights-api:4.8.11+1.21.1:mojmap`,
+  maven.gegy.dev), Yumi-Entrypoint `lambdynlights:initializer` → `lightshield/client/compat/LightShieldDynamicLights`
+  (geprüft: Yumi akzeptiert Klassennamen mit Standardkonstruktor); je Spieler mit leuchtendem Schild ein
+  `LightConeBehavior` (neu rechnen bei ≥ 0,25 Block / ≥ 2° / alle 10 Ticks, Hülle aus der Tabelle, `isRemoved` beim
+  Weglegen/Leerlaufen/Weltwechsel). LDL ist nicht in den eigenen Läufen (`localRuntime`) – Test nur in der Nutzer-Instanz.
+- [x] Server setzt keine Lichtblöcke mehr: `ShieldLights` nur noch `litShield` + Verbrauch, Abmelde-/Serverende-Aufräumen
+  entfernt; `craft:shield_light` entfernt sich beim nächsten geplanten oder zufälligen Tick.
+- [x] GameTests: 5 Lichtblock-Tests ersetzt durch Kegelwerte, Kegel vorn, Wand, Wasser, Halten (13 statt 12). Alle 533
+  grün, `gradlew runData build` grün.
+- [x] Befund nebenbei: `run-gametest/world` bleibt zwischen Läufen bestehen; nach dem Verschieben der Testplätze störte
+  ein alter Tesserakt (Frequenz 902) `liquidTesseractFillsRemoteTank`. Welt gelöscht, danach grün – bei solchen
+  Ausreißern zuerst die Testwelt löschen.
+- Doku: Spec §3a/§7, `balancing.md` §3.9, `architektur.md`, CLAUDE.md.
+
+## Erledigt (30.5 Leuchtschild: Texte, Testplan, Paket, 2026-10-24)
+- [x] EMI-Info-Seite (de/en): Taschenlampen-Kegel, nur mit LambDynamicLights sichtbar, rein optisch.
+- [x] Wiki: Seite „Elektrischer Leuchtschild“ (Infobox, Einleitung, Abschnitt Licht), Startseiten-Karte, „Create &
+  Paket-Mods“ → Tabelle + Abschnitt LambDynamicLights. Neu erzeugt (DE + EN-Namen).
+- [x] `testplan.md` 13.2 auf den Lichtkegel umgeschrieben (Wand, Wasser, zweiter Spieler, Mobs, Altlast-Block).
+- [x] Befund: LambDynamicLights (CurseForge 393442, Datei 8780227 = 4.8.11+1.21.1) steht schon seit Paket 1.0.2 im
+  Manifest (alle Mods der Nutzer-Instanz) – nichts nachzutragen; das Skript prüft den Eintrag.
+- [x] Testwelt: `runGameTestServer -PgameTestDir=…` löscht jetzt vor jedem Lauf `<gameTestDir>/world` (`build.gradle`,
+  nie `run/`). Grund: Tesserakt-Frequenzen sind global, Aufbauten des vorigen Laufs ließen
+  `liquidTesseractFillsRemoteTank` bei jedem zweiten Lauf scheitern. Zwei Läufe hintereinander grün.
+- [x] Alle 533 GameTests grün, `gradlew runData build` grün.
+- [x] Craft **1.0.9** (`releases/craft-1.0.9.jar`), Paket `releases/Craft-1.0.12-curseforge.zip` (wie 1.0.11 mit Craft
+  1.0.9; 67 Manifest-Einträge, 9,0 MB).
+- **Phase 30 erledigt, Client-Test offen** (Testplan 13.1–13.4; 13.2 nur mit LDL).
+
+## Erledigt (Client-Test Leuchtschild, teilweise, 2026-10-24)
+Dev-Client mit LambDynamicLights 4.8.11 (Jar nur für den Test in `run/mods`), Welt ClaudeTest, Raum bei 5000/150/5000
+(`t:shield`, `t:shieldblock`, `t:killmobs` im Datapack `abnahme`).
+- [x] 13.2: Kegel hell auf der Wand in Blickrichtung, Umgebung dunkel; Wasseroberfläche und unter Wasser beleuchtet;
+  folgt beim Drehen sofort, 118 fps (vsync 120) auch beim Drehen; Schilde weg → dunkel; Modus-Taste + Rechtsklick
+  „Light: off/on“, Leuchtfläche aus/an; alter `craft:shield_light` nach ≤ 1,5 s weg. Offen: zweiter Spieler, Mob-Spawns.
+- [x] 13.3: Zombie-Treffer geblockt, 10 000 → 7 544 EU in ~7 s, keine Herzen verloren; leerer Schild hebt sich nicht,
+  Zombie trifft. Offen: Axt, Skelett.
+- [x] 13.4: Zaubertisch bietet Haltbarkeit I an; `/enchant` Haltbarkeit III + Reparatur ok, Schärfe abgelehnt. Offen:
+  Amboss, Laden per Erfahrung/BatBox. 13.1 (Tab, EMI, Modell) noch offen.
+- Nebenbei: Nutzerwunsch – alle Monster/Tiere in den geladenen Bereichen der Testwelt getötet (`t:killmobs`); dabei ist
+  die Testfigur „Dev“ nach einem Teleport ins Meer ertrunken (nur Testwelt).
+- Befund B7 (Testplan): 8 unübersetzte EMI-Tags der TE-Materialien.
+
+## Erledigt (30.6 Leuchtschild: Licht wie eine Fackel, 2026-10-25)
+Nutzer: „Das mit dem Lichtschild funktioniert noch gar nicht. Mach das einfach so, als wäre es eine Fackel.“
+- [x] Spec `30-leuchtschild.md` §3b (ersetzt den Kegel aus §3a): Licht 14 rund um den Träger wie eine Fackel in der Hand,
+  nicht wasserempfindlich, Bedingungen und Verbrauch unverändert.
+- [x] `LightShieldDynamicLights`: Spieler-Handler über `DynamicLightHandlers.registerDynamicLightHandler(EntityType.PLAYER, …)`;
+  LDL 4.8.11 wandelt ihn beim Laden in eine Entity-Lichtquelle um und nimmt das Maximum mit Fackel & Co. (im Jar der
+  Nutzer-Instanz geprüft). Eigene `ItemLuminance` geht nicht (versiegelt).
+- [x] Entfernt: `LightCone`, `LightConeBehavior`, 4 Kegel-Tests. EMI-Text, Wiki (DE + EN-Namen), `balancing.md`,
+  `architektur.md`, Testplan 13.2 angepasst.
+- [x] Alle 529 GameTests grün, `gradlew runData build` grün. Client-Test mit LDL offen (nur nach Rückfrage).
+- Hinweis: LDL leuchtet für Spieler nur mit den LDL-Optionen „Entitäten“ und (für das eigene Licht) „Eigenes Licht“ an.
+
+## Erledigt (Paket-Nachtrag Mechanical Extruder, 2026-10-26)
+Nutzer: Rezepte für Andesit/Granit ändern (Katalysator = derselbe Block), Tuff hinzufügen, Ochrum aus Goldblock + Lava;
+„einmal bewerten und dann rein ins Paket“.
+- [x] Befund Mechanical Extruder 2.2.2 (Jar der Nutzer-Instanz): Andesit/Granit/Diorit = Wasser + Lava mit Bedingung
+  Y 0–60, ohne Katalysator; Ochrum ist bereits genau Goldblock + Lava – keine Änderung nötig. Rezeptwahl: alle Rezepte,
+  deren Seitenblöcke, Katalysator (Block unter dem Extruder) und Filter passen; davon das erste mit erfüllten Bedingungen.
+  Ohne Filter kann daher auch Bruchstein kommen (wie bisher) – Filter auf das Ergebnis setzen.
+- [x] Bewertung: Andesit/Granit mit sich selbst als Katalysator (nicht verbraucht) statt Höhenbindung – unkritisch,
+  billige Steine. Tuff: Create-Zerkleinern liefert je Block 25 % Feuerstein und je 10 % Gold-/Kupfer-/Zink-/Eisen-Nugget
+  → unendliche Kleinstmengen Zink/Gold; vergleichbar mit Ochrum (schon im Mod, 20 % zerkl. Rohgold + 20 % Goldnugget),
+  daher vertretbar. Diorit bleibt unverändert.
+- [x] Eingebautes, immer aktives Datenpaket `src/main/resources/packs/extruder_tweaks` (wie `createcasing_fix`,
+  `Craft.java`): `create_mechanical_extruder:extruding/{andesite,granite}` ersetzt, `tuff` neu; Bedingung
+  `mod_loaded create_mechanical_extruder`. GameTest `extruderTweaksPackIsActive`.
+- [x] Wiki „Create & Paket-Mods“ → Rohstoffe ergänzt, neu erzeugt (DE + EN-Namen).
+- [x] Alle 530 GameTests grün, `gradlew build` grün.
+- [x] Craft **1.0.10** (`releases/craft-1.0.10.jar`, enthält auch 30.6), Paket `releases/Craft-1.0.13-curseforge.zip`
+  (wie 1.0.12 mit Craft 1.0.10; 67 Manifest-Einträge, 9,0 MB).
+- Client-Test offen: Extruder mit Andesit/Granit/Tuff darunter und Filter, oberhalb Y 60.
+
+## Neue Nutzerwünsche (2026-10-26, noch zu klären)
+- Rohr mit einstellbarer Prozent-Aufteilung je Abzweig.
+- „Energie-Tesserakt“ wie Ender Chest für Strom (TE-Energy-Tesserakt für MJ gibt es schon, 25.7 – EU gewünscht?).
+- „Forestry“ (Umfang unklar).
+- Vanilla-Trichter sollen sich nicht per Redstone abschalten lassen.
+
+## Entscheidungen Nutzer (2026-10-26)
+„Das klingt alles gut, und ja der ganze Forestry Mod. Aber guck halt ob man den direkt über CurseForge integrieren kann.“
+- Rohr: Item-Rohr mit GUI, Prozentwert je Seite, exakte (nicht zufällige) Aufteilung.
+- Energie-Tesserakt für EU mit Farb-Frequenzen wie die Ender Chest. Verlust/Höchstleistung noch offen (Vorschlag
+  TE-ähnlich vs. verlustfrei – „klingt gut“ war nicht eindeutig).
+- Forestry komplett, möglichst über CurseForge. Befund: **Forestry: Community Edition** (CurseForge 1056828) hat für
+  1.21.1 NeoForge nur Alphas, neueste `forestry-1.21.1-3.0.0-alpha8.jar` (Datei 8782913, 2026-09-01, 8,2 MB);
+  Farmen als Zusatzdatei „Forestry: CE - Farms“ (Datei 8783017, 401 KB) im selben Projekt. Pflicht: Patchouli (nicht im
+  Paket), optional JEI (im Paket). Forestry CE braucht FE (aus Crafts & Additions/Industrial Foregoing, nicht aus EU).
+  Überschneidungen mit Craft-`…forestry` (Thermionic Fabricator, Carpenter, Röhren, Platinen, Lötkolben) und Erzen
+  (Zinn, Kupfer, Apatit) – Rückfrage offen.
+- Trichter ohne Redstone: freigegeben.
+
+## Erledigt (Trichter ignorieren Redstone, 2026-10-26)
+- [x] Mixins `HopperBlockMixin` (`checkPoweredState` sieht nie ein Signal → `enabled` bleibt bzw. wird wieder true) und
+  `HopperBlockEntityMixin` (`tryMoveItems` wertet `enabled` als true, damit früher abgeschaltete Trichter alter Welten
+  ohne Nachbar-Update laufen). Trichterloren unverändert.
+- [x] GameTests `poweredHopperStaysEnabled`, `disabledHopperFromOldWorldStillMoves`. Alle 532 grün, `gradlew build` grün.
+- [x] Wiki „Create & Paket-Mods“ → Bauteile ergänzt, neu erzeugt (DE + EN-Namen).
+- [x] Craft **1.0.11** (`releases/craft-1.0.11.jar`), Paket `releases/Craft-1.0.14-curseforge.zip` (wie 1.0.13 mit
+  Craft 1.0.11).
+- Client-Test offen: Trichter neben Redstone-Block läuft weiter.
+
+## Entscheidungen Nutzer (2026-10-26, Nachtrag)
+„Dann lass Forestry doch weg. Und der Tesserakt mit MJ reicht.“
+- Forestry (CE) entfällt – kein Eintrag im Manifest.
+- Kein EU-Tesserakt; der TE-Energy-Tesserakt (MJ, 25.7) reicht.
+
+## Erledigt (31.0 Verteiler-Transportrohr: Spezifikation, 2026-10-26)
+- [x] `docs/spec/31-verteilerrohr.md`: `craft:distribution_transport_pipe`, Gewichte 0–100 je Seite (0 = gesperrt, alle 0
+  = normales Rohr), exakte Aufteilung per Zähler je Item, Stapel werden geteilt, kein Nachholen nach vollen Zielen,
+  ohne Ziel zurück zur Herkunft; GUI mit −10/−1/+1/+10 und tatsächlichem Anteil; Rezept Diamant-Transportrohr +
+  Komparator; Tests, Teilpakete 31.1/31.2. Index `spec/README.md`, Phase 31 in CLAUDE.md.
+- **Freigabe offen** (§7: Rezept, Startwert, Stapel teilen, kein Nachholen, ohne Ziel).
+
+## Erledigt (31.1 Verteiler-Transportrohr: Umsetzung, 2026-10-26)
+Nutzer: „jo, ist freigegeben“ (Spec 31 inkl. §7).
+- [x] `PipeType.DISTRIBUTION_TRANSPORT` / `PipeMaterial.DISTRIBUTION` (`craft:distribution_transport_pipe`), Arme mit den
+  Seitentexturen des Diamantrohrs, Kern `distribution.png` (Diamantrahmen + drei Komparator-Fackeln,
+  `tools/scripts/distribution_pipe_texture.py`).
+- [x] `PipeDistribution`: Gewichte 0–100, Zähler je Seite, `allocate` (kleinstes `sent/Gewicht`, Gleichstand unten, oben,
+  N, S, W, O), Wiedereinstieg auf den Stand der anderen, Zähler werden klein gehalten; gespeichert im Rohr.
+- [x] `ItemPipeBlockEntity.route`: alle 0 → normales Rohr; sonst Kandidaten mit Gewicht > 0, Stapel geteilt (neue
+  `TravelingItem`s, an Clients gesendet); ohne Kandidat zurück zur Herkunft bzw. Auswerfen; Zusammenfassen nur bei
+  gleichem Ziel. Gewichtsänderung setzt die Zähler zurück.
+- [x] GUI `DistributionPipeMenu`/`DistributionPipeScreen`: 6 Zeilen mit Farbmarke, −10/−1/+1/+10 (Umschalt: 0/100), Wert,
+  tatsächlicher Anteil der verbundenen Seiten, Summe, Hinweis; ohne Spielerinventar.
+- [x] Rezept formlos Diamant-Transportrohr + Komparator → 1; Tooltip; Lang DE/EN.
+- [x] GameTests `DistributionPipeGameTests` (6): 100 Einzelitems 50/30/20 exakt, Stapel 64 → 32/19/13, 0 % sperrt,
+  alle 0 = normal, volle Seite + kein Nachholen (10/0 → 15/5), Rezept. Alle 538 grün, `gradlew runData build` grün.
+- Client-Test offen (GUI, Modell) – nur nach Rückfrage.
+
+## Erledigt (31.2 Verteiler-Transportrohr: Texte, Paket, 2026-10-26)
+- [x] EMI-Info-Seite (de/en) `info/distribution_transport_pipe` in `BcEmiRecipes`.
+- [x] Wiki: BuildCraft-Seite Abschnitt „Verteiler-Transportrohr (neu)“, Änderungsliste „Komplett neue Inhalte“; neu erzeugt
+  (DE + EN-Namen).
+- [x] Testplan 14.1–14.4.
+- [x] Alle 538 GameTests grün (ein Lauf mit Ausreißer `plasmacannon` „zombie killed by the bolt“ – zufallsabhängig, danach
+  zweimal grün), `gradlew runData build` grün.
+- [x] Craft **1.0.12** (`releases/craft-1.0.12.jar`), Paket `releases/Craft-1.0.15-curseforge.zip` (wie 1.0.14 mit Craft
+  1.0.12).
+- **Phase 31 erledigt, Client-Test offen** (Nutzer testet selbst, Testplan 14).
+
+## Befund (Kosten Großkraftwerke, 2026-10-26, Vorschlag offen)
+Grobe Stückliste in Metall-Einheiten (Barren ≈ 1, Stahl 2, Titan 8, Wolframstahl 12, Diamant 10), je EU/t im Mittel:
+Große Windturbine (y 319, Wind 15 ≈ 255 EU/t, Tag und Nacht, kein Brennstoff) ≈ 190 → **0,7**; Große Wasserturbine
+(256) ≈ 620 → 2,4; Große Dampfturbine + 3 Hochdruckkessel (480) ≈ 2 360 → 4,9 plus ≈ 24 Kohle/min; altes HV-Solar-Array
+(512 Spitze / 256 Mittel, 512 Panels) ≈ 9 700 → 38; Solarfeld 9×9 (97 / 48,5) ≈ 1 500 → 31. Wind: nur 8 Masten
+(7 Raffinierte Eisenbarren), keine große Hülle, Deckel 384 – deutlich zu billig. Rechnung:
+Scratchpad `plant_costs.py` (nicht im Repo).
+Wasserturbine: natürliches Flusswasser sind Quellblöcke, gezählt wird nur fließendes Wasser → im Fluss fast 0; der
+Fluss-Faktor ×1,5 wirkt nur auf selbst erzeugtes fließendes Wasser. Wiki („braucht einen echten, fließenden Fluss“,
+„Grundlast aus einem Fluss“) ist irreführend.
+
+## Erledigt (32.0 Ausgleich Großkraftwerke: Spezifikation, 2026-10-26)
+Nutzer: Turbinen „auf gleichem Level vom EU/t-Wert“ (Rückfrage: gleiche Preis-Leistung), Große Windturbine bei HV, knapp
+über MV, am billigsten; Wasserturbine im Fluss mehr, auch über 32 EU/t (Rückfrage: ×1,5 auch auf den Deckel).
+- [x] Befund: Wasserturbine rechnet wie im Wiki – der Fluss-Faktor senkte nur die nötigen Blöcke, der Deckel blieb 32/256;
+  am Deckel brachte der Fluss also nichts.
+- [x] `docs/spec/32-kraftwerke-ausgleich.md`: Wind Faktor 12, Deckel 192, 24 Stahl-Masten, Turbine mit 4 Fortg.
+  Maschinengehäusen, Stahl-Rotor aus 8 Stahlplatten (≈ 1,7 je EU/t); Wasser Fluss-Deckel 48/384, kleine Turbine in
+  LV-Paketen, großes Gehäuse ×6 (≈ 2,8); Dampf Gehäuse halb Raffiniertes Eisen, Rotor 2 Titan + 6 Stahl (≈ 3,8).
+- **Freigabe offen** (§5).
+
+## Erledigt (32.1 Ausgleich Großkraftwerke: Umsetzung, 2026-10-26)
+Nutzer: „Das ist gut“ (Spec 32 freigegeben).
+- [x] Große Windturbine: `SCALE` 12, `MAX_OUTPUT` 192, `MAST_HEIGHT` 24. Neue Testvorlage `empty_16x32x16`.
+- [x] Wasserturbinen: `WaterTurbineTier.maxOutput(river)` (×1,5 auch auf den Deckel: 48 / 384), `packetSize()` (klein 32,
+  groß 384); Abgabe in Paketen bis zur Paketgröße (klein im Fluss 32 + 16); Fluss-Flag beim Zählen gemerkt und gespeichert.
+- [x] Rezepte: Mast ×4 aus Stahlplatten, Große Windturbine `WAW/AHA/WAW`, Stahl-Windrotor aus 8 Stahlplatten, Großes
+  Wasserturbinengehäuse ×6, Großes Turbinengehäuse `PIP/IAI/PIP`, Großer Turbinenrotor `STS/SRS/STS`.
+- [x] GameTests angepasst (Windwerte, Wasserdeckel, Paketgröße) und neu `riverOutputStaysLowVoltage` (48 EU/t in eine
+  BatBox, keine Explosion). Alle 539 grün, `gradlew runData` grün.
+- [x] `spec/14` §5, `spec/23` §2–4, `balancing.md` §3.8 nachgezogen.
+- Hinweis für bestehende Welten: Große Windturbinen mit 8 Masten sind unvollständig, bis 16 Masten nachgebaut sind.
+
+## Erledigt (32.2 Ausgleich Großkraftwerke: Texte, Paket, 2026-10-26)
+- [x] EMI-Info-Seiten (de/en): Wasserturbine Fluss-Deckel 48 (LV-Pakete), Große Wasserturbine Fluss-Deckel 384,
+  Große Windturbine 24 Masten, Faktor 12, Deckel 192, Beispielwerte y 128/200/319.
+- [x] Wiki: Wasserturbine (Seite + Anleitung, Rechner mit Fluss-Deckel 48 und Hinweis auf zwei LV-Pakete),
+  Großkraftwerke (Überblick, Wasser-Deckel 384, Wind 24 Masten/192/Werte-Tabelle, alle geänderten Rezepte, Link auf
+  Spec 32), Energievergleich (Balken, Tabelle), Steckbriefe, Startseiten-Karten, Änderungsliste; neu erzeugt (DE + EN-Namen).
+- [x] Testplan 15.1–15.4.
+- [x] Alle 539 GameTests grün, `gradlew runData build` grün.
+- [x] Craft **1.0.13** (`releases/craft-1.0.13.jar`), Paket `releases/Craft-1.0.16-curseforge.zip` (wie 1.0.15 mit Craft
+  1.0.13).
+- **Phase 32 erledigt, Client-Test offen** (Testplan 15).
+
+## Erledigt (Version 1.1.0, 2026-10-26)
+Nutzer: „Erstelle eine neue Datei. 1.1.0“ (Rückfrage: Paket und Mod).
+- [x] Craft **1.1.0** (`releases/craft-1.1.0.jar`, inhaltlich wie 1.0.13), Paket `releases/Craft-1.1.0-curseforge.zip`
+  (wie 1.0.16 mit Craft 1.1.0).
+
+## Erledigt (33.0 FE Producer: Spezifikation, 2026-10-26)
+Nutzer: „ich hätte schon gerne einen EU Converter dafür, das ich das [AE2] mit meinem Strom Powern kann“.
+Rückfragen: Bauteil der Power Converters (nicht Einzelblock), nur EU → FE, 1 EU = 4 FE.
+- [x] `docs/spec/33-fe-producer.md`: Leistungssystem FE (450 PCU je FE), FE Producer mit Push an FE-Nachbarn und
+  Pull über `Capabilities.EnergyStorage.BLOCK`, Bruchteile bleiben in der Bridge, Rezept `G G/ R /G G` (Redstone-Block),
+  rote Texturen; EU-Netz bleibt ohne FE-Anbindung.
+- **Freigabe offen.**
+
+## Erledigt (33.1 FE Producer: Umsetzung, 2026-10-26)
+Nutzer: „Pass, los gehts“ (Spec 33 freigegeben). Nebenbei gefragt: Nano/Quanten/GraviSuite verzaubern? – Nein, wie im
+Pack (`isEnchantable = false`); Nutzer: „Ne, mach nicht“.
+- [x] `PowerSystem.FE` (450 PCU je FE), `ConverterType.FE_PRODUCER` (ohne Gegenstück, `hasCounterpart()`),
+  `OutputReading.Unit.FE`.
+- [x] `FeProducerBlockEntity`: Push an Nachbarn mit FE-Capability (`canReceive`, jeden Tick neu abgefragt), Empfänger
+  teilen korrekt, Bruchteile bleiben in der Bridge; eigene Nur-Entnahme-Capability (Pull aus den Bridges).
+- [x] Rezept `G G/ R /G G` (Redstone-Block), Name „FE Producer“, Tooltip de/en, Texturen (LV-Producer mit rotem Rahmen).
+- [x] 3 neue GameTests (Aufteilung auf zwei Empfänger, ohne Empfänger nichts verloren, Pull nur ganze FE). Alle 542
+  grün (`-PgameTestDir=run-gametest`), `gradlew runData build` grün.
+
+## Erledigt (33.2 FE Producer: Texte, Paket, 2026-10-26)
+Nutzer: „Weiter gehts“.
+- [x] EMI-Info-Seite FE Producer (de/en, `PcEmiRecipes`): Aufbau, Kurs 1 EU = 4 FE / 1 MJ ≈ 9,7 FE, Push und Pull,
+  Reste bleiben in der Bridge, nur EU → FE, Beispiel 128 EU/t → 512 FE/t.
+- [x] Wiki: Umwandlung (Tabellenzeile, neuer Abschnitt „FE Producer“ mit Aufbau-Bild bis zum AE2 Energy Acceptor),
+  Create-Seite („kein Wandler“ ersetzt, AE2 mit Craft-Strom), Energie-Steckbrief, Umrechnung, Power-Converters-Seite,
+  Startseiten-Karte, Änderungsliste; neu erzeugt (DE + EN-Namen).
+- [x] Testplan 16.1–16.4.
+- [x] `gradlew runData build` grün (GameTests nicht erneut, nur Texte/EMI geändert; 542 grün in 33.1).
+- [x] Craft **1.1.1** (`releases/craft-1.1.1.jar`), Paket `releases/Craft-1.1.1-curseforge.zip` (wie 1.1.0 mit Craft
+  1.1.1).
+- **Phase 33 erledigt, Client-Test offen** (Testplan 16).
+
+## Befund (Induction Furnace, rechter Ausgang, 2026-10-26, Rückfrage offen)
+Nutzer: „Beim Induction Furnace, der Rechte Slot kann mit Pipes nicht rausgezogen werden“ (auch wenn links leer ist).
+- [x] Code geprüft: Seiten geben beide Ausgänge frei (`SideAccess`), Holzrohr nimmt aus jedem entnehmbaren Slot.
+- [x] Neuer GameTest `PipeGameTests.woodenPipeExtractsSecondFurnaceOutput` (Holzrohr an der Seite leert Ausgang 2):
+  grün, alle 543 grün.
+- Rückfrage an den Nutzer: welche Rohre (BC/Create/TE/Trichter), welche Seite, IC2 Induction Furnace oder TE Induction
+  Smelter (Nebenausgang standardmäßig nur oben/unten).
+- [x] Craft 1.1.1 und Paket 1.1.1 neu gebaut (Nutzer: „Mache daraus die Version 1.1.1“), inhaltlich wie zuvor plus Test.
+
+## Erledigt (B7 Tag-Übersetzungen, 2026-10-27)
+Nutzer: „Mach alles, was noch gemacht werden muss“.
+- [x] `CraftLanguageProvider.itemTags`: Kupfer und Invar als Materialien, neue Art `gears` (Zahnräder); Namen für
+  `c:dusts/invar`, `c:gears/copper|invar|tin`, `c:ingots/invar`, `c:ores/lead|nickel|silver` (de/en).
+- [x] `gradlew runData build` grün (GameTests nicht erneut, nur Lang-Datagen geändert; 543 grün zuletzt).
+- Keine neue Version gebaut (Craft 1.1.1 / Paket 1.1.1 unverändert).
+
+## Erledigt (Version 1.1.2, 2026-10-27)
+Nutzer: „Mach daraus die Version 1.1.2“.
+- [x] Craft **1.1.2** (`releases/craft-1.1.2.jar`, 1.1.1 plus B7), Paket `releases/Craft-1.1.2-curseforge.zip` (wie
+  1.1.1 mit Craft 1.1.2, Manifest-Name/-Version 1.1.2).
+
+## Erledigt (34.0 Großer Projekttisch: Spezifikation, 2026-10-27)
+Nutzer: „Es sollte ein teurerer Project Table werden, der quasi eine Holzchest als Platz hatte“ (in keiner Datei
+vermerkt gewesen, neu aufgenommen).
+- [x] `docs/spec/34-grosser-projekttisch.md`: zweiter Projekttisch mit 27 Vorratsplätzen, sonst gleiche Logik
+  (Vorratsgröße als Parameter), GUI 176 × 240, Vorschläge F1 Name, F2 Rezept `III/CPC/III`, F3 Eisenrand-Textur.
+- **Freigabe offen.**
+
+## Erledigt (34.1 Großer Projekttisch: Umsetzung, 2026-10-27)
+Nutzer: „Mache ihn, aber mach noch keine neue Version danach“ (Spec 34 freigegeben, F1–F3 wie vorgeschlagen).
+- [x] Vorratsgröße als Parameter: `ProjectTableBlockEntity` (18 bzw. 27, `large(...)`), `ProjectTableCrafting` läuft
+  bis zum Inventarende, `ProjectTableMenu` mit `storageRows()`/`playerStart()`/`end()` und zwei Menütypen
+  (`client`/`clientLarge`), Screen 176 × 240 mit eigener GUI.
+- [x] `LargeProjectTableBlock` (`craft:large_project_table`), Block-Entity-Typ, Menü, Item, Item-Capability (27
+  Vorratsplätze), Tooltip „27 Vorratsplätze“, Name „Großer Projekttisch“ / „Large Project Table“.
+- [x] Rezept `III/CPC/III` (Eisenbarren, Holztruhen, Projekttisch), Loot, Spitzhacken-Tag, Blockstate/Modell.
+- [x] Texturen `tools/scripts/large_project_table_textures.py`: Projekttisch-Kacheln mit Eisenrand, GUI mit dritter
+  Vorratsreihe.
+- [x] EMI: Werkbank-Workstation und „+“-Füllen (gemeinsamer Handler für beide Tische).
+- [x] 4 neue GameTests (Nachschub aus der dritten Reihe + Menü-Aufbau, Automatisierung 27 Slots, Abbau droppt 37,
+  Rezept); `breakingDropsAllSlots` auf gemeinsame Hilfsmethode umgestellt. Alle 547 grün (ein Lauf vorher mit dem
+  bekannten Zufallsausreißer `plasmacannon`), `gradlew runData build` grün.
+- Keine neue Version (Nutzer).
+
+# Phase 35.0 – Spezifikation Kupfergolem (2026-10-29)
+
+Nutzerwunsch: Kupfergolems „für Craft nutzbar machen“, mit Reichweite 64 und Iron Chests als Ziel. Den Golem gibt es
+erst ab MC 1.21.9, daher Nachbau. Entschieden (Nutzer): Verhalten wie 1.21.9, eigene Kupfertruhe als Quelle,
+Suchbereich ±32 (65³). Nachtrag (Nutzer, 2026-10-29): Quelle ist die Iron-Chest-Kupferkiste, die dafür Oxidation
+bekommt; Ziele nur Iron Chests, Truhen, Fässer (keine beliebigen Behälter, „Chaos“); keine Statue; Tab Iron Chests;
+Bau per Event ohne Mixin.
+
+## Erledigt
+- [x] `docs/spec/35-kupfergolem.md` (Werte aus minecraft.wiki, Copper Golem/Copper Chest), Index, CLAUDE.md.
+
+- F1 entschieden (Nutzer, „passt so“): abgebaute Kupferkiste droppt frisch. Spezifikation freigegeben.
+
+# Phase 35.1 – Oxidation der Kupferkiste (2026-10-29)
+
+## Erledigt
+- [x] 8 Blöcke: `craft:copper_chest` (frisch, bleibt die bisherige ID) + `exposed_`/`weathered_`/`oxidized_copper_chest`,
+  je mit `waxed_`-Variante; `CopperChestBlock` (Stufe), `WeatheringCopperChestBlock` (`WeatheringCopper`, Zufallsticks).
+- [x] Data Maps `neoforge:oxidizables`/`waxables` → Vanilla-Oxidation, Honigwabe, Axt (schleichend), Blitz.
+- [x] `IronChestBlock#onRemove`: Wechsel innerhalb desselben Kistentyps behält Block-Entity und Inhalt.
+- [x] Renderer wählt die Textur je Stufe; 3 neue Kisten- und Partikeltexturen (Python/Pillow, Farbverschiebung nach
+  den Vanilla-Kupferblöcken). Loot: jede Stufe droppt die frische Kupferkiste. Lang DE/EN.
+- [x] 6 GameTests `CopperChestGameTests` (Stufenkette/Data Maps, Inhalt bleibt beim Oxidieren, Honigwabe + Axt,
+  Blitz, Drop, Upgrade aus oxidierter Kiste) grün. `gradlew runData build` grün.
+- [ ] GameTests gesamt: 548/549 – `liquidTesseractFillsRemoteTank` („water in the remote tank“) schlägt reproduzierbar
+  fehl, **auch ohne die neuen Tests**; vermutlich durch die noch nicht committete Nuke-Entfernung im Arbeitsbaum
+  (vorher 547 grün). Nicht angefasst.
+- `abweichungen.md`, `spec/22` (Nachtrag), `spec/35` §1 ergänzt.
+
+# Phase 35.2 – Kupfergolem als Kreatur (2026-10-29)
+
+## Erledigt
+- [x] Paket `dev.craft.coppergolem`: `CopperGolem` (12 Leben, Tempo 0,2, `FOLLOW_RANGE` 48, 0,49 × 0,98, kein
+  Fallschaden, passiv), Spawn-Ei im Tab Iron Chests direkt hinter den Kisten, Lang DE/EN, Drop 1–3 Kupferbarren
+  (+1 je Plünderung).
+- [x] Oxidation über `gameTime` (420–460 min je Stufe, Nachholen beim Laden), keine Statue; Honigwabe, Axt (Wachs ab,
+  sonst eine Stufe), Blitz eine Stufe.
+- [x] Bau aus Kupferblock + Kürbis/Kürbislaterne (auch seitlich/kopfüber) per Event (Spieler, Enderman) und Werfer;
+  Block wird zur Kupferkiste gleicher Stufe, Golem gleicher Stufe ungewachst.
+- [x] Modell, Renderer mit Item zwischen den Händen, 4 Texturen (`tools/scripts/copper_golem_textures.py`).
+- [x] 9 GameTests `CopperGolemGameTests` (Bau oben/seitlich, Kürbis zuerst = nichts, Werfer, Schneegolem per Werfer
+  bleibt Vanilla, Oxidation nachholen/gewachst, eine Stufe nach Ablauf, Honigwabe/Axt, Blitz) grün. Gesamt alles
+  grün bis auf das bekannte `liquidTesseractFillsRemoteTank`. `gradlew runData build` grün.
+- Spezifikation §2.6 (Umsetzungsdetails) nachgetragen.
+
+# Phase 35.3 – Kupfergolem: Item-Transport (2026-10-29)
+
+Entschieden (Nutzer, 2026-10-29): Kupferkiste ist **nur Quelle**, kein Ziel (sonst endloses Hin-und-her zwischen zwei
+Kupferkisten); Spec §2.3 angepasst.
+
+## Erledigt
+- [x] `CopperGolemTransportGoal`: Suche ±32 über Chunk-Block-Entities, Pfad zu Standplätzen neben dem Behälter
+  (1 über bis 2 unter den Füßen), 3 s hineinschauen, Holen (16 aus dem ersten Slot), Abgeben (leer oder gleiches
+  Item, Rest behalten und weitersuchen).
+- [x] `ContainerMemory` (9 Plätze, 10 Fehlversuche → 7 s umherlaufen, Erfolg vergisst), Block-Tag
+  `craft:copper_golem_targets` (Truhe, Redstone-Truhe, Fass, Iron Chests ohne Kupferkiste).
+- [x] Deckel: `IronChestBlockEntity#setGolemOpen` (Golems getrennt vom Spielerzähler; Server übernimmt den
+  Zähler aus dem Block-Event nicht mehr), Vanilla-Truhen/Fässer ohne Eingriff in deren Zähler.
+- [x] Animation „Kiste untersuchen“ (synchronisiert), Rechtsklick nimmt das Item ab, Item fällt beim Tod.
+- [x] 9 GameTests `CopperGolemTransportGameTests` (Holen, Diamantkiste, Fass mit gleichem Item, Ofen/fremdes
+  Fass/Kupferkiste abgelehnt, Rest in nächste Kiste, Spieler nimmt Item, Reichweite ±32/33, Gedächtnis, Deckel)
+  jeweils in eigenem Batch (Golems suchen ±32 und würden in Nachbartests laufen); die 35.2-Tests ebenfalls in einen
+  eigenen Batch verschoben. Zwei Läufe: alles grün bis auf das bekannte `liquidTesseractFillsRemoteTank` (einmal
+  zusätzlich der bekannte Ausreißer `plasmacannon`). `gradlew runData build` grün.
+
+# Wiki: Maschinenbeschreibungen (2026-10-29)
+
+Nutzer: „Kannst du in beide Wikis reinschreiben, was alle Maschinen immer so machen und wofür sie gedacht sind?“ –
+„Schreib das doch direkt auf die Seiten der Maschinen“.
+
+## Erledigt
+- [x] `wiki/content_maschinen.py`: 160 Einträge (IC2, Advanced Machines, GT, BuildCraft samt Rohren, Forestry,
+  Power Converters, Kraftwerke samt Gehäuseteilen, stillgelegte Solar Arrays, Thermal Expansion, EnderStorage,
+  Projekttische, Tinker Table, Mining-Portal) mit „Was macht das?“ und „Wofür“; Werte aus `docs/spec`.
+- [x] Item-Seite zeigt den Abschnitt „Was macht das?“ vor der Herkunft; im englischen Wiki mit englischen Namen.
+- [x] Beide Wikis neu erzeugt und nach `X:/Craft/` kopiert. Sie spiegeln den Arbeitsbaum (Nuke dort schon entfernt).
+
+# Phase 35.4 – Kupfergolem: EMI, Herkunft, Wiki, Testplan (2026-10-29)
+
+## Erledigt
+- [x] EMI: Info-Seiten „Kupfergolem bauen“ (Spawn-Ei, Kupferblock, geschnitzter Kürbis), Verhalten (Spawn-Ei) und
+  Oxidation (Kupferkiste); `CopperGolemEmiRecipes`.
+- [x] Herkunft: Spawn-Ei „Nur im Kreativmodus, im Überleben aus Kupferblock + Kürbis bauen“.
+- [x] Wiki: Iron-Chests-Seite mit Abschnitten „Kupferkiste mit Oxidation“ und „Kupfergolem“, „Was macht das?“ an
+  Kupferkiste und Spawn-Ei; BC-Motoren in den Maschinentexten mit Redstone-Signal und MJ/t ergänzt. Beide Wikis neu
+  erzeugt und nach `X:/Craft/` kopiert.
+- [x] Testplan §17 (Kupfergolem), `docs/abweichungen.md` Kupfergolem-Eintrag.
+- `gradlew runData build` grün. Phase 35 damit fertig bis auf den Client-Test.
+
+# Phase 34.2 – Großer Projekttisch: EMI, Wiki, Herkunft, Testplan (2026-10-29)
+
+## Erledigt
+- [x] EMI-Info-Seite `emi.craft.info.project_table` an beiden Projekttischen (Vorrat 18/27, Nachschub, Bauplan,
+  Automatisierung nur Vorrat, „+“-Knopf), registriert in `CraftEmiPlugin`.
+- [x] Herkunft: nichts nötig (Werkbankrezept, kein Rohstoff; der Projekttisch hat ebenfalls keinen Eintrag).
+- [x] Wiki: Zeile „Großer Projekttisch“ in „Komplett neue Inhalte“, EMI-„+“-Hinweis nennt beide Tische
+  (Maschinentext gab es schon). Beide Wikis neu erzeugt und nach `X:/Craft/` kopiert.
+- [x] Testplan §18 (Großer Projekttisch). Paket/Version weiter erst auf Wunsch des Nutzers.
+- `gradlew runData build` grün; GameTests alles grün bis auf das bekannte `liquidTesseractFillsRemoteTank`.
+  Phase 34 damit fertig bis auf den Client-Test.
+
+# Nebenbei (2026-10-29)
+
+- Implosionskompressor „tut nichts“: Ursache beim Nutzer war Vanilla-TNT statt Industrie-TNT, kein Fehler.
+- **Gravitations-Brustplatte** (Nutzer: „sollte keine Energie verbrauchen, wenn man läuft“): eingeschaltet
+  416 EU/Tick nur noch in der Luft, am Boden kein Verbrauch und keine Abschaltung. `GraviChestplateItem#tickWorn`,
+  GameTest `consumption` angepasst (grün), EMI-Text, Wiki, `spec/28` §5/§12, `abweichungen.md`.
+- **Entschieden (Nutzer):** Ultimativer Solarhelm bekommt ein Rezept (Phase 36, nach 34.2): `PSP/CQC/PTP`,
+  P Iridiumplatte, S IC2-Solarhelm, C Supraleiter, Q Quantenhelm, T HV-Transformator; Leistung wie im Pack
+  (512/64 EU/t). Compact-Solars-Hüte bleiben entfallen.
+
+# Phase 36 – Rezept Ultimativer Solarhelm + Version 1.1.3 (2026-10-29)
+
+Nutzer: „Mach das mit dem Solar Helm eben schnell und dann neue Version“; dazu „sophisticated storage create
+integration und Create Hyperloop muss noch über Curse Forge mit rein“ („Hyperloop“ = Create: Hypertubes, Nutzer).
+
+## Erledigt
+- [x] Rezept `PSP/CQC/PTP` (IC2-`AdvRecipe`-Weg wie die übrigen GraviSuite-Rezepte: Iridiumplatte, IC2-Solarhelm,
+  Supraleiter, Quantenhelm, HV-Transformator), Leistung unverändert 512/64 EU/t. GameTest `protectionAndRecipe`
+  prüft jetzt, dass es ein Rezept gibt. EMI-Text, Wiki (GraviSuite-Seite, Hinweis „kein Rezept“ entfernt),
+  `spec/28` §8/§10, `abweichungen.md`.
+- [x] Craft **1.1.3** (`releases/craft-1.1.3.jar`): Phase 34 (Großer Projekttisch), 35 (Kupfergolem), Gravi-Brustplatte
+  am Boden ohne Verbrauch, Nuke entfernt, Solarhelm-Rezept.
+- [x] Paket `releases/Craft-1.1.3-curseforge.zip` (wie 1.1.2 mit Craft 1.1.3), neu im Manifest: Sophisticated Storage
+  1.6.10 (619320, 9341485), Sophisticated Core 1.5.19 (618298, 9341397), Sophisticated Storage Create Integration
+  0.1.23 (1226755, 9151604), Create: Hypertubes 0.6.0 (1281336, 8541877; braucht nur Create). 71 Einträge. Nicht im
+  Client gestartet.
+- [x] Wiki „Create & Paket-Mods“: beide Mods ergänzt; Wikis neu erzeugt und nach `X:/Craft/` kopiert.
+- `gradlew runData build` grün; GameTests alles grün bis auf das bekannte `liquidTesseractFillsRemoteTank`.
+
+# Phase 37.0 – Spezifikation „Nichts macht mehr schneller“ (2026-10-29)
+
+Nutzer: Gravi Suit, Quantum, Power Suit und Advanced Jetpack sollen nicht mehr schneller machen, „es soll einfach
+nichts mehr geben, was einen schneller macht“, dafür je ein Ausgleich.
+
+## Erledigt
+- [x] `docs/spec/37-kein-tempo.md`: Bestandsaufnahme aller Tempo-Quellen (Quantenhose/-stiefel, IC2-Jetpacks, Fortg.
+  Jetpack/Nano-Brustplatte, Gravi-Brustplatte, MPS Sprint/Jump/Swim/Jet/Glider, Kaffee), Deckel auf Sprinttempo,
+  Ausgleich je Teil, Fragen F1–F4, Teilphasen 37.1–37.4. Kein Code geändert.
+
+# Phase 37.1 – Kein Tempo mehr: IC2 (2026-10-29)
+
+Nutzer: „Passt so, alles nach deinem Vorschlag, mach 37.1“ – `spec/37` damit freigegeben (F1–F4 wie vorgeschlagen).
+
+## Erledigt
+- [x] `core/MovementCap`: Deckel 0,28 Blöcke/Tick (Vanilla-Sprint) auf die Waagerechte.
+- [x] IC2-Jetpack und Elektro-Jetpack: Bewegung nach `useJetpack` gedeckelt.
+- [x] Quantenhose: kein Sprint-/Schwimmschub mehr, Kosten 1 000 EU je 10 Ticks Sprinten bleiben; Ausgleich kein Hunger
+  beim Sprinten/Sprint-Springen (Mixins `SprintExhaustionMixin`, `SprintJumpExhaustionMixin`, MixinExtras
+  `@WrapWithCondition`) und kein Rückstoß (`LivingKnockBackEvent` in `ArmorEvents`), beides ab 1 000 EU Ladung.
+- [x] Quantenstiefel: Boost-Sprung ohne ×3,5 in x/z, Höhe unverändert.
+- [x] Kaffee: Sättigung statt Tempo (gleiche Stufen-/Überdosislogik), Eile bleibt.
+- [x] GameTests `quantumLeggingsGiveNoSpeed`, `quantumLeggingsIgnoreKnockback`, `quantumSprintCostsNoHunger`,
+  `quantumBootsNoLongJump`, `jetpackCappedToSprintSpeed`; `coffeeRaisesSaturationAndHaste` (vorher …Speed…).
+- `gradlew build` grün; GameTests 572, alles grün bis auf das bekannte `liquidTesseractFillsRemoteTank`.
+  EMI-/Wiki-Texte folgen gesammelt in 37.4.
+
+# Nebenbei (2026-10-29): Energy Acceptor
+
+- Nutzer: „Energy Acceptor … Man kann keine Kabel anschließen.“ Kein Fehler im Code gefunden: EU-Kabel gehen absichtlich
+  nicht an FE-Blöcke (`spec/33`), Weg IC2 Consumer → Energy Bridge → FE Producer → AE2 Energy Acceptor. Echter Test
+  braucht AE2 (+ GuideME) in `run/mods` und `runClient` – Rückfrage an den Nutzer offen.
+
+# Phase 38.1 – Solarpanels leiten untereinander (2026-10-29)
+
+Nutzer: „Ist das Solar 9x9 Panel mit einem Kabel schon im Mod?“ – nein; „Variante 1, mach das als neue Phase“.
+
+## Erledigt
+- [x] `docs/spec/38-solarfeld-leitung.md`, Verweis in `spec/11` §4, README.
+- [x] `SolarPanelBlockEntity` ist `EnergyConductor`: verlustfrei, nimmt nur von Solarpanels an, kein Schock/Schmelzen.
+- [x] GameTests `panelsConductToOneCable`, `otherSourcesDoNotRouteThroughPanels`; `panelInFieldDeliversOneAndAFifth`
+  angepasst (ganzes Feld → eine BatBox, 81 · 60 EU).
+- [x] Wiki-Generator: Panel nicht in der Liste „Gehäuse der Kraftwerke“ (Wiki noch nicht neu erzeugt, 38.2).
+- `gradlew build` grün; GameTests 574, alles grün bis auf das bekannte `liquidTesseractFillsRemoteTank`.
+
+# Phase 37.2 – Kein Tempo mehr: GraviSuite (2026-10-29)
+
+Nutzer: „mach 37.2“.
+
+## Erledigt
+- [x] Fortg. Jetpack + Fortg. Nano-Brustplatte: Boost entfernt, Vorwärtsflug auf Sprinttempo gedeckelt, Verbrauch
+  6 statt 12 EU/Tick.
+- [x] Gravitations-Brustplatte: Boost entfernt (auch der doppelte Server-Verbrauch), Flugtempo = Sprinttempo,
+  Sprint-Fliegen ohne Wirkung (`PlayerFlyingSpeedMixin`, `MovementCap.FLY_ACCELERATION`); Kreativ unverändert.
+- [x] Gravitationsmagnet: Modus-Taste + Boost schaltet (`craft:magnet_active`, Meldung + HUD-Zeile), zieht Items
+  (50 EU je Stapel, nur wenn Platz im Inventar) und XP im Umkreis 8, auch am Boden/ohne Flug.
+- [x] GameTests `thrustWithoutBoost` (vorher `thrustAndBoost`), `lowChargePowerDrop` (unter 6 EU), `noBoostAndSprintSpeed`
+  (vorher `boostCost`), `magnet`.
+- `gradlew runData`, `build` grün; GameTests 575, alles grün bis auf das bekannte `liquidTesseractFillsRemoteTank`.
+  `energy_profile.json` enthält jetzt auch das Solarpanel als Leiter (Phase 38). EMI/Wiki in 37.4.
+
+# Phase 37.3 – Kein Tempo mehr: Modular Powersuits (2026-10-29)
+
+Nutzer: „mach 37.3“.
+
+## Erledigt
+- [x] Sprint Assist: keine Tempo-Multiplikatoren (Gehen/Sprinten), Regler „Power“ gibt Tragkraft (+25 000 g),
+  Gehkosten und Regler „Walking Assist“ entfallen, Sprintkosten und Erschöpfungsausgleich bleiben.
+- [x] Jump Assist: zusätzliche Luftsteuerung entfällt, Sprunghöhe bleibt.
+- [x] Swim Boost: kein Schub, fest 100 J/Tick unter Wasser, dafür Abbau unter Wasser wie an Land (auch schwimmend).
+- [x] Jetpack/Jet Boots/Flight Control/Glider: waagerecht auf Sprinttempo gedeckelt, wenn sie in dem Tick schieben.
+- [x] Lang: Eigenschaft „Tragkraft“/„Carry Capacity“, „Sprint-/Geh-Tempo“, „Schwimmschub“, „Gehhilfe“ entfernt.
+- [x] GameTests `sprintAssist` (neu gefasst, mit Tragkraft), `jumpAssist` (ohne Luftsteuerung), neu
+  `jetsCappedToSprintSpeed`, `swimBoostMinesUnderwater`.
+- `gradlew runData`, `build` grün; GameTests 577, alles grün bis auf das bekannte `liquidTesseractFillsRemoteTank`.
+
+## Nächste Schritte
+- Client-Test 38.1: 9×9-Feld mit einem Kabel an der Ecke liefert ≈ 97 EU/t.
+- Client-Test 37.3: Sprint Assist ohne Tempo, Tragkraft im Tinker Table; Swim Boost: Abbau unter Wasser wie an Land;
+  MPS-Düsen/Glider nicht schneller als Sprinten.
+- Client-Test 37.2: Gravi-Flug so schnell wie Sprinten, Sprint-Fliegen ohne Wirkung, Magnet (Modus + Boost) zieht
+  Items/XP; Fortg. Jetpack ohne Boost, halber Verbrauch.
+- Client-Test 37.1: Quantenhose sprintet normal schnell, kein Hunger, kein Rückstoß; Quantenstiefel ohne Weitsprung;
+  Jetpacks nicht schneller als Sprinten; Kaffee gibt Sättigung.
+- Paket 1.1.3 im CurseForge-Launcher starten (neue Mods: Sophisticated Storage, Hypertubes).
+- Client-Test Phase 35 (Testplan §17) und 34 (Testplan §18); Gravi-Brustplatte am Boden ohne Verbrauch;
+  Solarhelm-Rezept in EMI.
+- `liquidTesseractFillsRemoteTank` klären (vermutlich Nuke-Entfernung im Arbeitsbaum).
+- Neue Version/Paket erst auf Wunsch des Nutzers.
+- Client-Test 33 (FE Producer an AE2 Energy Acceptor, Testplan 16).
+- Client-Test 32 und 31 (Nutzer), 30.6, Extruder-Rezepte, Trichter, B7 (EMI-Tags übersetzt?).
+- Induction Furnace rechter Ausgang: Rückfrage an den Nutzer offen (welche Rohre/Seite, IC2 oder TE).
+
+# Nutzerwünsche: weitere Mods und Änderungen (2026-11-02)
+
+Nutzer: „Ich gebe dir mal ein paar Mods, die noch mit rein müssen. Schreib das erstmal auf“ – **nur notiert,
+nichts umgesetzt**. Reihenfolge, Umfang und Phasennummern noch offen.
+
+## Mods fürs CurseForge-Paket (vermutlich nur per Manifest)
+- [ ] **Litematica** (Schaltpläne/Bauvorlagen)
+- [ ] **Armor Stand Arms** (Rüstungsständer mit Armen)
+- [ ] **Subtle Effects** (Umgebungseffekte)
+- [ ] **Particle Rain** (Regen-/Wetterpartikel)
+- [ ] **Pick Up Notifier** (Einblendung aufgehobener Items)
+- [ ] **Statistik-Mod**: Entschieden (Nutzer, 2026-11-02): **Enhanced Player List** (NeoForge 1.21.1, Client + Server,
+  MIT, nur Modrinth → Jar in `overrides/mods`; Quelle https://github.com/Decryptu/enhanced-player-list). Tab-Liste
+  zeigt für alle Spieler (auch offline) Spielzeit, Tode, Strecke, Sprünge, Schaden, zuletzt gesehen. Stats Overlay
+  verworfen (zeigt nur die eigenen Werte).
+- [ ] **Abgebaute Blöcke in der Tab-Liste** (Nutzer, 2026-11-02: „das mit den Blöcken noch reinmodden“): Vanilla
+  zählt nur je Blocksorte. Plan: Craft registriert eine eigene Statistik `craft:blocks_mined` (Summe aller abgebauten
+  Blöcke, serverseitig, landet in `world/stats/<UUID>.json`) und zeigt sie per Mixin in Enhanced Player List als
+  weitere Zeile an (offline Spieler ebenfalls aus der Stats-Datei). Bestehende Welten: Startwert einmalig aus der
+  Summe der `minecraft:mined`-Werte. Vor der Umsetzung die EPL-Quelle ansehen.
+
+Zu prüfen: Verfügbarkeit für NeoForge 1.21.1 und benötigte Bibliotheken (Litematica braucht MaLiLib; ggf.
+Fabric-only → Port/Alternative nachfragen).
+
+## Änderungen an Craft
+- [ ] **Fortgeschrittener Diamantbohrer** (GraviSuite, `spec/28` §9.1): Kapazität **1 000 000 EU** statt 15 000
+  und ein **ein-/ausschaltbarer 3×3×1-Abbaumodus**. Nutzer: „hatte früher 1 Mio EU Kapazität“ – laut Pack-Jar
+  (`spec/28`) 15 000 EU; vor der Umsetzung klären, ob das eine bewusste Abweichung (Balancing) ist und welche
+  Kosten/Tasten der 3×3-Modus haben soll.
+- [ ] **Solar-Balancing** (`balancing.md` §3.1, Phase 29): Solarpanel-Grundwert **2 EU/t** statt 1 EU/t, Bonus im
+  9×9-Feld **×1,5** statt ×1,2, also 3 EU/t je Panel im Feld. Nutzer: „denke ich wäre recht gebalanced“ – vor der
+  Umsetzung Freigabe einholen (Auswirkung auf Solarhelme, Phase-38-Leitung, Wiki).
+
+# Phase 37.4 + 38.2 – EMI, Wiki, Doku (2026-11-02)
+
+Nutzer: „Lass uns mit der nächsten Phase weitermachen“ – beide offenen Doku-Teilpakete zusammen erledigt.
+
+## Erledigt
+- [x] EMI: neue Infoseiten `quantum_leggings`, `quantum_boots`, `jetpack` (`MultiblockEmiInfo.registerArmor`);
+  `gravi_chestplate` (ohne Boost, mit Magnet), `advanced_jetpack` (6 EU/t, kein Boost), `coffee` (Sättigung),
+  `solar_field` (Panels leiten) angepasst; MPS-Modulbeschreibungen Sprinthilfe, Schwimmhilfe, Gleiter (en/de).
+- [x] Wiki: „Alle Änderungen“ §1a „Nichts macht schneller“ + Zeile „Solarpanel als Leiter“, Tastentabelle (Boost-Taste),
+  GraviSuite-Flug, MPS-Abschnitt „Kein Zusatztempo“, Solar-Seite (Regel, Bauanleitung, Fehlersuche), Maschinen-/
+  Energietexte Solarpanel; `Craft-Wiki.html` und `Craft-Wiki-EN.html` neu erzeugt.
+- [x] `abweichungen.md` (zwei Zeilen), Verweise in `spec/05` §5.2/§9, `spec/17`, `spec/28` §4/§5, `spec/29` §6,
+  Teilphasen in `spec/37`/`spec/38`, README; Testplan §19 (Phase 37) und §20 (Phase 38).
+- `gradlew runData`, `build` grün. Phasen 37 und 38 damit erledigt (Client-Test offen).
+
+## Nächste Schritte
+- Client-Tests 37/38 (Testplan §19, §20) und die älteren offenen Tests (siehe vorige „Nächste Schritte“).
+- Nutzerwünsche vom 2026-11-02 (oben): Reihenfolge/Phasennummern festlegen; offen sind Freigaben für
+  Fortg. Diamantbohrer (1 Mio. EU, 3×3) und Solar-Balancing (2 EU/t, ×1,5).
+- Neue Version/Paket erst auf Wunsch des Nutzers.
+
+# Phase 39.1 – Zusatzmods, Spalte „abgebaute Blöcke“ (2026-11-02)
+
+Nutzer: „Nächste Phase“ – die Mod-Wünsche vom 2026-11-02 (die beiden Balancing-Wünsche warten auf Freigabe).
+Litematica: „Forgematica nehmen“ (Nutzer).
+
+## Erledigt
+- [x] `docs/spec/39-zusatzmods.md`: alle Mods für NeoForge 1.21.1 geprüft, CurseForge-Projekt-/Datei-IDs (über
+  api.cfwidget.com) bzw. Modrinth-Versionen mit SHA-1 für `overrides/mods` (Armor Stand Arms von Jodek und Enhanced
+  Player List gibt es nur auf Modrinth).
+- [x] Befund: EPL summiert `minecraft:mined` schon und schickt es an die Clients, zeigt es nur nicht an → keine eigene
+  Statistik nötig, gilt rückwirkend. Mixins `mixin/epl/*` (eigene Konfiguration `craft.epl.mixins.json`, nur mit EPL):
+  Validator, Standardspalten (hinter „distance“), Spaltenwert, Kopf „Mined“; Helfer `compat/epl/EplMinedBlocks` + JUnit.
+- [x] EPL 1.0.2 `compileOnly` + `localRuntime`. Client-Lauf: Config-/StatType-/Header-Mixin angewendet, neue
+  `enhancedplayerlist-common.toml` enthält `blocksMined`; Renderer-Mixin lädt erst mit Tab im Spiel (Signatur per
+  `javap` geprüft).
+- [x] Wiki „Create & Paket-Mods“ (Tabelle + Abschnitte, „ab Paket 1.1.4“), `architektur.md`, Spec-README, Testplan §21.
+- `gradlew build` grün (inkl. JUnit).
+
+## Nächste Schritte
+- **39.2** Paket 1.1.4 (Craft 1.1.4 + Manifest-Einträge laut `spec/39` §1 + zwei Jars in `overrides/mods`) – erst auf
+  Wunsch des Nutzers; danach Wiki nach `X:/Craft` nur falls gewünscht (Releases nur im Repo).
+- Client-Test 21.2: Tab-Liste zeigt „Mined“; Forgematica-Taste M kollidiert mit der IC2-Modus-Taste.
+
+# Phase 39.2 – Paket 1.1.4 (2026-11-02)
+
+Nutzer: „Dann nächste Phase und bauen“.
+
+## Erledigt
+- [x] Craft **1.1.4** (`releases/craft-1.1.4.jar`, 1.1.3 plus Phasen 37, 38, 39.1).
+- [x] Paket `releases/Craft-1.1.4-curseforge.zip` (9,2 MB): wie 1.1.3 mit Craft 1.1.4; Manifest + Forgematica 0.4.3,
+  MaFgLib 0.4.3, Subtle Effects 1.15.1, Fzzy Config 0.7.7+fix1, Particle Rain 4.0.2, Pick Up Notifier v21.1.1
+  (77 Einträge); `overrides/mods` + Armor Stand Arms v2.7.1 und Enhanced Player List 1.0.2 (SHA-1 geprüft).
+- [x] Probelauf `runClient` mit allen neuen Mods (CurseForge-Jars kurz in `run/mods`): lädt ohne Fehler bis ins
+  Hauptmenü; danach regulär beendet (Fenster geschlossen), Welt nicht betreten. Im CurseForge-Launcher nicht gestartet.
+
+## Nächste Schritte
+- Paket 1.1.4 im CurseForge-Launcher starten; Client-Test §21 (Spalte „Mined“, Taste M Forgematica ↔ IC2).
+- Offen: Freigaben Fortg. Diamantbohrer (1 Mio. EU, 3×3) und Solar-Balancing (2 EU/t, ×1,5).
+
+# Phase 40 – Solar-Balancing 2 EU/t, ×1,5 (2026-11-02)
+
+Nutzer: „Sind freigegeben“ (Solar-Balancing und Fortg. Diamantbohrer).
+
+## Erledigt
+- [x] `SolarPanelBlockEntity`: `BASE_OUTPUT` 2, `FIELD_OUTPUT` 3 (×1,5), Pakete 2/3 EU, Puffer 3; Bonus-Ticker entfällt.
+- [x] GameTests: `panelInFieldDeliversOneAndAHalf` (vorher …AFifth; 81 · 150 EU bzw. 100 EU in 50 Ticks),
+  `panelsConductToOneCable` 500 EU.
+- [x] EMI `solar_field`, Wiki (Solar-Seite mit Tabelle und Rechner ×1,5, Energievergleich, Änderungen, Maschinen-/Energie-
+  texte, Spannungstabelle), `balancing.md` §3.1, `spec/11` §4, `spec/38`, `abweichungen.md`, `architektur.md`, Testplan.
+- [x] Nebenbei: `EplNetworkMixin` – EPL (seit 39.1 in `localRuntime`) brach den GameTest-Server ab (Payload an
+  Scheinspieler ohne Kanal); sendet jetzt nur an Spieler mit Kanal. **Craft 1.1.4 im Paket hat diesen Fix noch nicht**
+  (betrifft nur Spieler ohne EPL-Kanal, im Paket haben alle EPL).
+- `gradlew runData`, `build` grün; GameTests **alle 577 grün** (auch `liquidTesseractFillsRemoteTank`).
+
+## Nächste Schritte
+- Neue Version/Paket erst auf Wunsch (1.1.4 enthält Phase 40 noch nicht).
+
+# Phase 41 – Fortgeschrittener Diamantbohrer: 1 Mio. EU, 3×3-Modus (2026-11-02)
+
+Nutzer: „Sind freigegeben“. Einzelheiten nach GraviTool-Muster selbst festgelegt (in `spec/28` §9.1 dokumentiert).
+
+## Erledigt
+- [x] `AdvancedDrillItem`: `MAX_CHARGE` 1 000 000; Data Component `craft:drill_area`; Modus-Taste + Rechtsklick schaltet
+  (Meldung, Tooltip); `onBlockStartBreak` baut die 8 Blöcke der Ebene quer zur getroffenen Seite über
+  `ServerPlayerGameMode.destroyBlock` ab (Sperre gegen Rekursion), Härte ≤ max(Mittelblock, 3), 160 EU je Block über
+  das normale `mineBlock`.
+- [x] EMI-Infoseite `advanced_diamond_drill`, Wiki GraviSuite-Werkzeugtabelle, `spec/28` §9.1, `abweichungen.md`,
+  Testplan §22. GameTest `advancedDrillAreaMode`.
+- `gradlew runData`, `build` grün; GameTests 578, alles grün bis auf das wackelige `liquidTesseractFillsRemoteTank`.
+
+## Nächste Schritte
+- Client-Tests §20–22 (Solar 243 EU/t, Bohrer 3×3), §21 (EPL-Spalte, Taste M).
+- Neue Version/Paket erst auf Wunsch (Paket 1.1.4 enthält Phasen 40/41 und `EplNetworkMixin` noch nicht).
+
+# Version 1.2.0 (2026-11-02)
+
+Nutzer: „Ja, bau 1.1.5“, dann „Nenne es vielleicht sogar 1.2.0“.
+
+## Erledigt
+- [x] Craft **1.2.0** (`releases/craft-1.2.0.jar`): 1.1.4 plus Phase 40 (Solar 2 EU/t, ×1,5 im 9×9-Feld), Phase 41
+  (Fortg. Diamantbohrer 1 Mio. EU, 3×3-Modus) und `EplNetworkMixin`.
+- [x] Paket `releases/Craft-1.2.0-curseforge.zip` (9,2 MB): wie 1.1.4 mit Craft 1.2.0, Manifest unverändert (77 Einträge).
+  Nicht im CurseForge-Launcher gestartet.
+
+## Nächste Schritte
+- Paket 1.2.0 im CurseForge-Launcher starten; Client-Tests §20–22 (Solar 243 EU/t, Bohrer 3×3, EPL-Spalte, Taste M).
+- Neue Version/Paket erst auf Wunsch des Nutzers.
+
+
+# Version 1.2.1 (2026-11-06)
+
+Nutzer: „Ad Astra Lampen machen kaum Licht, kannst du das Fixen?“, dazu: Create: Additional Logistics, Create: Factory
+Controller, Create: Ultimate Factory, Create Bits 'n Bobs, Create Transmission, Create Stock Bridge „auch alles rein“.
+
+## Erledigt
+- [x] Ad-Astra-Lampen: Ad Astra 1.16.26 setzt Industrielampen auf Licht 12, kleine auf 8. `compat/adastra/AdAstraLamps`
+  hebt beim Common-Setup alle Zustände aller `ad_astra:*industrial_lamp` (alle Farben, groß und klein) auf **15**
+  (Accessor-Mixin `mixin/BlockStateBaseAccessor` auf `lightEmission`); ohne Ad Astra inaktiv. Schon gesetzte Lampen
+  einmal neu setzen, falls das gespeicherte Chunk-Licht noch alt ist.
+- [x] Craft **1.2.1** (`releases/craft-1.2.1.jar`), `gradlew build` grün.
+- [x] Paket `releases/Craft-1.2.1-curseforge.zip` (9,2 MB): wie 1.2.0 mit Craft 1.2.1; Manifest + 8 Einträge (85):
+  Create: Additional Logistics 1.4.5 (1359885/7460280), Create: Factory Controller 1.2.3 (1573767/9224923),
+  Create: Ultimate Factory 2.2.4 (978125/8038954), Create: Bits 'n' Bobs 2.3.5 (1398383/8886545) mit Azimuth API
+  1.4.10 (1466331/9058513) und Strut Your Stuff 1.3.1 (1486746/8812965), Create: Transmission 1.2.2
+  (1354280/8646664), Create Stock Bridge 0.2.0 (1256341/8044769, braucht AE2 – vorhanden). Abhängigkeiten aus den
+  `neoforge.mods.toml` geprüft (Create 6.0.10, NeoForge 21.1.259 passen). Nicht im Client gestartet.
+
+## Nächste Schritte
+- Paket 1.2.1 im CurseForge-Launcher starten; Lampenhelligkeit und die neuen Create-Addons prüfen.
+- Client-Tests §20–22 aus 1.2.0 weiter offen.
+
+# Paket 1.2.2 – Rüstung ausblenden (2026-11-06)
+
+Nutzer: „Ich möchte, das es möglich ist, das man die Rüstung usw. die man an hat, auch ausblenden kann“; Auswahl
+„Armor Hider“ (statt Armor Cosmetic oder eigener Umsetzung in Craft).
+
+## Erledigt
+- [x] Paket `releases/Craft-1.2.2-curseforge.zip` (9,2 MB): wie 1.2.1 (Craft 1.2.1), Manifest + Armor Hider 0.14.6
+  (1475841/9347542) und Bibliothek Eunomia 0.3.15 (1654849/9347254) → 87 Einträge. Abhängigkeiten geprüft
+  (NeoForge ≥ 21.1.244, MC 1.21–1.21.1). Armor Hider hängt sich in `HumanoidArmorLayer` und die NeoForge-
+  Rüstungsmodelle ein; Craft zeichnet alle Rüstungen (IC2, GraviSuite, MPS …) über diese Vanilla-Schicht, also
+  greift das Ausblenden auch dort. Muss auf Server und Client installiert sein (im Paket der Fall).
+- Nicht im Client gestartet.
+
+## Nächste Schritte
+- Paket 1.2.2 im CurseForge-Launcher starten; Rüstung je Slot ausblenden (Armor-Hider-Einstellungen über
+  Optionen → Skin-Anpassung), auch Quanten-/MPS-/GraviSuite-Teile prüfen; Lampen und Create-Addons aus 1.2.1.
+- Client-Tests §20–22 aus 1.2.0 weiter offen.
+
+# Craft 1.2.2 – EMI-Seitenleiste (2026-11-06)
+
+Nutzer: „NEI ist teilweise super verbuggt“ (gemeint: EMI).
+
+## Erledigt
+- [x] Befund im Log der Instanz „Craft 1.2.0“: 138 × `[EMI] Error rendering sidebar`, Ursache
+  `IllegalStateException: Not building!` in `EnderTankRenderer.triangles` beim Zeichnen des Ender-Tank-Items. Der
+  Renderer hielt den Puffer der Tank-Textur über `renderButtons` hinweg fest; in GUIs (EMI, Inventar) beendet das
+  Holen des Knopf-Puffers den vorherigen, das Ventil schrieb dann in einen geschlossenen Puffer, und EMI brach die
+  ganze Seitenleiste ab (Items fehlten/flackerten). Fix: Puffer für das Ventil neu holen. Ender-Truhe geprüft, nicht
+  betroffen. Sonst keine EMI-Fehler im Log.
+- [x] Craft **1.2.2** (`releases/craft-1.2.2.jar`), `gradlew build` grün; Paket `Craft-1.2.2-curseforge.zip` enthält
+  jetzt Craft 1.2.2 statt 1.2.1 (Manifest unverändert, 87 Einträge). Nicht im Client gestartet.
+
+## Nächste Schritte
+- Paket 1.2.2 im CurseForge-Launcher starten; EMI-Seitenleiste mit Ender-Tank prüfen; Rüstung ausblenden (Armor
+  Hider), Ad-Astra-Lampen, Create-Addons aus 1.2.1.
+- Weitere EMI-Fehler beim Nutzer nachfragen (Log zeigte keine weiteren).
+- Client-Tests §20–22 aus 1.2.0 weiter offen.
+
+# Phase 42.0 – Spezifikation Farbroller für alle Baublöcke (2026-11-06)
+
+Nutzer: „Kann man das so machen, das der Roller auch alle anderen Baublöcke einfärben kann? z.B. Smooth Stone?“
+Entschieden: beides kombiniert (echte Farbvariante, sonst tönen), Drop = Originalblock.
+
+## Erledigt
+- [x] `docs/spec/42-farbroller-alle-bloecke.md`: Reihenfolge (PaintableBlock → Vanilla-Farbfamilie → getönter
+  Vollblock), Familien (Wolle, Teppich, Glas/-scheibe, Terrakotta, glasierte Terrakotta, Beton/-pulver, Kerzen,
+  Shulkerkiste, Bett, Banner), `craft:painted_block` mit Block-Entity (Originalzustand + Farbe), Verhalten wie das
+  Original, Drop des Originals, Tag `craft:unpaintable`, Grenzen; Teilphasen 42.1–42.3. Spec-README, CLAUDE.md.
+
+## Nächste Schritte
+- Freigabe der Spezifikation durch den Nutzer, dann 42.1.
+- Paket 1.2.2 im CurseForge-Launcher starten (EMI-Fix, Armor Hider, Lampen, Create-Addons).
+
+# Paket 1.2.3 – Chisel statt Farbroller-Ausbau (2026-11-06)
+
+Nutzer: „Bessere Idee, mache den Chissle rein, aber auch für z.B. Betong“. Phase 42 (Farbroller für alle Baublöcke)
+damit **verworfen**; Spezifikation bleibt als Notiz, Status geändert.
+
+## Erledigt
+- [x] Geprüft: Original-Chisel gibt es für 1.21.1 nicht; Rechiseled 1.2.6 hat **keine** Beton-Varianten, Chisel Reborn
+  2.0.1 hat 32 Muster je Betonfarbe (512 Beton-Blockzustände) plus Stein, Holz, Wolle, Glas, Erzblöcke u. a.
+- [x] Paket `releases/Craft-1.2.3-curseforge.zip` (9,2 MB): wie 1.2.2 (Craft 1.2.2), Manifest + Chisel Reborn 2.0.1
+  (551763/8288925) und Cryonic Config 1.0.0 (1208896/7344729, MC 1.21–1.21.11) → 89 Einträge; Architectury 13.0.11
+  ist schon im Paket. Nicht im Client gestartet.
+
+## Nächste Schritte
+- Paket 1.2.3 im CurseForge-Launcher starten; Meißel an Beton/Stein prüfen; EMI-Fix (Ender-Tank), Armor Hider,
+  Ad-Astra-Lampen, Create-Addons.
+- Client-Tests §20–22 aus 1.2.0 weiter offen.
+
+# Version 1.2.3 (2026-11-06)
+
+Nutzer: „Erstelle die neue Version“.
+
+## Erledigt
+- [x] Craft **1.2.3** (`releases/craft-1.2.3.jar`): Stand 1.2.2 (Ad-Astra-Lampen, Ender-Tank/EMI-Fix), Versionsnummer an
+  das Paket angeglichen. `gradlew runData`, danach `build` (inkl. JUnit) grün.
+- [x] Paket `releases/Craft-1.2.3-curseforge.zip` enthält jetzt Craft 1.2.3 (Manifest unverändert, 89 Einträge).
+- [x] Wiki „Create & Paket-Mods“: neue Mods aus 1.2.1–1.2.3 (Beschreibungen aus den `neoforge.mods.toml`), Ad-Astra-
+  Lampen; `Craft-Wiki.html` und `Craft-Wiki-EN.html` neu erzeugt.
+- Nicht im Client gestartet.
+
+## Nächste Schritte
+- Paket 1.2.3 im CurseForge-Launcher starten; Meißel an Beton, Rüstung ausblenden, EMI-Seitenleiste mit Ender-Tank,
+  Ad-Astra-Lampen, Create-Addons prüfen.
+- Client-Tests §20–22 aus 1.2.0 weiter offen.
+
+# Abnahme 1.2.1–1.2.3 (2026-11-06)
+
+Nutzer nach der Übersicht der Änderungen seit 1.2.0: „Das ist alles abgesegnet“.
+
+## Erledigt
+- [x] Abgenommen: Ad-Astra-Lampen Licht 15, Ender-Tank/EMI-Fix, Create-Addons (1.2.1), Armor Hider (1.2.2), Chisel
+  Reborn (1.2.3), Verwerfen von Phase 42. Craft 1.2.3 / Paket 1.2.3 ist der aktuelle Stand.
+
+## Nächste Schritte
+- Client-Tests §20–22 aus 1.2.0 (Solar 243 EU/t, Bohrer 3×3, EPL-Spalte, Taste M) – nicht Teil dieser Abnahme.
+- Neue Version/Paket erst auf Wunsch des Nutzers.
+
+# Abnahme Client-Tests §20–22 (2026-11-06)
+
+Nutzer: „Die Clienttest sind auch abgesegnet“.
+
+## Erledigt
+- [x] Testplan §20 (Solarfeld-Leitung, 243 EU/t), §21 (Zusatzmods, EPL-Spalte „Mined“, Forgematica-Taste) und §22
+  (Fortg. Diamantbohrer 1 Mio. EU, 3×3-Modus) als bestanden eingetragen; Phasen 38–41 in CLAUDE.md „Client-Test
+  2026-11-06 bestanden“.
+
+## Nächste Schritte
+- Keine offenen Aufgaben aus 1.2.x; neue Version/Paket erst auf Wunsch des Nutzers.
+- Ältere Phasen mit „Client-Test offen“ (26–37) unverändert.
+
+# Paket 1.2.4 – Mekanism (2026-11-06)
+
+Nutzer: „Thermal Dynamics, Mekanism, Mekanism Generators – das kann auch noch rein“.
+
+## Erledigt
+- [x] Thermal Dynamics geprüft: letzte Datei 11.0.1 für **1.20.1**, keine für 1.21.1 → nicht aufnehmbar. Craft hat aus
+  TE 2.2.2.2 schon Redstone-Energieleitung und Liquiduct (Phase 25.6); dazu BuildCraft-Rohre.
+- [x] Paket `releases/Craft-1.2.4-curseforge.zip` (9,2 MB): wie 1.2.3 (Craft 1.2.3), Manifest + Mekanism 10.7.19
+  (268560/7904058) und Mekanism Generators 10.7.19 (268566/7904061) → 91 Einträge. Keine Pflicht-Abhängigkeiten;
+  die als inkompatibel markierten Mods (AppMek < 1.6, EnderIO-Conduits, LaserIO, JAOPCA, Fission Recipe) sind nicht
+  im Paket. Hinweis: Mekanism erzeugt eigene Zinn-, Blei- und Uranerze neben den Craft-Erzen. Nicht im Client
+  gestartet.
+- [x] Wiki „Create & Paket-Mods“: Zeile Mekanism; Wikis neu erzeugt.
+
+## Nächste Schritte
+- Paket 1.2.4 im CurseForge-Launcher starten; Mekanism-Maschinen mit Craft-Strom über FE Producer prüfen.
+- Offen beim Nutzer: doppelte Erze (Mekanism-Zinn/-Blei/-Uran) per Config abschalten?
+
+# Paket 1.2.4 – doppelte Mekanism-Erze aus (2026-11-06)
+
+Nutzer: „Ja, schalte die doppelten Erze ab“, dazu: „Nicht die Mining welt erneuern“.
+
+## Erledigt
+- [x] Mekanism `WorldConfig` ist eine **Server-/Welt-Config** (`<Welt>/serverconfig/Mekanism/world.toml`); neue Welten
+  übernehmen `defaultconfigs/Mekanism/world.toml`. Paket 1.2.4 enthält jetzt
+  `overrides/defaultconfigs/Mekanism/world.toml` mit `[tin]`, `[uranium]`, `[lead]` `shouldGenerate = false`; Osmium,
+  Fluorit und Salz bleiben an, fehlende Werte ergänzt NeoForge.
+- [x] Keine Neugenerierung: wirkt nur auf neu erzeugte Chunks; `enableRegeneration` (Mekanism-Retrogen) bleibt
+  `false`; Mining-Dimension und Oberwelt bleiben unverändert.
+- Hinweis: Eine Welt, die schon einmal mit Mekanism geladen wurde, hat ihre eigene `serverconfig`-Datei – dort die
+  drei Werte von Hand auf `false` setzen. Nicht im Client gestartet.
+
+## Nächste Schritte
+- Paket 1.2.4 im CurseForge-Launcher starten; prüfen, dass `serverconfig/Mekanism/world.toml` der Welt die drei Erze
+  auf `false` hat; Mekanism-Maschinen mit Craft-Strom über FE Producer.
+
+# Version 1.2.4 (2026-11-06)
+
+Nutzer: „Erstelle die neue Version“.
+
+## Erledigt
+- [x] Craft **1.2.4** (`releases/craft-1.2.4.jar`): Code wie 1.2.3, Versionsnummer an das Paket angeglichen.
+  `gradlew runData`, danach `build` (inkl. JUnit) grün.
+- [x] Paket `releases/Craft-1.2.4-curseforge.zip` (9,2 MB) enthält jetzt Craft 1.2.4; Manifest 91 Einträge (Mekanism +
+  Generators), `overrides/defaultconfigs/Mekanism/world.toml` (Zinn/Uran/Blei aus). Nicht im Client gestartet.
+
+## Nächste Schritte
+- Paket 1.2.4 im CurseForge-Launcher starten; Mekanism mit Craft-Strom (FE Producer), keine Mekanism-Zinn-/Uran-/
+  Bleierze in neuen Chunks, Mining-Dimension unverändert.
+
+# Abnahme 1.2.4 (2026-11-06)
+
+Nutzer: „Das ist alles abgesegnet, ist es gepusht?“
+
+## Erledigt
+- [x] Abgenommen: Craft 1.2.4 / Paket 1.2.4 (Mekanism + Generators, doppelte Erze aus, Thermal Dynamics nicht
+  verfügbar). Aktueller Stand.
+
+## Nächste Schritte
+- Neue Version/Paket erst auf Wunsch des Nutzers.
+
+# Paket 1.2.5 – Flutlichter + drei Create-Addons (2026-11-11)
+
+Nutzer: „Hätte gerne so Flutlichter im Spiel … Dazu müssen noch diese rein: fluid logistics, mobile packages,
+Create: Enchantment Industry“.
+
+## Erledigt
+- [x] Licht-Mods für NeoForge 1.21.1 geprüft: **Open Modular Lighting** 1.0.0 (Keridos, Port von FloodLights 1.7.10)
+  gewählt – elektrisches Flutlicht (Strahl 64 / Kegel 32 / 8 Blöcke, 10–20 FE/t), Brennstoff-Flutlicht, UV-Flutlicht,
+  Pflanzenlicht, Leuchtstoff-/Würfellichter; Strom als FE → Craft-Strom über den FE Producer. OMLib steckt als
+  Jar-in-Jar drin. Alternativen nicht aufgenommen: Lumen Rigs (Bühnenlicht, Veil optional), NoxLights und Astrea:
+  Last Light (brauchen Veil/Lodestone).
+- [x] Open Modular Lighting verlangt **NeoForge ≥ 21.1.264** → Paket-Loader von 21.1.259 auf **21.1.265** angehoben
+  (Craft verlangt nur ≥ 21.1.259; Entwicklung bleibt auf 259).
+- [x] Paket `releases/Craft-1.2.5-curseforge.zip` (8,8 MB): wie 1.2.4 (Craft 1.2.4), Manifest + Create: FluidLogistics
+  1.3.2 (1475079/9340866), Create: Mobile Packages 0.7.8 (1232978/9067013), Create: Enchantment Industry 2.5.4b
+  (688768/9104664; Beta-Kanal, braucht Create ≥ 6.0.10 und Dragons Plus ≥ 1.11.9 – beide im Paket) und Open Modular
+  Lighting 1.0.0 (268178/9412006) → 95 Einträge. Nicht im Client gestartet.
+- [x] Wiki „Create & Paket-Mods“: vier Zeilen; Wikis neu erzeugt.
+
+## Nächste Schritte
+- Paket 1.2.5 im CurseForge-Launcher starten (NeoForge 21.1.265); Flutlicht mit Craft-Strom über FE Producer prüfen,
+  Enchantment Industry/FluidLogistics/Mobile Packages kurz anspielen.
+
+# Phase 43.1 – EU für Open Modular Lighting (2026-11-11)
+
+Nutzer: „Kannst du die Flutlichter auf EU dann umstellen?“ Entschieden: 1 EU = 1 FE, LV 32 mit Explosion, FE bleibt.
+
+## Erledigt
+- [x] `docs/spec/43-oml-eu.md` (Entscheidungen, Umfang, Umsetzung).
+- [x] `compat/oml/OmlEuInput`: elektrische OML-Lichter (Flutlicht, UV-Flutlicht, Pflanzenlicht, Leuchtstoffröhren,
+  Würfellicht) als LV-EU-Senke im Netz (Stellvertreter je Position; Chunk-Laden, Nachbar-Benachrichtigung, Prüfung
+  jede Sekunde), EU 1:1 als FE in den Speicher des Lichts, über 32 EU `explodeMachineAt`. Kabel verbinden sich
+  optisch (`CableBlock.connects`, `CableBlockEntity.canInteractWith`). Ohne OML wirkungslos, keine Compile-Abhängigkeit.
+- [x] GameTests `OmlEuInputGameTests` (32 EU → 32 FE, Kabel verbunden, abgebautes Licht verlässt das Netz; 128 EU →
+  Explosion). Lauf mit OML 1.0.0 und `-Pneo_version=21.1.265` in eigenem Testordner: **alle 580 Tests grün**.
+  Normaler `gradlew build` (21.1.259) grün.
+- [x] Wiki-Zeile Open Modular Lighting, Spec-README, CLAUDE.md-Phasentabelle; Wikis neu erzeugt.
+
+## Nächste Schritte
+- **43.2** Craft 1.2.5 + Paket (enthält bisher Craft 1.2.4) – auf Wunsch des Nutzers.
+- Client-Test: Flutlicht an LV-Kabel (Kabel verbindet sich, Licht geht an), an MV → Explosion.
+
+# Phase 43.2 + 44 – Craft 1.2.5, Paket 1.2.6 mit neuen Mods (2026-11-12)
+
+Nutzer: „Lass Advanced Solar Panels raus, genauso Steve's Carts“; rein: Ad Astra mit EU, Storage Drawers, Farmer's
+Delight, Supplementaries, Reliquary Reincarnations, Forestry Community Edition (Alpha), IC2 Nuclear Control,
+ChargePads, MFFS, Wireless Redstone, Omnitools, Obsidian Pressure Plates, Gravity Gun, Secret Rooms, EU-Eingang für
+weitere FE-Mods – „Das schonmal alles rein, dann noch mehr Brainstorm“.
+
+## Erledigt
+- [x] Craft **1.2.5** (`releases/craft-1.2.5.jar`): 1.2.4 + EU-Eingang für Open Modular Lighting (Phase 43.1).
+  `gradlew runData`, danach `build` grün.
+- [x] Paket `releases/Craft-1.2.6-curseforge.zip` (8,8 MB): wie 1.2.5 mit Craft 1.2.5; Manifest + Storage Drawers
+  13.11.4 (223852/6995432), Farmer's Delight 1.3.4 (398521/8765184), Supplementaries 4.0.2 (412082/9211734) +
+  Moonlight Lib 3.8.3 (499980/9519534), Reliquary Reincarnations 2.0.85 (241319/9555024), Forestry Community Edition
+  3.0.0-alpha9 (1056828/9390077) + Patchouli 93 (306770/7730942) → 102 Einträge. Pflicht-Abhängigkeiten per
+  `neoforge.mods.toml` geprüft (Supplementaries: Sodium ≥ 0.8.12-beta.1 – Paket hat 0.8.12; Farmer's Delight ≥ 1.3.0).
+- [x] Ladetest: GameTest-Server mit Craft 1.2.5 + den sieben Jars + OML auf 21.1.265 startet; 575/580 Tests grün.
+  Die 5 Fehlschläge (Tests mit Mock-Spieler: EnderStorage-Pouch, Fortg. Bohrer, Quanten-Sprint, Blink Drive,
+  Personal Safe) kommen von Moonlight („Payload moonlight:s2c_finalize_fluids may not be sent to the client“ an den
+  Mock-Spieler ohne Verbindung) – nur Testumgebung. Supplementaries meldet fehlende Kreativ-Tab-Anker für
+  Forestry-Wegschilder (kosmetisch).
+- [x] Wiki „Create & Paket-Mods“: fünf Zeilen; Wikis neu erzeugt. Phasen 45–50 in CLAUDE.md eingeplant.
+- Hinweis: Forestry CE bringt eigene Carpenter/Thermionic Fabricator/Elektronenröhren neben Crafts Forestry-Teilen
+  und eigene Erze (Apatit, Zinn?) – im Client prüfen, ggf. Zinnerz per Config aus. Nicht im Client gestartet.
+
+## Nächste Schritte
+- Paket 1.2.6 im CurseForge-Launcher starten (Flutlicht am LV-Kabel, Forestry-Erze, Supplementaries/Sodium).
+- Phasen 45–50 jeweils mit Spezifikation x.0 beginnen (Pack-Jars von Nuclear Control, ChargePads, MFFS, Wireless
+  Redstone, Omnitools, Obsidiplates, Gravity Gun, Secret Rooms sind noch nicht dekompiliert); Reihenfolge beim Nutzer.
+
+# Phase 44b – Paket 1.2.7 mit Server-/Komfort-Mods (2026-11-12)
+
+Nutzer: „spark, Torchmaster, Terralith oder Tectonic, Distant Horizons (Da ist die Frage, wie stark es den Server
+auslastet), Macaw's Brücken und Dächer, Handcrafted (Möbel), Serene Seasons“.
+
+## Erledigt
+- [x] Terralith statt Tectonic gewählt (Biome statt nur Geländeform; Tectonic bräuchte zusätzlich ApolLib).
+- [x] Paket `releases/Craft-1.2.7-curseforge.zip` (8,8 MB): wie 1.2.6 (Craft 1.2.5); Manifest + spark 1.10.124
+  (361579/6225208), Torchmaster 21.1.13 (254268/8949981), Terralith 2.6.2 (513688/8222737) + Lithostitched 1.8.1
+  (936015/9170709, ApolLib eingebettet), Distant Horizons 3.3.3 (508933/9004764), Macaw's Bridges 3.1.2
+  (351725/7627896), Macaw's Roofs 2.3.2 (352039/6494399), Handcrafted 4.0.3 (538214/6330030; Resourceful Lib schon
+  im Paket), Serene Seasons 10.1.0.3 (291874/6182596, Beta – neueste 1.21.1-Datei) + GlitchCore 2.1.0.2
+  (955399/8109792) → 112 Einträge.
+- [x] Befund: `deps.ps1` erkennt `required=true` (altes Format) nicht – GlitchCore fiel nur beim Blick in die
+  `neoforge.mods.toml` auf; maßgeblich ist der Ladetest („0 mod requirements missing“).
+- [x] Ladetest (GameTest-Server, 21.1.265, alle Mods aus 1.2.6/1.2.7 + OML): **Distant Horizons stürzt im
+  GameTest-Server ab** (castet den Server auf `DedicatedServer`) – nur Testumgebung; ohne DH 575/580 grün, die 5
+  bekannten Moonlight-Mock-Spieler-Fälle. `harvestAndPickWheat`/`plasmaCannon` scheiterten einmal, im zweiten Lauf
+  grün (zufallsabhängig).
+- [x] Wiki „Create & Paket-Mods“: sechs Zeilen; Wikis neu erzeugt.
+- Hinweise: Terralith/Serene Seasons wirken in bestehender Welt nur in neuen Chunks (Biomgrenzen am Rand des
+  Erkundeten). Distant Horizons: nur am Client = keine Server-Last; mit DH auf dem Server erzeugt der Server LODs
+  (CPU/RAM), regelbar per `/dh config` (Thread-Preset) oder abschaltbar. Nicht im Client gestartet.
+
+## Nächste Schritte
+- Paket 1.2.7 im CurseForge-Launcher starten (DH, Terralith in neuer Welt, Serene Seasons mit IC2-Crops).
+- Phasen 45–50 mit Spezifikation x.0 beginnen; Reihenfolge beim Nutzer (Vorschlag: 45).
+
+# Phase 45.0 – Spezifikation EU-Eingang Ad Astra/AE2 (2026-11-12)
+
+Nutzer: „Los gehts“. Entschieden: nur Ad Astra + AE2, 1 EU = 4 FE, LV 32 mit Explosion, Speicher/Kabel ausgenommen.
+
+## Erledigt
+- [x] `docs/spec/45-fe-eu-eingang.md`: Blockliste aus den Paket-Jars (Ad Astra 1.16.26: 8 Maschinen; AE2 19.2.18:
+  Unterklassen von `AEBasePoweredBlockEntity` = Controller, Energieakzeptor, Auflader, Prägepresse,
+  Wachstumsbeschleuniger, ME-Truhe; `cable_bus` mit Energieakzeptor-Part bewusst ausgenommen), Verhalten,
+  Umsetzungsplan (Verallgemeinerung von `OmlEuInput`). Spec-README, CLAUDE.md.
+
+## Nächste Schritte
+- Freigabe der Blockliste durch den Nutzer, dann **45.1** Umsetzung + GameTests mit den Paket-Jars.
+
+# Phase 45.1 – EU-Eingang Ad Astra/AE2 umgesetzt (2026-11-12)
+
+Nutzer: „Los gehts“ (Blockliste aus 45.0 freigegeben).
+
+## Erledigt
+- [x] `compat/oml/OmlEuInput` → `compat/euinput/ForeignEuInputs` verallgemeinert: Regeln je Mod (`Rule`: Namespace,
+  Blockliste, FE je EU) – OML 1:1, Ad Astra (8 Maschinen) und AE2 (6 Blöcke) 1 EU = 4 FE; LV 32 mit Explosion;
+  angenommen werden nur ganze EU (Simulation vorab). Kabel-Hooks in `CableBlock`/`CableBlockEntity` umbenannt.
+- [x] GameTests `ForeignEuInputsGameTests` (Flutlicht, Ad-Astra-Kompressor, AE2-Controller/-Prägepresse nehmen EU;
+  Flutlicht und Kompressor explodieren bei 128 EU). Lauf mit den Paket-Jars (Ad Astra 1.16.26 + Resourceful Lib/
+  Config + Common Storage Lib, AE2 19.2.18 + GuideME, OML) auf 21.1.265: alle neuen Tests grün. Befund AE2: der
+  Controller nimmt alle 128 FE an, sein Puffer steigt nur um ~78 (gibt sofort ans Netz weiter) – Test prüft dort nur
+  „alles angenommen + Puffer steigt“.
+- [x] Die 5 Mock-Spieler-Fehlschläge treten auch mit Ad Astra auf („Payload ad_astra:…/sync_planets may not be sent“)
+  – wie bei Moonlight nur Testumgebung. `plasmaCannon` zum zweiten Mal zufällig gescheitert („zombie killed by the
+  bolt“) – wackeliger Test, bei Gelegenheit robuster machen.
+- [x] Ohne Fremd-Mods: `gradlew build` grün, **alle 584 GameTests grün**.
+
+## Nächste Schritte
+- **45.2** Wiki-Text, Craft 1.2.6 + Paket 1.2.8.
+- Client-Test: Ad-Astra-Kompressor/AE2-Controller am LV-Kabel, an MV → Explosion.
+
+# Phase 45.2 – Craft 1.2.6, Paket 1.2.8 (2026-11-12)
+
+Nutzer: „nächste Phase“.
+
+## Erledigt
+- [x] Wiki: Ad-Astra- und AE2-Zeile in „Create & Paket-Mods“, Abschnitte „Applied Energistics 2“ und „Ad Astra“
+  (Blockliste, 1 EU = 4 FE, LV 32, Explosion, Ausnahmen Kabel-Part/Energiezellen/Generatoren/Energizer),
+  „Energie umwandeln“ (FE Producer, Hinweis auf den Direktweg) und Energieübersicht. Wikis neu erzeugt.
+- [x] Craft **1.2.6** (`releases/craft-1.2.6.jar`): 1.2.5 + EU-Eingang Ad Astra/AE2 (Phase 45.1). `gradlew runData`,
+  danach `build` grün.
+- [x] Paket `releases/Craft-1.2.8-curseforge.zip` (8,8 MB): wie 1.2.7, nur Craft 1.2.5 → 1.2.6; Manifest unverändert
+  (112 Einträge). Nicht im Client gestartet.
+
+## Nächste Schritte
+- Paket 1.2.8 im CurseForge-Launcher: Ad-Astra-Kompressor und AE2-Controller am LV-Kabel, an MV → Explosion.
+- Phase 46 (IC2 Nuclear Control) mit Spezifikation 46.0 beginnen.
+
+# Phase 46.0 – Spezifikation IC2 Nuclear Control (2026-11-12)
+
+Nutzer: „nächste Phase“.
+
+## Erledigt
+- [x] `IC2NuclearControl.zip` (1.4.5) mit Vineflower nach `reference/decompiled/nuclearcontrol/` dekompiliert (ohne
+  Remapping wie GraviSuite/MPS; SpecialSource/MCP liegen nicht mehr in `tools/`). Vanilla-Namen der Rezepte über
+  den statischen Initialisierer von `minecraft.jar` geprüft (Notenblock, Bretter, Eimer, Uhr).
+- [x] `docs/spec/46-nuclear-control.md`: 9 Blöcke, 17 Items (inkl. GT-Sensorkit aus `GT_Mod`), alle Rezepte,
+  Thermo-/Fernmonitor (Schwelle, Redstone, 1 EU/t, Upgrades, Explosion 0,8), Alarme (Reichweite, Licht-Folge 7/7/15/0
+  aus Originalfehler), Infotafel (Redstone nötig, Reichweite 8·2ⁿ, Bildschirm bis 20 je Richtung, Farben),
+  Kits/Karten mit Anzeigezeilen, Energiefeld-Rezept, Zähler, Bereichsauslöser (Hysterese), Teilphasen 46.1–46.4.
+  Spec-README, CLAUDE.md.
+
+## Nächste Schritte
+- Freigabe durch den Nutzer (§11: Umfang inkl. GT-Sensorkit? Energie-Sensor nur EU + MJ oder auch FE?), dann
+  **46.1** Thermometer, Thermomonitore, Alarme.
+
+# Phase 46.1 – Thermometer, Thermomonitore, Alarme (2026-11-12)
+
+Nutzer: „nächste Phase“ (die §11-Fragen betreffen erst 46.2/46.3). Nebenbei (Nutzer): „Was auch noch viel besser werden
+muss ist das Electric light shield. Das muss viel Heller sein, wie so ne Blendgranate“ → als Phase 51 eingeplant.
+
+## Erledigt
+- [x] Paket `dev.craft.nuclearcontrol`: Thermomonitor (Nachbar-Reaktor/-Kammer, Schwelle 500, Redstone außer zum
+  Reaktor, Front grün/rot/grau), Fern-Thermomonitor (EU-Senke 600 + 10 000 je Speicher-Upgrade, LV ×4 je
+  Trafo-Upgrade, 1 EU/t, Batterie-/Einweg-Batterie-Slot, Reaktorkarte mit Reichweite 8·2ⁿ, Explosion 0,8, Display
+  drehbar), Heul-/Industriealarm (Redstone am Block oder Draht daneben, Reichweite 0…128 in 8er-Schritten, Ton
+  default/sci-fi, Lampe 7/7/15/0), Thermometer (10 Schaden), Digitalthermometer (12 000 EU, 50 EU je Messung, 100 EU
+  nötig), Reaktor-Sensorkit → Reaktor-Sensorkarte, Reichweiten-Upgrade. GUIs nach den Original-Texturen, Zahl/Balken
+  per Block-Entity-Renderer, Alarmton als Client-`SoundInstance`.
+- [x] Rezepte, Loot, Spitzhacken-Tag, Lang de/en, Blockstates/Modelle; `tools/scripts/nuclear_control_textures.py`
+  (Texturen, GUIs, Sounds aus der Pack-Zip). `WrenchItem.doesSneakBypassUse` = IC2 `shouldPassSneakingClickToBlock`.
+- [x] Abweichungen (5 Zeilen), Spec §10.
+- [x] 8 GameTests (`NuclearControlGameTests`). Lauf in frischem Ordner (`-PgameTestDir`): **alle 592 grün**;
+  `gradlew build` grün. Befund: in `run/` scheitert `liquidTesseractFillsRemoteTank` reproduzierbar – auch auf dem
+  letzten Commit ohne diese Änderungen nur dort (sauberer Stand im frischen Ordner 584/584 grün) → liegt an
+  gespeichertem Zustand in `run/` (vermutlich Tesserakt-Daten aus dem Spielen), nicht am Code.
+- Nicht im Client gestartet.
+
+## Nächste Schritte
+- Client-Test 46.1: Thermomonitor am Reaktor (Zahl, Farbe, Redstone), Fern-Thermomonitor mit Karte (Balken, Shift +
+  Schraubenschlüssel dreht), Alarme (Ton, Reichweite, Licht).
+- Antworten zu spec 46 §11 (GT-Sensorkit? Energie-Sensor auch FE?), dann **46.2** Infotafel + Karten.
+- Phase 51 (Leuchtschild „wie Blendgranate“): Umfang klären.
+
+# Phase 46.2 – Infotafel und Karten (2026-11-12)
+
+Nutzer: „nächste Phase“. Entschieden (spec 46 §11): Umfang komplett inkl. GT-Sensorkit; Energie-Sensor wie im Pack
+nur EU + MJ (kein FE).
+
+## Erledigt
+- [x] Industrie-Infotafel (Karten-, Reichweiten-, Farb-Upgrade-Slot; Aktualisierung alle 21 Ticks; Anzeige nur mit
+  Redstone, dann Licht 7; Reichweite 8·2ⁿ, „Außer Reichweite“/„Ungültige Karte“/„Ziel nicht gefunden“; Shift +
+  Schraubenschlüssel dreht den Text) und Infotafel-Erweiterung (Bildschirm wächst x−, x+, y−, y+, z−, z+ je bis 20
+  Reihen, Erweiterungen leuchten mit). Bildschirmfronten mit Rahmen und Hintergrundfarbe sowie der skalierte Text
+  per Block-Entity-Renderer der Tafel.
+- [x] GUI Infotafel (Anzeigezeilen je Kartentyp, Beschriftung an/aus, Kartentitel, „T“ → Farbwahl mit Farb-Upgrade,
+  „...“ → Textkarte mit 10 Zeilen); Einstellungen per Payload, nur bei offenem Menü.
+- [x] Karten: Reaktor (Hitze, Max., Schmelzpunkt 85 %, Ausgabe EU/t, Restzeit Uran/Thorium/Plutonium, An/Aus),
+  Energie (EU: BatBox/MFE/MFSU + GT-Maschinen, MJ: BC-Empfänger), Energiefeld (2–6 Ziele, Sonderrezept, zerlegbar in
+  2 Schaltungen je Ziel), Flüssigkeit (erster Tank, mB), Text, Zeit. Energie-/Flüssigkeits-Sensorkit, Farb-Upgrade.
+  `ReactorSensorKitItem`/`SensorLocationCardItem` durch `SensorKitItem`/`PanelCardItem` ersetzt.
+- [x] Rezepte (inkl. Rückbau Energie-/Flüssigkeitskarte), Loot, Spitzhacken-Tag, Lang de/en (Panel-Texte nach der
+  Pack-Lang), Blockstates/Modelle; Texturskript um Items, Tafel-/Erweiterungsseiten, Farbbögen und 3 GUIs ergänzt.
+- [x] Abweichungen (6 Zeilen), Spec §6/§5.3/§10/§11, CLAUDE.md.
+- [x] 6 GameTests (`InfoPanelGameTests`): Bildschirm wachsen/schrumpfen + Licht, Reaktorkarte + Reichweite,
+  Energie-Kit an BatBox, Flüssigkeits-Kit am BC-Tank, Feldkarten-Rezept, Zeit-/Textkarte. Lauf: 598 Tests, alle neuen
+  grün; rot nur die bekannten Wackelkandidaten `liquidTesseractFillsRemoteTank` und `plasmaCannon`. `gradlew build`
+  grün.
+- Nicht im Client gestartet.
+
+## Nächste Schritte
+- Client-Test 46.1 + 46.2: Thermomonitore, Alarme; Infotafel mit Erweiterungen (Rahmen, Farben, Licht, Text an Wand/
+  Boden/Decke, Drehung), alle Karten, Farbwahl, Textkarte.
+- **46.3** Energie-/Durchschnittszähler, Bereichsauslöser, Zähler-Sensorkit/-karte, GT-Sensorkit.
+- Phase 51 (Leuchtschild „wie Blendgranate“): Umfang klären.
+
+# Phase 46.3 – Zähler, Bereichsauslöser, GT-Sensorkit (erledigt 2026-11-12)
+
+Nutzer: „nächste Phase“, dann „speicher mal kurz“. **Baut noch nicht** (Registrierungen/Menüs fehlen).
+
+## Erledigt
+- [x] `gregtech/machine/GtDeviceInformation` („Progress:“, „<n>secs“, „/<n>secs“ – ohne Leerzeichen wie im Original)
+  an Hochofen, Grinder, Implosionskompressor, Vakuumgefrierer, Zentrifuge/Elektrolyseur (`GtTankMachineBlockEntity`).
+- [x] `CounterBlockEntity` (Eingang Front, Paket 32·4ⁿ, Puffer 2×Paket, Explosion 0,8, Ausgabe max. 4096),
+  `EnergyCounterBlockEntity` (Zählerstand long, Reset), `AverageCounterBlockEntity` (11 Messpunkte à 20 Ticks,
+  Zeitraum 1/3/5/10), `CounterBlock` (FACING = Eingangsseite, zum Spieler gesetzt).
+- [x] `RangeTriggerBlockEntity` (Hysterese, alle 21 Ticks, Seiten-Inventar unten/oben/Seiten, Redstone stark+schwach,
+  Invertieren sofort) und `RangeTriggerBlock` (STATUS 0/1/2 → Texturen 27/28/29).
+
+## Erledigt (Fortsetzung, Nutzer: „nächste Phase“)
+- [x] Registrierung: `energy_counter`, `average_counter`, `range_trigger` (Blöcke, Block-Entities, Items),
+  `counter_sensor_kit`, `counter_sensor_location_card`, `gt_sensor_kit` (GT-Tab, ohne Chatmeldung, Tooltip),
+  `gt_sensor_card` (in keinem Tab, Tooltip). Capabilities: Zähler Slot 0 von allen Seiten, Auslöser je Seite.
+- [x] `CounterMenu` (gemeinsam, Zählerstand als 2 Ints, Durchschnitt, Zeitraum), `RangeTriggerMenu`; `NcMenu` mit
+  gemeinsamem Shift-Klick und Spielerinventar. Screens `CounterScreen` (Reset bzw. 1/3/5/10) und
+  `RangeTriggerScreen` (2 × 10 Ziffern mit −/+, Umkehrschalter). Payloads Reset, Zeitraum, Grenze, Umkehr.
+- [x] Karten `CounterSensorCardItem` („Energie: …EU“ bzw. „Ausgabe: …EU/t“), `GtSensorCardItem` (3 Zeilen);
+  `SensorKitItem` um Zähler/GregTech, `GtSensorKitItem`.
+- [x] Datagen: Lang de/en, Blockstates (Zähler: Eingang 41, sonst 42/43; Auslöser 27–29 je Zustand), Item-Modelle,
+  Loot, Spitzhacken-Tag, Rezepte (Zähler, Auslöser, Zähler-Kit, Rückbau Zählerkarte, Assembler GT-Kit/-Karte).
+  Texturskript um Blöcke 27–29/41–43, Items 52/68, GT-Items 16/17 aus `GregTech.zip` und 2 GUIs ergänzt.
+- [x] Spec 46 §1/§8/§10, Abweichungen (2 Zeilen), CLAUDE.md.
+- [x] 6 GameTests (`CounterGameTests`): Energiezähler zählt Pakete + Reset + Trafo-Upgrade, Explosion bei zu großem
+  Paket, Durchschnitt 32 EU/t, Zähler-Kit/-Karte, Auslöser-Hysterese + Umkehr + ohne Karte, GT-Kit/-Karte. Lauf:
+  604 Tests, alle neuen grün; rot nur die bekannten Wackelkandidaten `liquidTesseractFillsRemoteTank` und
+  `plasmaCannon`. `gradlew build` grün.
+- Nicht im Client gestartet.
+
+## Nächste Schritte
+- Client-Test 46.1–46.3: Thermomonitore, Alarme; Infotafel mit Erweiterungen und allen Karten; Zähler (Durchfluss,
+  Reset, Zeitraum), Bereichsauslöser (Ziffern, Umkehr, Anzeigefarbe), Zähler- und GT-Karte auf der Tafel.
+- **46.4** EMI, Herkunft, Wiki, Paket.
+- Phase 51 (Leuchtschild „wie Blendgranate“): Umfang klären.
+
+# Phase 46.4 – EMI, Herkunft, Wiki, Paket (2026-11-12)
+
+Nutzer: „nächste Phase“.
+
+## Erledigt
+- [x] EMI: `compat/emi/NcEmiRecipes` – 10 Info-Seiten (Thermomonitor, Fern-Thermomonitor, Thermometer, Alarme,
+  Infotafel + Erweiterung/Upgrades, Kits → Karten, Energiefeld-Karte (Sonderrezept, sonst in EMI unsichtbar),
+  Text-/Zeitkarte, Zähler, Bereichsauslöser). GT-Sensorkarte bleibt in EMI sichtbar (im Pack nur in NEI versteckt).
+- [x] Herkunft: `SourceTexts.nuclearControl` für die rezeptlosen Karten (Reaktor, Energie, Flüssigkeit, Zähler, GT)
+  und die Feldkarte; sonst keine neuen Rohstoffe.
+- [x] Wiki: Gruppe „Nuclear Control“ (26 Einträge), Seite „IC2 Nuclear Control“ (Reaktor, Alarme, Tafel, Kits/Karten,
+  Zähler/Auslöser); DE + EN-Namen neu erzeugt. `testplan.md` Abschnitt 23, `architektur.md`, Spec §10, CLAUDE.md.
+- [x] Craft **1.2.7** (`releases/craft-1.2.7.jar`), `gradlew runData`, danach `build` grün. GameTests: 604, rot nur
+  der bekannte Wackelkandidat `liquidTesseractFillsRemoteTank`.
+- [x] Paket `releases/Craft-1.2.9-curseforge.zip` (9,2 MB): wie 1.2.8, nur Craft 1.2.6 → 1.2.7; Manifest unverändert
+  (112 Einträge). Nicht im Client gestartet.
+- **Phase 46 erledigt, Client-Test offen** (Testplan 23.1–23.5).
+
+## Nächste Schritte
+- Client-Test Nuclear Control (Testplan 23) – nur nach Rückfrage (Nutzer spielt evtl. selbst); Paket 1.2.9 im
+  CurseForge-Launcher.
+- Phase 47 (ChargePads) mit Spezifikation 47.0 beginnen.
+- Phase 51 (Leuchtschild „wie Blendgranate“): Umfang klären.
+
+# Phase 47.0 – Spezifikation ChargePads (2026-11-12)
+
+Nutzer: „nächste Phase“.
+
+## Erledigt
+- [x] `ChargePads.zip` (2.4.1 build 66) mit Vineflower nach `reference/decompiled/chargepads/` dekompiliert (ohne
+  Remapping). Vanilla-Namen über `minecraft.jar` aufgelöst (Steindruckplatte, Redstone, Glowstonestaub, Enderperle,
+  Vergiftung, Material Eisen, `ke.f`/`ke.c`). GregTech greift in keine ChargePads-Rezepte ein.
+- [x] `docs/spec/47-chargepads.md`: 3 Pads (40 k/600 k/10 M EU, 32/128/512 EU/t, Energie nur von unten), Aktivierung
+  + Redstone, Laden (Grundverbrauch, Laderate × 1,05^OC, Kosten × 0,995^Eff, Hand vor Rüstung), Upgrades, 8 Module,
+  Ausbausätze (inkl. Originalfehler Upgrade → Feldplatz), Fall-/Abbau-/Ausbau-Zap mit Formeln, GUI, 18 Rezepte,
+  Teilphasen 47.1–47.3. Spec-README, CLAUDE.md.
+
+## Nächste Schritte
+- Freigabe durch den Nutzer (§11: Kreativ-Tab eigen oder IC2? nur Craft-Elektro-Items laden? Gefahren wie im
+  Pack an?), dann **47.1** Pads.
+- Client-Test Nuclear Control (Testplan 23) – nur nach Rückfrage.
+- Phase 51 (Leuchtschild „wie Blendgranate“): Umfang klären.
+
+# Phase 47.1 – ChargePads: Pads (2026-11-12)
+
+Nutzer: „Weiter geht“; Freigabe §11: alle Vorschläge übernommen (IC2-Tab, nur Craft-Elektro-Items, Gefahren an).
+
+## Erledigt
+- [x] Paket `dev.craft.chargepads`: Static/Crystalizor/Lapotron-Ladepad (flach 16×4×16, Zustand `active`),
+  `PadTier` mit allen Stufenwerten, `ChargePadsConfig` (Pack-Schalter als Konstanten).
+- [x] Block-Entity: EU nur von unten, IC2-Überlaufeigenheit, Überspannung → IC2-Maschinenexplosion, Batterieslot
+  (Elektro-Items bis Pad-Stufe + Transformer, Redstone 500, Einweg-Batterie 1 000), Upgrades (Übertakter/Effizienz
+  max. 16, Transformer max. 4, Speicher unbegrenzt), Grundverbrauch, Feld + Laden (Hand/Rüstung, Verteilung,
+  „nichts zu laden“), Modul-Logik schon vorbereitet (Items folgen in 47.2), Schraubenschlüssel (Drop 1,0,
+  mit Emittermodul nur von unten).
+- [x] Block: Feldprüfung über Betreten/geplanten (10 Ticks)/zufälligen Tick, Klick, Redstone 15 nach unten und zur
+  Seite, Fall-Zap, Abbau-Zap + Inventarverlust, kein Drop, Inventar fällt heraus.
+- [x] GUI (Menü + Screen mit Sperren, Energiebalken, Feld/Projektor), Shift-Klick wie im Original.
+- [x] Schadensarten `craft:electrocution` (ignoriert Rüstung) und `craft:emitter_radiation`, Todesmeldungen DE/EN.
+- [x] Datagen: Blockstates/Modelle, leere Loot-Tabellen, Sprache, 3 Pad-Rezepte; Texturen + GUI per
+  `tools/scripts/charge_pads_textures.py`.
+- [x] 6 GameTests (`ChargePadGameTests`): Zap-Formel, Energie nur von unten + Upgrades + Explosion, Batterieslot,
+  Spieler wird geladen + Redstone + Abschalten, Abbau-Zap, Fall-Zap. Lauf: rot nur der bekannte Wackelkandidat
+  `liquidTesseractFillsRemoteTank`. `gradlew runData`, danach `build` grün.
+- Doku: Spec 47 §11/§12, `abweichungen.md`, `architektur.md`, CLAUDE.md. Nicht im Client gestartet.
+
+## Nächste Schritte
+- **47.2** Effizienz-Upgrade, Emitter-Module, Ausbausätze, Partikel.
+- Client-Test Pads – nur nach Rückfrage.
+- Phase 51 (Leuchtschild „wie Blendgranate“): Umfang klären.
+
+# Paket 1.2.10 – Hole Filler Mod (2026-11-12)
+
+Nutzer: Mod „mit dem man Bälle auf Flächen werfen kann“ zum Auffüllen/Renaturieren (kein WorldEdit) → „Prüfen“,
+„ja mach das“.
+
+## Erledigt
+- [x] Geprüft: Hole Filler Mod 1.3.0 hat eine NeoForge-1.21.1-Datei (CurseForge projectID 440585, fileID 6583948,
+  `hole_filler_mod_1.3.0-neoforge-mc_1.21.1.jar`, Client + Server); einzige Abhängigkeit Architectury API, schon im
+  Manifest. Lizenz „All Rights Reserved“ → nur per Manifest, nicht in `overrides`.
+- [x] `releases/Craft-1.2.10-curseforge.zip` (9,6 MB): wie 1.2.9 (Craft 1.2.7), Manifest + Hole Filler (113 Einträge).
+  Nicht im Client gestartet. Hinweis: der Mod füllt auf, trägt aber kein Gelände ab.
+
+## Nächste Schritte
+- Paket 1.2.10 im CurseForge-Launcher testen (Server braucht den Mod ebenfalls).
+- **47.3** EMI (Info-Seiten), Herkunft, Wiki, Testplan, Craft-Version + Paket.
+- Client-Test Pads/Module/Partikel – nur nach Rückfrage.
+- Phase 51 (Leuchtschild „wie Blendgranate“): Umfang klären.
+
+# Phase 47.2 – ChargePads: Module, Ausbausätze, Partikel (2026-11-12)
+
+## Erledigt
+- [x] Items: Effizienz-Upgrade, 8 Emitter-Module (`PadModule.getName()`, Tooltip Beschränkt/Modulation/Stärke),
+  Kristallisator-/Lapotron-Ausbausatz, MFSU-Aufrüstung (nur Zwischenprodukt); Seltenheiten laut §1; IC2-Tab.
+- [x] Ausbausatz (`UpgradeKitItem.onItemUseFirst`): nur Unterseite, falscher Pad schluckt den Klick, aktiver Pad →
+  Meldung + electrocution max(2 × Stufe, ⌈D⌉); Speicher/Batterie bleiben, Plätze nach Original-Algorithmus
+  (Static-Upgrade landet im Feldplatz), Rest fällt nach unten; Satz verbraucht außer Kreativ.
+- [x] Rezepte §10: 3 Ausbau-Rezepte + 2 formlose Pad-Rezepte, Effizienz-Upgrade (nur volles RE-Akku per
+  Komponenten-Zutat), alle 8 Module.
+- [x] Partikel `craft:charge_spark` (Farbe je Stufe/Modul, Werte aus `ac`/`ad`/`ab`/`j`), Client-Zustand „fx“.
+- [x] Texturen: 12 Item-Icons aus `blocks.png` (Script `tools/scripts/charge_pads_textures.py` erweitert).
+- [x] 8 GameTests `ChargePadModuleGameTests` (Ausbau + Plätze, Ausbau-Zap, Modulplätze, Feldausdehnung,
+  Nahbereich, Entladung, Schadensfeld, Effizienz-Rezept). Lauf 618 Tests: rot nur der bekannte Wackelkandidat
+  `liquidTesseractFillsRemoteTank`. `runData`, danach `build` grün.
+- Doku: Spec 47 §5.1/§8/§12 korrigiert, `abweichungen.md`, `architektur.md`, CLAUDE.md. Nicht im Client gestartet.
+
+## Nächste Schritte
+- **47.3** EMI (Info-Seiten), Herkunft, Wiki, Testplan, Craft-Version + Paket.
+- Client-Test Pads/Module/Partikel – nur nach Rückfrage.
+- Paket 1.2.10 im CurseForge-Launcher testen.
+- Phase 51 (Leuchtschild „wie Blendgranate“): Umfang klären.
+
+# Phase 47.3 – ChargePads: EMI, Wiki, Paket (2026-11-12)
+
+Nutzer: „Nächste Phase“.
+
+## Erledigt
+- [x] EMI: 6 Info-Seiten (`compat/emi/CpEmiRecipes`): Pads (Laden, Energie, Redstone), Gefahren (Zaps,
+  Schraubenschlüssel), Upgrades (inkl. Effizienz-Upgrade nur mit vollem RE-Akku), Ausbausätze, Feld- und
+  Projektormodule; Texte DE/EN in `CraftLanguageProvider.chargePadInfo`.
+- [x] Herkunft: nichts nötig – alle ChargePads-Teile haben ein Rezept.
+- [x] Wiki: Gruppe „ChargePads“ (15 Einträge; Module über `SUFFIX_GROUPS`, da ihre Namen erst in
+  `PadModule.getName()` entstehen), Seite „ChargePads“ (Pads, Upgrades/Ausbau, Module, Gefahren); DE + EN-Namen neu
+  erzeugt. `testplan.md` Abschnitt 24, Spec 47 §13, `architektur.md`, CLAUDE.md.
+- [x] Craft **1.2.8** (`releases/craft-1.2.8.jar`), `gradlew runData`, danach `build` grün. GameTests nicht erneut
+  gelaufen (nur EMI/Sprache/Wiki geändert; letzter Lauf in 47.2).
+- [x] Paket `releases/Craft-1.2.11-curseforge.zip` (9,7 MB): wie 1.2.10, nur Craft 1.2.7 → 1.2.8; Manifest
+  unverändert (113 Einträge). Nicht im Client gestartet.
+- **Phase 47 erledigt, Client-Test offen** (Testplan 24.1–24.5).
+
+## Nächste Schritte
+- Client-Test ChargePads (Testplan 24) und Nuclear Control (Testplan 23) – nur nach Rückfrage; Paket 1.2.11 im
+  CurseForge-Launcher.
+- Phase 48 (Modular Force Field System) mit Spezifikation 48.0 beginnen.
+- Phase 51 (Leuchtschild „wie Blendgranate“): Umfang klären.
+
+# Phase 48.0 – Spezifikation Modular Force Field System (2026-11-12)
+
+Nutzer: „Nächste Phase“.
+
+## Erledigt
+- [x] `modularforcefieldsystem.zip` (MFFS V2 2.2.8.3.6) mit Vineflower nach `reference/decompiled/mffs/` dekompiliert
+  (ohne Remapping, Mod-Namen lesbar). Vanilla-Namen über `minecraft.jar` aufgelöst. UE nicht im Pack → nur
+  IC2-Rezepte; TE-Pulverisierer und GT-Grinder (10 Forcicium + 2 Thoriumstaub) gelten.
+- [x] `docs/spec/48-mffs.md`: Monazit/Forcicium/Zelle, Extraktor (4 000 EU → 12 000 FE), Kondensator (10–28 Mio. FE,
+  Reichweite 8–80), Konverter (3 FE = 1 EU), Karten, Rechte/Sicherheitsstation/-speicher/Steuerungssystem,
+  Multiwerkzeug (5 Modi + Debugger), Projektor (8 Module, Kosten/Unterhalt, Originalfehler ×2 auf Standardfelder),
+  9 Upgrades (Störsender-Ausbrennen, Fusion, Tarnung …), Kraftfeldblock, Verteidigungsstation (6 Modi), 35 Rezepte,
+  GUIs, Abweichungen, Teilphasen 48.1–48.5. Spec-README, CLAUDE.md.
+
+## Nächste Schritte
+- Freigabe durch den Nutzer (§11: eigener Tab? Chunkloading an? keine Admin-Liste? Gefahren wie im Pack?
+  Energiename DE „Kraftenergie (KE)“? Handbuch ohne Changelog/Versionsprüfung?), dann **48.1** Grundlagen/Energie.
+- Client-Test ChargePads (Testplan 24) und Nuclear Control (Testplan 23) – nur nach Rückfrage.
+- Phase 51 (Leuchtschild „wie Blendgranate“): Umfang klären.
+
+# Phase 48.1 – MFFS-Grundlagen (2026-11-12/13)
+
+Nutzer: „Nächste Phase“. §11 der Spezifikation komplett wie vorgeschlagen freigegeben (Tab, Chunkloading, keine
+Admin-Liste, Gefahren an, „Kraftenergie (KE)“, Handbuch ohne Changelog/Versionsprüfung); Spec §3/§4/§5 um Details aus
+dem Original ergänzt (MJ-Provider, Materialverbrauch, versteckte Konverter-Plätze, IC2-Schraubenschlüssel, Name ≤ 21).
+
+## Erledigt
+- [x] Paket `dev.craft.mffs`: Monazit-Erz (+ Tiefenschiefer), Forcicium, Kompakte Forcicium-Zelle, Kraftenergie-Kristall,
+  Fokusmatrix, Feldmodulatoren, Extraktor-Beschleuniger, Kondensator-Upgrades, leere/Power-Link-/Unendlich-Karte,
+  Multiwerkzeug ‹Schraubenschlüssel›/‹Schalter›; Extraktor (EU/MJ → KE, Zellenmodus), Kondensator (Upgrades, Item
+  laden/entladen, Weitergabe 3 Modi, verbundene Geräte), Konverter (KE → EU, Pakete); gemeinsame Maschinenlogik
+  (Name, Geräte-ID, Schaltmodi Redstone/Schalter, Chunkloading, Ausrichtung, Plätze fallen heraus, Karten → leer).
+- [x] GUIs mit Original-Hintergründen (Namenseingabe, Schaltknopf, Kondensator-Modus, Konverter-Knöpfe); eigener Tab.
+- [x] Weltgen Oberwelt + Mining-Dimension; Ofen/Macerator/TE-Pulverisierer/GT-Grinder; Massefab-Verstärker 5 000;
+  Erzwert 3; Tags `c:ores/monazit`, `c:gems/forcicium`; 16 Rezepte; Herkunftstexte Erz/Zelle (wegen `SourceTextsTest`).
+- [x] Texturen `tools/scripts/mffs_textures.py` (Argumente: Projektordner, Minecraft-Client-Jar).
+- [x] 8 GameTests `MffsGameTests` grün. Rot nur Tesserakte (`liquidTesseractFillsRemoteTank` bekannt,
+  `energyTesseractCarriesEnergy` neu wackelig: im ersten Lauf grün, kein MFFS-Bezug). `runData`, danach `build` grün.
+- Doku: Spec 48, `abweichungen.md`, `architektur.md`, CLAUDE.md. Nicht im Client gestartet.
+
+## Nächste Schritte
+- **48.2** Projektor + Kraftfeld (Block, 8 Module, Kosten/Unterhalt, Feldblöcke, GUI, GameTests).
+- Client-Test MFFS-Grundlagen, ChargePads (Testplan 24), Nuclear Control (Testplan 23) – nur nach Rückfrage.
+- `energyTesseractCarriesEnergy` beobachten.
+- Phase 51 (Leuchtschild „wie Blendgranate“): Umfang klären.
+
+# Phase 48.2 – MFFS-Projektor + Kraftfeld (2026-11-13)
+
+Nutzer: „wo waren wir stehengeblieben? Führe dort fort“.
+
+## Erledigt
+- [x] Projektor (`mffs_projector`): 13 Plätze wie im Original, Einschalten nach ≥ 40 Ticks bei Link-KE > Schätzung
+  need(5), Feld berechnen (Feldkarte, Ansprüche mehrerer Projektoren, erster besitzt), Erstkosten ×10, Unterhalt alle
+  20 Ticks, max. 5 000 Blöcke je Durchlauf, Originalfehler ×2 auf Standardfelder; Ausschalten (Schalter, kein Modul/
+  Quelle, ≤ need(1)) entfernt das Feld; Entfernen des Projektors ebenso. Zugriffsart-Knopf 0→1→2, Kristall/Unendlich-
+  Karte erzwingt 0. `checkSlots`: nicht unterstützte Teile fallen heraus, ohne Modul Plätze 2–10. Modultyp als
+  Blockzustand (Textur je Typ), Ausbrennen-Flag (GUI gesperrt, Rauch) vorbereitet für 48.3.
+- [x] 8 Module (Wand, Deflektor, Röhre, Würfel, Kugel, Eindämmung, Erw. Würfel, Diagonale Wand) 1:1 nach
+  `calculateField` (inkl. Feldmanipulator-Schalter für 48.3), Rechtsklick setzt das Modul ein; Upgrade-Listen je Modul.
+- [x] Kraftfeld-Block: unzerstörbar, 999 (Explosionsabfrage kostet 10 KE), keine Drops, Typen als Blockzustand,
+  durchscheinende Original-Texturen, gleiche Nachbarn verbergen Flächen, kein Auswahlrahmen, Zapper-Kollision 1/16
+  kleiner; Linksklick-Schock (Zugriffsart 0; 2/3 doppelt), Berührung 20/1 bzw. Zapper 10, Nachfüllen freier Positionen
+  (Standard 10 KE, sonst 20 – Spec korrigiert), Zufallstick ohne aktiven Besitzer → weg. Schadensart
+  `craft:field_shock` (ignoriert Rüstung, „was fried by a forcefield“).
+- [x] GUI mit Original-Hintergrund (Plätze, Rahmen je Modul, Füllbalken, Zugriffsart, Schaltmodus, Name),
+  Power-Link-Karte per Rechtsklick in den Projektor, Rezepte Projektor + 8 Module, Texturen über
+  `tools/scripts/mffs_textures.py`.
+- [x] Tests: JUnit `ProjectorModuleTest` (alle Formen nachgezählt), 6 GameTests `MffsProjectorGameTests`; alle 632
+  GameTests grün (Tesserakte diesmal auch). `runData`, danach `build` grün. Doku: Spec 48 §9.2/§9.4, `abweichungen.md`,
+  `architektur.md`, CLAUDE.md. Nicht im Client gestartet.
+
+## Nächste Schritte
+- **48.3** Projektor-Upgrades (9) inkl. Tarnungs-Rendering, Störsender/Ausbrennen + Wrench-Reparatur, Fusion,
+  Feld-Teleporter, GameTests – erledigt, s. u.
+- Client-Test MFFS (Grundlagen + Projektor), ChargePads (Testplan 24), Nuclear Control (Testplan 23) – nur nach
+  Rückfrage.
+- Phase 51 (Leuchtschild „wie Blendgranate“): Umfang klären.
+- Phase 49 (Wireless Redstone) **verworfen** (Nutzer, 2026-11-13: „Streich Phase 49“).
+
+# Phase 48.3 – MFFS-Projektor-Upgrades (2026-11-13)
+
+Nutzer: „Weiter gehts“.
+
+## Erledigt
+- [x] 9 Upgrade-Items `projector_upgrade_*` (Stapel 8, Tooltip „passt zu“ mit Umschalt), Texturen aus `items.png`
+  (`tools/scripts/mffs_textures.py`), 8 Rezepte (Verteidigungsstation erst mit dem Personalausweis in 48.4).
+- [x] Wirkung 1:1 nach `TileEntityProjector`: Optionsliste mit eingeschobenem Störsender-Test; **Störsender** – jeder
+  Projektor eines anderen Kondensators mit einem Feldpunkt im Innenraum eines aktiven Störsenders brennt beim
+  Berechnen aus (alle Plätze fallen heraus); **Fusion** (Punkte im fremden Innenraum ohne Anspruch, eigene Innenpunkte
+  entfernen fremde Fusions-Feldblöcke, Neuberechnung beim Abschalten eines Partners); **Schwamm** (Flüssigkeiten im
+  Innenraum); **Blockbrecher** (Wand/Deflektor/Diagonale: genau ein Item je Block ins größte Nachbarinventar,
+  Originalfehler); **NPC-Abwehr**/**Verteidigungsstation** (10 Schaden `craft:field_defense`, 10 000 KE, Feldquader,
+  Kugel mit Radius D+4; Spielerprüfung über `MffsSecurity.isDeniedByStation`, bis 48.4 nie).
+- [x] **Tarnung**: Platz 11 (Blöcke, Wasser-/Lavaeimer), Feldblock-Entity mit Blockzustand, Client-Modell zeichnet
+  den Tarnblock (Flüssigkeiten als Würfel mit stehender Textur), Färbung vom Tarnblock; neuer Tarnblock aktualisiert
+  sofort alle Feldblöcke.
+- [x] **Multiwerkzeug ‹Feld-Teleporter›** (Modus nach dem Schalter; Kodierer/Handbuch folgen 48.4): Blickrichtung,
+  ≤ 5 Blöcke, gleicher Kondensator am Ende, Hindernis/Leere, 10 000 KE, alle Original-Meldungen; Zugriffsart 0 nur
+  Admin/Debugger (`MffsSecurity.isAdmin`, bis 48.4 nie). **Wrench** repariert ausgebrannte Projektoren (10 000 KE).
+- [x] 7 GameTests `MffsUpgradeGameTests` (Schwamm, Tarnung, Störsender + Reparatur, Fusion, Blockbrecher,
+  NPC-Abwehr, Teleporter) grün; Lauf 639 Tests, rot nur die bekannten Tesserakte (`energyTesseractCarriesEnergy`,
+  `liquidTesseractFillsRemoteTank`). `runData`, danach `build` grün.
+- Doku: Spec 48 §9.3 (Ablauf im Detail), §12, §14, §15; `abweichungen.md`, `architektur.md`, CLAUDE.md. Nicht im
+  Client gestartet (Tarnungs-Rendering daher ungesehen).
+
+## Nächste Schritte
+- **48.4** Sicherheit: Sicherheitsstation, Ausweis/Lizenz/Link-/Datenlink-Karten, Rechte, Kodierer, Sicherheits-
+  speicher (Blockbrecher: erster Platz übersprungen), Steuerungssystem, Verteidigungsstation, Handbuch, Debugger
+  (Freibrief für `MffsSecurity.isAdmin`), Rezept Verteidigungsstation-Upgrade, `isDeniedByStation`, GameTests.
+- Client-Test MFFS (Grundlagen + Projektor + Tarnung), ChargePads (Testplan 24), Nuclear Control (Testplan 23) – nur
+  nach Rückfrage.
+- Tesserakt-Tests weiter beobachten (diesmal beide rot).
+- Phase 51 (Leuchtschild „wie Blendgranate“): Umfang klären.
+
+# Phase 48.4 – MFFS-Sicherheit und Verteidigung (2026-11-13)
+
+Nutzer: „Nächste Phase“.
+
+## Erledigt
+- [x] **Rechte** 1:1 nach `SecurityHelper`/`TileEntityAdvSecurityStation`: Station inaktiv → alles; Hauptnutzer;
+  erster Ausweis des Spielers in Platz 35 → 1 entscheidet; sonst gültige Zugangslizenz dieser Station oder Debugger im
+  Inventar (abgelaufene Lizenzen werden zur leeren Karte). Speicher/Steuerungssystem ohne Station: nur Server;
+  Projektor nach Zugriffsart (2 Kondensator-Station, 3 eigene). GUI-Öffnen: EB, aktive Station zusätzlich CSR,
+  Steuerungssystem UCS, Speicher nur OSS.
+- [x] **Sicherheitsstation** (40 Plätze, Hauptnutzer bekommt CSR, Rechte-Knöpfe sortiert nach Schlüssel mit Symbolen
+  aus `AdvSecStationButtons.png`, Lizenz ±5 min, Kopie 39 → 38), **Karten** Personalausweis, Zugangslizenz
+  (Minuten je Item), Sicherheitsstations-Link (folgt verschobener Station über die ID, sonst leere Karte), Datenlink;
+  leere Karte auf aktiver Station → Link-Karte; alle Datenkarten formlos → leere Karte.
+- [x] **Sicherheitsspeicher** (Automation 1–54 nur inaktiv; Blockbrecher und Verteidigung überspringen Platz 0),
+  **Steuerungssystem** (Ferndaten alle 20 Ticks, Ziel-Schaltmodus/-wert, „Open Remote Gui“), **Verteidigungsstation**
+  (Warn-/Aktionsbereich, Kugel/Würfel, Modi informieren/töten/durchsuchen/NPCs, Beschlagnahme ins Lager bzw.
+  größte Nachbarinventar, `craft:area_defense`), Stations-Links von Kondensator/Extraktor/Konverter/Projektor.
+- [x] **Multiwerkzeug** Kodierer (Ausweis für sich/Linksklick-Spieler, Datenlink auf Maschine), Handbuch (4 Seiten,
+  ohne Changelog/Versionsprüfung), Debugger (nur Kreativ, Freibrief, nicht im Modus-Kreis); Rezepte Station,
+  Speicher, Steuerungssystem, Verteidigungsstation, Upgrade ‹Verteidigungsstation›. Texturen/GUIs per
+  `tools/scripts/mffs_textures.py`.
+- [x] 6 GameTests `MffsSecurityGameTests` (Station/Ausweise, Lizenz, Maschinen + Debugger, Speicher-Automation,
+  Steuerungssystem, Beschlagnahme) grün; Lauf 645 Tests, rot nur die drei Tesserakte. `runData`, danach `build` grün.
+- Doku: Spec 48 §7.2/§7.4/§10/§14/§15, `abweichungen.md`, `architektur.md`, CLAUDE.md. Nicht im Client gestartet
+  (GUIs daher ungesehen).
+
+## Nächste Schritte
+- **48.5** EMI (Info-Seiten), Herkunft (`SourceTexts` für alle MFFS-Items inkl. der neuen Karten/Stationen), Wiki,
+  Testplan, Craft-Version + Paket.
+- Client-Test MFFS (Grundlagen, Projektor, Tarnung, Sicherheitsstation-GUI mit Rechte-Knöpfen, Steuerungssystem,
+  Verteidigungsstation, Handbuch), ChargePads (Testplan 24), Nuclear Control (Testplan 23) – nur nach Rückfrage.
+- Tesserakt-Tests weiter beobachten (diesmal alle drei rot: Energie, Flüssigkeit, Item).
+- Phase 51 (Leuchtschild „wie Blendgranate“): Umfang klären.
+
+# Phase 48.5 – MFFS: EMI, Herkunft, Wiki, Paket (2026-11-13)
+
+Nutzer: „Nächste Phase“.
+
+## Erledigt
+- [x] EMI: 14 Info-Seiten (`compat/emi/MffsEmiRecipes`): Forcicium/Zelle/Kristall, Extraktor, Kondensator, Konverter,
+  Maschinen allgemein (Abbau, Schaltmodus, Chunkloading), Karten, Projektor, Module, Upgrades, Sicherheitsstation,
+  Sicherheitsspeicher, Steuerungssystem, Verteidigungsstation, Multiwerkzeug; Texte DE/EN in
+  `CraftLanguageProvider.mffsInfo` (Rechte-Namen wie in der GUI: „Im Gebiet bleiben“ / „Stay in Area“).
+- [x] Herkunft: Power-Link-, Sicherheits-Link-, Ausweis-, Zugangslizenz-, Datenlink-Karte, umgeschaltete
+  Multiwerkzeug-Modi, Kreativ-Teile (Unendlich-Karte, Debugger); verrutschter Javadoc in `SourceTexts` korrigiert.
+- [x] Wiki: Gruppe „MFFS“ (51 Einträge; Module/Upgrades über `SUFFIX_GROUPS`), Seite „Modular Force Field System“
+  (Energie, Karten, Projektor/Module, Upgrades, Sicherheit, Multiwerkzeug); DE + EN-Namen neu erzeugt.
+  `testplan.md` Abschnitt 25, Spec 48 §15, `architektur.md`, CLAUDE.md.
+- [x] Craft **1.2.9** (`releases/craft-1.2.9.jar`), `gradlew runData`, danach `build` grün. GameTests nicht erneut
+  gelaufen (nur EMI/Sprache/Wiki geändert; letzter Lauf in 48.4).
+- [x] Paket `releases/Craft-1.2.12-curseforge.zip` (10,2 MB): wie 1.2.11, nur Craft 1.2.8 → 1.2.9; Manifest
+  unverändert (113 Einträge). Nicht im Client gestartet.
+- **Phase 48 erledigt, Client-Test offen** (Testplan 25.1–25.5).
+
+## Nächste Schritte
+- Client-Test MFFS (Testplan 25), ChargePads (Testplan 24), Nuclear Control (Testplan 23) – nur nach Rückfrage;
+  Paket 1.2.12 im CurseForge-Launcher.
+- Phase 50 (Kleinkram: Omnitools, Obsidian Pressure Plates, Gravity Gun, Secret Rooms) mit Spezifikation beginnen.
+- Phase 51 (Leuchtschild „wie Blendgranate“): Umfang klären.
+- Tesserakt-Tests weiter beobachten.
+
+# Intermezzo – Eigene Schallplatten (2026-11-13)
+
+Nutzer: MP3s aus `X:\Craft\Musik` als neue Schallplatten, Mono. Entschieden: nur Kreativ/Befehl (kein Rezept, kein
+Loot), Musik in der Mod-Jar, dafür Repo auf **privat** gestellt (Nutzer, 2026-11-13), 64 kbit/s ok (Paket > 20 MB).
+
+## Erledigt
+- [x] 18 Titel per ffmpeg (pip `imageio-ffmpeg`) nach Mono-OGG 44,1 kHz / 64 kbit/s, zusammen 30 MB,
+  `assets/craft/sounds/records/<name>.ogg`; in `sounds.json` mit `stream: true`.
+- [x] Paket `dev.craft.music` (`MusicDiscs`): je Titel SoundEvent, Jukebox-Song (`data/craft/jukebox_song/`, Länge
+  aufgerundet, Komparator 1–15 reihum) und Item `craft:music_disc_<name>` (selten, Stapel 1). Tab „Werkzeuge &
+  Hilfsmittel“, Tag `c:music_discs`. Name „Schallplatte“/„Music Disc“, Titel als Song-Beschreibung (ohne Interpret,
+  MP3s ohne Tags; „Toter Schmetterlink“ → „Toter Schmetterling“).
+- [x] Texturen: Vanilla-Platte `cat` mit 18 Etikettfarben (Farbton reihum), `textures/item/music/`.
+- [x] `runData`, danach `build` grün (Jar 40 MB). Nicht im Client gestartet, keine neue Version/Paket.
+
+## Nächste Schritte
+- Client-Test Schallplatten (Jukebox, Tooltip, Länge) – nur nach Rückfrage.
+- Craft-Version + Paket mit Musik auf Wunsch.
+- Client-Test MFFS (Testplan 25), ChargePads (Testplan 24), Nuclear Control (Testplan 23) – nur nach Rückfrage.
+- Phase 50 mit Spezifikation beginnen; Phase 51 Umfang klären; Tesserakt-Tests beobachten.
+
+# Phase 51 – Leuchtschild als Taschenlampe (2026-11-13)
+
+Nutzer: „Mache jetzt die letzten beiden Phasen noch eben“; Phase 51 präzisiert: „Einfach viel heller, wie so eine große
+anpassbare Taschenlampe“, kein Blendeffekt; echtes Licht, Reichweite + Kegel, GUI, Schein bleibt, „gib dem Schild mehr
+Speicher und Stromverbrauch, vielleicht so 100000“.
+
+## Erledigt
+- [x] 51.0 Spezifikation `docs/spec/51-leuchtschild-taschenlampe.md` (ersetzt Spec 30 §3b).
+- [x] 51.1 `ShieldLights` neu: Strahlenfächer über den Kegel (Strahlabstand ≤ 6 Blöcke am Ende, `COLLIDER`, Wasser
+  durchlässig), Lichtblock vor der Trefferfläche bzw. am Strahlende, 15 bis halbe Reichweite → 11, Schein 14 im
+  Augen-/Fußblock, max. 160 je Spieler; Nachführen alle 5 Ticks bei Bewegung ≥ 0,25 / Drehung ≥ 2°, sonst alle 20,
+  nur Differenz; Lichtliste je Spieler, Überlappung mehrerer Spieler per Maximum. `ShieldLightBlock` mit `level`
+  1–15, bleibt nur, solange ein Spieler ihn will. Aufräumen bei Weglegen/Ausschalten/Dimensionswechsel/Abmelden/
+  Serverende.
+- [x] `Flashlight` (`craft:flashlight`, Stufen 1–4, Standard 2/2), `FlashlightPayload`, GUI `FlashlightScreen`
+  (Modus-Taste + Schleichen + Rechtsklick; zwei Regler, Verbrauch + Laufzeit). 100 000 EU, R × B EU je 2 Ticks.
+  Tooltip mit Einstellung. LDL-Initializer und Entrypoint entfernt.
+- [x] Befund nebenbei: durch die neuen Testplätze stand ein Mock-Spieler neben einem Leistungsrohr → Absturz
+  „Payload craft:pipe_power may not be sent to the client“ (2 von 3 Läufen). Neu `core/CraftNetwork.sendToTracking`
+  (nur an Verbindungen mit Kanal) für Item-/Flüssigkeits-/Leistungsrohre.
+- [x] GameTests: Verbrauch 2 und 8 EU/t, Payload begrenzt, Kegel an Wand, Lichtblöcke gesetzt und entfernt
+  (+3, Verbrauchstest ersetzt). **Alle 648 grün.** `runData`, danach `build` grün.
+- [x] 51.2 EMI-Info, Wiki (Leuchtschild, Energie, Paket-Mods; DE + EN-Namen), `balancing.md` §3.9, `architektur.md`,
+  Testplan 13.2, Spec 30 Verweis, CLAUDE.md. Nicht im Client gestartet, keine neue Version.
+- **Phase 51 erledigt, Client-Test offen** (Testplan 13.2; v. a. Performance bei 64/60°).
+
+## Nächste Schritte
+- Phase 50 (Omnitools, Obsidian Pressure Plates, Gravity Gun, Secret Rooms): dekompilieren, Spezifikation.
+- Client-Test Leuchtschild-Taschenlampe, Schallplatten, MFFS, ChargePads, Nuclear Control – nur nach Rückfrage.
+- Craft-Version + Paket (Musik, Taschenlampe) auf Wunsch.
+
+# Phase 50.0 – Kleinkram: Spezifikation (2026-11-13)
+
+## Erledigt
+- [x] OmniTools 3.0.4, ObsidiPlates 1.2.0, GraviGun 1.4.7v2, SecretRoomsMod mit Vineflower nach
+  `reference/decompiled/{omnitools,obsidiplates,gravitygun,secretrooms}` (ohne Remapping – SpecialSource/MCP liegen
+  nicht mehr in `tools/`). Vanilla-Namen über `instmods/minecraft.jar` (amq/up dekompiliert) aufgelöst.
+- [x] Spec `docs/spec/50-kleinkram.md`: OmniWrench, Mystischer Sockel, Forge Lexicon (c:-Tags), Obsidian-Druckplatte
+  (nur Spieler), Gravity Gun normal/aufgeladen (Pack-Config: kein Treibstoff, Creeper explodieren nur aufgeladen),
+  Secret Rooms (Tarnung nach Nachbarn, 14 Blöcke/Items). §11 entschieden (Nutzer, alle Vorschläge).
+
+## Nächste Schritte
+- 50.1 Obsidian-Druckplatte + OmniWrench.
+
+# Phase 50.1 – Obsidian-Druckplatte + OmniWrench (2026-11-13)
+
+## Erledigt
+- [x] `obsidiplates/ObsidiPlates` + `ObsidianPressurePlateBlock` (nur Spieler, `BlockSetType.STONE`, Härte 12,5,
+  Festigkeit 1200, Spitzhacke, Modell aus Vanilla-Obsidian), Rezept `##` Obsidian, Tag `pressure_plates`.
+- [x] `omnitools/OmniTools` + `OmniWrenchItem` (erbt vom TE-Halbmondhammer: Vanilla-Drehen, BC/TE-`ToolWrench`):
+  IC2-`Wrenchable` drehen/abbauen ohne Verlust, Schleichen = Gegenseite, MFFS-Rechte; Nuclear-Control-Tafeln und
+  -Monitore erkennen ihn wie den IC2-Schlüssel. Rezept `D D / G / W`. Texturen per `tools/scripts/kleinkram_textures.py`
+  aus `omnitools.zip` (auch Lexicon/Sockel für 50.2).
+- [x] Tab „Craft: Kleinkram“, EMI-Infoseiten (`KleinkramEmiRecipes`), Lang DE/EN.
+- [x] GameTests `KleinkramGameTests` (verlustfreies Abbauen, Vanilla-Drehen, Schwein löst Platte nicht aus); alle 651
+  grün. `runData`, danach `build` grün.
+- Spec-Korrektur §2: Abbau mit jeder Spitzhacke (Material Stein, keine Erntestufe wie beim Obsidianblock).
+
+## Nächste Schritte
+- 50.2 Mystischer Sockel + Forge Lexicon.
+
+# Phase 50.2 – Mystischer Sockel + Forge Lexicon (2026-11-13)
+
+## Erledigt
+- [x] `LexiconGroups`: Pack-Whitelist (Erze, Stäube, kleine Stäube, Barren) → `c:`-Tags, „aluminium“ → „aluminum“,
+  IC2-Speichernamen entfallen; Gruppe zählt nur mit ≥ 2 Items.
+- [x] `LexiconInventory` (Eingang/Ausgang, gemerkte Wahl; Vorschau abgeleitet), `LexiconMenu` (Slots wie
+  `ContainerLexicon`, Knöpfe 0/1/2 über `clickMenuButton`, Vorschau als gesperrter Slot), `LexiconScreen` (GUI
+  `gui_lexicon.png` aus dem Pack, Pfeile/Knopf nur aktiv wenn möglich, Gruppenname = Tag).
+- [x] `PlinthBlock` (Eigenschaft `lexicon`, ¾ hoch, Licht 15 mit Lexicon, Block-Entity nur mit Lexicon; Schleichen +
+  Schraubenschlüssel nimmt Lexicon samt Inhalt ab bzw. baut den leeren Sockel ab), `LexiconBlockEntity` (Inhalt,
+  Buch-Animation wie Zaubertisch, 3 Blöcke), `LexiconRenderer` (Vanilla-Buchmodell, Textur `entity_lexicon.png`),
+  `ForgeLexiconItem` (Schleichen + Rechtsklick: tragbares Lexicon, Inhalt zurück beim Schließen; Rechtsklick auf
+  leeren Sockel: Blitz nur optisch + Explosionspartikel/-knall, Lexicon wird verbraucht).
+- [x] Rezepte Sockel `GWG / OOO`, Lexicon formlos (Buch, Gold, Eisen, cyanfarbene Wolle); Modelle, Loot, Tags, Lang,
+  EMI-Infoseiten.
+- [x] GameTests `LexiconGameTests` (ganzer Stapel, Ausgang voll → Rest bleibt, Wahl gemerkt; Menüknöpfe; Sockel
+  nimmt/gibt Lexicon samt Inhalt). Alle 654 grün (vorher einmal die bekannten Wackler `plasmaCannon`,
+  `harvestAndPickWheat`). `runData`, danach `build` grün.
+- Hinweis: Rückgabe beim Schließen (`clearContainer`) greift in Vanilla nur für echte `ServerPlayer` – im Test nicht
+  prüfbar, im Client prüfen.
+
+## Nächste Schritte
+- 50.3 Gravity Gun.
+
+# Phase 50.3 – Gravity Gun (2026-11-13)
+
+## Erledigt
+- [x] `gravitygun/GravityGun` (Items `gravity_gun`, `charged_gravity_gun`, Entity `grabbed_block`, Events),
+  `GravityGunHandler` (`EntityHelper`/`TickHandlerServer` mit Pack-Config: kein Treibstoff, Blöcke fallen beim
+  Loslassen, Spieler greifbar, Creeper explodieren nur von der aufgeladenen Kanone): Greifen in 4 Blöcken
+  (Entity, sonst Block: voll, Truhen, Glas, Glowstone, Kuchen, TNT, Eis, Laub, Amboss; nicht Grundgestein; Zombies
+  nur mit `mobGriefing`), gedrückt halten zieht aus 10/15 heran (0,01/0,02 × Reichweite/Abstand, Fang bei 4;
+  aufgeladen reißt Blöcke los), Halten 3,5 vor den Augen (zu weit → Teleport zum Halter, Enderman > 6 lässt los),
+  Werfen (10/12 ÷ Abstand × 0,3, y × 0,52), Aufprallschaden ⌊2,5 × Tempo⌋ mit Größenverhältnis an Getroffenem bzw.
+  sich selbst, Feuerbälle umgelenkt. Blitz (EntityStruckByLightningEvent) lädt Kanonen im Hauptinventar auf;
+  Zombies mit Kanone greifen/werfen zu 0,8 % je Tick; Entity-Interaktion mit Kanone in der Hand gesperrt.
+- [x] `GrabbedBlock` (Block + Block-Entity-Daten, fällt und setzt sich ab, sonst Item + Inventar), Renderer wie
+  fallender Block. Client `GravityGunClient`: Angriff/Benutzen abgefangen (nur Tastendruck, kein Abbauen/Setzen),
+  Loslassen beendet Ziehen; Payload `craft:gravity_gun` (1/2/3 wie `sendKeybind`).
+- [x] Eigene Texturen (Python, `kleinkram_textures.py`), Vanilla-Klänge (Beacon/Feuerwerk) – nichts aus HL2.
+  Equip-Klang des Originals entfällt. Rezepte `DEI / EGE / IEO` (Glowstone bzw. Netherstern), Lang, EMI-Infoseiten.
+- [x] GameTests `GravityGunGameTests` (Greifregeln, Truhe landet mit Inhalt, Greifen/Halten/Loslassen, Stoß,
+  Aufladen). Alle 659 grün. `runData`, danach `build` grün.
+
+## Nächste Schritte
+- 50.4 Secret Rooms: Tarn-Grundlage (Modell, Paste, Geisterblock, Einwegglas).
+
+# Phase 50.4 – Secret Rooms: Tarn-Grundlage (2026-11-13)
+
+## Erledigt
+- [x] `secretrooms/CamoBlockEntity` (Vorlage-`BlockState`, einmal beim Setzen gewählt, Sync + `ModelData`),
+  `CamoSelection` (gleiches Gegenüber-Paar unten/oben → West/Ost → Nord/Süd mit der Vorrangkette des Originals,
+  sonst erster Nachbar; die Mehrheitszählung des Originals scheitert an einem Indexfehler und fällt genau darauf
+  zurück; nur volle Würfel, getarnte Nachbarn geben ihre Tarnung weiter; Einwegglas: die vier Nachbarn um die
+  Blickachse, Doppelte zuerst), `CamoBlock` (Licht wie die Vorlage, `dynamicShape`, keine Verdeckung).
+- [x] Geisterblock (ohne Kollision, mit Redstone am Block/darüber fest), Einwegglas (`facing`: Tarnseite, sonst
+  Glas; beim Setzen vom Spieler weg, Taste „Einwegglas-Richtung“ – Standard `\` wie im Original – dreht das je
+  Spieler um; Lichtdurchlass nur nach oben gerichtet = Original-Eigenheit), Tarnpaste. Rezepte wie im Pack (Paste
+  aus Erde/Sand/Ton, Geisterblock aus verrottetem Fleisch/Wolle, Einwegglas 9×/1×).
+- [x] Client: `CamoBakedModel` (umhüllt die Blockmodelle, zeichnet die Vorlage, Einwegglas nur auf der Tarnseite),
+  Farb-Handler (Biomtönung der Vorlage), Tab „Craft: Secret Rooms“. Texturen selbst erzeugt (Pack-Zip enthält
+  `textures.png` nicht): Paste, Platzhalter-Tarnblock (Stein mit Farbpunkten), Einwegglas (getöntes Vanilla-Glas).
+- [x] GameTests `SecretRoomsGameTests` (Paar vor Einzelnachbar, Weitergabe, Geisterblock mit/ohne Strom,
+  Einwegglas-Auswahl). Alle 662 grün. `runData`, danach `build` grün. **Tarnung im Client ungesehen.**
+
+## Nächste Schritte
+- 50.5 Secret Rooms: Redstone-Block, Hebel, Knopf, Druckplatten, Treppe, Kiste, Tor, Türen, Falltür, Fackel-Hebel.
+
+# Phase 50.5 – Secret Rooms: Tarn-Varianten (2026-11-13)
+
+## Erledigt
+- [x] `CamoRedstoneBlock` (merkt die speisende Seite, gibt 15 stark an alle anderen, verlustfrei, Ketten leiten in
+  eine Richtung), `CamoSwitchBlock` (Hebel, Knopf 20 Ticks, Druckplatte alle/Spieler: Auslösen beim Draufstehen,
+  Nachprüfen alle 20 Ticks; schwach 15 überall, stark in den Block, an den gesetzt wurde), `CamoStairsBlock` (voller
+  Umriss, Treppen-Kollision), `CamoChestBlock` (27 Plätze, eigene BE `camo_chest`, Katze darauf sperrt),
+  `CamoGateBlock` + Verlängerung (bis 10 in Richtung zum Setzenden, erste Stelle auch über nicht volle Blöcke,
+  nach unten gerichtet zieht nicht zurück – beides 1:1), `CamoDoorBlock` Holz/Eisen (Tarnung der Wand, beide
+  Hälften), `CamoTrapDoorBlock` (Tarnung des Blocks am Scharnier), `TorchLeverBlock` (Fackel, Licht 14, schaltet
+  wie ein Hebel).
+- [x] `CamoBakedModel`: Türen/Falltür behalten die Form, ihre Flächen bekommen das Tarn-Sprite derselben Richtung
+  (relative UV, Tönung). Rezepte wie `SecretRooms.addRecipes` (je mit verrottetem Fleisch oder Wolle; Holztreppe →
+  9 Paste übernommen), Loot (Türen als Türtabelle, Verlängerung ohne Drop), Lang, EMI-Infoseiten, Türsymbole.
+- [x] GameTests `SecretRoomsRedstoneGameTests` (Redstone-Kette mit Lampe an/aus, Hebel/Knopf, Tor aus/ein,
+  Treppen-Kollision, Fackel-Hebel). Alle 667 grün. `runData`, danach `build` grün. **Im Client ungesehen.**
+
+## Nächste Schritte
+- 50.6 Herkunft (`SourceTexts`), Wiki, Testplan; Craft-Version + Paket erst nach Client-Test (Tarnmodell ungesehen).
+
+# Phase 50.6 – Kleinkram: Wiki, Testplan (2026-11-13)
+
+## Erledigt
+- [x] Wiki: Gruppen „Kleinkram“ und „Secret Rooms“, Seiten „Kleinkram: OmniTools, Obsidian-Druckplatte, Gravity Gun“
+  und „Secret Rooms“; DE + EN-Namen neu erzeugt (96 Seiten, 853 Items).
+- [x] Testplan Abschnitt 26 (26.1–26.6). Herkunft: alle neuen Items haben Rezepte, keine `SourceTexts` nötig.
+- **Phase 50 erledigt, Client-Test offen** – vor allem das Tarnmodell (Secret Rooms) ist im Client ungesehen.
+  Keine neue Craft-Version / kein Paket (erst nach dem Client-Test).
+
+## Nächste Schritte
+- Client-Test (Nutzer, 2026-11-13: erst Paket, dann Client-Test).
+
+# Craft 1.2.10 / Paket 1.2.13 (2026-11-13)
+
+Nutzer: „Mach das Paket und dann die Clienttests“ – Paket also vor dem Client-Test.
+
+## Erledigt
+- [x] Craft **1.2.10** (`releases/craft-1.2.10.jar`, 40,9 MB wegen der Schallplatten): Musik, Leuchtschild-Taschenlampe
+  (Phase 51), Kleinkram + Secret Rooms (Phase 50). `gradlew runData`, danach `build` grün.
+- [x] Paket `releases/Craft-1.2.13-curseforge.zip` (41,7 MB, > 20 MB wie freigegeben): wie 1.2.12, nur Craft 1.2.9 →
+  1.2.10; Manifest unverändert (113 Einträge).
+
+## Nächste Schritte
+- siehe Client-Test 2026-11-13 unten.
+
+# Client-Test Phase 50 + Craft 1.2.11 / Paket 1.2.14 (2026-11-13)
+
+Nutzer: „Teste alles außer Redstone“, danach „Reicht jetzt, ist alles abgesegnet“.
+
+## Erledigt
+- [x] Client-Test (Testplan 26, ohne Redstone): Secret Rooms (Geisterblock in Stein-/Holz-/Graswand, Biomfarbe,
+  durchlaufbar; Einwegglas eine Seite getarnt, andere durchsichtig; Truhe/Treppe getarnt), Tab „Kleinkram“ mit
+  Texturen, OmniWrench (Treppe, TE-Maschine, Infotafel drehen; Macerator über die Front verlustfrei abbauen),
+  Forge-Lexikon (tragbar, Zinnerz → Tiefschiefer-Zinnerz, Pfeile, Gruppenname, Inhalt zurück), Sockel (Licht 15,
+  Buch dreht sich, GUI, Abnehmen mit Schlüssel), Gravitationskanone (Schwein/Block/Truhe greifen, halten, setzen,
+  werfen, heranziehen; aufgeladen Block losreißen, Creeper explodiert; Blitz lädt auf). Nicht geprüft:
+  Obsidian-Druckplatte, Türen/Falltür/Tor, Mitspieler, Taschenlampe, Schallplatten, MFFS, ChargePads, Nuclear
+  Control – vom Nutzer abgesegnet.
+- [x] Befund: OmniWrench drehte Vanilla-Blöcke mit eigener GUI (Ofen) nicht – die Drehung lief in `useOn`, das
+  NeoForge erst nach der Block-GUI aufruft. Jetzt in `onItemUseFirst`; GameTest ruft `onItemUseFirst` auf.
+- [x] Befund: Nach dem Abnehmen blieb das Lexikon auf dem Sockel sichtbar (Client behält das Block-Entity bei
+  reinem Zustandswechsel). Renderer und Sockel-GUI prüfen jetzt den Zustand `lexicon`.
+- [x] Testplan 26.2: Macerator lässt sich wie im Original (`wrenchCanSetFacing` = false) nicht drehen, nur abbauen.
+- [x] Craft **1.2.11** (`releases/craft-1.2.11.jar`), `runData`, danach `build` grün. GameTests nicht gelaufen
+  (Nutzer hat abgebrochen).
+- [x] Paket `releases/Craft-1.2.14-curseforge.zip` (41,7 MB): wie 1.2.13, nur Craft 1.2.10 → 1.2.11.
+
+## Nächste Schritte
+- GameTests beim nächsten Lauf mitnehmen (`omniwrenchRotatesVanillaBlocks` geändert).
+- Tesserakt- und `plasmaCannon`-/`harvestAndPickWheat`-Wackler weiter beobachten.
+
+# Paket 1.2.15 – Create-Addons, Polymorph (2026-11-20)
+
+Nutzer: „Update: create factory logistics, add: Create factory routing, add: polymorph“ und StellarCreateOptimization
+„muss auch auf jeden Fall noch rein“. Create Factory Logistics war noch nicht im Manifest → neu aufgenommen.
+
+## Erledigt
+- [x] Geprüft über api.cfwidget.com, Abhängigkeiten aus den `neoforge.mods.toml`:
+  - Create Factory Logistics 1.6.1 (1218807/9073275, beta): Create ≥ 6.0.10; Create Factory Abstractions und
+    MixinExtras stecken im Jar (jarjar).
+  - Create: Factory Routing 0.2.0 (1647413/9301428): Create genau 6.0.10 (im Paket), Factory Controller optional
+    1.2.1–1.2.3 (im Paket 1.2.3).
+  - Polymorph 1.2.0 (388800/8849478, beta): nur JEI optional.
+  - StellarCreateOptimization 1.1.3 (1637437/9647977): Create 6.0.4–6.1, Client: Flywheel (in Create) und
+    Sodium ≥ 0.6.9 (im Paket 0.8.12).
+- [x] `releases/Craft-1.2.15-curseforge.zip` (39,8 MB, Inhalt wie 1.2.14 mit Craft 1.2.11): Manifest + 4 Einträge
+  (117). Nicht im Client gestartet.
+
+## Nächste Schritte
+- Paket 1.2.15 im CurseForge-Launcher starten (Create-Fabrik, Polymorph-Rezeptauswahl, Leistung mit Stellar).
+- Bei einem Update von Create auf 6.0.11+ blockiert Factory Routing (`[6.0.10]`).
+- GameTests beim nächsten Lauf mitnehmen (`omniwrenchRotatesVanillaBlocks` geändert).
+
+# Paket 1.2.16 – Brewery, Project Radio; Plan Psychedelicraft (2026-11-20)
+
+Nutzer: Frage nach Alkohol-/Drogen-Mod und Webradio für 1.21.1; meine Empfehlung (Brewery, Project Radio,
+Psychedelicraft portieren) → „Machen wir das so, halte das so fest. Wichtig wäre noch, wie man das dann herstellt“;
+dazu „Will so richtig Kater und Halluzinationen usw. drinhaben“.
+
+## Erledigt
+- [x] Geprüft (cfwidget/Modrinth, `neoforge.mods.toml`):
+  - [Let's Do] Brewery: neueste 2.1.12/2.1.13 verlangen **Foundation ≥ 1.0.6**, das es für NeoForge nicht gibt
+    (Modrinth nur 1.0.4, CurseForge 1733606 nur Fabric) → **Brewery 2.1.11** (1038106/8932247) mit **Farm & Charm
+    1.1.26** (1038103/8967051), beide ohne Foundation, nur Architectury ≥ 9.0.8 (im Paket). Erst auf neuere Versionen
+    gehen, wenn Foundation ≥ 1.0.7 für NeoForge erscheint.
+  - Project Radio 2.0.3 (1466847/9436386, ARR → nur Manifest): bringt JLayer und Veil 4.5.2 im Jar mit, NeoForge
+    21.1.219–21.2.
+- [x] `releases/Craft-1.2.16-curseforge.zip` (39,8 MB): wie 1.2.15 + 3 Einträge (120). Nicht im Client gestartet.
+- [x] Wiki „Create & Paket-Mods“: Zeilen für 1.2.15/1.2.16, mit **Herstellung** (Hopfen/Hefe/Braustation/Bier;
+  Radio, tragbares Radio, Walkman, Lautsprecher, Fernbedienung – Rezepte aus den Jars); DE + EN neu erzeugt.
+- [x] Psychedelicraft geprüft (Repo `Sollace/Psychedelicraft`, **MIT**): Branch `1.21` = MC 1.21–1.21.1, Fabric,
+  Yarn, 416 Java-Dateien, 33 Mixins, 14 Shader. Bibliotheken: Fabwork (Netzwerk, 28 Klassen, MIT), Kirin (GUI,
+  68 Klassen, MIT), Terraform Wood API (Bäume), TLA-API (EMI/REI), Sodium/Iris-Kompatibilität (glsl-transformer).
+  Drogen: Alkohol, Cannabis, Tabak, Kokain, LSD, Pilze, Peyote, Morphin, Koffein, Kava, Badesalz u. a.,
+  Halluzinationen (Wesen, Identitätstausch, Kamera-Drift, Farbwechsel, Chat-Verzerrung), Sucht. **Kater** im Original
+  nur schwach (`AlcoholDrug.onWakeUp`: nach dem Aufwachen mit Wahrscheinlichkeit = Pegel Schaden-Animation +
+  Schlafmangel 0,25).
+
+## Entschieden (Nutzer, 2026-11-20)
+- Alkohol: Brewery; Radio: Project Radio; Drogen: **Psychedelicraft auf NeoForge 1.21.1 bringen** (Phase 52).
+- Wichtig: richtiger **Kater** und **Halluzinationen**; im Wiki muss die **Herstellung** (Anbau, Verarbeitung,
+  Rezepte) erklärt sein.
+
+## Offen (Phase 52, vor Beginn klären)
+- Weg: (1) eigenständiger Port des Fabric-Codes als eigene Mod (MIT) oder (2) Nachbau in Craft (`…psychedelicraft`,
+  Spezifikation + eigener Code nach Grundregel 3).
+- Kater ausbauen (Original zu schwach): Umfang/Werte vorschlagen und freigeben lassen.
+
+## Nächste Schritte
+- Paket 1.2.16 im CurseForge-Launcher starten (Brauen, Rausch, Radio-Sender).
+- Phase 52.0: Spezifikation Psychedelicraft (Drogen, Pflanzen, Verarbeitung, Effekte, Kater-Vorschlag), sobald der Weg
+  entschieden ist.
+
+# Phase 53.0 – Farming-Welt: Spezifikation (2026-11-20)
+
+Nutzer: „Erstelle mal eine weitere Dimension. Die Farming Dimension. Nicht zum Farmen selbst, sondern eine Dimension,
+wo man alle Crops finden kann“; „Alle Pflanzen sollen da wachsen“ (auch IC2-Crops); Aufbau „2 ist gut“ (eigenes Biom,
+automatische Pflanzenliste); „Klingt gut, trag es erstmal so ein“.
+
+## Erledigt
+- [x] `docs/spec/53-farming-dimension.md`, **freigegeben 2026-11-20** mit allen Vorschlägen: Rahmen Bemooster
+  Bruchstein, Schild je Beet, keine Tiere, IC2-Crops ausgewachsen 1/1/1 mit garantiertem Saatbeutel beim ersten
+  Abbauen, Erzblock unter Ferru/Aurelia, Wasser in der Beetmitte mit Seerose abgedeckt.
+- [x] Spec-README, Phasentabelle (Phase 53).
+
+## Nächste Schritte
+- Umsetzung erst auf Wunsch des Nutzers („erstmal so eintragen“): 53.1 Dimension + Portal (Mining-Portal
+  verallgemeinern) · 53.2 Pflanzenliste + Gartenraster · 53.3 IC2-Crops · 53.4 Wiki/EMI/Herkunft/Paket.
+- Beim Umsetzen prüfen: Serene-Seasons-Whitelist (nur Oberwelt?); Abweichung „IC2-Crops wild + Saatbeutel“ in
+  `abweichungen.md`.
+- Offen weiterhin: Phase 52 (Psychedelicraft) – Weg (eigene Port-Mod oder Nachbau in Craft) und Kater-Ausbau.
+
+# Phase 52 – Psychedelicraft: Weg entschieden (2026-11-20)
+
+- Nutzer: „Port Mod, würde ich sagen“ → **eigene Port-Mod**: Fabric-Code (`Sollace/Psychedelicraft`, Branch `1.21`,
+  MIT) nach NeoForge 1.21.1 umschreiben, eigenes Projekt außerhalb von Craft; Grundregel 3 (nicht übersetzen) gilt
+  dafür nicht. Ins Paket über `overrides/mods` (MIT erlaubt das).
+- Offen: Projektort/Repo, Kater-Ausbau (Vorschlag folgt).
+- Nutzer: „Mach die Anpassung auch ins Craft Repo mit rein, als eigener Abschnitt“ → Port im Craft-Repo, Unterordner
+  `psychedelicraft/` mit eigenem Gradle-Build (eigene Jar, Mod-ID `psychedelicraft`, nicht Teil von `dev.craft`); kein
+  eigenes GitHub-Repo. Paketstruktur in `CLAUDE.md` ergänzt.
+- **Kater freigegeben** (Nutzer, 2026-11-20: „Klingt gut“): leicht = Übelkeit + Abbau langsamer; mittel = + Langsamkeit, Hunger,
+  Blendung im Sonnenlicht; schwer = + Schwäche, Übergeben; Wasser/Kaffee lindert; Dauer bis 1 MC-Tag).
+
+# Phase 53.1 – Farming-Welt: Dimension + Portal (2026-11-20)
+
+Nutzer: „Weiter gehts mit Phase 52 und 53“ → zuerst 53.1 (eine Sitzung je Teilpaket), 52.0 als nächstes Paket.
+
+## Erledigt
+- [x] `FarmingDimension`: Typ (y 0–256, immer Mittag 6000, Umgebungslicht 0, Betten gehen, keine Monster),
+  flaches Gelände (Grundgestein y 0, Stein bis 60, Erde 61–63, Gras 64, keine Höhlen/Aquifere/Erzadern), Biom
+  `craft:farming` (0,8 / 0,4, kein Regen, Ebenen-Himmel, keine Spawns, keine Features, in keinem Biom-Tag).
+  Datagen: `dimension_type`, `noise_settings`, `biome`, `dimension` `craft:farming`.
+- [x] Portal verallgemeinert: `PortalLink` (Rahmen, Portalblock, POI, Dimension) + `CraftPortalBlock`/
+  `CraftPortalShape`/`CraftPortalForcer` (vorher `MiningPortal*`); `Mining.links()` = Mining (Glatter Stein) und
+  Farming (**Bemooster Bruchstein**). Zünden nur in der Oberwelt und der eigenen Dimension – in der Mining-Welt lässt
+  sich das Farming-Portal nicht zünden und umgekehrt. Ausgangsportal und Notplattform aus dem Rahmenblock des Links.
+- [x] Block `craft:farming_portal` (Nether-Portal-Eigenschaften, Licht 11), POI `craft:farming_portal`, grüne
+  animierte Textur (aus der Mining-Portal-Textur umgefärbt), Modelle/Blockstate per Datagen, Lang
+  „Farming-Portal“/„Farming Portal“, Biom „Farming-Welt“/„Farming World“.
+- [x] GameTests `PortalGameTests` (5): Mining- und Farming-Portal zünden, Bruchstein-Rahmen bleibt aus,
+  Farming-Portal zerfällt mit dem Rahmen, Dimensionstyp/Biom/Rauschsäule (der GameTest-Server lädt nur die Oberwelt,
+  daher Säule direkt aus den Rauschdaten). Alle **672** GameTests grün, `gradlew build` grün, `runClient` bis
+  Hauptmenü ohne Fehler.
+
+## Im Client prüfen (Sammeltest)
+- Farming-Portal bauen (Bemooster Bruchstein, 4×5) und zünden, Reise hin und zurück, Gelände (Gras/Erde), immer
+  Mittag, kein Regen, keine Mobs; Mining-Portal funktioniert weiter wie vorher (bestehende Portale bleiben, POI gleich).
+- Serene Seasons: Jahreszeiten in `craft:farming`? (Whitelist im Paket prüfen – 53.4).
+
+## Nächste Schritte
+- 53.2 Pflanzenliste, Untergrund, Gartenraster, Schilder, Log. Dabei: Ausgangsportal in der Farming-Welt auf ein
+  Wegstück statt in ein Beet setzen (`CraftPortalForcer` bekommt dafür einen Hook je Link).
+- 52.0 Planung/Spezifikation Psychedelicraft-Port (eigene Sitzung).
+
+
+# Phase 53.2 – Farming-Welt: Pflanzenliste + Gartenraster (2026-11-20)
+
+Nutzer: „Weiter gehts“ → 53.2 laut Plan.
+
+## Erledigt
+- [x] `FarmingPlants`: Liste beim Serverstart (`ServerAboutToStartEvent`, sonst beim ersten Chunk) aus allen Blöcken
+  nach `spec/53` §3.1 (Wildpflanzen `wild_*` ersetzen ihre Feldfrucht, Feldfrüchte, Setzlinge/Blumen/Pilze,
+  Wasserpflanzen), Tags `#craft:farming_extra`/`#craft:farming_excluded`, ohne Item/mit Block-Entity ausgelassen,
+  sortiert nach ID; Log mit Anzahl je Mod und Ausgelassenem. Ohne Zusatzmods: **60 Pflanzen, Garten 8×8 Beete**.
+- [x] `FarmingProbe` (Mini-Welt für `canSurvive`): Untergrund je Pflanze, „braucht Wasser daneben“, „nur jedes zweite
+  Feld“, „stapelbar (3 hoch)“. Details und Abweichung von der Reihenfolge (Gras vor Ackerboden, Moosblock ergänzt)
+  in `spec/53` §3.5.
+- [x] `FarmingGardens` (Feature `craft:farming_gardens` im Biom `craft:farming`): Beete 7×7 mit Trampelpfad,
+  Beet-Formen je Untergrund, gewachstes Schild mit Pflanzenname an der Nordwest-Ecke.
+- [x] Ausgangsportal in der Farming-Welt auf der nächsten Weglinie (`PortalLink.ExitPlacement`).
+- [x] AT: `StemBlock.fruit`/`attachedStem` (Melone/Kürbis als angewachsener Stängel + Frucht).
+- [x] GameTests `FarmingGameTests` (5): Untergründe der Vanilla-Fälle, **jedes Beet der Liste aufbauen und jede
+  Pflanze bleibt stehen**, Weizenbeet + Schild, jede Pflanze genau einmal je Garten, Portal auf dem Weg. Alle **677**
+  GameTests grün (ein Lauf mit dem bekannten Ausreißer `plasmacannon`), `gradlew runData build` grün, `runClient` bis
+  Hauptmenü ohne Fehler.
+
+## Im Client prüfen (Sammeltest)
+- Farming-Welt neu betreten (vorher erzeugte Chunks aus 53.1 bleiben leeres Gras – dafür neue Welt oder weit weg
+  gehen): Gärten, Wege, Schilder lesbar (lange Namen werden abgeschnitten), Wasser/Seerosen, Kakao-Säule, Moosdecke,
+  nichts fällt beim Hinlaufen ab; Ausgangsportal steht auf einem Weg.
+- Im Paket (mit Farmer's Delight, Brewery usw.): Log-Zeile „Farming dimension: N plants …“ und „left out …“ ansehen,
+  ggf. Einträge für `#craft:farming_excluded` sammeln.
+
+## Nächste Schritte
+- 53.3 IC2-Crops in den Gärten, garantierter Saatbeutel.
+- 52.0 Planung/Spezifikation Psychedelicraft-Port (eigene Sitzung).
+
+
+# Phase 53.3 – Farming-Welt: IC2-Crops (2026-11-20)
+
+Nutzer: „Weiter gehts“ → 53.3 laut Plan.
+
+## Erledigt
+- [x] `CropCard.matureSize()` (ausgewachsene Größe je Sorte, Venomilia 5 = Grinpulver), `MetalCrop.ore()`.
+- [x] `CropBlockEntity.plantWild` + Kennzeichen `wild` (gespeichert): erstes `pick` gibt garantiert einen Saatbeutel
+  1/1/1, `reset` löscht es.
+- [x] `FarmingPlants`: 21 IC2-Beete (alle außer Unkraut) hinter den Block-Pflanzen in Crop-ID-Reihenfolge
+  (`Plant.ic2`); ohne Zusatzmods 81 Beete, Garten 9 × 9.
+- [x] `FarmingGardens`: 24 Crop-Stäbe je Beet, Sprite schon beim Setzen richtig, Erz unter Ferru/Aurelia.
+- [x] `spec/53` §3.4 (Umsetzung), `abweichungen.md`.
+- [x] GameTests: `ic2CropBeds`, `wildCropDropsSeedOnFirstPick`; Sortier-/Garten-Tests berücksichtigen die IC2-Beete.
+  Alle **679** GameTests grün (`-PgameTestDir=run-gametest`), `gradlew build` grün, `runClient` bis Hauptmenü ohne
+  Fehler.
+- Hinweis: `runGameTestServer` **ohne** `-PgameTestDir` nutzt `run/world`; fehlgeschlagene Teststrukturen bleiben dort
+  in zwangsgeladenen Chunks, ihre Tesserakte (Frequenz 901/902) hängen beim nächsten Lauf wieder im Register und lassen
+  `energyTesseractCarriesEnergy`/`liquidTesseractFillsRemoteTank` scheitern. Immer mit `-PgameTestDir=run-gametest`
+  testen.
+
+## Im Client prüfen (Sammeltest)
+- IC2-Gärten in der Farming-Welt: Sprites ausgewachsen, Schilder mit Sortennamen, Rechtsklick erntet, Linksklick gibt
+  einen Saatbeutel (auch bei Ferru/Aurelia), Erz unter Ferru/Aurelia.
+
+## Nächste Schritte
+- 53.4 Wiki, EMI-Info zum Portal, Herkunft der IC2-Saatbeutel, Testplan, Craft-Version + Paket.
+- 52.0 Planung/Spezifikation Psychedelicraft-Port (eigene Sitzung).
+
+
+# Phase 53.4 – Farming-Welt: Wiki, EMI, Herkunft, Craft 1.2.12 / Paket 1.2.17 (2026-11-20)
+
+Nutzer: „weiter gehts“ → 53.4 laut Plan.
+
+## Erledigt
+- [x] EMI (`WorldEmiRecipes`): Info-Seiten Mining-Portal (Glatter Stein + Feuerzeug, gab es vorher nicht),
+  Farming-Portal (Bemooster Bruchstein + Feuerzeug), IC2-Saatbeutel in der Farming-Welt.
+- [x] Herkunft (`SourceTexts`): Kaffeebohnen, Hopfen, Terra-Warze „wächst wild in der Farming-Welt“.
+- [x] Wiki: neue Seite „Farming-Welt“ (Portal, Gärten/Beete, IC2-Crops, Welt) neben der Mining-Dimension, Karte und
+  Zeile auf den Übersichtsseiten, Hinweise Farming-Portal/Saatbeutel, Energie-Steckbrief; DE + EN-Namen neu erzeugt
+  (98 Seiten). Auf diesem Rechner läuft der Generator mit Python 3.13 (`markdown`, `pillow`,
+  `mdx_truly_sane_lists` per `pip install --user` nachinstalliert).
+- [x] Testplan Abschnitt 27 (Farming-Welt).
+- [x] Serene Seasons: keine Config im Paket, Standard-Whitelist nur Oberwelt → keine Jahreszeiten in der Farming-Welt.
+- [x] Craft **1.2.12** (`releases/craft-1.2.12.jar`): Farming-Welt (Phase 53). `runData`, `build`, alle **679**
+  GameTests grün (`-PgameTestDir=run-gametest`).
+- [x] Paket `releases/Craft-1.2.17-curseforge.zip` (41,8 MB): wie 1.2.16, nur Craft 1.2.11 → 1.2.12; Manifest
+  unverändert (120 Einträge). Nicht im Client gestartet.
+
+## Im Client prüfen (Sammeltest)
+- Testplan 27.1–27.5.
+
+## Nächste Schritte
+- 52.0 Planung/Spezifikation Psychedelicraft-Port (eigene Sitzung).
+
+# Phase 52.0 – Psychedelicraft: Spezifikation (2026-11-20)
+
+Nutzer: „Nächste Phase“ → 52.0 laut Plan.
+
+## Erledigt
+- [x] Vorlage geholt (nicht im Git, `reference/` ignoriert): Quellcode Branch `1.21` (Commit `678cfa56`),
+  Release-Jar 1.8.9+1.21 (enthält generierte Daten: 125 Rezepte, 107 Blockstates, Weltgen, 15 Dorf-Strukturen),
+  Upstream-Wiki – alles unter `reference/source/psychedelicraft/`.
+- [x] Bestandsaufnahme: 416 Dateien/~40 000 Zeilen Yarn-Code, 33 Mixins, Fabric Transfer API (12 Dateien), Kirin,
+  Fabwork, Terraform Wood API, TLA-API; Sodium/Iris-Kompat für 0.6.9/1.8.8 (Paket hat Sodium 0.8.12 + Iris).
+- [x] `docs/spec/52-psychedelicraft.md`: Ersatz je Fabric-Teil (Yarn → Mojang per Loom `migrateMappings`, Datagen
+  nicht portiert, generierte JSONs übernehmen), Projektaufbau `psychedelicraft/`, Teilpakete 52.1–52.6,
+  Kater-Zahlen (Vorschlag), Zusammenspiel mit Craft. Spec-README, Phasentabelle.
+
+- [x] **Freigegeben 2026-11-20** (Nutzer: „Passt so“): Kater-Zahlen §6, Sodium/Iris anpassen mit Rückfallebene
+  (PS-Shader bei aktivem Iris-Shaderpack aus), doppelte Pflanzen getrennt, Kater nur von PS-Alkohol.
+
+## Nächste Schritte
+- 52.1 Quellimport + Umstellung, bis es kompiliert und der Server startet (eigene Sitzung, groß).
+
+# Phase 52.1 – Psychedelicraft: Quellimport, kompiliert, Server startet (2026-11-20)
+
+Nutzer: „weiter gehts“ → 52.1 laut `spec/52` §5.
+
+## Erledigt
+- [x] Yarn → Mojang-Namen per Loom `migrateMappings` im Referenz-Klon (`reference/source/psychedelicraft/src-1.21/remappedSrc`),
+  nach `psychedelicraft/src/main/java` übernommen; Ressourcen aus dem 1.8.9-Jar (generierte Daten), Datagen und
+  TLA/Mod-Menu-Kompat nicht übernommen (EMI folgt in 52.5).
+- [x] Gradle-Gerüst `psychedelicraft/` (ModDevGradle 2.0.148, NeoForge 21.1.259, Parchment), `neoforge.mods.toml`
+  (Vorlage), Mixin-Konfig + Plugin (Sodium/Iris-Mixins vorerst entfernt → 52.3), Access Transformer statt Access
+  Widener, Enum-Erweiterung `Boat.Type` für das Wacholder-Boot, LICENSE/NOTICE in der Jar. Version `1.8.9-neoforge.1`.
+- [x] Ersetzt: Kirin-Konfig (`util/settings`, gleiches JSON-Layout) + Einstellungsbildschirm (Vanilla-Optionsliste,
+  Modliste), Fabwork → NeoForge-Payloads, Fabric Transfer API → eigene `FluidVariant` + `IFluidHandler`/
+  `IFluidHandlerItem`-Capabilities (intern weiter 81 000 Tropfen je Eimer), eigene Registries (`PSRegistries`,
+  NewRegistryEvent), Custom Ingredients → `ICustomIngredient`, BiomeModifications → Biome-Modifier
+  `psychedelicraft:plants`, Loot-Events → `neoforge:add_table`-Loot-Modifier, Dorf-Pools beim Serverstart
+  zusammengeführt, Brennstoff/Kompost → Data Maps, Brennbarkeit/Entrinden/Handel → `PSHooks` + Events, eigener
+  `FluidType` je Flüssigkeit (Name, Farbe, Textur), Client-Registrierungen auf NeoForge-Client-Events.
+- [x] Bootstrap läuft im RegisterEvent der eigenen Flüssigkeits-Registry (alle Registries offen, NeoForge-Attribute
+  und Fremd-Flüssigkeiten schon da).
+- [x] Mixin-Ziele (Strings) per Skript aus Yarn- und Mojang-Mappings übersetzt, Shadow-/Accessor-Namen korrigiert,
+  `MixinEntity` auf NeoForges FluidType-Flüssigkeitsphysik umgestellt.
+- [x] GameTests `PortGameTests` (4): Registries, Rezepte/Weltgen-Daten, Block-Entities, Fluid-Capability – alle grün
+  (`-PgameTestDir=run-gametest`), `gradlew build` grün (`psychedelicraft/build/libs/psychedelicraft-1.8.9-neoforge.1.jar`).
+- [x] Client-Start: erster Fehler (Client-Konfig lud `DrugType` vor der Registrierung) behoben; **Client nicht weiter
+  getestet** (Nutzer: „mach mal keine Client tests erstmal wieder“).
+
+## Abweichungen (für `abweichungen.md`, Abschnitt Psychedelicraft, in 52.6)
+- Psychedelicraft-Flüssigkeiten haben eigene FluidTypes (schwimmen/ertrinken/löschen wie Wasser), zählen aber nicht
+  als NeoForge-Wasser (`isInWater`).
+- Konfig-Kommentare stehen als `"name.comment"`-Arrays im JSON.
+
+## Nächste Schritte
+- 52.2 Spielmechanik mit GameTests (Anbau, Trockentisch, Maischbottich, Fass, Destille, Gefäße, Konsum, Sucht).
+- 52.3 Client (erst wenn der Nutzer Client-Tests wieder möchte): Renderer, Shader, Halluzinationen, Sodium/Iris.
+
+# Phase 52.2 – Psychedelicraft: Spielmechanik mit GameTests (2026-11-20)
+
+Nutzer: „weiter gehts“ → 52.2 laut `spec/52` §5.
+
+## Erledigt
+- [x] GameTests `MechanicsGameTests` (9), lange Laufzeiten per Fortschrittszähler übersprungen, der Verarbeitungsschritt
+  selbst läuft über den normalen Block-Entity-Tick:
+  - Anbau: Hanf wächst auf Ackerboden bis 3 Blöcke hoch, ausgewachsen Drops (Blatt/Samen).
+  - Trockentisch: 9 Hanfblüten → 3 getrocknete (Wärme über befeuerten Ofen 2 Blöcke daneben, wie im Original).
+  - Maischbottich: Wasser + 8 eingeworfene Weintrauben (Item-Entity) → Traubenmost; 2 Gärstufen, dann Essig.
+  - Fass: reift nur Vergorenes (2 Reifestufen); Destille über Lagerfeuer: 2 Destillationen, mehr Alkohol, Schlempe in
+    den Kolben, Unvergorenes wird nicht destilliert.
+  - Konsum: Wein aus dem Holzkrug hebt den Alkoholwert (Most nicht), Joint hebt Cannabis und klingt ab.
+  - Erbrechen: Papiertüte in der Nebenhand → Tüte mit Erbrochenem + Übelkeit; ohne Tüte fällt `vomit`.
+- [x] Fix Netzwerk: Pakete an Spieler ohne ausgehandelten Kanal (FakePlayer, Mock-Spieler) werden übersprungen statt
+  zu werfen; „an Umgebung“ jetzt eigene Schleife über Spieler in Tracking-Reichweite (gleiche Empfänger).
+- [x] Alle 13 GameTests grün, `gradlew build` grün.
+
+## Befunde
+- **Sucht/Entzug gibt es in der 1.21-Vorlage nicht** (nur der Dorfbewohner „Süchtiger“ als Händler). Nichts nachgebaut
+  (Grundsatz Port); falls gewünscht, eigene Phase.
+- Wein/Bier haben Nährwert und lassen sich – wie im Original – nur mit Hunger trinken.
+- Mock-Spieler der GameTest-API gelten fest als Kreativ-Spieler; Tests nutzen deshalb `FakePlayer` im Überlebensmodus.
+
+## Nächste Schritte
+- 52.3 Client (erst wenn der Nutzer Client-Tests wieder möchte) – sonst zuerst 52.4 Kater (+ GameTests).
+
+# Phase 52.4 – Psychedelicraft: Kater (2026-11-20)
+
+Nutzer: „Weiter gehts“ → 52.3 ist Client (vorerst keine Client-Tests), daher 52.4 laut `spec/52` §6.
+
+## Erledigt
+- [x] `entity/drug/Hangover` (Zustand in `DrugProperties`, gespeichert unter `hangover`, bleibt beim Dimensionswechsel,
+  Tod setzt zurück): `peak` = höchster Alkoholwert seit dem letzten Nüchternsein; unter 0,05 (Schlafen setzt Alkohol
+  auf 0) beginnt der Kater, Stufe I/II/III ab 0,2/0,5/0,8, Dauer `peak` × 24 000 Ticks (max. 1 MC-Tag). Neuer
+  Alkohol ≥ 0,05 lässt ihn ruhen (Anzeige weg, Zeit steht), danach weiter mit höherer Stufe/längerer Dauer.
+  Kreativ/Zuschauer: kein Kater.
+- [x] Statuseffekt `psychedelicraft:hangover` (Stufe = Verstärker, Restzeit = Effektdauer, Icon 18×18, Lang en/de),
+  **Milch heilt nicht** (`fillEffectCures` leer). Wirkungen als kurze Effekte ohne Partikel/Icon, jede Sekunde
+  aufgefrischt: Abbaulähmung I (ab I), Langsamkeit I + Hunger I (ab II), Schwäche I (III); Übelkeit 6 s alle
+  60–120 s; Stufe III übergibt sich alle 2–5 min (−4 Hunger, Übelkeit 8 s, 3× `vomit` am Boden oder in die
+  Papiertüte in der Nebenhand – `Stomach.vomitIntoBag()` aus `vomit()` herausgelöst, zählt nicht zum
+  Überess-Tod).
+- [x] Blendung (Client, **nicht getestet**): `HangoverGlareScreenEffect` ab Stufe II am Tag unter freiem Himmel weiße
+  Überblendung (bis 45 %, bei Regen schwächer) + Zusatz-Bloom im Original-Bloom-Shader; Schatten hilft.
+- [x] Linderung: Wasserflasche (Vanilla, über `LivingEntityUseItemEvent.Finish`) und Wasser aus Psychedelicraft-Gefäßen
+  −2 min; Psychedelicraft-Kaffee und Item-Tag `psychedelicraft:hangover_relief` −5 min + Stufe −1 (nicht unter I).
+  Craft trägt `craft:coffee`/`dark_coffee`/`cold_coffee` per Tag-Datei in `src/main/resources` ein (keine Abhängigkeit).
+- [x] GameTests `HangoverGameTests` (10): Stufen/Dauer, schwerer Kater mit allen Wirkungen, leichter Kater endet, unter
+  0,2 kein Kater, Milch, Pause + höhere Stufe, Schlafen, Wasser/Kaffee, Wasser ohne Kater nicht trinkbar,
+  Übergeben. Alle 23 GameTests grün, `gradlew build` grün.
+
+## Abweichungen (für `abweichungen.md`, Abschnitt Psychedelicraft, in 52.6)
+- Kater ist Craft-Zusatz (Original nur Aufwach-Animation + Schlafmangel, beides bleibt).
+- Wasser in Psychedelicraft-Gefäßen ist nur mit Kater trinkbar (sonst wie im Original nicht).
+- Der Linderungs-Tag enthält nur „Kaffee-Stärke“; Wasserflaschen erkennt der Code (Tags unterscheiden keine Tränke).
+
+## Befunde
+- `smokingJointRaisesCannabisAndWearsOff` schlug einmal sporadisch fehl („Start element … is larger than end element“,
+  Testposition bei x ≈ −13 Mio.), im nächsten Lauf grün; nicht vom Kater (kein Alkohol beteiligt). Beobachten.
+
+## Nächste Schritte
+- 52.5 EMI-Plugin + Zusammenspiel mit Craft (§7) – EMI-Prüfung braucht eigentlich `runClient`; ohne Client-Tests nur
+  Kompilieren/Registrierung prüfen.
+- 52.3 Client, sobald der Nutzer Client-Tests wieder möchte.
+
+# Phase 52.5 – Psychedelicraft: EMI-Plugin + Zusammenspiel mit Craft (2026-11-20)
+
+Nutzer: „nächste Phase“ → 52.5 laut `spec/52` §5 (52.3 Client weiter zurückgestellt, keine Client-Tests).
+
+## Erledigt
+- [x] EMI-Plugin `ivorius.psychedelicraft.compat.emi` (`@EmiEntrypoint`, ersetzt `compat/tia`): Kategorien Trocknen,
+  Einweichen (Maischbottich), Fass/Destille/Kolben (Abfüllen), Backen (Tablett + Bunsenbrenner),
+  Flüssigkeits-Zubereitung (Stufen, ähnliche Prozesse zusammengefasst); Arbeitsstationen wie die Vorlage;
+  Welt-Interaktion: Scheren an Prunkwinden-/Weinreben-Spalier und fruchtendem Wacholder, Eimer füllen mit
+  Flüssigkeits-Komponente (EMIs generisches Eimerfüllen für diese Flüssigkeiten entfernt); Vergleich über die
+  Flüssigkeits-Komponente bei Gefäßen und Flüssigkeiten. Mengen: intern Tropfen, in EMI mB (÷ 81).
+- [x] Tank-Tooltip aus `AbstractFluidContraptionScreen.getTankTooltip` (für EMI als Widget-Tooltip statt Zeichnen).
+- [x] Lang: `tla.category.*` → `emi.category.*`; `psychedelicraft.recipe.experience`/`drying_time` mit `%s` statt
+  `%d` (Vorlage übergab Kommazahl bzw. Text → Formatfehler).
+- [x] Craft: `#craft:farming_extra` mit optionalen Psychedelicraft-Pflanzen (Agave, Peyote, Stechapfel, Tollkirsche,
+  Tomate, Prunkwinde, Weinreben-Spalier); die übrigen kommen automatisch (`spec/52` §7).
+- [x] Psychedelicraft: `gradlew build` grün, 23 GameTests grün. Craft: `runData build` grün, alle 679 GameTests grün
+  (ein Lauf davor mit dem bekannten Ausreißer `plasmacannon`).
+
+## Abweichungen (für `abweichungen.md`, Abschnitt Psychedelicraft, in 52.6)
+- Rezeptanzeige direkt über EMI statt TLA-API; REI entfällt. Pfeil-Animationen dauern 1–20 s (Vorlage gemischt Ticks/ms).
+
+## Offen
+- EMI-Anzeige im Client nicht geprüft (Layout, Tank-Darstellung, Tooltips) – mit 52.3 zusammen testen.
+- Farming-Welt mit Psychedelicraft zusammen nicht geprüft (nur im Paket mit beiden Mods möglich; Log
+  „Farming dimension: …“ zeigt die Liste je Mod).
+
+## Nächste Schritte
+- 52.6 Craft-Wiki (Abschnitt Psychedelicraft), `abweichungen.md`, Testplan, Paket.
+- 52.3 Client, sobald der Nutzer Client-Tests wieder möchte.
+
+# Phase 52.6 – Psychedelicraft: Wiki, Abweichungen, Testplan, Craft 1.2.13 / Paket 1.2.18 (2026-11-20)
+
+Nutzer: „Nächste Phase“ → 52.6 laut `spec/52` §5 (52.3 Client weiter zurückgestellt).
+
+## Erledigt
+- [x] Wiki: neue Gruppe „Psychedelicraft“ mit drei Seiten (`wiki/content_psychedelicraft.py`): Überblick & Pflanzen
+  (Weg in Kürze, Fundorte je Pflanze aus Weltgen/Biom-Tags, Truhen-Beute, Zusammenspiel mit Craft), Verarbeitung
+  (Trockentisch mit Sonne/Ofen, Rauchwaren, Maischen → Gären → Reifen → Brennen mit Getränketabelle je Zutat, Chemie
+  mit Kolben/Tablett/Bunsenbrenner, Tee/Kaffee), Drogen/Wirkung/Kater (Wirkung je Droge aus den Drogen-Attributen,
+  Halluzinationsarten, Kater-Stufen und Linderung). Icons aus den Psychedelicraft-Assets (`load_res` kennt den
+  Namensraum `psychedelicraft`). DE + EN-Namen neu erzeugt (102 Seiten).
+- [x] `abweichungen.md`: Abschnitt „Psychedelicraft“ (Flüssigkeiten, Transfer, Konfig, Kater, Wasser in Gefäßen,
+  EMI statt TLA, Netzwerk, Sodium/Iris offen, keine Sucht).
+- [x] Testplan Abschnitt 28 (Psychedelicraft, 28.1–28.6).
+- [x] Craft **1.2.13** (`releases/craft-1.2.13.jar`): Kater-Linderung durch Craft-Kaffee, `#craft:farming_extra` mit
+  optionalen Psychedelicraft-Pflanzen (52.4/52.5). `runData`, `build` grün; GameTests: erster Lauf 1 sporadischer
+  Fehlschlag (nicht wiederholbar), zweiter Lauf alle **679** grün.
+- [x] Psychedelicraft `releases/psychedelicraft-1.8.9-neoforge.1.jar` (braucht nur NeoForge; EMI optional).
+- [x] Paket `releases/Craft-1.2.18-curseforge.zip` (46,5 MB): wie 1.2.17, Craft 1.2.12 → 1.2.13, dazu Psychedelicraft in
+  `overrides/mods`; Manifest unverändert bis auf Name/Version. Nicht im Client gestartet.
+
+## Im Client prüfen (Sammeltest)
+- Testplan 28.1–28.6 (zusammen mit 52.3).
+
+## Nächste Schritte
+- 52.3 Client (Renderer, Shader, Halluzinationen, Sodium/Iris), sobald der Nutzer Client-Tests wieder möchte – damit
+  wäre Phase 52 komplett.
+
+# Phase 52.3 – Psychedelicraft: Client-Test (Zwischenstand 2026-11-20)
+
+Nutzer: „Mach die Clienttest“ → Client-Tests wieder erlaubt.
+
+## Erledigt
+- [x] Absturz beim Client-Start behoben: `PSShaders.REGISTRATIONS` wurde nach `ZERO_MATTER` initialisiert (NPE im
+  `RegisterShadersEvent` → Ladefehler-Bildschirm). **Die Jar in Paket 1.2.18 hat diesen Fehler noch.**
+- [x] Fehlender Untertitel `subtitles.psychedelicraft.entity.player.squeak` (en_us) ergänzt.
+- [x] `psychedelicraft/build.gradle`: `runClient -PquickPlay=<Welt>` für automatische Client-Läufe.
+- [x] Psychedelicraft allein: Client bis in die Welt (Welt per `runServer` erzeugt, nach `run/saves/qtest` kopiert,
+  `onboardAccessibility:false`), Datapack-Zyklus Alkohol, Cannabis, Pilze, LSD, Peyote+Harmonium, alle
+  Halluzinationen, alle Drogen 1,0, Kater III mittags, Übergeben – keine Exception, kein Shaderfehler im Log.
+
+## Offen
+- Wirkung der Befehle nicht nachgewiesen (Funktionen geben keine Rückmeldung); Sichtprüfung durch den Nutzer.
+- Craft + Psychedelicraft zusammen: Client blieb mit einer ohne Craft erzeugten Welt vor dem Laden auf einem
+  Bestätigungsbildschirm stehen; Welt mit Craft-Server erzeugen und erneut laufen lassen.
+- Psychedelicraft-Jar neu bauen, Paket 1.2.19.
+
+# Phase 52.3 – Psychedelicraft: Jar neoforge.2, Paket 1.2.19 (Zwischenstand 2, 2026-11-20)
+
+Nutzer: „Mache die nächste Phase weiter“ → offene Punkte aus 52.3 ohne Client.
+
+## Erledigt
+- [x] Sporadischer GameTest-Fehler `smokingjointraisescannabisandwearsoff` (2 von 3 Läufen) war ein echter
+  Vorlagenfehler: `RaytraceUtil.raycastEntities` spannte die Suchbox mit der skalierten absoluten Endposition auf
+  (Box über Millionen Blöcke) → bei großen Koordinaten `IllegalArgumentException` aus `EntitySectionStorage` beim
+  Rauchen, sonst nur langsam. Box jetzt entlang der Blickrichtung; `abweichungen.md` ergänzt.
+- [x] GameTests Psychedelicraft danach 8 Läufe hintereinander alle **23** grün.
+- [x] `releases/psychedelicraft-1.8.9-neoforge.2.jar` (mit Shader-Start-Korrektur und Rauch-Korrektur).
+- [x] Paket `releases/Craft-1.2.19-curseforge.zip` (46,5 MB): wie 1.2.18, Psychedelicraft neoforge.1 → neoforge.2;
+  Manifest nur Name/Version geändert (120 Einträge). Nicht im Client gestartet.
+
+## Offen
+- Craft + Psychedelicraft zusammen im Client (Welt mit Craft-Server erzeugen, dann quickPlay) – wartet auf Freigabe
+  des Nutzers für einen Client-Lauf.
+- Sichtprüfung der Halluzinationen/Shader und Testplan 28.1–28.6 durch den Nutzer.
+- Sodium/Iris-Anpassung (`abweichungen.md`).
+
+## Nächste Schritte
+- 52.3 Client-Lauf Craft + Psychedelicraft, sobald der Nutzer zustimmt; danach Sodium/Iris.
+
+# Phase 52.3 – Psychedelicraft: Client-Test mit Craft, Bewegungsunschärfe, Paket 1.2.20 (2026-11-20)
+
+Nutzer: „Ja, mach den Clienttest“.
+
+## Erledigt
+- [x] Craft + Psychedelicraft zusammen: Welt `run/saves/psytest` mit dem Craft-Server erzeugt (RCON zum Stoppen),
+  Testablauf als Datenpaket (`#minecraft:load` → `schedule`-Kette, braucht keine Cheats): nüchtern, Alkohol, Cannabis,
+  Pilze, LSD, Peyote+Harmonium, alle Drogen, Kater III mittags, Übergeben. Server-Log: Farming-Welt findet 13
+  Psychedelicraft-Pflanzen. Keine Exception, kein Shaderfehler.
+- [x] **Bewegungsunschärfe** (Alkohol) bleichte das Bild nach ~10 s zum Weiß aus und verdeckte Hotbar/Chat
+  (Vorlagenfehler: 30 Bildkopien mit Tiefentest, Rückkopplung). Neu als ein Verlaufspuffer ohne Tiefentest; mit F2-
+  Screenshots im Testraum geprüft: Alkohol violett/verschwommen, HUD scharf, kein Ausbleichen. `abweichungen.md` ergänzt.
+- [x] EMI: Tag-Übersetzung `tag.item.psychedelicraft.hangover_relief` (en „Hangover Relief“, de „Katermittel“).
+- [x] GameTests Psychedelicraft 23/23 grün; `releases/psychedelicraft-1.8.9-neoforge.3.jar`.
+- [x] Paket `releases/Craft-1.2.20-curseforge.zip` (46,5 MB): wie 1.2.19, Psychedelicraft neoforge.2 → neoforge.3.
+
+## Beobachtungen
+- Alle Drogen auf 1,0 töten den Spieler auch im Kreativmodus („lungs collapsed“) – Verhalten der Vorlage
+  (Schaden umgeht Unverwundbarkeit), nicht geändert.
+- Fensteraufnahmen sind seit der HDR-Umstellung des Nutzers stark aufgehellt; für Bildprüfungen F2-Screenshots nehmen.
+- quickPlay stürzte zweimal mit dem bekannten IPN-Fehler ab; ohne quickPlay durchgeklickt.
+
+## Offen
+- Sichtprüfung durch den Nutzer (Testplan 28.1–28.6), besonders Pilze (graue Welle mit Helligkeitspulsen) und
+  Peyote+Harmonium (im dunklen Raum fast schwarz, im Schnee schwarz-weiß).
+- Sodium/Iris-Anpassung (`abweichungen.md`).
+
+## Nächste Schritte
+- Sichtprüfung durch den Nutzer; danach Sodium/Iris oder Phase 52 abschließen.
+
+# Phase 52.3 – Psychedelicraft: Sodium/Iris, Paket 1.2.21 (2026-11-20)
+
+Nutzer: „Weiter gehts“ → letzter offener Punkt aus 52.3.
+
+## Erledigt
+- [x] Die 5 Kompat-Mixins der Vorlage (Upstream-Commit `678cfa56`, von GitHub; `reference/source/` existiert nicht
+  mehr) nach `mixin/client/sodium` + `mixin/client/iris` portiert: Mojang-Namen, nur `net.caffeinemc`-Ziele,
+  Iris-Programmnamen über `ResourceLocation.tryParse` abgesichert. Signaturen mit `javap` gegen Sodium 0.8.12 /
+  Iris 1.8.14-beta.1 aus der Nutzer-Instanz geprüft. Mixin-Plugin lädt sie nur, wenn die Mods vorhanden sind.
+- [x] Client-Test im Psychedelicraft-Dev-Lauf (Welt `psychedelicraft/run/saves/psyiris`, Testraum-Datenpaket, F2-Bilder):
+  - Sodium (Shader aus): Wände bei Pilzen/LSD sichtbar gewellt → Chunk-Shader-Injektion wirkt.
+  - Iris + Complementary Reimagined 5.9.3: kein Kompilierfehler, Injektion in alle Pack-Programme
+    (`printsShaderSources`-Export geprüft, u. a. `gbuffers_terrain`); Bildeffekte/Halluzinationen laufen, Wellen aus
+    wie in der Vorlage.
+  - Ohne Sodium/Iris: Client startet normal, Mixins übersprungen.
+- [x] „Iris is initialising too early“ nur noch einmal (vorher 128 Zeilen je Pack-Ladevorgang).
+- [x] GameTests 23/23 grün; `releases/psychedelicraft-1.8.9-neoforge.4.jar`; Paket
+  `releases/Craft-1.2.21-curseforge.zip` (46,5 MB, wie 1.2.20 mit neoforge.4).
+
+## Offen
+- Sichtprüfung durch den Nutzer (Testplan 28.1–28.6; Pilze, Peyote+Harmonium), dann Phase 52 abschließen.
+
+## Nächste Schritte
+- Nach der Sichtprüfung Phase 52 als erledigt eintragen.
+
+# Phase 52.5/53 – Client: EMI-Anzeige Psychedelicraft, Farming-Welt; Absturz behoben, Craft 1.2.14 / Paket 1.2.22 (2026-11-20)
+
+Nutzer: „Fehlt noch was?“ → „Jo“ (EMI-Anzeige und Farming-Welt mit Psychedelicraft im Client prüfen).
+
+## Erledigt
+- [x] **Absturz Farming-Welt (Phase 53):** jeder neu erzeugte Chunk stürzte ab („Feature placement“,
+  `craft:farming_gardens`): `FarmingGardens.placeSign` rief `SignBlockEntity.setText`/`setWaxed` auf, die
+  `markUpdated` → `level.sendBlockUpdated` brauchen; beim Erzeugen hat das Schild noch kein Level. Jetzt
+  `FarmingGardens.labelSign` über die gespeicherten Daten (`loadWithComponents`). Die bisherigen GameTests setzten Beete
+  nur in eine fertige Welt und fanden das nicht; neuer GameTest `bedSignLabelledWithoutLevel` (Schild ohne Level).
+  GameTests Craft **680** grün.
+- [x] Client (Craft + Psychedelicraft, Welt `psytest`): Farming-Welt per Datenpaket im Zuschauermodus besucht, Gärten
+  mit Schildern und vollen Beeten auch in den Reihen der 13 Psychedelicraft-Pflanzen (Listenplätze 60–72, Beetreihen
+  z 42–55 je Garten); kein Absturz mehr.
+- [x] EMI im Client: `@psychedelicraft` 12 Seiten; Werkbank-Rezept und Tooltip (Füllstand) des Wacholderfasses,
+  Verwendungen „Barrel Interaction“ (131 Seiten, Tank mit Flüssigkeit, Rohre, Gefäße) und „Fluid Preparation“
+  (25 Seiten) sauber dargestellt.
+- [x] EMI-Warnungen für Craft-Tags `#c:gems/forcicium`, `#c:ores/monazit` per Übersetzung behoben.
+- [x] Craft **1.2.14** (`releases/craft-1.2.14.jar`), Paket `releases/Craft-1.2.22-curseforge.zip` (46,5 MB; wie
+  1.2.21 mit Craft 1.2.14).
+
+## Offen
+- Sichtprüfung Psychedelicraft durch den Nutzer (Testplan 28.1–28.6), danach Phase 52 abschließen.
+
+## Nächste Schritte
+- Nach der Sichtprüfung Phase 52 als erledigt eintragen.
+
+# Paket 1.3.0 (2026-11-20)
+
+Nutzer: „Mach nen neues paket. 1.3.0“.
+
+## Erledigt
+- [x] Craft **1.3.0** (`releases/craft-1.3.0.jar`; Code wie 1.2.14, Version wie bei 1.1.0/1.2.0 mit dem Paket
+  gleichgezogen).
+- [x] Paket `releases/Craft-1.3.0-curseforge.zip` (46,5 MB): wie 1.2.22 mit Craft 1.3.0 und Psychedelicraft
+  neoforge.4; Manifest nur Name/Version geändert. Nicht im Client gestartet.
+
+## Offen
+- Sichtprüfung Psychedelicraft durch den Nutzer (Testplan 28.1–28.6), danach Phase 52 abschließen.
+
+## Nächste Schritte
+- Nach der Sichtprüfung Phase 52 als erledigt eintragen.
+
+# Client-Test Project Radio (2026-11-20)
+
+Nutzer: „Ist das mit dem Radio schon drin?“ → „Kannst du das Testen?“
+
+## Erledigt
+- [x] Project Radio 2.0.3 steht seit Paket 1.2.16 im Manifest (1466847/9436386, auch in 1.3.0).
+- [x] Client-Test: genau diese Datei von CurseForge geladen, nur für den Test in `run/mods` gelegt (danach wieder
+  entfernt), Hi-Fi-Turm (`project_radio:radio_block`) im Testraum per Datenpaket gesetzt, GUI per Rechtsklick,
+  voreingestellter Sender „Hyrule Radio“, Lautstärke 19 %, Play → GUI „Playing · MP3“, Log „decoded PCM output
+  started“, keine Fehler; Stop funktioniert.
+- Beobachtung: Veil (kommt mit Project Radio) meldet beim Start fehlende Uniforms im CC:Tweaked-Monitor-Shader
+  (`computercraft/monitor_tbo`) – nur Warnungen; CC-Monitore mit Project Radio im Paket nicht geprüft.
+
+## Nächste Schritte
+- Sichtprüfung Psychedelicraft durch den Nutzer, danach Phase 52 abschließen.
+
+# Paket 1.3.1 – eigene Musik für Project Radio (2026-11-20)
+
+Nutzer: MP3s aus dem Musikordner in den MP3-Ordner von Project Radio – „Ja mach das mal, würde dann später noch
+weitere hinzufügen“.
+
+## Erledigt
+- [x] Project Radio liest lokale MP3s aus `config/project_radio/my_music` (≤ 64 MiB je Datei; aus den Texten der Mod,
+  `MusicLibraryScreen`), „Import all“ lädt sie in die Server-Bibliothek (Reiter „Server“, für alle hörbar).
+- [x] Skript `tools/scripts/pack_radio_music.py <Quell-Zip> <Ziel-Zip> <Musikordner> <Version>` (lokal, `tools/` ist nicht im Git): übernimmt das Paket,
+  ersetzt `overrides/config/project_radio/my_music/` durch alle `.mp3` des Ordners (unkomprimiert), setzt Name/Version.
+  Neue Songs: in `X:\Craft\Musik` legen und das Skript mit neuer Version erneut laufen lassen.
+- [x] Paket `releases/Craft-1.3.1-curseforge.zip` (137 MB): wie 1.3.0 plus 18 Songs (86,6 MiB). Zip geprüft.
+  **Nicht im Git**: GitHub lehnt Dateien über 100 MB ab, Git LFS ist nicht eingerichtet (Entscheidung Nutzer offen).
+- Nicht im Client geprüft, ob die Songs in der MP3-Bibliothek erscheinen.
+
+## Offen
+- Große Pakete: Git LFS einrichten oder nur lokal aufbewahren (Nutzer).
+- Sichtprüfung Psychedelicraft durch den Nutzer, danach Phase 52 abschließen.
+
+## Nächste Schritte
+- Entscheidung zu großen Paketen; Sichtprüfung Psychedelicraft.
+
+# Git LFS für große Pakete (2026-11-20)
+
+Nutzer: „LFS Einrichten“.
+
+## Erledigt
+- [x] `git lfs install --local`; in `.gitattributes` nur `releases/Craft-1.3.1-curseforge.zip` (filter=lfs). Ältere
+  Pakete bleiben normale Git-Objekte (alles umstellen hätte ~60 Zips nach LFS geladen, über dem 1-GB-Freikontingent).
+- [x] 1.3.1 committet und gepusht, LFS-Objekt hochgeladen (`git lfs status`: nichts mehr ausstehend).
+- Künftige Pakete über 100 MB einzeln mit `git lfs track "releases/<Zip>"` eintragen (Zeilenende in `.gitattributes`
+  auf LF halten). GitHub-Freikontingent: 1 GB LFS-Speicher und 1 GB Download im Monat ≈ 7 Pakete dieser Größe.
+
+## Offen
+- Sichtprüfung Psychedelicraft durch den Nutzer, danach Phase 52 abschließen.
+
+# Neue Songs: Schallplatten + Radio, Craft 1.3.1 / Paket 1.3.2 (2026-11-21)
+
+Nutzer: „hab neue Song ins Musik hinzugefügt. Mach sie rein als Schallplatte und fürs Radio“.
+
+## Erledigt
+- [x] 7 neue Titel aus `X:\Craft\Musik`: BR3ATH3, Creeper Awww Maaan, Go Easy, Mine All Day, Rettungsschwimmer,
+  Rettungsschwimmer (Kollegah), Schattenklinge – wie gehabt Mono-OGG 44,1 kHz / 64 kbit/s (zusammen 12,6 MB),
+  Etikettfarben neu verteilt (7 Farbtöne). In `MusicDiscs` **angehängt**, damit die Komparatorstufen der ersten 18
+  Platten gleich bleiben. Jetzt 25 Schallplatten.
+- [x] `runData`, danach `build` grün. Craft **1.3.1** (`releases/craft-1.3.1.jar`, 53,6 MB).
+- [x] `tools/scripts/pack_radio_music.py` kann optional die Craft-Jar austauschen (5. Argument).
+- [x] Paket `releases/Craft-1.3.2-curseforge.zip` (187 MB): wie 1.3.1, Craft 1.3.0 → 1.3.1, alle 25 MP3s (122,3 MiB)
+  in `my_music`. Zip geprüft; per Git LFS (einzeln in `.gitattributes`).
+- Nicht im Client geprüft.
+
+## Offen
+- Sichtprüfung Psychedelicraft durch den Nutzer, danach Phase 52 abschließen.
+
+## Nächste Schritte
+- Client-Test Schallplatten/Radio-Bibliothek nur nach Rückfrage.
+
+# Korrektur: Startabsturz Psychedelicraft im CurseForge-Paket (2026-11-21)
+
+Nutzer: „Das Spiel stürzt noch ab“ (Instanz Craft 1.3.2, Absturz beim Start, `Registry is already frozen …
+psychedelicraft:entity.player.heartbeat`).
+
+## Erledigt
+- [x] Ursache: Der `GameRenderer.resize`-Mixin lief schon im `Minecraft`-Konstruktor (vor dem Mod-Laden) und lud
+  `DrugRenderer` → `DrugType` → `PSSounds`, deren statische Initialisierer in die eingefrorenen Registries schreiben.
+- [x] `Psychedelicraft.isBootstrapped()`; der Resize-Mixin tut vor dem Bootstrap nichts (Shader sind dann ohnehin nicht
+  geladen). `psychedelicraft-1.8.9-neoforge.5.jar`, Build grün.
+- [x] Jar direkt in die CurseForge-Instanz „Craft 1.3.2“ getauscht (alte Jar in `mods-backup`).
+- [x] Paket `releases/Craft-1.3.2-curseforge.zip` neu erzeugt (Nutzer: „Mach nochmal neu 1.3.2“): gleiche Version,
+  nur `psychedelicraft-1.8.9-neoforge.4.jar` → `neoforge.5` getauscht; Zip geprüft (80 Einträge, 187 MB, LFS).
+- Nicht im Client geprüft.
+
+- [x] Danach nächster Absturz beim Mod-Laden: Mixin `PackagerFilterMixin` von Create: Logistics Control (steckt als
+  Jar-in-Jar in **Create: Factory Controller**) kann nicht in `PackagerBlockEntity.attemptToSend` injizieren, das
+  Create Factory Logistics (seit Paket 1.2.15) überschreibt. Nutzer: Factory Controller entfernen.
+- [x] Factory Controller (CurseForge-ID 1573767) aus `manifest.json` von 1.3.2 entfernt (119 Mods), Zip geprüft;
+  in der Instanz nach `mods-backup` verschoben. Factory Routing hängt nur optional davon ab.
+- Nicht im Client geprüft.
+
+- [x] Nutzer: „Klappt jetzt, Factory Controler wieder rein, das andere dann raus“ → im Paket 1.3.2 Factory Controller
+  (1573767, Datei 9224923) wieder im Manifest, **Create Factory Logistics** (1218807) entfernt (weiter 119 Mods).
+  Nichts hängt von Factory Logistics ab. In der Instanz ebenso getauscht (Factory-Logistics-Jar in `X:\Craft\mod-backup`).
+- CurseForge entfernt fremde Ordner in der Instanz (`mods-backup` verschwand zweimal) – Sicherungen außerhalb ablegen.
+- Nicht im Client geprüft (Nutzer spielte gerade; Änderung wirkt beim nächsten Start).
+
+- [x] Nutzer: „Distant horizon soll noch raus, dauerhaft“ → Distant Horizons (508933) aus dem Manifest von 1.3.2
+  (118 Mods) und aus der Instanz entfernt (Jar in `X:\Craft\mod-backup`). Kommt in keine künftigen Pakete mehr
+  (in `CLAUDE.md` vermerkt).
+
+- Ingame-Absturz 01:01 (EMI-Suche → Tooltip): Mixin-Konflikt FluidLogistics ↔ Create Factory Logistics in
+  `InventorySummary.erase` – mit dem Entfernen von Factory Logistics erledigt (Factory Abstractions 1.6.0 aus Mobile
+  Packages bleibt, war nicht die Ursache).
+- Radio „Connect timed out“: Standardsender `hyruleradio.fr/stream` ist nicht erreichbar (Port 443 zu, 2026-11-21);
+  andere Streams gehen. Kein Paketfehler – im Radio eine andere Stream-URL eintragen. MP3s liegen in der Instanz
+  (`config/project_radio/my_music`, 25 Dateien); im Spiel: Hi-Fi → „MP3 library“ → „Import all“ → Reiter „Server“.
+
+## Nächste Schritte
+- Nutzer startet die Instanz neu und prüft EMI-Suche und MP3-Import.

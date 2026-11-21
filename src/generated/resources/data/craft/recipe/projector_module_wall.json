@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "craft:projector_focus_matrix"
+    },
+    "B": {
+      "item": "minecraft:obsidian"
+    }
+  },
+  "pattern": [
+    "AA ",
+    "AA ",
+    "BB "
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:projector_module_wall"
+  }
+}

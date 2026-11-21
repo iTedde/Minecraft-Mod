@@ -1,0 +1,32 @@
+{
+  "values": [
+    {
+      "id": "psychedelicraft:agave_plant",
+      "required": false
+    },
+    {
+      "id": "psychedelicraft:peyote",
+      "required": false
+    },
+    {
+      "id": "psychedelicraft:jimsonweed",
+      "required": false
+    },
+    {
+      "id": "psychedelicraft:belladonna",
+      "required": false
+    },
+    {
+      "id": "psychedelicraft:tomatoes",
+      "required": false
+    },
+    {
+      "id": "psychedelicraft:morning_glory",
+      "required": false
+    },
+    {
+      "id": "psychedelicraft:wine_grape_lattice",
+      "required": false
+    }
+  ]
+}

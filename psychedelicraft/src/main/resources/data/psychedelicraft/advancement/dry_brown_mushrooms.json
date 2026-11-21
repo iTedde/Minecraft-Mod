@@ -1,0 +1,34 @@
+{
+  "parent": "psychedelicraft:make_drying_table",
+  "criteria": {
+    "has_the_thing": {
+      "conditions": {
+        "items": [
+          {
+            "items": "psychedelicraft:brown_magic_mushrooms"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "background": "minecraft:textures/gui/advancements/backgrounds/stone.png",
+    "description": {
+      "translate": "advancements.psychedelicraft.dry_brown_mushrooms.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "psychedelicraft:brown_magic_mushrooms"
+    },
+    "title": {
+      "translate": "advancements.psychedelicraft.dry_brown_mushrooms.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_thing"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

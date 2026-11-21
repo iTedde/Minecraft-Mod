@@ -1,0 +1,7 @@
+{
+  "parent": "psychedelicraft:block/crop_lattice_template",
+  "textures": {
+    "crop": "psychedelicraft:block/morning_glory_lattice_stage0",
+    "lattice": "psychedelicraft:block/lattice"
+  }
+}

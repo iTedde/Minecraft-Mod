@@ -1,0 +1,26 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "A": {
+      "item": "craft:advanced_circuit"
+    },
+    "^": {
+      "item": "craft:overclocker_upgrade"
+    },
+    "g": {
+      "item": "craft:double_insulated_gold_cable"
+    },
+    "s": {
+      "item": "craft:splitter_cable"
+    }
+  },
+  "pattern": [
+    "AAA",
+    "^s^",
+    "gAg"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:proximity_booster_module"
+  }
+}

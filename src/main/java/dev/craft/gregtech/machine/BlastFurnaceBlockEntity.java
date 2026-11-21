@@ -30,7 +30,7 @@ import org.jetbrains.annotations.Nullable;
  * {@code GT_MetaTileEntity_BlastFurnace} (spec 13 §5): multiblock controller in front of a 3 × 3 × 4 shell of machine
  * casings. The heat capacity (casings, lava core, heating coils) decides which recipes run.
  */
-public class BlastFurnaceBlockEntity extends GtMachineBlockEntity {
+public class BlastFurnaceBlockEntity extends GtMachineBlockEntity implements GtDeviceInformation {
     public static final int SLOT_INPUT_1 = 0;
     public static final int SLOT_INPUT_2 = 1;
     public static final int SLOT_OUTPUT_1 = 2;
@@ -259,8 +259,14 @@ public class BlastFurnaceBlockEntity extends GtMachineBlockEntity {
         return displayErrorCode;
     }
 
+    @Override
     public int getProgressTime() {
         return progressTime;
+    }
+
+    @Override
+    public int getMaxProgressTime() {
+        return maxProgressTime;
     }
 
     // --- inventory ---

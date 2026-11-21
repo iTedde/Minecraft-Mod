@@ -1,5 +1,8 @@
 package dev.craft.data;
 
+import dev.craft.mffs.MffsItems;
+import dev.craft.mffs.client.MffsClient;
+import java.util.ArrayList;
 import java.util.List;
 
 import dev.craft.Craft;
@@ -16,16 +19,27 @@ import dev.craft.ic2.Ic2Machine;
 import dev.craft.ic2.cable.CableType;
 import dev.craft.ic2.client.Ic2Client;
 import dev.craft.powerplants.PpItems;
+import dev.craft.lightshield.LsItems;
+import dev.craft.music.MusicDiscs;
 import dev.craft.portalgun.PgItems;
 import dev.craft.enderstorage.EsItems;
+import dev.craft.gravisuite.GsItems;
+import dev.craft.nuclearcontrol.NcItems;
+import dev.craft.chargepads.CpItems;
+import dev.craft.mps.MpsItems;
+import dev.craft.gravisuite.client.GraviSuiteClient;
 import dev.craft.enderstorage.client.EnderStorageClient;
+import dev.craft.coppergolem.CopperGolems;
 import dev.craft.ironchest.ChestUpgradeType;
 import dev.craft.ironchest.IronChestItems;
 import dev.craft.ironchest.IronChestType;
 import dev.craft.redpower.RpItems;
 import net.minecraft.data.PackOutput;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
+import net.neoforged.neoforge.registries.DeferredHolder;
 import net.minecraft.world.item.ItemDisplayContext;
+import net.minecraft.client.renderer.block.model.BlockModel;
 import net.neoforged.neoforge.client.model.generators.ModelFile;
 import net.neoforged.neoforge.client.model.generators.ItemModelBuilder;
 import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
@@ -40,6 +54,35 @@ public final class CraftItemModelProvider extends ItemModelProvider {
     @Override
     protected void registerModels() {
         basicItem(PpItems.COKE.get());
+        for (DeferredItem<? extends Item> item : List.of(NcItems.THERMOMETER, NcItems.DIGITAL_THERMOMETER,
+                NcItems.REMOTE_SENSOR_KIT, NcItems.REACTOR_SENSOR_LOCATION_CARD, NcItems.RANGE_UPGRADE,
+                NcItems.ENERGY_SENSOR_KIT, NcItems.LIQUID_SENSOR_KIT, NcItems.ENERGY_SENSOR_LOCATION_CARD,
+                NcItems.ENERGY_ARRAY_LOCATION_CARD, NcItems.LIQUID_SENSOR_LOCATION_CARD, NcItems.TEXT_CARD,
+                NcItems.TIME_CARD, NcItems.COLOR_UPGRADE, NcItems.COUNTER_SENSOR_KIT,
+                NcItems.COUNTER_SENSOR_LOCATION_CARD, NcItems.GT_SENSOR_KIT, NcItems.GT_SENSOR_CARD)) {
+            String name = item.getId().getPath();
+            withExistingParent(name, mcLoc("item/generated")).texture("layer0", modLoc("item/nuclearcontrol/" + name));
+        }
+        for (DeferredHolder<Item, ? extends Item> item : CpItems.ITEMS.getEntries()) {
+            if (!(item.get() instanceof BlockItem)) {
+                String name = item.getId().getPath();
+                withExistingParent(name, mcLoc("item/generated")).texture("layer0", modLoc("item/chargepads/" + name));
+            }
+        }
+        for (DeferredHolder<Item, ? extends Item> item : MffsItems.ITEMS.getEntries()) {
+            if (!(item.get() instanceof BlockItem) && item.get() != MffsItems.FORCE_ENERGY_CRYSTAL.get()) {
+                String name = item.getId().getPath();
+                withExistingParent(name, mcLoc("item/generated")).texture("layer0", modLoc("item/mffs/" + name));
+            }
+        }
+        // Force energy crystal: icon by fill step (items.png 112-116).
+        ItemModelBuilder crystal = withExistingParent("force_energy_crystal", mcLoc("item/generated"))
+                .texture("layer0", modLoc("item/mffs/force_energy_crystal_0"));
+        for (int step = 1; step <= 4; step++) {
+            ModelFile model = withExistingParent("item/mffs/force_energy_crystal_" + step, mcLoc("item/generated"))
+                    .texture("layer0", modLoc("item/mffs/force_energy_crystal_" + step));
+            crystal.override().predicate(MffsClient.FILL, step / 4.0F).model(model).end();
+        }
         basicItem(AdvancedMachinesItems.REFINED_IRON_DUST.get());
         for (DeferredItem<? extends Item> item : List.of(TeItems.INVAR_DUST, TeItems.INVAR_INGOT, TeItems.WOOD_CHIPS,
                 TeItems.SAWDUST, TeItems.COMPRESSED_SAWDUST, TeItems.SLAG, TeItems.RICH_SLAG, TeItems.PNEUMATIC_SERVO,
@@ -65,9 +108,31 @@ public final class CraftItemModelProvider extends ItemModelProvider {
         basicItem(RpItems.PLAN.get());
         basicItem(PgItems.LONG_FALL_BOOT.get());
         basicItem(PgItems.LONG_FALL_BOOTS.get());
+        lightShield();
+        getBuilder("omniwrench").parent(new ModelFile.UncheckedModelFile("item/handheld"))
+                .texture("layer0", modLoc("item/omnitools/omniwrench"));
+        withExistingParent("obsidian_pressure_plate", modLoc("block/obsidian_pressure_plate"));
+        getBuilder("forge_lexicon").parent(new ModelFile.UncheckedModelFile("item/generated"))
+                .texture("layer0", modLoc("item/omnitools/forge_lexicon"));
+        getBuilder("camo_paste").parent(new ModelFile.UncheckedModelFile("item/generated"))
+                .texture("layer0", modLoc("item/secretrooms/camo_paste"));
+        for (String door : List.of("camo_wooden_door", "camo_iron_door")) {
+            getBuilder(door).parent(new ModelFile.UncheckedModelFile("item/generated"))
+                    .texture("layer0", modLoc("item/secretrooms/" + door));
+        }
+        withExistingParent("camo_trapdoor", modLoc("block/camo_trapdoor_bottom"));
+        getBuilder("torch_lever").parent(new ModelFile.UncheckedModelFile("item/generated"))
+                .texture("layer0", mcLoc("block/torch"));
+        for (String gun : List.of("gravity_gun", "charged_gravity_gun")) {
+            getBuilder(gun).parent(new ModelFile.UncheckedModelFile("item/handheld"))
+                    .texture("layer0", modLoc("item/gravitygun/" + gun));
+        }
+        MusicDiscs.tracks().forEach(track -> withExistingParent(track.disc().getId().getPath(), mcLoc("item/generated"))
+                .texture("layer0", modLoc("item/music/" + track.disc().getId().getPath())));
         for (ChestUpgradeType type : ChestUpgradeType.values()) {
             basicItem(IronChestItems.upgrade(type).get());
         }
+        withExistingParent(CopperGolems.SPAWN_EGG.getId().getPath(), mcLoc("item/template_spawn_egg"));
         for (CableType type : CableType.values()) {
             basicItem(Ic2Items.cable(type).get());
         }
@@ -147,6 +212,35 @@ public final class CraftItemModelProvider extends ItemModelProvider {
         }
         engine(EsItems.ENDER_CHEST);
         engine(EsItems.ENDER_TANK);
+        // Modular Powersuits: components, armor and tool as flat icons; the Tinker Table is its block entity model.
+        List<DeferredItem<? extends Item>> mpsItems = new ArrayList<>(MpsItems.components());
+        mpsItems.addAll(MpsItems.armor());
+        mpsItems.add(MpsItems.POWER_TOOL);
+        for (DeferredItem<? extends Item> item : mpsItems) {
+            String name = item.getId().getPath();
+            withExistingParent(name, mcLoc("item/generated")).texture("layer0", modLoc("item/mps/" + name));
+        }
+        engine(MpsItems.TINKER_TABLE);
+        for (List<? extends DeferredItem<? extends Item>> items : List.of(GsItems.simpleItems(), GsItems.armorItems())) {
+            for (DeferredItem<? extends Item> item : items) {
+                String name = item.getId().getPath();
+                withExistingParent(name, mcLoc("item/generated")).texture("layer0", modLoc("item/gravisuite/" + name));
+            }
+        }
+        for (DeferredItem<? extends Item> tool : GsItems.toolItems()) {
+            String name = tool.getId().getPath();
+            withExistingParent(name, mcLoc("item/handheld")).texture("layer0", modLoc("item/gravisuite/" + name));
+        }
+        // GraviTool: one model per mode, the hoe is the base.
+        ItemModelBuilder graviTool = withExistingParent(GsItems.GRAVITOOL.getId().getPath(), mcLoc("item/handheld"))
+                .texture("layer0", modLoc("item/gravisuite/gravitool_hoe"));
+        String[] graviToolModes = {"treetap", "wrench", "screwdriver"};
+        for (int i = 0; i < graviToolModes.length; i++) {
+            String name = "gravitool_" + graviToolModes[i];
+            graviTool.override().predicate(GraviSuiteClient.TOOL_MODE_PROPERTY, (i + 2) / 4.0F)
+                    .model(withExistingParent(name, mcLoc("item/handheld"))
+                            .texture("layer0", modLoc("item/gravisuite/" + name))).end();
+        }
         // Ender pouch: base (global/personal) plus three tinted colour bands.
         ItemModelBuilder pouchPersonal = pouch("ender_pouch_personal", "ender_pouch_personal");
         pouch(EsItems.ENDER_POUCH.getId().getPath(), "ender_pouch").override()
@@ -172,6 +266,39 @@ public final class CraftItemModelProvider extends ItemModelProvider {
                 .texture("layer1", modLoc("item/enderstorage/ender_pouch_band_1"))
                 .texture("layer2", modLoc("item/enderstorage/ender_pouch_band_2"))
                 .texture("layer3", modLoc("item/enderstorage/ender_pouch_band_3"));
+    }
+
+    /** Electric light shield: vanilla shield transforms (models/item/shield*.json), drawn by its BEWLR. */
+    private void lightShield() {
+        String name = LsItems.ELECTRIC_LIGHT_SHIELD.getId().getPath();
+        ModelFile blocking = getBuilder(name + "_blocking").parent(new ModelFile.UncheckedModelFile("builtin/entity"))
+                .guiLight(BlockModel.GuiLight.FRONT).texture("particle", mcLoc("block/iron_block"))
+                .transforms()
+                .transform(ItemDisplayContext.THIRD_PERSON_RIGHT_HAND).rotation(45, 155, 0).translation(-3.49F, 11, -2)
+                .end()
+                .transform(ItemDisplayContext.THIRD_PERSON_LEFT_HAND).rotation(45, 155, 0).translation(11.51F, 7, 2.5F)
+                .end()
+                .transform(ItemDisplayContext.FIRST_PERSON_RIGHT_HAND).rotation(0, 180, -5).translation(-15, 5, -11)
+                .scale(1.25F).end()
+                .transform(ItemDisplayContext.FIRST_PERSON_LEFT_HAND).rotation(0, 180, -5).translation(5, 5, -11)
+                .scale(1.25F).end()
+                .transform(ItemDisplayContext.GUI).rotation(15, -25, -5).translation(2, 3, 0).scale(0.65F).end()
+                .end();
+        getBuilder(name).parent(new ModelFile.UncheckedModelFile("builtin/entity"))
+                .guiLight(BlockModel.GuiLight.FRONT).texture("particle", mcLoc("block/iron_block"))
+                .transforms()
+                .transform(ItemDisplayContext.THIRD_PERSON_RIGHT_HAND).rotation(0, 90, 0).translation(10, 6, -4).end()
+                .transform(ItemDisplayContext.THIRD_PERSON_LEFT_HAND).rotation(0, 90, 0).translation(10, 6, 12).end()
+                .transform(ItemDisplayContext.FIRST_PERSON_RIGHT_HAND).rotation(0, 180, 5).translation(-10, 2, -10)
+                .scale(1.25F).end()
+                .transform(ItemDisplayContext.FIRST_PERSON_LEFT_HAND).rotation(0, 180, 5).translation(10, 0, -10)
+                .scale(1.25F).end()
+                .transform(ItemDisplayContext.GUI).rotation(15, -25, -5).translation(2, 3, 0).scale(0.65F).end()
+                .transform(ItemDisplayContext.FIXED).rotation(0, 180, 0).translation(-4.5F, 4.5F, -5).scale(0.55F)
+                .end()
+                .transform(ItemDisplayContext.GROUND).translation(2, 4, 2).scale(0.25F).end()
+                .end()
+                .override().predicate(mcLoc("blocking"), 1.0F).model(blocking).end();
     }
 
     private void engine(DeferredItem<? extends Item> item) {

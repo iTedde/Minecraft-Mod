@@ -24,6 +24,9 @@ Im Original ein Block mit Metadaten (`IronChest`, ID 975); in 1.21 ein eigener B
 | Kristallkiste (Crystal Chest) | `craft:crystal_chest` | 108 | 12 × 9 | 238 × 256 | `diamondcontainer.png` |
 | Obsidiankiste (Obsidian Chest) | `craft:obsidian_chest` | 108 | 12 × 9 | 238 × 256 | `diamondcontainer.png` |
 
+Nachtrag Phase 35.1 (Nutzer, 2026-10-29): Die Kupferkiste oxidiert wie Vanilla-Kupfer (4 Stufen, wachsbar), als
+Quelle des Kupfergolems – siehe `35-kupfergolem.md` §1 und `abweichungen.md`.
+
 **Block (`BlockIronChest`):**
 - Material Eisen, Härte **3,0**, Explosionswiderstand 3 (1.4.7: `hardness·5 = 15`, intern `/5`). Nur die
   Obsidiankiste hat **10 000**.

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "craft:item/nuclearcontrol/reactor_sensor_location_card"
+  }
+}

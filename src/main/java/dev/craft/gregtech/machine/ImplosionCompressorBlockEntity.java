@@ -27,7 +27,7 @@ import org.jetbrains.annotations.Nullable;
  * {@code GT_MetaTileEntity_ImplosionCompressor} (spec 13 §8): sits on top of a hollow 3 × 3 × 3 cube of machine casings
  * and compresses materials with industrial TNT.
  */
-public class ImplosionCompressorBlockEntity extends GtMachineBlockEntity {
+public class ImplosionCompressorBlockEntity extends GtMachineBlockEntity implements GtDeviceInformation {
     public static final int SLOT_INPUT_1 = 0;
     public static final int SLOT_INPUT_2 = 1;
     public static final int SLOT_OUTPUT_1 = 2;
@@ -196,10 +196,12 @@ public class ImplosionCompressorBlockEntity extends GtMachineBlockEntity {
         return machine;
     }
 
+    @Override
     public int getProgressTime() {
         return progressTime;
     }
 
+    @Override
     public int getMaxProgressTime() {
         return maxProgressTime;
     }

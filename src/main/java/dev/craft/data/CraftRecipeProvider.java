@@ -1,5 +1,8 @@
 package dev.craft.data;
 
+import dev.craft.mffs.MffsItems;
+import dev.craft.mffs.field.ProjectorModule;
+import dev.craft.mffs.field.ProjectorUpgrade;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -24,6 +27,8 @@ import dev.craft.advancedmachines.AdvancedMachinesItems;
 import dev.craft.buildcraft.BcItems;
 import dev.craft.buildcraft.transport.PipeType;
 import dev.craft.buildcraft.engine.EngineType;
+import dev.craft.chargepads.CpItems;
+import dev.craft.chargepads.item.PadModule;
 import dev.craft.compactsolars.CsItems;
 import dev.craft.compactsolars.SolarArrayType;
 import dev.craft.forestry.FrFluids;
@@ -57,13 +62,19 @@ import dev.craft.powerplants.PpItems;
 import dev.craft.enderstorage.EnderStorageRecolourRecipe;
 import dev.craft.enderstorage.EsDataComponents;
 import dev.craft.enderstorage.EsItems;
+import dev.craft.gravisuite.GsItems;
+import dev.craft.nuclearcontrol.EnergyArrayRecipe;
+import dev.craft.nuclearcontrol.NcItems;
+import dev.craft.mps.MpsItems;
 import dev.craft.enderstorage.Frequency;
 import dev.craft.ironchest.ChestUpgradeType;
 import dev.craft.ironchest.IronChestItems;
 import dev.craft.ironchest.IronChestType;
+import dev.craft.lightshield.LsItems;
 import dev.craft.portalgun.PgItems;
 import dev.craft.redpower.RpGem;
 import dev.craft.redpower.RpItems;
+import net.minecraft.advancements.Criterion;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.component.DataComponents;
@@ -134,8 +145,15 @@ public final class CraftRecipeProvider extends RecipeProvider {
         redPowerTools();
         redPowerTable();
         longFallBoots();
+        lightShield();
+        kleinkram();
         ironChests();
         enderStorage();
+        graviSuite();
+        nuclearControl();
+        chargePads();
+        mffs();
+        modularPowersuits();
         advancedMachines();
         thermalExpansion();
         gregTechCircuitBoards();
@@ -745,45 +763,47 @@ public final class CraftRecipeProvider extends RecipeProvider {
                 .define('K', Items.BRICKS).save();
         shaped(PpItems.HIGH_PRESSURE_BOILER_FIREBOX, 1, "high_pressure_boiler_firebox").pattern("CCC", "CFC", "CCC")
                 .define('C', PpItems.HIGH_PRESSURE_BOILER_CASING).define('F', PpItems.BOILER_FIREBOX).save();
-        shaped(PpItems.LARGE_TURBINE_CASING, 8, "large_turbine_casing").pattern("PPP", "PAP", "PPP")
-                .define('P', CraftItemTagsProvider.PLATES_STEEL).define('A', Ic2Items.ADVANCED_MACHINE_CASING).save();
-        shaped(PpItems.LARGE_TURBINE_ROTOR, 1, "large_turbine_rotor").pattern("TWT", "WRW", "TWT")
+        // spec 32 §4: half refined iron, rotor without tungstensteel
+        shaped(PpItems.LARGE_TURBINE_CASING, 8, "large_turbine_casing").pattern("PIP", "IAI", "PIP")
+                .define('P', CraftItemTagsProvider.PLATES_STEEL).define('I', CraftItemTagsProvider.PLATES_REFINED_IRON)
+                .define('A', Ic2Items.ADVANCED_MACHINE_CASING).save();
+        shaped(PpItems.LARGE_TURBINE_ROTOR, 1, "large_turbine_rotor").pattern("STS", "SRS", "STS")
                 .define('T', CraftItemTagsProvider.PLATES_TITANIUM)
-                .define('W', CraftItemTagsProvider.PLATES_TUNGSTENSTEEL).define('R', PpItems.TURBINE_ROTOR).save();
+                .define('S', CraftItemTagsProvider.PLATES_STEEL).define('R', PpItems.TURBINE_ROTOR).save();
         shaped(PpItems.LARGE_STEAM_TURBINE, 1, "large_steam_turbine").pattern("CRC", "GHG", "CRC")
                 .define('C', PpItems.LARGE_TURBINE_CASING).define('R', PpItems.LARGE_TURBINE_ROTOR)
                 .define('G', PpItems.STEAM_TURBINE).define('H', machine(Ic2Machine.HV_TRANSFORMER)).save();
-        shaped(PpItems.LARGE_WATER_TURBINE_CASING, 8, "large_water_turbine_casing").pattern("SRS", "RMR", "SRS")
+        // spec 32 §3: 6 instead of 8
+        shaped(PpItems.LARGE_WATER_TURBINE_CASING, 6, "large_water_turbine_casing").pattern("SRS", "RMR", "SRS")
                 .define('S', CraftItemTagsProvider.PLATES_STEEL)
                 .define('R', CraftItemTagsProvider.PLATES_REFINED_IRON).define('M', Ic2Items.MACHINE_CASING).save();
         shaped(PpItems.LARGE_WATER_TURBINE, 1, "large_water_turbine").pattern("WCW", "CHC", "WCW")
                 .define('W', PpItems.WATER_TURBINE).define('C', PpItems.LARGE_WATER_TURBINE_CASING)
                 .define('H', machine(Ic2Machine.HV_TRANSFORMER)).save();
-        shaped(PpItems.WIND_TURBINE_MAST, 8, "wind_turbine_mast").pattern("R R", "RRR", "R R")
-                .define('R', CraftItemTagsProvider.INGOTS_REFINED_IRON).save();
-        shaped(PpItems.LARGE_WIND_TURBINE, 1, "large_wind_turbine").pattern("WAW", "GHG", "WAW")
+        // spec 32 §2: steel masts, four advanced machine casings, steel rotor from plates only
+        shaped(PpItems.WIND_TURBINE_MAST, 4, "wind_turbine_mast").pattern("S S", "SSS", "S S")
+                .define('S', CraftItemTagsProvider.PLATES_STEEL).save();
+        shaped(PpItems.LARGE_WIND_TURBINE, 1, "large_wind_turbine").pattern("WAW", "AHA", "WAW")
                 .define('W', machine(Ic2Machine.WIND_MILL)).define('A', Ic2Items.ADVANCED_MACHINE_CASING)
-                .define('G', machine(Ic2Machine.GENERATOR)).define('H', machine(Ic2Machine.HV_TRANSFORMER)).save();
+                .define('H', machine(Ic2Machine.HV_TRANSFORMER)).save();
         shaped(PpItems.IRON_WIND_ROTOR, 1, "iron_wind_rotor").pattern("PIP", "IBI", "PIP")
                 .define('P', CraftItemTagsProvider.PLATES_IRON).define('I', Items.IRON_INGOT)
                 .define('B', Items.IRON_BLOCK).save();
-        shaped(PpItems.STEEL_WIND_ROTOR, 1, "steel_wind_rotor").pattern("PSP", "SRS", "PSP")
-                .define('P', CraftItemTagsProvider.PLATES_STEEL).define('S', CraftItemTagsProvider.INGOTS_STEEL)
-                .define('R', PpItems.IRON_WIND_ROTOR).save();
+        shaped(PpItems.STEEL_WIND_ROTOR, 1, "steel_wind_rotor").pattern("PPP", "PRP", "PPP")
+                .define('P', CraftItemTagsProvider.PLATES_STEEL).define('R', PpItems.IRON_WIND_ROTOR).save();
         shaped(PpItems.CARBON_WIND_ROTOR, 1, "carbon_wind_rotor").pattern("CAC", "ARA", "CAC")
                 .define('C', Ic2Items.CARBON_PLATE).define('A', Ic2Items.ADVANCED_ALLOY)
                 .define('R', PpItems.STEEL_WIND_ROTOR).save();
     }
 
-    // --- Compact Solars (multiblock variant, spec 11 §4): shapeless transformer → controller ---
+    // --- Compact Solars (spec 11 §4): arrays are leftovers, only taken apart ---
 
     private void compactSolars() {
-        // Original Compact Solars recipes: 8 of the tier below around its transformer (user, 2026-10-20)
+        // No more arrays (user, 2026-10-24): each one gives back the 8 of the tier below it was made of
         for (SolarArrayType type : SolarArrayType.values()) {
             ItemLike lower = type.ordinal() == 0 ? machine(Ic2Machine.SOLAR_PANEL)
                     : CsItems.array(SolarArrayType.values()[type.ordinal() - 1]);
-            shaped(CsItems.array(type), 1, type.getName()).pattern("SSS", "SXS", "SSS").define('S', lower)
-                    .define('X', machine(type.getTransformer())).save();
+            shapeless(lower, 8, type.getName() + "_disassembly", Ingredient.of(CsItems.array(type)));
         }
     }
 
@@ -803,7 +823,14 @@ public final class CraftRecipeProvider extends RecipeProvider {
         ic2Consumer(ConverterType.IC2_MV_CONSUMER, Ic2Machine.MV_TRANSFORMER);
         ic2Consumer(ConverterType.IC2_HV_CONSUMER, Ic2Machine.HV_TRANSFORMER);
         ic2Consumer(ConverterType.IC2_EV_CONSUMER, Ic2Machine.MFSU);
+        // new content (spec 33 §3)
+        bcShaped(PcItems.converter(ConverterType.FE_PRODUCER)).pattern("G G").pattern(" R ").pattern("G G")
+                .define('G', Items.GOLD_INGOT).define('R', Items.REDSTONE_BLOCK)
+                .unlockedBy("has_energy_bridge", has(PcItems.ENERGY_BRIDGE)).save(output, id("fe_producer"));
         for (ConverterType type : ConverterType.values()) {
+            if (!type.hasCounterpart()) {
+                continue;
+            }
             ItemLike from = PcItems.converter(type);
             ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, PcItems.converter(type.counterpart()))
                     .requires(from).unlockedBy("has_converter", has(from))
@@ -868,6 +895,8 @@ public final class CraftRecipeProvider extends RecipeProvider {
         pipe(PipeType.OBSIDIAN_TRANSPORT, Ingredient.of(Items.OBSIDIAN), Ingredient.of(Items.OBSIDIAN));
         pipe(PipeType.EMERALD_TRANSPORT, Ingredient.of(Items.EMERALD), Ingredient.of(Items.EMERALD));
         pipe(PipeType.VOID_TRANSPORT, Ingredient.of(Items.INK_SAC), Ingredient.of(Items.REDSTONE));
+        // new content (spec 31)
+        pipe(PipeType.DISTRIBUTION_TRANSPORT, Items.COMPARATOR, PipeType.DIAMOND_TRANSPORT);
         // pipeWaterproof: cactus green (dye meta 2).
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BcItems.PIPE_WATERPROOF).requires(Items.GREEN_DYE)
                 .unlockedBy("has_green_dye", has(Items.GREEN_DYE)).save(output, id("pipe_waterproof"));
@@ -2126,12 +2155,16 @@ public final class CraftRecipeProvider extends RecipeProvider {
 
     /**
      * RedPower project table ({@code RedPowerBase} 354, stone, planks, crafting table, chest) and blank plan: paper and
-     * indigo dye, here any blue dye (RedPower registers indigo as {@code dyeBlue}, spec 20 §4 F4).
+     * indigo dye, here any blue dye (RedPower registers indigo as {@code dyeBlue}, spec 20 §4 F4). Large project table
+     * (spec 34): project table, two chests and six iron ingots.
      */
     private void redPowerTable() {
         shaped(RpItems.PROJECT_TABLE, 1, "project_table").pattern("SSS", "WTW", "WCW")
                 .define('S', Items.STONE).define('W', ItemTags.PLANKS).define('T', Items.CRAFTING_TABLE)
                 .define('C', Items.CHEST).save();
+        shaped(RpItems.LARGE_PROJECT_TABLE, 1, "large_project_table").pattern("III", "CPC", "III")
+                .define('I', Tags.Items.INGOTS_IRON).define('C', Tags.Items.CHESTS_WOODEN)
+                .define('P', RpItems.PROJECT_TABLE.get()).save();
         shapeless(RpItems.BLANK_PLAN, 1, "blank_plan", Ingredient.of(Items.PAPER), Ingredient.of(Tags.Items.DYES_BLUE));
     }
 
@@ -2146,6 +2179,115 @@ public final class CraftRecipeProvider extends RecipeProvider {
                 Ingredient.of(PgItems.LONG_FALL_BOOT));
         shapeless(PgItems.LONG_FALL_BOOT, 2, "long_fall_boot_from_long_fall_boots",
                 Ingredient.of(PgItems.LONG_FALL_BOOTS));
+    }
+
+    /** Phase 50 small mods (spec 50): Obsidian Pressure Plate, OmniTools. */
+    private void kleinkram() {
+        ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, dev.craft.obsidiplates.ObsidiPlates.OBSIDIAN_PRESSURE_PLATE_ITEM)
+                .pattern("##").define('#', Items.OBSIDIAN)
+                .unlockedBy("has_obsidian", has(Items.OBSIDIAN)).save(output, id("obsidian_pressure_plate"));
+        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, dev.craft.omnitools.OmniTools.OMNIWRENCH)
+                .pattern("D D").pattern(" G ").pattern(" W ").define('D', Items.DIAMOND).define('G', Items.GOLD_INGOT)
+                .define('W', Items.CYAN_WOOL)
+                .unlockedBy("has_diamond", has(Items.DIAMOND)).save(output, id("omniwrench"));
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, dev.craft.omnitools.OmniTools.MYSTICAL_PLINTH_ITEM)
+                .pattern("GWG").pattern("OOO").define('G', Items.GOLD_INGOT).define('W', Items.CYAN_WOOL)
+                .define('O', Items.OBSIDIAN)
+                .unlockedBy("has_obsidian", has(Items.OBSIDIAN)).save(output, id("mystical_plinth"));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.TOOLS, dev.craft.omnitools.OmniTools.FORGE_LEXICON)
+                .requires(Items.BOOK).requires(Items.GOLD_INGOT).requires(Items.IRON_INGOT).requires(Items.CYAN_WOOL)
+                .unlockedBy("has_book", has(Items.BOOK)).save(output, id("forge_lexicon"));
+        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, dev.craft.gravitygun.GravityGun.GRAVITY_GUN)
+                .pattern("DEI").pattern("EGE").pattern("IEO").define('D', Items.DIAMOND).define('E', Items.ENDER_PEARL)
+                .define('I', Items.IRON_INGOT).define('O', Items.OBSIDIAN).define('G', Items.GLOWSTONE)
+                .unlockedBy("has_ender_pearl", has(Items.ENDER_PEARL)).save(output, id("gravity_gun"));
+        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, dev.craft.gravitygun.GravityGun.CHARGED_GRAVITY_GUN)
+                .pattern("DEI").pattern("EGE").pattern("IEO").define('D', Items.DIAMOND).define('E', Items.ENDER_PEARL)
+                .define('I', Items.IRON_INGOT).define('O', Items.OBSIDIAN).define('G', Items.NETHER_STAR)
+                .unlockedBy("has_nether_star", has(Items.NETHER_STAR)).save(output, id("charged_gravity_gun"));
+        secretRooms();
+    }
+
+    /** Secret Rooms (spec 50 §4): {@code SecretRooms.addRecipes}. */
+    private void secretRooms() {
+        var paste = dev.craft.secretrooms.SecretRooms.CAMO_PASTE;
+        for (var base : List.of(Items.DIRT, Items.SAND, Items.CLAY_BALL)) {
+            ShapedRecipeBuilder.shaped(RecipeCategory.MISC, paste, 9).pattern("X#X").pattern("$0$").pattern("@#@")
+                    .define('X', Tags.Items.DYES_RED).define('$', Tags.Items.DYES_GREEN)
+                    .define('@', Tags.Items.DYES_YELLOW).define('#', Tags.Items.DYES_BLACK).define('0', base)
+                    .unlockedBy("has_dye", has(Tags.Items.DYES_RED))
+                    .save(output, id("camo_paste_from_" + BuiltInRegistries.ITEM.getKey(base).getPath()));
+        }
+        var ghost = dev.craft.secretrooms.SecretRooms.GHOST_BLOCK;
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, ghost, 4).pattern("X0X").pattern("0 0")
+                .pattern("X0X").define('X', paste).define('0', Items.ROTTEN_FLESH)
+                .unlockedBy("has_paste", has(paste)).save(output, id("ghost_block_from_rotten_flesh"));
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, ghost, 4).pattern("X0X").pattern("0 0")
+                .pattern("X0X").define('X', paste).define('0', ItemTags.WOOL)
+                .unlockedBy("has_paste", has(paste)).save(output, id("ghost_block_from_wool"));
+        var oneWay = dev.craft.secretrooms.SecretRooms.ONE_WAY_GLASS;
+        String[][] patterns = {{"X00", "X00", "X00"}, {"00X", "00X", "00X"}, {"XXX", "000", "000"},
+                {"000", "000", "XXX"}};
+        for (int i = 0; i < patterns.length; i++) {
+            ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, oneWay, 9).pattern(patterns[i][0])
+                    .pattern(patterns[i][1]).pattern(patterns[i][2]).define('X', paste).define('0', Items.GLASS)
+                    .unlockedBy("has_paste", has(paste)).save(output, id("one_way_glass_" + i));
+        }
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, oneWay).requires(paste)
+                .requires(Items.GLASS).unlockedBy("has_paste", has(paste)).save(output, id("one_way_glass_single"));
+        ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, dev.craft.secretrooms.SecretRooms.CAMO_GATE).pattern("#0#").pattern("0A0")
+                .pattern("#@#").define('#', ItemTags.PLANKS).define('0', paste).define('@', Items.REDSTONE)
+                .define('A', Items.ENDER_PEARL).unlockedBy("has_paste", has(paste)).save(output, id("camo_gate"));
+        ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, dev.craft.secretrooms.SecretRooms.TORCH_LEVER).pattern("#").pattern("X")
+                .define('#', Items.TORCH).define('X', Items.REDSTONE)
+                .unlockedBy("has_torch", has(Items.TORCH)).save(output, id("torch_lever"));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.REDSTONE, dev.craft.secretrooms.SecretRooms.CAMO_WOODEN_DOOR.get()).requires(paste)
+                .requires(Items.OAK_DOOR).unlockedBy("has_paste", has(paste)).save(output, id("camo_wooden_door"));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.REDSTONE, dev.craft.secretrooms.SecretRooms.CAMO_IRON_DOOR.get()).requires(paste)
+                .requires(Items.IRON_DOOR).unlockedBy("has_paste", has(paste)).save(output, id("camo_iron_door"));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.REDSTONE, dev.craft.secretrooms.SecretRooms.CAMO_TRAPDOOR).requires(paste)
+                .requires(Items.OAK_TRAPDOOR).unlockedBy("has_paste", has(paste)).save(output, id("camo_trapdoor"));
+        // "X0X / 0@0 / X0X" with rotten flesh or wool around the middle item, as in SecretRooms.addRecipes.
+        record Ring(net.minecraft.world.level.ItemLike result, int count, net.minecraft.world.item.crafting.Ingredient middle,
+                    String name) {
+        }
+        var rings = List.of(
+                new Ring(dev.craft.secretrooms.SecretRooms.CAMO_REDSTONE, 1, Ingredient.of(Items.REDSTONE), "camo_redstone"),
+                new Ring(dev.craft.secretrooms.SecretRooms.CAMO_LEVER, 1, Ingredient.of(Items.LEVER), "camo_lever"),
+                new Ring(dev.craft.secretrooms.SecretRooms.CAMO_BUTTON, 1, Ingredient.of(Items.STONE_BUTTON), "camo_button"),
+                new Ring(paste, 9, Ingredient.of(ItemTags.WOODEN_STAIRS), "camo_paste_from_wooden_stairs"),
+                new Ring(dev.craft.secretrooms.SecretRooms.CAMO_STAIRS, 4, Ingredient.of(Items.COBBLESTONE_STAIRS), "camo_stairs"),
+                new Ring(dev.craft.secretrooms.SecretRooms.CAMO_CHEST, 1, Ingredient.of(Items.CHEST), "camo_chest"));
+        for (var ring : rings) {
+            for (var filler : List.of(Ingredient.of(Items.ROTTEN_FLESH), Ingredient.of(ItemTags.WOOL))) {
+                String suffix = filler.test(new net.minecraft.world.item.ItemStack(Items.ROTTEN_FLESH))
+                        ? "_rotten_flesh" : "_wool";
+                ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, ring.result(), ring.count()).pattern("X0X")
+                        .pattern("0@0").pattern("X0X").define('X', paste).define('0', filler)
+                        .define('@', ring.middle()).unlockedBy("has_paste", has(paste))
+                        .save(output, id(ring.name() + suffix));
+            }
+        }
+        for (var filler : List.of(Ingredient.of(Items.ROTTEN_FLESH), Ingredient.of(ItemTags.WOOL))) {
+            String suffix = filler.test(new net.minecraft.world.item.ItemStack(Items.ROTTEN_FLESH))
+                    ? "_rotten_flesh" : "_wool";
+            ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, dev.craft.secretrooms.SecretRooms.CAMO_PRESSURE_PLATE).pattern("X@X")
+                    .pattern("0 0").pattern("X0X").define('X', paste).define('0', filler)
+                    .define('@', Items.OAK_PRESSURE_PLATE).unlockedBy("has_paste", has(paste))
+                    .save(output, id("camo_pressure_plate" + suffix));
+            ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, dev.craft.secretrooms.SecretRooms.CAMO_PLAYER_PRESSURE_PLATE).pattern("X@X")
+                    .pattern("0#0").pattern("X0X").define('X', paste).define('0', filler)
+                    .define('@', Items.OAK_PRESSURE_PLATE).define('#', Items.IRON_INGOT)
+                    .unlockedBy("has_paste", has(paste)).save(output, id("camo_player_pressure_plate" + suffix));
+        }
+    }
+
+    /** Electric light shield (spec 30 §6): vanilla recipe without charge transfer, so the shield comes out empty. */
+    private void lightShield() {
+        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, LsItems.ELECTRIC_LIGHT_SHIELD).pattern("ALA")
+                .pattern("ASA").pattern(" R ").define('A', Ic2Items.ADVANCED_ALLOY).define('L', Ic2Items.LUMINATOR)
+                .define('S', Items.SHIELD).define('R', Ic2Items.RE_BATTERY)
+                .unlockedBy("has_luminator", has(Ic2Items.LUMINATOR)).save(output, id("electric_light_shield"));
     }
 
     /**
@@ -2683,6 +2825,163 @@ public final class CraftRecipeProvider extends RecipeProvider {
 
     /** {@code m} material, {@code P} previous chest, {@code G} glass. */
     /**
+     * GraviSuite (spec 28 §10): IC2 {@code AdvRecipe}s (charge transfer, IC2 parts undamaged only), except the
+     * superconductor (cover), which are vanilla recipes, and the magnetron (ore recipe).
+     */
+    /**
+     * Modular Powersuits (spec 29 §10): the vanilla set plus the four GregTech recipes that work in the pack (the
+     * others use ore names GregTech never registers); vanilla shaped recipes may be mirrored as in 1.4.7.
+     */
+    private void modularPowersuits() {
+        mps(MpsItems.WIRING, 8, "wiring", has(Items.REDSTONE), "GRG").define('G', Items.GOLD_NUGGET)
+                .define('R', Items.REDSTONE).save(output, id("mps_wiring"));
+        mps(MpsItems.SOLENOID, 1, "solenoid", has(MpsItems.WIRING), "WIW", "WIW", "WIW")
+                .define('W', MpsItems.WIRING).define('I', Items.IRON_INGOT).save(output, id("mps_solenoid"));
+        mps(MpsItems.SERVO, 1, "servo", has(MpsItems.SOLENOID), " W ", "EIE").define('W', MpsItems.WIRING)
+                .define('E', MpsItems.SOLENOID).define('I', Items.IRON_INGOT).save(output, id("mps_servo"));
+        mps(MpsItems.GLIDER_WING, 1, "glider_wing", has(Items.IRON_INGOT), " II", "II ", "I  ")
+                .define('I', Items.IRON_INGOT).save(output, id("mps_glider_wing"));
+        mps(MpsItems.ION_THRUSTER, 1, "ion_thruster", has(MpsItems.FIELD_EMITTER), " FE", "IG ", "IFE")
+                .define('F', MpsItems.FIELD_EMITTER).define('E', MpsItems.SOLENOID).define('I', Items.IRON_INGOT)
+                .define('G', Items.GLOWSTONE_DUST).save(output, id("mps_ion_thruster"));
+        mps(MpsItems.LV_CAPACITOR, 1, "lv_capacitor", has(MpsItems.WIRING), "WPI", "W W")
+                .define('W', MpsItems.WIRING).define('P', Items.PAPER).define('I', Items.IRON_INGOT)
+                .save(output, id("mps_lv_capacitor"));
+        mps(MpsItems.MV_CAPACITOR, 1, "mv_capacitor", has(MpsItems.WIRING), "GPL", "W W")
+                .define('G', Items.GOLD_NUGGET).define('P', Items.PAPER).define('L', Items.LAPIS_LAZULI)
+                .define('W', MpsItems.WIRING).save(output, id("mps_mv_capacitor"));
+        mps(MpsItems.HV_CAPACITOR, 1, "hv_capacitor", has(MpsItems.WIRING), "EPG", "W W")
+                .define('E', Items.ENDER_PEARL).define('P', Items.GLASS).define('G', Items.GLOWSTONE_DUST)
+                .define('W', MpsItems.WIRING).save(output, id("mps_hv_capacitor"));
+        mps(MpsItems.PARACHUTE, 1, "parachute", has(Items.STRING), "WWW", "S S").define('W', Items.WHITE_WOOL)
+                .define('S', Items.STRING).save(output, id("mps_parachute"));
+        mps(MpsItems.PLATING_BASIC, 1, "plating_basic", has(MpsItems.WIRING), "II", "CI", "II")
+                .define('I', Items.IRON_INGOT).define('C', MpsItems.WIRING).save(output, id("mps_plating_basic"));
+        mps(MpsItems.PLATING_ADVANCED, 1, "plating_advanced", has(MpsItems.SOLENOID), "II", "CI", "II")
+                .define('I', Items.DIAMOND).define('C', MpsItems.SOLENOID).save(output, id("mps_plating_advanced"));
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, Items.IRON_INGOT, 5).pattern("P")
+                .define('P', MpsItems.PLATING_BASIC).unlockedBy("has_plating", has(MpsItems.PLATING_BASIC))
+                .save(output, id("mps_iron_from_plating"));
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, Items.DIAMOND, 5).pattern("P")
+                .define('P', MpsItems.PLATING_ADVANCED).unlockedBy("has_plating", has(MpsItems.PLATING_ADVANCED))
+                .save(output, id("mps_diamond_from_plating"));
+        mps(MpsItems.FIELD_EMITTER, 1, "field_emitter", has(MpsItems.SOLENOID), "SES", "ESE", "SES")
+                .define('S', MpsItems.SOLENOID).define('E', Items.ENDER_PEARL).save(output, id("mps_field_emitter"));
+        mps(MpsItems.LASER_EMITTER, 1, "laser_emitter", has(MpsItems.WIRING), "YTG", "TWT", "BTR")
+                .define('Y', Items.GLOWSTONE_DUST).define('T', Items.GLASS).define('G', Items.GREEN_DYE)
+                .define('W', MpsItems.WIRING).define('B', Items.LAPIS_LAZULI).define('R', Items.RED_DYE)
+                .save(output, id("mps_laser_emitter"));
+        mps(MpsItems.CONTROL_CIRCUIT, 1, "control_circuit", has(MpsItems.WIRING), "WCI", "RGC", "IRW")
+                .define('W', MpsItems.WIRING).define('C', Items.GREEN_DYE).define('I', Items.GOLD_INGOT)
+                .define('R', Items.REDSTONE).define('G', Items.GLOWSTONE_DUST).save(output, id("mps_control_circuit"));
+        mps(MpsItems.SOLAR_PANEL, 1, "solar_panel", has(Items.GLASS_PANE), "PPP", "PLP", "PPP")
+                .define('P', Items.GLASS_PANE).define('L', Items.LAPIS_LAZULI).save(output, id("mps_solar_panel"));
+        mps(MpsItems.TINKER_TABLE, 1, "tinker_table", has(Items.EMERALD), "ILI", "LEL", "ILI")
+                .define('I', Items.IRON_INGOT).define('L', Items.LAPIS_LAZULI).define('E', Items.EMERALD)
+                .save(output, id("mps_tinker_table"));
+        mps(MpsItems.POWER_ARMOR_HEAD, 1, "power_armor", has(MpsItems.WIRING), "III", "C C")
+                .define('I', Items.IRON_INGOT).define('C', MpsItems.WIRING).save(output, id("mps_power_armor_head"));
+        mps(MpsItems.POWER_ARMOR_TORSO, 1, "power_armor", has(MpsItems.WIRING), "I I", "CIC", "III")
+                .define('I', Items.IRON_INGOT).define('C', MpsItems.WIRING).save(output, id("mps_power_armor_torso"));
+        mps(MpsItems.POWER_ARMOR_LEGS, 1, "power_armor", has(MpsItems.WIRING), "III", "C C", "I I")
+                .define('I', Items.IRON_INGOT).define('C', MpsItems.WIRING).save(output, id("mps_power_armor_legs"));
+        mps(MpsItems.POWER_ARMOR_FEET, 1, "power_armor", has(MpsItems.WIRING), "C C", "I I")
+                .define('I', Items.IRON_INGOT).define('C', MpsItems.WIRING).save(output, id("mps_power_armor_feet"));
+        mps(MpsItems.POWER_TOOL, 1, "power_armor", has(MpsItems.WIRING), " C ", "CI ", " IC")
+                .define('I', Items.IRON_INGOT).define('C', MpsItems.WIRING).save(output, id("mps_power_tool"));
+        // GregTech set: only these four resolve in the pack.
+        mps(MpsItems.WIRING, 2, "wiring", has(CraftItemTagsProvider.INGOTS_SILVER), "CCC", "SSS", "CCC")
+                .define('C', Ic2Items.cable(CableType.COPPER)).define('S', CraftItemTagsProvider.INGOTS_SILVER)
+                .save(output, id("mps_wiring_gt"));
+        mps(MpsItems.PARACHUTE, 1, "parachute", has(Ic2Items.CARBON_PLATE), "WWW", "S S", "CNC")
+                .define('W', Items.WHITE_WOOL).define('S', Items.STRING).define('C', Ic2Items.CARBON_PLATE)
+                .define('N', GtItems.NITROGEN_CELL).save(output, id("mps_parachute_gt"));
+        mps(MpsItems.LASER_EMITTER, 1, "laser_emitter", has(Ic2Items.LUMINATOR), "LLL", "RGB", "LLL")
+                .define('L', Ic2Items.LUMINATOR).define('R', CraftItemTagsProvider.GEMS_RUBY)
+                .define('G', CraftItemTagsProvider.GEMS_GREEN_SAPPHIRE).define('B', CraftItemTagsProvider.GEMS_SAPPHIRE)
+                .save(output, id("mps_laser_emitter_gt"));
+        mps(MpsItems.SOLENOID, 1, "solenoid", has(CraftItemTagsProvider.INGOTS_STEEL), "WSW", "WSW", "WSW")
+                .define('W', MpsItems.WIRING).define('S', CraftItemTagsProvider.INGOTS_STEEL)
+                .save(output, id("mps_solenoid_gt"));
+    }
+
+    private static ShapedRecipeBuilder mps(ItemLike result, int count, String group,
+                                           Criterion<?> unlock, String... pattern) {
+        ShapedRecipeBuilder builder = ShapedRecipeBuilder.shaped(RecipeCategory.MISC, result, count)
+                .group("craft:mps_" + group).unlockedBy("has_ingredient", unlock);
+        for (String row : pattern) {
+            builder.pattern(row);
+        }
+        return builder;
+    }
+
+    private void graviSuite() {
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, GsItems.SUPERCONDUCTOR_COVER, 3)
+                .pattern("RBR").pattern("CCC").pattern("RBR").define('R', Ic2Items.ADVANCED_ALLOY)
+                .define('B', Ic2Items.IRIDIUM_PLATE).define('C', Ic2Items.CARBON_PLATE)
+                .unlockedBy("has_iridium_plate", has(Ic2Items.IRIDIUM_PLATE)).save(output, id("superconductor_cover"));
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, GsItems.SUPERCONDUCTOR, 3)
+                .pattern("RRR").pattern("CBC").pattern("RRR").define('R', GsItems.SUPERCONDUCTOR_COVER)
+                .define('B', Items.GOLD_INGOT).define('C', Ic2Items.cable(CableType.GLASS_FIBRE))
+                .unlockedBy("has_superconductor_cover", has(GsItems.SUPERCONDUCTOR_COVER))
+                .save(output, id("superconductor"));
+        shaped(GsItems.COOLING_CORE, 1, "cooling_core").pattern("RBR", "CDC", "RBR")
+                .define('R', fresh(Ic2Items.COOLANT_CELL_60K)).define('B', fresh(Ic2Items.ADVANCED_HEAT_EXCHANGER))
+                .define('C', Ic2Items.HEAT_CAPACITY_REACTOR_PLATING).define('D', Ic2Items.IRIDIUM_PLATE).save();
+        shaped(GsItems.GRAVITATION_ENGINE, 1, "gravitation_engine").pattern("RBR", "CDC", "RBR")
+                .define('R', machine(Ic2Machine.TESLA_COIL)).define('B', GsItems.SUPERCONDUCTOR)
+                .define('C', GsItems.COOLING_CORE).define('D', machine(Ic2Machine.HV_TRANSFORMER)).save();
+        shaped(GsItems.ULTIMATE_LAPPACK, 1, "ultimate_lappack").pattern("RBR", "RDR", "RAR")
+                .define('R', Ic2Items.LAPOTRON_CRYSTAL).define('B', Ic2Items.IRIDIUM_PLATE)
+                .define('D', Ingredient.of(Ic2Items.LAPPACK, GsItems.ADVANCED_LAPPACK))
+                .define('A', GsItems.SUPERCONDUCTOR).save();
+        shaped(GsItems.ADVANCED_LAPPACK, 1, "advanced_lappack").pattern("A", "B", "C").define('A', Ic2Items.LAPPACK)
+                .define('B', Ic2Items.ADVANCED_CIRCUIT).define('C', Ic2Items.LAPOTRON_CRYSTAL).save();
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, GsItems.MAGNETRON)
+                .pattern("ABA").pattern("BCB").pattern("ABA").define('A', CraftItemTagsProvider.INGOTS_REFINED_IRON)
+                .define('B', Tags.Items.INGOTS_COPPER).define('C', GsItems.SUPERCONDUCTOR)
+                .unlockedBy("has_superconductor", has(GsItems.SUPERCONDUCTOR)).save(output, id("magnetron"));
+        shaped(GsItems.VAJRA_CORE, 1, "vajra_core").pattern(" A ", "BCB", "FDF").define('A', GsItems.MAGNETRON)
+                .define('B', Ic2Items.IRIDIUM_PLATE).define('C', machine(Ic2Machine.TESLA_COIL))
+                .define('F', GsItems.SUPERCONDUCTOR).define('D', machine(Ic2Machine.HV_TRANSFORMER)).save();
+        shaped(GsItems.ENGINE_BOOSTER, 1, "engine_booster").pattern("ABA", "CDC", "BFB")
+                .define('A', Items.GLOWSTONE_DUST).define('B', Ic2Items.ADVANCED_ALLOY)
+                .define('C', Ic2Items.ADVANCED_CIRCUIT).define('D', Ic2Items.OVERCLOCKER_UPGRADE)
+                .define('F', fresh(Ic2Items.ADVANCED_HEAT_VENT)).save();
+        shaped(GsItems.ADVANCED_JETPACK, 1, "advanced_jetpack").pattern("ABA", "CDC", "EFE")
+                .define('A', Ic2Items.CARBON_PLATE).define('B', Ic2Items.ELECTRIC_JETPACK)
+                .define('C', GsItems.ENGINE_BOOSTER).define('D', GsItems.ADVANCED_LAPPACK)
+                .define('E', Ic2Items.cable(CableType.GLASS_FIBRE)).define('F', Ic2Items.ADVANCED_CIRCUIT).save();
+        shaped(GsItems.ADVANCED_NANO_CHESTPLATE, 1, "advanced_nano_chestplate").pattern("ABA", "ACA", "DFD")
+                .define('A', Ic2Items.CARBON_PLATE).define('B', GsItems.ADVANCED_JETPACK)
+                .define('C', Ic2Items.NANO_CHESTPLATE).define('D', Ic2Items.cable(CableType.GLASS_FIBRE))
+                .define('F', Ic2Items.ADVANCED_CIRCUIT).save();
+        shaped(GsItems.GRAVI_CHESTPLATE, 1, "gravi_chestplate").pattern("RAR", "DBD", "RCR")
+                .define('R', GsItems.SUPERCONDUCTOR).define('A', Ic2Items.QUANTUM_CHESTPLATE)
+                .define('D', GsItems.GRAVITATION_ENGINE).define('B', machine(Ic2Machine.HV_TRANSFORMER))
+                .define('C', GsItems.ULTIMATE_LAPPACK).save();
+        // No recipe in the pack; added by the user (phase 36).
+        shaped(GsItems.ULTIMATE_SOLAR_HELMET, 1, "ultimate_solar_helmet").pattern("PSP", "CQC", "PTP")
+                .define('P', Ic2Items.IRIDIUM_PLATE).define('S', Ic2Items.SOLAR_HELMET)
+                .define('C', GsItems.SUPERCONDUCTOR).define('Q', Ic2Items.QUANTUM_HELMET)
+                .define('T', machine(Ic2Machine.HV_TRANSFORMER)).save();
+        // The empty top row of the advanced diamond drill is dropped (1.21 trims patterns).
+        shaped(GsItems.ADVANCED_DIAMOND_DRILL, 1, "advanced_diamond_drill").pattern("ABA", "CAC")
+                .define('A', Ic2Items.OVERCLOCKER_UPGRADE).define('B', Ic2Items.DIAMOND_DRILL)
+                .define('C', Ic2Items.ADVANCED_CIRCUIT).save();
+        shaped(GsItems.ADVANCED_CHAINSAW, 1, "advanced_chainsaw").pattern(" F ", "ABA", "CAC")
+                .define('F', Items.DIAMOND).define('A', Ic2Items.OVERCLOCKER_UPGRADE).define('B', Ic2Items.CHAINSAW)
+                .define('C', Ic2Items.ADVANCED_CIRCUIT).save();
+        shaped(GsItems.VAJRA, 1, "vajra").pattern("ABA", "CDC", "FGF").define('A', Ic2Items.REFINED_IRON_INGOT)
+                .define('B', Ic2Items.ENERGY_CRYSTAL).define('C', Ic2Items.CARBON_PLATE).define('D', GsItems.VAJRA_CORE)
+                .define('F', Ic2Items.ADVANCED_ALLOY).define('G', Ic2Items.LAPOTRON_CRYSTAL).save();
+        shaped(GsItems.GRAVITOOL, 1, "gravitool").pattern("ABA", "CDC", "EFG").define('A', Ic2Items.CARBON_PLATE)
+                .define('B', Ic2Items.ELECTRIC_HOE).define('C', Ic2Items.ADVANCED_ALLOY)
+                .define('D', Ic2Items.ENERGY_CRYSTAL).define('E', Ic2Items.ELECTRIC_WRENCH)
+                .define('F', Ic2Items.ADVANCED_CIRCUIT).define('G', Ic2Items.ELECTRIC_TREETAP).save();
+    }
+
+    /**
      * EnderStorage (spec 27 §6): per wool colour i the ender chest i/i/i (blaze rods, wool, obsidian, chest, ender
      * pearl), and the recolour recipe.
      */
@@ -3118,10 +3417,6 @@ public final class CraftRecipeProvider extends RecipeProvider {
                 .define('G', Items.GLASS).define('A', Ic2Items.ADVANCED_ALLOY).save();
         shaped(Ic2Items.REINFORCED_GLASS, 7, "reinforced_glass_rotated").pattern("GGG", "AGA", "GGG")
                 .define('G', Items.GLASS).define('A', Ic2Items.ADVANCED_ALLOY).save();
-        shaped(Ic2Items.NUKE, 1, "nuke").pattern("RCR", "UMU", "RCR")
-                .define('R', Ic2Items.RE_ENRICHED_URANIUM_CELL).define('C', Ic2Items.ADVANCED_CIRCUIT)
-                .define('U', Ic2Items.URANIUM_BLOCK)
-                .define('M', Ic2Items.ADVANCED_MACHINE_CASING).save();
         shaped(Ic2Items.INDUSTRIAL_TNT, 4, "industrial_tnt").pattern("FFF", "TTT", "FFF")
                 .define('F', Items.FLINT).define('T', Items.TNT).save();
         shaped(Ic2Items.INDUSTRIAL_TNT, 4, "industrial_tnt_columns").pattern("FTF", "FTF", "FTF")
@@ -3346,6 +3641,285 @@ public final class CraftRecipeProvider extends RecipeProvider {
 
     private static ItemLike machine(Ic2Machine machine) {
         return Ic2Items.machine(machine);
+    }
+
+    /** IC2 Nuclear Control (spec 46 §2), IC2 recipes ({@code Ic2Recipes.addCraftingRecipe}). */
+    private void nuclearControl() {
+        shaped(NcItems.THERMAL_MONITOR, 1, "thermal_monitor").pattern("GGG", "GCG", "GRG")
+                .define('G', Ic2Items.REINFORCED_GLASS).define('C', Ic2Items.ADVANCED_CIRCUIT)
+                .define('R', Items.REDSTONE).save();
+        shaped(NcItems.HOWLER_ALARM, 1, "howler_alarm").pattern("NNN", "ICI", "IRI").define('N', Items.NOTE_BLOCK)
+                .define('I', Items.IRON_INGOT).define('C', Ic2Items.ELECTRONIC_CIRCUIT).define('R', Items.REDSTONE)
+                .save();
+        shaped(NcItems.INDUSTRIAL_ALARM, 1, "industrial_alarm").pattern("GOG", "GHG", "GRG")
+                .define('G', Ic2Items.REINFORCED_GLASS).define('O', Tags.Items.DYES_ORANGE)
+                .define('H', NcItems.HOWLER_ALARM).define('R', Items.REDSTONE).save();
+        shaped(NcItems.REMOTE_THERMAL_MONITOR, 1, "remote_thermal_monitor").pattern("F", "M", "T")
+                .define('F', Ic2Items.FREQUENCY_TRANSMITTER).define('M', Ic2Items.MACHINE_CASING)
+                .define('T', NcItems.THERMAL_MONITOR).save();
+        shaped(NcItems.THERMOMETER, 1, "thermometer").pattern("IG ", "GWG", " GG").define('I', Items.IRON_INGOT)
+                .define('G', Items.GLASS).define('W', Ic2Items.WATER_CELL).save();
+        shaped(NcItems.DIGITAL_THERMOMETER, 1, "digital_thermometer").pattern("I  ", "IC ", " GI")
+                .define('I', CraftItemTagsProvider.INGOTS_REFINED_IRON).define('C', Ic2Items.ELECTRONIC_CIRCUIT)
+                .define('G', Items.GLOWSTONE_DUST).save();
+        shaped(NcItems.REMOTE_SENSOR_KIT, 1, "remote_sensor_kit").pattern("  F", " D ", "P  ")
+                .define('F', Ic2Items.FREQUENCY_TRANSMITTER).define('D', NcItems.DIGITAL_THERMOMETER)
+                .define('P', Items.PAPER).save();
+        shaped(NcItems.RANGE_UPGRADE, 1, "range_upgrade").pattern("CFC")
+                .define('C', Ic2Items.cable(CableType.INSULATED_COPPER)).define('F', Ic2Items.FREQUENCY_TRANSMITTER)
+                .save();
+        shapeless(Ic2Items.ELECTRONIC_CIRCUIT, 2, "electronic_circuit_from_reactor_sensor_location_card",
+                Ingredient.of(NcItems.REACTOR_SENSOR_LOCATION_CARD));
+        shaped(NcItems.INFORMATION_PANEL, 1, "information_panel").pattern("PPP", "LCL", "IRI")
+                .define('P', Items.GLASS_PANE).define('L', Tags.Items.DYES_LIME).define('C', Ic2Items.ELECTRONIC_CIRCUIT)
+                .define('I', Tags.Items.DYES_BLACK).define('R', Items.REDSTONE).save();
+        shaped(NcItems.INFORMATION_PANEL_EXTENDER, 1, "information_panel_extender").pattern("PPP", "WLW", "WWW")
+                .define('P', Items.GLASS_PANE).define('L', Tags.Items.DYES_LIME).define('W', ItemTags.PLANKS).save();
+        shaped(NcItems.ENERGY_SENSOR_KIT, 1, "energy_sensor_kit").pattern("  F", " D ", "P  ")
+                .define('F', Ic2Items.FREQUENCY_TRANSMITTER).define('D', Ic2Items.EU_METER).define('P', Items.PAPER)
+                .save();
+        shaped(NcItems.LIQUID_SENSOR_KIT, 1, "liquid_sensor_kit").pattern("  F", " C ", "P  ")
+                .define('F', Ic2Items.FREQUENCY_TRANSMITTER).define('C', Items.BUCKET).define('P', Items.PAPER).save();
+        shaped(NcItems.COLOR_UPGRADE, 1, "color_upgrade").pattern("RYG", "WCM", "IAB")
+                .define('R', Tags.Items.DYES_RED).define('Y', Tags.Items.DYES_YELLOW).define('G', Tags.Items.DYES_GREEN)
+                .define('W', Tags.Items.DYES_WHITE).define('C', Ic2Items.cable(CableType.INSULATED_COPPER))
+                .define('M', Tags.Items.DYES_MAGENTA).define('I', Tags.Items.DYES_BLACK)
+                .define('A', Tags.Items.DYES_CYAN).define('B', Tags.Items.DYES_BLUE).save();
+        shaped(NcItems.TEXT_CARD, 1, "text_card").pattern(" C ", "PFP", " C ")
+                .define('C', Ic2Items.ELECTRONIC_CIRCUIT).define('P', Items.PAPER)
+                .define('F', Ic2Items.cable(CableType.INSULATED_COPPER)).save();
+        shapeless(NcItems.TIME_CARD, 1, "time_card", Ingredient.of(Ic2Items.ELECTRONIC_CIRCUIT),
+                Ingredient.of(Items.CLOCK));
+        shapeless(Ic2Items.ELECTRONIC_CIRCUIT, 2, "electronic_circuit_from_energy_sensor_location_card",
+                Ingredient.of(NcItems.ENERGY_SENSOR_LOCATION_CARD));
+        shapeless(Ic2Items.ELECTRONIC_CIRCUIT, 1, "electronic_circuit_from_liquid_sensor_location_card",
+                Ingredient.of(NcItems.LIQUID_SENSOR_LOCATION_CARD));
+        SpecialRecipeBuilder.special(EnergyArrayRecipe::new).save(output, id("energy_array_card"));
+        shaped(NcItems.ENERGY_COUNTER, 1, "energy_counter").pattern(" A ", "FTF")
+                .define('A', Ic2Items.ADVANCED_CIRCUIT).define('F', Ic2Items.cable(CableType.GLASS_FIBRE))
+                .define('T', machine(Ic2Machine.MV_TRANSFORMER)).save();
+        shaped(NcItems.AVERAGE_COUNTER, 1, "average_counter").pattern("FTF", " A ")
+                .define('A', Ic2Items.ADVANCED_CIRCUIT).define('F', Ic2Items.cable(CableType.GLASS_FIBRE))
+                .define('T', machine(Ic2Machine.MV_TRANSFORMER)).save();
+        shaped(NcItems.RANGE_TRIGGER, 1, "range_trigger").pattern("EFE", "AMA", " R ")
+                .define('E', Ic2Items.cable(CableType.DETECTOR)).define('F', Ic2Items.FREQUENCY_TRANSMITTER)
+                .define('A', Ic2Items.ADVANCED_CIRCUIT).define('M', Ic2Items.MACHINE_CASING)
+                .define('R', Items.REDSTONE).save();
+        shaped(NcItems.COUNTER_SENSOR_KIT, 1, "counter_sensor_kit").pattern("  F", " C ", "P  ")
+                .define('F', Ic2Items.FREQUENCY_TRANSMITTER).define('C', Ic2Items.ELECTRONIC_CIRCUIT)
+                .define('P', Items.PAPER).save();
+        shapeless(Ic2Items.ELECTRONIC_CIRCUIT, 2, "electronic_circuit_from_counter_sensor_location_card",
+                Ingredient.of(NcItems.COUNTER_SENSOR_LOCATION_CARD));
+        // GregTech's addon (spec 46 §8): assembler only.
+        assemble("gt_sensor_kit", SizedIngredient.of(Ic2Items.ELECTRONIC_CIRCUIT.get(), 1),
+                SizedIngredient.of(Ic2Items.FREQUENCY_TRANSMITTER.get(), 1), new ItemStack(NcItems.GT_SENSOR_KIT.get()),
+                1600, 2);
+        assemble("electronic_circuit_from_gt_sensor_card", SizedIngredient.of(NcItems.GT_SENSOR_CARD.get(), 1), null,
+                new ItemStack(Ic2Items.ELECTRONIC_CIRCUIT.get(), 2), 1600, 2);
+    }
+
+    /** Charge Pads (spec 47 §10), IC2 recipes; modules, kits and the efficiency upgrade follow in 47.2. */
+    /**
+     * MFFS (spec 48 §12, §2): the IC2 variants as vanilla shaped recipes ({@code GameRegistry.addRecipe}, mirroring
+     * allowed); the crystal counts with any charge. Ore: furnace 4, macerator 8, TE pulverizer 8 (energy 100), GT
+     * industrial grinder 10 forcicium + 2 thorium dust.
+     */
+    private void mffs() {
+        Ingredient refinedIron = Ingredient.of(CraftItemTagsProvider.INGOTS_REFINED_IRON);
+        Ingredient crystal = Ingredient.of(MffsItems.FORCE_ENERGY_CRYSTAL);
+        Ingredient forcicium = Ingredient.of(MffsItems.FORCICIUM);
+        mffsShaped(MffsItems.EXTRACTOR, 1, "mffs_extractor", " C ", "xFx", " G ")
+                .define('C', Ic2Items.ELECTRONIC_CIRCUIT).define('x', crystal)
+                .define('F', Ic2Items.ADVANCED_MACHINE_CASING).define('G', machine(Ic2Machine.EXTRACTOR))
+                .save(output, id("mffs_extractor"));
+        mffsShaped(MffsItems.CAPACITOR, 1, "mffs_capacitor", "xJx", "CFC", "xJx").define('x', crystal)
+                .define('J', Ic2Items.FREQUENCY_TRANSMITTER).define('C', Ic2Items.ELECTRONIC_CIRCUIT)
+                .define('F', Ic2Items.ADVANCED_MACHINE_CASING).save(output, id("mffs_capacitor"));
+        mffsShaped(MffsItems.PROJECTOR, 1, "mffs_projector", "KyK", "yFy", "KJK")
+                .define('K', Ic2Items.ADVANCED_ALLOY).define('y', MffsItems.PROJECTOR_FOCUS_MATRIX)
+                .define('F', Ic2Items.ADVANCED_MACHINE_CASING).define('J', Ic2Items.FREQUENCY_TRANSMITTER)
+                .save(output, id("mffs_projector"));
+        // Modules (ProjectorTyp recipes): A focus matrix, B obsidian, C cube module.
+        mffsModule(ProjectorModule.WALL, "AA ", "AA ", "BB ");
+        mffsModule(ProjectorModule.DEFLECTOR, "AAA", "ABA", "AAA");
+        mffsModule(ProjectorModule.TUBE, "AAA", " B ", "AAA");
+        mffsModule(ProjectorModule.CUBE, "B B", " A ", "B B");
+        mffsModule(ProjectorModule.SPHERE, " B ", "BAB", " B ");
+        mffsModule(ProjectorModule.CONTAINMENT, "BBB", "BAB", "BBB");
+        mffsModule(ProjectorModule.ADV_CUBE, "AAA", "ACA", "AAA");
+        mffsModule(ProjectorModule.DIAGONAL_WALL, "A A", " B ", "A A");
+        mffsShaped(MffsItems.CONVERTER, 1, "mffs_converter", "ANA", "JOM", "APA").define('A', refinedIron)
+                .define('N', machine(Ic2Machine.LV_TRANSFORMER)).define('O', machine(Ic2Machine.MV_TRANSFORMER))
+                .define('P', machine(Ic2Machine.HV_TRANSFORMER)).define('J', Ic2Items.FREQUENCY_TRANSMITTER)
+                .define('M', Ic2Items.cable(CableType.GLASS_FIBRE)).save(output, id("mffs_converter"));
+        mffsShaped(MffsItems.FORCE_ENERGY_CRYSTAL, 1, "force_energy_crystal", "uuu", "uiu", "uuu")
+                .define('u', forcicium).define('i', Items.DIAMOND).save(output, id("force_energy_crystal"));
+        mffsShaped(MffsItems.FORCICIUM_CELL, 1, "forcicium_cell", "AAA", "AxA", "ADA").define('A', refinedIron)
+                .define('x', crystal).define('D', Ic2Items.ADVANCED_CIRCUIT).save(output, id("forcicium_cell"));
+        mffsShaped(MffsItems.PROJECTOR_FOCUS_MATRIX, 64, "projector_focus_matrix", "AlA", "lil", "AlA")
+                .define('A', refinedIron).define('l', Items.GLASS).define('i', Items.DIAMOND)
+                .save(output, id("projector_focus_matrix"));
+        Ingredient matrix = Ingredient.of(MffsItems.PROJECTOR_FOCUS_MATRIX);
+        mffsShaped(MffsItems.FIELD_MODULATOR_STRENGTH, 1, "field_modulator_strength", "vvv", "vvv", "vvv")
+                .define('v', matrix).save(output, id("field_modulator_strength"));
+        mffsShaped(MffsItems.FIELD_MODULATOR_DISTANCE, 1, "field_modulator_distance", "vvv", "   ", "vvv")
+                .define('v', matrix).save(output, id("field_modulator_distance"));
+        mffsShaped(MffsItems.EXTRACTOR_BOOSTER, 4, "mffs_extractor_booster", " E ", "EBE", " E ")
+                .define('E', Ic2Items.CARBON_PLATE).define('B', Ic2Items.OVERCLOCKER_UPGRADE)
+                .save(output, id("mffs_extractor_booster"));
+        mffsShaped(MffsItems.CAPACITOR_UPGRADE_CAPACITY, 1, "mffs_capacitor_upgrade_capacity", " E ", "ExE", " E ")
+                .define('E', Ic2Items.CARBON_PLATE).define('x', crystal)
+                .save(output, id("mffs_capacitor_upgrade_capacity"));
+        mffsShaped(MffsItems.CAPACITOR_UPGRADE_RANGE, 1, "mffs_capacitor_upgrade_range", "HHH", "EIE", "EDE")
+                .define('H', Ic2Items.cable(CableType.COPPER)).define('E', Ic2Items.CARBON_PLATE)
+                .define('I', Ic2Items.cable(CableType.INSULATED_COPPER)).define('D', Ic2Items.ADVANCED_CIRCUIT)
+                .save(output, id("mffs_capacitor_upgrade_range"));
+        mffsShaped(MffsItems.CARD_BLANK, 1, "mffs_card_blank", "ooo", "oCo", "ooo").define('o', Items.PAPER)
+                .define('C', Ic2Items.ELECTRONIC_CIRCUIT).save(output, id("mffs_card_blank"));
+        mffsShaped(MffsItems.MULTITOOL_WRENCH, 1, "mffs_multitool_wrench", "mSn", "ExE", "EDE")
+                .define('m', Items.REDSTONE).define('S', Ic2Items.WRENCH).define('n', Items.LEVER)
+                .define('E', Ic2Items.CARBON_PLATE).define('x', crystal).define('D', Ic2Items.ADVANCED_CIRCUIT)
+                .save(output, id("mffs_multitool_wrench"));
+        Ingredient alloy = Ingredient.of(Ic2Items.ADVANCED_ALLOY);
+        mffsUpgrade(ProjectorUpgrade.TOUCH_DAMAGE, alloy, Ingredient.of(machine(Ic2Machine.TESLA_COIL)));
+        mffsUpgrade(ProjectorUpgrade.SPONGE, alloy, Ingredient.of(Items.BUCKET));
+        mffsUpgrade(ProjectorUpgrade.FIELD_MANIPULATOR, alloy, Ingredient.of(Ic2Items.ELECTRONIC_CIRCUIT));
+        mffsUpgrade(ProjectorUpgrade.BLOCK_BREAKER, alloy, Ingredient.of(Items.IRON_PICKAXE));
+        mffsUpgrade(ProjectorUpgrade.FIELD_JAMMER, Ingredient.of(Ic2Items.FREQUENCY_TRANSMITTER), matrix);
+        mffsUpgrade(ProjectorUpgrade.CAMOUFLAGE, alloy, Ingredient.of(Ic2Items.UU_MATTER));
+        mffsUpgrade(ProjectorUpgrade.FIELD_FUSION, alloy, Ingredient.of(Ic2Items.ADVANCED_CIRCUIT));
+        var npcDefense = MffsItems.upgrade(ProjectorUpgrade.NPC_DEFENSE);
+        mffsShaped(npcDefense, 1, npcDefense.getId().getPath(), "fgf", "hQh", "jgj").define('f', Items.BONE)
+                .define('g', Items.BLAZE_ROD).define('h', Items.ROTTEN_FLESH).define('j', Items.SPIDER_EYE)
+                .define('Q', machine(Ic2Machine.TESLA_COIL)).save(output, id(npcDefense.getId().getPath()));
+        var defenseUpgrade = MffsItems.upgrade(ProjectorUpgrade.DEFENSE_STATION);
+        mffsShaped(defenseUpgrade, 1, defenseUpgrade.getId().getPath(), " z ", "CQC", " z ")
+                .define('z', MffsItems.CARD_PERSONAL_ID).define('C', Ic2Items.ELECTRONIC_CIRCUIT)
+                .define('Q', machine(Ic2Machine.TESLA_COIL)).save(output, id(defenseUpgrade.getId().getPath()));
+        // Security (phase 48.4): K advanced alloy, C electronic circuit, F advanced machine casing, J frequency
+        // transmitter, A refined iron, a ender pearl, E carbon plate.
+        mffsShaped(MffsItems.SECURITY_STATION, 1, "mffs_security_station", "KCK", "CFC", "KJK").define('K', alloy)
+                .define('C', Ic2Items.ELECTRONIC_CIRCUIT).define('F', Ic2Items.ADVANCED_MACHINE_CASING)
+                .define('J', Ic2Items.FREQUENCY_TRANSMITTER).save(output, id("mffs_security_station"));
+        mffsShaped(MffsItems.SECURITY_STORAGE, 1, "mffs_security_storage", "AAA", "ACA", "AAA").define('A', refinedIron)
+                .define('C', Ic2Items.ELECTRONIC_CIRCUIT).save(output, id("mffs_security_storage"));
+        mffsShaped(MffsItems.CONTROL_SYSTEM, 1, "mffs_control_system", "aCa", "AFA", "ACA")
+                .define('a', Items.ENDER_PEARL).define('C', Ic2Items.ELECTRONIC_CIRCUIT).define('A', refinedIron)
+                .define('F', Ic2Items.ADVANCED_MACHINE_CASING).save(output, id("mffs_control_system"));
+        mffsShaped(MffsItems.DEFENSE_STATION, 1, "mffs_defense_station", " J ", "aFa", " E ")
+                .define('J', Ic2Items.FREQUENCY_TRANSMITTER).define('a', Items.ENDER_PEARL)
+                .define('F', Ic2Items.ADVANCED_MACHINE_CASING).define('E', Ic2Items.CARBON_PLATE)
+                .save(output, id("mffs_defense_station"));
+        // Data cards back to blank cards (the recipe clears them).
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, MffsItems.CARD_BLANK.get())
+                .requires(MffsItems.CARD_POWER_LINK.get()).unlockedBy("has_card", has(MffsItems.CARD_POWER_LINK.get()))
+                .save(output, id("mffs_card_blank_from_power_link"));
+        for (var card : List.of(MffsItems.CARD_PERSONAL_ID, MffsItems.CARD_SECURITY_LINK, MffsItems.CARD_ACCESS,
+                MffsItems.CARD_DATA_LINK)) {
+            String from = card.getId().getPath().substring("mffs_card_".length());
+            ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, MffsItems.CARD_BLANK.get()).requires(card.get())
+                    .unlockedBy("has_card", has(card.get())).save(output, id("mffs_card_blank_from_" + from));
+        }
+        Ingredient ore = Ingredient.of(MffsItems.MONAZIT_ORE, MffsItems.DEEPSLATE_MONAZIT_ORE);
+        smelt("forcicium_from_monazit_ore", ore, MffsItems.FORCICIUM, 4, 0.5F);
+        machine(MachineRecipe.Kind.MACERATOR, "monazit_ore", ore, 1, MffsItems.FORCICIUM, 8);
+        te(TeRecipe.Kind.PULVERIZER, "monazit_ore", ore, stack(MffsItems.FORCICIUM, 8), 100);
+        grind("monazit_ore", ore, 1, stack(MffsItems.FORCICIUM, 10), stack(GtItems.THORIUM_DUST, 2));
+    }
+
+    private void mffsModule(ProjectorModule module, String... rows) {
+        var item = MffsItems.module(module);
+        ShapedRecipeBuilder builder = mffsShaped(item, 1, item.getId().getPath(), rows)
+                .define('A', MffsItems.PROJECTOR_FOCUS_MATRIX);
+        String pattern = String.join("", rows);
+        if (pattern.contains("B")) {
+            builder.define('B', Items.OBSIDIAN);
+        }
+        if (pattern.contains("C")) {
+            builder.define('C', MffsItems.module(ProjectorModule.CUBE));
+        }
+        builder.save(output, id(item.getId().getPath()));
+    }
+
+    /** The upgrade pattern {@code " X /XcX/ X "} around one centre part. */
+    private void mffsUpgrade(ProjectorUpgrade upgrade, Ingredient ring, Ingredient centre) {
+        var item = MffsItems.upgrade(upgrade);
+        mffsShaped(item, 1, item.getId().getPath(), " X ", "XcX", " X ").define('X', ring).define('c', centre)
+                .save(output, id(item.getId().getPath()));
+    }
+
+    private static ShapedRecipeBuilder mffsShaped(ItemLike result, int count, String unlock, String... rows) {
+        ShapedRecipeBuilder builder = ShapedRecipeBuilder.shaped(RecipeCategory.MISC, result, count);
+        for (String row : rows) {
+            builder.pattern(row);
+        }
+        return builder.unlockedBy("has_forcicium", has(MffsItems.FORCICIUM.get()));
+    }
+
+    private void chargePads() {
+        shaped(CpItems.STATIC_CHARGE_PAD, 1, "static_charge_pad").pattern("rSr", "c#c")
+                .define('r', Ic2Items.RUBBER).define('S', Items.STONE_PRESSURE_PLATE)
+                .define('c', Ic2Items.ELECTRONIC_CIRCUIT).define('#', machine(Ic2Machine.BATBOX)).save();
+        shaped(CpItems.CRYSTALIZOR_CHARGE_PAD, 1, "crystalizor_charge_pad").pattern("rSr", "c#c")
+                .define('r', Ic2Items.RUBBER).define('S', Items.STONE_PRESSURE_PLATE)
+                .define('c', Ic2Items.ELECTRONIC_CIRCUIT).define('#', machine(Ic2Machine.MFE)).save();
+        shaped(CpItems.LAPOTRONIC_CHARGE_PAD, 1, "lapotronic_charge_pad").pattern("rSr", "c#c")
+                .define('r', Ic2Items.CARBON_PLATE).define('S', Items.STONE_PRESSURE_PLATE)
+                .define('c', Ic2Items.ADVANCED_CIRCUIT).define('#', machine(Ic2Machine.MFSU)).save();
+        // Upgrade kits (spec 47 §8, §10).
+        shaped(CpItems.CRYSTALIZOR_UPGRADE_KIT, 1, "crystalizor_upgrade_kit").pattern("W", "*", "#")
+                .define('W', Ic2Items.ELECTRIC_WRENCH).define('*', Ic2Items.ELECTRONIC_CIRCUIT)
+                .define('#', machine(Ic2Machine.MFE)).save();
+        shaped(CpItems.MFS_UNIT_UPGRADE, 1, "mfs_unit_upgrade").pattern("O*O", "OYO", "O#O")
+                .define('Y', Ic2Items.WRENCH).define('*', Ic2Items.ADVANCED_CIRCUIT)
+                .define('O', Ic2Items.LAPOTRON_CRYSTAL).define('#', Ic2Items.ADVANCED_MACHINE_CASING).save();
+        shaped(CpItems.MFS_UNIT_UPGRADE, 1, "mfs_unit_upgrade_from_mfsu").pattern("Y", "M")
+                .define('Y', Ic2Items.WRENCH).define('M', machine(Ic2Machine.MFSU)).save();
+        shaped(CpItems.LAPOTRONIC_UPGRADE_KIT, 1, "lapotronic_upgrade_kit").pattern("*W*", "@#@")
+                .define('#', CpItems.MFS_UNIT_UPGRADE).define('*', Ic2Items.ADVANCED_CIRCUIT)
+                .define('@', Ic2Items.CARBON_PLATE).define('W', Ic2Items.ELECTRIC_WRENCH).save();
+        shapeless(CpItems.CRYSTALIZOR_CHARGE_PAD, 1, "crystalizor_charge_pad_from_kit",
+                Ingredient.of(CpItems.STATIC_CHARGE_PAD), Ingredient.of(CpItems.CRYSTALIZOR_UPGRADE_KIT));
+        shapeless(CpItems.LAPOTRONIC_CHARGE_PAD, 1, "lapotronic_charge_pad_from_kit",
+                Ingredient.of(CpItems.CRYSTALIZOR_CHARGE_PAD), Ingredient.of(CpItems.LAPOTRONIC_UPGRADE_KIT));
+        // Efficiency upgrade: only a fully charged RE battery fits (original chargedReBattery).
+        Ingredient fullBattery = DataComponentIngredient.of(false, Ic2DataComponents.CHARGE.get(),
+                Ic2Items.RE_BATTERY.get().getMaxCharge(), Ic2Items.RE_BATTERY);
+        Ingredient goldCable = Ingredient.of(Ic2Items.cable(CableType.DOUBLE_INSULATED_GOLD));
+        Ingredient splitter = Ingredient.of(Ic2Items.cable(CableType.SPLITTER));
+        shaped(CpItems.EFFICIENCY_UPGRADE, 1, "efficiency_upgrade").pattern("BfB", "g#g")
+                .define('B', fullBattery).define('f', Ic2Items.cable(CableType.GLASS_FIBRE)).define('g', goldCable)
+                .define('#', Ic2Items.ADVANCED_CIRCUIT).save();
+        // Emitter modules (spec 47 §7, §10).
+        shaped(CpItems.module(PadModule.PROXIMITY_BOOSTER), 1, "proximity_booster_module")
+                .pattern("AAA", "^s^", "gAg").define('A', Ic2Items.ADVANCED_CIRCUIT)
+                .define('^', Ic2Items.OVERCLOCKER_UPGRADE).define('s', splitter).define('g', goldCable).save();
+        shaped(CpItems.module(PadModule.WIDE_BAND_BOOSTER), 1, "wide_band_booster_module")
+                .pattern("A@A", "*s*", "A@A").define('A', Ic2Items.ADVANCED_CIRCUIT)
+                .define('@', CpItems.module(PadModule.PROXIMITY_BOOSTER)).define('*', Ic2Items.ENERGY_CRYSTAL)
+                .define('s', splitter).save();
+        shaped(CpItems.module(PadModule.FIELD_EXPANSION_ALPHA), 1, "field_expansion_module_alpha")
+                .pattern("NdN", "sWs", "NdN").define('N', Ic2Items.NEUTRON_REFLECTOR)
+                .define('d', Ic2Items.cable(CableType.DETECTOR)).define('s', splitter)
+                .define('W', CpItems.module(PadModule.WIDE_BAND_BOOSTER)).save();
+        shaped(CpItems.module(PadModule.FIELD_EXPANSION_DELTA), 1, "field_expansion_module_delta")
+                .pattern("1e1", "sAs", "1e1").define('1', CpItems.module(PadModule.FIELD_EXPANSION_ALPHA))
+                .define('e', CpItems.EFFICIENCY_UPGRADE).define('s', splitter)
+                .define('A', Ic2Items.ADVANCED_CIRCUIT).save();
+        shaped(CpItems.module(PadModule.FIELD_EXPANSION_THETA), 1, "field_expansion_module_theta")
+                .pattern("T^T", "2s2", "eAe").define('T', Ic2Items.THICK_NEUTRON_REFLECTOR)
+                .define('^', Ic2Items.OVERCLOCKER_UPGRADE).define('2', CpItems.module(PadModule.FIELD_EXPANSION_DELTA))
+                .define('s', splitter).define('e', CpItems.EFFICIENCY_UPGRADE)
+                .define('A', Ic2Items.ADVANCED_CIRCUIT).save();
+        shaped(CpItems.module(PadModule.ARMOUR_PRIORITY), 1, "armour_priority_module")
+                .pattern("vEv", "g@g").define('v', Items.GLOWSTONE_DUST).define('E', Items.ENDER_PEARL)
+                .define('g', goldCable).define('@', CpItems.module(PadModule.PROXIMITY_BOOSTER)).save();
+        shaped(CpItems.module(PadModule.DAMAGE_CONVERSION), 1, "damage_conversion_module")
+                .pattern("UUU", "g#g").define('U', Ic2Items.NEAR_DEPLETED_URANIUM_CELL).define('g', goldCable)
+                .define('#', Ic2Items.ADVANCED_CIRCUIT).save();
+        shaped(CpItems.module(PadModule.DRAIN_CONVERSION), 1, "drain_conversion_module")
+                .pattern("vvv", "g#g").define('v', Items.GLOWSTONE_DUST).define('g', goldCable)
+                .define('#', Ic2Items.ADVANCED_CIRCUIT).save();
     }
 
     private ShapedBuilder shaped(ItemLike result, int count, String name) {

@@ -1,0 +1,6 @@
+{
+  "parent": "psychedelicraft:item/smokeable_using_template",
+  "textures": {
+    "layer0": "psychedelicraft:item/blunt_using_2"
+  }
+}

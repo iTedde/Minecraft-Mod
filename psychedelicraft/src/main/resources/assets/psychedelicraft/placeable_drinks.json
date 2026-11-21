@@ -1,0 +1,44 @@
+{
+  "burner": {
+    "minecraft:glass_bottle": {
+      "fluid_origin": 0.5,
+      "height": 0.5
+    },
+    "psychedelicraft:bottle": {
+      "fluid_origin": 0.5,
+      "height": 0.5
+    }
+  },
+  "ground": {
+    "psychedelicraft:bottle": {
+      "fluid_origin": 0.5,
+      "height": 0.5,
+      "show_fluid": true
+    },
+    "psychedelicraft:glass_chalice": {
+      "fluid_origin": 3.5,
+      "height": 0.4,
+      "show_fluid": true
+    },
+    "psychedelicraft:molotov_cocktail": {
+      "fluid_origin": 0.5,
+      "height": 0.5,
+      "show_fluid": true
+    },
+    "psychedelicraft:shot_glass": {
+      "fluid_origin": 0.5,
+      "height": 0.2,
+      "show_fluid": true
+    },
+    "psychedelicraft:stone_cup": {
+      "fluid_origin": 0.5,
+      "height": 0.25,
+      "show_fluid": true
+    },
+    "psychedelicraft:wooden_mug": {
+      "fluid_origin": 0.5,
+      "height": 0.25,
+      "show_fluid": true
+    }
+  }
+}

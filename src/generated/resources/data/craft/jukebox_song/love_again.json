@@ -1,0 +1,8 @@
+{
+  "comparator_output": 10,
+  "description": {
+    "translate": "jukebox_song.craft.love_again"
+  },
+  "length_in_seconds": 263.0,
+  "sound_event": "craft:records/love_again"
+}

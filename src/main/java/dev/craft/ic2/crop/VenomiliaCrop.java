@@ -55,6 +55,11 @@ public class VenomiliaCrop extends CropCard {
     }
 
     @Override
+    public int matureSize() {
+        return 5;
+    }
+
+    @Override
     public boolean canGrow(CropBlockEntity crop) {
         return crop.getSize() <= 4 && crop.getLightLevel() >= 12 || crop.getSize() == 5;
     }

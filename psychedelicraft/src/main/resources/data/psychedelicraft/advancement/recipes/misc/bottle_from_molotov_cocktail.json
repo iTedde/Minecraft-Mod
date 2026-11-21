@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_molotov_cocktail": {
+      "conditions": {
+        "items": [
+          {
+            "items": "psychedelicraft:molotov_cocktail"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "psychedelicraft:bottle_from_molotov_cocktail"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_molotov_cocktail"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "psychedelicraft:bottle_from_molotov_cocktail"
+    ]
+  }
+}

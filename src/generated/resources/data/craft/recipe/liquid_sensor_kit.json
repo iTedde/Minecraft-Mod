@@ -1,0 +1,23 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "C": {
+      "item": "minecraft:bucket"
+    },
+    "F": {
+      "item": "craft:frequency_transmitter"
+    },
+    "P": {
+      "item": "minecraft:paper"
+    }
+  },
+  "pattern": [
+    "  F",
+    " C ",
+    "P  "
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:liquid_sensor_kit"
+  }
+}

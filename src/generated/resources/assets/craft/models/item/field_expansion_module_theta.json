@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "craft:item/chargepads/field_expansion_module_theta"
+  }
+}

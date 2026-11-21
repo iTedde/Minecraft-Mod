@@ -123,8 +123,6 @@ public final class Ic2Items {
     public static final DeferredItem<BlockItem> REINFORCED_GLASS =
             ITEMS.registerSimpleBlockItem(Ic2Blocks.REINFORCED_GLASS);
     public static final DeferredItem<BlockItem> INDUSTRIAL_TNT = ITEMS.registerSimpleBlockItem(Ic2Blocks.INDUSTRIAL_TNT);
-    public static final DeferredItem<BlockItem> NUKE = ITEMS.registerSimpleBlockItem(Ic2Blocks.NUKE,
-            new Item.Properties().rarity(Rarity.UNCOMMON));
     public static final DeferredItem<BlockItem> REINFORCED_STONE =
             ITEMS.registerSimpleBlockItem(Ic2Blocks.REINFORCED_STONE);
     public static final DeferredItem<BlockItem> RUBBER_MAT = ITEMS.registerSimpleBlockItem(Ic2Blocks.RUBBER_MAT,

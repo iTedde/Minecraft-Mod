@@ -91,8 +91,15 @@ public class IronChestBlock extends BaseEntityBlock {
         return InteractionResult.sidedSuccess(level.isClientSide());
     }
 
+    /**
+     * A copper chest changing its stage (oxidation, wax, axe, lightning; spec 35 §1) keeps its block entity and
+     * contents, as the block entity type accepts every chest block.
+     */
     @Override
     protected void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
+        if (newState.getBlock() instanceof IronChestBlock other && other.getType() == type) {
+            return;
+        }
         if (!state.is(newState.getBlock()) && level.getBlockEntity(pos) instanceof IronChestBlockEntity chest) {
             Containers.dropContents(level, pos, chest);
         }

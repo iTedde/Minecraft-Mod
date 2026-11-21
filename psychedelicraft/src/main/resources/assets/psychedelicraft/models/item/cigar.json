@@ -1,0 +1,57 @@
+{
+  "parent": "psychedelicraft:item/smokeable_template",
+  "overrides": [
+    {
+      "model": "psychedelicraft:item/cigar_using",
+      "predicate": {
+        "damage": 0.0,
+        "psychedelicraft:using": 1.0
+      }
+    },
+    {
+      "model": "psychedelicraft:item/cigar_1",
+      "predicate": {
+        "damage": 0.33,
+        "psychedelicraft:using": 0.0
+      }
+    },
+    {
+      "model": "psychedelicraft:item/cigar_using_1",
+      "predicate": {
+        "damage": 0.33,
+        "psychedelicraft:using": 1.0
+      }
+    },
+    {
+      "model": "psychedelicraft:item/cigar_2",
+      "predicate": {
+        "damage": 0.66,
+        "psychedelicraft:using": 0.0
+      }
+    },
+    {
+      "model": "psychedelicraft:item/cigar_using_2",
+      "predicate": {
+        "damage": 0.66,
+        "psychedelicraft:using": 1.0
+      }
+    },
+    {
+      "model": "psychedelicraft:item/cigar_3",
+      "predicate": {
+        "damage": 1.0,
+        "psychedelicraft:using": 0.0
+      }
+    },
+    {
+      "model": "psychedelicraft:item/cigar_using_3",
+      "predicate": {
+        "damage": 1.0,
+        "psychedelicraft:using": 1.0
+      }
+    }
+  ],
+  "textures": {
+    "layer0": "psychedelicraft:item/cigar"
+  }
+}

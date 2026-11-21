@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "0": {
+      "tag": "minecraft:wool"
+    },
+    "@": {
+      "item": "minecraft:redstone"
+    },
+    "X": {
+      "item": "craft:camo_paste"
+    }
+  },
+  "pattern": [
+    "X0X",
+    "0@0",
+    "X0X"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:camo_redstone"
+  }
+}

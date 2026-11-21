@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "minecraft:wheat"
+    },
+    "L": {
+      "item": "psychedelicraft:dried_cannabis_leaf"
+    }
+  },
+  "pattern": [
+    "LLL",
+    "###",
+    "LLL"
+  ],
+  "result": {
+    "count": 1,
+    "id": "psychedelicraft:hash_muffin"
+  }
+}

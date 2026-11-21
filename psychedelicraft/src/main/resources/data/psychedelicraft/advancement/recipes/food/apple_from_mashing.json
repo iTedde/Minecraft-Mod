@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_foods/apple": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#c:foods/apple"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "psychedelicraft:apple_from_mashing"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_foods/apple"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "psychedelicraft:apple_from_mashing"
+    ]
+  }
+}

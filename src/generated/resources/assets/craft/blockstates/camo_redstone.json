@@ -1,0 +1,25 @@
+{
+  "variants": {
+    "source=down": {
+      "model": "craft:secretrooms/camo_block"
+    },
+    "source=east": {
+      "model": "craft:secretrooms/camo_block"
+    },
+    "source=none": {
+      "model": "craft:secretrooms/camo_block"
+    },
+    "source=north": {
+      "model": "craft:secretrooms/camo_block"
+    },
+    "source=south": {
+      "model": "craft:secretrooms/camo_block"
+    },
+    "source=up": {
+      "model": "craft:secretrooms/camo_block"
+    },
+    "source=west": {
+      "model": "craft:secretrooms/camo_block"
+    }
+  }
+}

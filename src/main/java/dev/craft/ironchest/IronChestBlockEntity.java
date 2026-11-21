@@ -38,6 +38,8 @@ public class IronChestBlockEntity extends BaseContainerBlockEntity {
     private final List<ItemStack> topStacks = new ArrayList<>();
     private int ticksSinceSync = -1;
     private int numUsingPlayers;
+    /** Copper golems looking into the chest (spec 35 §2.3); server only, never recounted from players. */
+    private int golemUsers;
     private float lidAngle;
     private float prevLidAngle;
 
@@ -219,16 +221,25 @@ public class IronChestBlockEntity extends BaseContainerBlockEntity {
         return numUsingPlayers;
     }
 
+    /** A copper golem opens ({@code true}) or closes the lid; it counts like a player for the lid only. */
+    public void setGolemOpen(boolean open) {
+        golemUsers = Math.max(0, golemUsers + (open ? 1 : -1));
+        syncUsers();
+    }
+
     private void syncUsers() {
         if (level != null) {
-            level.blockEvent(worldPosition, getBlockState().getBlock(), EVENT_USERS, numUsingPlayers);
+            level.blockEvent(worldPosition, getBlockState().getBlock(), EVENT_USERS, numUsingPlayers + golemUsers);
         }
     }
 
+    /** The server keeps its own player count; the client gets players and golems together for the lid. */
     @Override
     public boolean triggerEvent(int id, int param) {
         if (id == EVENT_USERS) {
-            numUsingPlayers = param;
+            if (level == null || level.isClientSide) {
+                numUsingPlayers = param;
+            }
             return true;
         }
         return super.triggerEvent(id, param);

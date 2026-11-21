@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "X": {
+      "item": "craft:advanced_alloy"
+    },
+    "c": {
+      "item": "craft:advanced_circuit"
+    }
+  },
+  "pattern": [
+    " X ",
+    "XcX",
+    " X "
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:projector_upgrade_field_fusion"
+  }
+}

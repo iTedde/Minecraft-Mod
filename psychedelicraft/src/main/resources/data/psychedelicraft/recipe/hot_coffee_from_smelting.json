@@ -1,0 +1,19 @@
+{
+  "type": "psychedelicraft:smelting_receptical",
+  "category": "food",
+  "experience": 0.2,
+  "input": {
+    "fluid": {
+      "fluid": "psychedelicraft:coffee"
+    }
+  },
+  "result": {
+    "attributes": {
+      "warmth": {
+        "type": "add",
+        "value": 1
+      }
+    },
+    "result": {}
+  }
+}

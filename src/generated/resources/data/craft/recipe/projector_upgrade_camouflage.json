@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "X": {
+      "item": "craft:advanced_alloy"
+    },
+    "c": {
+      "item": "craft:uu_matter"
+    }
+  },
+  "pattern": [
+    " X ",
+    "XcX",
+    " X "
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:projector_upgrade_camouflage"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "A": {
+      "item": "craft:quantum_chestplate"
+    },
+    "B": {
+      "item": "craft:hv_transformer"
+    },
+    "C": {
+      "item": "craft:ultimate_lappack"
+    },
+    "D": {
+      "item": "craft:gravitation_engine"
+    },
+    "R": {
+      "item": "craft:superconductor"
+    }
+  },
+  "pattern": [
+    "RAR",
+    "DBD",
+    "RCR"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:gravi_chestplate"
+  }
+}

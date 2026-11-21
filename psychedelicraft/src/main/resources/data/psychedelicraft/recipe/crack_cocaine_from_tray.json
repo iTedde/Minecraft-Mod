@@ -1,0 +1,29 @@
+{
+  "type": "psychedelicraft:hardening",
+  "amount": {
+    "type": "minecraft:uniform",
+    "max_inclusive": 6,
+    "min_inclusive": 3
+  },
+  "core_fluid": {
+    "fluid": "psychedelicraft:ethanol"
+  },
+  "group": "",
+  "impurities": {
+    "allow": [
+      "petrolium",
+      "gasoline",
+      "carbon",
+      "silica"
+    ]
+  },
+  "result": {
+    "count": 1,
+    "id": "psychedelicraft:crack_cocaine"
+  },
+  "solutions": [
+    {
+      "fluid": "psychedelicraft:cocaine"
+    }
+  ]
+}

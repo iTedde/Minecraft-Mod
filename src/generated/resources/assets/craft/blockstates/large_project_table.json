@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "craft:block/large_project_table",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "craft:block/large_project_table"
+    },
+    "facing=south": {
+      "model": "craft:block/large_project_table",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "craft:block/large_project_table",
+      "y": 270
+    }
+  }
+}

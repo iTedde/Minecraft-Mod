@@ -1,0 +1,30 @@
+{
+  "parent": "psychedelicraft:hash_a_muffin",
+  "criteria": {
+    "done_the_thing": {
+      "conditions": {
+        "event": "feed_baby_villager"
+      },
+      "trigger": "psychedelicraft:custom"
+    }
+  },
+  "display": {
+    "background": "minecraft:textures/gui/advancements/backgrounds/stone.png",
+    "description": {
+      "translate": "advancements.psychedelicraft.just_say_no.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "psychedelicraft:hash_muffin"
+    },
+    "title": {
+      "translate": "advancements.psychedelicraft.just_say_no.title"
+    }
+  },
+  "requirements": [
+    [
+      "done_the_thing"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

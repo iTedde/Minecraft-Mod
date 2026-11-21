@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "craft:mps_power_armor",
+  "key": {
+    "C": {
+      "item": "craft:component_wiring"
+    },
+    "I": {
+      "item": "minecraft:iron_ingot"
+    }
+  },
+  "pattern": [
+    "III",
+    "C C",
+    "I I"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:power_armor_legs"
+  }
+}

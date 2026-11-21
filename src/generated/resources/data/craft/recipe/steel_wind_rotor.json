@@ -6,15 +6,12 @@
     },
     "R": {
       "item": "craft:iron_wind_rotor"
-    },
-    "S": {
-      "tag": "c:ingots/steel"
     }
   },
   "pattern": [
-    "PSP",
-    "SRS",
-    "PSP"
+    "PPP",
+    "PRP",
+    "PPP"
   ],
   "result": {
     "count": 1,

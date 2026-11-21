@@ -2,7 +2,7 @@ package dev.craft.buildcraft.transport;
 
 /** The {@code PipeLogic*} of a pipe: connection rules between pipes and the per-material item speed. */
 public enum PipeMaterial {
-    WOOD, EMERALD, COBBLESTONE, STONE, SANDSTONE, IRON, GOLD, DIAMOND, OBSIDIAN, VOID;
+    WOOD, EMERALD, COBBLESTONE, STONE, SANDSTONE, IRON, GOLD, DIAMOND, OBSIDIAN, VOID, DISTRIBUTION;
 
     private static final float NORMAL_SPEED = 0.01F;
 

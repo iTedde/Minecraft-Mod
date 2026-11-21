@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "craft:overclocker_upgrade"
+    },
+    "E": {
+      "item": "craft:carbon_plate"
+    }
+  },
+  "pattern": [
+    " E ",
+    "EBE",
+    " E "
+  ],
+  "result": {
+    "count": 4,
+    "id": "craft:mffs_extractor_booster"
+  }
+}

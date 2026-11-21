@@ -3,6 +3,7 @@ package dev.craft.ironchest.client;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import dev.craft.Craft;
+import dev.craft.ironchest.CopperChestBlock;
 import dev.craft.ironchest.IronChestBlock;
 import dev.craft.ironchest.IronChestBlockEntity;
 import dev.craft.ironchest.IronChestType;
@@ -28,6 +29,7 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.WeatheringCopper.WeatherState;
 
 /**
  * Iron Chests {@code TileEntityIronChestRenderer} (spec 22 §1–2): the 1.4.7 {@code ModelChest} drawn upside down as in
@@ -35,6 +37,8 @@ import net.minecraft.world.level.Level;
  */
 public class IronChestRenderer implements BlockEntityRenderer<IronChestBlockEntity> {
     private static final Map<IronChestType, ResourceLocation> TEXTURES = new EnumMap<>(IronChestType.class);
+    /** The oxidized copper chests (spec 35 §1); the unaffected stage uses the copper texture. */
+    private static final Map<WeatherState, ResourceLocation> COPPER_TEXTURES = new EnumMap<>(WeatherState.class);
     private static final float HALF_PI = (float) (Math.PI / 2.0);
     /** Item positions inside the crystal chest; the last one is used for a single item. */
     private static final float[][] SHIFTS = {
@@ -46,6 +50,11 @@ public class IronChestRenderer implements BlockEntityRenderer<IronChestBlockEnti
         for (IronChestType type : IronChestType.values()) {
             TEXTURES.put(type, ResourceLocation.fromNamespaceAndPath(Craft.MODID,
                     "textures/entity/ironchest/" + type.getName() + ".png"));
+        }
+        for (WeatherState stage : WeatherState.values()) {
+            COPPER_TEXTURES.put(stage, stage == WeatherState.UNAFFECTED ? TEXTURES.get(IronChestType.COPPER)
+                    : ResourceLocation.fromNamespaceAndPath(Craft.MODID,
+                    "textures/entity/ironchest/" + stage.getSerializedName() + "_copper.png"));
         }
     }
 
@@ -73,15 +82,15 @@ public class IronChestRenderer implements BlockEntityRenderer<IronChestBlockEnti
     public void render(IronChestBlockEntity chest, float partialTick, PoseStack pose, MultiBufferSource buffers,
                        int light, int overlay) {
         IronChestType type = chest.getChestType();
-        render(type, chest.getBlockState().getValue(IronChestBlock.FACING), chest.getLidAngle(partialTick), pose,
-                buffers, light, overlay);
+        render((IronChestBlock) chest.getBlockState().getBlock(), chest.getBlockState().getValue(IronChestBlock.FACING),
+                chest.getLidAngle(partialTick), pose, buffers, light, overlay);
         Level level = chest.getLevel();
         if (type.isTransparent() && level != null) {
             renderTopStacks(chest.getTopStacks(), level, pose, buffers, light, overlay);
         }
     }
 
-    void render(IronChestType type, Direction facing, float lidAngle, PoseStack pose, MultiBufferSource buffers,
+    void render(IronChestBlock block, Direction facing, float lidAngle, PoseStack pose, MultiBufferSource buffers,
                 int light, int overlay) {
         pose.pushPose();
         pose.translate(0.0F, 1.0F, 1.0F);
@@ -99,7 +108,9 @@ public class IronChestRenderer implements BlockEntityRenderer<IronChestBlockEnti
         open = 1.0F - open * open * open;
         lid.xRot = -(open * HALF_PI);
         knob.xRot = lid.xRot;
-        ResourceLocation texture = TEXTURES.get(type);
+        IronChestType type = block.getType();
+        ResourceLocation texture = block instanceof CopperChestBlock copper
+                ? COPPER_TEXTURES.get(copper.getWeatherState()) : TEXTURES.get(type);
         RenderType renderType = type.isTransparent()
                 ? RenderType.entityTranslucent(texture) : RenderType.entityCutout(texture);
         root.render(pose, buffers.getBuffer(renderType), light, overlay);
@@ -157,7 +168,7 @@ public class IronChestRenderer implements BlockEntityRenderer<IronChestBlockEnti
                 renderer = new IronChestRenderer(null);
             }
             if (stack.getItem() instanceof BlockItem item && item.getBlock() instanceof IronChestBlock block) {
-                renderer.render(block.getType(), Direction.SOUTH, 0.0F, pose, buffers, light, overlay);
+                renderer.render(block, Direction.SOUTH, 0.0F, pose, buffers, light, overlay);
             }
         }
     }

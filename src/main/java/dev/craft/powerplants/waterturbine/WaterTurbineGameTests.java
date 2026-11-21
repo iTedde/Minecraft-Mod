@@ -65,7 +65,7 @@ public final class WaterTurbineGameTests {
         turbine.updateWaterCount();
     }
 
-    /** 0.25 EU/t per flowing block from 16 blocks on, × 1.5 in rivers, at most 32 EU/t. */
+    /** 0.25 EU/t per flowing block from 16 blocks on, × 1.5 in rivers, at most 32 EU/t (48 in rivers). */
     @GameTest(template = EMPTY)
     public static void outputThresholdAndCap(GameTestHelper helper) {
         helper.assertValueEqual(WaterTurbineBlockEntity.output(15, true), 0.0, "below 16");
@@ -73,7 +73,9 @@ public final class WaterTurbineGameTests {
         helper.assertValueEqual(WaterTurbineBlockEntity.output(100, false), 25.0, "100 flowing");
         helper.assertValueEqual(WaterTurbineBlockEntity.output(40, true), 15.0, "river");
         helper.assertValueEqual(WaterTurbineBlockEntity.output(120, false), 30.0, "full ring");
-        helper.assertValueEqual(WaterTurbineBlockEntity.output(120, true), 32.0, "cap");
+        helper.assertValueEqual(WaterTurbineBlockEntity.output(120, true), 45.0, "river above 32");
+        helper.assertValueEqual(WaterTurbineBlockEntity.output(200, false), 32.0, "cap");
+        helper.assertValueEqual(WaterTurbineBlockEntity.output(200, true), 48.0, "river cap");
         helper.assertValueEqual(ring().size() + 1, 120, "ring size");
         helper.succeed();
     }
@@ -132,6 +134,27 @@ public final class WaterTurbineGameTests {
         });
         helper.runAtTickTime(35, () -> {
             helper.assertValueEqual(mfe.getEnergy() - start[0], (int) (30 * turbine.getFlow()), "energy delivered");
+            helper.setBlock(CONSUMER, Blocks.AIR);
+            helper.succeed();
+        });
+    }
+
+    /** 48 EU/t in a river reach a BatBox as LV packets (32 + 16), so it does not explode. */
+    @GameTest(template = EMPTY, timeoutTicks = 60)
+    public static void riverOutputStaysLowVoltage(GameTestHelper helper) {
+        WaterTurbineBlockEntity turbine = build(helper);
+        helper.setBlock(CONSUMER, Ic2Blocks.machine(Ic2Machine.BATBOX).get());
+        ElectricStorageBlockEntity batbox = helper.getBlockEntity(CONSUMER);
+        int[] start = new int[1];
+        helper.runAtTickTime(5, () -> {
+            helper.assertTrue(turbine.isFormed(), "structure formed");
+            helper.assertValueEqual(turbine.getMaxEnergyOutput(), 32, "LV packets");
+            turbine.setFlowForTest(48.0, true);
+            start[0] = batbox.getEnergy();
+        });
+        helper.runAtTickTime(35, () -> {
+            helper.assertBlockPresent(Ic2Blocks.machine(Ic2Machine.BATBOX).get(), CONSUMER);
+            helper.assertValueEqual(batbox.getEnergy() - start[0], 30 * 48, "energy delivered");
             helper.setBlock(CONSUMER, Blocks.AIR);
             helper.succeed();
         });

@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "#": {
+      "item": "minecraft:spruce_planks"
+    },
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "S": {
+      "tag": "c:rods/wooden"
+    }
+  },
+  "pattern": [
+    " I ",
+    "# #",
+    "S#S"
+  ],
+  "result": {
+    "count": 1,
+    "id": "psychedelicraft:spruce_barrel"
+  }
+}

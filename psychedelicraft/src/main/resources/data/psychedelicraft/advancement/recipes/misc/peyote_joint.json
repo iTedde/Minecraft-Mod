@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_dried_peyote": {
+      "conditions": {
+        "items": [
+          {
+            "items": "psychedelicraft:dried_peyote"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "psychedelicraft:peyote_joint"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_dried_peyote"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "psychedelicraft:peyote_joint"
+    ]
+  }
+}

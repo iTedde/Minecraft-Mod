@@ -1,0 +1,24 @@
+{
+  "type": "psychedelicraft:fill_receptical",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "psychedelicraft:coca_leaves"
+    },
+    {
+      "item": "psychedelicraft:coca_leaves"
+    }
+  ],
+  "receptical": {
+    "type": "psychedelicraft:optional_fluid",
+    "fluid": {
+      "fluid": "minecraft:water"
+    },
+    "receptical": {
+      "tag": "psychedelicraft:receptical/drinks"
+    }
+  },
+  "result": {
+    "fluid": "psychedelicraft:coca_tea"
+  }
+}

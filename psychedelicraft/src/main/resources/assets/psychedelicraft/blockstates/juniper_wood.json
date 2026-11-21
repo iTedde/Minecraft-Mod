@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "psychedelicraft:block/juniper_wood",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "psychedelicraft:block/juniper_wood"
+    },
+    "axis=z": {
+      "model": "psychedelicraft:block/juniper_wood",
+      "x": 90
+    }
+  }
+}

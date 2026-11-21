@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_juniper_berries": {
+      "conditions": {
+        "items": [
+          {
+            "items": "psychedelicraft:juniper_berries"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "psychedelicraft:juniper_from_mashing"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_juniper_berries"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "psychedelicraft:juniper_from_mashing"
+    ]
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "D": {
+      "item": "craft:digital_thermometer"
+    },
+    "F": {
+      "item": "craft:frequency_transmitter"
+    },
+    "P": {
+      "item": "minecraft:paper"
+    }
+  },
+  "pattern": [
+    "  F",
+    " D ",
+    "P  "
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:remote_sensor_kit"
+  }
+}

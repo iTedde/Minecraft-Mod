@@ -1,0 +1,26 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "1": {
+      "item": "craft:field_expansion_module_alpha"
+    },
+    "A": {
+      "item": "craft:advanced_circuit"
+    },
+    "e": {
+      "item": "craft:efficiency_upgrade"
+    },
+    "s": {
+      "item": "craft:splitter_cable"
+    }
+  },
+  "pattern": [
+    "1e1",
+    "sAs",
+    "1e1"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:field_expansion_module_delta"
+  }
+}

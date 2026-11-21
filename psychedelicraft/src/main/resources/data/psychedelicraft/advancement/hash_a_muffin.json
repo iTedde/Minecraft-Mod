@@ -1,0 +1,34 @@
+{
+  "parent": "psychedelicraft:root",
+  "criteria": {
+    "has_the_thing": {
+      "conditions": {
+        "items": [
+          {
+            "items": "psychedelicraft:hash_muffin"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "background": "minecraft:textures/gui/advancements/backgrounds/stone.png",
+    "description": {
+      "translate": "advancements.psychedelicraft.hash_a_muffin.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "psychedelicraft:hash_muffin"
+    },
+    "title": {
+      "translate": "advancements.psychedelicraft.hash_a_muffin.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_thing"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

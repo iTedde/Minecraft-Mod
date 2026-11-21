@@ -62,20 +62,22 @@ dazu kommen <a href="#/aenderungen">neue Kraftwerke und eine Mining-Dimension</a
 {card('ic2-maschinen', 'craft:overclocker_upgrade', 'IC2-Maschinen & Upgrades', 'Seiten, Automatisierung, Overclocker-Rechnung.')}
 {card('gregtech-maschinen', 'craft:industrial_blast_furnace', 'GregTech & Hochofen', 'Nur mit Schraubenschlüssel abbauen! Hochofen-Bau und Hitze.')}
 {card('quarry', 'craft:quarry', 'Quarry & BuildCraft', 'Motoren, Landmarken, Öl, Raffinerie, Rohre.')}
-{card('umwandlung', 'craft:energy_bridge', 'EU ↔ MJ', 'Electrical Engine und Power Converters.')}
+{card('umwandlung', 'craft:energy_bridge', 'EU ↔ MJ, EU → FE', 'Electrical Engine, Power Converters und FE Producer.')}
 {card('reaktor', 'craft:nuclear_reactor', 'Kernreaktor', 'Formeln, Hitzestufen und zwei sichere Designs.')}
 </div>
 
 <h2 id="home--neu">Neu und geändert</h2>
 <div class="cards">
-{card('solar-arrays', 'craft:lv_solar_array', 'Solar Arrays', 'Compact Solars als 3×3-Felder mit Bonus für die Mitte.', CHG)}
+{card('solar-arrays', 'craft:solar_panel', 'Solar', 'Nur noch Solarpanels: jedes liefert 2 EU/t, im 9×9-Feld 3 EU/t.', CHG)}
 {card('wassermuehle', 'craft:water_mill', 'Wassermühle', 'Bis 2 EU/t aus fließendem Wasser statt 0,26 EU/t.', CHG)}
 {card('windmuehle', 'craft:wind_mill', 'Windmühle', 'Faktor 2,5, Gewitter ×3, geht nie kaputt.', CHG)}
 {card('koksofen', 'craft:coke_oven', 'Koksofen', '3×3×3-Multiblock: Kohle → Koks ohne Strom.', NEW)}
 {card('kohlekraftwerk', 'craft:boiler_firebox', 'Kohlekraftwerk', 'Kessel + Dampfturbine: 16 000 EU/Kohle, 32 000 EU/Koks.', NEW)}
-{card('wasserturbine', 'craft:water_turbine', 'Wasserturbine', 'Bis 32 EU/t Grundlast aus einem Fluss.', NEW)}
-{card('grosskraftwerke', 'craft:large_steam_turbine', 'Großkraftwerke', 'Hochdruckkessel, große Dampf-, Wasser- und Windturbine: 256–512 EU/t.', NEW)}
+{card('wasserturbine', 'craft:water_turbine', 'Wasserturbine', 'Bis 32 EU/t Grundlast aus fließendem Wasser, im Fluss-Biom bis 48.', NEW)}
+{card('grosskraftwerke', 'craft:large_steam_turbine', 'Großkraftwerke', 'Hochdruckkessel, große Dampf-, Wasser- und Windturbine: bis 192–512 EU/t.', NEW)}
 {card('mining-dimension', 'craft:mining_portal', 'Mining-Dimension', 'Flache Steinwelt voller Erze, Portal aus Glattem Stein.', NEW)}
+{card('farming-dimension', 'craft:farming_portal', 'Farming-Welt', 'Gärten mit allen Pflanzen und IC2-Crops, Portal aus Bemoostem Bruchstein.', NEW)}
+{card('leuchtschild', 'craft:electric_light_shield', 'Elektrischer Leuchtschild', 'Schild mit EU statt Haltbarkeit und einstellbarer Taschenlampe.', NEW)}
 {card('zusatzmods', 'craft:cropnalyzer', 'EMI, Xaero & CC: Tweaked', 'Rezeptanzeige, Minimap und Turtles im Paket.', TECH)}
 </div>
 
@@ -86,7 +88,7 @@ dazu kommen <a href="#/aenderungen">neue Kraftwerke und eine Mining-Dimension</a
 {card('mod-buildcraft', 'craft:quarry', 'BuildCraft', f"MJ, Engines, Quarry, Öl, Raffinerie, Rohre · {groups.get('BuildCraft', 0)} Einträge")}
 {card('mod-forestry', 'craft:electrical_engine', 'Forestry', f"Electrical Engine, Röhren, Platinen, Fabricator, Carpenter · {groups.get('Forestry', 0)} Einträge")}
 {card('mod-powerconverters', 'craft:energy_bridge', 'Power Converters', f"MJ ↔ EU über die Energy Bridge · {groups.get('Power Converters', 0)} Einträge")}
-{card('solar-arrays', 'craft:hv_solar_array', 'Compact Solars', f"Solar Arrays (als Multiblocks) · {groups.get('Compact Solars', 0)} Einträge")}
+{card('solar-arrays', 'craft:hv_solar_array', 'Compact Solars', f"Solar Arrays (stillgelegt, zerlegbar) · {groups.get('Compact Solars', 0)} Einträge")}
 </div>
 
 <h2 id="home--prinzip">Das Grundprinzip in drei Sätzen</h2>
@@ -129,7 +131,7 @@ Mod selbst und die drei mitgelieferten Mods.</p>
 <p>Die IC2-Tasten lassen sich unter <i>Optionen → Steuerung → IndustrialCraft 2</i> ändern.</p>
 {h.table(['Taste (Standard)', 'Name', 'Wofür'], [
     ['<b>M</b>', 'Modus-Taste', 'Modus wechseln: Bergbaulaser, el. Schraubenschlüssel, Farbroller, Jetpack, Nanosäbel …'],
-    ['<b>linke Strg</b>', 'Boost-Taste', 'Quantenrüstung: Sprint-/Sprungverstärkung'],
+    ['<b>linke Strg</b>', 'Boost-Taste', 'Quantenstiefel: hoher Sprung; mit M: Gravitationsmagnet der Gravi-Brustplatte'],
     ['<b>linke Alt</b>', 'ALT-Taste', 'Schraubenschlüssel: Drehrichtung umkehren u. a.'],
     ['<b>C</b>', 'Seiteninventar-Taste', 'Seiteninventar (wie im Original)'],
     ['<b>R</b> / <b>U</b>', 'EMI', 'über einem Gegenstand: Rezept / Verwendungen anzeigen'],
@@ -158,23 +160,43 @@ nach Art der Änderung. Jede Zeile verlinkt auf eine ausführliche Seite; die vo
 <b>Rezepte und Kosten bleiben, gebalanct wird über Leistung, Effizienz und Platzbedarf.</b>
 Details und Begründung: <a href="#/energie">Energiequellen im Vergleich</a>.</p>
 {h.table(['Thema', 'Original', 'Craft'], [
-    row('Compact Solar Arrays', 'ein Block je Stufe: 8 / 64 / 512 EU/t', 'Rezepte wie im Original; ein Array liefert nur als Mitte eines 3×3-Felds (Ring aus Panels/Arrays bis zur eigenen Stufe), Leistung = (Mitte + Ring) × 1,2 / 1,4 / 1,5', 'solar-arrays', CHG),
+    row('Solar', 'Solarpanel 1 EU/t; Compact Solar Arrays: ein Block je Stufe 8 / 64 / 512 EU/t', 'nur noch Solarpanels: 2 EU/t, im lückenlosen 9×9-Feld 3 EU/t (×1,5); Arrays ohne Rezept und Leistung, in der Werkbank zerlegbar', 'solar-arrays', CHG),
     row('Wassermühle', '3×3×3 Wasserblöcke zählen, max. 0,26 EU/t', '5×5×3-Bereich, fließendes Wasser 0,04 EU/t je Block, Biom-Bonus, bis 2 EU/t', 'wassermuehle', CHG),
     row('Windmühle', 'Faktor 1, Regen ×1,2, Gewitter ×1,5, Bruch ab 5 EU/t, Puffer 4', 'Faktor 2,5, Regen ×1,5, Gewitter ×3, kein Zerfall, Puffer 16', 'windmuehle', CHG),
     row('Koks', '– (im Pack nur über Railcraft, das nicht nachgebaut wird)', 'neues Item: im Generator wie Kohle, im Kohlekraftwerk doppelt so viel', 'koksofen', NEW),
+    row('Solarpanel als Leiter', 'jedes Panel braucht ein eigenes Kabel', 'Panels leiten untereinander verlustfrei, ein Kabel am Feld sammelt alles', 'solar-arrays', CHG),
 ])}
-<p>Unverändert 1:1 bleiben: IC2-Generator, Geothermie, Solarpanel, alle BuildCraft-Engines, Öl und Treibstoff, Electrical
+
+<h2 id="chg--tempo">1a. Bewusst geändert: Nichts macht schneller</h2>
+<p>Kein Craft-Teil bringt den Spieler waagerecht schneller als Vanilla-Sprinten (≈ 5,6 m/s) – am Boden, in der Luft und im Wasser.
+Fliegen, Schweben und Sprunghöhe bleiben; jedes Teil bekommt einen Ausgleich (Nutzer, 2026-10-29). Vanilla-Dinge (Elytra,
+Tempotränke, Pferde) und andere Mods sind nicht betroffen.</p>
+{h.table(['Teil', 'Original', 'Craft'], [
+    row('Quantenhose', 'Sprint-Zusatzschub ≈ 3× Sprinttempo, auch im Wasser', 'kein Schub; dafür Sprinten ohne Hunger und kein Rückstoß (ab 1 000 EU)', 'spec-37', CHG),
+    row('Quantenstiefel', 'Boost-Sprung mit Weitsprung ×3,5', 'nur noch der hohe Sprung', 'spec-37', CHG),
+    row('Jetpack / Elektro-Jetpack', 'kleiner Vorwärtsschub', 'höchstens Sprinttempo (war schon darunter)', 'spec-37', CHG),
+    row('Fortg. Jetpack, Fortg. Nano-Brustplatte', 'Schub + Boost (bis ≈ 12 m/s), 12 EU/t', 'kein Boost, höchstens Sprinttempo, halber Verbrauch 6 EU/t', 'mod-gravisuite', CHG),
+    row('Gravitations-Brustplatte', 'Kreativflug, Sprint-Fliegen ×2, Boost', 'Flug so schnell wie Sprinten, kein Boost; dafür Gravitationsmagnet (Items/XP im Umkreis 8)', 'mod-gravisuite', CHG),
+    row('MPS Sprint-/Sprung-/Schwimmhilfe', 'bis 3× Laufen, Luftsteuerung, Schwimmschub', 'kein Tempo; Sprinthilfe gibt Tragkraft, Schwimmhilfe Abbauen unter Wasser wie an Land, Sprunghöhe bleibt', 'mod-mps', CHG),
+    row('MPS Jetpack, Düsenstiefel, Flugsteuerung, Gleiter', 'Schub in Blickrichtung', 'waagerecht höchstens Sprinttempo', 'mod-mps', CHG),
+    row('Kaffee', 'Tempo + Eile', 'Sättigung + Eile (gleiche Stufen und Überdosis)', 'spec-37', CHG),
+])}
+<p>Unverändert 1:1 bleiben: IC2-Generator, Geothermie, alle BuildCraft-Engines, Öl und Treibstoff, Electrical
 Engine, Power Converters und der Kernreaktor.</p>
 
 <h2 id="chg--neu">2. Komplett neue Inhalte (kein Vorbild im Pack)</h2>
 {h.table(['Inhalt', 'Was es ist', 'Kurz'], [
     row('Koksofen', 'Multiblock 3×3×3 aus Koksofenziegeln', '1 Kohle → 1 Koks in 900 Ticks, ohne Strom', 'koksofen', NEW),
     row('Kohlekraftwerk', 'Kessel (3×3×3) + Dampfturbine (3×3×5)', 'Kohle/Koks → Dampf → EU; 1 mB Dampf = 1 EU; bis 64 EU/t', 'kohlekraftwerk', NEW),
-    row('Wasserturbine', 'Multiblock 3×3×3 in fließendem Wasser', '0,25 EU/t je fließendem Wasserblock bis 5 Blöcke um und 20 über der Turbine, bis 32 EU/t', 'wasserturbine', NEW),
-    row('Großkraftwerke', 'zweite Ausbaustufe für Kohle, Wasser und Wind', 'Hochdruckkessel + Große Dampfturbine bis 512 EU/t, Große Wasserturbine bis 256 EU/t, Große Windturbine bis 384 EU/t', 'grosskraftwerke', NEW),
+    row('Wasserturbine', 'Multiblock 3×3×3 in fließendem Wasser', '0,25 EU/t je fließendem Wasserblock bis 5 Blöcke um und 20 über der Turbine, bis 32 EU/t (Fluss-Biom 48)', 'wasserturbine', NEW),
+    row('Großkraftwerke', 'zweite Ausbaustufe für Kohle, Wasser und Wind', 'Hochdruckkessel + Große Dampfturbine bis 512 EU/t, Große Wasserturbine bis 256 EU/t (Fluss-Biom 384), Große Windturbine bis 192 EU/t', 'grosskraftwerke', NEW),
     row('Mining-Dimension', 'eigene Dimension, Portal aus Glattem Stein', 'flache Steinwelt bis y 64 mit allen Oberwelt-Erzen, hell, ohne Mobs', 'mining-dimension', NEW),
+    row('Farming-Welt', 'eigene Dimension, Portal aus Bemoostem Bruchstein', 'Gärten mit jeder Pflanze aller Mods und allen IC2-Crops (erstes Pflücken gibt sicher einen Saatbeutel)', 'farming-dimension', NEW),
     row('Dampf', 'Flüssigkeit <code>craft:steam</code>', 'nur in Tanks und Rohren, kein Eimer', 'kohlekraftwerk', NEW),
     row('CC: Tweaked', 'mitinstallierter Mod', 'Computer und Turtles (Ersatz für ComputerCraft 1.5 im Pack)', 'zusatzmods', NEW),
+    row('Verteiler-Transportrohr', 'Item-Rohr mit Anteil je Seite', 'Diamant-Transportrohr + Komparator; exakte Aufteilung nach eingestellten Prozent', 'mod-buildcraft', NEW),
+    row('FE Producer', 'Power-Converters-Bauteil', 'Energy Bridge → FE (1 EU = 4 FE) für AE2, Ad Astra & Co.; nur diese Richtung', 'umwandlung', NEW),
+    row('Großer Projekttisch', 'zweiter Projekttisch (RedPower)', 'Vorrat 27 statt 18 Plätze wie eine Holztruhe, sonst gleich; Rezept: Projekttisch + 2 Truhen + 6 Eisenbarren', 'spec-34', NEW),
 ])}
 
 <h2 id="chg--weg">3. Weggelassen oder eingeschränkt</h2>
@@ -197,7 +219,7 @@ Diese hier bemerkt man im Spiel:</p>
     row('Tiefenschiefer', 'gibt es nicht', 'Tiefenschiefer-Varianten (z. B. Tiefenschiefer-Zinnerz, GT-Erze) mit denselben Regeln wie das Grunderz', 'spec-07', TECH),
     row('Welthöhe / Erzhöhen', '0–255', 'Erzhöhen absolut übernommen (z. B. Zinn y 0–39, Uran y 0–64), keine IC2-Erze unter y 0', 'spec-07', TECH),
     row('Erzwörterbuch', 'OreDictionary (<code>ingotCopper</code>)', 'Tags (<code>c:ingots/copper</code>) – andere Mods mit denselben Tags passen', '', TECH),
-    row('IC2-Explosionsresistenz', 'Obsidian & Co. global auf 36 gesetzt', 'gilt nur bei IC2-Explosionen (Reaktor, Nuke, Industrie-TNT); Vanilla-TNT/Creeper unverändert', 'spec-01', TECH),
+    row('IC2-Explosionsresistenz', 'Obsidian & Co. global auf 36 gesetzt', 'gilt nur bei IC2-Explosionen (Reaktor, Industrie-TNT); Vanilla-TNT/Creeper unverändert', 'spec-01', TECH),
     row('RE-Batterie', 'zwei Items (leer/geladen)', 'ein Item: leer stapelbar bis 16, geladen Stapel 1', 'spec-05', TECH),
     row('Rüstung', 'Forge <code>ISpecialArmor</code>', 'über das Schadens-Event nachgebaut, gleiche Absorption und EU-Kosten', 'spec-05', TECH),
     row('GT-Recycling von Türen', 'Eisentür → 6 Eisenstaub', 'Eisen-/Holztür → 2 (in 1.21 ergeben 6 Barren 3 Türen – sonst Vermehrung)', 'abweichungen', TECH),
@@ -213,38 +235,36 @@ Diese hier bemerkt man im Spiel:</p>
 
     # ------------------------------------------------------------------ Energievergleich
     bars = [
-        ('IC2-Solarpanel', 1, '1 EU/t bei Sonne, unverändert'),
+        ('IC2-Solarpanel', 2, '2 EU/t bei Sonne (Original 1)'),
         ('Wassermühle (neu)', 2, 'bis 2 EU/t, Tag und Nacht'),
         ('Windmühle (neu, y 128)', 3.2, 'Gewitter bis ≈ 9,6 EU/t'),
         ('IC2-Generator', 10, '4 000 EU je Kohle'),
-        ('LV Solar Array', 19, '3×3, 8 Solarpanels im Ring'),
         ('Kessel + Dampfturbine', 20, 'je Kessel; bis 64 mit 3 Kesseln'),
         ('Geothermiegenerator', 20, '20 000 EU je Lava-Eimer'),
-        ('Wasserturbine', 32, 'Deckel, braucht Fluss'),
-        ('Große Windturbine (y 200)', 136, 'Carbon-Rotor; Gewitter bis 384'),
-        ('MV Solar Array', 179, '3×3, 8 LV-Arrays im Ring'),
-        ('Große Wasserturbine', 256, 'Deckel, ab 256 fließenden Blöcken'),
+        ('Wasserturbine', 32, 'Deckel; im Fluss-Biom 48'),
+        ('Große Windturbine (y 319)', 153, 'Carbon-Rotor; Regen/Gewitter bis 192'),
+        ('Solarfeld 9×9', 243, '81 Solarpanels × 3 EU/t, nur am Tag'),
+        ('Große Wasserturbine', 256, 'Deckel, ab 256 fließenden Blöcken; im Fluss-Biom 384'),
         ('Hochdruckkraftwerk', 480, '3 Hochdruckkessel + Große Dampfturbine'),
         ('Kernreaktor (typisch)', 400, '60–400+ EU/t je nach Design'),
-        ('HV Solar Array', 1536, '3×3, 8 MV-Arrays im Ring, 3 Pakete à 512'),
     ]
     mx = max(b[1] for b in bars)
     bar_html = ''.join(
         f'<div class="brow" data-tip="{h.esc(t)}"><span class="bl">{h.esc(n)}</span><span class="bt"><span class="bf" style="display:block;width:{v_ / mx * 100:.2f}%"></span></span>'
         f'<span class="bv">{str(v_).replace(".", ",")} EU/t</span></div>' for n, v_, t in bars)
     energie = f'''<h1>Energiequellen im Vergleich</h1>
-<p class="lead">Das Ziel des Balancings: <b>Solar ist wartungsfrei und kompakt, aber teuer und nur am Tag, Wasser die zuverlässige Mittelklasse, Wind
+<p class="lead">Das Ziel des Balancings: <b>Solar ist wartungsfrei, braucht aber viel Fläche und liefert nur am Tag, Wasser die zuverlässige Mittelklasse, Wind
 wetterabhängig mit Gewitterspitzen, Kohle hat einen Ausbaupfad, Öl ist die lagerbare Hochenergie, Atom die Spitze.</b></p>
 <h2 id="en--leistung">Typische Leistung je Anlage (Craft)</h2>
 <div class="bars" role="img" aria-label="Typische Leistung je Anlage in EU pro Tick">{bar_html}</div>
 <p style="font-size:12px;color:var(--muted)">Spitzenleistung; Solar liefert im Tagesmittel nur etwa die Hälfte (nur bei Tag, kein Regen).
-Die Solar-Felder sind 3×3 groß, aber teuer: in den Beispielen stecken 16 / 128 / 1024 Solarpanels.</p>
+Solar wächst nur mit der Fläche: 3 EU/t je Block im 9×9-Feld.</p>
 <h2 id="en--tabelle">Vergleichstabelle</h2>
 {h.table(['Quelle', 'Leistung typ.', 'EU/t pro Block Fläche', 'EU pro Ressource', 'Zuverlässigkeit'], [
-    ['Solarpanel', '1 (Tag)', '1,0 Spitze / 0,5 Mittel', '– (wartungsfrei)', 'niedrig (nur Tag, kein Regen)'],
-    [f'LV/MV/HV Solar Array {CHG}', '19 / 179 / 1536 (Tag, 3×3-Feld)', '2 / 20 / 171 Spitze', '– (sehr teuer)', 'niedrig (nur Tag, kein Regen)'],
+    ['Solarpanel', '2 (Tag)', '2 Spitze / 1 Mittel', '– (wartungsfrei)', 'niedrig (nur Tag, kein Regen)'],
+    [f'Solarfeld 9×9 {CHG}', '243 (Tag, 81 Panels)', '3 Spitze / 1,5 Mittel', '– (wartungsfrei)', 'niedrig (nur Tag, kein Regen)'],
     [f'Wassermühle {CHG}', 'bis 2', '≈ 0,08 (inkl. Wasserfläche)', '–', '<b>hoch</b> (Tag & Nacht)'],
-    [f'Wasserturbine {NEW}', '16–32', '≈ 0,5–0,65 (inkl. Wasserring)', '–', '<b>hoch</b>'],
+    [f'Wasserturbine {NEW}', '16–32 (Fluss 48)', '≈ 0,5–0,65 (inkl. Wasserring)', '–', '<b>hoch</b>'],
     [f'Windmühle {CHG}', '3–7, Gewitter bis 20', '≈ 0,04–0,25 (Freiraum 9×9)', '–', 'mittel (Wetter, Wind)'],
     ['IC2-Generator', '10', '10', '4 000 / Kohle', 'hoch, solange befüllt'],
     [f'Kohlekraftwerk {NEW}', '20 je Kessel (bis 64)', '≈ 0,7–1,5', '16 000 / Kohle, 32 000 / Koks', 'hoch (Aufheizen, Asche)'],
@@ -254,13 +274,14 @@ Die Solar-Felder sind 3×3 groß, aber teuer: in den Beispielen stecken 16 / 128
     ['Stirling Engine + Konverter', '2,4', '≈ 1', '3 888 / Kohle', 'mittel (Explosionsgefahr)'],
     ['Kernreaktor', '60–400+', '10–50+', '≈ 1–12 Mio. / Zelle', 'hoch bei korrekter Kühlung, Risiko'],
     [f'Hochdruckkessel + Große Dampfturbine {NEW}', '160 je Kessel (bis 480)', '≈ 2,3–4', '24 000 / Kohle, 48 000 / Koks', 'hoch (Aufheizen, viel Wasser)'],
-    [f'Große Wasserturbine {NEW}', '64–256', '≈ 0,2–0,7 (inkl. Wasserfläche)', '–', '<b>hoch</b>'],
-    [f'Große Windturbine {NEW}', '64–136, Gewitter bis 384', '≈ 0,5–1,1 (Freiraum 11×11)', '–', 'mittel (Wetter, Wind)'],
+    [f'Große Wasserturbine {NEW}', '64–256 (Fluss 384)', '≈ 0,2–0,7 (inkl. Wasserfläche)', '–', '<b>hoch</b>'],
+    [f'Große Windturbine {NEW}', '38–153, Regen/Gewitter bis 192', '≈ 0,3–1,3 (Freiraum 11×11)', '–', 'mittel (Wetter, Wind)'],
 ])}
 <h2 id="en--umrechnung">Umrechnung MJ ↔ EU</h2>
 <ul>
 <li><b>MJ → EU</b> über Power Converters: <b>1 MJ = 2,43 EU</b> (4375/1800 PCU), Producer geben nur volle Pakete ab.</li>
 <li><b>EU → MJ</b> über die Forestry Electrical Engine: <b>3 EU = 1 MJ</b> (6 EU → 2 MJ, mit Upgrades bis 36 EU → 10 MJ).</li>
+<li><b>EU → FE</b> (AE2, Ad Astra …) über den <a href="#/umwandlung">FE Producer</a>: <b>1 EU = 4 FE</b>, kein Rückweg. Ad-Astra-Maschinen und AE2-Energieblöcke nehmen ab Craft 1.2.6 EU auch direkt am Kabel (gleicher Kurs, höchstens LV).</li>
 <li>Eine Rundreise EU → MJ → EU verliert ≈ 19 %.</li>
 </ul>
 <p>Herleitung, Originalwerte und der „Problembefund“ stehen im Volltext: <a href="#/balancing">Energiebalancing (Volltext)</a>.</p>
@@ -303,7 +324,7 @@ aber zuverlässige Quelle, die <b>Tag und Nacht</b> läuft.</p>
 <label>fließende Blöcke <input type="number" name="f" min="0" max="74" value="30"></label>
 <label>Biom <select name="bio"><option value="1">normal</option><option value="1.5">Fluss ×1,5</option><option value="1.25">Ozean ×1,25</option></select></label>
 <label>Mühlen, die sich das Wasser teilen <input type="number" name="sh" min="1" max="9" value="1"></label></div><div class="out"></div><div class="msg"></div></div>
-{h.note('tip', 'Eine Mühle mitten in einem Fluss mit viel fließendem Wasser erreicht die 2 EU/t leicht – das ist so viel wie vier Solarpanels im Tagesmittel. Für mehr Leistung: <a href="#/wasserturbine">Wasserturbine</a>.')}
+{h.note('tip', 'Eine Mühle mitten in einem Fluss mit viel fließendem Wasser erreicht die 2 EU/t leicht – das ist so viel wie zwei Solarpanels im Tagesmittel. Für mehr Leistung: <a href="#/wasserturbine">Wasserturbine</a>.')}
 <p>Spezifikation: <a href="#/spec-14">14 – Kraftwerke</a> §6, Original in <a href="#/spec-02">02 – Generatoren</a>.</p>
 '''
     page('wassermuehle', 'Wassermühle', 'Neu & geändert', wasser)
@@ -446,10 +467,10 @@ Spezifikation: <a href="#/spec-14">14 – Kraftwerke</a> §3–4.</p>
     wt = f'''<h1>Wasserturbine</h1>
 {h.infobox('Wasserturbine', 'craft:water_turbine', [
     ('Herkunft', NEW + ' Craft (Kraftwerke)'), ('Typ', 'Multiblock 3×3×3, voll'), ('Leistung', '0,25 EU/t je fließendem Block'),
-    ('Fluss-Biom', '×1,5'), ('Deckel', '<b>32 EU/t</b> (LV)'), ('Mindestens', '16 fließende Blöcke'), ('GUI', 'keine – Rechtsklick zeigt den Zustand'),
+    ('Fluss-Biom', '×1,5, Deckel 48'), ('Deckel', '<b>32 EU/t</b> (LV)'), ('Mindestens', '16 fließende Blöcke'), ('GUI', 'keine – Rechtsklick zeigt den Zustand'),
 ])}
-<p class="lead">Die große Schwester der <a href="#/wassermuehle">Wassermühle</a>: zuverlässige <b>16–32 EU/t Grundlast</b> rund um die Uhr –
-sie braucht aber einen echten, fließenden Fluss.</p>
+<p class="lead">Die große Schwester der <a href="#/wassermuehle">Wassermühle</a>: zuverlässige <b>16–32 EU/t Grundlast</b> rund um die Uhr
+(im Fluss-Biom bis 48) – sie braucht aber <b>fließendes</b> Wasser; die Quellblöcke eines natürlichen Flusses zählen nicht.</p>
 
 <h2 id="wt--aufbau">Aufbau</h2>
 <p>Voller Würfel 3×3×3 (auch die Mitte ist ein Gehäuseblock), die Wasserturbine (Controller mit Rotor-Textur) in der Mitte einer
@@ -459,8 +480,8 @@ Seitenfläche, 26 Wasserturbinengehäuse. Gezählt wird fließendes Wasser bis 5
 <ul>
 <li>Alle 128 Ticks zählt die Turbine die <b>fließenden</b> Wasserblöcke im Messbereich (Quellblöcke zählen nicht).</li>
 <li>Unter <b>16</b> fließenden Blöcken: 0 EU/t.</li>
-<li>Leistung <code>0,25 EU/t · fließend</code>, in Fluss-Biomen ×1,5, gedeckelt auf <b>32 EU/t</b>. Volllast also ab 128 fließenden Blöcken (im Fluss ab 86).</li>
-<li>EU kommen am Controller <b>und an jedem Gehäuseblock</b> heraus, Pakete bis 32 (LV), Bruchteile werden gesammelt.</li>
+<li>Leistung <code>0,25 EU/t · fließend</code>, gedeckelt auf <b>32 EU/t</b>. In Fluss-Biomen ×1,5 und Deckel <b>48 EU/t</b>. Volllast in beiden Fällen ab 128 fließenden Blöcken.</li>
+<li>EU kommen am Controller <b>und an jedem Gehäuseblock</b> heraus, Pakete bis 32 (LV), Bruchteile werden gesammelt; im Fluss über 32 EU/t zwei Pakete pro Tick.</li>
 <li>Rechtsklick: Chat-Meldung „Fließendes Wasser: n, Leistung x EU/t“ oder „Struktur unvollständig“.</li>
 </ul>
 <div class="calc" data-calc="waterturbine"><h4>Rechner: Wasserturbine</h4><div class="row">
@@ -485,16 +506,17 @@ Seitenfläche, 26 Wasserturbinengehäuse. Gezählt wird fließendes Wasser bis 5
     gross = f'''<h1>Großkraftwerke</h1>
 {h.infobox('Großkraftwerke', 'craft:large_steam_turbine', [
     ('Herkunft', NEW + ' Craft (Kraftwerke, Phase 21)'), ('Anlagen', 'Hochdruckkessel, Große Dampf-, Wasser- und Windturbine'),
-    ('Stufe', '<b>HV</b> (Pakete bis 512)'), ('Leistung', 'Dampf bis 512, Wasser bis 256, Wind bis 384 EU/t'),
+    ('Stufe', '<b>HV</b> (Pakete bis 512)'), ('Leistung', 'Dampf bis 512, Wasser bis 256 (Fluss 384), Wind bis 192 EU/t'),
 ])}
-<p class="lead">Die zweite Ausbaustufe für Kohle, Wasser und Wind. Ein HV-Solarfeld liefert 1536 EU/t – aber nur am Tag. Die
-Großanlagen schaffen je ⅙–⅓ davon, <b>rund um die Uhr</b>. Die kleinen Anlagen bleiben unverändert.</p>
+<p class="lead">Die zweite Ausbaustufe für Kohle, Wasser und Wind: rund 150 bis 512 EU/t je Anlage, <b>rund um die Uhr</b>. Alle drei kosten
+je EU/t ungefähr gleich viel Material: Wind ist absolut am billigsten, liefert aber am wenigsten, Dampf am meisten und braucht Brennstoff. Zum Vergleich: Ein
+9×9-Solarfeld liefert 243 EU/t, und das nur am Tag. Die kleinen Anlagen bleiben unverändert.</p>
 
 <h2 id="gk--ueberblick">Welche Anlage wofür?</h2>
 {h.table(['Anlage', 'Leistung', 'braucht dauerhaft', 'Aufwand', 'gut, wenn …'], [
-    ['<a href="#/grosskraftwerke/gk--dampf">Hochdruckkessel + Große Dampfturbine</a>', 'bis <b>480 EU/t</b> (3 Kessel)', 'Kohle oder Koks, viel Wasser', 'hoch (Stahl, Titan, Wolframstahl)', 'du Kohle/Koks automatisch nachliefern kannst'],
-    ['<a href="#/grosskraftwerke/gk--wasser">Große Wasserturbine</a>', 'bis <b>256 EU/t</b>', 'nichts (fließendes Wasser bleibt)', 'mittel (Stahl, raff. Eisen)', 'du einmal baust und nie wieder hinschauen willst'],
-    ['<a href="#/grosskraftwerke/gk--wind">Große Windturbine</a>', 'meist 60–250, bei Gewitter bis <b>384 EU/t</b>', 'nichts', 'mittel (Carbon-Rotor)', 'du hoch bauen kannst (Berg, Turm)'],
+    ['<a href="#/grosskraftwerke/gk--dampf">Hochdruckkessel + Große Dampfturbine</a>', 'bis <b>480 EU/t</b> (3 Kessel)', 'Kohle oder Koks, viel Wasser', 'hoch (Stahl, Titan, raff. Eisen)', 'du Kohle/Koks automatisch nachliefern kannst'],
+    ['<a href="#/grosskraftwerke/gk--wasser">Große Wasserturbine</a>', 'bis <b>256 EU/t</b>, im Fluss-Biom bis 384', 'nichts (fließendes Wasser bleibt)', 'mittel (Stahl, raff. Eisen)', 'du einmal baust und nie wieder hinschauen willst'],
+    ['<a href="#/grosskraftwerke/gk--wind">Große Windturbine</a>', 'meist 80–150, bei Regen/Gewitter bis <b>192 EU/t</b>', 'nichts', 'niedrig (Stahl, Carbon-Rotor)', 'du hoch bauen kannst (Berg, Turm)'],
 ])}
 <p>Alle drei geben <b>HV</b>-Pakete ab (bis 512 EU). Das heißt für den Anschluss: {c('glass_fibre_cable')} oder
 {c('insulated_hv_cable')}, als Speicher eine {c('mfsu')}, und vor normalen LV-Maschinen (32 EU) Transformatoren
@@ -613,10 +635,10 @@ Sie ist die große Schwester der <a href="#/wasserturbine">Wasserturbine</a>.</p
 (zusammen 19×19), von der untersten Ebene des Würfels bis 24 Blöcke über seinem Deckel. <b>Quellblöcke zählen nicht</b>, nur
 fließendes Wasser (auch fallendes, z. B. Wasserfälle).</li>
 <li>Unter <b>64</b> fließenden Blöcken: gar nichts. Ab 64: <b>1 EU/t je fließendem Block</b>, in einem Fluss-Biom ×1,5.</li>
-<li>Höchstens <b>256 EU/t</b> – erreicht ab 256 fließenden Blöcken (im Fluss-Biom ab 171).</li>
+<li>Höchstens <b>256 EU/t</b> – erreicht ab 256 fließenden Blöcken. Im Fluss-Biom steigt der Deckel auf <b>384 EU/t</b> (ebenfalls ab 256 Blöcken; 256 EU/t schon ab 171).</li>
 <li><b>Rechtsklick</b> auf den Controller zeigt „Fließendes Wasser: n, Leistung x EU/t“ (oder „Struktur unvollständig“). So siehst du sofort,
 ob noch Wasser fehlt.</li>
-<li>Strom kommt an jedem Gehäuseblock heraus, Pakete bis 256 EU (HV).</li>
+<li>Strom kommt an jedem Gehäuseblock heraus, Pakete bis 384 EU (HV).</li>
 </ul>
 <h3>Wie bekomme ich 256 fließende Blöcke?</h3>
 <p>Ein einzelner Quellblock auf einer ebenen Fläche fließt 7 Blöcke weit in alle Richtungen und erzeugt dabei bis zu gut 100
@@ -629,37 +651,37 @@ beieinander, entstehen neue Quellblöcke statt fließendem Wasser.</li>
 <li>Mit Rechtsklick nachzählen. Fehlt noch etwas: eine <b>zweite Ebene</b> darüber bauen oder Wasser von oben herabfallen lassen – alles bis
 24 Blöcke über dem Deckel zählt mit.</li>
 </ol>
-{h.note('tip', 'In einem Fluss-Biom (der Controller muss im Biom stehen) reichen schon 171 fließende Blöcke für die vollen 256 EU/t.')}
+{h.note('tip', 'In einem Fluss-Biom (der Controller muss im Biom stehen) zählt jeder Block 1,5-fach und der Deckel liegt bei 384 EU/t: 171 fließende Blöcke bringen 256 EU/t, 256 Blöcke die vollen 384 EU/t.')}
 
 <h2 id="gk--wind">Große Windturbine</h2>
 <p>Die Große Windturbine macht Strom aus <b>Wind</b>: je höher, desto mehr. Kein Brennstoff, kein Verschleiß, sie geht auch nie kaputt.</p>
 <h3>Aufbau</h3>
 <ol>
-<li><b>8 Windturbinenmasten</b> senkrecht übereinander setzen.</li>
+<li><b>24 Windturbinenmasten</b> senkrecht übereinander setzen.</li>
 <li>Oben drauf die <b>Große Windturbine</b> (Gondel). Die Seite, in die sie beim Setzen schaut, ist die Rotorseite.</li>
 <li>Mit einem <b>Windrotor</b> in der Hand auf die Gondel rechtsklicken – der Rotor wird eingesetzt und dreht sich als großes 5×5-Rad vor der
 Gondel (er kollidiert mit nichts). Schleichen + Rechtsklick mit leerer Hand nimmt ihn wieder heraus; mit einem anderen Rotor
 in der Hand wird getauscht.</li>
-<li>Das Kabel kommt einfach an den <b>Mastfuß</b> – jeder Mast leitet den Strom verlustfrei. Pakete bis 384 EU (HV).</li>
+<li>Das Kabel kommt einfach an den <b>Mastfuß</b> – jeder Mast leitet den Strom verlustfrei. Pakete bis 192 EU (HV).</li>
 </ol>
 {h.table(['Rotor', 'Faktor', 'Material'], [[c('iron_wind_rotor'), '0,5', 'Eisen'], [c('steel_wind_rotor'), '0,75', 'Stahl'], [c('carbon_wind_rotor'), '1,0', 'Carbonplatten + Fortgeschrittene Legierung']])}
 <h3>Was die Leistung bestimmt</h3>
 <ul>
-<li><b>Höhe der Gondel:</b> unter y 64 kommt nichts. Bei normalem Wind und Carbon-Rotor gilt ungefähr <b>Leistung ≈ Höhe − 64</b> EU/t.</li>
+<li><b>Höhe der Gondel:</b> unter y 64 kommt nichts. Bei normalem Wind und Carbon-Rotor gilt ungefähr <b>Leistung ≈ 0,6 · (Höhe − 64)</b> EU/t.</li>
 <li><b>Hindernisse:</b> Jeder Block in einem Kasten von 5 Blöcken um die Gondel (11×11, von 3 unter bis 5 über der Gondel) kostet Leistung –
 die eigenen Masten und die Gondel zählen nicht. Den Bereich also komplett frei halten: keine Bäume, kein Dach, keine Plattform direkt
-unter der Gondel. Mit 8 Masten ist der Boden weit genug weg.</li>
+unter der Gondel. Mit 24 Masten ist der Boden weit genug weg.</li>
 <li><b>Wind:</b> Die Windstärke schwankt langsam im ganzen Spiel (meist 10–20, Mittel 15); bei Regen ×1,5, bei Gewitter ×3.</li>
 <li>Rechtsklick auf die Gondel zeigt „Hindernisse: n, Leistung x EU/t“ (oder „Kein Rotor“ / „Struktur unvollständig“). Neu gezählt
 wird alle 128 Ticks, die Hindernisse alle 1 024 Ticks.</li>
 </ul>
 {h.table(['Gondel auf Höhe', 'Carbon, normaler Wind', 'bei Regen', 'bei Gewitter'], [
-    ['y 100', '≈ 36 EU/t', '≈ 54 EU/t', '≈ 108 EU/t'],
-    ['y 128', '≈ 64 EU/t', '≈ 96 EU/t', '≈ 192 EU/t'],
-    ['y 200', '≈ 136 EU/t', '≈ 204 EU/t', '<b>384 EU/t</b> (Deckel)'],
-    ['y 300', '≈ 236 EU/t', '≈ 354 EU/t', '<b>384 EU/t</b>'],
+    ['y 100', '≈ 22 EU/t', '≈ 32 EU/t', '≈ 65 EU/t'],
+    ['y 128', '≈ 38 EU/t', '≈ 58 EU/t', '≈ 115 EU/t'],
+    ['y 200', '≈ 82 EU/t', '≈ 122 EU/t', '<b>192 EU/t</b> (Deckel)'],
+    ['y 319 (Bauhöhe)', '≈ 153 EU/t', '<b>192 EU/t</b>', '<b>192 EU/t</b>'],
 ])}
-<p>Stahlrotor: Werte × 0,75, Eisenrotor: × 0,5. Höchstwert immer 384 EU/t. Weil der Wind schwankt, lohnt sich eine
+<p>Stahlrotor: Werte × 0,75, Eisenrotor: × 0,5. Höchstwert immer 192 EU/t. Weil der Wind schwankt, lohnt sich eine
 {c('mfsu')} als Puffer dahinter.</p>
 
 <h2 id="gk--fehler">Es kommt kein Strom – woran liegt es?</h2>
@@ -676,18 +698,18 @@ wird alle 128 Ticks, die Hindernisse alle 1 024 Ticks.</li>
 <div class="recipes">
 {h.recipe(['SBS', 'BKB', 'SBS'], {'S': ('craft:steel_plate', None), 'B': ('craft:boiler_casing', None), 'K': ('minecraft:bricks', 'Ziegelsteine')}, ('craft:high_pressure_boiler_casing', None), 8)}
 {h.recipe(['CCC', 'CFC', 'CCC'], {'C': ('craft:high_pressure_boiler_casing', None), 'F': ('craft:boiler_firebox', None)}, ('craft:high_pressure_boiler_firebox', None))}
-{h.recipe(['PPP', 'PAP', 'PPP'], {'P': ('craft:steel_plate', None), 'A': ('craft:advanced_machine_casing', None)}, ('craft:large_turbine_casing', None), 8)}
-{h.recipe(['TWT', 'WRW', 'TWT'], {'T': ('craft:titanium_plate', None), 'W': ('craft:tungstensteel_plate', None), 'R': ('craft:turbine_rotor', None)}, ('craft:large_turbine_rotor', None))}
+{h.recipe(['PIP', 'IAI', 'PIP'], {'P': ('craft:steel_plate', None), 'I': ('craft:refined_iron_plate', None), 'A': ('craft:advanced_machine_casing', None)}, ('craft:large_turbine_casing', None), 8)}
+{h.recipe(['STS', 'SRS', 'STS'], {'T': ('craft:titanium_plate', None), 'S': ('craft:steel_plate', None), 'R': ('craft:turbine_rotor', None)}, ('craft:large_turbine_rotor', None))}
 {h.recipe(['CRC', 'GHG', 'CRC'], {'C': ('craft:large_turbine_casing', None), 'R': ('craft:large_turbine_rotor', None), 'G': ('craft:steam_turbine', None), 'H': ('craft:hv_transformer', None)}, ('craft:large_steam_turbine', None))}
-{h.recipe(['SRS', 'RMR', 'SRS'], {'S': ('craft:steel_plate', None), 'R': ('craft:refined_iron_plate', None), 'M': ('craft:machine_casing', None)}, ('craft:large_water_turbine_casing', None), 8)}
+{h.recipe(['SRS', 'RMR', 'SRS'], {'S': ('craft:steel_plate', None), 'R': ('craft:refined_iron_plate', None), 'M': ('craft:machine_casing', None)}, ('craft:large_water_turbine_casing', None), 6)}
 {h.recipe(['WCW', 'CHC', 'WCW'], {'W': ('craft:water_turbine', None), 'C': ('craft:large_water_turbine_casing', None), 'H': ('craft:hv_transformer', None)}, ('craft:large_water_turbine', None))}
-{h.recipe(['R R', 'RRR', 'R R'], {'R': ('craft:refined_iron_ingot', None)}, ('craft:wind_turbine_mast', None), 8)}
-{h.recipe(['WAW', 'GHG', 'WAW'], {'W': ('craft:wind_mill', None), 'A': ('craft:advanced_machine_casing', None), 'G': ('craft:generator', None), 'H': ('craft:hv_transformer', None)}, ('craft:large_wind_turbine', None))}
+{h.recipe(['S S', 'SSS', 'S S'], {'S': ('craft:steel_plate', None)}, ('craft:wind_turbine_mast', None), 4)}
+{h.recipe(['WAW', 'AHA', 'WAW'], {'W': ('craft:wind_mill', None), 'A': ('craft:advanced_machine_casing', None), 'H': ('craft:hv_transformer', None)}, ('craft:large_wind_turbine', None))}
 {h.recipe(['PIP', 'IBI', 'PIP'], {'P': ('craft:iron_plate', None), 'I': ('minecraft:iron_ingot', 'Eisenbarren'), 'B': ('minecraft:iron_block', 'Eisenblock')}, ('craft:iron_wind_rotor', None))}
-{h.recipe(['PSP', 'SRS', 'PSP'], {'P': ('craft:steel_plate', None), 'S': ('craft:steel_ingot', None), 'R': ('craft:iron_wind_rotor', None)}, ('craft:steel_wind_rotor', None))}
+{h.recipe(['PPP', 'PRP', 'PPP'], {'P': ('craft:steel_plate', None), 'R': ('craft:iron_wind_rotor', None)}, ('craft:steel_wind_rotor', None))}
 {h.recipe(['CAC', 'ARA', 'CAC'], {'C': ('craft:carbon_plate', None), 'A': ('craft:advanced_alloy', None), 'R': ('craft:steel_wind_rotor', None)}, ('craft:carbon_wind_rotor', None))}
 </div>
-<p>Spezifikation: <a href="#/spec-23">23 – Großkraftwerke</a>.</p>
+<p>Spezifikation: <a href="#/spec-23">23 – Großkraftwerke</a>, Ausgleich: <a href="#/spec-32">32 – Ausgleich Großkraftwerke</a>.</p>
 '''
     page('grosskraftwerke', 'Großkraftwerke', 'Neu & geändert', gross)
 
@@ -745,6 +767,59 @@ bauen sie nicht ab. Turtles brauchen Treibstoff (wie im Pack).</p>
 <p>Spezifikation: <a href="#/spec-18">18 – Mining-Dimension</a>.</p>
 '''
     page('mining-dimension', 'Mining-Dimension', 'Neu & geändert', mining)
+    page('farming-dimension', 'Farming-Welt', 'Neu & geändert', '<h1>Farming-Welt</h1>')
+
+    # ------------------------------------------------------------------ Leuchtschild
+    shield = f'''<h1>Elektrischer Leuchtschild</h1>
+{h.infobox('Elektrischer Leuchtschild', 'craft:electric_light_shield', [
+    ('Herkunft', NEW + ' Craft (kein Pack-Vorbild)'), ('ID', '<code>craft:electric_light_shield</code>'),
+    ('Speicher', '100 000 EU'), ('Stufe', '1 (LV), Laden max. 100 EU/t'), ('Licht', 'Kegel 15 (bis 64 Blöcke)<br>+ Schein 14'),
+    ('Verbrauch', '0,5–8 EU/t Licht,<br>100 EU je Blockpunkt'), ('Kreativ-Tab', 'IC2 (leer und voll)'),
+])}
+<p class="lead">Ein Schild, der statt Haltbarkeit <b>EU</b> verbraucht und in der Hand eine <b>große, einstellbare
+Taschenlampe</b> ist (seit Phase 51): ein heller Lichtkegel in Blickrichtung plus Schein rund um den Träger. Das Licht ist
+<b>echtes Licht</b> – alle Spieler sehen es ohne Zusatzmod, und im Lichtkegel spawnen keine Monster.</p>
+
+<h2 id="ls--rezept">Rezept</h2>
+{h.recipe(['ALA', 'ASA', ' R '], {'A': ('craft:advanced_alloy', None), 'L': ('craft:luminator', None), 'S': ('minecraft:shield', 'Schild'), 'R': ('craft:re_battery', None)}, ('craft:electric_light_shield', None))}
+<p>Der Schild kommt <b>leer</b> aus der Werkbank (die RE-Batterie darf beliebig geladen sein). Laden wie alle LV-Werkzeuge: BatBox,
+Ladegerät, Batterie-Slot der Maschinen oder BatPack/LapPack auf dem Rücken.</p>
+
+<h2 id="ls--licht">Licht</h2>
+<ul>
+<li>Leuchtet in <b>Haupt- oder Nebenhand</b>, solange das Licht eingeschaltet und Ladung vorhanden ist (nicht im Zuschauermodus).</li>
+<li><b>Lichtkegel</b> in Blickrichtung: Wände, Boden und Decke im Kegel werden mit <b>Licht 15</b> beleuchtet, ab der halben
+Reichweite abnehmend bis 11 am Ende. Dazu <b>Schein 14</b> rund um den Träger wie eine Fackel – auch unter Wasser.</li>
+<li><b>Einstellbar</b> per <b>Modus-Taste + Schleichen + Rechtsklick</b> (Fenster „Taschenlampe“ mit zwei Schiebereglern):
+Reichweite <b>16 / 32 / 48 / 64 Blöcke</b> und Kegel <b>15° / 30° / 45° / 60°</b>. Das Fenster zeigt Verbrauch und
+Restlaufzeit; der Tooltip die aktuelle Einstellung.</li>
+<li>Kosten: <b>Reichweitenstufe × Kegelstufe EU je 2 Ticks</b>, also 0,5 EU/t (16 Blöcke, 15°) bis 8 EU/t (64 Blöcke, 60°).
+Voll geladen (100 000 EU) reicht das für 2 h 47 min bis gut 10 Minuten; Standard (32 Blöcke, 30°) 2 EU/t ≈ 42 Minuten.</li>
+<li>Technik: unsichtbare Lichtblöcke, die der Server etwa viermal pro Sekunde nachführt; beim schnellen Drehen zieht der
+Kegel kurz nach. Sie verschwinden beim Weglegen, Ausschalten, Abmelden oder Dimensionswechsel von selbst.</li>
+<li><b>Modus-Taste + Rechtsklick</b> schaltet das Licht an/aus („Licht: an/aus“). Rechtsklick allein blockt.</li>
+</ul>
+
+<h2 id="ls--blocken">Blocken</h2>
+<ul>
+<li>Blockt wie ein Vanilla-Schild (5 Ticks Anlauf, Axt-Treffer sperren ihn 5 Sekunden).</li>
+<li>Ein geblockter Treffer ab 3 Schaden kostet <b>100 EU je Haltbarkeitspunkt</b>, den ein normaler Schild verloren hätte
+(1 + Schaden abgerundet). Der Schild selbst nimmt nie Schaden.</li>
+<li>Reicht die Ladung nicht, wird der Treffer noch geblockt und der Schild ist danach leer.</li>
+<li><b>Leer</b> lässt er sich nicht heben und senkt sich, sobald die Ladung ausgeht – kein Licht, kein Blocken.</li>
+</ul>
+
+<h2 id="ls--zauber">Verzauberungen</h2>
+{h.table(['Verzauberung', 'Wirkung'], [
+    ['Haltbarkeit I–III', 'je Blockpunkt Chance 1/(Stufe+1), dass er EU kostet; Licht kostet gleich viel'],
+    ['Reparatur', 'Erfahrungskugeln laden den Schild: 1 XP = 200 EU (nimmt die XP vor anderen Items)'],
+    ['Fluch des Verschwindens', 'wie Vanilla'],
+])}
+<p>Anders als der Vanilla-Schild auch am <b>Zaubertisch</b> verzauberbar (Verzauberbarkeit 10, dort nur Haltbarkeit); Reparatur und
+Fluch kommen wie gewohnt über Bücher am Amboss.</p>
+<p>Spezifikation: <a href="#/spec-30">30 – Elektrischer Leuchtschild</a>.</p>
+'''
+    page('leuchtschild', 'Elektrischer Leuchtschild', 'Neu & geändert', shield)
 
     # ------------------------------------------------------------------ Zusatzmods
     zus = f'''<h1>EMI, Xaero's Minimap & CC: Tweaked</h1>
@@ -757,7 +832,7 @@ bauen sie nicht ab. Turtles brauchen Treibstoff (wie im Pack).</p>
 <li><b>BuildCraft / Forestry / Kraftwerke:</b> Raffinerie, Thermionic Fabricator, Carpenter, Koksofen, Kessel, Turbine …</li>
 </ul>
 <p>Angezeigt werden Ein-/Ausgaben, Dauer, EU/t und Gesamt-EU wie in der jeweiligen GUI. Werkbank-Rezepte und Öfen zeigt EMI ohnehin.
-Der <b>+</b>-Knopf füllt Werkbank-Rezepte auch in den <b>Projekttisch</b> (aus Vorrat und Inventar) und in die <b>Automatische Werkbank</b>.
+Der <b>+</b>-Knopf füllt Werkbank-Rezepte auch in den <b>Projekttisch</b> und den <b>Großen Projekttisch</b> (aus Vorrat und Inventar) und in die <b>Automatische Werkbank</b>.
 Über einem Gegenstand: <b>R</b> = Rezept, <b>U</b> = Verwendungen. EMI ist optional – ohne EMI startet Craft trotzdem.</p>
 <h2 id="zu--xaero">Xaero's Minimap</h2>
 <p>Nur mitinstalliert, keine eigene Integration. Version neoforge-1.21.1-26.5.0.</p>
@@ -804,7 +879,7 @@ braucht vieles früh GT-Materialien (Platten, Stahl).</p>
 </ul>
 <h2 id="fo--5">5. Late Game</h2>
 <ul>
-<li>{c('mfsu')} (10 Mio. EU, HV 512), <a href="#/solar-arrays">Solar Arrays</a>, Nano- und Quantenrüstung, Bergbaulaser.</li>
+<li>{c('mfsu')} (10 Mio. EU, HV 512), große <a href="#/solar-arrays">Solarfelder</a>, Nano- und Quantenrüstung, Bergbaulaser.</li>
 <li>{c('nuclear_reactor')} (60–400+ EU/t), Massefabrikator, Teleporter, Terraformer, Iridium.</li>
 </ul>
 {h.note('tip', 'Mit EMI siehst du im Spiel jedes Rezept: über einem Gegenstand <b>R</b> drücken. Bei Rohstoffen steht die Herkunft im Tab „Info“ neben den Rezepten, im Tooltip hilft <b>Shift</b>.')}
@@ -862,7 +937,18 @@ braucht vieles früh GT-Materialien (Platten, Stahl).</p>
             h.table(['Engine', 'Leistung', 'Brennstoff'], [
                 ['Redstone-Engine', '0,05 MJ/t', 'Redstone-Signal'], ['Stirling-Engine', '1 MJ/t', 'feste Brennstoffe (1 600 MJ je Kohle)'],
                 ['Combustion-Engine', '1 / 3 / 6 MJ/t', 'Lava / Öl / Treibstoff, braucht Kühlung']]) +
-            '<p>Engines arbeiten nur mit Redstone-Signal, laufen heiß (Blau → Grün → Gelb → Rot) und explodieren bei Überhitzung.</p>')
+            '<p>Engines arbeiten nur mit Redstone-Signal, laufen heiß (Blau → Grün → Gelb → Rot) und explodieren bei Überhitzung.</p>'
+            f'''<h2 id="bc--verteiler">Verteiler-Transportrohr (neu)</h2>
+<p>{c('distribution_transport_pipe')} – kein Original-BuildCraft, sondern ein Craft-Zusatz (Nutzerwunsch 2026-10-26). Rezept:
+<b>Diamant-Transportrohr + Komparator</b> (formlos) → 1.</p>
+<ul>
+<li><b>Rechtsklick</b> öffnet die Einstellung: je Seite (Farbe wie beim Diamantrohr) 0–100 % mit −10/−1/+1/+10, Umschalt-Klick setzt 0 bzw. 100.
+In Klammern steht der tatsächliche Anteil unter den angeschlossenen Seiten.</li>
+<li>Die Werte sind <b>Gewichte</b>: 50/30/20 teilt genau so auf; ist ein Ziel voll oder weg, teilen sich die übrigen Seiten seinen Anteil.</li>
+<li><b>Exakt</b>: Jedes Item wird gezählt, ganze Stapel werden geteilt (64 Items bei 50/30/20 → 32/19/13).</li>
+<li><b>0 %</b> sperrt eine Seite. Stehen <b>alle</b> Seiten auf 0, verhält sich das Rohr wie ein normales Rohr.</li>
+<li>War ein Ziel voll, bekommt es danach wieder seinen Anteil, holt das Verpasste aber nicht nach. Ohne freies Ziel laufen Items zurück.</li>
+</ul>''')
 
     modpage('mod-forestry', 'Forestry', 'craft:electrical_engine',
             'Aus Forestry stammt nur die Technik für die Energieumwandlung: die <b>Electrical Engine</b> (EU → MJ) mit Platinen und Electron Tubes, '
@@ -872,16 +958,38 @@ braucht vieles früh GT-Materialien (Platten, Stahl).</p>
 
     modpage('mod-powerconverters', 'Power Converters', 'craft:energy_bridge',
             'Die <b>Energy Bridge</b> verbindet MJ und EU: Consumer speisen Energie ein, Producer geben sie in der anderen Form wieder ab. '
-            '1 MJ = 2,43 EU, Producer geben nur volle Pakete ab. Dazu der Universal Charger.',
-            [('Umrechnung', '1 MJ = 2,43 EU'), ('IC2-Stufen', 'LV, MV, HV, EV')],
-            [('spec-10', '10 – Energieumwandlung (Teil B: Power Converters)')])
+            '1 MJ = 2,43 EU, Producer geben nur volle Pakete ab. Dazu der Universal Charger und – neu in Craft – der '
+            '<b>FE Producer</b>, der Strom als FE an AE2 & Co. abgibt (1 EU = 4 FE).',
+            [('Umrechnung', '1 MJ = 2,43 EU · 1 EU = 4 FE'), ('IC2-Stufen', 'LV, MV, HV, EV')],
+            [('spec-10', '10 – Energieumwandlung (Teil B: Power Converters)'), ('spec-33', '33 – FE Producer')])
     modpage('mod-ironchests', 'Iron Chests', 'craft:iron_chest',
             'Größere Kisten: <b>Kupfer</b> (45 Slots), <b>Eisen</b> (54), <b>Silber</b> (72), <b>Gold</b> (81) und <b>Diamant</b> (108). '
             'Die <b>Kristallkiste</b> ist durchsichtig und zeigt die acht häufigsten Items drehend im Inneren, die <b>Obsidiankiste</b> übersteht Explosionen. '
             'Mit <b>Upgrades</b> wird eine Kiste samt Inhalt direkt aufgewertet, auch die normale Holzkiste. Wo Eisen gebraucht wird, geht auch Raffiniertes Eisen. '
             'Zahme Katzen setzen sich auch auf diese Kisten; Komparatoren lesen den Füllstand (in 1.4.7 gab es noch keine).',
             [('Kisten', '7'), ('Upgrades', '9'), ('Paket', 'Kreativ-Tab „Iron Chests“')],
-            [('spec-22', '22 – Iron Chests')])
+            [('spec-22', '22 – Iron Chests'), ('spec-35', '35 – Kupfergolem')],
+            f'''<h2 id="ic--kupfer">Kupferkiste mit Oxidation (neu)</h2>
+<p>{c('copper_chest')} oxidiert in Craft wie ein Kupferblock: frisch → angelaufen → verwittert → oxidiert. Das ändert nur das Aussehen,
+Inhalt, Größe und Upgrades bleiben. <b>Honigwabe</b> wachst (stoppt die Oxidation), die <b>Axt beim Schleichen</b> entfernt Wachs
+bzw. eine Stufe, ein <b>Blitz</b> macht sie wieder frisch. Abgebaut droppt sie immer als frische Kupferkiste.</p>
+<h2 id="ic--golem">Kupfergolem (neu)</h2>
+<p>Nachbau des Kupfergolems aus Minecraft 1.21.9, mit größerer Reichweite und für Iron Chests. {c('copper_golem_spawn_egg')}</p>
+<ul>
+<li><b>Bauen:</b> Kupferblock (jede Stufe, auch gewachst) setzen, dann einen geschnitzten Kürbis oder eine Kürbislaterne daran –
+oben, seitlich oder darunter; der Kürbis muss <b>zuletzt</b> kommen (Spieler, Enderman oder Werfer). Aus dem Kupferblock wird eine
+Kupferkiste, der Golem steht am Platz des Kürbisses. Beide übernehmen die Oxidationsstufe, nicht das Wachs.</li>
+<li><b>Holen:</b> Mit leerer Hand geht er zur nächsten Kupferkiste im Würfel <b>±32 Blöcke</b> und nimmt bis zu 16 Stück vom ersten
+belegten Platz.</li>
+<li><b>Abgeben:</b> Er bringt das Item zur nächsten Truhe, Redstone-Truhe, zum Fass oder zu einer Iron Chest – aber <b>nie</b> in eine
+Kupferkiste (sonst würde er zwischen zwei Kupferkisten endlos hin und her tragen). Er legt nur ab, wenn der Behälter leer ist oder das
+Item schon enthält; was nicht passt, trägt er zum nächsten. Maschinen, Öfen, Trichter oder Shulkerkisten bedient er nicht.</li>
+<li>Bei jedem Behälter schaut er 3 Sekunden hinein (Deckel offen). Er merkt sich 9 besuchte Behälter; nach 10 Fehlversuchen läuft er
+7 Sekunden umher und beginnt von vorn. Erreichbar ist ein Behälter, der höchstens 1 Block über oder 2 unter seinen Füßen steht.</li>
+<li><b>Oxidation:</b> vier Stufen, je 420–460 Minuten Spielzeit (läuft auch in entladenen Chunks weiter). Anders als in 1.21.9 wird er
+<b>nie zur Statue</b>. Honigwabe wachst, Axt entfernt Wachs bzw. eine Stufe, Blitz nimmt eine Stufe.</li>
+<li>Rechtsklick mit leerer Hand nimmt ihm sein Item ab. 12 Leben, kein Fallschaden, droppt 1–3 Kupferbarren und das getragene Item.</li>
+</ul>''')
 
     modpage('mod-advancedmachines', 'Advanced Machines', 'craft:rotary_macerator',
             'Das IC2-Addon aus dem Pack: <b>Rotations-Macerator</b>, <b>Singularitätskompressor</b> und <b>Zentrifugalextraktor</b> nutzen '
@@ -963,7 +1071,291 @@ zurück.</p>
 Rohr und jede Maschine ab. Klick auf den Ventilknauf kehrt das um (dann Druck ohne Signal). Der Knauf zeigt den Zustand.</li>
 <li>Mit Lava oder anderen leuchtenden Flüssigkeiten leuchtet der Tank. Abbauen behält Farben – der Inhalt bleibt im Speicher.</li></ul>''')
 
+    modpage('mod-gravisuite', 'GraviSuite', 'craft:gravi_chestplate',
+            'Gravitation Suite 1.8 aus dem Pack: Endgame-Ausrüstung auf IC2-Basis – <b>Gravitations-Brustplatte</b> (Flug wie '
+            'im Kreativmodus), <b>Fortgeschrittenes Jetpack</b> und <b>Nano-Brustplatte</b>, <b>Fortgeschrittenes</b> und '
+            '<b>Ultimatives LapPack</b>, <b>Fortgeschrittener Bohrer</b> und <b>Kettensäge</b>, <b>Vajra</b>, <b>GraviTool</b> und '
+            'der <b>Ultimative Solarhelm</b> (nur Kreativ). Alles läuft mit EU; Rezepte übertragen die Ladung der Zutaten.',
+            [('Version (Vorlage)', '1.8'), ('Flug-Taste', 'G (Pack: F)'), ('Gravi-Brustplatte', '10 Mio. EU, 416 EU/t in der Luft'),
+             ('Paket', 'Kreativ-Tab „IndustrialCraft 2“')],
+            [('spec-28', '28 – GraviSuite'), ('spec-37', '37 – Nichts macht schneller')],
+            f'''<h2 id="mod-gravisuite--flug">Fliegen</h2>
+<ul><li>{c('gravi_chestplate')}: <b>G</b> schaltet den Flug ein (ab 80 000 EU), 416 EU/t in der Luft, am Boden nichts (im Pack auch dort).
+{CHG} Fliegen ist so schnell wie Sprinten, Sprint-Fliegen und Boost gibt es nicht mehr. Kein Fallschaden; schützt wie die Quanten-Brustplatte. HUD oben rechts zeigt Status und Ladung.</li>
+<li>{CHG} <b>Gravitationsmagnet</b> der Gravi-Brustplatte: <b>Strg halten + M</b> schaltet ihn (HUD „Gravitationsmagnet AN“). Er zieht Items
+(50 EU je Stapel, nur wenn das Inventar sie aufnimmt) und Erfahrungskugeln im Umkreis von 8 Blöcken heran – auch am Boden und ohne Flug.</li>
+<li>{c('advanced_jetpack')} / {c('advanced_nano_chestplate')}: <b>G</b> schaltet das Triebwerk, Springen gibt Schub, <b>M</b> beim Springen den
+Schwebemodus. {CHG} Kein Boost, vorwärts höchstens Sprinttempo, dafür halber Verbrauch (6 statt 12 EU/t). Unter 1 000 EU bricht der Schub stark ein (wie im Original).</li>
+<li>Alle Brustteile laden wie ein LapPack gehaltene Werkzeuge bis Stufe 2 nach.</li></ul>
+<h2 id="mod-gravisuite--werkzeuge">Werkzeuge</h2>
+{h.table(['Werkzeug', 'Wirkung', 'Kosten'], [
+    [c('advanced_diamond_drill'), f'wie der Diamantbohrer, Effizienz 35; {CHG} Speicher 1 Mio. EU (Pack 15 000), <b>M + Rechtsklick</b> schaltet den 3×3-Modus (8 Blöcke drumherum quer zur Blickrichtung, nicht härter als der Mittelblock)', '160 EU/Block'],
+    [c('advanced_chainsaw'), 'wie die Kettensäge, Effizienz 35, auch Wolle/Melone/Kaktus', '100 EU/Block'],
+    [c('vajra'), 'baut alles sofort ab; Rechtsklick entfernt einen Block mit Drops (nicht Grundgestein)', '3 333 EU/Block'],
+    [c('gravitool'), 'M + Rechtsklick: Hacke, Baumzapfer, Schraubenschlüssel (immer verlustfrei, auch BuildCraft), Schraubendreher', '50–10 000 EU'],
+])}
+<h2 id="mod-gravisuite--solarhelm">Ultimativer Solarhelm</h2>
+<p>{c('ultimate_solar_helmet')} hatte im Pack kein Rezept; in Craft gibt es eins (Nutzer, 2026-10-29): Quantenhelm in der Mitte, darüber der
+IC2-Solarhelm, links und rechts Supraleiter, unten der HV-Transformator, in den Ecken Iridiumplatten. Getragen erzeugt er 512 EU/t bei Sonne und 64 EU/t unter freiem
+Himmel und lädt erst die Rüstung, dann das Inventar.</p>''')
+
+    modpage('mod-mps', 'Modular Powersuits', 'craft:power_armor_torso',
+            'Modular Powersuits 0.3.2 aus dem Pack („Tech-Rüstung“): eine <b>Power-Rüstung</b> (4 Teile) und ein '
+            '<b>Power-Werkzeug</b>, die erst durch <b>Module</b> etwas können. Module baut man am <b>Tinker Table</b> ein und '
+            'stellt sie mit Reglern ein – mehr Leistung kostet mehr Energie und Gewicht. Energie wird in Joule gerechnet '
+            '(50 J = 1 EU) und kommt aus Batteriemodulen.',
+            [('Version (Vorlage)', '0.3.2'), ('Energie', 'Joule, 50 J = 1 EU'), ('Tasten', 'Z runter, K Belegung, Schleichen + Mausrad Modus'),
+             ('Kreativ-Tab', 'Craft: Modular Powersuits')],
+            [('spec-29', '29 – Modular Powersuits'), ('spec-37', '37 – Nichts macht schneller')],
+            f'''<h2 id="mod-mps--tisch">Tinker Table</h2>
+<ul><li>{c('tinker_table')}: Rechtsklick öffnet die Übersicht aller modularen Teile im Inventar. Modul wählen,
+„Einbauen“ verbraucht die angezeigten Bauteile (Kreativ: kostenlos), Regler stellen die Werte ein.</li>
+<li>„Ausbauen“ gibt jedes Bauteil mit 90 % Chance zurück; NS-/MS-/HS-Kondensatoren gehen verloren. Batteriemodule mit
+Kondensator bringen beim Einbau gleich etwas Ladung mit.</li></ul>
+<h2 id="mod-mps--energie">Energie und Gewicht</h2>
+<ul><li>Batteriemodule (Basis/Fortgeschritten/Elite) geben Kapazität; alle getragenen Teile und das Werkzeug in der Hand
+bilden einen gemeinsamen Vorrat (verbraucht wird von den Stiefeln aufwärts).</li>
+<li>Laden in IC2-Speichern und -Ladegeräten wie ein Stufe-1-Gegenstand; dazu Solar (Helm, alle 4 s) und Kinetik (Hose,
+je 5 Blöcke).</li>
+<li>Über 25 kg Gesamtgewicht wird man langsamer, Jetpack und Sprung werden schwächer. Die Sprinthilfe hebt die Grenze um bis zu 25 kg an (Regler „Power“).</li></ul>
+<h2 id="mod-mps--tempo">Kein Zusatztempo {CHG}</h2>
+<ul><li><b>Sprinthilfe:</b> macht nicht mehr schneller; der Regler „Power“ gibt stattdessen <b>Tragkraft</b> (bis +25 000 g), der
+Erschöpfungsausgleich bleibt. Den Regler „Gehhilfe“ und die Gehkosten gibt es nicht mehr.</li>
+<li><b>Sprunghilfe:</b> höher springen ja, aber keine zusätzliche Luftsteuerung.</li>
+<li><b>Schwimmhilfe:</b> kein Schub; fest 100 J/Tick unter Wasser, dafür baut jedes Werkzeug unter Wasser (auch schwimmend) so schnell ab wie an Land.</li>
+<li><b>Jetpack, Düsenstiefel, Flugsteuerung, Gleiter:</b> steigen und schweben wie bisher, waagerecht höchstens Sprinttempo.</li></ul>
+<h2 id="mod-mps--module">Module</h2>
+{h.table(['Teil', 'Module'], [
+    ['alle Rüstungsteile', 'Eisen-/Diamantpanzerung, Energieschild (max. Schutz 6 je Teil), Batterien, Farbe, Durchsichtig, Citizen-Joe-Stil'],
+    ['Helm', 'Nachtsicht, Flugsteuerung, Auto-Feeder (isst aus dem Inventar), Wasser-Elektrolyseur (Luft), Solargenerator'],
+    ['Brust', 'Jetpack, Gleiter, Fallschirm, Aktive Tarnung (Unsichtbarkeit)'],
+    ['Hose', 'Sprint-/Sprung-/Schwimmhilfe, Stufenhilfe, Kinetikgenerator'],
+    ['Stiefel', 'Düsenstiefel, Stoßdämpfer'],
+    ['Werkzeug', 'Spitzhacke, Schaufel, Axt, Diamantbohrer-Upgrade, Aqua Affinity, Nahkampfhilfe, Railgun, Blink Drive, Plasmakanone, In-Place Assembler'],
+])}
+{h.note('info', 'Wie im Pack baut schon das Spitzhacken-Modul Obsidian ab; das Diamantbohrer-Upgrade wirkt nur ohne Spitzhacke und ist dann fast nutzlos.')}
+<h2 id="mod-mps--tasten">Tasten</h2>
+<ul><li><b>Z</b>: runter mit Flugsteuerung (Jetpack/Düsenstiefel schweben ohne Tasten).</li>
+<li><b>K</b>: Tastenbelegung – „Neu“, Taste drücken, Module per Ziehen auf die Taste legen; jeder Druck schaltet sie
+abwechselnd aus/an (erster Druck: aus).</li>
+<li><b>Schleichen + Mausrad</b> mit dem Power-Werkzeug: Modus wählen (Symbole über der Hotbar), Rechtsklick führt ihn aus.</li></ul>
+<p>{c('component_carbon_myofiber')} und {c('component_myofiber_gel')} haben wie im Pack weder Rezept noch Verwendung.</p>''')
+
+    modpage('mod-nuclearcontrol', 'IC2 Nuclear Control', 'craft:information_panel',
+            'IC2 Nuclear Control aus dem Pack: <b>Reaktor-Überwachung</b> (Thermometer, Thermomonitore), <b>Alarme</b>, '
+            'die <b>Industrie-Infotafel</b> mit Sensorkarten für Reaktoren, Speicher, Tanks und Zähler, dazu '
+            '<b>Energiezähler</b> und der <b>Bereichsauslöser</b>. Mit dabei der GregTech-Zusatz (Sensorkit für GT-Maschinen). '
+            'Alle Teile liegen im Kreativ-Tab „IndustrialCraft 2“, das GT-Sensorkit im GregTech-Tab.',
+            [('Vorlage', 'IC2 Nuclear Control (FTB Ultimate)'), ('Energie', 'EU (Fern-Thermomonitor 1 EU/t)'),
+             ('Reichweite Karten', '8 × 2ⁿ je Achse (n Reichweiten-Upgrades, max. 1024)'), ('Kreativ-Tab', 'IndustrialCraft 2')],
+            [('spec-46', '46 – IC2 Nuclear Control')],
+            f"""<h2 id="mod-nuclearcontrol--reaktor">Reaktor überwachen</h2>
+<ul><li>{c('thermometer')} / {c('digital_thermometer')}: Rechtsklick auf Reaktor oder Kammer zeigt die Hüllentemperatur.
+Das einfache hält 11 Messungen, das digitale kostet 50 EU je Messung und nennt die Grenzen 50 % (Wasser verdampft) und 85 % (Schmelzen).</li>
+<li>{c('thermal_monitor')}: direkt an Reaktor oder Kammer setzen; ab der eingestellten Hitze (Standard 500) Redstone 15 nach
+allen Seiten außer zum Reaktor, umkehrbar. Front grün/rot, grau ohne Reaktor.</li>
+<li>{c('remote_thermal_monitor')}: dasselbe über eine Reaktor-Sensorkarte aus der Ferne; braucht 1 EU/t (600 EU Speicher,
+Transformator-/Energiespeicher-Upgrades), zu große Pakete sprengen ihn.</li></ul>
+<h2 id="mod-nuclearcontrol--alarm">Alarme</h2>
+<p>{c('howler_alarm')} und {c('industrial_alarm')} heulen, solange Redstone anliegt; Ton und Reichweite (0–128, Standard 64)
+in der GUI. Der Industriealarm blinkt zusätzlich (Licht 7, 7, 15, 0 – wie im Pack). Ein Thermomonitor am Alarm warnt
+bei Überhitzung.</p>
+<h2 id="mod-nuclearcontrol--tafel">Industrie-Infotafel</h2>
+<ul><li>{c('information_panel')}: zeigt eine Karte, aber <b>nur mit Redstone-Signal</b> (dann Licht 7); aktualisiert sich etwa jede Sekunde.</li>
+<li>{c('information_panel_extender')}: in gleicher Ausrichtung daneben gesetzt, vergrößert den Bildschirm (je Richtung bis 20 Blöcke).</li>
+<li>{c('range_upgrade')}: verdoppelt die Reichweite der Fernkarten je Stück (8 → max. 1024 Blöcke je Achse).
+{c('color_upgrade')}: Hintergrund- und Textfarbe wählen (Knopf „T“).</li>
+<li>GUI: Anzeigezeilen je Kartentyp ein/aus, Beschriftung, Kartentitel; Shift + Schraubenschlüssel dreht den Text.</li></ul>
+<h2 id="mod-nuclearcontrol--karten">Sensorkits und Karten</h2>
+<p>Sensorkarten haben kein Rezept: Mit dem Kit auf das Ziel rechtsklicken, das Kit wird zur Karte mit den Koordinaten.</p>
+{h.table(['Kit → Karte', 'Ziel', 'Zeigt'], [
+    [c('remote_sensor_kit') + ' → ' + c('reactor_sensor_location_card'), 'Reaktor oder Kammer', 'An/Aus, Hitze, Max. Hitze, Schmelzpunkt, Ausgabe EU/t, Restzeit der Brennstäbe'],
+    [c('energy_sensor_kit') + ' → ' + c('energy_sensor_location_card'), 'BatBox/MFE/MFSU, GT-Maschinen (EU), BuildCraft-Empfänger (MJ)', 'Aktuell, Speicher, Frei, Füllstand'],
+    [c('liquid_sensor_kit') + ' → ' + c('liquid_sensor_location_card'), 'jeder Block mit Tank', 'Flüssigkeit, Menge, Frei, Kapazität, Füllstand'],
+    [c('counter_sensor_kit') + ' → ' + c('counter_sensor_location_card'), 'Energie-/Durchschnittszähler', 'Zählerstand bzw. EU/t'],
+    [c('gt_sensor_kit') + ' → ' + c('gt_sensor_card'), 'Hochofen, Grinder, Zentrifuge, Elektrolyseur, Implosionskompressor, Vakuumgefrierer', 'Fortschritt in Sekunden'],
+    [c('energy_array_location_card'), 'Werkbank: 2–6 Energiekarten (formlos)', 'je Speicher und/oder Summe'],
+    [c('text_card') + ', ' + c('time_card'), '–', '10 Zeilen Text („...“ in der Tafel) bzw. Tageszeit'],
+])}
+{h.note('info', 'Die Energiefeld-Karte zerfällt allein in der Werkbank in 2 Elektronische Schaltungen je Ziel; das GT-Sensorkit und die Rückgewinnung der GT-Karte laufen im Assembler.')}
+<h2 id="mod-nuclearcontrol--zaehler">Zähler und Bereichsauslöser</h2>
+<ul><li>{c('energy_counter')} / {c('average_counter')}: EU rein an der Front, raus an allen anderen Seiten, ein volles Paket
+je Tick. Paket 32 EU, ×4 je Transformator-Upgrade; größere Pakete lassen ihn explodieren. Der Energiezähler zählt die EU
+(Reset), der Durchschnittszähler zeigt EU/t über 1/3/5/10 s.</li>
+<li>{c('range_trigger')}: Energie- oder Feldkarte einlegen, zwei Grenzen einstellen – ab der oberen Redstone an, unter der
+unteren aus, dazwischen bleibt der Zustand (Hysterese). Damit lassen sich Generatoren nach dem Füllstand eines Speichers schalten.</li></ul>""")
+
+    modpage('mod-chargepads', 'ChargePads', 'craft:lapotronic_charge_pad',
+            'Charge Pads aus dem Pack: flache <b>Ladepads</b>, die Elektro-Items der Spieler laden, die darauf stehen – '
+            'ohne Ausziehen, ohne Ladestation. Drei Stufen, IC2-Upgrades, ein eigenes Effizienz-Upgrade und Emitter-Module '
+            '(größeres Feld, ganze Hotbar, Rüstung zuerst, aber auch Entladen oder Verletzen). Vorsicht: falsch abgebaut '
+            'gibt es einen Stromschlag. Alle Teile liegen im Kreativ-Tab „IndustrialCraft 2“.',
+            [('Vorlage', 'Charge Pads 2.4.1 (FTB Ultimate)'), ('Energie', 'EU, nur von unten'),
+             ('Laderate', '32 / 128 / 512 EU/t'), ('Kreativ-Tab', 'IndustrialCraft 2')],
+            [('spec-47', '47 – ChargePads')],
+            f"""<h2 id="mod-chargepads--pads">Pads</h2>
+{h.table(['Pad', 'Speicher', 'Eingang = Laderate', 'lädt bis', 'Plätze'], [
+    [c('static_charge_pad'), '40 000 EU', '32 EU/t', 'Stufe 1 (LV)', 'Batterie + 1 Upgrade'],
+    [c('crystalizor_charge_pad'), '600 000 EU', '128 EU/t', 'Stufe 2 (MV)', 'Batterie + 2 Upgrades + Projektor + Feld'],
+    [c('lapotronic_charge_pad'), '10 000 000 EU', '512 EU/t', 'Stufe 3 (HV)', 'Batterie + 3 Upgrades + Projektor + Feld'],
+])}
+<ul><li>Strom nur <b>von unten</b> (Kabel unter den Pad); ein zu großes Paket sprengt ihn. Der Batterieslot lädt den Pad
+aus Akkus, Redstone (500 EU) oder Einweg-Batterien (1 000 EU).</li>
+<li>Betritt ein Spieler den Pad, schaltet er sich ein (Klick, Funken): Grundverbrauch Stufe EU/t, Redstone 15 nach unten
+und zur Seite. Geht der Spieler weg oder ist nichts zu laden, schaltet er ab.</li>
+<li>Geladen wird zuerst das Item in der Hand; nur wenn dort nichts Ladbares ist, die Rüstung. Alle Craft-Elektro-Items
+(IC2, GraviSuite, MPS, Leuchtschild …) bis zur Pad-Stufe.</li></ul>
+<h2 id="mod-chargepads--upgrades">Upgrades und Ausbau</h2>
+<ul><li>Übertakter (max. 16): Laderate × 1,05 je Stück, +1 EU/t Grundverbrauch. {c('efficiency_upgrade')} (max. 16) hebt
+diesen Mehrverbrauch auf und senkt die Ladekosten × 0,995 je Stück; im Rezept passt nur ein <b>voll geladenes</b> RE-Akku.</li>
+<li>Energiespeicher: + Stufe × 10 000 EU; Transformer (max. 4): Eingang × 4, Batterieslot eine Stufe höher.</li>
+<li>{c('crystalizor_upgrade_kit')} und {c('lapotronic_upgrade_kit')} (mit {c('mfs_unit_upgrade')}): Pad in der Werkbank
+oder gesetzt per Rechtsklick auf die <b>Unterseite</b> eine Stufe höher bringen – Speicher und Inhalt bleiben. Aktiver Pad →
+Stromschlag. Wie im Original landet das Upgrade des statischen Pads im Feld-Platz (wirkt dort nicht, herausnehmen).</li></ul>
+<h2 id="mod-chargepads--module">Emitter-Module</h2>
+{h.table(['Modul', 'Platz', 'Wirkung'], [
+    [c('proximity_booster_module'), 'Projektor', 'auch die Hotbar-Fächer neben der Hand'],
+    [c('wide_band_booster_module'), 'Projektor', 'die ganze Hotbar'],
+    [c('field_expansion_module_alpha') + ', ' + c('field_expansion_module_delta') + ', ' + c('field_expansion_module_theta'), 'Projektor', 'Feld +1/+2/+3 Blöcke zu jeder Seite, Grundverbrauch +2/+4/+6 EU/t (Delta/Theta nur Lapotron)'],
+    [c('armour_priority_module'), 'Feld', 'erst Rüstung, dann Hand'],
+    [c('drain_conversion_module'), 'Feld', 'entlädt statt zu laden (Energie geht verloren)'],
+    [c('damage_conversion_module'), 'Feld', 'verletzt und vergiftet alle Lebewesen im Feld, lädt nichts'],
+])}
+<h2 id="mod-chargepads--gefahr">Gefahren</h2>
+<ul><li>Nur der <b>Schraubenschlüssel</b> baut den Pad sauber ab (Energie geht verloren). Mit Entladungs- oder Schadensmodul
+öffnen GUI und Schlüssel nur von unten.</li>
+<li>Abbauen ohne Schlüssel: Stromschlag in der Umgebung (je nach Speicher bis 10 / 12 / 20 Schaden, ignoriert Rüstung),
+ein Teil des Inventars geht verloren, der Pad selbst droppt nicht.</li>
+<li>Wer aus mehr als 3,5 / 2,5 / 1,5 Blöcken auf den Pad fällt, bekommt 3 / 6 / 9 Schaden extra.</li></ul>""")
+
+    modpage('mod-mffs', 'Modular Force Field System', 'craft:mffs_projector',
+            'Modular Force Field System (MFFS) aus dem Pack: <b>Kraftfelder</b> aus unzerstörbaren Feldblöcken in acht Formen, '
+            'gespeist mit <b>Kraftenergie (KE)</b> aus Forcicium und EU, dazu Upgrades (Tarnung, Schaden, Störsender …), eine '
+            '<b>Sicherheitsstation</b> mit Ausweisen und Rechten, Fernsteuerung und eine <b>Verteidigungsstation</b>. Alle Teile '
+            'liegen im eigenen Kreativ-Tab „Craft: Modular Force Field System“.',
+            [('Vorlage', 'Modular ForceField System V2 2.2.8.3.6 (FTB Ultimate)'), ('Energie', 'Kraftenergie (KE) aus EU/MJ + Forcicium'),
+             ('Umrechnung', '4 000 EU → 12 000 KE; 3 KE → 1 EU'), ('Kreativ-Tab', 'Craft: Modular Force Field System')],
+            [('spec-48', '48 – Modular Force Field System')],
+            f"""<h2 id="mod-mffs--energie">Forcicium und Kraftenergie</h2>
+<ul><li>{c('monazit_ore')}: Oberwelt (y 0–79, 5 kleine Adern je Chunk) und Mining-Dimension (doppelt). Ofen → 4, Macerator/Pulverisierer
+→ 8, Industrial Grinder → 10 {c('forcicium')} + 2 Thoriumstaub.</li>
+<li>{c('mffs_extractor')}: EU (bis 2 048 EU/Paket) oder MJ + Forcicium → KE. 1 Forcicium = 250 Takte à 4 000 EU → 12 000 KE,
+also 3 Mio. KE aus 1 Mio. EU. Takt alle 20 Ticks, je {c('mffs_extractor_booster')} einen Tick schneller (max. 19).</li>
+<li>{c('forcicium_cell')}: trägt 1 000 Forcicium; aktiv (Rechtsklick) sammelt sie Forcicium aus dem Inventar. Im Extraktor rechts
+gefüllt kostet sie 200 000 EU je Forcicium.</li>
+<li>{c('mffs_capacitor')}: 10 Mio. KE (+2 Mio. je {c('mffs_capacitor_upgrade_capacity')}), versorgt drahtlos alle Geräte mit seiner
+{c('mffs_card_power_link')} im Umkreis von 8 Blöcken (+8 je {c('mffs_capacitor_upgrade_range')}, max. 80).
+{c('force_energy_crystal')} (5 Mio. KE) und Multiwerkzeug lädt bzw. entlädt er.</li>
+<li>{c('mffs_converter')}: KE → EU (3 KE je EU), Paketgröße 1–2 048 EU, 1–9 Pakete je Tick. Extraktor + Konverter = drahtlose EU-Leitung ohne Verlust.</li></ul>
+{h.note('info', 'Alle MFFS-Maschinen sind unzerstörbar: abbauen mit dem Multiwerkzeug ‹Schraubenschlüssel› (Vorderseite anklicken) oder dem IC2-Schraubenschlüssel, nur ausgeschaltet. Schaltmodus Redstone, Schalter oder Steuerungssystem. Jede Maschine hält ihren Chunk geladen.')}
+<h2 id="mod-mffs--karten">Karten</h2>
+<p>{c('mffs_card_blank')} auf einen Kondensator → {c('mffs_card_power_link')}, auf eine aktive Sicherheitsstation →
+{c('mffs_card_security_link')}. Mit der Karte auf eine Maschine rechtsklicken setzt sie ein. Karten folgen ihrem Ziel auch nach dem
+Verschieben; jede Datenkarte allein in der Werkbank wird wieder leer. {c('mffs_card_infinite_power')} gibt es nur im Kreativmodus.</p>
+<h2 id="mod-mffs--projektor">Projektor und Kraftfeld</h2>
+<p>{c('mffs_projector')}: Energiequelle, Modul, dazu {c('field_modulator_distance')} (D), {c('field_modulator_strength')} (S) und
+{c('projector_focus_matrix')} (oben/unten/rechts/links). Einschalten kostet 10 KE je Feldblock, danach 1 KE je Feldblock alle
+20 Ticks (Wand, Deflektor und diagonale Wand ohne Upgrade wie im Original doppelt). Feldblöcke ersetzen nur Luft und Flüssigkeiten.</p>
+{h.table(['Modul', 'Form'], [
+    [c('projector_module_wall'), 'Kreuz aus den Fokusmatrizen, S+1 tief, ab D+1 vor dem Projektor'],
+    [c('projector_module_diagonal_wall'), 'wie Wand, aber Diagonalen'],
+    [c('projector_module_deflector'), 'Fläche aus den Fokusmatrizen, Abstand D+1, 1 dick'],
+    [c('projector_module_tube'), 'offene Röhre um den Projektor, Querschnitt ±(D+2), Länge ±S'],
+    [c('projector_module_cube'), 'Hohlwürfel, Radius D+4'],
+    [c('projector_module_sphere'), 'Kugelschale, Radius D+4, Dicke S+1'],
+    [c('projector_module_containment'), 'Hohlquader vor dem Projektor'],
+    [c('projector_module_adv_cube'), 'Hohlquader um den Projektor aus Fokusmatrizen und S'],
+])}
+<p>Zugriffsart: kein Zutritt (Feld schockt jeden beim Anfassen), frei, über die Sicherheitsstation des Kondensators oder eine
+eigene Station ({c('mffs_card_security_link')} im Projektor). {c('mffs_multitool_field_teleporter')} bringt berechtigte Spieler
+durch ein Feld bis 5 Blöcke Dicke (10 000 KE).</p>
+<h2 id="mod-mffs--upgrades">Upgrades</h2>
+{h.table(['Upgrade', 'Wirkung'], [
+    [c('projector_upgrade_touch_damage'), '10 Schaden bei Berührung (ignoriert Rüstung)'],
+    [c('projector_upgrade_sponge'), 'entfernt Flüssigkeiten im Innenraum'],
+    [c('projector_upgrade_field_manipulator'), 'Kuppel bzw. Halbform'],
+    [c('projector_upgrade_block_breaker'), 'räumt Blöcke auf Feldplätzen ab (bei Wänden 1 Item ins Nachbarinventar, Rest verloren – Originalfehler)'],
+    [c('projector_upgrade_field_jammer'), 'fremde Projektoren mit Feldpunkten im Innenraum brennen aus (Reparatur mit dem Schraubenschlüssel-Multiwerkzeug)'],
+    [c('projector_upgrade_camouflage'), 'Feld sieht aus wie der Block im Tarnplatz (auch Wasser/Lava per Eimer)'],
+    [c('projector_upgrade_field_fusion'), 'Felder am selben Kondensator verschmelzen'],
+    [c('projector_upgrade_npc_defense'), '10 Schaden an Monstern im Feld alle 20 Ticks, je 10 000 KE'],
+    [c('projector_upgrade_defense_station'), '10 Schaden an Spielern ohne Recht „Im Gebiet bleiben“, je 10 000 KE'],
+])}
+<h2 id="mod-mffs--sicherheit">Sicherheit</h2>
+<ul><li>{c('mffs_security_station')}: aktiv mit einem {c('mffs_card_personal_id')} im Master-Platz (der Besitzer darf alles).
+Ausweise im Bearbeitungsplatz bekommen per Knopf die 8 Rechte (Kraftfeld-Durchgang, Block bearbeiten, Rechte vergeben, Im Gebiet
+bleiben, Speicher öffnen, Geschützten Block ändern – ohne Wirkung, Alle Gegenstände erlaubt, Steuerungssystem benutzen).
+Leere Karte + „+“ → {c('mffs_card_access')} (5 min, ±5 min). Inaktive Station = alles erlaubt.</li>
+<li>{c('mffs_multitool_id_writer')}: Ausweis für sich (Luft) oder einen anderen Spieler (Linksklick), {c('mffs_card_data_link')} auf einer Maschine.</li>
+<li>{c('mffs_security_storage')}: 54 gesicherte Plätze; eingeschaltet für Trichter/Rohre gesperrt.</li>
+<li>{c('mffs_control_system')}: zeigt und schaltet Maschinen über Datenlink-Karten aus der Ferne (bis 61 Blöcke).</li>
+<li>{c('mffs_defense_station')}: Warnbereich (Warnung + 1 Schaden) und Aktionsbereich aus Distanz-Modulatoren, 10 KE × Warnradius je
+Tick. Modi: informieren, Spieler töten (Inventar wird beschlagnahmt), durchsuchen (Verbots- oder Erlaubtliste) oder NPCs töten
+(alle/feindliche/freundliche).</li></ul>
+{h.note('warn', 'Verteidigungsstation, Feldschock und Störsender sind wie im Pack scharf: ohne Rechte kann man sterben und das Inventar verlieren.')}
+<h2 id="mod-mffs--multiwerkzeug">Multiwerkzeug</h2>
+<p>{c('mffs_multitool_wrench')} wird gebaut; Schleichen + Rechtsklick wechselt zu {c('mffs_multitool_switch')},
+{c('mffs_multitool_id_writer')}, {c('mffs_multitool_field_teleporter')} und {c('mffs_multitool_guide')} (Ladung bleibt, 1 Mio. KE).
+{c('mffs_multitool_debugger')} gibt es nur im Kreativmodus; er gilt bei jeder Sicherheitsprüfung als Freibrief.</p>""")
+
     # ------------------------------------------------------------------ Items
+    modpage('mod-kleinkram', 'Kleinkram: OmniTools, Obsidian-Druckplatte, Gravity Gun', 'craft:omniwrench',
+            'Drei kleine Mods aus dem Pack (Phase 50) im Kreativ-Tab „Craft: Kleinkram“: der <b>OmniWrench</b> und das '
+            '<b>Forge-Lexikon</b> aus OmniTools, die <b>Obsidian-Druckplatte</b> und die <b>Gravitationskanone</b>.',
+            [('Vorlagen', 'OmniTools 3.0.4, ObsidiPlates 1.2.0, GraviGun 1.4.7v2'), ('Kreativ-Tab', 'Craft: Kleinkram')],
+            [('spec-50', '50 – Kleinkram aus dem Pack')],
+            f"""<h2 id="mod-kleinkram--omniwrench">OmniWrench</h2>
+<p>{c('omniwrench')} (Diamant, Goldbarren, cyanfarbene Wolle): unzerstörbar, ohne Strom. Dreht Vanilla-Blöcke (Schleichen: andersherum),
+dreht IC2-Maschinen auf die geklickte Seite (Schleichen: Gegenseite) und baut sie per Klick auf die Front <b>immer verlustfrei</b> ab.
+Zählt auch als BuildCraft- und Thermal-Expansion-Schlüssel und dreht die Nuclear-Control-Tafeln.</p>
+<h2 id="mod-kleinkram--lexikon">Forge-Lexikon und Mystischer Sockel</h2>
+<ul><li>{c('forge_lexicon')} wandelt Erze, Staub, kleine Stäube und Barren zwischen gleichwertigen Varianten verschiedener Mods um
+(gemeinsamer <code>c:</code>-Tag, z. B. Craft-Zinn ↔ Mekanism-Zinn; Gruppen nach der Whitelist des Packs). Schleichen + Rechtsklick öffnet es überall.</li>
+<li>Pfeile wählen die Zielvariante, der Knopf wandelt den ganzen Stapel um (so viel der Ausgang fasst). Die Wahl bleibt für dieselbe Gruppe erhalten.</li>
+<li>{c('mystical_plinth')}: Rechtsklick mit dem Lexikon legt es mit (harmlosem) Blitz und Knall darauf; dann leuchtet der Sockel (15) und öffnet
+per Rechtsklick das Lexikon. Schleichen + Schraubenschlüssel nimmt es samt Inhalt wieder ab.</li></ul>
+<h2 id="mod-kleinkram--druckplatte">Obsidian-Druckplatte</h2>
+<p>{c('obsidian_pressure_plate')} aus 2 Obsidian: wird nur von <b>Spielern</b> ausgelöst, nicht von Mobs, Tieren oder Gegenständen.
+Fest wie Obsidian gegen Explosionen, mit jeder Spitzhacke abbaubar.</p>
+<h2 id="mod-kleinkram--gravitygun">Gravitationskanone</h2>
+{h.table(['', 'Normal', 'Aufgeladen'], [
+    ['Greifen', 'Entities und Blöcke in 4 Blöcken', 'ebenso'],
+    ['Heranziehen (Taste halten)', 'Entities aus 10 Blöcken', 'aus 15 Blöcken, doppelt so stark, reißt auch Blöcke los'],
+    ['Werfen', 'Stärke 10', 'Stärke 12; geworfene Creeper explodieren'],
+    ['Herstellung', 'Diamant, Enderperlen, Eisen, Obsidian, Glowstone', 'mit Netherstern statt Glowstone – oder Blitz in der Nähe'],
+])}
+<ul><li><b>Benutzen-Taste</b> greift bzw. lässt los, <b>Angriffstaste</b> wirft (oder stößt ein Ziel an). Gehaltenes schwebt 3,5 Blöcke vor dir.</li>
+<li>Greifbar sind volle Blöcke, Truhen (mit Inhalt), Glas, Glowstone, Kuchen, TNT, Eis, Laub und Ambosse, außer Grundgestein; losgelassene
+Blöcke fallen und setzen sich wieder ab.</li>
+<li>Geworfenes richtet beim Aufprall Schaden an (2,5 je Block/Tick Tempo). Gemälde und der Enderdrache lassen sich nicht greifen.</li>
+<li>Aussehen und Klänge sind eigene – nichts aus Half-Life 2.</li></ul>""")
+
+    modpage('mod-secretrooms', 'Secret Rooms', 'craft:camo_paste',
+            'Getarnte Blöcke aus dem Pack (SecretRoomsMod, Phase 50) im Kreativ-Tab „Craft: Secret Rooms“: sie sehen beim Setzen aus wie '
+            'ihre Nachbarn – für Geheimgänge, versteckte Türen und Schalter.',
+            [('Vorlage', 'SecretRoomsMod (FTB Ultimate)'), ('Zutat', 'Tarnpaste'), ('Kreativ-Tab', 'Craft: Secret Rooms')],
+            [('spec-50', '50 – Kleinkram aus dem Pack')],
+            f"""<h2 id="mod-secretrooms--tarnung">So wird getarnt</h2>
+<ul><li>Beim Setzen sucht der Block ein gleiches <b>gegenüberliegendes Nachbarpaar</b> (unten/oben, West/Ost, Nord/Süd); sonst nimmt er den
+ersten Nachbarn (unten, oben, West, Ost, Nord, Süd). Es zählen nur volle Blöcke; getarnte Nachbarn geben ihre Tarnung weiter.</li>
+<li>Die Tarnung bleibt, auch wenn sich die Nachbarn später ändern. Licht geht durch wie durch den nachgeahmten Block.</li>
+<li>{c('camo_paste')}: 9 Stück aus rotem, grünem, gelbem und schwarzem Farbstoff um Erde, Sand oder Ton.</li></ul>
+<h2 id="mod-secretrooms--bloecke">Blöcke</h2>
+{h.table(['Block', 'Verhalten'], [
+    [c('ghost_block'), 'durchlaufbar; mit Redstone am Block oder darüber fest'],
+    [c('one_way_glass'), 'eine Seite getarnt, sonst Glas – von innen sieht man hinaus. Tarnseite zeigt beim Setzen von dir weg, Taste „Einwegglas-Richtung“ (\\) dreht das um'],
+    [c('camo_redstone'), 'leitet ein Signal verlustfrei weiter (von der speisenden Seite an alle anderen)'],
+    [c('camo_lever') + ' ' + c('camo_button'), 'schalten wie Hebel/Knopf'],
+    [c('camo_pressure_plate') + ' ' + c('camo_player_pressure_plate'), 'lösen aus, wenn man auf dem Block steht (Spieler-Variante nur Spieler)'],
+    [c('camo_stairs'), 'sieht aus wie ein voller Block, läuft sich wie eine Treppe'],
+    [c('camo_chest'), 'Truhe mit 27 Plätzen'],
+    [c('camo_gate'), 'Redstone schiebt bis zu 10 getarnte Blöcke heraus, ohne Signal verschwinden sie (nach unten: bleiben – wie im Original)'],
+    [c('camo_wooden_door') + ' ' + c('camo_iron_door') + ' ' + c('camo_trapdoor'), 'Türen und Falltür in Tarnung der Wand bzw. des Scharnierblocks'],
+    [c('torch_lever'), 'Fackel (Licht 14), die per Rechtsklick wie ein Hebel schaltet'],
+])}
+<p>Ein Rezept-Fehler des Originals ist übernommen: Tarnpaste + Holztreppe im Ring ergibt 9 Tarnpaste statt Treppen; getarnte Treppen
+entstehen aus Bruchsteintreppe.</p>""")
+
     page('items', 'Gegenstände & Blöcke', 'Allgemein', f'''<h1>Gegenstände & Blöcke</h1>
 <p class="lead">Alle {stats['items']} registrierten Blöcke und Items von Craft mit deutschem und englischem Namen. Jeder Eintrag hat eine eigene Seite
 mit allen Rezepten (Herstellung, Verwendung, Maschinenrezepte – jede Zutat ist verlinkt), Registry-ID, <code>/give</code>-Befehl und den Seiten, die ihn erwähnen. {NEW} und {CHG} markieren neue bzw. geänderte Inhalte.</p>

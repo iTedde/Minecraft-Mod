@@ -46,19 +46,19 @@ GT_USE = 'je Rezept (EU/t steht im Rezept, EMI)'
 OUT = {
     'generator': '10 EU/t (4 000 EU je Kohle)',
     'geothermal_generator': '20 EU/t (20 000 EU je Lava-Eimer)',
-    'solar_panel': '1 EU/t bei Tag, kein Regen',
+    'solar_panel': '2 EU/t bei Tag, kein Regen; 3 EU/t im 9×9-Feld; leitet Solarstrom benachbarter Panels verlustfrei weiter',
     'water_mill': 'bis 2 EU/t (Tag und Nacht)',
     'wind_mill': '≈ 3–7 EU/t je nach Höhe, Gewitter mehr',
     'nuclear_reactor': 'je Design 60–400+ EU/t (5 EU/t je Puls), siehe Kernreaktor',
     'reactor_chamber': 'gibt den Rest der Reaktor-Ausgabe ab',
-    'lv_solar_array': '19 EU/t (3×3-Feld, Tag)',
-    'mv_solar_array': '179 EU/t (3×3-Feld, Tag)',
-    'hv_solar_array': '1 536 EU/t (3 Pakete à 512, Tag)',
+    'lv_solar_array': 'stillgelegt (liefert nichts, zerlegbar)',
+    'mv_solar_array': 'stillgelegt (liefert nichts, zerlegbar)',
+    'hv_solar_array': 'stillgelegt (liefert nichts, zerlegbar)',
     'steam_turbine': '20 EU/t je Kessel, bis 64',
     'large_steam_turbine': '160 EU/t je Hochdruckkessel, bis 480',
-    'water_turbine': '16–32 EU/t (Wasserfluss)',
-    'large_water_turbine': '64–256 EU/t (Wasserfluss)',
-    'large_wind_turbine': '64–136 EU/t, Gewitter bis 384',
+    'water_turbine': '16–32 EU/t (Wasserfluss), im Fluss-Biom bis 48',
+    'large_water_turbine': '64–256 EU/t (Wasserfluss), im Fluss-Biom bis 384',
+    'large_wind_turbine': '38–153 EU/t, Regen/Gewitter bis 192',
 }
 ENGINES = {
     'redstone_engine': ('0,05 MJ/t', 'nur Redstone-Signal'),
@@ -162,6 +162,7 @@ def pages(h, stats):
         else:
             out = b['maxEnergyOutput']
             pc.append([chip(iid), 'Energy Bridge → EU', f'Pakete à {num(out)} ({tier(out)})', '–'])
+    pc.append([chip('fe_producer'), 'Energy Bridge → FE (1 EU = 4 FE)', 'keine (FE)', '–'])
 
     # ---------------------------------------------------------------- cables
     cables = []
@@ -174,7 +175,9 @@ def pages(h, stats):
             chip(iid), f'{num(melt - 1)} ({tier(melt - 1)})', num(b['conductionLoss']) + ' EU',
             'voll isoliert' if ins >= 9001 else (f'bis {num(ins)} EU' if ins > 0 else 'blank – schockt immer')]))
     cables.sort(key=lambda r: (r[0], r[1]))
-    casings = [chip(i) for i, b in blocks.items() if 'eu_conductor' in b['kinds'] and b.get('conductorBreakdown', 0) >= UNLIMITED]
+    # solar panels conduct too (spec 38) but are no power plant casing
+    casings = [chip(i) for i, b in blocks.items() if 'eu_conductor' in b['kinds'] and b.get('conductorBreakdown', 0) >= UNLIMITED
+               and i != 'solar_panel']
 
     # ---------------------------------------------------------------- MJ
     engines = [[chip(i), ENGINES[i][0], ENGINES[i][1], num(blocks[i]['values']['getMaxEnergy']) + ' MJ',
@@ -200,7 +203,9 @@ def pages(h, stats):
     mj.sort()
 
     # ---------------------------------------------------------------- items
-    items = sorted(data['items'], key=lambda i: (not i['canProvideEnergy'], i['tier'], i['maxCharge'], i['id']))
+    # Modular Powersuits count in joules from their battery modules; the IC2 view (max charge 1) means nothing
+    items = sorted((i for i in data['items'] if not i['id'].startswith('power_')),
+                   key=lambda i: (not i['canProvideEnergy'], i['tier'], i['maxCharge'], i['id']))
     item_rows = [[chip(i['id']), f"{i['tier']} ({['', 'LV', 'MV', 'HV', 'EV'][i['tier']]})", num(i['maxCharge']) + ' EU',
                   num(i['transferLimit']) + ' EU/t', 'ja' if i['canProvideEnergy'] else 'nein'] for i in items]
 
@@ -212,7 +217,7 @@ liefert und wie viel es speichert. Die Zahlen stammen direkt aus dem Code (beim 
 {h.table(['Stufe', 'max. Paket', 'typische Quelle', 'Speicher / Trafo'], [
     ['LV (1)', '32 EU', 'Generator, Solar, Wasser, Wind, BatBox', c('batbox') + ', ' + c('lv_transformer')],
     ['MV (2)', '128 EU', 'MFE, LV→MV-Trafo, Dampfturbine (64)', c('mfe') + ', ' + c('mv_transformer')],
-    ['HV (3)', '512 EU', 'MFSU, Großkraftwerke, HV Solar Array', c('mfsu') + ', ' + c('hv_transformer')],
+    ['HV (3)', '512 EU', 'MFSU, Großkraftwerke', c('mfsu') + ', ' + c('hv_transformer')],
     ['EV (4)', '2 048 EU', 'HV-Trafo hochgeschaltet, EV-Producer', '–'],
 ])}
 {h.note('warn', 'Ein Paket <b>größer</b> als die maximale sichere Eingabe lässt die meisten IC2- und GT-Maschinen <b>explodieren</b>. '
@@ -255,6 +260,10 @@ Gehäuse der Kraftwerke ({', '.join(casings)}): Sie leiten nur innerhalb der eig
 {h.table(['Gegenstand', 'Stufe', 'Kapazität', 'Laden max.', 'gibt Energie ab'], item_rows)}
 <p>Laden geht nur in Speichern und Maschinen mindestens derselben Stufe. Gegenstände, die Energie abgeben, versorgen
 Maschinen aus dem Batterie-Slot; die Akkupacks (BatPack, LapPack, Lithium-Batpack) laden auf dem Rücken getragen die
-Werkzeuge in der Hand.</p>
+Werkzeuge in der Hand. Power-Rüstung und Power-Werkzeug (Modular Powersuits) rechnen in Joule (50 J = 1 EU); ihre
+Kapazität kommt aus den eingebauten Batteriemodulen, geladen werden sie wie Stufe-1-Gegenstände
+(<a href="#/mod-mps">Modular Powersuits</a>).</p>
+<p>Der <a href="#/leuchtschild">Elektrische Leuchtschild</a> verbraucht 0,5–8 EU/t Licht (je nach Reichweite und Kegel) und 100 EU je geblocktem
+Haltbarkeitspunkt.</p>
 '''
     return [{'id': 'energie-steckbrief', 'title': 'Energie-Steckbrief', 'group': 'Anleitungen', 'html': body}]

@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_foods/banana": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#c:foods/banana"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "psychedelicraft:banana_from_mashing"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_foods/banana"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "psychedelicraft:banana_from_mashing"
+    ]
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "craft:block/nuclearcontrol/energy_counter",
+    "east": "craft:block/nuclearcontrol/energy_counter",
+    "north": "craft:block/nuclearcontrol/counter_input",
+    "particle": "craft:block/nuclearcontrol/energy_counter",
+    "south": "craft:block/nuclearcontrol/energy_counter",
+    "up": "craft:block/nuclearcontrol/energy_counter",
+    "west": "craft:block/nuclearcontrol/energy_counter"
+  }
+}

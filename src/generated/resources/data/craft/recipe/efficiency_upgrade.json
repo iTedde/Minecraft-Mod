@@ -1,0 +1,29 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "#": {
+      "item": "craft:advanced_circuit"
+    },
+    "B": {
+      "type": "neoforge:components",
+      "components": {
+        "craft:charge": 10000
+      },
+      "items": "craft:re_battery"
+    },
+    "f": {
+      "item": "craft:glass_fibre_cable"
+    },
+    "g": {
+      "item": "craft:double_insulated_gold_cable"
+    }
+  },
+  "pattern": [
+    "BfB",
+    "g#g"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:efficiency_upgrade"
+  }
+}

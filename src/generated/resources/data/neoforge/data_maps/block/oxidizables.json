@@ -1,0 +1,13 @@
+{
+  "values": {
+    "craft:copper_chest": {
+      "next_oxidation_stage": "craft:exposed_copper_chest"
+    },
+    "craft:exposed_copper_chest": {
+      "next_oxidation_stage": "craft:weathered_copper_chest"
+    },
+    "craft:weathered_copper_chest": {
+      "next_oxidation_stage": "craft:oxidized_copper_chest"
+    }
+  }
+}

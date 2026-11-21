@@ -1,13 +1,15 @@
 package dev.craft.core;
 
+import dev.craft.mffs.MffsItems;
+import dev.craft.mffs.item.ForceEnergyCrystalItem;
+import dev.craft.mffs.item.ForciciumCellItem;
+import dev.craft.mffs.item.multitool.MultitoolItem;
 import java.util.function.Supplier;
 
 import dev.craft.Craft;
 import dev.craft.advancedmachines.AdvancedMachinesItems;
 import dev.craft.buildcraft.BcItems;
 import dev.craft.buildcraft.transport.PipeType;
-import dev.craft.compactsolars.CsItems;
-import dev.craft.compactsolars.SolarArrayType;
 import dev.craft.buildcraft.engine.EngineType;
 import dev.craft.forestry.FrItems;
 import dev.craft.forestry.circuit.CircuitBoardType;
@@ -39,6 +41,9 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import dev.craft.enderstorage.EsItems;
+import dev.craft.mps.MpsItems;
+import dev.craft.coppergolem.CopperGolems;
+import dev.craft.ironchest.ChestUpgradeType;
 import dev.craft.ironchest.IronChestItems;
 import dev.craft.ironchest.IronChestType;
 import net.neoforged.neoforge.registries.DeferredHolder;
@@ -78,7 +83,6 @@ public final class CraftCreativeTabs {
                 output.accept(Ic2Items.LUMINATOR);
                 output.accept(Ic2Items.CROP);
                 output.accept(Ic2Items.INDUSTRIAL_TNT);
-                output.accept(Ic2Items.NUKE);
                 output.accept(Ic2Items.TOOLBOX);
                 for (DeferredHolder<Item, ? extends Item> item : Ic2Items.ITEMS.getEntries()) {
                     Item value = item.get();
@@ -160,18 +164,6 @@ public final class CraftCreativeTabs {
                     })
                     .build());
 
-    public static final Supplier<CreativeModeTab> COMPACT_SOLARS = TABS.register("compact_solars", () ->
-            CreativeModeTab.builder()
-                    .title(Component.translatable("itemGroup.craft.compact_solars"))
-                    .icon(() -> CsItems.array(SolarArrayType.LV).toStack())
-                    .withTabsBefore(ResourceLocation.fromNamespaceAndPath(Craft.MODID, "power_converters"))
-                    .displayItems((parameters, output) -> {
-                        for (SolarArrayType type : SolarArrayType.values()) {
-                            output.accept(CsItems.array(type));
-                        }
-                    })
-                    .build());
-
     public static final Supplier<CreativeModeTab> POWER_PLANTS = TABS.register("power_plants", () ->
             CreativeModeTab.builder()
                     .title(Component.translatable("itemGroup.craft.power_plants"))
@@ -185,7 +177,7 @@ public final class CraftCreativeTabs {
             CreativeModeTab.builder()
                     .title(Component.translatable("itemGroup.craft.gregtech"))
                     .icon(() -> GtItems.machine(GtMachine.PLATE_BENDING_MACHINE).toStack())
-                    .withTabsBefore(ResourceLocation.fromNamespaceAndPath(Craft.MODID, "compact_solars"))
+                    .withTabsBefore(ResourceLocation.fromNamespaceAndPath(Craft.MODID, "power_converters"))
                     .displayItems((parameters, output) -> {
                         for (GtMachine machine : GtMachine.values()) {
                             output.accept(GtItems.machine(machine));
@@ -224,8 +216,16 @@ public final class CraftCreativeTabs {
                     .title(Component.translatable("itemGroup.craft.iron_chests"))
                     .icon(() -> IronChestItems.chest(IronChestType.IRON).toStack())
                     .withTabsBefore(ResourceLocation.fromNamespaceAndPath(Craft.MODID, "redpower"))
-                    .displayItems((parameters, output) -> IronChestItems.ITEMS.getEntries()
-                            .forEach(item -> output.accept(item.get())))
+                    .displayItems((parameters, output) -> {
+                        // The copper golem's spawn egg right behind the chests (spec 35 §3).
+                        for (IronChestType type : IronChestType.values()) {
+                            output.accept(IronChestItems.chest(type).get());
+                        }
+                        output.accept(CopperGolems.SPAWN_EGG.get());
+                        for (ChestUpgradeType type : ChestUpgradeType.values()) {
+                            output.accept(IronChestItems.upgrade(type).get());
+                        }
+                    })
                     .build());
 
     public static final Supplier<CreativeModeTab> ADVANCED_MACHINES = TABS.register("advanced_machines", () ->
@@ -267,6 +267,70 @@ public final class CraftCreativeTabs {
                     .withTabsBefore(ResourceLocation.fromNamespaceAndPath(Craft.MODID, "thermal_expansion"))
                     .displayItems((parameters, output) -> EsItems.ITEMS.getEntries()
                             .forEach(item -> output.accept(item.get())))
+                    .build());
+
+    /** In 1.4.7 item-ID order: table, the four armor pieces, tool, components; all without modules. */
+    public static final Supplier<CreativeModeTab> MODULAR_POWERSUITS = TABS.register("modular_powersuits", () ->
+            CreativeModeTab.builder()
+                    .title(Component.translatable("itemGroup.craft.modular_powersuits"))
+                    .icon(() -> MpsItems.POWER_ARMOR_HEAD.toStack())
+                    .withTabsBefore(ResourceLocation.fromNamespaceAndPath(Craft.MODID, "ender_storage"))
+                    .displayItems((parameters, output) -> {
+                        output.accept(MpsItems.TINKER_TABLE.get());
+                        MpsItems.armor().forEach(item -> output.accept(item.get()));
+                        output.accept(MpsItems.POWER_TOOL.get());
+                        MpsItems.components().forEach(item -> output.accept(item.get()));
+                    })
+                    .build());
+
+    /** {@code MFFSCreativeTab} (icon capacitor); crystal, cell and multitools charged, crystal and cell also empty. */
+    public static final Supplier<CreativeModeTab> MFFS = TABS.register("mffs", () ->
+            CreativeModeTab.builder()
+                    .title(Component.translatable("itemGroup.craft.mffs"))
+                    .icon(() -> MffsItems.CAPACITOR.toStack())
+                    .withTabsBefore(ResourceLocation.fromNamespaceAndPath(Craft.MODID, "modular_powersuits"))
+                    .displayItems((parameters, output) -> MffsItems.ITEMS.getEntries().forEach(holder -> {
+                        Item item = holder.get();
+                        if (item instanceof ForceEnergyCrystalItem crystal) {
+                            ItemStack full = new ItemStack(crystal);
+                            crystal.setAvailablePower(full, ForceEnergyCrystalItem.MAX_POWER);
+                            output.accept(full);
+                            output.accept(new ItemStack(crystal));
+                        } else if (item instanceof ForciciumCellItem) {
+                            ItemStack full = new ItemStack(item);
+                            ForciciumCellItem.setLevel(full, ForciciumCellItem.MAX_LEVEL);
+                            output.accept(full);
+                            output.accept(new ItemStack(item));
+                        } else if (item instanceof MultitoolItem multitool) {
+                            output.accept(multitool.charged());
+                        } else {
+                            output.accept(item);
+                        }
+                    }))
+                    .build());
+
+    /** Small mods from the pack (spec 50 §5): OmniTools, Gravity Gun, Obsidian Pressure Plate. */
+    public static final Supplier<CreativeModeTab> KLEINKRAM = TABS.register("kleinkram", () ->
+            CreativeModeTab.builder()
+                    .title(Component.translatable("itemGroup.craft.kleinkram"))
+                    .icon(() -> dev.craft.omnitools.OmniTools.OMNIWRENCH.toStack())
+                    .withTabsBefore(ResourceLocation.fromNamespaceAndPath(Craft.MODID, "mffs"))
+                    .displayItems((parameters, output) -> {
+                        dev.craft.omnitools.OmniTools.ITEMS.getEntries().forEach(holder -> output.accept(holder.get()));
+                        dev.craft.gravitygun.GravityGun.ITEMS.getEntries().forEach(holder -> output.accept(holder.get()));
+                        dev.craft.obsidiplates.ObsidiPlates.ITEMS.getEntries()
+                                .forEach(holder -> output.accept(holder.get()));
+                    })
+                    .build());
+
+    /** {@code CreativeTabCamo} (spec 50 §4). */
+    public static final Supplier<CreativeModeTab> SECRET_ROOMS = TABS.register("secret_rooms", () ->
+            CreativeModeTab.builder()
+                    .title(Component.translatable("itemGroup.craft.secret_rooms"))
+                    .icon(() -> dev.craft.secretrooms.SecretRooms.CAMO_PASTE.toStack())
+                    .withTabsBefore(ResourceLocation.fromNamespaceAndPath(Craft.MODID, "kleinkram"))
+                    .displayItems((parameters, output) -> dev.craft.secretrooms.SecretRooms.ITEMS.getEntries()
+                            .forEach(holder -> output.accept(holder.get())))
                     .build());
 
     private CraftCreativeTabs() {

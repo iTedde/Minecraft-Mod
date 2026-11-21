@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "craft:block/mffs/mffs_projector_8_side",
+    "east": "craft:block/mffs/mffs_projector_8_side",
+    "north": "craft:block/mffs/mffs_projector_8_front",
+    "particle": "craft:block/mffs/mffs_projector_8_side",
+    "south": "craft:block/mffs/mffs_projector_8_back",
+    "up": "craft:block/mffs/mffs_projector_8_side",
+    "west": "craft:block/mffs/mffs_projector_8_side"
+  }
+}

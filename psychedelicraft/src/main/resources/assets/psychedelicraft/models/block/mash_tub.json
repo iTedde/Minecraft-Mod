@@ -1,0 +1,6 @@
+{
+  "parent": "psychedelicraft:block/vat_template",
+  "textures": {
+    "all": "psychedelicraft:block/mash_tub"
+  }
+}

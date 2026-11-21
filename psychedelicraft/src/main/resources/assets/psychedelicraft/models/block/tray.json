@@ -1,0 +1,6 @@
+{
+  "parent": "psychedelicraft:block/tray_template",
+  "textures": {
+    "all": "psychedelicraft:block/tray"
+  }
+}

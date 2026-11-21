@@ -239,15 +239,20 @@
         "BaseGeneratorBlockEntity",
         "MachineBlockEntity"
       ],
+      "conductionLoss": 0.0,
+      "conductorBreakdown": 2147483647,
       "id": "solar_panel",
+      "insulationAbsorption": 2147483647,
+      "insulationBreakdown": 2147483647,
       "kinds": [
-        "eu_source"
+        "eu_source",
+        "eu_conductor"
       ],
-      "maxEnergyOutput": 1,
+      "maxEnergyOutput": 2,
       "values": {
         "TIER": 1,
-        "getMaxStorage": 1,
-        "getProduction": 1
+        "getMaxStorage": 3,
+        "getProduction": 2
       }
     },
     {
@@ -1120,42 +1125,6 @@
     },
     {
       "classes": [
-        "SolarArrayBlockEntity",
-        "MachineBlockEntity"
-      ],
-      "id": "lv_solar_array",
-      "kinds": [
-        "eu_source"
-      ],
-      "maxEnergyOutput": 8,
-      "values": {}
-    },
-    {
-      "classes": [
-        "SolarArrayBlockEntity",
-        "MachineBlockEntity"
-      ],
-      "id": "mv_solar_array",
-      "kinds": [
-        "eu_source"
-      ],
-      "maxEnergyOutput": 64,
-      "values": {}
-    },
-    {
-      "classes": [
-        "SolarArrayBlockEntity",
-        "MachineBlockEntity"
-      ],
-      "id": "hv_solar_array",
-      "kinds": [
-        "eu_source"
-      ],
-      "maxEnergyOutput": 512,
-      "values": {}
-    },
-    {
-      "classes": [
         "BenderBlockEntity",
         "GtBasicMachineBlockEntity",
         "GtMachineBlockEntity",
@@ -1475,7 +1444,7 @@
       "kinds": [
         "eu_source"
       ],
-      "maxEnergyOutput": 256,
+      "maxEnergyOutput": 384,
       "values": {}
     },
     {
@@ -1503,7 +1472,7 @@
       "kinds": [
         "eu_source"
       ],
-      "maxEnergyOutput": 384,
+      "maxEnergyOutput": 192,
       "values": {}
     },
     {
@@ -1671,6 +1640,113 @@
       "mjMaxReceived": 500,
       "mjMaxStored": 0,
       "mjMinReceived": 2,
+      "values": {}
+    },
+    {
+      "classes": [
+        "RemoteThermalMonitorBlockEntity",
+        "ThermalMonitorBlockEntity"
+      ],
+      "id": "remote_thermal_monitor",
+      "kinds": [
+        "eu_sink"
+      ],
+      "maxSafeInput": 32,
+      "values": {
+        "getMaxStorage": 600,
+        "getTier": 1
+      }
+    },
+    {
+      "classes": [
+        "EnergyCounterBlockEntity",
+        "CounterBlockEntity"
+      ],
+      "id": "energy_counter",
+      "kinds": [
+        "eu_sink",
+        "eu_source"
+      ],
+      "maxEnergyOutput": 4096,
+      "maxSafeInput": 32,
+      "values": {}
+    },
+    {
+      "classes": [
+        "AverageCounterBlockEntity",
+        "CounterBlockEntity"
+      ],
+      "id": "average_counter",
+      "kinds": [
+        "eu_sink",
+        "eu_source"
+      ],
+      "maxEnergyOutput": 4096,
+      "maxSafeInput": 32,
+      "values": {}
+    },
+    {
+      "classes": [
+        "ChargePadBlockEntity"
+      ],
+      "id": "static_charge_pad",
+      "kinds": [
+        "eu_sink"
+      ],
+      "maxSafeInput": 32,
+      "values": {}
+    },
+    {
+      "classes": [
+        "ChargePadBlockEntity"
+      ],
+      "id": "crystalizor_charge_pad",
+      "kinds": [
+        "eu_sink"
+      ],
+      "maxSafeInput": 128,
+      "values": {}
+    },
+    {
+      "classes": [
+        "ChargePadBlockEntity"
+      ],
+      "id": "lapotronic_charge_pad",
+      "kinds": [
+        "eu_sink"
+      ],
+      "maxSafeInput": 512,
+      "values": {}
+    },
+    {
+      "classes": [
+        "ExtractorBlockEntity",
+        "FePoweredBlockEntity",
+        "MffsMachineBlockEntity"
+      ],
+      "id": "mffs_extractor",
+      "kinds": [
+        "eu_sink",
+        "mj_receiver"
+      ],
+      "maxSafeInput": 2048,
+      "mjActivation": 1600,
+      "mjMaxReceived": 1600,
+      "mjMaxStored": 1600,
+      "mjMinReceived": 2,
+      "values": {}
+    },
+    {
+      "classes": [
+        "ConverterBlockEntity",
+        "FePoweredBlockEntity",
+        "MffsMachineBlockEntity"
+      ],
+      "id": "mffs_converter",
+      "kinds": [
+        "eu_source"
+      ],
+      "maxEnergyOutput": 2147483647,
       "values": {}
     }
   ],
@@ -1863,6 +1939,125 @@
       "maxCharge": 600000,
       "tier": 1,
       "transferLimit": 128
+    },
+    {
+      "canProvideEnergy": true,
+      "id": "advanced_lappack",
+      "maxCharge": 1000000,
+      "tier": 2,
+      "transferLimit": 1000
+    },
+    {
+      "canProvideEnergy": true,
+      "id": "ultimate_lappack",
+      "maxCharge": 10000000,
+      "tier": 2,
+      "transferLimit": 20000
+    },
+    {
+      "canProvideEnergy": true,
+      "id": "advanced_jetpack",
+      "maxCharge": 1000000,
+      "tier": 2,
+      "transferLimit": 1000
+    },
+    {
+      "canProvideEnergy": true,
+      "id": "advanced_nano_chestplate",
+      "maxCharge": 1000000,
+      "tier": 2,
+      "transferLimit": 1000
+    },
+    {
+      "canProvideEnergy": true,
+      "id": "gravi_chestplate",
+      "maxCharge": 10000000,
+      "tier": 2,
+      "transferLimit": 20000
+    },
+    {
+      "canProvideEnergy": false,
+      "id": "ultimate_solar_helmet",
+      "maxCharge": 1000000,
+      "tier": 2,
+      "transferLimit": 20000
+    },
+    {
+      "canProvideEnergy": false,
+      "id": "advanced_diamond_drill",
+      "maxCharge": 1000000,
+      "tier": 2,
+      "transferLimit": 500
+    },
+    {
+      "canProvideEnergy": false,
+      "id": "advanced_chainsaw",
+      "maxCharge": 15000,
+      "tier": 2,
+      "transferLimit": 500
+    },
+    {
+      "canProvideEnergy": false,
+      "id": "vajra",
+      "maxCharge": 1000000,
+      "tier": 2,
+      "transferLimit": 10000
+    },
+    {
+      "canProvideEnergy": false,
+      "id": "gravitool",
+      "maxCharge": 100000,
+      "tier": 2,
+      "transferLimit": 10000
+    },
+    {
+      "canProvideEnergy": true,
+      "id": "power_armor_head",
+      "maxCharge": 1,
+      "tier": 1,
+      "transferLimit": 0
+    },
+    {
+      "canProvideEnergy": true,
+      "id": "power_armor_torso",
+      "maxCharge": 1,
+      "tier": 1,
+      "transferLimit": 0
+    },
+    {
+      "canProvideEnergy": true,
+      "id": "power_armor_legs",
+      "maxCharge": 1,
+      "tier": 1,
+      "transferLimit": 0
+    },
+    {
+      "canProvideEnergy": true,
+      "id": "power_armor_feet",
+      "maxCharge": 1,
+      "tier": 1,
+      "transferLimit": 0
+    },
+    {
+      "canProvideEnergy": true,
+      "id": "power_tool",
+      "maxCharge": 1,
+      "tier": 1,
+      "transferLimit": 0
+    },
+    {
+      "canProvideEnergy": false,
+      "id": "electric_light_shield",
+      "maxCharge": 100000,
+      "tier": 1,
+      "transferLimit": 100
+    },
+    {
+      "canProvideEnergy": false,
+      "id": "digital_thermometer",
+      "maxCharge": 12000,
+      "tier": 1,
+      "transferLimit": 250
     }
   ]
 }

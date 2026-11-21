@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "0": {
+      "item": "minecraft:rotten_flesh"
+    },
+    "@": {
+      "item": "minecraft:oak_pressure_plate"
+    },
+    "X": {
+      "item": "craft:camo_paste"
+    }
+  },
+  "pattern": [
+    "X@X",
+    "0 0",
+    "X0X"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:camo_pressure_plate"
+  }
+}

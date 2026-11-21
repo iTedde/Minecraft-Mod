@@ -1,5 +1,6 @@
 package dev.craft.data;
 
+import dev.craft.mffs.MffsItems;
 import java.util.List;
 import dev.craft.forestry.FrItems;
 import java.util.concurrent.CompletableFuture;
@@ -13,6 +14,7 @@ import dev.craft.ic2.cable.CableType;
 import dev.craft.ic2.item.ToolboxItem;
 import dev.craft.ic2.item.reactor.GradualItem;
 import dev.craft.powerplants.PpItems;
+import dev.craft.lightshield.LsItems;
 import dev.craft.portalgun.PgItems;
 import dev.craft.redpower.RpGem;
 import dev.craft.redpower.RpItems;
@@ -135,6 +137,7 @@ public final class CraftItemTagsProvider extends ItemTagsProvider {
     @Override
     protected void addTags(HolderLookup.Provider provider) {
         copy(BlockTags.LOGS_THAT_BURN, ItemTags.LOGS_THAT_BURN);
+        dev.craft.music.MusicDiscs.tracks().forEach(track -> tag(Tags.Items.MUSIC_DISCS).add(track.disc().get()));
         copy(BlockTags.LEAVES, ItemTags.LEAVES);
         copy(BlockTags.DOORS, ItemTags.DOORS);
         // IC2 IBoxable: cables and the SU battery go into the toolbox despite their stack size; ItemGradual items
@@ -152,6 +155,10 @@ public final class CraftItemTagsProvider extends ItemTagsProvider {
         // The rubber sapling stays out of the item tag minecraft:saplings: IC2 did not register it as "treeSapling",
         // and the tag would give it the vanilla burn time of 100 instead of 80.
         copy(CraftBlockTagsProvider.ORES_TIN, commonTag("ores/tin"));
+        copy(CraftBlockTagsProvider.ORES_MONAZIT, commonTag("ores/monazit"));
+        // MFFS OreDict ForciciumItem.
+        tag(commonTag("gems/forcicium")).add(MffsItems.FORCICIUM.get());
+        tag(Tags.Items.GEMS).addTag(commonTag("gems/forcicium"));
         copy(Tags.Blocks.ORES, Tags.Items.ORES);
         copy(Tags.Blocks.ORES_IN_GROUND_STONE, Tags.Items.ORES_IN_GROUND_STONE);
         copy(Tags.Blocks.ORES_IN_GROUND_DEEPSLATE, Tags.Items.ORES_IN_GROUND_DEEPSLATE);
@@ -250,6 +257,9 @@ public final class CraftItemTagsProvider extends ItemTagsProvider {
             tag(ItemTags.DURABILITY_ENCHANTABLE).add(sickle);
         }
         tag(ItemTags.FOOT_ARMOR).add(PgItems.LONG_FALL_BOOTS.get());
+        // Electric light shield (spec 30 §5): Unbreaking/Mending act on EU; the table offers Unbreaking.
+        tag(ItemTags.DURABILITY_ENCHANTABLE).add(LsItems.ELECTRIC_LIGHT_SHIELD.get());
+        tag(ItemTags.VANISHING_ENCHANTABLE).add(LsItems.ELECTRIC_LIGHT_SHIELD.get());
         tag(Tags.Items.GEMS).addTag(GEMS_RUBY).addTag(GEMS_SAPPHIRE).addTag(GEMS_GREEN_SAPPHIRE).addTag(GEMS_OLIVINE)
                 .addTag(GEMS_RED_GARNET).addTag(GEMS_YELLOW_GARNET);
         tag(RAW_MACHINE_TIER_01).add(Ic2Items.MACHINE_CASING.get(), GtItems.ALUMINIUM_MACHINE_HULL.get(),

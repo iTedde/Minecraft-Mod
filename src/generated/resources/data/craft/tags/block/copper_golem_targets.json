@@ -1,0 +1,13 @@
+{
+  "values": [
+    "minecraft:chest",
+    "minecraft:trapped_chest",
+    "minecraft:barrel",
+    "craft:iron_chest",
+    "craft:gold_chest",
+    "craft:diamond_chest",
+    "craft:silver_chest",
+    "craft:crystal_chest",
+    "craft:obsidian_chest"
+  ]
+}

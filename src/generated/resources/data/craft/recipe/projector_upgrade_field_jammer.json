@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "X": {
+      "item": "craft:frequency_transmitter"
+    },
+    "c": {
+      "item": "craft:projector_focus_matrix"
+    }
+  },
+  "pattern": [
+    " X ",
+    "XcX",
+    " X "
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:projector_upgrade_field_jammer"
+  }
+}

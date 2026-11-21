@@ -51,6 +51,8 @@ public class CropBlockEntity extends BlockEntity {
     private int exStorage;
     private int growthPoints;
     private boolean upgraded;
+    /** Generated in the farming dimension: the first pick drops a seed bag for sure (spec 53 §3.4). */
+    private boolean wild;
     /** 16 bit like IC2's {@code char} ticker; starts at a random phase and is not saved. */
     private int ticker = ThreadLocalRandom.current().nextInt(TICK_RATE);
     private boolean dirty = true;
@@ -405,6 +407,9 @@ public class CropBlockEntity extends BlockEntity {
         } else if (random.nextFloat() <= firstChance * 1.5F) {
             drop++;
         }
+        if (wild && drop == 0) {
+            drop = 1;
+        }
         List<ItemStack> seeds = new ArrayList<>();
         for (int i = 0; i < drop; i++) {
             seeds.add(crop().getSeeds(this));
@@ -748,6 +753,7 @@ public class CropBlockEntity extends BlockEntity {
         growthPoints = 0;
         upgraded = false;
         scanLevel = 0;
+        wild = false;
     }
 
     public int getSprite() {
@@ -780,6 +786,16 @@ public class CropBlockEntity extends BlockEntity {
         statResistance = resistance;
         scanLevel = scan;
         setChanged();
+    }
+
+    /** Farming dimension garden crop (spec 53 §3.4): grown up, stats 1/1/1, unscanned, first pick drops a seed. */
+    public void plantWild(CropCard crop) {
+        forcePlant(crop.getId(), crop.matureSize(), 1, 1, 1, 0);
+        wild = true;
+    }
+
+    public boolean isWild() {
+        return wild;
     }
 
     /** Sets stats directly (tests). */
@@ -815,6 +831,7 @@ public class CropBlockEntity extends BlockEntity {
         waterStorage = tag.getInt("waterStorage");
         upgraded = tag.getBoolean("upgraded");
         scanLevel = tag.getByte("scanLevel");
+        wild = tag.getBoolean("wild");
     }
 
     @Override
@@ -833,6 +850,9 @@ public class CropBlockEntity extends BlockEntity {
         tag.putInt("waterStorage", waterStorage);
         tag.putBoolean("upgraded", upgraded);
         tag.putByte("scanLevel", (byte) scanLevel);
+        if (wild) {
+            tag.putBoolean("wild", true);
+        }
     }
 
     /** Synced like IC2's networked fields: id, size, upgraded, custom data. */

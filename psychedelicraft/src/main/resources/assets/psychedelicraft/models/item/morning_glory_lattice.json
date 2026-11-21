@@ -1,0 +1,27 @@
+{
+  "parent": "psychedelicraft:item/crop_lattice_template",
+  "overrides": [
+    {
+      "model": "psychedelicraft:item/morning_glory_lattice_stage0",
+      "predicate": {
+        "psychedelicraft:age": 0.1
+      }
+    },
+    {
+      "model": "psychedelicraft:item/morning_glory_lattice_stage1",
+      "predicate": {
+        "psychedelicraft:age": 0.2
+      }
+    },
+    {
+      "model": "psychedelicraft:item/morning_glory_lattice_stage2",
+      "predicate": {
+        "psychedelicraft:age": 0.3
+      }
+    }
+  ],
+  "textures": {
+    "crop": "psychedelicraft:block/morning_glory_lattice_stage0",
+    "lattice": "psychedelicraft:block/lattice"
+  }
+}

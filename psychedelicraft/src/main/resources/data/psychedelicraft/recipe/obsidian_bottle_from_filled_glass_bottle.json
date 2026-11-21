@@ -1,0 +1,31 @@
+{
+  "type": "psychedelicraft:crafting_shapeless_fluid",
+  "category": "misc",
+  "destroy": {
+    "item": "minecraft:glass_bottle"
+  },
+  "ingredients": [
+    {
+      "fluid": {
+        "fluid": "minecraft:water",
+        "level": 81000
+      },
+      "receptical": {
+        "item": "psychedelicraft:filled_bucket"
+      }
+    },
+    {
+      "fluid": {
+        "fluid": "minecraft:lava",
+        "level": 27000
+      },
+      "receptical": {
+        "item": "psychedelicraft:filled_glass_bottle"
+      }
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "psychedelicraft:obsidian_bottle"
+  }
+}

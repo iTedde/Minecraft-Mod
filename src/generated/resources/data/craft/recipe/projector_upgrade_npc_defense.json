@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "Q": {
+      "item": "craft:tesla_coil"
+    },
+    "f": {
+      "item": "minecraft:bone"
+    },
+    "g": {
+      "item": "minecraft:blaze_rod"
+    },
+    "h": {
+      "item": "minecraft:rotten_flesh"
+    },
+    "j": {
+      "item": "minecraft:spider_eye"
+    }
+  },
+  "pattern": [
+    "fgf",
+    "hQh",
+    "jgj"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:projector_upgrade_npc_defense"
+  }
+}

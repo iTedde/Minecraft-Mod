@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "craft:mps_glider_wing",
+  "key": {
+    "I": {
+      "item": "minecraft:iron_ingot"
+    }
+  },
+  "pattern": [
+    " II",
+    "II ",
+    "I  "
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:component_glider_wing"
+  }
+}

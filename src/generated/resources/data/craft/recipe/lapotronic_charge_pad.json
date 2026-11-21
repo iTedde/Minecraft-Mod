@@ -1,0 +1,25 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "#": {
+      "item": "craft:mfsu"
+    },
+    "S": {
+      "item": "minecraft:stone_pressure_plate"
+    },
+    "c": {
+      "item": "craft:advanced_circuit"
+    },
+    "r": {
+      "item": "craft:carbon_plate"
+    }
+  },
+  "pattern": [
+    "rSr",
+    "c#c"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:lapotronic_charge_pad"
+  }
+}

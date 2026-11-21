@@ -1,0 +1,34 @@
+{
+  "parent": "psychedelicraft:first_batch",
+  "criteria": {
+    "has_crystal_meth": {
+      "conditions": {
+        "items": [
+          {
+            "items": "psychedelicraft:methamphetamine_powder"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "background": "minecraft:textures/gui/advancements/backgrounds/stone.png",
+    "description": {
+      "translate": "advancements.psychedelicraft.the_good_stuff.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "psychedelicraft:methamphetamine_powder"
+    },
+    "title": {
+      "translate": "advancements.psychedelicraft.the_good_stuff.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_crystal_meth"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

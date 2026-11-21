@@ -1,0 +1,82 @@
+{
+  "variants": {
+    "facing=down,status=0": {
+      "model": "craft:block/nuclearcontrol/thermal_monitor_normal",
+      "x": 180
+    },
+    "facing=down,status=1": {
+      "model": "craft:block/nuclearcontrol/thermal_monitor_hot",
+      "x": 180
+    },
+    "facing=down,status=2": {
+      "model": "craft:block/nuclearcontrol/thermal_monitor_none",
+      "x": 180
+    },
+    "facing=east,status=0": {
+      "model": "craft:block/nuclearcontrol/thermal_monitor_normal",
+      "x": 90,
+      "y": 90
+    },
+    "facing=east,status=1": {
+      "model": "craft:block/nuclearcontrol/thermal_monitor_hot",
+      "x": 90,
+      "y": 90
+    },
+    "facing=east,status=2": {
+      "model": "craft:block/nuclearcontrol/thermal_monitor_none",
+      "x": 90,
+      "y": 90
+    },
+    "facing=north,status=0": {
+      "model": "craft:block/nuclearcontrol/thermal_monitor_normal",
+      "x": 90
+    },
+    "facing=north,status=1": {
+      "model": "craft:block/nuclearcontrol/thermal_monitor_hot",
+      "x": 90
+    },
+    "facing=north,status=2": {
+      "model": "craft:block/nuclearcontrol/thermal_monitor_none",
+      "x": 90
+    },
+    "facing=south,status=0": {
+      "model": "craft:block/nuclearcontrol/thermal_monitor_normal",
+      "x": 90,
+      "y": 180
+    },
+    "facing=south,status=1": {
+      "model": "craft:block/nuclearcontrol/thermal_monitor_hot",
+      "x": 90,
+      "y": 180
+    },
+    "facing=south,status=2": {
+      "model": "craft:block/nuclearcontrol/thermal_monitor_none",
+      "x": 90,
+      "y": 180
+    },
+    "facing=up,status=0": {
+      "model": "craft:block/nuclearcontrol/thermal_monitor_normal"
+    },
+    "facing=up,status=1": {
+      "model": "craft:block/nuclearcontrol/thermal_monitor_hot"
+    },
+    "facing=up,status=2": {
+      "model": "craft:block/nuclearcontrol/thermal_monitor_none"
+    },
+    "facing=west,status=0": {
+      "model": "craft:block/nuclearcontrol/thermal_monitor_normal",
+      "x": 90,
+      "y": 270
+    },
+    "facing=west,status=1": {
+      "model": "craft:block/nuclearcontrol/thermal_monitor_hot",
+      "x": 90,
+      "y": 270
+    },
+    "facing=west,status=2": {
+      "model": "craft:block/nuclearcontrol/thermal_monitor_none",
+      "x": 90,
+      "y": 270
+    }
+  }
+}

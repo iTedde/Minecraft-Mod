@@ -1,7 +1,7 @@
 package dev.craft.buildcraft.engine;
 
 import com.mojang.serialization.MapCodec;
-import dev.craft.buildcraft.item.BcWrenchItem;
+import dev.craft.buildcraft.item.ToolWrench;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.DustParticleOptions;
@@ -106,10 +106,11 @@ public class EngineBlock extends BaseEntityBlock {
     @Override
     protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos,
                                               Player player, InteractionHand hand, BlockHitResult hit) {
-        if (!player.isShiftKeyDown() && stack.getItem() instanceof BcWrenchItem) {
+        if (!player.isShiftKeyDown() && ToolWrench.canWrenchWith(stack, player, pos)) {
             if (!level.isClientSide() && level.getBlockEntity(pos) instanceof EngineBlockEntity engine) {
                 engine.switchOrientation();
             }
+            ToolWrench.wrenchUsedWith(stack, player, pos);
             return ItemInteractionResult.sidedSuccess(level.isClientSide());
         }
         return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;

@@ -1,0 +1,30 @@
+{
+  "parent": "psychedelicraft:thats_no_good",
+  "criteria": {
+    "has_blocked_side_effect": {
+      "conditions": {
+        "event": "suck_pacifier"
+      },
+      "trigger": "psychedelicraft:custom"
+    }
+  },
+  "display": {
+    "background": "minecraft:textures/gui/advancements/backgrounds/stone.png",
+    "description": {
+      "translate": "advancements.psychedelicraft.goo_goo.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "psychedelicraft:pacifier"
+    },
+    "title": {
+      "translate": "advancements.psychedelicraft.goo_goo.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_blocked_side_effect"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

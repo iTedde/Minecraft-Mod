@@ -13,18 +13,18 @@ import dev.emi.emi.api.recipe.handler.StandardRecipeHandler;
 import net.minecraft.world.inventory.Slot;
 
 /**
- * EMI recipe fill ("+" button) for the 3×3 crafting grids of the Project Table and the Automatic Workbench.
- * Ingredients come from the table storage (Project Table only) and the player inventory.
+ * EMI recipe fill ("+" button) for the 3×3 crafting grids of the (Large) Project Table and the Automatic Workbench.
+ * Ingredients come from the table storage (Project Tables only) and the player inventory.
  */
 final class CraftingTableEmiHandlers {
     private CraftingTableEmiHandlers() {
     }
 
     static void register(EmiRegistry registry) {
-        registry.addRecipeHandler(RpMenus.PROJECT_TABLE.get(), new StandardRecipeHandler<ProjectTableMenu>() {
+        StandardRecipeHandler<ProjectTableMenu> projectTable = new StandardRecipeHandler<>() {
             @Override
             public List<Slot> getInputSources(ProjectTableMenu menu) {
-                return menu.slots.subList(ProjectTableMenu.STORAGE, ProjectTableMenu.END);
+                return menu.slots.subList(ProjectTableMenu.STORAGE, menu.end());
             }
 
             @Override
@@ -41,7 +41,9 @@ final class CraftingTableEmiHandlers {
             public boolean supportsRecipe(EmiRecipe recipe) {
                 return isCrafting(recipe);
             }
-        });
+        };
+        registry.addRecipeHandler(RpMenus.PROJECT_TABLE.get(), projectTable);
+        registry.addRecipeHandler(RpMenus.LARGE_PROJECT_TABLE.get(), projectTable);
         registry.addRecipeHandler(BcMenus.AUTO_WORKBENCH.get(), new StandardRecipeHandler<AutoWorkbenchMenu>() {
             @Override
             public List<Slot> getInputSources(AutoWorkbenchMenu menu) {

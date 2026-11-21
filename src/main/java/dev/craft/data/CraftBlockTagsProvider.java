@@ -1,5 +1,6 @@
 package dev.craft.data;
 
+import dev.craft.mffs.MffsBlocks;
 import java.util.List;
 import net.minecraft.core.registries.BuiltInRegistries;
 import java.util.concurrent.CompletableFuture;
@@ -10,7 +11,11 @@ import dev.craft.compactsolars.CsBlocks;
 import dev.craft.compactsolars.SolarArrayType;
 import dev.craft.powerplants.PpBlocks;
 import dev.craft.enderstorage.EsBlocks;
+import dev.craft.mps.MpsBlocks;
+import dev.craft.nuclearcontrol.NcBlocks;
+import dev.craft.coppergolem.CopperGolems;
 import dev.craft.ironchest.IronChestBlocks;
+import dev.craft.ironchest.IronChestType;
 import dev.craft.redpower.RpBlocks;
 import dev.craft.buildcraft.BcBlocks;
 import dev.craft.buildcraft.engine.EngineType;
@@ -20,6 +25,7 @@ import dev.craft.gregtech.GtBlocks;
 import dev.craft.gregtech.GtMachine;
 import dev.craft.gregtech.block.GtCasingBlock;
 import dev.craft.gregtech.world.GtOre;
+import dev.craft.gravisuite.item.AdvancedChainsawItem;
 import dev.craft.ic2.Ic2Blocks;
 import dev.craft.ic2.Ic2Machine;
 import dev.craft.ic2.reactor.NuclearReactorBlockEntity;
@@ -42,6 +48,8 @@ import org.jetbrains.annotations.Nullable;
 public final class CraftBlockTagsProvider extends BlockTagsProvider {
     public static final TagKey<Block> ORES_TIN = commonTag("ores/tin");
     public static final TagKey<Block> ORES_URANIUM = commonTag("ores/uranium");
+    /** MFFS OreDict {@code MonazitOre} (spec 48 §2). */
+    public static final TagKey<Block> ORES_MONAZIT = commonTag("ores/monazit");
     public static final TagKey<Block> STORAGE_BLOCKS_URANIUM = commonTag("storage_blocks/uranium");
     public static final TagKey<Block> STORAGE_BLOCKS_TIN = commonTag("storage_blocks/tin");
     public static final TagKey<Block> STORAGE_BLOCKS_BRONZE = commonTag("storage_blocks/bronze");
@@ -76,12 +84,35 @@ public final class CraftBlockTagsProvider extends BlockTagsProvider {
     @Override
     protected void addTags(HolderLookup.Provider provider) {
         tag(Ic2Explosion.WHITELIST).add(Blocks.BEDROCK);
+        // Psychedelicraft plants that are no CropBlock/flower/sapling by class (spec 52 §7); optional, no dependency
+        var farmingExtra = tag(dev.craft.mining.FarmingPlants.EXTRA);
+        for (String plant : new String[] {"agave_plant", "peyote", "jimsonweed", "belladonna", "tomatoes",
+                "morning_glory", "wine_grape_lattice"}) {
+            farmingExtra.addOptional(ResourceLocation.fromNamespaceAndPath("psychedelicraft", plant));
+        }
+        tag(dev.craft.mining.FarmingPlants.EXCLUDED);
         for (Ic2Machine machine : Ic2Machine.values()) {
             tag(BlockTags.MINEABLE_WITH_PICKAXE).add(Ic2Blocks.machine(machine).get());
         }
-        tag(BlockTags.MINEABLE_WITH_PICKAXE).add(RpBlocks.PROJECT_TABLE.get());
+        tag(BlockTags.MINEABLE_WITH_PICKAXE).add(RpBlocks.PROJECT_TABLE.get(), RpBlocks.LARGE_PROJECT_TABLE.get());
+        tag(BlockTags.MINEABLE_WITH_PICKAXE).add(dev.craft.obsidiplates.ObsidiPlates.OBSIDIAN_PRESSURE_PLATE.get());
+        tag(BlockTags.PRESSURE_PLATES).add(dev.craft.obsidiplates.ObsidiPlates.OBSIDIAN_PRESSURE_PLATE.get());
+        tag(BlockTags.MINEABLE_WITH_PICKAXE).add(dev.craft.omnitools.OmniTools.MYSTICAL_PLINTH.get());
+        dev.craft.secretrooms.SecretRooms.BLOCKS.getEntries().stream().filter(block -> block != dev.craft.secretrooms.SecretRooms.CAMO_IRON_DOOR)
+                .forEach(block -> tag(BlockTags.MINEABLE_WITH_AXE).add(block.get()));
+        tag(BlockTags.MINEABLE_WITH_PICKAXE).add(dev.craft.secretrooms.SecretRooms.CAMO_IRON_DOOR.get());
         IronChestBlocks.BLOCKS.getEntries().forEach(chest -> tag(BlockTags.MINEABLE_WITH_PICKAXE).add(chest.get()));
+        // Copper golem targets (spec 35 §2.3): chests, barrels and every Iron Chest except the copper one (source only).
+        tag(CopperGolems.TARGETS).add(Blocks.CHEST, Blocks.TRAPPED_CHEST, Blocks.BARREL);
+        for (IronChestType type : IronChestType.values()) {
+            if (type != IronChestType.COPPER) {
+                tag(CopperGolems.TARGETS).add(IronChestBlocks.chest(type).get());
+            }
+        }
         tag(BlockTags.MINEABLE_WITH_PICKAXE).add(EsBlocks.ENDER_CHEST.get(), EsBlocks.ENDER_TANK.get());
+        // Tinker Table: pickaxe level 0.
+        tag(BlockTags.MINEABLE_WITH_PICKAXE).add(MpsBlocks.TINKER_TABLE.get());
+        NcBlocks.BLOCKS.getEntries().forEach(block -> tag(BlockTags.MINEABLE_WITH_PICKAXE).add(block.get()));
         tag(BlockTags.MINEABLE_WITH_PICKAXE).add(Ic2Blocks.MACHINE_CASING.get(),
                 Ic2Blocks.ADVANCED_MACHINE_CASING.get(), Ic2Blocks.TIN_ORE.get(), Ic2Blocks.DEEPSLATE_TIN_ORE.get(), Ic2Blocks.TIN_BLOCK.get(), Ic2Blocks.BRONZE_BLOCK.get(),
                 Ic2Blocks.IRON_FENCE.get());
@@ -149,6 +180,11 @@ public final class CraftBlockTagsProvider extends BlockTagsProvider {
         tag(Tags.Blocks.ORES_IN_GROUND_STONE).add(Ic2Blocks.TIN_ORE.get());
         tag(Tags.Blocks.ORES_IN_GROUND_DEEPSLATE).add(Ic2Blocks.DEEPSLATE_TIN_ORE.get());
         tag(STORAGE_BLOCKS_TIN).add(Ic2Blocks.TIN_BLOCK.get());
+        tag(ORES_MONAZIT).add(MffsBlocks.MONAZIT_ORE.get(), MffsBlocks.DEEPSLATE_MONAZIT_ORE.get());
+        tag(Tags.Blocks.ORES).addTag(ORES_MONAZIT);
+        tag(Tags.Blocks.ORES_IN_GROUND_STONE).add(MffsBlocks.MONAZIT_ORE.get());
+        tag(Tags.Blocks.ORES_IN_GROUND_DEEPSLATE).add(MffsBlocks.DEEPSLATE_MONAZIT_ORE.get());
+        tag(BlockTags.MINEABLE_WITH_PICKAXE).add(MffsBlocks.MONAZIT_ORE.get(), MffsBlocks.DEEPSLATE_MONAZIT_ORE.get());
         tag(ORES_URANIUM).add(Ic2Blocks.URANIUM_ORE.get(), Ic2Blocks.DEEPSLATE_URANIUM_ORE.get());
         tag(Tags.Blocks.ORES).addTag(ORES_URANIUM);
         tag(Tags.Blocks.ORES_IN_GROUND_STONE).add(Ic2Blocks.URANIUM_ORE.get());
@@ -194,6 +230,9 @@ public final class CraftBlockTagsProvider extends BlockTagsProvider {
         tag(ChainsawItem.MINEABLE).addTag(BlockTags.MINEABLE_WITH_AXE).addTag(BlockTags.LEAVES).add(Blocks.COBWEB);
         tag(ChainsawItem.SHEARABLE).addTag(BlockTags.LEAVES).add(Blocks.SHORT_GRASS, Blocks.FERN, Blocks.VINE,
                 Blocks.DEAD_BUSH);
+        // GraviSuite advanced chainsaw: the chainsaw's blocks plus wool, pumpkin, melon, cactus, snow layer.
+        tag(AdvancedChainsawItem.MINEABLE).addTag(ChainsawItem.MINEABLE).addTag(BlockTags.WOOL).add(Blocks.PUMPKIN,
+                Blocks.MELON, Blocks.CACTUS, Blocks.SNOW);
         tag(ElectricHoeItem.MINEABLE).add(Blocks.DIRT, Blocks.COARSE_DIRT, Blocks.PODZOL, Blocks.ROOTED_DIRT,
                 Blocks.GRASS_BLOCK, Blocks.MYCELIUM);
     }

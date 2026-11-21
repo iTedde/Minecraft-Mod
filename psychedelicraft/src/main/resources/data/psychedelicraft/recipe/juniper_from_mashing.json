@@ -1,0 +1,40 @@
+{
+  "type": "psychedelicraft:mashing",
+  "base_fluid": {
+    "amount": {
+      "min": 182250
+    },
+    "fluid": [
+      "minecraft:water"
+    ]
+  },
+  "ingredients": [
+    {
+      "count": 4,
+      "ingredient": {
+        "item": "psychedelicraft:juniper_berries"
+      }
+    },
+    {
+      "count": 2,
+      "ingredient": {
+        "tag": "c:foods/grapes"
+      }
+    },
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "minecraft:sugar"
+      }
+    },
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "minecraft:wheat"
+      }
+    }
+  ],
+  "result": {
+    "fluid": "psychedelicraft:juniper"
+  }
+}

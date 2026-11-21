@@ -1,0 +1,22 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "#": {
+      "item": "craft:advanced_circuit"
+    },
+    "U": {
+      "item": "craft:near_depleted_uranium_cell"
+    },
+    "g": {
+      "item": "craft:double_insulated_gold_cable"
+    }
+  },
+  "pattern": [
+    "UUU",
+    "g#g"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:damage_conversion_module"
+  }
+}

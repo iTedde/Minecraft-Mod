@@ -1,0 +1,8 @@
+{
+  "comparator_output": 4,
+  "description": {
+    "translate": "jukebox_song.craft.br3ath3"
+  },
+  "length_in_seconds": 289.0,
+  "sound_event": "craft:records/br3ath3"
+}

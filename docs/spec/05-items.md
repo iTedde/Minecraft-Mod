@@ -352,6 +352,8 @@ sonst `ISpecialArmor`-Priorität 10 mit Ratio 0,875. Quantum: jeder Fallschaden 
 - Stiefel: Sprungkraft: Boost + Sprung → `motionY += charge·0,3`, bei voller Ladung zusätzlich horizontale
   Geschwindigkeit ×3,5; `charge ×= 0,75` pro Tick; Aufladen am Boden für 1000 EU.
 
+> **Craft (Phase 37, `spec/37`):** kein Zusatztempo mehr; Pack-Werte hier nur als Referenz. Hose: kein Sprint-/Schwimmschub, dafür kein Sprint-Hunger und kein Rückstoß (ab 1 000 EU); Stiefel: kein Weitsprung ×3,5, Höhe bleibt; Jetpacks waagerecht höchstens Sprinttempo (§3.1–3.3).
+
 Nano- und Quantum-Teile sind `IMetalArmor`. Nano-Helm hat **keine** Nachtsicht in 1.115.
 
 ### 5.3 Utility-Rüstung (`ItemArmorUtility`, Diamant-Rendermaterial, 0 Rüstungspunkte, nicht verzauberbar)
@@ -735,6 +737,8 @@ Steinkrug (auch im Kreativmodus).
 Stufe 0, Rückgabe 1; sonst Verstärker +1 bis max (Meta 0: 1, Meta 1: 5, Meta 2: 6), Dauer +600 (Meta 0) bzw. +1200,
 Rückgabe neuer Verstärker. `highest` = Maximum beider; Meta 2: −2. `highest ≥ 3` → Übelkeit `(highest − 2) · 200`
 Ticks; `≥ 4` zusätzlich Sofortschaden Stufe `highest − 3`.
+
+> **Craft (Phase 37, `spec/37`):** kein Zusatztempo mehr; Pack-Werte hier nur als Referenz. Statt Tempo gibt Kaffee **Sättigung** (gleiche Stufen- und Überdosislogik), Eile bleibt (§3.7).
 
 **Fass-Block** (`BlockBarrel`, ID 217): Material Holz, Härte 1, Holz-Sound, kein Creative-Item (`ItemBlockRare`).
 Textur `block_0.png` oben/unten 28, Seiten 44, Seite mit Baumzapfer 29. Entsteht nur durch das Fass-Item auf einem

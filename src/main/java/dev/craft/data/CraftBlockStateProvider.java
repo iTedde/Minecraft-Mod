@@ -1,10 +1,15 @@
 package dev.craft.data;
 
+import dev.craft.mffs.MffsBlocks;
+import dev.craft.mffs.block.MffsMachineBlock;
+import dev.craft.mffs.block.ForceFieldBlock;
+import dev.craft.mffs.block.ProjectorBlock;
 import java.util.List;
 import dev.craft.ic2.crop.CropBlock;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import com.google.gson.JsonObject;
@@ -45,7 +50,20 @@ import dev.craft.powerplants.PpBlocks;
 import dev.craft.powerplants.block.PlantControllerBlock;
 import dev.craft.powerconverters.block.PowerConverterBlock;
 import dev.craft.enderstorage.EsBlocks;
+import dev.craft.lightshield.LsBlocks;
 import dev.craft.ironchest.IronChestBlocks;
+import dev.craft.mps.MpsBlocks;
+import dev.craft.nuclearcontrol.NcBlocks;
+import dev.craft.chargepads.CpBlocks;
+import dev.craft.chargepads.PadTier;
+import dev.craft.chargepads.block.ChargePadBlock;
+import dev.craft.nuclearcontrol.block.AlarmBlock;
+import dev.craft.nuclearcontrol.block.AttachedBlock;
+import dev.craft.nuclearcontrol.block.CounterBlock;
+import dev.craft.nuclearcontrol.block.InfoPanelBlock;
+import dev.craft.nuclearcontrol.block.RangeTriggerBlock;
+import dev.craft.nuclearcontrol.block.RemoteThermalMonitorBlock;
+import dev.craft.nuclearcontrol.block.ThermalMonitorBlock;
 import dev.craft.ironchest.IronChestType;
 import dev.craft.redpower.RpBlocks;
 import net.minecraft.core.Direction;
@@ -56,6 +74,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.NetherPortalBlock;
 import net.minecraft.world.level.block.PipeBlock;
+import net.minecraft.world.level.block.WeatheringCopper.WeatherState;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.AABB;
@@ -87,7 +107,7 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
 
     @Override
     protected void registerStatesAndModels() {
-        miningPortal();
+        craftPortals();
         for (CableType type : CableType.values()) {
             BlockModelBuilder model = models().getBuilder("block/cable/" + type.getName())
                     .texture("particle", CableModel.cableTexture(type, 0))
@@ -147,6 +167,12 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
         compactSolars();
         powerPlants();
         gregTech();
+        nuclearControl();
+        chargePads();
+        mffs();
+        pressurePlateBlock(dev.craft.obsidiplates.ObsidiPlates.OBSIDIAN_PRESSURE_PLATE.get(), mcLoc("block/obsidian"));
+        plinth();
+        secretRooms();
     }
 
     /** BuildCraft {@code RenderingMarkers}: a torch-like stick, turned so that it points away from its support. */
@@ -178,16 +204,37 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
                 modLoc("block/project_table_top"));
         horizontalBlock(RpBlocks.PROJECT_TABLE.get(), model);
         simpleBlockItem(RpBlocks.PROJECT_TABLE.get(), model);
+        ModelFile large = models().orientableWithBottom("large_project_table",
+                modLoc("block/large_project_table_side"), modLoc("block/large_project_table_front"),
+                modLoc("block/large_project_table_bottom"), modLoc("block/large_project_table_top"));
+        horizontalBlock(RpBlocks.LARGE_PROJECT_TABLE.get(), large);
+        simpleBlockItem(RpBlocks.LARGE_PROJECT_TABLE.get(), large);
         // Iron chests are drawn by their block entity renderer; the item model is builtin/entity.
         for (IronChestType type : IronChestType.values()) {
             simpleBlock(IronChestBlocks.chest(type).get(), models().getBuilder(type.getName() + "_chest")
                     .texture("particle", modLoc("block/ironchest/" + type.getName())));
         }
+        // Copper chest stages (spec 35 §1); the unaffected unwaxed one is the copper chest above.
+        for (WeatherState stage : WeatherState.values()) {
+            String prefix = stage == WeatherState.UNAFFECTED ? "" : stage.getSerializedName() + "_";
+            ModelFile copperModel = models().getBuilder(prefix + "copper_chest")
+                    .texture("particle", modLoc("block/ironchest/" + prefix + "copper"));
+            if (stage != WeatherState.UNAFFECTED) {
+                simpleBlock(IronChestBlocks.copperChest(stage, false).get(), copperModel);
+            }
+            simpleBlock(IronChestBlocks.copperChest(stage, true).get(), copperModel);
+        }
+        // Shield light: invisible, glowstone particles.
+        simpleBlock(LsBlocks.SHIELD_LIGHT.get(), models().getBuilder("shield_light")
+                .texture("particle", mcLoc("block/glowstone")));
         // Ender chest: block entity renderer, obsidian particles (BlockEnderStorage blockIndexInTexture).
         simpleBlock(EsBlocks.ENDER_CHEST.get(), models().getBuilder("ender_storage_chest")
                 .texture("particle", mcLoc("block/obsidian")));
         simpleBlock(EsBlocks.ENDER_TANK.get(), models().getBuilder("ender_storage_tank")
                 .texture("particle", mcLoc("block/obsidian")));
+        // Tinker Table: block entity renderer, iron particles.
+        simpleBlock(MpsBlocks.TINKER_TABLE.get(), models().getBuilder("tinker_table")
+                .texture("particle", mcLoc("block/iron_block")));
     }
 
     private void quarry() {
@@ -471,8 +518,6 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
         simpleBlockWithItem(Ic2Blocks.INDUSTRIAL_TNT.get(), models().cubeBottomTop("industrial_tnt",
                 modLoc("block/industrial_tnt_side"), modLoc("block/industrial_tnt_bottom"),
                 modLoc("block/industrial_tnt_top")));
-        simpleBlockWithItem(Ic2Blocks.NUKE.get(), models().cubeBottomTop("nuke", modLoc("block/nuke_side"),
-                modLoc("block/nuke_bottom"), modLoc("block/nuke_top")));
         dynamiteStick(Ic2Blocks.DYNAMITE_STICK.get());
         dynamiteStick(Ic2Blocks.DYNAMITE_STICK_WITH_REMOTE.get());
         simpleBlockWithItem(Ic2Blocks.REINFORCED_STONE.get(), cubeAll(Ic2Blocks.REINFORCED_STONE.get()));
@@ -819,14 +864,289 @@ public final class CraftBlockStateProvider extends BlockStateProvider {
         simpleBlockItem(block, models().cubeAll(name, texture));
     }
 
-    /** Nether portal models with the mining portal texture (spec 18 §4.2). */
-    private void miningPortal() {
-        ResourceLocation texture = modLoc("block/mining_portal");
-        BlockModelBuilder alongX = models().withExistingParent("mining_portal_ns", mcLoc("block/nether_portal_ns"))
+    /** Nether portal models with the mining (spec 18 §4.2) and farming portal textures (spec 53 §4). */
+    private void craftPortals() {
+        craftPortal(MiningBlocks.MINING_PORTAL.get(), "mining_portal");
+        craftPortal(MiningBlocks.FARMING_PORTAL.get(), "farming_portal");
+    }
+
+    private void craftPortal(Block block, String name) {
+        ResourceLocation texture = modLoc("block/" + name);
+        BlockModelBuilder alongX = models().withExistingParent(name + "_ns", mcLoc("block/nether_portal_ns"))
                 .texture("particle", texture).texture("portal", texture).renderType("translucent");
-        BlockModelBuilder alongZ = models().withExistingParent("mining_portal_ew", mcLoc("block/nether_portal_ew"))
+        BlockModelBuilder alongZ = models().withExistingParent(name + "_ew", mcLoc("block/nether_portal_ew"))
                 .texture("particle", texture).texture("portal", texture).renderType("translucent");
-        getVariantBuilder(MiningBlocks.MINING_PORTAL.get()).forAllStates(state -> ConfiguredModel.builder()
+        getVariantBuilder(block).forAllStates(state -> ConfiguredModel.builder()
                 .modelFile(state.getValue(NetherPortalBlock.AXIS) == Direction.Axis.X ? alongX : alongZ).build());
+    }
+
+    /**
+     * Nuclear Control (spec 46): the flat blocks lie on the floor in their base model (display up, back down) and are
+     * turned like vanilla wall buttons; the remote thermal monitor's display is the north face of its base model.
+     */
+    private void nuclearControl() {
+        String[] status = {"normal", "hot", "none"};
+        attachedBlock(NcBlocks.THERMAL_MONITOR.get(), 1,
+                state -> "thermal_monitor_" + status[state.getValue(ThermalMonitorBlock.STATUS)],
+                "thermal_monitor_back", "thermal_monitor_side", "thermal_monitor_normal");
+        String[] lamp = {"off", "dim", "bright"};
+        attachedBlock(NcBlocks.INDUSTRIAL_ALARM.get(), 2,
+                state -> "industrial_alarm_lamp_" + lamp[state.getValue(AlarmBlock.LAMP)],
+                "industrial_alarm_back", "industrial_alarm_side", "industrial_alarm_lamp_off");
+        attachedBlock(NcBlocks.HOWLER_ALARM.get(), 2, state -> "howler_alarm_front", "howler_alarm_back",
+                "howler_alarm_side", "howler_alarm_front");
+        RemoteThermalMonitorBlock remote = NcBlocks.REMOTE_THERMAL_MONITOR.get();
+        ModelFile remoteModel = models().cube("block/nuclearcontrol/remote_thermal_monitor",
+                        ncTexture("remote_thermal_monitor_side"), ncTexture("remote_thermal_monitor_side"),
+                        ncTexture("remote_thermal_monitor_front"), ncTexture("remote_thermal_monitor_back"),
+                        ncTexture("remote_thermal_monitor_side"), ncTexture("remote_thermal_monitor_side"))
+                .texture("particle", ncTexture("remote_thermal_monitor_side"));
+        getVariantBuilder(remote).forAllStates(state -> {
+            Direction facing = state.getValue(RemoteThermalMonitorBlock.FACING);
+            int x = facing == Direction.UP ? 270 : facing == Direction.DOWN ? 90 : 0;
+            int y = facing.getAxis().isHorizontal() ? (int) facing.toYRot() + 180 : 0;
+            return ConfiguredModel.builder().modelFile(remoteModel).rotationX(x).rotationY(y % 360).build();
+        });
+        simpleBlockItem(remote, remoteModel);
+        facingCube(NcBlocks.INFORMATION_PANEL.get(), "information_panel", "information_panel_back",
+                "information_panel_side");
+        facingCube(NcBlocks.INFORMATION_PANEL_EXTENDER.get(), "information_panel_extender",
+                "information_panel_extender_back", "information_panel_extender_side");
+        // Counters: input side 41, all others 42 (energy) or 43 (average); FACING = input side.
+        counterCube(NcBlocks.ENERGY_COUNTER.get(), "energy_counter");
+        counterCube(NcBlocks.AVERAGE_COUNTER.get(), "average_counter");
+        // Range trigger: display 27/28/29 by state (unknown/passive/active), back 23, sides 24.
+        String[] trigger = {"unknown", "passive", "active"};
+        Map<Integer, ModelFile> triggerModels = new HashMap<>();
+        for (int state = 0; state < 3; state++) {
+            triggerModels.put(state, models().cube("block/nuclearcontrol/range_trigger_" + trigger[state],
+                            ncTexture("remote_thermal_monitor_side"), ncTexture("remote_thermal_monitor_side"),
+                            ncTexture("range_trigger_" + trigger[state]), ncTexture("remote_thermal_monitor_back"),
+                            ncTexture("remote_thermal_monitor_side"), ncTexture("remote_thermal_monitor_side"))
+                    .texture("particle", ncTexture("remote_thermal_monitor_side")));
+        }
+        getVariantBuilder(NcBlocks.RANGE_TRIGGER.get()).forAllStates(state -> facingModel(
+                triggerModels.get(state.getValue(RangeTriggerBlock.STATUS)), state.getValue(RangeTriggerBlock.FACING)));
+        simpleBlockItem(NcBlocks.RANGE_TRIGGER.get(), triggerModels.get(1));
+    }
+
+    private void counterCube(Block block, String name) {
+        ModelFile model = models().cube("block/nuclearcontrol/" + name, ncTexture(name), ncTexture(name),
+                        ncTexture("counter_input"), ncTexture(name), ncTexture(name), ncTexture(name))
+                .texture("particle", ncTexture(name));
+        getVariantBuilder(block).forAllStates(state -> facingModel(model, state.getValue(CounterBlock.FACING)));
+        simpleBlockItem(block, model);
+    }
+
+    /** North face of the model towards {@code facing}. */
+    private static ConfiguredModel[] facingModel(ModelFile model, Direction facing) {
+        int x = facing == Direction.UP ? 270 : facing == Direction.DOWN ? 90 : 0;
+        int y = facing.getAxis().isHorizontal() ? (int) facing.toYRot() + 180 : 0;
+        return ConfiguredModel.builder().modelFile(model).rotationX(x).rotationY(y % 360).build();
+    }
+
+    /** Information panel and extender: front = green panel with border (the renderer draws the screen over it). */
+    private void facingCube(Block block, String name, String back, String side) {
+        ModelFile model = models().cube("block/nuclearcontrol/" + name, ncTexture(side), ncTexture(side),
+                        ncTexture("information_panel_front"), ncTexture(back), ncTexture(side), ncTexture(side))
+                .texture("particle", ncTexture(side));
+        getVariantBuilder(block).forAllStates(state -> {
+            Direction facing = state.getValue(InfoPanelBlock.FACING);
+            int x = facing == Direction.UP ? 270 : facing == Direction.DOWN ? 90 : 0;
+            int y = facing.getAxis().isHorizontal() ? (int) facing.toYRot() + 180 : 0;
+            return ConfiguredModel.builder().modelFile(model).rotationX(x).rotationY(y % 360).build();
+        });
+        simpleBlockItem(block, model);
+    }
+
+    private void attachedBlock(AttachedBlock block, int inset, Function<BlockState, String> front, String back,
+                               String side, String itemFront) {
+        Map<String, ModelFile> models = new HashMap<>();
+        Function<String, ModelFile> model = texture -> models.computeIfAbsent(texture,
+                key -> models().withExistingParent("block/nuclearcontrol/" + key, mcLoc("block/block"))
+                        .texture("particle", ncTexture(side)).texture("front", ncTexture(key))
+                        .texture("back", ncTexture(back)).texture("side", ncTexture(side)).renderType("cutout")
+                        .element().from(inset, 0, inset).to(16 - inset, AttachedBlock.HEIGHT, 16 - inset)
+                        .face(Direction.UP).texture("#front").end()
+                        .face(Direction.DOWN).texture("#back").cullface(Direction.DOWN).end()
+                        .face(Direction.NORTH).texture("#side").end()
+                        .face(Direction.SOUTH).texture("#side").end()
+                        .face(Direction.WEST).texture("#side").end()
+                        .face(Direction.EAST).texture("#side").end()
+                        .end());
+        getVariantBuilder(block).forAllStates(state -> {
+            Direction facing = state.getValue(AttachedBlock.FACING);
+            int x = facing == Direction.UP ? 0 : facing == Direction.DOWN ? 180 : 90;
+            int y = facing.getAxis().isHorizontal() ? (int) facing.toYRot() + 180 : 0;
+            return ConfiguredModel.builder().modelFile(model.apply(front.apply(state))).rotationX(x)
+                    .rotationY(y % 360).build();
+        });
+        simpleBlockItem(block, model.apply(itemFront));
+    }
+
+    /**
+     * Charge pads (spec 47 §2.1): 16 x 4 x 16 px; bottom, sides (the 1.4.7 UV takes rows 12-15 of the side icon,
+     * the default UV of a 4 px high face does the same) and the top by state.
+     */
+    private void chargePads() {
+        for (PadTier tier : PadTier.values()) {
+            ChargePadBlock block = CpBlocks.pad(tier).get();
+            String name = tier.name().toLowerCase(java.util.Locale.ROOT);
+            Function<Boolean, ModelFile> model = active -> {
+                String top = name + "_charge_pad_top" + (active ? "_active" : "");
+                return models().withExistingParent("block/chargepads/" + top.replace("_top", ""), mcLoc("block/block"))
+                        .texture("particle", cpTexture(name + "_charge_pad_bottom"))
+                        .texture("top", cpTexture(top))
+                        .texture("bottom", cpTexture(name + "_charge_pad_bottom"))
+                        .texture("side", cpTexture(name + "_charge_pad_side")).renderType("cutout")
+                        .element().from(0, 0, 0).to(16, 4, 16)
+                        .face(Direction.UP).texture("#top").end()
+                        .face(Direction.DOWN).texture("#bottom").cullface(Direction.DOWN).end()
+                        .face(Direction.NORTH).texture("#side").cullface(Direction.NORTH).end()
+                        .face(Direction.SOUTH).texture("#side").cullface(Direction.SOUTH).end()
+                        .face(Direction.WEST).texture("#side").cullface(Direction.WEST).end()
+                        .face(Direction.EAST).texture("#side").cullface(Direction.EAST).end()
+                        .end();
+            };
+            ModelFile inactive = model.apply(false);
+            ModelFile active = model.apply(true);
+            getVariantBuilder(block).forAllStates(state -> ConfiguredModel.builder()
+                    .modelFile(state.getValue(ChargePadBlock.ACTIVE) ? active : inactive).build());
+            simpleBlockItem(block, inactive);
+        }
+    }
+
+    private ResourceLocation cpTexture(String name) {
+        return modLoc("block/chargepads/" + name);
+    }
+
+    private ResourceLocation ncTexture(String name) {
+        return modLoc("block/nuclearcontrol/" + name);
+    }
+
+    /**
+     * MFFS (spec 48 §5): ores; machines with front (north in the model), back and side textures, active variants,
+     * turned to the six facings.
+     */
+    /** Mystical Plinth (spec 50 §1.2): 12 px high, sides cut from the lower ¾ of the side tile, top per lexicon. */
+    private void plinth() {
+        var block = dev.craft.omnitools.OmniTools.MYSTICAL_PLINTH.get();
+        ModelFile empty = plinthModel("mystical_plinth", "plinth_top");
+        ModelFile lexicon = plinthModel("mystical_plinth_lexicon", "plinth_top_lexicon");
+        getVariantBuilder(block).forAllStates(state -> ConfiguredModel.builder()
+                .modelFile(state.getValue(dev.craft.omnitools.PlinthBlock.LEXICON) ? lexicon : empty).build());
+        simpleBlockItem(block, empty);
+    }
+
+    private ModelFile plinthModel(String name, String top) {
+        return models().withExistingParent(name, mcLoc("block/block"))
+                .texture("particle", modLoc("block/omnitools/plinth_side"))
+                .texture("bottom", modLoc("block/omnitools/plinth_bottom"))
+                .texture("side", modLoc("block/omnitools/plinth_side"))
+                .texture("top", modLoc("block/omnitools/" + top))
+                .element().from(0, 0, 0).to(16, 12, 16)
+                .face(Direction.DOWN).uvs(0, 0, 16, 16).texture("#bottom").cullface(Direction.DOWN).end()
+                .face(Direction.UP).uvs(0, 0, 16, 16).texture("#top").end()
+                .face(Direction.NORTH).uvs(0, 4, 16, 16).texture("#side").cullface(Direction.NORTH).end()
+                .face(Direction.SOUTH).uvs(0, 4, 16, 16).texture("#side").cullface(Direction.SOUTH).end()
+                .face(Direction.WEST).uvs(0, 4, 16, 16).texture("#side").cullface(Direction.WEST).end()
+                .face(Direction.EAST).uvs(0, 4, 16, 16).texture("#side").cullface(Direction.EAST).end()
+                .end();
+    }
+
+    /**
+     * Secret Rooms (spec 50 §4): the block models are only the fallback (no camouflage yet) and the item look; the
+     * camouflage model wraps them on the client.
+     */
+    private void secretRooms() {
+        ModelFile camo = models().cubeAll("secretrooms/camo_block", modLoc("block/secretrooms/camo_block"));
+        simpleBlock(dev.craft.secretrooms.SecretRooms.GHOST_BLOCK.get(), camo);
+        simpleBlockItem(dev.craft.secretrooms.SecretRooms.GHOST_BLOCK.get(), camo);
+        ModelFile glass = models().cubeAll("secretrooms/one_way_glass", modLoc("block/secretrooms/one_way_glass"))
+                .renderType("cutout");
+        directionalBlock(dev.craft.secretrooms.SecretRooms.ONE_WAY_GLASS.get(), glass);
+        simpleBlockItem(dev.craft.secretrooms.SecretRooms.ONE_WAY_GLASS.get(), glass);
+        for (var block : List.of(dev.craft.secretrooms.SecretRooms.CAMO_REDSTONE, dev.craft.secretrooms.SecretRooms.CAMO_LEVER,
+                dev.craft.secretrooms.SecretRooms.CAMO_BUTTON, dev.craft.secretrooms.SecretRooms.CAMO_PRESSURE_PLATE,
+                dev.craft.secretrooms.SecretRooms.CAMO_PLAYER_PRESSURE_PLATE, dev.craft.secretrooms.SecretRooms.CAMO_STAIRS,
+                dev.craft.secretrooms.SecretRooms.CAMO_CHEST, dev.craft.secretrooms.SecretRooms.CAMO_GATE,
+                dev.craft.secretrooms.SecretRooms.CAMO_GATE_EXTENSION)) {
+            getVariantBuilder(block.get()).forAllStates(state -> ConfiguredModel.builder().modelFile(camo).build());
+            simpleBlockItem(block.get(), camo);
+        }
+        doorBlockWithRenderType(dev.craft.secretrooms.SecretRooms.CAMO_WOODEN_DOOR.get(), mcLoc("block/oak_door_bottom"),
+                mcLoc("block/oak_door_top"), "cutout");
+        doorBlockWithRenderType(dev.craft.secretrooms.SecretRooms.CAMO_IRON_DOOR.get(), mcLoc("block/iron_door_bottom"),
+                mcLoc("block/iron_door_top"), "cutout");
+        trapdoorBlockWithRenderType(dev.craft.secretrooms.SecretRooms.CAMO_TRAPDOOR.get(), mcLoc("block/oak_trapdoor"),
+                true, "cutout");
+        ModelFile torch = models().withExistingParent("secretrooms/torch_lever", mcLoc("block/template_torch"))
+                .texture("torch", mcLoc("block/torch")).renderType("cutout");
+        ModelFile wallTorch = models().withExistingParent("secretrooms/torch_lever_wall",
+                mcLoc("block/template_torch_wall")).texture("torch", mcLoc("block/torch")).renderType("cutout");
+        getVariantBuilder(dev.craft.secretrooms.SecretRooms.TORCH_LEVER.get()).forAllStates(state -> {
+            Direction facing = state.getValue(dev.craft.secretrooms.TorchLeverBlock.FACING);
+            return facing == Direction.UP ? ConfiguredModel.builder().modelFile(torch).build()
+                    : ConfiguredModel.builder().modelFile(wallTorch)
+                    .rotationY(((int) facing.toYRot() + 90) % 360).build();
+        });
+    }
+
+    private void mffs() {
+        for (Block ore : List.of(MffsBlocks.MONAZIT_ORE.get(), MffsBlocks.DEEPSLATE_MONAZIT_ORE.get())) {
+            String name = BuiltInRegistries.BLOCK.getKey(ore).getPath();
+            simpleBlockWithItem(ore, models().cubeAll(name, modLoc("block/mffs/" + name)));
+        }
+        for (var holder : MffsBlocks.machines()) {
+            MffsMachineBlock block = holder.get();
+            String name = holder.getId().getPath();
+            ModelFile inactive = mffsMachineModel(name, "");
+            ModelFile active = mffsMachineModel(name, "_active");
+            getVariantBuilder(block).forAllStates(state -> {
+                Direction facing = state.getValue(MffsMachineBlock.FACING);
+                int x = facing == Direction.UP ? 270 : facing == Direction.DOWN ? 90 : 0;
+                int y = facing.getAxis().isHorizontal() ? (int) facing.toYRot() + 180 : 0;
+                return ConfiguredModel.builder().modelFile(state.getValue(MffsMachineBlock.ACTIVE) ? active : inactive)
+                        .rotationX(x).rotationY(y % 360).build();
+            });
+            simpleBlockItem(block, inactive);
+        }
+        mffsProjector();
+        mffsForceField();
+    }
+
+    /** Projector: textures per module type ({@code ProTyp} 0–8) and activity, turned like the other machines. */
+    private void mffsProjector() {
+        ProjectorBlock block = MffsBlocks.PROJECTOR.get();
+        ModelFile[][] models = new ModelFile[9][2];
+        for (int type = 0; type <= 8; type++) {
+            models[type][0] = mffsMachineModel("mffs_projector_" + type, "");
+            models[type][1] = mffsMachineModel("mffs_projector_" + type, "_active");
+        }
+        getVariantBuilder(block).forAllStates(state -> {
+            Direction facing = state.getValue(MffsMachineBlock.FACING);
+            int x = facing == Direction.UP ? 270 : facing == Direction.DOWN ? 90 : 0;
+            int y = facing.getAxis().isHorizontal() ? (int) facing.toYRot() + 180 : 0;
+            int active = state.getValue(MffsMachineBlock.ACTIVE) ? 1 : 0;
+            return ConfiguredModel.builder().modelFile(models[state.getValue(ProjectorBlock.MODULE)][active])
+                    .rotationX(x).rotationY(y % 360).build();
+        });
+        simpleBlockItem(block, models[0][0]);
+    }
+
+    /** Force field: one translucent cube per field type (camouflage is invisible without a camouflage block). */
+    private void mffsForceField() {
+        getVariantBuilder(MffsBlocks.FORCE_FIELD.get()).forAllStates(state -> {
+            String type = state.getValue(ForceFieldBlock.TYPE).getSerializedName();
+            ModelFile model = models().cubeAll("block/mffs/force_field_" + type,
+                    modLoc("block/mffs/force_field_" + type)).renderType("translucent");
+            return ConfiguredModel.builder().modelFile(model).build();
+        });
+    }
+
+    private ModelFile mffsMachineModel(String name, String suffix) {
+        ResourceLocation side = modLoc("block/mffs/" + name + "_side" + suffix);
+        return models().cube("block/mffs/" + name + suffix, side, side, modLoc("block/mffs/" + name + "_front" + suffix),
+                modLoc("block/mffs/" + name + "_back" + suffix), side, side).texture("particle", side);
     }
 }

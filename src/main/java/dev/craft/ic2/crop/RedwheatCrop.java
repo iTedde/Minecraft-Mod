@@ -43,6 +43,11 @@ public class RedwheatCrop extends CropCard {
     }
 
     @Override
+    public int matureSize() {
+        return 7;
+    }
+
+    @Override
     public boolean canGrow(CropBlockEntity crop) {
         return crop.getSize() < 7 && crop.getLightLevel() <= 10 && crop.getLightLevel() >= 5;
     }

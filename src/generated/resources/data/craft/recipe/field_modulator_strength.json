@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "v": {
+      "item": "craft:projector_focus_matrix"
+    }
+  },
+  "pattern": [
+    "vvv",
+    "vvv",
+    "vvv"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:field_modulator_strength"
+  }
+}

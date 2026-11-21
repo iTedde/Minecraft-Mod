@@ -1,0 +1,8 @@
+{
+  "comparator_output": 7,
+  "description": {
+    "translate": "jukebox_song.craft.mine_all_day"
+  },
+  "length_in_seconds": 255.0,
+  "sound_event": "craft:records/mine_all_day"
+}

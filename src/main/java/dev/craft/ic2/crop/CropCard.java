@@ -68,6 +68,14 @@ public abstract class CropCard {
 
     public abstract boolean canGrow(CropBlockEntity crop);
 
+    /**
+     * Size the species is fully grown at (no IC2 counterpart; used for the gardens of the farming dimension,
+     * spec 53 §3.4). The last size {@link #canGrow} leads to, Venomilia stops at its grin powder stage 5.
+     */
+    public int matureSize() {
+        return 4;
+    }
+
     public int weightInfluences(CropBlockEntity crop, float humidity, float nutrients, float air) {
         return (int) (humidity + nutrients + air);
     }

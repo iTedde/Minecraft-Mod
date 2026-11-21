@@ -1,20 +1,18 @@
 package dev.craft.data;
 
+import dev.craft.mffs.MffsBlocks;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
 
 import dev.craft.buildcraft.BcBlocks;
-import dev.craft.buildcraft.transport.PipeType;
 import dev.craft.buildcraft.engine.EngineType;
-import dev.craft.forestry.FrBlocks;
+import dev.craft.buildcraft.transport.PipeType;
+import dev.craft.chargepads.CpBlocks;
 import dev.craft.compactsolars.CsBlocks;
-import dev.craft.powerplants.PpBlocks;
 import dev.craft.enderstorage.EsBlocks;
 import dev.craft.enderstorage.EsDataComponents;
-import dev.craft.ironchest.IronChestBlocks;
-import dev.craft.thermalexpansion.TeBlocks;
-import dev.craft.redpower.RpBlocks;
+import dev.craft.forestry.FrBlocks;
 import dev.craft.gregtech.GtBlocks;
 import dev.craft.gregtech.GtItems;
 import dev.craft.gregtech.GtMachine;
@@ -22,13 +20,21 @@ import dev.craft.gregtech.block.GtCasingBlock;
 import dev.craft.gregtech.world.GtOre;
 import dev.craft.gregtech.world.GtOreChanceCondition;
 import dev.craft.gregtech.world.GtOreCountFunction;
-import dev.craft.powerconverters.PcBlocks;
 import dev.craft.ic2.Ic2Blocks;
 import dev.craft.ic2.Ic2Items;
 import dev.craft.ic2.Ic2Machine;
 import dev.craft.ic2.block.RubberWoodBlock;
 import dev.craft.ic2.block.ScaffoldBlock;
 import dev.craft.ic2.cable.CableType;
+import dev.craft.ironchest.IronChestBlock;
+import dev.craft.ironchest.IronChestBlocks;
+import dev.craft.ironchest.IronChestItems;
+import dev.craft.mps.MpsBlocks;
+import dev.craft.nuclearcontrol.NcBlocks;
+import dev.craft.powerconverters.PcBlocks;
+import dev.craft.powerplants.PpBlocks;
+import dev.craft.redpower.RpBlocks;
+import dev.craft.thermalexpansion.TeBlocks;
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.world.item.DyeColor;
@@ -72,7 +78,28 @@ public final class CraftBlockLoot extends BlockLootSubProvider {
         }
         dropSelf(GtBlocks.HIGHLY_ADVANCED_MACHINE_BLOCK.get());
         dropSelf(RpBlocks.PROJECT_TABLE.get());
-        IronChestBlocks.BLOCKS.getEntries().forEach(chest -> dropSelf(chest.get()));
+        dropSelf(RpBlocks.LARGE_PROJECT_TABLE.get());
+        dropSelf(MpsBlocks.TINKER_TABLE.get());
+        // Every copper chest stage drops the fresh copper chest (spec 35 §1).
+        IronChestBlocks.BLOCKS.getEntries().forEach(chest -> dropOther(chest.get(),
+                IronChestItems.chest(((IronChestBlock) chest.get()).getType())));
+        // Nuclear Control (spec 46): every block drops itself.
+        NcBlocks.BLOCKS.getEntries().forEach(block -> dropSelf(block.get()));
+        dropSelf(dev.craft.obsidiplates.ObsidiPlates.OBSIDIAN_PRESSURE_PLATE.get());
+        dropSelf(dev.craft.omnitools.OmniTools.MYSTICAL_PLINTH.get());
+        for (var block : dev.craft.secretrooms.SecretRooms.BLOCKS.getEntries()) {
+            if (block.get() instanceof net.minecraft.world.level.block.DoorBlock door) {
+                add(door, createDoorTable(door));
+            } else if (block != dev.craft.secretrooms.SecretRooms.CAMO_GATE_EXTENSION) {
+                dropSelf(block.get());
+            }
+        }
+        // Charge pads: canHarvestBlock = false, only the wrench gets them back (spec 47 §2.1).
+        CpBlocks.BLOCKS.getEntries().forEach(block -> add(block.get(), noDrop()));
+        // MFFS: the ore drops itself (no fortune); machines drop themselves (IC2 wrench path, spec 48 §5).
+        // The force field has no loot table at all (noLootTable).
+        MffsBlocks.BLOCKS.getEntries().stream().filter(block -> block != MffsBlocks.FORCE_FIELD)
+                .forEach(block -> dropSelf(block.get()));
         // EnderStorage getBlockDropped: always itself with frequency and owner (spec 27 §2).
         for (Block ender : List.of(EsBlocks.ENDER_CHEST.get(), EsBlocks.ENDER_TANK.get())) {
             add(ender, LootTable.lootTable().withPool(applyExplosionCondition(ender, LootPool.lootPool()
@@ -131,7 +158,6 @@ public final class CraftBlockLoot extends BlockLootSubProvider {
         dropSelf(Ic2Blocks.RUBBER_MAT.get());
         dropSelf(Ic2Blocks.CROP.get());
         add(Ic2Blocks.INDUSTRIAL_TNT.get(), noDrop());
-        add(Ic2Blocks.NUKE.get(), noDrop());
         add(Ic2Blocks.DYNAMITE_STICK.get(), noDrop());
         add(Ic2Blocks.DYNAMITE_STICK_WITH_REMOTE.get(), noDrop());
         dropSelf(Ic2Blocks.ADVANCED_MACHINE_CASING.get());
@@ -272,7 +298,9 @@ public final class CraftBlockLoot extends BlockLootSubProvider {
     protected Iterable<Block> getKnownBlocks() {
         return Stream.of(Ic2Blocks.BLOCKS, BcBlocks.BLOCKS, FrBlocks.BLOCKS, PcBlocks.BLOCKS,
                         CsBlocks.BLOCKS, GtBlocks.BLOCKS, PpBlocks.BLOCKS, RpBlocks.BLOCKS, IronChestBlocks.BLOCKS,
-                        TeBlocks.BLOCKS, EsBlocks.BLOCKS)
+                        TeBlocks.BLOCKS, EsBlocks.BLOCKS, MpsBlocks.BLOCKS, NcBlocks.BLOCKS, CpBlocks.BLOCKS,
+                        MffsBlocks.BLOCKS, dev.craft.obsidiplates.ObsidiPlates.BLOCKS,
+                        dev.craft.omnitools.OmniTools.BLOCKS, dev.craft.secretrooms.SecretRooms.BLOCKS)
                 .flatMap(blocks -> blocks.getEntries().stream())
                 .map(holder -> (Block) holder.get()).toList();
     }

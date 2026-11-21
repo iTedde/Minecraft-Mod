@@ -47,7 +47,8 @@
       "craft:mining/gt_bauxite_ore",
       "craft:mining/te_silver_ore",
       "craft:mining/te_lead_ore",
-      "craft:mining/te_nickel_ore"
+      "craft:mining/te_nickel_ore",
+      "craft:mining/mffs_monazit_ore"
     ]
   ],
   "has_precipitation": false,

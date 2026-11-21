@@ -1,0 +1,40 @@
+{
+  "variants": {
+    "facing=down,powered=false": {
+      "model": "craft:secretrooms/camo_block"
+    },
+    "facing=down,powered=true": {
+      "model": "craft:secretrooms/camo_block"
+    },
+    "facing=east,powered=false": {
+      "model": "craft:secretrooms/camo_block"
+    },
+    "facing=east,powered=true": {
+      "model": "craft:secretrooms/camo_block"
+    },
+    "facing=north,powered=false": {
+      "model": "craft:secretrooms/camo_block"
+    },
+    "facing=north,powered=true": {
+      "model": "craft:secretrooms/camo_block"
+    },
+    "facing=south,powered=false": {
+      "model": "craft:secretrooms/camo_block"
+    },
+    "facing=south,powered=true": {
+      "model": "craft:secretrooms/camo_block"
+    },
+    "facing=up,powered=false": {
+      "model": "craft:secretrooms/camo_block"
+    },
+    "facing=up,powered=true": {
+      "model": "craft:secretrooms/camo_block"
+    },
+    "facing=west,powered=false": {
+      "model": "craft:secretrooms/camo_block"
+    },
+    "facing=west,powered=true": {
+      "model": "craft:secretrooms/camo_block"
+    }
+  }
+}

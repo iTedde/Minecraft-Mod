@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "E": {
+      "item": "craft:carbon_plate"
+    },
+    "x": {
+      "item": "craft:force_energy_crystal"
+    }
+  },
+  "pattern": [
+    " E ",
+    "ExE",
+    " E "
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:mffs_capacitor_upgrade_capacity"
+  }
+}

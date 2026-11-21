@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "shot_glass",
+  "ingredients": [
+    {
+      "item": "minecraft:glass"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "psychedelicraft:shot_glass"
+  }
+}

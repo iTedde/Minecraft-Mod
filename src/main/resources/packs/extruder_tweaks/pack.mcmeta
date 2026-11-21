@@ -1,0 +1,6 @@
+{
+  "pack": {
+    "description": "Craft: Mechanical Extruder andesite/granite/tuff need the block itself as catalyst, no height limit",
+    "pack_format": 48
+  }
+}

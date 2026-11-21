@@ -1,0 +1,8 @@
+{
+  "comparator_output": 14,
+  "description": {
+    "translate": "jukebox_song.craft.physical"
+  },
+  "length_in_seconds": 244.0,
+  "sound_event": "craft:records/physical"
+}

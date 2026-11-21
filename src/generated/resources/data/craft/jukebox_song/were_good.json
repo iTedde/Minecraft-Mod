@@ -1,0 +1,8 @@
+{
+  "comparator_output": 3,
+  "description": {
+    "translate": "jukebox_song.craft.were_good"
+  },
+  "length_in_seconds": 192.0,
+  "sound_event": "craft:records/were_good"
+}

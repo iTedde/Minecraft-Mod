@@ -4,14 +4,17 @@ import java.util.List;
 import java.util.Optional;
 
 import dev.craft.Craft;
+import dev.craft.core.MovementCap;
 import dev.craft.core.CraftDamageTypes;
 import dev.craft.ic2.Ic2Items;
 import dev.craft.ic2.Ic2MobEffects;
 import dev.craft.ic2.item.ElectricItems;
+import dev.craft.ic2.keyboard.Ic2Keyboard;
 import dev.craft.ic2.item.tool.NanoSaberItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -24,6 +27,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.GameType;
+import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.gametest.GameTestHolder;
 import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
 
@@ -212,5 +216,84 @@ public final class ArmorGameTests {
         CraftingInput input = CraftingInput.of(3, 3, items);
         return helper.getLevel().getRecipeManager().getRecipeFor(RecipeType.CRAFTING, input, helper.getLevel())
                 .map(holder -> holder.value().assemble(input, helper.getLevel().registryAccess()));
+    }
+
+    /** Spec 37 §3.1: sprinting with quantum leggings adds no speed but still costs 1 000 EU per 10 ticks. */
+    @GameTest(template = EMPTY)
+    public static void quantumLeggingsGiveNoSpeed(GameTestHelper helper) {
+        Player player = helper.makeMockPlayer(GameType.SURVIVAL);
+        player.setItemSlot(EquipmentSlot.LEGS, charged(Ic2Items.QUANTUM_LEGGINGS.toStack()));
+        player.setOnGround(true);
+        player.setSprinting(true);
+        for (int i = 0; i < 10; i++) {
+            player.setDeltaMovement(0.2, 0.0, 0.0);
+            tickArmor(player, EquipmentSlot.LEGS);
+            helper.assertValueEqual(player.getDeltaMovement(), new Vec3(0.2, 0.0, 0.0), "no sprint boost");
+        }
+        helper.assertValueEqual(ElectricItems.getCharge(player.getItemBySlot(EquipmentSlot.LEGS)), 1000000 - 1000,
+                "sprint cost");
+        helper.succeed();
+    }
+
+    /** Spec 37 §3.1: charged quantum leggings ignore knockback. */
+    @GameTest(template = EMPTY)
+    public static void quantumLeggingsIgnoreKnockback(GameTestHelper helper) {
+        Player wearer = helper.makeMockPlayer(GameType.SURVIVAL);
+        wearer.setItemSlot(EquipmentSlot.LEGS, charged(Ic2Items.QUANTUM_LEGGINGS.toStack()));
+        wearer.knockback(1.0, 1.0, 0.0);
+        helper.assertValueEqual(wearer.getDeltaMovement(), Vec3.ZERO, "no knockback");
+        Player other = helper.makeMockPlayer(GameType.SURVIVAL);
+        other.setItemSlot(EquipmentSlot.LEGS, Ic2Items.QUANTUM_LEGGINGS.toStack());
+        other.knockback(1.0, 1.0, 0.0);
+        helper.assertTrue(other.getDeltaMovement().x < 0.0, "empty leggings: knockback");
+        helper.succeed();
+    }
+
+    /** Spec 37 §3.1: sprinting and sprint jumps cost no hunger with charged quantum leggings. */
+    @GameTest(template = EMPTY)
+    public static void quantumSprintCostsNoHunger(GameTestHelper helper) {
+        ServerPlayer player = helper.makeMockServerPlayerInLevel();
+        player.getAbilities().invulnerable = false;
+        player.setItemSlot(EquipmentSlot.LEGS, charged(Ic2Items.QUANTUM_LEGGINGS.toStack()));
+        player.setOnGround(true);
+        player.setSprinting(true);
+        float before = player.getFoodData().getExhaustionLevel();
+        player.checkMovementStatistics(1.0, 0.0, 0.0);
+        player.jumpFromGround();
+        helper.assertValueEqual(player.getFoodData().getExhaustionLevel(), before, "no exhaustion");
+        player.setItemSlot(EquipmentSlot.LEGS, ItemStack.EMPTY);
+        player.setOnGround(true);
+        player.checkMovementStatistics(1.0, 0.0, 0.0);
+        helper.assertTrue(player.getFoodData().getExhaustionLevel() > before, "exhaustion without leggings");
+        player.discard();
+        helper.succeed();
+    }
+
+    /** Spec 37 §3.2: the boost jump of the quantum boots keeps its height but no longer multiplies x/z by 3.5. */
+    @GameTest(template = EMPTY)
+    public static void quantumBootsNoLongJump(GameTestHelper helper) {
+        Player player = helper.makeMockPlayer(GameType.SURVIVAL);
+        player.setItemSlot(EquipmentSlot.FEET, charged(Ic2Items.QUANTUM_BOOTS.toStack()));
+        Ic2Keyboard.processKeyUpdate(player, Ic2Keyboard.JUMP | Ic2Keyboard.BOOST);
+        player.setDeltaMovement(0.2, 0.0, 0.0);
+        tickArmor(player, EquipmentSlot.FEET);
+        Vec3 motion = player.getDeltaMovement();
+        helper.assertTrue(Math.abs(motion.x - 0.2) < 1.0E-6 && motion.y > 0.29, "high jump without long jump");
+        helper.succeed();
+    }
+
+    /** Spec 37 §1: a jetpack never pushes the player horizontally faster than sprinting. */
+    @GameTest(template = EMPTY)
+    public static void jetpackCappedToSprintSpeed(GameTestHelper helper) {
+        Player player = helper.makeMockPlayer(GameType.SURVIVAL);
+        ItemStack electric = charged(Ic2Items.ELECTRIC_JETPACK.toStack());
+        player.setItemSlot(EquipmentSlot.CHEST, electric);
+        Ic2Keyboard.processKeyUpdate(player, Ic2Keyboard.FORWARD | Ic2Keyboard.JUMP);
+        player.setDeltaMovement(0.5, 0.0, 0.0);
+        Ic2Items.ELECTRIC_JETPACK.get().useJetpack(player, electric, false);
+        Vec3 motion = player.getDeltaMovement();
+        helper.assertTrue(motion.horizontalDistance() <= MovementCap.MAX_HORIZONTAL + 1.0E-6, "capped");
+        helper.assertTrue(motion.y > 0.0, "still lifts");
+        helper.succeed();
     }
 }

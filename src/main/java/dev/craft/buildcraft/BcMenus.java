@@ -7,6 +7,7 @@ import java.util.function.Supplier;
 import dev.craft.Craft;
 import dev.craft.buildcraft.engine.EngineType;
 import dev.craft.buildcraft.menu.AutoWorkbenchMenu;
+import dev.craft.buildcraft.menu.DistributionPipeMenu;
 import dev.craft.buildcraft.menu.EngineMenu;
 import dev.craft.buildcraft.menu.PipeFilterMenu;
 import dev.craft.buildcraft.menu.RefineryMenu;
@@ -39,6 +40,11 @@ public final class BcMenus {
     /** Diamond and emerald pipe filters; the client reads the number of filters. */
     public static final Supplier<MenuType<PipeFilterMenu>> PIPE_FILTERS = MENUS.register("pipe_filters",
             () -> IMenuTypeExtension.create(PipeFilterMenu::new));
+
+    /** Weights of the distribution transport pipe (spec 31); no extra data in the open packet. */
+    public static final Supplier<MenuType<DistributionPipeMenu>> DISTRIBUTION_PIPE = MENUS.register(
+            "distribution_pipe", () -> IMenuTypeExtension.create((id, inventory, buf) -> new DistributionPipeMenu(id,
+                    inventory)));
 
     private BcMenus() {
     }

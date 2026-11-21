@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_foods/grapes": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#c:foods/grapes"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "psychedelicraft:red_grapes_from_mashing"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_foods/grapes"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "psychedelicraft:red_grapes_from_mashing"
+    ]
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "2": {
+      "item": "craft:field_expansion_module_delta"
+    },
+    "A": {
+      "item": "craft:advanced_circuit"
+    },
+    "T": {
+      "item": "craft:thick_neutron_reflector"
+    },
+    "^": {
+      "item": "craft:overclocker_upgrade"
+    },
+    "e": {
+      "item": "craft:efficiency_upgrade"
+    },
+    "s": {
+      "item": "craft:splitter_cable"
+    }
+  },
+  "pattern": [
+    "T^T",
+    "2s2",
+    "eAe"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:field_expansion_module_theta"
+  }
+}

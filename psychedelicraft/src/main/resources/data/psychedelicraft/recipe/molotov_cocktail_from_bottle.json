@@ -1,0 +1,15 @@
+{
+  "type": "psychedelicraft:change_receptical",
+  "ingredients": [
+    {
+      "item": "psychedelicraft:bottle"
+    },
+    {
+      "tag": "minecraft:wool"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "psychedelicraft:molotov_cocktail"
+  }
+}

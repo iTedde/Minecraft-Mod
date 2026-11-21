@@ -30,7 +30,7 @@ import org.jetbrains.annotations.Nullable;
  * {@code GT_MetaTileEntity_Grinder} (spec 13 §10): controller in front of a 3 × 3 × 3 cube of casings around a water
  * block. Grinds an ore with a cell from slot 1, or – if no recipe matches – with water cells drawn from its tank.
  */
-public class GrinderBlockEntity extends GtMachineBlockEntity {
+public class GrinderBlockEntity extends GtMachineBlockEntity implements GtDeviceInformation {
     public static final int SLOT_INPUT = 0;
     public static final int SLOT_CELL = 1;
     public static final int SLOT_OUTPUT_1 = 2;
@@ -238,8 +238,14 @@ public class GrinderBlockEntity extends GtMachineBlockEntity {
         return displayErrorCode;
     }
 
+    @Override
     public int getProgressTime() {
         return progressTime;
+    }
+
+    @Override
+    public int getMaxProgressTime() {
+        return maxProgressTime;
     }
 
     public int getWaterAmount() {

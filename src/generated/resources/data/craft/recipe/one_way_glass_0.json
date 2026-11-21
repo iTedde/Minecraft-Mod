@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "0": {
+      "item": "minecraft:glass"
+    },
+    "X": {
+      "item": "craft:camo_paste"
+    }
+  },
+  "pattern": [
+    "X00",
+    "X00",
+    "X00"
+  ],
+  "result": {
+    "count": 9,
+    "id": "craft:one_way_glass"
+  }
+}

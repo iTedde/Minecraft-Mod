@@ -9,6 +9,9 @@ import dev.craft.buildcraft.transport.PipeConnections;
 import dev.craft.buildcraft.transport.PipeType;
 import dev.craft.buildcraft.transport.TravelingItem;
 import dev.craft.buildcraft.util.ItemOutput;
+import dev.craft.ic2.Ic2Blocks;
+import dev.craft.ic2.Ic2Machine;
+import dev.craft.ic2.machine.InductionFurnaceBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.gametest.framework.GameTest;
@@ -97,6 +100,30 @@ public final class PipeGameTests {
             ChestBlockEntity chest = helper.getBlockEntity(target);
             helper.assertValueEqual(chest.getItem(0).getCount(), 10, "items in target chest");
             helper.assertTrue(((ChestBlockEntity) helper.getBlockEntity(source)).isEmpty(), "source emptied");
+        });
+    }
+
+    /** The wooden pipe empties the second (right) output of the induction furnace from a side. */
+    @GameTest(template = EMPTY, timeoutTicks = 800)
+    public static void woodenPipeExtractsSecondFurnaceOutput(GameTestHelper helper) {
+        BlockPos source = new BlockPos(1, 1, 2);
+        BlockPos target = new BlockPos(5, 1, 2);
+        helper.setBlock(source, Ic2Blocks.machine(Ic2Machine.INDUCTION_FURNACE).get());
+        helper.setBlock(target, Blocks.CHEST);
+        InductionFurnaceBlockEntity furnace = helper.getBlockEntity(source);
+        furnace.getInventory().set(InductionFurnaceBlockEntity.SLOT_OUTPUT_2, new ItemStack(Items.GLASS, 10));
+        pipe(helper, new BlockPos(2, 1, 2), PipeType.WOODEN_TRANSPORT);
+        pipe(helper, new BlockPos(3, 1, 2), PipeType.COBBLESTONE_TRANSPORT);
+        pipe(helper, new BlockPos(4, 1, 2), PipeType.COBBLESTONE_TRANSPORT);
+        helper.runAfterDelay(3, () -> {
+            helper.assertBlockProperty(new BlockPos(2, 1, 2), GenericPipeBlock.SOURCE,
+                    Direction.WEST.get3DDataValue());
+            ItemPipeBlockEntity wood = helper.getBlockEntity(new BlockPos(2, 1, 2));
+            wood.getPowerProvider().setEnergyStored(64.0F);
+        });
+        helper.succeedWhen(() -> {
+            ChestBlockEntity chest = helper.getBlockEntity(target);
+            assertStack(helper, chest.getItem(0), Items.GLASS, 10, "glass in target chest");
         });
     }
 

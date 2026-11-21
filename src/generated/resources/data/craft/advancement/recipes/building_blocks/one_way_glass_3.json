@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_paste": {
+      "conditions": {
+        "items": [
+          {
+            "items": "craft:camo_paste"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "craft:one_way_glass_3"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_paste"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "craft:one_way_glass_3"
+    ]
+  }
+}

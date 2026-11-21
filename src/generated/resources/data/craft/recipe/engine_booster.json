@@ -1,0 +1,33 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "A": {
+      "item": "minecraft:glowstone_dust"
+    },
+    "B": {
+      "item": "craft:advanced_alloy"
+    },
+    "C": {
+      "item": "craft:advanced_circuit"
+    },
+    "D": {
+      "item": "craft:overclocker_upgrade"
+    },
+    "F": {
+      "type": "neoforge:components",
+      "components": {
+        "minecraft:damage": 0
+      },
+      "items": "craft:advanced_heat_vent"
+    }
+  },
+  "pattern": [
+    "ABA",
+    "CDC",
+    "BFB"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:engine_booster"
+  }
+}

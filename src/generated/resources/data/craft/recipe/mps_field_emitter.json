@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "craft:mps_field_emitter",
+  "key": {
+    "E": {
+      "item": "minecraft:ender_pearl"
+    },
+    "S": {
+      "item": "craft:component_solenoid"
+    }
+  },
+  "pattern": [
+    "SES",
+    "ESE",
+    "SES"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:component_field_emitter"
+  }
+}

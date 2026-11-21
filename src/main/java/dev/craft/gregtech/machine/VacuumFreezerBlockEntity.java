@@ -25,7 +25,7 @@ import org.jetbrains.annotations.Nullable;
  * {@code GT_MetaTileEntity_VacuumFreezer} (spec 13 §11): sits on top of a hollow 3 × 3 × 3 cube of machine casings and
  * cools coolant cells, hot tungstensteel ingots and water cells.
  */
-public class VacuumFreezerBlockEntity extends GtMachineBlockEntity {
+public class VacuumFreezerBlockEntity extends GtMachineBlockEntity implements GtDeviceInformation {
     public static final int SLOT_INPUT = 0;
     public static final int SLOT_OUTPUT = 1;
     private static final int UPDATE_DELAY = 5;
@@ -189,10 +189,12 @@ public class VacuumFreezerBlockEntity extends GtMachineBlockEntity {
         return machine;
     }
 
+    @Override
     public int getProgressTime() {
         return progressTime;
     }
 
+    @Override
     public int getMaxProgressTime() {
         return maxProgressTime;
     }

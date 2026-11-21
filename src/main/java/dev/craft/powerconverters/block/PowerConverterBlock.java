@@ -6,12 +6,19 @@ import dev.craft.powerconverters.power.BcConsumerBlockEntity;
 import dev.craft.powerconverters.power.BcProducerBlockEntity;
 import dev.craft.powerconverters.power.BridgeComponentBlockEntity;
 import dev.craft.powerconverters.power.EnergyBridgeBlockEntity;
+import dev.craft.powerconverters.power.FeProducerBlockEntity;
 import dev.craft.powerconverters.power.Ic2ConsumerBlockEntity;
 import dev.craft.powerconverters.power.Ic2ProducerBlockEntity;
+import java.util.List;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
@@ -80,7 +87,16 @@ public class PowerConverterBlock extends BaseEntityBlock {
                     : new BcProducerBlockEntity(pos, state);
             case INDUSTRIALCRAFT -> converter.isConsumer() ? new Ic2ConsumerBlockEntity(pos, state)
                     : new Ic2ProducerBlockEntity(pos, state);
+            case FE -> new FeProducerBlockEntity(pos, state);
         };
+    }
+
+    @Override
+    public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltip,
+                                TooltipFlag flag) {
+        if (type == ConverterType.FE_PRODUCER) {
+            tooltip.add(Component.translatable("tooltip.craft.fe_producer").withStyle(ChatFormatting.GRAY));
+        }
     }
 
     @Override

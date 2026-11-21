@@ -1,0 +1,42 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_lava_bottle": {
+      "conditions": {
+        "items": [
+          {
+            "items": "psychedelicraft:filled_glass_bottle",
+            "predicates": {
+              "psychedelicraft:fluids": {
+                "amount": {
+                  "min": 27000
+                },
+                "fluid": [
+                  "minecraft:lava"
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "psychedelicraft:obsidian_bottle_from_filled_glass_bottle"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_lava_bottle"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "psychedelicraft:obsidian_bottle_from_filled_glass_bottle"
+    ]
+  }
+}

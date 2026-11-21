@@ -1,0 +1,19 @@
+{
+  "type": "craft:ic2_shaped",
+  "key": {
+    "M": {
+      "item": "craft:mfsu"
+    },
+    "Y": {
+      "item": "craft:wrench"
+    }
+  },
+  "pattern": [
+    "Y",
+    "M"
+  ],
+  "result": {
+    "count": 1,
+    "id": "craft:mfs_unit_upgrade"
+  }
+}

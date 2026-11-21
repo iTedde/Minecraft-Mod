@@ -1,0 +1,12 @@
+{
+  "type": "craft:ic2_shapeless",
+  "ingredients": [
+    {
+      "item": "craft:hv_solar_array"
+    }
+  ],
+  "result": {
+    "count": 8,
+    "id": "craft:mv_solar_array"
+  }
+}

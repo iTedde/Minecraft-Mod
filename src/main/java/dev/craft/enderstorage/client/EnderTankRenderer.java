@@ -76,13 +76,15 @@ public class EnderTankRenderer implements BlockEntityRenderer<EnderTankBlockEnti
         pose.pushPose();
         pose.translate(0.5F, 0.0F, 0.5F);
         pose.mulPose(Axis.YP.rotationDegrees(-90.0F * (rotation + 2)));
-        VertexConsumer buffer = buffers.getBuffer(RenderType.entityCutoutNoCull(TEXTURE));
-        triangles(pose.last(), buffer, tank, 0.0F, light, overlay);
+        RenderType tankType = RenderType.entityCutoutNoCull(TEXTURE);
+        triangles(pose.last(), buffers.getBuffer(tankType), tank, 0.0F, light, overlay);
         renderButtons(frequency, pose, buffers, light, overlay);
         pose.translate(0.0F, VALVE_PIVOT_Y, 0.0F);
         pose.mulPose(Axis.ZP.rotation(valveAngle));
         pose.translate(0.0F, -VALVE_PIVOT_Y, 0.0F);
-        triangles(pose.last(), buffer, valve, frequency.isPersonal() ? PERSONAL_VALVE_V : 0.0F, light, overlay);
+        // Fetch the buffer again: in GUIs (EMI, inventories) the buttons' buffer ends the tank's one ("Not building!").
+        triangles(pose.last(), buffers.getBuffer(tankType), valve, frequency.isPersonal() ? PERSONAL_VALVE_V : 0.0F,
+                light, overlay);
         pose.popPose();
         renderPearl(time, pose, buffers, light, overlay);
     }

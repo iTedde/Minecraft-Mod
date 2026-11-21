@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "craft:item/mps/component_mv_capacitor"
+  }
+}

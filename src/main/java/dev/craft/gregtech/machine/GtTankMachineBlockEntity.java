@@ -27,7 +27,7 @@ import org.jetbrains.annotations.Nullable;
  * contents appear as holo items in slot 6, which the machine can also use as recipe input. Not a basic machine: no
  * facing, energy from all sides, no battery slot.
  */
-public abstract class GtTankMachineBlockEntity extends GtMachineBlockEntity {
+public abstract class GtTankMachineBlockEntity extends GtMachineBlockEntity implements GtDeviceInformation {
     public static final int SLOT_INPUT = 0;
     public static final int SLOT_CELLS = 1;
     public static final int SLOT_OUTPUT_1 = 2;
@@ -191,6 +191,16 @@ public abstract class GtTankMachineBlockEntity extends GtMachineBlockEntity {
     // --- GUI values ---
 
     /** Progress scale 0–10 ({@code GT_Container_Electrolyzer}/{@code GT_Container_Centrifuge}). */
+    @Override
+    public int getProgressTime() {
+        return progressTime;
+    }
+
+    @Override
+    public int getMaxProgressTime() {
+        return maxProgressTime;
+    }
+
     public int getProgressScale() {
         return Math.max(0, Math.min(10, (progressTime > 0 ? 1 : 0)
                 + progressTime * 10 / (maxProgressTime < 1 ? 1 : maxProgressTime)));
