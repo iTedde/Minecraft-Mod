@@ -4942,5 +4942,12 @@ psychedelicraft:entity.player.heartbeat`).
   (118 Mods) und aus der Instanz entfernt (Jar in `X:\Craft\mod-backup`). Kommt in keine künftigen Pakete mehr
   (in `CLAUDE.md` vermerkt).
 
+- Ingame-Absturz 01:01 (EMI-Suche → Tooltip): Mixin-Konflikt FluidLogistics ↔ Create Factory Logistics in
+  `InventorySummary.erase` – mit dem Entfernen von Factory Logistics erledigt (Factory Abstractions 1.6.0 aus Mobile
+  Packages bleibt, war nicht die Ursache).
+- Radio „Connect timed out“: Standardsender `hyruleradio.fr/stream` ist nicht erreichbar (Port 443 zu, 2026-11-21);
+  andere Streams gehen. Kein Paketfehler – im Radio eine andere Stream-URL eintragen. MP3s liegen in der Instanz
+  (`config/project_radio/my_music`, 25 Dateien); im Spiel: Hi-Fi → „MP3 library“ → „Import all“ → Reiter „Server“.
+
 ## Nächste Schritte
-- Nutzer startet die Instanz neu.
+- Nutzer startet die Instanz neu und prüft EMI-Suche und MP3-Import.
