@@ -4949,5 +4949,13 @@ psychedelicraft:entity.player.heartbeat`).
   andere Streams gehen. Kein Paketfehler – im Radio eine andere Stream-URL eintragen. MP3s liegen in der Instanz
   (`config/project_radio/my_music`, 25 Dateien); im Spiel: Hi-Fi → „MP3 library“ → „Import all“ → Reiter „Server“.
 
+- [x] Abgleich mit der Mod-Liste eines Mitspielers (2026-11-22, Nutzer: „factory routing gar nicht raus genommen und
+  Factory controller gar nicht geupdated“; Nutzer: „mache daraus wieder die 1.3.2, aber halt aktualisiert“) → Paket
+  1.3.2 neu (117 Mods): **Create: Factory Routing** (1647413) entfernt, Factory Controller 1.2.3 → **1.2.4**
+  (1573767/9696527, braucht nur Create ≥ 6.0.0), FluidLogistics 1.3.2 → **1.3.3** (1475079/9712748, Create ≥ 6.0.10).
+  Sonst gleich (Mitspieler hat zusätzlich nur Client-Mods wie Iceberg, Legendary Tooltips, CIT Resewn, DH).
+  Zip geprüft (187 MB, LFS). Instanz nicht angefasst, nicht im Client geprüft.
+
 ## Nächste Schritte
+- In der Instanz Factory Routing entfernen und Factory Controller/FluidLogistics tauschen (oder Paket neu importieren).
 - Nutzer startet die Instanz neu und prüft EMI-Suche und MP3-Import.
