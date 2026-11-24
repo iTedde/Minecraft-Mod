@@ -4974,7 +4974,9 @@ Polymorph und Brewery + Farm & Charm; ohne Project Radio.
   Farm & Charm (1038103); Factory Controller 1.2.4 (9696527) und FluidLogistics 1.3.3 (9712748) statt der alten
   Dateien; Craft 1.2.11 → 1.3.1; Distant Horizons fehlt (dauerhaft ausgeschlossen). Factory Logistics und Factory
   Routing bleiben draußen.
-- Ursache der Anmeldeprobleme nicht geprüft (kein Server-Log); Verdacht des Nutzers: Psychedelicraft-Port.
+- Ursache der Anmeldeprobleme nicht geprüft (kein Server-Log); Verdacht des Nutzers zuerst Psychedelicraft-Port,
+  dann eher Project Radio („lieber erstmal beide raus“). Möglicher Ansatz: Server-Bibliothek mit 25 MP3s (122 MiB)
+  wird beim Einloggen übertragen → Zeitüberschreitung (unbestätigt).
 - Bestehende Welten: Psychedelicraft- und Radio-Blöcke/-Items gehen beim Laden verloren.
 - Nicht im Client und nicht am Server geprüft.
 
