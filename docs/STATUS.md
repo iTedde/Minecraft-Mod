@@ -4957,5 +4957,29 @@ psychedelicraft:entity.player.heartbeat`).
   Zip geprüft (187 MB, LFS). Instanz nicht angefasst, nicht im Client geprüft.
 
 ## Nächste Schritte
-- In der Instanz Factory Routing entfernen und Factory Controller/FluidLogistics tauschen (oder Paket neu importieren).
-- Nutzer startet die Instanz neu und prüft EMI-Suche und MP3-Import.
+- (überholt durch Paket 1.3.3)
+
+# Paket 1.3.3 – zurück auf den Stand von 1.2.14 plus Create-Mods (2026-11-24)
+
+Nutzer: „die 1.3.2 funktioniert nicht gut. alle haben Probleme mit den Serveranmeldungen. Deshalb gehen wir auf
+1.2.14 zurück, aber wir machen noch die Create Sachen rein. Denke das hat mit dem Fabric Port zu tun“. Entschieden:
+Craft 1.3.1 bleibt (Farming-Welt, 25 Schallplatten; braucht Psychedelicraft nicht, nur ein optionaler Tag), dazu
+Polymorph und Brewery + Farm & Charm; ohne Project Radio.
+
+## Erledigt
+- [x] Paket `releases/Craft-1.3.3-curseforge.zip` (54 MB, kein LFS nötig, 116 Mods) aus 1.3.2 erzeugt:
+  **ohne Psychedelicraft** (`psychedelicraft-1.8.9-neoforge.5.jar`), **ohne Project Radio** (1466847) samt
+  `overrides/config/project_radio/my_music`. Zip geprüft.
+- Abgleich mit 1.2.14: zusätzlich Polymorph (388800), StellarCreateOptimization (1637437), Brewery (1038106),
+  Farm & Charm (1038103); Factory Controller 1.2.4 (9696527) und FluidLogistics 1.3.3 (9712748) statt der alten
+  Dateien; Craft 1.2.11 → 1.3.1; Distant Horizons fehlt (dauerhaft ausgeschlossen). Factory Logistics und Factory
+  Routing bleiben draußen.
+- Ursache der Anmeldeprobleme nicht geprüft (kein Server-Log); Verdacht des Nutzers zuerst Psychedelicraft-Port,
+  dann eher Project Radio („lieber erstmal beide raus“). Möglicher Ansatz: Server-Bibliothek mit 25 MP3s (122 MiB)
+  wird beim Einloggen übertragen → Zeitüberschreitung (unbestätigt).
+- Bestehende Welten: Psychedelicraft- und Radio-Blöcke/-Items gehen beim Laden verloren.
+- Nicht im Client und nicht am Server geprüft.
+
+## Nächste Schritte
+- Server auf genau dieselben Mods umstellen (Psychedelicraft und Project Radio auch dort entfernen), Anmeldung testen.
+- Falls die Anmeldung danach klappt: Psychedelicraft-Netzwerk (Payloads/Registries) als Ursache untersuchen.
